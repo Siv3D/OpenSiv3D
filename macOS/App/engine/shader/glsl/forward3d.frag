@@ -42,7 +42,7 @@ layout(std140) uniform PSPerMaterial
 	uint  g_hasTexture;
 	vec4  g_diffuseColor;
 	vec3  g_specularColor;
-	float g_shinness;
+	float g_shininess;
 	vec3  g_emission;
 };
 

@@ -30,7 +30,7 @@ namespace s3d
 
 		ColorF emission = ColorF{ 0.0 };
 
-		float shininess = 0.0f;
+		float shininess = 128.0f;
 
 		float ior = 0.0f;
 

@@ -40,6 +40,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Model.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PhongMaterial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates3D.ipp" />

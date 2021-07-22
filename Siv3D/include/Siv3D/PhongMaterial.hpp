@@ -11,7 +11,8 @@
 
 # pragma once
 # include "Common.hpp"
-# include "ColorHSV.hpp"
+# include "PredefinedYesNo.hpp"
+# include "Material.hpp"
 
 namespace s3d
 {
@@ -25,29 +26,42 @@ namespace s3d
 
 		ColorF emissionColor = ColorF{ 0.0 };
 
-		double shinness = 128.0;
+		double shininess = 128.0;
 
-		bool hasTexture = false;
+		bool hasDiffuseTexture = false;
+
+		SIV3D_NODISCARD_CXX20
+		PhongMaterial() = default;
+
+		SIV3D_NODISCARD_CXX20
+		PhongMaterial(const ColorF& _diffuseColor, HasDiffuseTexture _hasDiffuseTexture);
+
+		SIV3D_NODISCARD_CXX20
+		PhongMaterial(const Material& material, HasDiffuseTexture _hasDiffuseTexture);
 	};
 
 	struct PhongMaterialInternal
 	{
 		Float3 amibientColor = Float3{ 1.0f, 1.0f, 1.0f };
-		uint32 hasTexture = false;
+		
+		uint32 hasDiffuseTexture = false;
+		
 		Float4 diffuseColor = Float4{ 1.0f, 1.0f, 1.0f, 1.0f };
+		
 		Float3 specularColor = Float3{ 0.0f, 0.0f, 0.0f };
-		float  shinness = 128.0f;
+		
+		float  shininess = 128.0f;
+		
 		Float3 emissionColor = Float3{ 0.0f, 0.0f, 0.0f };
+		
 		float  _unused = 0.0f;
 
+		SIV3D_NODISCARD_CXX20
 		PhongMaterialInternal() = default;
 
-		explicit PhongMaterialInternal(const PhongMaterial& m)
-			: amibientColor{ m.amibientColor.rgb() }
-			, hasTexture{ m.hasTexture }
-			, diffuseColor{ m.diffuseColor.toFloat4() }
-			, specularColor{ m.specularColor.rgb() }
-			, shinness{ static_cast<float>(m.shinness) }
-			, emissionColor{ m.emissionColor.rgb() } {}
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr PhongMaterialInternal(const PhongMaterial& m) noexcept;
 	};
 }
+
+# include "detail/PhongMaterial.ipp"

@@ -750,6 +750,7 @@
 
 
 # include <Siv3D/Material.hpp>
+# include <Siv3D/PhongMaterial.hpp>
 
 # include <Siv3D/ModelMeshPart.hpp>
 # include <Siv3D/ModelObject.hpp>

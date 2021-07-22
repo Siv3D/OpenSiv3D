@@ -106,4 +106,7 @@ namespace s3d
 
 	/// @brief 深度バッファを持つ
 	using HasDepth			= YesNo<struct HasDepth_tag>;
+
+	/// @brief Diffuse Texture を持つ
+	using HasDiffuseTexture = YesNo<struct HasDiffuseTexture_tag>;
 }

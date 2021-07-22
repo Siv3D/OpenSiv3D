@@ -63,7 +63,7 @@ cbuffer PSPerMaterial : register(b3)
 	bool   g_hasTexture;
 	float4 g_diffuseColor;
 	float3 g_specularColor;
-	float  g_shinness;
+	float  g_shininess;
 	float3 g_emission;
 }
 
