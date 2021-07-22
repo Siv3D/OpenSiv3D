@@ -723,6 +723,30 @@ namespace s3d
 
 					break;
 				}
+			case GL4Renderer3DCommandType::SetGlobalAmbientColor:
+				{
+					const Float3& globalAmbient = m_commandManager.getGlobalAmbientColor(command.index);
+					m_psPerFrameConstants->gloablAmbientColor = Float4{ globalAmbient, 0.0f };
+
+					LOG_COMMAND(U"SetGlobalAmbientColor[{}] {}"_fmt(command.index, globalAmbient));
+					break;
+				}
+			case GL4Renderer3DCommandType::SetSunDirection:
+				{
+					const Float3& sunDirection = m_commandManager.getSunDirection(command.index);
+					m_psPerFrameConstants->sunDirection = Float4{ sunDirection, 0.0f };
+
+					LOG_COMMAND(U"SetSunDirection[{}] {}"_fmt(command.index, sunDirection));
+					break;
+				}
+			case GL4Renderer3DCommandType::SetSunColor:
+				{
+					const Float3& sunColor = m_commandManager.getSunColor(command.index);
+					m_psPerFrameConstants->sunColor = Float4{ sunColor, 0.0f };
+
+					LOG_COMMAND(U"SetSunColor[{}] {}"_fmt(command.index, sunColor));
+					break;
+				}
 			}
 		}
 

@@ -131,6 +131,12 @@ namespace s3d
 
 		SetMesh,
 
+		SetGlobalAmbientColor,
+
+		SetSunDirection,
+
+		SetSunColor,
+
 		SIZE_,
 	};
 	static_assert(FromEnum(GL4Renderer3DCommandType::SIZE_) < 64);
@@ -212,6 +218,9 @@ namespace s3d
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 		Array<GL4InputLayout3D> m_inputLayouts	= { GL4InputLayout3D::Mesh };
 		Array<Mesh::IDType> m_meshes;
+		Array<Float3> m_globalAmbientColors			= { Float3{ 1.0f, 1.0f, 1.0f } };
+		Array<Float3> m_sunDirections				= { Float3{ 0.408248f, 0.408248f, -0.816497f } };
+		Array<Float3> m_sunColors					= { Float3{ 1.0f, 1.0f, 1.0f } };
 
 		// current
 		GL4DrawLine3DCommand m_currentDrawLine3D;
@@ -232,6 +241,9 @@ namespace s3d
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		GL4InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
 		Mesh::IDType m_currentMesh;
+		Float3 m_currentGlobalAmbientColor			= m_globalAmbientColors.back();
+		Float3 m_currentSunDirection				= m_sunDirections.back();
+		Float3 m_currentSunColor					= m_sunColors.back();
 
 		// reserved
 		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
@@ -338,5 +350,17 @@ namespace s3d
 		void pushMesh(const Mesh& mesh);
 		const Mesh::IDType& getMesh(uint32 index) const;
 		const Mesh::IDType& getCurrentMesh() const;
+
+		void pushGlobalAmbientColor(const Float3& state);
+		const Float3& getCurrentGlobalAmbientColor() const;
+		const Float3& getGlobalAmbientColor(uint32 index) const;
+
+		void pushSunDirection(const Float3& state);
+		const Float3& getCurrentSunDirection() const;
+		const Float3& getSunDirection(uint32 index) const;
+
+		void pushSunColor(const Float3& state);
+		const Float3& getCurrentSunColor() const;
+		const Float3& getSunColor(uint32 index) const;
 	};
 }

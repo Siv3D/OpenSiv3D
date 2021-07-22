@@ -75,6 +75,9 @@ namespace s3d
 			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms = { m_cameraTransforms.back() };
 			m_eyePositions = { m_eyePositions.back() };
+			m_globalAmbientColors	= { m_globalAmbientColors.back() };
+			m_sunDirections			= { m_sunDirections.back() };
+			m_sunColors				= { m_sunColors.back() };
 			m_constants.clear();
 			m_constantBufferCommands.clear();
 		}
@@ -170,6 +173,15 @@ namespace s3d
 				m_commands.emplace_back(command, 0);
 				m_currentMesh = Mesh::IDType::InvalidValue();
 			}
+
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetGlobalAmbientColor, 0);
+			m_currentGlobalAmbientColor = m_globalAmbientColors.back();
+
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetSunDirection, 0);
+			m_currentSunDirection = m_sunDirections.back();
+
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetSunColor, 0);
+			m_currentSunColor = m_sunColors.back();
 		}
 	}
 
@@ -320,6 +332,24 @@ namespace s3d
 		{
 			m_commands.emplace_back(GL4Renderer3DCommandType::SetMesh, static_cast<uint32>(m_meshes.size()));
 			m_meshes.push_back(m_currentMesh);
+		}
+
+		if (m_changes.has(GL4Renderer3DCommandType::SetGlobalAmbientColor))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetGlobalAmbientColor, static_cast<uint32>(m_globalAmbientColors.size()));
+			m_globalAmbientColors.push_back(m_currentGlobalAmbientColor);
+		}
+
+		if (m_changes.has(GL4Renderer3DCommandType::SetSunDirection))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetSunDirection, static_cast<uint32>(m_sunDirections.size()));
+			m_sunDirections.push_back(m_currentSunDirection);
+		}
+
+		if (m_changes.has(GL4Renderer3DCommandType::SetSunColor))
+		{
+			m_commands.emplace_back(GL4Renderer3DCommandType::SetSunColor, static_cast<uint32>(m_sunColors.size()));
+			m_sunColors.push_back(m_currentSunColor);
 		}
 
 		m_changes.clear();
@@ -1283,5 +1313,119 @@ namespace s3d
 	const Mesh::IDType& GL4Renderer3DCommandManager::getCurrentMesh() const
 	{
 		return m_currentMesh;
+	}
+
+	void GL4Renderer3DCommandManager::pushGlobalAmbientColor(const Float3& state)
+	{
+		constexpr auto command = GL4Renderer3DCommandType::SetGlobalAmbientColor;
+		auto& current = m_currentGlobalAmbientColor;
+		auto& buffer = m_globalAmbientColors;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getCurrentGlobalAmbientColor() const
+	{
+		return m_currentGlobalAmbientColor;
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getGlobalAmbientColor(const uint32 index) const
+	{
+		return m_globalAmbientColors[index];
+	}
+
+	void GL4Renderer3DCommandManager::pushSunDirection(const Float3& state)
+	{
+		constexpr auto command = GL4Renderer3DCommandType::SetSunDirection;
+		auto& current = m_currentSunDirection;
+		auto& buffer = m_sunDirections;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getCurrentSunDirection() const
+	{
+		return m_currentSunDirection;
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getSunDirection(const uint32 index) const
+	{
+		return m_sunDirections[index];
+	}
+
+	void GL4Renderer3DCommandManager::pushSunColor(const Float3& state)
+	{
+		constexpr auto command = GL4Renderer3DCommandType::SetSunColor;
+		auto& current = m_currentSunColor;
+		auto& buffer = m_sunColors;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getCurrentSunColor() const
+	{
+		return m_currentSunColor;
+	}
+
+	const Float3& GL4Renderer3DCommandManager::getSunColor(const uint32 index) const
+	{
+		return m_sunColors[index];
 	}
 }
