@@ -79,6 +79,27 @@ namespace s3d
 		return none;
 	}
 
+	void CRenderer3D_Null::setGlobalAmbientColor(const Float3&) {}
+
+	Float3 CRenderer3D_Null::getGlobalAmbientColor() const
+	{
+		return Float3{ 1.0f, 1.0f, 1.0f };
+	}
+
+	void CRenderer3D_Null::setSunDirection(const Float3& direction) {}
+
+	Float3 CRenderer3D_Null::getSunDirection() const
+	{
+		return Float3{ 0.408248f, 0.408248f, -0.816497f };
+	}
+
+	void CRenderer3D_Null::setSunColor(const Float3& color) {}
+
+	Float3 CRenderer3D_Null::getSunColor() const
+	{
+		return Float3{ 1.0f, 1.0f, 1.0f };
+	}
+
 	Optional<VertexShader> CRenderer3D_Null::getCustomVS() const
 	{
 		return none;

@@ -93,6 +93,21 @@ namespace s3d
 		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
 		void SetPSTexture(uint32 slot, const Optional<Texture>& texture);
 
+		void SetGlobalAmbientColor(const ColorF& color);
+
+		[[nodiscard]]
+		ColorF GetGlobalAmbientColor();
+
+		void SetSunDirection(const Vec3& direction);
+
+		[[nodiscard]]
+		Vec3 GetSunDirection();
+
+		void SetSunColor(const ColorF& color);
+
+		[[nodiscard]]
+		ColorF GetSunColor();
+
 		/// @brief 現在までの 3D 描画を実行します。
 		void Flush();
 

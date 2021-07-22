@@ -59,6 +59,19 @@ namespace s3d
 		Optional<Rect> getViewport() const override;
 
 
+		void setGlobalAmbientColor(const Float3& color) override;
+
+		Float3 getGlobalAmbientColor() const override;
+
+		void setSunDirection(const Float3& direction) override;
+
+		Float3 getSunDirection() const override;
+
+		void setSunColor(const Float3& color) override;
+
+		Float3 getSunColor() const override;
+
+
 		Optional<VertexShader> getCustomVS() const override;
 
 		Optional<PixelShader> getCustomPS() const override;

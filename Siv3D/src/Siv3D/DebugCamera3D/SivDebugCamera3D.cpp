@@ -101,9 +101,9 @@ namespace s3d
 
 		const Vec3 focusVector{ s, m_focusY, c };
 
-		setProjection(Graphics3D::GetRenderTargetSize(), 25_deg);
+		setProjection(Graphics3D::GetRenderTargetSize(), m_verticalFOV, m_nearClip);
 
-		BasicCamera3D::setView(m_eyePosition, (m_eyePosition + focusVector));
+		BasicCamera3D::setView(m_eyePosition, (m_eyePosition + focusVector), m_upDirection);
 	}
 
 	void DebugCamera3D::setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection) noexcept

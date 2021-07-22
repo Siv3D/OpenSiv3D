@@ -121,6 +121,36 @@ namespace s3d
 			SIV3D_ENGINE(Renderer3D)->setPSTexture(slot, texture);
 		}
 
+		void SetGlobalAmbientColor(const ColorF& color)
+		{
+			SIV3D_ENGINE(Renderer3D)->setGlobalAmbientColor(color.rgb());
+		}
+
+		ColorF GetGlobalAmbientColor()
+		{
+			return ColorF{ SIV3D_ENGINE(Renderer3D)->getGlobalAmbientColor(), 1.0 };
+		}
+
+		void SetSunDirection(const Vec3& direction)
+		{
+			SIV3D_ENGINE(Renderer3D)->setSunDirection(direction);
+		}
+
+		Vec3 GetSunDirection()
+		{
+			return SIV3D_ENGINE(Renderer3D)->getSunDirection();
+		}
+
+		void SetSunColor(const ColorF& color)
+		{
+			SIV3D_ENGINE(Renderer3D)->setSunColor(color.rgb());
+		}
+
+		ColorF GetSunColor()
+		{
+			return ColorF{ SIV3D_ENGINE(Renderer3D)->getSunColor(), 1.0 };
+		}
+
 		void Flush()
 		{
 			SIV3D_ENGINE(Renderer3D)->flush();

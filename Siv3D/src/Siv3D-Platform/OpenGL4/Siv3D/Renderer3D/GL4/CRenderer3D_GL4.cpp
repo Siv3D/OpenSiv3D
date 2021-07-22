@@ -221,6 +221,36 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
+	void CRenderer3D_GL4::setGlobalAmbientColor(const Float3& color)
+	{
+		m_commandManager.pushGlobalAmbientColor(color);
+	}
+
+	Float3 CRenderer3D_GL4::getGlobalAmbientColor() const
+	{
+		return m_commandManager.getCurrentGlobalAmbientColor();
+	}
+
+	void CRenderer3D_GL4::setSunDirection(const Float3& direction)
+	{
+		m_commandManager.pushSunDirection(direction);
+	}
+
+	Float3 CRenderer3D_GL4::getSunDirection() const
+	{
+		return m_commandManager.getCurrentSunDirection();
+	}
+
+	void CRenderer3D_GL4::setSunColor(const Float3& color)
+	{
+		m_commandManager.pushSunColor(color);
+	}
+
+	Float3 CRenderer3D_GL4::getSunColor() const
+	{
+		return m_commandManager.getCurrentSunColor();
+	}
+
 	Optional<VertexShader> CRenderer3D_GL4::getCustomVS() const
 	{
 		return m_currentCustomVS;

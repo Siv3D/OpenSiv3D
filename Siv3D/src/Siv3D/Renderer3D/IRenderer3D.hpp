@@ -79,6 +79,21 @@ namespace s3d
 		virtual Optional<Rect> getViewport() const = 0;
 
 
+		virtual void setGlobalAmbientColor(const Float3& color) = 0;
+
+		virtual Float3 getGlobalAmbientColor() const = 0;
+
+		virtual void setSunDirection(const Float3& direction) = 0;
+
+		virtual Float3 getSunDirection() const = 0;
+
+		virtual void setSunColor(const Float3& color) = 0;
+
+		virtual Float3 getSunColor() const = 0;
+
+
+
+
 		virtual Optional<VertexShader> getCustomVS() const = 0;
 
 		virtual Optional<PixelShader> getCustomPS() const = 0;
