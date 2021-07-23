@@ -66,9 +66,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS3D>();
-			m_standardPS->forwardShape = ESSL{ Resource(U"engine/shader/glsl/forward3d_shape.frag"), { { U"PSConstants3D", 0 } } };
-			m_standardPS->forwardTexture = ESSL{ Resource(U"engine/shader/glsl/forward3d_texture.frag"), { { U"PSConstants3D", 0 } } };
-			m_standardPS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.frag"), { { U"PSConstants3D", 0 } } };
+			m_standardPS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.frag"), {} };
 
 			if (not m_standardPS->setup())
 			{
@@ -96,7 +95,7 @@ namespace s3d
 
 		if (not m_currentCustomPS)
 		{
-			m_commandManager.pushStandardPS(m_standardPS->forwardShapeID);
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
 		}
 
 		m_commandManager.pushInputLayout(GLES3InputLayout3D::Mesh);
@@ -104,7 +103,7 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
 	}
 
 	void CRenderer3D_GLES3::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material)
@@ -116,7 +115,7 @@ namespace s3d
 
 		if (not m_currentCustomPS)
 		{
-			m_commandManager.pushStandardPS(m_standardPS->forwardTextureID);
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
 		}
 
 		m_commandManager.pushInputLayout(GLES3InputLayout3D::Mesh);
@@ -125,7 +124,7 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong.diffuseColor, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
 	}
 
 	void CRenderer3D_GLES3::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
@@ -222,6 +221,36 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
+	void CRenderer3D_GLES3::setGlobalAmbientColor(const Float3& color)
+	{
+		m_commandManager.pushGlobalAmbientColor(color);
+	}
+
+	Float3 CRenderer3D_GLES3::getGlobalAmbientColor() const
+	{
+		return m_commandManager.getCurrentGlobalAmbientColor();
+	}
+
+	void CRenderer3D_GLES3::setSunDirection(const Float3& direction)
+	{
+		m_commandManager.pushSunDirection(direction);
+	}
+
+	Float3 CRenderer3D_GLES3::getSunDirection() const
+	{
+		return m_commandManager.getCurrentSunDirection();
+	}
+
+	void CRenderer3D_GLES3::setSunColor(const Float3& color)
+	{
+		m_commandManager.pushSunColor(color);
+	}
+
+	Float3 CRenderer3D_GLES3::getSunColor() const
+	{
+		return m_commandManager.getCurrentSunColor();
+	}
+
 	Optional<VertexShader> CRenderer3D_GLES3::getCustomVS() const
 	{
 		return m_currentCustomVS;
@@ -266,6 +295,7 @@ namespace s3d
 	void CRenderer3D_GLES3::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 	{
 		m_commandManager.pushCameraTransform(matrix);
+		m_commandManager.pushEyePosition(eyePosition);
 	}
 
 	void CRenderer3D_GLES3::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
@@ -369,12 +399,15 @@ namespace s3d
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
 
-		pShader->setConstantBufferVS(0, m_vsConstants3D.base());
-		pShader->setConstantBufferPS(0, m_psConstants3D.base());
+		pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
+		pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+		pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
+		pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
+		pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
 		BatchInfoLine3D batchInfoLine3D;
 		VertexShader::IDType vsID = m_standardVS->forwardID;
-		PixelShader::IDType psID = m_standardPS->forwardShapeID;
+		PixelShader::IDType psID = m_standardPS->forwardID;
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -404,12 +437,15 @@ namespace s3d
 					const uint32 instanceCount = draw.instanceCount;
 
 					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
-					const Float4& diffuse = m_commandManager.getDrawDiffuse(instanceIndex);
-					m_vsConstants3D->localToWorld = localToWorld.transposed();
-					m_psConstants3D->diffuseColor = diffuse;
+					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
+					m_vsPerObjectConstants->localToWorld = localToWorld.transposed();
+					m_psPerMaterialConstants->material = material;
 
-					m_vsConstants3D._update_if_dirty();
-					m_psConstants3D._update_if_dirty();
+					m_vsPerViewConstants._update_if_dirty();
+					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
+					m_psPerViewConstants._update_if_dirty();
+					m_psPerMaterialConstants._update_if_dirty();
 
 					constexpr Vertex3D::IndexType* pBase = 0;
 					::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation));
@@ -429,16 +465,19 @@ namespace s3d
 					pShader->setVS(m_standardVS->line3DID);
 					pShader->setPS(m_standardPS->line3DID);
 
-					m_vsConstants3D._update_if_dirty();
-					m_psConstants3D._update_if_dirty();
+					m_vsPerViewConstants._update_if_dirty();
+					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
+					m_psPerViewConstants._update_if_dirty();
+					m_psPerMaterialConstants._update_if_dirty();
 
 					const GLES3DrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfoLine3D.startIndexLocation;
-					// const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
+					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
 					constexpr VertexLine3D::IndexType* pBase = 0;
 
-					::glDrawElements(GL_LINES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation));
+					::glDrawElementsBaseVertex(GL_LINES, indexCount, GL_UNSIGNED_INT, (pBase + startIndexLocation), baseVertexLocation);
 					batchInfoLine3D.startIndexLocation += indexCount;
 
 					if (vsID != VertexShader::IDType::InvalidValue())
@@ -542,14 +581,26 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						const bool isSRGB = pTexture->getFormat(rt->id()).isSRGB();
 						pRenderer->getBackBuffer().bindToScene(frameBuffer);
 						
+						if (isSRGB)
+						{
+							::glEnable(GL_FRAMEBUFFER_SRGB);
+						}
+						else
+						{
+							::glEnable(GL_FRAMEBUFFER_SRGB);
+						}
+
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
 						pRenderer->getBackBuffer().bindSceneToContext(true);
 						
+						::glDisable(GL_FRAMEBUFFER_SRGB);
+
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
@@ -603,9 +654,17 @@ namespace s3d
 			case GLES3Renderer3DCommandType::CameraTransform:
 				{
 					const Mat4x4& cameraTransform = m_commandManager.getCameraTransform(command.index);
-					m_vsConstants3D->worldToProjected = (cameraTransform * Mat4x4::Scale(Float3{ 1.0f, -1.0f, 1.0f })).transposed();
+					m_vsPerViewConstants->worldToProjected = (cameraTransform * Mat4x4::Scale(Float3{ 1.0f, -1.0f, 1.0f })).transposed();
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
+					break;
+				}
+			case GLES3Renderer3DCommandType::EyePosition:
+				{
+					const Float3& eyePosition = m_commandManager.getEyePosition(command.index);
+					m_psPerViewConstants->eyePosition = Float4{ eyePosition, 0.0f };
+
+					LOG_COMMAND(U"EyePosition[{}] {}"_fmt(command.index, eyePosition));
 					break;
 				}
 			case GLES3Renderer3DCommandType::SetConstantBuffer:
@@ -694,6 +753,30 @@ namespace s3d
 						LOG_COMMAND(U"SetMesh[{}]: {}"_fmt(command.index, meshID.value()));
 					}
 
+					break;
+				}
+			case GLES3Renderer3DCommandType::SetGlobalAmbientColor:
+				{
+					const Float3& globalAmbient = m_commandManager.getGlobalAmbientColor(command.index);
+					m_psPerFrameConstants->gloablAmbientColor = Float4{ globalAmbient, 0.0f };
+
+					LOG_COMMAND(U"SetGlobalAmbientColor[{}] {}"_fmt(command.index, globalAmbient));
+					break;
+				}
+			case GLES3Renderer3DCommandType::SetSunDirection:
+				{
+					const Float3& sunDirection = m_commandManager.getSunDirection(command.index);
+					m_psPerFrameConstants->sunDirection = Float4{ sunDirection, 0.0f };
+
+					LOG_COMMAND(U"SetSunDirection[{}] {}"_fmt(command.index, sunDirection));
+					break;
+				}
+			case GLES3Renderer3DCommandType::SetSunColor:
+				{
+					const Float3& sunColor = m_commandManager.getSunColor(command.index);
+					m_psPerFrameConstants->sunColor = Float4{ sunColor, 0.0f };
+
+					LOG_COMMAND(U"SetSunColor[{}] {}"_fmt(command.index, sunColor));
 					break;
 				}
 			}

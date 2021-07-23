@@ -47,20 +47,17 @@ namespace s3d
 
 	struct GLES3StandardPS3D
 	{
-		PixelShader forwardShape;
-		PixelShader forwardTexture;
+		PixelShader forward;
 		PixelShader line3D;
 
-		PixelShader::IDType forwardShapeID;
-		PixelShader::IDType forwardTextureID;
+		PixelShader::IDType forwardID;
 		PixelShader::IDType line3DID;
 
 		bool setup()
 		{
-			const bool result = forwardShape && forwardTexture && line3D;
+			const bool result = forward && line3D;
 
-			forwardShapeID = forwardShape.id();
-			forwardTextureID = forwardTexture.id();
+			forwardID = forward.id();
 			line3DID = line3D.id();
 
 			return result;
@@ -112,6 +109,19 @@ namespace s3d
 		Optional<Rect> getViewport() const override;
 
 
+		void setGlobalAmbientColor(const Float3& color) override;
+
+		Float3 getGlobalAmbientColor() const override;
+
+		void setSunDirection(const Float3& direction) override;
+
+		Float3 getSunDirection() const override;
+
+		void setSunColor(const Float3& color) override;
+
+		Float3 getSunColor() const override;
+
+
 		Optional<VertexShader> getCustomVS() const override;
 
 		Optional<PixelShader> getCustomPS() const override;
@@ -151,8 +161,11 @@ namespace s3d
 		std::unique_ptr<GLES3StandardVS3D> m_standardVS;
 		std::unique_ptr<GLES3StandardPS3D> m_standardPS;
 
-		ConstantBuffer<VSConstants3D> m_vsConstants3D;
-		ConstantBuffer<PSConstants3D> m_psConstants3D;
+		ConstantBuffer<VSPerViewConstants3D> m_vsPerViewConstants;
+		ConstantBuffer<VSPerObjectConstants3D> m_vsPerObjectConstants;
+		ConstantBuffer<PSPerFrameConstants3D> m_psPerFrameConstants;
+		ConstantBuffer<PSPerViewConstants3D> m_psPerViewConstants;
+		ConstantBuffer<PSPerMaterialConstants3D> m_psPerMaterialConstants;
 
 		GLES3Renderer3DCommandManager m_commandManager;
 

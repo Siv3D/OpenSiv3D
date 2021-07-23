@@ -25,6 +25,7 @@
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/PhongMaterial.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
 # include <Siv3D/Renderer3D/VertexLine3D.hpp>
 
@@ -130,6 +131,12 @@ namespace s3d
 
 		SetMesh,
 
+		SetGlobalAmbientColor,
+
+		SetSunDirection,
+
+		SetSunColor,
+
 		SIZE_,
 	};
 	static_assert(FromEnum(GLES3Renderer3DCommandType::SIZE_) < 64);
@@ -191,7 +198,7 @@ namespace s3d
 		Array<GLES3DrawLine3DCommand> m_drawLine3Ds;
 		//Array<uint32> m_nullDraws;
 		Array<Mat4x4> m_drawLocalToWorlds;
-		Array<Float4> m_drawDiffuses;
+		Array<PhongMaterialInternal> m_drawPhongMaterials;
 		Array<BlendState> m_blendStates				= { BlendState::Default3D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
 		Array<DepthStencilState> m_depthStencilStates = { DepthStencilState::Default3D };
@@ -211,6 +218,9 @@ namespace s3d
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 		Array<GLES3InputLayout3D> m_inputLayouts	= { GLES3InputLayout3D::Mesh };
 		Array<Mesh::IDType> m_meshes;
+		Array<Float3> m_globalAmbientColors			= { Float3{ 1.0f, 1.0f, 1.0f } };
+		Array<Float3> m_sunDirections				= { Float3{ 0.408248f, 0.408248f, -0.816497f } };
+		Array<Float3> m_sunColors					= { Float3{ 1.0f, 1.0f, 1.0f } };
 
 		// current
 		GLES3DrawLine3DCommand m_currentDrawLine3D;
@@ -231,6 +241,9 @@ namespace s3d
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		GLES3InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
 		Mesh::IDType m_currentMesh;
+		Float3 m_currentGlobalAmbientColor			= m_globalAmbientColors.back();
+		Float3 m_currentSunDirection				= m_sunDirections.back();
+		Float3 m_currentSunColor					= m_sunColors.back();
 
 		// reserved
 		HashTable<VertexShader::IDType, VertexShader> m_reservedVSs;
@@ -252,10 +265,10 @@ namespace s3d
 
 		void pushUpdateLine3DBuffers(uint32 batchIndex);
 
-		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const Float4* color, uint32 instanceCount);
+		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const PhongMaterialInternal* material, uint32 instanceCount);
 		const GLES3Draw3DCommand& getDraw(uint32 index) const noexcept;
 		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
-		const Float4& getDrawDiffuse(uint32 index) const noexcept;
+		const PhongMaterialInternal& getDrawPhongMaterial(uint32 index) const noexcept;
 
 		void pushDrawLine3D(VertexLine3D::IndexType indexCount);
 		const GLES3DrawLine3DCommand& getDrawLine3D(uint32 index) const noexcept;
@@ -337,5 +350,17 @@ namespace s3d
 		void pushMesh(const Mesh& mesh);
 		const Mesh::IDType& getMesh(uint32 index) const;
 		const Mesh::IDType& getCurrentMesh() const;
+
+		void pushGlobalAmbientColor(const Float3& state);
+		const Float3& getCurrentGlobalAmbientColor() const;
+		const Float3& getGlobalAmbientColor(uint32 index) const;
+
+		void pushSunDirection(const Float3& state);
+		const Float3& getCurrentSunDirection() const;
+		const Float3& getSunDirection(uint32 index) const;
+
+		void pushSunColor(const Float3& state);
+		const Float3& getCurrentSunColor() const;
+		const Float3& getSunColor(uint32 index) const;
 	};
 }
