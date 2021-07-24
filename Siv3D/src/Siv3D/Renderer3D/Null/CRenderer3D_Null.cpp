@@ -120,6 +120,11 @@ namespace s3d
 		return m;
 	}
 
+	Float3 CRenderer3D_Null::getEyePosition() const
+	{
+		return Float3{ 0,0,0 };
+	}
+
 	void CRenderer3D_Null::setCameraTransform(const Mat4x4&, const Float3&) {}
 
 	void CRenderer3D_Null::setVSTexture(uint32, const Optional<Texture>&) {}

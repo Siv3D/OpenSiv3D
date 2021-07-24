@@ -292,6 +292,11 @@ namespace s3d
 		return m_commandManager.getCurrentCameraTransform();
 	}
 
+	Float3 CRenderer3D_GL4::getEyePosition() const
+	{
+		return m_commandManager.getCurrentEyePosition();
+	}
+
 	void CRenderer3D_GL4::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
 	{
 		m_commandManager.pushCameraTransform(matrix);

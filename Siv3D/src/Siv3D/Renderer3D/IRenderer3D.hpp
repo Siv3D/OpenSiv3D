@@ -105,6 +105,8 @@ namespace s3d
 
 		virtual const Mat4x4& getCameraTransform() const = 0;
 
+		virtual Float3 getEyePosition() const = 0;
+
 		virtual void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) = 0;
 
 

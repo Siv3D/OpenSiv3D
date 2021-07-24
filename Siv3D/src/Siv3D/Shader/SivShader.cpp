@@ -119,11 +119,6 @@ namespace s3d
 
 		void LinearToScreen(const TextureRegion& src, const RectF& dst)
 		{
-			if (not src.texture.srgbSampling())
-			{
-				throw Error{ U"Shader::LinearToScreen(): src.texture sRGB sampling is disabled" };
-			}
-
 			const Vec2 pos = dst.pos;
 			const Vec2 scale = (dst.size / src.size);
 			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::LinearToScreen) };

@@ -133,6 +133,8 @@ namespace s3d
 
 		const Mat4x4& getCameraTransform() const override;
 
+		Float3 getEyePosition() const override;
+
 		void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) override;
 
 

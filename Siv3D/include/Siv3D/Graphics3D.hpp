@@ -78,6 +78,9 @@ namespace s3d
 		const Mat4x4& GetCameraTransform();
 
 		[[nodiscard]]
+		Float3 GetEyePosition();
+
+		[[nodiscard]]
 		Optional<RenderTexture> GetRenderTarget();
 		
 		[[nodiscard]]

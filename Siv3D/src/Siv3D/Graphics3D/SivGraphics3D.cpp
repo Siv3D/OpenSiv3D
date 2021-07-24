@@ -84,6 +84,11 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer3D)->getCameraTransform();
 		}
 
+		Float3 GetEyePosition()
+		{
+			return SIV3D_ENGINE(Renderer3D)->getEyePosition();
+		}
+
 		Optional<RenderTexture> GetRenderTarget()
 		{
 			return SIV3D_ENGINE(Renderer3D)->getRenderTarget();
