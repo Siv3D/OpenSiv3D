@@ -125,6 +125,11 @@ namespace s3d
 			}
 			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
+
+		for (auto& pixel : m_screenCaptureImage)
+		{
+			pixel.a = 255;
+		}
 	}
 
 	const Image& GL4BackBuffer::getScreenCapture() const

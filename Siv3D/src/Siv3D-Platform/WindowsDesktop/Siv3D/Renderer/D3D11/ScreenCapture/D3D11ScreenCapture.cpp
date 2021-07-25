@@ -93,6 +93,11 @@ namespace s3d
 			m_context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
+		for (auto& pixel : m_image)
+		{
+			pixel.a = 255;
+		}
+
 		return true;
 	}
 
