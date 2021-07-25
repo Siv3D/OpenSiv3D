@@ -44,9 +44,8 @@ namespace s3d
 	{
 		float4 position : SV_POSITION;
 		float3 worldPosition : TEXCOORD0;
-		float4 color : TEXCOORD1;
-		float2 uv : TEXCOORD2;
-		float3 normal : TEXCOORD3;
+		float2 uv : TEXCOORD1;
+		float3 normal : TEXCOORD2;
 	};
 }
 
