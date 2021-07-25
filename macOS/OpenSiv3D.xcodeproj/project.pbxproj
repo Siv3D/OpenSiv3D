@@ -3426,6 +3426,7 @@
 		2C7DE5D5261379E900D7F031 /* GIFEncoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GIFEncoder.cpp; sourceTree = "<group>"; };
 		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
 		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
+		2C7F5AD426ADB96D00474F36 /* ColorOption.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ColorOption.hpp; sourceTree = "<group>"; };
 		2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageBoxResult.hpp; sourceTree = "<group>"; };
 		2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageBoxStyle.hpp; sourceTree = "<group>"; };
 		2C8046112653FE0100CE7C3E /* SivMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMessageBox.cpp; sourceTree = "<group>"; };
@@ -9406,6 +9407,7 @@
 				2CAAA6F925E7FD0200C014D7 /* ColorF.hpp */,
 				2CAAA89925E7FD0300C014D7 /* ColorHSV.hpp */,
 				2CAAA87225E7FD0300C014D7 /* Colormap.hpp */,
+				2C7F5AD426ADB96D00474F36 /* ColorOption.hpp */,
 				2CAAA70825E7FD0200C014D7 /* CommandLine.hpp */,
 				2CAAA88025E7FD0300C014D7 /* Common.hpp */,
 				2CAAA76C25E7FD0200C014D7 /* CommonFloat.hpp */,
