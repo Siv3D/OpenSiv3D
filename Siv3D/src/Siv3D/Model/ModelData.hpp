@@ -14,6 +14,7 @@
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/ModelObject.hpp>
 # include <Siv3D/Material.hpp>
+# include <Siv3D/ColorOption.hpp>
 
 namespace s3d
 {
@@ -25,7 +26,7 @@ namespace s3d
 		explicit ModelData();
 
 		SIV3D_NODISCARD_CXX20
-		ModelData(FilePathView path);
+		ModelData(FilePathView path, ColorOption colorOption);
 
 		~ModelData();
 

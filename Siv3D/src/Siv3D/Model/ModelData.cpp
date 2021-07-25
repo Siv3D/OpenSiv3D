@@ -24,7 +24,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	ModelData::ModelData(const FilePathView path)
+	ModelData::ModelData(const FilePathView path, const ColorOption colorOption)
 	{
 		tinyobj::ObjReaderConfig reader_config;
 		{
@@ -67,6 +67,14 @@ namespace s3d
 				mtl.ior = m.ior;
 				mtl.dissolve = m.dissolve;
 				mtl.illum = m.illum;
+
+				if (colorOption == ColorOption::ApplySRGBCurve)
+				{
+					mtl.ambient = mtl.ambient.applySRGBCurve();
+					mtl.diffuse = mtl.diffuse.applySRGBCurve();
+					mtl.specular = mtl.specular.applySRGBCurve();
+					mtl.emission = mtl.emission.applySRGBCurve();
+				}
 
 				if (not m.ambient_texname.empty())
 				{

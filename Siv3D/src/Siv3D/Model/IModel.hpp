@@ -25,7 +25,7 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual Model::IDType create(FilePathView path) = 0;
+		virtual Model::IDType create(FilePathView path, ColorOption colorOption) = 0;
 
 		virtual void release(Model::IDType handleID) = 0;
 

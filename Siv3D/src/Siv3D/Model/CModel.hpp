@@ -27,7 +27,7 @@ namespace s3d
 
 		virtual void init() override;
 
-		Model::IDType create(FilePathView path) override;
+		Model::IDType create(FilePathView path, ColorOption colorOption) override;
 
 		void release(Model::IDType handleID) override;
 

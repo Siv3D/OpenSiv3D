@@ -46,9 +46,9 @@ namespace s3d
 		}
 	}
 
-	Model::IDType CModel::create(const FilePathView path)
+	Model::IDType CModel::create(const FilePathView path, const ColorOption colorOption)
 	{
-		auto model = std::make_unique<ModelData>(path);
+		auto model = std::make_unique<ModelData>(path, colorOption);
 
 		if (not model->isInitialized())
 		{

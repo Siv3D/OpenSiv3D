@@ -16,6 +16,8 @@
 # include "Material.hpp"
 # include "AssetHandle.hpp"
 # include "StringView.hpp"
+# include "ColorOption.hpp"
+# include "TextureDesc.hpp"
 
 namespace s3d
 {
@@ -27,7 +29,7 @@ namespace s3d
 		Model();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Model(const FilePathView path);
+		explicit Model(const FilePathView path, ColorOption colorOption = ColorOption::Default);
 
 		virtual ~Model();
 
@@ -38,6 +40,10 @@ namespace s3d
 		const Array<Material>& materials() const noexcept;
 
 		void swap(Model& other) noexcept;
+
+		static void RegisterDiffuseTextures(const Model& model, TextureDesc textureDesc = TextureDesc::MippedSRGB);
+
+		static void Draw(const ModelObject& modelObject, const Array<Material>& materials, const Mat4x4& mat);
 	};
 }
 
