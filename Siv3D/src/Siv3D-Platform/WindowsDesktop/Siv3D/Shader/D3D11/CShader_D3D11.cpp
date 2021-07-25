@@ -152,11 +152,11 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
 
-			//compileHLSLFromFile(U"engine/shader/d3d11/linear_to_screen.hlsl", ShaderStage::Pixel, U"PS")
-			//	.save(U"engine/shader/d3d11/linear_to_screen.ps");
+			compileHLSLFromFile(U"engine/shader/d3d11/apply_srgb_curve.hlsl", ShaderStage::Pixel, U"PS")
+				.save(U"engine/shader/d3d11/apply_srgb_curve.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/sky.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/sky.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/sky.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/sky.ps");
 
 			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}
@@ -195,7 +195,7 @@ namespace s3d
 		{
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/copy.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_9.ps") };
-			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/linear_to_screen.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/apply_srgb_curve.ps") };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{

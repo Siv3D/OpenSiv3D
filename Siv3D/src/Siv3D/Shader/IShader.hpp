@@ -24,7 +24,7 @@ namespace s3d
 		
 		GaussianBlur_9,
 
-		LinearToScreen,
+		ApplySrgbCurve,
 	};
 
 	class SIV3D_NOVTABLE ISiv3DShader

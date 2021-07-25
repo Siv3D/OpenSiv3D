@@ -10,10 +10,26 @@
 //-----------------------------------------------
 
 # include <Siv3D/Color.hpp>
+# include <Siv3D/ColorF.hpp>
 # include <Siv3D/FormatInt.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		inline double RemoveSRGBCurve(double x)
+		{
+			return ((x < 0.04045) ? (x / 12.92) : std::pow((x + 0.055) / 1.055, 2.4));
+		}
+
+		[[nodiscard]]
+		inline double ApplySRGBCurve(double x)
+		{
+			return ((x < 0.0031308) ? (12.92 * x) : (1.055 * std::pow(x, (1.0 / 2.4)) - 0.055));
+		}
+	}
+
 	void Color::_Formatter(FormatData& formatData, const Color& value)
 	{
 		const size_t bufferSize = (detail::Uint32Width * 4) + 8 + 1;
@@ -35,5 +51,24 @@ namespace s3d
 
 		formatData.string.append(buf, p - buf);
 	}
-}
 
+	ColorF ColorF::removeSRGBCurve() const noexcept
+	{
+		return{
+			detail::RemoveSRGBCurve(r),
+			detail::RemoveSRGBCurve(g),
+			detail::RemoveSRGBCurve(b),
+			a
+		};
+	}
+
+	ColorF ColorF::applySRGBCurve() const noexcept
+	{
+		return{
+			detail::ApplySRGBCurve(r),
+			detail::ApplySRGBCurve(g),
+			detail::ApplySRGBCurve(b),
+			a
+		};
+	}
+}

@@ -169,6 +169,12 @@ namespace s3d
 		ColorF gamma(double gamma) const noexcept;
 
 		[[nodiscard]]
+		ColorF removeSRGBCurve() const noexcept;
+
+		[[nodiscard]]
+		ColorF applySRGBCurve() const noexcept;
+
+		[[nodiscard]]
 		size_t hash() const noexcept;
 
 		[[nodiscard]]

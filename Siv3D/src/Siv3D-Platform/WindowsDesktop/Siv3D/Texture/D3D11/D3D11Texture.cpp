@@ -684,7 +684,7 @@ namespace s3d
 			return;
 		}
 
-		const Float4 clearColor = (m_desc.isSRGB() ? color.gamma(1.0 / 2.2).toFloat4() : color.toFloat4());
+		const Float4 clearColor = color.toFloat4();
 
 		context->ClearRenderTargetView(m_renderTargetView.Get(), clearColor.getPointer());
 

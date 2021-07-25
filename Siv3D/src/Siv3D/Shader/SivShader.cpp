@@ -121,7 +121,7 @@ namespace s3d
 		{
 			const Vec2 pos = dst.pos;
 			const Vec2 scale = (dst.size / src.size);
-			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::LinearToScreen) };
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::ApplySrgbCurve) };
 			BlendState bs = BlendState::Opaque;
 			bs.writeA = false;
 
