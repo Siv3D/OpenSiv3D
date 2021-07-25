@@ -565,11 +565,22 @@ namespace s3d
 
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
 
+		Float4 clearColor;
+
+		if (m_format.isSRGB())
+		{
+			clearColor = color.applySRGBCurve().toFloat4();
+		}
+		else
+		{
+			clearColor = color.toFloat4();
+		}
+
 		::glClearColor(
-			static_cast<float>(color.r),
-			static_cast<float>(color.g),
-			static_cast<float>(color.b),
-			static_cast<float>(color.a));
+			clearColor.x,
+			clearColor.y,
+			clearColor.z,
+			clearColor.w);
 
 		if (m_hasDepth)
 		{
