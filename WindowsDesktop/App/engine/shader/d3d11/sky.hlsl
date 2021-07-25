@@ -90,9 +90,9 @@ cbuffer PSSky : register(b4)
 	float  g_starSaturation;
 }
 
-# define OPTION_SUN_ENABLED				(1 << 0)
-# define OPTION_CLOUDS_ENABLED			(1 << 1)
-# define OPTION_CLOUDS_LIGHTING_ENABLED	(1 << 2)
+# define OPTION_SUN_ENABLED				(1u << 0)
+# define OPTION_CLOUDS_ENABLED			(1u << 1)
+# define OPTION_CLOUDS_LIGHTING_ENABLED	(1u << 2)
 # define PI (3.14159265f)
 
 // o		: ray origin
