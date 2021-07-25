@@ -13,10 +13,10 @@
 
 namespace s3d
 {
-	inline BinaryReader::BinaryReader(const FilePathView path, const OpenMode openMode)
+	inline BinaryReader::BinaryReader(const FilePathView path)
 		: BinaryReader{}
 	{
-		open(path, openMode);
+		open(path);
 	}
 
 	inline bool BinaryReader::supportsLookahead() const noexcept

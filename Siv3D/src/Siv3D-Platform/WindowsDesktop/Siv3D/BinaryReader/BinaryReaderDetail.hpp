@@ -50,7 +50,7 @@ namespace s3d
 
 		~BinaryReaderDetail();
 
-		bool open(FilePathView path, OpenMode openMode);
+		bool open(FilePathView path);
 
 		void close();
 

@@ -20,9 +20,9 @@ namespace s3d
 
 	}
 
-	bool BinaryReader::open(const FilePathView path, const OpenMode openMode)
+	bool BinaryReader::open(const FilePathView path)
 	{
-		return pImpl->open(path, openMode);
+		return pImpl->open(path);
 	}
 
 	void BinaryReader::close()

@@ -23,10 +23,9 @@ namespace s3d
 		close();
 	}
 
-	bool BinaryReader::BinaryReaderDetail::open(const FilePathView path, const OpenMode openMode)
+	bool BinaryReader::BinaryReaderDetail::open(const FilePathView path)
 	{
-		LOG_TRACE(U"BinaryReader::BinaryReaderDetail::open(\"{0}\", {1})"_fmt(
-			path, FromEnum(openMode)));
+		LOG_TRACE(U"BinaryReader::BinaryReaderDetail::open(\"{0}\")"_fmt(path));
 
 		close();
 

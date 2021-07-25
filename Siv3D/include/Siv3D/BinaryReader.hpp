@@ -32,9 +32,8 @@ namespace s3d
 
 		/// @brief ファイルを開きます。
 		/// @param path ファイルパス
-		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
 		SIV3D_NODISCARD_CXX20
-		explicit BinaryReader(FilePathView path, OpenMode openMode = {});
+		explicit BinaryReader(FilePathView path);
 
 		/// @brief lookahead をサポートしているかを返します。
 		/// @return true
@@ -43,9 +42,8 @@ namespace s3d
 
 		/// @brief ファイルを開きます。
 		/// @param path ファイルパス
-		/// @param openMode オープンモード (OpenMode の組み合わせ）
 		/// @return ファイルのオープンに成功した場合 true, それ以外の場合は false
-		bool open(FilePathView path, OpenMode openMode = {});
+		bool open(FilePathView path);
 
 		/// @brief ファイルを閉じます。
 		/// @remark ファイルが開いていない場合は何もしません。
