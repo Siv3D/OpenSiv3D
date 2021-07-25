@@ -135,6 +135,8 @@ namespace s3d
 				const ScopedRenderStates2D rs{ bs, SamplerState::ClampLinear, RasterizerState::Default2D };
 				src.scaled(scale).draw(pos);
 			}
+			
+			Graphics2D::Flush();
 		}
 	}
 }

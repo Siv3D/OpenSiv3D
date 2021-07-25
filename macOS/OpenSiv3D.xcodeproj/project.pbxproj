@@ -1549,6 +1549,7 @@
 		2CF2AF8925542C5900E81D12 /* SivMonitor_macOS_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8825542C5900E81D12 /* SivMonitor_macOS_Linux.cpp */; };
 		2CF2AF8C25542C7600E81D12 /* SivMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */; };
 		2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */; };
+		2CF3784426AD03FB009D5D56 /* SivSky.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3784326AD03FB009D5D56 /* SivSky.cpp */; };
 		2CF6C2BC26A6B9E90039467F /* SivDebugCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */; };
 		2CF962F025A7F953006F55C9 /* SivRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */; };
 		2CF962F325A7F95F006F55C9 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */; };
@@ -4111,6 +4112,10 @@
 		2CF2AF8825542C5900E81D12 /* SivMonitor_macOS_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS_Linux.cpp; sourceTree = "<group>"; };
 		2CF2AF8B25542C7600E81D12 /* SivMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor.cpp; sourceTree = "<group>"; };
 		2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor_macOS.cpp; sourceTree = "<group>"; };
+		2CF3783F26AD039D009D5D56 /* PhongMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhongMaterial.hpp; sourceTree = "<group>"; };
+		2CF3784026AD03BE009D5D56 /* PhongMaterial.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhongMaterial.ipp; sourceTree = "<group>"; };
+		2CF3784126AD03DC009D5D56 /* Sky.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sky.hpp; sourceTree = "<group>"; };
+		2CF3784326AD03FB009D5D56 /* SivSky.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSky.cpp; sourceTree = "<group>"; };
 		2CF6C2B926A6B9CD0039467F /* DebugCamera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DebugCamera3D.hpp; sourceTree = "<group>"; };
 		2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDebugCamera3D.cpp; sourceTree = "<group>"; };
 		2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
@@ -4408,6 +4413,7 @@
 				2C631E80268598CB00166A8E /* ParticleSystem2D.ipp */,
 				2C063D602661426000368BEE /* Periodic.ipp */,
 				2C063D882661426000368BEE /* PerlinNoise.ipp */,
+				2CF3784026AD03BE009D5D56 /* PhongMaterial.ipp */,
 				2C66842826836E4B00F7089A /* PixelShader.ipp */,
 				2C063DF82661426000368BEE /* Plane.ipp */,
 				2C063DBF2661426000368BEE /* Point.ipp */,
@@ -6135,6 +6141,7 @@
 				2CED6E512671CA0D000FE5B8 /* SimpleAnimation */,
 				2C4A287D25EB469900FEACE4 /* SimpleGUI */,
 				2C5C0F18266DFF5B009C430B /* SimpleHTTP */,
+				2CF3784226AD03FB009D5D56 /* Sky */,
 				2C5337C82650BAF000CE0F1B /* SoundFont */,
 				2C768DBF268C67D500A02CF5 /* Sphere */,
 				2CF962F425A7F987006F55C9 /* Spline2D */,
@@ -9623,6 +9630,7 @@
 				2C5CD8C826761A47004E290F /* Pentablet.hpp */,
 				2CAAA89E25E7FD0300C014D7 /* Periodic.hpp */,
 				2CAAA84725E7FD0200C014D7 /* PerlinNoise.hpp */,
+				2CF3783F26AD039D009D5D56 /* PhongMaterial.hpp */,
 				2C44C07426496C7C00A5E72A /* PianoKey.hpp */,
 				2CE8D13826160FD200C75FBB /* Pipe.hpp */,
 				2CAAA86325E7FD0300C014D7 /* PixelShader.hpp */,
@@ -9708,6 +9716,7 @@
 				2CED6E502671C9E5000FE5B8 /* SimpleAnimation.hpp */,
 				2C4A287325EB466C00FEACE4 /* SimpleGUI.hpp */,
 				2C5C0F0B266DFEFB009C430B /* SimpleHTTP.hpp */,
+				2CF3784126AD03DC009D5D56 /* Sky.hpp */,
 				2CAAA83B25E7FD0200C014D7 /* SMFT.hpp */,
 				2C5337D82650BB3700CE0F1B /* SoundFont.hpp */,
 				2CAAA72E25E7FD0200C014D7 /* SpecialFolder.hpp */,
@@ -10558,6 +10567,14 @@
 				2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */,
 			);
 			path = Monitor;
+			sourceTree = "<group>";
+		};
+		2CF3784226AD03FB009D5D56 /* Sky */ = {
+			isa = PBXGroup;
+			children = (
+				2CF3784326AD03FB009D5D56 /* SivSky.cpp */,
+			);
+			path = Sky;
 			sourceTree = "<group>";
 		};
 		2CF6C2BA26A6B9E90039467F /* DebugCamera3D */ = {
@@ -12189,6 +12206,7 @@
 				2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */,
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */,
+				2CF3784426AD03FB009D5D56 /* SivSky.cpp in Sources */,
 				2C95665F264546F700539B85 /* useelement.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
