@@ -9,8 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Color.hpp>
-# include <Siv3D/ColorF.hpp>
+# include <Siv3D/ColorHSV.hpp>
 # include <Siv3D/FormatInt.hpp>
 
 namespace s3d
