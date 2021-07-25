@@ -18,8 +18,13 @@
 
 namespace s3d
 {
+	class Font;
+
 	namespace SimpleGUI
 	{
+		[[nodiscard]]
+		const Font& GetFont() noexcept;
+
 		[[nodiscard]]
 		RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& width = unspecified);
 

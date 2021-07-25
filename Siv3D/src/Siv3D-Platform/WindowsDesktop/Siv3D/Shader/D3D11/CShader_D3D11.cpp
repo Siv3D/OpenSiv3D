@@ -137,8 +137,8 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Vertex, U"VS")
 			//	.save(U"engine/shader/d3d11/forward3d.vs");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/forward3d.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/forward3d.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/forward3d.ps");
 
 			//compileHLSLFromFile(U"engine/shader/d3d11/line3d.hlsl", ShaderStage::Vertex, U"VS")
 			//	.save(U"engine/shader/d3d11/line3d.vs");
@@ -155,6 +155,8 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/linear_to_screen.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/linear_to_screen.ps");
 
+			compileHLSLFromFile(U"engine/shader/d3d11/sky.hlsl", ShaderStage::Pixel, U"PS")
+				.save(U"engine/shader/d3d11/sky.ps");
 
 			throw EngineError{ U"Engine shaders have compiled. Please rebuild the project." };
 		}

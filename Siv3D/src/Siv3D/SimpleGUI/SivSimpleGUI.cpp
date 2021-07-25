@@ -28,15 +28,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		[[nodiscard]]
-		inline const Font& GetSimpleGUIFont() noexcept
-		{
-			return SIV3D_ENGINE(GUI)->getDefaultFont();
-		}
-	}
-
 	namespace SimpleGUI
 	{
 		constexpr int32 CellSize = 40;
@@ -83,16 +74,21 @@ namespace s3d
 			Quad{ 9.5, 20.5, 9.5, 14.5, 17.75, 3.75, 20.5, 6.5 }.movedBy(-12, -12).movedBy(center).draw();
 		}
 
+		const Font& GetFont() noexcept
+		{
+			return SIV3D_ENGINE(GUI)->getDefaultFont();
+		}
+
 		RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(text).region().w + 20); });
 			return{ pos, width, CellSize };
 		}
 
 		void Headline(const String& text, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const RectF region = HeadlineRegion(text, pos, _width);
 			region.draw(BackgroundColor);
 
@@ -104,14 +100,14 @@ namespace s3d
 
 		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(label).region().w + 40); });
 			return{ pos, width, UnitSize };
 		}
 
 		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(label).region().w + 40); });
 			return{ Arg::center = center, width, UnitSize };
 		}
@@ -124,7 +120,7 @@ namespace s3d
 
 		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const auto dtext = font(label);
 
 			const double labelWidth = Math::Ceil(dtext.region().w);
@@ -215,7 +211,7 @@ namespace s3d
 
 		bool SliderAt(const String& label, double& value, double min, double max, const Vec2& center, const double _labelWidth, const double _sliderWidth, const bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 
 			const double labelWidth		= Max(_labelWidth, 0.0);
 			const double sliderWidth	= Max(_sliderWidth, SliderMinLength);
@@ -379,14 +375,14 @@ namespace s3d
 
 		RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(CheckBoxPadding * 3 + CheckBoxSize + font(label).region().w); });
 			return{ pos, width, UnitSize };
 		}
 
 		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(CheckBoxPadding * 3 + CheckBoxSize + font(label).region().w); });
 			return{ Arg::center = center, width, UnitSize };
 		}
@@ -399,7 +395,7 @@ namespace s3d
 
 		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const DrawableText dtext = font(label);
 
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(CheckBoxPadding * 3 + CheckBoxSize + dtext.region().w); });
@@ -459,7 +455,7 @@ namespace s3d
 
 		RectF RadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			double width = 0.0;
 
 			if (_width)
@@ -481,7 +477,7 @@ namespace s3d
 
 		RectF RadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& _width)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			double width = 0.0;
 
 			if (_width)
@@ -509,7 +505,7 @@ namespace s3d
 
 		bool RadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& _width, bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const RectF region = RadioButtonsRegionAt(options, center, _width);
 			const bool onClient = Cursor::OnClientRect();
 
@@ -576,7 +572,7 @@ namespace s3d
 
 		RectF HorizontalRadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& _itemWidth)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 
 			double itemWidth = 0.0;
 			{
@@ -601,7 +597,7 @@ namespace s3d
 
 		RectF HorizontalRadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& _itemWidth)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 
 			double itemWidth = 0.0;
 			{
@@ -632,7 +628,7 @@ namespace s3d
 
 		bool HorizontalRadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& _itemWidth, bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 
 			double itemWidth = 0.0;
 			{
@@ -741,7 +737,7 @@ namespace s3d
 
 		bool TextBoxAt(TextEditState& text, const Vec2& center, const double _width, const Optional<size_t>& maxChars, const bool enabled)
 		{
-			const Font& font = detail::GetSimpleGUIFont();
+			const Font& font = GetFont();
 			const double width = Max(_width, 40.0);
 			const RectF region{ Arg::center = center, width, TextBoxHeight };
 			const Vec2 textPos{ (region.x + 8), (center.y - font.height() / 2 + FontYOffset - 0.5) };

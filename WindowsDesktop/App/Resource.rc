@@ -34,6 +34,7 @@ Resource(engine/shader/d3d11/line3d.ps)
 Resource(engine/shader/d3d11/copy.ps)
 Resource(engine/shader/d3d11/gaussian_blur_9.ps)
 Resource(engine/shader/d3d11/linear_to_screen.ps)
+Resource(engine/shader/d3d11/sky.ps)
 Resource(engine/shader/glsl/sprite.vert)
 Resource(engine/shader/glsl/shape.frag)
 Resource(engine/shader/glsl/square_dot.frag)
@@ -58,6 +59,7 @@ Resource(engine/shader/glsl/line3d.frag)
 Resource(engine/shader/glsl/copy.frag)
 Resource(engine/shader/glsl/gaussian_blur_9.frag)
 Resource(engine/shader/glsl/linear_to_screen.frag)
+Resource(engine/shader/glsl/sky.frag)
 
 //
 //	Fonts

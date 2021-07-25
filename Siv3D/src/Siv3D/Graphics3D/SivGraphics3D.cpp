@@ -138,7 +138,12 @@ namespace s3d
 
 		void SetSunDirection(const Vec3& direction)
 		{
-			SIV3D_ENGINE(Renderer3D)->setSunDirection(direction);
+			if (direction.isZero())
+			{
+				throw Error{ U"Graphics3D::SetSunDirection(): direction is a zero vector" };
+			}
+
+			SIV3D_ENGINE(Renderer3D)->setSunDirection(direction.normalized());
 		}
 
 		Vec3 GetSunDirection()

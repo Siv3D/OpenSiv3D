@@ -79,6 +79,7 @@ Name | Version
 [SoLoud](https://github.com/jarikomppa/soloud) | 
 [SoundTouch](https://gitlab.com/soundtouch/soundtouch) | 2.1.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
+[Star Nest](https://www.shadertoy.com/view/XlfGRj) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [stduuid](https://github.com/mariusbancila/stduuid) | 
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
@@ -86,6 +87,7 @@ Name | Version
 [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) | 
 [TinySoundFont](https://github.com/schellingb/TinySoundFont) | 
 [TinyXML-2](https://github.com/leethomason/tinyxml2) | 8.0.0
+[Wicked Engine](https://github.com/turanszkij/WickedEngine) | 0.56.34
 [WinToast](https://github.com/mohabouje/WinToast) | 
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
