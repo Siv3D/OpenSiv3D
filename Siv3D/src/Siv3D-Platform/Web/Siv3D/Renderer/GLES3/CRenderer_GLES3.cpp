@@ -122,7 +122,7 @@ namespace s3d
 
 	StringView CRenderer_GLES3::getName() const
 	{
-		static constexpr StringView name(U"OpenGL");
+		static constexpr StringView name(U"WebGL2");
 		return name;
 	}	
 

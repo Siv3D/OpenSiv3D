@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -290,6 +290,11 @@ namespace s3d
 	const Mat4x4& CRenderer3D_GLES3::getCameraTransform() const
 	{
 		return m_commandManager.getCurrentCameraTransform();
+	}
+
+	Float3 CRenderer3D_GLES3::getEyePosition() const
+	{
+		return m_commandManager.getCurrentEyePosition();
 	}
 
 	void CRenderer3D_GLES3::setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition)
