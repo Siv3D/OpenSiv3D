@@ -54,7 +54,7 @@ namespace s3d
 
 		virtual ~RenderTexture();
 
-		void clear(const ColorF& color) const;
+		const RenderTexture& clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image) const;

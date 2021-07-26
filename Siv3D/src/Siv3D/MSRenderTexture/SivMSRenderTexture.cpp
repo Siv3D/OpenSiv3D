@@ -49,9 +49,11 @@ namespace s3d
 		SIV3D_ENGINE(Texture)->resolveMSRT(m_handle->id());
 	}
 
-	void MSRenderTexture::clear(const ColorF& color) const
+	const MSRenderTexture& MSRenderTexture::clear(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Texture)->clearRT(m_handle->id(), color);
+
+		return *this;
 	}
 
 	void MSRenderTexture::readAsImage(Image& image) const

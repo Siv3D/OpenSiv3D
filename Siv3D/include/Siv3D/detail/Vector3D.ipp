@@ -275,7 +275,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Vector3D<Type>::value_type Vector3D<Type>::angleTo(const Vector3D v) const noexcept
+	inline typename Vector3D<Type>::value_type Vector3D<Type>::angleTo(const Vector3D v) const noexcept
 	{
 		const value_type denom = std::sqrt(lengthSq() * v.lengthSq());
 

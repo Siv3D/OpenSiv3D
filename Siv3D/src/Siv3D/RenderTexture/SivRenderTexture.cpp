@@ -59,9 +59,11 @@ namespace s3d
 
 	RenderTexture::~RenderTexture() {}
 
-	void RenderTexture::clear(const ColorF& color) const
+	const RenderTexture& RenderTexture::clear(const ColorF& color) const
 	{
 		SIV3D_ENGINE(Texture)->clearRT(m_handle->id(), color);
+
+		return *this;
 	}
 
 	void RenderTexture::readAsImage(Image& image) const

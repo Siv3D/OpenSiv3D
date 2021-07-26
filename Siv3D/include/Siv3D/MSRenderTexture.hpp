@@ -43,7 +43,7 @@ namespace s3d
 		// レンダリングされたマルチサンプルテクスチャを通常のテクスチャに resolve し、描画可能にする
 		void resolve() const;
 
-		void clear(const ColorF& color) const;
+		const MSRenderTexture& clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image) const;

@@ -34,6 +34,8 @@ namespace s3d
 
 		void GaussianBlur(const TextureRegion& from, RenderTexture& internalBuffer, RenderTexture& to);
 
+		void LinearToScreen(const TextureRegion& src, const Vec2& pos);
+
 		void LinearToScreen(const TextureRegion& src, const RectF& dst = RectF{ Graphics2D::GetRenderTargetSize() });
 	}
 

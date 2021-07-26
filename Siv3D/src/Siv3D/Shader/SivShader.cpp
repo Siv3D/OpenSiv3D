@@ -117,6 +117,11 @@ namespace s3d
 			Shader::GaussianBlurV(internalBuffer, to);
 		}
 
+		void LinearToScreen(const TextureRegion& src, const Vec2& pos)
+		{
+			LinearToScreen(src, RectF{ pos, src.size });
+		}
+
 		void LinearToScreen(const TextureRegion& src, const RectF& dst)
 		{
 			const Vec2 pos = dst.pos;
