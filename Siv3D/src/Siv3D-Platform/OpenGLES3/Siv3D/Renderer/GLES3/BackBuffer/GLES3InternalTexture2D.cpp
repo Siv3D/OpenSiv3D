@@ -19,14 +19,28 @@ namespace s3d
 		// [デプステクスチャ] を破棄
 		if (m_depthTexture)
 		{
-			::glDeleteTextures(1, &m_depthTexture);
+			if (m_sampleCount != 1)
+			{
+				::glDeleteRenderbuffers(1, &m_depthTexture);
+			}
+			else
+			{
+				::glDeleteTextures(1, &m_depthTexture);
+			}
 			m_depthTexture = 0;
 		}
 
 		// [メインテクスチャ] を破棄
 		if (m_texture)
 		{
-			::glDeleteTextures(1, &m_texture);
+			if (m_sampleCount != 1)
+			{
+				::glDeleteRenderbuffers(1, &m_texture);
+			}
+			else
+			{
+				::glDeleteTextures(1, &m_texture);
+			}
 			m_texture = 0;
 		}
 
@@ -108,10 +122,10 @@ namespace s3d
 			}
 			else
 			{
-				::glGenTextures(1, &m_depthTexture);
-				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
-				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_sampleCount, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y, GL_FALSE);
-				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
+				::glGenRenderbuffers(1, &m_depthTexture);
+				::glBindRenderbuffer(GL_RENDERBUFFER, m_depthTexture);
+				::glRenderbufferStorageMultisample(GL_RENDERBUFFER, m_sampleCount, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y);
+				::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthTexture);
 
 				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 				{
@@ -165,20 +179,19 @@ namespace s3d
 		}
 		else
 		{
-			return nullptr;
-			// ::glGenFramebuffers(1, &frameBuffer);
+			::glGenFramebuffers(1, &frameBuffer);
 
-			// ::glGenTextures(1, &texture);
-			// ::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
-			// ::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, sampleCount, GL_RGBA8, size.x, size.y, GL_FALSE);
+			::glGenRenderbuffers(1, &texture);
+			::glBindRenderbuffer(GL_RENDERBUFFER, texture);
+			::glRenderbufferStorageMultisample(GL_RENDERBUFFER, sampleCount, GL_RGBA8, size.x, size.y);
 
-			// ::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-			// ::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, texture, 0);
-			// if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			// {
-			// 	return nullptr;
-			// }
-			// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			::glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, texture);
+			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				return nullptr;
+			}
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 
 		p->m_frameBuffer	= frameBuffer;
