@@ -1606,7 +1606,7 @@
 # include <Siv3D/ScopedViewport3D.hpp>
 # include <Siv3D/ScopedRenderTarget3D.hpp>
 # include <Siv3D/ScopedCustomShader3D.hpp>
-
+# include <Siv3D/Transformer3D.hpp>
 # include <Siv3D/Sky.hpp>
 
 //////////////////////////////////////////////////

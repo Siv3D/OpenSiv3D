@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/Transformer3D.hpp>
 # include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Renderer3D/IRenderer3D.hpp>
@@ -74,7 +75,11 @@ namespace s3d
 
 	void Mesh::draw(const ColorF& color) const
 	{
-		draw(Mat4x4::Identity(), color);
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, PhongMaterial{ color, HasDiffuseTexture::No });
 	}
 
 	void Mesh::draw(const double x, const double y, const double z, const ColorF& color) const
@@ -103,13 +108,19 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ color, HasDiffuseTexture::No });
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, PhongMaterial{ color, HasDiffuseTexture::No });
 	}
 
 
 	void Mesh::draw(const PhongMaterial& material) const
 	{
-		draw(Mat4x4::Identity(), material);
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, material);
 	}
 
 	void Mesh::draw(const double x, const double y, const double z, const PhongMaterial& material) const
@@ -138,13 +149,19 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, material);
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, material);
 	}
 
 
 	void Mesh::draw(const Texture& texture, const ColorF& color) const
 	{
-		draw(Mat4x4::Identity(), texture, color);
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, PhongMaterial{ color, HasDiffuseTexture::Yes });
 	}
 
 	void Mesh::draw(const double x, const double y, const double z, const Texture& texture, const ColorF& color) const
@@ -173,13 +190,19 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ color, HasDiffuseTexture::Yes });
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, PhongMaterial{ color, HasDiffuseTexture::Yes });
 	}
 
 
 	void Mesh::draw(const Texture& texture, const PhongMaterial& material) const
 	{
-		draw(Mat4x4::Identity(), texture, material);
+		const uint32 startIndex = 0;
+
+		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, material);
 	}
 
 	void Mesh::draw(const double x, const double y, const double z, const Texture& texture, const PhongMaterial& material) const
@@ -208,13 +231,21 @@ namespace s3d
 
 		const uint32 indexCount = static_cast<uint32>(SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, material);
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, material);
 	}
 
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const ColorF& color) const
 	{
-		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), color);
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, PhongMaterial{ color, HasDiffuseTexture::No });
 	}
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const ColorF& color) const
@@ -245,13 +276,21 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, PhongMaterial{ color, HasDiffuseTexture::No });
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, PhongMaterial{ color, HasDiffuseTexture::No });
 	}
 
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const PhongMaterial& material) const
 	{
-		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), material);
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, material);
 	}
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const PhongMaterial& material) const
@@ -282,13 +321,21 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, mat, material);
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addMesh(startIndex, indexCount, *this, material);
 	}
 
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Texture& texture, const ColorF& color) const
 	{
-		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), texture, color);
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, PhongMaterial{ color, HasDiffuseTexture::Yes });
 	}
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const Texture& texture, const ColorF& color) const
@@ -319,13 +366,21 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, PhongMaterial{ color, HasDiffuseTexture::Yes });
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, PhongMaterial{ color, HasDiffuseTexture::Yes });
 	}
 
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const Texture& texture, const PhongMaterial& material) const
 	{
-		drawSubset(startTriangle, triangleCount, Mat4x4::Identity(), texture, material);
+		const uint32 startIndex = (startTriangle * 3);
+
+		const uint32 indexCount = (triangleCount * 3);
+
+		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, material);
 	}
 
 	void Mesh::drawSubset(const uint32 startTriangle, const uint32 triangleCount, const double x, const double y, const double z, const Texture& texture, const PhongMaterial& material) const
@@ -356,7 +411,9 @@ namespace s3d
 
 		assert((startIndex + indexCount) <= SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()));
 
-		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, mat, material);
+		const Transformer3D transformer{ mat };
+
+		SIV3D_ENGINE(Renderer3D)->addTexturedMesh(startIndex, indexCount, *this, texture, material);
 	}
 
 

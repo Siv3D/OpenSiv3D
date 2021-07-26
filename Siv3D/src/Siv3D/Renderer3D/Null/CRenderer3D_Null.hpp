@@ -26,9 +26,9 @@ namespace s3d
 
 		const Renderer3DStat& getStat() const override;
 
-		void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material) override;
+		void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const PhongMaterial& material) override;
 
-		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material) override;
+		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const PhongMaterial& material) override;
 
 		void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) override;
 
@@ -86,6 +86,11 @@ namespace s3d
 		Float3 getEyePosition() const override;
 
 		void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) override;
+
+
+		const Mat4x4& getLocalTransform() const override;
+
+		void setLocalTransform(const Mat4x4& matrix) override;
 
 
 		void setVSTexture(uint32 slot, const Optional<Texture>& texture) override;

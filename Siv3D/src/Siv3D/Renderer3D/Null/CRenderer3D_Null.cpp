@@ -31,9 +31,9 @@ namespace s3d
 		return m_stat;
 	}
 
-	void CRenderer3D_Null::addMesh(uint32, uint32, const Mesh&, const Mat4x4&, const PhongMaterial&) {}
+	void CRenderer3D_Null::addMesh(uint32, uint32, const Mesh&, const PhongMaterial&) {}
 
-	void CRenderer3D_Null::addTexturedMesh(uint32, uint32, const Mesh&, const Texture&, const Mat4x4&, const PhongMaterial&) {}
+	void CRenderer3D_Null::addTexturedMesh(uint32, uint32, const Mesh&, const Texture&, const PhongMaterial&) {}
 
 	void CRenderer3D_Null::addLine3D(const Float3&, const Float3&, const Float4(&)[2]) {}
 
@@ -126,6 +126,14 @@ namespace s3d
 	}
 
 	void CRenderer3D_Null::setCameraTransform(const Mat4x4&, const Float3&) {}
+
+	const Mat4x4& CRenderer3D_Null::getLocalTransform() const
+	{
+		static const Mat4x4 m = Mat4x4::Identity();
+		return m;
+	}
+
+	void CRenderer3D_Null::setLocalTransform(const Mat4x4&) {}
 
 	void CRenderer3D_Null::setVSTexture(uint32, const Optional<Texture>&) {}
 	

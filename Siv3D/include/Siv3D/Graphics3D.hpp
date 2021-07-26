@@ -81,6 +81,9 @@ namespace s3d
 		Float3 GetEyePosition();
 
 		[[nodiscard]]
+		const Mat4x4& GetLocalTransform();
+
+		[[nodiscard]]
 		Optional<RenderTexture> GetRenderTarget();
 		
 		[[nodiscard]]

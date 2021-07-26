@@ -22,12 +22,12 @@ namespace s3d
 	{
 		if (isPush())
 		{
-			setGraphics2DTransform(transform * m_oldTransform.value());
+			setGraphics2DTransform(transform * (*m_oldTransform));
 
 			if (transformCursor)
 			{
 				m_oldCursorTransform = getCursorTransform();
-				setCursorTransform(transform * *m_oldCursorTransform);
+				setCursorTransform(transform * (*m_oldCursorTransform));
 			}
 		}
 		else
@@ -49,8 +49,8 @@ namespace s3d
 	{
 		if (isPush())
 		{
-			setGraphics2DTransform(graphics2DTransform * m_oldTransform.value());
-			setCursorTransform(cursorTransform * m_oldCursorTransform.value());
+			setGraphics2DTransform(graphics2DTransform * (*m_oldTransform));
+			setCursorTransform(cursorTransform * (*m_oldCursorTransform));
 		}
 		else
 		{

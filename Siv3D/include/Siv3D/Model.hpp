@@ -43,7 +43,7 @@ namespace s3d
 
 		static void RegisterDiffuseTextures(const Model& model, TextureDesc textureDesc = TextureDesc::MippedSRGB);
 
-		static void Draw(const ModelObject& modelObject, const Array<Material>& materials, const Mat4x4& mat);
+		static void Draw(const ModelObject& modelObject, const Array<Material>& materials);
 	};
 }
 

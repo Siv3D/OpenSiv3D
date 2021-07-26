@@ -80,7 +80,7 @@ namespace s3d
 		}
 	}
 
-	void Model::Draw(const ModelObject& modelObject, const Array<Material>& materials, const Mat4x4& mat)
+	void Model::Draw(const ModelObject& modelObject, const Array<Material>& materials)
 	{
 		for (const auto& part : modelObject.parts)
 		{
@@ -88,13 +88,12 @@ namespace s3d
 
 			if (material.diffuseTextureName)
 			{
-				part.mesh.draw(mat, TextureAsset(material.diffuseTextureName),
+				part.mesh.draw(TextureAsset(material.diffuseTextureName),
 					PhongMaterial{ material, HasDiffuseTexture::Yes });
 			}
 			else
 			{
-				part.mesh.draw(mat,
-					PhongMaterial{ material, HasDiffuseTexture::No });
+				part.mesh.draw(PhongMaterial{ material, HasDiffuseTexture::No });
 			}
 		}
 	}

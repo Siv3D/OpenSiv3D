@@ -89,6 +89,11 @@ namespace s3d
 			return SIV3D_ENGINE(Renderer3D)->getEyePosition();
 		}
 
+		const Mat4x4& GetLocalTransform()
+		{
+			return SIV3D_ENGINE(Renderer3D)->getLocalTransform();
+		}
+
 		Optional<RenderTexture> GetRenderTarget()
 		{
 			return SIV3D_ENGINE(Renderer3D)->getRenderTarget();
@@ -196,6 +201,11 @@ namespace s3d
 			void SetViewport(const Optional<Rect>& viewport)
 			{
 				SIV3D_ENGINE(Renderer3D)->setViewport(viewport);
+			}
+
+			void SetLocalTransform(const Mat4x4& matrix)
+			{
+				SIV3D_ENGINE(Renderer3D)->setLocalTransform(matrix);
 			}
 
 			void SetCustomVertexShader(const Optional<VertexShader>& vs)

@@ -86,7 +86,7 @@ namespace s3d
 		return m_stat;
 	}
 
-	void CRenderer3D_GL4::addMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material)
+	void CRenderer3D_GL4::addMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const PhongMaterial& material)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -103,10 +103,10 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, phong, instanceCount);
 	}
 
-	void CRenderer3D_GL4::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material)
+	void CRenderer3D_GL4::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const Texture& texture, const PhongMaterial& material)
 	{
 		if (not m_currentCustomVS)
 		{
@@ -124,7 +124,7 @@ namespace s3d
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
-		m_commandManager.pushDraw(startIndex, indexCount, &mat, &phong, instanceCount);
+		m_commandManager.pushDraw(startIndex, indexCount, phong, instanceCount);
 	}
 
 	void CRenderer3D_GL4::addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2])
@@ -303,6 +303,16 @@ namespace s3d
 		m_commandManager.pushEyePosition(eyePosition);
 	}
 
+	const Mat4x4& CRenderer3D_GL4::getLocalTransform() const
+	{
+		return m_commandManager.getCurrentLocalTransform();
+	}
+
+	void CRenderer3D_GL4::setLocalTransform(const Mat4x4& matrix)
+	{
+		m_commandManager.pushLocalTransform(matrix);
+	}
+
 	void CRenderer3D_GL4::setVSTexture(const uint32 slot, const Optional<Texture>& texture)
 	{
 		if (texture)
@@ -441,9 +451,7 @@ namespace s3d
 					const uint32 startIndexLocation = draw.startIndex;
 					const uint32 instanceCount = draw.instanceCount;
 
-					const Mat4x4& localToWorld = m_commandManager.getDrawLocalToWorld(instanceIndex);
 					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
-					m_vsPerObjectConstants->localToWorld = localToWorld.transposed();
 					m_psPerMaterialConstants->material = material;
 
 					m_vsPerViewConstants._update_if_dirty();
@@ -668,6 +676,14 @@ namespace s3d
 					m_psPerViewConstants->eyePosition = Float4{ eyePosition, 0.0f };
 
 					LOG_COMMAND(U"EyePosition[{}] {}"_fmt(command.index, eyePosition));
+					break;
+				}
+			case GL4Renderer3DCommandType::LocalTransform:
+				{
+					const Mat4x4& localTransform = m_commandManager.getLocalTransform(command.index);
+					m_vsPerObjectConstants->localToWorld = localTransform.transposed();
+
+					LOG_COMMAND(U"LocalTransform[{}] {}"_fmt(command.index, localTransform));
 					break;
 				}
 			case GL4Renderer3DCommandType::SetConstantBuffer:

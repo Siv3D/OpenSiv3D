@@ -46,9 +46,9 @@ namespace s3d
 
 		virtual const Renderer3DStat& getStat() const = 0;
 
-		virtual void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Mat4x4& mat, const PhongMaterial& material) = 0;
+		virtual void addMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const PhongMaterial& material) = 0;
 
-		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const Mat4x4& mat, const PhongMaterial& material) = 0;
+		virtual void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const PhongMaterial& material) = 0;
 
 		virtual void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) = 0;
 
@@ -108,6 +108,11 @@ namespace s3d
 		virtual Float3 getEyePosition() const = 0;
 
 		virtual void setCameraTransform(const Mat4x4& matrix, const Float3& eyePosition) = 0;
+
+
+		virtual const Mat4x4& getLocalTransform() const = 0;
+
+		virtual void setLocalTransform(const Mat4x4& matrix) = 0;
 
 
 		virtual void setVSTexture(uint32 slot, const Optional<Texture>& texture) = 0;

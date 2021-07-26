@@ -24,7 +24,7 @@ namespace s3d
 	{
 	public:
 
-		enum class Target
+		enum class Target : uint8
 		{
 			PushLocal,
 			

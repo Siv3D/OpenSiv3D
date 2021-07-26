@@ -27,6 +27,8 @@ namespace s3d
 
 			void SetViewport(const Optional<Rect>& viewport);
 
+			void SetLocalTransform(const Mat4x4& matrix);
+
 			void SetCustomVertexShader(const Optional<VertexShader>& vs);
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps);
