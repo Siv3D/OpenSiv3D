@@ -33,6 +33,10 @@ namespace s3d
 
 		virtual size_t getIndexCount(Mesh::IDType handleID) = 0;
 
+		virtual Sphere getBoundingSphere(Mesh::IDType handleID) = 0;
+
+		virtual Box getBoundingBox(Mesh::IDType handleID) = 0;
+
 		virtual void bindMeshToContext(Mesh::IDType handleID) = 0;
 	};
 }

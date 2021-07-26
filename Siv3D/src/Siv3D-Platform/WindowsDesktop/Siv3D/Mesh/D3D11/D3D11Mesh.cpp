@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "D3D11Mesh.hpp"
+# include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -21,6 +22,8 @@ namespace s3d
 		: m_vertexCount{ static_cast<uint32>(vertices.size()) }
 		, m_indexCount{ static_cast<uint32>(indices.size() * 3) }
 		, m_vertexStride{ sizeof(Vertex3D) }
+		, m_boundingSphere{ Geometry3D::BoundingSphere(vertices) }
+		, m_boundingBox{ Geometry3D::BoundingBox(vertices) }
 	{
 		// Vertex Buffer
 		{
@@ -86,6 +89,16 @@ namespace s3d
 	uint32 D3D11Mesh::getIndexCount() const noexcept
 	{
 		return m_indexCount;
+	}
+
+	const Sphere& D3D11Mesh::getBoundingSphere() const noexcept
+	{
+		return m_boundingSphere;
+	}
+
+	const Box& D3D11Mesh::getBoundingBox() const noexcept
+	{
+		return m_boundingBox;
 	}
 
 	void D3D11Mesh::bindToContext(ID3D11DeviceContext* context)

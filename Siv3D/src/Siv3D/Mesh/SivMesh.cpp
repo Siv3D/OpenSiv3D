@@ -62,6 +62,16 @@ namespace s3d
 		return (SIV3D_ENGINE(Mesh)->getIndexCount(m_handle->id()) / 3);
 	}
 
+	Sphere Mesh::boundingSphere() const
+	{
+		return SIV3D_ENGINE(Mesh)->getBoundingSphere(m_handle->id());
+	}
+
+	Box Mesh::boundingBox() const
+	{
+		return SIV3D_ENGINE(Mesh)->getBoundingBox(m_handle->id());
+	}
+
 	void Mesh::draw(const ColorF& color) const
 	{
 		draw(Mat4x4::Identity(), color);

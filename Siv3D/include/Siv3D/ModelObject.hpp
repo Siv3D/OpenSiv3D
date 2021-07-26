@@ -14,6 +14,8 @@
 # include "Array.hpp"
 # include "String.hpp"
 # include "ModelMeshPart.hpp"
+# include "Box.hpp"
+# include "Sphere.hpp"
 
 namespace s3d
 {
@@ -22,5 +24,9 @@ namespace s3d
 		String name;
 
 		Array<ModelMeshPart> parts;
+
+		Sphere boudingSphere{ 0.0 };
+
+		Box boudingBox{ 0.0 };
 	};
 }

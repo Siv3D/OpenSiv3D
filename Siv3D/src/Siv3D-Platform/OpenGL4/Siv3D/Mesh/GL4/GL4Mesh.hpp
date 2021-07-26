@@ -40,6 +40,12 @@ namespace s3d
 		[[nodiscard]]
 		uint32 getIndexCount() const noexcept;
 
+		[[nodiscard]]
+		const Sphere& getBoundingSphere() const noexcept;
+
+		[[nodiscard]]
+		const Box& getBoundingBox() const noexcept;
+
 		void bindToContext();
 
 	private:
@@ -55,6 +61,10 @@ namespace s3d
 		uint32 m_indexCount = 0;
 
 		uint32 m_vertexStride = 0;
+
+		Sphere m_boundingSphere{ 0.0 };
+
+		Box m_boundingBox{ 0.0 };
 
 		bool m_initialized = false;
 	};

@@ -16,12 +16,12 @@
 # include "Mat4x4.hpp"
 # include "ColorHSV.hpp"
 # include "AssetHandle.hpp"
+# include "Sphere.hpp"
+# include "Box.hpp"
 
 namespace s3d
 {
 	struct MeshData;
-	struct Box;
-	struct Sphere;
 	class Texture;
 	struct PhongMaterial;
 
@@ -42,6 +42,12 @@ namespace s3d
 
 		[[nodiscard]]
 		size_t num_triangles() const;
+
+		[[nodiscard]]
+		Sphere boundingSphere() const;
+
+		[[nodiscard]]
+		Box boundingBox() const;
 
 		void draw(const ColorF& color = Palette::White) const;
 

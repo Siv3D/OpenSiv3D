@@ -84,6 +84,16 @@ namespace s3d
 		return m_meshes[handleID]->getIndexCount();
 	}
 
+	Sphere CMesh_D3D11::getBoundingSphere(const Mesh::IDType handleID)
+	{
+		return m_meshes[handleID]->getBoundingSphere();
+	}
+
+	Box CMesh_D3D11::getBoundingBox(const Mesh::IDType handleID)
+	{
+		return m_meshes[handleID]->getBoundingBox();
+	}
+
 	void CMesh_D3D11::bindMeshToContext(const Mesh::IDType handleID)
 	{
 		m_meshes[handleID]->bindToContext(m_context);

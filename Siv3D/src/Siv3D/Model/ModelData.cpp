@@ -12,6 +12,7 @@
 # include "ModelData.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/MeshData.hpp>
+# include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <ThirdParty/tinyobjloader/tiny_obj_loader.h>
 
@@ -219,6 +220,31 @@ namespace s3d
 						m_objects[s].parts.push_back(std::move(part));
 					}
 				}
+			}
+		}
+
+		// bounding spheres & boxes
+		for (auto& object : m_objects)
+		{
+			if (object.parts)
+			{
+				DirectX::BoundingSphere sphere = 
+					detail::FromSphere(object.parts[0].mesh.boundingSphere());
+				DirectX::BoundingBox box =
+					detail::FromBox(object.parts[0].mesh.boundingBox());
+
+				for (size_t i = 1; i < object.parts.size(); ++i)
+				{
+					const auto& mesh = object.parts[i].mesh;
+					const DirectX::BoundingSphere currentSphere = detail::FromSphere(mesh.boundingSphere());	
+					const DirectX::BoundingBox currentBox = detail::FromBox(mesh.boundingBox());
+
+					DirectX::BoundingSphere::CreateMerged(sphere, sphere, currentSphere);
+					DirectX::BoundingBox::CreateMerged(box, box, currentBox);
+				}
+
+				object.boudingSphere = detail::ToSphere(sphere);
+				object.boudingBox = detail::ToBox(box);
 			}
 		}
 

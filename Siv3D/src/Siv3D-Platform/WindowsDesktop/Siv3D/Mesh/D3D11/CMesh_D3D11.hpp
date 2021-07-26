@@ -37,6 +37,10 @@ namespace s3d
 
 		size_t getIndexCount(Mesh::IDType handleID) override;
 
+		Sphere getBoundingSphere(Mesh::IDType handleID) override;
+
+		Box getBoundingBox(Mesh::IDType handleID) override;
+
 		void bindMeshToContext(Mesh::IDType handleID) override;
 
 	private:

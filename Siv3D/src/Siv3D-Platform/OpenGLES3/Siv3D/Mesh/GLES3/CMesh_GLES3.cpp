@@ -80,6 +80,16 @@ namespace s3d
 		return m_meshes[handleID]->getIndexCount();
 	}
 
+	Sphere CMesh_GLES3::getBoundingSphere(const Mesh::IDType handleID)
+	{
+		return m_meshes[handleID]->getBoundingSphere();
+	}
+
+	Box CMesh_GLES3::getBoundingBox(const Mesh::IDType handleID)
+	{
+		return m_meshes[handleID]->getBoundingBox();
+	}
+
 	void CMesh_GLES3::bindMeshToContext(const Mesh::IDType handleID)
 	{
 		m_meshes[handleID]->bindToContext();

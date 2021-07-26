@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "GL4Mesh.hpp"
+# include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -21,6 +22,8 @@ namespace s3d
 		: m_vertexCount{ static_cast<uint32>(vertices.size()) }
 		, m_indexCount{ static_cast<uint32>(indices.size() * 3) }
 		, m_vertexStride{ sizeof(Vertex3D) }
+		, m_boundingSphere{ Geometry3D::BoundingSphere(vertices) }
+		, m_boundingBox{ Geometry3D::BoundingBox(vertices) }
 	{
 		::glGenVertexArrays(1, &m_vao);
 		::glGenBuffers(1, &m_vertexBuffer);
@@ -87,6 +90,16 @@ namespace s3d
 	uint32 GL4Mesh::getIndexCount() const noexcept
 	{
 		return m_indexCount;
+	}
+
+	const Sphere& GL4Mesh::getBoundingSphere() const noexcept
+	{
+		return m_boundingSphere;
+	}
+
+	const Box& GL4Mesh::getBoundingBox() const noexcept
+	{
+		return m_boundingBox;
 	}
 
 	void GL4Mesh::bindToContext()

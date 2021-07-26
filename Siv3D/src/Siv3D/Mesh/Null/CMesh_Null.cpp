@@ -47,5 +47,15 @@ namespace s3d
 		return 0;
 	}
 
+	Sphere CMesh_Null::getBoundingSphere(Mesh::IDType)
+	{
+		return Sphere{ 0.0 };
+	}
+
+	Box CMesh_Null::getBoundingBox(Mesh::IDType)
+	{
+		return Box{ 0.0 };
+	}
+
 	void CMesh_Null::bindMeshToContext(Mesh::IDType) {}
 }

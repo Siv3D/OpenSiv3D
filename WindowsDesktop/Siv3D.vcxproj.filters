@@ -1492,6 +1492,9 @@
     <Filter Include="src\Siv3D\Sky">
       <UniqueIdentifier>{9576992f-8d73-45d9-bcd3-44db3b4b2986}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Geometry3D">
+      <UniqueIdentifier>{632366d5-a0b5-4c37-95b8-d4ef51d9e059}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9034,6 +9037,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Sky\SivSky.cpp">
       <Filter>src\Siv3D\Sky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Geometry3D\SivGeometry3D.cpp">
+      <Filter>src\Siv3D\Geometry3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
