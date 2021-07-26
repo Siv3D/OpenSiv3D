@@ -1498,6 +1498,9 @@
     <Filter Include="src\Siv3D\OrientedBox">
       <UniqueIdentifier>{b0671bb6-85f4-473d-9b2c-5b3cc6b169d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ViewFrustum">
+      <UniqueIdentifier>{e2dfc0eb-5fda-4916-826b-e4d15e87fbaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6576,6 +6579,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer3D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ViewFrustum.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9052,6 +9058,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OrientedBox\SivOrientedBox.cpp">
       <Filter>src\Siv3D\OrientedBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ViewFrustum\SivViewFrustum.cpp">
+      <Filter>src\Siv3D\ViewFrustum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

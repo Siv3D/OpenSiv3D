@@ -275,6 +275,21 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline Vector3D<Type>::value_type Vector3D<Type>::angleTo(const Vector3D v) const noexcept
+	{
+		const value_type denom = std::sqrt(lengthSq() * v.lengthSq());
+
+		if (denom < static_cast<value_type>(0.0000001))
+		{
+			return Math::Pi_v<value_type>;
+		}
+
+		const value_type theta = (dot(v) / denom);
+
+		return std::acos(Clamp(theta, static_cast<value_type>(-1.0), static_cast<value_type>(1.0)));
+	}
+
+	template <class Type>
 	inline typename Vector3D<Type>::value_type Vector3D<Type>::length() const noexcept
 	{
 		return std::sqrt(lengthSq());

@@ -182,6 +182,9 @@ namespace s3d
 		constexpr Vector3D cross(Vector3D v) const noexcept;
 
 		[[nodiscard]]
+		value_type angleTo(Vector3D v) const noexcept;
+
+		[[nodiscard]]
 		value_type length() const noexcept;
 
 		[[nodiscard]]

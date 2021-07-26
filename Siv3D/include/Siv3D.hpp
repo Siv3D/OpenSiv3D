@@ -746,6 +746,8 @@
 // Ray
 # include <Siv3D/Ray.hpp> // [Siv3D ToDo]
 
+# include <Siv3D/ViewFrustum.hpp>
+
 # include <Siv3D/Geometry3D.hpp>
 
 

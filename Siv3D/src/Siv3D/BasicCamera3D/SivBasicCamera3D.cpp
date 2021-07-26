@@ -59,6 +59,14 @@ namespace s3d
 		updateViewProj();
 	}
 
+	void BasicCamera3D::setUpDirection(const Vec3& upDirection) noexcept
+	{
+		m_upDirection = upDirection;
+
+		updateView();
+		updateViewProj();
+	}
+
 	Float3 BasicCamera3D::worldToScreenPoint(const Float3& pos) const noexcept
 	{
 		Float3 v = SIMD_Float4{ DirectX::XMVector3TransformCoord(SIMD_Float4{ pos, 0.0f }, m_viewProj) }.xyz();

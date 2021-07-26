@@ -43,6 +43,8 @@ namespace s3d
 
 		void setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }) noexcept;
 
+		void setUpDirection(const Vec3& upDirection) noexcept;
+
 		[[nodiscard]]
 		const Size& getSceneSize() const noexcept;
 
