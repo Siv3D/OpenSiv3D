@@ -16,6 +16,15 @@ namespace s3d
 {
 	namespace detail
 	{
+		Sphere ToSphere(const DirectX::BoundingSphere& sphere) noexcept
+		{
+			return
+			{
+				{ sphere.Center.x, sphere.Center.y, sphere.Center.z },
+				sphere.Radius
+			};
+		}
+
 		Box ToBox(const DirectX::BoundingBox& box) noexcept
 		{
 			return
@@ -25,12 +34,21 @@ namespace s3d
 			};
 		}
 
-		Sphere ToSphere(const DirectX::BoundingSphere& sphere) noexcept
+		OrientedBox ToOrientedBox(const DirectX::BoundingOrientedBox& box) noexcept
 		{
 			return
 			{
-				{ sphere.Center.x, sphere.Center.y, sphere.Center.z },
-				sphere.Radius
+				{ box.Center.x, box.Center.y, box.Center.z },
+				{ (box.Extents.x * 2.0), (box.Extents.y * 2.0), (box.Extents.z * 2.0) },
+				Quaternion{ box.Orientation.x, box.Orientation.y, box.Orientation.z, box.Orientation.w }
+			};
+		}
+
+		DirectX::BoundingSphere FromSphere(const Sphere& sphere) noexcept
+		{
+			return DirectX::BoundingSphere{
+				DirectX::XMFLOAT3{ static_cast<float>(sphere.center.x), static_cast<float>(sphere.center.y), static_cast<float>(sphere.center.z) },
+				static_cast<float>(sphere.r),
 			};
 		}
 
@@ -42,11 +60,14 @@ namespace s3d
 			};
 		}
 
-		DirectX::BoundingSphere FromSphere(const Sphere& sphere) noexcept
+		DirectX::BoundingOrientedBox FromOrientedBox(const OrientedBox& box) noexcept
 		{
-			return DirectX::BoundingSphere{
-				DirectX::XMFLOAT3{ static_cast<float>(sphere.center.x), static_cast<float>(sphere.center.y), static_cast<float>(sphere.center.z) },
-				static_cast<float>(sphere.r),
+			const Float4 q = box.orientation.toFloat4();
+
+			return DirectX::BoundingOrientedBox{
+				DirectX::XMFLOAT3{ static_cast<float>(box.center.x), static_cast<float>(box.center.y), static_cast<float>(box.center.z) },
+				DirectX::XMFLOAT3{ static_cast<float>(box.size.x * 0.5), static_cast<float>(box.size.y * 0.5), static_cast<float>(box.size.z * 0.5) },
+				DirectX::XMFLOAT4{ q.x, q.y, q.z, q.w },
 			};
 		}
 	}
@@ -89,6 +110,52 @@ namespace s3d
 			);
 
 			return detail::ToBox(box);
+		}
+
+		OrientedBox BoundingOrientedBox(const Array<Vertex3D>& vertices) noexcept
+		{
+			if (not vertices)
+			{
+				return OrientedBox{ 0.0 };
+			}
+
+			DirectX::BoundingOrientedBox box;
+
+			DirectX::BoundingOrientedBox::CreateFromPoints(
+				box,
+				vertices.size(),
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+				sizeof(Vertex3D)
+			);
+
+			return detail::ToOrientedBox(box);
+		}
+
+		Sphere TransformBoundingSphere(const Sphere& sphere, const Mat4x4& matrix) noexcept
+		{
+			DirectX::BoundingSphere result;
+
+			detail::FromSphere(sphere).Transform(result, matrix);
+
+			return detail::ToSphere(result);
+		}
+
+		Box TransformBoundingBox(const Box& box, const Mat4x4& matrix) noexcept
+		{
+			DirectX::BoundingBox result;
+
+			detail::FromBox(box).Transform(result, matrix);
+
+			return detail::ToBox(result);
+		}
+
+		OrientedBox TransformBoundingOrientedBox(const OrientedBox& box, const Mat4x4& matrix) noexcept
+		{
+			DirectX::BoundingOrientedBox result;
+
+			detail::FromOrientedBox(box).Transform(result, matrix);
+
+			return detail::ToOrientedBox(result);
 		}
 
 		Sphere MergeBoundingSpheres(const Sphere& a, const Sphere& b) noexcept

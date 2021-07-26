@@ -345,6 +345,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Network/NetworkFactory.cpp
   ../Siv3D/src/Siv3D/Network/SivNetwork.cpp
   ../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp
+  ../Siv3D/src/Siv3D/OrientedBox/SivOrientedBox.cpp
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
   ../Siv3D/src/Siv3D/ParseInt/SivParseInt.cpp

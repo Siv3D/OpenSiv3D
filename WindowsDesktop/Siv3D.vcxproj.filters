@@ -1495,6 +1495,9 @@
     <Filter Include="src\Siv3D\Geometry3D">
       <UniqueIdentifier>{632366d5-a0b5-4c37-95b8-d4ef51d9e059}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\OrientedBox">
+      <UniqueIdentifier>{b0671bb6-85f4-473d-9b2c-5b3cc6b169d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9046,6 +9049,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry3D\SivGeometry3D.cpp">
       <Filter>src\Siv3D\Geometry3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OrientedBox\SivOrientedBox.cpp">
+      <Filter>src\Siv3D\OrientedBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

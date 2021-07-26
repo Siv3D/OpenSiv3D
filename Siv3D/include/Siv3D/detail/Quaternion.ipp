@@ -187,12 +187,12 @@ namespace s3d
 
 	inline Quaternion Quaternion::Identity() noexcept
 	{
-		return DirectX::XMVectorZero();
+		return DirectX::XMQuaternionIdentity();
 	}
 
 	inline Quaternion Quaternion::Zero() noexcept
 	{
-		return DirectX::XMQuaternionIdentity();
+		return DirectX::XMVectorZero();
 	}
 
 	template <class X, class Y, class Z>
