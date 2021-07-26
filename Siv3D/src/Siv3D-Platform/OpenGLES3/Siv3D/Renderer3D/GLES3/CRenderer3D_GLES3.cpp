@@ -53,8 +53,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS3D>();
-			m_standardVS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSConstants3D", 0 } } };
-			m_standardVS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.vert"), { { U"VSConstants3D", 0 } } };
+			m_standardVS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
 
 			if (not m_standardVS->setup())
 			{
