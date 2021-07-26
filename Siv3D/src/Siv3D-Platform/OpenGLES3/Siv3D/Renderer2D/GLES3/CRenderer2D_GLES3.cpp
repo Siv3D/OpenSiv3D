@@ -1148,14 +1148,14 @@ namespace s3d
 						const bool isSRGB = pTexture->getFormat(rt->id()).isSRGB();
 						pRenderer->getBackBuffer().bindToScene(frameBuffer);
 
-						if (isSRGB)
-						{
-							::glEnable(GL_FRAMEBUFFER_SRGB);
-						}
-						else
-						{
-							::glEnable(GL_FRAMEBUFFER_SRGB);
-						}
+						// if (isSRGB)
+						// {
+						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
+						// }
+						// else
+						// {
+						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
+						// }
 
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
@@ -1163,7 +1163,7 @@ namespace s3d
 					{
 						pRenderer->getBackBuffer().bindSceneToContext(false);
 						
-						::glDisable(GL_FRAMEBUFFER_SRGB);
+						// ::glDisable(GL_FRAMEBUFFER_SRGB);
 
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
