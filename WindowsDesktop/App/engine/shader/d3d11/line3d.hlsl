@@ -39,6 +39,11 @@ cbuffer VSPerView : register(b1)
 	row_major float4x4 g_worldToProjected;
 }
 
+cbuffer VSPerObject : register(b2)
+{
+	row_major float4x4 g_localToWorld;
+}
+
 //
 //	Functions
 //
@@ -46,7 +51,7 @@ s3d::PSInput VS(s3d::VSInput input)
 {
 	s3d::PSInput result;
 
-	const float4 worldPosition = input.position;
+	const float4 worldPosition = mul(input.position, g_localToWorld);
 
 	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;
