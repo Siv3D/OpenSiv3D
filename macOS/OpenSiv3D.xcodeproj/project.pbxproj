@@ -1422,6 +1422,7 @@
 		2CBFAD3426806236009957F7 /* TCPServerDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFAD2E26806236009957F7 /* TCPServerDetail.cpp */; };
 		2CBFAD3526806236009957F7 /* TCPServerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBFAD2F26806236009957F7 /* TCPServerDetail.hpp */; };
 		2CBFAD3626806236009957F7 /* SivTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFAD3026806236009957F7 /* SivTCPServer.cpp */; };
+		2CC3940F26AE54ED00B5DA01 /* SivGeometry3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */; };
 		2CC5842626461D7900C33E9F /* gif_load.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842526461D7900C33E9F /* gif_load.h */; };
 		2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842826461D9900C33E9F /* AnimatedGIFReaderDetail.cpp */; };
 		2CC5843126461D9900C33E9F /* SivAnimatedGIFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842926461D9900C33E9F /* SivAnimatedGIFReader.cpp */; };
@@ -3940,6 +3941,7 @@
 		2CBFAD2E26806236009957F7 /* TCPServerDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPServerDetail.cpp; sourceTree = "<group>"; };
 		2CBFAD2F26806236009957F7 /* TCPServerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServerDetail.hpp; sourceTree = "<group>"; };
 		2CBFAD3026806236009957F7 /* SivTCPServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTCPServer.cpp; sourceTree = "<group>"; };
+		2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry3D.cpp; sourceTree = "<group>"; };
 		2CC5842226461D5900C33E9F /* AnimatedGIFReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReader.hpp; sourceTree = "<group>"; };
 		2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFWriter.hpp; sourceTree = "<group>"; };
 		2CC5842526461D7900C33E9F /* gif_load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_load.h; sourceTree = "<group>"; };
@@ -6035,6 +6037,7 @@
 				2C427FE12628439B00106F19 /* GamepadInfo */,
 				2C8333A626441F7100AEECC7 /* GeoJSON */,
 				2CF962F125A7F95F006F55C9 /* Geometry2D */,
+				2CC3940D26AE54EC00B5DA01 /* Geometry3D */,
 				2CDD2FC1265B9E7900E09591 /* GlobalAudio */,
 				2CC7D4A525F8D86A00289963 /* GrabCut */,
 				2C7091A4267F133C00A8F68C /* Graphics */,
@@ -9976,6 +9979,14 @@
 			path = TCPServer;
 			sourceTree = "<group>";
 		};
+		2CC3940D26AE54EC00B5DA01 /* Geometry3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */,
+			);
+			path = Geometry3D;
+			sourceTree = "<group>";
+		};
 		2CC5842426461D7900C33E9F /* gif_load */ = {
 			isa = PBXGroup;
 			children = (
@@ -12188,6 +12199,7 @@
 				2C956656264546F700539B85 /* symbolelement.cpp in Sources */,
 				2C47B35224DD9789008D83BE /* SivFormatFloat.cpp in Sources */,
 				2C636E762657F7D300AF029F /* soloud_core_getters.cpp in Sources */,
+				2CC3940F26AE54ED00B5DA01 /* SivGeometry3D.cpp in Sources */,
 				2CBFAD3326806236009957F7 /* TCPClientDetail.cpp in Sources */,
 				2C636EA22657F7D300AF029F /* soloud_wav.cpp in Sources */,
 				2C956662264546F700539B85 /* gelement.cpp in Sources */,
