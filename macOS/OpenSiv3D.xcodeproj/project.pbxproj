@@ -1279,6 +1279,7 @@
 		2C834DC2248805D4006208B8 /* utf16_be.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D87248805D4006208B8 /* utf16_be.c */; };
 		2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D88248805D4006208B8 /* iso8859_4.c */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C86DC5D26AEFC7F000BEEE2 /* SivViewFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DC5C26AEFC7F000BEEE2 /* SivViewFrustum.cpp */; };
 		2C8A2519264905F000A87808 /* libopusfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8A2518264905F000A87808 /* libopusfile.a */; };
 		2C8A251A2649084000A87808 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC584A62649027F00C33E9F /* libopus.a */; };
 		2C8CA3A42615863C00BABD2D /* WebPEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8CA39F2615863C00BABD2D /* WebPEncoder.cpp */; };
@@ -1423,6 +1424,7 @@
 		2CBFAD3526806236009957F7 /* TCPServerDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBFAD2F26806236009957F7 /* TCPServerDetail.hpp */; };
 		2CBFAD3626806236009957F7 /* SivTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFAD3026806236009957F7 /* SivTCPServer.cpp */; };
 		2CC3940F26AE54ED00B5DA01 /* SivGeometry3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */; };
+		2CC3941426AE915400B5DA01 /* SivOrientedBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3941326AE915400B5DA01 /* SivOrientedBox.cpp */; };
 		2CC5842626461D7900C33E9F /* gif_load.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC5842526461D7900C33E9F /* gif_load.h */; };
 		2CC5843026461D9900C33E9F /* AnimatedGIFReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842826461D9900C33E9F /* AnimatedGIFReaderDetail.cpp */; };
 		2CC5843126461D9900C33E9F /* SivAnimatedGIFReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5842926461D9900C33E9F /* SivAnimatedGIFReader.cpp */; };
@@ -3490,6 +3492,8 @@
 		2C834D87248805D4006208B8 /* utf16_be.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf16_be.c; sourceTree = "<group>"; };
 		2C834D88248805D4006208B8 /* iso8859_4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iso8859_4.c; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C86DC5A26AEFC65000BEEE2 /* ViewFrustum.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewFrustum.hpp; sourceTree = "<group>"; };
+		2C86DC5C26AEFC7F000BEEE2 /* SivViewFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivViewFrustum.cpp; sourceTree = "<group>"; };
 		2C8A2518264905F000A87808 /* libopusfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopusfile.a; path = ../Siv3D/lib/macOS/opus/libopusfile.a; sourceTree = "<group>"; };
 		2C8CA39A261585D200BABD2D /* PPMEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMEncoder.hpp; sourceTree = "<group>"; };
 		2C8CA39B261585D200BABD2D /* PPMDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PPMDecoder.hpp; sourceTree = "<group>"; };
@@ -3942,6 +3946,9 @@
 		2CBFAD2F26806236009957F7 /* TCPServerDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServerDetail.hpp; sourceTree = "<group>"; };
 		2CBFAD3026806236009957F7 /* SivTCPServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTCPServer.cpp; sourceTree = "<group>"; };
 		2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry3D.cpp; sourceTree = "<group>"; };
+		2CC3941026AE911A00B5DA01 /* Transformer3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer3D.hpp; sourceTree = "<group>"; };
+		2CC3941126AE912F00B5DA01 /* Transformer3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transformer3D.ipp; sourceTree = "<group>"; };
+		2CC3941326AE915400B5DA01 /* SivOrientedBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOrientedBox.cpp; sourceTree = "<group>"; };
 		2CC5842226461D5900C33E9F /* AnimatedGIFReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFReader.hpp; sourceTree = "<group>"; };
 		2CC5842326461D5900C33E9F /* AnimatedGIFWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AnimatedGIFWriter.hpp; sourceTree = "<group>"; };
 		2CC5842526461D7900C33E9F /* gif_load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_load.h; sourceTree = "<group>"; };
@@ -4487,6 +4494,7 @@
 				2C063D7D2661426000368BEE /* Timer.ipp */,
 				2C063DBE2661426000368BEE /* TOMLReader.ipp */,
 				2C063D662661426000368BEE /* Transformer2D.ipp */,
+				2CC3941126AE912F00B5DA01 /* Transformer3D.ipp */,
 				2C063D532661426000368BEE /* Transition.ipp */,
 				2C063DC02661426000368BEE /* Triangle.ipp */,
 				2C063DF62661426000368BEE /* Triangle3D.ipp */,
@@ -6093,6 +6101,7 @@
 				2C13C88E25B8FA840054B968 /* NavMesh */,
 				2C5D9DCE266159CD00D81870 /* Network */,
 				2C9FFD4525F60622000723D8 /* OpenCV_Bridge */,
+				2CC3941226AE915400B5DA01 /* OrientedBox */,
 				2C47B24B24DD9789008D83BE /* ParseBool */,
 				2C47B28624DD9789008D83BE /* ParseFloat */,
 				2C47B25B24DD9789008D83BE /* ParseInt */,
@@ -6188,6 +6197,7 @@
 				2CFF581625F7C02400B660AD /* VideoReader */,
 				2CC7D4AD25FA3A9100289963 /* VideoTexture */,
 				2CBB4C2A25FB47D2007BEAB4 /* VideoWriter */,
+				2C86DC5B26AEFC7F000BEEE2 /* ViewFrustum */,
 				2CC5847126477E6200C33E9F /* Wave */,
 				2C0FBD69262978100050E354 /* Webcam */,
 				2C47B2AC24DD9789008D83BE /* Window */,
@@ -9130,6 +9140,14 @@
 			path = Oniguruma;
 			sourceTree = "<group>";
 		};
+		2C86DC5B26AEFC7F000BEEE2 /* ViewFrustum */ = {
+			isa = PBXGroup;
+			children = (
+				2C86DC5C26AEFC7F000BEEE2 /* SivViewFrustum.cpp */,
+			);
+			path = ViewFrustum;
+			sourceTree = "<group>";
+		};
 		2C8CA39E2615863C00BABD2D /* WebP */ = {
 			isa = PBXGroup;
 			children = (
@@ -9769,6 +9787,7 @@
 				2C5043C226512B1A00E36D08 /* ToastNotificationState.hpp */,
 				2C4A485A2636540100BDCBA2 /* TOMLReader.hpp */,
 				2CAAA8A525E7FD0300C014D7 /* Transformer2D.hpp */,
+				2CC3941026AE911A00B5DA01 /* Transformer3D.hpp */,
 				2CAAA89125E7FD0300C014D7 /* Transition.hpp */,
 				2CAAA74925E7FD0200C014D7 /* Triangle.hpp */,
 				2C063D3026612A3500368BEE /* Triangle3D.hpp */,
@@ -9799,6 +9818,7 @@
 				2CFF581525F7C00E00B660AD /* VideoReader.hpp */,
 				2CC7D4AC25FA3A7E00289963 /* VideoTexture.hpp */,
 				2CBB4C2925FB47B5007BEAB4 /* VideoWriter.hpp */,
+				2C86DC5A26AEFC65000BEEE2 /* ViewFrustum.hpp */,
 				2C2AA2AD25FDC8C4003F3EBC /* Wave.hpp */,
 				2CC5846E26477E2500C33E9F /* WAVEFormat.hpp */,
 				2C2AA2AE25FDC8C4003F3EBC /* WaveSample.hpp */,
@@ -9985,6 +10005,14 @@
 				2CC3940E26AE54EC00B5DA01 /* SivGeometry3D.cpp */,
 			);
 			path = Geometry3D;
+			sourceTree = "<group>";
+		};
+		2CC3941226AE915400B5DA01 /* OrientedBox */ = {
+			isa = PBXGroup;
+			children = (
+				2CC3941326AE915400B5DA01 /* SivOrientedBox.cpp */,
+			);
+			path = OrientedBox;
 			sourceTree = "<group>";
 		};
 		2CC5842426461D7900C33E9F /* gif_load */ = {
@@ -11667,6 +11695,7 @@
 				2C0E224625F52690002DD8C7 /* SivImageROI.cpp in Sources */,
 				2C636E662657F7D300AF029F /* soloud_core_filterops.cpp in Sources */,
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
+				2C86DC5D26AEFC7F000BEEE2 /* SivViewFrustum.cpp in Sources */,
 				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
@@ -12335,6 +12364,7 @@
 				2C636E9A2657F7D300AF029F /* soloud_waveshaperfilter.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */,
+				2CC3941426AE915400B5DA01 /* SivOrientedBox.cpp in Sources */,
 				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2C956677264546F700539B85 /* parser.cpp in Sources */,
