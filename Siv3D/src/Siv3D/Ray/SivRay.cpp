@@ -318,8 +318,6 @@ namespace s3d
 		formatData.string.append(ToString(o.y, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
 		formatData.string.append(ToString(o.z, formatData.decimalPlaces.value));
-		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(o.w, formatData.decimalPlaces.value));
 		formatData.string.append(U"), ("_sv);
 
 		formatData.string.append(ToString(d.x, formatData.decimalPlaces.value));
@@ -327,8 +325,6 @@ namespace s3d
 		formatData.string.append(ToString(d.y, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
 		formatData.string.append(ToString(d.z, formatData.decimalPlaces.value));
-		formatData.string.append(U", "_sv);
-		formatData.string.append(ToString(d.w, formatData.decimalPlaces.value));
 
 		formatData.string.append(U"))"_sv);
 	}

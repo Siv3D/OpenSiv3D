@@ -188,29 +188,34 @@ namespace s3d
 		return DirectX::XMVectorGetW(vec);
 	}
 
-	inline void SIMD_Float4::setX(const float x) noexcept
+	inline SIMD_Float4& SIMD_Float4::setX(const float x) noexcept
 	{
 		vec = DirectX::XMVectorSetX(vec, x);
+		return *this;
 	}
 
-	inline void SIMD_Float4::setY(const float y) noexcept
+	inline SIMD_Float4& SIMD_Float4::setY(const float y) noexcept
 	{
 		vec = DirectX::XMVectorSetY(vec, y);
+		return *this;
 	}
 
-	inline void SIMD_Float4::setZ(const float z) noexcept
+	inline SIMD_Float4& SIMD_Float4::setZ(const float z) noexcept
 	{
 		vec = DirectX::XMVectorSetZ(vec, z);
+		return *this;
 	}
 
-	inline void SIMD_Float4::setW(const float w) noexcept
+	inline SIMD_Float4& SIMD_Float4::setW(const float w) noexcept
 	{
 		vec = DirectX::XMVectorSetW(vec, w);
+		return *this;
 	}
 
-	inline void SIMD_Float4::set(const float x, const float y, const float z, const float w) noexcept
+	inline SIMD_Float4& SIMD_Float4::set(const float x, const float y, const float z, const float w) noexcept
 	{
 		vec = DirectX::XMVectorSet(x, y, z, w);
+		return *this;
 	}
 
 	inline bool SIMD_Float4::isZero() const noexcept

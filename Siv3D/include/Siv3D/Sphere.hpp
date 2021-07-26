@@ -61,7 +61,58 @@ namespace s3d
 		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Sphere& value)
+		{
+			return output << CharType('(')
+				<< value.center << CharType(',') << CharType(' ')
+				<< value.r << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Sphere& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.center >> unused
+				>> value.r >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Sphere& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Sphere& value);
 	};
 }
 
 # include "detail/Sphere.ipp"
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Sphere, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::Sphere& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.center, value.r);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.center, value.r);
+		}
+	}
+};

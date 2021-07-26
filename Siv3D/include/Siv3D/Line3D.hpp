@@ -54,7 +54,58 @@ namespace s3d
 		void draw(const ColorF& color = Palette::White) const;
 
 		void draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
+
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line3D& value)
+		{
+			return output << CharType('(')
+				<< value.begin << CharType(',') << CharType(' ')
+				<< value.end << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Line3D& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.begin >> unused
+				>> value.end >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Line3D& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Line3D& value);
 	};
 }
 
 # include "detail/Line3D.ipp"
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Line3D, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::Line3D& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.begin, value.end);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.begin, value.end);
+		}
+	}
+};

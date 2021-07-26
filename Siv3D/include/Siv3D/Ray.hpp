@@ -96,17 +96,21 @@ namespace s3d
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)
 		{
 			return output << CharType('(')
-				<< value.origin << CharType(',') << CharType(' ')
-				<< value.direction << CharType(')');
+				<< value.origin.xyz() << CharType(',') << CharType(' ')
+				<< value.direction.xyz() << CharType(')');
 		}
 
 		template <class CharType>
 		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Ray& value)
 		{
 			CharType unused;
-			return input >> unused
-				>> value.origin >> unused
-				>> value.direction >> unused;
+			Float3 origin, direction;
+			input >> unused
+				>> origin >> unused
+				>> direction >> unused;
+			value.origin = SIMD_Float4{ origin, 0.0f };
+			value.direction = SIMD_Float4{ direction, 0.0f };
+			return input;
 		}
 
 		friend void Formatter(FormatData& formatData, const Ray& value)
@@ -133,13 +137,13 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::Ray, s3d::char32>
 	{
 		if (tag.empty())
 		{
-			return format_to(ctx.out(), U"({}, {})", value.origin, value.direction);
+			return format_to(ctx.out(), U"({}, {})", value.origin.xyz(), value.direction.xyz());
 		}
 		else
 		{
 			const std::u32string format
 				= (U"({:" + tag + U"}, {:" + tag + U"})");
-			return format_to(ctx.out(), format, value.origin, value.direction);
+			return format_to(ctx.out(), format, value.origin.xyz(), value.direction.xyz());
 		}
 	}
 };

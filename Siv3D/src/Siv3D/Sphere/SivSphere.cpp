@@ -12,6 +12,7 @@
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Quaternion.hpp>
+# include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/PrimitiveMesh/IPrimitiveMesh.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -51,5 +52,21 @@ namespace s3d
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw((Mat4x4::Scale(r).translated(center) * mat), texture, color);
+	}
+
+	void Sphere::_Formatter(FormatData& formatData, const Sphere& value)
+	{
+		formatData.string.append(U"(("_sv);
+
+		formatData.string.append(ToString(value.center.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.center.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.center.z, formatData.decimalPlaces.value));
+		formatData.string.append(U"), "_sv);
+
+		formatData.string.append(ToString(value.r, formatData.decimalPlaces.value));
+
+		formatData.string.append(U")"_sv);
 	}
 }

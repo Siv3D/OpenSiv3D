@@ -129,15 +129,15 @@ namespace s3d
 		[[nodiscard]]
 		float SIV3D_VECTOR_CALL getW() const noexcept;
 
-		void SIV3D_VECTOR_CALL setX(float x) noexcept;
+		SIMD_Float4& SIV3D_VECTOR_CALL setX(float x) noexcept;
 
-		void SIV3D_VECTOR_CALL setY(float y) noexcept;
+		SIMD_Float4& SIV3D_VECTOR_CALL setY(float y) noexcept;
 
-		void SIV3D_VECTOR_CALL setZ(float z) noexcept;
+		SIMD_Float4& SIV3D_VECTOR_CALL setZ(float z) noexcept;
 
-		void SIV3D_VECTOR_CALL setW(float w) noexcept;
+		SIMD_Float4& SIV3D_VECTOR_CALL setW(float w) noexcept;
 
-		void SIV3D_VECTOR_CALL set(float x, float y, float z, float w) noexcept;
+		SIMD_Float4& SIV3D_VECTOR_CALL set(float x, float y, float z, float w) noexcept;
 
 		[[nodiscard]]
 		bool SIV3D_VECTOR_CALL isZero() const noexcept;
