@@ -95,6 +95,8 @@ namespace s3d
 
 		EyePosition,
 
+		LocalTransform,
+
 		SetConstantBuffer,
 
 		VSTexture0,
@@ -197,7 +199,6 @@ namespace s3d
 		Array<GLES3Draw3DCommand> m_draws;
 		Array<GLES3DrawLine3DCommand> m_drawLine3Ds;
 		//Array<uint32> m_nullDraws;
-		Array<Mat4x4> m_drawLocalToWorlds;
 		Array<PhongMaterialInternal> m_drawPhongMaterials;
 		Array<BlendState> m_blendStates				= { BlendState::Default3D };
 		Array<RasterizerState> m_rasterizerStates	= { RasterizerState::Default3D };
@@ -212,6 +213,7 @@ namespace s3d
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
 		Array<Float3> m_eyePositions				= { Float3{ 0.0f, 0.0f, 0.0f } };
+		Array<Mat4x4> m_localTransforms				= { Mat4x4::Identity() };
 		Array<__m128> m_constants;
 		Array<GLES3ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
@@ -237,6 +239,7 @@ namespace s3d
 		PixelShader::IDType m_currentPS				= PixelShader::IDType::InvalidValue();
 		Mat4x4 m_currentCameraTransform				= m_cameraTransforms.back();
 		Float3 m_currentEyePosition					= m_eyePositions.back();
+		Mat4x4 m_currentLocalTransform				= m_localTransforms.back();
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		GLES3InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
@@ -265,9 +268,8 @@ namespace s3d
 
 		void pushUpdateLine3DBuffers(uint32 batchIndex);
 
-		void pushDraw(uint32 startIndex, uint32 indexCount, const Mat4x4* mat, const PhongMaterialInternal* material, uint32 instanceCount);
+		void pushDraw(uint32 startIndex, uint32 indexCount, const PhongMaterialInternal& material, uint32 instanceCount);
 		const GLES3Draw3DCommand& getDraw(uint32 index) const noexcept;
-		const Mat4x4& getDrawLocalToWorld(uint32 index) const noexcept;
 		const PhongMaterialInternal& getDrawPhongMaterial(uint32 index) const noexcept;
 
 		void pushDrawLine3D(VertexLine3D::IndexType indexCount);
@@ -327,6 +329,10 @@ namespace s3d
 		void pushEyePosition(const Float3& state);
 		const Float3& getCurrentEyePosition() const;
 		const Float3& getEyePosition(uint32 index) const;
+
+		void pushLocalTransform(const Mat4x4& state);
+		const Mat4x4& getCurrentLocalTransform() const;
+		const Mat4x4& getLocalTransform(uint32 index) const;
 
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		GLES3ConstantBuffer3DCommand& getConstantBuffer(uint32 index);
