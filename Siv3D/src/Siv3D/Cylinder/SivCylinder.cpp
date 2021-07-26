@@ -17,39 +17,51 @@
 
 namespace s3d
 {
-	void Cylinder::draw(const ColorF& color) const
+	const Cylinder& Cylinder::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw(Mat4x4::Scale(Float3{ r, h, r }).translated(center), color);
+
+		return *this;
 	}
 
-	void Cylinder::draw(const Texture& texture, const ColorF& color) const
+	const Cylinder& Cylinder::draw(const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw(Mat4x4::Scale(Float3{ r, h, r }).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Cylinder::draw(const Quaternion& rotation, const ColorF& color) const
+	const Cylinder& Cylinder::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(rotation).translated(center), color);
+
+		return *this;
 	}
 
-	void Cylinder::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	const Cylinder& Cylinder::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(rotation).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Cylinder::draw(const Mat4x4& mat, const ColorF& color) const
+	const Cylinder& Cylinder::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw((Mat4x4::Scale(Float3{ r, h, r }).translated(center) * mat), color);
+
+		return *this;
 	}
 
-	void Cylinder::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	const Cylinder& Cylinder::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
 			.draw((Mat4x4::Scale(Float3{ r, h, r }).translated(center) * mat), texture, color);
+
+		return *this;
 	}
 }

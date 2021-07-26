@@ -103,17 +103,17 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Plane(const Vec3& _center, const Vec2& _size) noexcept;
 
-		void draw(const ColorF& color = Palette::White) const;
+		const Plane& draw(const ColorF& color = Palette::White) const;
 
-		void draw(const Texture& texture, const ColorF& color = Palette::White) const;
+		const Plane& draw(const Texture& texture, const ColorF& color = Palette::White) const;
 
-		void draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
+		const Plane& draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
 
-		void draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+		const Plane& draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
 
-		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
+		const Plane& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
-		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+		const Plane& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 	
 
 

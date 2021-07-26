@@ -114,20 +114,26 @@ namespace s3d
 
 
 		[[nodiscard]]
+		std::array<Vec3, 8> getCorners() const noexcept;
+
+		[[nodiscard]]
 		bool intersects(const Box& box) const noexcept;
 
 
-		void draw(const ColorF& color = Palette::White) const;
+		const Box& draw(const ColorF& color = Palette::White) const;
 		
-		void draw(const Texture& texture, const ColorF& color = Palette::White) const;
+		const Box& draw(const Texture& texture, const ColorF& color = Palette::White) const;
 
-		void draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
+		const Box& draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
 
-		void draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
+		const Box& draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
 
-		void draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
+		const Box& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
-		void draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+		const Box& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+		const Box& drawFrame(const ColorF& color = Palette::White) const;
 
 
 		template <class CharType>

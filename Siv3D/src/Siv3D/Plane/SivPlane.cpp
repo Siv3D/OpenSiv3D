@@ -18,40 +18,52 @@
 
 namespace s3d
 {
-	void Plane::draw(const ColorF& color) const
+	const Plane& Plane::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), color);
+
+		return *this;
 	}
 
-	void Plane::draw(const Texture& texture, const ColorF& color) const
+	const Plane& Plane::draw(const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Plane::draw(const Quaternion& rotation, const ColorF& color) const
+	const Plane& Plane::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), color);
+
+		return *this;
 	}
 
-	void Plane::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	const Plane& Plane::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Plane::draw(const Mat4x4& mat, const ColorF& color) const
+	const Plane& Plane::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), color);
+
+		return *this;
 	}
 
-	void Plane::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	const Plane& Plane::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), texture, color);
+
+		return *this;
 	}
 
 	void Plane::_Formatter(FormatData& formatData, const Plane& value)

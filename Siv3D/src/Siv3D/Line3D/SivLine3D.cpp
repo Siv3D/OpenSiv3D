@@ -51,16 +51,20 @@ namespace s3d
 		return{ line.begin.xy(), line.end.xy() };
 	}
 
-	void Line3D::draw(const ColorF& color) const
+	const Line3D& Line3D::draw(const ColorF& color) const
 	{
 		const Float4 rgba = color.toFloat4();
 
 		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { rgba, rgba });
+
+		return *this;
 	}
 
-	void Line3D::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
+	const Line3D& Line3D::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
 	{
 		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { colorBegin.toFloat4(), colorEnd.toFloat4() });
+
+		return *this;
 	}
 
 

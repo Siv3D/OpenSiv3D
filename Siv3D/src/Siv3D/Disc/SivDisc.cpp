@@ -17,39 +17,51 @@
 
 namespace s3d
 {
-	void Disc::draw(const ColorF& color) const
+	const Disc& Disc::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw(Mat4x4::Scale(Float3{ r, 1, r }).translated(center), color);
+
+		return *this;
 	}
 
-	void Disc::draw(const Texture& texture, const ColorF& color) const
+	const Disc& Disc::draw(const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw(Mat4x4::Scale(Float3{ r, 1, r }).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Disc::draw(const Quaternion& rotation, const ColorF& color) const
+	const Disc& Disc::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw(Mat4x4::Scale(Float3{ r, 1, r }).rotated(rotation).translated(center), color);
+
+		return *this;
 	}
 
-	void Disc::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	const Disc& Disc::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw(Mat4x4::Scale(Float3{ r, 1, r }).rotated(rotation).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Disc::draw(const Mat4x4& mat, const ColorF& color) const
+	const Disc& Disc::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), color);
+
+		return *this;
 	}
 
-	void Disc::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	const Disc& Disc::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
 			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), texture, color);
+
+		return *this;
 	}
 }

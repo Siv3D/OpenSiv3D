@@ -18,40 +18,52 @@
 
 namespace s3d
 {
-	void Sphere::draw(const ColorF& color) const
+	const Sphere& Sphere::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw(Mat4x4::Scale(r).translated(center), color);
+
+		return *this;
 	}
 
-	void Sphere::draw(const Texture& texture, const ColorF& color) const
+	const Sphere& Sphere::draw(const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw(Mat4x4::Scale(r).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Sphere::draw(const Quaternion& rotation, const ColorF& color) const
+	const Sphere& Sphere::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw(Mat4x4::Scale(r).rotated(rotation).translated(center), color);
+
+		return *this;
 	}
 
-	void Sphere::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
+	const Sphere& Sphere::draw(const Quaternion& rotation, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw(Mat4x4::Scale(r).rotated(rotation).translated(center), texture, color);
+
+		return *this;
 	}
 
-	void Sphere::draw(const Mat4x4& mat, const ColorF& color) const
+	const Sphere& Sphere::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw((Mat4x4::Scale(r).translated(center) * mat), color);
+
+		return *this;
 	}
 
-	void Sphere::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
+	const Sphere& Sphere::draw(const Mat4x4& mat, const Texture& texture, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
 			.draw((Mat4x4::Scale(r).translated(center) * mat), texture, color);
+
+		return *this;
 	}
 
 	void Sphere::_Formatter(FormatData& formatData, const Sphere& value)
