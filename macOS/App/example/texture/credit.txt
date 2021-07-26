@@ -10,5 +10,8 @@ https://www.sharetextures.com/textures/ground/ground-5/
 [rock.jpg]
 https://www.sharetextures.com/textures/ground/ground-stone/
 
+[uv.png]
+http://uvchecker.byvalle.com/
+
 [wood.jpg]
 https://www.sharetextures.com/textures/wood/wood-fine-24/
