@@ -141,10 +141,7 @@ namespace s3d
 				src.scaled(scale).draw(pos);
 			}
 			
-		# if not SIV3D_PLATFORM(WEB)
 			Graphics2D::Flush();
-		# endif
-
 		}
 	}
 }
