@@ -162,7 +162,7 @@ vec3 CustomAtmosphericScattering(vec3 V, vec3 sunDirection, vec3 sunColor, bool 
 
 	if (dark_enabled)
 	{
-		totalColor = max(pow(clamp(dot(sunDirection, V), 0.0f, 1.0f), 64) * sunColor, 0) * skyAbsorption;
+		totalColor = max(pow(clamp(dot(sunDirection, V), 0.0f, 1.0f), 64.0f) * sunColor, 0.0f) * skyAbsorption;
 	}
 
 	return totalColor;
@@ -170,7 +170,7 @@ vec3 CustomAtmosphericScattering(vec3 V, vec3 sunDirection, vec3 sunColor, bool 
 
 void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool dark_enabled)
 {
-	if (g_cloudiness <= 0)
+	if (g_cloudiness <= 0.0f)
 	{
 		return;
 	}
@@ -182,7 +182,7 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 	vec3 planeNormal = vec3(0, -1, 0);
 	float t = Trace_plane(o, d, planeOrigin, planeNormal);
 
-	if (t < 0)
+	if (t < 0.0f)
 	{
 		return;
 	}
@@ -192,14 +192,14 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 	vec2 cloudUV = cloudPos * g_cloudScale;
 	float cloudTime = g_cloudTime;
 	mat2x2 m = mat2x2(1.6, 1.2, -1.2, 1.6);
-	uint quality = 8;
+	uint quality = 8u;
 
 	// rotate uvs like a flow effect:
-	float flow = 0;
+	float flow = 0.0f;
 	{
 		vec2 uv = cloudUV * 0.5f;
 		float amount = 0.1;
-		for (uint i = 0; i < quality; i++)
+		for (uint i = 0u; i < quality; i++)
 		{
 			flow += noise(uv) * amount;
 			uv = (uv * m);
@@ -214,7 +214,7 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 		float density = 1.1f;
 		vec2 uv = cloudUV * 0.8f;
 		uv -= flow - time;
-		for (uint i = 0; i < quality; i++)
+		for (uint i = 0u; i < quality; i++)
 		{
 			clouds += density * noise(uv);
 			uv = (uv * m) + time;
@@ -229,7 +229,7 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 		float density = 0.8f;
 		vec2 uv = cloudUV;
 		uv -= flow - time;
-		for (uint i = 0; i < quality; i++)
+		for (uint i = 0u; i < quality; i++)
 		{
 			detail_shape += abs(density * noise(uv));
 			uv = (uv * m) + time;
@@ -240,17 +240,17 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 	}
 
 	// lerp between "choppy clouds" and "uniform clouds". Lower cloudiness will produce choppy clouds, but very high cloudiness will switch to overcast unfiform clouds:
-	clouds = mix(clouds * 9.0f * g_cloudiness + 0.3f, clouds * 0.5f + 0.5f, pow(clamp(g_cloudiness, 0.0f, 1.0f), 8));
-	clouds = clamp(clouds - (1 - g_cloudiness), 0.0f, 1.0f); // modulate constant cloudiness
-	clouds *= pow(1 - clamp(length(abs(cloudPos * 0.00001f)), 0.0f, 1.0f), 16); //fade close to horizon
+	clouds = mix(clouds * 9.0f * g_cloudiness + 0.3f, clouds * 0.5f + 0.5f, pow(clamp(g_cloudiness, 0.0f, 1.0f), 8.0f));
+	clouds = clamp(clouds - (1.0f - g_cloudiness), 0.0f, 1.0f); // modulate constant cloudiness
+	clouds *= pow(1.0f - clamp(length(abs(cloudPos * 0.00001f)), 0.0f, 1.0f), 16.0f); //fade close to horizon
 
 	if (dark_enabled)
 	{
-		sky *= pow(clamp(1 - clouds, 0.0f, 1.0f), 16.0f); // only sun and clouds. Boost clouds to have nicer sun shafts occlusion
+		sky *= pow(clamp(1.0f - clouds, 0.0f, 1.0f), 16.0f); // only sun and clouds. Boost clouds to have nicer sun shafts occlusion
 	}
 	else if (cloudsLightingEnabled)
 	{
-		vec3 cloudLighting = (dot(-V, g_sunDirection) * 0.5f + 0.5f) * g_sunColor * (1 - g_cloudiness);
+		vec3 cloudLighting = (dot(-V, g_sunDirection) * 0.5f + 0.5f) * g_sunColor * (1.0f - g_cloudiness);
 		sky = mix(min(sky, 1.0f), g_cloudColor + cloudLighting, clouds); // sky and clouds on top
 	}
 	else
@@ -281,9 +281,9 @@ void CalculateClouds(inout vec3 sky, vec3 V, bool cloudsLightingEnabled, bool da
 
 // Star Nest based on: https://www.shadertoy.com/view/XlfGRj
 
-#define iterations 22
+#define iterations 22u
 #define formuparam 0.53
-#define volsteps 3
+#define volsteps 3u
 #define stepsize 0.1
 #define tile   0.850
 #define brightness 0.0015
@@ -299,13 +299,13 @@ vec3 GetStars(vec3 V, float starBrightness)
 	float s = 0.1f, fade = 1.0f;
 	vec3 v = vec3(0.0f);
 
-	for (uint r = 0; r < volsteps; ++r)
+	for (uint r = 0u; r < volsteps; ++r)
 	{
 		vec3 p = from + s * dir * 0.5f;
 		p = abs(vec3(tile) - mod(p, vec3(tile * 2.0f))); // tiling fold
 		float pa = 0.0f, a = 0.0f;
 
-		for (uint i = 0; i < iterations; ++i)
+		for (uint i = 0u; i < iterations; ++i)
 		{ 
 			p = abs(p) / dot(p, p) - formuparam; // the magic formula
 			a += abs(length(p) - pa); // absolute sum of average change
@@ -315,7 +315,7 @@ vec3 GetStars(vec3 V, float starBrightness)
 		float dm = max(0.0f, darkmatter - a * a * 0.001f); //dark matter
 		a *= a * a; // add contrast
 		
-		if (6 < r)
+		if (6u < r)
 		{
 			fade*=1.-dm; // dark matter, don't render near
 		}
@@ -349,7 +349,7 @@ vec3 GetDynamicSkyColor(in vec3 V, bool sun_enabled, bool clouds_enabled, bool d
 
 	if (0.0 < g_starBrightness)
 	{
-		float starBrightness = g_starBrightness * (1 - g_cloudiness) * (1 - g_cloudiness);
+		float starBrightness = g_starBrightness * (1.0f - g_cloudiness) * (1.0f- g_cloudiness);
 		sky += GetStars(V, starBrightness);
 	}
 
@@ -357,7 +357,7 @@ vec3 GetDynamicSkyColor(in vec3 V, bool sun_enabled, bool clouds_enabled, bool d
 
 	if (clouds_enabled)
 	{
-		bool cloudsLightingEnabled = (g_option & OPTION_CLOUDS_LIGHTING_ENABLED) != 0;
+		bool cloudsLightingEnabled = (g_option & OPTION_CLOUDS_LIGHTING_ENABLED) != 0u;
 		CalculateClouds(sky, V, cloudsLightingEnabled, dark_enabled);
 	}
 
@@ -368,9 +368,9 @@ void main()
 {
 	vec3 dir = normalize(WorldPosition - g_eyePosition);
 
-	bool sunEnabled = (g_option & OPTION_SUN_ENABLED) != 0;
+	bool sunEnabled = (g_option & OPTION_SUN_ENABLED) != 0u;
 
-	bool cloudsEnabled = (g_option & OPTION_CLOUDS_ENABLED) != 0;
+	bool cloudsEnabled = (g_option & OPTION_CLOUDS_ENABLED) != 0u;
 
 	vec3 skyColor = GetDynamicSkyColor(dir, sunEnabled, cloudsEnabled, false);
 
