@@ -114,6 +114,37 @@ namespace s3d
 		, size{ _size }
 		, orientation{ _orientation } {}
 
+
+	inline OrientedBox::OrientedBox(const Arg::bottomCenter_<Vec3> bottomCenter, const double _size, const Quaternion _orientation) noexcept
+		: center{ bottomCenter->movedBy(0, (_size * 0.5), 0) }
+		, size{ _size, _size, _size }
+		, orientation{ _orientation } {}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline OrientedBox::OrientedBox(const Arg::bottomCenter_<Vec3> bottomCenter, const Arithmetic _size, const Quaternion _orientation) noexcept
+		: OrientedBox{ bottomCenter, static_cast<double>(_size), _orientation } {}
+
+	inline OrientedBox::OrientedBox(const Arg::bottomCenter_<Vec3> bottomCenter, const double _w, const double _h, const double _d, const Quaternion _orientation) noexcept
+		: center{ bottomCenter->movedBy(0, (_h * 0.5), 0) }
+		, size{ _w, _h, _d }
+		, orientation{ _orientation } {}
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic D>
+# else
+	template <class W, class H, class D, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>*>
+# endif
+	inline OrientedBox::OrientedBox(const Arg::bottomCenter_<Vec3> bottomCenter, const W _w, const H _h, const D _d, const Quaternion _orientation) noexcept
+		: center{ bottomCenter->movedBy(0, (_h * 0.5), 0) }
+		, size{ static_cast<double>(_w), static_cast<double>(_h), static_cast<double>(_d) }
+		, orientation{ _orientation } {}
+
+	inline OrientedBox::OrientedBox(const Arg::bottomCenter_<Vec3> bottomCenter, const Vec3& _size, const Quaternion _orientation) noexcept
+		: center{ bottomCenter->movedBy(0, (_size.y * 0.5), 0) }
+		, size{ _size }
+		, orientation{ _orientation } {}
+
+
 	inline OrientedBox::OrientedBox(const Box& box, const Quaternion _orientation) noexcept
 		: center{ box.center }
 		, size{ box.size }

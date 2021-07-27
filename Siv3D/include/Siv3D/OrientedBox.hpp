@@ -102,6 +102,29 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(const Vec3& _center, const Vec3& _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
+
+		SIV3D_NODISCARD_CXX20
+		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, double _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, Arithmetic _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, double _w, double _h, double _d, Quaternion _orientation = Quaternion::Identity()) noexcept;
+
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H, Concept::Arithmetic D>
+	# else
+		template <class W, class H, class D, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>, std::is_arithmetic<D>>>* = nullptr>
+	# endif
+		SIV3D_NODISCARD_CXX20
+		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, W _w, H _h, D _d, Quaternion _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, const Vec3& _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
+
+
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(const Box& box, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
@@ -135,7 +158,60 @@ namespace s3d
 
 		const OrientedBox& drawFrame(const ColorF & color = Palette::White) const;
 
+
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const OrientedBox& value)
+		{
+			return output << CharType('(')
+				<< value.center << CharType(',') << CharType(' ')
+				<< value.size << CharType(',') << CharType(' ')
+				<< value.orientation << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, OrientedBox& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.center >> unused
+				>> value.size >> unused
+				>> value.orientation >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const OrientedBox& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const OrientedBox& value);
 	};
 }
 
 # include "detail/OrientedBox.ipp"
+
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::OrientedBox, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const s3d::OrientedBox& value, FormatContext& ctx)
+	{
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.center, value.size, value.orientation);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.center, value.size, value.orientation);
+		}
+	}
+};

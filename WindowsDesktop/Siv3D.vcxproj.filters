@@ -1501,6 +1501,9 @@
     <Filter Include="src\Siv3D\ViewFrustum">
       <UniqueIdentifier>{e2dfc0eb-5fda-4916-826b-e4d15e87fbaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Triangle3D">
+      <UniqueIdentifier>{d86d09c7-4a9e-437d-b091-ce28bafb65ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9061,6 +9064,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ViewFrustum\SivViewFrustum.cpp">
       <Filter>src\Siv3D\ViewFrustum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp">
+      <Filter>src\Siv3D\Triangle3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

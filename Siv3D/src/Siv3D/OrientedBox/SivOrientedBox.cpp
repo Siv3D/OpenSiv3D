@@ -115,4 +115,34 @@ namespace s3d
 
 		return *this;
 	}
+
+	void OrientedBox::_Formatter(FormatData& formatData, const OrientedBox& value)
+	{
+		formatData.string.append(U"(("_sv);
+
+		formatData.string.append(ToString(value.center.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.center.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.center.z, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.size.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.size.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.size.z, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		const Float4 o = value.orientation.toFloat4();
+		formatData.string.append(ToString(o.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(o.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(o.z, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(o.w, formatData.decimalPlaces.value));
+
+		formatData.string.append(U"))"_sv);
+	}
 }
