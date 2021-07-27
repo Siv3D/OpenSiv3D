@@ -19,7 +19,8 @@ namespace s3d
 {
 	GLES3Texture::GLES3Texture(const Image& image, const TextureDesc desc)
 	{
-		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const TextureFormat format = 
+			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
@@ -39,7 +40,8 @@ namespace s3d
 	
 	GLES3Texture::GLES3Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
-		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const TextureFormat format =
+			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
