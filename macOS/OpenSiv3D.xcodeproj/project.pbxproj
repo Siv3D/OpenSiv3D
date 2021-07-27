@@ -1177,6 +1177,7 @@
 		2C768DC1268C67D500A02CF5 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC0268C67D500A02CF5 /* SivSphere.cpp */; };
 		2C768DC7268D8E4D00A02CF5 /* SivBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */; };
 		2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */; };
+		2C780BA526B04B7E008FADA0 /* SivTriangle3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */; };
 		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3382,6 +3383,7 @@
 		2C768DC9268E190B00A02CF5 /* InfinitePlane.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.ipp; sourceTree = "<group>"; };
 		2C768DCA268E28E000A02CF5 /* MeshData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshData.hpp; sourceTree = "<group>"; };
 		2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMeshData.cpp; sourceTree = "<group>"; };
+		2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
 		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -6183,6 +6185,7 @@
 				2C5043C826512B6000E36D08 /* ToastNotification */,
 				2C4A485C2636543200BDCBA2 /* TOMLReader */,
 				2C53C33C25613B8A0072831A /* Triangle */,
+				2C780BA326B04B7E008FADA0 /* Triangle3D */,
 				2C794B7925C4FDA000034D81 /* Twitter */,
 				2C47B26524DD9789008D83BE /* Unicode */,
 				2C47B28024DD9789008D83BE /* UnicodeConverter */,
@@ -8843,6 +8846,14 @@
 				2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */,
 			);
 			path = MeshData;
+			sourceTree = "<group>";
+		};
+		2C780BA326B04B7E008FADA0 /* Triangle3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */,
+			);
+			path = Triangle3D;
 			sourceTree = "<group>";
 		};
 		2C794AA325C257C000034D81 /* Metal */ = {
@@ -11906,6 +11917,7 @@
 				2C533740264E0EE600CE0F1B /* AIFFDecoder.cpp in Sources */,
 				2C13C6F325B458350054B968 /* SivSubdivision2D.cpp in Sources */,
 				2C53378E264F5AA200CE0F1B /* zstdmt_compress.c in Sources */,
+				2C780BA526B04B7E008FADA0 /* SivTriangle3D.cpp in Sources */,
 				2C0848A52557C0F200C9838C /* SivInputGroup.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
