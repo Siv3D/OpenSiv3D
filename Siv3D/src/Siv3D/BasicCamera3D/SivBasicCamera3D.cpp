@@ -67,6 +67,12 @@ namespace s3d
 		updateViewProj();
 	}
 
+	Quaternion BasicCamera3D::getLookAtOrientation() const noexcept
+	{
+		return Quaternion::FromUnitVectorPairs({ Vec3::Forward(), Vec3::Up() },
+			{ getLookAtVector(), Vec3::Up() });
+	}
+
 	Float3 BasicCamera3D::worldToScreenPoint(const Float3& pos) const noexcept
 	{
 		Float3 v = SIMD_Float4{ DirectX::XMVector3TransformCoord(SIMD_Float4{ pos, 0.0f }, m_viewProj) }.xyz();

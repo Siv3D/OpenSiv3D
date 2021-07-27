@@ -290,6 +290,23 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr Vector3D<Type> Vector3D<Type>::projectOnVector(const Vector3D v) const noexcept
+	{
+		if (v.lengthSq() < 0.0000001)
+		{
+			return{ 0, 0, 0 };
+		}
+
+		return (v * (dot(v) / v.dot(v)));
+	}
+
+	template <class Type>
+	inline constexpr Vector3D<Type> Vector3D<Type>::projectOnPlane(const Vector3D planeNormal) const noexcept
+	{
+		return (*this - projectOnVector(planeNormal));
+	}
+
+	template <class Type>
 	inline typename Vector3D<Type>::value_type Vector3D<Type>::length() const noexcept
 	{
 		return std::sqrt(lengthSq());

@@ -64,6 +64,12 @@ namespace s3d
 		const Vec3& getUpDirection() const noexcept;
 
 		[[nodiscard]]
+		Vec3 getLookAtVector() const noexcept;
+
+		[[nodiscard]]
+		Quaternion getLookAtOrientation() const noexcept;
+
+		[[nodiscard]]
 		const Mat4x4& SIV3D_VECTOR_CALL getProj() const noexcept;
 
 		[[nodiscard]]

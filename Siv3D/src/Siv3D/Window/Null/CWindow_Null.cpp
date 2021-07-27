@@ -55,12 +55,12 @@ namespace s3d
 		return m_state;
 	}
 
-	void CWindow_Null::setStyle(const WindowStyle style)
+	void CWindow_Null::setStyle([[maybe_unused]] const WindowStyle style)
 	{
 		LOG_TRACE(U"CWindow_Null::setStyle(style = {})"_fmt(FromEnum(style)));
 	}
 
-	void CWindow_Null::setPos(const Point& pos)
+	void CWindow_Null::setPos([[maybe_unused]] const Point& pos)
 	{
 		LOG_TRACE(U"CWindow_Null::setPos(pos = {})"_fmt(pos));
 	}
@@ -80,26 +80,26 @@ namespace s3d
 		LOG_TRACE(U"CWindow_Null::minimize()");
 	}
 
-	bool CWindow_Null::resizeByVirtualSize(const Size& size)
+	bool CWindow_Null::resizeByVirtualSize([[maybe_unused]] const Size& size)
 	{
 		LOG_TRACE(U"CWindow_Null::resizeByVirtualSize(size = {})"_fmt(size));
 		
 		return true;
 	}
 
-	bool CWindow_Null::resizeByFrameBufferSize(const Size& size)
+	bool CWindow_Null::resizeByFrameBufferSize([[maybe_unused]] const Size& size)
 	{
 		LOG_TRACE(U"CWindow_Null::resizeByFrameBufferSize(size = {})"_fmt(size));
 
 		return true;
 	}
 
-	void CWindow_Null::setMinimumFrameBufferSize(const Size& size)
+	void CWindow_Null::setMinimumFrameBufferSize([[maybe_unused]] const Size& size)
 	{
 		LOG_TRACE(U"CWindow_Null::setMinimumFrameBufferSize(size = {})"_fmt(size));
 	}
 
-	void CWindow_Null::setFullscreen(const bool fullscreen, const size_t monitorIndex)
+	void CWindow_Null::setFullscreen([[maybe_unused]] const bool fullscreen, [[maybe_unused]] const size_t monitorIndex)
 	{
 		LOG_TRACE(U"CWindow_Null::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
 	}

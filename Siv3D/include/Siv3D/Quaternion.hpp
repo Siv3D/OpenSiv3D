@@ -140,6 +140,9 @@ namespace s3d
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL FromUnitVectors(const Vec3& from, const Vec3& to) noexcept;
 
+		[[nodiscard]]
+		static Quaternion SIV3D_VECTOR_CALL FromUnitVectorPairs(const std::pair<Vec3, Vec3>& from, const std::pair<Vec3, Vec3>& to) noexcept;
+
 		template <class X, class Y, class Z>
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL RollPitchYaw(X pitch, Y yaw, Z roll) noexcept;

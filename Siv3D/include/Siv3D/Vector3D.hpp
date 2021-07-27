@@ -185,6 +185,12 @@ namespace s3d
 		value_type angleTo(Vector3D v) const noexcept;
 
 		[[nodiscard]]
+		constexpr Vector3D projectOnVector(Vector3D v) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D projectOnPlane(Vector3D planeNormal) const noexcept;
+
+		[[nodiscard]]
 		value_type length() const noexcept;
 
 		[[nodiscard]]

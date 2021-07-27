@@ -24,23 +24,6 @@ namespace s3d
 		{
 			0, 1, 3, 2, 4, 5, 7, 6
 		};
-
-		[[nodiscard]]
-		static Vec3 ProjectOnVector(const Vec3& v, const Vec3& u) noexcept
-		{
-			if (u.lengthSq() < 0.0000001)
-			{
-				return{ 0, 0, 0 };
-			}
-
-			return (u * (v.dot(u) / u.dot(u)));
-		}
-
-		[[nodiscard]]
-		static Vec3 ProjectOnPlane(const Vec3& v, const Vec3& planeNormal) noexcept
-		{
-			return (v - ProjectOnVector(v, planeNormal));
-		}
 	}
 
 	ViewFrustum::ViewFrustum(const BasicCamera3D& camera, const double farClip) noexcept
@@ -60,29 +43,10 @@ namespace s3d
 		DirectX::BoundingFrustum::CreateFromMatrix(m_frustum, proj);
 		m_frustum.Origin = DirectX::XMFLOAT3{ static_cast<float>(eyePosition.x), static_cast<float>(eyePosition.y), static_cast<float>(eyePosition.z) };
 
-		const Vec3 u0 = Vec3::Forward();
-		const Vec3 v0 = Vec3::Up();
+		const Quaternion q = Quaternion::FromUnitVectorPairs(
+			{ Vec3::Forward(), Vec3::Up() }, { (focusPosition - eyePosition).normalized(), upDirection });
 
-		const Vec3 u2 = (focusPosition - eyePosition).normalized();
-		const Vec3 v2 = upDirection;
-
-		// https://stackoverflow.com/questions/19445934/quaternion-from-two-vector-pairs
-		// https://robokitchen.tumblr.com/post/67060392720/finding-a-quaternion-from-two-pairs-of-vectors
-		const Quaternion q2 = Quaternion::FromUnitVectors(u0, u2);
-		const Vec3 v1 = v2 * q2.conjugated();
-		const Vec3 v0_proj = detail::ProjectOnPlane(v0, u0);
-		const Vec3 v1_proj = detail::ProjectOnPlane(v1, u0);
-
-		double angleInPlane = v0_proj.angleTo(v1_proj);
-
-		if (v1_proj.dot(u0.cross(v0)) < 0.0)
-		{
-			angleInPlane *= -1;
-		}
-
-		const Quaternion q1 = Quaternion::RotationAxis(u0, angleInPlane);// new THREE.Quaternion().setFromAxisAngle(u0, angleInPlane);
-		const Quaternion q = (q1 * q2);
-		const Float4 o = q.toFloat4().normalize();
+		const Float4 o = q.toFloat4();
 
 		m_frustum.Orientation = { o.x, o.y, o.z, o.w };
 	}

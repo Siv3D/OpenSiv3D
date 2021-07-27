@@ -43,6 +43,11 @@ namespace s3d
 		return m_upDirection;
 	}
 
+	inline Vec3 BasicCamera3D::getLookAtVector() const noexcept
+	{
+		return (m_focusPosition - m_eyePosition).normalized();
+	}
+
 	inline const Mat4x4& BasicCamera3D::getProj() const noexcept
 	{
 		return m_proj;
