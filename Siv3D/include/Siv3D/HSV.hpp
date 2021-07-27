@@ -128,6 +128,12 @@ namespace s3d
 		size_t hash() const noexcept;
 
 		[[nodiscard]]
+		ColorF removeSRGBCurve() const noexcept;
+
+		[[nodiscard]]
+		ColorF applySRGBCurve() const noexcept;
+
+		[[nodiscard]]
 		Color toColor() const noexcept;
 
 		[[nodiscard]]

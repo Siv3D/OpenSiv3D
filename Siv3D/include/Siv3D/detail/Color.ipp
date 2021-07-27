@@ -246,6 +246,16 @@ namespace s3d
 				a };
 	}
 
+	inline ColorF Color::removeSRGBCurve() const noexcept
+	{
+		return ColorF{ *this }.removeSRGBCurve();
+	}
+
+	inline ColorF Color::applySRGBCurve() const noexcept
+	{
+		return ColorF{ *this }.applySRGBCurve();
+	}
+
 	inline String Color::toHex() const
 	{
 		const uint32 rgb = ((r << 16) | (g << 8) | b);

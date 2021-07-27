@@ -205,6 +205,16 @@ namespace s3d
 		return Hash::FNV1a(*this);
 	}
 
+	inline ColorF HSV::removeSRGBCurve() const noexcept
+	{
+		return toColorF().removeSRGBCurve();
+	}
+
+	inline ColorF HSV::applySRGBCurve() const noexcept
+	{
+		return toColorF().applySRGBCurve();
+	}
+
 	inline Color HSV::toColor() const noexcept
 	{
 		return toColor(Color::ToUint8(a));

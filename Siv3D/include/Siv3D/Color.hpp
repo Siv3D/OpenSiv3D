@@ -197,6 +197,12 @@ namespace s3d
 		Color gamma(double gamma) const noexcept;
 
 		[[nodiscard]]
+		ColorF removeSRGBCurve() const noexcept;
+
+		[[nodiscard]]
+		ColorF applySRGBCurve() const noexcept;
+
+		[[nodiscard]]
 		String toHex() const;
 
 		[[nodiscard]]
