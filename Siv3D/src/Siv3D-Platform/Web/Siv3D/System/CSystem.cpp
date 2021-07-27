@@ -134,7 +134,6 @@ namespace s3d
 			return false;
 		}
 		
-		SIV3D_ENGINE(Renderer)->clear();
 		SIV3D_ENGINE(Addon)->draw();
 		SIV3D_ENGINE(Print)->draw();
 		SIV3D_ENGINE(Renderer)->flush();
@@ -157,6 +156,7 @@ namespace s3d
 		}
 		SIV3D_ENGINE(Scene)->update();
 		SIV3D_ENGINE(Window)->update();
+		SIV3D_ENGINE(Renderer)->clear();
 		SIV3D_ENGINE(Asset)->update();
 		SIV3D_ENGINE(Cursor)->update();
 		SIV3D_ENGINE(Keyboard)->update();
