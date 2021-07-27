@@ -11,6 +11,8 @@
 
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/Line3D.hpp>
+# include <Siv3D/Triangle3D.hpp>
+# include <Siv3D/ViewFrustum.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Quaternion.hpp>
 # include <Siv3D/FormatFloat.hpp>
@@ -45,6 +47,93 @@ namespace s3d
 
 		return results;
 	}
+
+	bool OrientedBox::intersects(const Vec3& point) const noexcept
+	{
+		return (detail::FromOrientedBox(*this).Contains(SIMD_Float4{ point, 0.0f }) == DirectX::CONTAINS);
+	}
+
+	bool OrientedBox::intersects(const Triangle3D& triangle) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		return b.Intersects(triangle.p0, triangle.p1, triangle.p2);
+	}
+
+	bool OrientedBox::intersects(const Sphere& sphere) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		return b.Intersects(detail::FromSphere(sphere));
+	}
+
+	bool OrientedBox::intersects(const Box& box) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		return b.Intersects(detail::FromBox(box));
+	}
+
+	bool OrientedBox::intersects(const OrientedBox& box) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		return b.Intersects(detail::FromOrientedBox(box));
+	}
+
+	bool OrientedBox::intersects(const ViewFrustum& frustum) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		return b.Intersects(frustum.getData());
+	}
+
+	Optional<float> OrientedBox::intersects(const Ray& ray) const noexcept
+	{
+		return ray.intersects(*this);
+	}
+
+	bool OrientedBox::contains(const Vec3& point) const noexcept
+	{
+		return (detail::FromOrientedBox(*this).Contains(SIMD_Float4{ point, 0.0f }) == DirectX::CONTAINS);
+	}
+
+	bool OrientedBox::contains(const Triangle3D& triangle) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		const auto result = b.Contains(triangle.p0, triangle.p1, triangle.p2);
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool OrientedBox::contains(const Sphere& sphere) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		const auto result = b.Contains(detail::FromSphere(sphere));
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool OrientedBox::contains(const Box& box) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		const auto result = b.Contains(detail::FromBox(box));
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool OrientedBox::contains(const OrientedBox& box) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		const auto result = b.Contains(detail::FromOrientedBox(box));
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool OrientedBox::contains(const ViewFrustum& frustum) const noexcept
+	{
+		const auto b = detail::FromOrientedBox(*this);
+		const auto result = b.Contains(frustum.getData());
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+
 
 	const OrientedBox& OrientedBox::draw(const ColorF& color) const
 	{

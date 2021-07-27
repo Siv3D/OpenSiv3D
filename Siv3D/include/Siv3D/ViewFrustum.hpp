@@ -54,6 +54,12 @@ namespace s3d
 		[[nodiscard]]
 		bool intersects(const OrientedBox& box) const noexcept;
 
+		[[nodiscard]]
+		bool intersects(const ViewFrustum& frustum) const noexcept;
+
+		[[nodiscard]]
+		Optional<float> intersects(const Ray& ray) const noexcept;
+
 
 		[[nodiscard]]
 		bool contains(const Vec3& point) const noexcept;
@@ -70,6 +76,9 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const OrientedBox& box) const noexcept;
 
+		[[nodiscard]]
+		bool contains(const ViewFrustum& frustum) const noexcept;
+
 
 
 		[[nodiscard]]
@@ -77,6 +86,10 @@ namespace s3d
 
 		[[nodiscard]]
 		Quaternion getOrientation() const noexcept;
+
+		[[nodiscard]]
+		Sphere computeBoundingSphere() const noexcept;
+
 
 		const ViewFrustum& drawFrame(const ColorF& color = Palette::White) const;
 		

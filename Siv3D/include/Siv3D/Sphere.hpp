@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Optional.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 
@@ -19,6 +20,10 @@ namespace s3d
 	class Texture;
 	struct Quaternion;
 	struct Mat4x4;
+	struct Triangle3D;
+	struct OrientedBox;
+	class ViewFrustum;
+	struct Ray;
 
 	struct Sphere
 	{
@@ -48,6 +53,49 @@ namespace s3d
 		SIV3D_CONCEPT_ARITHMETIC
 		SIV3D_NODISCARD_CXX20
 		constexpr Sphere(const Vec3& _center, Arithmetic _r) noexcept;
+
+
+
+		[[nodiscard]]
+		bool intersects(const Vec3& point) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Triangle3D& triangle) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Sphere& sphere) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Box& box) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const OrientedBox& box) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const ViewFrustum& frustum) const noexcept;
+
+		[[nodiscard]]
+		Optional<float> intersects(const Ray& ray) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Vec3& point) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Triangle3D& triangle) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Sphere& sphere) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Box& box) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const OrientedBox& box) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const ViewFrustum& frustum) const noexcept;
+
+
 
 
 		const Sphere& draw(const ColorF& color = Palette::White) const;

@@ -78,34 +78,32 @@ namespace s3d
 
 	bool ViewFrustum::intersects(const Triangle3D& triangle) const noexcept
 	{
-		const auto result = m_frustum.Contains(triangle.p0, triangle.p1, triangle.p2);
-
-		return (result == DirectX::ContainmentType::CONTAINS)
-			|| (result == DirectX::ContainmentType::INTERSECTS);
+		return m_frustum.Intersects(triangle.p0, triangle.p1, triangle.p2);
 	}
 
 	bool ViewFrustum::intersects(const Sphere& sphere) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromSphere(sphere));
-
-		return (result == DirectX::ContainmentType::CONTAINS)
-			|| (result == DirectX::ContainmentType::INTERSECTS);
+		return m_frustum.Intersects(detail::FromSphere(sphere));
 	}
 
 	bool ViewFrustum::intersects(const Box& box) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromBox(box));
-
-		return (result == DirectX::ContainmentType::CONTAINS)
-			|| (result == DirectX::ContainmentType::INTERSECTS);
+		return m_frustum.Intersects(detail::FromBox(box));
 	}
 
 	bool ViewFrustum::intersects(const OrientedBox& box) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromOrientedBox(box));
+		return m_frustum.Intersects(detail::FromOrientedBox(box));
+	}
 
-		return (result == DirectX::ContainmentType::CONTAINS)
-			|| (result == DirectX::ContainmentType::INTERSECTS);
+	bool ViewFrustum::intersects(const ViewFrustum& frustum) const noexcept
+	{
+		return m_frustum.Intersects(frustum.getData());
+	}
+
+	Optional<float> ViewFrustum::intersects(const Ray& ray) const noexcept
+	{
+		return ray.intersects(*this);
 	}
 
 	bool ViewFrustum::contains(const Vec3& point) const noexcept
@@ -140,6 +138,13 @@ namespace s3d
 
 		return (result == DirectX::ContainmentType::CONTAINS);
 	}
+
+	bool ViewFrustum::contains(const ViewFrustum& frustum) const noexcept
+	{
+		const auto result = m_frustum.Contains(frustum.getData());
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
 	
 	Vec3 ViewFrustum::getOrigin() const noexcept
 	{
@@ -158,6 +163,13 @@ namespace s3d
 			m_frustum.Orientation.z,
 			m_frustum.Orientation.w,
 		};
+	}
+
+	Sphere ViewFrustum::computeBoundingSphere() const noexcept
+	{
+		DirectX::BoundingSphere result;
+		DirectX::BoundingSphere::CreateFromFrustum(result, m_frustum);
+		return detail::ToSphere(result);
 	}
 
 	const ViewFrustum& ViewFrustum::drawFrame(const ColorF& color) const

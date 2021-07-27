@@ -23,6 +23,7 @@ namespace s3d
 	struct Plane;
 	struct Box;
 	struct OrientedBox;
+	class ViewFrustum;
 
 	struct Ray
 	{
@@ -76,6 +77,9 @@ namespace s3d
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const OrientedBox& obb) const;
 
+		[[nodiscard]]
+		Optional<float> SIV3D_VECTOR_CALL intersects(const ViewFrustum& frustum) const;
+
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Triangle3D& triangle) const;
@@ -91,6 +95,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const OrientedBox& obb) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const ViewFrustum& frustum) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)

@@ -19,27 +19,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		[[nodiscard]]
-		Sphere ToSphere(const DirectX::BoundingSphere& sphere) noexcept;
-
-		[[nodiscard]]
-		Box ToBox(const DirectX::BoundingBox& box) noexcept;
-
-		[[nodiscard]]
-		OrientedBox ToOrientedBox(const DirectX::BoundingOrientedBox& box) noexcept;
-
-		[[nodiscard]]
-		DirectX::BoundingSphere FromSphere(const Sphere& sphere) noexcept;
-
-		[[nodiscard]]
-		DirectX::BoundingBox FromBox(const Box& box) noexcept;
-
-		[[nodiscard]]
-		DirectX::BoundingOrientedBox FromOrientedBox(const OrientedBox& box) noexcept;
-	}
-
 	namespace Geometry3D
 	{
 		[[nodiscard]]
@@ -67,3 +46,5 @@ namespace s3d
 		Box MergeBoundingBoxes(const Box& a, const Box& b) noexcept;
 	}
 }
+
+# include "detail/Geometry3D.ipp"

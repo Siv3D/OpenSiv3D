@@ -154,6 +154,46 @@ namespace s3d
 		OrientedBox stretched(Vec3 xyz) const noexcept;
 
 
+		[[nodiscard]]
+		bool intersects(const Vec3& point) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Triangle3D& triangle) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Sphere& sphere) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const Box& box) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const OrientedBox& box) const noexcept;
+
+		[[nodiscard]]
+		bool intersects(const ViewFrustum& frustum) const noexcept;
+
+		[[nodiscard]]
+		Optional<float> intersects(const Ray& ray) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Vec3& point) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Triangle3D& triangle) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Sphere& sphere) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const Box& box) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const OrientedBox& box) const noexcept;
+
+		[[nodiscard]]
+		bool contains(const ViewFrustum& frustum) const noexcept;
+
+
 		const OrientedBox& draw(const ColorF & color = Palette::White) const;
 
 		const OrientedBox& draw(const Texture & texture, const ColorF & color = Palette::White) const;

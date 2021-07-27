@@ -14,6 +14,7 @@
 # include <Siv3D/Plane.hpp>
 # include <Siv3D/Box.hpp>
 # include <Siv3D/OrientedBox.hpp>
+# include <Siv3D/ViewFrustum.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
@@ -247,6 +248,98 @@ namespace s3d
 		return none;
 	}
 
+	Optional<float> Ray::intersects(const ViewFrustum& frustum) const
+	{
+		using namespace DirectX;
+		const auto& f = frustum.getData();
+
+		// If ray starts inside the frustum, return a distance of 0 for the hit
+		if (f.Contains(origin) == CONTAINS)
+		{
+			return 0.0f;
+		}
+
+		// Build the frustum planes.
+		XMVECTOR Planes[6];
+		Planes[0] = XMVectorSet(0.0f, 0.0f, -1.0f, f.Near);
+		Planes[1] = XMVectorSet(0.0f, 0.0f, 1.0f, -f.Far);
+		Planes[2] = XMVectorSet(1.0f, 0.0f, -f.RightSlope, 0.0f);
+		Planes[3] = XMVectorSet(-1.0f, 0.0f, f.LeftSlope, 0.0f);
+		Planes[4] = XMVectorSet(0.0f, 1.0f, -f.TopSlope, 0.0f);
+		Planes[5] = XMVectorSet(0.0f, -1.0f, f.BottomSlope, 0.0f);
+
+		// Load origin and orientation of the frustum.
+		XMVECTOR frOrigin = XMLoadFloat3(&f.Origin);
+		XMVECTOR frOrientation = XMLoadFloat4(&f.Orientation);
+
+		// This algorithm based on "Fast Ray-Convex Polyhedron Intersectin," in James Arvo, ed., Graphics Gems II pp. 247-250
+		float tnear = -FLT_MAX;
+		float tfar = FLT_MAX;
+
+		for (size_t i = 0; i < 6; ++i)
+		{
+			XMVECTOR Plane = DirectX::Internal::XMPlaneTransform(Planes[i], frOrientation, frOrigin);
+			Plane = XMPlaneNormalize(Plane);
+
+			XMVECTOR AxisDotOrigin = XMPlaneDotCoord(Plane, origin);
+			XMVECTOR AxisDotDirection = XMVector3Dot(Plane, direction);
+
+			if (XMVector3LessOrEqual(XMVectorAbs(AxisDotDirection), g_RayEpsilon))
+			{
+				// Ray is parallel to plane - check if ray origin is inside plane's
+				if (XMVector3Greater(AxisDotOrigin, g_XMZero))
+				{
+					// Ray origin is outside half-space.
+					return none;
+				}
+			}
+			else
+			{
+				// Ray not parallel - get distance to plane.
+				float vd = XMVectorGetX(AxisDotDirection);
+				float vn = XMVectorGetX(AxisDotOrigin);
+				float t = -vn / vd;
+				if (vd < 0.0f)
+				{
+					// Front face - T is a near point.
+					if (t > tfar)
+					{
+						return none;
+					}
+					if (t > tnear)
+					{
+						// Hit near face.
+						tnear = t;
+					}
+				}
+				else
+				{
+					// back face - T is far point.
+					if (t < tnear)
+					{
+						return none;
+					}
+					if (t < tfar)
+					{
+						// Hit far face.
+						tfar = t;
+					}
+				}
+			}
+		}
+
+		// Survived all tests.
+		// Note: if ray originates on polyhedron, may want to change 0.0f to some
+		// epsilon to avoid intersecting the originating face.
+		float distance = (tnear >= 0.0f) ? tnear : tfar;
+		if (distance >= 0.0f)
+		{
+			return distance;
+		}
+
+		return none;
+	}
+
 	Optional<Float3> Ray::intersectsAt(const Triangle3D& triangle) const
 	{
 		float dist;
@@ -293,6 +386,18 @@ namespace s3d
 	Optional<Float3> Ray::intersectsAt(const OrientedBox& obb) const
 	{
 		if (const auto dist = intersects(obb))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3>SIV3D_VECTOR_CALL Ray::intersectsAt(const ViewFrustum& frustum) const
+	{
+		if (const auto dist = intersects(frustum))
 		{
 			return point_at(*dist);
 		}

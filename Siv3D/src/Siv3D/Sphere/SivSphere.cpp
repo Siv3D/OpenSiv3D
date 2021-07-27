@@ -10,6 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/Sphere.hpp>
+# include <Siv3D/Triangle3D.hpp>
+# include <Siv3D/ViewFrustum.hpp>
+# include <Siv3D/Ray.hpp>
+# include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/Quaternion.hpp>
 # include <Siv3D/FormatFloat.hpp>
@@ -18,6 +22,94 @@
 
 namespace s3d
 {
+	bool Sphere::intersects(const Vec3& point) const noexcept
+	{
+		const double distanceSq = point.distanceFromSq(center);
+		const double radiusSq = (r * r);
+		return (distanceSq <= radiusSq);
+	}
+
+	bool Sphere::intersects(const Triangle3D& triangle) const noexcept
+	{
+		const auto sphere = detail::FromSphere(*this);
+		return sphere.Intersects(triangle.p0, triangle.p1, triangle.p2);
+	}
+
+	bool Sphere::intersects(const Sphere& sphere) const noexcept
+	{
+		const double distanceSq = center.distanceFrom(sphere.center);
+		const double radiusSum = (r + sphere.r);
+		return (distanceSq <= (radiusSum * radiusSum));
+	}
+
+	bool Sphere::intersects(const Box& box) const noexcept
+	{
+		return detail::FromBox(box).Intersects(detail::FromSphere(*this));
+	}
+
+	bool Sphere::intersects(const OrientedBox& box) const noexcept
+	{
+		return detail::FromOrientedBox(box).Intersects(detail::FromSphere(*this));
+	}
+
+	bool Sphere::intersects(const ViewFrustum& frustum) const noexcept
+	{
+		return frustum.getData().Intersects(detail::FromSphere(*this));
+	}
+
+	Optional<float> Sphere::intersects(const Ray& ray) const noexcept
+	{
+		return ray.intersects(*this);
+	}
+
+	bool Sphere::contains(const Vec3& point) const noexcept
+	{
+		const double distanceSq = point.distanceFromSq(center);
+		const double radiusSq = (r * r);
+		return (distanceSq < radiusSq);
+	}
+
+	bool Sphere::contains(const Triangle3D& triangle) const noexcept
+	{
+		const auto sphere = detail::FromSphere(*this);
+		const auto result = sphere.Contains(triangle.p0, triangle.p1, triangle.p2);
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool Sphere::contains(const Sphere& sphere) const noexcept
+	{
+		return (sphere.r < r)
+			&& (center.distanceFromSq(sphere.center) <= ((r - sphere.r) * (r - sphere.r)));
+	}
+
+	bool Sphere::contains(const Box& box) const noexcept
+	{
+		const auto sphere = detail::FromSphere(*this);
+		const auto result = sphere.Contains(detail::FromBox(box));
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool Sphere::contains(const OrientedBox& box) const noexcept
+	{
+		const auto sphere = detail::FromSphere(*this);
+		const auto result = sphere.Contains(detail::FromOrientedBox(box));
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+	bool Sphere::contains(const ViewFrustum& frustum) const noexcept
+	{
+		const auto sphere = detail::FromSphere(*this);
+		const auto result = sphere.Contains(frustum.getData());
+
+		return (result == DirectX::ContainmentType::CONTAINS);
+	}
+
+
+
+
 	const Sphere& Sphere::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
