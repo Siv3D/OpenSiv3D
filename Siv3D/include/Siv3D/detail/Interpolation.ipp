@@ -45,5 +45,12 @@ namespace s3d
 			const auto diff = std::fmod(to - from, Math::TwoPi_v<CommonFloat_t<T, U>>);
 			return (from + (std::fmod(2 * diff, Math::TwoPi_v<CommonFloat_t<T, U>>) - diff) * t);
 		}
+
+		inline double Eerp(const double a, const double b, const double t) noexcept
+		{
+			assert(a != 0.0);
+			assert(0.0 <= (b / a));
+			return (a * std::pow((b / a), t));
+		}
 	}
 }

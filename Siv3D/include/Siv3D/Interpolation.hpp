@@ -56,6 +56,9 @@ namespace s3d
 		inline auto LerpAngle(T from, U to, V t) noexcept;
 
 		[[nodiscard]]
+		inline double Eerp(double a, double b, double t) noexcept;
+
+		[[nodiscard]]
 		float Damp(float a, float b, float r, float dt);
 		
 		[[nodiscard]]
