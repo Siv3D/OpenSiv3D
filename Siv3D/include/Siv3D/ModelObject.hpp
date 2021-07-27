@@ -25,8 +25,8 @@ namespace s3d
 
 		Array<ModelMeshPart> parts;
 
-		Sphere boudingSphere{ 0.0 };
+		Sphere boundingSphere{ 0.0 };
 
-		Box boudingBox{ 0.0 };
+		Box boundingBox{ 0.0 };
 	};
 }

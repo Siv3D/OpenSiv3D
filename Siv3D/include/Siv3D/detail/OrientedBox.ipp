@@ -179,4 +179,20 @@ namespace s3d
 		orientation = _orientation;
 		return *this;
 	}
+
+
+	inline OrientedBox OrientedBox::stretched(const double xyz) const noexcept
+	{
+		return stretched(xyz, xyz, xyz);
+	}
+
+	inline OrientedBox OrientedBox::stretched(const double x, const double y, const double z) const noexcept
+	{
+		return stretched({ x, y, z });
+	}
+
+	inline OrientedBox OrientedBox::stretched(const Vec3 xyz) const noexcept
+	{
+		return{ center, (size + xyz), orientation };
+	}
 }

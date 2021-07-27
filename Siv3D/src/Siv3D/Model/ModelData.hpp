@@ -39,11 +39,21 @@ namespace s3d
 		[[nodiscard]]
 		const Array<Material>& getMaterials() const noexcept;
 
+		[[nodiscard]]
+		const Sphere& getBoundingSphere() const noexcept;
+
+		[[nodiscard]]
+		const Box& getBoundingBox() const noexcept;
+
 	private:
 
 		Array<ModelObject> m_objects;
 
 		Array<Material> m_materials;
+
+		Sphere m_boundingSphere{ 0.0 };
+
+		Box m_boundingBox{ 0.0 };
 
 		bool m_initialized = false;
 	};

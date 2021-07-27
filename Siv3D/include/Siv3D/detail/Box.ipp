@@ -151,6 +151,21 @@ namespace s3d
 		return *this;
 	}
 
+	inline constexpr Box Box::stretched(const double xyz) const noexcept
+	{
+		return stretched(xyz, xyz, xyz);
+	}
+
+	inline constexpr Box Box::stretched(const double x, const double y, const double z) const noexcept
+	{
+		return stretched({ x, y, z });
+	}
+
+	inline constexpr Box Box::stretched(const Vec3 xyz) const noexcept
+	{
+		return{ center, (size + xyz) };
+	}
+
 	inline constexpr Box Box::FromTwoPoints(const Vec3& a, const Vec3& b) noexcept
 	{
 		const Vec3 center = (a + b) * 0.5;

@@ -63,6 +63,16 @@ namespace s3d
 		return SIV3D_ENGINE(Model)->getMaterials(m_handle->id());
 	}
 
+	const Sphere& Model::boundingSphere() const noexcept
+	{
+		return SIV3D_ENGINE(Model)->getBoundingSphere(m_handle->id());
+	}
+
+	const Box& Model::boundingBox() const noexcept
+	{
+		return SIV3D_ENGINE(Model)->getBoundingBox(m_handle->id());
+	}
+
 	void Model::swap(Model& other) noexcept
 	{
 		m_handle.swap(other.m_handle);

@@ -35,6 +35,10 @@ namespace s3d
 
 		const Array<Material>& getMaterials(Model::IDType handleID) override;
 
+		const Sphere& getBoundingSphere(Model::IDType handleID) override;
+
+		const Box& getBoundingBox(Model::IDType handleID) override;
+
 	private:
 
 		// Model の管理

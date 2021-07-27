@@ -72,4 +72,14 @@ namespace s3d
 	{
 		return m_models[handleID]->getMaterials();
 	}
+
+	const Sphere& CModel::getBoundingSphere(const Model::IDType handleID)
+	{
+		return m_models[handleID]->getBoundingSphere();
+	}
+	
+	const Box& CModel::getBoundingBox(const Model::IDType handleID)
+	{
+		return m_models[handleID]->getBoundingBox();
+	}
 }

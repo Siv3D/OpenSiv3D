@@ -32,5 +32,9 @@ namespace s3d
 		virtual const Array<ModelObject>& getObjects(Model::IDType handleID) = 0;
 
 		virtual const Array<Material>& getMaterials(Model::IDType handleID) = 0;
+
+		virtual const Sphere& getBoundingSphere(Model::IDType handleID) = 0;
+
+		virtual const Box& getBoundingBox(Model::IDType handleID) = 0;
 	};
 }

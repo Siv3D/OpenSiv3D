@@ -137,6 +137,16 @@ namespace s3d
 
 
 		[[nodiscard]]
+		constexpr Box stretched(double xyz) const noexcept;
+
+		[[nodiscard]]
+		constexpr Box stretched(double x, double y, double z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Box stretched(Vec3 xyz) const noexcept;
+
+
+		[[nodiscard]]
 		std::array<Vec3, 8> getCorners() const noexcept;
 
 		[[nodiscard]]

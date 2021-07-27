@@ -129,6 +129,10 @@ namespace s3d
 		OrientedBox(const Box& box, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
 
+		[[nodiscard]]
+		std::array<Vec3, 8> getCorners() const noexcept;
+
+
 		OrientedBox& setPos(double cx, double cy, double cz) noexcept;
 
 		OrientedBox& setPos(const Vec3& _center) noexcept;
@@ -139,8 +143,15 @@ namespace s3d
 
 		OrientedBox& setOrientation(const Quaternion& _orientation) noexcept;
 
+
 		[[nodiscard]]
-		std::array<Vec3, 8> getCorners() const noexcept;
+		OrientedBox stretched(double xyz) const noexcept;
+
+		[[nodiscard]]
+		OrientedBox stretched(double x, double y, double z) const noexcept;
+
+		[[nodiscard]]
+		OrientedBox stretched(Vec3 xyz) const noexcept;
 
 
 		const OrientedBox& draw(const ColorF & color = Palette::White) const;

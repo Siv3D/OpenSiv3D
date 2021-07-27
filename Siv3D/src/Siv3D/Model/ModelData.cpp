@@ -223,7 +223,7 @@ namespace s3d
 			}
 		}
 
-		// bounding spheres & boxes
+		// bounding spheres & boxes (per object)
 		for (auto& object : m_objects)
 		{
 			if (object.parts)
@@ -243,8 +243,32 @@ namespace s3d
 					DirectX::BoundingBox::CreateMerged(box, box, currentBox);
 				}
 
-				object.boudingSphere = detail::ToSphere(sphere);
-				object.boudingBox = detail::ToBox(box);
+				object.boundingSphere = detail::ToSphere(sphere);
+				object.boundingBox = detail::ToBox(box);
+			}
+		}
+
+		// bounding spheres & boxes (model)
+		{
+			if (m_objects)
+			{
+				DirectX::BoundingSphere sphere =
+					detail::FromSphere(m_objects[0].boundingSphere);
+				DirectX::BoundingBox box =
+					detail::FromBox(m_objects[0].boundingBox);
+
+				for (size_t i = 1; i < m_objects.size(); ++i)
+				{
+					const auto& object = m_objects[i];
+					const DirectX::BoundingSphere currentSphere = detail::FromSphere(object.boundingSphere);
+					const DirectX::BoundingBox currentBox = detail::FromBox(object.boundingBox);
+
+					DirectX::BoundingSphere::CreateMerged(sphere, sphere, currentSphere);
+					DirectX::BoundingBox::CreateMerged(box, box, currentBox);
+				}
+
+				m_boundingSphere = detail::ToSphere(sphere);
+				m_boundingBox = detail::ToBox(box);
 			}
 		}
 
@@ -269,5 +293,15 @@ namespace s3d
 	const Array<Material>& ModelData::getMaterials() const noexcept
 	{
 		return m_materials;
+	}
+
+	const Sphere& ModelData::getBoundingSphere() const noexcept
+	{
+		return m_boundingSphere;
+	}
+
+	const Box& ModelData::getBoundingBox() const noexcept
+	{
+		return m_boundingBox;
 	}
 }
