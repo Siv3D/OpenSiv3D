@@ -24,7 +24,7 @@ namespace s3d
 
 		~VideoTextureDetail();
 
-		bool load(FilePathView path, Loop loop);
+		bool load(FilePathView path, Loop loop, TextureDesc desc);
 
 		void advance(double deltaTimeSec = Scene::DeltaTime());
 
@@ -49,6 +49,8 @@ namespace s3d
 		VideoReader m_videoReader;
 
 		bool m_loop = false;
+
+		bool m_isSRGB = false;
 
 		double m_playTimeSec = 0.0;
 

@@ -17,10 +17,10 @@ namespace s3d
 	VideoTexture::VideoTexture()
 		: pImpl{ std::make_shared<VideoTextureDetail>() } {}
 
-	VideoTexture::VideoTexture(const FilePathView path, const Loop loop)
+	VideoTexture::VideoTexture(const FilePathView path, const Loop loop, const TextureDesc desc)
 		: VideoTexture{}
 	{
-		pImpl->load(path, loop);
+		pImpl->load(path, loop, desc);
 	}
 
 	bool VideoTexture::isEmpty() const noexcept

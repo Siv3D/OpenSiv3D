@@ -35,7 +35,7 @@ namespace s3d
 		/// @param path 動画ファイルのパス
 		/// @param loop ループするか
 		SIV3D_NODISCARD_CXX20
-		explicit VideoTexture(FilePathView path, Loop loop = Loop::Yes);
+		explicit VideoTexture(FilePathView path, Loop loop = Loop::Yes, TextureDesc desc = TextureDesc::Unmipped);
 
 		[[nodiscard]]
 		bool isEmpty() const noexcept;

@@ -19,7 +19,7 @@ namespace s3d
 
 	VideoTexture::VideoTextureDetail::~VideoTextureDetail() {}
 
-	bool VideoTexture::VideoTextureDetail::load(const FilePathView path, const Loop loop)
+	bool VideoTexture::VideoTextureDetail::load(const FilePathView path, const Loop loop, const TextureDesc desc)
 	{
 		if (not m_videoReader.open(path))
 		{
@@ -27,8 +27,9 @@ namespace s3d
 		}
 
 		m_loop = loop.getBool();
+		m_isSRGB = detail::IsSRGB(desc);
 		m_videoReader.readFrame(m_frameImage);
-		m_frameTextures[m_latestTextureIndex].fill(m_frameImage);
+		m_frameTextures[m_latestTextureIndex] = DynamicTexture{ m_frameImage, (m_isSRGB ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm) };
 
 		return true;
 	}
@@ -106,8 +107,18 @@ namespace s3d
 		{
 			if (m_hasDirty)
 			{
-				if (m_frameTextures[!m_latestTextureIndex].fillIfNotBusy(m_frameImage))
+				if (auto& texture = m_frameTextures[!m_latestTextureIndex];
+					texture)
 				{
+					if (texture.fillIfNotBusy(m_frameImage))
+					{
+						m_latestTextureIndex = !m_latestTextureIndex;
+						m_hasDirty = false;
+					}
+				}
+				else
+				{
+					texture = DynamicTexture{ m_frameImage, (m_isSRGB ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm) };
 					m_latestTextureIndex = !m_latestTextureIndex;
 					m_hasDirty = false;
 				}
@@ -124,18 +135,36 @@ namespace s3d
 
 		if (skipIfBusy)
 		{
-			if (m_frameTextures[!m_latestTextureIndex].fillIfNotBusy(m_frameImage))
+			if (auto& texture = m_frameTextures[!m_latestTextureIndex];
+				texture)
 			{
-				m_latestTextureIndex = !m_latestTextureIndex;
+				if (texture.fillIfNotBusy(m_frameImage))
+				{
+					m_latestTextureIndex = !m_latestTextureIndex;
+				}
+				else
+				{
+					m_hasDirty = true;
+				}
 			}
 			else
 			{
-				m_hasDirty = true;
+				texture = DynamicTexture{ m_frameImage, (m_isSRGB ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm) };
+				m_latestTextureIndex = !m_latestTextureIndex;
 			}
 		}
 		else
 		{
-			m_frameTextures[!m_latestTextureIndex].fill(m_frameImage);
+			if (auto& texture = m_frameTextures[!m_latestTextureIndex];
+				texture)
+			{
+				texture.fill(m_frameImage);
+			}
+			else
+			{
+				texture = DynamicTexture{ m_frameImage, (m_isSRGB ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm) };
+			}
+			
 			m_latestTextureIndex = !m_latestTextureIndex;
 		}
 	}
