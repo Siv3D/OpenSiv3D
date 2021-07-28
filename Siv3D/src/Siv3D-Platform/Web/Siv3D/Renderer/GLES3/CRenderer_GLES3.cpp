@@ -122,13 +122,13 @@ namespace s3d
 
 	StringView CRenderer_GLES3::getName() const
 	{
-		static constexpr StringView name(U"OpenGL");
+		static constexpr StringView name(U"WebGL2");
 		return name;
 	}	
 
 	void CRenderer_GLES3::clear()
 	{
-		m_backBuffer->clear(GLES3ClearTarget::BackBuffer | GLES3ClearTarget::Scene);
+		m_backBuffer->clear(GLES3ClearTarget::Scene);
 		
 		const auto& windowState = SIV3D_ENGINE(Window)->getState();
 

@@ -19,7 +19,8 @@ namespace s3d
 {
 	GLES3Texture::GLES3Texture(const Image& image, const TextureDesc desc)
 	{
-		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const TextureFormat format = 
+			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
@@ -39,7 +40,8 @@ namespace s3d
 	
 	GLES3Texture::GLES3Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
-		constexpr TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
+		const TextureFormat format =
+			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
@@ -321,9 +323,9 @@ namespace s3d
 
 		// [マルチサンプル・テクスチャ] を作成
 		{
-			::glGenTextures(1, &m_multiSampledTexture);
-			::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_multiSampledTexture);
-			::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, format.GLInternalFormat(), size.x, size.y, GL_FALSE);
+			::glGenRenderbuffers(1, &m_multiSampledTexture);
+			::glBindRenderbuffer(GL_RENDERBUFFER, m_multiSampledTexture);
+			::glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, format.GLInternalFormat(), size.x, size.y);
 			//::glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAX_LEVEL, 0);
 		}
 
@@ -331,7 +333,7 @@ namespace s3d
 		{
 			::glGenFramebuffers(1, &m_frameBuffer);
 			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, m_multiSampledTexture, 0);
+			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_multiSampledTexture);
 			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			{
 				LOG_FAIL(U"TextureFormat `{}` is not supported in MSRenderTexture"_fmt(format.name()));
@@ -377,7 +379,15 @@ namespace s3d
 		// [デプステクスチャ] を破棄
 		if (m_depthTexture)
 		{
-			::glDeleteTextures(1, &m_depthTexture);
+			if (m_type == TextureType::MSRender)
+			{
+				::glDeleteRenderbuffers(1, &m_depthTexture);
+			}
+			else
+			{
+				::glDeleteTextures(1, &m_depthTexture);
+			}
+
 			m_depthTexture = 0;
 		}
 
@@ -391,7 +401,7 @@ namespace s3d
 		// [マルチサンプルテクスチャ] を破棄
 		if (m_multiSampledTexture)
 		{
-			::glDeleteTextures(1, &m_multiSampledTexture);
+			::glDeleteRenderbuffers(1, &m_multiSampledTexture);
 			m_multiSampledTexture = 0;
 		}
 
@@ -732,10 +742,10 @@ namespace s3d
 		}
 		else
 		{
-			::glGenTextures(1, &m_depthTexture);
-			::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
-			::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
+			::glGenRenderbuffers(1, &m_depthTexture);
+			::glBindRenderbuffer(GL_RENDERBUFFER, m_depthTexture);
+			::glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y);
+			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthTexture);
 		
 			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			{

@@ -75,6 +75,7 @@ namespace s3d
 		{
 			m_enginePSs << ESSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << ESSL{ Resource(U"engine/shader/glsl/linear_to_screen.frag"), {} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{

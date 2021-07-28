@@ -23,7 +23,8 @@ namespace s3d
 	Sky::Sky(const double sphereRadius)
 		: m_skySphere{ MeshData::Sphere(sphereRadius, 3).flipTriangles() }
 		, m_pixelShader{ HLSL{ Resource(U"engine/shader/d3d11/sky.ps") }
-			| GLSL{ Resource(U"engine/shader/glsl/sky.frag"), {{U"PSPerFrame",0}, {U"PSPerView",1}, {U"PSSky",4}} } } {}
+			| GLSL{ Resource(U"engine/shader/glsl/sky.frag"), {{U"PSPerFrame",0}, {U"PSPerView",1}, {U"PSSky",4}} }
+			| ESSL{ Resource(U"engine/shader/glsl/sky.frag"), {{U"PSPerFrame",0}, {U"PSPerView",1}, {U"PSSky",4}} } } {}
 
 	void Sky::draw(const double exposure) const
 	{

@@ -1,4 +1,4 @@
-#version 300 es
+# version 300 es
 
 //-----------------------------------------------
 //
@@ -14,12 +14,15 @@
 precision mediump float;
 
 //
+//	Textures
+//
+uniform sampler2D Texture0;
+
+//
 //	PSInput
 //
-in vec3 WorldPosition;
 in vec4 Color;
 in vec2 UV;
-in vec3 Normal;
 
 //
 //	PSOutput
@@ -27,17 +30,16 @@ in vec3 Normal;
 layout(location = 0) out vec4 FragColor;
 
 //
-//	Constant Buffer
-//
-layout(std140) uniform PSConstants3D
-{
-	vec4 g_diffuseColor;
-};
-
-//
 //	Functions
 //
+vec3 Gamma(vec3 color, float g)
+{
+	return pow(color, vec3(g));
+}
+
 void main()
 {
-	FragColor = (Color * g_diffuseColor);
+	vec3 texColor = texture(Texture0, UV).rgb;
+
+	FragColor = vec4(Gamma(abs(texColor), (1.0f / 2.2f)), 1.0f);
 }

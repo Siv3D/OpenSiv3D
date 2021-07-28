@@ -1145,7 +1145,17 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
+						const bool isSRGB = pTexture->getFormat(rt->id()).isSRGB();
 						pRenderer->getBackBuffer().bindToScene(frameBuffer);
+
+						// if (isSRGB)
+						// {
+						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
+						// }
+						// else
+						// {
+						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
+						// }
 
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
@@ -1153,6 +1163,8 @@ namespace s3d
 					{
 						pRenderer->getBackBuffer().bindSceneToContext(false);
 						
+						// ::glDisable(GL_FRAMEBUFFER_SRGB);
+
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 

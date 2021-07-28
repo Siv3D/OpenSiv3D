@@ -45,8 +45,7 @@ namespace s3d
 		// clear buffers
 		{
 			m_draws.clear();
-			m_drawLocalToWorlds.clear();
-			m_drawDiffuses.clear();
+			m_drawPhongMaterials.clear();
 
 			m_drawLine3Ds.clear();
 
@@ -75,6 +74,10 @@ namespace s3d
 			m_PSs = { PixelShader::IDType::InvalidValue() };
 			m_cameraTransforms = { m_cameraTransforms.back() };
 			m_eyePositions = { m_eyePositions.back() };
+			m_localTransforms = { m_localTransforms.back() };
+			m_globalAmbientColors	= { m_globalAmbientColors.back() };
+			m_sunDirections			= { m_sunDirections.back() };
+			m_sunColors				= { m_sunColors.back() };
 			m_constants.clear();
 			m_constantBufferCommands.clear();
 		}
@@ -144,6 +147,9 @@ namespace s3d
 			m_commands.emplace_back(GLES3Renderer3DCommandType::EyePosition, 0);
 			m_currentEyePosition = m_eyePositions.back();
 
+			m_commands.emplace_back(GLES3Renderer3DCommandType::LocalTransform, 0);
+			m_currentLocalTransform = m_localTransforms.back();
+
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 				{
@@ -170,6 +176,15 @@ namespace s3d
 				m_commands.emplace_back(command, 0);
 				m_currentMesh = Mesh::IDType::InvalidValue();
 			}
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetGlobalAmbientColor, 0);
+			m_currentGlobalAmbientColor = m_globalAmbientColors.back();
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetSunDirection, 0);
+			m_currentSunDirection = m_sunDirections.back();
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetSunColor, 0);
+			m_currentSunColor = m_sunColors.back();
 		}
 	}
 
@@ -294,6 +309,12 @@ namespace s3d
 			m_eyePositions.push_back(m_currentEyePosition);
 		}
 
+		if (m_changes.has(GLES3Renderer3DCommandType::LocalTransform))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::LocalTransform, static_cast<uint32>(m_localTransforms.size()));
+			m_localTransforms.push_back(m_currentLocalTransform);
+		}
+
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
 		{
 			const auto command = ToEnum<GLES3Renderer3DCommandType>(FromEnum(GLES3Renderer3DCommandType::VSTexture0) + i);
@@ -322,6 +343,24 @@ namespace s3d
 			m_meshes.push_back(m_currentMesh);
 		}
 
+		if (m_changes.has(GLES3Renderer3DCommandType::SetGlobalAmbientColor))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetGlobalAmbientColor, static_cast<uint32>(m_globalAmbientColors.size()));
+			m_globalAmbientColors.push_back(m_currentGlobalAmbientColor);
+		}
+
+		if (m_changes.has(GLES3Renderer3DCommandType::SetSunDirection))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetSunDirection, static_cast<uint32>(m_sunDirections.size()));
+			m_sunDirections.push_back(m_currentSunDirection);
+		}
+
+		if (m_changes.has(GLES3Renderer3DCommandType::SetSunColor))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::SetSunColor, static_cast<uint32>(m_sunColors.size()));
+			m_sunColors.push_back(m_currentSunColor);
+		}
+
 		m_changes.clear();
 	}
 
@@ -343,7 +382,7 @@ namespace s3d
 		m_commands.emplace_back(GLES3Renderer3DCommandType::UpdateLine3DBuffers, batchIndex);
 	}
 
-	void GLES3Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const Mat4x4* mat, const Float4* color, const uint32 instanceCount)
+	void GLES3Renderer3DCommandManager::pushDraw(const uint32 startIndex, const uint32 indexCount, const PhongMaterialInternal& material, const uint32 instanceCount)
 	{
 		// [Siv3D ToDo]
 		assert(instanceCount == 1);
@@ -355,8 +394,7 @@ namespace s3d
 
 		m_commands.emplace_back(GLES3Renderer3DCommandType::Draw, static_cast<uint32>(m_draws.size()));
 		m_draws.push_back({ startIndex, indexCount, instanceCount });
-		m_drawLocalToWorlds.push_back(*mat);
-		m_drawDiffuses.push_back(*color);
+		m_drawPhongMaterials.push_back(material);
 		m_changes.set(GLES3Renderer3DCommandType::Draw);
 	}
 
@@ -372,14 +410,9 @@ namespace s3d
 		return m_draws[index];
 	}
 
-	const Mat4x4& GLES3Renderer3DCommandManager::getDrawLocalToWorld(const uint32 index) const noexcept
+	const PhongMaterialInternal& GLES3Renderer3DCommandManager::getDrawPhongMaterial(const uint32 index) const noexcept
 	{
-		return m_drawLocalToWorlds[index];
-	}
-
-	const Float4& GLES3Renderer3DCommandManager::getDrawDiffuse(const uint32 index) const noexcept
-	{
-		return m_drawDiffuses[index];
+		return m_drawPhongMaterials[index];
 	}
 
 	void GLES3Renderer3DCommandManager::pushDrawLine3D(VertexLine3D::IndexType indexCount)
@@ -973,6 +1006,44 @@ namespace s3d
 		return m_eyePositions[index];
 	}
 
+	void GLES3Renderer3DCommandManager::pushLocalTransform(const Mat4x4& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::LocalTransform;
+		auto& current = m_currentLocalTransform;
+		auto& buffer = m_localTransforms;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Mat4x4& GLES3Renderer3DCommandManager::getCurrentLocalTransform() const
+	{
+		return m_currentLocalTransform;
+	}
+
+	const Mat4x4& GLES3Renderer3DCommandManager::getLocalTransform(uint32 index) const
+	{
+		return m_localTransforms[index];
+	}
+
 	void GLES3Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		constexpr auto command = GLES3Renderer3DCommandType::SetConstantBuffer;
@@ -1283,5 +1354,119 @@ namespace s3d
 	const Mesh::IDType& GLES3Renderer3DCommandManager::getCurrentMesh() const
 	{
 		return m_currentMesh;
+	}
+
+	void GLES3Renderer3DCommandManager::pushGlobalAmbientColor(const Float3& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::SetGlobalAmbientColor;
+		auto& current = m_currentGlobalAmbientColor;
+		auto& buffer = m_globalAmbientColors;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getCurrentGlobalAmbientColor() const
+	{
+		return m_currentGlobalAmbientColor;
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getGlobalAmbientColor(const uint32 index) const
+	{
+		return m_globalAmbientColors[index];
+	}
+
+	void GLES3Renderer3DCommandManager::pushSunDirection(const Float3& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::SetSunDirection;
+		auto& current = m_currentSunDirection;
+		auto& buffer = m_sunDirections;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getCurrentSunDirection() const
+	{
+		return m_currentSunDirection;
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getSunDirection(const uint32 index) const
+	{
+		return m_sunDirections[index];
+	}
+
+	void GLES3Renderer3DCommandManager::pushSunColor(const Float3& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::SetSunColor;
+		auto& current = m_currentSunColor;
+		auto& buffer = m_sunColors;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getCurrentSunColor() const
+	{
+		return m_currentSunColor;
+	}
+
+	const Float3& GLES3Renderer3DCommandManager::getSunColor(const uint32 index) const
+	{
+		return m_sunColors[index];
 	}
 }
