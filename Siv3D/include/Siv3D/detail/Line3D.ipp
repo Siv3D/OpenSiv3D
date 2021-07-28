@@ -29,6 +29,10 @@ namespace s3d
 		: begin{ _begin }
 		, end{ _end } {}
 
+	inline constexpr Line3D::Line3D(const Vec3& origin, const Arg::direction_<Vec3> direction) noexcept
+		: begin{ origin }
+		, end{ (origin + *direction) } {}
+
 	inline constexpr Line Line3D::asLine() const noexcept
 	{
 		return{ begin.xy(), end.xy() };

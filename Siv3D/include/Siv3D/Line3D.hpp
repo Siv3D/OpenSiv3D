@@ -42,6 +42,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Line3D(const Vec3& _begin, const Vec3& _end) noexcept;
 
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(const Vec3& origin, Arg::direction_<Vec3> direction) noexcept;
+
 		[[nodiscard]]
 		Line3D toScreen(const Mat4x4& vp) const noexcept;
 

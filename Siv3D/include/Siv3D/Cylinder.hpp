@@ -13,11 +13,11 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
+# include "Quaternion.hpp"
 
 namespace s3d
 {
 	class Texture;
-	struct Quaternion;
 	struct Mat4x4;
 
 	struct Cylinder
@@ -27,6 +27,25 @@ namespace s3d
 		double r;
 
 		double h;
+
+		Quaternion orientation;
+
+		SIV3D_NODISCARD_CXX20
+		Cylinder() = default;
+
+		SIV3D_NODISCARD_CXX20
+		Cylinder(double _r, double _h, const Quaternion& _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		Cylinder(double cx, double cy, double cz, double _r, double _h, const Quaternion& _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		Cylinder(const Vec3& _center, double _r, double _h, const Quaternion& _orientation = Quaternion::Identity()) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		Cylinder(const Vec3& from, const Vec3& to, double _r) noexcept;
+
+
 
 		const Cylinder& draw(const ColorF& color = Palette::White) const;
 
@@ -41,3 +60,5 @@ namespace s3d
 		const Cylinder& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
 	};
 }
+
+# include "detail/Cylinder.ipp"
