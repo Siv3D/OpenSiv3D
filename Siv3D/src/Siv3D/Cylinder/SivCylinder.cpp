@@ -33,6 +33,22 @@ namespace s3d
 		*this = Cylinder{ from + (0.5 * length * direction), _r, length, Quaternion::FromUnitVectors(Vec3::Up(), direction) };
 	}
 
+	Cylinder::Cylinder(const Vec3& from, const Vec3& to, const double _r, const Quaternion& _orientation) noexcept
+	{
+		const Vec3 v = (to - from);
+		const double length = v.length();
+
+		if (length == 0.0)
+		{
+			*this = Cylinder{ 0.0, 0.0 };
+			return;
+		}
+
+		const Vec3 direction = (v / length);
+
+		*this = Cylinder{ from + (0.5 * length * direction), _r, length, (Quaternion::FromUnitVectors(Vec3::Up(), direction) * _orientation) };
+	}
+
 	const Cylinder& Cylinder::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)

@@ -393,7 +393,7 @@ namespace s3d
 		}
 
 		// caps
-		t = (((y < 0.0) ? 0.0 : caca) - caoc) / card;
+		t = (((y < 0.0f) ? 0.0f : caca) - caoc) / card;
 		
 		if (std::abs(b + a * t) < h)
 		{
@@ -447,8 +447,8 @@ namespace s3d
 		float rr = ra - rb;
 		float hy = m0 + rr * rr;
 		float k2 = m0 * m0 - m2 * m2 * hy;
-		float k1 = m0 * m0 * m3 - m1 * m2 * hy + m0 * ra * (rr * m2 * 1.0);
-		float k0 = m0 * m0 * m5 - m1 * m1 * hy + m0 * ra * (rr * m1 * 2.0 - m0 * ra);
+		float k1 = m0 * m0 * m3 - m1 * m2 * hy + m0 * ra * (rr * m2 * 1.0f);
+		float k0 = m0 * m0 * m5 - m1 * m1 * hy + m0 * ra * (rr * m1 * 2.0f - m0 * ra);
 		float h = k1 * k1 - k2 * k0;
 		
 		if (h < 0.0f)

@@ -33,6 +33,22 @@ namespace s3d
 		*this = Cone{ from, _r, length, Quaternion::FromUnitVectors(Vec3::Up(), direction) };
 	}
 
+	Cone::Cone(const Vec3& from, const Vec3& to, const double _r, const Quaternion& _orientation) noexcept
+	{
+		const Vec3 v = (to - from);
+		const double length = v.length();
+
+		if (length == 0.0)
+		{
+			*this = Cone{ 0.0, 0.0 };
+			return;
+		}
+
+		const Vec3 direction = (v / length);
+
+		*this = Cone{ from, _r, length, (Quaternion::FromUnitVectors(Vec3::Up(), direction) * _orientation) };
+	}
+
 	const Cone& Cone::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cone)

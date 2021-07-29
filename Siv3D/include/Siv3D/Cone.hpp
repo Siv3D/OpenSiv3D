@@ -45,7 +45,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Cone(const Vec3& from, const Vec3& to, double _r) noexcept;
 
-
+		SIV3D_NODISCARD_CXX20
+		Cone(const Vec3& from, const Vec3& to, double _r, const Quaternion& _orientation) noexcept;
 
 		const Cone& draw(const ColorF& color = Palette::White) const;
 
