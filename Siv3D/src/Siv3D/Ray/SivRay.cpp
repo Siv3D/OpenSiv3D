@@ -15,6 +15,8 @@
 # include <Siv3D/Box.hpp>
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/ViewFrustum.hpp>
+# include <Siv3D/Cylinder.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
@@ -340,6 +342,54 @@ namespace s3d
 		return none;
 	}
 
+	Optional<float> Ray::intersects(const Cylinder& cylinder) const
+	{
+		// https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
+
+		const Float3 ro = origin.xyz();
+		const Float3 rd = direction.xyz();
+		const Float3 d = (cylinder.orientation * Float3{ 0, static_cast<float>(cylinder.h), 0 });
+		const Float3 pa = (cylinder.center + (d * 0.5f));
+		const Float3 pb = (cylinder.center - (d * 0.5f));
+		const float ra = static_cast<float>(cylinder.r);
+
+		const Float3 ca = pb - pa;
+		const Float3 oc = ro - pa;
+		float caca = ca.dot(ca);
+		float card = ca.dot(rd);
+		float caoc = ca.dot(oc);
+		float a = caca - card * card;
+		float b = caca * oc.dot(rd) - caoc * card;
+		float c = caca * oc.dot(oc) - caoc * caoc - ra * ra * caca;
+		float h = b * b - a * c;
+		
+		if (h < 0.0f)
+		{
+			return none;
+		}
+
+		h = std::sqrt(h);
+
+		float t = (-b - h) / a;
+		
+		// body
+		float y = caoc + t * card;
+		if ((0.0f < y) && (y < caca))
+		{
+			return static_cast<float>(t);
+		}
+
+		// caps
+		t = (((y < 0.0) ? 0.0 : caca) - caoc) / card;
+		
+		if (std::abs(b + a * t) < h)
+		{
+			return t;
+		}
+		
+		return none;
+	}
+
 	Optional<Float3> Ray::intersectsAt(const Triangle3D& triangle) const
 	{
 		float dist;
@@ -398,6 +448,18 @@ namespace s3d
 	Optional<Float3>SIV3D_VECTOR_CALL Ray::intersectsAt(const ViewFrustum& frustum) const
 	{
 		if (const auto dist = intersects(frustum))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Cylinder& cylinder) const
+	{
+		if (const auto dist = intersects(cylinder))
 		{
 			return point_at(*dist);
 		}
