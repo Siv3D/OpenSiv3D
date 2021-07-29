@@ -742,6 +742,8 @@
 
 # include <Siv3D/Cylinder.hpp>
 
+# include <Siv3D/Cone.hpp>
+
 // レイ
 // Ray
 # include <Siv3D/Ray.hpp> // [Siv3D ToDo]

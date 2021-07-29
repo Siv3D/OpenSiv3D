@@ -1504,6 +1504,9 @@
     <Filter Include="src\Siv3D\Triangle3D">
       <UniqueIdentifier>{d86d09c7-4a9e-437d-b091-ce28bafb65ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Cone">
+      <UniqueIdentifier>{af19342a-62b8-4e68-b6c5-8dde14822931}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6594,6 +6597,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylinder.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Cone.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cone.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9076,6 +9085,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp">
       <Filter>src\Siv3D\Triangle3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cone\SivCone.cpp">
+      <Filter>src\Siv3D\Cone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

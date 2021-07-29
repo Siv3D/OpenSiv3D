@@ -25,6 +25,7 @@ namespace s3d
 	struct OrientedBox;
 	class ViewFrustum;
 	struct Cylinder;
+	struct Cone;
 
 	struct Ray
 	{
@@ -84,6 +85,9 @@ namespace s3d
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Cylinder& cylinder) const;
 
+		[[nodiscard]]
+		Optional<float> SIV3D_VECTOR_CALL intersects(const Cone& cone) const;
+
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Triangle3D& triangle) const;
@@ -105,6 +109,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Cylinder& cylinder) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Cone& cone) const;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ray& value)

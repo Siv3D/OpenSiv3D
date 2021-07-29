@@ -26,10 +26,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\BasicCamera3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CircleEmitter2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorOption.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Cone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylinder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DebugCamera3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Audio.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BasicCamera3D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cone.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cylinder.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DepthStencilState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Disc.ipp" />
@@ -1884,6 +1886,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\CommandLine\SivCommandLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cone\SivCone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\Null\ConstantBufferDetail_Null.cpp" />

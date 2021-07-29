@@ -35,6 +35,7 @@ namespace s3d
 		m_meshes << Mesh{ MeshData::Sphere({0,0,0}, 1.0, 20) };
 		m_meshes << Mesh{ MeshData::Disc({0,0,0}, 1.0, 40) };
 		m_meshes << Mesh{ MeshData::Cylinder({0,0,0}, 1.0, 1.0, 40) };
+		m_meshes << Mesh{ MeshData::Cone({0,0,0}, 1.0, 1.0, 64) };
 		m_meshes << Mesh{ MeshData::Hemisphere({0,0,0}, 1.0, 40, 20) };
 	}
 

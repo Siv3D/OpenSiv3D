@@ -28,6 +28,8 @@ namespace s3d
 
 		Cylinder,
 
+		Cone,
+
 		Hemisphere,
 	};
 

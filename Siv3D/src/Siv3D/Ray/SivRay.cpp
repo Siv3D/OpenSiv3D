@@ -16,11 +16,20 @@
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/ViewFrustum.hpp>
 # include <Siv3D/Cylinder.hpp>
+# include <Siv3D/Cone.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		float Dot2(const Float3 v)
+		{
+			return v.dot(v);
+		}
+	}
+
 	///////////////////////////////////////////////////////////////
 	//
 	//
@@ -342,6 +351,10 @@ namespace s3d
 		return none;
 	}
 
+	//
+	//
+	///////////////////////////////////////////////////////////////
+
 	Optional<float> Ray::intersects(const Cylinder& cylinder) const
 	{
 		// https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
@@ -388,6 +401,70 @@ namespace s3d
 		}
 		
 		return none;
+	}
+
+	Optional<float> Ray::intersects(const Cone& cone) const
+	{
+		// https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
+
+		const Float3 ro = origin.xyz();
+		const Float3 rd = direction.xyz();
+		const Float3 d = (cone.orientation * Float3{ 0, static_cast<float>(cone.h), 0 });
+		const Float3 pa = (cone.center + d);
+		const Float3 pb = cone.center;
+		constexpr float ra = 0.0f;
+		const float rb = static_cast<float>(cone.r);
+
+		const Float3 ba = pb - pa;
+		const Float3 oa = ro - pa;
+		const Float3 ob = ro - pb;
+		const float m0 = ba.dot(ba);
+		const float m1 = oa.dot(ba);
+		const float m2 = rd.dot(ba);
+		const float m3 = rd.dot(oa);
+		const float m5 = oa.dot(oa);
+		const float m9 = ob.dot(ba);
+
+		// caps
+		if (m1 < 0.0f)
+		{
+			if (detail::Dot2(oa * m2 - rd * m1) < (ra * ra * m2 * m2))
+			{
+				return (-m1 / m2);
+			}
+		}
+		else if (0.0f < m9)
+		{
+			float t = (-m9 / m2);
+			
+			if (detail::Dot2(ob + rd * t) < (rb * rb))
+			{
+				return t;
+			}
+		}
+
+		// body
+		float rr = ra - rb;
+		float hy = m0 + rr * rr;
+		float k2 = m0 * m0 - m2 * m2 * hy;
+		float k1 = m0 * m0 * m3 - m1 * m2 * hy + m0 * ra * (rr * m2 * 1.0);
+		float k0 = m0 * m0 * m5 - m1 * m1 * hy + m0 * ra * (rr * m1 * 2.0 - m0 * ra);
+		float h = k1 * k1 - k2 * k0;
+		
+		if (h < 0.0f)
+		{
+			return none;
+		}
+		
+		float t = (-k1 - std::sqrt(h)) / k2;
+		float y = m1 + t * m2;
+		
+		if ((y < 0.0) || (m0 < y))
+		{
+			return none;
+		}
+		
+		return t;
 	}
 
 	Optional<Float3> Ray::intersectsAt(const Triangle3D& triangle) const
@@ -469,9 +546,17 @@ namespace s3d
 		}
 	}
 
-	//
-	//
-	///////////////////////////////////////////////////////////////
+	Optional<Float3> Ray::intersectsAt(const Cone& cone) const
+	{
+		if (const auto dist = intersects(cone))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
 
 	void Ray::_Formatter(FormatData& formatData, const Ray& value)
 	{
