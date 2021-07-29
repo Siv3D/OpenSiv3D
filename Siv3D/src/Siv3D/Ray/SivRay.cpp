@@ -136,7 +136,7 @@ namespace s3d
 
 		// Load the box.
 		XMVECTOR vCenter = SIMD_Float4{ aabb.center, 0.0f };
-		XMVECTOR vExtents = SIMD_Float4{ aabb.size, 0.0f };
+		XMVECTOR vExtents = SIMD_Float4{ (aabb.size * 0.5), 0.0f };
 
 		// Adjust ray origin to be relative to center of the box.
 		XMVECTOR TOrigin = XMVectorSubtract(vCenter, origin);
@@ -198,7 +198,7 @@ namespace s3d
 
 		// Load the box.
 		XMVECTOR vCenter = SIMD_Float4{ obb.center, 0.0f };
-		XMVECTOR vExtents = SIMD_Float4{ obb.size, 0.0f };
+		XMVECTOR vExtents = SIMD_Float4{ (obb.size * 0.5), 0.0f };
 		XMVECTOR vOrientation = obb.orientation;
 
 		assert(DirectX::Internal::XMQuaternionIsUnit(vOrientation));
