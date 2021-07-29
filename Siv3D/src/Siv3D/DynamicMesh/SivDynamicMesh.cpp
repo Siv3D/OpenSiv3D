@@ -17,7 +17,71 @@
 
 namespace s3d
 {
+	DynamicMesh::DynamicMesh(const size_t vertexCount, const size_t triangleCount)
+		: Mesh{ Mesh::Dynamic{}, vertexCount, triangleCount } {}
 
+	DynamicMesh::DynamicMesh(const MeshData& meshData)
+		: Mesh{ Mesh::Dynamic{}, meshData } {}
+
+	bool DynamicMesh::fill(const MeshData& meshData)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), meshData);
+	}
+
+	bool DynamicMesh::fill(const Array<Vertex3D>& vertices)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), 0, vertices, true);
+	}
+
+	bool DynamicMesh::fillSubRange(const size_t offset, const Array<Vertex3D>& vertices)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), offset, vertices, true);
+	}
+
+	bool DynamicMesh::fill(const Array<TriangleIndex32>& indices)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), indices, true);
+	}
+
+	bool DynamicMesh::fillIfNotBusy(const Array<Vertex3D>& vertices)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), 0, vertices, false);
+	}
+
+	bool DynamicMesh::fillIfNotBusy(const Array<TriangleIndex32>& indices)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), indices, false);
+	}
 
 	void DynamicMesh::swap(DynamicMesh& other) noexcept
 	{

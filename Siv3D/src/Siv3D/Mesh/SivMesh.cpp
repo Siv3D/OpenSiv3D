@@ -51,6 +51,18 @@ namespace s3d
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
+	Mesh::Mesh(Dynamic, const size_t vertexCount, const size_t triangleCount)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(vertexCount, triangleCount)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Mesh::Mesh(Dynamic, const MeshData& meshData)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(meshData)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
 	Mesh::~Mesh() {}
 
 	size_t Mesh::num_vertices() const

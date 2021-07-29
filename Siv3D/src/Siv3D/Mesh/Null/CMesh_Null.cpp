@@ -35,6 +35,16 @@ namespace s3d
 		return Mesh::IDType::NullAsset();
 	}
 
+	Mesh::IDType CMesh_Null::createDynamic(size_t, size_t)
+	{
+		return Mesh::IDType::NullAsset();
+	}
+
+	Mesh::IDType CMesh_Null::createDynamic(const MeshData&)
+	{
+		return Mesh::IDType::NullAsset();
+	}
+
 	void CMesh_Null::release(Mesh::IDType) {}
 		
 	size_t CMesh_Null::getVertexCount(Mesh::IDType)
@@ -55,6 +65,21 @@ namespace s3d
 	Box CMesh_Null::getBoundingBox(Mesh::IDType)
 	{
 		return Box{ 0.0 };
+	}
+
+	bool CMesh_Null::fill(Mesh::IDType, const MeshData&)
+	{
+		return false;
+	}
+
+	bool CMesh_Null::fill(Mesh::IDType, size_t, const Array<Vertex3D>&, bool)
+	{
+		return false;
+	}
+
+	bool CMesh_Null::fill(Mesh::IDType, const Array<TriangleIndex32>&, bool)
+	{
+		return false;
 	}
 
 	void CMesh_Null::bindMeshToContext(Mesh::IDType) {}

@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/MeshData.hpp>
 
 namespace s3d
 {
@@ -27,6 +28,10 @@ namespace s3d
 
 		virtual Mesh::IDType create(const MeshData& meshData) = 0;
 
+		virtual Mesh::IDType createDynamic(size_t vertexCount, size_t triangleCount) = 0;
+
+		virtual Mesh::IDType createDynamic(const MeshData& meshData) = 0;
+
 		virtual void release(Mesh::IDType handleID) = 0;
 
 		virtual size_t getVertexCount(Mesh::IDType handleID) = 0;
@@ -36,6 +41,12 @@ namespace s3d
 		virtual Sphere getBoundingSphere(Mesh::IDType handleID) = 0;
 
 		virtual Box getBoundingBox(Mesh::IDType handleID) = 0;
+
+		virtual bool fill(Mesh::IDType handleID, const MeshData& meshData) = 0;
+
+		virtual bool fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait) = 0;
+
+		virtual bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait) = 0;
 
 		virtual void bindMeshToContext(Mesh::IDType handleID) = 0;
 	};

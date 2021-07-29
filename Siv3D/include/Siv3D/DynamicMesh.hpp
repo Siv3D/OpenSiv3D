@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Mesh.hpp"
+# include "MeshData.hpp"
 
 namespace s3d
 {
@@ -19,8 +20,26 @@ namespace s3d
 	{
 	public:
 
-		// [Siv3D ToDo]
+		SIV3D_NODISCARD_CXX20
+		DynamicMesh() = default;
 
+		SIV3D_NODISCARD_CXX20
+		DynamicMesh(size_t vertexCount, size_t triangleCount);
+
+		SIV3D_NODISCARD_CXX20
+		explicit DynamicMesh(const MeshData& meshData);
+
+		bool fill(const MeshData& meshData);
+
+		bool fill(const Array<Vertex3D>& vertices);
+
+		bool fillSubRange(size_t offset, const Array<Vertex3D>& vertices);
+
+		bool fill(const Array<TriangleIndex32>& indices);
+
+		bool fillIfNotBusy(const Array<Vertex3D>& vertices);
+
+		bool fillIfNotBusy(const Array<TriangleIndex32>& indices);
 
 		void swap(DynamicMesh& other) noexcept;
 	};

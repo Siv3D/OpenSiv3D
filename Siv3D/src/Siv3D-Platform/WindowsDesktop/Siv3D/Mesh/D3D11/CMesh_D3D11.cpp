@@ -69,6 +69,18 @@ namespace s3d
 		return m_meshes.add(std::move(mesh), info);
 	}
 
+	Mesh::IDType CMesh_D3D11::createDynamic(size_t vertexCount, size_t triangleCount)
+	{
+		// [Siv3D ToDo]
+		return Mesh::IDType::NullAsset();
+	}
+
+	Mesh::IDType CMesh_D3D11::createDynamic(const MeshData& meshData)
+	{
+		// [Siv3D ToDo]
+		return Mesh::IDType::NullAsset();
+	}
+
 	void CMesh_D3D11::release(const Mesh::IDType handleID)
 	{
 		m_meshes.erase(handleID);
@@ -92,6 +104,24 @@ namespace s3d
 	Box CMesh_D3D11::getBoundingBox(const Mesh::IDType handleID)
 	{
 		return m_meshes[handleID]->getBoundingBox();
+	}
+
+	bool CMesh_D3D11::fill(Mesh::IDType handleID, const MeshData& meshData)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
+	bool CMesh_D3D11::fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
+	bool CMesh_D3D11::fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait)
+	{
+		// [Siv3D ToDo]
+		return false;
 	}
 
 	void CMesh_D3D11::bindMeshToContext(const Mesh::IDType handleID)

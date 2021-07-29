@@ -29,6 +29,10 @@ namespace s3d
 
 		Mesh::IDType create(const MeshData& meshData) override;
 
+		Mesh::IDType createDynamic(size_t vertexCount, size_t triangleCount) override;
+
+		Mesh::IDType createDynamic(const MeshData& meshData) override;
+
 		void release(Mesh::IDType handleID) override;
 
 		size_t getVertexCount(Mesh::IDType handleID) override;
@@ -38,6 +42,12 @@ namespace s3d
 		Sphere getBoundingSphere(Mesh::IDType handleID) override;
 
 		Box getBoundingBox(Mesh::IDType handleID) override;
+
+		bool fill(Mesh::IDType handleID, const MeshData& meshData) override;
+
+		bool fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait) override;
+
+		bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait) override;
 
 		void bindMeshToContext(Mesh::IDType handleID) override;
 

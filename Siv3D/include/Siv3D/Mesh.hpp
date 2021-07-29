@@ -158,6 +158,17 @@ namespace s3d
 
 
 		void swap(Mesh& other) noexcept;
+
+
+	protected:
+
+		struct Dynamic {};
+
+		SIV3D_NODISCARD_CXX20
+		Mesh(Dynamic, size_t vertexCount, size_t triangleCount);
+
+		SIV3D_NODISCARD_CXX20
+		Mesh(Dynamic, const MeshData& meshData);
 	};
 }
 
