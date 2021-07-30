@@ -98,13 +98,13 @@ namespace s3d
 
 		constexpr Sphere& set(value_type _x, value_type _y, size_type _z, size_type _r) noexcept;
 
-		constexpr Sphere& set(const position_type& _center, size_type _r) noexcept;
+		constexpr Sphere& set(position_type _center, size_type _r) noexcept;
 
 		constexpr Sphere& set(const Sphere& sphere) noexcept;
 
 		constexpr Sphere& setPos(value_type _x, value_type _y, value_type _z) noexcept;
 
-		constexpr Sphere& setPos(const position_type& _center) noexcept;
+		constexpr Sphere& setPos(position_type _center) noexcept;
 
 		constexpr Sphere& setR(value_type _r) noexcept;
 

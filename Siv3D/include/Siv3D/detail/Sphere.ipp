@@ -47,7 +47,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline constexpr Sphere& Sphere::set(const position_type& _center, const size_type _r) noexcept
+	inline constexpr Sphere& Sphere::set(const position_type _center, const size_type _r) noexcept
 	{
 		center = _center;
 		r = _r;
@@ -65,7 +65,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline constexpr Sphere& Sphere::setPos(const position_type& _center) noexcept
+	inline constexpr Sphere& Sphere::setPos(const position_type _center) noexcept
 	{
 		center = _center;
 		return *this;

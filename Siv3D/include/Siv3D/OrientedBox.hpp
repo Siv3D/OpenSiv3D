@@ -162,15 +162,15 @@ namespace s3d
 
 
 
-		OrientedBox& setPos(double cx, double cy, double cz) noexcept;
+		OrientedBox& setPos(value_type cx, value_type cy, value_type cz) noexcept;
 
-		OrientedBox& setPos(const Vec3& _center) noexcept;
+		OrientedBox& setPos(position_type _center) noexcept;
 
-		OrientedBox& setSize(double _w, double _h, double _d) noexcept;
+		OrientedBox& setSize(value_type _w, value_type _h, value_type _d) noexcept;
 
-		OrientedBox& setSize(const Vec3& _size) noexcept;
+		OrientedBox& setSize(size_type _size) noexcept;
 
-		OrientedBox& setOrientation(const Quaternion& _orientation) noexcept;
+		OrientedBox& setOrientation(Quaternion _orientation) noexcept;
 
 
 		[[nodiscard]]

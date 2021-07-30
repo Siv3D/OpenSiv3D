@@ -22,9 +22,41 @@ namespace s3d
 
 	struct Plane
 	{
-		Vec3 center;
-		
-		Vec2 size;
+		using position_type = Vec3;
+
+		using size_type = Vec2;
+
+		using value_type = typename size_type::value_type;
+
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			position_type center;
+
+			struct
+			{
+				value_type x;
+
+				value_type y;
+
+				value_type z;
+			};
+		};
+
+		union
+		{
+			size_type size;
+
+			struct
+			{
+				value_type w;
+
+				value_type d;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		SIV3D_NODISCARD_CXX20
 		Plane() = default;
@@ -103,6 +135,54 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Plane(const Vec3& _center, const Vec2& _size) noexcept;
 
+
+		constexpr Plane& setPos(value_type cx, value_type cy, value_type cz) noexcept;
+
+		constexpr Plane& setPos(position_type _center) noexcept;
+
+		constexpr Plane& setSize(value_type _w, value_type _d) noexcept;
+
+		constexpr Plane& setSize(size_type _size) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Plane movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane movedBy(position_type v) const noexcept;
+
+		constexpr Plane& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		constexpr Plane& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Plane stretched(value_type xz) const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane stretched(value_type _x, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane stretched(size_type xz) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr Plane scaled(double s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane scaled(double sx, double sz) const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane scaled(Vec2 s) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr bool hasArea() const noexcept;
+
+		[[nodiscard]]
+		constexpr Plane lerp(const Plane& other, double f) const noexcept;
+
+
 		const Plane& draw(const ColorF& color = Palette::White) const;
 
 		const Plane& draw(const Texture& texture, const ColorF& color = Palette::White) const;
@@ -114,7 +194,6 @@ namespace s3d
 		const Plane& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		const Plane& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
-	
 
 
 		template <class CharType>

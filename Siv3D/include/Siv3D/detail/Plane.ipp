@@ -100,4 +100,90 @@ namespace s3d
 	inline constexpr Plane::Plane(const Vec3& _center, const Vec2& _size) noexcept
 		: center{ _center }
 		, size{ _size } {}
+
+	inline constexpr Plane& Plane::setPos(const value_type cx, const value_type cy, const value_type cz) noexcept
+	{
+		center.set(cx, cy, cz);
+		return *this;
+	}
+
+	inline constexpr Plane& Plane::setPos(const position_type _center) noexcept
+	{
+		center = _center;
+		return *this;
+	}
+
+	inline constexpr Plane& Plane::setSize(const value_type _w, const value_type _d) noexcept
+	{
+		size.set(_w, _d);
+		return *this;
+	}
+
+	inline constexpr Plane& Plane::setSize(const size_type _size) noexcept
+	{
+		size = _size;
+		return *this;
+	}
+
+	inline constexpr Plane Plane::movedBy(const value_type _x, const value_type _y, const value_type _z) const noexcept
+	{
+		return{ center.movedBy(_x, _y, _z), size };
+	}
+
+	inline constexpr Plane Plane::movedBy(const position_type v) const noexcept
+	{
+		return{ center.movedBy(v), size };
+	}
+
+	inline constexpr Plane& Plane::moveBy(const value_type _x, const value_type _y, const value_type _z) noexcept
+	{
+		center.moveBy(_x, _y, _z);
+		return *this;
+	}
+
+	inline constexpr Plane& Plane::moveBy(const position_type v) noexcept
+	{
+		center.moveBy(v);
+		return *this;
+	}
+
+	inline constexpr Plane Plane::stretched(const value_type xz) const noexcept
+	{
+		return stretched({ xz, xz });
+	}
+
+	inline constexpr Plane Plane::stretched(const value_type _x, const value_type _z) const noexcept
+	{
+		return stretched({ _x, _z });
+	}
+
+	inline constexpr Plane Plane::stretched(const size_type xz) const noexcept
+	{
+		return{ center, (size + xz * 2) };
+	}
+
+	inline constexpr Plane Plane::scaled(const double s) const noexcept
+	{
+		return{ center, (size * s) };
+	}
+
+	inline constexpr Plane Plane::scaled(const double sx, const double sz) const noexcept
+	{
+		return{ center, (size * Vec2{ sx, sz }) };
+	}
+
+	inline constexpr Plane Plane::scaled(const Vec2 s) const noexcept
+	{
+		return{ center, (size * s) };
+	}
+
+	inline constexpr bool Plane::hasArea() const noexcept
+	{
+		return ((size.x != 0) && (size.y != 0));
+	}
+
+	inline constexpr Plane Plane::lerp(const Plane& other, const double f) const noexcept
+	{
+		return{ center.lerp(other.center, f), size.lerp(other.size, f) };
+	}
 }

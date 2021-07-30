@@ -731,29 +731,29 @@
 
 // 3D 線分
 // 3D Line segment
-# include <Siv3D/Line3D.hpp> // [Siv3D ToDo]
+# include <Siv3D/Line3D.hpp>
 
 // 3D 三角形
 // 3D Triangle
-# include <Siv3D/Triangle3D.hpp> // [Siv3D ToDo]
+# include <Siv3D/Triangle3D.hpp>
 
 // 軸平行境界ボックス (AABB)
 // Axis Aligned Bounding Box (AABB)
-# include <Siv3D/Box.hpp> // [Siv3D ToDo]
+# include <Siv3D/Box.hpp>
 
 // 有向境界ボックス (OBB)
 // Oriented Bounding Box (OBB)
-# include <Siv3D/OrientedBox.hpp> // [Siv3D ToDo]
+# include <Siv3D/OrientedBox.hpp>
 
 // 球
 // Sphere
-# include <Siv3D/Sphere.hpp> // [Siv3D ToDo]
+# include <Siv3D/Sphere.hpp>
 
 // 平面
 // Plane
-# include <Siv3D/Plane.hpp> // [Siv3D ToDo]
+# include <Siv3D/Plane.hpp>
 
-# include <Siv3D/InfinitePlane.hpp> // [Siv3D ToDo]
+# include <Siv3D/InfinitePlane.hpp>
 
 # include <Siv3D/Disc.hpp>
 

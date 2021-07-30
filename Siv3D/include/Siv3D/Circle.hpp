@@ -198,7 +198,7 @@ namespace s3d
 
 		constexpr Circle& set(value_type _x, value_type _y, size_type _r) noexcept;
 
-		constexpr Circle& set(const position_type& _center, size_type _r) noexcept;
+		constexpr Circle& set(position_type _center, size_type _r) noexcept;
 
 		constexpr Circle& set(Arg::center_<position_type> _center, size_type _r) noexcept;
 
@@ -222,11 +222,11 @@ namespace s3d
 
 		constexpr Circle& setCenter(value_type _x, value_type _y) noexcept;
 
-		constexpr Circle& setCenter(const position_type& _center) noexcept;
+		constexpr Circle& setCenter(position_type _center) noexcept;
 
 		constexpr Circle& setPos(value_type _x, value_type _y) noexcept;
 
-		constexpr Circle& setPos(const position_type& _center) noexcept;
+		constexpr Circle& setPos(position_type _center) noexcept;
 
 		constexpr Circle& setPos(Arg::center_<position_type> _center) noexcept;
 

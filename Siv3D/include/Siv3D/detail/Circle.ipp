@@ -103,7 +103,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline constexpr Circle& Circle::set(const position_type& _center, size_type _r) noexcept
+	inline constexpr Circle& Circle::set(const position_type _center, size_type _r) noexcept
 	{
 		return set(_center.x, _center.y, _r);
 	}
@@ -164,7 +164,7 @@ namespace s3d
 		return *this;
 	}
 
-	inline constexpr Circle& Circle::setCenter(const position_type& _center) noexcept
+	inline constexpr Circle& Circle::setCenter(const position_type _center) noexcept
 	{
 		return setCenter(_center.x, _center.y);
 	}
@@ -174,7 +174,7 @@ namespace s3d
 		return setCenter(_x, _y);
 	}
 
-	inline constexpr Circle& Circle::setPos(const position_type& _center) noexcept
+	inline constexpr Circle& Circle::setPos(const position_type _center) noexcept
 	{
 		return setCenter(_center.x, _center.y);
 	}

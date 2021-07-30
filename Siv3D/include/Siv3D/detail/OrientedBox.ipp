@@ -150,31 +150,31 @@ namespace s3d
 		, size{ box.size }
 		, orientation{ _orientation } {}
 
-	inline OrientedBox& OrientedBox::setPos(const double cx, const double cy, const double cz) noexcept
+	inline OrientedBox& OrientedBox::setPos(const value_type cx, const value_type cy, const value_type cz) noexcept
 	{
 		center.set(cx, cy, cz);
 		return *this;
 	}
 
-	inline OrientedBox& OrientedBox::setPos(const Vec3& _center) noexcept
+	inline OrientedBox& OrientedBox::setPos(const position_type _center) noexcept
 	{
 		center.set(_center);
 		return *this;
 	}
 
-	inline OrientedBox& OrientedBox::setSize(const double _w, const double _h, const double _d) noexcept
+	inline OrientedBox& OrientedBox::setSize(const value_type _w, const value_type _h, const value_type _d) noexcept
 	{
 		size.set(_w, _h, _d);
 		return *this;
 	}
 
-	inline OrientedBox& OrientedBox::setSize(const Vec3& _size) noexcept
+	inline OrientedBox& OrientedBox::setSize(const size_type _size) noexcept
 	{
 		size.set(_size);
 		return *this;
 	}
 
-	inline OrientedBox& OrientedBox::setOrientation(const Quaternion& _orientation) noexcept
+	inline OrientedBox& OrientedBox::setOrientation(const Quaternion _orientation) noexcept
 	{
 		orientation = _orientation;
 		return *this;
