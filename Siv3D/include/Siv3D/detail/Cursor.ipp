@@ -19,5 +19,12 @@ namespace s3d
 		{
 			SetPos(Point{ x, y });
 		}
+
+		namespace Internal
+		{
+			void SetLocalTransform(const Mat3x2& matrix);
+
+			void SetCameraTransform(const Mat3x2& matrix);
+		}
 	}
 }

@@ -183,6 +183,9 @@
 // 非同期タスク | Asynchronous task
 # include <Siv3D/AsyncTask.hpp>
 
+// 子プロセス | Child process
+# include <Siv3D/ChildProcess.hpp>
+
 //////////////////////////////////////////////////
 //
 //	文字と文字列 | Characters and String
@@ -420,17 +423,23 @@
 // 暗号化 | Encryption
 //# include <Siv3D/Crypto.hpp>
 
-// zlib 方式による可逆圧縮 | Lossless compression with zlib format
-# include <Siv3D/Zlib.hpp>
-
-// Zstandard 方式による可逆圧縮 | Lossless compression with Zstandard algorithm
-# include <Siv3D/Compression.hpp>
-
 // アーカイブファイルからの読み込み | Archived file reader
 //# include <Siv3D/ArchivedFileReader.hpp>
 
 // アーカイブファイル | File archive
 //# include <Siv3D/FileArchive.hpp>
+
+//////////////////////////////////////////////////
+//
+//	データ圧縮 | Data Compression
+//
+//////////////////////////////////////////////////
+
+// zlib 方式による可逆圧縮 | Lossless compression with zlib format
+# include <Siv3D/Zlib.hpp>
+
+// Zstandard 方式による可逆圧縮 | Lossless compression with Zstandard algorithm
+# include <Siv3D/Compression.hpp>
 
 // ZIP 圧縮ファイルの読み込み | ZIP reader
 # include <Siv3D/ZIPReader.hpp>
@@ -583,6 +592,14 @@
 // 色 | Colors
 # include <Siv3D/ColorHSV.hpp>
 
+# include <Siv3D/Color.hpp>
+
+# include <Siv3D/ColorF.hpp>
+
+# include <Siv3D/HSV.hpp>
+
+# include <Siv3D/Palette.hpp>
+
 // カラーマップ | Colormap
 # include <Siv3D/Colormap.hpp>
 
@@ -700,7 +717,7 @@
 
 //////////////////////////////////////////////////
 //
-//	3D 図形 | 3D Geometry
+//	3D 形状 | 3D Geometry
 //
 //////////////////////////////////////////////////
 
@@ -746,20 +763,11 @@
 
 // レイ
 // Ray
-# include <Siv3D/Ray.hpp> // [Siv3D ToDo]
+# include <Siv3D/Ray.hpp>
 
 # include <Siv3D/ViewFrustum.hpp>
 
 # include <Siv3D/Geometry3D.hpp>
-
-
-# include <Siv3D/Material.hpp>
-# include <Siv3D/PhongMaterial.hpp>
-
-# include <Siv3D/ModelMeshPart.hpp>
-# include <Siv3D/ModelObject.hpp>
-# include <Siv3D/Model.hpp>
-
 
 //////////////////////////////////////////////////
 //
@@ -805,6 +813,8 @@
 // ランダムなサンプリング | Random sampling
 # include <Siv3D/Sample.hpp>
 
+# include <Siv3D/UUID.hpp>
+
 //////////////////////////////////////////////////
 //
 //	システム | System
@@ -835,6 +845,9 @@
 // コンソール入出力 | Console input/output
 # include <Siv3D/Console.hpp>
 
+// クリップボード | Clipboard
+# include <Siv3D/Clipboard.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ネットワーク | Network
@@ -850,7 +863,7 @@
 
 //////////////////////////////////////////////////
 //
-//	TCP 通信 | TCP communication
+//	TCP 通信 | TCP Communication
 //
 //////////////////////////////////////////////////
 
@@ -862,7 +875,7 @@
 
 //////////////////////////////////////////////////
 //
-//	HTTP 通信 | HTTP communication
+//	HTTP 通信 | HTTP Communication
 //
 //////////////////////////////////////////////////
 
@@ -874,6 +887,27 @@
 # include <Siv3D/HTTPProgress.hpp>
 # include <Siv3D/AsyncHTTPTask.hpp>
 # include <Siv3D/SimpleHTTP.hpp>
+
+//////////////////////////////////////////////////
+//
+//	シリアル通信 | Serial Communication
+//
+//////////////////////////////////////////////////
+
+// シリアルポートの情報 | Serial port information
+# include <Siv3D/SerialPortInfo.hpp>
+
+// シリアル通信 | Serial communication
+# include <Siv3D/Serial.hpp>
+
+//////////////////////////////////////////////////
+//
+//	パイプ | Pipe
+//
+//////////////////////////////////////////////////
+
+// パイプ通信 | Interprocess communication (Pipe)
+# include <Siv3D/Pipe.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -892,7 +926,98 @@
 
 //////////////////////////////////////////////////
 //
-//	画像処理 | Image processing
+//	ダイアログ | Dialog
+//
+//////////////////////////////////////////////////
+
+// ファイルダイアログ | File dialog
+# include <Siv3D/Dialog.hpp>
+
+// ファイル拡張子フィルタ | File extension filter
+# include <Siv3D/FileFilter.hpp>
+
+//////////////////////////////////////////////////
+//
+//	電源の状態 | Power Status
+//
+//////////////////////////////////////////////////
+
+// 電源の接続状態 | AC line status
+# include <Siv3D/ACLineStatus.hpp>
+
+// バッテリーの残量 | Battery status
+# include <Siv3D/BatteryStatus.hpp>
+
+// 電源の状態 | Power status
+# include <Siv3D/PowerStatus.hpp>
+
+//////////////////////////////////////////////////
+//
+//	文章読み上げ | Text to Speech
+//
+//////////////////////////////////////////////////
+
+// 言語コード | Language code
+# include <Siv3D/LanguageCode.hpp>
+
+// 文章読み上げ | Text to speech
+# include <Siv3D/TextToSpeech.hpp>
+
+// 文章読み上げオブジェクト | Text to speech object
+# include <Siv3D/Say.hpp>
+
+# include <Siv3D/KlattTTSParameters.hpp>
+
+# include <Siv3D/KlattTTS.hpp>
+
+//////////////////////////////////////////////////
+//
+//	ドラッグ & ドロップ | Drag & Drop
+//
+//////////////////////////////////////////////////
+
+// ドラッグするアイテムの種類
+# include <Siv3D/DragItemType.hpp>
+
+// ドラッグの状態
+# include <Siv3D/DragStatus.hpp>
+
+// ドロップされたファイルパスの情報
+# include <Siv3D/DroppedFilePath.hpp>
+
+// ドロップされたテキストの情報
+# include <Siv3D/DroppedText.hpp>
+
+// ドラッグ＆ドロップ | Drag & drop
+# include <Siv3D/DragDrop.hpp>
+
+//////////////////////////////////////////////////
+//
+//	メッセージボックス | Message Box
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/MessageBoxResult.hpp>
+
+# include <Siv3D/MessageBoxStyle.hpp>
+
+# include <Siv3D/MessageBox.hpp>
+
+//////////////////////////////////////////////////
+//
+//	トースト通知 | Toast Notification
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/ToastNotificationItem.hpp>
+
+# include <Siv3D/ToastNotificationState.hpp>
+
+# include <Siv3D/ToastNotification.hpp>
+
+//////////////////////////////////////////////////
+//
+//	画像処理 | Image Processing
 //
 //////////////////////////////////////////////////
 
@@ -933,7 +1058,7 @@
 
 //////////////////////////////////////////////////
 //
-//	画像形式 | Image encoding
+//	画像形式 | Image Encoding
 //
 //////////////////////////////////////////////////
 
@@ -989,7 +1114,7 @@
 
 //////////////////////////////////////////////////
 //
-//	QR コード | QR code
+//	QR コード | QR Code
 //
 //////////////////////////////////////////////////
 
@@ -1010,7 +1135,7 @@
 
 //////////////////////////////////////////////////
 //
-//	動画処理 | Video processing
+//	動画処理 | Video Processing
 //
 //////////////////////////////////////////////////
 
@@ -1022,7 +1147,7 @@
 
 //////////////////////////////////////////////////
 //
-//	音声処理 | Audio processing
+//	音声処理 | Audio Processing
 //
 //////////////////////////////////////////////////
 
@@ -1046,7 +1171,7 @@
 
 //////////////////////////////////////////////////
 //
-//	音声形式 | Audio encoding
+//	音声形式 | Audio Encoding
 //
 //////////////////////////////////////////////////
 
@@ -1086,7 +1211,7 @@
 
 //////////////////////////////////////////////////
 //
-//	オーディオ再生 | Audio playback
+//	オーディオ再生 | Audio Playback
 //
 //////////////////////////////////////////////////
 
@@ -1096,7 +1221,7 @@
 
 //////////////////////////////////////////////////
 //
-//	入力デバイス | Input device
+//	入力デバイス | Input Device
 //
 //////////////////////////////////////////////////
 
@@ -1109,6 +1234,12 @@
 # include <Siv3D/InputDevice.hpp>
 
 # include <Siv3D/InputGroups.hpp>
+
+# include <Siv3D/Input.hpp>
+
+# include <Siv3D/InputCombination.hpp>
+
+# include <Siv3D/InputGroup.hpp>
 
 // キーボード | Keyboard
 # include <Siv3D/Keyboard.hpp>
@@ -1163,7 +1294,7 @@
 
 //////////////////////////////////////////////////
 //
-//	アセット管理 | Asset management
+//	アセット管理 | Asset Management
 //
 //////////////////////////////////////////////////
 
@@ -1201,7 +1332,7 @@
 
 //////////////////////////////////////////////////
 //
-//	ナビメッシュ | Navigation mesh
+//	ナビメッシュ | Navigation Mesh
 //
 //////////////////////////////////////////////////
 
@@ -1221,7 +1352,7 @@
 
 //////////////////////////////////////////////////
 //
-//	レンダーステート | Render states
+//	2D レンダーステート | 2D Render States
 //
 //////////////////////////////////////////////////
 
@@ -1274,6 +1405,32 @@
 
 //////////////////////////////////////////////////
 //
+//	3D レンダーステート | 3D Render States
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Graphics3D.hpp>
+
+# include <Siv3D/ScopedRenderStates3D.hpp>
+
+# include <Siv3D/ScopedViewport3D.hpp>
+
+# include <Siv3D/ScopedRenderTarget3D.hpp>
+
+# include <Siv3D/Transformer3D.hpp>
+
+//////////////////////////////////////////////////
+//
+//	3D カメラコントロール | 3D Camera
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/BasicCamera3D.hpp>
+
+# include <Siv3D/DebugCamera3D.hpp>
+
+//////////////////////////////////////////////////
+//
 //	シェーダー | Shader
 //
 //////////////////////////////////////////////////
@@ -1301,6 +1458,9 @@
 
 // 2D シェーダスコープ | 2D shader scope
 # include <Siv3D/ScopedCustomShader2D.hpp>
+
+// 3D シェーダスコープ | 3D shader scope
+# include <Siv3D/ScopedCustomShader3D.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1361,6 +1521,38 @@
 
 //////////////////////////////////////////////////
 //
+//	メッシュ | Mesh
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Vertex3D.hpp>
+
+# include <Siv3D/NormalComputation.hpp>
+
+# include <Siv3D/MeshData.hpp>
+
+# include <Siv3D/Mesh.hpp>
+
+# include <Siv3D/DynamicMesh.hpp>
+
+//////////////////////////////////////////////////
+//
+//	モデル | Model
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Material.hpp>
+
+# include <Siv3D/PhongMaterial.hpp>
+
+# include <Siv3D/ModelMeshPart.hpp>
+
+# include <Siv3D/ModelObject.hpp>
+
+# include <Siv3D/Model.hpp>
+
+//////////////////////////////////////////////////
+//
 //	GUI | GUI
 //
 //////////////////////////////////////////////////
@@ -1376,18 +1568,6 @@
 
 //////////////////////////////////////////////////
 //
-//	トースト通知 | Toast notification
-//
-//////////////////////////////////////////////////
-
-# include <Siv3D/ToastNotificationItem.hpp>
-
-# include <Siv3D/ToastNotificationState.hpp>
-
-# include <Siv3D/ToastNotification.hpp>
-
-//////////////////////////////////////////////////
-//
 //	エフェクト | Effect
 //
 //////////////////////////////////////////////////
@@ -1397,6 +1577,15 @@
 
 // エフェクト | Effect
 # include <Siv3D/Effect.hpp>
+
+//////////////////////////////////////////////////
+//
+//	スクリーンキャプチャ | Screen Capture
+//
+//////////////////////////////////////////////////
+
+// スクリーンキャプチャ | Screen capture
+# include <Siv3D/ScreenCapture.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1423,97 +1612,6 @@
 
 // 2D パーティクルシステム | 2D Particle system (System)
 # include <Siv3D/ParticleSystem2D.hpp>
-
-//////////////////////////////////////////////////
-//
-//	シリアル通信 | Serial communication
-//
-//////////////////////////////////////////////////
-
-// シリアルポートの情報 | Serial port information
-# include <Siv3D/SerialPortInfo.hpp>
-
-// シリアル通信 | Serial communication
-# include <Siv3D/Serial.hpp>
-
-//////////////////////////////////////////////////
-//
-//	ダイアログ | Dialog
-//
-//////////////////////////////////////////////////
-
-// ファイルダイアログ | File dialog
-# include <Siv3D/Dialog.hpp>
-
-// ファイル拡張子フィルタ | File extension filter
-# include <Siv3D/FileFilter.hpp>
-
-//////////////////////////////////////////////////
-//
-//	電源の状態 | Power status
-//
-//////////////////////////////////////////////////
-
-// 電源の接続状態 | AC line status
-# include <Siv3D/ACLineStatus.hpp>
-
-// バッテリーの残量 | Battery status
-# include <Siv3D/BatteryStatus.hpp>
-
-// 電源の状態 | Power status
-# include <Siv3D/PowerStatus.hpp>
-
-//////////////////////////////////////////////////
-//
-//	文章読み上げ | Text to speech
-//
-//////////////////////////////////////////////////
-
-// 言語コード | Language code
-# include <Siv3D/LanguageCode.hpp>
-
-// 文章読み上げ | Text to speech
-# include <Siv3D/TextToSpeech.hpp>
-
-// 文章読み上げオブジェクト | Text to speech object
-# include <Siv3D/Say.hpp>
-
-# include <Siv3D/KlattTTSParameters.hpp>
-
-# include <Siv3D/KlattTTS.hpp>
-
-//////////////////////////////////////////////////
-//
-//	ドラッグ & ドロップ | Drag & drop
-//
-//////////////////////////////////////////////////
-
-// ドラッグするアイテムの種類
-# include <Siv3D/DragItemType.hpp>
-
-// ドラッグの状態
-# include <Siv3D/DragStatus.hpp>
-
-// ドロップされたファイルパスの情報
-# include <Siv3D/DroppedFilePath.hpp>
-
-// ドロップされたテキストの情報
-# include <Siv3D/DroppedText.hpp>
-
-// ドラッグ＆ドロップ | Drag & drop
-# include <Siv3D/DragDrop.hpp>
-
-//////////////////////////////////////////////////
-//
-//	メッセージボックス | Message box
-//
-//////////////////////////////////////////////////
-
-# include <Siv3D/MessageBoxResult.hpp>
-
-# include <Siv3D/MessageBoxStyle.hpp>
-
-# include <Siv3D/MessageBox.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1547,11 +1645,36 @@
 
 //////////////////////////////////////////////////
 //
+//	シリアライズ | Serialization
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Serialization.hpp>
+
+//////////////////////////////////////////////////
+//
 //	Lua スクリプト | Lua Script
 //
 //////////////////////////////////////////////////
 
 # include <Siv3D/LuaScript.hpp>
+
+//////////////////////////////////////////////////
+//
+//	シーン管理 | Scene Management
+//
+//////////////////////////////////////////////////
+
+// シーン遷移管理 | Scene transition manager
+# include <Siv3D/SceneManager.hpp>
+
+//////////////////////////////////////////////////
+//
+//	拡張レンダリングエンジン | Rndering Engine Extension
+//
+//////////////////////////////////////////////////
+
+# include <Siv3D/Sky.hpp>
 
 //////////////////////////////////////////////////
 //
@@ -1567,7 +1690,7 @@
 
 //////////////////////////////////////////////////
 //
-//	エンジン設定 | Engine configuration
+//	エンジン設定 | Engine Configuration
 //
 //////////////////////////////////////////////////
 
@@ -1576,46 +1699,7 @@
 
 //////////////////////////////////////////////////
 //
-//	未分類
-//
-//////////////////////////////////////////////////
-
-// シーン遷移管理 | Scene transition manager
-# include <Siv3D/SceneManager.hpp>
-
-// スクリーンキャプチャ | Screen capture
-# include <Siv3D/ScreenCapture.hpp>
-
-// パイプ通信 | Interprocess communication (Pipe)
-# include <Siv3D/Pipe.hpp>
-
-// 子プロセス | Child process
-# include <Siv3D/ChildProcess.hpp>
-
-// クリップボード | Clipboard
-# include <Siv3D/Clipboard.hpp>
-
-# include <Siv3D/Serialization.hpp>
-# include <Siv3D/UUID.hpp>
-
-# include <Siv3D/Vertex3D.hpp>
-# include <Siv3D/BasicCamera3D.hpp>
-# include <Siv3D/DebugCamera3D.hpp>
-# include <Siv3D/NormalComputation.hpp>
-# include <Siv3D/MeshData.hpp>
-# include <Siv3D/Mesh.hpp>
-# include <Siv3D/DynamicMesh.hpp>
-# include <Siv3D/Graphics3D.hpp>
-# include <Siv3D/ScopedRenderStates3D.hpp>
-# include <Siv3D/ScopedViewport3D.hpp>
-# include <Siv3D/ScopedRenderTarget3D.hpp>
-# include <Siv3D/ScopedCustomShader3D.hpp>
-# include <Siv3D/Transformer3D.hpp>
-# include <Siv3D/Sky.hpp>
-
-//////////////////////////////////////////////////
-//
-//	実験的なライブラリ | Exmperimental library
+//	実験的なライブラリ | Exmperimental Libraries
 //
 //////////////////////////////////////////////////
 
@@ -1670,7 +1754,7 @@ void Main()
 
 //////////////////////////////////////////////////
 //
-//	名前空間 | Name space
+//	名前空間 | Name Space
 //
 //////////////////////////////////////////////////
 

@@ -30,4 +30,4 @@
 # define SIV3D_VERSION_STRING	U"0.6.0" SIV3D_VERSION_PRERELEASE_TAG
 
 /// @biref ライブラリのバージョン名 | Library version name
-# define SIV3D_VERSION_NAME		U"Siv3D July 2021"
+# define SIV3D_VERSION_NAME		U"Siv3D August 2021"

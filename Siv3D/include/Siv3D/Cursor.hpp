@@ -139,13 +139,6 @@ namespace s3d
 		/// @return 適用されているカメラ座標変換
 		[[nodiscard]]
 		const Mat3x2& GetCameraTransform() noexcept;
-
-		namespace Internal
-		{
-			void SetLocalTransform(const Mat3x2& matrix);
-
-			void SetCameraTransform(const Mat3x2& matrix);
-		}
 	}
 }
 
