@@ -218,6 +218,18 @@ namespace s3d
 		return *this;
 	}
 
+	inline SIMD_Float4& SIMD_Float4::set(const Float2 xy, const Float2 zw) noexcept
+	{
+		vec = DirectX::XMVectorSet(xy.x, xy.y, zw.x, zw.y);
+		return *this;
+	}
+
+	inline SIMD_Float4& SIMD_Float4::set(const Float3 xyz, const float w) noexcept
+	{
+		vec = DirectX::XMVectorSet(xyz.x, xyz.y, xyz.z, w);
+		return *this;
+	}
+
 	inline bool SIMD_Float4::isZero() const noexcept
 	{
 		return DirectX::XMVector4Equal(vec, DirectX::XMVectorZero());
@@ -282,6 +294,11 @@ namespace s3d
 	inline SIMD_Float4 SIMD_Float4::normalized() const noexcept
 	{
 		return DirectX::XMVector4Normalize(vec);
+	}
+
+	inline SIMD_Float4 SIMD_Float4::lerp(SIMD_Float4 other, const float f) const noexcept
+	{
+		return DirectX::XMVectorLerp(vec, other.vec, static_cast<float>(f));
 	}
 
 	inline Float2 SIMD_Float4::xy() const noexcept

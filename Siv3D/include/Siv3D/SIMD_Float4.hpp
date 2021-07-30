@@ -57,6 +57,20 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		SIMD_Float4(aligned_float4 _vec) noexcept;
 
+
+		[[nodiscard]]
+		friend bool SIV3D_VECTOR_CALL operator ==(const SIMD_Float4& lhs, const SIMD_Float4& rhs) noexcept
+		{
+			return DirectX::XMVector4Equal(lhs.vec, rhs.vec);
+		}
+
+		[[nodiscard]]
+		friend bool SIV3D_VECTOR_CALL operator !=(const SIMD_Float4& lhs, const SIMD_Float4& rhs) noexcept
+		{
+			return DirectX::XMVector4NotEqual(lhs.vec, rhs.vec);
+		}
+
+
 		SIMD_Float4& operator =(const SIMD_Float4&) = default;
 
 		SIMD_Float4& SIV3D_VECTOR_CALL operator =(aligned_float4 other) noexcept;
@@ -139,6 +153,10 @@ namespace s3d
 
 		SIMD_Float4& SIV3D_VECTOR_CALL set(float x, float y, float z, float w) noexcept;
 
+		SIMD_Float4& SIV3D_VECTOR_CALL set(Float2 xy, Float2 zw) noexcept;
+
+		SIMD_Float4& SIV3D_VECTOR_CALL set(Float3 xyz, float w = 0.0f) noexcept;
+
 		[[nodiscard]]
 		bool SIV3D_VECTOR_CALL isZero() const noexcept;
 
@@ -176,6 +194,9 @@ namespace s3d
 
 		[[nodiscard]]
 		SIMD_Float4 SIV3D_VECTOR_CALL normalized() const noexcept;
+
+		[[nodiscard]]
+		SIMD_Float4 SIV3D_VECTOR_CALL lerp(SIMD_Float4 other, float f) const noexcept;
 
 		[[nodiscard]]
 		Float2 SIV3D_VECTOR_CALL xy() const noexcept;
