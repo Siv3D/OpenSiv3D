@@ -20,9 +20,15 @@ namespace s3d
 
 	struct Line3D
 	{
-		Vec3 begin;
+		using position_type = Vec3;
 
-		Vec3 end;
+		using value_type = position_type::value_type;
+
+
+		position_type begin;
+
+		position_type end;
+
 
 		SIV3D_NODISCARD_CXX20
 		Line3D() = default;
@@ -31,19 +37,101 @@ namespace s3d
 		Line3D(const Line3D&) = default;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Line3D(double bx, double by, double bz, double ex, double ey, double ez) noexcept;
+		constexpr Line3D(value_type bx, value_type by, value_type bz, value_type ex, value_type ey, value_type ez) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Line3D(const Vec3& _begin, double ex, double ey, double ez) noexcept;
+		constexpr Line3D(const position_type& _begin, value_type ex, value_type ey, value_type ez) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Line3D(double bx, double by, double bz, const Vec3& _end) noexcept;
+		constexpr Line3D(value_type bx, value_type by, value_type bz, const position_type& _end) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Line3D(const Vec3& _begin, const Vec3& _end) noexcept;
+		constexpr Line3D(const position_type& _begin, const position_type& _end) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Line3D(const Vec3& origin, Arg::direction_<Vec3> direction) noexcept;
+		constexpr Line3D(const position_type& origin, Arg::direction_<position_type> direction) noexcept;
+
+
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Line3D& lhs, const Line3D& rhs) noexcept
+		{
+			return (lhs.begin == rhs.begin)
+				&& (lhs.end == rhs.end);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Line3D& lhs, const Line3D& rhs) noexcept
+		{
+			return (lhs.begin != rhs.begin)
+				|| (lhs.end != rhs.end);
+		}
+
+
+		constexpr Line3D& set(value_type x0, value_type y0, value_type z0, value_type x1, value_type y1, value_type z1) noexcept;
+
+		constexpr Line3D& set(position_type p0, value_type x1, value_type y1, value_type z1) noexcept;
+
+		constexpr Line3D& set(value_type x0, value_type y0, value_type z0, position_type p1) noexcept;
+
+		constexpr Line3D& set(position_type p0, position_type p1) noexcept;
+
+		constexpr Line3D& set(const Line3D& line) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Line3D movedBy(value_type x, value_type y, value_type z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D movedBy(position_type v) const noexcept;
+
+		constexpr Line3D& moveBy(value_type x, value_type y, value_type z) noexcept;
+
+		constexpr Line3D& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		Line3D stretched(value_type length) const noexcept;
+
+		[[nodiscard]]
+		Line3D stretched(value_type lengthBegin, value_type lengthEnd) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr position_type vector() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D reversed() const noexcept;
+
+		constexpr Line3D& reverse() noexcept;
+
+
+		[[nodiscard]]
+		constexpr bool hasLength() const noexcept;
+
+		[[nodiscard]]
+		value_type length() const noexcept;
+
+		[[nodiscard]]
+		constexpr value_type lengthSq() const noexcept;
+
+		[[nodiscard]]
+		position_type& p(size_t index) noexcept;
+
+		[[nodiscard]]
+		const position_type& p(size_t index) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type point(size_t index);
+
+		[[nodiscard]]
+		constexpr position_type position(double t) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type center() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D lerp(const Line3D& other, double f) const noexcept;
+
 
 		[[nodiscard]]
 		Line3D toScreen(const Mat4x4& vp) const noexcept;
@@ -51,8 +139,6 @@ namespace s3d
 		[[nodiscard]]
 		Line toScreenLine(const Mat4x4& vp) const noexcept;
 
-		[[nodiscard]]
-		constexpr Line asLine() const noexcept;
 
 		const Line3D& draw(const ColorF& color = Palette::White) const;
 
