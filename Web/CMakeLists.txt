@@ -596,6 +596,8 @@ add_library(
   ../Siv3D/src/ThirdParty/cpu_features/stack_line_reader.c
   ../Siv3D/src/ThirdParty/cpu_features/string_view.c
 
+  ../Siv3D/src/ThirdParty/DirectXMath/DirectXCollision.cpp
+
   ../Siv3D/src/ThirdParty/double-conversion/bignum-dtoa.cc
   ../Siv3D/src/ThirdParty/double-conversion/bignum.cc
   ../Siv3D/src/ThirdParty/double-conversion/cached-powers.cc
