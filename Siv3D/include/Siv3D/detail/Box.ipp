@@ -208,6 +208,11 @@ namespace s3d
 		return ((size.x != 0.0) && (size.y != 0.0) && (size.z != 0.0));
 	}
 
+	inline constexpr Box Box::lerp(const Box& other, const double f) const noexcept
+	{
+		return{ center.lerp(other.center, f), size.lerp(other.size, f) };
+	}
+
 	inline constexpr Box Box::FromPoints(const Vec3& a, const Vec3& b) noexcept
 	{
 		const Vec3 center = (a + b) * 0.5;

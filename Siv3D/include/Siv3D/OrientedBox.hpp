@@ -212,6 +212,10 @@ namespace s3d
 
 
 		[[nodiscard]]
+		OrientedBox lerp(const OrientedBox& other, double f) const noexcept;
+
+
+		[[nodiscard]]
 		bool intersects(const Vec3& point) const noexcept;
 
 		[[nodiscard]]

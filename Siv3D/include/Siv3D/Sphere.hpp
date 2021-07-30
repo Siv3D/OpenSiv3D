@@ -27,9 +27,36 @@ namespace s3d
 
 	struct Sphere
 	{
-		Vec3 center;
+		using position_type	= Vec3;
 
-		double r;
+		using size_type		= position_type::value_type;
+
+		using value_type	= position_type::value_type;
+
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			/// @brief 球の中心座標
+			position_type center;
+
+			struct
+			{
+				/// @brief 球の中心の X 座標
+				value_type x;
+
+				/// @brief 球の中心の Y 座標
+				value_type y;
+
+				/// @brief 球の中心の Z 座標
+				value_type z;
+			};
+		};
+
+		/// @brief 球の半径
+		size_type r;
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		Sphere() = default;
 
@@ -54,6 +81,73 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Sphere(const Vec3& _center, Arithmetic _r) noexcept;
 
+
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Sphere& lhs, const Sphere& rhs) noexcept
+		{
+			return (lhs.center == rhs.center)
+				&& (lhs.r == rhs.r);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Sphere& lhs, const Sphere& rhs) noexcept
+		{
+			return (lhs.center != rhs.center)
+				|| (lhs.r != rhs.r);
+		}
+
+		constexpr Sphere& set(value_type _x, value_type _y, size_type _z, size_type _r) noexcept;
+
+		constexpr Sphere& set(const position_type& _center, size_type _r) noexcept;
+
+		constexpr Sphere& set(const Sphere& sphere) noexcept;
+
+		constexpr Sphere& setPos(value_type _x, value_type _y, value_type _z) noexcept;
+
+		constexpr Sphere& setPos(const position_type& _center) noexcept;
+
+		constexpr Sphere& setR(value_type _r) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Sphere movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Sphere movedBy(position_type v) const noexcept;
+
+		constexpr Sphere& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		constexpr Sphere& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Sphere stretched(value_type size) const noexcept;
+
+		[[nodiscard]]
+		constexpr Sphere scaled(double s) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr position_type top() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type bottom() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type left() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type right() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type forward() const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type backward() const noexcept;
+
+
+		[[nodiscard]]
+		constexpr Sphere lerp(const Sphere& other, double f) const noexcept;
 
 
 		[[nodiscard]]

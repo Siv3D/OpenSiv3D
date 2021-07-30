@@ -236,4 +236,9 @@ namespace s3d
 	{
 		return ((size.x != 0.0) && (size.y != 0.0) && (size.z != 0.0));
 	}
+
+	inline OrientedBox OrientedBox::lerp(const OrientedBox& other, const double f) const noexcept
+	{
+		return{ center.lerp(other.center, f), size.lerp(other.size, f), orientation.slerp(other.orientation, f) };
+	}
 }
