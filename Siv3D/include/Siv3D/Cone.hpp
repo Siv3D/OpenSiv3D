@@ -22,11 +22,31 @@ namespace s3d
 
 	struct Cone
 	{
-		Vec3 center;
+		using position_type = Vec3;
 
-		double r;
+		using value_type = position_type::value_type;
 
-		double h;
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			position_type center;
+
+			struct
+			{
+				value_type x;
+
+				value_type y;
+
+				value_type z;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+		value_type r;
+
+		value_type h;
 
 		Quaternion orientation;
 

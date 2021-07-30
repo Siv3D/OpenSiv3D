@@ -22,11 +22,31 @@ namespace s3d
 
 	struct Cylinder
 	{
-		Vec3 center;
+		using position_type = Vec3;
 
-		double r;
+		using value_type = position_type::value_type;
 
-		double h;
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			position_type center;
+
+			struct
+			{
+				value_type x;
+
+				value_type y;
+
+				value_type z;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+		value_type r;
+
+		value_type h;
 
 		Quaternion orientation;
 
@@ -48,6 +68,48 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Cylinder(const Vec3& from, const Vec3& to, double _r, const Quaternion& _orientation) noexcept;
 
+
+		Cylinder& setPos(value_type cx, value_type cy, value_type cz) noexcept;
+
+		Cylinder& setPos(position_type _center) noexcept;
+
+		Cylinder& setSize(value_type _r, value_type _h) noexcept;
+
+		Cylinder& setOrientation(Quaternion _orientation) noexcept;
+
+
+		[[nodiscard]]
+		Cylinder movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		Cylinder movedBy(position_type v) const noexcept;
+
+		Cylinder& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		Cylinder& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		Cylinder stretched(double _r, double _h) const noexcept;
+
+
+		[[nodiscard]]
+		Cylinder scaled(double sr, double sh) const noexcept;
+
+
+		[[nodiscard]]
+		bool hasVolume() const noexcept;
+
+
+		[[nodiscard]]
+		Cylinder lerp(const Cylinder& other, double f) const noexcept;
+
+
+		[[nodiscard]]
+		position_type topCenter() const noexcept;
+
+		[[nodiscard]]
+		position_type bottomCenter() const noexcept;
 
 
 		const Cylinder& draw(const ColorF& color = Palette::White) const;

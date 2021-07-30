@@ -40,7 +40,7 @@ namespace s3d
 
 		using size_type		= Point;
 
-		using value_type	= typename size_type::value_type;
+		using value_type	= size_type::value_type;
 
 	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 

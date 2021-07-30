@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Box.hpp>
+# include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/Line3D.hpp>
 # include <Siv3D/Triangle3D.hpp>
@@ -37,6 +38,11 @@ namespace s3d
 			center.movedBy(-s.x, -s.y, s.z),
 			center.movedBy( s.x, -s.y, s.z),
 		};
+	}
+
+	OrientedBox Box::oriented(const Quaternion& orientation) const noexcept
+	{
+		return OrientedBox{ *this, orientation };
 	}
 
 	bool Box::intersects(const Vec3& point) const noexcept

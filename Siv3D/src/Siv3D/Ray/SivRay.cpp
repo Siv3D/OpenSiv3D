@@ -24,7 +24,8 @@ namespace s3d
 {
 	namespace detail
 	{
-		float Dot2(const Float3 v)
+		[[nodiscard]]
+		inline constexpr float Dot2(const Float3 v) noexcept
 		{
 			return v.dot(v);
 		}
