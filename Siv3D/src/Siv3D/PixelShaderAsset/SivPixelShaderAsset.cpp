@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/PixelShaderAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -27,6 +29,18 @@ namespace s3d
 
 			return{};
 		}
+
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
+		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ PixelShaderAsset::Register(): Shader file `" + path + U"` not found");
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	PixelShaderAsset::PixelShaderAsset(const AssetNameView name)
@@ -34,6 +48,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetName& name, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(path, entryPoint, bindings);
 
 		return Register(name, std::move(data));
@@ -41,6 +60,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetName& name, const s3d::HLSL& hlsl)
 	{
+		if (not detail::CheckFileExists(hlsl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(hlsl);
 
 		return Register(name, std::move(data));
@@ -48,6 +72,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetName& name, const s3d::GLSL& glsl)
 	{
+		if (not detail::CheckFileExists(glsl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(glsl);
 
 		return Register(name, std::move(data));
@@ -55,6 +84,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetName& name, const s3d::MSL& msl)
 	{
+		if ((msl.path) && (not detail::CheckFileExists(msl.path)))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(msl);
 
 		return Register(name, std::move(data));
@@ -62,6 +96,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetName& name, const s3d::ESSL& essl)
 	{
+		if (not detail::CheckFileExists(essl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(essl);
 
 		return Register(name, std::move(data));
@@ -82,6 +121,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(path, entryPoint, bindings, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -89,6 +133,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::HLSL& hlsl)
 	{
+		if (not detail::CheckFileExists(hlsl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(hlsl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -96,6 +145,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::GLSL& glsl)
 	{
+		if (not detail::CheckFileExists(glsl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(glsl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -103,6 +157,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::MSL& msl)
 	{
+		if ((msl.path) && (not detail::CheckFileExists(msl.path)))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(msl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -110,6 +169,11 @@ namespace s3d
 
 	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::ESSL& essl)
 	{
+		if (not detail::CheckFileExists(essl.path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(essl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
