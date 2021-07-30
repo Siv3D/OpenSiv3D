@@ -68,6 +68,53 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Cone(const Vec3& from, const Vec3& to, double _r, const Quaternion& _orientation) noexcept;
 
+
+		Cone& setPos(value_type cx, value_type cy, value_type cz) noexcept;
+
+		Cone& setPos(position_type _center) noexcept;
+
+		Cone& setSize(value_type _r, value_type _h) noexcept;
+
+		Cone& setOrientation(Quaternion _orientation) noexcept;
+
+
+		[[nodiscard]]
+		Cone movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		Cone movedBy(position_type v) const noexcept;
+
+		Cone& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		Cone& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		Cone stretched(double _r, double _h) const noexcept;
+
+
+		[[nodiscard]]
+		Cone scaled(double sr, double sh) const noexcept;
+
+
+		[[nodiscard]]
+		bool hasVolume() const noexcept;
+
+
+		[[nodiscard]]
+		Cone lerp(const Cone& other, double f) const noexcept;
+
+
+		[[nodiscard]]
+		Vec3 vector() const noexcept;
+
+		[[nodiscard]]
+		position_type top() const noexcept;
+
+		[[nodiscard]]
+		position_type bottomCenter() const noexcept;
+
+
 		const Cone& draw(const ColorF& color = Palette::White) const;
 
 		const Cone& draw(const Texture& texture, const ColorF& color = Palette::White) const;

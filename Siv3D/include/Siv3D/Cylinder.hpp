@@ -106,6 +106,9 @@ namespace s3d
 
 
 		[[nodiscard]]
+		Vec3 vector() const noexcept;
+
+		[[nodiscard]]
 		position_type topCenter() const noexcept;
 
 		[[nodiscard]]

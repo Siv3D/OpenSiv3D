@@ -98,6 +98,11 @@ namespace s3d
 		return{ center.lerp(other.center, f), (r + (other.r - r) * f), (h + (other.h - h) * f), orientation.slerp(other.orientation, f) };
 	}
 
+	inline Vec3 Cylinder::vector() const noexcept
+	{
+		return (orientation * Vec3::Up());
+	}
+
 	inline Cylinder::position_type Cylinder::topCenter() const noexcept
 	{
 		return (center + (orientation * Vec3::Up(h * 0.5)));
