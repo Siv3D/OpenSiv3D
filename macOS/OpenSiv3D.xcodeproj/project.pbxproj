@@ -913,6 +913,8 @@
 		2C5C0F23266E6991009C430B /* IAsset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F1F266E6991009C430B /* IAsset.hpp */; };
 		2C5C0F24266E6991009C430B /* CAsset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F20266E6991009C430B /* CAsset.hpp */; };
 		2C5C46D526B24BDF005E8C85 /* SivCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C46D426B24BDF005E8C85 /* SivCone.cpp */; };
+		2C5C46D826B3EA73005E8C85 /* DirectXCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C46D726B3EA73005E8C85 /* DirectXCollision.cpp */; };
+		2C5C46DB26B43832005E8C85 /* SivInfinitePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C46DA26B43831005E8C85 /* SivInfinitePlane.cpp */; };
 		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
 		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
 		2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6797265F315500FAA651 /* SivDLL.cpp */; };
@@ -3020,6 +3022,8 @@
 		2C5C46D126B24BAC005E8C85 /* Cone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cone.hpp; sourceTree = "<group>"; };
 		2C5C46D226B24BC2005E8C85 /* Cone.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cone.ipp; sourceTree = "<group>"; };
 		2C5C46D426B24BDF005E8C85 /* SivCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCone.cpp; sourceTree = "<group>"; };
+		2C5C46D726B3EA73005E8C85 /* DirectXCollision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectXCollision.cpp; sourceTree = "<group>"; };
+		2C5C46DA26B43831005E8C85 /* SivInfinitePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInfinitePlane.cpp; sourceTree = "<group>"; };
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
@@ -5605,6 +5609,7 @@
 				2C13C6F425B458520054B968 /* concaveman-cpp */,
 				2C4A485F2636544C00BDCBA2 /* cpptoml */,
 				2C481E0B24460B5700A5D88D /* cpu_features */,
+				2C5C46D626B3EA73005E8C85 /* DirectXMath */,
 				2C439F62241DCEA9001154C2 /* double-conversion */,
 				2C53C34A25613BCC0072831A /* Earcut */,
 				2CEC7DC225FA4DD900704B99 /* easyexif */,
@@ -6076,6 +6081,7 @@
 				2CEC7DC725FA527700704B99 /* ImageFormat */,
 				2C794B5125C407E700034D81 /* ImageProcessing */,
 				2C0E224425F52690002DD8C7 /* ImageROI */,
+				2C5C46D926B43831005E8C85 /* InfinitePlane */,
 				2C47B2F424DD9789008D83BE /* INI */,
 				2CFE19AA2555B263005826A1 /* Input */,
 				2C0848A32557C0F200C9838C /* InputCombination */,
@@ -7746,6 +7752,22 @@
 				2C5C46D426B24BDF005E8C85 /* SivCone.cpp */,
 			);
 			path = Cone;
+			sourceTree = "<group>";
+		};
+		2C5C46D626B3EA73005E8C85 /* DirectXMath */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C46D726B3EA73005E8C85 /* DirectXCollision.cpp */,
+			);
+			path = DirectXMath;
+			sourceTree = "<group>";
+		};
+		2C5C46D926B43831005E8C85 /* InfinitePlane */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C46DA26B43831005E8C85 /* SivInfinitePlane.cpp */,
+			);
+			path = InfinitePlane;
 			sourceTree = "<group>";
 		};
 		2C5C6796265F315500FAA651 /* DLL */ = {
@@ -12149,6 +12171,7 @@
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
 				2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */,
 				2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */,
+				2C5C46DB26B43832005E8C85 /* SivInfinitePlane.cpp in Sources */,
 				2C5D0C1E2677C93C00A713D9 /* SivFontAsset.cpp in Sources */,
 				2C533793264F5AA200CE0F1B /* zstd_compress_sequences.c in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
@@ -12543,6 +12566,7 @@
 				2C47B31124DD9789008D83BE /* SivBigInt.cpp in Sources */,
 				2C636E742657F7D300AF029F /* soloud_core_basicops.cpp in Sources */,
 				2C13C8DB25B8FB170054B968 /* SivBezier2.cpp in Sources */,
+				2C5C46D826B3EA73005E8C85 /* DirectXCollision.cpp in Sources */,
 				2C956667264546F700539B85 /* paintelement.cpp in Sources */,
 				2C378CAC251E492B00D4B14B /* CAddon.cpp in Sources */,
 				2C834D92248805D4006208B8 /* iso8859_11.c in Sources */,
