@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextureAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -27,6 +29,18 @@ namespace s3d
 
 			return{};
 		}
+
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
+		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ TextureAsset::Register(): Image file `" + path + U"` not found");
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	TextureAsset::TextureAsset(const AssetNameView name)
@@ -34,6 +48,11 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetName& name, const FilePathView path, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc);
 
 		return Register(name, std::move(data));
@@ -41,6 +60,16 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetName& name, const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(rgb))
+		{
+			return false;
+		}
+
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
 
 		return Register(name, std::move(data));
@@ -48,6 +77,11 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetName& name, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
 
 		return Register(name, std::move(data));
@@ -74,6 +108,11 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView path, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -81,6 +120,16 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView rgb, const FilePathView alpha, TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(rgb))
+		{
+			return false;
+		}
+
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
@@ -88,6 +137,11 @@ namespace s3d
 
 	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));

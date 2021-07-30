@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/FontAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -26,6 +28,18 @@ namespace s3d
 			}
 
 			return{};
+		}
+
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
+		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ FontAsset::Register(): Font file `" + path + U"` not found");
+				return false;
+			}
+
+			return true;
 		}
 	}
 
@@ -54,6 +68,11 @@ namespace s3d
 
 	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, path, faceIndex, style);
 	
 		return Register(name, std::move(data));
@@ -93,6 +112,11 @@ namespace s3d
 
 	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, path, faceIndex, style, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));

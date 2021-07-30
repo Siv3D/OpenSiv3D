@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/AudioAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -26,6 +28,18 @@ namespace s3d
 			}
 
 			return{};
+		}
+
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
+		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ AudioAsset::Register(): Audio file `" + path + U"` not found");
+				return false;
+			}
+
+			return true;
 		}
 	}
 
@@ -61,6 +75,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Optional<AudioLoopTiming>& loop)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(path, loop);
 
 		return Register(name, std::move(data));
@@ -73,6 +92,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Loop loop)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data;
 		
 		if (loop)
@@ -89,6 +113,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(Audio::Stream, path, loopBegin);
 
 		return Register(name, std::move(data));
@@ -140,6 +169,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path, const Optional<AudioLoopTiming>& loop)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(path, loop, nameAndTag.tags);
 
 		return Register(nameAndTag.name, std::move(data));
@@ -152,6 +186,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, const FilePathView path, const Loop loop)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data;
 
 		if (loop)
@@ -168,6 +207,11 @@ namespace s3d
 
 	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
 		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(Audio::Stream, path, loopBegin, nameAndTag.tags);
 
 		return Register(nameAndTag.name, std::move(data));
