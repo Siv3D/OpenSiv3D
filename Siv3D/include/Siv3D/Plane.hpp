@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Optional.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 
@@ -19,6 +20,7 @@ namespace s3d
 	class Texture;
 	struct Quaternion;
 	struct Mat4x4;
+	struct Ray;
 
 	struct Plane
 	{
@@ -181,6 +183,10 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Plane lerp(const Plane& other, double f) const noexcept;
+
+
+		[[nodiscard]]
+		Optional<float> intersects(const Ray& ray) const noexcept;
 
 
 		const Plane& draw(const ColorF& color = Palette::White) const;

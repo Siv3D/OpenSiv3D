@@ -11,10 +11,13 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Optional.hpp"
 # include "SIMD_Float4.hpp"
 
 namespace s3d
 {
+	struct Ray;
+
 	struct InfinitePlane
 	{
 		SIMD_Float4 value;
@@ -48,6 +51,10 @@ namespace s3d
 
 		[[nodiscard]]
 		Float3 normal() const noexcept;
+
+
+		[[nodiscard]]
+		Optional<float> intersects(const Ray& ray) const noexcept;
 	};
 }
 

@@ -309,6 +309,7 @@ add_library(
   ../Siv3D/src/Siv3D/ImageFormat/WebP/WebPEncoder.cpp
   ../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp
   ../Siv3D/src/Siv3D/ImageROI/SivImageROI.cpp
+  ../Siv3D/src/Siv3D/InfinitePlane/SivInfinitePlane.cpp
   ../Siv3D/src/Siv3D/INI/SivINI.cpp
   ../Siv3D/src/Siv3D/Input/InputState.cpp
   ../Siv3D/src/Siv3D/Input/SivInput.cpp

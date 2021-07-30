@@ -128,6 +128,14 @@ namespace s3d
 		return intersects(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
 	}
 
+	Optional<float> Ray::intersects(const InfinitePlane& plane) const
+	{
+		const Float3 o = origin.xyz();
+		const Float3 d = direction.xyz();
+		const Float4 p = plane.value.toFloat4();
+		return -(o.dot(p.xyz()) + p.w) / d.dot(p.xyz());
+	}
+
 	Optional<float> Ray::intersects(const Box& aabb) const
 	{
 		using namespace DirectX;
@@ -496,6 +504,18 @@ namespace s3d
 	Optional<Float3> Ray::intersectsAt(const Plane& plane) const
 	{
 		return intersectsAt(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
+	}
+
+	Optional<Float3> Ray::intersectsAt(const InfinitePlane& plane) const
+	{
+		if (const auto dist = intersects(plane))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
 	}
 
 	Optional<Float3> Ray::intersectsAt(const Box& aabb) const

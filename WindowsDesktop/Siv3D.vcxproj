@@ -1995,6 +1995,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ImagePainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\ShapePainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\InfinitePlane\SivInfinitePlane.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INI\SivINI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputCombination\SivInputCombination.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\InputGroup\SivInputGroup.cpp" />

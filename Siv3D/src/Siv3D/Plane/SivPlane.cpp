@@ -11,6 +11,7 @@
 
 # include <Siv3D/Plane.hpp>
 # include <Siv3D/Mesh.hpp>
+# include <Siv3D/Ray.hpp>
 # include <Siv3D/Quaternion.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/PrimitiveMesh/IPrimitiveMesh.hpp>
@@ -18,6 +19,11 @@
 
 namespace s3d
 {
+	Optional<float> Plane::intersects(const Ray& ray) const noexcept
+	{
+		return ray.intersects(*this);
+	}
+
 	const Plane& Plane::draw(const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)

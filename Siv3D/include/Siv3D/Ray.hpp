@@ -21,6 +21,7 @@ namespace s3d
 	struct Triangle3D;
 	struct Sphere;
 	struct Plane;
+	struct InfinitePlane;
 	struct Box;
 	struct OrientedBox;
 	class ViewFrustum;
@@ -74,6 +75,9 @@ namespace s3d
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Plane& plane) const;
 
 		[[nodiscard]]
+		Optional<float> SIV3D_VECTOR_CALL intersects(const InfinitePlane& plane) const;
+
+		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Box& aabb) const;
 
 		[[nodiscard]]
@@ -97,6 +101,9 @@ namespace s3d
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Plane& plane) const;
+
+		[[nodiscard]]
+		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const InfinitePlane& plane) const;
 
 		[[nodiscard]]
 		Optional<Float3> SIV3D_VECTOR_CALL intersectsAt(const Box& aabb) const;
