@@ -74,9 +74,9 @@ namespace s3d
 
 	namespace Geometry3D
 	{
-		Sphere BoundingSphere(const Array<Vertex3D>& vertices) noexcept
+		Sphere BoundingSphere(const Array<Float3>& points) noexcept
 		{
-			if (not vertices)
+			if (not points)
 			{
 				return Sphere{ 0.0 };
 			}
@@ -85,17 +85,41 @@ namespace s3d
 
 			DirectX::BoundingSphere::CreateFromPoints(
 				sphere,
-				vertices.size(),
-				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+				points.size(),
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(points.data())),
+				sizeof(Float3)
+			);
+
+			return detail::ToSphere(sphere);
+		}
+
+		Sphere BoundingSphere(const Vertex3D* vertices, const size_t count) noexcept
+		{
+			if ((not vertices) || (count == 0))
+			{
+				return Sphere{ 0.0 };
+			}
+
+			DirectX::BoundingSphere sphere;
+
+			DirectX::BoundingSphere::CreateFromPoints(
+				sphere,
+				count,
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices)),
 				sizeof(Vertex3D)
 			);
 
 			return detail::ToSphere(sphere);
 		}
 
-		Box BoundingBox(const Array<Vertex3D>& vertices) noexcept
+		Sphere BoundingSphere(const Array<Vertex3D>& vertices) noexcept
 		{
-			if (not vertices)
+			return BoundingSphere(vertices.data(), vertices.size());
+		}
+
+		Box BoundingBox(const Array<Float3>& points) noexcept
+		{
+			if (not points)
 			{
 				return Box{ 0.0 };
 			}
@@ -104,17 +128,41 @@ namespace s3d
 
 			DirectX::BoundingBox::CreateFromPoints(
 				box,
-				vertices.size(),
-				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+				points.size(),
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(points.data())),
+				sizeof(Float3)
+			);
+
+			return detail::ToBox(box);
+		}
+
+		Box BoundingBox(const Vertex3D* vertices, size_t count) noexcept
+		{
+			if ((not vertices) || (count == 0))
+			{
+				return Box{ 0.0 };
+			}
+
+			DirectX::BoundingBox box;
+
+			DirectX::BoundingBox::CreateFromPoints(
+				box,
+				count,
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices)),
 				sizeof(Vertex3D)
 			);
 
 			return detail::ToBox(box);
 		}
 
-		OrientedBox BoundingOrientedBox(const Array<Vertex3D>& vertices) noexcept
+		Box BoundingBox(const Array<Vertex3D>& vertices) noexcept
 		{
-			if (not vertices)
+			return BoundingBox(vertices.data(), vertices.size());
+		}
+
+		OrientedBox BoundingOrientedBox(const Array<Float3>& points) noexcept
+		{
+			if (not points)
 			{
 				return OrientedBox{ 0.0 };
 			}
@@ -123,12 +171,36 @@ namespace s3d
 
 			DirectX::BoundingOrientedBox::CreateFromPoints(
 				box,
-				vertices.size(),
-				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices.data())),
+				points.size(),
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(points.data())),
+				sizeof(Float3)
+			);
+
+			return detail::ToOrientedBox(box);
+		}
+
+		OrientedBox BoundingOrientedBox(const Vertex3D* vertices, const size_t count) noexcept
+		{
+			if ((not vertices) || (count == 0))
+			{
+				return Box{ 0.0 };
+			}
+
+			DirectX::BoundingOrientedBox box;
+
+			DirectX::BoundingOrientedBox::CreateFromPoints(
+				box,
+				count,
+				static_cast<const DirectX::XMFLOAT3*>(static_cast<const void*>(vertices)),
 				sizeof(Vertex3D)
 			);
 
 			return detail::ToOrientedBox(box);
+		}
+
+		OrientedBox BoundingOrientedBox(const Array<Vertex3D>& vertices) noexcept
+		{
+			return BoundingOrientedBox(vertices.data(), vertices.size());
 		}
 
 		Sphere TransformBoundingSphere(const Sphere& sphere, const Mat4x4& matrix) noexcept

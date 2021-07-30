@@ -40,7 +40,7 @@ namespace s3d
 			return false;
 		}
 
-		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), 0, vertices, true);
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), 0, vertices.data(), vertices.size());
 	}
 
 	bool DynamicMesh::fillSubRange(const size_t offset, const Array<Vertex3D>& vertices)
@@ -50,7 +50,17 @@ namespace s3d
 			return false;
 		}
 
-		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), offset, vertices, true);
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), offset, vertices.data(), vertices.size());
+	}
+
+	bool DynamicMesh::fillSubRange(const size_t offset, const Vertex3D* vertices, const size_t count)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), offset, vertices, count);
 	}
 
 	bool DynamicMesh::fill(const Array<TriangleIndex32>& indices)
@@ -60,27 +70,7 @@ namespace s3d
 			return false;
 		}
 
-		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), indices, true);
-	}
-
-	bool DynamicMesh::fillIfNotBusy(const Array<Vertex3D>& vertices)
-	{
-		if (isEmpty())
-		{
-			return false;
-		}
-
-		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), 0, vertices, false);
-	}
-
-	bool DynamicMesh::fillIfNotBusy(const Array<TriangleIndex32>& indices)
-	{
-		if (isEmpty())
-		{
-			return false;
-		}
-
-		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), indices, false);
+		return SIV3D_ENGINE(Mesh)->fill(m_handle->id(), indices);
 	}
 
 	void DynamicMesh::swap(DynamicMesh& other) noexcept

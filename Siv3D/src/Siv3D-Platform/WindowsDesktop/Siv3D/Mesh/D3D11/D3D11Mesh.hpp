@@ -24,10 +24,13 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		explicit D3D11Mesh(ID3D11Device* device, const MeshData& meshData);
+		explicit D3D11Mesh(ID3D11Device* device, const MeshData& meshData, bool isDynamic);
 
 		SIV3D_NODISCARD_CXX20
-		D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices);
+		D3D11Mesh(ID3D11Device* device, size_t vertexCount, size_t triangleCount);
+
+		SIV3D_NODISCARD_CXX20
+		D3D11Mesh(ID3D11Device* device, const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices, bool isDynamic);
 
 		[[nodiscard]]
 		bool isInitialized() const noexcept;
@@ -50,6 +53,12 @@ namespace s3d
 		[[nodiscard]]
 		const Box& getBoundingBox() const noexcept;
 
+		bool fill(ID3D11DeviceContext* context, const MeshData& meshData);
+
+		bool fill(ID3D11DeviceContext* context, size_t offset, const Vertex3D* vertices, size_t count);
+
+		bool fill(ID3D11DeviceContext* context, const Array<TriangleIndex32>& indices);
+
 		void bindToContext(ID3D11DeviceContext* context);
 
 	private:
@@ -67,6 +76,8 @@ namespace s3d
 		Sphere m_boundingSphere{ 0.0 };
 
 		Box m_boundingBox{ 0.0 };
+
+		bool m_isDynamic = false;
 
 		bool m_initialized = false;
 	};

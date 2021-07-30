@@ -45,9 +45,9 @@ namespace s3d
 
 		bool fill(Mesh::IDType handleID, const MeshData& meshData) override;
 
-		bool fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait) override;
+		bool fill(Mesh::IDType handleID, size_t offset, const Vertex3D* vertices, size_t count) override;
 
-		bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait) override;
+		bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices) override;
 
 		void bindMeshToContext(Mesh::IDType handleID) override;
 

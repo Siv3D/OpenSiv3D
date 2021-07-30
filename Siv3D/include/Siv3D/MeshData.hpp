@@ -31,6 +31,9 @@ namespace s3d
 		MeshData() = default;
 
 		SIV3D_NODISCARD_CXX20
+		MeshData(size_t vertexCount, size_t triangleCount);
+
+		SIV3D_NODISCARD_CXX20
 		MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices);
 
 		MeshData& computeNormals(NormalComputation normalComputation = NormalComputation::Default);

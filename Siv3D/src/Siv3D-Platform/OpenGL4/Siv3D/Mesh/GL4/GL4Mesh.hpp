@@ -24,10 +24,13 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		explicit GL4Mesh(const MeshData& meshData);
+		explicit GL4Mesh(const MeshData& meshData, bool isDynamic);
 
 		SIV3D_NODISCARD_CXX20
-		GL4Mesh(const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices);
+		GL4Mesh(size_t vertexCount, size_t triangleCount);
+
+		SIV3D_NODISCARD_CXX20
+		GL4Mesh(const Array<Vertex3D>& vertices, const Array<TriangleIndex32>& indices, bool isDynamic);
 
 		~GL4Mesh();
 
@@ -45,6 +48,12 @@ namespace s3d
 
 		[[nodiscard]]
 		const Box& getBoundingBox() const noexcept;
+
+		bool fill(const MeshData& meshData);
+
+		bool fill(size_t offset, const Vertex3D* vertices, size_t count);
+
+		bool fill(const Array<TriangleIndex32>& indices);
 
 		void bindToContext();
 
@@ -65,6 +74,8 @@ namespace s3d
 		Sphere m_boundingSphere{ 0.0 };
 
 		Box m_boundingBox{ 0.0 };
+
+		bool m_isDynamic = false;
 
 		bool m_initialized = false;
 	};

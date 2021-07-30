@@ -22,10 +22,28 @@ namespace s3d
 	namespace Geometry3D
 	{
 		[[nodiscard]]
+		Sphere BoundingSphere(const Array<Float3>& points) noexcept;
+
+		[[nodiscard]]
+		Sphere BoundingSphere(const Vertex3D* vertices, size_t count) noexcept;
+
+		[[nodiscard]]
 		Sphere BoundingSphere(const Array<Vertex3D>& vertices) noexcept;
 
 		[[nodiscard]]
+		Box BoundingBox(const Array<Float3>& points) noexcept;
+
+		[[nodiscard]]
+		Box BoundingBox(const Vertex3D* vertices, size_t count) noexcept;
+
+		[[nodiscard]]
 		Box BoundingBox(const Array<Vertex3D>& vertices) noexcept;
+
+		[[nodiscard]]
+		OrientedBox BoundingOrientedBox(const Array<Float3>& points) noexcept;
+
+		[[nodiscard]]
+		OrientedBox BoundingOrientedBox(const Vertex3D* vertices, size_t count) noexcept;
 
 		[[nodiscard]]
 		OrientedBox BoundingOrientedBox(const Array<Vertex3D>& vertices) noexcept;

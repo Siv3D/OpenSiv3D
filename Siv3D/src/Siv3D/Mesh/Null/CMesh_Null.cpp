@@ -72,12 +72,12 @@ namespace s3d
 		return false;
 	}
 
-	bool CMesh_Null::fill(Mesh::IDType, size_t, const Array<Vertex3D>&, bool)
+	bool CMesh_Null::fill(Mesh::IDType, size_t, const Vertex3D*, size_t)
 	{
 		return false;
 	}
 
-	bool CMesh_Null::fill(Mesh::IDType, const Array<TriangleIndex32>&, bool)
+	bool CMesh_Null::fill(Mesh::IDType, const Array<TriangleIndex32>&)
 	{
 		return false;
 	}

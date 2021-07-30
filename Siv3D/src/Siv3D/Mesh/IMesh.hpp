@@ -44,9 +44,9 @@ namespace s3d
 
 		virtual bool fill(Mesh::IDType handleID, const MeshData& meshData) = 0;
 
-		virtual bool fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait) = 0;
+		virtual bool fill(Mesh::IDType handleID, size_t offset, const Vertex3D* vertices, size_t count) = 0;
 
-		virtual bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait) = 0;
+		virtual bool fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices) = 0;
 
 		virtual void bindMeshToContext(Mesh::IDType handleID) = 0;
 	};

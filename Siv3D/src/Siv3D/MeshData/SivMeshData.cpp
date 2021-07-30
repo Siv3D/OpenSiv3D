@@ -252,6 +252,10 @@ namespace s3d
 		}
 	}
 
+	MeshData::MeshData(const size_t vertexCount, const size_t triangleCount)
+		: vertices(vertexCount, Vertex3D{})
+		, indices(triangleCount, TriangleIndex32::Zero()) {}
+
 	MeshData::MeshData(Array<Vertex3D> _vertices, Array<TriangleIndex32> _indices)
 		: vertices{ std::move(_vertices) }
 		, indices{ std::move(_indices) } {}

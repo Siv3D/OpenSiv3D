@@ -35,7 +35,7 @@ namespace s3d
 		// null Mesh を管理に登録
 		{
 			// null Mesh を作成
-			auto nullMesh = std::make_unique<GL4Mesh>(MeshData::TwoSidedPlane(Float3{ 0,0,0 }, Float2{ 16.0f, 16.0f }));
+			auto nullMesh = std::make_unique<GL4Mesh>(MeshData::TwoSidedPlane(Float3{ 0,0,0 }, Float2{ 16.0f, 16.0f }), false);
 
 			if (not nullMesh->isInitialized()) // もし作成に失敗していたら
 			{
@@ -54,7 +54,7 @@ namespace s3d
 			return Mesh::IDType::NullAsset();
 		}
 
-		auto mesh = std::make_unique<GL4Mesh>(meshData);
+		auto mesh = std::make_unique<GL4Mesh>(meshData, false);
 
 		if (not mesh->isInitialized())
 		{
@@ -65,16 +65,40 @@ namespace s3d
 		return m_meshes.add(std::move(mesh), info);
 	}
 
-	Mesh::IDType CMesh_GL4::createDynamic(size_t vertexCount, size_t triangleCount)
+	Mesh::IDType CMesh_GL4::createDynamic(const size_t vertexCount, const size_t triangleCount)
 	{
-		// [Siv3D ToDo]
-		return Mesh::IDType::NullAsset();
+		if ((vertexCount == 0) || (triangleCount == 0))
+		{
+			return Mesh::IDType::NullAsset();
+		}
+
+		auto mesh = std::make_unique<GL4Mesh>(vertexCount, triangleCount);
+
+		if (not mesh->isInitialized())
+		{
+			return Mesh::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Dynamic, vertex count:{0}, triangle count: {1})"_fmt(vertexCount, triangleCount);
+		return m_meshes.add(std::move(mesh), info);
 	}
 
 	Mesh::IDType CMesh_GL4::createDynamic(const MeshData& meshData)
 	{
-		// [Siv3D ToDo]
-		return Mesh::IDType::NullAsset();
+		if ((not meshData.vertices) || (not meshData.indices))
+		{
+			return Mesh::IDType::NullAsset();
+		}
+
+		auto mesh = std::make_unique<GL4Mesh>(meshData, true);
+
+		if (not mesh->isInitialized())
+		{
+			return Mesh::IDType::NullAsset();
+		}
+
+		const String info = U"(type: Dynamic, vertex count:{0}, triangle count: {1})"_fmt(meshData.vertices.size(), meshData.indices.size());
+		return m_meshes.add(std::move(mesh), info);
 	}
 
 	void CMesh_GL4::release(const Mesh::IDType handleID)
@@ -102,22 +126,19 @@ namespace s3d
 		return m_meshes[handleID]->getBoundingBox();
 	}
 
-	bool CMesh_GL4::fill(Mesh::IDType handleID, const MeshData& meshData)
+	bool CMesh_GL4::fill(const Mesh::IDType handleID, const MeshData& meshData)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_meshes[handleID]->fill(meshData);
 	}
 
-	bool CMesh_GL4::fill(Mesh::IDType handleID, size_t offset, const Array<Vertex3D>& vertices, bool wait)
+	bool CMesh_GL4::fill(const Mesh::IDType handleID, const size_t offset, const Vertex3D* vertices, const size_t count)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_meshes[handleID]->fill(offset, vertices, count);
 	}
 
-	bool CMesh_GL4::fill(Mesh::IDType handleID, const Array<TriangleIndex32>& indices, bool wait)
+	bool CMesh_GL4::fill(const Mesh::IDType handleID, const Array<TriangleIndex32>& indices)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_meshes[handleID]->fill(indices);
 	}
 
 	void CMesh_GL4::bindMeshToContext(const Mesh::IDType handleID)

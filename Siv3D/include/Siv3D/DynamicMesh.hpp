@@ -35,11 +35,9 @@ namespace s3d
 
 		bool fillSubRange(size_t offset, const Array<Vertex3D>& vertices);
 
+		bool fillSubRange(size_t offset, const Vertex3D* vertices, size_t count);
+
 		bool fill(const Array<TriangleIndex32>& indices);
-
-		bool fillIfNotBusy(const Array<Vertex3D>& vertices);
-
-		bool fillIfNotBusy(const Array<TriangleIndex32>& indices);
 
 		void swap(DynamicMesh& other) noexcept;
 	};
