@@ -912,6 +912,7 @@
 		2C5C0F22266E6991009C430B /* CAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F1E266E6991009C430B /* CAsset.cpp */; };
 		2C5C0F23266E6991009C430B /* IAsset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F1F266E6991009C430B /* IAsset.hpp */; };
 		2C5C0F24266E6991009C430B /* CAsset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F20266E6991009C430B /* CAsset.hpp */; };
+		2C5C46D526B24BDF005E8C85 /* SivCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C46D426B24BDF005E8C85 /* SivCone.cpp */; };
 		2C5C673C265F1E7E00FAA651 /* AudioResourceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */; };
 		2C5C673E265F1E8400FAA651 /* SoundTouchFunctions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */; };
 		2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C6797265F315500FAA651 /* SivDLL.cpp */; };
@@ -3014,6 +3015,11 @@
 		2C5C0F1E266E6991009C430B /* CAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAsset.cpp; sourceTree = "<group>"; };
 		2C5C0F1F266E6991009C430B /* IAsset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAsset.hpp; sourceTree = "<group>"; };
 		2C5C0F20266E6991009C430B /* CAsset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CAsset.hpp; sourceTree = "<group>"; };
+		2C5C46CF26B24B86005E8C85 /* Cylinder.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cylinder.ipp; sourceTree = "<group>"; };
+		2C5C46D026B24B87005E8C85 /* Disc.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disc.ipp; sourceTree = "<group>"; };
+		2C5C46D126B24BAC005E8C85 /* Cone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cone.hpp; sourceTree = "<group>"; };
+		2C5C46D226B24BC2005E8C85 /* Cone.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cone.ipp; sourceTree = "<group>"; };
+		2C5C46D426B24BDF005E8C85 /* SivCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCone.cpp; sourceTree = "<group>"; };
 		2C5C673B265F1E7E00FAA651 /* AudioResourceHolder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioResourceHolder.hpp; sourceTree = "<group>"; };
 		2C5C673D265F1E8400FAA651 /* SoundTouchFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundTouchFunctions.hpp; sourceTree = "<group>"; };
 		2C5C6797265F315500FAA651 /* SivDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDLL.cpp; sourceTree = "<group>"; };
@@ -4321,15 +4327,18 @@
 				2C063D9C2661426000368BEE /* Circular.ipp */,
 				2C063D9F2661426000368BEE /* Color.ipp */,
 				2C063DEE2661426000368BEE /* ColorF.ipp */,
+				2C5C46D226B24BC2005E8C85 /* Cone.ipp */,
 				2C063D4E2661426000368BEE /* ConstantBuffer.ipp */,
 				2C063D672661426000368BEE /* CSV.ipp */,
 				2C063DE92661426000368BEE /* Cursor.ipp */,
+				2C5C46CF26B24B86005E8C85 /* Cylinder.ipp */,
 				2C063DD92661426000368BEE /* Cylindrical.ipp */,
 				2C063D6D2661426000368BEE /* Date.ipp */,
 				2C063DE82661426000368BEE /* DateTime.ipp */,
 				2C063DAA2661426000368BEE /* DeadZone.ipp */,
 				2C063D432661426000368BEE /* Demangle.ipp */,
 				2C631EA5268781B400166A8E /* DepthStencilState.ipp */,
+				2C5C46D026B24B87005E8C85 /* Disc.ipp */,
 				2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */,
 				2C063D492661426000368BEE /* Distribution.ipp */,
 				2C063D5A2661426000368BEE /* Duration.ipp */,
@@ -6012,6 +6021,7 @@
 				2C794ABC25C3DF3000034D81 /* CommandLine */,
 				2C47B29F24DD9789008D83BE /* Common */,
 				2C794B4625C3DFEB00034D81 /* Compression */,
+				2C5C46D326B24BDF005E8C85 /* Cone */,
 				2C47B2F024DD9789008D83BE /* Console */,
 				2C47B6DA24EAC88E008D83BE /* ConstantBuffer */,
 				2C47B2E024DD9789008D83BE /* CPUInfo */,
@@ -7728,6 +7738,14 @@
 				2C5D0C132677C91B00A713D9 /* IAssetDetail.hpp */,
 			);
 			path = Asset;
+			sourceTree = "<group>";
+		};
+		2C5C46D326B24BDF005E8C85 /* Cone */ = {
+			isa = PBXGroup;
+			children = (
+				2C5C46D426B24BDF005E8C85 /* SivCone.cpp */,
+			);
+			path = Cone;
 			sourceTree = "<group>";
 		};
 		2C5C6796265F315500FAA651 /* DLL */ = {
@@ -9448,6 +9466,7 @@
 				2CAAA75D25E7FD0200C014D7 /* CommonVector.hpp */,
 				2CAAA86725E7FD0300C014D7 /* Compression.hpp */,
 				2CAAA6EA25E7FD0200C014D7 /* Concepts.hpp */,
+				2C5C46D126B24BAC005E8C85 /* Cone.hpp */,
 				2CAAA77D25E7FD0200C014D7 /* Console.hpp */,
 				2CAAA88825E7FD0300C014D7 /* ConstantBuffer.hpp */,
 				2CAAA73625E7FD0200C014D7 /* ConstantBufferBinding.hpp */,
@@ -12493,6 +12512,7 @@
 				2C47B36724DD9789008D83BE /* SivScene.cpp in Sources */,
 				2C5C0F22266E6991009C430B /* CAsset.cpp in Sources */,
 				2C4397942536163000F6AECD /* GL4VertexShader.cpp in Sources */,
+				2C5C46D526B24BDF005E8C85 /* SivCone.cpp in Sources */,
 				2C63A9C826A02BD000D13501 /* GL4Line3DBatch.cpp in Sources */,
 				2C47B6F224EAC8D9008D83BE /* GL4InternalTexture2D.cpp in Sources */,
 				2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */,
