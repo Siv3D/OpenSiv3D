@@ -28,9 +28,43 @@ namespace s3d
 
 	struct Box
 	{
-		Vec3 center;
+		using position_type = Vec3;
 
-		Vec3 size;
+		using size_type = Vec3;
+
+		using value_type = typename size_type::value_type;
+
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			position_type center;
+
+			struct
+			{
+				value_type x;
+
+				value_type y;
+
+				value_type z;
+			};
+		};
+
+		union
+		{
+			position_type size;
+
+			struct
+			{
+				value_type w;
+
+				value_type h;
+
+				value_type d;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		SIV3D_NODISCARD_CXX20
 		Box() = default;
@@ -109,7 +143,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Box(const Vec3& _center, const Vec3& _size) noexcept;
 
-
 		SIV3D_NODISCARD_CXX20
 		constexpr Box(Arg::bottomCenter_<Vec3> _center, double _size) noexcept;
 
@@ -132,25 +165,48 @@ namespace s3d
 		constexpr Box(Arg::bottomCenter_<Vec3> _center, const Vec3& _size) noexcept;
 
 
-
 		constexpr Box& setPos(double cx, double cy, double cz) noexcept;
 
 		constexpr Box& setPos(const Vec3& _center) noexcept;
 
-		constexpr Box& setSize(double w, double h, double d) noexcept;
+		constexpr Box& setSize(double _w, double _h, double _d) noexcept;
 
 		constexpr Box& setSize(const Vec3& _size) noexcept;
+
+
+		[[nodiscard]]
+		constexpr Box movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Box movedBy(size_type v) const noexcept;
+
+		constexpr Box& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		constexpr Box& moveBy(size_type v) noexcept;
 
 
 		[[nodiscard]]
 		constexpr Box stretched(double xyz) const noexcept;
 
 		[[nodiscard]]
-		constexpr Box stretched(double x, double y, double z) const noexcept;
+		constexpr Box stretched(double _x, double _y, double _z) const noexcept;
 
 		[[nodiscard]]
 		constexpr Box stretched(Vec3 xyz) const noexcept;
 
+
+		[[nodiscard]]
+		constexpr Box scaled(double s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Box scaled(double sx, double sy, double sz) const noexcept;
+
+		[[nodiscard]]
+		constexpr Box scaled(Vec3 s) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr bool hasVolume() const noexcept;
 
 		[[nodiscard]]
 		std::array<Vec3, 8> getCorners() const noexcept;
@@ -215,7 +271,7 @@ namespace s3d
 
 
 		[[nodiscard]]
-		static constexpr Box FromTwoPoints(const Vec3& a, const Vec3& b) noexcept;
+		static constexpr Box FromPoints(const Vec3& a, const Vec3& b) noexcept;
 
 
 		template <class CharType>

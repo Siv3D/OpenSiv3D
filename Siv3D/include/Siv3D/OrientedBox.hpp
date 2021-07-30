@@ -19,9 +19,43 @@ namespace s3d
 {
 	struct OrientedBox
 	{
-		Vec3 center;
+		using position_type = Vec3;
 
-		Vec3 size;
+		using size_type = Vec3;
+
+		using value_type = typename size_type::value_type;
+
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+		union
+		{
+			position_type center;
+
+			struct
+			{
+				value_type x;
+
+				value_type y;
+
+				value_type z;
+			};
+		};
+
+		union
+		{
+			position_type size;
+
+			struct
+			{
+				value_type w;
+
+				value_type h;
+
+				value_type d;
+			};
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 		Quaternion orientation;
 
@@ -102,7 +136,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(const Vec3& _center, const Vec3& _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
-
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, double _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
@@ -124,20 +157,16 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(Arg::bottomCenter_<Vec3> bottomCenter, const Vec3& _size, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
-
 		SIV3D_NODISCARD_CXX20
 		OrientedBox(const Box& box, Quaternion _orientation = Quaternion::Identity()) noexcept;
 
-
-		[[nodiscard]]
-		std::array<Vec3, 8> getCorners() const noexcept;
 
 
 		OrientedBox& setPos(double cx, double cy, double cz) noexcept;
 
 		OrientedBox& setPos(const Vec3& _center) noexcept;
 
-		OrientedBox& setSize(double w, double h, double d) noexcept;
+		OrientedBox& setSize(double _w, double _h, double _d) noexcept;
 
 		OrientedBox& setSize(const Vec3& _size) noexcept;
 
@@ -145,13 +174,41 @@ namespace s3d
 
 
 		[[nodiscard]]
+		OrientedBox movedBy(value_type _x, value_type _y, value_type _z) const noexcept;
+
+		[[nodiscard]]
+		OrientedBox movedBy(size_type v) const noexcept;
+
+		OrientedBox& moveBy(value_type _x, value_type _y, value_type _z) noexcept;
+
+		OrientedBox& moveBy(size_type v) noexcept;
+
+
+		[[nodiscard]]
 		OrientedBox stretched(double xyz) const noexcept;
 
 		[[nodiscard]]
-		OrientedBox stretched(double x, double y, double z) const noexcept;
+		OrientedBox stretched(double _x, double _y, double _z) const noexcept;
 
 		[[nodiscard]]
 		OrientedBox stretched(Vec3 xyz) const noexcept;
+
+
+		[[nodiscard]]
+		OrientedBox scaled(double s) const noexcept;
+
+		[[nodiscard]]
+		OrientedBox scaled(double sx, double sy, double sz) const noexcept;
+
+		[[nodiscard]]
+		OrientedBox scaled(Vec3 s) const noexcept;
+
+
+		[[nodiscard]]
+		bool hasVolume() const noexcept;
+
+		[[nodiscard]]
+		std::array<Vec3, 8> getCorners() const noexcept;
 
 
 		[[nodiscard]]

@@ -162,9 +162,9 @@ namespace s3d
 		return *this;
 	}
 
-	inline OrientedBox& OrientedBox::setSize(const double w, const double h, const double d) noexcept
+	inline OrientedBox& OrientedBox::setSize(const double _w, const double _h, const double _d) noexcept
 	{
-		size.set(w, h, d);
+		size.set(_w, _h, _d);
 		return *this;
 	}
 
@@ -180,19 +180,60 @@ namespace s3d
 		return *this;
 	}
 
+	inline OrientedBox OrientedBox::movedBy(const value_type _x, const value_type _y, const value_type _z) const noexcept
+	{
+		return{ center.movedBy(_x, _y, _z), size, orientation };
+	}
+
+	inline OrientedBox OrientedBox::movedBy(const size_type v) const noexcept
+	{
+		return{ center.movedBy(v), size, orientation };
+	}
+
+	inline OrientedBox& OrientedBox::moveBy(const value_type _x, const value_type _y, const value_type _z) noexcept
+	{
+		center.moveBy(_x, _y, _z);
+		return *this;
+	}
+
+	inline OrientedBox& OrientedBox::moveBy(const size_type v) noexcept
+	{
+		center.moveBy(v);
+		return *this;
+	}
 
 	inline OrientedBox OrientedBox::stretched(const double xyz) const noexcept
 	{
 		return stretched(xyz, xyz, xyz);
 	}
 
-	inline OrientedBox OrientedBox::stretched(const double x, const double y, const double z) const noexcept
+	inline OrientedBox OrientedBox::stretched(const double _x, const double _y, const double _z) const noexcept
 	{
-		return stretched({ x, y, z });
+		return stretched({ _x, _y, _z });
 	}
 
 	inline OrientedBox OrientedBox::stretched(const Vec3 xyz) const noexcept
 	{
 		return{ center, (size + xyz), orientation };
+	}
+
+	inline OrientedBox OrientedBox::scaled(const double s) const noexcept
+	{
+		return{ center, (size * s), orientation };
+	}
+
+	inline OrientedBox OrientedBox::scaled(const double sx, const double sy, const double sz) const noexcept
+	{
+		return{ center, (size * Vec3{ sx, sy, sz }), orientation };
+	}
+
+	inline OrientedBox OrientedBox::scaled(const Vec3 s) const noexcept
+	{
+		return{ center, (size * s), orientation };
+	}
+
+	inline bool OrientedBox::hasVolume() const noexcept
+	{
+		return ((size.x != 0.0) && (size.y != 0.0) && (size.z != 0.0));
 	}
 }

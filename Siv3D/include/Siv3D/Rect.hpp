@@ -774,6 +774,9 @@ namespace s3d
 		[[nodiscard]]
 		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
+		[[nodiscard]]
+		static constexpr Rect FromPoints(position_type a, position_type b) noexcept;
+
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Rect& value)
 		{

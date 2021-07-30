@@ -139,9 +139,9 @@ namespace s3d
 		return *this;
 	}
 
-	inline constexpr Box& Box::setSize(const double w, const double h, const double d) noexcept
+	inline constexpr Box& Box::setSize(const double _w, const double _h, const double _d) noexcept
 	{
-		size.set(w, h, d);
+		size.set(_w, _h, _d);
 		return *this;
 	}
 
@@ -151,14 +151,36 @@ namespace s3d
 		return *this;
 	}
 
+	inline constexpr Box Box::movedBy(const value_type _x, const value_type _y, const value_type _z) const noexcept
+	{
+		return{ center.movedBy(_x, _y, _z), size };
+	}
+
+	inline constexpr Box Box::movedBy(const size_type v) const noexcept
+	{
+		return{ center.movedBy(v), size };
+	}
+
+	inline constexpr Box& Box::moveBy(const value_type _x, const value_type _y, const value_type _z) noexcept
+	{
+		center.moveBy(_x, _y, _z);
+		return *this;
+	}
+
+	inline constexpr Box& Box::moveBy(const size_type v) noexcept
+	{
+		center.moveBy(v);
+		return *this;
+	}
+
 	inline constexpr Box Box::stretched(const double xyz) const noexcept
 	{
 		return stretched(xyz, xyz, xyz);
 	}
 
-	inline constexpr Box Box::stretched(const double x, const double y, const double z) const noexcept
+	inline constexpr Box Box::stretched(const double _x, const double _y, const double _z) const noexcept
 	{
-		return stretched({ x, y, z });
+		return stretched({ _x, _y, _z });
 	}
 
 	inline constexpr Box Box::stretched(const Vec3 xyz) const noexcept
@@ -166,7 +188,27 @@ namespace s3d
 		return{ center, (size + xyz) };
 	}
 
-	inline constexpr Box Box::FromTwoPoints(const Vec3& a, const Vec3& b) noexcept
+	inline constexpr Box Box::scaled(const double s) const noexcept
+	{
+		return{ center, (size * s) };
+	}
+
+	inline constexpr Box Box::scaled(const double sx, const double sy, const double sz) const noexcept
+	{
+		return{ center, (size * Vec3{ sx, sy, sz }) };
+	}
+
+	inline constexpr Box Box::scaled(const Vec3 s) const noexcept
+	{
+		return{ center, (size * s) };
+	}
+
+	inline constexpr bool Box::hasVolume() const noexcept
+	{
+		return ((size.x != 0.0) && (size.y != 0.0) && (size.z != 0.0));
+	}
+
+	inline constexpr Box Box::FromPoints(const Vec3& a, const Vec3& b) noexcept
 	{
 		const Vec3 center = (a + b) * 0.5;
 		const Vec3 size{ AbsDiff(a.x, b.x), AbsDiff(a.y, b.y), AbsDiff(a.z, b.z) };
