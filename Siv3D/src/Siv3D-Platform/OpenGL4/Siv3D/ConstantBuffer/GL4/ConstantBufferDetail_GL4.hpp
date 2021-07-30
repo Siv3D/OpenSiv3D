@@ -33,5 +33,7 @@ namespace s3d
 		bool update(const void* data, size_t size) override;
 
 		GLuint getHandle() const;
+
+		void initBuffer() const;
 	};
 }
