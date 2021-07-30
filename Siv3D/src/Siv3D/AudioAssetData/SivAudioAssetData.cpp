@@ -18,7 +18,7 @@ namespace s3d
 	AudioAssetData::AudioAssetData(const FilePathView _path, const Optional<AudioLoopTiming>& _loopTiming, const Array<AssetTag>& tags)
 		: IAsset{ tags }
 		, path{ _path }
-		, loopTiming{ loopTiming } {}
+		, loopTiming{ _loopTiming } {}
 
 	AudioAssetData::AudioAssetData(Audio::FileStreaming, const FilePathView _path, const Array<AssetTag>& tags)
 		: IAsset{ tags }

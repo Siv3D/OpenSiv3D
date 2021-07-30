@@ -47,13 +47,13 @@ namespace s3d
 		AudioAssetData();
 
 		SIV3D_NODISCARD_CXX20
-		AudioAssetData(FilePathView path, const Optional<AudioLoopTiming>& loopTiming, const Array<AssetTag>& tags = {});
+		AudioAssetData(FilePathView _path, const Optional<AudioLoopTiming>& _loopTiming, const Array<AssetTag>& tags = {});
 
 		SIV3D_NODISCARD_CXX20
-		AudioAssetData(Audio::FileStreaming, FilePathView path, const Array<AssetTag>& tags = {});
+		AudioAssetData(Audio::FileStreaming, FilePathView _path, const Array<AssetTag>& tags = {});
 
 		SIV3D_NODISCARD_CXX20
-		AudioAssetData(Audio::FileStreaming, FilePathView path, Arg::loopBegin_<uint64>, const Array<AssetTag>& tags = {});
+		AudioAssetData(Audio::FileStreaming, FilePathView _path, Arg::loopBegin_<uint64> _loopBegin, const Array<AssetTag>& tags = {});
 
 		SIV3D_NODISCARD_CXX20
 		AudioAssetData(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity, Arg::sampleRate_<uint32> sampleRate, const Array<AssetTag>& tags = {});
