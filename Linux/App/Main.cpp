@@ -1,35 +1,70 @@
 
-# include <Siv3D.hpp> // OpenSiv3D v0.6
-//*
-SIV3D_SET(EngineOption::Renderer::Headless) // 非グラフィックモード
-//*/
+/////////////////
+//
+//	Test code for CI
+//
+# include <Siv3D.hpp> // OpenSiv3D v0.6.0
+SIV3D_SET(EngineOption::Renderer::Headless) // Non-graphical mode
+void Main() { }
+//
+/////////////////
 
-void Siv3DTest();
+/*
+# include <Siv3D.hpp> // OpenSiv3D v0.6.0
 
 void Main()
 {
-	Siv3DTest();
-
-/*
+	// Set background color to sky blue
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
-	Scene::SetResizeMode(ResizeMode::Keep);
-	Window::SetStyle(WindowStyle::Sizable);
-	Window::Resize(1280, 720);
+
+	// Create a new font
+	const Font font{ 60 };
+
+	// Create a new emoji font
+	const Font emojiFont{ 60, Typeface::ColorEmoji };
+
+	// Set emojiFont as a fallback
+	font.addFallback(emojiFont);
+
+	// Create a texture from an image file
+	const Texture texture{ U"example/windmill.png" };
+
+	// Create a texture from an emoji
+	const Texture emoji{ U"🐈"_emoji };
+
+	// Coordinates of the emoji
+	Vec2 emojiPos{ 300, 150 };
+
+	// Print a text
+	Print << U"Push [A] key";
 
 	while (System::Update())
 	{
-		for (auto i : step(20))
+		// Draw a texture
+		texture.draw(200, 200);
+
+		// Put a text in the middle of the screen
+		font(U"Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
+
+		// Draw a texture with animated size
+		emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(emojiPos);
+
+		// Draw a red transparent circle that follows the mouse cursor
+		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1, 0, 0, 0.5 });
+
+		// When [A] key is down
+		if (KeyA.down())
 		{
-			Rect{ Point{ 100, 100 } *i, 100 }.draw();
+			// Print a randomly selected text
+			Print << Sample({ U"Hello!", U"こんにちは", U"你好", U"안녕하세요?" });
 		}
 
-		for (auto i : step(20))
+		// When [Button] is pushed
+		if (SimpleGUI::Button(U"Button", Vec2{ 640, 40 }))
 		{
-			Rect{ Cursor::Pos().movedBy(0 + i * 20, 0), 20, 400 }
-				.draw(HSV{ i * 10.0, 0.5, 0.9 });
+			// Move the coordinates to a random position in the screen
+			emojiPos = RandomVec2(Scene::Rect());
 		}
-
-		Rect{ Cursor::Pos(), 40 }.draw(Palette::Orange);
 	}
-//*/
 }
+*/

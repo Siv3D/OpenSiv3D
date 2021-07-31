@@ -35,18 +35,18 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 add_executable(Siv3DTest
   Main.cpp
-  ../../Test/Siv3DTest.cpp
-  ../../Test/Siv3DTest_Array.cpp
-  ../../Test/Siv3DTest_BinaryReader.cpp
-  ../../Test/Siv3DTest_BinaryWriter.cpp
-  ../../Test/Siv3DTest_FileSystem.cpp
-  ../../Test/Siv3DTest_Image.cpp
-  ../../Test/Siv3DTest_Resource.cpp
-  ../../Test/Siv3DTest_Stopwatch.cpp
-  ../../Test/Siv3DTest_TextEncoding.cpp
-  ../../Test/Siv3DTest_TextReader.cpp
-  ../../Test/Siv3DTest_TextWriter.cpp
-  ../../Test/Siv3DTest_Timer.cpp
+  #../../Test/Siv3DTest.cpp
+  #../../Test/Siv3DTest_Array.cpp
+  #../../Test/Siv3DTest_BinaryReader.cpp
+  #../../Test/Siv3DTest_BinaryWriter.cpp
+  #../../Test/Siv3DTest_FileSystem.cpp
+  #../../Test/Siv3DTest_Image.cpp
+  #../../Test/Siv3DTest_Resource.cpp
+  #../../Test/Siv3DTest_Stopwatch.cpp
+  #../../Test/Siv3DTest_TextEncoding.cpp
+  #../../Test/Siv3DTest_TextReader.cpp
+  #../../Test/Siv3DTest_TextWriter.cpp
+  #../../Test/Siv3DTest_Timer.cpp
   )
 target_include_directories(Siv3DTest PRIVATE
   "/usr/include"

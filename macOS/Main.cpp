@@ -1,4 +1,4 @@
-# include <Siv3D.hpp> // OpenSiv3D v0.6
+# include <Siv3D.hpp> // OpenSiv3D v0.6.0
 
 void Main()
 {
@@ -7,10 +7,10 @@ void Main()
 
 	// Create a new font
 	const Font font{ 60 };
-	
+
 	// Create a new emoji font
 	const Font emojiFont{ 60, Typeface::ColorEmoji };
-	
+
 	// Set emojiFont as a fallback
 	font.addFallback(emojiFont);
 
