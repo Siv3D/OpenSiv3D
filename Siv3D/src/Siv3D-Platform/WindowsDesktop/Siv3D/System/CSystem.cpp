@@ -18,7 +18,7 @@
 # include <Siv3D/LicenseManager/ILicenseManager.hpp>
 # include <Siv3D/ImageDecoder/IImageDecoder.hpp>
 # include <Siv3D/ImageEncoder/IImageEncoder.hpp>
-# include <Siv3D/Window/IWindow.hpp>
+# include <Siv3D/Window/CWindow.hpp>
 # include <Siv3D/Scene/IScene.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
@@ -143,11 +143,22 @@ namespace s3d
 		SIV3D_ENGINE(PrimitiveMesh)->init();
 		SIV3D_ENGINE(Effect)->init();
 
+		m_setupState = SetupState::Initialized;
 		LOG_INFO(U"✅ Siv3D engine has initialized");
 	}
 
 	bool CSystem::update()
 	{
+		if (m_setupState == SetupState::Initialized)
+		{
+			if (auto pWindow = static_cast<CWindow*>(Siv3DEngine::Get<ISiv3DWindow>()))
+			{
+				pWindow->show();
+			}
+
+			m_setupState = SetupState::WindowDisplayed;
+		}
+
 		if (SIV3D_ENGINE(UserAction)->terminationTriggered())
 		{
 			return false;

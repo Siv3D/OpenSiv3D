@@ -237,9 +237,6 @@ namespace s3d
 			break;
 		}
 
-		LOG_TRACE(U"ShowWindow()");
-		::ShowWindow(m_hWnd, SW_SHOW);
-
 		// Disable touch feedback visualization that causes frame rate drops
 		detail::DisableTouchFeedbackVisualization(m_hWnd, m_user32);
 
@@ -340,14 +337,17 @@ namespace s3d
 
 		if (m_state.fullscreen)
 		{
-		//	m_state.style = style;
-		//	setFullscreen(false, unspecified, WindowResizeOption::KeepSceneSize);
 			return;
 		}
 
 		if (m_state.style == style)
 		{
 			return;
+		}
+
+		if (not m_showWindowCalled)
+		{
+			show();
 		}
 
 		const auto current = m_state.style;
@@ -368,8 +368,7 @@ namespace s3d
 		}
 
 		onBoundsUpdate();
-
-		::ShowWindow(m_hWnd, SW_NORMAL);
+		show();
 	}
 
 	void CWindow::setPos(const Point& pos)
@@ -460,6 +459,7 @@ namespace s3d
 		m_state.virtualSize		= (m_state.frameBufferSize * (1.0 / m_state.scaling)).asPoint();
 		constexpr UINT flags	= (SWP_NOACTIVATE | SWP_NOZORDER);
 		setWindowPos(windowRect, flags);
+		::ShowWindow(m_hWnd, SW_NORMAL);
 
 		return true;
 	}
@@ -508,6 +508,16 @@ namespace s3d
 		{
 			SIV3D_ENGINE(Renderer)->updateSceneSize();
 		}
+	}
+
+	void CWindow::show()
+	{
+		LOG_TRACE(U"ShowWindow()");
+		::ShowWindow(m_hWnd, SW_SHOW);
+		::ValidateRect(m_hWnd, 0);
+		::UpdateWindow(m_hWnd);
+		::SetForegroundWindow(m_hWnd);
+		m_showWindowCalled = true;
 	}
 
 	void CWindow::onResize(const bool minimized, const bool maximized)

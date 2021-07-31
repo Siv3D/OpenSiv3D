@@ -33,6 +33,13 @@ namespace s3d
 
 	private:
 
+		enum class SetupState
+		{
+			Uninitialized,
+			Initialized,
+			WindowDisplayed,
+		} m_setupState = SetupState::Uninitialized;
+
 		std::atomic<bool> m_onDeviceChange = { false };
 	};
 }

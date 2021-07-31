@@ -41,6 +41,7 @@ namespace s3d
 		Size m_targetWindowPos = Point(0, 0);
 		RECT m_storedWindowRect = { 0, 0, 0, 0 }; // フルスクリーンからウィンドウモードに復帰するときのウィンドウサイズ
 		bool m_toggleFullscreenRequest = false;
+		bool m_showWindowCalled = false;
 
 		int32 getSystemMetrics(int32 index) const;
 
@@ -86,6 +87,8 @@ namespace s3d
 
 		void setFullscreen(bool fullscreen, size_t monitorIndex) override;
 
+
+		void show();
 
 		void onResize(bool minimized, bool maximized);
 
