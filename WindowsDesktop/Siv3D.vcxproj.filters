@@ -1516,6 +1516,12 @@
     <Filter Include="src\Siv3D\ModelObject">
       <UniqueIdentifier>{008f8c75-5b69-4feb-b7af-ec5b8e15d4b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\angelscript">
+      <UniqueIdentifier>{dc3c9987-5205-4610-9e88-34a1387e2661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\angelscript">
+      <UniqueIdentifier>{3fc91f0e-f3f9-4c71-9b13-7891f643c7b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6612,6 +6618,123 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Cone.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_builder.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_bytecode.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_compiler.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_config.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_configgroup.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_context.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_criticalsection.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_datatype.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_debug.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_gc.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_generic.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_map.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_memory.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_module.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_namespace.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_objecttype.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_outputbuffer.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_parser.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_property.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_restore.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptcode.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptengine.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptfunction.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptnode.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptobject.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_string.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_symboltable.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_texts.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_thread.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_tokendef.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_tokenizer.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_typeinfo.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_variablescope.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_array.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\angelscript\as_atomic.h">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
+      <Filter>include\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9107,6 +9230,123 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ModelObject\SivModelObject.cpp">
       <Filter>src\Siv3D\ModelObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_bytecode.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm64.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_mips.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_ppc.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_ppc_64.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_sh4.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_gcc.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_mingw.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x86.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_xenon.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_compiler.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_configgroup.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_context.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_datatype.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_gc.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_generic.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_globalproperty.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_memory.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_module.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_objecttype.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_outputbuffer.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_parser.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_restore.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptcode.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptengine.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptfunction.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptnode.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_scriptobject.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_string_util.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_thread.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_tokenizer.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_typeinfo.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_variablescope.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_atomic.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\angelscript\as_builder.cpp">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">
@@ -9156,6 +9396,27 @@
     </None>
     <None Include="..\Siv3D\src\ThirdParty\gsl\gsl_algorithm">
       <Filter>src\ThirdParty\gsl</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_gcc.S">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_msvc.asm">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_vita.S">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm_xcode.S">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm64_gcc.S">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm64_msvc.asm">
+      <Filter>src\ThirdParty\angelscript</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
+      <Filter>src\ThirdParty\angelscript</Filter>
     </None>
   </ItemGroup>
 </Project>

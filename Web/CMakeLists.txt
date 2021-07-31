@@ -12,7 +12,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DAS_USE_NAMESPACE -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -546,6 +546,46 @@ add_library(
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
   ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
+
+  ../Siv3D/src/ThirdParty/angelscript/as_atomic.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_builder.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_bytecode.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm64.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_mips.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc_64.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_sh4.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_gcc.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_mingw.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_msvc.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x86.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_xenon.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_compiler.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_configgroup.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_context.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_datatype.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_gc.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_generic.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_globalproperty.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_memory.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_module.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_objecttype.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_outputbuffer.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_parser.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_restore.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_scriptcode.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_scriptengine.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_scriptfunction.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_scriptnode.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_scriptobject.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_string.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_string_util.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_thread.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_tokenizer.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_typeinfo.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_variablescope.cpp
 
   ../Siv3D/src/ThirdParty/box2d/collision/b2_broad_phase.cpp
   ../Siv3D/src/ThirdParty/box2d/collision/b2_chain_shape.cpp
