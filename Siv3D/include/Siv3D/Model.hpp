@@ -18,6 +18,7 @@
 # include "StringView.hpp"
 # include "ColorOption.hpp"
 # include "TextureDesc.hpp"
+# include "TextureAsset.hpp"
 
 namespace s3d
 {
@@ -45,11 +46,21 @@ namespace s3d
 		[[nodiscard]]
 		const Box& boundingBox() const noexcept;
 
+		void draw() const;
+
+		void draw(double x, double y, double z) const;
+
+		void draw(const Vec3& pos) const;
+
+		void draw(double x, double y, double z, const Quaternion& rotation) const;
+
+		void draw(const Vec3& pos, const Quaternion& rotation) const;
+
+		void draw(const Mat4x4& mat) const;
+
 		void swap(Model& other) noexcept;
 
 		static void RegisterDiffuseTextures(const Model& model, TextureDesc textureDesc = TextureDesc::MippedSRGB);
-
-		static void Draw(const ModelObject& modelObject, const Array<Material>& materials);
 	};
 }
 

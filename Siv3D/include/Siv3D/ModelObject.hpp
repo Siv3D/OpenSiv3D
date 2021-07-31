@@ -16,6 +16,7 @@
 # include "ModelMeshPart.hpp"
 # include "Box.hpp"
 # include "Sphere.hpp"
+# include "Material.hpp"
 
 namespace s3d
 {
@@ -28,5 +29,7 @@ namespace s3d
 		Sphere boundingSphere{ 0.0 };
 
 		Box boundingBox{ 0.0 };
+
+		void draw(const Array<Material>& materials) const;
 	};
 }

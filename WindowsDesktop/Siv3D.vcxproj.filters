@@ -1513,6 +1513,9 @@
     <Filter Include="src\Siv3D\InfinitePlane">
       <UniqueIdentifier>{91805321-eb79-4bb6-b4ca-6684537ad5b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ModelObject">
+      <UniqueIdentifier>{008f8c75-5b69-4feb-b7af-ec5b8e15d4b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9100,6 +9103,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\InfinitePlane\SivInfinitePlane.cpp">
       <Filter>src\Siv3D\InfinitePlane</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ModelObject\SivModelObject.cpp">
+      <Filter>src\Siv3D\ModelObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

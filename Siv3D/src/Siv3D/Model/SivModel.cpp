@@ -11,6 +11,7 @@
 
 # include <Siv3D/Model.hpp>
 # include <Siv3D/TextureAsset.hpp>
+# include <Siv3D/Transformer3D.hpp>
 # include <Siv3D/Model/IModel.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Renderer3D/IRenderer3D.hpp>
@@ -73,38 +74,50 @@ namespace s3d
 		return SIV3D_ENGINE(Model)->getBoundingBox(m_handle->id());
 	}
 
+	void Model::draw() const
+	{
+		const auto& _materials = materials();
+
+		for (const auto& object : objects())
+		{
+			object.draw(_materials);
+		}
+	}
+
+	void Model::draw(const double x, const double y, const double z) const
+	{
+		draw(Mat4x4::Translate(x, y, z));
+	}
+
+	void Model::draw(const Vec3& pos) const
+	{
+		draw(Mat4x4::Translate(pos));
+	}
+
+	void Model::draw(const double x, const double y, const double z, const Quaternion& rotation) const
+	{
+		draw(Mat4x4::Rotate(rotation).translated(x, y, z));
+	}
+
+	void Model::draw(const Vec3& pos, const Quaternion& rotation) const
+	{
+		draw(Mat4x4::Rotate(rotation).translated(pos));
+	}
+
+	void Model::draw(const Mat4x4& mat) const
+	{
+		const Transformer3D t{ mat };
+
+		const auto& _materials = materials();
+
+		for (const auto& object : objects())
+		{
+			object.draw(_materials);
+		}
+	}
+
 	void Model::swap(Model& other) noexcept
 	{
 		m_handle.swap(other.m_handle);
-	}
-
-	void Model::RegisterDiffuseTextures(const Model& model, const TextureDesc textureDesc)
-	{
-		for (const auto& material : model.materials())
-		{
-			if (const auto& textureName = material.diffuseTextureName;
-				(textureName && (not TextureAsset::IsRegistered(textureName))))
-			{
-				TextureAsset::Register(textureName, textureName, textureDesc);
-			}
-		}
-	}
-
-	void Model::Draw(const ModelObject& modelObject, const Array<Material>& materials)
-	{
-		for (const auto& part : modelObject.parts)
-		{
-			const Material material = part.materialID ? materials[*part.materialID] : Material{};
-
-			if (material.diffuseTextureName)
-			{
-				part.mesh.draw(TextureAsset(material.diffuseTextureName),
-					PhongMaterial{ material, HasDiffuseTexture::Yes });
-			}
-			else
-			{
-				part.mesh.draw(PhongMaterial{ material, HasDiffuseTexture::No });
-			}
-		}
 	}
 }

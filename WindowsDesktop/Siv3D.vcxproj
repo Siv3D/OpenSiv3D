@@ -2036,6 +2036,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MicrosecClock\SivMicrosecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MillisecClock\SivMillisecClock.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ModelObject\SivModelObject.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\CModel.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\ModelData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\ModelFactory.cpp" />
