@@ -1613,6 +1613,7 @@
 		2CFE19AE2555B263005826A1 /* InputState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AB2555B263005826A1 /* InputState.cpp */; };
 		2CFE19AF2555B263005826A1 /* InputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFE19AC2555B263005826A1 /* InputState.hpp */; };
 		2CFE19B02555B263005826A1 /* SivInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE19AD2555B263005826A1 /* SivInput.cpp */; };
+		2CFE52FF26B582EB00157CE0 /* SivModelObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE52FE26B582EB00157CE0 /* SivModelObject.cpp */; };
 		2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581325F79CC200B660AD /* SivMat3x3.cpp */; };
 		2CFF581A25F7C02500B660AD /* VideoReaderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF581725F7C02400B660AD /* VideoReaderDetail.cpp */; };
 		2CFF581B25F7C02500B660AD /* VideoReaderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF581825F7C02400B660AD /* VideoReaderDetail.hpp */; };
@@ -4214,6 +4215,7 @@
 		2CFE19AB2555B263005826A1 /* InputState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputState.cpp; sourceTree = "<group>"; };
 		2CFE19AC2555B263005826A1 /* InputState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputState.hpp; sourceTree = "<group>"; };
 		2CFE19AD2555B263005826A1 /* SivInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInput.cpp; sourceTree = "<group>"; };
+		2CFE52FE26B582EB00157CE0 /* SivModelObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivModelObject.cpp; sourceTree = "<group>"; };
 		2CFF581025F79C9800B660AD /* Mat3x3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat3x3.hpp; sourceTree = "<group>"; };
 		2CFF581325F79CC200B660AD /* SivMat3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat3x3.cpp; sourceTree = "<group>"; };
 		2CFF581525F7C00E00B660AD /* VideoReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoReader.hpp; sourceTree = "<group>"; };
@@ -6114,6 +6116,7 @@
 				2C60F91F2667F0E300FFAA68 /* MicrosecClock */,
 				2C60F91D2667F0E300FFAA68 /* MillisecClock */,
 				2C63A9CE26A4091F00D13501 /* Model */,
+				2CFE52FD26B582EB00157CE0 /* ModelObject */,
 				2CF2AF8A25542C7600E81D12 /* Monitor */,
 				2CB7D4E42556E230007EB42E /* Mouse */,
 				2C2D5C10267E467C00EF5696 /* MSRenderTexture */,
@@ -10890,6 +10893,14 @@
 			path = Input;
 			sourceTree = "<group>";
 		};
+		2CFE52FD26B582EB00157CE0 /* ModelObject */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE52FE26B582EB00157CE0 /* SivModelObject.cpp */,
+			);
+			path = ModelObject;
+			sourceTree = "<group>";
+		};
 		2CFF581225F79CC200B660AD /* Mat3x3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -12176,6 +12187,7 @@
 				2C533793264F5AA200CE0F1B /* zstd_compress_sequences.c in Sources */,
 				2C3477FC25DA94C100071EEF /* CacheDirectory.cpp in Sources */,
 				2C636E752657F7D300AF029F /* soloud_thread.cpp in Sources */,
+				2CFE52FF26B582EB00157CE0 /* SivModelObject.cpp in Sources */,
 				2C7091AA267F480700A8F68C /* SivEngineOptions.cpp in Sources */,
 				2C636EBD2657F7D300AF029F /* soloud_monotone.cpp in Sources */,
 				2C631EA3268704D200166A8E /* CMesh_Null.cpp in Sources */,
