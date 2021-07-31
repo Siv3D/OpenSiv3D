@@ -13,16 +13,19 @@
 
 namespace s3d
 {
-	inline void Model::RegisterDiffuseTextures(const Model& model, const TextureDesc textureDesc)
+	inline bool Model::RegisterDiffuseTextures(const Model& model, const TextureDesc textureDesc)
 	{
-		for (const auto& material : model.materials())
+		bool result = true;
+
+		for (const auto& textureName : model.diffuseTextureNames())
 		{
-			if (const auto& textureName = material.diffuseTextureName;
-				(textureName && (not TextureAsset::IsRegistered(textureName))))
+			if (not TextureAsset::IsRegistered(textureName))
 			{
-				TextureAsset::Register(textureName, textureName, textureDesc);
+				result &= TextureAsset::Register(textureName, textureName, textureDesc);
 			}
 		}
+
+		return result;
 	}
 }
 

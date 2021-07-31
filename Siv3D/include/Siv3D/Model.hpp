@@ -41,6 +41,9 @@ namespace s3d
 		const Array<Material>& materials() const noexcept;
 
 		[[nodiscard]]
+		Array<String> diffuseTextureNames() const;
+
+		[[nodiscard]]
 		const Sphere& boundingSphere() const noexcept;
 
 		[[nodiscard]]
@@ -60,7 +63,7 @@ namespace s3d
 
 		void swap(Model& other) noexcept;
 
-		static void RegisterDiffuseTextures(const Model& model, TextureDesc textureDesc = TextureDesc::MippedSRGB);
+		static bool RegisterDiffuseTextures(const Model& model, TextureDesc textureDesc = TextureDesc::MippedSRGB);
 	};
 }
 

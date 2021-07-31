@@ -64,6 +64,21 @@ namespace s3d
 		return SIV3D_ENGINE(Model)->getMaterials(m_handle->id());
 	}
 
+	Array<String> Model::diffuseTextureNames() const
+	{
+		Array<String> results;
+
+		for (const auto& material : materials())
+		{
+			if (const auto& textureName = material.diffuseTextureName)
+			{
+				results.push_back(textureName);
+			}
+		}
+
+		return results.sorted_and_uniqued();
+	}
+
 	const Sphere& Model::boundingSphere() const noexcept
 	{
 		return SIV3D_ENGINE(Model)->getBoundingSphere(m_handle->id());

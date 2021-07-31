@@ -19,6 +19,8 @@ namespace s3d
 	{
 		for (const auto& part : parts)
 		{
+			assert((not part.materialID) || (part.materialID < materials.size()));
+
 			const Material material = (part.materialID ? materials[*part.materialID] : Material{});
 
 			if (material.diffuseTextureName)
