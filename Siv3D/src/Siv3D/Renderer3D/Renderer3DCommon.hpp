@@ -14,6 +14,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/PhongMaterial.hpp>
+# include <Siv3D/Graphics3D.hpp>
 
 namespace s3d
 {
@@ -29,9 +30,9 @@ namespace s3d
 
 	struct PSPerFrameConstants3D // (PS slot-0)
 	{
-		Float4 gloablAmbientColor = Float4{ 1.0f, 1.0f, 1.0f, 0.0f };
-		Float4 sunColor = Float4{ 1.0f, 1.0f, 1.0f, 0.0f };
-		Float4 sunDirection = Float4{ 0.408248f, 0.408248f, -0.816497f, 0.0f }; // Float3{ 1, 1, -2 }.normalize()
+		Float4 gloablAmbientColor = Float4{ Graphics3D::DefaultGlobalAmbientColor.rgb(), 0.0f };
+		Float4 sunColor = Float4{ Graphics3D::DefaultSunColor.rgb(), 0.0f };
+		Float4 sunDirection = Float4{ Graphics3D::DefaultSunDirection, 0.0f };
 	};
 
 	struct PSPerViewConstants3D // (PS slot-1)

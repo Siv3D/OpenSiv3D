@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CRenderer3D_Null.hpp"
+# include <Siv3D/Graphics3D.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -83,7 +84,7 @@ namespace s3d
 
 	Float3 CRenderer3D_Null::getGlobalAmbientColor() const
 	{
-		return Float3{ 1.0f, 1.0f, 1.0f };
+		return Graphics3D::DefaultGlobalAmbientColor.rgb();
 	}
 
 	void CRenderer3D_Null::setSunDirection(const Float3&) {}
@@ -97,7 +98,7 @@ namespace s3d
 
 	Float3 CRenderer3D_Null::getSunColor() const
 	{
-		return Float3{ 1.0f, 1.0f, 1.0f };
+		return Graphics3D::DefaultSunColor.rgb();
 	}
 
 	Optional<VertexShader> CRenderer3D_Null::getCustomVS() const

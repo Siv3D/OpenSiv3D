@@ -29,6 +29,15 @@ namespace s3d
 
 	namespace Graphics3D
 	{
+		inline constexpr ColorF DefaultGlobalAmbientColor{ 0.5 };
+
+		inline constexpr ColorF DefaultSunColor{ 1.0 };
+
+		inline constexpr Vec3 DefaultSunDirection{ 0.4082482904638631, 0.4082482904638631, -0.8164965809277261 }; // Vec3{ 1, 1, -2 }.normalized()
+	}
+
+	namespace Graphics3D
+	{
 		/// @brief 現在適用されているブレンドステートを返します。
 		/// @return 現在適用されているブレンドステート
 		[[nodiscard]]

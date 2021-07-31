@@ -24,6 +24,7 @@
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Graphics3D.hpp>
 # include <Siv3D/Mesh.hpp>
 # include <Siv3D/PhongMaterial.hpp>
 # include <Siv3D/Renderer2D/CurrentBatchStateChanges.hpp>
@@ -220,9 +221,9 @@ namespace s3d
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
 		Array<GL4InputLayout3D> m_inputLayouts	= { GL4InputLayout3D::Mesh };
 		Array<Mesh::IDType> m_meshes;
-		Array<Float3> m_globalAmbientColors			= { Float3{ 1.0f, 1.0f, 1.0f } };
-		Array<Float3> m_sunDirections				= { Float3{ 0.408248f, 0.408248f, -0.816497f } };
-		Array<Float3> m_sunColors					= { Float3{ 1.0f, 1.0f, 1.0f } };
+		Array<Float3> m_globalAmbientColors			= { Graphics3D::DefaultGlobalAmbientColor.rgb() };
+		Array<Float3> m_sunDirections				= { Graphics3D::DefaultSunDirection };
+		Array<Float3> m_sunColors					= { Graphics3D::DefaultSunColor.rgb() };
 
 		// current
 		GL4DrawLine3DCommand m_currentDrawLine3D;
