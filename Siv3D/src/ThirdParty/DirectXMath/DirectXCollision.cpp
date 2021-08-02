@@ -5,13 +5,13 @@
     # define _XM_SSE4_INTRINSICS_
 # endif
 
-# if defined(__clang__)
+# if SIV3D_PLATFORM(WEB) && defined(__clang__)
 #   pragma clang attribute push (__attribute__((noinline)), apply_to = function)
 # endif
 
 # include <ThirdParty/DirectXMath/DirectXCollision.h>
 
-# if defined(__clang__)
+# if SIV3D_PLATFORM(WEB) && defined(__clang__)
 #   pragma clang attribute pop
 # endif
 
