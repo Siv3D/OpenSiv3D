@@ -91,13 +91,13 @@ namespace s3d
 		: m_data{ data } {}
 
 	template <class State, class Data>
-	template <class Scene>
+	template <class SceneType>
 	inline SceneManager<State, Data>& SceneManager<State, Data>::add(const State& state)
 	{
-		typename Scene::InitData initData{ state, m_data, this };
+		typename SceneType::InitData initData{ state, m_data, this };
 
 		auto factory = [=]() {
-			return std::make_shared<Scene>(initData);
+			return std::make_shared<SceneType>(initData);
 		};
 
 		auto it = m_factories.find(state);

@@ -145,10 +145,10 @@ namespace s3d
 		explicit SceneManager(const std::shared_ptr<Data>& data);
 
 		/// @brief シーンを登録します。
-		/// @tparam Scene シーンの型
+		/// @tparam SceneType シーンの型
 		/// @param state シーンのキー
 		/// @return シーンの登録に成功した場合 true, それ以外の場合は false
-		template <class Scene>
+		template <class SceneType>
 		SceneManager& add(const State& state);
 
 		/// @brief 最初のシーンを初期化します。
