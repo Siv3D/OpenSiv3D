@@ -33,13 +33,13 @@ namespace s3d
 	{
 		if (not m_uniformBuffer)
 		{
-			::glGenBuffers(1, &m_uniformBuffer);
+			initBuffer();
 		}
 
 		assert(size <= m_bufferSize);
 
 		::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBuffer);
-		::glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
+		::glBufferSubData(GL_UNIFORM_BUFFER, 0, size, data);
 		::glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 		return true;
@@ -49,9 +49,17 @@ namespace s3d
 	{
 		if (not m_uniformBuffer)
 		{
-			::glGenBuffers(1, &m_uniformBuffer);
+			initBuffer();
 		}
 
 		return m_uniformBuffer;
+	}
+
+	void ConstantBufferDetail_GLES3::initBuffer() const
+	{
+		::glGenBuffers(1, &m_uniformBuffer);
+		::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBuffer);
+		::glBufferData(GL_UNIFORM_BUFFER, m_bufferSize, nullptr, GL_DYNAMIC_DRAW);
+		::glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}
 }
