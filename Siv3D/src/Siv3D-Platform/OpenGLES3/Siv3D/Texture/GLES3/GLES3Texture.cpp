@@ -573,16 +573,7 @@ namespace s3d
 
 		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
 
-		Float4 clearColor;
-
-		if (m_format.isSRGB())
-		{
-			clearColor = color.applySRGBCurve().toFloat4();
-		}
-		else
-		{
-			clearColor = color.toFloat4();
-		}
+		Float4 clearColor = color.toFloat4();
 
 		::glClearColor(
 			clearColor.x,
