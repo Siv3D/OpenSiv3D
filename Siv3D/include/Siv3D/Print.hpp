@@ -66,12 +66,9 @@ namespace s3d
 				return write(Format(args...));
 			}
 
+			// Format できない値が Print.write() に渡されたときに発生するエラーです
 			template <class... Args>
-			void write(const Args&... args) const
-			{
-				// Format できない値が Print.write() に渡されたときに発生するエラーです
-				static_assert(0, "Print.write(): Unformattable parameter value detected");
-			}
+			void write(const Args&... args) const = delete;
 
 			template <Concept::Formattable... Args>
 			void writeln(const Args&... args) const
@@ -79,12 +76,9 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
+			// Format できない値が Print.writeln() に渡されたときに発生するエラーです
 			template <class... Args>
-			void writeln(const Args&... args) const
-			{
-				// Format できない値が Print.writeln() に渡されたときに発生するエラーです
-				static_assert(0, "Print.writeln(): Unformattable parameter value detected");
-			}
+			void writeln(const Args&... args) const = delete;
 
 			template <Concept::Formattable... Args>
 			void operator()(const Args&... args) const
@@ -92,12 +86,9 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
+			// Format できない値が Print() に渡されたときに発生するエラーです
 			template <class... Args>
-			void operator()(const Args&... args) const
-			{
-				// Format できない値が Print() に渡されたときに発生するエラーです
-				static_assert(0, "Print(): Unformattable parameter value detected");
-			}
+			void operator()(const Args&... args) const = delete;
 
 		# else
 

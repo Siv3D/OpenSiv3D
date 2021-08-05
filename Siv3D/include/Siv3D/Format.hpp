@@ -80,14 +80,10 @@ namespace s3d
 				return std::move(formatData.string);
 			}
 
+			// Format できない値が Format() に渡されたときに発生するエラーです
 			template <class... Args>
 			[[nodiscard]]
-			String operator ()(const Args&...) const
-			{
-				// Format できない値が Format() に渡されたときに発生するエラーです
-				static_assert(0, "Format(): Unformattable type detected");
-				return{};
-			}
+			String operator ()(const Args&...) const = delete;
 
 		# else
 

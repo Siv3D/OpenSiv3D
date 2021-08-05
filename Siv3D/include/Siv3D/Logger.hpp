@@ -60,12 +60,9 @@ namespace s3d
 				return writeln(Format(args...));
 			}
 
+			// Format できない値が Logger.writeln() に渡されたときに発生するエラーです
 			template <class... Args>
-			void writeln(const Args&... args) const
-			{
-				// Format できない値が Logger.writeln() に渡されたときに発生するエラーです
-				static_assert(0, "Logger.writeln(): Unformattable parameter value detected");
-			}
+			void writeln(const Args&... args) const = delete;
 
 			template <Concept::Formattable... Args>
 			void operator()(const Args&... args) const
@@ -73,12 +70,9 @@ namespace s3d
 				return writeln(Format(args...));
 			}
 
+			// Format できない値が Logger() に渡されたときに発生するエラーです
 			template <class... Args>
-			void operator()(const Args&... args) const
-			{
-				// Format できない値が Logger() に渡されたときに発生するエラーです
-				static_assert(0, "Logger(): Unformattable parameter value detected");
-			}
+			void operator()(const Args&... args) const = delete;
 
 		# else
 

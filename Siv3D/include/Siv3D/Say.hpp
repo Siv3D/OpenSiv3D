@@ -53,12 +53,9 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
+			// Format できない値が Say() に渡されたときに発生するエラーです
 			template <class... Args>
-			void operator()(const Args&... args) const
-			{
-				// Format できない値が Say() に渡されたときに発生するエラーです
-				static_assert(0, "Say(): Unformattable parameter value detected");
-			}
+			void operator()(const Args&... args) const = delete;
 
 		# else
 
