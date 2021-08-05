@@ -22,7 +22,7 @@ namespace s3d
 		}
 
 		//valueを表現できる最小のバイト数
-		uint32 RequiredBytes(uint32 value)
+		static uint32 RequiredBytes(uint32 value)
 		{
 			uint32 i = 1;
 			while ((1u << (i * 8u)) - 1u < value)
@@ -32,7 +32,7 @@ namespace s3d
 			return i;
 		};
 
-		void SkipComment(IReader& reader)
+		static void SkipComment(IReader& reader)
 		{
 			uint8 c;
 			if (0 == reader.lookahead(&c, 1) || c != '#')
@@ -52,7 +52,7 @@ namespace s3d
 			}
 		}
 
-		bool SkipWhiteSpaces(s3d::IReader& reader)
+		static bool SkipWhiteSpaces(s3d::IReader& reader)
 		{
 			uint8 c;
 			if (0 == reader.lookahead(&c, 1) || !IsWhiteSpace(c))
@@ -75,7 +75,7 @@ namespace s3d
 		}
 
 		//数字 ホワイトスペース を読む
-		uint32 ReadNum(IReader& reader)
+		static uint32 ReadNum(IReader& reader)
 		{
 			uint32 num = 0;
 
@@ -94,7 +94,7 @@ namespace s3d
 			return num;
 		}
 
-		Size ReadSize(IReader& reader)
+		static Size ReadSize(IReader& reader)
 		{
 			SkipComment(reader);
 
@@ -133,7 +133,7 @@ namespace s3d
 			return size;
 		}
 
-		Image ReadP1(IReader& reader, const Size& size)
+		static Image ReadP1(IReader& reader, const Size& size)
 		{
 			Image image(size);
 
@@ -161,7 +161,7 @@ namespace s3d
 			return image;
 		}
 
-		Image ReadP2(IReader& reader, const Size& size)
+		static Image ReadP2(IReader& reader, const Size& size)
 		{
 			const uint32 maxValue = ReadNum(reader);
 
@@ -196,7 +196,7 @@ namespace s3d
 			return image;
 		}
 
-		Image ReadP3(IReader& reader, const Size& size)
+		static Image ReadP3(IReader& reader, const Size& size)
 		{
 			const uint32 maxValue = ReadNum(reader);
 
@@ -247,7 +247,7 @@ namespace s3d
 			return image;
 		}
 
-		Image ReadP4(IReader& reader, const Size& size)
+		static Image ReadP4(IReader& reader, const Size& size)
 		{
 			Image image(size);
 
@@ -291,7 +291,7 @@ namespace s3d
 			return image;
 		}
 
-		Image ReadP5(IReader& reader, const Size& size)
+		static Image ReadP5(IReader& reader, const Size& size)
 		{
 			const uint32 maxValue = ReadNum(reader);
 
@@ -333,7 +333,7 @@ namespace s3d
 			return image;
 		}
 
-		Image ReadP6(IReader& reader, const Size& size)
+		static Image ReadP6(IReader& reader, const Size& size)
 		{
 			const uint32 maxValue = ReadNum(reader);
 
@@ -478,7 +478,19 @@ namespace s3d
 		const uint16 type = ((static_cast<uint16>(type1) << 8) + type2);
 
 		// Line Feed
-		reader.skip(1);
+		{
+			char linefeed[2];
+			reader.lookahead(linefeed);
+			
+			if (linefeed[1] == 0x0a) // CRLF
+			{
+				reader.skip(2);
+			}
+			else // others
+			{
+				reader.skip(1);
+			}
+		}
 
 		Image image;
 		const Size size = detail::ReadSize(reader);

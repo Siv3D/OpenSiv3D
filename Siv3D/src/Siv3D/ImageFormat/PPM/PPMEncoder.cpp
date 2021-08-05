@@ -24,19 +24,19 @@ namespace s3d
 
 	namespace detail
 	{
-		void WriteNumber(IWriter& writer, const uint8 n)
+		static void WriteNumber(IWriter& writer, const uint8 n)
 		{
 			const std::string s = std::to_string(n);
 			writer.write(s.data(), s.size());
 		}
 
-		void WriteNumber(IWriter& writer, const int32 n)
+		static void WriteNumber(IWriter& writer, const int32 n)
 		{
 			const std::string s = std::to_string(n);
 			writer.write(s.data(), s.size());
 		}
 
-		bool WriteP1(const Image& image, IWriter& writer)
+		static bool WriteP1(const Image& image, IWriter& writer)
 		{
 			writer.write("P1\n", 3);
 			WriteNumber(writer, image.width());
@@ -62,7 +62,7 @@ namespace s3d
 			return true;
 		}
 
-		bool WriteP2(const Image& image, IWriter& writer)
+		static bool WriteP2(const Image& image, IWriter& writer)
 		{
 			writer.write("P2\n", 3);
 			WriteNumber(writer, image.width());
@@ -89,7 +89,7 @@ namespace s3d
 			return true;
 		}
 
-		bool WriteP3(const Image& image, IWriter& writer)
+		static bool WriteP3(const Image& image, IWriter& writer)
 		{
 			writer.write("P3\n", 3);
 			WriteNumber(writer, image.width());
@@ -126,7 +126,7 @@ namespace s3d
 			return true;
 		}
 
-		bool WriteP4(const Image& image, IWriter& writer)
+		static bool WriteP4(const Image& image, IWriter& writer)
 		{
 			writer.write("P4\n", 3);
 			WriteNumber(writer, image.width());
@@ -169,7 +169,7 @@ namespace s3d
 			return true;
 		}
 
-		bool WriteP5(const Image& image, IWriter& writer)
+		static bool WriteP5(const Image& image, IWriter& writer)
 		{
 			writer.write("P5\n", 3);
 			WriteNumber(writer, image.width());
@@ -194,7 +194,7 @@ namespace s3d
 			return true;
 		}
 
-		bool WriteP6(const Image& image, IWriter& writer)
+		static bool WriteP6(const Image& image, IWriter& writer)
 		{
 			writer.write("P6\n", 3);
 			WriteNumber(writer, image.width());
