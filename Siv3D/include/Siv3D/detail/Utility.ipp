@@ -43,7 +43,7 @@ namespace s3d
 	}
 
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
 # endif
@@ -88,7 +88,7 @@ namespace s3d
 	}
 
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
 # endif
@@ -132,7 +132,7 @@ namespace s3d
 	}
 
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
 # endif
@@ -170,7 +170,7 @@ namespace s3d
 	}
 
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
 # endif
@@ -198,7 +198,7 @@ namespace s3d
 	}
 
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
 # endif

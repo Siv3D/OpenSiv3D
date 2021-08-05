@@ -51,7 +51,7 @@ namespace s3d
 	/// @param b 比較する値 | Another value to compare
 	/// @return 2 つの値のうち大きい方の値。等しい場合は a | The greater of a and b. If they are equivalent, returns a
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
 # endif
@@ -98,7 +98,7 @@ namespace s3d
 	/// @param b 比較する値 | Another value to compare
 	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
 # endif
@@ -140,7 +140,7 @@ namespace s3d
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return v をクランプした値 | The clamped value for the v
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
 # endif
@@ -174,7 +174,7 @@ namespace s3d
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
 # endif
@@ -208,7 +208,7 @@ namespace s3d
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
 # if __cpp_lib_concepts
-	template <class Type>
+	template <class Type> requires (not std::is_scalar_v<Type>)
 # else
 	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
 # endif
