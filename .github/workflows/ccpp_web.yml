@@ -334,7 +334,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.pre-deploy.outputs.upload_url }}
+          upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
           asset_path: OpenSiv3D.tgz
           asset_name: OpenSiv3D-${{ matrix.config.name }}.tgz
           asset_content_type: application/gzip
