@@ -233,6 +233,49 @@ jobs:
           name: Siv3DTest-${{ matrix.config.name }}
           path: Web/App/Siv3DTest.*
 
+  build-installer:
+    needs: build
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            script: "Setup.iss"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+
+      - name: Restore Siv3D library
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/Build
+          cp -r Package/lib/* Web/Build
+          
+      - name: Compress Project Template
+        working-directory: Web/VisualStudioTemplate/OpenSiv3D(0.6.0)Web
+        run: |
+          7z a -tzip "OpenSiv3D(0.6.0)Web.zip" .
+          cp "OpenSiv3D(0.6.0)Web.zip" ..
+          
+      - name: Create Installer
+        working-directory: Web/WindowsInstaller
+        run: |
+          mkdir Output
+          iscc /O"Output" "./${{ matrix.config.script }}"
+          
+      - name: Save Bundles
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-Installer-${{ matrix.config.name }}
+          path: Web/WindowsInstaller/Output/*.exe
+
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
     needs: build

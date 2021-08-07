@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Emscripten">
+      <Configuration>Debug</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Emscripten">
+      <Configuration>Release</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{$guid1$}</ProjectGuid>
+    <RootNamespace>$safeprojectname$</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <ConfigurationType>HTMLPage</ConfigurationType>
+    <PlatformToolset>emcc</PlatformToolset>
+    <EmscriptenDir>$(EMSDK)\upstream\emscripten\</EmscriptenDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ConfigurationType>HTMLPage</ConfigurationType>
+    <PlatformToolset>emcc</PlatformToolset>
+    <EmscriptenDir>$(EMSDK)\upstream\emscripten\</EmscriptenDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <IncludePath>$(SIV3D_0_6_0_WEB)\include;$(SIV3D_0_6_0_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_0_WEB)\lib\freetype;$(SIV3D_0_6_0_WEB)\lib\giflib;$(SIV3D_0_6_0_WEB)\lib\harfbuzz;$(SIV3D_0_6_0_WEB)\lib\opencv;$(SIV3D_0_6_0_WEB)\lib\turbojpeg;$(SIV3D_0_6_0_WEB)\lib\webp;$(SIV3D_0_6_0_WEB)\lib</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <IncludePath>$(SIV3D_0_6_0_WEB)\include;$(SIV3D_0_6_0_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_0_WEB)\lib\freetype;$(SIV3D_0_6_0_WEB)\lib\giflib;$(SIV3D_0_6_0_WEB)\lib\harfbuzz;$(SIV3D_0_6_0_WEB)\lib\opencv;$(SIV3D_0_6_0_WEB)\lib\turbojpeg;$(SIV3D_0_6_0_WEB)\lib\webp;$(SIV3D_0_6_0_WEB)\lib</LibraryPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <Link>
+      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources</PreloadFile>
+      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s USE_WEBGL2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
+      <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;</AdditionalDependencies>
+      <EchoCommandLines>false</EchoCommandLines>
+      <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
+      <EnableMemoryGrowth>true</EnableMemoryGrowth>
+      <EmRun>true</EmRun>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IncludePath);</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(IncludePath);</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s USE_WEBGL2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;</AdditionalDependencies>
+      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources</PreloadFile>
+      <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
+      <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
+      <EchoCommandLines>false</EchoCommandLines>
+      <EnableMemoryGrowth>true</EnableMemoryGrowth>
+      <EmRun>true</EmRun>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
