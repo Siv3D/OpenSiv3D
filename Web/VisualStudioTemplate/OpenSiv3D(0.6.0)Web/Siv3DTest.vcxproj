@@ -94,14 +94,14 @@
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(IncludePath);</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(IncludePath);</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
     <Link>
