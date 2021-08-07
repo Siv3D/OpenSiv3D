@@ -325,7 +325,7 @@ jobs:
         with:
           upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
           asset_path: OpenSiv3D.zip
-          asset_name: OpenSiv3D.zip
+          asset_name: OpenSiv3D-${{ matrix.config.name }}.zip
           asset_content_type: application/zip
 
       - name: Upload Release Asset (tgz)
@@ -336,7 +336,7 @@ jobs:
         with:
           upload_url: ${{ steps.pre-deploy.outputs.upload_url }}
           asset_path: OpenSiv3D.tgz
-          asset_name: OpenSiv3D.tgz
+          asset_name: OpenSiv3D-${{ matrix.config.name }}.tgz
           asset_content_type: application/gzip
 
       - name: Upload Installer
