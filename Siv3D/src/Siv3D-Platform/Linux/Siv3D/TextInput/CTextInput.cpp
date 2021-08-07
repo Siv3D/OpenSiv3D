@@ -110,7 +110,7 @@ namespace s3d
 	void CTextInput::update()
 	{
 		{
-			std::lock_guard lock{ m_mutex };
+			std::lock_guard lock{ m_mutexChars };
 			
 			m_chars = m_internalChars;
 			
@@ -130,7 +130,7 @@ namespace s3d
 	
 	void CTextInput::pushChar(const uint32 ch)
 	{
-		std::lock_guard lock{ m_mutex };
+		std::lock_guard lock{ m_mutexChars };
 		
 		m_internalChars.push_back(static_cast<char32>(ch));
 	}
