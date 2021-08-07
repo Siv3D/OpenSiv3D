@@ -241,6 +241,8 @@ jobs:
         config:
           - name: wasm
             script: "Setup.iss"
+          - name: wasm-simd
+            script: "Setup.iss"
     
     steps:
       - name: Checkout code
@@ -307,6 +309,12 @@ jobs:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: .
       
+      - name: Restore Installer
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Installer-${{ matrix.config.name }}
+          path: .
+      
       - name: Upload Release Asset (zip)
         id: upload-release-asset-zip
         uses: actions/upload-release-asset@v1
@@ -317,6 +325,7 @@ jobs:
           asset_path: OpenSiv3D.zip
           asset_name: OpenSiv3D.zip
           asset_content_type: application/zip
+
       - name: Upload Release Asset (tgz)
         id: upload-release-asset-tgz
         uses: actions/upload-release-asset@v1
@@ -327,6 +336,18 @@ jobs:
           asset_path: OpenSiv3D.tgz
           asset_name: OpenSiv3D.tgz
           asset_content_type: application/gzip
+
+      - name: Upload Installer
+        id: upload-release-asset-exe
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
+          asset_path: OpenSiv3D(0.4.3)Web.exe
+          asset_name: OpenSiv3D-Installer-${{ matrix.config.name }}.exe
+          asset_content_type: application/octet-stream
+
 
   deploy-gh-pages:
     needs: build-app
