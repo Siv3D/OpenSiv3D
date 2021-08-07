@@ -21,10 +21,66 @@ extern "C"
 	
 	CTextInput* pTextInput = nullptr;
 	
-	void s3d_OnHaveMarkedText(const char* text)
+	XIMCallback preeditStart;
+	XIMCallback preeditDraw;
+	XIMCallback preeditDone;
+	XIMCallback preeditCaret;
+
+	void preeditStartCallback(XIC, XPointer, XPointer)
 	{
-		pTextInput->onHaveMarkedText(text);
+		// do nothing
 	}
+
+	void preeditDoneCallback(XIC, XPointer, XPointer)
+	{
+		// do nothing
+	}
+
+	void preeditDrawCallback(XIC ic, XPointer client_data, XIMPreeditDrawCallbackStruct *call_data)
+	{
+		pTextInput->preeditDrawCallback(ic, client_data, call_data);
+	}
+
+	void preeditCaretCallback(XIC, XPointer, XIMPreeditCaretCallbackStruct *)
+	{
+		// do nothing
+	}
+
+	XVaNestedList s3d_PreeditAttributes(XPointer client_data)
+	{
+		preeditStart.client_data = client_data;
+		preeditStart.callback = (XIMProc)preeditStartCallback;
+		preeditDone.client_data = client_data;
+		preeditDone.callback = (XIMProc)preeditDoneCallback;
+		preeditDraw.client_data = client_data;
+		preeditDraw.callback = (XIMProc)preeditDrawCallback;
+		preeditCaret.client_data = client_data;
+		preeditCaret.callback = (XIMProc)preeditCaretCallback;
+
+		return XVaCreateNestedList(0,
+								   XNPreeditStartCallback, &preeditStart.client_data,
+								   XNPreeditDoneCallback, &preeditDone.client_data,
+								   XNPreeditDrawCallback, &preeditDraw.client_data,
+								   XNPreeditCaretCallback, &preeditCaret.client_data,
+								   NULL);
+	}
+
+	void s3d_InputText(char *text)
+	{
+		pTextInput->sendInputText(Unicode::FromUTF8(text));
+	}
+
+	void s3d_SetICFocus(XIC)
+	{
+		pTextInput->updateWindowFocus(true);
+	}
+
+	void s3d_UnsetICFocus(XIC)
+	{
+		pTextInput->updateWindowFocus(false);
+	}
+
+	XIC s3d_GetXICFromGLFWWindow(GLFWwindow *window);
 }
 
 namespace s3d
@@ -61,40 +117,14 @@ namespace s3d
 			m_internalChars.clear();
 		}
 		
-		const bool hadMarkedText = !m_markedText.isEmpty();
-		bool haveMarkedText;
 		{
-			std::lock_guard lock{ m_mutexMarkedText };
+			std::lock_guard lock{ m_mutexPreeditStatus };
 			
-			m_markedText = m_internalMarkedText;
-			
-			haveMarkedText = m_haveMarkedText;
-		}
-		
-		if (!m_markedText)
-		{
-			m_markedText.clear();
-		}
-		
-		if(!haveMarkedText && !hadMarkedText)
-		{
-			if (m_chars.empty() && (KeyEnter.down() || (KeyEnter.pressedDuration() > SecondsF(0.33) && m_enterPress > SecondsF(0.06))))
-			{
-				m_chars.push_back(U'\r');
-				m_enterPress.restart();
-			}
-			
-			if (KeyTab.down() || (KeyTab.pressedDuration() > SecondsF(0.33) && m_tabPress > SecondsF(0.06)))
-			{
-				m_chars.push_back(U'\t');
-				m_tabPress.restart();
-			}
-			
-			if (KeyBackspace.down() || (KeyBackspace.pressedDuration() > SecondsF(0.33) && m_backSpacePress > SecondsF(0.06)))
-			{
-				m_chars.push_back(U'\b');
-				m_backSpacePress.restart();
-			}
+			m_preeditText = m_internalPreeditText;
+
+			m_preeditTextStyle = m_internalPreeditTextStyle;
+
+			m_preeditCaret = m_internalPreeditCaret;
 		}
 	}
 	
@@ -112,18 +142,18 @@ namespace s3d
 	
 	const String& CTextInput::getEditingText() const
 	{
-		return m_markedText;
+		return m_preeditText;
 	}
 	
-	void CTextInput::enableIME(bool)
+	void CTextInput::enableIME(bool enabled)
 	{
-		
+		m_imeEnabled = enabled;
+		updateICFocus();
 	}
 	
 	std::pair<int32, int32> CTextInput::getCursorIndex() const
 	{
-		// [Siv3D ToDo]
-		return{ 0, 0};
+		return{ m_preeditCaret, 0};
 	}
 	
 	const Array<String>& CTextInput::getCandidates() const
@@ -132,19 +162,97 @@ namespace s3d
 		return dummy;
 	}
 
-	void CTextInput::onHaveMarkedText(const char* text)
+	const Array<EditingTextCharStyle>& CTextInput::getEditingTextStyle() const
 	{
-		std::lock_guard lock{ m_mutexMarkedText };
+		return m_preeditTextStyle;
+	}
+
+	void CTextInput::preeditDrawCallback(XIC, XPointer, XIMPreeditDrawCallbackStruct* call_data)
+	{
+		std::lock_guard lock{ m_mutexPreeditStatus };
 		
-		m_haveMarkedText = (text != nullptr);
+		m_internalPreeditCaret = call_data->caret;
 		
-		if (m_haveMarkedText)
+		if (call_data->text)
 		{
-			m_internalMarkedText = Unicode::FromUTF8(text);
+			String text;
+			if (call_data->text->encoding_is_wchar)
+			{
+				text = Unicode::FromWstring(call_data->text->string.wide_char);
+			}
+			else
+			{
+				text = Unicode::FromUTF8(call_data->text->string.multi_byte);
+			}
+
+			m_internalPreeditText.erase(call_data->chg_first, call_data->chg_length);
+			m_internalPreeditText.insert(call_data->chg_first, text);
+
+			m_internalPreeditTextStyle.erase(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first + call_data->chg_length));
+			m_internalPreeditTextStyle.insert(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), text.length(), EditingTextCharStyle::NoStyle);
+
+			auto itr = std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first);
+			EditingTextCharStyle style = EditingTextCharStyle::NoStyle;
+			for(size_t idx = 0; idx < text.length(); idx++)
+			{
+				auto feedback = call_data->text->feedback[idx];
+				if(feedback == 0)
+				{
+					*itr = style;
+				}
+				else
+				{
+					if (feedback & XIMReverse)
+					{
+						*itr |= EditingTextCharStyle::Highlight;
+					}
+					if (feedback & XIMHighlight)
+					{
+						*itr |= EditingTextCharStyle::DashedUnderline;
+					}
+					if (feedback & XIMUnderline)
+					{
+						*itr = (*itr & ~EditingTextCharStyle::UnderlineMask) | EditingTextCharStyle::Underline;
+					}
+				}
+				itr++;
+			}
 		}
 		else
 		{
-			m_internalMarkedText.clear();
+			m_internalPreeditTextStyle.erase(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first + call_data->chg_length));
+			m_internalPreeditText.erase(call_data->chg_first, call_data->chg_length);
+		}
+
+
+	}
+
+	void CTextInput::updateWindowFocus(bool focus)
+	{
+		m_windowHasFocus = focus;
+		updateICFocus();
+	}
+
+	void CTextInput::sendInputText(const String& text)
+	{
+		std::lock_guard lock { m_mutexChars };
+
+		m_internalChars.append(text);
+	}
+
+	void CTextInput::updateICFocus()
+	{
+		XIC ic = s3d_GetXICFromGLFWWindow(static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle()));
+		if (ic)
+		{
+			if (m_imeEnabled && m_windowHasFocus)
+			{
+				XSetICFocus(ic);
+			}
+			else
+			{
+				XUnsetICFocus(ic);
+			}
 		}
 	}
 

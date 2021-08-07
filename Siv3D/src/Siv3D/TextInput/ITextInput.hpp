@@ -38,5 +38,7 @@ namespace s3d
 		virtual const Array<String>& getCandidates() const = 0;
 
 		virtual std::pair<int32, int32> getCursorIndex() const = 0;
+
+		virtual const Array<EditingTextCharStyle>& getEditingTextStyle() const = 0;
 	};
 }
