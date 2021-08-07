@@ -104,12 +104,12 @@ jobs:
         run: |
           mkdir -p Package/lib
           cp -r Siv3D/include Package
-          cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }} Package
+          cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }}/* Package/lib
           cp -r Web/App/resources Package
           cp -r Web/App/example Package
-          mv Package/${{ matrix.config.external-lib-folder-name }} Package/lib
           cp Web/build/${{ matrix.config.output-file }} Package/lib
           cp Web/Siv3D.js Package/lib
+          cp Web/Siv3D.pre.js Package/lib
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
