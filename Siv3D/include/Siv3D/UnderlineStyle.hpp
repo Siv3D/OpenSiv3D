@@ -15,19 +15,19 @@
 
 namespace s3d
 {
-	/// @brief 編集中テキストの文字スタイル
-	enum class EditingTextCharStyle
+	/// @brief 下線のスタイル
+	enum class UnderlineStyle
 	{
 		/// @brief スタイルなし
 		NoStyle = 0,
-		/// @brief 下線,実線(_________________)
+		/// @brief 実線(_________________)
 		Underline = 1 << 0,
-		/// @brief 下線,破線(_ _ _ _ _ _ _ _ _)
+		/// @brief 破線(_ _ _ _ _ _ _ _ _)
 		DashedUnderline = 1 << 1,
 		/// @brief 下線のマスク
 		UnderlineMask = 0b11, 
 		/// @brief 反転(█████████████████)
 		Highlight = 1 << 2
 	};
-	DEFINE_BITMASK_OPERATORS(EditingTextCharStyle)
+	DEFINE_BITMASK_OPERATORS(UnderlineStyle)
 }

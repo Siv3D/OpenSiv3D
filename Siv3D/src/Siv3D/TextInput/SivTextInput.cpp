@@ -13,7 +13,7 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/DrawableText.hpp>
-# include <Siv3D/EditingTextCharStyle.hpp>
+# include <Siv3D/UnderlineStyle.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
 
@@ -198,7 +198,7 @@ namespace s3d
 			return SIV3D_ENGINE(TextInput)->getCursorIndex().first;
 		}
 
-		const Array<EditingTextCharStyle>& GetEditingTextStyle() 
+		const Array<UnderlineStyle>& GetEditingTextStyle() 
 		{
 			return SIV3D_ENGINE(TextInput)->getEditingTextStyle();
 		}

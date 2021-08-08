@@ -14,7 +14,7 @@
 # include "String.hpp"
 # include "Array.hpp"
 # include "Font.hpp"
-# include "EditingTextCharStyle.hpp"
+# include "UnderlineStyle.hpp"
 # include "TextInputMode.hpp"
 
 namespace s3d
@@ -64,7 +64,7 @@ namespace s3d
 		[[nodiscard]]
 		int32 GetCursorIndex();
 
-		const Array<EditingTextCharStyle>& GetEditingTextStyle();
+		const Array<UnderlineStyle>& GetEditingTextStyle();
 	}
 
 # elif SIV3D_PLATFORM(WEB)

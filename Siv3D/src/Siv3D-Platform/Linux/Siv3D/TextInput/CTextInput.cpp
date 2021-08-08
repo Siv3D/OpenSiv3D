@@ -162,7 +162,7 @@ namespace s3d
 		return dummy;
 	}
 
-	const Array<EditingTextCharStyle>& CTextInput::getEditingTextStyle() const
+	const Array<UnderlineStyle>& CTextInput::getEditingTextStyle() const
 	{
 		return m_preeditTextStyle;
 	}
@@ -189,10 +189,10 @@ namespace s3d
 			m_internalPreeditText.insert(call_data->chg_first, text);
 
 			m_internalPreeditTextStyle.erase(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first + call_data->chg_length));
-			m_internalPreeditTextStyle.insert(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), text.length(), EditingTextCharStyle::NoStyle);
+			m_internalPreeditTextStyle.insert(std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first), text.length(), UnderlineStyle::NoStyle);
 
 			auto itr = std::next(m_internalPreeditTextStyle.begin(), call_data->chg_first);
-			EditingTextCharStyle style = EditingTextCharStyle::NoStyle;
+			UnderlineStyle style = UnderlineStyle::NoStyle;
 			for(size_t idx = 0; idx < text.length(); idx++)
 			{
 				auto feedback = call_data->text->feedback[idx];
@@ -204,15 +204,15 @@ namespace s3d
 				{
 					if (feedback & XIMReverse)
 					{
-						*itr |= EditingTextCharStyle::Highlight;
+						*itr |= UnderlineStyle::Highlight;
 					}
 					if (feedback & XIMHighlight)
 					{
-						*itr |= EditingTextCharStyle::DashedUnderline;
+						*itr |= UnderlineStyle::DashedUnderline;
 					}
 					if (feedback & XIMUnderline)
 					{
-						*itr = (*itr & ~EditingTextCharStyle::UnderlineMask) | EditingTextCharStyle::Underline;
+						*itr = (*itr & ~UnderlineStyle::UnderlineMask) | UnderlineStyle::Underline;
 					}
 				}
 				itr++;

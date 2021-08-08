@@ -41,7 +41,7 @@ namespace s3d
 		
 		const Array<String>& getCandidates() const override;
 
-		const Array<EditingTextCharStyle>& getEditingTextStyle() const override;
+		const Array<UnderlineStyle>& getEditingTextStyle() const override;
 		
 		//
 		//	Linux
@@ -64,13 +64,13 @@ namespace s3d
 		
 		std::mutex m_mutexPreeditStatus;
 		
-		Array<EditingTextCharStyle> m_internalPreeditTextStyle = {};
+		Array<UnderlineStyle> m_internalPreeditTextStyle = {};
 
 		String m_internalPreeditText = U"";
 		
 		int32 m_internalPreeditCaret = 0;
 		
-		Array<EditingTextCharStyle> m_preeditTextStyle = {};
+		Array<UnderlineStyle> m_preeditTextStyle = {};
 
 		String m_preeditText = U"";
 

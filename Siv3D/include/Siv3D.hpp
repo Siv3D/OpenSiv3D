@@ -1566,8 +1566,8 @@
 // テキスト入力 | Text input
 # include <Siv3D/TextInput.hpp>
 
-// 編集中テキストの文字スタイル
-# include <Siv3D/EditingTextCharStyle.hpp>
+// 下線のスタイル
+# include <Siv3D/UnderlineStyle.hpp>
 
 //////////////////////////////////////////////////
 //
