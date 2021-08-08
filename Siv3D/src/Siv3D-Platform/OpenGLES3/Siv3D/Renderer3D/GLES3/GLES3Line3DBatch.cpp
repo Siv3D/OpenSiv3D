@@ -193,7 +193,8 @@ namespace s3d
 			}
 
 			void* const pDst = ::glMapBufferRange(GL_ARRAY_BUFFER, sizeof(VertexLine3D) * m_vertexBufferWritePos, sizeof(VertexLine3D) * vertexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
 				std::memcpy(pDst, pSrc, sizeof(VertexLine3D) * vertexSize);
 			}
@@ -215,7 +216,8 @@ namespace s3d
 			}
 
 			void* const pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(VertexLine3D::IndexType) * m_indexBufferWritePos, sizeof(VertexLine3D::IndexType) * indexSize,
-				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+				GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+				// GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 			{
 				std::memcpy(pDst, pSrc, (sizeof(VertexLine3D::IndexType) * indexSize));
 			}
