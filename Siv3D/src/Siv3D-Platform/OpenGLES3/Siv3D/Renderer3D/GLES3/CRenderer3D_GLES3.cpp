@@ -409,7 +409,8 @@ namespace s3d
 			return;
 		}
 
-		pShader->usePipeline();
+		pShader->setVS(VertexShader::IDType::NullAsset());
+		pShader->setPS(PixelShader::IDType::NullAsset());
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
