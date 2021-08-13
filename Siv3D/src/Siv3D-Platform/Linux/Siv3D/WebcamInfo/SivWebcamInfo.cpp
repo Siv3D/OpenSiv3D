@@ -14,6 +14,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <Siv3D/WebcamInfo.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

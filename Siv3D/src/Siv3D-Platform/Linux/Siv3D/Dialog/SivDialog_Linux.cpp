@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Dialog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <ThirdParty/nativefiledialog-extended/nfd.hpp>
 
 namespace s3d

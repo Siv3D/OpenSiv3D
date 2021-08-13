@@ -13,6 +13,7 @@
 # include "DirectoryWatcherDetail.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
