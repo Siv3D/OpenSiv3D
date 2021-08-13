@@ -18,7 +18,14 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4305)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4389)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4456)
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wsign-compare"
+# endif
 # include <ThirdParty/par_shapes/par_shapes.h>
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 SIV3D_DISABLE_MSVC_WARNINGS_POP()

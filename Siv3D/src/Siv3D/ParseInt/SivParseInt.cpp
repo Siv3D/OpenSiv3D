@@ -418,7 +418,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (not detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_uint_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -452,7 +452,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (not detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_uint_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -482,7 +482,7 @@ namespace s3d
 	{
 		uint32 result;
 
-		if (not detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_uint_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -508,7 +508,7 @@ namespace s3d
 	{
 		unsigned long result;
 
-		if (not detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_uint_internal(s, &result, *radix))
 		{
 			return none;
 		}
@@ -534,7 +534,7 @@ namespace s3d
 	{
 		unsigned long long result;
 
-		if (not detail::safe_int_internal(s, &result, *radix))
+		if (not detail::safe_uint_internal(s, &result, *radix))
 		{
 			return none;
 		}
