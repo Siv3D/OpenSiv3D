@@ -27,4 +27,9 @@ namespace s3d
 	{
 		return InputGroup{ *this, other };
 	}
+
+	void Formatter(FormatData& formatData, const InputCombination& value)
+	{
+		Formatter(formatData, value.name());
+	}
 }

@@ -11,6 +11,7 @@
 
 # include "CPentablet.hpp"
 # include <Siv3D/DLL.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>

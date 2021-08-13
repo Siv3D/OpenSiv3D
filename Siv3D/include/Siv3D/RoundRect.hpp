@@ -310,12 +310,7 @@ namespace s3d
 				>> value.r >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const RoundRect& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const RoundRect& value);
+		friend void Formatter(FormatData& formatData, const RoundRect& value);
 	};
 }
 

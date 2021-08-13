@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/ZIPReader.hpp>
+# include <Siv3D/Unicode.hpp>
 
 # if SIV3D_PLATFORM(WINDOWS)
 

@@ -18,6 +18,8 @@
 
 namespace s3d
 {
+	struct FormatData;
+
 	/// @brief 所有権を持たない文字列クラス
 	class StringView
 	{
@@ -296,20 +298,13 @@ namespace s3d
 			return (lhs.compare(rhs) >= 0);
 		}
 
-		friend std::ostream& operator <<(std::ostream& output, const StringView& value)
-		{
-			return (output << value.narrow());
-		}
+		friend std::ostream& operator <<(std::ostream& output, const StringView& value);
 
-		friend std::wostream& operator <<(std::wostream& output, const StringView& value)
-		{
-			return (output << value.toWstr());
-		}
+		friend std::wostream& operator <<(std::wostream& output, const StringView& value);
 
-		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const StringView& value)
-		{
-			return output.write(value.data(), value.size());
-		}
+		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const StringView& value);
+
+		friend void Formatter(FormatData& formatData, StringView s);
 
 	private:
 

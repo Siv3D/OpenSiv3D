@@ -14,6 +14,7 @@
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Image.hpp>
 
 namespace s3d
 {
@@ -57,7 +58,38 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
-	void Point::_Formatter(FormatData& formatData, const Point& value)
+	const Point& Point::paint(Image& dst, const Color& color) const
+	{
+		if ((x < 0) || (dst.width() <= x) || (y < 0) || (dst.height() <= y))
+		{
+			return *this;
+		}
+
+		const uint32 srcBlend = color.a;
+		const uint32 dstBlend = (255 - srcBlend);
+
+		Color* const pDst = (dst.data() + y * dst.width() + x);
+		pDst->r = ((pDst->r * dstBlend) + (color.r * srcBlend)) / 255;
+		pDst->g = ((pDst->g * dstBlend) + (color.g * srcBlend)) / 255;
+		pDst->b = ((pDst->b * dstBlend) + (color.b * srcBlend)) / 255;
+
+		return *this;
+	}
+
+	const Point& Point::overwrite(Image& dst, const Color& color) const
+	{
+		if ((x < 0) || (dst.width() <= x) || (y < 0) || (dst.height() <= y))
+		{
+			return *this;
+		}
+
+		Color* const pDst = (dst.data() + y * dst.width() + x);
+		*pDst = color;
+
+		return *this;
+	}
+
+	void Formatter(FormatData& formatData, const Point& value)
 	{
 		const size_t bufferSize = (detail::Int32Width * 2) + 4 + 1;
 		char32 buf[bufferSize];

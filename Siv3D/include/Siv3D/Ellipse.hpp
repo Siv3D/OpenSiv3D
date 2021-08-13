@@ -302,12 +302,7 @@ namespace s3d
 				>> value.b >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Ellipse& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Ellipse& value);
+		friend void Formatter(FormatData& formatData, const Ellipse& value);
 	};
 }
 

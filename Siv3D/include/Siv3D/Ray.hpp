@@ -141,12 +141,7 @@ namespace s3d
 			return input;
 		}
 
-		friend void Formatter(FormatData& formatData, const Ray& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Ray& value);
+		friend void Formatter(FormatData& formatData, const Ray& value);
 	};
 }
 

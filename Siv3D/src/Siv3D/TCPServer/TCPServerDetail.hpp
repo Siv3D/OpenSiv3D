@@ -13,6 +13,7 @@
 # include <Siv3D/TCPServer.hpp>
 # include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 # define _WINSOCK_DEPRECATED_NO_WARNINGS

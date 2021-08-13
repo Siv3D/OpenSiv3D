@@ -22,8 +22,6 @@
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, FormatData::DecimalPlaces decimalPlace);
-
 	void Formatter(FormatData& formatData, bool value);
 
 	void Formatter(FormatData& formatData, int8 value);
@@ -76,11 +74,7 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const char32_t*);
 
-	void Formatter(FormatData& formatData, StringView s);
-
 	void Formatter(FormatData& formatData, const std::u32string& s);
-
-	void Formatter(FormatData& formatData, const String& s);
 
 # if __cpp_lib_three_way_comparison
 

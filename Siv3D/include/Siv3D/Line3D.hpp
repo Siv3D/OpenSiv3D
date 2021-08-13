@@ -162,12 +162,7 @@ namespace s3d
 				>> value.end >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Line3D& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Line3D& value);
+		friend void Formatter(FormatData& formatData, const Line3D& value);
 	};
 }
 

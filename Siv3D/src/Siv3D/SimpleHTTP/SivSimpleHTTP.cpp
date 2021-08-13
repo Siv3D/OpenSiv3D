@@ -15,6 +15,7 @@
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Network/INetwork.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 

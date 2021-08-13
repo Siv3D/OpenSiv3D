@@ -11,6 +11,7 @@
 
 # include "ModelData.hpp"
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/MeshData.hpp>
 # include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/EngineLog.hpp>

@@ -68,7 +68,7 @@ namespace s3d
 	}
 
 
-	void Line3D::_Formatter(FormatData& formatData, const Line3D& value)
+	void Formatter(FormatData& formatData, const Line3D& value)
 	{
 		formatData.string.append(U"(("_sv);
 

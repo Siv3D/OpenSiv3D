@@ -13,6 +13,7 @@
 # include <Siv3D/JSON.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/TextWriter.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <ThirdParty/nlohmann/json.hpp>
 
 namespace s3d
@@ -950,7 +951,7 @@ namespace s3d
 		return value;
 	}
 
-	void JSON::_Formatter(FormatData& formatData, const JSON& value)
+	void Formatter(FormatData& formatData, const JSON& value)
 	{
 		Formatter(formatData, value.format());
 	}

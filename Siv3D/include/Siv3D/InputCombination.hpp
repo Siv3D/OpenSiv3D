@@ -120,10 +120,7 @@ namespace s3d
 			return output << value.name();
 		}
 
-		friend void Formatter(FormatData& formatData, const InputCombination& value)
-		{
-			Formatter(formatData, value.name());
-		}
+		friend void Formatter(FormatData& formatData, const InputCombination& value);
 
 	private:
 

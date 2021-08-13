@@ -579,7 +579,7 @@ namespace s3d
 		}
 	}
 
-	void Ray::_Formatter(FormatData& formatData, const Ray& value)
+	void Formatter(FormatData& formatData, const Ray& value)
 	{
 		const Float4 o = value.origin.toFloat4();
 		const Float4 d = value.direction.toFloat4();

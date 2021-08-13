@@ -368,12 +368,7 @@ namespace s3d
 			return output << CharType(')');
 		}
 
-		friend void Formatter(FormatData& formatData, const Polygon& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Polygon& value);
+		friend void Formatter(FormatData& formatData, const Polygon& value);
 
 	private:
 

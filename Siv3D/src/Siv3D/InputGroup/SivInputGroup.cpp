@@ -69,4 +69,9 @@ namespace s3d
 
 		return num;
 	}
+
+	void Formatter(FormatData& formatData, const InputGroup& value)
+	{
+		Formatter(formatData, value.name());
+	}
 }

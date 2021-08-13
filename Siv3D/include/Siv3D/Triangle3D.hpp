@@ -102,12 +102,7 @@ namespace s3d
 			return input;
 		}
 
-		friend void Formatter(FormatData& formatData, const Triangle3D& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Triangle3D& value);
+		friend void Formatter(FormatData& formatData, const Triangle3D& value);
 	};
 }
 

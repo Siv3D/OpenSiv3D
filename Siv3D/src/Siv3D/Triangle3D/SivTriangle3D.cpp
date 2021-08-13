@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	void Triangle3D::_Formatter(FormatData& formatData, const Triangle3D& value)
+	void Formatter(FormatData& formatData, const Triangle3D& value)
 	{
 		const Float4 p0 = value.p0.toFloat4();
 		const Float4 p1 = value.p1.toFloat4();

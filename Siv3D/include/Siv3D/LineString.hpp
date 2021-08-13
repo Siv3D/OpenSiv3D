@@ -485,12 +485,7 @@ namespace s3d
 
 		const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		friend void Formatter(FormatData& formatData, const LineString& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const LineString& value);
+		friend void Formatter(FormatData& formatData, const LineString& value);
 
 	private:
 

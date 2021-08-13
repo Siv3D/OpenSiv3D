@@ -13,6 +13,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Endian.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/UnicodeConverter.hpp>
 
 namespace s3d

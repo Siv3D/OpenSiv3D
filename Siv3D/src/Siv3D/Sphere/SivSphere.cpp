@@ -158,7 +158,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Sphere::_Formatter(FormatData& formatData, const Sphere& value)
+	void Formatter(FormatData& formatData, const Sphere& value)
 	{
 		formatData.string.append(U"(("_sv);
 

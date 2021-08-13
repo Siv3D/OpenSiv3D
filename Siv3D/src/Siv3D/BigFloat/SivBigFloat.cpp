@@ -11,6 +11,7 @@
 
 # include "BigFloatDetail.hpp"
 # include <Siv3D/BigInt/BigIntDetail.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
@@ -642,7 +643,7 @@ namespace s3d
 		return String(t.begin(), t.end());
 	}
 
-	void BigFloat::_Formatter(FormatData& formatData, const BigFloat& value)
+	void Formatter(FormatData& formatData, const BigFloat& value)
 	{
 		formatData.string.append(value.str());
 	}

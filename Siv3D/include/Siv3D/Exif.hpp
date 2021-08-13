@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Optional.hpp"
 # include "String.hpp"
+# include "IReader.hpp"
 
 namespace s3d
 {

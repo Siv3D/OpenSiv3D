@@ -11,6 +11,7 @@
 
 # include <sstream>
 # include <Siv3D/IPv4Address.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
@@ -56,5 +57,10 @@ namespace s3d
 	String IPv4Address::str() const
 	{
 		return Format(m_data[0], U'.', m_data[1], U'.', m_data[2], U'.', m_data[3]);
+	}
+
+	void Formatter(FormatData& formatData, const IPv4Address& value)
+	{
+		formatData.string.append(value.str());
 	}
 }

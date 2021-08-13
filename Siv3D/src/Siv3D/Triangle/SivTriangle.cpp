@@ -280,7 +280,7 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
-	void Triangle::_Formatter(FormatData& formatData, const Triangle& value)
+	void Formatter(FormatData& formatData, const Triangle& value)
 	{
 		formatData.string.append(U"(("_sv);
 

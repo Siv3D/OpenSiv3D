@@ -55,4 +55,9 @@ namespace s3d
 
 		return result;
 	}
+
+	void Formatter(FormatData& formatData, const MD5Value& value)
+	{
+		formatData.string.append(value.asString());
+	}
 }

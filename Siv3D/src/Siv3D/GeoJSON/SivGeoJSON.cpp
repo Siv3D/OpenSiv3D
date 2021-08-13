@@ -291,7 +291,7 @@ namespace s3d
 		return m_cache;
 	}
 
-	void GeoJSONGeometry::_Formatter(FormatData& formatData, const GeoJSONGeometry& geometry)
+	void Formatter(FormatData& formatData, const GeoJSONGeometry& geometry)
 	{
 		Formatter(formatData, geometry.getType());
 
@@ -355,7 +355,7 @@ namespace s3d
 		return m_id;
 	}
 
-	void GeoJSONFeature::_Formatter(FormatData& formatData, const GeoJSONFeature& feature)
+	void Formatter(FormatData& formatData, const GeoJSONFeature& feature)
 	{
 		Formatter(formatData, feature.getType());
 
@@ -391,7 +391,7 @@ namespace s3d
 		return m_features;
 	}
 
-	void GeoJSONFeatureCollection::_Formatter(FormatData& formatData, const GeoJSONFeatureCollection& featureCollection)
+	void Formatter(FormatData& formatData, const GeoJSONFeatureCollection& featureCollection)
 	{
 		Formatter(formatData, featureCollection.getType());
 

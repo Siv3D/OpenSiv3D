@@ -19,6 +19,7 @@
 namespace s3d
 {
 	class MemoryWriter;
+	class IWriter;
 
 	namespace SimpleHTTP
 	{

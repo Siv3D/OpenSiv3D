@@ -426,7 +426,7 @@ namespace s3d
 			*this };
 	}
 
-	void RoundRect::_Formatter(FormatData& formatData, const RoundRect& value)
+	void Formatter(FormatData& formatData, const RoundRect& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));

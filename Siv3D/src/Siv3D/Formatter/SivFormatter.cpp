@@ -151,17 +151,7 @@ namespace s3d
 		formatData.string.append(s);
 	}
 
-	void Formatter(FormatData& formatData, const StringView s)
-	{
-		formatData.string.append(s);
-	}
-
 	void Formatter(FormatData& formatData, const std::u32string& s)
-	{
-		formatData.string.append(s);
-	}
-
-	void Formatter(FormatData& formatData, const String& s)
 	{
 		formatData.string.append(s);
 	}

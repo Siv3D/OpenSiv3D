@@ -118,10 +118,7 @@ namespace s3d
 			return std::visit(std::forward<Visitor>(visitor), getCache());
 		}
 
-		friend void Formatter(FormatData& formatData, const GeoJSONGeometry& geometry)
-		{
-			_Formatter(formatData, geometry);
-		}
+		friend void Formatter(FormatData& formatData, const GeoJSONGeometry& geometry);
 
 		using MonoState = int32; // std::visit で Format できるように。
 
@@ -144,8 +141,6 @@ namespace s3d
 		bool m_flipY = false;
 
 		const GeometryVariant& getCache() const;
-
-		static void _Formatter(FormatData& formatData, const GeoJSONGeometry& geometry);
 	};
 
 	/// @brief GeoJSON Feature オブジェクト
@@ -174,10 +169,7 @@ namespace s3d
 		[[nodiscard]]
 		const std::variant<std::monostate, String, double>& getID() const noexcept;
 
-		friend void Formatter(FormatData& formatData, const GeoJSONFeature& feature)
-		{
-			_Formatter(formatData, feature);
-		}
+		friend void Formatter(FormatData& formatData, const GeoJSONFeature& feature);
 
 	private:
 
@@ -189,8 +181,6 @@ namespace s3d
 
 		/// @brief 識別子
 		std::variant<std::monostate, String, double> m_id;
-
-		static void _Formatter(FormatData& formatData, const GeoJSONFeature& feature);
 	};
 
 	/// @brief FeatureCollectionオブジェクト
@@ -209,16 +199,11 @@ namespace s3d
 		[[nodiscard]]
 		const Array<GeoJSONFeature>& getFeatures() const noexcept;
 
-		friend void Formatter(FormatData& formatData, const GeoJSONFeatureCollection& featureCollection)
-		{
-			_Formatter(formatData, featureCollection);
-		}
+		friend void Formatter(FormatData& formatData, const GeoJSONFeatureCollection& featureCollection);
 
 	private:
 
 		/// @brief Featureの配列
 		Array<GeoJSONFeature> m_features;
-
-		static void _Formatter(FormatData& formatData, const GeoJSONFeatureCollection& featureCollection);
 	};
 }

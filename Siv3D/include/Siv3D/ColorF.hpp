@@ -266,10 +266,7 @@ namespace s3d
 		[[nodiscard]]
 		static constexpr ColorF One() noexcept;
 
-		friend void Formatter(FormatData& formatData, const ColorF& value)
-		{
-			Formatter(formatData, value.toVec4());
-		}
+		friend void Formatter(FormatData& formatData, const ColorF& value);
 	};
 
 	[[nodiscard]]

@@ -11,6 +11,7 @@
 
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFTSampleLength.hpp>

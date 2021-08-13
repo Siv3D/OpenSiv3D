@@ -541,7 +541,7 @@ namespace s3d
 		return{ x0, y0, (x1 - x0), (y1 - y0) };
 	}
 
-	void RectF::_Formatter(FormatData& formatData, const RectF& value)
+	void Formatter(FormatData& formatData, const RectF& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));

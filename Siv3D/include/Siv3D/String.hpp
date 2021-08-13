@@ -14,7 +14,6 @@
 # include <string>
 # include "Common.hpp"
 # include "StringView.hpp"
-# include "Unicode.hpp"
 # include "Utility.hpp"
 # include "Shuffle.hpp"
 
@@ -1584,176 +1583,49 @@ namespace s3d
 		}
 
 
-		[[nodiscard]]
-		friend String operator +(const value_type lhs, const String& rhs)
-		{
-			String result;
-			result.reserve(1 + rhs.size());
-			result.append(lhs);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(const value_type lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend String operator +(const value_type lhs, String&& rhs)
-		{
-			rhs.push_front(lhs);
-			return std::move(rhs);
-		}
+		friend String operator +(const value_type lhs, String&& rhs);
 
-		[[nodiscard]]
-		friend String operator +(const value_type* lhs, const String& rhs)
-		{
-			const size_t len = std::char_traits<value_type>::length(lhs);
-			String result;
-			result.reserve(len + rhs.size());
-			result.append(lhs, len);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(const value_type* lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend String operator +(const value_type* lhs, String&& rhs)
-		{
-			return std::move(rhs.insert(0, lhs));
-		}
+		friend String operator +(const value_type* lhs, String&& rhs);
 
-		[[nodiscard]]
-		friend String operator +(StringView lhs, const String& rhs)
-		{
-			String result;
-			result.reserve(lhs.size() + rhs.size());
-			result.append(lhs);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(StringView lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend String operator +(StringView lhs, String&& rhs)
-		{
-			return std::move(rhs.insert(0, lhs));
-		}
+		friend String operator +(StringView lhs, String&& rhs);
 
-		[[nodiscard]]
-		friend String operator +(const String& lhs, const value_type rhs)
-		{
-			String result;
-			result.reserve(lhs.size() + 1);
-			result.append(lhs);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(const String& lhs, const value_type rhs);
 
-		[[nodiscard]]
-		friend String operator +(const String& lhs, const value_type* rhs)
-		{
-			const size_t len = std::char_traits<value_type>::length(rhs);
-			String result;
-			result.reserve(lhs.size() + len);
-			result.append(lhs);
-			result.append(rhs, len);
-			return result;
-		}
+		friend String operator +(const String& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend String operator +(const String& lhs, StringView rhs)
-		{
-			String result;
-			result.reserve(lhs.size() + rhs.size());
-			result.append(lhs);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(const String& lhs, StringView rhs);
 
-		[[nodiscard]]
-		friend String operator +(const String& lhs, const String& rhs)
-		{
-			String result;
-			result.reserve(lhs.size() + rhs.size());
-			result.append(lhs);
-			result.append(rhs);
-			return result;
-		}
+		friend String operator +(const String& lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend String operator +(const String& lhs, String&& rhs)
-		{
-			return std::move(rhs.insert(0, lhs));
-		}
+		friend String operator +(const String& lhs, String&& rhs);
 
-		[[nodiscard]]
-		friend String operator +(String&& lhs, const value_type rhs)
-		{
-			return std::move(lhs << rhs);
-		}
+		friend String operator +(String&& lhs, const value_type rhs);
 
-		[[nodiscard]]
-		friend String operator +(String&& lhs, const value_type* rhs)
-		{
-			return std::move(lhs.append(rhs));
-		}
+		friend String operator +(String&& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend String operator +(String&& lhs, StringView rhs)
-		{
-			return std::move(lhs.append(rhs));
-		}
+		friend String operator +(String&& lhs, StringView rhs);
 
-		[[nodiscard]]
-		friend String operator +(String&& lhs, const String& rhs)
-		{
-			return std::move(lhs.append(rhs));
-		}
+		friend String operator +(String&& lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend String operator +(String&& lhs, String&& rhs)
-		{
-			if (rhs.size() <= lhs.capacity() - lhs.size() || rhs.capacity() - rhs.size() < lhs.size())
-			{
-				return std::move(lhs.append(rhs));
-			}
-			else
-			{
-				return std::move(rhs.insert(0, lhs));
-			}
-		}
+		friend String operator +(String&& lhs, String&& rhs);
 
-		friend std::ostream& operator <<(std::ostream& output, const String& value)
-		{
-			return (output << value.narrow());
-		}
+		friend std::ostream& operator <<(std::ostream& output, const String& value);
 
-		friend std::wostream& operator <<(std::wostream& output, const String& value)
-		{
-			return (output << value.toWstr());
-		}
+		friend std::wostream& operator <<(std::wostream& output, const String& value);
 
-		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const String& value)
-		{
-			return output.write(value.data(), value.size());
-		}
+		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const String& value);
 
-		friend std::istream& operator >>(std::istream& input, String& value)
-		{
-			std::string s;
+		friend std::istream& operator >>(std::istream& input, String& value);
 
-			input >> s;
+		friend std::wistream& operator >>(std::wistream& input, String& value);
 
-			value = Unicode::Widen(s);
-
-			return input;
-		}
-
-		friend std::wistream& operator >>(std::wistream& input, String& value)
-		{
-			std::wstring s;
-
-			input >> s;
-
-			value = Unicode::FromWstring(s);
-
-			return input;
-		}
+		friend void Formatter(FormatData& formatData, const String& s);
 
 	private:
 

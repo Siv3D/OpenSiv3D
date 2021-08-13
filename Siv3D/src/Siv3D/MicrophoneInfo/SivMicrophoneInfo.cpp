@@ -11,6 +11,7 @@
 
 # include <Siv3D/MicrophoneInfo.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 # include <ThirdParty/rtaudio/RtAudio.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "MemoryMappedFileViewDetail.hpp"
 
 namespace s3d

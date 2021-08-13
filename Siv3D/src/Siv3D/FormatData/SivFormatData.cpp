@@ -9,14 +9,12 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Error.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const Error& value)
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace)
 	{
-		const String s = (U"["_s + value.type() + U"] " + value.what());
-
-		formatData.string.append(s);
+		formatData.decimalPlaces = decimalPlace;
 	}
 }

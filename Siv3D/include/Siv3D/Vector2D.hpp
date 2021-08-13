@@ -428,12 +428,7 @@ namespace s3d
 				>> value.y >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Vector2D& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Vector2D& value);
+		friend void Formatter(FormatData& formatData, const Vector2D& value);
 	};
 
 	using Float2	= Vector2D<float>;

@@ -327,6 +327,8 @@ namespace s3d
 		[[nodiscard]]
 		String format() const;
 
+		friend void Formatter(FormatData& formatData, const TOMLValue& value);
+
 	protected:
 
 		std::shared_ptr<detail::TOMLValueDetail> m_detail = nullptr;
@@ -406,11 +408,9 @@ namespace s3d
 
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
+
+		friend void Formatter(FormatData& formatData, const TOMLReader& reader);
 	};
-
-	void Formatter(FormatData& formatData, const TOMLValue& value);
-
-	void Formatter(FormatData& formatData, const TOMLReader& reader);
 }
 
 # include "detail/TOMLReader.ipp"

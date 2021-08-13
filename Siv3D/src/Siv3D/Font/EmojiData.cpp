@@ -12,6 +12,7 @@
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "EmojiData.hpp"
 # include "FreeType.hpp"
 # include "GlyphRenderer/BitmapGlyphRenderer.hpp"

@@ -16,6 +16,7 @@
 # include "PredefinedYesNo.hpp"
 # include "String.hpp"
 # include "Array.hpp"
+# include "IReader.hpp"
 # include "Optional.hpp"
 
 namespace tinyxml2

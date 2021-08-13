@@ -214,7 +214,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Box::_Formatter(FormatData& formatData, const Box& value)
+	void Formatter(FormatData& formatData, const Box& value)
 	{
 		formatData.string.append(U"(("_sv);
 

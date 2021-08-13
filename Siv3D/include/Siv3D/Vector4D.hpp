@@ -383,12 +383,7 @@ namespace s3d
 				>> value.w >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Vector4D& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Vector4D& value);
+		friend void Formatter(FormatData& formatData, const Vector4D& value);
 	};
 
 	using Float4	= Vector4D<float>;

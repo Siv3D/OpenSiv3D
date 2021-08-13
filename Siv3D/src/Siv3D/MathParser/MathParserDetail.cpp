@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "MathParserDetail.hpp"
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

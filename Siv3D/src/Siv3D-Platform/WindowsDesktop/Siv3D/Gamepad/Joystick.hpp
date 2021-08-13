@@ -13,6 +13,7 @@
 # include <algorithm>
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Windows/Windows.hpp>

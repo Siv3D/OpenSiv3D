@@ -11,6 +11,7 @@
 
 # include <algorithm>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "WindowsIME.hpp"
 # include "CTextInput.hpp"
 

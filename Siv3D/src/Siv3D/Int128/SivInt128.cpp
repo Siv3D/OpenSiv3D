@@ -11,6 +11,7 @@
 
 # include <sstream>
 # include <Siv3D/Int128.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

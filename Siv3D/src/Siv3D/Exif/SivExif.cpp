@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Exif.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <ThirdParty/easyexif/exif.h>
 

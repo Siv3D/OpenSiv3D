@@ -72,7 +72,7 @@ namespace s3d
 		};
 	}
 
-	void Mat3x3::_Formatter(FormatData& formatData, const Mat3x3& value)
+	void Formatter(FormatData& formatData, const Mat3x3& value)
 	{
 		formatData.string.push_back(U'(');
 		Formatter(formatData, Float3{ value._11, value._12, value._13 });

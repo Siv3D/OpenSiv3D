@@ -12,6 +12,7 @@
 # include <array>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/ParseInt.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

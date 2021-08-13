@@ -13,6 +13,7 @@
 # include "FreeType.hpp"
 # include "GlyphRenderer/GlyphRenderer.hpp"
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

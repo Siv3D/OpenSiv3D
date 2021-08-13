@@ -63,12 +63,7 @@ namespace s3d
 			return output << (U'[' + value.type() + U"] " + value.what());
 		}
 
-		friend void Formatter(FormatData& formatData, const Error& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Error& value);
+		friend void Formatter(FormatData& formatData, const Error& value);
 	};
 
 	/// @brief パースエラーを表現する型

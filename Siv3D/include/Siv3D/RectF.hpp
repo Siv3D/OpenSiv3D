@@ -807,12 +807,7 @@ namespace s3d
 				>> value.h >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const RectF& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const RectF& value);
+		friend void Formatter(FormatData& formatData, const RectF& value);
 	};
 }
 

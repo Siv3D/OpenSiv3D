@@ -11,6 +11,7 @@
 
 # include "CShader_D3D11.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/ShaderCommon.hpp>

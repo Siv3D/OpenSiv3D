@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/WebcamInfo.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <dshow.h>
 

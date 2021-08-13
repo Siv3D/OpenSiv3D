@@ -14,8 +14,7 @@
 
 namespace s3d
 {
-	template <>
-	void Vector4D<double>::_Formatter(FormatData& formatData, const Vector4D<double>& value)
+	void Formatter(FormatData& formatData, const Vector4D<double>& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
@@ -28,10 +27,9 @@ namespace s3d
 		formatData.string.push_back(U')');
 	}
 
-	template <>
-	void Vector4D<float>::_Formatter(FormatData& formatData, const Vector4D<float>& value)
+	void Formatter(FormatData& formatData, const Vector4D<float>& value)
 	{
-		Vector4D<double>::_Formatter(formatData, value);
+		Formatter(formatData, Vector4D<double>{ value });
 	}
 
 	template struct Vector4D<float>;

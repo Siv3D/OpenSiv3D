@@ -12,6 +12,7 @@
 # include <ThirdParty/tinyxml/tinyxml2.h>
 # include <Siv3D/XMLReader.hpp>
 # include <Siv3D/TextReader.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

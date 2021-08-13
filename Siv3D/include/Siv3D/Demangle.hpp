@@ -12,6 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "String.hpp"
+# include "Unicode.hpp"
 
 namespace s3d
 {

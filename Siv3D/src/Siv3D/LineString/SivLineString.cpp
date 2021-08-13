@@ -556,7 +556,7 @@ namespace s3d
 		return *this;
 	}
 
-	void LineString::_Formatter(FormatData& formatData, const LineString& value)
+	void Formatter(FormatData& formatData, const LineString& value)
 	{
 		Formatter(formatData, value.begin(), value.end());
 	}

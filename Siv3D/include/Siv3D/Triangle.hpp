@@ -285,12 +285,7 @@ namespace s3d
 				>> value.p2 >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Triangle& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Triangle& value);
+		friend void Formatter(FormatData& formatData, const Triangle& value);
 	};
 }
 

@@ -140,10 +140,7 @@ namespace s3d
 			return (output << value.str());
 		}
 
-		friend void Formatter(FormatData& formatData, const UUID& value)
-		{
-			formatData.string.append(value.str());
-		}
+		friend void Formatter(FormatData& formatData, const UUID& value);
 
 	private:
 

@@ -11,6 +11,7 @@
 
 # include <filesystem>
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Time.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include <Siv3D/FormatUtility.hpp>

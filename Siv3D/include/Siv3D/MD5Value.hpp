@@ -89,10 +89,7 @@ namespace s3d
 
 	# endif
 
-		friend void Formatter(FormatData& formatData, const MD5Value& value)
-		{
-			formatData.string.append(value.asString());
-		}
+		friend void Formatter(FormatData& formatData, const MD5Value& value);
 	};
 }
 

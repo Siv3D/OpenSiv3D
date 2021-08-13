@@ -159,7 +159,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Ellipse::_Formatter(FormatData& formatData, const Ellipse& value)
+	void Formatter(FormatData& formatData, const Ellipse& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));

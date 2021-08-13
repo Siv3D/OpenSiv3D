@@ -29,6 +29,8 @@ namespace s3d
 			SIV3D_NODISCARD_CXX20
 			explicit constexpr DecimalPlaces(int32 v) noexcept
 				: value{ v } {}
+
+			friend void Formatter(FormatData& formatData, DecimalPlaces decimalPlace);
 		};
 
 		SIV3D_NODISCARD_CXX20

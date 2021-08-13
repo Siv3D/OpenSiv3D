@@ -13,6 +13,8 @@
 # include <memory>
 # include "Common.hpp"
 # include "Array.hpp"
+# include "IReader.hpp"
+# include "Image.hpp"
 
 namespace s3d
 {

@@ -173,12 +173,7 @@ namespace s3d
 			return input;
 		}
 
-		friend void Formatter(FormatData& formatData, const Mat3x2& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Mat3x2& value);
+		friend void Formatter(FormatData& formatData, const Mat3x2& value);
 	};
 }
 

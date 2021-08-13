@@ -13,7 +13,6 @@
 # include <array>
 # include "Common.hpp"
 # include "String.hpp"
-# include "FormatData.hpp"
 # include "FormatLiteral.hpp"
 
 namespace s3d
@@ -85,10 +84,7 @@ namespace s3d
 			return (output << value.str());
 		}
 
-		friend void Formatter(FormatData& formatData, const IPv4Address& value)
-		{
-			formatData.string.append(value.str());
-		}
+		friend void Formatter(FormatData& formatData, const IPv4Address& value);
 
 	private:
 

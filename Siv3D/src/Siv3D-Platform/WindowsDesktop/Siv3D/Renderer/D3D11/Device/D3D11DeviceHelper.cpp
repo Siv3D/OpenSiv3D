@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Unspecified.hpp>
 # include <Siv3D/FormatUtility.hpp>
 # include "D3D11DeviceHelper.hpp"

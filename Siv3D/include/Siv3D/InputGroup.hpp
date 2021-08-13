@@ -76,10 +76,7 @@ namespace s3d
 			return output << value.name();
 		}
 
-		friend void Formatter(FormatData& formatData, const InputGroup& value)
-		{
-			Formatter(formatData, value.name());
-		}
+		friend void Formatter(FormatData& formatData, const InputGroup& value);
 
 	private:
 

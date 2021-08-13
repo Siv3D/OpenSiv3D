@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include "CTextToSpeech.hpp"

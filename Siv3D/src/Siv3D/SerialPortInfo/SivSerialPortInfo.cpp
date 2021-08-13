@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/SerialPortInfo.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <ThirdParty/serial/serial.h>
 
 namespace s3d

@@ -72,7 +72,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Plane::_Formatter(FormatData& formatData, const Plane& value)
+	void Formatter(FormatData& formatData, const Plane& value)
 	{
 		formatData.string.append(U"(("_sv);
 

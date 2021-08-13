@@ -849,12 +849,7 @@ namespace s3d
 			return input;
 		}
 
-		friend void Formatter(FormatData& formatData, const BigInt& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const BigInt& value);
+		friend void Formatter(FormatData& formatData, const BigInt& value);
 
 		//////////////////////////////////////////////////
 		//

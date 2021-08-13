@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EnvironmentVariable.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {

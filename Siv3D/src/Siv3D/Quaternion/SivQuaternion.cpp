@@ -49,4 +49,9 @@ namespace s3d
 		
 		return (q1 * q2);
 	}
+
+	void Formatter(FormatData& formatData, const Quaternion& value)
+	{
+		Formatter(formatData, value.value);
+	}
 }

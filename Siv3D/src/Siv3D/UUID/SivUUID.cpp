@@ -196,4 +196,9 @@ namespace s3d
 			return none;
 		}
 	}
+
+	void Formatter(FormatData& formatData, const UUID& value)
+	{
+		formatData.string.append(value.str());
+	}
 }

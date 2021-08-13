@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/String.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 
 namespace s3d::Platform::Windows

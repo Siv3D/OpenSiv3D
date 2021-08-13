@@ -270,7 +270,7 @@ namespace s3d
 			center };
 	}
 
-	void Quad::_Formatter(FormatData& formatData, const Quad& value)
+	void Formatter(FormatData& formatData, const Quad& value)
 	{
 		formatData.string.append(U"(("_sv);
 

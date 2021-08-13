@@ -291,12 +291,7 @@ namespace s3d
 				>> value.orientation >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const OrientedBox& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const OrientedBox& value);
+		friend void Formatter(FormatData& formatData, const OrientedBox& value);
 	};
 }
 

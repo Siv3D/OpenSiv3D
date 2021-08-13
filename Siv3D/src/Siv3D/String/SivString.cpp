@@ -11,10 +11,31 @@
 
 # include <Siv3D/String.hpp>
 # include <Siv3D/Char.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Array.hpp>
 
 namespace s3d
 {
+	std::string String::narrow() const
+	{
+		return Unicode::Narrow(m_string);
+	}
+
+	std::wstring String::toWstr() const
+	{
+		return Unicode::ToWstring(m_string);
+	}
+
+	std::string String::toUTF8() const
+	{
+		return Unicode::ToUTF8(m_string);
+	}
+
+	std::u16string String::toUTF16() const
+	{
+		return Unicode::ToUTF16(m_string);
+	}
+
 	int32 String::case_insensitive_compare(const StringView s) const noexcept
 	{
 		auto first1 = begin(), last1 = end();
@@ -361,5 +382,165 @@ namespace s3d
 		}
 
 		return new_string;
+	}
+
+	String operator +(const String::value_type lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String::value_type lhs, String&& rhs)
+	{
+		rhs.push_front(lhs);
+		return std::move(rhs);
+	}
+
+	String operator +(const String::value_type* lhs, const String& rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String::value_type* lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	String operator +(const StringView lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const StringView lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	String operator +(const String& lhs, const String::value_type rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String& lhs, const String::value_type* rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
+	}
+
+	String operator +(const String& lhs, const StringView rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String& lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String& lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	String operator +(String&& lhs, const String::value_type rhs)
+	{
+		return std::move(lhs << rhs);
+	}
+
+	String operator +(String&& lhs, const String::value_type* rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	String operator +(String&& lhs, const StringView rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	String operator +(String&& lhs, const String& rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	String operator +(String&& lhs, String&& rhs)
+	{
+		if (rhs.size() <= lhs.capacity() - lhs.size() || rhs.capacity() - rhs.size() < lhs.size())
+		{
+			return std::move(lhs.append(rhs));
+		}
+		else
+		{
+			return std::move(rhs.insert(0, lhs));
+		}
+	}
+
+	std::ostream& operator <<(std::ostream& output, const String& value)
+	{
+		return (output << value.narrow());
+	}
+
+	std::wostream& operator <<(std::wostream& output, const String& value)
+	{
+		return (output << value.toWstr());
+	}
+
+	std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const String& value)
+	{
+		return output.write(value.data(), value.size());
+	}
+
+	std::istream& operator >>(std::istream& input, String& value)
+	{
+		std::string s;
+
+		input >> s;
+
+		value = Unicode::Widen(s);
+
+		return input;
+	}
+
+	std::wistream& operator >>(std::wistream& input, String& value)
+	{
+		std::wstring s;
+
+		input >> s;
+
+		value = Unicode::FromWstring(s);
+
+		return input;
+	}
+
+	void Formatter(FormatData& formatData, const String& s)
+	{
+		formatData.string.append(s);
 	}
 }

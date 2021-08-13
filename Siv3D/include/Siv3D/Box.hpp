@@ -306,12 +306,7 @@ namespace s3d
 				>> value.size >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Box& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Box& value);
+		friend void Formatter(FormatData& formatData, const Box& value);
 	};
 }
 

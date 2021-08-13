@@ -259,12 +259,7 @@ namespace s3d
 				>> value.p3 >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Quad& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Quad& value);
+		friend void Formatter(FormatData& formatData, const Quad& value);
 	};
 }
 

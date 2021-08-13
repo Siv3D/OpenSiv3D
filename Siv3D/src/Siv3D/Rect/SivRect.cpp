@@ -588,7 +588,7 @@ namespace s3d
 			center() };
 	}
 
-	void Rect::_Formatter(FormatData& formatData, const Rect& value)
+	void Formatter(FormatData& formatData, const Rect& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x));

@@ -185,10 +185,7 @@ namespace s3d
 			return input;
 		}
 
-		friend void Formatter(FormatData& formatData, const Quaternion& value)
-		{
-			Formatter(formatData, value.value);
-		}
+		friend void Formatter(FormatData& formatData, const Quaternion& value);
 	};
 }
 

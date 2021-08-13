@@ -222,12 +222,7 @@ namespace s3d
 				>> value.r >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Sphere& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Sphere& value);
+		friend void Formatter(FormatData& formatData, const Sphere& value);
 	};
 }
 

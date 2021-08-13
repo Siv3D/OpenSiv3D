@@ -24,6 +24,8 @@ namespace s3d
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
 	struct Circle;
+	struct Color;
+	class Image;
 
 	/// @brief 2 次元のベクトル（整数）
 	struct Point
@@ -294,9 +296,9 @@ namespace s3d
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
-		//const Point& paint(Image& dst, const Color& color) const;
+		const Point& paint(Image& dst, const Color& color) const;
 
-		//const Point& overwrite(Image& dst, const Color& color) const;
+		const Point& overwrite(Image& dst, const Color& color) const;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
@@ -409,12 +411,7 @@ namespace s3d
 				>> value.y >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Point& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Point& value);
+		friend void Formatter(FormatData& formatData, const Point& value);
 	};
 
 	using Size = Point;

@@ -29,7 +29,7 @@ namespace s3d
 		}
 	}
 
-	void Color::_Formatter(FormatData& formatData, const Color& value)
+	void Formatter(FormatData& formatData, const Color& value)
 	{
 		const size_t bufferSize = (detail::Uint32Width * 4) + 8 + 1;
 		char32 buf[bufferSize];
@@ -69,5 +69,10 @@ namespace s3d
 			detail::ApplySRGBCurve(b),
 			a
 		};
+	}
+
+	void Formatter(FormatData& formatData, const ColorF& value)
+	{
+		Formatter(formatData, value.toVec4());
 	}
 }

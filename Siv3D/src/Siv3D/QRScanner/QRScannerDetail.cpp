@@ -11,6 +11,7 @@
 
 # include <Siv3D/Image.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "QRScannerDetail.hpp"
 
 namespace s3d

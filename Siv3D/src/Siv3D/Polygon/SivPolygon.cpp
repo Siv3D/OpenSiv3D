@@ -19,6 +19,7 @@
 # include <Siv3D/HashSet.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "PolygonDetail.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
@@ -844,7 +845,7 @@ namespace s3d
 		return polygons[index];
 	}
 
-	void Polygon::_Formatter(FormatData& formatData, const Polygon& value)
+	void Formatter(FormatData& formatData, const Polygon& value)
 	{
 		std::stringstream ss;
 		

@@ -14,6 +14,7 @@
 # include "Array.hpp"
 # include "Optional.hpp"
 # include "String.hpp"
+# include "IReader.hpp"
 # include "PredefinedYesNo.hpp"
 # include "detail/JSONFwd.ipp"
 
@@ -442,12 +443,7 @@ namespace s3d
 		[[nodiscard]]
 		static JSON Parse(StringView str, AllowExceptions allowExceptions = AllowExceptions::No);
 
-		friend void Formatter(FormatData& formatData, const JSON& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const JSON& value);
+		friend void Formatter(FormatData& formatData, const JSON& value);
 
 	private:
 

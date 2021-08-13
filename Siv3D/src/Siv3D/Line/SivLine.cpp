@@ -234,7 +234,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Line::_Formatter(FormatData& formatData, const Line& value)
+	void Formatter(FormatData& formatData, const Line& value)
 	{
 		formatData.string.append(U"(("_sv);
 		formatData.string.append(ToString(value.begin.x, formatData.decimalPlaces.value));

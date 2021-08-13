@@ -13,11 +13,6 @@
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const FormatData::DecimalPlaces decimalPlace)
-	{
-		formatData.decimalPlaces = decimalPlace;
-	}
-
 	template <class ForwardIt>
 	inline void Formatter(FormatData& formatData, ForwardIt first, ForwardIt last)
 	{

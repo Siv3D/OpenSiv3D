@@ -205,7 +205,7 @@ namespace s3d
 		return *this;
 	}
 
-	void OrientedBox::_Formatter(FormatData& formatData, const OrientedBox& value)
+	void Formatter(FormatData& formatData, const OrientedBox& value)
 	{
 		formatData.string.append(U"(("_sv);
 

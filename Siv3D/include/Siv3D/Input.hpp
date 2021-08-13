@@ -16,7 +16,6 @@
 # include "Common.hpp"
 # include "InputDevice.hpp"
 # include "Duration.hpp"
-# include "Formatter.hpp"
 
 namespace s3d
 {
@@ -145,10 +144,7 @@ namespace s3d
 			return output << value.name();
 		}
 
-		friend void Formatter(FormatData& formatData, const Input& value)
-		{
-			Formatter(formatData, value.name());
-		}
+		friend void Formatter(FormatData& formatData, const Input& value);
 
 	private:
 

@@ -533,7 +533,7 @@ namespace s3d
 			*this };
 	}
 
-	void Circle::_Formatter(FormatData& formatData, const Circle& value)
+	void Formatter(FormatData& formatData, const Circle& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));

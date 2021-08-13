@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Dialog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/Window/IWindow.hpp>
