@@ -106,8 +106,6 @@ namespace s3d
 		[[nodiscard]]
 		static Size SetFullscreen(HWND hWnd, size_t monitorIndex, RECT& storedWindowRect, const uint32 baseWindowStyle)
 		{
-			Size result{ 0, 0 };
-
 			::GetWindowRect(hWnd, &storedWindowRect);
 			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
@@ -119,7 +117,7 @@ namespace s3d
 			}
 
 			const Rect fullscreenRect = monitors[monitorIndex].displayRect;
-			result = fullscreenRect.size;
+			const Size result = fullscreenRect.size;
 
 			::SetWindowPos(
 				hWnd,

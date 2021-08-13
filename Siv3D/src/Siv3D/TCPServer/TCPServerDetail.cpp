@@ -273,11 +273,15 @@ namespace s3d
 
 		session->init(id);
 
-		LOG_INFO(U"TCPServer: accepted: remote {}<{}> local {}<{}>"_fmt(
-			Unicode::WidenAscii(session->socket().remote_endpoint().address().to_string()),
-			session->socket().remote_endpoint().port(),
-			Unicode::WidenAscii(session->socket().local_endpoint().address().to_string()),
-			session->socket().local_endpoint().port()));
+		{
+			const auto& socket = session->socket();
+
+			LOG_INFO(U"TCPServer: accepted: remote {}<{}> local {}<{}>"_fmt(
+				Unicode::WidenAscii(socket.remote_endpoint().address().to_string()),
+				socket.remote_endpoint().port(),
+				Unicode::WidenAscii(socket.local_endpoint().address().to_string()),
+				socket.local_endpoint().port()));
+		}
 
 		m_sessions.push_back({ id, session });
 

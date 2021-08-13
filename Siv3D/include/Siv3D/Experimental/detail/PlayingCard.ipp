@@ -262,12 +262,13 @@ namespace s3d
 			if (m_card.isJoker())
 			{
 				const Array<Glyph> glyphs = m_font.getGlyphs(U"JOKER");
-				const double height = glyphs[0].texture.size.y * drawSize * 1.08;
-				const Vec2 drawPos{ centering / 10 + Vec2{ glyphs[0].texture.resized(Vec2{ glyphs[0].texture.size } *drawSize).size.x, height * 0.5 } };
+				const auto& glyphTexture = glyphs[0].texture;
+				const double height = glyphTexture.size.y * drawSize * 1.08;
+				const Vec2 drawPos{ centering / 10 + Vec2{ glyphTexture.resized(Vec2{ glyphTexture.size } *drawSize).size.x, height * 0.5 } };
 
 				for (size_t a = 0; a < glyphs.size(); ++a)
 				{
-					const TextureRegion t = glyphs[a].texture.resized(Vec2{ glyphs[0].texture.size } *drawSize);
+					const TextureRegion t = glyphs[a].texture.resized(Vec2{ glyphTexture.size } * drawSize);
 					t.drawAt(pos + drawPos + Vec2{ 0, a * height * 1.2 }, color);
 					t.flipped().mirrored().drawAt(pos - drawPos - Vec2{ 0, a * height * 1.2 } + m_cardSize, color);
 				}

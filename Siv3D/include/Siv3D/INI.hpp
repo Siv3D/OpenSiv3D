@@ -92,7 +92,7 @@ namespace s3d
 		using SectionIndex = size_t;
 		using KeyIndex = size_t;
 
-		INI();
+		INI() = default;
 
 		explicit INI(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 

@@ -32,7 +32,7 @@ namespace s3d
 
 		virtual void fft(FFTResult& result, const Wave& wave, uint32 pos, FFTSampleLength sampleLength) = 0;
 
-		virtual void fft(FFTResult& result, const Array<WaveSampleS16>& wave, const uint32 pos, uint32 sampleRate, FFTSampleLength sampleLength) = 0;
+		virtual void fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 sampleRate, FFTSampleLength sampleLength) = 0;
 
 		virtual void fft(FFTResult& result, const float* input, size_t size, uint32 sampleRate, FFTSampleLength sampleLength) = 0;
 	};

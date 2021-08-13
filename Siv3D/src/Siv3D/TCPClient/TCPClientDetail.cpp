@@ -153,11 +153,15 @@ namespace s3d
 			return;
 		}
 
-		LOG_INFO(U"TCPClient: accepted: remote {}<{}> local {}<{}>"_fmt(
-			Unicode::WidenAscii(m_session->socket().remote_endpoint().address().to_string()),
-			m_session->socket().remote_endpoint().port(),
-			Unicode::WidenAscii(m_session->socket().local_endpoint().address().to_string()),
-			m_session->socket().local_endpoint().port()));
+		{
+			const auto& socket = m_session->socket();
+
+			LOG_INFO(U"TCPClient: accepted: remote {}<{}> local {}<{}>"_fmt(
+				Unicode::WidenAscii(socket.remote_endpoint().address().to_string()),
+				socket.remote_endpoint().port(),
+				Unicode::WidenAscii(socket.local_endpoint().address().to_string()),
+				socket.local_endpoint().port()));
+		}
 
 		m_waitingConnection = false;
 

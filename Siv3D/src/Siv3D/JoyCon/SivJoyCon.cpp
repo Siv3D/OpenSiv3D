@@ -54,7 +54,7 @@ namespace s3d
 			// arrow
 			{
 				const double delta = 1.15;
-				const Vec2 c = base.tl().movedBy(2.55, 8.33);
+				const Vec2 c = base.pos.movedBy(2.55, 8.33);
 
 				Circle{ c.movedBy(-delta, 0), 0.55 }.draw(buttonColor(joycon.button0, guide.button0)); // left
 				Circle{ c.movedBy(0, delta), 0.55 }.draw(buttonColor(joycon.button1, guide.button1));  // down
@@ -64,7 +64,7 @@ namespace s3d
 
 			// stick
 			{
-				const Vec2 c = base.tl().movedBy(2.55, 4.28);
+				const Vec2 c = base.pos.movedBy(2.55, 4.28);
 				Circle{ c, 1.2 }.draw(buttonColor(joycon.buttonStick, guide.buttonStick));
 
 				if (const auto dg = guide.povD8)
@@ -137,10 +137,11 @@ namespace s3d
 			};
 
 			Transformer2D t{ Mat3x2::Scale(1.0 / 15.33 * _size, center).rotated(angle, center) };
+			const Vec2 baseTr = base.tr();
 
 			// body
 			{
-				const Vec2 tr = base.tr();
+				const Vec2 tr = baseTr;
 				Circle{ tr.movedBy(-3.0, 3.6), 3.0 }.drawPie(0_deg, 90_deg, color);
 				RectF{ tr.movedBy(-3.0, 3.6), Vec2{ 3.0, 8.63 } }.draw(color);
 				Circle{ base.br().movedBy(-3.0, -3.1), 3.0 }.drawPie(180_deg, -90_deg, color);
@@ -150,7 +151,7 @@ namespace s3d
 			// ABXY
 			{
 				const double delta = 1.15;
-				const Vec2 c = base.tr().movedBy(-2.55, 4.28);
+				const Vec2 c = baseTr.movedBy(-2.55, 4.28);
 
 				Circle{ c.movedBy(delta, 0), 0.55 }.draw(buttonColor(joycon.button0, guide.button0));  // A
 				Circle{ c.movedBy(0, -delta), 0.55 }.draw(buttonColor(joycon.button1, guide.button1)); // X
@@ -160,7 +161,7 @@ namespace s3d
 
 			// stick
 			{
-				const Vec2 c = base.tr().movedBy(-2.55, 8.33);
+				const Vec2 c = baseTr.movedBy(-2.55, 8.33);
 				Circle{ c, 1.2 }.draw(buttonColor(joycon.buttonStick, guide.buttonStick));
 
 				if (const auto dg = guide.povD8)
@@ -175,16 +176,16 @@ namespace s3d
 			}
 
 			// Home
-			Circle{ base.tr().movedBy(-3.4, 11.13), 0.55 }.draw(buttonColor(joycon.buttonHome, guide.buttonHome));
+			Circle{ baseTr.movedBy(-3.4, 11.13), 0.55 }.draw(buttonColor(joycon.buttonHome, guide.buttonHome));
 
 			// Plus
-			Shape2D::Plus(0.4, 0.2, base.tr().movedBy(-4.03, 2.0)).draw(buttonColor(joycon.buttonPlus, guide.buttonPlus));
+			Shape2D::Plus(0.4, 0.2, baseTr.movedBy(-4.03, 2.0)).draw(buttonColor(joycon.buttonPlus, guide.buttonPlus));
 
 			// R, ZR
-			RectF{ base.tr().movedBy(-3.9, 0.4), Vec2{ 0.9, 0.4 } }.draw(buttonColor(joycon.buttonLR, guide.buttonLR));
-			Circle{ base.tr().movedBy(-3.0, 3.6), 3.0 }.drawArc(0_deg, 68_deg, 0.2, 0.2, buttonColor(joycon.buttonLR, guide.buttonLR));
-			RectF{ base.tr().movedBy(-3.9, 0.0), Vec2{ 0.9, 0.4 } }.draw(buttonColor(joycon.buttonZLZR, guide.buttonZLZR));
-			Circle{ base.tr().movedBy(-3.0, 3.6), 3.2 }.drawArc(0_deg, 30_deg, 0.0, 0.4, buttonColor(joycon.buttonZLZR, guide.buttonZLZR));
+			RectF{ baseTr.movedBy(-3.9, 0.4), Vec2{ 0.9, 0.4 } }.draw(buttonColor(joycon.buttonLR, guide.buttonLR));
+			Circle{ baseTr.movedBy(-3.0, 3.6), 3.0 }.drawArc(0_deg, 68_deg, 0.2, 0.2, buttonColor(joycon.buttonLR, guide.buttonLR));
+			RectF{ baseTr.movedBy(-3.9, 0.0), Vec2{ 0.9, 0.4 } }.draw(buttonColor(joycon.buttonZLZR, guide.buttonZLZR));
+			Circle{ baseTr.movedBy(-3.0, 3.6), 3.2 }.drawArc(0_deg, 30_deg, 0.0, 0.4, buttonColor(joycon.buttonZLZR, guide.buttonZLZR));
 
 			if (covered)
 			{

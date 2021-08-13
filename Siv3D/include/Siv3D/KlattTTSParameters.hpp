@@ -33,13 +33,13 @@ namespace s3d
 
 	struct KlattTTSParameters
 	{
-		int32 baseFrequency = 1330;
-
 		double baseSpeed = 10.0;
 
 		double declination = 0.5;
 
 		double speed = 1.0;
+
+		int32 baseFrequency = 1330;
 
 		KlattWaveform waveform = KlattWaveform::Square;
 	};
