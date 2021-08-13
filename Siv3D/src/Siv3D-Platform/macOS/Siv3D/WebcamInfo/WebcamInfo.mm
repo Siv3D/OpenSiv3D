@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/WebcamInfo.hpp>
+# include <Siv3D/Unicode.hpp>
 # import <AVFoundation/AVFoundation.h>
 
 namespace s3d

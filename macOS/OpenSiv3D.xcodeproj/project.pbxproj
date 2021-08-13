@@ -1283,6 +1283,8 @@
 		2C834DC2248805D4006208B8 /* utf16_be.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D87248805D4006208B8 /* utf16_be.c */; };
 		2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C834D88248805D4006208B8 /* iso8859_4.c */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C85D2CF26C65D2700912EBC /* SivMat3x2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C85D2CE26C65D2700912EBC /* SivMat3x2.cpp */; };
+		2C85D2D226C65D4300912EBC /* SivFormatData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C85D2D126C65D4300912EBC /* SivFormatData.cpp */; };
 		2C86DC5D26AEFC7F000BEEE2 /* SivViewFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DC5C26AEFC7F000BEEE2 /* SivViewFrustum.cpp */; };
 		2C8A2519264905F000A87808 /* libopusfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8A2518264905F000A87808 /* libopusfile.a */; };
 		2C8A251A2649084000A87808 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC584A62649027F00C33E9F /* libopus.a */; };
@@ -3581,6 +3583,8 @@
 		2C834D87248805D4006208B8 /* utf16_be.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf16_be.c; sourceTree = "<group>"; };
 		2C834D88248805D4006208B8 /* iso8859_4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iso8859_4.c; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C85D2CE26C65D2700912EBC /* SivMat3x2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMat3x2.cpp; sourceTree = "<group>"; };
+		2C85D2D126C65D4300912EBC /* SivFormatData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatData.cpp; sourceTree = "<group>"; };
 		2C86DC5A26AEFC65000BEEE2 /* ViewFrustum.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ViewFrustum.hpp; sourceTree = "<group>"; };
 		2C86DC5C26AEFC7F000BEEE2 /* SivViewFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivViewFrustum.cpp; sourceTree = "<group>"; };
 		2C8A2518264905F000A87808 /* libopusfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopusfile.a; path = ../Siv3D/lib/macOS/opus/libopusfile.a; sourceTree = "<group>"; };
@@ -6213,6 +6217,7 @@
 				2C48BF3925D41C0D00A93CE3 /* Font */,
 				2C5D0C1B2677C93C00A713D9 /* FontAsset */,
 				2C5D0C192677C93B00A713D9 /* FontAssetData */,
+				2C85D2D026C65D4300912EBC /* FormatData */,
 				2C47B2BB24DD9789008D83BE /* FormatFloat */,
 				2C47B29524DD9789008D83BE /* FormatInt */,
 				2C47B2A824DD9789008D83BE /* Formatter */,
@@ -6256,6 +6261,7 @@
 				2C631E8B2687042500166A8E /* Line3D */,
 				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
+				2C85D2CD26C65D2700912EBC /* Mat3x2 */,
 				2CFF581225F79CC200B660AD /* Mat3x3 */,
 				2C711CEF26629EFD0018D38D /* Mat4x4 */,
 				2C47B23F24DD9789008D83BE /* MathParser */,
@@ -9352,6 +9358,22 @@
 			path = Oniguruma;
 			sourceTree = "<group>";
 		};
+		2C85D2CD26C65D2700912EBC /* Mat3x2 */ = {
+			isa = PBXGroup;
+			children = (
+				2C85D2CE26C65D2700912EBC /* SivMat3x2.cpp */,
+			);
+			path = Mat3x2;
+			sourceTree = "<group>";
+		};
+		2C85D2D026C65D4300912EBC /* FormatData */ = {
+			isa = PBXGroup;
+			children = (
+				2C85D2D126C65D4300912EBC /* SivFormatData.cpp */,
+			);
+			path = FormatData;
+			sourceTree = "<group>";
+		};
 		2C86DC5B26AEFC7F000BEEE2 /* ViewFrustum */ = {
 			isa = PBXGroup;
 			children = (
@@ -12209,6 +12231,7 @@
 				2C2AA37226009C74003F3EBC /* b2_mouse_joint.cpp in Sources */,
 				2C47B32524DD9789008D83BE /* SivBinaryWriter.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
+				2C85D2D226C65D4300912EBC /* SivFormatData.cpp in Sources */,
 				2C6527832656B3C1003427EB /* SivMicrophoneInfo.cpp in Sources */,
 				2CDD4F45260A3F7100A51D68 /* P2PivotJoint.cpp in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
@@ -12352,6 +12375,7 @@
 				2C423244242B155E00A16BCA /* context.c in Sources */,
 				2C47B49E24DD97F2008D83BE /* muParserInt.cpp in Sources */,
 				2C48BF3825CFB92900A93CE3 /* SivJSON.cpp in Sources */,
+				2C85D2CF26C65D2700912EBC /* SivMat3x2.cpp in Sources */,
 				2C60AE71248158A500277281 /* frequency_darwin.cpp in Sources */,
 				2C2AA36926009C74003F3EBC /* b2_edge_polygon_contact.cpp in Sources */,
 				2C47B6D624EAC834008D83BE /* SivVertexShader.cpp in Sources */,

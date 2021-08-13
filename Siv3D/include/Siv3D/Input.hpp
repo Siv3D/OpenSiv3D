@@ -13,9 +13,13 @@
 # if  __has_include(<bit>)
 #	include <bit>
 # endif
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "InputDevice.hpp"
 # include "Duration.hpp"
+# include "String.hpp"
 
 namespace s3d
 {

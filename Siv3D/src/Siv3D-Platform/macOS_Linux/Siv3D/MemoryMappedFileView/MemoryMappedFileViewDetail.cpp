@@ -14,6 +14,7 @@
 # include <sys/stat.h>
 # include <sys/mman.h>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "MemoryMappedFileViewDetail.hpp"
 
 namespace s3d

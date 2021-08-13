@@ -11,6 +11,7 @@
 
 # include "SystemLog.hpp"
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Version.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/FormatUtility.hpp>

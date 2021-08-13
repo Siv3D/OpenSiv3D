@@ -12,6 +12,7 @@
 # include <sys/stat.h>
 # include <mach-o/dyld.h>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <boost/filesystem.hpp>
 # import  <Foundation/Foundation.h>

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Dialog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # import  <Foundation/Foundation.h>
 # import  <AppKit/AppKit.h>

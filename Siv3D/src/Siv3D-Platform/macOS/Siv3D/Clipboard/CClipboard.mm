@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include "CClipboard.hpp"
 # import  <Cocoa/Cocoa.h>
 
