@@ -51,6 +51,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Line3D(const position_type& origin, Arg::direction_<position_type> direction) noexcept;
 
+		Line3D& operator =(const Line3D&) = default;
+
 
 		[[nodiscard]]
 		friend constexpr bool operator ==(const Line3D& lhs, const Line3D& rhs) noexcept

@@ -27,7 +27,7 @@ namespace s3d
 			bool allowOverwrite = true;
 		};
 
-		static int32 ExtractEntryCallback(void*, void*, mz_zip_file* file_info, const char*)
+		static int32 ExtractEntryCallback(void*, void*, [[maybe_unused]] mz_zip_file* file_info, const char*)
 		{
 			LOG_TRACE(U"Extracting: `{}`"_fmt(Unicode::Widen(file_info->filename)));
 
@@ -55,7 +55,7 @@ namespace s3d
 			return MZ_OK;
 		}
 
-		static int32 ExtractOverwriteCallback(void*, void* zipOption, mz_zip_file*, const char* path)
+		static int32 ExtractOverwriteCallback(void*, void* zipOption, mz_zip_file*, [[maybe_unused]] const char* path)
 		{
 			const ZipOption* option = static_cast<ZipOption*>(zipOption);
 

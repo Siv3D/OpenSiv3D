@@ -25,7 +25,7 @@ namespace s3d
 
 		void init() override;
 
-		const Mesh& getMesh(PrimitiveMeshType meshType) const noexcept;
+		const Mesh& getMesh(PrimitiveMeshType meshType) const noexcept override;
 
 	private:
 

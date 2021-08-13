@@ -1009,7 +1009,6 @@ namespace s3d
 		Array<Vertex3D> vertices(vertexCount);
 		{
 			constexpr Float3 normalBottom{ 0,-1,0 };
-			const float uDelta = (1.0f / quality);
 
 			Vertex3D* pDst0 = vertices.data();
 			Vertex3D* pDst1 = vertices.data() + discVertexCount;
@@ -1020,8 +1019,6 @@ namespace s3d
 				pDst0->tex.set(0.5f, 0.5f);
 				++pDst0;
 			}
-
-			const float deltaAngle = (Math::TwoPiF / quality);
 
 			for (uint32 i = 0; i <= quality; ++i)
 			{
