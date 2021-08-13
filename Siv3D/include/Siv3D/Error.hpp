@@ -19,10 +19,6 @@ namespace s3d
 	/// @brief エラーを表現する型
 	class Error
 	{
-	protected:
-
-		String m_what;
-
 	public:
 
 		SIV3D_NODISCARD_CXX20
@@ -48,22 +44,17 @@ namespace s3d
 		[[nodiscard]]
 		virtual StringView type() const noexcept;
 
-		friend std::ostream& operator <<(std::ostream& output, const Error& value)
-		{
-			return (output << '[' << value.type() << "] " << value.what().narrow());
-		}
+		friend std::ostream& operator <<(std::ostream& output, const Error& value);
 
-		friend std::wostream& operator <<(std::wostream& output, const Error& value)
-		{
-			return (output << L'[' << value.type() << L"] " << value.what().toWstr());
-		}
+		friend std::wostream& operator <<(std::wostream& output, const Error& value);
 
-		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const Error& value)
-		{
-			return output << (U'[' + value.type() + U"] " + value.what());
-		}
+		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const Error& value);
 
 		friend void Formatter(FormatData& formatData, const Error& value);
+
+	protected:
+
+		String m_what;
 	};
 
 	/// @brief パースエラーを表現する型

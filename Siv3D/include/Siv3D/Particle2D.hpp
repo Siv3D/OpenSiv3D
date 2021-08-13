@@ -27,8 +27,10 @@ namespace s3d
 		float startLifeTime;
 		float remainingLifeTime;
 
+		SIV3D_NODISCARD_CXX20
 		Particle2D() = default;
 
+		SIV3D_NODISCARD_CXX20
 		Particle2D(const Emission2D& emission, const Float4& _startColor,
 			float _startSize, float _rotation, float _startAngularVelocity,
 			float _startLifeTime, float _remainingLifeTime) noexcept;

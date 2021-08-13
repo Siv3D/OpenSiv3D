@@ -21,7 +21,7 @@
 
 namespace s3d
 {
-		namespace detail
+	namespace detail
 	{
 		class DropTarget : public IDropTarget
 		{

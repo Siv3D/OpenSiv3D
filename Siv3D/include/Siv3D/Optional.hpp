@@ -46,10 +46,13 @@ namespace s3d
 		using base_type::reset;
 		using base_type::emplace;
 
+		SIV3D_NODISCARD_CXX20
 		Optional() = default;
 		
+		SIV3D_NODISCARD_CXX20
 		constexpr Optional(None_t);
 
+		SIV3D_NODISCARD_CXX20
 		Optional(const Optional& other) = default;
 
 		Optional& operator =(None_t) noexcept;

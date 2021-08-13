@@ -384,6 +384,96 @@ namespace s3d
 		return new_string;
 	}
 
+	bool operator ==(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string == rhs.m_string);
+	}
+
+	bool operator ==(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs == rhs.str());
+	}
+
+	bool operator ==(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() == rhs);
+	}
+
+	bool operator !=(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string != rhs.m_string);
+	}
+
+	bool operator !=(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs != rhs.str());
+	}
+
+	bool operator !=(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() != rhs);
+	}
+
+	bool operator <(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string < rhs.m_string);
+	}
+
+	bool operator <(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs < rhs.str());
+	}
+
+	bool operator <(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() < rhs);
+	}
+
+	bool operator >(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string > rhs.m_string);
+	}
+
+	bool operator >(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs > rhs.str());
+	}
+
+	bool operator >(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() > rhs);
+	}
+
+	bool operator <=(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string <= rhs.m_string);
+	}
+
+	bool operator <=(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs <= rhs.str());
+	}
+
+	bool operator <=(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() <= rhs);
+	}
+
+	bool operator >=(const String& lhs, const String& rhs) noexcept
+	{
+		return (lhs.m_string >= rhs.m_string);
+	}
+
+	bool operator >=(const String::value_type* lhs, const String& rhs)
+	{
+		return (lhs >= rhs.str());
+	}
+
+	bool operator >=(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() >= rhs);
+	}
+
 	String operator +(const String::value_type lhs, const String& rhs)
 	{
 		String result;

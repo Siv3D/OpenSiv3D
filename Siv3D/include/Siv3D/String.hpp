@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
 # include <string>
 # include "Common.hpp"
 # include "StringView.hpp"
@@ -1450,137 +1449,47 @@ namespace s3d
 		[[nodiscard]]
 		String xml_escaped() const;
 
-		/// <summary>
-		/// 文字列が等しいかを調べます。
-		/// </summary>
-		/// <param name="lhs">
-		/// 比較する文字列
-		/// </param>
-		/// <param name="rhs">
-		/// 比較する文字列
-		/// </param>
-		/// <returns>
-		/// 等しければ true, それ以外の場合は false
-		/// </returns>	
-		[[nodiscard]]
-		friend bool operator ==(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string == rhs.m_string);
-		}
 
-		[[nodiscard]]
-		friend bool operator ==(const value_type* lhs, const String& rhs)
-		{
-			return (lhs == rhs.str());
-		}
+		friend bool operator ==(const String& lhs, const String& rhs) noexcept;
 
-		[[nodiscard]]
-		friend bool operator ==(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() == rhs);
-		}
+		friend bool operator ==(const value_type* lhs, const String& rhs);
 
-		/// <summary>
-		/// 文字列が等しくないかを調べます。
-		/// </summary>
-		/// <param name="lhs">
-		/// 比較する文字列
-		/// </param>
-		/// <param name="rhs">
-		/// 比較する文字列
-		/// </param>
-		/// <returns>
-		/// 等しくなければ true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]]
-		friend bool operator !=(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string != rhs.m_string);
-		}
+		friend bool operator ==(const String& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend bool operator !=(const value_type* lhs, const String& rhs)
-		{
-			return (lhs != rhs.str());
-		}
 
-		[[nodiscard]]
-		friend bool operator !=(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() != rhs);
-		}
+		friend bool operator !=(const String& lhs, const String& rhs) noexcept;
 
-		[[nodiscard]]
-		friend bool operator <(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string < rhs.m_string);
-		}
+		friend bool operator !=(const value_type* lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend bool operator <(const value_type* lhs, const String& rhs)
-		{
-			return (lhs < rhs.str());
-		}
+		friend bool operator !=(const String& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend bool operator <(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() < rhs);
-		}
 
-		[[nodiscard]]
-		friend bool operator >(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string > rhs.m_string);
-		}
+		friend bool operator <(const String& lhs, const String& rhs) noexcept;
 
-		[[nodiscard]]
-		friend bool operator >(const value_type* lhs, const String& rhs)
-		{
-			return (lhs > rhs.str());
-		}
+		friend bool operator <(const value_type* lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend bool operator >(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() > rhs);
-		}
+		friend bool operator <(const String& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend bool operator <=(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string <= rhs.m_string);
-		}
 
-		[[nodiscard]]
-		friend bool operator <=(const value_type* lhs, const String& rhs)
-		{
-			return (lhs <= rhs.str());
-		}
+		friend bool operator >(const String& lhs, const String& rhs) noexcept;
 
-		[[nodiscard]]
-		friend bool operator <=(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() <= rhs);
-		}
+		friend bool operator >(const value_type* lhs, const String& rhs);
 
-		[[nodiscard]]
-		friend bool operator >=(const String& lhs, const String& rhs) noexcept
-		{
-			return (lhs.m_string >= rhs.m_string);
-		}
+		friend bool operator >(const String& lhs, const value_type* rhs);
 
-		[[nodiscard]]
-		friend bool operator >=(const value_type* lhs, const String& rhs)
-		{
-			return (lhs >= rhs.str());
-		}
 
-		[[nodiscard]]
-		friend bool operator >=(const String& lhs, const value_type* rhs)
-		{
-			return (lhs.str() >= rhs);
-		}
+		friend bool operator <=(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator <=(const value_type* lhs, const String& rhs);
+
+		friend bool operator <=(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator >=(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator >=(const value_type* lhs, const String& rhs);
+
+		friend bool operator >=(const String& lhs, const value_type* rhs);
 
 
 		friend String operator +(const value_type lhs, const String& rhs);

@@ -13,6 +13,21 @@
 
 namespace s3d
 {
+	std::ostream& operator <<(std::ostream& output, const Error& value)
+	{
+		return (output << '[' << value.type() << "] " << value.what().narrow());
+	}
+
+	std::wostream& operator <<(std::wostream& output, const Error& value)
+	{
+		return (output << L'[' << value.type() << L"] " << value.what().toWstr());
+	}
+
+	std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const Error& value)
+	{
+		return output << (U'[' + value.type() + U"] " + value.what());
+	}
+
 	void Formatter(FormatData& formatData, const Error& value)
 	{
 		const String s = (U"["_s + value.type() + U"] " + value.what());

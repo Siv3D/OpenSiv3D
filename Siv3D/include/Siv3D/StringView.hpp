@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include <ostream>
+# include <iosfwd>
 # include <string_view>
 # include <string>
 # include "Common.hpp"

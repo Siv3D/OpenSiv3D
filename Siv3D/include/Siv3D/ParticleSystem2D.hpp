@@ -23,14 +23,18 @@ namespace s3d
 	{
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		ParticleSystem2D();
 
+		SIV3D_NODISCARD_CXX20
 		explicit ParticleSystem2D(const Vec2& position, const Vec2& force = Vec2{ 0, 0 });
 
+		SIV3D_NODISCARD_CXX20
 		ParticleSystem2D(const Vec2& position, const Vec2& force, std::unique_ptr<IEmitter2D>&& emitter,
 			const ParticleSystem2DParameters& parameters, const Texture& texture);
 
 		template <class Emitter, std::enable_if_t<std::is_base_of_v<IEmitter2D, Emitter>>* = nullptr>
+		SIV3D_NODISCARD_CXX20
 		ParticleSystem2D(const Vec2& position, const Vec2& force, const Emitter& emitter,
 			const ParticleSystem2DParameters& parameters, const Texture& texture);
 
@@ -49,6 +53,7 @@ namespace s3d
 
 		void setTexture(const Texture& texture) noexcept;
 
+		[[nodiscard]]
 		size_t num_particles() const noexcept;
 
 		void prewarm();
