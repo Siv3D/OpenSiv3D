@@ -52,13 +52,13 @@ namespace s3d
 		return SIV3D_ENGINE(SoundFont)->renderMIDI(path, midiScore, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 
-	Wave MIDIDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave MIDIDecoder::decode(IReader& reader, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		std::array<Array<MIDINote>, 16> _unused;
 		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, _unused, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}
 
-	Wave MIDIDecoder::decode(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const FilePathView pathHint) const
+	Wave MIDIDecoder::decode(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		return SIV3D_ENGINE(SoundFont)->renderMIDI(reader, midiScore, Wave::DefaultSampleRate, SecondsF{ 0.5 });
 	}

@@ -44,7 +44,7 @@ namespace s3d
 		return IAudioDecoder::decode(path);
 	}
 
-	Wave WAVEDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave WAVEDecoder::decode(IReader& reader, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		RiffHeader riffHeader;
 

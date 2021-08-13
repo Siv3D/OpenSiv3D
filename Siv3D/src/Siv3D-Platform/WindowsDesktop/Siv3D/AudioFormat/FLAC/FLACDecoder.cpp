@@ -45,7 +45,7 @@ namespace s3d
 		return IAudioDecoder::decode(path);
 	}
 
-	Wave FLACDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave FLACDecoder::decode(IReader& reader, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		if (not reader.isOpen())
 		{

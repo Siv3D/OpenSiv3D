@@ -134,7 +134,7 @@ namespace s3d
 		return IAudioDecoder::decode(path);
 	}
 
-	Wave OggVorbisDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave OggVorbisDecoder::decode(IReader& reader, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		if (not reader.isOpen())
 		{

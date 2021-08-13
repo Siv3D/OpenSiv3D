@@ -39,7 +39,7 @@ namespace s3d
 			uint8 raw = 0;
 			::mz_zip_reader_get_raw(handle, &raw);
 
-			double progress = 0;
+			[[maybe_unused]] double progress = 0;
 
 			if (raw && file_info->compressed_size > 0)
 			{

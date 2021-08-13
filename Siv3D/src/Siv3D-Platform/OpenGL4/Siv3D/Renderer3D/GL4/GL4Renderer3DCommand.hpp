@@ -139,10 +139,8 @@ namespace s3d
 		SetSunDirection,
 
 		SetSunColor,
-
-		SIZE_,
 	};
-	static_assert(FromEnum(GL4Renderer3DCommandType::SIZE_) < 64);
+	static_assert(FromEnum(GL4Renderer3DCommandType::SetSunColor) < 64);
 
 	struct GL4Renderer3DCommand
 	{

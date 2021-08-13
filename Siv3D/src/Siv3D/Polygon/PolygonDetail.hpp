@@ -15,9 +15,18 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/2DShapes.hpp>
 
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+# endif
+
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Point, s3d::int32, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Float2, float, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Vec2, double, boost::geometry::cs::cartesian, x, y)
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
 
 namespace s3d
 {

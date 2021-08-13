@@ -566,7 +566,7 @@ void par_shapes_export(par_shapes_mesh const* mesh, char const* filename)
     fclose(objfile);
 }
 
-static void par_shapes__sphere(float const* uv, float* xyz, void* userdata)
+static void par_shapes__sphere(float const* uv, float* xyz, void*)
 {
     float phi = uv[0] * PAR_PI;
     float theta = uv[1] * 2 * PAR_PI;
@@ -575,7 +575,7 @@ static void par_shapes__sphere(float const* uv, float* xyz, void* userdata)
     xyz[2] = cosf(phi);
 }
 
-static void par_shapes__hemisphere(float const* uv, float* xyz, void* userdata)
+static void par_shapes__hemisphere(float const* uv, float* xyz, void*)
 {
     float phi = uv[0] * PAR_PI;
     float theta = uv[1] * PAR_PI;
@@ -584,14 +584,14 @@ static void par_shapes__hemisphere(float const* uv, float* xyz, void* userdata)
     xyz[2] = cosf(phi);
 }
 
-static void par_shapes__plane(float const* uv, float* xyz, void* userdata)
+static void par_shapes__plane(float const* uv, float* xyz, void*)
 {
     xyz[0] = uv[0];
     xyz[1] = uv[1];
     xyz[2] = 0;
 }
 
-static void par_shapes__klein(float const* uv, float* xyz, void* userdata)
+static void par_shapes__klein(float const* uv, float* xyz, void*)
 {
     float u = uv[0] * PAR_PI;
     float v = uv[1] * 2 * PAR_PI;
@@ -608,7 +608,7 @@ static void par_shapes__klein(float const* uv, float* xyz, void* userdata)
     xyz[1] = -2 * (1 - cosf(u) / 2) * sinf(v);
 }
 
-static void par_shapes__cylinder(float const* uv, float* xyz, void* userdata)
+static void par_shapes__cylinder(float const* uv, float* xyz, void*)
 {
     float theta = uv[1] * 2 * PAR_PI;
     xyz[0] = sinf(theta);
@@ -616,7 +616,7 @@ static void par_shapes__cylinder(float const* uv, float* xyz, void* userdata)
     xyz[2] = uv[0];
 }
 
-static void par_shapes__cone(float const* uv, float* xyz, void* userdata)
+static void par_shapes__cone(float const* uv, float* xyz, void*)
 {
     float r = 1.0f - uv[0];
     float theta = uv[1] * 2 * PAR_PI;

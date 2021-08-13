@@ -68,7 +68,7 @@ namespace s3d
 		return IAudioDecoder::decode(path);
 	}
 
-	Wave OpusDecoder::decode(IReader& reader, const FilePathView pathHint) const
+	Wave OpusDecoder::decode(IReader& reader, [[maybe_unused]] const FilePathView pathHint) const
 	{
 		if (not reader.isOpen())
 		{
