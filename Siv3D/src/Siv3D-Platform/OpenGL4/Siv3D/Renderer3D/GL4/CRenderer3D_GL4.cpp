@@ -603,7 +603,7 @@ namespace s3d
 						}
 						else
 						{
-							::glEnable(GL_FRAMEBUFFER_SRGB);
+							::glDisable(GL_FRAMEBUFFER_SRGB);
 						}
 
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
