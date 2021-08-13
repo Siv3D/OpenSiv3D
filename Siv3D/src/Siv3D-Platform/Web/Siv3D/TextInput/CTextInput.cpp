@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>

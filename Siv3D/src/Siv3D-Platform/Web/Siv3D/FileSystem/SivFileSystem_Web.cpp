@@ -13,6 +13,7 @@
 # include <unistd.h>
 # include <filesystem>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EnvironmentVariable.hpp>
 # include <Siv3D/INI.hpp>
