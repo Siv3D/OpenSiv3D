@@ -26,9 +26,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		PixelShader();
 
-		SIV3D_NODISCARD_CXX20
-		PixelShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
-
 		virtual ~PixelShader();
 
 		[[nodiscard]]
@@ -47,6 +44,11 @@ namespace s3d
 
 		[[nodiscard]]
 		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
+	
+	private:
+
+		SIV3D_NODISCARD_CXX20
+		PixelShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 	};
 }
 

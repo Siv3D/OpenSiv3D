@@ -26,9 +26,6 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		VertexShader();
 
-		SIV3D_NODISCARD_CXX20
-		VertexShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
-
 		virtual ~VertexShader();
 
 		[[nodiscard]]
@@ -47,6 +44,11 @@ namespace s3d
 
 		[[nodiscard]]
 		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
+
+	private:
+
+		SIV3D_NODISCARD_CXX20
+		VertexShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 	};
 }
 
