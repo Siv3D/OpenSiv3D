@@ -106,12 +106,7 @@ namespace s3d
 				>> value.p3 >> unused;
 		}
 
-		friend void Formatter(FormatData& formatData, const Bezier3& value)
-		{
-			_Formatter(formatData, value);
-		}
-
-		static void _Formatter(FormatData& formatData, const Bezier3& value);
+		friend void Formatter(FormatData& formatData, const Bezier3& value);
 	};
 
 	struct Bezier3Path

@@ -210,14 +210,14 @@ namespace s3d
 
 		if (not blob)
 		{
-			LOG_FAIL(U"CShader_D3D11::createVS(): failed to load data from `{}`"_fmt(path));
+			LOG_FAIL(U"CShader_D3D11::createVSFromFile(): failed to load data from `{}`"_fmt(path));
 			return VertexShader::IDType::NullAsset();
 		}
 
 		if (detail::IsDXBC(blob)) // もしコンパイル済みのバイナリなら
 		{
 			// そのまま VS を作成
-			LOG_TRACE(U"CShader_D3D11::createVS(): `{}` is a precompiled shader file"_fmt(path));
+			LOG_TRACE(U"CShader_D3D11::createVSFromFile(): `{}` is a precompiled shader file"_fmt(path));
 			return createVS(std::move(blob), bindings);
 		}
 		
@@ -253,14 +253,14 @@ namespace s3d
 
 		if (not blob)
 		{
-			LOG_FAIL(U"CShader_D3D11::createPS(): failed to load data from `{}`"_fmt(path));
+			LOG_FAIL(U"CShader_D3D11::createPSFromFile(): failed to load data from `{}`"_fmt(path));
 			return PixelShader::IDType::NullAsset();
 		}
 
 		if (detail::IsDXBC(blob)) // もしコンパイル済みのバイナリなら
 		{
 			// そのまま VS を作成
-			LOG_TRACE(U"CShader_D3D11::createVS(): `{}` is a precompiled shader file"_fmt(path));
+			LOG_TRACE(U"CShader_D3D11::createPSFromFile(): `{}` is a precompiled shader file"_fmt(path));
 			return createPS(std::move(blob), bindings);
 		}
 

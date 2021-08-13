@@ -15,6 +15,8 @@
 # include "FormatLiteral.hpp"
 # include "CommonFloat.hpp"
 # include "Hash.hpp"
+# include "MathConstants.hpp"
+# include "2DShapesFwd.hpp"
 
 namespace s3d
 {

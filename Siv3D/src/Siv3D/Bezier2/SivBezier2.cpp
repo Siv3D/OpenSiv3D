@@ -125,7 +125,7 @@ namespace s3d
 		return *this;
 	}
 
-	void Bezier2::_Formatter(FormatData& formatData, const Bezier2& value)
+	void Formatter(FormatData& formatData, const Bezier2& value)
 	{
 		formatData.string.append(U"(("_sv);
 

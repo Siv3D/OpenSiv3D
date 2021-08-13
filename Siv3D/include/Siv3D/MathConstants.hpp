@@ -188,6 +188,12 @@ namespace s3d
 			[[nodiscard]]
 			inline constexpr double operator ""_pi(unsigned long long x) noexcept;
 
+			[[nodiscard]] 
+			inline constexpr float operator ""_piF(long double x) noexcept;
+
+			[[nodiscard]]
+			inline constexpr float operator ""_piF(unsigned long long x) noexcept;
+
 			[[nodiscard]]
 			inline constexpr double operator ""_deg(long double deg) noexcept;
 

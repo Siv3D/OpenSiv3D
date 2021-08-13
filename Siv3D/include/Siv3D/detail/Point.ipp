@@ -10,8 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../MathConstants.hpp"
-# include "../2DShapesFwd.hpp"
 
 namespace s3d
 {
