@@ -59,7 +59,8 @@ namespace s3d
 		return{ *this, r };
 	}
 
-	void Formatter(FormatData& formatData, const Vector2D<double>& value)
+	template <>
+	void Vector2D<double>::_Formatter(FormatData& formatData, const Vector2D<double>& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
@@ -68,9 +69,10 @@ namespace s3d
 		formatData.string.push_back(U')');
 	}
 
-	void Formatter(FormatData& formatData, const Vector2D<float>& value)
+	template <>
+	void Vector2D<float>::_Formatter(FormatData& formatData, const Vector2D<float>& value)
 	{
-		Formatter(formatData, Vector2D<double>{ value });
+		Vector2D<double>::_Formatter(formatData, value);
 	}
 
 	template struct Vector2D<float>;
