@@ -197,7 +197,7 @@ namespace s3d
 					LOG_TRACE(U"AACDecoder: swr_alloc() failed ({})"_fmt(m_path));
 					return false;
 				}
-				int averr = swr_init(m_swr_context);
+				[[maybe_unused]] int averr = swr_init(m_swr_context);
 				if (swr_is_initialized(m_swr_context) == 0)
 				{
 					LOG_TRACE(U"AACDecoder: swr_init() failed (AVERROR: {}) ({})"_fmt(Unicode::Widen(av_err2str(averr)), m_path));

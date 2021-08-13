@@ -130,10 +130,8 @@ namespace s3d
 		PSTexture6,
 
 		PSTexture7,
-
-		SIZE_,
 	};
-	static_assert(FromEnum(GL4Renderer2DCommandType::SIZE_) < 64);
+	static_assert(FromEnum(GL4Renderer2DCommandType::PSTexture7) < 64);
 
 	struct GL4Renderer2DCommand
 	{
@@ -188,7 +186,18 @@ namespace s3d
 		Array<VertexShader::IDType> m_VSs;
 		Array<PixelShader::IDType> m_PSs;
 		Array<Mat3x2> m_combinedTransforms = { Mat3x2::Identity() };
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wignored-attributes"
+# endif
+
 		Array<__m128> m_constants;
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
+
 		Array<GL4ConstantBufferCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
