@@ -985,6 +985,12 @@
 		2C60F9252667F0F500FFAA68 /* SivRDTSCClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */; };
 		2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C6106E224DB04E300BDEF72 /* xxhash.h */; };
 		2C6106E924DB0B1D00BDEF72 /* SivSystem_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */; };
+		2C61A00326C955E200429B27 /* scriptbuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C61A00126C955E200429B27 /* scriptbuilder.h */; };
+		2C61A00426C955E200429B27 /* scriptbuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C61A00226C955E200429B27 /* scriptbuilder.cpp */; };
+		2C61A00826C955EF00429B27 /* ScriptData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C61A00526C955EF00429B27 /* ScriptData.cpp */; };
+		2C61A00926C955EF00429B27 /* SivScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C61A00626C955EF00429B27 /* SivScript.cpp */; };
+		2C61A00A26C955EF00429B27 /* ScriptData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C61A00726C955EF00429B27 /* ScriptData.hpp */; };
+		2C61A00D26C9561100429B27 /* SivScriptModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C61A00C26C9561100429B27 /* SivScriptModule.cpp */; };
 		2C62196526750F3A0088B175 /* SivUUID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C62196426750F3A0088B175 /* SivUUID.cpp */; };
 		2C62197226750F6A0088B175 /* uuid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C62197126750F6A0088B175 /* uuid.h */; };
 		2C631E8A2685D03F00166A8E /* SivKlattTTS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C631E892685D03F00166A8E /* SivKlattTTS.cpp */; };
@@ -3195,6 +3201,14 @@
 		2C60F9242667F0F500FFAA68 /* SivRDTSCClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRDTSCClock.cpp; sourceTree = "<group>"; };
 		2C6106E224DB04E300BDEF72 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		2C6106E824DB0B1D00BDEF72 /* SivSystem_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem_macOS.mm; sourceTree = "<group>"; };
+		2C619FFE26C955AC00429B27 /* ScriptModule.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScriptModule.hpp; sourceTree = "<group>"; };
+		2C619FFF26C955C200429B27 /* Script.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Script.ipp; sourceTree = "<group>"; };
+		2C61A00126C955E200429B27 /* scriptbuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scriptbuilder.h; sourceTree = "<group>"; };
+		2C61A00226C955E200429B27 /* scriptbuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scriptbuilder.cpp; sourceTree = "<group>"; };
+		2C61A00526C955EF00429B27 /* ScriptData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptData.cpp; sourceTree = "<group>"; };
+		2C61A00626C955EF00429B27 /* SivScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScript.cpp; sourceTree = "<group>"; };
+		2C61A00726C955EF00429B27 /* ScriptData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptData.hpp; sourceTree = "<group>"; };
+		2C61A00C26C9561100429B27 /* SivScriptModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScriptModule.cpp; sourceTree = "<group>"; };
 		2C62196226750F220088B175 /* UUID.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UUID.hpp; sourceTree = "<group>"; };
 		2C62196426750F3A0088B175 /* SivUUID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUUID.cpp; sourceTree = "<group>"; };
 		2C62196726750F550088B175 /* gsl_util */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_util; sourceTree = "<group>"; };
@@ -4638,6 +4652,7 @@
 				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
 				2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
+				2C619FFF26C955C200429B27 /* Script.ipp */,
 				2C063DB92661426000368BEE /* Serial.ipp */,
 				2C063DB22661426000368BEE /* Serialization.ipp */,
 				2C063D622661426000368BEE /* ShaderCommon.ipp */,
@@ -5654,9 +5669,13 @@
 			isa = PBXGroup;
 			children = (
 				2C36F845267F93F700691B1C /* CScript.cpp */,
+				2C61A00526C955EF00429B27 /* ScriptData.cpp */,
 				2C36F846267F93F700691B1C /* ScriptFactory.cpp */,
-				2C36F847267F93F700691B1C /* IScript.hpp */,
+				2C61A00626C955EF00429B27 /* SivScript.cpp */,
 				2C36F848267F93F700691B1C /* CScript.hpp */,
+				2C36F847267F93F700691B1C /* IScript.hpp */,
+				2C61A00726C955EF00429B27 /* ScriptData.hpp */,
+				2C61A00026C955E200429B27 /* angelscript */,
 			);
 			path = Script;
 			sourceTree = "<group>";
@@ -6330,6 +6349,7 @@
 				2C6EEB0E2688ECD0002E220A /* ScopedCustomShader3D */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C36F844267F93F700691B1C /* Script */,
+				2C61A00B26C9561100429B27 /* ScriptModule */,
 				2C2AA2B325FF8933003F3EBC /* Serial */,
 				2C2AA2D226009585003F3EBC /* SerialPortInfo */,
 				2C47B6CC24EAC82A008D83BE /* Shader */,
@@ -8248,6 +8268,23 @@
 			path = xxHash;
 			sourceTree = "<group>";
 		};
+		2C61A00026C955E200429B27 /* angelscript */ = {
+			isa = PBXGroup;
+			children = (
+				2C61A00126C955E200429B27 /* scriptbuilder.h */,
+				2C61A00226C955E200429B27 /* scriptbuilder.cpp */,
+			);
+			path = angelscript;
+			sourceTree = "<group>";
+		};
+		2C61A00B26C9561100429B27 /* ScriptModule */ = {
+			isa = PBXGroup;
+			children = (
+				2C61A00C26C9561100429B27 /* SivScriptModule.cpp */,
+			);
+			path = ScriptModule;
+			sourceTree = "<group>";
+		};
 		2C62196326750F3A0088B175 /* UUID */ = {
 			isa = PBXGroup;
 			children = (
@@ -9960,6 +9997,7 @@
 				2CAAA89625E7FD0300C014D7 /* ScopeGuard.hpp */,
 				2C4A286325EA60CA00FEACE4 /* ScreenCapture.hpp */,
 				2CB18E4026B5A65500862C28 /* Script.hpp */,
+				2C619FFE26C955AC00429B27 /* ScriptModule.hpp */,
 				2CAAA84E25E7FD0300C014D7 /* SDFGlyph.hpp */,
 				2C2AA2B125FF8918003F3EBC /* Serial.hpp */,
 				2C5043CF2651334300E36D08 /* Serialization.hpp */,
@@ -11385,6 +11423,7 @@
 				2CC584A12648FE2A00C33E9F /* opus_custom.h in Headers */,
 				2C5337A2264F5AA200CE0F1B /* zdict.h in Headers */,
 				2C48BEFF25CFB8C500A93CE3 /* rasterization.h in Headers */,
+				2C61A00326C955E200429B27 /* scriptbuilder.h in Headers */,
 				2C43C8A125C837F100D6D613 /* svsfnt.h in Headers */,
 				2C9566CC2645626000539B85 /* mz_os.h in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
@@ -11566,6 +11605,7 @@
 				2C2AA39B26009C74003F3EBC /* b2_collision.h in Headers */,
 				2C9566842645623300539B85 /* ZIPReaderDetail.hpp in Headers */,
 				2CC7D4A925F8D86A00289963 /* GrabCutDetail.hpp in Headers */,
+				2C61A00A26C955EF00429B27 /* ScriptData.hpp in Headers */,
 				2C47B30424DD9789008D83BE /* CRenderer_Null.hpp in Headers */,
 				2C47B2FA24DD9789008D83BE /* CLicenseManager.hpp in Headers */,
 				2C44C068264960D400A5E72A /* tif_fax3.h in Headers */,
@@ -12069,6 +12109,7 @@
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
 				2C86DC5D26AEFC7F000BEEE2 /* SivViewFrustum.cpp in Sources */,
 				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
+				2C61A00426C955E200429B27 /* scriptbuilder.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
 				2C47B33424DD9789008D83BE /* SivTextReader.cpp in Sources */,
@@ -12387,6 +12428,7 @@
 				2C60F9212667F0E300FFAA68 /* SivMillisecClock.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2CB18EB726B5A68700862C28 /* as_parser.cpp in Sources */,
+				2C61A00926C955EF00429B27 /* SivScript.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2C956655264546F700539B85 /* svgelement.cpp in Sources */,
@@ -12552,6 +12594,7 @@
 				2C794B7B25C4FDA000034D81 /* SivTwitter.cpp in Sources */,
 				2C5043CD26512B6000E36D08 /* SivToastNotification.cpp in Sources */,
 				2C60AE92248158A500277281 /* winstring_windows.cpp in Sources */,
+				2C61A00D26C9561100429B27 /* SivScriptModule.cpp in Sources */,
 				2C533795264F5AA200CE0F1B /* zstd_ldm.c in Sources */,
 				2C5C6798265F315500FAA651 /* SivDLL.cpp in Sources */,
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
@@ -12698,6 +12741,7 @@
 				2C768DBE268C67C900A02CF5 /* SivPlane.cpp in Sources */,
 				2CB18EBD26B5A68700862C28 /* as_callfunc_xenon.cpp in Sources */,
 				2CB18ECB26B5A68700862C28 /* as_callfunc_ppc.cpp in Sources */,
+				2C61A00826C955EF00429B27 /* ScriptData.cpp in Sources */,
 				2CBEBCB62629D15F0077DDBF /* decode.c in Sources */,
 				2CB18EA326B5A68700862C28 /* as_callfunc_ppc_64.cpp in Sources */,
 				2CC7D4B325FA3A9200289963 /* VideoTextureDetail.cpp in Sources */,
