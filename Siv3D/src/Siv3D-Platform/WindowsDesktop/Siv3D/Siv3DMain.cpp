@@ -21,6 +21,7 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/System/CSystem.hpp>
 # include <Siv3D/Window/CWindow.hpp>
+# include <Siv3D/Script/IScript.hpp>
 
 void Main();
 
@@ -86,7 +87,13 @@ namespace s3d
 
 		try
 		{
+			SIV3D_ENGINE(Script)->init();
+
+			LOG_TRACE(U"Main() ---");
+
 			Main();
+
+			LOG_TRACE(U"--- Main()");
 		}
 		catch (const Error& error)
 		{
@@ -117,6 +124,8 @@ namespace s3d
 
 			FreestandingMessageBox::ShowError(errorMessage);
 		}
+
+		SIV3D_ENGINE(Script)->shutdown();
 	}
 
 	[[nodiscard]]
@@ -249,11 +258,7 @@ namespace s3d
 
 		// (4b)--
 
-		LOG_TRACE(U"Main() ---");
-
 		MainSEH();
-
-		LOG_TRACE(U"--- Main()");
 	}
 
 	namespace detail::init

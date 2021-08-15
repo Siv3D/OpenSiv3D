@@ -659,6 +659,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopeGuard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScriptCompileOption.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScriptFunction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScriptModule.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SDFGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Serial.hpp" />

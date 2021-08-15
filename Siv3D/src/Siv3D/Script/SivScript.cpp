@@ -44,16 +44,42 @@ namespace s3d
 
 	Script::Script() {}
 
-	Script::Script(const FilePathView path, const int32 compileOption)
+	Script::Script(const FilePathView path, const ScriptCompileOption compileOption)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Script)->createFromFile(path, compileOption)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
+	Script::Script(const Arg::code_<StringView> code, const ScriptCompileOption compileOption)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Script)->createFromCode(*code, compileOption)) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Script::~Script() {}
 
+	bool Script::compiled() const
+	{
+		return SIV3D_ENGINE(Script)->compiled(m_handle->id());
+	}
+
+	const Array<String>& Script::getMessages() const
+	{
+		return SIV3D_ENGINE(Script)->getMessages(m_handle->id());
+	}
+
+	const FilePath& Script::path() const
+	{
+		return SIV3D_ENGINE(Script)->path(m_handle->id());
+	}
+
 	void Script::swap(Script& other) noexcept
 	{
 		m_handle.swap(other.m_handle);
+	}
+
+	AngelScript::asIScriptEngine* Script::GetEngine()
+	{
+		return SIV3D_ENGINE(Script)->getEngine();
 	}
 }

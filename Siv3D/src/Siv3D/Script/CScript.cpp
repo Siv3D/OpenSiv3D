@@ -20,7 +20,8 @@ namespace s3d
 {
 	namespace detail
 	{
-		static constexpr StringView GetMessageType(const AngelScript::asEMsgType msgType)
+		[[nodiscard]]
+		inline constexpr StringView GetMessageType(const AngelScript::asEMsgType msgType) noexcept
 		{
 			constexpr std::array<StringView, 3> types =
 			{
@@ -36,8 +37,8 @@ namespace s3d
 			const String section = Unicode::Widen(msg->section);
 			const String message = Unicode::Widen(msg->message);
 
-			const String fullMessage = U"[{}] {}({}): {}"_fmt(type, FileSystem::FileName(section), msg->row, message);
-			const String logMessage = U"{}({}): {}: {}"_fmt(section, msg->row, type, message);
+			const String fullMessage = (U"[{}] {}({}): "_fmt(type, FileSystem::FileName(section), msg->row) + message);
+			const String logMessage = (U"{}({}): {}: "_fmt(section, msg->row, type) + message);
 			Logger(logMessage);
 
 			Array<String>* messageArray = static_cast<Array<String>*>(pMessageArray);
@@ -58,9 +59,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CScript::init()");
 
-		m_engine = AngelScript::asCreateScriptEngine(ANGELSCRIPT_VERSION);
-
-		if (not m_engine)
+		if (m_engine = AngelScript::asCreateScriptEngine(ANGELSCRIPT_VERSION); 
+			(not m_engine))
 		{
 			throw EngineError{ U"asCreateScriptEngine() failed" };
 		}
@@ -69,7 +69,6 @@ namespace s3d
 		{
 			throw EngineError{ U"SetMessageCallback() failed" };
 		}
-
 		m_engine->SetEngineProperty(AngelScript::asEP_REQUIRE_ENUM_SCOPE, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1);
@@ -95,6 +94,8 @@ namespace s3d
 			return;
 		}
 
+		LOG_SCOPED_TRACE(U"CScript::shutdown()");
+
 		m_scripts.destroy();
 
 		m_engine->ShutDownAndRelease();
@@ -102,14 +103,50 @@ namespace s3d
 		m_shutDown = true;
 	}
 
-	Script::IDType CScript::createFromCode(const StringView code, const int32 compileOption)
+	Script::IDType CScript::createFromCode(const StringView code, const ScriptCompileOption compileOption)
 	{
-		return Script::IDType::NullAsset();
+		if (not code)
+		{
+			return Script::IDType::NullAsset();
+		}
+
+		{
+			auto script = std::make_unique<ScriptData>(ScriptData::Code{}, code, m_engine, compileOption);
+
+			if (not script->isInitialized())
+			{
+				return Script::IDType::NullAsset();
+			}
+
+			const auto id = m_scripts.add(std::move(script));
+
+			m_scripts[id]->setScriptID(id.value());
+
+			return id;
+		}
 	}
 
-	Script::IDType CScript::createFromFile(const FilePathView path, const int32 compileOption)
+	Script::IDType CScript::createFromFile(const FilePathView path, const ScriptCompileOption compileOption)
 	{
-		return Script::IDType::NullAsset();
+		if (not path)
+		{
+			return Script::IDType::NullAsset();
+		}
+
+		{
+			auto script = std::make_unique<ScriptData>(ScriptData::File{}, path, m_engine, compileOption);
+
+			if (not script->isInitialized())
+			{
+				return Script::IDType::NullAsset();
+			}
+
+			const auto id = m_scripts.add(std::move(script));
+
+			m_scripts[id]->setScriptID(id.value());
+
+			return id;
+		}
 	}
 
 	void CScript::release(const Script::IDType handleID)
@@ -117,12 +154,42 @@ namespace s3d
 		m_scripts.erase(handleID);
 	}
 
-	Array<String> CScript::retrieveInternalMessages()
+	bool CScript::compiled(const Script::IDType handleID)
+	{
+		return m_scripts[handleID]->compileSucceeded();
+	}
+	
+	const std::shared_ptr<ScriptModule>& CScript::getModule(const Script::IDType handleID)
+	{
+		return m_scripts[handleID]->getModule();
+	}
+	
+	AngelScript::asIScriptFunction* CScript::getFunction(const Script::IDType handleID, const StringView decl)
+	{
+		return m_scripts[handleID]->getFunction(decl);
+	}
+
+	const FilePath& CScript::path(Script::IDType handleID)
+	{
+		return m_scripts[handleID]->path();
+	}
+
+	Array<String> CScript::retrieveMessages_internal()
 	{
 		Array<String> messages = std::move(m_messages);
-		
+
 		m_messages.clear();
-		
+
 		return messages;
+	}
+
+	const Array<String>& CScript::getMessages(const Script::IDType handleID)
+	{
+		return m_scripts[handleID]->getMessages();
+	}
+
+	AngelScript::asIScriptEngine* CScript::getEngine()
+	{
+		return m_engine;
 	}
 }

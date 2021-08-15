@@ -29,11 +29,29 @@ namespace s3d
 
 		ScriptData(Null, AngelScript::asIScriptEngine * engine);
 
-		ScriptData(Code, StringView code, AngelScript::asIScriptEngine* engine, int32 compileOption);
+		ScriptData(Code, StringView code, AngelScript::asIScriptEngine* engine, ScriptCompileOption compileOption);
 
-		ScriptData(File, FilePathView path, AngelScript::asIScriptEngine* engine, int32 compileOption);
+		ScriptData(File, FilePathView path, AngelScript::asIScriptEngine* engine, ScriptCompileOption compileOption);
 
-		bool isInitialized() const;
+		[[nodiscard]]
+		bool isInitialized() const noexcept;
+
+		void setScriptID(uint64 id) noexcept;
+
+		[[nodiscard]]
+		bool compileSucceeded() const noexcept;
+
+		[[nodiscard]]
+		const std::shared_ptr<ScriptModule>& getModule() const;
+
+		[[nodiscard]]
+		AngelScript::asIScriptFunction* getFunction(StringView decl);
+
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
+
+		[[nodiscard]]
+		const Array<String>& getMessages() const noexcept;
 
 	private:
 
@@ -49,7 +67,7 @@ namespace s3d
 
 		Array<String> m_messages;
 
-		int32 m_compileOption = 0;
+		ScriptCompileOption m_compileOption = ScriptCompileOption::Default;
 
 		FilePath m_fullpath;
 

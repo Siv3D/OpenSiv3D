@@ -29,13 +29,27 @@ namespace s3d
 
 		void shutdown() override;
 
-		Script::IDType createFromCode(StringView code, int32 compileOption) override;
+		Script::IDType createFromCode(StringView code, ScriptCompileOption compileOption) override;
 
-		Script::IDType createFromFile(FilePathView path, int32 compileOption) override;
+		Script::IDType createFromFile(FilePathView path, ScriptCompileOption compileOption) override;
 
 		void release(Script::IDType handleID) override;
 
-		Array<String> retrieveInternalMessages() override;
+		bool compiled(Script::IDType handleID) override;
+
+		const std::shared_ptr<ScriptModule>& getModule(Script::IDType handleID) override;
+
+		AngelScript::asIScriptFunction* getFunction(Script::IDType handleID, StringView decl) override;
+
+		const FilePath& path(Script::IDType handleID) override;
+
+		Array<String> retrieveMessages_internal() override;
+
+		const Array<String>& getMessages(Script::IDType handleID) override;
+
+		//bool reload(Script::IDType handleID, int32 compileOption) override;
+
+		AngelScript::asIScriptEngine* getEngine() override;
 
 	private:
 

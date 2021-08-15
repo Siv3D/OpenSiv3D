@@ -29,12 +29,30 @@ namespace s3d
 
 		virtual void shutdown() = 0;
 
-		virtual Script::IDType createFromCode(StringView code, int32 compileOption) = 0;
+		virtual Script::IDType createFromCode(StringView code, ScriptCompileOption compileOption) = 0;
 
-		virtual Script::IDType createFromFile(FilePathView path, int32 compileOption) = 0;
+		virtual Script::IDType createFromFile(FilePathView path, ScriptCompileOption compileOption) = 0;
 
 		virtual void release(Script::IDType handleID) = 0;
 
-		virtual Array<String> retrieveInternalMessages() = 0;
+		virtual bool compiled(Script::IDType handleID) = 0;
+
+		virtual const std::shared_ptr<ScriptModule>& getModule(Script::IDType handleID) = 0;
+
+		virtual AngelScript::asIScriptFunction* getFunction(Script::IDType handleID, StringView decl) = 0;
+
+		virtual const FilePath& path(Script::IDType handleID) = 0;
+
+		virtual Array<String> retrieveMessages_internal() = 0;
+
+		virtual const Array<String>& getMessages(Script::IDType handleID) = 0;
+
+		//void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) = 0;
+
+		//const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
+
+		//bool reload(Script::IDType handleID, int32 compileOption) = 0;
+
+		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};
 }

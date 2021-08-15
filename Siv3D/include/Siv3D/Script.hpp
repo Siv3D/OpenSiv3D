@@ -12,19 +12,14 @@
 # pragma once
 # include "Common.hpp"
 # include "AssetHandle.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "ScriptModule.hpp"
+# include "ScriptCompileOption.hpp"
+# include "ScriptFunction.hpp"
 
 namespace s3d
 {
-	struct ScriptCompileOption
-	{
-		enum Option
-		{
-			BuildWithLineCues = 0b00001,
-		};
-	};
-
 	/// @brief スクリプト
 	class Script : public AssetHandle<Script>
 	{
@@ -34,11 +29,39 @@ namespace s3d
 		Script();
 
 		SIV3D_NODISCARD_CXX20
-		explicit Script(FilePathView path, int32 compileOption = 0);
+		explicit Script(FilePathView path, ScriptCompileOption compileOption = ScriptCompileOption::Default);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Script(Arg::code_<StringView> code, ScriptCompileOption compileOption = ScriptCompileOption::Default);
 
 		virtual ~Script();
 
+		template <class Fty>
+		[[nodiscard]]
+		auto getFunction(StringView decl) const;
+
+		[[nodiscard]]
+		bool compiled() const;
+
+		bool reload(ScriptCompileOption compileOption = ScriptCompileOption::Default);
+
+		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+
+		const Array<String>& getMessages() const;
+
+		[[nodiscard]]
+		const FilePath& path() const;
+
 		void swap(Script& other) noexcept;
+
+		[[nodiscard]]
+		static AngelScript::asIScriptEngine* GetEngine();
+
+	protected:
+
+		const std::shared_ptr<ScriptModule>& _getModule() const;
+
+		AngelScript::asIScriptFunction* _getFunction(StringView decl) const;
 	};
 }
 
