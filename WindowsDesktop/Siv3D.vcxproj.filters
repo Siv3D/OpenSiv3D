@@ -1528,6 +1528,12 @@
     <Filter Include="src\Siv3D\FormatData">
       <UniqueIdentifier>{8aed29d3-6357-4175-bf56-63cdfc5545d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Script\angelscript">
+      <UniqueIdentifier>{f1e0f086-322c-4d2f-b5bf-35807a74e492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScriptModule">
+      <UniqueIdentifier>{8f867b0f-6c61-4825-be18-01e7fd2641ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6741,6 +6747,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptbuilder.h">
+      <Filter>src\Siv3D\Script\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Script.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScriptModule.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9359,6 +9377,18 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatData\SivFormatData.cpp">
       <Filter>src\Siv3D\FormatData</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptbuilder.cpp">
+      <Filter>src\Siv3D\Script\angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\SivScript.cpp">
+      <Filter>src\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScriptModule\SivScriptModule.cpp">
+      <Filter>src\Siv3D\ScriptModule</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def">
@@ -9427,8 +9457,10 @@
     <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_arm64_msvc.asm">
       <Filter>src\ThirdParty\angelscript</Filter>
     </None>
-    <None Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Siv3D\src\ThirdParty\angelscript\as_callfunc_x64_msvc_asm.asm">
       <Filter>src\ThirdParty\angelscript</Filter>
-    </None>
+    </CustomBuild>
   </ItemGroup>
 </Project>

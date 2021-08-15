@@ -454,8 +454,12 @@ add_library(
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
+  ../Siv3D/src/Siv3D/ScriptModule/SivScriptModule.cpp
+  ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp
+  ../Siv3D/src/Siv3D/Script/ScriptData.cpp
   ../Siv3D/src/Siv3D/Script/ScriptFactory.cpp
+  ../Siv3D/src/Siv3D/Script/SivScript.cpp
   ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
   ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
   ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
