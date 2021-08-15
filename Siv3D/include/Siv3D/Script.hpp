@@ -38,7 +38,7 @@ namespace s3d
 
 		template <class Fty>
 		[[nodiscard]]
-		auto getFunction(StringView decl) const;
+		ScriptFunction<Fty> getFunction(StringView decl) const;
 
 		[[nodiscard]]
 		bool compiled() const;

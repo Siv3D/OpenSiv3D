@@ -82,4 +82,14 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Script)->getEngine();
 	}
+
+	const std::shared_ptr<ScriptModule>& Script::_getModule() const
+	{
+		return SIV3D_ENGINE(Script)->getModule(m_handle->id());
+	}
+
+	AngelScript::asIScriptFunction* Script::_getFunction(const StringView decl) const
+	{
+		return SIV3D_ENGINE(Script)->getFunction(m_handle->id(), decl);
+	}
 }

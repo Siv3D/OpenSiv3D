@@ -11,6 +11,25 @@
 
 # pragma once
 
+namespace s3d
+{
+	template <class Fty>
+	inline ScriptFunction<Fty> Script::getFunction(const StringView decl) const
+	{
+		if (isEmpty())
+		{
+			return nullptr;
+		}
+
+		if (const auto func = _getFunction(decl))
+		{
+			return ScriptFunction<Fty>{ _getModule(), func };
+		}
+
+		return ScriptFunction<Fty>{};
+	}
+}
+
 template <>
 inline void std::swap(s3d::Script& a, s3d::Script& b) noexcept
 {
