@@ -3211,6 +3211,7 @@
 		2C61A00C26C9561100429B27 /* SivScriptModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScriptModule.cpp; sourceTree = "<group>"; };
 		2C61A00E26C965D400429B27 /* ScriptFunction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScriptFunction.hpp; sourceTree = "<group>"; };
 		2C61A00F26C965D400429B27 /* ScriptCompileOption.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScriptCompileOption.hpp; sourceTree = "<group>"; };
+		2C61A01026C96E9900429B27 /* ScriptFunction.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScriptFunction.ipp; sourceTree = "<group>"; };
 		2C62196226750F220088B175 /* UUID.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UUID.hpp; sourceTree = "<group>"; };
 		2C62196426750F3A0088B175 /* SivUUID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivUUID.cpp; sourceTree = "<group>"; };
 		2C62196726750F550088B175 /* gsl_util */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gsl_util; sourceTree = "<group>"; };
@@ -4655,6 +4656,7 @@
 				2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
 				2C619FFF26C955C200429B27 /* Script.ipp */,
+				2C61A01026C96E9900429B27 /* ScriptFunction.ipp */,
 				2C063DB92661426000368BEE /* Serial.ipp */,
 				2C063DB22661426000368BEE /* Serialization.ipp */,
 				2C063D622661426000368BEE /* ShaderCommon.ipp */,
