@@ -20,6 +20,7 @@ using CharType = String::value_type;
 #define UNUSED_VAR(x) (void)(x)
 
 #ifdef AS_CAN_USE_CPP11
+#include <unordered_map>
 BEGIN_AS_NAMESPACE
 typedef std::unordered_map<String, int> map_t;
 END_AS_NAMESPACE

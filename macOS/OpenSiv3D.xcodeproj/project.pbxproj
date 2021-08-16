@@ -1309,6 +1309,14 @@
 		2C91F43826CA2C15002E067F /* ManagedScriptDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43526CA2C15002E067F /* ManagedScriptDetail.cpp */; };
 		2C91F43926CA2C15002E067F /* ManagedScriptDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F43626CA2C15002E067F /* ManagedScriptDetail.hpp */; };
 		2C91F43C26CA2C2B002E067F /* SivScriptFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */; };
+		2C91F44026CA5659002E067F /* ScriptBind.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F43E26CA5659002E067F /* ScriptBind.hpp */; };
+		2C91F44126CA5659002E067F /* ScriptTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43F26CA5659002E067F /* ScriptTypes.cpp */; };
+		2C91F44826CA566F002E067F /* scriptstdstring.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F44226CA566E002E067F /* scriptstdstring.h */; };
+		2C91F44926CA566F002E067F /* scriptstdstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F44326CA566F002E067F /* scriptstdstring.cpp */; };
+		2C91F44A26CA566F002E067F /* scriptarray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F44426CA566F002E067F /* scriptarray.cpp */; };
+		2C91F44B26CA566F002E067F /* scriptgrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F44526CA566F002E067F /* scriptgrid.h */; };
+		2C91F44C26CA566F002E067F /* scriptgrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F44626CA566F002E067F /* scriptgrid.cpp */; };
+		2C91F44D26CA566F002E067F /* scriptarray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F44726CA566F002E067F /* scriptarray.h */; };
 		2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C956629264501B900539B85 /* gaussian_distribution.cc */; };
 		2C956653264546F700539B85 /* paintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662C264546F700539B85 /* paintelement.h */; };
 		2C956654264546F700539B85 /* symbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662D264546F700539B85 /* symbolelement.h */; };
@@ -3630,6 +3638,14 @@
 		2C91F43526CA2C15002E067F /* ManagedScriptDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagedScriptDetail.cpp; sourceTree = "<group>"; };
 		2C91F43626CA2C15002E067F /* ManagedScriptDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ManagedScriptDetail.hpp; sourceTree = "<group>"; };
 		2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScriptFunction.cpp; sourceTree = "<group>"; };
+		2C91F43E26CA5659002E067F /* ScriptBind.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptBind.hpp; sourceTree = "<group>"; };
+		2C91F43F26CA5659002E067F /* ScriptTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTypes.cpp; sourceTree = "<group>"; };
+		2C91F44226CA566E002E067F /* scriptstdstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scriptstdstring.h; sourceTree = "<group>"; };
+		2C91F44326CA566F002E067F /* scriptstdstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scriptstdstring.cpp; sourceTree = "<group>"; };
+		2C91F44426CA566F002E067F /* scriptarray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scriptarray.cpp; sourceTree = "<group>"; };
+		2C91F44526CA566F002E067F /* scriptgrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scriptgrid.h; sourceTree = "<group>"; };
+		2C91F44626CA566F002E067F /* scriptgrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scriptgrid.cpp; sourceTree = "<group>"; };
+		2C91F44726CA566F002E067F /* scriptarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scriptarray.h; sourceTree = "<group>"; };
 		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
 		2C95662C264546F700539B85 /* paintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paintelement.h; sourceTree = "<group>"; };
 		2C95662D264546F700539B85 /* symbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbolelement.h; sourceTree = "<group>"; };
@@ -5681,6 +5697,7 @@
 		2C36F844267F93F700691B1C /* Script */ = {
 			isa = PBXGroup;
 			children = (
+				2C91F43D26CA5659002E067F /* Bind */,
 				2C36F845267F93F700691B1C /* CScript.cpp */,
 				2C61A00526C955EF00429B27 /* ScriptData.cpp */,
 				2C36F846267F93F700691B1C /* ScriptFactory.cpp */,
@@ -8286,6 +8303,12 @@
 		2C61A00026C955E200429B27 /* angelscript */ = {
 			isa = PBXGroup;
 			children = (
+				2C91F44426CA566F002E067F /* scriptarray.cpp */,
+				2C91F44726CA566F002E067F /* scriptarray.h */,
+				2C91F44626CA566F002E067F /* scriptgrid.cpp */,
+				2C91F44526CA566F002E067F /* scriptgrid.h */,
+				2C91F44326CA566F002E067F /* scriptstdstring.cpp */,
+				2C91F44226CA566E002E067F /* scriptstdstring.h */,
 				2C61A00126C955E200429B27 /* scriptbuilder.h */,
 				2C61A00226C955E200429B27 /* scriptbuilder.cpp */,
 			);
@@ -9496,6 +9519,15 @@
 				2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */,
 			);
 			path = ScriptFunction;
+			sourceTree = "<group>";
+		};
+		2C91F43D26CA5659002E067F /* Bind */ = {
+			isa = PBXGroup;
+			children = (
+				2C91F43E26CA5659002E067F /* ScriptBind.hpp */,
+				2C91F43F26CA5659002E067F /* ScriptTypes.cpp */,
+			);
+			path = Bind;
 			sourceTree = "<group>";
 		};
 		2C95662B264546F700539B85 /* lunasvg */ = {
@@ -11524,6 +11556,7 @@
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
 				2CB18EDF26B5A68700862C28 /* as_datatype.h in Headers */,
 				2C5337C0264F5AA200CE0F1B /* mem.h in Headers */,
+				2C91F44D26CA566F002E067F /* scriptarray.h in Headers */,
 				2CFB7DA8262A66BA00169B97 /* CTextInput.hpp in Headers */,
 				2C2AA37B26009C74003F3EBC /* b2_fixture.h in Headers */,
 				2C48BF6925D41C0D00A93CE3 /* agg_basics.h in Headers */,
@@ -11658,6 +11691,7 @@
 				2C43C89425C837F100D6D613 /* svcfftl.h in Headers */,
 				2C48BF7025D41C0D00A93CE3 /* OutlineGlyphRenderer.hpp in Headers */,
 				2C6390FC2539ABAB0030F18E /* MetalVertexShader.hpp in Headers */,
+				2C91F44826CA566F002E067F /* scriptstdstring.h in Headers */,
 				2C9566D92645626000539B85 /* mz_strm_bzip.h in Headers */,
 				2C439F78241DCEA9001154C2 /* utils.h in Headers */,
 				2C43C8BA25C837F100D6D613 /* ftsystem.h in Headers */,
@@ -11772,6 +11806,7 @@
 				2C39ECB12564033C0021DF34 /* Vertex2DBuilder.hpp in Headers */,
 				2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */,
 				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
+				2C91F44026CA5659002E067F /* ScriptBind.hpp in Headers */,
 				2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */,
 				2CC584832648246900C33E9F /* ogg.h in Headers */,
 				2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */,
@@ -12009,6 +12044,7 @@
 				2CB749F8261F52E200D31274 /* CXInput_Null.hpp in Headers */,
 				2C47B49224DD97F2008D83BE /* muParserFixes.h in Headers */,
 				2CC5842626461D7900C33E9F /* gif_load.h in Headers */,
+				2C91F44B26CA566F002E067F /* scriptgrid.h in Headers */,
 				2C43C8A625C837F100D6D613 /* ftrfork.h in Headers */,
 				2C427FE02628438A00106F19 /* IGamepad.hpp in Headers */,
 			);
@@ -12272,6 +12308,7 @@
 				2C9566D82645626000539B85 /* mz_crypt.c in Sources */,
 				2C48BF8725D41C0D00A93CE3 /* CFont.cpp in Sources */,
 				2C834D96248805D4006208B8 /* iso8859_5.c in Sources */,
+				2C91F44C26CA566F002E067F /* scriptgrid.cpp in Sources */,
 				2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */,
 				2C794AAE25C3DE7800034D81 /* SivBase64.cpp in Sources */,
 				2C48BF7825D41C0D00A93CE3 /* MSDFGlyphCache.cpp in Sources */,
@@ -12353,6 +12390,7 @@
 				2C834D8B248805D4006208B8 /* big5.c in Sources */,
 				2C44C057264960B800A5E72A /* TIFFDecoder.cpp in Sources */,
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
+				2C91F44A26CA566F002E067F /* scriptarray.cpp in Sources */,
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
@@ -12559,6 +12597,7 @@
 				2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */,
 				2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */,
 				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
+				2C91F44926CA566F002E067F /* scriptstdstring.cpp in Sources */,
 				2C60AE8B248158A500277281 /* os_info_non_windows_non_darwin.cpp in Sources */,
 				2C60AE90248158A500277281 /* cpuid_non_windows.cpp in Sources */,
 				2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */,
@@ -12584,6 +12623,7 @@
 				2CED6E5726720244000FE5B8 /* SivTimeProfiler.cpp in Sources */,
 				2C794B7625C4FD8D00034D81 /* AssetMonitorFactory.cpp in Sources */,
 				2C47B35324DD9789008D83BE /* SivByte.cpp in Sources */,
+				2C91F44126CA5659002E067F /* ScriptTypes.cpp in Sources */,
 				2C13C89325B8FA840054B968 /* SivNavMesh.cpp in Sources */,
 				2CEC7DC125FA4DC200704B99 /* SivExif.cpp in Sources */,
 				2C0FBD6F262978100050E354 /* WebcamDetail.cpp in Sources */,
