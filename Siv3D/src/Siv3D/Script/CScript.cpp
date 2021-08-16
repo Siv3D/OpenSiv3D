@@ -15,6 +15,10 @@
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Logger.hpp>
+# include "AngelScript/scriptarray.h"
+# include "AngelScript/scriptgrid.h"
+# include "AngelScript/scriptstdstring.h"
+# include "Bind/ScriptBind.hpp"
 
 namespace s3d
 {
@@ -72,6 +76,13 @@ namespace s3d
 		m_engine->SetEngineProperty(AngelScript::asEP_REQUIRE_ENUM_SCOPE, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1);
+
+		{
+			AngelScript::RegisterScriptArray(m_engine);
+			AngelScript::RegisterScriptGrid(m_engine);
+			RegisterTypes(m_engine);
+			AngelScript::RegisterStdString(m_engine);
+		}
 
 		{
 			auto nullScript = std::make_unique<ScriptData>(ScriptData::Null{}, m_engine);

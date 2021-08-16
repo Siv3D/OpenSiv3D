@@ -240,6 +240,11 @@ namespace s3d
 
 	Array<String> ScriptData::getFunctionDeclarations(const IncludeParamNames includeParamNames) const
 	{
+		if (not m_complieSucceeded)
+		{
+			return{};
+		}
+
 		const uint32 functionCount = m_module->module->GetFunctionCount();
 		Array<String> declarations(functionCount);
 

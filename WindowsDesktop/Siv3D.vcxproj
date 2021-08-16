@@ -1194,7 +1194,11 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Scene\IScene.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptarray.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptbuilder.h" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptgrid.h" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptstdstring.h" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBind.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp" />
@@ -2192,7 +2196,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\SivScreenCapture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScriptFunction\SivScriptFunction.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ScriptModule\SivScriptModule.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptarray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptbuilder.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptgrid.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptstdstring.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTypes.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\CScript.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptFactory.cpp" />

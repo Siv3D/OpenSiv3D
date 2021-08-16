@@ -458,7 +458,11 @@ add_library(
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScriptFunction/SivScriptFunction.cpp
   ../Siv3D/src/Siv3D/ScriptModule/SivScriptModule.cpp
+  ../Siv3D/src/Siv3D/Script/angelscript/scriptarray.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
+  ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
+  ../Siv3D/src/Siv3D/Script/angelscript/scriptstdstring.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTypes.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp
   ../Siv3D/src/Siv3D/Script/ScriptData.cpp
   ../Siv3D/src/Siv3D/Script/ScriptFactory.cpp
