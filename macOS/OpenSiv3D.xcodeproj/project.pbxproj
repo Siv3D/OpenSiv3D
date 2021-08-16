@@ -1187,7 +1187,6 @@
 		2C768DC7268D8E4D00A02CF5 /* SivBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */; };
 		2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */; };
 		2C780BA526B04B7E008FADA0 /* SivTriangle3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */; };
-		2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA125C24D5200034D81 /* soft_shape.metal */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
 		2C794AAE25C3DE7800034D81 /* SivBase64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AAD25C3DE7800034D81 /* SivBase64.cpp */; };
@@ -3502,7 +3501,6 @@
 		2C768DCA268E28E000A02CF5 /* MeshData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshData.hpp; sourceTree = "<group>"; };
 		2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMeshData.cpp; sourceTree = "<group>"; };
 		2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
-		2C794AA125C24D5200034D81 /* soft_shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = soft_shape.metal; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
 		2C794AA925C3DE2700034D81 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
@@ -4812,7 +4810,6 @@
 		2C0A4D93256A21AC002A4B5E /* MSL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				2C0A4DA2256A21FD002A4B5E /* example */,
 				2C0A4D94256A21E6002A4B5E /* engine */,
 			);
 			name = MSL_BUILD;
@@ -4839,31 +4836,6 @@
 			isa = PBXGroup;
 			children = (
 				2C0A4D9C256A21E6002A4B5E /* sprite.metal */,
-			);
-			path = msl;
-			sourceTree = "<group>";
-		};
-		2C0A4DA2256A21FD002A4B5E /* example */ = {
-			isa = PBXGroup;
-			children = (
-				2C0A4DA3256A21FD002A4B5E /* shader */,
-			);
-			name = example;
-			path = App/example;
-			sourceTree = "<group>";
-		};
-		2C0A4DA3256A21FD002A4B5E /* shader */ = {
-			isa = PBXGroup;
-			children = (
-				2C0A4DA8256A21FD002A4B5E /* msl */,
-			);
-			path = shader;
-			sourceTree = "<group>";
-		};
-		2C0A4DA8256A21FD002A4B5E /* msl */ = {
-			isa = PBXGroup;
-			children = (
-				2C794AA125C24D5200034D81 /* soft_shape.metal */,
 			);
 			path = msl;
 			sourceTree = "<group>";
@@ -12158,7 +12130,6 @@
 				2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */,
 				2C0FF4E824C437020014C96E /* Siv3DTest_BinaryWriter.cpp in Sources */,
 				2C48585324C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp in Sources */,
-				2C794AA225C24D5200034D81 /* soft_shape.metal in Sources */,
 				2C48585224C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp in Sources */,
 				2C0FF4F424C486ED0014C96E /* Siv3DTest_TextWriter.cpp in Sources */,
 			);
