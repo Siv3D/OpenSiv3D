@@ -495,6 +495,37 @@ namespace s3d
 			return (GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/");
 		}
 
+		FilePath RelativePath(const FilePathView _path, const FilePathView _start)
+		{
+			if (_path.isEmpty() || _start.isEmpty())
+			{
+				return FilePath();
+			}
+
+			const FilePath path = FullPath(_path);
+			const FilePath start = FullPath(_start);
+
+			if (not IsDirectory(start))
+			{
+				return path;
+			}
+
+			if (path == start)
+			{
+				return U"./";
+			}
+
+			const fs::path p(path.toUTF8()), base(start.toUTF8());
+			FilePath result = Unicode::Widen(fs::proximate(p, base).string());
+
+			if (IsDirectory(result) && (not result.ends_with(U'/')))
+			{
+				result.push_back(U'/');
+			}
+
+			return result;
+		}
+
 		bool CreateDirectories(const FilePathView path)
 		{
 			if (not path)
@@ -573,7 +604,7 @@ namespace s3d
 				return false;
 			}
 
-			if (!allowUndo)
+			if (not allowUndo)
 			{
 				try
 				{
@@ -587,6 +618,39 @@ namespace s3d
 			}
 
 			return detail::Linux_TrashFile(path.narrow().c_str());
-		}		
+		}
+
+		bool RemoveContents(const FilePathView path, const AllowUndo allowUndo)
+		{
+			if (not IsDirectory(path))
+			{
+				return false;
+			}
+
+			if (not Remove(path, allowUndo))
+			{
+				return false;
+			}
+
+			return CreateDirectories(path);
+		}
+
+		bool Rename(const FilePathView from, const FilePathView to)
+		{
+			if ((not from) || (not to))
+			{
+				return false;
+			}
+
+			if (IsResourcePath(from) || IsResourcePath(to))
+			{
+				return false;
+			}
+
+			std::error_code error;
+			std::filesystem::rename(detail::ToPath(from), detail::ToPath(to), error);
+
+			return (error.value() == 0);
+		}
 	}
 }
