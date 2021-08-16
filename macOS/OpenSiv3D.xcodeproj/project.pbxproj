@@ -1305,6 +1305,10 @@
 		2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */; };
 		2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E718924C749C500CECCAE /* CResource.hpp */; };
 		2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E718A24C749C500CECCAE /* CResource.cpp */; };
+		2C91F43726CA2C15002E067F /* SivManagedScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43426CA2C15002E067F /* SivManagedScript.cpp */; };
+		2C91F43826CA2C15002E067F /* ManagedScriptDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43526CA2C15002E067F /* ManagedScriptDetail.cpp */; };
+		2C91F43926CA2C15002E067F /* ManagedScriptDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C91F43626CA2C15002E067F /* ManagedScriptDetail.hpp */; };
+		2C91F43C26CA2C2B002E067F /* SivScriptFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */; };
 		2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C956629264501B900539B85 /* gaussian_distribution.cc */; };
 		2C956653264546F700539B85 /* paintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662C264546F700539B85 /* paintelement.h */; };
 		2C956654264546F700539B85 /* symbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C95662D264546F700539B85 /* symbolelement.h */; };
@@ -3621,6 +3625,11 @@
 		2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEnvironmentVariable.cpp; sourceTree = "<group>"; };
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
+		2C91F43226CA2BF2002E067F /* ManagedScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ManagedScript.hpp; sourceTree = "<group>"; };
+		2C91F43426CA2C15002E067F /* SivManagedScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivManagedScript.cpp; sourceTree = "<group>"; };
+		2C91F43526CA2C15002E067F /* ManagedScriptDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ManagedScriptDetail.cpp; sourceTree = "<group>"; };
+		2C91F43626CA2C15002E067F /* ManagedScriptDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ManagedScriptDetail.hpp; sourceTree = "<group>"; };
+		2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScriptFunction.cpp; sourceTree = "<group>"; };
 		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
 		2C95662C264546F700539B85 /* paintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paintelement.h; sourceTree = "<group>"; };
 		2C95662D264546F700539B85 /* symbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbolelement.h; sourceTree = "<group>"; };
@@ -6284,6 +6293,7 @@
 				2C631E8B2687042500166A8E /* Line3D */,
 				2C0A4D4D25669320002A4B5E /* LineString */,
 				2C47B26124DD9789008D83BE /* Logger */,
+				2C91F43326CA2C15002E067F /* ManagedScript */,
 				2C85D2CD26C65D2700912EBC /* Mat3x2 */,
 				2CFF581225F79CC200B660AD /* Mat3x3 */,
 				2C711CEF26629EFD0018D38D /* Mat4x4 */,
@@ -6353,6 +6363,7 @@
 				2C6EEB0E2688ECD0002E220A /* ScopedCustomShader3D */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C36F844267F93F700691B1C /* Script */,
+				2C91F43A26CA2C2B002E067F /* ScriptFunction */,
 				2C61A00B26C9561100429B27 /* ScriptModule */,
 				2C2AA2B325FF8933003F3EBC /* Serial */,
 				2C2AA2D226009585003F3EBC /* SerialPortInfo */,
@@ -9469,6 +9480,24 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		2C91F43326CA2C15002E067F /* ManagedScript */ = {
+			isa = PBXGroup;
+			children = (
+				2C91F43426CA2C15002E067F /* SivManagedScript.cpp */,
+				2C91F43526CA2C15002E067F /* ManagedScriptDetail.cpp */,
+				2C91F43626CA2C15002E067F /* ManagedScriptDetail.hpp */,
+			);
+			path = ManagedScript;
+			sourceTree = "<group>";
+		};
+		2C91F43A26CA2C2B002E067F /* ScriptFunction */ = {
+			isa = PBXGroup;
+			children = (
+				2C91F43B26CA2C2B002E067F /* SivScriptFunction.cpp */,
+			);
+			path = ScriptFunction;
+			sourceTree = "<group>";
+		};
 		2C95662B264546F700539B85 /* lunasvg */ = {
 			isa = PBXGroup;
 			children = (
@@ -9867,6 +9896,7 @@
 				2CAAA72025E7FD0200C014D7 /* LogLevel.hpp */,
 				2CAAA88C25E7FD0300C014D7 /* LogType.hpp */,
 				2CAAA84A25E7FD0300C014D7 /* LuaScript.hpp */,
+				2C91F43226CA2BF2002E067F /* ManagedScript.hpp */,
 				2CAAA72F25E7FD0200C014D7 /* Mat3x2.hpp */,
 				2CFF581025F79C9800B660AD /* Mat3x3.hpp */,
 				2C063D2726612A3400368BEE /* Mat4x4.hpp */,
@@ -11685,6 +11715,7 @@
 				2C48BF0225CFB8C500A93CE3 /* msdf-error-correction.h in Headers */,
 				2CB18EC826B5A68700862C28 /* as_tokendef.h in Headers */,
 				2C13C9A525BD29FC0054B968 /* lua.hpp in Headers */,
+				2C91F43926CA2C15002E067F /* ManagedScriptDetail.hpp in Headers */,
 				2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */,
 				2C44C06C264960D400A5E72A /* tiffvers.h in Headers */,
 				2CB18ED526B5A68700862C28 /* as_map.h in Headers */,
@@ -12454,6 +12485,7 @@
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
 				2C695D86268F57C900970FB3 /* SivDisc.cpp in Sources */,
 				2C5337D62650BAF000CE0F1B /* SivSoundFont.cpp in Sources */,
+				2C91F43726CA2C15002E067F /* SivManagedScript.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
 				2C5337A0264F5AA200CE0F1B /* fse_compress.c in Sources */,
@@ -12719,6 +12751,7 @@
 				2C636EB02657F7D300AF029F /* tts.cpp in Sources */,
 				2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */,
 				2C60AE91248158A500277281 /* scope.cpp in Sources */,
+				2C91F43826CA2C15002E067F /* ManagedScriptDetail.cpp in Sources */,
 				2C47B48B24DD97F2008D83BE /* muParserTokenReader.cpp in Sources */,
 				2C47B2FE24DD9789008D83BE /* CLicenseManager.cpp in Sources */,
 				2C9566ED2645626000539B85 /* mz_strm_buf.c in Sources */,
@@ -12894,6 +12927,7 @@
 				2C636EA12657F7D300AF029F /* dr_impl.cpp in Sources */,
 				2C2D5C00267C61CE00EF5696 /* SivPixelShaderAssetData.cpp in Sources */,
 				2C7091A6267F133C00A8F68C /* SivGraphics.cpp in Sources */,
+				2C91F43C26CA2C2B002E067F /* SivScriptFunction.cpp in Sources */,
 				2C834DA0248805D4006208B8 /* regcomp.c in Sources */,
 				2C13C9C525BD29FC0054B968 /* lmem.c in Sources */,
 				2C47B31E24DD9789008D83BE /* SivCursor.cpp in Sources */,
