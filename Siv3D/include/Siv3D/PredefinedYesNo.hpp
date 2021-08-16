@@ -109,4 +109,7 @@ namespace s3d
 
 	/// @brief Diffuse Texture を持つ
 	using HasDiffuseTexture = YesNo<struct HasDiffuseTexture_tag>;
+
+	/// @brief パラメータの名前を含む
+	using IncludeParamNames = YesNo<struct IncludeParamNames_tag>;
 }

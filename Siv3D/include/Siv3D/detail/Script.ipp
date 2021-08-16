@@ -18,7 +18,7 @@ namespace s3d
 	{
 		if (isEmpty())
 		{
-			return nullptr;
+			return{};
 		}
 
 		if (const auto func = _getFunction(decl))
@@ -26,7 +26,7 @@ namespace s3d
 			return ScriptFunction<Fty>{ _getModule(), func };
 		}
 
-		return ScriptFunction<Fty>{};
+		return{};
 	}
 }
 

@@ -315,6 +315,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/LineString/SivLineString.cpp
   ../Siv3D/src/Siv3D/Logger/LoggerFactory.cpp
   ../Siv3D/src/Siv3D/Logger/SivLogger.cpp
+  ../Siv3D/src/Siv3D/ManagedScript/ManagedScriptDetail.cpp
+  ../Siv3D/src/Siv3D/ManagedScript/SivManagedScript.cpp
   ../Siv3D/src/Siv3D/Mat3x2/SivMat3x2.cpp
   ../Siv3D/src/Siv3D/Mat3x3/SivMat3x3.cpp
   ../Siv3D/src/Siv3D/Mat4x4/SivMat4x4.cpp
@@ -436,6 +438,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp
+  ../Siv3D/src/Siv3D/ScriptFunction/SivScriptFunction.cpp
   ../Siv3D/src/Siv3D/ScriptModule/SivScriptModule.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp

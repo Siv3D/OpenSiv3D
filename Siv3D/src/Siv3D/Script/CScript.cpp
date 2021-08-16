@@ -158,6 +158,11 @@ namespace s3d
 	{
 		return m_scripts[handleID]->compileSucceeded();
 	}
+
+	bool CScript::reload(const Script::IDType handleID, const ScriptCompileOption compileOption)
+	{
+		return m_scripts[handleID]->reload(compileOption, handleID.value());
+	}
 	
 	const std::shared_ptr<ScriptModule>& CScript::getModule(const Script::IDType handleID)
 	{
@@ -169,7 +174,12 @@ namespace s3d
 		return m_scripts[handleID]->getFunction(decl);
 	}
 
-	const FilePath& CScript::path(Script::IDType handleID)
+	Array<String> CScript::getFunctionDeclarations(const Script::IDType handleID, const IncludeParamNames includeParamNames)
+	{
+		return m_scripts[handleID]->getFunctionDeclarations(includeParamNames);
+	}
+
+	const FilePath& CScript::path(const Script::IDType handleID)
 	{
 		return m_scripts[handleID]->path();
 	}
@@ -186,6 +196,11 @@ namespace s3d
 	const Array<String>& CScript::getMessages(const Script::IDType handleID)
 	{
 		return m_scripts[handleID]->getMessages();
+	}
+
+	void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool(void)>& callback)
+	{
+		return m_scripts[handleID]->setSystemUpdateCallback(callback);
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

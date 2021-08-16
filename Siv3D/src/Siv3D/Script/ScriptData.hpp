@@ -42,6 +42,9 @@ namespace s3d
 		bool compileSucceeded() const noexcept;
 
 		[[nodiscard]]
+		bool reload(ScriptCompileOption compileOption, uint64 scriptID);
+
+		[[nodiscard]]
 		const std::shared_ptr<ScriptModule>& getModule() const;
 
 		[[nodiscard]]
@@ -52,6 +55,11 @@ namespace s3d
 
 		[[nodiscard]]
 		const Array<String>& getMessages() const noexcept;
+
+		[[nodiscard]]
+		Array<String> getFunctionDeclarations(IncludeParamNames includeParamNames) const;
+
+		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
 
 	private:
 

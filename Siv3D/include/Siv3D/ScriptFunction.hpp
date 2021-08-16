@@ -11,6 +11,8 @@
 
 # pragma once
 # include "Common.hpp"
+# include "PredefinedYesNo.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -21,6 +23,8 @@ namespace s3d
 	struct ScriptFunction<Ret(Args...)>
 	{
 	public:
+
+		using return_type = Ret;
 
 		static constexpr size_t nargs = (sizeof...(Args));
 
@@ -43,11 +47,35 @@ namespace s3d
 
 		Ret tryCall(Args... args, String& exception) const;
 
+		[[nodiscard]]
+		String getDeclaration(IncludeParamNames includeParamNames = IncludeParamNames::Yes) const;
+
 	private:
 
 		std::shared_ptr<ScriptModule> m_module;
 
 		AngelScript::asIScriptFunction* m_function = nullptr;
+
+		template <class Type, class ... Args2>
+		void setArgs(uint32 argIndex, Type&& value, Args2&&... args) const;
+
+		template <class Type>
+		void setArgs(uint32 argIndex, Type&& value) const;
+
+		void setArgs(uint32) const;
+
+		template <class Type>
+		void setArg(uint32 argIndex, Type&& value) const;
+
+		[[nodiscard]]
+		bool execute() const;
+
+		[[nodiscard]]
+		Optional<String> tryExecute() const;
+
+		template <class Type>
+		[[nodiscard]]
+		Type getReturn() const;
 	};
 }
 

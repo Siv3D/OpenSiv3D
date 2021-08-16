@@ -63,6 +63,21 @@ namespace s3d
 		return SIV3D_ENGINE(Script)->compiled(m_handle->id());
 	}
 
+	bool Script::reload(const ScriptCompileOption compileOption)
+	{
+		return SIV3D_ENGINE(Script)->reload(m_handle->id(), compileOption);
+	}
+
+	void Script::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	{
+		SIV3D_ENGINE(Script)->setSystemUpdateCallback(m_handle->id(), callback);
+	}
+
+	Array<String> Script::getFunctionDeclarations(const IncludeParamNames includeParamNames) const
+	{
+		return SIV3D_ENGINE(Script)->getFunctionDeclarations(m_handle->id(), includeParamNames);
+	}
+
 	const Array<String>& Script::getMessages() const
 	{
 		return SIV3D_ENGINE(Script)->getMessages(m_handle->id());

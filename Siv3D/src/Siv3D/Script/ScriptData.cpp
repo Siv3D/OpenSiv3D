@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/UUID.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -111,6 +112,7 @@ namespace s3d
 		}
 
 		m_module->module = m_engine->GetModule(m_moduleName.c_str());
+		m_moduleName = UUID::Generate().to_string();
 		m_module->context = m_engine->CreateContext();
 		m_module->withLineCues = withLineCues;
 
@@ -130,6 +132,57 @@ namespace s3d
 	bool ScriptData::compileSucceeded() const noexcept
 	{
 		return m_complieSucceeded;
+	}
+
+	bool ScriptData::reload(const ScriptCompileOption compileOption, const uint64 scriptID)
+	{
+		if (not m_fullpath)
+		{
+			return false;
+		}
+
+		m_module = std::make_shared<ScriptModule>();
+		m_functions.clear();
+		m_moduleName.clear();
+		m_messages.clear();
+		m_complieSucceeded = false;
+		m_compileOption = compileOption;
+
+		const bool withLineCues = static_cast<bool>(m_compileOption & ScriptCompileOption::BuildWithLineCues);
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, (not withLineCues));
+
+		AngelScript::CScriptBuilder builder;
+		int32 r = 0;
+
+		if (builder.StartNewModule(m_engine, m_moduleName.c_str());
+			(r < 0))
+		{
+			LOG_FAIL(U"Unrecoverable error while starting a new module.");
+			return false;
+		}
+
+		if (r = builder.AddSectionFromFile(m_fullpath);
+			(r < 0))
+		{
+			m_messages = SIV3D_ENGINE(Script)->retrieveMessages_internal();
+			return false;
+		}
+
+		if (r = builder.BuildModule();
+			(r < 0))
+		{
+			m_messages = SIV3D_ENGINE(Script)->retrieveMessages_internal();
+			return false;
+		}
+
+		m_module->module = m_engine->GetModule(m_moduleName.c_str());
+		m_module->context = m_engine->CreateContext();
+		m_module->withLineCues = withLineCues;
+		m_module->scriptID = scriptID;
+
+		m_complieSucceeded = true;
+
+		return true;
 	}
 
 	const std::shared_ptr<ScriptModule>& ScriptData::getModule() const
@@ -183,5 +236,25 @@ namespace s3d
 	const Array<String>& ScriptData::getMessages() const noexcept
 	{
 		return m_messages;
+	}
+
+	Array<String> ScriptData::getFunctionDeclarations(const IncludeParamNames includeParamNames) const
+	{
+		const uint32 functionCount = m_module->module->GetFunctionCount();
+		Array<String> declarations(functionCount);
+
+		for (uint32 i = 0; i < functionCount; ++i)
+		{
+			const AngelScript::asIScriptFunction* function = m_module->module->GetFunctionByIndex(i);
+
+			declarations[i] = Unicode::Widen(function->GetDeclaration(true, true, includeParamNames.getBool()));;
+		}
+
+		return declarations;
+	}
+
+	void ScriptData::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	{
+		m_systemUpdateCallback = callback;
 	}
 }

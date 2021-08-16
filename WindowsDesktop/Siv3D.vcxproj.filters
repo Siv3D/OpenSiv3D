@@ -1534,6 +1534,12 @@
     <Filter Include="src\Siv3D\ScriptModule">
       <UniqueIdentifier>{8f867b0f-6c61-4825-be18-01e7fd2641ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScriptFunction">
+      <UniqueIdentifier>{d3e3b435-9208-40af-be41-6c81497e49a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ManagedScript">
+      <UniqueIdentifier>{ab24de9f-c84d-4c49-90a5-d3038930fd92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6768,6 +6774,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScriptFunction.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ManagedScript\ManagedScriptDetail.hpp">
+      <Filter>src\Siv3D\ManagedScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9397,6 +9409,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ScriptModule\SivScriptModule.cpp">
       <Filter>src\Siv3D\ScriptModule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScriptFunction\SivScriptFunction.cpp">
+      <Filter>src\Siv3D\ScriptFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ManagedScript\ManagedScriptDetail.cpp">
+      <Filter>src\Siv3D\ManagedScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ManagedScript\SivManagedScript.cpp">
+      <Filter>src\Siv3D\ManagedScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

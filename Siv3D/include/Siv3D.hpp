@@ -1659,6 +1659,10 @@
 
 # include <Siv3D/Script.hpp>
 
+# include <Siv3D/ScriptFunction.hpp>
+
+# include <Siv3D/ManagedScript.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Lua スクリプト | Lua Script

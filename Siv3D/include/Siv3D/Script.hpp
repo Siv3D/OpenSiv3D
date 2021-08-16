@@ -36,6 +36,9 @@ namespace s3d
 
 		virtual ~Script();
 
+		[[nodiscard]]
+		Array<String> getFunctionDeclarations(IncludeParamNames includeParamNames = IncludeParamNames::Yes) const;
+
 		template <class Fty>
 		[[nodiscard]]
 		ScriptFunction<Fty> getFunction(StringView decl) const;

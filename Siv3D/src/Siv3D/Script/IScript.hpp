@@ -37,9 +37,13 @@ namespace s3d
 
 		virtual bool compiled(Script::IDType handleID) = 0;
 
+		virtual bool reload(Script::IDType handleID, ScriptCompileOption compileOption) = 0;
+
 		virtual const std::shared_ptr<ScriptModule>& getModule(Script::IDType handleID) = 0;
 
 		virtual AngelScript::asIScriptFunction* getFunction(Script::IDType handleID, StringView decl) = 0;
+
+		virtual Array<String> getFunctionDeclarations(Script::IDType handleID, IncludeParamNames includeParamNames) = 0;
 
 		virtual const FilePath& path(Script::IDType handleID) = 0;
 
@@ -47,11 +51,9 @@ namespace s3d
 
 		virtual const Array<String>& getMessages(Script::IDType handleID) = 0;
 
-		//void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) = 0;
+		virtual void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) = 0;
 
 		//const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
-
-		//bool reload(Script::IDType handleID, int32 compileOption) = 0;
 
 		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};

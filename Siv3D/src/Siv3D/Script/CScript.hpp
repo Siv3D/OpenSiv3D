@@ -37,9 +37,13 @@ namespace s3d
 
 		bool compiled(Script::IDType handleID) override;
 
+		bool reload(Script::IDType handleID, ScriptCompileOption compileOption) override;
+
 		const std::shared_ptr<ScriptModule>& getModule(Script::IDType handleID) override;
 
 		AngelScript::asIScriptFunction* getFunction(Script::IDType handleID, StringView decl) override;
+
+		Array<String> getFunctionDeclarations(Script::IDType handleID, IncludeParamNames includeParamNames) override;
 
 		const FilePath& path(Script::IDType handleID) override;
 
@@ -47,8 +51,8 @@ namespace s3d
 
 		const Array<String>& getMessages(Script::IDType handleID) override;
 
-		//bool reload(Script::IDType handleID, int32 compileOption) override;
-
+		void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) override;
+		
 		AngelScript::asIScriptEngine* getEngine() override;
 
 	private:
