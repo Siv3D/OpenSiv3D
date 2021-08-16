@@ -111,7 +111,12 @@ namespace s3d
 
 	Array<double> DrawableText::getXAdvances() const
 	{
-		return SIV3D_ENGINE(Font)->getXAdvances(font.id(), text, clusters);
+		return getXAdvances(font.fontSize());
+	}
+
+	Array<double> DrawableText::getXAdvances(const double size) const
+	{
+		return SIV3D_ENGINE(Font)->getXAdvances(font.id(), text, clusters, size);
 	}
 
 	RectF DrawableText::region(const double x, const double y) const

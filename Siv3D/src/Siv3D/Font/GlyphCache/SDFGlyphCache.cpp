@@ -321,7 +321,7 @@ namespace s3d
 		return{ topLeft, (xMax - basePos.x), (lineCount * prop.height() * scale * lineHeightScale) };
 	}
 
-	Array<double> SDFGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters)
+	Array<double> SDFGlyphCache::getXAdvances(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const double fontSize)
 	{
 		if (not prerender(font, clusters, false))
 		{
@@ -329,6 +329,10 @@ namespace s3d
 		}
 
 		const auto& prop = font.getProperty();
+		const double scale = (fontSize / prop.fontPixelSize);
+		const double lineHeightScale = 1.0;
+		constexpr double basePosX = 0.0;
+		double penPosX = basePosX;
 		Array<double> xAdvances(Arg::reserve = clusters.size());
 
 		for (const auto& cluster : clusters)
@@ -339,7 +343,13 @@ namespace s3d
 			{
 				if (ch == U'\t')
 				{
-					xAdvances << (prop.spaceWidth * 4);
+					const double tabAdvance = GetTabAdvance(prop.spaceWidth, scale, basePosX, penPosX, prop.indentSize);
+					xAdvances << tabAdvance;
+					penPosX += tabAdvance;
+				}
+				else if (ch == U'\n')
+				{
+					penPosX = basePosX;
 				}
 				else
 				{
@@ -353,28 +363,33 @@ namespace s3d
 			{
 				const size_t fallbackIndex = (cluster.fontIndex - 1);
 
-				xAdvances << SIV3D_ENGINE(Font)->xAdvanceFallback(font.getFallbackFont(fallbackIndex).lock()->id(),
-					cluster);
+				const double xAdvance = SIV3D_ENGINE(Font)->xAdvanceFallback(font.getFallbackFont(fallbackIndex).lock()->id(), cluster, fontSize);
+				xAdvances << xAdvance;
+				penPosX += xAdvance;
 
 				continue;
 			}
 
 			const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
-			xAdvances << cache.info.xAdvance;
+			const double xAdvance = (cache.info.xAdvance * scale);
+			xAdvances << xAdvance;
+			penPosX += xAdvance;
 		}
 
 		return xAdvances;
 	}
 
-	double SDFGlyphCache::xAdvanceFallback(const FontData& font, const GlyphCluster& cluster)
+	double SDFGlyphCache::xAdvanceFallback(const FontData& font, const GlyphCluster& cluster, const double fontSize)
 	{
 		if (not prerender(font, { cluster }, false))
 		{
 			return 0.0;
 		}
 
+		const auto& prop = font.getProperty();
+		const double scale = (fontSize / prop.fontPixelSize);
 		const auto& cache = m_glyphTable.find(cluster.glyphIndex)->second;
-		return cache.info.xAdvance;
+		return (cache.info.xAdvance * scale);
 	}
 
 	RectF SDFGlyphCache::region(const FontData& font, const StringView s, const Array<GlyphCluster>& clusters, const bool usebasePos, const Vec2& pos, const double size, const double lineHeightScale)

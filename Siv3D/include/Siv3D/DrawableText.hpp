@@ -39,6 +39,9 @@ namespace s3d
 		Array<double> getXAdvances() const;
 
 		[[nodiscard]]
+		Array<double> getXAdvances(double size) const;
+
+		[[nodiscard]]
 		RectF region(double x, double y) const;
 
 		[[nodiscard]]

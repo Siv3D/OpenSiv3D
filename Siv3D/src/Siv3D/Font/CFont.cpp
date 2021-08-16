@@ -375,11 +375,11 @@ namespace s3d
 		return glyphs;
 	}
 
-	Array<double> CFont::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters)
+	Array<double> CFont::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const double fontSize)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().getXAdvances(*font, s, clusters);
+			return m_fonts[handleID]->getGlyphCache().getXAdvances(*font, s, clusters, fontSize);
 		}
 	}
 
@@ -550,11 +550,11 @@ namespace s3d
 		}
 	}
 
-	double CFont::xAdvanceFallback(const Font::IDType handleID, const GlyphCluster& cluster)
+	double CFont::xAdvanceFallback(const Font::IDType handleID, const GlyphCluster& cluster, const double fontSize)
 	{
 		const auto& font = m_fonts[handleID];
 		{
-			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster);
+			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster, fontSize);
 		}
 	}
 

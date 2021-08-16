@@ -92,7 +92,7 @@ namespace s3d
 
 		Array<Glyph> getGlyphs(Font::IDType handleID, StringView s) override;
 
-		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters) override;
+		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, double fontSize) override;
 
 		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
 
@@ -112,7 +112,7 @@ namespace s3d
 
 		RectF regionBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
 	
-		double xAdvanceFallback(Font::IDType handleID, const GlyphCluster& cluster) override;
+		double xAdvanceFallback(Font::IDType handleID, const GlyphCluster& cluster, double fontSize) override;
 
 
 		bool hasEmoji(StringView emoji) override;
