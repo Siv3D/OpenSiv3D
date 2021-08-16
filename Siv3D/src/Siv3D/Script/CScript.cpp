@@ -15,9 +15,9 @@
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Logger.hpp>
-# include "AngelScript/scriptarray.h"
-# include "AngelScript/scriptgrid.h"
-# include "AngelScript/scriptstdstring.h"
+# include "angelScript/scriptarray.h"
+# include "angelScript/scriptgrid.h"
+# include "angelScript/scriptstdstring.h"
 # include "Bind/ScriptBind.hpp"
 
 namespace s3d
