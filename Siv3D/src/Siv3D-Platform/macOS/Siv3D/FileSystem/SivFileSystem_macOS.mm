@@ -685,6 +685,79 @@ namespace s3d
 		{
 			return (GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/");
 		}
+	
+		// http://stackoverflow.com/questions/5772992/get-relative-path-from-two-absolute-paths
+		FilePath RelativePath(const FilePathView _path, const FilePathView _start)
+		{
+			if (_path.isEmpty() || _start.isEmpty())
+			{
+				return FilePath();
+			}
+
+			const FilePath path = FullPath(_path);
+			const FilePath start = FullPath(_start);
+
+			if (!IsDirectory(start))
+			{
+				return path;
+			}
+
+			if (path == start)
+			{
+				return U"./";
+			}
+
+			fs::path p(path.toWstr()), base(start.toWstr());
+			fs::path from_path, from_base, output;
+			fs::path::iterator path_it = p.begin(), path_end = p.end();
+			fs::path::iterator base_it = base.begin(), base_end = base.end();
+
+			const std::string _dot(1, '.');
+			const std::string _dots(2, '.');
+			const std::string _sep(1, '/');
+
+			for (;;)
+			{
+				if ((path_it == path_end) || (base_it == base_end) || (*path_it != *base_it))
+				{
+					for (; base_it != base_end; ++base_it)
+					{
+						if (*base_it == _dot)
+							continue;
+						else if (*base_it == _sep)
+							continue;
+
+						output /= "../";
+					}
+
+					fs::path::iterator path_it_start = path_it;
+
+					for (; path_it != path_end; ++path_it)
+					{
+						if (path_it != path_it_start)
+							output /= "/";
+
+						if (*path_it == _dot)
+							continue;
+
+						if (*path_it == _sep)
+							continue;
+
+						output /= *path_it;
+					}
+
+					break;
+				}
+
+				from_path /= fs::path(*path_it);
+				from_base /= fs::path(*base_it);
+
+				++path_it;
+				++base_it;
+			}
+
+			return Unicode::Widen(output.string()).replace(U'\\', U'/');
+		}
 
 		bool CreateDirectories(const FilePathView path)
 		{
@@ -777,7 +850,7 @@ namespace s3d
 				return false;
 			}
 			
-			if (!allowUndo)
+			if (not allowUndo)
 			{
 				try
 				{
@@ -793,5 +866,37 @@ namespace s3d
 			return detail::MacOS_TrashFile(path.narrow(), IsDirectory(path));
 		}
 	
+		bool RemoveContents(const FilePathView path, const AllowUndo allowUndo)
+		{
+			if (not IsDirectory(path))
+			{
+				return false;
+			}
+
+			if (not Remove(path, allowUndo))
+			{
+				return false;
+			}
+
+			return CreateDirectories(path);
+		}
+
+		bool Rename(const FilePathView from, const FilePathView to)
+		{
+			if ((not from) || (not to))
+			{
+				return false;
+			}
+
+			if (IsResourcePath(from) || IsResourcePath(to))
+			{
+				return false;
+			}
+
+			boost::system::error_code ec;
+			fs::rename(fs::path(Unicode::ToWstring(from)), fs::path(Unicode::ToWstring(to)), ec);
+
+			return (ec.value() == 0);
+		}
 	}
 }
