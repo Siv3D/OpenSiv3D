@@ -12,11 +12,6 @@
 # version 410
 
 //
-//	Textures
-//
-uniform sampler2D Texture0;
-
-//
 //	PSInput
 //
 layout(location = 0) in vec4 Color;

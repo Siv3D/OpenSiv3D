@@ -44,11 +44,6 @@ namespace s3d
 	{
 		return float4((t._13_14 + (pos.x * t._11_12) + (pos.y * t._21_22)), t._23_24);
 	}
-
-	float median(float r, float g, float b)
-	{
-		return max(min(r, g), min(max(r, g), b));
-	}
 }
 
 //
@@ -81,7 +76,14 @@ s3d::PSInput VS(s3d::VSInput input)
 	return result;
 }
 
-float4 PS(s3d::PSInput input) : SV_TARGET
+float4 PS_Shape(s3d::PSInput input) : SV_TARGET
 {
 	return (input.color + g_colorAdd);
+}
+
+float4 PS_Texture(s3d::PSInput input) : SV_TARGET
+{
+	const float4 texColor = g_texture0.Sample(g_sampler0, input.uv);
+
+	return ((texColor * input.color) + g_colorAdd);
 }
