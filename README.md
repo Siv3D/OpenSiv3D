@@ -14,7 +14,7 @@
 | Windows            | **0.6.0**  | ?? ?? 2021 | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | **0.6.0**  | ?? ?? 2021 | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible graphics card |
 | Linux              | **0.6.0*** | ?? ?? 2021 | - GCC 9.3.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible graphics card |
-| Web (experimental) | **0.6.0*** | ?? ?? 2021 | - Emscripten 2.0.22 or newer<br>- Brower with WebAssembly and WebGL2 support |
+| Web (experimental) | **0.6.0*** | ?? ?? 2021 | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
 <small>* Some functionality may be missing or limited</small>
 
@@ -83,6 +83,71 @@ void Main()
 		{
 			// Move the coordinates to a random position in the screen
 			emojiPos = RandomVec2(Scene::Rect());
+		}
+	}
+}
+```
+
+### 2. Hello, 3D world! 
+```cpp
+# include <Siv3D.hpp>
+
+void Main()
+{
+	// Resize the window and scene to 1280x720
+	Window::Resize(1280, 720);
+
+	// Background color (remove SRGB curve for a linear workflow)
+	const ColorF backgroundColor = ColorF{ 0.4, 0.6, 0.8 }.removeSRGBCurve();
+
+	// Texture for UV check (mipmapped. treat as SRGB texture in a linear workflow)
+	const Texture uvChecker{ U"example/texture/uv.png", TextureDesc::MippedSRGB };
+
+	// Multisample RenderTexture for a linear workflow
+	const MSRenderTexture renderTexture{ Scene::Size(), TextureFormat::R8G8B8A8_Unorm_SRGB, HasDepth::Yes };
+
+	// 3D debug camera (free camera)
+	// Vertical FOV: 30°, Eye position: (10, 16, -32)
+	// Move: [W][S][A][D][E][X], View: [arrow keys]
+	DebugCamera3D camera{ renderTexture.size(), 30_deg, Vec3{ 10, 16, -32 } };
+
+	while (System::Update())
+	{
+		// Update a camera
+		camera.update(2.0);
+
+		// Set up a camera in the current 3D scene
+		Graphics3D::SetCameraTransform(camera);
+
+		// [3D rendering]
+		{
+			// Clear renderTexture with the background color,
+			// then make renderTexture the render target for the current 3D scene
+			const ScopedRenderTarget3D target{ renderTexture.clear(backgroundColor) };
+
+			// Draw a floor
+			Plane{ 64 }.draw(uvChecker);
+
+			// Draw a box
+			Box{ -8,2,0,4 }.draw(ColorF{ 0.8, 0.6, 0.4 }.removeSRGBCurve());
+
+			// Draw a sphere
+			Sphere{ 0,2,0,2 }.draw(ColorF{ 0.4, 0.8, 0.6 }.removeSRGBCurve());
+
+			// Draw a cylinder
+			Cylinder{ 8, 2, 0, 2, 4 }.draw(ColorF{ 0.6, 0.4, 0.8 }.removeSRGBCurve());
+		}
+
+		// [2D rendering]
+		{
+			// Flush 3D rendering commands before multisample resolve
+			Graphics3D::Flush();
+
+			// Multisample resolve
+			renderTexture.resolve();
+
+			// Transfer renderTexture to the current 2D scene (default scene)
+			Shader::LinearToScreen(renderTexture);
 		}
 	}
 }
