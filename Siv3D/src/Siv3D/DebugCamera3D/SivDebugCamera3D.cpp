@@ -20,7 +20,7 @@ namespace s3d
 	{
 		const double deltaTime = Scene::DeltaTime();
 		const double scaledSpeed =
-			speed * (KeyControl.pressed() ? 20.0 : KeyShift.pressed() ? 5.0 : 1.0)
+			speed * ((KeyControl | KeyCommand).pressed() ? 20.0 : KeyShift.pressed() ? 5.0 : 1.0)
 			* deltaTime;
 
 		if (KeyLeft.pressed())
