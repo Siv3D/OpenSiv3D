@@ -153,8 +153,8 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
 
-			compileHLSLFromFile(U"engine/shader/d3d11/apply_srgb_curve.hlsl", ShaderStage::Pixel, U"PS")
-				.save(U"engine/shader/d3d11/apply_srgb_curve.ps");
+			//compileHLSLFromFile(U"engine/shader/d3d11/apply_srgb_curve.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/apply_srgb_curve.ps");
 
 			//compileHLSLFromFile(U"engine/shader/d3d11/sky.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/sky.ps");
