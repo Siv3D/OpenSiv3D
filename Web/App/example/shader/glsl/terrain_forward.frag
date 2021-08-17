@@ -105,7 +105,7 @@ void main()
 	vec3 n = FetchNormal(UV);
 	vec3 l = lightDirection;
 	vec4 diffuseColor = TerrainTriplanar(WorldPosition, n, 0.5f);
-	vec3 ambientColor = ((g_amibientColor * g_gloablAmbientColor) + g_emissionColor);
+	vec3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
 
 	// Diffuse
 	vec3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
@@ -115,5 +115,5 @@ void main()
 	vec3 h = normalize(v + lightDirection);
 	vec3 specularReflection = CalculateSpecularReflection(n, h, g_shininess, dot(n, l), lightColor, g_specularColor);
 
-	FragColor = vec4(diffuseReflection + specularReflection, diffuseColor.a);
+	FragColor = vec4(diffuseReflection + specularReflection + g_emissionColor, diffuseColor.a);
 }

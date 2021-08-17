@@ -101,7 +101,7 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 n = normalize(input.normal);
 	const float3 l = lightDirection;
 	const float4 diffuseColor = GetDiffuseColor(input.uv);
-	const float3 ambientColor = ((g_amibientColor * g_gloablAmbientColor) + g_emissionColor);
+	const float3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
 
 	// Diffuse
 	const float3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
@@ -112,7 +112,7 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 specularReflection = CalculateSpecularReflection(n, h, g_shininess, dot(n, l), lightColor, g_specularColor);
 
 	// Exponential Fog
-	float4 surfaceColor = float4(diffuseReflection + specularReflection, diffuseColor.a);
+	float4 surfaceColor = float4(diffuseReflection + specularReflection + g_emissionColor, diffuseColor.a);
 	const float fogFactor = exp(-g_fogCoefficient * distance(g_eyePosition, input.worldPosition));
 	surfaceColor.rgb = lerp(g_fogColor, surfaceColor.rgb, fogFactor);
 

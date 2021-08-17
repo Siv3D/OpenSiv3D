@@ -97,7 +97,7 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 n = normalize(input.normal);
 	const float3 l = lightDirection;
 	const float4 diffuseColor = Triplanar(input.worldPosition, n, 0.125f);
-	const float3 ambientColor = ((g_amibientColor * g_gloablAmbientColor) + g_emissionColor);
+	const float3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
 
 	// Diffuse
 	const float3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
@@ -107,5 +107,5 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 h = normalize(v + lightDirection);
 	const float3 specularReflection = CalculateSpecularReflection(n, h, g_shininess, dot(n, l), lightColor, g_specularColor);
 
-	return float4(diffuseReflection + specularReflection, diffuseColor.a);
+	return float4(diffuseReflection + specularReflection + g_emissionColor, diffuseColor.a);
 }
