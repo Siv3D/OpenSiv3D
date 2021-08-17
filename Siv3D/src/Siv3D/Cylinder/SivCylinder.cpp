@@ -96,4 +96,53 @@ namespace s3d
 
 		return *this;
 	}
+
+
+	const Cylinder& Cylinder::draw(const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(orientation).translated(center), material);
+
+		return *this;
+	}
+
+	const Cylinder& Cylinder::draw(const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(orientation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Cylinder& Cylinder::draw(const Quaternion& rotation, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(orientation * rotation).translated(center), material);
+
+		return *this;
+	}
+
+	const Cylinder& Cylinder::draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw(Mat4x4::Scale(Float3{ r, h, r }).rotated(orientation * rotation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Cylinder& Cylinder::draw(const Mat4x4& mat, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw((Mat4x4::Scale(Float3{ r, h, r }).translated(center) * mat), material);
+
+		return *this;
+	}
+
+	const Cylinder& Cylinder::draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Cylinder)
+			.draw((Mat4x4::Scale(Float3{ r, h, r }).rotated(orientation).translated(center) * mat), texture, material);
+
+		return *this;
+	}
 }

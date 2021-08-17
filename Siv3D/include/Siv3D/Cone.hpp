@@ -19,6 +19,7 @@ namespace s3d
 {
 	class Texture;
 	struct Mat4x4;
+	struct PhongMaterial;
 
 	struct Cone
 	{
@@ -126,6 +127,20 @@ namespace s3d
 		const Cone& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		const Cone& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+
+		const Cone& draw(const PhongMaterial & material) const;
+
+		const Cone& draw(const Texture& texture, const PhongMaterial& material) const;
+
+		const Cone& draw(const Quaternion& rotation, const PhongMaterial& material) const;
+
+		const Cone& draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const;
+
+		const Cone& draw(const Mat4x4& mat, const PhongMaterial& material) const;
+
+		const Cone& draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const;
 	};
 }
 

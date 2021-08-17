@@ -34,10 +34,10 @@ namespace s3d
 		PhongMaterial() = default;
 
 		SIV3D_NODISCARD_CXX20
-		PhongMaterial(const ColorF& _diffuseColor, HasDiffuseTexture _hasDiffuseTexture);
+		PhongMaterial(const ColorF& _diffuseColor, HasDiffuseTexture _hasDiffuseTexture = HasDiffuseTexture::No);
 
 		SIV3D_NODISCARD_CXX20
-		PhongMaterial(const Material& material, HasDiffuseTexture _hasDiffuseTexture);
+		PhongMaterial(const Material& material, HasDiffuseTexture _hasDiffuseTexture = HasDiffuseTexture::No);
 	};
 
 	struct PhongMaterialInternal

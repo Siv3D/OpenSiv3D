@@ -64,4 +64,53 @@ namespace s3d
 
 		return *this;
 	}
+
+
+	const Disc& Disc::draw(const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw(Mat4x4::Scale(Float3{ r, 1, r }).translated(center), material);
+
+		return *this;
+	}
+
+	const Disc& Disc::draw(const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw(Mat4x4::Scale(Float3{ r, 1, r }).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Disc& Disc::draw(const Quaternion& rotation, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw(Mat4x4::Scale(Float3{ r, 1, r }).rotated(rotation).translated(center), material);
+
+		return *this;
+	}
+
+	const Disc& Disc::draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw(Mat4x4::Scale(Float3{ r, 1, r }).rotated(rotation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Disc& Disc::draw(const Mat4x4& mat, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), material);
+
+		return *this;
+	}
+
+	const Disc& Disc::draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Disc)
+			.draw((Mat4x4::Scale(Float3{ r, 1, r }).translated(center) * mat), texture, material);
+
+		return *this;
+	}
 }

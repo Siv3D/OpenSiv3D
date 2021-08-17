@@ -158,6 +158,56 @@ namespace s3d
 		return *this;
 	}
 
+
+
+	const Sphere& Sphere::draw(const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw(Mat4x4::Scale(r).translated(center), material);
+
+		return *this;
+	}
+
+	const Sphere& Sphere::draw(const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw(Mat4x4::Scale(r).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Sphere& Sphere::draw(const Quaternion& rotation, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw(Mat4x4::Scale(r).rotated(rotation).translated(center), material);
+
+		return *this;
+	}
+
+	const Sphere& Sphere::draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw(Mat4x4::Scale(r).rotated(rotation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Sphere& Sphere::draw(const Mat4x4& mat, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw((Mat4x4::Scale(r).translated(center) * mat), material);
+
+		return *this;
+	}
+
+	const Sphere& Sphere::draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Sphere)
+			.draw((Mat4x4::Scale(r).translated(center) * mat), texture, material);
+
+		return *this;
+	}
+
 	void Formatter(FormatData& formatData, const Sphere& value)
 	{
 		formatData.string.append(U"(("_sv);

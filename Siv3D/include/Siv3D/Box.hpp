@@ -25,6 +25,7 @@ namespace s3d
 	struct OrientedBox;
 	class ViewFrustum;
 	struct Ray;
+	struct PhongMaterial;
 
 	struct Box
 	{
@@ -280,6 +281,20 @@ namespace s3d
 		const Box& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		const Box& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+		const Box& draw(const PhongMaterial& material) const;
+
+		const Box& draw(const Texture& texture, const PhongMaterial& material) const;
+
+		const Box& draw(const Quaternion& rotation, const PhongMaterial& material) const;
+
+		const Box& draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const;
+
+		const Box& draw(const Mat4x4& mat, const PhongMaterial& material) const;
+
+		const Box& draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const;
+
 
 
 		const Box& drawFrame(const ColorF& color = Palette::White) const;

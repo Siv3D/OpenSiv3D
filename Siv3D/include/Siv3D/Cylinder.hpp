@@ -19,6 +19,7 @@ namespace s3d
 {
 	class Texture;
 	struct Mat4x4;
+	struct PhongMaterial;
 
 	struct Cylinder
 	{
@@ -126,6 +127,21 @@ namespace s3d
 		const Cylinder& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		const Cylinder& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+
+
+		const Cylinder& draw(const PhongMaterial & material) const;
+
+		const Cylinder& draw(const Texture& texture, const PhongMaterial& material) const;
+
+		const Cylinder& draw(const Quaternion& rotation, const PhongMaterial& material) const;
+
+		const Cylinder& draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const;
+
+		const Cylinder& draw(const Mat4x4& mat, const PhongMaterial& material) const;
+
+		const Cylinder& draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const;
+
 	};
 }
 

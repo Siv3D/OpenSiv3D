@@ -183,6 +183,55 @@ namespace s3d
 		return *this;
 	}
 
+
+	const OrientedBox& OrientedBox::draw(const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation).translated(center), material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation * rotation).translated(center), material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation * rotation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), texture, material);
+
+		return *this;
+	}
+
 	const OrientedBox& OrientedBox::drawFrame(const ColorF& color) const
 	{
 		const std::array<Vec3, 8> c = getCorners();

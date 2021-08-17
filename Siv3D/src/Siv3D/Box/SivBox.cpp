@@ -192,6 +192,54 @@ namespace s3d
 		return *this;
 	}
 
+	const Box& Box::draw(const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).translated(center), material);
+
+		return *this;
+	}
+
+	const Box& Box::draw(const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Box& Box::draw(const Quaternion& rotation, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(rotation).translated(center), material);
+
+		return *this;
+	}
+
+	const Box& Box::draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(rotation).translated(center), texture, material);
+
+		return *this;
+	}
+
+	const Box& Box::draw(const Mat4x4& mat, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).translated(center) * mat), material);
+
+		return *this;
+	}
+
+	const Box& Box::draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).translated(center) * mat), texture, material);
+
+		return *this;
+	}
+
 	const Box& Box::drawFrame(const ColorF& color) const
 	{
 		const std::array<Vec3, 8> c = getCorners();
