@@ -127,6 +127,12 @@ namespace s3d
 		void Flush();
 
 		template <class Type>
+		inline void SetVSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
+		template <class Type>
+		inline void SetPSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
+		template <class Type>
 		inline void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBuffer<Type>& buffer);
 	}
 }

@@ -118,6 +118,12 @@ namespace s3d
 		/// @param count 描画する三角形の個数
 		void DrawTriangles(uint32 count);
 
+		template <class Type>
+		inline void SetVSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
+		template <class Type>
+		inline void SetPSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
 		/// @brief 
 		/// @tparam Type 
 		/// @param stage 

@@ -47,6 +47,18 @@ namespace s3d
 		}
 
 		template <class Type>
+		inline void SetVSConstantBuffer(const uint32 slot, const ConstantBuffer<Type>& buffer)
+		{
+			SetConstantBuffer(ShaderStage::Vertex, slot, buffer);
+		}
+
+		template <class Type>
+		inline void SetPSConstantBuffer(const uint32 slot, const ConstantBuffer<Type>& buffer)
+		{
+			SetConstantBuffer(ShaderStage::Pixel, slot, buffer);
+		}
+
+		template <class Type>
 		inline void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBuffer<Type>& buffer)
 		{
 			Internal::SetConstantBuffer(stage, slot, buffer.base(), buffer.data(), ConstantBuffer<Type>::NumVectors);
