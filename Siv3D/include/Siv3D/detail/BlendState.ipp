@@ -42,12 +42,13 @@ namespace s3d
 
 	inline constexpr BlendState::BlendState(const Predefined predefined) noexcept
 	{
-		constexpr BlendState PredefinedStates[8] =
+		constexpr BlendState PredefinedStates[9] =
 		{
 			BlendState{ true },																// NonPremultiplied
 			BlendState{ true, Blend::One },													// Premultiplied
 			BlendState{ false },															// Opaque
 			BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::Add },			// Additive
+			BlendState{ true, Blend::One,		Blend::One,			BlendOp::Add },			// AdditiveRGB
 			BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::RevSubtract },	// Subtractive
 			BlendState{ true, Blend::Zero,		Blend::SrcColor,	BlendOp::Add },			// Multiplicative
 			BlendState{ true, Blend::DestColor,	Blend::SrcColor,	BlendOp::Add },			// Multiplicative2X

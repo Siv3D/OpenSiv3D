@@ -87,6 +87,8 @@ namespace s3d
 
 			Additive,
 
+			AdditiveRGB,
+
 			Subtractive,
 
 			Multiplicative,
@@ -171,6 +173,10 @@ namespace s3d
 		/// @brief 加算ブレンド
 		/// @remark BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		static constexpr Predefined Additive = Predefined::Additive;
+
+		/// @brief 加算ブレンド (RGB)
+		/// @remark BlendState{ true, Blend::One, Blend::One, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
+		static constexpr Predefined AdditiveRGB = Predefined::AdditiveRGB;
 
 		/// @brief 減算ブレンド
 		/// @remark BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::RevSubtract, Blend::Zero, Blend::One, BlendOp::Add }
