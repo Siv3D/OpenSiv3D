@@ -126,6 +126,7 @@ namespace s3d
 		const SIMD_Float4 focusPosition{ m_focusPosition, 0.0f };
 		const SIMD_Float4 upDirection{ m_upDirection, 0.0f };
 		m_view = DirectX::XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
+		m_invView = m_view.inverse();
 	}
 
 	void BasicCamera3D::updateViewProj() noexcept

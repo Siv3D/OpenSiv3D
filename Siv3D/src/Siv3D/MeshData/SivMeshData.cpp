@@ -495,6 +495,19 @@ namespace s3d
 		};
 	}
 
+	MeshData MeshData::Billboard(const Float2 uvScale, const Float2 uvOffset)
+	{
+		Array<Vertex3D> vertices =
+		{
+			{ .pos = { -0.5f,  0.5f, 0.0f }, .normal = { 0.0f, 0.0f, -1.0f }, .tex = uvOffset },
+			{ .pos = {  0.5f,  0.5f, 0.0f }, .normal = { 0.0f, 0.0f, -1.0f }, .tex = { (uvOffset.x + uvScale.x), 0.0f } },
+			{ .pos = { -0.5f, -0.5f, 0.0f }, .normal = { 0.0f, 0.0f, -1.0f }, .tex = { 0.0, (uvOffset.y + uvScale.y) } },
+			{ .pos = {  0.5f, -0.5f, 0.0f }, .normal = { 0.0f, 0.0f, -1.0f }, .tex = (uvOffset + uvScale) },
+		};
+
+		return{ std::move(vertices), detail::OneSidedPlaceIndices };
+	}
+
 	MeshData MeshData::OneSidedPlane(const double size, const Float2 uvScale, const Float2 uvOffset)
 	{
 		return OneSidedPlane(Float3::Zero(), Float2::All(static_cast<float>(size)), uvScale, uvOffset);

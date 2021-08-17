@@ -76,10 +76,23 @@ namespace s3d
 		const Mat4x4& SIV3D_VECTOR_CALL getView() const noexcept;
 
 		[[nodiscard]]
+		const Mat4x4& SIV3D_VECTOR_CALL getInvView() const noexcept;
+
+		[[nodiscard]]
 		const Mat4x4& SIV3D_VECTOR_CALL getViewProj() const noexcept;
 
 		[[nodiscard]]
 		const Mat4x4& SIV3D_VECTOR_CALL getInvViewProj() const noexcept;
+
+		[[nodiscard]]
+		Mat4x4 SIV3D_VECTOR_CALL billboard(Float3 pos) const noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		Mat4x4 SIV3D_VECTOR_CALL billboard(Float3 pos, Arithmetic scale) const noexcept;
+
+		[[nodiscard]]
+		Mat4x4 SIV3D_VECTOR_CALL billboard(Float3 pos, Float2 scale) const noexcept;
 
 		[[nodiscard]]
 		Float3 worldToScreenPoint(const Float3& pos) const noexcept;
@@ -95,6 +108,8 @@ namespace s3d
 		Mat4x4 m_proj = Mat4x4::Identity();
 
 		Mat4x4 m_view = Mat4x4::Identity();
+
+		Mat4x4 m_invView = Mat4x4::Identity();
 
 		Mat4x4 m_viewProj = Mat4x4::Identity();
 

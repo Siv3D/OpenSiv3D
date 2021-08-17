@@ -61,6 +61,9 @@ namespace s3d
 		s3d::Box computeBoundingBox() const;
 
 		[[nodiscard]]
+		static MeshData Billboard(Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
+
+		[[nodiscard]]
 		static MeshData OneSidedPlane(double size, Float2 uvScale = Float2{ 1.0f, 1.0f }, Float2 uvOffset = Float2{ 0.0f, 0.0f });
 
 		[[nodiscard]]

@@ -58,6 +58,11 @@ namespace s3d
 		return m_view;
 	}
 
+	inline const Mat4x4& BasicCamera3D::getInvView() const noexcept
+	{
+		return m_invView;
+	}
+
 	inline const Mat4x4& BasicCamera3D::getViewProj() const noexcept
 	{
 		return m_viewProj;
@@ -66,5 +71,32 @@ namespace s3d
 	inline const Mat4x4& BasicCamera3D::getInvViewProj() const noexcept
 	{
 		return m_invViewProj;
+	}
+
+	inline Mat4x4 BasicCamera3D::billboard(const Float3 pos) const noexcept
+	{
+		Mat4x4 m = m_invView;
+		m.value.r[3] = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
+		return m;
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC_
+	inline Mat4x4 BasicCamera3D::billboard(const Float3 pos, const Arithmetic scale) const noexcept
+	{
+		const float s = static_cast<float>(scale);
+		Mat4x4 m = m_invView;
+		m.value.r[0] = DirectX::XMVectorScale(m.value.r[0], s);
+		m.value.r[1] = DirectX::XMVectorScale(m.value.r[1], s);
+		m.value.r[3] = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
+		return m;
+	}
+
+	inline Mat4x4 BasicCamera3D::billboard(const Float3 pos, const Float2 scale) const noexcept
+	{
+		Mat4x4 m = m_invView;
+		m.value.r[0] = DirectX::XMVectorScale(m.value.r[0], scale.x);
+		m.value.r[1] = DirectX::XMVectorScale(m.value.r[1], scale.y);
+		m.value.r[3] = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
+		return m;
 	}
 }
