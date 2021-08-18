@@ -94,6 +94,7 @@ void Main()
 
 ### 2. Breakout
 
+![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/breakout.gif)
 
 ```cpp
 # include <Siv3D.hpp>
