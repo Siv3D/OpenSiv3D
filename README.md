@@ -28,6 +28,8 @@
 
 ### 1. Hello, Siv3D!
 
+![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-siv3d.gif)
+
 ```cpp
 # include <Siv3D.hpp>
 
@@ -89,6 +91,9 @@ void Main()
 ```
 
 ### 2. Hello, 3D world! 
+
+![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-3d.png)
+
 ```cpp
 # include <Siv3D.hpp>
 
