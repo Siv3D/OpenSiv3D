@@ -37,7 +37,93 @@ namespace s3d
 		//Arg_samplingRate = 67108877,
 		//Arg_samplingRateValue,
 		String = 67108877,
+
+		None_t,
+		Duration,
+		Date,
+		DateTime,
+		Stopwatch,
+		VariableSpeedStopwatch,
+		Timer,
+		//TimeProfiler,
+		MillisecClock,
+		MicrosecClock,
+		RDTSCClock,
+		Color,
+		ColorF,
+		HSV,
+		Point,
+		Float2,
+		Vec2,
+		Vec3,
+		Vec4,
+		Circular,
+		OffsetCircular,
+		Mat3x2,
+		Bezier2,
+		Bezier3,
+		Line,
+		Rect,
+		RectF,
+		Circle,
+		Ellipse,
+		Triangle,
+		Quad,
+		RoundRect,
+		Polygon,
+		MultiPolygon,
+		LineString,
+
+		FloatRect,
+
+		LineStyle,
+		LineStyleParameters,
+		Shape2D,
+
+		//CursorStyle,
+
+		//
+		Image,
+
+		SayBuffer,
+		Say_impl,
+
+		Key,
+
+		WaveSample,
+		Wave,
+		Audio,
+
+		TextureFormat,
+		Texture,
+		TextureRegion,
+		TexturedQuad,
+		TexturedCircle,
+		TexturedRoundRect,
+		DynamicTexture,
+		Font,
+		DrawableText,
+
+		Transformer2D,
+		ScopedViewport2D,
+
+		Emoji,
+		Icon,
+
+		PrintBuffer,
+		Print_impl,
 	};
 
-	void RegisterTypes(AngelScript::asIScriptEngine* engine);
+	using AngelScript::asIScriptEngine;
+
+	void RegisterTypes(asIScriptEngine* engine);
+	void RegisterUtility(asIScriptEngine* engine);
+	void RegisterNone_t(asIScriptEngine* engine);
+	void RegisterOptional(asIScriptEngine* engine);
+	void RegisterDuration(asIScriptEngine* engine);
+	void RegisterDate(asIScriptEngine* engine);
+	void RegisterDateTime(asIScriptEngine* engine);
+	void RegisterTime(asIScriptEngine* engine);
+
+	void RegisterPrint(asIScriptEngine* engine);
 }

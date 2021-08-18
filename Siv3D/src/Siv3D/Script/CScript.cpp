@@ -81,7 +81,18 @@ namespace s3d
 			AngelScript::RegisterScriptArray(m_engine);
 			AngelScript::RegisterScriptGrid(m_engine);
 			RegisterTypes(m_engine);
+			RegisterUtility(m_engine);
 			AngelScript::RegisterStdString(m_engine);
+
+			RegisterNone_t(m_engine);
+			RegisterOptional(m_engine);
+			RegisterDuration(m_engine);
+			RegisterDate(m_engine);
+			RegisterDateTime(m_engine);
+			RegisterTime(m_engine);
+
+
+			RegisterPrint(m_engine);
 		}
 
 		{

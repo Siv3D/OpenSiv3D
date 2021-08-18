@@ -444,7 +444,16 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptstdstring.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDate.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDateTime.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDuration.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFormat.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptNone_t.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptPrint.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTypes.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptUtility.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp
   ../Siv3D/src/Siv3D/Script/ScriptData.cpp
   ../Siv3D/src/Siv3D/Script/ScriptFactory.cpp

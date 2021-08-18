@@ -11,10 +11,17 @@
 
 # include <Siv3D.hpp>
 # include "ScriptBind.hpp"
+# include "ScriptOptional.hpp"
 
 namespace s3d
 {
 	using namespace AngelScript;
+
+	static void RegisterType(asIScriptEngine* const engine, const char* name, const int byteSize, const asDWORD flags)
+	{
+		const int32 r = engine->RegisterObjectType(name, byteSize, flags);
+		assert(0 <= r);
+	}
 
 	void RegisterTypes(asIScriptEngine* engine)
 	{
@@ -27,13 +34,13 @@ namespace s3d
 		//}
 		//r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("None_t", 1, asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK); assert(r >= 0);
+		RegisterType(engine, "String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>());
+		RegisterType(engine, "None_t", sizeof(uint8), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK);
+		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>());
+		RegisterType(engine, "Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 
-		//r = engine->RegisterObjectType("Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("CustomStopwatch", sizeof(CustomStopwatch), asOBJ_VALUE | asGetTypeTraits<CustomStopwatch>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>()); assert(r >= 0);
@@ -107,8 +114,8 @@ namespace s3d
 
 		////r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
-		//r = engine->RegisterObjectType("PrintBuffer", 0, asOBJ_REF); assert(r >= 0);
-		//r = engine->RegisterObjectType("Print_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		RegisterType(engine, "PrintBuffer", 0, asOBJ_REF);
+		RegisterType(engine, "Print_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
 
 		//r = engine->RegisterEnum("UserAction"); assert(r >= 0);
 		//r = engine->RegisterEnum("WindowStyle"); assert(r >= 0);
