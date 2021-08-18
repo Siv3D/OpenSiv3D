@@ -1,6 +1,6 @@
 <h1>OpenSiv3D <a href="https://github.com/Siv3D/OpenSiv3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4aaa4a"></a> <a href="https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM"><img src="https://img.shields.io/badge/social-Slack-4a154b"></a> <a href="https://twitter.com/search?q=Siv3D%20OR%20OpenSiv3D&src=typed_query&f=live"><img src="https://img.shields.io/badge/social-Twitter-1DA1F2"></a> <a href="https://github.com/sponsors/Reputeless"><img src="https://img.shields.io/badge/funding-GitHub_Sponsors-ea4aaa"></a></h1>
 
-<p align="center"><a href="https://siv3d.github.io/"><img src="https://raw.githubusercontent.com/Siv3D/File/master/v6/logo.png" alt="Siv3D logo"></a></p>
+<p align="center"><a href="https://siv3d.github.io/"><img src="https://raw.githubusercontent.com/Siv3D/File/master/v6/logo.png" width="480" alt="Siv3D logo"></a></p>
 
 **OpenSiv3D** is a C++20 framework for creative coding.
 
@@ -92,7 +92,74 @@ void Main()
 }
 ```
 
-### 2. Hello, 3D world! 
+### 2. Breakout
+
+
+```cpp
+# include <Siv3D.hpp>
+
+void Main()
+{
+	constexpr Size brickSize{ 40, 20 };
+	
+	constexpr double speed = 480.0;
+	
+	Vec2 ballVelocity{ 0, -speed };
+	
+	Circle ball{ 400, 400, 8 };
+
+	Array<Rect> bricks;
+	for (auto p : step(Size{ (Scene::Width() / brickSize.x), 5 }))
+	{
+		bricks << Rect{ (p.x * brickSize.x), (60 + p.y * brickSize.y), brickSize };
+	}
+
+	while (System::Update())
+	{
+		const Rect paddle{ Arg::center(Cursor::Pos().x, 500), 60, 10 };
+
+		ball.moveBy(ballVelocity * Scene::DeltaTime());
+
+		for (auto it = bricks.begin(); it != bricks.end(); ++it)
+		{
+			if (it->intersects(ball))
+			{
+				(it->bottom().intersects(ball) || it->top().intersects(ball)
+					? ballVelocity.y : ballVelocity.x) *= -1;
+
+				bricks.erase(it);
+				break;
+			}
+		}
+
+		if (ball.y < 0 && ballVelocity.y < 0)
+		{
+			ballVelocity.y *= -1;
+		}
+
+		if ((ball.x < 0 && ballVelocity.x < 0)
+			|| (Scene::Width() < ball.x && 0 < ballVelocity.x))
+		{
+			ballVelocity.x *= -1;
+		}
+
+		if (0 < ballVelocity.y && paddle.intersects(ball))
+		{
+			ballVelocity = Vec2{ (ball.x - paddle.center().x) * 10, -ballVelocity.y }.setLength(speed);
+		}
+
+		for (const auto& brick : bricks)
+		{
+			brick.stretched(-1).draw(HSV{ brick.y - 40 });
+		}
+
+		ball.draw();
+		paddle.draw();
+	}
+}
+```
+
+### 3. Hello, 3D world! 
 
 ![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-3d.png)
 
