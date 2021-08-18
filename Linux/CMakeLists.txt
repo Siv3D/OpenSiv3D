@@ -444,22 +444,35 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptstdstring.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptColor.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptColorF.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDate.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDateTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDuration.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat2.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat3.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat4.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFormat.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptHSV.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMicrosecClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMillisecClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNone_t.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptPoint.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPrint.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptRDTSCClock.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptScene.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptSystem.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTimer.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTypes.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptUtility.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVariableSpeedStopwatch.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptVec2.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptVec3.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptVec4.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptYesNo.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp
   ../Siv3D/src/Siv3D/Script/ScriptData.cpp

@@ -15,6 +15,13 @@ namespace s3d
 {
 	namespace detail
 	{
+		enum class ScriptUserDataIndex
+		{
+			ScriptID = 3000,
+
+			StepCounter = 3001,
+		};
+
 		[[nodiscard]]
 		String GetDeclaration(AngelScript::asIScriptFunction* function, bool includeParamNames);
 

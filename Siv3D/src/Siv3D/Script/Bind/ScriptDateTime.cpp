@@ -40,6 +40,11 @@ namespace s3d
 		new(self) BindType(date, hour, minute, second, milliseconds);
 	}
 
+	static String ScriptFormatDateTime(const String& s, const DateTime& value)
+	{
+		return value.format(s);
+	}
+
 	static int32 CompareDateTime(const DateTime& other, const DateTime& value)
 	{
 		return ::memcmp(&value, &other, sizeof(DateTime));
@@ -64,7 +69,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Date& in date, int32 _hour = 0, int32 minute = 0, int32 second = 0, int32 milliseconds = 0)", asFUNCTION(ConstructDIIII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd HH:mm:ss\") const", asMETHOD(BindType, format), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd HH:mm:ss\") const", asFUNCTION(ScriptFormatDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// DateTime& operator +=(const Days& days)
 		// DateTime& operator -=(const Days& days)

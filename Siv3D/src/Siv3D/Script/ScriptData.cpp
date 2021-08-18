@@ -262,4 +262,9 @@ namespace s3d
 	{
 		m_systemUpdateCallback = callback;
 	}
+
+	const std::function<bool(void)>& ScriptData::getSystemUpdateCallback() const
+	{
+		return m_systemUpdateCallback;
+	}
 }

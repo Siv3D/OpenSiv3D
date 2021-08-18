@@ -53,6 +53,8 @@ namespace s3d
 
 		void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) override;
 		
+		const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) override;
+
 		AngelScript::asIScriptEngine* getEngine() override;
 
 	private:

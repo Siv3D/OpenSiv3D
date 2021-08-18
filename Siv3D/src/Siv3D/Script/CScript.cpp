@@ -98,7 +98,16 @@ namespace s3d
 			RegisterMicrosecClock(m_engine);
 			RegisterRDTSCClock(m_engine);
 
+			RegisterColor(m_engine);
+			RegisterColorF(m_engine);
+			RegisterHSV(m_engine);
+
 			RegisterPrint(m_engine);
+
+
+			RegisterSystem(m_engine);
+			RegisterScene(m_engine);
+			RegisterGraphics(m_engine);
 		}
 
 		{
@@ -229,6 +238,11 @@ namespace s3d
 	void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool(void)>& callback)
 	{
 		return m_scripts[handleID]->setSystemUpdateCallback(callback);
+	}
+
+	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	{
+		return m_scripts[Script::IDType(static_cast<Script::IDType>(scriptID))]->getSystemUpdateCallback();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

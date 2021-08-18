@@ -32,6 +32,11 @@ namespace s3d
 	{
 		new(self) BindType(year, month, day);
 	}
+	
+	static String ScriptFormatDate(const String& s, const Date& value)
+	{
+		return value.format(s);
+	}
 
 	static int32 CompareDate(const Date& other, const Date& value)
 	{
@@ -61,7 +66,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHOD(BindType, daysInYear), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd\") const", asMETHOD(BindType, format), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd\") const", asFUNCTION(ScriptFormatDate), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// Date& operator +=(const Days& days);
 		// Date& operator -=(const Days& days)

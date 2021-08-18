@@ -55,7 +55,9 @@ namespace s3d
 		Point,
 		Float2,
 		Vec2,
+		Float3,
 		Vec3,
+		Float4,
 		Vec4,
 		Circular,
 		OffsetCircular,
@@ -131,6 +133,17 @@ namespace s3d
 	void RegisterMillisecClock(asIScriptEngine* engine);
 	void RegisterMicrosecClock(asIScriptEngine* engine);
 	void RegisterRDTSCClock(asIScriptEngine* engine);
+	void RegisterColor(asIScriptEngine* engine);
+	void RegisterColorF(asIScriptEngine* engine);
+	void RegisterHSV(asIScriptEngine* engine);
+
 
 	void RegisterPrint(asIScriptEngine* engine);
+
+
+	void RegisterSystem(asIScriptEngine* engine);
+	void RegisterScene(asIScriptEngine* engine);
+	void RegisterGraphics(asIScriptEngine* engine);
+
+
 }

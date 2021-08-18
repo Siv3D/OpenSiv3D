@@ -53,7 +53,7 @@ namespace s3d
 
 		virtual void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) = 0;
 
-		//const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
+		virtual const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
 
 		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};

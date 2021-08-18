@@ -138,8 +138,14 @@ namespace s3d
 			case ScriptTypeID::Vec2:
 				Formatter(formatData, *static_cast<const Vec2*>(ref));
 				break;
+			case ScriptTypeID::Float3:
+				Formatter(formatData, *static_cast<const Float3*>(ref));
+				break;
 			case ScriptTypeID::Vec3:
 				Formatter(formatData, *static_cast<const Vec3*>(ref));
+				break;
+			case ScriptTypeID::Float4:
+				Formatter(formatData, *static_cast<const Float4*>(ref));
 				break;
 			case ScriptTypeID::Vec4:
 				Formatter(formatData, *static_cast<const Vec4*>(ref));

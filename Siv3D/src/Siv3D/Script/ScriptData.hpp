@@ -61,6 +61,8 @@ namespace s3d
 
 		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
 
+		const std::function<bool(void)>& getSystemUpdateCallback() const;
+
 	private:
 
 		AngelScript::asIScriptEngine* m_engine = nullptr;
