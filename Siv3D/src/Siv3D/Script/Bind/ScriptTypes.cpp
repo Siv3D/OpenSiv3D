@@ -37,7 +37,7 @@ namespace s3d
 		RegisterType(engine, "String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>());
 		RegisterType(engine, "None_t", sizeof(uint8), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK);
-		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>());
+		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<Duration>());
 		RegisterType(engine, "Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>());

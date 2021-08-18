@@ -1186,18 +1186,25 @@
 		2C768DC1268C67D500A02CF5 /* SivSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC0268C67D500A02CF5 /* SivSphere.cpp */; };
 		2C768DC7268D8E4D00A02CF5 /* SivBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DC6268D8E4D00A02CF5 /* SivBox.cpp */; };
 		2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */; };
-		2C77CACE26CCFDAC004BD44B /* ScriptBind.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C77CAC226CCFDAC004BD44B /* ScriptBind.hpp */; };
-		2C77CACF26CCFDAC004BD44B /* ScriptTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC326CCFDAC004BD44B /* ScriptTime.cpp */; };
-		2C77CAD026CCFDAC004BD44B /* ScriptUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC426CCFDAC004BD44B /* ScriptUtility.cpp */; };
-		2C77CAD126CCFDAC004BD44B /* ScriptDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC526CCFDAC004BD44B /* ScriptDateTime.cpp */; };
-		2C77CAD226CCFDAC004BD44B /* ScriptNone_t.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC626CCFDAC004BD44B /* ScriptNone_t.cpp */; };
-		2C77CAD326CCFDAC004BD44B /* ScriptOptional.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C77CAC726CCFDAC004BD44B /* ScriptOptional.hpp */; };
-		2C77CAD426CCFDAC004BD44B /* ScriptTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC826CCFDAC004BD44B /* ScriptTypes.cpp */; };
-		2C77CAD526CCFDAC004BD44B /* ScriptOptional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAC926CCFDAC004BD44B /* ScriptOptional.cpp */; };
-		2C77CAD626CCFDAC004BD44B /* ScriptFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CACA26CCFDAC004BD44B /* ScriptFormat.cpp */; };
-		2C77CAD726CCFDAC004BD44B /* ScriptDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CACB26CCFDAC004BD44B /* ScriptDate.cpp */; };
-		2C77CAD826CCFDAC004BD44B /* ScriptPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CACC26CCFDAC004BD44B /* ScriptPrint.cpp */; };
-		2C77CAD926CCFDAC004BD44B /* ScriptDuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CACD26CCFDAC004BD44B /* ScriptDuration.cpp */; };
+		2C77CAEE26CD43EC004BD44B /* ScriptBind.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C77CADB26CD43EC004BD44B /* ScriptBind.hpp */; };
+		2C77CAEF26CD43EC004BD44B /* ScriptTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CADC26CD43EC004BD44B /* ScriptTime.cpp */; };
+		2C77CAF026CD43EC004BD44B /* ScriptMicrosecClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CADD26CD43EC004BD44B /* ScriptMicrosecClock.cpp */; };
+		2C77CAF126CD43EC004BD44B /* ScriptUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CADE26CD43EC004BD44B /* ScriptUtility.cpp */; };
+		2C77CAF226CD43EC004BD44B /* ScriptStopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CADF26CD43EC004BD44B /* ScriptStopwatch.cpp */; };
+		2C77CAF326CD43EC004BD44B /* ScriptVariableSpeedStopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE026CD43EC004BD44B /* ScriptVariableSpeedStopwatch.cpp */; };
+		2C77CAF426CD43EC004BD44B /* ScriptDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE126CD43EC004BD44B /* ScriptDateTime.cpp */; };
+		2C77CAF526CD43EC004BD44B /* ScriptNone_t.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE226CD43EC004BD44B /* ScriptNone_t.cpp */; };
+		2C77CAF626CD43EC004BD44B /* ScriptOptional.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C77CAE326CD43EC004BD44B /* ScriptOptional.hpp */; };
+		2C77CAF726CD43EC004BD44B /* ScriptTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE426CD43EC004BD44B /* ScriptTypes.cpp */; };
+		2C77CAF826CD43EC004BD44B /* ScriptOptional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE526CD43EC004BD44B /* ScriptOptional.cpp */; };
+		2C77CAF926CD43EC004BD44B /* ScriptFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE626CD43EC004BD44B /* ScriptFormat.cpp */; };
+		2C77CAFA26CD43EC004BD44B /* ScriptDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE726CD43EC004BD44B /* ScriptDate.cpp */; };
+		2C77CAFB26CD43EC004BD44B /* ScriptYesNo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE826CD43EC004BD44B /* ScriptYesNo.cpp */; };
+		2C77CAFC26CD43EC004BD44B /* ScriptRDTSCClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAE926CD43EC004BD44B /* ScriptRDTSCClock.cpp */; };
+		2C77CAFD26CD43EC004BD44B /* ScriptPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAEA26CD43EC004BD44B /* ScriptPrint.cpp */; };
+		2C77CAFE26CD43EC004BD44B /* ScriptDuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAEB26CD43EC004BD44B /* ScriptDuration.cpp */; };
+		2C77CAFF26CD43EC004BD44B /* ScriptTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAEC26CD43EC004BD44B /* ScriptTimer.cpp */; };
+		2C77CB0026CD43EC004BD44B /* ScriptMillisecClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C77CAED26CD43EC004BD44B /* ScriptMillisecClock.cpp */; };
 		2C780BA526B04B7E008FADA0 /* SivTriangle3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */; };
 		2C794AA625C257C000034D81 /* ConstantBufferDetail_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */; };
 		2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */; };
@@ -3510,18 +3517,25 @@
 		2C768DC9268E190B00A02CF5 /* InfinitePlane.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfinitePlane.ipp; sourceTree = "<group>"; };
 		2C768DCA268E28E000A02CF5 /* MeshData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshData.hpp; sourceTree = "<group>"; };
 		2C768DCC268E28F800A02CF5 /* SivMeshData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMeshData.cpp; sourceTree = "<group>"; };
-		2C77CAC226CCFDAC004BD44B /* ScriptBind.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptBind.hpp; sourceTree = "<group>"; };
-		2C77CAC326CCFDAC004BD44B /* ScriptTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTime.cpp; sourceTree = "<group>"; };
-		2C77CAC426CCFDAC004BD44B /* ScriptUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptUtility.cpp; sourceTree = "<group>"; };
-		2C77CAC526CCFDAC004BD44B /* ScriptDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDateTime.cpp; sourceTree = "<group>"; };
-		2C77CAC626CCFDAC004BD44B /* ScriptNone_t.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptNone_t.cpp; sourceTree = "<group>"; };
-		2C77CAC726CCFDAC004BD44B /* ScriptOptional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptOptional.hpp; sourceTree = "<group>"; };
-		2C77CAC826CCFDAC004BD44B /* ScriptTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTypes.cpp; sourceTree = "<group>"; };
-		2C77CAC926CCFDAC004BD44B /* ScriptOptional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptOptional.cpp; sourceTree = "<group>"; };
-		2C77CACA26CCFDAC004BD44B /* ScriptFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptFormat.cpp; sourceTree = "<group>"; };
-		2C77CACB26CCFDAC004BD44B /* ScriptDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDate.cpp; sourceTree = "<group>"; };
-		2C77CACC26CCFDAC004BD44B /* ScriptPrint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptPrint.cpp; sourceTree = "<group>"; };
-		2C77CACD26CCFDAC004BD44B /* ScriptDuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDuration.cpp; sourceTree = "<group>"; };
+		2C77CADB26CD43EC004BD44B /* ScriptBind.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptBind.hpp; sourceTree = "<group>"; };
+		2C77CADC26CD43EC004BD44B /* ScriptTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTime.cpp; sourceTree = "<group>"; };
+		2C77CADD26CD43EC004BD44B /* ScriptMicrosecClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptMicrosecClock.cpp; sourceTree = "<group>"; };
+		2C77CADE26CD43EC004BD44B /* ScriptUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptUtility.cpp; sourceTree = "<group>"; };
+		2C77CADF26CD43EC004BD44B /* ScriptStopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptStopwatch.cpp; sourceTree = "<group>"; };
+		2C77CAE026CD43EC004BD44B /* ScriptVariableSpeedStopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptVariableSpeedStopwatch.cpp; sourceTree = "<group>"; };
+		2C77CAE126CD43EC004BD44B /* ScriptDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDateTime.cpp; sourceTree = "<group>"; };
+		2C77CAE226CD43EC004BD44B /* ScriptNone_t.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptNone_t.cpp; sourceTree = "<group>"; };
+		2C77CAE326CD43EC004BD44B /* ScriptOptional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptOptional.hpp; sourceTree = "<group>"; };
+		2C77CAE426CD43EC004BD44B /* ScriptTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTypes.cpp; sourceTree = "<group>"; };
+		2C77CAE526CD43EC004BD44B /* ScriptOptional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptOptional.cpp; sourceTree = "<group>"; };
+		2C77CAE626CD43EC004BD44B /* ScriptFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptFormat.cpp; sourceTree = "<group>"; };
+		2C77CAE726CD43EC004BD44B /* ScriptDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDate.cpp; sourceTree = "<group>"; };
+		2C77CAE826CD43EC004BD44B /* ScriptYesNo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptYesNo.cpp; sourceTree = "<group>"; };
+		2C77CAE926CD43EC004BD44B /* ScriptRDTSCClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptRDTSCClock.cpp; sourceTree = "<group>"; };
+		2C77CAEA26CD43EC004BD44B /* ScriptPrint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptPrint.cpp; sourceTree = "<group>"; };
+		2C77CAEB26CD43EC004BD44B /* ScriptDuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptDuration.cpp; sourceTree = "<group>"; };
+		2C77CAEC26CD43EC004BD44B /* ScriptTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTimer.cpp; sourceTree = "<group>"; };
+		2C77CAED26CD43EC004BD44B /* ScriptMillisecClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptMillisecClock.cpp; sourceTree = "<group>"; };
 		2C780BA426B04B7E008FADA0 /* SivTriangle3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle3D.cpp; sourceTree = "<group>"; };
 		2C794AA425C257C000034D81 /* ConstantBufferDetail_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBufferDetail_Metal.hpp; sourceTree = "<group>"; };
 		2C794AA525C257C000034D81 /* ConstantBufferDetail_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantBufferDetail_Metal.cpp; sourceTree = "<group>"; };
@@ -5689,7 +5703,7 @@
 		2C36F844267F93F700691B1C /* Script */ = {
 			isa = PBXGroup;
 			children = (
-				2C77CAC126CCFDAC004BD44B /* Bind */,
+				2C77CADA26CD43EC004BD44B /* Bind */,
 				2C36F845267F93F700691B1C /* CScript.cpp */,
 				2C61A00526C955EF00429B27 /* ScriptData.cpp */,
 				2C36F846267F93F700691B1C /* ScriptFactory.cpp */,
@@ -9122,21 +9136,28 @@
 			path = MeshData;
 			sourceTree = "<group>";
 		};
-		2C77CAC126CCFDAC004BD44B /* Bind */ = {
+		2C77CADA26CD43EC004BD44B /* Bind */ = {
 			isa = PBXGroup;
 			children = (
-				2C77CAC226CCFDAC004BD44B /* ScriptBind.hpp */,
-				2C77CAC326CCFDAC004BD44B /* ScriptTime.cpp */,
-				2C77CAC426CCFDAC004BD44B /* ScriptUtility.cpp */,
-				2C77CAC526CCFDAC004BD44B /* ScriptDateTime.cpp */,
-				2C77CAC626CCFDAC004BD44B /* ScriptNone_t.cpp */,
-				2C77CAC726CCFDAC004BD44B /* ScriptOptional.hpp */,
-				2C77CAC826CCFDAC004BD44B /* ScriptTypes.cpp */,
-				2C77CAC926CCFDAC004BD44B /* ScriptOptional.cpp */,
-				2C77CACA26CCFDAC004BD44B /* ScriptFormat.cpp */,
-				2C77CACB26CCFDAC004BD44B /* ScriptDate.cpp */,
-				2C77CACC26CCFDAC004BD44B /* ScriptPrint.cpp */,
-				2C77CACD26CCFDAC004BD44B /* ScriptDuration.cpp */,
+				2C77CADB26CD43EC004BD44B /* ScriptBind.hpp */,
+				2C77CADC26CD43EC004BD44B /* ScriptTime.cpp */,
+				2C77CADD26CD43EC004BD44B /* ScriptMicrosecClock.cpp */,
+				2C77CADE26CD43EC004BD44B /* ScriptUtility.cpp */,
+				2C77CADF26CD43EC004BD44B /* ScriptStopwatch.cpp */,
+				2C77CAE026CD43EC004BD44B /* ScriptVariableSpeedStopwatch.cpp */,
+				2C77CAE126CD43EC004BD44B /* ScriptDateTime.cpp */,
+				2C77CAE226CD43EC004BD44B /* ScriptNone_t.cpp */,
+				2C77CAE326CD43EC004BD44B /* ScriptOptional.hpp */,
+				2C77CAE426CD43EC004BD44B /* ScriptTypes.cpp */,
+				2C77CAE526CD43EC004BD44B /* ScriptOptional.cpp */,
+				2C77CAE626CD43EC004BD44B /* ScriptFormat.cpp */,
+				2C77CAE726CD43EC004BD44B /* ScriptDate.cpp */,
+				2C77CAE826CD43EC004BD44B /* ScriptYesNo.cpp */,
+				2C77CAE926CD43EC004BD44B /* ScriptRDTSCClock.cpp */,
+				2C77CAEA26CD43EC004BD44B /* ScriptPrint.cpp */,
+				2C77CAEB26CD43EC004BD44B /* ScriptDuration.cpp */,
+				2C77CAEC26CD43EC004BD44B /* ScriptTimer.cpp */,
+				2C77CAED26CD43EC004BD44B /* ScriptMillisecClock.cpp */,
 			);
 			path = Bind;
 			sourceTree = "<group>";
@@ -11772,7 +11793,7 @@
 				2C5337B0264F5AA200CE0F1B /* zstd_trace.h in Headers */,
 				2C48BF6625D41C0D00A93CE3 /* agg_math.h in Headers */,
 				2C53C34825613BB00072831A /* Triangulation.hpp in Headers */,
-				2C77CACE26CCFDAC004BD44B /* ScriptBind.hpp in Headers */,
+				2C77CAEE26CD43EC004BD44B /* ScriptBind.hpp in Headers */,
 				2C43C87B25C837F000D6D613 /* ftgzip.h in Headers */,
 				2C47B32124DD9789008D83BE /* CCursor_Null.hpp in Headers */,
 				2C43C86B25C837F000D6D613 /* fttypes.h in Headers */,
@@ -11953,7 +11974,7 @@
 				2C2AA39D26009C74003F3EBC /* b2_chain_shape.h in Headers */,
 				2C4A287A25EB468600FEACE4 /* CGUI.hpp in Headers */,
 				2C13C6F625B458520054B968 /* concaveman.h in Headers */,
-				2C77CAD326CCFDAC004BD44B /* ScriptOptional.hpp in Headers */,
+				2C77CAF626CD43EC004BD44B /* ScriptOptional.hpp in Headers */,
 				2C47B30124DD9789008D83BE /* MathParserDetail.hpp in Headers */,
 				2C48BF8125D41C0D00A93CE3 /* IFont.hpp in Headers */,
 				2C473B8F2545DDA600CF864D /* define_tables.h in Headers */,
@@ -12267,6 +12288,7 @@
 				2C66844D2685050B00F7089A /* SivParticleSystem2D.cpp in Sources */,
 				2CB18E9A26B5A68700862C28 /* as_gc.cpp in Sources */,
 				2C5D0C172677C91C00A713D9 /* IAssetDetail.cpp in Sources */,
+				2C77CAF526CD43EC004BD44B /* ScriptNone_t.cpp in Sources */,
 				2C13C9A225BD29FC0054B968 /* liolib.c in Sources */,
 				2C636E9B2657F7D300AF029F /* soloud_vic.cpp in Sources */,
 				2C47B35524DD9789008D83BE /* ProfilerFactory.cpp in Sources */,
@@ -12284,9 +12306,11 @@
 				2C7DE5D7261379E900D7F031 /* GIFEncoder.cpp in Sources */,
 				2C13C8C525B8FA9D0054B968 /* DetourNavMeshBuilder.cpp in Sources */,
 				2C48BEE425CFB8C500A93CE3 /* Vector2.cpp in Sources */,
+				2C77CAF926CD43EC004BD44B /* ScriptFormat.cpp in Sources */,
 				2C834D98248805D4006208B8 /* unicode_fold1_key.c in Sources */,
 				2C834DBD248805D4006208B8 /* regerror.c in Sources */,
 				2C47B49A24DD97F2008D83BE /* muParserCallback.cpp in Sources */,
+				2C77CAFB26CD43EC004BD44B /* ScriptYesNo.cpp in Sources */,
 				2C6684502685050B00F7089A /* SivRectEmitter2D.cpp in Sources */,
 				2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */,
 				2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */,
@@ -12307,7 +12331,7 @@
 				2C47B32724DD9789008D83BE /* SivPoint.cpp in Sources */,
 				2C48BEE825CFB8C500A93CE3 /* edge-coloring.cpp in Sources */,
 				2CFB7DC4262AB4EA00169B97 /* SivClipboard.cpp in Sources */,
-				2C77CACF26CCFDAC004BD44B /* ScriptTime.cpp in Sources */,
+				2C77CAEF26CD43EC004BD44B /* ScriptTime.cpp in Sources */,
 				2C9566D82645626000539B85 /* mz_crypt.c in Sources */,
 				2C48BF8725D41C0D00A93CE3 /* CFont.cpp in Sources */,
 				2C834D96248805D4006208B8 /* iso8859_5.c in Sources */,
@@ -12381,6 +12405,7 @@
 				2CF21D24249FAA8F00C864C9 /* CWindow_macOS.mm in Sources */,
 				2C13C8C225B8FA9D0054B968 /* RecastMesh.cpp in Sources */,
 				2C36F84A267F93F700691B1C /* ScriptFactory.cpp in Sources */,
+				2C77CAF826CD43EC004BD44B /* ScriptOptional.cpp in Sources */,
 				2C2AA36726009C74003F3EBC /* b2_contact_manager.cpp in Sources */,
 				2CF962F025A7F953006F55C9 /* SivRoundRect.cpp in Sources */,
 				2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */,
@@ -12398,11 +12423,11 @@
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
 				2C60AE74248158A500277281 /* all.cpp in Sources */,
 				2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */,
-				2C77CAD026CCFDAC004BD44B /* ScriptUtility.cpp in Sources */,
 				2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C636E972657F7D300AF029F /* soloud_flangerfilter.cpp in Sources */,
 				2C13C9C025BD29FC0054B968 /* loslib.c in Sources */,
+				2C77CAFD26CD43EC004BD44B /* ScriptPrint.cpp in Sources */,
 				2C533740264E0EE600CE0F1B /* AIFFDecoder.cpp in Sources */,
 				2C13C6F325B458350054B968 /* SivSubdivision2D.cpp in Sources */,
 				2CB18EE626B5A68700862C28 /* as_string.cpp in Sources */,
@@ -12416,7 +12441,6 @@
 				2C47B36D24DD9789008D83BE /* SivDuration.cpp in Sources */,
 				2C5337D32650BAF000CE0F1B /* SoundFontFactory.cpp in Sources */,
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
-				2C77CAD726CCFDAC004BD44B /* ScriptDate.cpp in Sources */,
 				2C631E8D2687042500166A8E /* SivLine3D.cpp in Sources */,
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
@@ -12447,12 +12471,14 @@
 				2C636D942657A0DC00AF029F /* SivFFT.cpp in Sources */,
 				2C27A9ED256E359400756617 /* GL4RasterizerState.cpp in Sources */,
 				2C47B33824DD9789008D83BE /* SystemMisc.cpp in Sources */,
+				2C77CAF226CD43EC004BD44B /* ScriptStopwatch.cpp in Sources */,
 				2C533799264F5AA200CE0F1B /* zstd_lazy.c in Sources */,
 				2C63A9C326A02B7B00D13501 /* SivDynamicMesh.cpp in Sources */,
 				2C8CA3A72615863C00BABD2D /* PPMEncoder.cpp in Sources */,
 				2C6C782926889B9C00B3C44A /* SivGraphics3D.cpp in Sources */,
 				2C2AA37426009C74003F3EBC /* b2_prismatic_joint.cpp in Sources */,
 				2C834DB0248805D4006208B8 /* iso8859_13.c in Sources */,
+				2C77CAF026CD43EC004BD44B /* ScriptMicrosecClock.cpp in Sources */,
 				2C834D8A248805D4006208B8 /* unicode.c in Sources */,
 				2CDD4F33260A3F7100A51D68 /* P2BodyDetail.cpp in Sources */,
 				2C2D5C07267C67C600EF5696 /* SivAudioAsset.cpp in Sources */,
@@ -12470,6 +12496,7 @@
 				2C60AE96248158A500277281 /* sysctl_darwin.cpp in Sources */,
 				2CF962F625A7F987006F55C9 /* SivSpline2D.cpp in Sources */,
 				2C60AE7D248158A500277281 /* quantities_cache_darwin.cpp in Sources */,
+				2C77CAF126CD43EC004BD44B /* ScriptUtility.cpp in Sources */,
 				2C47B31824DD9789008D83BE /* LoggerFactory.cpp in Sources */,
 				2C2AA3A226009C74003F3EBC /* b2_circle_shape.cpp in Sources */,
 				2C60AE85248158A500277281 /* kernel_info_windows.cpp in Sources */,
@@ -12508,7 +12535,6 @@
 				2C60F9212667F0E300FFAA68 /* SivMillisecClock.cpp in Sources */,
 				2C47B36E24DD9789008D83BE /* SivBlob.cpp in Sources */,
 				2CB18EB726B5A68700862C28 /* as_parser.cpp in Sources */,
-				2C77CAD826CCFDAC004BD44B /* ScriptPrint.cpp in Sources */,
 				2C61A00926C955EF00429B27 /* SivScript.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
@@ -12528,12 +12554,14 @@
 				2C60AE8E248158A500277281 /* amounts_non_windows.cpp in Sources */,
 				2C794ABE25C3DF3000034D81 /* SivCommandLine.cpp in Sources */,
 				2C695D86268F57C900970FB3 /* SivDisc.cpp in Sources */,
+				2C77CAFC26CD43EC004BD44B /* ScriptRDTSCClock.cpp in Sources */,
 				2C5337D62650BAF000CE0F1B /* SivSoundFont.cpp in Sources */,
 				2C91F43726CA2C15002E067F /* SivManagedScript.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2CFC212625F7065200C51D0D /* ShapePainting.cpp in Sources */,
 				2C5337A0264F5AA200CE0F1B /* fse_compress.c in Sources */,
 				2C533790264F5AA200CE0F1B /* zstd_fast.c in Sources */,
+				2C77CAFE26CD43EC004BD44B /* ScriptDuration.cpp in Sources */,
 				2C834DA8248805D4006208B8 /* regversion.c in Sources */,
 				2C47B30824DD9789008D83BE /* SivIntFormatter.cpp in Sources */,
 				2C2AA36A26009C74003F3EBC /* b2_edge_circle_contact.cpp in Sources */,
@@ -12566,6 +12594,7 @@
 				2C60AE95248158A500277281 /* sysctl_non_darwin.cpp in Sources */,
 				2C47B36124DD9789008D83BE /* SivRandom.cpp in Sources */,
 				2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */,
+				2C77CB0026CD43EC004BD44B /* ScriptMillisecClock.cpp in Sources */,
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2C47B36324DD9789008D83BE /* SceneFactory.cpp in Sources */,
 				2C695D7F268F579700970FB3 /* MeshUtility.cpp in Sources */,
@@ -12602,6 +12631,7 @@
 				2CC584962648FE1100C33E9F /* OpusEncoder.cpp in Sources */,
 				2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */,
 				2C4AEF832635CAB500D36CFC /* SivXMLReader.cpp in Sources */,
+				2C77CAF326CD43EC004BD44B /* ScriptVariableSpeedStopwatch.cpp in Sources */,
 				2C4AEF6C262C4E2900D36CFC /* SivTextToSpeech.cpp in Sources */,
 				2C91F44926CA566F002E067F /* scriptstdstring.cpp in Sources */,
 				2C60AE8B248158A500277281 /* os_info_non_windows_non_darwin.cpp in Sources */,
@@ -12612,6 +12642,7 @@
 				2C13C8CC25B8FA9D0054B968 /* DetourAssert.cpp in Sources */,
 				2C636D8526577BFE00AF029F /* SivMicrophone.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
+				2C77CAFF26CD43EC004BD44B /* ScriptTimer.cpp in Sources */,
 				2C794B7525C4FD8D00034D81 /* CAssetMonitor.cpp in Sources */,
 				2C631EA2268704D200166A8E /* SivMesh.cpp in Sources */,
 				2C53379E264F5AA200CE0F1B /* zstd_opt.c in Sources */,
@@ -12688,6 +12719,7 @@
 				2C13C9CD25BD29FC0054B968 /* lbaselib.c in Sources */,
 				2C636E6C2657F7D300AF029F /* soloud.cpp in Sources */,
 				2C68508A24B768A800B98A7F /* SivUnicode_macOS_Linux.cpp in Sources */,
+				2C77CAFA26CD43EC004BD44B /* ScriptDate.cpp in Sources */,
 				2C6C782626889B2B00B3C44A /* SivBasicCamera3D.cpp in Sources */,
 				2C2D5C15267E468800EF5696 /* SivRenderTexture.cpp in Sources */,
 				2C2AA3A426009C74003F3EBC /* b2_collide_edge.cpp in Sources */,
@@ -12739,7 +12771,6 @@
 				2CDD4F31260A3F7100A51D68 /* P2Shape.cpp in Sources */,
 				2CAAA8B825E7FD4A00C014D7 /* SivDynamicTexture.cpp in Sources */,
 				2C47B34A24DD9789008D83BE /* SivWindow.cpp in Sources */,
-				2C77CAD526CCFDAC004BD44B /* ScriptOptional.cpp in Sources */,
 				2C47B31224DD9789008D83BE /* SivParseInt.cpp in Sources */,
 				2C47B35B24DD9789008D83BE /* SivString.cpp in Sources */,
 				2C95665C264546F700539B85 /* property.cpp in Sources */,
@@ -12803,6 +12834,7 @@
 				2C9566ED2645626000539B85 /* mz_strm_buf.c in Sources */,
 				2C47B49724DD97F2008D83BE /* muParser.cpp in Sources */,
 				2C47B32824DD9789008D83BE /* SivColor.cpp in Sources */,
+				2C77CAF726CD43EC004BD44B /* ScriptTypes.cpp in Sources */,
 				2C3C8387265FCD76008D68CF /* AudioGroupDetail.cpp in Sources */,
 				2CC5846D264771F100C33E9F /* WAVEEncoder.cpp in Sources */,
 				2C6C7822268895E300B3C44A /* GL4Mesh.cpp in Sources */,
@@ -12897,7 +12929,6 @@
 				2C53378C264F5AA200CE0F1B /* zstd_compress_superblock.c in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */,
-				2C77CAD226CCFDAC004BD44B /* ScriptNone_t.cpp in Sources */,
 				2C636E9A2657F7D300AF029F /* soloud_waveshaperfilter.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */,
@@ -12907,7 +12938,6 @@
 				2C956677264546F700539B85 /* parser.cpp in Sources */,
 				2C66844C2685050B00F7089A /* ParticleSystem2DDetail.cpp in Sources */,
 				2C47B36224DD9789008D83BE /* SivBinaryReader.cpp in Sources */,
-				2C77CAD626CCFDAC004BD44B /* ScriptFormat.cpp in Sources */,
 				2C9566FC2645846C00539B85 /* SivHTMLWriter.cpp in Sources */,
 				2CFB7DAE262A66D100169B97 /* TextInputFactory.cpp in Sources */,
 				2C4AEF78262C4E8300D36CFC /* TextToSpeechDetail.mm in Sources */,
@@ -12970,7 +13000,6 @@
 				2CC5843D2646317400C33E9F /* SivMemoryMappedFileView.cpp in Sources */,
 				2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */,
 				2C636E722657F7D300AF029F /* soloud_queue.cpp in Sources */,
-				2C77CAD426CCFDAC004BD44B /* ScriptTypes.cpp in Sources */,
 				2CB18EC626B5A68700862C28 /* as_memory.cpp in Sources */,
 				2C36F849267F93F700691B1C /* CScript.cpp in Sources */,
 				2C636EA12657F7D300AF029F /* dr_impl.cpp in Sources */,
@@ -13010,15 +13039,14 @@
 				2C5337A9264F5AA200CE0F1B /* zstd_ddict.c in Sources */,
 				2C60AE81248158A500277281 /* vendor_id.cpp in Sources */,
 				2C53C34725613BB00072831A /* Triangulation.cpp in Sources */,
-				2C77CAD926CCFDAC004BD44B /* ScriptDuration.cpp in Sources */,
 				2C636D8C2657A0BF00AF029F /* pffft.c in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2C834DB2248805D4006208B8 /* iso8859_9.c in Sources */,
-				2C77CAD126CCFDAC004BD44B /* ScriptDateTime.cpp in Sources */,
 				2CB7D4E82556E230007EB42E /* MouseFactory.cpp in Sources */,
 				2C13C9A825BD29FC0054B968 /* lmathlib.c in Sources */,
 				2C47B32D24DD9789008D83BE /* SivParseFloat.cpp in Sources */,
 				2C13C8CA25B8FA9D0054B968 /* RecastAssert.cpp in Sources */,
+				2C77CAF426CD43EC004BD44B /* ScriptDateTime.cpp in Sources */,
 				2C60AE72248158A500277281 /* frequency_windows.cpp in Sources */,
 				2C48BEED25CFB8C500A93CE3 /* msdfgen.cpp in Sources */,
 				2C48BF6725D41C0D00A93CE3 /* agg.cpp in Sources */,
