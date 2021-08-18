@@ -40,15 +40,13 @@ namespace s3d
 		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>());
 		RegisterType(engine, "Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
-
-		//r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("CustomStopwatch", sizeof(CustomStopwatch), asOBJ_VALUE | asGetTypeTraits<CustomStopwatch>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>()); assert(r >= 0);
-		////r = engine->RegisterObjectType("TimeProfiler", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<TimeProfiler>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("MillisecClock", sizeof(MillisecClock), asOBJ_VALUE | asGetTypeTraits<MillisecClock>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("MicrosecClock", sizeof(MicrosecClock), asOBJ_VALUE | asGetTypeTraits<MicrosecClock>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>()); assert(r >= 0);
-
+		RegisterType(engine, "Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>());
+		RegisterType(engine, "VariableSpeedStopwatch", sizeof(VariableSpeedStopwatch), asOBJ_VALUE | asGetTypeTraits<VariableSpeedStopwatch>());
+		RegisterType(engine, "Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>());
+		//r = engine->RegisterObjectType("TimeProfiler", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<TimeProfiler>()); assert(r >= 0);
+		RegisterType(engine, "MillisecClock", sizeof(MillisecClock), asOBJ_VALUE | asGetTypeTraits<MillisecClock>());
+		RegisterType(engine, "MicrosecClock", sizeof(MicrosecClock), asOBJ_VALUE | asGetTypeTraits<MicrosecClock>());
+		RegisterType(engine, "RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>());
 
 		//r = engine->RegisterObjectType("Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -132,13 +130,13 @@ namespace s3d
 		//r = engine->RegisterEnum("GMInstrument"); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
-		//assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));
-		//assert(engine->GetTypeIdByDecl("Duration") == static_cast<int32>(ScriptTypeID::Duration));
-		//assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
-		//assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int32>(ScriptTypeID::DateTime));
-		//assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int32>(ScriptTypeID::Stopwatch));
-		//assert(engine->GetTypeIdByDecl("CustomStopwatch") == static_cast<int32>(ScriptTypeID::CustomStopwatch));
-		//assert(engine->GetTypeIdByDecl("Timer") == static_cast<int32>(ScriptTypeID::Timer));
+		assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));
+		assert(engine->GetTypeIdByDecl("Duration") == static_cast<int32>(ScriptTypeID::Duration));
+		assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
+		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int32>(ScriptTypeID::DateTime));
+		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int32>(ScriptTypeID::Stopwatch));
+		assert(engine->GetTypeIdByDecl("VariableSpeedStopwatch") == static_cast<int32>(ScriptTypeID::VariableSpeedStopwatch));
+		assert(engine->GetTypeIdByDecl("Timer") == static_cast<int32>(ScriptTypeID::Timer));
 		////assert(engine->GetTypeIdByDecl("TimeProfiler") == static_cast<int32>(ScriptTypeID::TimeProfiler));
 		//assert(engine->GetTypeIdByDecl("MillisecClock") == static_cast<int32>(ScriptTypeID::MillisecClock));
 		//assert(engine->GetTypeIdByDecl("MicrosecClock") == static_cast<int32>(ScriptTypeID::MicrosecClock));

@@ -40,11 +40,6 @@ namespace s3d
 		new(self) BindType(date, hour, minute, second, milliseconds);
 	}
 
-	static bool DateTimeEquals(const DateTime& lhs, const DateTime& rhs)
-	{
-		return (lhs == rhs);
-	}
-
 	static int32 CompareDateTime(const DateTime& other, const DateTime& value)
 	{
 		return ::memcmp(&value, &other, sizeof(DateTime));
@@ -76,7 +71,6 @@ namespace s3d
 		// DateTime& operator +=(const Milliseconds& _milliseconds);
 		// DateTime& operator -= (const Milliseconds& _milliseconds)
 		
-		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const DateTime &in) const", asFUNCTIONPR(DateTimeEquals, (const DateTime&, const DateTime&), bool), asCALL_CDECL_OBJFIRST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 opCmp(const DateTime& in) const", asFUNCTION(CompareDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace("DateTime"); assert(r >= 0);

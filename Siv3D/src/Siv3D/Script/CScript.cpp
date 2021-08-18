@@ -81,6 +81,7 @@ namespace s3d
 			AngelScript::RegisterScriptArray(m_engine);
 			AngelScript::RegisterScriptGrid(m_engine);
 			RegisterTypes(m_engine);
+			RegisterYesNo(m_engine);
 			RegisterUtility(m_engine);
 			AngelScript::RegisterStdString(m_engine);
 
@@ -90,7 +91,12 @@ namespace s3d
 			RegisterDate(m_engine);
 			RegisterDateTime(m_engine);
 			RegisterTime(m_engine);
-
+			RegisterStopwatch(m_engine);
+			RegisterVariableSpeedStopwatch(m_engine);
+			RegisterTimer(m_engine);
+			RegisterMillisecClock(m_engine);
+			RegisterMicrosecClock(m_engine);
+			RegisterRDTSCClock(m_engine);
 
 			RegisterPrint(m_engine);
 		}

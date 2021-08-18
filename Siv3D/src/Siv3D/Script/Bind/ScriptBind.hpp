@@ -117,6 +117,7 @@ namespace s3d
 	using AngelScript::asIScriptEngine;
 
 	void RegisterTypes(asIScriptEngine* engine);
+	void RegisterYesNo(asIScriptEngine* engine);
 	void RegisterUtility(asIScriptEngine* engine);
 	void RegisterNone_t(asIScriptEngine* engine);
 	void RegisterOptional(asIScriptEngine* engine);
@@ -124,6 +125,12 @@ namespace s3d
 	void RegisterDate(asIScriptEngine* engine);
 	void RegisterDateTime(asIScriptEngine* engine);
 	void RegisterTime(asIScriptEngine* engine);
+	void RegisterStopwatch(asIScriptEngine* engine);
+	void RegisterVariableSpeedStopwatch(asIScriptEngine* engine);
+	void RegisterTimer(asIScriptEngine* engine);
+	void RegisterMillisecClock(asIScriptEngine* engine);
+	void RegisterMicrosecClock(asIScriptEngine* engine);
+	void RegisterRDTSCClock(asIScriptEngine* engine);
 
 	void RegisterPrint(asIScriptEngine* engine);
 }

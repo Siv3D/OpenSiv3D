@@ -12,6 +12,7 @@
 # include <Siv3D/RDTSCClock.hpp>
 # include <Siv3D/Logger.hpp>
 # include <Siv3D/Console.hpp>
+# include <Siv3D/FormatInt.hpp>
 # include <Siv3D/Print.hpp>
 
 namespace s3d
@@ -20,20 +21,20 @@ namespace s3d
 	{
 		const auto c = cycles();
 
-		Logger(c, U"cycles"_sv);
+		Logger.writeln(ToString(c).append(U"cycles"_sv));
 	}
 
 	void RDTSCClock::console() const
 	{
 		const auto c = cycles();
 
-		Console(c, U"cycles"_sv);
+		Console.writeln(ToString(c).append(U"cycles"_sv));
 	}
 
 	void RDTSCClock::print() const
 	{
 		const auto c = cycles();
-
-		Print(c, U"cycles"_sv);
+		
+		Print.writeln(ToString(c).append(U"cycles"_sv));
 	}
 }

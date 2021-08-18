@@ -33,11 +33,6 @@ namespace s3d
 		new(self) BindType(year, month, day);
 	}
 
-	static bool DateEquals(const Date& lhs, const Date& rhs)
-	{
-		return (lhs == rhs);
-	}
-
 	static int32 CompareDate(const Date& other, const Date& value)
 	{
 		return ::memcmp(&value, &other, sizeof(Date));
@@ -71,7 +66,6 @@ namespace s3d
 		// Date& operator +=(const Days& days);
 		// Date& operator -=(const Days& days)
 
-		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Date &in) const", asFUNCTIONPR(DateEquals, (const Date&, const Date&), bool), asCALL_CDECL_OBJFIRST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 opCmp(const Date& in) const", asFUNCTION(CompareDate), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// Date operator +(const Date& date, const Days& days);
