@@ -41,5 +41,7 @@ namespace s3d
 		} m_setupState = SetupState::Uninitialized;
 
 		std::atomic<bool> m_onDeviceChange = { false };
+
+		bool m_termination = false;
 	};
 }

@@ -16,8 +16,6 @@ namespace s3d
 {
 	class CSystem final : public ISiv3DSystem
 	{
-	private:
-
 	public:
 
 		CSystem();
@@ -27,5 +25,9 @@ namespace s3d
 		void init() override;
 
 		bool update() override;
+		
+	private:
+
+		bool m_termination = false;
 	};
 }

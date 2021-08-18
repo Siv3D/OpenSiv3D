@@ -114,8 +114,14 @@ namespace s3d
 
 	bool CSystem::update()
 	{
+		if (m_termination)
+		{
+			return false;
+		}
+
 		if (SIV3D_ENGINE(UserAction)->terminationTriggered())
 		{
+			m_termination = true;
 			return false;
 		}
 		
@@ -137,6 +143,7 @@ namespace s3d
 		SIV3D_ENGINE(Profiler)->beginFrame();
 		if (not SIV3D_ENGINE(AssetMonitor)->update())
 		{
+			m_termination = true;
 			return false;
 		}
 		SIV3D_ENGINE(Scene)->update();
@@ -154,6 +161,7 @@ namespace s3d
 		SIV3D_ENGINE(Effect)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{
+			m_termination = true;
 			return false;
 		}
 

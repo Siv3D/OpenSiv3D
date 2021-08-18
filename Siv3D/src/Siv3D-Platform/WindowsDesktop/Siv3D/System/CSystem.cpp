@@ -149,6 +149,11 @@ namespace s3d
 
 	bool CSystem::update()
 	{
+		if (m_termination)
+		{
+			return false;
+		}
+
 		if (m_setupState == SetupState::Initialized)
 		{
 			if (auto pWindow = static_cast<CWindow*>(Siv3DEngine::Get<ISiv3DWindow>()))
@@ -161,6 +166,7 @@ namespace s3d
 
 		if (SIV3D_ENGINE(UserAction)->terminationTriggered())
 		{
+			m_termination = true;
 			return false;
 		}
 
@@ -183,6 +189,7 @@ namespace s3d
 		const bool onDeviceChange = m_onDeviceChange.exchange(false);
 		if (not SIV3D_ENGINE(AssetMonitor)->update())
 		{
+			m_termination = true;
 			return false;
 		}
 		SIV3D_ENGINE(Scene)->update();
@@ -200,6 +207,7 @@ namespace s3d
 		SIV3D_ENGINE(Effect)->update();
 		if (not SIV3D_ENGINE(Addon)->update())
 		{
+			m_termination = true;
 			return false;
 		}
 
