@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Color.hpp"
+# include "ColorF.hpp"
 
 namespace s3d
 {

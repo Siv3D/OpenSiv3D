@@ -99,11 +99,17 @@ namespace s3d
 			case ScriptTypeID::Double:
 				Formatter(formatData, *static_cast<const double*>(ref));
 				break;
+			case ScriptTypeID::Char32:
+				Formatter(formatData, *static_cast<const char32*>(ref));
+				break;
 			case ScriptTypeID::String:
 				Formatter(formatData, *static_cast<const String*>(ref));
 				break;
 			case ScriptTypeID::None_t:
 				Formatter(formatData, U"none");
+				break;
+			case ScriptTypeID::Duration:
+				Formatter(formatData, *static_cast<const Duration*>(ref));
 				break;
 			case ScriptTypeID::Date:
 				Formatter(formatData, *static_cast<const Date*>(ref));

@@ -178,7 +178,7 @@ namespace s3d
 
 		constexpr Point& set(int32 _x, int32 _y) noexcept;
 
-		constexpr Point& set(const Point p) noexcept;
+		constexpr Point& set(Point p) noexcept;
 
 		[[nodiscard]]
 		constexpr Point movedBy(int32 _x, int32 _y) const noexcept;
@@ -219,7 +219,7 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]]
-		Type distanceFrom(Vector2D<Type> p) const noexcept;
+		double distanceFrom(Vector2D<Type> p) const noexcept;
 
 		[[nodiscard]]
 		constexpr double distanceFromSq(double _x, double _y) const noexcept;
@@ -229,7 +229,7 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]]
-		constexpr Type distanceFromSq(Vector2D<Type> p) const noexcept;
+		constexpr double distanceFromSq(Vector2D<Type> p) const noexcept;
 
 		[[nodiscard]]
 		constexpr int32 area() const noexcept;

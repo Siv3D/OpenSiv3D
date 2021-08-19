@@ -74,6 +74,7 @@ namespace s3d
 			throw EngineError{ U"SetMessageCallback() failed" };
 		}
 		m_engine->SetEngineProperty(AngelScript::asEP_REQUIRE_ENUM_SCOPE, 1);
+		m_engine->SetEngineProperty(AngelScript::asEP_USE_CHARACTER_LITERALS, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1);
 		m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1);
 
@@ -83,10 +84,13 @@ namespace s3d
 			RegisterTypes(m_engine);
 			RegisterYesNo(m_engine);
 			RegisterUtility(m_engine);
+			RegisterChar(m_engine);
 			AngelScript::RegisterStdString(m_engine);
-
 			RegisterNone_t(m_engine);
 			RegisterOptional(m_engine);
+			RegisterNumber(m_engine);
+			RegisterFloatingPoint(m_engine);
+
 			RegisterDuration(m_engine);
 			RegisterDate(m_engine);
 			RegisterDateTime(m_engine);
@@ -94,20 +98,45 @@ namespace s3d
 			RegisterStopwatch(m_engine);
 			RegisterVariableSpeedStopwatch(m_engine);
 			RegisterTimer(m_engine);
+			RegisterProfiler(m_engine);
 			RegisterMillisecClock(m_engine);
 			RegisterMicrosecClock(m_engine);
 			RegisterRDTSCClock(m_engine);
 
+			RegisterSpecialFolder(m_engine);
+			RegisterCopyOption(m_engine);
+			RegisterFileSystem(m_engine);
+			RegisterResource(m_engine);
+			RegisterMathConstants(m_engine);
+			RegisterMath(m_engine);
+			RegisterEasing(m_engine);
+			RegisterPeriodic(m_engine);
+			RegisterPrimeNumber(m_engine);
+
 			RegisterColor(m_engine);
 			RegisterColorF(m_engine);
 			RegisterHSV(m_engine);
+			RegisterPalette(m_engine);
+
+			RegisterPoint(m_engine);
+			RegisterVec2(m_engine);
+			RegisterFloat2(m_engine);
+
+			RegisterPolygon(m_engine);
 
 			RegisterPrint(m_engine);
 
 
+			RegisterThreading(m_engine);
 			RegisterSystem(m_engine);
-			RegisterScene(m_engine);
+			RegisterWindowStyle(m_engine);
+			RegisterWindow(m_engine);
+			RegisterMonitor(m_engine);
+			RegisterCursorStyle(m_engine);
+			RegisterCursor(m_engine);
 			RegisterGraphics(m_engine);
+			RegisterResizeMode(m_engine);
+			RegisterScene(m_engine);
 		}
 
 		{

@@ -36,8 +36,8 @@ namespace s3d
 
 		//Arg_samplingRate = 67108877,
 		//Arg_samplingRateValue,
-		String = 67108877,
-
+		Char32 = 67108877,
+		String,
 		None_t,
 		Duration,
 		Date,
@@ -121,8 +121,12 @@ namespace s3d
 	void RegisterTypes(asIScriptEngine* engine);
 	void RegisterYesNo(asIScriptEngine* engine);
 	void RegisterUtility(asIScriptEngine* engine);
+	void RegisterChar(asIScriptEngine* engine);
 	void RegisterNone_t(asIScriptEngine* engine);
 	void RegisterOptional(asIScriptEngine* engine);
+	void RegisterNumber(asIScriptEngine* engine);
+	void RegisterFloatingPoint(asIScriptEngine* engine);
+
 	void RegisterDuration(asIScriptEngine* engine);
 	void RegisterDate(asIScriptEngine* engine);
 	void RegisterDateTime(asIScriptEngine* engine);
@@ -130,20 +134,47 @@ namespace s3d
 	void RegisterStopwatch(asIScriptEngine* engine);
 	void RegisterVariableSpeedStopwatch(asIScriptEngine* engine);
 	void RegisterTimer(asIScriptEngine* engine);
+	void RegisterProfiler(asIScriptEngine* engine);
 	void RegisterMillisecClock(asIScriptEngine* engine);
 	void RegisterMicrosecClock(asIScriptEngine* engine);
 	void RegisterRDTSCClock(asIScriptEngine* engine);
+
+	void RegisterSpecialFolder(asIScriptEngine* engine);
+	void RegisterCopyOption(asIScriptEngine* engine);
+	void RegisterFileSystem(asIScriptEngine* engine);
+	void RegisterResource(asIScriptEngine* engine);
+	void RegisterMathConstants(asIScriptEngine* engine);
+	void RegisterMath(asIScriptEngine* engine);
+	void RegisterEasing(asIScriptEngine* engine);
+	void RegisterPeriodic(asIScriptEngine* engine);
+	void RegisterPrimeNumber(asIScriptEngine* engine);
+
 	void RegisterColor(asIScriptEngine* engine);
 	void RegisterColorF(asIScriptEngine* engine);
 	void RegisterHSV(asIScriptEngine* engine);
+	void RegisterPalette(asIScriptEngine* engine);
 
+	void RegisterPoint(asIScriptEngine* engine);
+	void RegisterVec2(asIScriptEngine* engine);
+	void RegisterFloat2(asIScriptEngine* engine);
+
+
+	void RegisterPolygon(asIScriptEngine* engine);
 
 	void RegisterPrint(asIScriptEngine* engine);
 
 
+	void RegisterThreading(asIScriptEngine* engine);
+
 	void RegisterSystem(asIScriptEngine* engine);
-	void RegisterScene(asIScriptEngine* engine);
+	void RegisterWindowStyle(asIScriptEngine* engine);
+	void RegisterWindow(asIScriptEngine* engine);
+	void RegisterMonitor(asIScriptEngine* engine);
+	void RegisterCursorStyle(asIScriptEngine* engine);
+	void RegisterCursor(asIScriptEngine* engine);
 	void RegisterGraphics(asIScriptEngine* engine);
+	void RegisterResizeMode(asIScriptEngine* engine);
+	void RegisterScene(asIScriptEngine* engine);
 
 
 }

@@ -308,7 +308,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline Type Point::distanceFrom(const Vector2D<Type> p) const noexcept
+	inline double Point::distanceFrom(const Vector2D<Type> p) const noexcept
 	{
 		return distanceFrom(p.x, p.y);
 	}
@@ -326,7 +326,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Type Point::distanceFromSq(const Vector2D<Type> p) const noexcept
+	inline constexpr double Point::distanceFromSq(const Vector2D<Type> p) const noexcept
 	{
 		return distanceFromSq(p.x, p.y);
 	}
@@ -355,7 +355,7 @@ namespace s3d
 			return Math::NaN_v<Type>;
 		}
 
-		return std::atan2(cross(other), dot(other));
+		return std::atan2(Vector2D<Type>{ *this }.cross(other), Vector2D<Type>{ *this }.dot(other));
 	}
 
 	inline constexpr Point Point::getPerpendicularCW() const noexcept

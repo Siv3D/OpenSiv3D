@@ -63,8 +63,8 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHOD(BindType, isToday), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHOD(BindType, isLeapYear), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHOD(BindType, daysInYear), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd\") const", asFUNCTION(ScriptFormatDate), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
@@ -77,11 +77,17 @@ namespace s3d
 		// Date operator -(const Date& date, const Days& days)
 		// Days operator -(const Date& to, const Date& from);
 
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(BindType, hash), asCALL_THISCALL); assert(r >= 0);
+
 		r = engine->SetDefaultNamespace("Date"); assert(r >= 0);
 		{
-			engine->RegisterGlobalFunction("Date Yesterday()", asFUNCTION(Date::Yesterday), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("Date Today()", asFUNCTION(Date::Today), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("Date Tomorrow()", asFUNCTION(Date::Tomorrow), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Date Yesterday()", asFUNCTION(Date::Yesterday), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Date Today()", asFUNCTION(Date::Today), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Date Tomorrow()", asFUNCTION(Date::Tomorrow), asCALL_CDECL); assert(r >= 0);
+			
+			r = engine->RegisterGlobalFunction("bool IsLeapYear(int32)", asFUNCTION(Date::IsLeapYear), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int32 DaysInYear(int32)", asFUNCTION(Date::DaysInYear), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("int32 DaysInMonth(int32 year, int32 month)", asFUNCTION(Date::DaysInMonth), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

@@ -157,7 +157,7 @@ namespace s3d
 		FilePath UniqueFilePath(FilePathView directory = TemporaryDirectoryPath());
 
 		[[nodiscard]]
-		FilePath RelativePath(FilePathView path, FilePathView start = FileSystem::CurrentDirectory());
+		FilePath RelativePath(FilePathView path, FilePathView start = CurrentDirectory());
 
 		bool CreateDirectories(FilePathView path);
 

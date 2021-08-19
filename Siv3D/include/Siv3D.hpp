@@ -370,7 +370,7 @@
 # include <Siv3D/CopyOption.hpp>
 
 // ファイルとディレクトリ | Files and directories
-# include <Siv3D/FileSystem.hpp> // [Siv3D ToDo]
+# include <Siv3D/FileSystem.hpp>
 
 // リソースファイルの設定 | Resource file option
 # include <Siv3D/ResourceOption.hpp>

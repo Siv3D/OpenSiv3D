@@ -68,6 +68,10 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32 year, int32 month, int32 day, int32 _hour = 0, int32 minute = 0, int32 second = 0, int32 milliseconds = 0)", asFUNCTION(ConstructIIIIIII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Date& in date, int32 _hour = 0, int32 minute = 0, int32 second = 0, int32 milliseconds = 0)", asFUNCTION(ConstructDIIII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHOD(BindType, isToday), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHOD(BindType, isLeapYear), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHOD(BindType, daysInYear), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd HH:mm:ss\") const", asFUNCTION(ScriptFormatDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
@@ -78,10 +82,16 @@ namespace s3d
 		
 		r = engine->RegisterObjectMethod(TypeName, "int32 opCmp(const DateTime& in) const", asFUNCTION(CompareDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(BindType, hash), asCALL_THISCALL); assert(r >= 0);
+
+
 		r = engine->SetDefaultNamespace("DateTime"); assert(r >= 0);
 		{
-			engine->RegisterGlobalFunction("DateTime Now()", asFUNCTION(DateTime::Now), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("DateTime NowUTC()", asFUNCTION(DateTime::NowUTC), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("DateTime Yesterday()", asFUNCTION(DateTime::Yesterday), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("DateTime Today()", asFUNCTION(DateTime::Today), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("DateTime Tomorrow()", asFUNCTION(DateTime::Tomorrow), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("DateTime Now()", asFUNCTION(DateTime::Now), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("DateTime NowUTC()", asFUNCTION(DateTime::NowUTC), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 

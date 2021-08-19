@@ -23,6 +23,12 @@ namespace s3d
 		assert(0 <= r);
 	}
 
+	static void RegisterEnum(asIScriptEngine* const engine, const char* name)
+	{
+		const int32 r = engine->RegisterEnum(name); assert(r >= 0);
+		assert(0 <= r);
+	}
+
 	void RegisterTypes(asIScriptEngine* engine)
 	{
 		int32 r = 0;
@@ -33,11 +39,12 @@ namespace s3d
 		//	r = engine->RegisterObjectType("samplingRate_v", sizeof(uint32), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_CK); assert(r >= 0);
 		//}
 		//r = engine->SetDefaultNamespace(""); assert(r >= 0);
-
+		
+		RegisterType(engine, "char32", sizeof(char32), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<char32_t>());
 		RegisterType(engine, "String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>());
 		RegisterType(engine, "None_t", sizeof(uint8), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK);
-		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<Duration>());
+		RegisterType(engine, "Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>());
@@ -63,17 +70,18 @@ namespace s3d
 		//r = engine->RegisterObjectType("Circular", sizeof(Circular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("OffsetCircular", sizeof(OffsetCircular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("Mat3x2", sizeof(Mat3x2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Bezier2", sizeof(Bezier2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Bezier3", sizeof(Bezier3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Line", sizeof(Line), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Rect", sizeof(Rect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("RectF", sizeof(RectF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Circle", sizeof(Circle), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Ellipse", sizeof(Ellipse), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Triangle", sizeof(Triangle), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Quad", sizeof(Quad), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("RoundRect", sizeof(RoundRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Polygon", sizeof(Polygon), asOBJ_VALUE | asGetTypeTraits<Polygon>()); assert(r >= 0);
+
+		RegisterType(engine, "Bezier2", sizeof(Bezier2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Bezier3", sizeof(Bezier3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Line", sizeof(Line), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Rect", sizeof(Rect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "RectF", sizeof(RectF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Circle", sizeof(Circle), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Ellipse", sizeof(Ellipse), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Triangle", sizeof(Triangle), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Quad", sizeof(Quad), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "RoundRect", sizeof(RoundRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Polygon", sizeof(Polygon), asOBJ_VALUE | asGetTypeTraits<Polygon>());
 
 		/////
 		///// bad
@@ -119,6 +127,12 @@ namespace s3d
 		RegisterType(engine, "PrintBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "Print_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
 
+		RegisterEnum(engine, "SpecialFolder");
+		RegisterEnum(engine, "CopyOption");
+		RegisterEnum(engine, "WindowStyle");
+		RegisterEnum(engine, "CursorStyle");
+		RegisterEnum(engine, "ResizeMode");
+
 		//r = engine->RegisterEnum("UserAction"); assert(r >= 0);
 		//r = engine->RegisterEnum("WindowStyle"); assert(r >= 0);
 		//r = engine->RegisterEnum("WindowResizeOption"); assert(r >= 0);
@@ -133,6 +147,7 @@ namespace s3d
 		//r = engine->RegisterEnum("PianoKey"); assert(r >= 0);
 		//r = engine->RegisterEnum("GMInstrument"); assert(r >= 0);
 
+		assert(engine->GetTypeIdByDecl("char32") == static_cast<int32>(ScriptTypeID::Char32));
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));
 		assert(engine->GetTypeIdByDecl("Duration") == static_cast<int32>(ScriptTypeID::Duration));

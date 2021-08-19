@@ -69,9 +69,9 @@ namespace s3d
 		const uint32 dstBlend = (255 - srcBlend);
 
 		Color* const pDst = (dst.data() + y * dst.width() + x);
-		pDst->r = ((pDst->r * dstBlend) + (color.r * srcBlend)) / 255;
-		pDst->g = ((pDst->g * dstBlend) + (color.g * srcBlend)) / 255;
-		pDst->b = ((pDst->b * dstBlend) + (color.b * srcBlend)) / 255;
+		pDst->r = static_cast<uint8>(((pDst->r * dstBlend) + (color.r * srcBlend)) / 255);
+		pDst->g = static_cast<uint8>(((pDst->g * dstBlend) + (color.g * srcBlend)) / 255);
+		pDst->b = static_cast<uint8>(((pDst->b * dstBlend) + (color.b * srcBlend)) / 255);
 
 		return *this;
 	}

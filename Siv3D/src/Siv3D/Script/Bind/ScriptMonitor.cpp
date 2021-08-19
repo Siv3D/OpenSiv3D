@@ -10,20 +10,19 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
-# include <Siv3D/Graphics.hpp>
+# include <Siv3D/Monitor.hpp>
 
 namespace s3d
 {
 	using namespace AngelScript;
 
-	void RegisterGraphics(asIScriptEngine* engine)
+	void RegisterMonitor(asIScriptEngine* engine)
 	{
 		int32 r = 0;
 
-		r = engine->SetDefaultNamespace("Graphics"); assert(r >= 0);
+		r = engine->SetDefaultNamespace("System"); assert(r >= 0);
 		{
-			r = engine->RegisterGlobalFunction("void SetVSyncEnabled(bool)", asFUNCTION(Graphics::SetVSyncEnabled), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("bool IsVSyncEnabled()", asFUNCTION(Graphics::IsVSyncEnabled), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("size_t GetCurrentMonitorIndex()", asFUNCTION(System::GetCurrentMonitorIndex), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

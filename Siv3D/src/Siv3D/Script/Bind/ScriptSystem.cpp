@@ -53,15 +53,15 @@ namespace s3d
 
 		r = engine->SetDefaultNamespace("System"); assert(r >= 0);
 		{
-			engine->RegisterGlobalFunction("bool Update()", asFUNCTION(ScriptSystemUpdate), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("void Exit()", asFUNCTION(System::Exit), asCALL_CDECL); assert(r >= 0);		
-			engine->RegisterGlobalFunction("void SetTerminationTriggers(uint32)", asFUNCTION(System::SetTerminationTriggers), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("uint32 GetTerminationTriggers()", asFUNCTION(System::GetTerminationTriggers), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("uint32 GetUserActions()", asFUNCTION(System::GetUserActions), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("void Sleep(int32)", asFUNCTIONPR(System::Sleep, (int32), void), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("void Sleep(const Duration& in)", asFUNCTIONPR(System::Sleep, (const Duration&), void), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("bool LaunchBrowser(const String& in)", asFUNCTION(ScriptSystemLaunchBrowser), asCALL_CDECL); assert(r >= 0);
-			engine->RegisterGlobalFunction("bool ShowInFileManager(const String& in)", asFUNCTION(ScriptSystemShowInFileManager), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool Update()", asFUNCTION(ScriptSystemUpdate), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void Exit()", asFUNCTION(System::Exit), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void SetTerminationTriggers(uint32)", asFUNCTION(System::SetTerminationTriggers), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("uint32 GetTerminationTriggers()", asFUNCTION(System::GetTerminationTriggers), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("uint32 GetUserActions()", asFUNCTION(System::GetUserActions), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void Sleep(int32)", asFUNCTIONPR(System::Sleep, (int32), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void Sleep(const Duration& in)", asFUNCTIONPR(System::Sleep, (const Duration&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool LaunchBrowser(const String& in)", asFUNCTION(ScriptSystemLaunchBrowser), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool ShowInFileManager(const String& in)", asFUNCTION(ScriptSystemShowInFileManager), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

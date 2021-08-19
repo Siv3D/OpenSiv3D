@@ -21,14 +21,22 @@ namespace s3d
 		inline constexpr bool No = false;
 	}
 
-	void RegisterYesNo(asIScriptEngine* engine)
+	static void RegisterYesNo(asIScriptEngine* engine, const char* name)
 	{
 		int32 r = 0;
 
-		r = engine->SetDefaultNamespace("StartImmediately"); assert(r >= 0);
+		r = engine->SetDefaultNamespace(name); assert(r >= 0);
 		{
 			r = engine->RegisterGlobalProperty("const bool Yes", (void*)&detail::Yes); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const bool No", (void*)&detail::No); assert(r >= 0);
 		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+	}
+
+	void RegisterYesNo(asIScriptEngine* engine)
+	{
+		RegisterYesNo(engine, "StartImmediately");
+		//RegisterYesNo(engine, "AllowUndo");
+		RegisterYesNo(engine, "Centering");
 	}
 }

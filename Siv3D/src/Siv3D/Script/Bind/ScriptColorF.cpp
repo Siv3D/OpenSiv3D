@@ -65,7 +65,7 @@ namespace s3d
 
 	static void ConstructHA(const HSV& hsv, double a, ValueType* self)
 	{
-		new(self) ValueType(hsv);
+		new(self) ValueType(hsv, a);
 	}
 
 	static void ConstructS(const String& code, ValueType* self)
