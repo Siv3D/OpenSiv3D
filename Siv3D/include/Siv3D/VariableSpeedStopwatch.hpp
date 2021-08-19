@@ -31,13 +31,13 @@ namespace s3d
 		explicit VariableSpeedStopwatch(const Duration& startTime, double speed = 1.0, StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
 		[[nodiscard]]
-		bool isStarted() const;
+		bool isStarted() const noexcept;
 
 		[[nodiscard]]
-		bool isPaused() const;
+		bool isPaused() const noexcept;
 
 		[[nodiscard]]
-		bool isRunning() const;
+		bool isRunning() const noexcept;
 
 		void start();
 

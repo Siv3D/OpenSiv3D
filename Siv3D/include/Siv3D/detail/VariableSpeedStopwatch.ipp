@@ -38,17 +38,17 @@ namespace s3d
 		}
 	}
 
-	inline bool VariableSpeedStopwatch::isStarted() const
+	inline bool VariableSpeedStopwatch::isStarted() const noexcept
 	{
 		return m_isStarted;
 	}
 
-	inline bool VariableSpeedStopwatch::isPaused() const
+	inline bool VariableSpeedStopwatch::isPaused() const noexcept
 	{
 		return (m_isStarted && m_pausing);
 	}
 
-	inline bool VariableSpeedStopwatch::isRunning() const
+	inline bool VariableSpeedStopwatch::isRunning() const noexcept
 	{
 		return (m_isStarted && not m_pausing);
 	}

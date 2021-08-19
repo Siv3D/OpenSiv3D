@@ -149,7 +149,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHODPR(Vec2, lengthSq, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double invLength() const", asMETHODPR(Vec2, invLength, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "double manhattanLength() const", asMETHOD(Vec2, manhattanLength), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double manhattanLength() const", asMETHODPR(Vec2, manhattanLength, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double manhattanDistanceFrom(double, double) const", asMETHODPR(Vec2, manhattanDistanceFrom, (double, double) const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double manhattanDistanceFrom(Vec2) const", asMETHODPR(Vec2, manhattanDistanceFrom, (Vec2) const, double), asCALL_THISCALL); assert(r >= 0);
 
@@ -158,16 +158,16 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "double distanceFromSq(double x, double y) const", asMETHODPR(Vec2, distanceFromSq, (double, double) const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double distanceFromSq(Vec2) const", asMETHODPR(Vec2, distanceFromSq, (Vec2) const, double), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 withLength(double)", asMETHOD(Vec2, withLength), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2& setLength(double)", asMETHOD(Vec2, setLength), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 limitLength(double)", asMETHOD(Vec2, limitLength), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2& limitLengthSelf(double)", asMETHOD(Vec2, limitLengthSelf), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalized() const", asMETHOD(Vec2, normalized), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2& normalize()", asMETHOD(Vec2, normalize), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 rotated(double) const", asMETHOD(Vec2, rotated), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2& rotate(double)", asMETHOD(Vec2, rotate), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 rotatedAt(Vec2, double) const", asMETHOD(Vec2, rotatedAt), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2& rotateAt(Vec2, double)", asMETHOD(Vec2, rotateAt), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 withLength(double) const", asMETHODPR(Vec2, withLength, (double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& setLength(double)", asMETHODPR(Vec2, setLength, (double) noexcept, Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 limitLength(double) const", asMETHODPR(Vec2, limitLength, (double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& limitLengthSelf(double)", asMETHODPR(Vec2, limitLengthSelf, (double) noexcept, Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalized() const", asMETHODPR(Vec2, normalized, () const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& normalize()", asMETHODPR(Vec2, normalize, () noexcept, Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 rotated(double) const", asMETHODPR(Vec2, rotated, (double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& rotate(double)", asMETHODPR(Vec2, rotate, (double) noexcept, Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 rotatedAt(Vec2, double) const", asMETHODPR(Vec2, rotatedAt, (Vec2, double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& rotateAt(Vec2, double)", asMETHODPR(Vec2, rotateAt, (Vec2, double) noexcept, Vec2&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "double getAngle() const", asMETHODPR(Vec2, getAngle, () const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double getAngle(Vec2) const", asMETHODPR(Vec2, getAngle, (Vec2) const, double), asCALL_THISCALL); assert(r >= 0);
@@ -177,8 +177,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 getMidpoint(Vec2) const", asMETHODPR(Vec2, getMidpoint, (Vec2) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 projection(Vec2) const", asMETHODPR(Vec2, projection, (Vec2) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 getPointByAngleAndDistance(double, double) const", asMETHOD(Vec2, getPointByAngleAndDistance), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 lerp(Vec2, double) const", asMETHOD(Vec2, lerp), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 getPointByAngleAndDistance(double, double) const", asMETHODPR(Vec2, getPointByAngleAndDistance, (double, double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 lerp(Vec2, double) const", asMETHODPR(Vec2, lerp, (Vec2, double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Point asPoint() const", asMETHODPR(Vec2, asPoint, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHODPR(Vec2, asCircle, (double) const noexcept, Circle), asCALL_THISCALL); assert(r >= 0);
@@ -199,7 +199,7 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(Vec2, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Vec2, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 xx() const", asMETHODPR(Vec2, xx, () const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 xy() const", asMETHODPR(Vec2, xy, () const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);

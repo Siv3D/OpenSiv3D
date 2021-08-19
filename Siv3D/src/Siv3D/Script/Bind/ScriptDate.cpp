@@ -77,7 +77,7 @@ namespace s3d
 		// Date operator -(const Date& date, const Days& days)
 		// Days operator -(const Date& to, const Date& from);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(BindType, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(BindType, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace("Date"); assert(r >= 0);
 		{

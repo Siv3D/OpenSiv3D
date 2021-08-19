@@ -74,7 +74,7 @@ namespace s3d
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Duration &in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(double) explicit", asFUNCTION(ConstructD), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-			r = engine->RegisterObjectMethod(TypeName, "double count() const", asMETHOD(BindType, count), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "double count() const", asMETHODPR(BindType, count, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 		}
 
 		r = engine->RegisterGlobalFunction("Duration _h(double)", asFUNCTION(DurationHours), asCALL_CDECL); assert(r >= 0);

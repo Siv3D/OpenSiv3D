@@ -106,7 +106,7 @@ namespace s3d
 		//
 		//	~
 		//
-		r = engine->RegisterObjectMethod(TypeName, "Color opCom() const", asMETHOD(Color, operator~), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color opCom() const", asMETHODPR(Color, operator~, () const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	==, !=
@@ -138,7 +138,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Color gamma(double) const", asMETHODPR(Color, gamma, (double) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF removeSRGBCurve() const", asMETHODPR(Color, removeSRGBCurve, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF applySRGBCurve() const", asMETHODPR(Color, applySRGBCurve, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String toHex() const", asMETHOD(Color, toHex), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "String toHex() const", asMETHODPR(Color, toHex, () const,  String), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Color, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);

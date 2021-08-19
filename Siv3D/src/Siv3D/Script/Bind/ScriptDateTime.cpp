@@ -82,7 +82,7 @@ namespace s3d
 		
 		r = engine->RegisterObjectMethod(TypeName, "int32 opCmp(const DateTime& in) const", asFUNCTION(CompareDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(BindType, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(BindType, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = engine->SetDefaultNamespace("DateTime"); assert(r >= 0);
