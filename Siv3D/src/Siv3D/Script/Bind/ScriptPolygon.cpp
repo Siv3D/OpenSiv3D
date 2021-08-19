@@ -12,7 +12,7 @@
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "ScriptBind.hpp"
-# include "../angelScript/scriptarray.h"
+# include "../angelscript/scriptarray.h"
 
 namespace s3d
 {
