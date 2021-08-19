@@ -20,52 +20,52 @@ namespace s3d
 
 	using BindType = uint8;
 
-	struct PrintBufferWrapeer : detail::PrintBuffer
+	struct PrintBufferWrapper : detail::PrintBuffer
 	{
 		int32 refCount = 0;
 
-		PrintBufferWrapeer()
+		PrintBufferWrapper()
 		{
 			AddRef();
 		}
 
-		PrintBufferWrapeer(const String& str)
+		PrintBufferWrapper(const String& str)
 		{
 			AddRef();
 			formatData->string.assign(str);
 		}
 
-		PrintBufferWrapeer(String&& str)
+		PrintBufferWrapper(String&& str)
 		{
 			AddRef();
 			formatData->string.assign(std::move(str));
 		}
 
-		PrintBufferWrapeer* write(const String& str)
+		PrintBufferWrapper* write(const String& str)
 		{
 			detail::PrintBuffer::operator<<(str);
 			return this;
 		}
 
-		PrintBufferWrapeer* write_T1(const void* ref1, int typeID1)
+		PrintBufferWrapper* write_T1(const void* ref1, int typeID1)
 		{
 			detail::PrintBuffer::operator<<(FormatBase(&ref1, &typeID1, 1));
 			return this;
 		}
 
-		static PrintBufferWrapeer* Create()
+		static PrintBufferWrapper* Create()
 		{
-			return new PrintBufferWrapeer();
+			return new PrintBufferWrapper();
 		}
 
-		static PrintBufferWrapeer* Create(const String& text)
+		static PrintBufferWrapper* Create(const String& text)
 		{
-			return new PrintBufferWrapeer(text);
+			return new PrintBufferWrapper(text);
 		}
 
-		static PrintBufferWrapeer* Create(String&& text)
+		static PrintBufferWrapper* Create(String&& text)
 		{
-			return new PrintBufferWrapeer(std::move(text));
+			return new PrintBufferWrapper(std::move(text));
 		}
 
 		void AddRef()
@@ -82,14 +82,14 @@ namespace s3d
 		}
 	};
 
-	static PrintBufferWrapeer* PrintShl(const String& text, BindType*)
+	static PrintBufferWrapper* PrintShl(const String& text, BindType*)
 	{
-		return PrintBufferWrapeer::Create(text);
+		return PrintBufferWrapper::Create(text);
 	}
 
-	static PrintBufferWrapeer* PrintShl_T1(const void* ref1, int typeID1, BindType*)
+	static PrintBufferWrapper* PrintShl_T1(const void* ref1, int typeID1, BindType*)
 	{
-		return PrintBufferWrapeer::Create(FormatBase(&ref1, &typeID1, 1));
+		return PrintBufferWrapper::Create(FormatBase(&ref1, &typeID1, 1));
 	}
 
 	void RegisterPrint(asIScriptEngine* engine)
@@ -99,11 +99,11 @@ namespace s3d
 		const char PrintTypeName[] = "Print_impl";
 
 		int32 r = 0;
-		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_FACTORY, "PrintBuffer@ f()", asFUNCTIONPR(PrintBufferWrapeer::Create, (), PrintBufferWrapeer*), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(PrintBufferWrapeer, AddRef), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(PrintBufferWrapeer, Release), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const String&in text)", asMETHOD(PrintBufferWrapeer, write), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const ?&in)", asMETHODPR(PrintBufferWrapeer, write_T1, (const void*, int), PrintBufferWrapeer*), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_FACTORY, "PrintBuffer@ f()", asFUNCTIONPR(PrintBufferWrapper::Create, (), PrintBufferWrapper*), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(PrintBufferWrapper, AddRef), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(PrintBufferWrapper, Release), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const String&in text)", asMETHODPR(PrintBufferWrapper, write, (const String&), PrintBufferWrapper*), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const ?&in)", asMETHODPR(PrintBufferWrapper, write_T1, (const void*, int), PrintBufferWrapper*), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const String&in text) const", asFUNCTION(PrintShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const ?&in) const", asFUNCTION(PrintShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);

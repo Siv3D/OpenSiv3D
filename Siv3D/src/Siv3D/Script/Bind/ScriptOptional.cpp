@@ -523,13 +523,13 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32& in, None_t)", asFUNCTION(ConstructN), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const Optional<T>& in)", asMETHOD(CScriptOptional, operator =), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const T& in)", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(None_t)", asMETHOD(CScriptOptional, AssignNone), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const Optional<T>& in)", asMETHODPR(CScriptOptional, operator =, (const CScriptOptional&), CScriptOptional&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const T& in)", asMETHODPR(CScriptOptional, AssignValue, (void*), CScriptOptional&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(None_t)", asMETHODPR(CScriptOptional, AssignNone, (uint8), CScriptOptional&), asCALL_THISCALL); assert(r >= 0);
 
 		//r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(const Optional<T>& in) const", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(const T& in) const", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(None_t) const", asMETHOD(CScriptOptional, opEqualNone), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(None_t) const", asMETHODPR(CScriptOptional, opEqualNone, (uint8) const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		// The index operator returns the template subtype
 		r = engine->RegisterObjectMethod(TypeName, "T& value()", asMETHODPR(CScriptOptional, At, (), void*), asCALL_THISCALL); assert(r >= 0);

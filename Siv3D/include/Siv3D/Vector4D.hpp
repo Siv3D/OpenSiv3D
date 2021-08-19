@@ -324,6 +324,9 @@ namespace s3d
 		constexpr Vector4D xyz0() const noexcept;
 
 		[[nodiscard]]
+		constexpr Vector4D xyz1() const noexcept;
+
+		[[nodiscard]]
 		constexpr Vector4D xyzw() const noexcept;
 
 		[[nodiscard]]

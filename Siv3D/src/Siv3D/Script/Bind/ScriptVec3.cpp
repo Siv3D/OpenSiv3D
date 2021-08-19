@@ -191,25 +191,25 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec3 yzx() const", asMETHODPR(Vec3, yzx, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec3 zzz() const", asMETHODPR(Vec3, zzz, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec3 zxy() const", asMETHODPR(Vec3, zxy, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec3 xxx() const", asMETHODPR(Vec3, zyx, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec3 zyx() const", asMETHODPR(Vec3, zyx, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec4 xyz0() const", asMETHODPR(Vec3, xyz0, () const noexcept, Vec4), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec4 xyz1() const", asMETHODPR(Vec3, xyz1, () const noexcept, Vec4), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);
 		{
-			r = engine->RegisterGlobalFunction("Vec2 Zero()", asFUNCTION(Vec3::Zero), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 One()", asFUNCTION(Vec3::One), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 All(double value = 1)", asFUNCTION(Vec3::All), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 UnitX()", asFUNCTION(Vec3::UnitX), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 UnitY()", asFUNCTION(Vec3::UnitY), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 UnitZ()", asFUNCTION(Vec3::UnitZ), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Left(double length = 1)", asFUNCTION(Vec3::Left), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Right(double length = 1)", asFUNCTION(Vec3::Right), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Up(double length = 1)", asFUNCTION(Vec3::Up), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Down(double length = 1)", asFUNCTION(Vec3::Down), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Forward(double length = 1)", asFUNCTION(Vec3::Forward), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 Backward(double length = 1)", asFUNCTION(Vec3::Backward), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Zero()", asFUNCTION(Vec3::Zero), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 One()", asFUNCTION(Vec3::One), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 All(double value = 1)", asFUNCTION(Vec3::All), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 UnitX()", asFUNCTION(Vec3::UnitX), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 UnitY()", asFUNCTION(Vec3::UnitY), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 UnitZ()", asFUNCTION(Vec3::UnitZ), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Left(double length = 1)", asFUNCTION(Vec3::Left), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Right(double length = 1)", asFUNCTION(Vec3::Right), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Up(double length = 1)", asFUNCTION(Vec3::Up), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Down(double length = 1)", asFUNCTION(Vec3::Down), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Forward(double length = 1)", asFUNCTION(Vec3::Forward), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 Backward(double length = 1)", asFUNCTION(Vec3::Backward), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

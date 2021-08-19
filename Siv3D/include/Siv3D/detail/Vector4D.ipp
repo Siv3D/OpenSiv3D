@@ -659,6 +659,12 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr Vector4D<Type> Vector4D<Type>::xyz1() const noexcept
+	{
+		return{ x, y, z, 1 };
+	}
+
+	template <class Type>
 	inline constexpr Vector4D<Type> Vector4D<Type>::xyzw() const noexcept
 	{
 		return *this;

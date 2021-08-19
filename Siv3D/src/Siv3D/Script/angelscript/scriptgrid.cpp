@@ -249,7 +249,7 @@ static void RegisterScriptGrid_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Grid<T>", "uint width() const", asMETHODPR(CScriptGrid, GetWidth, () const, asUINT), asCALL_THISCALL); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("Grid<T>", "uint height() const", asMETHODPR(CScriptGrid, GetHeight, () const, asUINT), asCALL_THISCALL); assert( r >= 0 );
 
-	r = engine->RegisterObjectMethod("Grid<T>", "void fill(const T& in)", asMETHOD(CScriptGrid, Fill), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Grid<T>", "void fill(const T& in)", asMETHODPR(CScriptGrid, Fill, (void*), void), asCALL_THISCALL); assert(r >= 0);
 
 
 	// Register GC behaviours in case the array needs to be garbage collected

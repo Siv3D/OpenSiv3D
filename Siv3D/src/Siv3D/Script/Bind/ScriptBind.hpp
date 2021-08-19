@@ -161,7 +161,9 @@ namespace s3d
 	void RegisterPoint(asIScriptEngine* engine);
 	void RegisterVec2(asIScriptEngine* engine);
 	void RegisterFloat2(asIScriptEngine* engine);
-
+	void RegisterVec3(asIScriptEngine* engine);
+	void RegisterFloat3(asIScriptEngine* engine);
+	void RegisterVec4(asIScriptEngine* engine);
 
 	void RegisterPolygon(asIScriptEngine* engine);
 

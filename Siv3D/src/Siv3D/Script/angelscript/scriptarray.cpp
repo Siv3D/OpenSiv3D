@@ -30,7 +30,6 @@ void CScriptArray::SetMemoryFunctions(asALLOCFUNC_t allocFunc, asFREEFUNC_t free
 }
 
 static void RegisterScriptArray_Native(asIScriptEngine *engine);
-static void RegisterScriptArray_Generic(asIScriptEngine *engine);
 
 struct SArrayBuffer
 {
@@ -277,7 +276,7 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectBehaviour("Array<T>", asBEHAVE_RELEASE, "void f()", asMETHOD(CScriptArray,Release), asCALL_THISCALL); assert( r >= 0 );
 
 	// operator =
-	r = engine->RegisterObjectMethod("Array<T>", "Array<T> &opAssign(const Array<T>&in)", asMETHOD(CScriptArray, operator=), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "Array<T> &opAssign(const Array<T>&in)", asMETHODPR(CScriptArray, operator=, (const CScriptArray&), CScriptArray&), asCALL_THISCALL); assert(r >= 0);
 
 	// operator []
 	r = engine->RegisterObjectMethod("Array<T>", "T &opIndex(uint index)", asMETHODPR(CScriptArray, At, (asUINT), void*), asCALL_THISCALL); assert( r >= 0 );
@@ -339,7 +338,7 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "int findByRef(uint startAt, const T&in if_handle_then_const value) const", asMETHODPR(CScriptArray, FindByRef, (asUINT, void*) const, int), asCALL_THISCALL); assert(r >= 0);
 	
 	// operator ==
-	r = engine->RegisterObjectMethod("Array<T>", "bool opEquals(const Array<T>&in) const", asMETHOD(CScriptArray, operator==), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "bool opEquals(const Array<T>&in) const", asMETHODPR(CScriptArray, operator==, (const CScriptArray&) const, bool), asCALL_THISCALL); assert(r >= 0);
 	
 	// Sort with callback for comparison
 	r = engine->RegisterFuncdef("bool Array<T>::less(const T&in if_handle_then_const a, const T&in if_handle_then_const b)");

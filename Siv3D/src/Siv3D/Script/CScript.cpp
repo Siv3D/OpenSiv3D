@@ -121,9 +121,10 @@ namespace s3d
 			RegisterPoint(m_engine);
 			RegisterVec2(m_engine);
 			RegisterFloat2(m_engine);
+			RegisterVec3(m_engine);
+			RegisterFloat3(m_engine);
+			RegisterVec4(m_engine);
 
-			//void RegisterVec3(AngelScript::asIScriptEngine * engine);
-			//void RegisterFloat3(AngelScript::asIScriptEngine * engine);
 			//void RegisterVec4(AngelScript::asIScriptEngine * engine);
 			//void RegisterFloat4(AngelScript::asIScriptEngine * engine);
 			//void RegisterCircular(AngelScript::asIScriptEngine * engine);

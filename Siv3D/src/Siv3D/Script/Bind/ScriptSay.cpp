@@ -20,52 +20,52 @@ namespace s3d
 
 	using BindType = uint8;
 
-	struct SayBufferWrapeer : detail::SayBuffer
+	struct SayBufferWrapper : detail::SayBuffer
 	{
 		int32 refCount = 0;
 
-		SayBufferWrapeer()
+		SayBufferWrapper()
 		{
 			AddRef();
 		}
 
-		SayBufferWrapeer(const String& str)
+		SayBufferWrapper(const String& str)
 		{
 			AddRef();
 			formatData->string.assign(str);
 		}
 
-		SayBufferWrapeer(String&& str)
+		SayBufferWrapper(String&& str)
 		{
 			AddRef();
 			formatData->string.assign(std::move(str));
 		}
 
-		SayBufferWrapeer* write(const String& str)
+		SayBufferWrapper* write(const String& str)
 		{
 			detail::SayBuffer::operator<<(str);
 			return this;
 		}
 
-		SayBufferWrapeer* write_T1(const void* ref1, int typeID1)
+		SayBufferWrapper* write_T1(const void* ref1, int typeID1)
 		{
 			detail::SayBuffer::operator<<(FormatBase(&ref1, &typeID1, 1));
 			return this;
 		}
 
-		static SayBufferWrapeer* Create()
+		static SayBufferWrapper* Create()
 		{
-			return new SayBufferWrapeer();
+			return new SayBufferWrapper();
 		}
 
-		static SayBufferWrapeer* Create(const String& text)
+		static SayBufferWrapper* Create(const String& text)
 		{
-			return new SayBufferWrapeer(text);
+			return new SayBufferWrapper(text);
 		}
 
-		static SayBufferWrapeer* Create(String&& text)
+		static SayBufferWrapper* Create(String&& text)
 		{
-			return new SayBufferWrapeer(std::move(text));
+			return new SayBufferWrapper(std::move(text));
 		}
 
 		void AddRef()
@@ -82,14 +82,14 @@ namespace s3d
 		}
 	};
 
-	static SayBufferWrapeer* SayShl(const String& text, BindType*)
+	static SayBufferWrapper* SayShl(const String& text, BindType*)
 	{
-		return SayBufferWrapeer::Create(text);
+		return SayBufferWrapper::Create(text);
 	}
 
-	static SayBufferWrapeer* SayShl_T1(const void* ref1, int typeID1, BindType*)
+	static SayBufferWrapper* SayShl_T1(const void* ref1, int typeID1, BindType*)
 	{
-		return SayBufferWrapeer::Create(FormatBase(&ref1, &typeID1, 1));
+		return SayBufferWrapper::Create(FormatBase(&ref1, &typeID1, 1));
 	}
 
 	void RegisterSay(asIScriptEngine* engine)
@@ -99,11 +99,11 @@ namespace s3d
 		const char SayTypeName[] = "Say_impl";
 
 		int32 r = 0;
-		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_FACTORY, "SayBuffer@ f()", asFUNCTIONPR(SayBufferWrapeer::Create, (), SayBufferWrapeer*), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(SayBufferWrapeer, AddRef), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(SayBufferWrapeer, Release), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(SayBufferTypeName, "SayBuffer& opShl(const String&in text)", asMETHOD(SayBufferWrapeer, write), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(SayBufferTypeName, "SayBuffer& opShl(const ?&in)", asMETHOD(SayBufferWrapeer, write_T1), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_FACTORY, "SayBuffer@ f()", asFUNCTIONPR(SayBufferWrapper::Create, (), SayBufferWrapper*), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(SayBufferWrapper, AddRef), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(SayBufferWrapper, Release), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(SayBufferTypeName, "SayBuffer& opShl(const String&in text)", asMETHODPR(SayBufferWrapper, write, (const String&), SayBufferWrapper*), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(SayBufferTypeName, "SayBuffer& opShl(const ?&in)", asMETHODPR(SayBufferWrapper, write_T1, (const void*, int), SayBufferWrapper*), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(SayTypeName, "SayBuffer@ opShl(const String&in text) const", asFUNCTION(SayShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(SayTypeName, "SayBuffer@ opShl(const ?&in) const", asFUNCTION(SayShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);
