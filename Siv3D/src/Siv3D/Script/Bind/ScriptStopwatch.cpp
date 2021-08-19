@@ -79,7 +79,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void resume()", asMETHOD(BindType, resume), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void reset()", asMETHOD(BindType, reset), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void restart()", asMETHOD(BindType, restart), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHOD(BindType, set), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHODPR(BindType, set, (const Duration&), void), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "int32 d() const", asMETHODPR(BindType, d, () const, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int64 d64() const", asMETHODPR(BindType, d64, () const, int64), asCALL_THISCALL); assert(r >= 0);

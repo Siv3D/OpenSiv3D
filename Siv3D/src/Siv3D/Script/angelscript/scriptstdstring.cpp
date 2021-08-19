@@ -209,7 +209,7 @@ static int StringCmp(const String &a, const String &b)
 static int StringFindFirst(const String &sub, asUINT start, const String &str)
 {
 	// We don't register the method directly because the argument types change between 32bit and 64bit platforms
-	return (int)str.indexOf(sub, (size_t)(start < 0 ? String::npos : start));
+	return (int)str.indexOf(sub, start);
 }
 
 // This function returns the index of the first position where the one of the bytes in substring
@@ -221,7 +221,7 @@ static int StringFindFirst(const String &sub, asUINT start, const String &str)
 static int StringFindFirstOf(const String &sub, asUINT start, const String &str)
 {
 	// We don't register the method directly because the argument types change between 32bit and 64bit platforms
-	return (int)str.indexOfAny(sub, (size_t)(start < 0 ? String::npos : start));
+	return (int)str.indexOfAny(sub, start);
 }
 
 // This function returns the index of the last position where the one of the bytes in substring
@@ -230,7 +230,7 @@ static int StringFindFirstOf(const String &sub, asUINT start, const String &str)
 //
 // AngelScript signature:
 // int string::findLastOf(const string &in sub, uint start = -1) const
-static int StringFindLastOf(const String &sub, asUINT start, const String &str)
+static int StringFindLastOf(const String &sub, int start, const String &str)
 {
 	// We don't register the method directly because the argument types change between 32bit and 64bit platforms
 	return (int)str.lastIndexOfAny(sub, (size_t)(start < 0 ? String::npos : start));
@@ -244,7 +244,7 @@ static int StringFindLastOf(const String &sub, asUINT start, const String &str)
 static int StringFindFirstNotOf(const String &sub, asUINT start, const String &str)
 {
 	// We don't register the method directly because the argument types change between 32bit and 64bit platforms
-	return (int)str.indexNotOfAny(sub, (size_t)(start < 0 ? String::npos : start));
+	return (int)str.indexNotOfAny(sub, start);
 }
 
 // This function returns the index of the last position where a byte other than those in substring
@@ -252,7 +252,7 @@ static int StringFindFirstNotOf(const String &sub, asUINT start, const String &s
 //
 // AngelScript signature:
 // int string::findLastNotOf(const string &in sub, uint start = -1) const
-static int StringFindLastNotOf(const String &sub, asUINT start, const String &str)
+static int StringFindLastNotOf(const String &sub, int start, const String &str)
 {
 	// We don't register the method directly because the argument types change between 32bit and 64bit platforms
 	return (int)str.lastIndexNotOfAny(sub, (size_t)(start < 0 ? String::npos : start));

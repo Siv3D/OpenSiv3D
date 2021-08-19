@@ -76,8 +76,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void reset()", asMETHOD(BindType, reset), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void restart()", asMETHODPR(BindType, restart, (), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void restart(const Duration& in)", asMETHODPR(BindType, restart, (const Duration&), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHOD(BindType, set), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void setRemaining(const Duration& in)", asMETHOD(BindType, setRemaining), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHODPR(BindType, set, (const Duration&), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void setRemaining(const Duration& in)", asMETHODPR(BindType, setRemaining, (const Duration&), void), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "int32 d() const", asMETHODPR(BindType, d, () const, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int64 d64() const", asMETHODPR(BindType, d64, () const, int64), asCALL_THISCALL); assert(r >= 0);
@@ -102,11 +102,11 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int64 us() const", asMETHODPR(BindType, us, () const, int64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int64 us64() const", asMETHODPR(BindType, us64, () const, int64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double usF() const", asMETHODPR(BindType, usF, () const, double), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Duration duration() const", asMETHOD(BindType, duration), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Duration remaining() const", asMETHOD(BindType, remaining), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Duration duration() const", asMETHODPR(BindType, duration, () const, Duration), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Duration remaining() const", asMETHODPR(BindType, remaining, () const, Duration), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "double progress1_0() const", asMETHOD(BindType, progress1_0), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double progress0_1() const", asMETHOD(BindType, progress0_1), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double progress1_0() const", asMETHODPR(BindType, progress1_0, () const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double progress0_1() const", asMETHODPR(BindType, progress0_1, () const, double), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"H:mm:ss.xx\")", asFUNCTION(FormatTimer), asCALL_CDECL_OBJLAST); assert(r >= 0);
 

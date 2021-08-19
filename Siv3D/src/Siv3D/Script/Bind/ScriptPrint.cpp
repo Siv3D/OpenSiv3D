@@ -103,7 +103,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(PrintBufferWrapeer, AddRef), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(PrintBufferWrapeer, Release), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const String&in text)", asMETHOD(PrintBufferWrapeer, write), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const ?&in)", asMETHOD(PrintBufferWrapeer, write_T1), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(PrintBufferTypeName, "PrintBuffer& opShl(const ?&in)", asMETHODPR(PrintBufferWrapeer, write_T1, (const void*, int), PrintBufferWrapeer*), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const String&in text) const", asFUNCTION(PrintShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const ?&in) const", asFUNCTION(PrintShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);

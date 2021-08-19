@@ -77,7 +77,7 @@ namespace s3d
 		//
 		// elem
 		//
-		r = engine->RegisterObjectMethod(TypeName, "double elem(size_t) const", asMETHOD(Vec2, elem), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double elem(size_t) const", asMETHODPR(Vec2, elem, (size_t) const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	+, -, *, /

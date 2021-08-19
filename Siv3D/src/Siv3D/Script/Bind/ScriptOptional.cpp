@@ -536,9 +536,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const T& value() const", asMETHODPR(CScriptOptional, At, () const, const void*), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const T& value_or(const T& in value) const", asMETHODPR(CScriptOptional, ValueOr, (void*), void*), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHOD(CScriptOptional, HasValue), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool has_value() const", asMETHOD(CScriptOptional, HasValue), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHODPR(CScriptOptional, HasValue, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool has_value() const", asMETHODPR(CScriptOptional, HasValue, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void reset()", asMETHOD(CScriptOptional, Reset), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void reset(const T& in value)", asMETHOD(CScriptOptional, ResetValue), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void reset(const T& in value)", asMETHODPR(CScriptOptional, ResetValue, (void*), void), asCALL_THISCALL); assert(r >= 0);
 	}
 }

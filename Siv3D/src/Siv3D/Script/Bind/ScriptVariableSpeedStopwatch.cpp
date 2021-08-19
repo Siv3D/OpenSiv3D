@@ -85,8 +85,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void resume()", asMETHOD(BindType, resume), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void reset()", asMETHOD(BindType, reset), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void restart()", asMETHOD(BindType, restart), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHOD(BindType, set), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void setSpeed(double speed)", asMETHOD(BindType, setSpeed), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void set(const Duration& in)", asMETHODPR(BindType, set, (const Duration&), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void setSpeed(double speed)", asMETHODPR(BindType, setSpeed, (double), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double getSpeed() const", asMETHODPR(BindType, getSpeed, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "int32 d() const", asMETHODPR(BindType, d, () const, int32), asCALL_THISCALL); assert(r >= 0);
@@ -112,7 +112,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int64 us() const", asMETHODPR(BindType, us, () const, int64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int64 us64() const", asMETHODPR(BindType, us64, () const, int64), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double usF() const", asMETHODPR(BindType, usF, () const, double), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Duration elapsed() const", asMETHOD(BindType, elapsed), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Duration elapsed() const", asMETHODPR(BindType, elapsed, () const, Duration), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"H:mm:ss.xx\")", asFUNCTION(FormatVariableSpeedStopwatch), asCALL_CDECL_OBJLAST); assert(r >= 0);
 

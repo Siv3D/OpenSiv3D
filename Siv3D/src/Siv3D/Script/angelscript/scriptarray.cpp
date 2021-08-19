@@ -298,14 +298,14 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "T &back()", asMETHODPR(CScriptArray, AtBack, (), void*), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Array<T>", "const T &back() const", asMETHODPR(CScriptArray, AtBack, () const, const void*), asCALL_THISCALL); assert(r >= 0);
 
-	r = engine->RegisterObjectMethod("Array<T>", "uint size() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert(r >= 0);
-	r = engine->RegisterObjectMethod("Array<T>", "bool empty() const", asMETHOD(CScriptArray, IsEmpty), asCALL_THISCALL); assert(r >= 0);
-	r = engine->RegisterObjectMethod("Array<T>", "bool isEmpty() const", asMETHOD(CScriptArray, IsEmpty), asCALL_THISCALL); assert(r >= 0);
-	r = engine->RegisterObjectMethod("Array<T>", "void reserve(uint length)", asMETHOD(CScriptArray, Reserve), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "uint size() const", asMETHODPR(CScriptArray, GetSize, () const, asUINT), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "bool empty() const", asMETHODPR(CScriptArray, IsEmpty, () const, bool), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "bool isEmpty() const", asMETHODPR(CScriptArray, IsEmpty, () const, bool), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "void reserve(uint length)", asMETHODPR(CScriptArray, Reserve, (asUINT), void), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Array<T>", "void resize(uint length)", asMETHODPR(CScriptArray, Resize, (asUINT), void), asCALL_THISCALL); assert(r >= 0);
 
-	r = engine->RegisterObjectMethod("Array<T>", "void push_front(const T&in)", asMETHOD(CScriptArray, InsertFirst), asCALL_THISCALL); assert(r >= 0);
-	r = engine->RegisterObjectMethod("Array<T>", "void push_back(const T&in)", asMETHOD(CScriptArray, InsertLast), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "void push_front(const T&in)", asMETHODPR(CScriptArray, InsertFirst, (void*), void), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "void push_back(const T&in)", asMETHODPR(CScriptArray, InsertLast, (void*), void), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Array<T>", "void pop_front()", asMETHOD(CScriptArray, RemoveFirst), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Array<T>", "void pop_back()", asMETHOD(CScriptArray, RemoveLast), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Array<T>", "void clear()", asMETHOD(CScriptArray, RemoveAll), asCALL_THISCALL); assert(r >= 0);
@@ -320,7 +320,7 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "void removeAt(uint index)", asMETHOD(CScriptArray, RemoveAt), asCALL_THISCALL); assert(r >= 0);
 
 	// count()
-	r = engine->RegisterObjectMethod("Array<T>", "uint count() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "uint count() const", asMETHODPR(CScriptArray, GetSize, () const, asUINT), asCALL_THISCALL); assert(r >= 0);
 
 	// sort()
 	r = engine->RegisterObjectMethod("Array<T>", "void sort()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert(r >= 0);

@@ -154,7 +154,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double rgb, double a = 1.0)", asMETHODPR(ColorF, set, (double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double r, double g, double b, double a = 1.0)", asMETHODPR(ColorF, set, (double, double, double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(const ColorF& in)", asMETHODPR(ColorF, set, (const ColorF&), ColorF&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "ColorF withAlpha(double a)", asMETHOD(ColorF, withAlpha), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF withAlpha(double a)", asMETHODPR(ColorF, withAlpha, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "double grayscale() const", asMETHODPR(ColorF, grayscale, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double minRGBComponent() const", asMETHODPR(ColorF, minRGBComponent, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);

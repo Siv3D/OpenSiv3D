@@ -177,8 +177,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Float2 getMidpoint(Float2) const", asMETHODPR(Float2, getMidpoint, (Float2) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2 projection(Float2) const", asMETHODPR(Float2, projection, (Float2) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Float2 getPointByAngleAndDistance(float, float) const", asMETHOD(Float2, getPointByAngleAndDistance), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 lerp(Float2, double) const", asMETHOD(Float2, lerp), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 getPointByAngleAndDistance(float, float) const", asMETHODPR(Float2, getPointByAngleAndDistance, (float, float) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 lerp(Float2, float) const", asMETHODPR(Float2, lerp, (Float2, float) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Point asPoint() const", asMETHODPR(Float2, asPoint, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHODPR(Float2, asCircle, (double) const noexcept, Circle), asCALL_THISCALL); assert(r >= 0);
@@ -199,7 +199,7 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(Float2, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Float2, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Float2 xx() const", asMETHODPR(Float2, xx, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2 xy() const", asMETHODPR(Float2, xy, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
