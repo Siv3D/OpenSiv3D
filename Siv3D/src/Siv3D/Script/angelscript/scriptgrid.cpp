@@ -253,11 +253,11 @@ static void RegisterScriptGrid_Native(asIScriptEngine *engine)
 
 
 	// Register GC behaviours in case the array needs to be garbage collected
-	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_GETREFCOUNT, "int f()", asMETHOD(CScriptGrid, GetRefCount), asCALL_THISCALL); assert( r >= 0 );
-	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_SETGCFLAG, "void f()", asMETHOD(CScriptGrid, SetFlag), asCALL_THISCALL); assert( r >= 0 );
-	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_GETGCFLAG, "bool f()", asMETHOD(CScriptGrid, GetFlag), asCALL_THISCALL); assert( r >= 0 );
-	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_ENUMREFS, "void f(int&in)", asMETHOD(CScriptGrid, EnumReferences), asCALL_THISCALL); assert( r >= 0 );
-	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_RELEASEREFS, "void f(int&in)", asMETHOD(CScriptGrid, ReleaseAllHandles), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_GETREFCOUNT, "int f()", asMETHODPR(CScriptGrid, GetRefCount, (), int), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_SETGCFLAG, "void f()", asMETHODPR(CScriptGrid, SetFlag, (), void), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_GETGCFLAG, "bool f()", asMETHODPR(CScriptGrid, GetFlag, (), bool), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_ENUMREFS, "void f(int&in)", asMETHODPR(CScriptGrid, EnumReferences, (asIScriptEngine*), void), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectBehaviour("Grid<T>", asBEHAVE_RELEASEREFS, "void f(int&in)", asMETHODPR(CScriptGrid, ReleaseAllHandles, (asIScriptEngine*), void), asCALL_THISCALL); assert( r >= 0 );
 }
 
 CScriptGrid::CScriptGrid(asITypeInfo *ti, void *buf)
