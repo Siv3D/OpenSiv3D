@@ -116,30 +116,30 @@ namespace s3d
 		//
 		//	set
 		//
-		r = engine->RegisterObjectMethod(TypeName, "Color& setR(uint32 r)", asMETHOD(Color, setR), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& setG(uint32 g)", asMETHOD(Color, setG), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& setB(uint32 b)", asMETHOD(Color, setB), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& setA(uint32 a)", asMETHOD(Color, setA), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 rgb)", asMETHODPR(Color, setRGB, (uint32), Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 r, uint32 g, uint32 b)", asMETHODPR(Color, setRGB, (uint32, uint32, uint32), Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 rgb, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32), Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32, uint32, uint32), Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color& set(Color)", asMETHODPR(Color, set, (Color), Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color withAlpha(uint32 a)", asMETHOD(Color, withAlpha), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setR(uint32 r)", asMETHODPR(Color, setR, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setG(uint32 g)", asMETHODPR(Color, setG, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setB(uint32 b)", asMETHODPR(Color, setB, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setA(uint32 a)", asMETHODPR(Color, setA, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 rgb)", asMETHODPR(Color, setRGB, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 r, uint32 g, uint32 b)", asMETHODPR(Color, setRGB, (uint32, uint32, uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 rgb, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32, uint32, uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& set(Color)", asMETHODPR(Color, set, (Color) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color withAlpha(uint32 a)", asMETHODPR(Color, withAlpha, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "uint8 grayscale0_255() const", asMETHOD(Color, grayscale0_255), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double grayscale() const", asMETHOD(Color, grayscale), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 minRGBComponent() const", asMETHOD(Color, minRGBComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 maxRGBComponent() const", asMETHOD(Color, maxRGBComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 minComponent() const", asMETHOD(Color, minComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 maxComponent() const", asMETHOD(Color, maxComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 asUint32() const", asMETHOD(Color, asUint32), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color lerp(Color, double) const", asMETHOD(Color, lerp), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color gamma(double) const", asMETHOD(Color, gamma), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "ColorF removeSRGBCurve() const", asMETHOD(Color, removeSRGBCurve), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "ColorF applySRGBCurve() const", asMETHOD(Color, applySRGBCurve), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 grayscale0_255() const", asMETHODPR(Color, grayscale0_255, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double grayscale() const", asMETHODPR(Color, grayscale, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 minRGBComponent() const", asMETHODPR(Color, minRGBComponent, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 maxRGBComponent() const", asMETHODPR(Color, maxRGBComponent, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 minComponent() const", asMETHODPR(Color, minComponent, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 maxComponent() const", asMETHODPR(Color, maxComponent, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 asUint32() const", asMETHODPR(Color, asUint32, () const noexcept, uint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color lerp(Color, double) const", asMETHODPR(Color, lerp, (Color, double) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color gamma(double) const", asMETHODPR(Color, gamma, (double) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF removeSRGBCurve() const", asMETHODPR(Color, removeSRGBCurve, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF applySRGBCurve() const", asMETHODPR(Color, applySRGBCurve, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "String toHex() const", asMETHOD(Color, toHex), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(Color, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Color, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);
 		{

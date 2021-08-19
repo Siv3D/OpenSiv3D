@@ -48,14 +48,14 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Input &in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "uint8 code() const", asMETHOD(BindType, code), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 playerIndex() const", asMETHOD(BindType, playerIndex), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String name() const", asMETHOD(BindType, name), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool down() const", asMETHOD(BindType, down), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool pressed() const", asMETHOD(BindType, pressed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool up() const", asMETHOD(BindType, up), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Duration pressedDuration() const", asMETHOD(BindType, pressedDuration), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint8 asUint32() const", asMETHOD(BindType, asUint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 code() const", asMETHODPR(BindType, code, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 playerIndex() const", asMETHODPR(BindType, playerIndex, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "String name() const", asMETHODPR(BindType, name, () const, String), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool down() const", asMETHODPR(BindType, down, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool pressed() const", asMETHODPR(BindType, pressed, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool up() const", asMETHODPR(BindType, up, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Duration pressedDuration() const", asMETHODPR(BindType, pressedDuration, () const, Duration), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 asUint32() const", asMETHODPR(BindType, asUint32, () const noexcept, uint32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Input& in) const", asFUNCTION(EqualsKey), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 opCmp(const Input& in) const", asFUNCTION(CompareKey), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}

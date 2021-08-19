@@ -181,10 +181,10 @@ namespace s3d
 		constexpr Color toColor() const noexcept;
 
 		[[nodiscard]]
-		constexpr Float4 toFloat4() const;
+		constexpr Float4 toFloat4() const noexcept;
 
 		[[nodiscard]]
-		constexpr Vec4 toVec4() const;
+		constexpr Vec4 toVec4() const noexcept;
 
 		[[nodiscard]]
 		constexpr Vec2 rg() const noexcept;

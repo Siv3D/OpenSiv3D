@@ -77,7 +77,7 @@ namespace s3d
 		//
 		// elem
 		//
-		r = engine->RegisterObjectMethod(TypeName, "float elem(size_t) const", asMETHOD(Float2, elem), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float elem(size_t) const", asMETHODPR(Float2, elem, (size_t) const noexcept, float), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	+, -, *, /
@@ -106,14 +106,14 @@ namespace s3d
 		//
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Float2& in) const", asFUNCTION(EqualsFloat2), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool epsilonEquals(Float2, double) const", asMETHOD(Float2, epsilonEquals), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool hasSameDirection(Float2) const", asMETHOD(Float2, hasSameDirection), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool hasOppositeDirection(Float2) const", asMETHOD(Float2, hasOppositeDirection), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isZero() const", asMETHOD(Float2, isZero), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool hasNaN() const", asMETHOD(Float2, hasNaN), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "float minComponent() const", asMETHOD(Float2, minComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "float maxComponent() const", asMETHOD(Float2, maxComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(Float2, clear), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool epsilonEquals(Float2, float) const", asMETHODPR(Float2, epsilonEquals, (Float2, float) const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasSameDirection(Float2) const", asMETHODPR(Float2, hasSameDirection, (Float2) const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasOppositeDirection(Float2) const", asMETHODPR(Float2, hasOppositeDirection, (Float2) const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isZero() const", asMETHODPR(Float2, isZero, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasNaN() const", asMETHODPR(Float2, hasNaN, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float minComponent() const", asMETHODPR(Float2, minComponent, () const noexcept, float), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float maxComponent() const", asMETHODPR(Float2, maxComponent, () const noexcept, float), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(Float2, clear, () noexcept, void), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	set
@@ -142,12 +142,12 @@ namespace s3d
 		//
 		//	Utils
 		//
-		r = engine->RegisterObjectMethod(TypeName, "Float2 dot(Float2) const", asMETHOD(Float2, dot), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 cross(Float2) const", asMETHOD(Float2, cross), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float dot(Float2) const", asMETHODPR(Float2, dot, (Float2) const noexcept, float), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float cross(Float2) const", asMETHODPR(Float2, cross, (Float2) const noexcept, float), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "float length() const", asMETHOD(Float2, length), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "float lengthSq() const", asMETHOD(Float2, lengthSq), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "float invLength() const", asMETHOD(Float2, invLength), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float length() const", asMETHODPR(Float2, length, () const noexcept, float), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float lengthSq() const", asMETHODPR(Float2, lengthSq, () const noexcept, float), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "float invLength() const", asMETHODPR(Float2, invLength, () const noexcept, float), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "float manhattanLength() const", asMETHOD(Float2, manhattanLength), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "float manhattanDistanceFrom(float, float) const", asMETHODPR(Float2, manhattanDistanceFrom, (float, float) const, float), asCALL_THISCALL); assert(r >= 0);
@@ -172,16 +172,16 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "float getAngle() const", asMETHODPR(Float2, getAngle, () const, float), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "float getAngle(Float2) const", asMETHODPR(Float2, getAngle, (Float2) const, float), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Float2 getPerpendicularCW() const", asMETHOD(Float2, getPerpendicularCW), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 getPerpendicularCCW() const", asMETHOD(Float2, getPerpendicularCCW), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 getMidpoint(Float2) const", asMETHOD(Float2, getMidpoint), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 projection(Float2) const", asMETHOD(Float2, projection), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 getPerpendicularCW() const", asMETHODPR(Float2, getPerpendicularCW, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 getPerpendicularCCW() const", asMETHODPR(Float2, getPerpendicularCCW, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 getMidpoint(Float2) const", asMETHODPR(Float2, getMidpoint, (Float2) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 projection(Float2) const", asMETHODPR(Float2, projection, (Float2) const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Float2 getPointByAngleAndDistance(float, float) const", asMETHOD(Float2, getPointByAngleAndDistance), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2 lerp(Float2, double) const", asMETHOD(Float2, lerp), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Point asPoint() const", asMETHOD(Float2, asPoint), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHOD(Float2, asCircle), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point asPoint() const", asMETHODPR(Float2, asPoint, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHODPR(Float2, asCircle, (double) const noexcept, Circle), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(ShapeType, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Vec2& in) const", asMETHODPR(ShapeType, intersects, (const Vec2&) const, bool), asCALL_THISCALL); assert(r >= 0);
@@ -201,13 +201,13 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(Float2, hash), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Float2 xx() const", asMETHOD(Float2, xx), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 xy() const", asMETHOD(Float2, xy), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 yx() const", asMETHOD(Float2, yx), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 yy() const", asMETHOD(Float2, yy), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 x0() const", asMETHOD(Float2, x0), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float2 y0() const", asMETHOD(Float2, y0), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Float3 xy0() const", asMETHOD(Float2, xy0), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 xx() const", asMETHODPR(Float2, xx, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 xy() const", asMETHODPR(Float2, xy, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 yx() const", asMETHODPR(Float2, yx, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 yy() const", asMETHODPR(Float2, yy, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 x0() const", asMETHODPR(Float2, x0, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 y0() const", asMETHODPR(Float2, y0, () const noexcept, Float2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float3 xy0() const", asMETHODPR(Float2, xy0, () const noexcept, Float3), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);
 		{

@@ -330,7 +330,6 @@ namespace s3d
 
 		const auto& prop = font.getProperty();
 		const double scale = (fontSize / prop.fontPixelSize);
-		const double lineHeightScale = 1.0;
 		constexpr double basePosX = 0.0;
 		double penPosX = basePosX;
 		Array<double> xAdvances(Arg::reserve = clusters.size());

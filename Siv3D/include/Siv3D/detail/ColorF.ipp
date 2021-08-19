@@ -295,12 +295,12 @@ namespace s3d
 				Color::ToUint8(a) };
 	}
 
-	inline constexpr Float4 ColorF::toFloat4() const
+	inline constexpr Float4 ColorF::toFloat4() const noexcept
 	{
 		return{ r, g, b, a };
 	}
 
-	inline constexpr Vec4 ColorF::toVec4() const
+	inline constexpr Vec4 ColorF::toVec4() const noexcept
 	{
 		return{ r, g, b, a };
 	}

@@ -83,7 +83,7 @@ namespace s3d
 		//
 		// elem
 		//
-		r = engine->RegisterObjectMethod(TypeName, "int32 elem(size_t) const", asMETHOD(Point, elem), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 elem(size_t) const", asMETHODPR(Point, elem, (size_t) const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	+, -
@@ -132,16 +132,16 @@ namespace s3d
 		//
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Point& in) const", asFUNCTION(EqualsPoint), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool isZero() const", asMETHOD(Point, isZero), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 minComponent() const", asMETHOD(Point, minComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 maxComponent() const", asMETHOD(Point, maxComponent), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(Point, clear), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isZero() const", asMETHODPR(Point, isZero, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 minComponent() const", asMETHODPR(Point, minComponent, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 maxComponent() const", asMETHODPR(Point, maxComponent, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(Point, clear, () noexcept, void), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	set
 		//
-		r = engine->RegisterObjectMethod(TypeName, "Point& set(int32, int32)", asMETHODPR(Point, set, (int32, int32), Point&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point& set(Point)", asMETHODPR(Point, set, (Point), Point&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point& set(int32, int32)", asMETHODPR(Point, set, (int32, int32) noexcept, Point&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point& set(Point)", asMETHODPR(Point, set, (Point) noexcept, Point&), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		//	movedBy
@@ -162,7 +162,7 @@ namespace s3d
 		//
 		r = engine->RegisterObjectMethod(TypeName, "double length() const", asMETHODPR(Point, length, () const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHODPR(Point, lengthSq, () const, double), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 manhattanLength() const", asMETHOD(Point, manhattanLength), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 manhattanLength() const", asMETHODPR(Point, manhattanLength, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 manhattanDistanceFrom(int32, int32) const", asMETHODPR(Point, manhattanDistanceFrom, (int32, int32) const, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 manhattanDistanceFrom(Point) const", asMETHODPR(Point, manhattanDistanceFrom, (Point) const, int32), asCALL_THISCALL); assert(r >= 0);
 
@@ -176,13 +176,13 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "double distanceFromSq(Float2) const", asMETHODPR(Point, distanceFromSq, (Float2) const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double distanceFromSq(Vec2) const", asMETHODPR(Point, distanceFromSq, (Vec2) const, double), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "int32 area() const", asMETHOD(Point, area), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 area() const", asMETHODPR(Point, area, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double getAngle() const", asMETHODPR(Point, getAngle, () const, double), asCALL_THISCALL); assert(r >= 0);	
 		r = engine->RegisterObjectMethod(TypeName, "float getAngle(Float2) const", asMETHODPR(Point, getAngle, (Float2) const, float), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double getAngle(Vec2) const", asMETHODPR(Point, getAngle, (Vec2) const, double), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Point getPerpendicularCW() const", asMETHOD(Point, getPerpendicularCW), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point getPerpendicularCCW() const", asMETHOD(Point, getPerpendicularCCW), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point getPerpendicularCW() const", asMETHODPR(Point, getPerpendicularCW, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point getPerpendicularCCW() const", asMETHODPR(Point, getPerpendicularCCW, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 getMidpoint(Point) const", asMETHODPR(Point, getMidpoint, (Point) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2 getMidpoint(Float2) const", asMETHODPR(Point, getMidpoint, (Float2) const, Float2), asCALL_THISCALL); assert(r >= 0);
@@ -194,7 +194,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Float2 lerp(Float2, double) const", asMETHODPR(Point, lerp, (Float2, double) const, Float2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 lerp(Vec2, double) const", asMETHODPR(Point, lerp, (Vec2, double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHOD(Point, asCircle), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Circle asCircle(double) const", asMETHODPR(Point, asCircle, (double) const noexcept, Circle), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(ShapeType, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
@@ -213,25 +213,25 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool leftClicked() const", asMETHOD(Point, leftClicked), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool leftPressed() const", asMETHOD(Point, leftPressed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool leftReleased() const", asMETHOD(Point, leftReleased), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightClicked() const", asMETHOD(Point, rightClicked), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightPressed() const", asMETHOD(Point, rightPressed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(Point, rightReleased), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(Point, mouseOver), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftClicked() const", asMETHODPR(Point, leftClicked, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftPressed() const", asMETHODPR(Point, leftPressed, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftReleased() const", asMETHODPR(Point, leftReleased, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightClicked() const", asMETHODPR(Point, rightClicked, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightPressed() const", asMETHODPR(Point, rightPressed, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHODPR(Point, rightReleased, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHODPR(Point, mouseOver, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
 
 		//paint
 		//overwrite
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHOD(Point, hash), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Point, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Point xx() const", asMETHOD(Point, xx), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point xy() const", asMETHOD(Point, xy), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point yx() const", asMETHOD(Point, yx), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point yy() const", asMETHOD(Point, yy), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point x0() const", asMETHOD(Point, x0), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point y0() const", asMETHOD(Point, y0), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point xx() const", asMETHODPR(Point, xx, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point xy() const", asMETHODPR(Point, xy, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point yx() const", asMETHODPR(Point, yx, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point yy() const", asMETHODPR(Point, yy, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point x0() const", asMETHODPR(Point, x0, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point y0() const", asMETHODPR(Point, y0, () const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);
 		{

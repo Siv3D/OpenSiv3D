@@ -68,11 +68,11 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32 year, int32 month, int32 day, int32 _hour = 0, int32 minute = 0, int32 second = 0, int32 milliseconds = 0)", asFUNCTION(ConstructIIIIIII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Date& in date, int32 _hour = 0, int32 minute = 0, int32 second = 0, int32 milliseconds = 0)", asFUNCTION(ConstructDIIII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHOD(BindType, isToday), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHOD(BindType, isLeapYear), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHOD(BindType, daysInYear), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHODPR(BindType, isToday, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHODPR(BindType, isLeapYear, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHODPR(BindType, daysInYear, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHODPR(BindType, daysInMonth, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHODPR(BindType, isValid, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd HH:mm:ss\") const", asFUNCTION(ScriptFormatDateTime), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// DateTime& operator +=(const Days& days)

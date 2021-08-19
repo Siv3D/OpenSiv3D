@@ -61,11 +61,11 @@ namespace s3d
 		// dayOfWeekJP
 		// dayOfWeekEN
 
-		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHOD(BindType, isToday), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHOD(BindType, isLeapYear), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHOD(BindType, daysInYear), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHOD(BindType, daysInMonth), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHOD(BindType, isValid), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isToday() const", asMETHODPR(BindType, isToday, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isLeapYear() const", asMETHODPR(BindType, isLeapYear, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInYear() const", asMETHODPR(BindType, daysInYear, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 daysInMonth() const", asMETHODPR(BindType, daysInMonth, () const noexcept, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isValid() const", asMETHODPR(BindType, isValid, () const noexcept, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "String format(const String& in format = \"yyyy-MM-dd\") const", asFUNCTION(ScriptFormatDate), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// Date& operator +=(const Days& days);
