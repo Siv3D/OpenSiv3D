@@ -36,7 +36,13 @@ namespace s3d
 
 		//Arg_samplingRate = 67108877,
 		//Arg_samplingRateValue,
-		Char32 = 67108877,
+
+		TopLeft_ = 67108877,
+		TopLeft_Vec2,
+		Center_,
+		Center_Vec2,
+
+		Char32,
 		String,
 		None_t,
 		Duration,
@@ -82,15 +88,10 @@ namespace s3d
 		LineStyleParameters,
 		Shape2D,
 
-		//CursorStyle,
-
 		//
+		Input,
+
 		Image,
-
-		SayBuffer,
-		Say_impl,
-
-		Key,
 
 		WaveSample,
 		Wave,
@@ -114,12 +115,15 @@ namespace s3d
 
 		PrintBuffer,
 		Print_impl,
+		SayBuffer,
+		Say_impl,
 	};
 
 	using AngelScript::asIScriptEngine;
 
 	void RegisterTypes(asIScriptEngine* engine);
 	void RegisterYesNo(asIScriptEngine* engine);
+	void RegisterNamedParameter(asIScriptEngine* engine);
 	void RegisterUtility(asIScriptEngine* engine);
 	void RegisterChar(asIScriptEngine* engine);
 	void RegisterNone_t(asIScriptEngine* engine);
@@ -161,11 +165,18 @@ namespace s3d
 
 	void RegisterPolygon(asIScriptEngine* engine);
 
+
+
+	void RegisterInput(asIScriptEngine* engine);
+	void RegisterKeyboard(asIScriptEngine* engine);
+	void RegisterMouse(asIScriptEngine* engine);
+
+
+	void RegisterRandom(asIScriptEngine* engine);
 	void RegisterPrint(asIScriptEngine* engine);
-
-
+	void RegisterPutText(asIScriptEngine* engine);
 	void RegisterThreading(asIScriptEngine* engine);
-
+	void RegisterUserAction(asIScriptEngine* engine);
 	void RegisterSystem(asIScriptEngine* engine);
 	void RegisterWindowStyle(asIScriptEngine* engine);
 	void RegisterWindow(asIScriptEngine* engine);
@@ -175,6 +186,11 @@ namespace s3d
 	void RegisterGraphics(asIScriptEngine* engine);
 	void RegisterResizeMode(asIScriptEngine* engine);
 	void RegisterScene(asIScriptEngine* engine);
-
+	void RegisterTextInputMode(asIScriptEngine* engine);
+	void RegisterTextInput(asIScriptEngine* engine);
+	void RegisterSimpleGUI(asIScriptEngine* engine);
+	void RegisterLanguageCode(asIScriptEngine* engine);
+	void RegisterTextToSpeech(asIScriptEngine* engine);
+	void RegisterSay(asIScriptEngine* engine);
 
 }

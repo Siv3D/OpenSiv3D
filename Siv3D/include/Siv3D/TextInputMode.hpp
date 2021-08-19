@@ -43,7 +43,7 @@ namespace s3d
 
 		AllowEnterTabBackSpaceDelete	= AllowEnter | AllowTab | AllowBackSpace | AllowDelete,
 
-		Default					= AllowEnterTabBackSpaceDelete,
+		Default							= AllowEnterTabBackSpaceDelete,
 	};
 	DEFINE_BITMASK_OPERATORS(TextInputMode);
 }

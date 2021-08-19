@@ -33,12 +33,15 @@ namespace s3d
 	{
 		int32 r = 0;
 
-		//r = engine->SetDefaultNamespace("Arg"); assert(r >= 0);
-		//{
-		//	r = engine->RegisterObjectType("samplingRate_", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
-		//	r = engine->RegisterObjectType("samplingRate_v", sizeof(uint32), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_CK); assert(r >= 0);
-		//}
-		//r = engine->SetDefaultNamespace(""); assert(r >= 0);
+		r = engine->SetDefaultNamespace("Arg"); assert(r >= 0);
+		{
+			r = engine->RegisterObjectType("topLeft_", sizeof(uint8), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+			r = engine->RegisterObjectType("topLeft_Vec2", sizeof(Vec2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+
+			r = engine->RegisterObjectType("center_", sizeof(uint8), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+			r = engine->RegisterObjectType("center_Vec2", sizeof(Vec2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 		
 		RegisterType(engine, "char32", sizeof(char32), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<char32_t>());
 		RegisterType(engine, "String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>());
@@ -96,12 +99,9 @@ namespace s3d
 
 		//r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 
+		r = engine->RegisterObjectType("Input", sizeof(Input), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
+
 		//r = engine->RegisterObjectType("Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>()); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("SayBuffer", 0, asOBJ_REF); assert(r >= 0);
-		//r = engine->RegisterObjectType("Say_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		//r = engine->RegisterObjectType("WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>()); assert(r >= 0);
@@ -126,18 +126,18 @@ namespace s3d
 
 		RegisterType(engine, "PrintBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "Print_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
+		RegisterType(engine, "SayBuffer", 0, asOBJ_REF);
+		RegisterType(engine, "Say_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
 
 		RegisterEnum(engine, "SpecialFolder");
 		RegisterEnum(engine, "CopyOption");
 		RegisterEnum(engine, "WindowStyle");
 		RegisterEnum(engine, "CursorStyle");
 		RegisterEnum(engine, "ResizeMode");
+		RegisterEnum(engine, "TextInputMode");
+		RegisterEnum(engine, "LanguageCode");
 
 		//r = engine->RegisterEnum("UserAction"); assert(r >= 0);
-		//r = engine->RegisterEnum("WindowStyle"); assert(r >= 0);
-		//r = engine->RegisterEnum("WindowResizeOption"); assert(r >= 0);
-		//r = engine->RegisterEnum("ScaleMode"); assert(r >= 0);
-		//r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 		//r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
 		//r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
 		//r = engine->RegisterEnum("TextureFormatValue"); assert(r >= 0);
@@ -193,12 +193,9 @@ namespace s3d
 		//assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int32>(ScriptTypeID::LineStyleParameters));
 		//assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
 
+		//assert(engine->GetTypeIdByDecl("Input") == static_cast<int32>(ScriptTypeID::Input));
+
 		//assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
-
-		//assert(engine->GetTypeIdByDecl("SayBuffer") == static_cast<int32>(ScriptTypeID::SayBuffer));
-		//assert(engine->GetTypeIdByDecl("Say_impl") == static_cast<int32>(ScriptTypeID::Say_impl));
-
-		//assert(engine->GetTypeIdByDecl("Key") == static_cast<int32>(ScriptTypeID::Key));
 
 		//assert(engine->GetTypeIdByDecl("WaveSample") == static_cast<int32>(ScriptTypeID::WaveSample));
 		//assert(engine->GetTypeIdByDecl("Wave") == static_cast<int32>(ScriptTypeID::Wave));

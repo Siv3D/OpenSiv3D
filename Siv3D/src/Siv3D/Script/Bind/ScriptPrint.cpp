@@ -94,7 +94,7 @@ namespace s3d
 
 	void RegisterPrint(asIScriptEngine* engine)
 	{
-		static const uint8 PrintImplDummy = 0;
+		static const uint8 PrintImplPlaceholder = 0;
 		const char PrintBufferTypeName[] = "PrintBuffer";
 		const char PrintTypeName[] = "Print_impl";
 
@@ -107,7 +107,7 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const String&in text) const", asFUNCTION(PrintShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(PrintTypeName, "PrintBuffer@ opShl(const ?&in) const", asFUNCTION(PrintShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Print_impl Print", (void*)&PrintImplDummy); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Print_impl Print", (void*)&PrintImplPlaceholder); assert(r >= 0);
 
 		engine->RegisterGlobalFunction("void ClearPrint()", asFUNCTION(ClearPrint), asCALL_CDECL); assert(r >= 0);
 	}

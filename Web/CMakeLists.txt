@@ -480,11 +480,16 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptHSV.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptInput.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLanguageCode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMath.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMathConstants.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMicrosecClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMillisecClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMonitor.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptMouse.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptNamedParameter.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNone_t.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNumber.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
@@ -495,17 +500,25 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPrimeNumber.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPrint.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptProfiler.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptPutText.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptRandom.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptRDTSCClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptResizeMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptResource.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptSay.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptScene.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptSimpleGUI.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSpecialFolder.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSystem.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInput.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInputMode.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextToSpeech.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptThreading.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTimer.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTypes.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptUserAction.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptUtility.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVariableSpeedStopwatch.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVec2.cpp

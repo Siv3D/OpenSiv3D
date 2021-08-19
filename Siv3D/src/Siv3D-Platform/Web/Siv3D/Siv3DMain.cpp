@@ -14,6 +14,7 @@
 # include <Siv3D/System/ISystem.hpp>
 # include <Siv3D/MessageBox.hpp>
 # include <Siv3D/Error.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 void Main();
 
@@ -58,5 +59,11 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+	LOG_TRACE(U"Main() ---");
+
 	Main();
+
+	LOG_TRACE(U"--- Main()");
+
+	return 0;
 }
