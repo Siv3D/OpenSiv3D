@@ -163,7 +163,7 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
-	inline OffsetCircularBase<Float, Oclock>::position_type OffsetCircularBase<Float, Oclock>::toPosition() const noexcept
+	inline typename OffsetCircularBase<Float, Oclock>::position_type OffsetCircularBase<Float, Oclock>::toPosition() const noexcept
 	{
 		return toVec2();
 	}

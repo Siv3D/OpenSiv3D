@@ -85,7 +85,7 @@ namespace s3d
 		RegisterType(engine, "RoundRect", sizeof(RoundRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Polygon", sizeof(Polygon), asOBJ_VALUE | asGetTypeTraits<Polygon>());
 		RegisterType(engine, "LineString", sizeof(LineString), asOBJ_VALUE | asGetTypeTraits<LineString>());
-		RegisterType(engine, "LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asGetTypeTraits<LineStyle::Parameters>());
+		RegisterType(engine, "LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asOBJ_APP_CLASS_ALLINTS | asGetTypeTraits<LineStyle::Parameters>());
 		RegisterType(engine, "LineStyle", sizeof(LineStyle), asOBJ_VALUE | asGetTypeTraits<LineStyle>());
 		//r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 		RegisterType(engine, "FloatRect", sizeof(FloatRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
