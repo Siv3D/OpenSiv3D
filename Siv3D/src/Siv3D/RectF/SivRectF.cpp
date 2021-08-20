@@ -534,13 +534,6 @@ namespace s3d
 			center() };
 	}
 
-	inline constexpr RectF RectF::FromPoints(const position_type a, const position_type b) noexcept
-	{
-		const auto [x0, x1] = std::minmax(a.x, b.x);
-		const auto [y0, y1] = std::minmax(a.y, b.y);
-		return{ x0, y0, (x1 - x0), (y1 - y0) };
-	}
-
 	void Formatter(FormatData& formatData, const RectF& value)
 	{
 		formatData.string.push_back(U'(');

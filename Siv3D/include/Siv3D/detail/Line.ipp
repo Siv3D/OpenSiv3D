@@ -191,7 +191,7 @@ namespace s3d
 		return (&begin)[index];
 	}
 
-	inline constexpr Line::position_type Line::point(const size_t index)
+	inline constexpr Line::position_type Line::point(const size_t index) const
 	{
 		if (index == 0)
 		{

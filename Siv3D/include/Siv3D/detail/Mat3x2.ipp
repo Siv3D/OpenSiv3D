@@ -43,8 +43,8 @@ namespace s3d
 	inline constexpr Mat3x2 Mat3x2::translated(const X x, const Y y) const noexcept
 	{
 		Mat3x2 mat = *this;
-		mat._31 += x;
-		mat._32 += y;
+		mat._31 += static_cast<value_type>(x);
+		mat._32 += static_cast<value_type>(y);
 		return mat;
 	}
 

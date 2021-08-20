@@ -79,14 +79,12 @@ namespace s3d
 		Quad,
 		RoundRect,
 		Polygon,
-		MultiPolygon,
+		//MultiPolygon,
 		LineString,
-
-		FloatRect,
-
-		LineStyle,
 		LineStyleParameters,
+		LineStyle,
 		Shape2D,
+		FloatRect,
 
 		//
 		Input,
@@ -164,10 +162,28 @@ namespace s3d
 	void RegisterVec3(asIScriptEngine* engine);
 	void RegisterFloat3(asIScriptEngine* engine);
 	void RegisterVec4(asIScriptEngine* engine);
+	void RegisterFloat4(asIScriptEngine* engine);
+	void RegisterCircular(asIScriptEngine* engine);
+	void RegisterOffsetCircular(asIScriptEngine* engine);
+	void RegisterMat3x2(asIScriptEngine* engine);
+	void RegisterBezier2(asIScriptEngine* engine);
+	void RegisterBezier3(asIScriptEngine* engine);
+	void RegisterLine(asIScriptEngine* engine);
+	void RegisterRect(asIScriptEngine* engine);
+	void RegisterRectF(asIScriptEngine* engine);
+	void RegisterCircle(asIScriptEngine* engine);
+	void RegisterEllipse(asIScriptEngine* engine);
 
 	void RegisterPolygon(asIScriptEngine* engine);
+	void RegisterLineString(asIScriptEngine* engine);
+	void RegisterLineStyleParameters(asIScriptEngine* engine);
+	void RegisterLineStyle(asIScriptEngine* engine);
+	void RegisterFloatRect(asIScriptEngine* engine);
 
-
+	void RegisterTexture(asIScriptEngine* engine);
+	void RegisterTextureRegion(asIScriptEngine* engine);
+	void RegisterTexturedQuad(asIScriptEngine* engine);
+	void RegisterTexturedCircle(asIScriptEngine* engine);
 
 	void RegisterInput(asIScriptEngine* engine);
 	void RegisterKeyboard(asIScriptEngine* engine);

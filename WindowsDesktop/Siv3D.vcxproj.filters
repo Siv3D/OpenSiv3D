@@ -1541,7 +1541,7 @@
       <UniqueIdentifier>{ab24de9f-c84d-4c49-90a5-d3038930fd92}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Siv3D\Script\Bind">
-      <UniqueIdentifier>{897c9b9e-c517-4b3d-9289-d232f1d24786}</UniqueIdentifier>
+      <UniqueIdentifier>{7ccb4b30-8184-4f0c-bab8-f804f00742f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -6798,6 +6798,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOptional.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptArray.hpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9446,25 +9449,37 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptgrid.cpp">
       <Filter>src\Siv3D\Script\angelscript</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTypes.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptAudio.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptUtility.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBezier2.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFormat.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBezier3.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNone_t.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptChar.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOptional.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCircle.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPrint.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCircular.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDuration.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptColor.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptColorF.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCopyOption.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCursor.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCursorStyle.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDate.cpp">
@@ -9473,46 +9488,28 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDateTime.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTime.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDrawableText.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTimer.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDuration.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptVariableSpeedStopwatch.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDynamicTexture.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptStopwatch.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptEasing.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptYesNo.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptEllipse.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMicrosecClock.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptEmoji.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMillisecClock.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFileSystem.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRDTSCClock.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptColorF.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptHSV.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptColor.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGraphics.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSystem.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptScene.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloat2.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloat3.cpp">
@@ -9521,7 +9518,208 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloat4.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloatingPoint.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloatRect.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFont.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFormat.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGraphics.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptHSV.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptIcon.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptImage.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptInput.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptKeyboard.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLanguageCode.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLine.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLineString.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLineStyle.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMat3x2.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMath.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMathConstants.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMicrosecClock.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMillisecClock.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMonitor.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMouse.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNamedParameter.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNone_t.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNumber.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOffsetCircular.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOptional.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPalette.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPeriodic.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPoint.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPolygon.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPrimeNumber.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPrint.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptProfiler.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPutText.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptQuad.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRandom.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRDTSCClock.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRect.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRectF.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptResizeMode.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptResource.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRoundRect.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSay.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptScene.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptScopedViewport2D.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptShape2D.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSimpleGUI.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSpecialFolder.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptStopwatch.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSystem.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextInput.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextInputMode.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextToSpeech.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTexture.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTexturedCircle.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTexturedQuad.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTexturedRoundRect.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextureFormat.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextureRegion.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptThreading.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTime.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTimer.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTransformer2D.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTriangle.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTypes.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptUserAction.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptUtility.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptVariableSpeedStopwatch.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptVec2.cpp">
@@ -9533,55 +9731,13 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptVec4.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloat2.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptVideoTexture.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPolygon.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptWave.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptChar.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptThreading.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNumber.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFloatingPoint.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptProfiler.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSpecialFolder.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCopyOption.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFileSystem.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptResource.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMathConstants.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMath.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptEasing.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPeriodic.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPrimeNumber.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPalette.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptWaveSample.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptWindow.cpp">
@@ -9590,55 +9746,13 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptWindowStyle.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMonitor.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptYesNo.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCursor.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptDialog.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCursorStyle.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptResizeMode.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextInput.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextInputMode.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPutText.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNamedParameter.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSimpleGUI.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLanguageCode.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptSay.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextToSpeech.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptUserAction.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptRandom.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptInput.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptKeyboard.cpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMouse.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLineStyleParameters.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
   </ItemGroup>

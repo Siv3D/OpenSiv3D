@@ -124,27 +124,27 @@ namespace s3d
 			RegisterVec3(m_engine);
 			RegisterFloat3(m_engine);
 			RegisterVec4(m_engine);
+			RegisterFloat4(m_engine);
+			RegisterCircular(m_engine);
+			RegisterOffsetCircular(m_engine);
+			RegisterMat3x2(m_engine);
+			RegisterBezier2(m_engine);
+			RegisterBezier3(m_engine);
+			RegisterLine(m_engine);
+			RegisterRect(m_engine);
+			RegisterRectF(m_engine);
+			RegisterCircle(m_engine);
+			RegisterEllipse(m_engine);
 
-			//void RegisterVec4(AngelScript::asIScriptEngine * engine);
-			//void RegisterFloat4(AngelScript::asIScriptEngine * engine);
-			//void RegisterCircular(AngelScript::asIScriptEngine * engine);
-			//void RegisterOffsetCircular(AngelScript::asIScriptEngine * engine);
-			//void RegisterMat3x2(AngelScript::asIScriptEngine * engine);
-			//void RegisterBezier2(AngelScript::asIScriptEngine * engine);
-			//void RegisterBezier3(AngelScript::asIScriptEngine * engine);
-			//void RegisterLine(AngelScript::asIScriptEngine * engine);
-			//void RegisterRect(AngelScript::asIScriptEngine * engine);
-			//void RegisterRectF(AngelScript::asIScriptEngine * engine);
-			//void RegisterCircle(AngelScript::asIScriptEngine * engine);
-			//void RegisterEllipse(AngelScript::asIScriptEngine * engine);
 			//void RegisterTriangle(AngelScript::asIScriptEngine * engine);
 			//void RegisterQuad(AngelScript::asIScriptEngine * engine);
 			//void RegisterRoundRect(AngelScript::asIScriptEngine * engine);
 			RegisterPolygon(m_engine);
-			//void RegisterLineString(AngelScript::asIScriptEngine * engine);
-			//void RegisterFloatRect(AngelScript::asIScriptEngine * engine);
-			//void RegisterLineStyle(AngelScript::asIScriptEngine * engine);
+			RegisterLineString(m_engine);
+			RegisterLineStyleParameters(m_engine);
+			RegisterLineStyle(m_engine);
 			//void RegisterShape2D(AngelScript::asIScriptEngine * engine);
+			RegisterFloatRect(m_engine);
 
 			RegisterInput(m_engine);
 			RegisterKeyboard(m_engine);
@@ -156,12 +156,13 @@ namespace s3d
 			//void RegisterAudio(AngelScript::asIScriptEngine * engine);
 
 			//void RegisterTextureFormat(AngelScript::asIScriptEngine * engine);
-			//void RegisterTexture(AngelScript::asIScriptEngine * engine);
-			//void RegisterTextureRegion(AngelScript::asIScriptEngine * engine);
-			//void RegisterTexturedQuad(AngelScript::asIScriptEngine * engine);
-			//void RegisterTexturedCircle(AngelScript::asIScriptEngine * engine);
+			RegisterTexture(m_engine);
+			RegisterTextureRegion(m_engine);
+			RegisterTexturedQuad(m_engine);
+			RegisterTexturedCircle(m_engine);
 			//void RegisterTexturedRoundRect(AngelScript::asIScriptEngine * engine);
 			//void RegisterDynamicTexture(AngelScript::asIScriptEngine * engine);
+			//void RegisterVideoTexture(AngelScript::asIScriptEngine * engine);
 			//void RegisterFont(AngelScript::asIScriptEngine * engine);
 			//void RegisterDrawableText(AngelScript::asIScriptEngine * engine);
 			//void RegisterTransformer2D(AngelScript::asIScriptEngine * engine);
@@ -190,6 +191,7 @@ namespace s3d
 			RegisterLanguageCode(m_engine);
 			RegisterTextToSpeech(m_engine);
 			RegisterSay(m_engine);
+			//void RegisterDialog(AngelScript::asIScriptEngine* engine);
 		}
 
 		{

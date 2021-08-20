@@ -11,26 +11,11 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/SimpleGUI.hpp>
-# include "../angelscript/scriptarray.h"
+# include "ScriptArray.hpp"
 
 namespace s3d
 {
 	using namespace AngelScript;
-
-	namespace detail
-	{
-		static Array<String> ToArrayString(const CScriptArray* arr)
-		{
-			Array<String> options(arr->GetSize());
-
-			for (uint32 i = 0; i < options.size(); ++i)
-			{
-				options[i] = *static_cast<const String*>(arr->At(i));
-			}
-
-			return options;
-		}
-	}
 
 	static RectF HeadlineRegion1(const String& text, const Vec2& pos, double width)
 	{
@@ -96,22 +81,22 @@ namespace s3d
 
 	bool RadioButtons1(size_t& index, const CScriptArray* arr, const Vec2& pos, double width, bool enabled)
 	{
-		return SimpleGUI::RadioButtons(index, detail::ToArrayString(arr), pos, width, enabled);
+		return SimpleGUI::RadioButtons(index, detail::FromScriptArray<String>(arr), pos, width, enabled);
 	}
 
 	bool RadioButtons2(size_t& index, const CScriptArray* arr, const Vec2& pos, const uint8&, bool enabled)
 	{
-		return SimpleGUI::RadioButtons(index, detail::ToArrayString(arr), pos, none, enabled);
+		return SimpleGUI::RadioButtons(index, detail::FromScriptArray<String>(arr), pos, none, enabled);
 	}
 
 	bool HorizontalRadioButtons1(size_t& index, const CScriptArray* arr, const Vec2& pos, double width, bool enabled)
 	{
-		return SimpleGUI::HorizontalRadioButtons(index, detail::ToArrayString(arr), pos, width, enabled);
+		return SimpleGUI::HorizontalRadioButtons(index, detail::FromScriptArray<String>(arr), pos, width, enabled);
 	}
 
 	bool HorizontalRadioButtons2(size_t& index, const CScriptArray* arr, const Vec2& pos, const uint8&, bool enabled)
 	{
-		return SimpleGUI::HorizontalRadioButtons(index, detail::ToArrayString(arr), pos, none, enabled);
+		return SimpleGUI::HorizontalRadioButtons(index, detail::FromScriptArray<String>(arr), pos, none, enabled);
 	}
 
 	bool CheckBox1(bool& checked, const String& text, const Vec2& pos, double width, bool enabled)

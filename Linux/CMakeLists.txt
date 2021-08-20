@@ -444,7 +444,12 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptstdstring.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptAudio.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier2.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier3.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptChar.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptCircle.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptCircular.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptColor.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptColorF.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCopyOption.cpp
@@ -452,19 +457,33 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCursorStyle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDate.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDateTime.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDialog.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDrawableText.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptDuration.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptDynamicTexture.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptEasing.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptEllipse.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptEmoji.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFileSystem.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat2.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat3.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFloat4.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFloatingPoint.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFloatRect.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptFont.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptHSV.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptIcon.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptImage.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLanguageCode.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLine.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLineString.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLineStyle.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLineStyleParameters.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptMat3x2.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMath.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMathConstants.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMicrosecClock.cpp
@@ -474,6 +493,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNamedParameter.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNone_t.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNumber.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptOffsetCircular.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPalette.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPeriodic.cpp
@@ -483,12 +503,18 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPrint.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptProfiler.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPutText.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptQuad.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptRandom.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptRDTSCClock.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptRect.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptRectF.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptResizeMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptResource.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptRoundRect.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSay.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptScene.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptScopedViewport2D.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptShape2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSimpleGUI.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSpecialFolder.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
@@ -496,9 +522,17 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInputMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextToSpeech.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTexture.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTexturedCircle.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTexturedQuad.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTexturedRoundRect.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextureFormat.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextureRegion.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptThreading.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTimer.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTransformer2D.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTriangle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTypes.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptUserAction.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptUtility.cpp
@@ -506,6 +540,9 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVec2.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVec3.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptVec4.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptVideoTexture.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptWave.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptWaveSample.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptWindow.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptWindowStyle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptYesNo.cpp

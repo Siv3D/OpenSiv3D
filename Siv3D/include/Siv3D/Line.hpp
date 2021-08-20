@@ -159,7 +159,7 @@ namespace s3d
 		const position_type& p(size_t index) const noexcept;
 
 		[[nodiscard]]
-		constexpr position_type point(size_t index);
+		constexpr position_type point(size_t index) const;
 
 		[[nodiscard]]
 		constexpr position_type position(double t) const noexcept;

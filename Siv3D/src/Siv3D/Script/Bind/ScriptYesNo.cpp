@@ -38,5 +38,6 @@ namespace s3d
 		RegisterYesNo(engine, "StartImmediately");
 		//RegisterYesNo(engine, "AllowUndo");
 		RegisterYesNo(engine, "Centering");
+		RegisterYesNo(engine, "CloseRing");
 	}
 }
