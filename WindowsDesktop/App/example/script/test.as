@@ -148,6 +148,8 @@ int32 Test()
 
 	while(System::Update())
 	{
+		const Transformer2D t(Mat3x2::Scale(0.25), TransformCursor::Yes);
+
 		ls.draw(LineStyle::RoundCap, 20);
 
 		if (MouseL.down())

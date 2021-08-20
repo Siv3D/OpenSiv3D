@@ -259,10 +259,18 @@ namespace s3d
 		[[nodiscard]]
 		TexturedRoundRect rounded(double x, double y, double w, double h, double r) const;
 
+		void swap(VideoTexture& other) noexcept;
+
 	private:
 
 		class VideoTextureDetail;
 
 		std::shared_ptr<VideoTextureDetail> pImpl;
 	};
+}
+
+template <>
+inline void std::swap(s3d::VideoTexture& a, s3d::VideoTexture& b) noexcept
+{
+	a.swap(b);
 }

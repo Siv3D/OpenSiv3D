@@ -5,7 +5,7 @@ void Main()
 	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
 
 	// Create a new font
-	const Font font(FontMethod::MSDF, 60);
+	const Font font(60);
 
 	// Create a new emoji font
 	const Font emojiFont(60, Typeface::ColorEmoji);
@@ -31,7 +31,7 @@ void Main()
 		texture.draw(200, 200);
 
 		// Put a text in the middle of the screen
-		font("Hello, Siv3D!🚀").drawAt(TextStyle::Shadow(Vec2(1,1), ColorF(0.9)), 100, Scene::Center(), Palette::Black);
+		font("Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
 
 		// Draw a texture with animated size
 		emoji.resized(100 + Periodic::Sine0_1(_s(1)) * 20).drawAt(emojiPos);

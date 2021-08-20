@@ -61,7 +61,7 @@ namespace s3d
 		return{ t0, t1, t2 };
 	}
 
-	Triangle Triangle::rotatedAt(const position_type& pos, value_type angle) const noexcept
+	Triangle Triangle::rotatedAt(const position_type pos, value_type angle) const noexcept
 	{
 		const position_type a0 = (p0 - pos);
 		const position_type a1 = (p1 - pos);

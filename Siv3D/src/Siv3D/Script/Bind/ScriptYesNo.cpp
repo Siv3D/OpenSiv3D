@@ -39,5 +39,9 @@ namespace s3d
 		//RegisterYesNo(engine, "AllowUndo");
 		RegisterYesNo(engine, "Centering");
 		RegisterYesNo(engine, "CloseRing");
+		RegisterYesNo(engine, "SkipValidation");
+		RegisterYesNo(engine, "TransformCursor");
+		RegisterYesNo(engine, "AllowScaleUp");
+		RegisterYesNo(engine, "Loop");
 	}
 }

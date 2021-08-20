@@ -68,6 +68,7 @@ namespace s3d
 		Circular,
 		OffsetCircular,
 		Mat3x2,
+		TriangleIndex,
 		Bezier2,
 		Bezier3,
 		Line,
@@ -88,13 +89,7 @@ namespace s3d
 
 		//
 		Input,
-
 		Image,
-
-		WaveSample,
-		Wave,
-		Audio,
-
 		TextureFormat,
 		Texture,
 		TextureRegion,
@@ -102,14 +97,17 @@ namespace s3d
 		TexturedCircle,
 		TexturedRoundRect,
 		DynamicTexture,
+		VideoTexture,
 		Font,
 		DrawableText,
-
 		Transformer2D,
 		ScopedViewport2D,
-
 		Emoji,
 		Icon,
+
+		WaveSample,
+		Wave,
+		Audio,
 
 		PrintBuffer,
 		Print_impl,
@@ -166,6 +164,7 @@ namespace s3d
 	void RegisterCircular(asIScriptEngine* engine);
 	void RegisterOffsetCircular(asIScriptEngine* engine);
 	void RegisterMat3x2(asIScriptEngine* engine);
+	void RegisterTriangleIndex(asIScriptEngine* engine);
 	void RegisterBezier2(asIScriptEngine* engine);
 	void RegisterBezier3(asIScriptEngine* engine);
 	void RegisterLine(asIScriptEngine* engine);
@@ -173,22 +172,45 @@ namespace s3d
 	void RegisterRectF(asIScriptEngine* engine);
 	void RegisterCircle(asIScriptEngine* engine);
 	void RegisterEllipse(asIScriptEngine* engine);
-
+	void RegisterTriangle(asIScriptEngine* engine);
+	void RegisterQuad(asIScriptEngine* engine);
+	void RegisterRoundRect(asIScriptEngine* engine);
 	void RegisterPolygon(asIScriptEngine* engine);
 	void RegisterLineString(asIScriptEngine* engine);
 	void RegisterLineStyleParameters(asIScriptEngine* engine);
 	void RegisterLineStyle(asIScriptEngine* engine);
+	void RegisterShape2D(asIScriptEngine* engine);
 	void RegisterFloatRect(asIScriptEngine* engine);
 
+	void RegisterTexturePixelFormat(asIScriptEngine* engine);
+	void RegisterTextureFormat(asIScriptEngine* engine);
+	void RegisterTextureDesc(asIScriptEngine* engine);
 	void RegisterTexture(asIScriptEngine* engine);
 	void RegisterTextureRegion(asIScriptEngine* engine);
 	void RegisterTexturedQuad(asIScriptEngine* engine);
 	void RegisterTexturedCircle(asIScriptEngine* engine);
+	void RegisterTexturedRoundRect(asIScriptEngine* engine);
+	void RegisterDynamicTexture(asIScriptEngine* engine);
+	void RegisterVideoTexture(asIScriptEngine* engine);
+
+	void RegisterFontStyle(asIScriptEngine * engine);
+	void RegisterTypeface(asIScriptEngine * engine);
+	void RegisterFontMethod(asIScriptEngine * engine);
+	void RegisterTextStyle(asIScriptEngine* engine);
+	void RegisterFont(asIScriptEngine* engine);
+	void RegisterDrawableText(asIScriptEngine* engine);
 
 	void RegisterInput(asIScriptEngine* engine);
 	void RegisterKeyboard(asIScriptEngine* engine);
 	void RegisterMouse(asIScriptEngine* engine);
 
+	void RegisterImage(asIScriptEngine* engine);
+
+	void RegisterTransformer2D(asIScriptEngine* engine);
+	void RegisterScopedViewport2D(asIScriptEngine* engine);
+
+	void RegisterEmoji(asIScriptEngine* engine);
+	void RegisterIcon(asIScriptEngine* engine);
 
 	void RegisterRandom(asIScriptEngine* engine);
 	void RegisterPrint(asIScriptEngine* engine);

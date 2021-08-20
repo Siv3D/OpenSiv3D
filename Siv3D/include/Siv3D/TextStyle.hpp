@@ -11,6 +11,8 @@
 
 # pragma once
 # include "Common.hpp"
+# include "PointVector.hpp"
+# include "ColorHSV.hpp"
 
 namespace s3d
 {

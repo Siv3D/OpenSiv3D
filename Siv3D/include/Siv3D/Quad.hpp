@@ -106,7 +106,7 @@ namespace s3d
 		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
 
 		[[nodiscard]]
-		Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		Quad rotatedAt(position_type pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
 		constexpr Quad scaled(double s) const noexcept;

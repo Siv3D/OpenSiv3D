@@ -59,7 +59,7 @@ namespace s3d
 		return{ t0, t1, t2, t3 };
 	}
 
-	Quad Quad::rotatedAt(const position_type& pos, const value_type angle) const noexcept
+	Quad Quad::rotatedAt(const position_type pos, const value_type angle) const noexcept
 	{
 		const position_type a0 = (p0 - pos);
 		const position_type a1 = (p1 - pos);

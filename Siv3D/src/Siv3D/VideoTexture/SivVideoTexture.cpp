@@ -437,4 +437,9 @@ namespace s3d
 	{
 		return getTexture().rounded(x, y, w, h, r);
 	}
+
+	void VideoTexture::swap(VideoTexture& other) noexcept
+	{
+		pImpl.swap(other.pImpl);
+	}
 }

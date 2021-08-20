@@ -72,6 +72,7 @@ namespace s3d
 		RegisterType(engine, "Circular", sizeof(Circular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "OffsetCircular", sizeof(OffsetCircular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Mat3x2", sizeof(Mat3x2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "TriangleIndex", sizeof(TriangleIndex), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 
 		RegisterType(engine, "Bezier2", sizeof(Bezier2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Bezier3", sizeof(Bezier3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
@@ -87,33 +88,31 @@ namespace s3d
 		RegisterType(engine, "LineString", sizeof(LineString), asOBJ_VALUE | asGetTypeTraits<LineString>());
 		RegisterType(engine, "LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asOBJ_APP_CLASS_ALLINTS | asGetTypeTraits<LineStyle::Parameters>());
 		RegisterType(engine, "LineStyle", sizeof(LineStyle), asOBJ_VALUE | asGetTypeTraits<LineStyle>());
-		//r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
+		RegisterType(engine, "Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>());
 		RegisterType(engine, "FloatRect", sizeof(FloatRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 
 		RegisterType(engine, "Input", sizeof(Input), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
+		RegisterType(engine, "Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>());
 
-		//r = engine->RegisterObjectType("Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>()); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Audio", sizeof(Audio), asOBJ_VALUE | asGetTypeTraits<Audio>()); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("TextureFormat", sizeof(TextureFormat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
-		
+		RegisterType(engine, "TextureFormat", sizeof(TextureFormat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>());
 		RegisterType(engine, "TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>());
 		RegisterType(engine, "TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>());
 		RegisterType(engine, "TexturedCircle", sizeof(TexturedCircle), asOBJ_VALUE | asGetTypeTraits<TexturedCircle>());
+		RegisterType(engine, "TexturedRoundRect", sizeof(TexturedRoundRect), asOBJ_VALUE | asGetTypeTraits<TexturedRoundRect>());
+		RegisterType(engine, "DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>());
+		RegisterType(engine, "VideoTexture", sizeof(VideoTexture), asOBJ_VALUE | asGetTypeTraits<VideoTexture>());
+		RegisterType(engine, "TextStyle", sizeof(TextStyle), asOBJ_VALUE | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<TextStyle>());
+		RegisterType(engine, "Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>());
+		RegisterType(engine, "DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>());
+		RegisterType(engine, "Transformer2D", sizeof(Transformer2D), asOBJ_VALUE | asGetTypeTraits<Transformer2D>());
+		RegisterType(engine, "ScopedViewport2D", sizeof(ScopedViewport2D), asOBJ_VALUE | asGetTypeTraits<ScopedViewport2D>());
+		RegisterType(engine, "Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>());
+		RegisterType(engine, "Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 
-		//r = engine->RegisterObjectType("TexturedRoundRect", sizeof(TexturedRoundRect), asOBJ_VALUE | asGetTypeTraits<TexturedRoundRect>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Transformer2D", sizeof(Transformer2D), asOBJ_VALUE | asGetTypeTraits<Transformer2D>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("ScopedViewport2D", sizeof(ScopedViewport2D), asOBJ_VALUE | asGetTypeTraits<ScopedViewport2D>()); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		//r = engine->RegisterObjectType("WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		//r = engine->RegisterObjectType("Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>()); assert(r >= 0);
+		//r = engine->RegisterObjectType("Audio", sizeof(Audio), asOBJ_VALUE | asGetTypeTraits<Audio>()); assert(r >= 0);
 
 		RegisterType(engine, "PrintBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "Print_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
@@ -127,11 +126,14 @@ namespace s3d
 		RegisterEnum(engine, "ResizeMode");
 		RegisterEnum(engine, "TextInputMode");
 		RegisterEnum(engine, "LanguageCode");
+		RegisterEnum(engine, "TextureDesc");
+		RegisterEnum(engine, "TexturePixelFormat");
+		RegisterEnum(engine, "FontStyle");
+		RegisterEnum(engine, "Typeface");
+		RegisterEnum(engine, "FontMethod");
 
 		//r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
 		//r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
-		//r = engine->RegisterEnum("TextureFormatValue"); assert(r >= 0);
-		//r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
 		//r = engine->RegisterEnum("Typeface"); assert(r >= 0);
 		//r = engine->RegisterEnum("FontStyle"); assert(r >= 0);
 		//r = engine->RegisterEnum("PianoKey"); assert(r >= 0);
@@ -163,6 +165,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int32>(ScriptTypeID::Circular));
 		assert(engine->GetTypeIdByDecl("OffsetCircular") == static_cast<int32>(ScriptTypeID::OffsetCircular));
 		assert(engine->GetTypeIdByDecl("Mat3x2") == static_cast<int32>(ScriptTypeID::Mat3x2));
+		assert(engine->GetTypeIdByDecl("TriangleIndex") == static_cast<int32>(ScriptTypeID::TriangleIndex));
 		assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int32>(ScriptTypeID::Bezier2));
 		assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int32>(ScriptTypeID::Bezier3));
 		assert(engine->GetTypeIdByDecl("Line") == static_cast<int32>(ScriptTypeID::Line));
@@ -177,12 +180,11 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int32>(ScriptTypeID::LineString));
 		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int32>(ScriptTypeID::LineStyleParameters));
 		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int32>(ScriptTypeID::LineStyle));
-		//assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
-		//assert(engine->GetTypeIdByDecl("FloatRect") == static_cast<int32>(ScriptTypeID::FloatRect));
+		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
+		assert(engine->GetTypeIdByDecl("FloatRect") == static_cast<int32>(ScriptTypeID::FloatRect));
 
-		//assert(engine->GetTypeIdByDecl("Input") == static_cast<int32>(ScriptTypeID::Input));
-
-		//assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
+		assert(engine->GetTypeIdByDecl("Input") == static_cast<int32>(ScriptTypeID::Input));
+		assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
 
 		//assert(engine->GetTypeIdByDecl("WaveSample") == static_cast<int32>(ScriptTypeID::WaveSample));
 		//assert(engine->GetTypeIdByDecl("Wave") == static_cast<int32>(ScriptTypeID::Wave));
@@ -210,5 +212,6 @@ namespace s3d
 		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));
 
 		r = engine->RegisterTypedef("size_t", "uint64"); assert(r >= 0);
+		r = engine->RegisterTypedef("GlyphIndex", "uint32"); assert(r >= 0);
 	}
 }

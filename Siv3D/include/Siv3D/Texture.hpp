@@ -56,7 +56,7 @@ namespace s3d
 		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Texture(const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
+		explicit Texture(const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Mipped);
 
 		virtual ~Texture();
 

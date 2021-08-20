@@ -128,6 +128,7 @@ namespace s3d
 			RegisterCircular(m_engine);
 			RegisterOffsetCircular(m_engine);
 			RegisterMat3x2(m_engine);
+			RegisterTriangleIndex(m_engine);
 			RegisterBezier2(m_engine);
 			RegisterBezier3(m_engine);
 			RegisterLine(m_engine);
@@ -135,41 +136,47 @@ namespace s3d
 			RegisterRectF(m_engine);
 			RegisterCircle(m_engine);
 			RegisterEllipse(m_engine);
-
-			//void RegisterTriangle(AngelScript::asIScriptEngine * engine);
-			//void RegisterQuad(AngelScript::asIScriptEngine * engine);
-			//void RegisterRoundRect(AngelScript::asIScriptEngine * engine);
+			RegisterTriangle(m_engine);
+			RegisterQuad(m_engine);
+			RegisterRoundRect(m_engine);
 			RegisterPolygon(m_engine);
 			RegisterLineString(m_engine);
 			RegisterLineStyleParameters(m_engine);
 			RegisterLineStyle(m_engine);
-			//void RegisterShape2D(AngelScript::asIScriptEngine * engine);
+			RegisterShape2D(m_engine);
 			RegisterFloatRect(m_engine);
 
 			RegisterInput(m_engine);
 			RegisterKeyboard(m_engine);
 			RegisterMouse(m_engine);
+			RegisterImage(m_engine); // [Siv3D ToDo]
 
-			//void RegisterImage(AngelScript::asIScriptEngine * engine);
-			//void RegisterSoundFont(AngelScript::asIScriptEngine * engine);
-			//void RegisterWave(AngelScript::asIScriptEngine * engine);
-			//void RegisterAudio(AngelScript::asIScriptEngine * engine);
-
-			//void RegisterTextureFormat(AngelScript::asIScriptEngine * engine);
+			RegisterTexturePixelFormat(m_engine);
+			RegisterTextureFormat(m_engine);
+			RegisterTextureDesc(m_engine);
 			RegisterTexture(m_engine);
 			RegisterTextureRegion(m_engine);
 			RegisterTexturedQuad(m_engine);
 			RegisterTexturedCircle(m_engine);
-			//void RegisterTexturedRoundRect(AngelScript::asIScriptEngine * engine);
-			//void RegisterDynamicTexture(AngelScript::asIScriptEngine * engine);
-			//void RegisterVideoTexture(AngelScript::asIScriptEngine * engine);
-			//void RegisterFont(AngelScript::asIScriptEngine * engine);
-			//void RegisterDrawableText(AngelScript::asIScriptEngine * engine);
-			//void RegisterTransformer2D(AngelScript::asIScriptEngine * engine);
-			//void RegisterScopedViewport2D(AngelScript::asIScriptEngine * engine);
+			RegisterTexturedRoundRect(m_engine);
+			RegisterDynamicTexture(m_engine);
+			RegisterVideoTexture(m_engine);
 
-			//void RegisterEmoji(AngelScript::asIScriptEngine * engine);
-			//void RegisterIcon(AngelScript::asIScriptEngine * engine);
+			RegisterFontStyle(m_engine);
+			RegisterTypeface(m_engine);
+			RegisterFontMethod(m_engine);
+			RegisterTextStyle(m_engine);
+			RegisterFont(m_engine);
+			RegisterDrawableText(m_engine);
+			RegisterTransformer2D(m_engine);
+			RegisterScopedViewport2D(m_engine);
+
+			RegisterEmoji(m_engine);
+			RegisterIcon(m_engine);
+
+			//void RegisterSoundFont(AngelScript::asIScriptEngine * engine);
+			//void RegisterWave(AngelScript::asIScriptEngine * engine);
+			//void RegisterAudio(AngelScript::asIScriptEngine * engine);
 
 			RegisterRandom(m_engine);
 			RegisterPrint(m_engine);

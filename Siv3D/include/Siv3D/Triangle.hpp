@@ -139,7 +139,7 @@ namespace s3d
 		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
 
 		[[nodiscard]]
-		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		Triangle rotatedAt(position_type pos, value_type angle) const noexcept;
 
 		[[nodiscard]]
 		constexpr Triangle scaled(double s) const noexcept;
