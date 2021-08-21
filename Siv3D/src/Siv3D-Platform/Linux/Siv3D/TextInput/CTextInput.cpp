@@ -26,22 +26,22 @@ extern "C"
 	XIMCallback preeditDone;
 	XIMCallback preeditCaret;
 
-	void preeditStartCallback(XIC, XPointer, XPointer)
+	static void preeditStartCallback(XIC, XPointer, XPointer)
 	{
 		// do nothing
 	}
 
-	void preeditDoneCallback(XIC, XPointer, XPointer)
+	static void preeditDoneCallback(XIC, XPointer, XPointer)
 	{
 		// do nothing
 	}
 
-	void preeditDrawCallback(XIC ic, XPointer client_data, XIMPreeditDrawCallbackStruct *call_data)
+	static void preeditDrawCallback(XIC ic, XPointer client_data, XIMPreeditDrawCallbackStruct *call_data)
 	{
 		pTextInput->preeditDrawCallback(ic, client_data, call_data);
 	}
 
-	void preeditCaretCallback(XIC, XPointer, XIMPreeditCaretCallbackStruct *)
+	static void preeditCaretCallback(XIC, XPointer, XIMPreeditCaretCallbackStruct *)
 	{
 		// do nothing
 	}
@@ -145,7 +145,7 @@ namespace s3d
 		return m_preeditText;
 	}
 	
-	void CTextInput::enableIME(bool enabled)
+	void CTextInput::enableIME(const bool enabled)
 	{
 		m_imeEnabled = enabled;
 		updateICFocus();
@@ -153,7 +153,7 @@ namespace s3d
 	
 	std::pair<int32, int32> CTextInput::getCursorIndex() const
 	{
-		return{ m_preeditCaret, 0};
+		return{ m_preeditCaret, 0 };
 	}
 	
 	const Array<String>& CTextInput::getCandidates() const

@@ -39,6 +39,6 @@ namespace s3d
 
 		virtual std::pair<int32, int32> getCursorIndex() const = 0;
 
-		virtual const Array<UnderlineStyle>& getEditingTextStyle() const = 0;
+		virtual const Array<UnderlineStyle>& getEditingTextStyle() const { static const Array<UnderlineStyle> _empty; return _empty; }
 	};
 }

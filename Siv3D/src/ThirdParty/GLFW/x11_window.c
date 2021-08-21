@@ -1336,11 +1336,19 @@ static void processEvent(XEvent *event)
 
                     if (status == XLookupChars || status == XLookupBoth)
                     {
+                        //-----------------------------------------------
+                        //
+                        //  [Siv3D]
+                        //
+
                         // const char* c = chars;
                         chars[count] = '\0';
                         s3d_InputText(chars);
                         // while (c - chars < count)
                         //     _glfwInputChar(window, decodeUTF8(&c), mods, plain);
+
+                        //
+                        //-----------------------------------------------
                     }
 
                     if (chars != buffer)
@@ -1815,6 +1823,11 @@ static void processEvent(XEvent *event)
             return;
         }
 
+        //-----------------------------------------------
+        //
+        //  [Siv3D]
+        //
+
         case FocusIn:
         {
             if (event->xfocus.mode == NotifyGrab ||
@@ -1857,6 +1870,9 @@ static void processEvent(XEvent *event)
             _glfwInputWindowFocus(window, GLFW_FALSE);
             return;
         }
+
+        //
+        //-----------------------------------------------
 
         case Expose:
         {
@@ -2000,6 +2016,11 @@ void _glfwPushSelectionToManagerX11(void)
 
 void _glfwCreateInputContextX11(_GLFWwindow* window)
 {
+    //-----------------------------------------------
+    //
+    //  [Siv3D]
+    //
+
     XIMCallback callback;
     callback.callback = (XIMProc) inputContextDestroyCallback;
     callback.client_data = (XPointer) window;
@@ -2020,6 +2041,9 @@ void _glfwCreateInputContextX11(_GLFWwindow* window)
                                NULL);
 
     XFree(preeditAttr);
+
+    //
+    //-----------------------------------------------
 
     if (window->x11.ic)
     {

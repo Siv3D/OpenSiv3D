@@ -16,7 +16,7 @@
 namespace s3d
 {
 	/// @brief 下線のスタイル
-	enum class UnderlineStyle
+	enum class UnderlineStyle : uint8
 	{
 		/// @brief スタイルなし
 		NoStyle = 0,

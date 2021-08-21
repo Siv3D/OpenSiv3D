@@ -64,15 +64,15 @@ namespace s3d
 		
 		std::mutex m_mutexPreeditStatus;
 		
-		Array<UnderlineStyle> m_internalPreeditTextStyle = {};
+		Array<UnderlineStyle> m_internalPreeditTextStyle;
 
-		String m_internalPreeditText = U"";
+		String m_internalPreeditText;
 		
 		int32 m_internalPreeditCaret = 0;
 		
-		Array<UnderlineStyle> m_preeditTextStyle = {};
+		Array<UnderlineStyle> m_preeditTextStyle;
 
-		String m_preeditText = U"";
+		String m_preeditText;
 
 		int32 m_preeditCaret = 0;
 		

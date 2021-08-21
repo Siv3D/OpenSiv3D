@@ -64,6 +64,7 @@ namespace s3d
 		[[nodiscard]]
 		int32 GetCursorIndex();
 
+		[[nodiscard]]
 		const Array<UnderlineStyle>& GetEditingTextStyle();
 	}
 
