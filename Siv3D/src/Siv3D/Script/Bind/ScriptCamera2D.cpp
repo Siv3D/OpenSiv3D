@@ -9,17 +9,21 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
+# include <Siv3D/Script.hpp>
+# include <Siv3D/Camera2D.hpp>
 
 namespace s3d
 {
-	enum class BorderType : uint32
+	using namespace AngelScript;
+
+	void RegisterCamera2D(asIScriptEngine* engine)
 	{
-		Replicate,
+		int32 r = 0;
 
-		Reflect,
+		r = engine->SetDefaultNamespace("Dialog"); assert(r >= 0);
+		{
 
-		Reflect_101,
-	};
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+	}
 }

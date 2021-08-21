@@ -152,7 +152,7 @@ namespace s3d
 
 		void deinterleave() noexcept;
 
-		bool save(FilePathView path, AudioFormat format = AudioFormat::WAVE) const;
+		bool save(FilePathView path, AudioFormat format = AudioFormat::Unspecified) const;
 
 		[[nodiscard]]
 		Blob encode(AudioFormat format) const;

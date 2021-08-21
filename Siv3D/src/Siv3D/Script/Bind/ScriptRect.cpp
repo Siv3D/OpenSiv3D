@@ -68,17 +68,17 @@ namespace s3d
 		new(self) ShapeType(pos, size);
 	}
 
-	static void ConstructCenterPI(const Vec2& pos, int32 size, ShapeType* self)
+	static void ConstructCenterPI(Vec2 pos, int32 size, ShapeType* self)
 	{
 		new(self) ShapeType(Arg::center = pos.asPoint(), size);
 	}
 
-	static void ConstructCenterPII(const Vec2& pos, int32 w, int32 h, ShapeType* self)
+	static void ConstructCenterPII(Vec2 pos, int32 w, int32 h, ShapeType* self)
 	{
 		new(self) ShapeType(Arg::center = pos.asPoint(), w, h);
 	}
 
-	static void ConstructCenterPS(const Vec2& pos, const Point& size, ShapeType* self)
+	static void ConstructCenterPS(Vec2 pos, const Point& size, ShapeType* self)
 	{
 		new(self) ShapeType(Arg::center = pos.asPoint(), size);
 	}

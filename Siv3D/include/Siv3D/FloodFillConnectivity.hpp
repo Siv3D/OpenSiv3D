@@ -15,7 +15,7 @@
 namespace s3d
 {
 	/// @brief 塗りつぶしの連結性
-	enum class FloodFillConnectivity : uint8
+	enum class FloodFillConnectivity : uint32
 	{
 		/// @brief上下左右 4 ピクセル
 		Value4 = 4,

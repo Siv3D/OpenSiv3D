@@ -43,5 +43,7 @@ namespace s3d
 		RegisterYesNo(engine, "TransformCursor");
 		RegisterYesNo(engine, "AllowScaleUp");
 		RegisterYesNo(engine, "Loop");
+		RegisterYesNo(engine, "InvertColor");
+		RegisterYesNo(engine, "AllowHoles");
 	}
 }

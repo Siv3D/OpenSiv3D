@@ -9,17 +9,21 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Common.hpp"
+# include <Siv3D/Script.hpp>
+# include <Siv3D/GlobalAudio.hpp>
 
 namespace s3d
 {
-	enum class BorderType : uint32
+	using namespace AngelScript;
+
+	void RegisterGlobalAudio(asIScriptEngine* engine)
 	{
-		Replicate,
+		int32 r = 0;
 
-		Reflect,
+		r = engine->SetDefaultNamespace("GlobalAudio"); assert(r >= 0);
+		{
 
-		Reflect_101,
-	};
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+	}
 }

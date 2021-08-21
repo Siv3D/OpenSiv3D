@@ -10,9 +10,20 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
+# include <Siv3D/Dialog.hpp>
 
 namespace s3d
 {
 	using namespace AngelScript;
 
+	void RegisterDialog(asIScriptEngine* engine)
+	{
+		int32 r = 0;
+
+		r = engine->SetDefaultNamespace("Dialog"); assert(r >= 0);
+		{
+
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+	}
 }

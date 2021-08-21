@@ -6801,6 +6801,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptArray.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\UnderlineStyle.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9774,6 +9777,24 @@
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptTextStyle.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptImageFormat.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptAudioFormat.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGMInstrument.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPianoKey.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGlobalAudio.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCamera2D.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
   </ItemGroup>

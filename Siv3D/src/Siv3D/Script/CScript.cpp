@@ -149,7 +149,8 @@ namespace s3d
 			RegisterInput(m_engine);
 			RegisterKeyboard(m_engine);
 			RegisterMouse(m_engine);
-			RegisterImage(m_engine); // [Siv3D ToDo]
+			RegisterImageFormat(m_engine);
+			RegisterImage(m_engine);
 
 			RegisterTexturePixelFormat(m_engine);
 			RegisterTextureFormat(m_engine);
@@ -170,13 +171,17 @@ namespace s3d
 			RegisterDrawableText(m_engine);
 			RegisterTransformer2D(m_engine);
 			RegisterScopedViewport2D(m_engine);
+			RegisterCamera2D(m_engine); // [Siv3D ToDo]
 
 			RegisterEmoji(m_engine);
 			RegisterIcon(m_engine);
-
-			//void RegisterSoundFont(AngelScript::asIScriptEngine * engine);
-			//void RegisterWave(AngelScript::asIScriptEngine * engine);
-			//void RegisterAudio(AngelScript::asIScriptEngine * engine);
+			RegisterAudioFormat(m_engine);
+			RegisterGMInstrument(m_engine);
+			RegisterPianoKey(m_engine);
+			RegisterWaveSample(m_engine);
+			RegisterWave(m_engine);
+			RegisterAudio(m_engine); // [Siv3D ToDo]
+			RegisterGlobalAudio(m_engine); // [Siv3D ToDo]
 
 			RegisterRandom(m_engine);
 			RegisterPrint(m_engine);
@@ -198,7 +203,7 @@ namespace s3d
 			RegisterLanguageCode(m_engine);
 			RegisterTextToSpeech(m_engine);
 			RegisterSay(m_engine);
-			//void RegisterDialog(AngelScript::asIScriptEngine* engine);
+			RegisterDialog(m_engine); // [Siv3D ToDo]
 		}
 
 		{

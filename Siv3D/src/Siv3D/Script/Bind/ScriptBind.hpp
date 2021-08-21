@@ -41,6 +41,8 @@ namespace s3d
 		TopLeft_Vec2,
 		Center_,
 		Center_Vec2,
+		SampleRate_,
+		SampleRate_Uint32,
 
 		Char32,
 		String,
@@ -98,15 +100,18 @@ namespace s3d
 		TexturedRoundRect,
 		DynamicTexture,
 		VideoTexture,
+		TextStyle,
 		Font,
 		DrawableText,
 		Transformer2D,
 		ScopedViewport2D,
+		//Camera2D,
 		Emoji,
 		Icon,
 
 		WaveSample,
 		Wave,
+		AudioFileStreaming,
 		Audio,
 
 		PrintBuffer,
@@ -204,13 +209,22 @@ namespace s3d
 	void RegisterKeyboard(asIScriptEngine* engine);
 	void RegisterMouse(asIScriptEngine* engine);
 
+	void RegisterImageFormat(asIScriptEngine* engine);
 	void RegisterImage(asIScriptEngine* engine);
 
 	void RegisterTransformer2D(asIScriptEngine* engine);
 	void RegisterScopedViewport2D(asIScriptEngine* engine);
+	void RegisterCamera2D(asIScriptEngine* engine);
 
 	void RegisterEmoji(asIScriptEngine* engine);
 	void RegisterIcon(asIScriptEngine* engine);
+	void RegisterAudioFormat(asIScriptEngine* engine);
+	void RegisterGMInstrument(asIScriptEngine* engine);
+	void RegisterPianoKey(asIScriptEngine* engine);
+	void RegisterWaveSample(asIScriptEngine* engine);
+	void RegisterWave(asIScriptEngine* engine);
+	void RegisterAudio(asIScriptEngine* engine);
+	void RegisterGlobalAudio(asIScriptEngine* engine);
 
 	void RegisterRandom(asIScriptEngine* engine);
 	void RegisterPrint(asIScriptEngine* engine);
@@ -232,5 +246,6 @@ namespace s3d
 	void RegisterLanguageCode(asIScriptEngine* engine);
 	void RegisterTextToSpeech(asIScriptEngine* engine);
 	void RegisterSay(asIScriptEngine* engine);
+	void RegisterDialog(asIScriptEngine* engine);
 
 }

@@ -317,6 +317,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T9), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T10), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(Texture& inout) const", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(Texture& inout)", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
 	}
 }

@@ -16,7 +16,7 @@ namespace s3d
 {
 	/// @brief 適応的閾値処理において閾値を計算する方法
 	/// @remark `Image::adaptiveThreshold()` などで使います。
-	enum class AdaptiveThresholdMethod : uint8
+	enum class AdaptiveThresholdMethod : uint32
 	{
 		/// @brief 周辺の値 - 定数 C
 		Mean,

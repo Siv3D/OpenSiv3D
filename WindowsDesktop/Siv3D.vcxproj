@@ -738,6 +738,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Typeface.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\UnderlineStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UnicodeConverter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UniqueResource.hpp" />
@@ -2203,8 +2204,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptgrid.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\angelscript\scriptstdstring.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptAudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBezier3.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCamera2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptChar.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCircular.cpp" />
@@ -2232,10 +2235,13 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFontMethod.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFontStyle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGlobalAudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGMInstrument.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptGraphics.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptHSV.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptIcon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptImage.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptKeyboard.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLanguageCode.cpp" />
@@ -2257,6 +2263,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOptional.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPalette.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPeriodic.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPianoKey.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPoint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPrimeNumber.cpp" />

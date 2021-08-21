@@ -225,5 +225,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(const LineStyle& in, double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (const LineStyle&, double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "void swap(LineString& inout)", asMETHOD(ShapeType, swap), asCALL_THISCALL); assert(r >= 0);
 	}
 }

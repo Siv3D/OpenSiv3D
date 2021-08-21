@@ -139,7 +139,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool hasHoles() const", asMETHOD(ShapeType, hasHoles), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t num_holes() const", asMETHOD(ShapeType, num_holes), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(Polygon& inout) const", asMETHOD(ShapeType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(Polygon& inout)", asMETHOD(ShapeType, swap), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Array<Vec2>@ outer() const", asFUNCTION(Outer), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Array<Float2>@ vertices() const", asFUNCTION(Vertices), asCALL_CDECL_OBJLAST); assert(r >= 0);

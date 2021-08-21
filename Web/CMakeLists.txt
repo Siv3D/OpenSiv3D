@@ -463,8 +463,10 @@ add_library(
   ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptstdstring.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptAudio.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptAudioFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier2.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier3.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptCamera2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptChar.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCircle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCircular.cpp
@@ -492,10 +494,13 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFontMethod.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFontStyle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptFormat.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptGlobalAudio.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptGMInstrument.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptHSV.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptIcon.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptImage.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptImageFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLanguageCode.cpp
@@ -517,6 +522,7 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPalette.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPeriodic.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptPianoKey.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPoint.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPolygon.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPrimeNumber.cpp

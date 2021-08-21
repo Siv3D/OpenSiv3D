@@ -108,7 +108,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool fillIfNotBusy(const Image& in)", asMETHOD(BindType, fillIfNotBusy), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool fillRegionIfNotBusy(const Image& in, const Rect& in)", asMETHOD(BindType, fillRegionIfNotBusy), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(DynamicTexture& inout) const", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(DynamicTexture& inout)", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod(TypeName, "DynamicTexture& opAssign(const DynamicTexture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
