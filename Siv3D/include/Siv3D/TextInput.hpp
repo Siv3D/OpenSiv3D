@@ -14,6 +14,7 @@
 # include "String.hpp"
 # include "Array.hpp"
 # include "Font.hpp"
+# include "UnderlineStyle.hpp"
 # include "TextInputMode.hpp"
 
 namespace s3d
@@ -50,6 +51,21 @@ namespace s3d
 			const ColorF& selectedBackgroundColor = ColorF{ 0.55, 0.85, 1.0 },
 			const ColorF& frameColor = ColorF{ 0.75 },
 			const ColorF& textColor = ColorF{ 0.0 });
+	}
+
+# elif SIV3D_PLATFORM(LINUX)
+
+	namespace Platform::Linux::TextInput
+	{
+		void EnableIME();
+
+		void DisableIME();
+
+		[[nodiscard]]
+		int32 GetCursorIndex();
+
+		[[nodiscard]]
+		const Array<UnderlineStyle>& GetEditingTextStyle();
 	}
 
 # elif SIV3D_PLATFORM(WEB)

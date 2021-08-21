@@ -40,36 +40,48 @@ namespace s3d
 		std::pair<int32, int32> getCursorIndex() const override;
 		
 		const Array<String>& getCandidates() const override;
+
+		const Array<UnderlineStyle>& getEditingTextStyle() const override;
 		
 		//
 		//	Linux
 		//
 		
-		void onHaveMarkedText(const char* text);
+		void preeditDrawCallback(XIC ic, XPointer client_data, XIMPreeditDrawCallbackStruct* call_data);
+
+		void updateWindowFocus(bool focus);
+
+		void sendInputText(const String& text);
 		
 	private:
 
-		std::mutex m_mutex;
+		std::mutex m_mutexChars;
 		
 		String m_internalChars;
 		
 		String m_chars;
 		
 		
-		std::mutex m_mutexMarkedText;
+		std::mutex m_mutexPreeditStatus;
 		
-		String m_internalMarkedText;
+		Array<UnderlineStyle> m_internalPreeditTextStyle;
+
+		String m_internalPreeditText;
 		
-		String m_markedText;
+		int32 m_internalPreeditCaret = 0;
 		
-		bool m_haveMarkedText = false;
+		Array<UnderlineStyle> m_preeditTextStyle;
+
+		String m_preeditText;
+
+		int32 m_preeditCaret = 0;
 		
+
+		bool m_imeEnabled = true;
 		
-		Stopwatch m_enterPress;
+		bool m_windowHasFocus = true;
 		
-		Stopwatch m_tabPress;
-		
-		Stopwatch m_backSpacePress;
+		void updateICFocus();
 		
 		static void OnCharacterInput(GLFWwindow*, uint32 codePoint);
 	};

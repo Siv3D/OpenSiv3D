@@ -13,6 +13,7 @@
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/DrawableText.hpp>
+# include <Siv3D/UnderlineStyle.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
 
@@ -178,6 +179,31 @@ namespace s3d
 		}
 	}
 	
+# elif SIV3D_PLATFORM(LINUX)
+
+	namespace Platform::Linux::TextInput
+	{
+		void EnableIME()
+		{
+			SIV3D_ENGINE(TextInput)->enableIME(true);
+		}
+
+		void DisableIME()
+		{
+			SIV3D_ENGINE(TextInput)->enableIME(false);
+		}
+
+		int32 GetCursorIndex()
+		{
+			return SIV3D_ENGINE(TextInput)->getCursorIndex().first;
+		}
+
+		const Array<UnderlineStyle>& GetEditingTextStyle() 
+		{
+			return SIV3D_ENGINE(TextInput)->getEditingTextStyle();
+		}
+	}
+
 # elif SIV3D_PLATFORM(WEB)
 
 	namespace Platform::Web::TextInput

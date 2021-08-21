@@ -62,6 +62,16 @@ void s3d_DraggingEntered(bool isFilePath);
 void s3d_DraggingUpdated(void);
 void s3d_DraggingExited(void);
 void s3d_ItemDropped(const char* text);
+
+XVaNestedList s3d_PreeditAttributes(XPointer client_data);
+void s3d_SetICFocus(XIC ic);
+void s3d_UnsetICFocus(XIC ic);
+void s3d_InputText(char* text);
+
+XIC s3d_GetXICFromGLFWWindow(GLFWwindow* window)
+{
+    return ((_GLFWwindow*)window)->x11.ic;
+}
 //
 //-----------------------------------------------
 
@@ -1326,10 +1336,19 @@ static void processEvent(XEvent *event)
 
                     if (status == XLookupChars || status == XLookupBoth)
                     {
-                        const char* c = chars;
+                        //-----------------------------------------------
+                        //
+                        //  [Siv3D]
+                        //
+
+                        // const char* c = chars;
                         chars[count] = '\0';
-                        while (c - chars < count)
-                            _glfwInputChar(window, decodeUTF8(&c), mods, plain);
+                        s3d_InputText(chars);
+                        // while (c - chars < count)
+                        //     _glfwInputChar(window, decodeUTF8(&c), mods, plain);
+
+                        //
+                        //-----------------------------------------------
                     }
 
                     if (chars != buffer)
@@ -1804,6 +1823,11 @@ static void processEvent(XEvent *event)
             return;
         }
 
+        //-----------------------------------------------
+        //
+        //  [Siv3D]
+        //
+
         case FocusIn:
         {
             if (event->xfocus.mode == NotifyGrab ||
@@ -1818,7 +1842,7 @@ static void processEvent(XEvent *event)
                 disableCursor(window);
 
             if (window->x11.ic)
-                XSetICFocus(window->x11.ic);
+                s3d_SetICFocus(window->x11.ic);
 
             _glfwInputWindowFocus(window, GLFW_TRUE);
             return;
@@ -1838,7 +1862,7 @@ static void processEvent(XEvent *event)
                 enableCursor(window);
 
             if (window->x11.ic)
-                XUnsetICFocus(window->x11.ic);
+                s3d_UnsetICFocus(window->x11.ic);
 
             if (window->monitor && window->autoIconify)
                 _glfwPlatformIconifyWindow(window);
@@ -1846,6 +1870,9 @@ static void processEvent(XEvent *event)
             _glfwInputWindowFocus(window, GLFW_FALSE);
             return;
         }
+
+        //
+        //-----------------------------------------------
 
         case Expose:
         {
@@ -1989,20 +2016,34 @@ void _glfwPushSelectionToManagerX11(void)
 
 void _glfwCreateInputContextX11(_GLFWwindow* window)
 {
+    //-----------------------------------------------
+    //
+    //  [Siv3D]
+    //
+
     XIMCallback callback;
     callback.callback = (XIMProc) inputContextDestroyCallback;
     callback.client_data = (XPointer) window;
 
+    XVaNestedList preeditAttr = s3d_PreeditAttributes(window);
+
     window->x11.ic = XCreateIC(_glfw.x11.im,
                                XNInputStyle,
-                               XIMPreeditNothing | XIMStatusNothing,
+                               XIMPreeditCallbacks | XIMStatusNothing,
                                XNClientWindow,
                                window->x11.handle,
                                XNFocusWindow,
                                window->x11.handle,
                                XNDestroyCallback,
                                &callback,
+                               XNPreeditAttributes,
+                               preeditAttr,
                                NULL);
+
+    XFree(preeditAttr);
+
+    //
+    //-----------------------------------------------
 
     if (window->x11.ic)
     {
