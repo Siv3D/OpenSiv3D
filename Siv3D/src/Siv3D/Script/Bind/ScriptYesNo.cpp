@@ -45,5 +45,6 @@ namespace s3d
 		RegisterYesNo(engine, "Loop");
 		RegisterYesNo(engine, "InvertColor");
 		RegisterYesNo(engine, "AllowHoles");
+		RegisterYesNo(engine, "Antialiased");
 	}
 }

@@ -55,10 +55,14 @@ namespace s3d
 		/// @remark カメラは一定の時間をかけて目標の座標に移動します。
 		void setTargetCenter(Vec2 targetCenter) noexcept;
 
+		const Vec2& getTargetCenter() const noexcept;
+
 		/// @brief カメラのズームアップ倍率の目標を設定します。
 		/// @param targetScale カメラのズーム倍率の目標
 		/// @remark カメラは一定の時間をかけて目標のズーム倍率になります。
 		void setTargetScale(double targetScale) noexcept;
+
+		double getTargetScale() const noexcept;
 
 		/// @brief 指定した中心座標とズーム倍率を即座に適用します。
 		/// @param center カメラが見る中心座標

@@ -89,6 +89,7 @@ namespace s3d
 		RegisterType(engine, "RoundRect", sizeof(RoundRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Polygon", sizeof(Polygon), asOBJ_VALUE | asGetTypeTraits<Polygon>());
 		RegisterType(engine, "LineString", sizeof(LineString), asOBJ_VALUE | asGetTypeTraits<LineString>());
+		RegisterType(engine, "Spline2D", sizeof(Spline2D), asOBJ_VALUE | asGetTypeTraits<Spline2D>());
 		RegisterType(engine, "LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asOBJ_APP_CLASS_ALLINTS | asGetTypeTraits<LineStyle::Parameters>());
 		RegisterType(engine, "LineStyle", sizeof(LineStyle), asOBJ_VALUE | asGetTypeTraits<LineStyle>());
 		RegisterType(engine, "Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>());
@@ -108,14 +109,15 @@ namespace s3d
 		RegisterType(engine, "TextStyle", sizeof(TextStyle), asOBJ_VALUE | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<TextStyle>());
 		RegisterType(engine, "Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>());
 		RegisterType(engine, "DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>());
-		RegisterType(engine, "Transformer2D", sizeof(Transformer2D), asOBJ_VALUE | asGetTypeTraits<Transformer2D>());
+		RegisterType(engine, "Transformer2D", 0, asOBJ_REF | asOBJ_SCOPED);
 		RegisterType(engine, "ScopedViewport2D", sizeof(ScopedViewport2D), asOBJ_VALUE | asGetTypeTraits<ScopedViewport2D>());
+		RegisterType(engine, "Camera2D", sizeof(Camera2D), asOBJ_VALUE | asGetTypeTraits<Camera2D>());
 		RegisterType(engine, "Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>());
 		RegisterType(engine, "Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 
 		RegisterType(engine, "WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>());
-		RegisterType(engine, "AudioFileStreaming", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
+		RegisterType(engine, "AudioFileStreaming", sizeof(uint8), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "Audio", sizeof(Audio), asOBJ_VALUE | asGetTypeTraits<Audio>());
 
 		RegisterType(engine, "PrintBuffer", 0, asOBJ_REF);
@@ -143,6 +145,7 @@ namespace s3d
 		RegisterEnum(engine, "AudioFormat");
 		RegisterEnum(engine, "GMInstrument");
 		RegisterEnum(engine, "PianoKey");
+		RegisterEnum(engine, "CameraControl");
 
 		assert(engine->GetTypeIdByDecl("char32") == static_cast<int32>(ScriptTypeID::Char32));
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
@@ -183,6 +186,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("RoundRect") == static_cast<int32>(ScriptTypeID::RoundRect));
 		assert(engine->GetTypeIdByDecl("Polygon") == static_cast<int32>(ScriptTypeID::Polygon));
 		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int32>(ScriptTypeID::LineString));
+		assert(engine->GetTypeIdByDecl("Spline2D") == static_cast<int32>(ScriptTypeID::Spline2D));
 		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int32>(ScriptTypeID::LineStyleParameters));
 		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int32>(ScriptTypeID::LineStyle));
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
@@ -201,7 +205,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Font") == static_cast<int32>(ScriptTypeID::Font));
 		assert(engine->GetTypeIdByDecl("DrawableText") == static_cast<int32>(ScriptTypeID::DrawableText));
 		assert(engine->GetTypeIdByDecl("Transformer2D") == static_cast<int32>(ScriptTypeID::Transformer2D));
-		assert(engine->GetTypeIdByDecl("ScopedViewport2D") == static_cast<int32>(ScriptTypeID::ScopedViewport2D));
+		assert(engine->GetTypeIdByDecl("ScopedViewport2D") == static_cast<int32>(ScriptTypeID::ScopedViewport2D));	
+		assert(engine->GetTypeIdByDecl("Camera2D") == static_cast<int32>(ScriptTypeID::Camera2D));
 		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
 		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));
 		assert(engine->GetTypeIdByDecl("WaveSample") == static_cast<int32>(ScriptTypeID::WaveSample));

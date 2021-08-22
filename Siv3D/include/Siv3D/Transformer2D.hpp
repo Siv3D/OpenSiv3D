@@ -52,8 +52,6 @@ namespace s3d
 
 		~Transformer2D();
 
-		//Transformer2D& operator =(Transformer2D&& other);
-
 	private:
 
 		Target m_target = Target::PushLocal;

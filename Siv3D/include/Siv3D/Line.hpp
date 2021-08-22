@@ -211,9 +211,13 @@ namespace s3d
 
 		const Line& overwrite(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		//const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+		const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 
-		//const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+		const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+
+		const Line& paintDoubleHeadedArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
+
+		const Line& overwriteDoubleHeadedArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 
 		
 		const Line& draw(const ColorF& color = Palette::White) const;

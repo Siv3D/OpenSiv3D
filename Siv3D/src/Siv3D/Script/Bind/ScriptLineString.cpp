@@ -199,8 +199,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBufferClosed(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateBufferClosed), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBuffer(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateRoundBuffer), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBufferClosed(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateRoundBufferClosed), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Spline2D asSpline(bool closeRing = CloseRing::No) const", asMETHODPR(ShapeType, asSpline, (CloseRing) const, Spline2D), asCALL_THISCALL); assert(r >= 0);
 
-		// asSpline
 
 		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(ShapeType, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Vec2& in) const", asMETHODPR(ShapeType, intersects, (const Vec2&) const, bool), asCALL_THISCALL); assert(r >= 0);

@@ -37,11 +37,21 @@ namespace s3d
 		m_targetCenter = targetCenter;
 	}
 
+	inline const Vec2& Camera2D::getTargetCenter() const noexcept
+	{
+		return m_targetCenter;
+	}
+
 	inline void Camera2D::setTargetScale(const double targetScale) noexcept
 	{
 		m_grabPos.reset();
 		m_pointedScale.reset();
 		m_targetScale = targetScale;
+	}
+
+	inline double Camera2D::getTargetScale() const noexcept
+	{
+		return m_targetScale;
 	}
 
 	inline void Camera2D::jumpTo(const Vec2 center, const double scale) noexcept

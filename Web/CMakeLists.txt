@@ -467,6 +467,7 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier2.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptBezier3.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCamera2D.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptCameraControl.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptChar.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCircle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptCircular.cpp
@@ -497,11 +498,13 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGlobalAudio.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGMInstrument.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptGraphics2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptHSV.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptIcon.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptImage.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptImageFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInput.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptInterpolation.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLanguageCode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLine.cpp
@@ -543,6 +546,7 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptShape2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSimpleGUI.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSpecialFolder.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptSpline2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSystem.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInput.cpp

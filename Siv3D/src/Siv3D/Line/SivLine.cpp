@@ -14,6 +14,7 @@
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Shape2D.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -170,6 +171,34 @@ namespace s3d
 		{
 			return b.intersectsAt(a);
 		}
+	}
+
+	const Line& Line::paintArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).asPolygon().paint(dst, color);
+
+		return *this;
+	}
+
+	const Line& Line::overwriteArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).asPolygon().overwrite(dst, color);
+
+		return *this;
+	}
+
+	const Line& Line::paintDoubleHeadedArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::DoubleHeadedArrow(begin, end, width, headSize).asPolygon().paint(dst, color);
+
+		return *this;
+	}
+
+	const Line& Line::overwriteDoubleHeadedArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::DoubleHeadedArrow(begin, end, width, headSize).asPolygon().overwrite(dst, color);
+
+		return *this;
 	}
 
 	const Line& Line::draw(const ColorF& color) const

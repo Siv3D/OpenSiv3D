@@ -84,6 +84,7 @@ namespace s3d
 		Polygon,
 		//MultiPolygon,
 		LineString,
+		Spline2D,
 		LineStyleParameters,
 		LineStyle,
 		Shape2D,
@@ -105,7 +106,7 @@ namespace s3d
 		DrawableText,
 		Transformer2D,
 		ScopedViewport2D,
-		//Camera2D,
+		Camera2D,
 		Emoji,
 		Icon,
 
@@ -182,10 +183,12 @@ namespace s3d
 	void RegisterRoundRect(asIScriptEngine* engine);
 	void RegisterPolygon(asIScriptEngine* engine);
 	void RegisterLineString(asIScriptEngine* engine);
+	void RegisterSpline2D(asIScriptEngine* engine);
 	void RegisterLineStyleParameters(asIScriptEngine* engine);
 	void RegisterLineStyle(asIScriptEngine* engine);
 	void RegisterShape2D(asIScriptEngine* engine);
 	void RegisterFloatRect(asIScriptEngine* engine);
+	void RegisterInterpolation(asIScriptEngine* engine);
 
 	void RegisterTexturePixelFormat(asIScriptEngine* engine);
 	void RegisterTextureFormat(asIScriptEngine* engine);
@@ -214,6 +217,7 @@ namespace s3d
 
 	void RegisterTransformer2D(asIScriptEngine* engine);
 	void RegisterScopedViewport2D(asIScriptEngine* engine);
+	void RegisterCameraControl(asIScriptEngine* engine);
 	void RegisterCamera2D(asIScriptEngine* engine);
 
 	void RegisterEmoji(asIScriptEngine* engine);
@@ -238,6 +242,7 @@ namespace s3d
 	void RegisterCursorStyle(asIScriptEngine* engine);
 	void RegisterCursor(asIScriptEngine* engine);
 	void RegisterGraphics(asIScriptEngine* engine);
+	void RegisterGraphics2D(asIScriptEngine* engine);
 	void RegisterResizeMode(asIScriptEngine* engine);
 	void RegisterScene(asIScriptEngine* engine);
 	void RegisterTextInputMode(asIScriptEngine* engine);

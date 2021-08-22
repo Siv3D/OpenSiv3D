@@ -141,10 +141,12 @@ namespace s3d
 			RegisterRoundRect(m_engine);
 			RegisterPolygon(m_engine);
 			RegisterLineString(m_engine);
+			RegisterSpline2D(m_engine);
 			RegisterLineStyleParameters(m_engine);
 			RegisterLineStyle(m_engine);
 			RegisterShape2D(m_engine);
 			RegisterFloatRect(m_engine);
+			RegisterInterpolation(m_engine);
 
 			RegisterInput(m_engine);
 			RegisterKeyboard(m_engine);
@@ -171,6 +173,7 @@ namespace s3d
 			RegisterDrawableText(m_engine);
 			RegisterTransformer2D(m_engine);
 			RegisterScopedViewport2D(m_engine);
+			RegisterCameraControl(m_engine);
 			RegisterCamera2D(m_engine); // [Siv3D ToDo]
 
 			RegisterEmoji(m_engine);
@@ -180,8 +183,8 @@ namespace s3d
 			RegisterPianoKey(m_engine);
 			RegisterWaveSample(m_engine);
 			RegisterWave(m_engine);
-			RegisterAudio(m_engine); // [Siv3D ToDo]
-			RegisterGlobalAudio(m_engine); // [Siv3D ToDo]
+			RegisterAudio(m_engine);
+			RegisterGlobalAudio(m_engine);
 
 			RegisterRandom(m_engine);
 			RegisterPrint(m_engine);
@@ -195,6 +198,7 @@ namespace s3d
 			RegisterCursorStyle(m_engine);
 			RegisterCursor(m_engine);
 			RegisterGraphics(m_engine);
+			RegisterGraphics2D(m_engine);
 			RegisterResizeMode(m_engine);
 			RegisterScene(m_engine);
 			RegisterTextInputMode(m_engine);
@@ -203,7 +207,7 @@ namespace s3d
 			RegisterLanguageCode(m_engine);
 			RegisterTextToSpeech(m_engine);
 			RegisterSay(m_engine);
-			RegisterDialog(m_engine); // [Siv3D ToDo]
+			RegisterDialog(m_engine);
 		}
 
 		{

@@ -65,6 +65,8 @@ namespace s3d
 
 		void clear() noexcept;
 
+		void swap(Spline2D& other) noexcept;
+
 		[[nodiscard]]
 		RectF fastBoundingRect(size_t i) const;
 
@@ -146,5 +148,8 @@ namespace s3d
 		bool m_isRing = false;
 	};
 }
+
+template <>
+inline void std::swap(s3d::Spline2D& a, s3d::Spline2D& b) noexcept;
 
 # include "detail/Spline2D.ipp"
