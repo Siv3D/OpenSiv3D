@@ -32,18 +32,35 @@ namespace s3d
 		return Math::SmoothDamp(from, to, velocity, smoothTime, maxSpeed, deltaTime);
 	}
 
-	template<class PointType>
-	static auto MathSmoothDampN(const PointType& from, const PointType& to, PointType& velocity, double smoothTime, const uint8&, double deltaTime)
+	static auto MathSmoothDampNVec2(const Vec2& from, const Vec2& to, Vec2& velocity, double smoothTime, const uint8&, double deltaTime)
 	{
 		return Math::SmoothDamp(from, to, velocity, smoothTime, unspecified, deltaTime);
 	}
 
-	template<class PointType>
-	static auto MathSmoothDamp(const PointType& from, const PointType& to, PointType& velocity, double smoothTime, double maxSpeed, double deltaTime)
+	static auto MathSmoothDampVec2(const Vec2& from, const Vec2& to, Vec2& velocity, double smoothTime, double maxSpeed, double deltaTime)
 	{
 		return Math::SmoothDamp(from, to, velocity, smoothTime, maxSpeed, deltaTime);
 	}
 
+	static auto MathSmoothDampNVec3(const Vec3& from, const Vec3& to, Vec3& velocity, double smoothTime, const uint8&, double deltaTime)
+	{
+		return Math::SmoothDamp(from, to, velocity, smoothTime, unspecified, deltaTime);
+	}
+
+	static auto MathSmoothDampVec3(const Vec3& from, const Vec3& to, Vec3& velocity, double smoothTime, double maxSpeed, double deltaTime)
+	{
+		return Math::SmoothDamp(from, to, velocity, smoothTime, maxSpeed, deltaTime);
+	}
+
+	static auto MathSmoothDampNVec4(const Vec4& from, const Vec4& to, Vec4& velocity, double smoothTime, const uint8&, double deltaTime)
+	{
+		return Math::SmoothDamp(from, to, velocity, smoothTime, unspecified, deltaTime);
+	}
+
+	static auto MathSmoothDampVec4(const Vec4& from, const Vec4& to, Vec4& velocity, double smoothTime, double maxSpeed, double deltaTime)
+	{
+		return Math::SmoothDamp(from, to, velocity, smoothTime, maxSpeed, deltaTime);
+	}
 
 	void RegisterInterpolation(asIScriptEngine* engine)
 	{
@@ -84,14 +101,14 @@ namespace s3d
 			r = engine->RegisterGlobalFunction("double SmoothDamp(double from, double to, double& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampDN), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double SmoothDamp(double from, double to, double& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampDD), asCALL_CDECL); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("Vec2 SmoothDamp(const Vec2& in from, const Vec2& in to, Vec2& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampN<Vec2>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec2 SmoothDamp(const Vec2& in from, const Vec2& in to, Vec2& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDamp<Vec2>), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec2 SmoothDamp(const Vec2& in from, const Vec2& in to, Vec2& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampNVec2), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec2 SmoothDamp(const Vec2& in from, const Vec2& in to, Vec2& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampVec2), asCALL_CDECL); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("Vec3 SmoothDamp(const Vec3& in from, const Vec3& in to, Vec3& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampN<Vec3>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec3 SmoothDamp(const Vec3& in from, const Vec3& in to, Vec3& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDamp<Vec3>), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 SmoothDamp(const Vec3& in from, const Vec3& in to, Vec3& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampNVec3), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec3 SmoothDamp(const Vec3& in from, const Vec3& in to, Vec3& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampVec3), asCALL_CDECL); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("Vec4 SmoothDamp(const Vec4& in from, const Vec4& in to, Vec4& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampN<Vec4>), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Vec4 SmoothDamp(const Vec4& in from, const Vec4& in to, Vec4& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDamp<Vec4>), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec4 SmoothDamp(const Vec4& in from, const Vec4& in to, Vec4& inout velocity, double smoothTime, None_t = unspecified, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampNVec4), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Vec4 SmoothDamp(const Vec4& in from, const Vec4& in to, Vec4& inout velocity, double smoothTime, double maxSpeed, double deltaTime = Scene::DeltaTime())", asFUNCTION(MathSmoothDampVec4), asCALL_CDECL); assert(r >= 0);
 
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
