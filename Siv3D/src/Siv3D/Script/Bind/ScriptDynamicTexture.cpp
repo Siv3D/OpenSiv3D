@@ -96,7 +96,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(uint32, uint32, const ColorF& color, const TextureFormat& in format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructUUC), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Point&in, const TextureFormat& in format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Point&in, const ColorF& color, const TextureFormat& in format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructSC), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructITd), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, TextureDesc desc)", asFUNCTION(ConstructITd), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, const TextureFormat& in format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped) explicit", asFUNCTION(ConstructITfTd), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool fill(const ColorF& in)", asMETHODPR(BindType, fill, (const ColorF&), bool), asCALL_THISCALL); assert(r >= 0);

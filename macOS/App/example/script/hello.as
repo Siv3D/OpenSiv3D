@@ -42,7 +42,7 @@ void Main()
 		// When [A] key is down
 		if (KeyA.down())
 		{
-			// Print a randomly selected text
+			// Print a text message
 			Print << "Hello!";
 		}
 

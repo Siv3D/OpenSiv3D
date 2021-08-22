@@ -65,13 +65,13 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline constexpr Type IsOddPrimitive(Type x) noexcept
+	inline constexpr bool IsOddPrimitive(Type x) noexcept
 	{
 		return (x % 2) != 0;
 	}
 	
 	template <class Type>
-	inline constexpr Type IsEvenPrimitive(Type x) noexcept
+	inline constexpr bool IsEvenPrimitive(Type x) noexcept
 	{
 		return (x % 2) == 0;
 	}
@@ -153,23 +153,23 @@ namespace s3d
 		r = engine->RegisterGlobalFunction("float AbsDiff(float, float)", asFUNCTION(AbsDiffPrimitive<float>), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double AbsDiff(double, double)", asFUNCTION(AbsDiffPrimitive<double>), asCALL_CDECL); assert(r >= 0);
 
-		r = engine->RegisterGlobalFunction("uint8 IsOdd(uint8)", asFUNCTION(IsOddPrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint16 IsOdd(uint16)", asFUNCTION(IsOddPrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint32 IsOdd(uint32)", asFUNCTION(IsOddPrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint64 IsOdd(uint64)", asFUNCTION(IsOddPrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int8 IsOdd(int8)", asFUNCTION(IsOddPrimitive<int8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int16 IsOdd(int16)", asFUNCTION(IsOddPrimitive<int16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int32 IsOdd(int32)", asFUNCTION(IsOddPrimitive<int32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int64 IsOdd(int64)", asFUNCTION(IsOddPrimitive<int64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(uint8)", asFUNCTION(IsOddPrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(uint16)", asFUNCTION(IsOddPrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(uint32)", asFUNCTION(IsOddPrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(uint64)", asFUNCTION(IsOddPrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(int8)", asFUNCTION(IsOddPrimitive<int8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(int16)", asFUNCTION(IsOddPrimitive<int16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(int32)", asFUNCTION(IsOddPrimitive<int32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsOdd(int64)", asFUNCTION(IsOddPrimitive<int64>), asCALL_CDECL); assert(r >= 0);
 
-		r = engine->RegisterGlobalFunction("uint8 IsEven(uint8)", asFUNCTION(IsEvenPrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint16 IsEven(uint16)", asFUNCTION(IsEvenPrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint32 IsEven(uint32)", asFUNCTION(IsEvenPrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint64 IsEven(uint64)", asFUNCTION(IsEvenPrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int8 IsEven(int8)", asFUNCTION(IsEvenPrimitive<int8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int16 IsEven(int16)", asFUNCTION(IsEvenPrimitive<int16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int32 IsEven(int32)", asFUNCTION(IsEvenPrimitive<int32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int64 IsEven(int64)", asFUNCTION(IsEvenPrimitive<int64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(uint8)", asFUNCTION(IsEvenPrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(uint16)", asFUNCTION(IsEvenPrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(uint32)", asFUNCTION(IsEvenPrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(uint64)", asFUNCTION(IsEvenPrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(int8)", asFUNCTION(IsEvenPrimitive<int8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(int16)", asFUNCTION(IsEvenPrimitive<int16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(int32)", asFUNCTION(IsEvenPrimitive<int32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool IsEven(int64)", asFUNCTION(IsEvenPrimitive<int64>), asCALL_CDECL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace("std"); assert(r >= 0);
 		{
