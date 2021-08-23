@@ -288,7 +288,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "int32 getBufferThickness() const", asMETHODPR(BindType, getBufferThickness, () const, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool hasGlyph(char32) const", asMETHODPR(BindType, hasGlyph, (char32) const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool hasGlyph(const String& in)", asFUNCTION(FontHasGlyph), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 num_glyphs() const", asMETHOD(BindType, num_glyphs), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 num_glyphs() const", asMETHODPR(BindType, num_glyphs, () const, uint32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "GlyphIndex getGlyphIndex(char32) const", asMETHODPR(BindType, getGlyphIndex, (char32) const, GlyphIndex), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "GlyphIndex getGlyphIndex(const String& in)", asFUNCTION(FontGetGlyphIndex), asCALL_CDECL_OBJLAST); assert(r >= 0);
 

@@ -75,11 +75,11 @@ namespace s3d
 		// const Array<Float2>& vertices() const
 		// const Array<uint32> indices() const
 
-		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& draw(const ColorF& in color = Palette::White) const", asMETHOD(ShapeType, draw), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& drawFrame(double thickness = 1.0, const ColorF& in color = Palette::White) const", asMETHOD(ShapeType, drawFrame), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& drawWireframe(double thickness = 1.0, const ColorF& in color = Palette::White) const", asMETHOD(ShapeType, drawWireframe), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& draw(const ColorF& in color = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const Shape2D&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& drawFrame(double thickness = 1.0, const ColorF& in color = Palette::White) const", asMETHODPR(ShapeType, drawFrame, (double, const ColorF&) const, const Shape2D&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& drawWireframe(double thickness = 1.0, const ColorF& in color = Palette::White) const", asMETHODPR(ShapeType, drawWireframe, (double, const ColorF&) const, const Shape2D&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHODPR(ShapeType, asPolygon, () const, Polygon), asCALL_THISCALL); assert(r >= 0);
 
 		//toBuffer2D
 	}

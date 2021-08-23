@@ -77,10 +77,10 @@ namespace s3d
 		//
 		r = engine->RegisterObjectMethod(TypeName, "Spline2D& opAssign(const Spline2D& in)", asMETHODPR(ShapeType, operator =, (const ShapeType&), ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHOD(ShapeType, size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(ShapeType, isEmpty), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHODPR(ShapeType, size, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(ShapeType, isEmpty, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isRing() const", asMETHOD(ShapeType, isRing), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isRing() const", asMETHODPR(ShapeType, isRing, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(ShapeType, clear), asCALL_THISCALL); assert(r >= 0);
 
@@ -102,6 +102,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const Spline2D& draw(double, const ColorF& in = Palette::White, int32 quality = 24) const", asMETHODPR(ShapeType, draw, (double, const ColorF&, int32) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Spline2D& draw(const LineStyle& in, double, const ColorF& in = Palette::White, int32 quality = 24) const", asMETHODPR(ShapeType, draw, (const LineStyle&, double, const ColorF&, int32) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(Spline2D& inout)", asMETHOD(ShapeType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(Spline2D& inout)", asMETHODPR(ShapeType, swap, (Spline2D&), void), asCALL_THISCALL); assert(r >= 0);
 	}
 }

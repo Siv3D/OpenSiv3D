@@ -125,10 +125,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void push_front(const Vec2& in)", asMETHODPR(LineString, push_front, (const Vec2&), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void push_back(const Vec2& in)", asMETHODPR(LineString, push_back, (const Vec2&), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pop_front()", asMETHOD(LineString, pop_front), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void pop_front_N(size_t)", asMETHOD(LineString, pop_front_N), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_front_N(size_t)", asMETHODPR(LineString, pop_front_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pop_back()", asMETHOD(LineString, pop_back), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void pop_back_N(size_t)", asMETHOD(LineString, pop_back_N), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString& opShl(const Vec2& in)", asMETHOD(LineString, operator <<), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_back_N(size_t)", asMETHODPR(LineString, pop_back_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString& opShl(const Vec2& in)", asMETHODPR(LineString, operator <<, (const Vec2&), LineString&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& front()", asMETHODPR(LineString, front, (), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& front() const", asMETHODPR(LineString, front, () const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
@@ -138,10 +138,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(LineString, empty, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHOD(LineString, size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t max_size() const", asMETHOD(LineString, max_size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void reserve(size_t)", asMETHOD(LineString, reserve), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t capacity() const", asMETHOD(LineString, capacity), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHODPR(LineString, size, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t max_size() const", asMETHODPR(LineString, max_size, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void reserve(size_t)", asMETHODPR(LineString, reserve, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t capacity() const", asMETHODPR(LineString, capacity, () const, size_t), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void shrink_to_fit()", asMETHOD(LineString, shrink_to_fit), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(LineString, clear), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void release()", asMETHOD(LineString, release), asCALL_THISCALL); assert(r >= 0);
@@ -154,13 +154,13 @@ namespace s3d
 		// ...
 		// ...
 
-		r = engine->RegisterObjectMethod(TypeName, "void fill(const Vec2& in)", asMETHOD(LineString, fill), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString& fill(const Vec2& in)", asMETHODPR(LineString, fill, (const Vec2&), LineString&), asCALL_THISCALL); assert(r >= 0);
 
 		// ...
 		// ...
 		
 		r = engine->RegisterObjectMethod(TypeName, "size_t num_points() const", asMETHODPR(LineString, num_points, () const, size_t), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t num_lines(bool closeRing = CloseRing::No) const", asMETHOD(LineString, num_lines), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t num_lines(bool closeRing = CloseRing::No) const", asMETHODPR(LineString, num_lines, (CloseRing) const, size_t), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line line(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtPoint(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, normalAtPoint), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtLine(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, normalAtLine), asCALL_THISCALL); assert(r >= 0);

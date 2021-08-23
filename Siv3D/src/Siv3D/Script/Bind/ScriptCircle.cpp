@@ -91,8 +91,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 bottom() const", asMETHODPR(ShapeType, bottom, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 left() const", asMETHODPR(ShapeType, left, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Line horizontalDiameter() const", asMETHOD(ShapeType, horizontalDiameter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line verticalDiameter() const", asMETHOD(ShapeType, verticalDiameter), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line horizontalDiameter() const", asMETHODPR(ShapeType, horizontalDiameter, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line verticalDiameter() const", asMETHODPR(ShapeType, verticalDiameter, () const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double area() const", asMETHODPR(ShapeType, area, () const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double perimeter() const", asMETHODPR(ShapeType, perimeter, () const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHODPR(ShapeType, boundingRect, () const, RectF), asCALL_THISCALL); assert(r >= 0);

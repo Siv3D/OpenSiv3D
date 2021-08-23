@@ -312,8 +312,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Image& erode(int32 iterations = 1)", asMETHODPR(BindType, erode, (int32), Image&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Image eroded(int32 iterations = 1) const", asMETHODPR(BindType, eroded, (int32) const, Image), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Image& floodFill(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0)", asMETHOD(BindType, floodFill), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image floodFilled(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const", asMETHOD(BindType, floodFilled), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image& floodFill(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0)", asMETHODPR(BindType, floodFill, (const Point&, const Color&, FloodFillConnectivity, int32, int32), Image&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image floodFilled(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const", asMETHODPR(BindType, floodFilled, (const Point&, const Color&, FloodFillConnectivity, int32, int32) const, Image), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Image& scale(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto)", asMETHODPR(BindType, scale, (int32, int32, InterpolationAlgorithm), Image&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Image scaled(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const", asMETHODPR(BindType, scaled, (int32, int32, InterpolationAlgorithm) const, Image), asCALL_THISCALL); assert(r >= 0);
@@ -404,10 +404,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, int32, const Color& in) const", asMETHODPR(Line, paint, (Image&, int32, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, const Color& in, bool antialiased = Antialiased::Yes) const", asMETHODPR(Line, overwrite, (Image&, const Color&, Antialiased) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, int32, const Color& in, bool antialiased = Antialiased::Yes) const", asMETHODPR(Line, overwrite, (Image&, int32, const Color&, Antialiased) const, const Line&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Line", "const Line& paintArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, paintArrow), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Line", "const Line& overwriteArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, overwriteArrow), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Line", "const Line& paintDoubleHeadedArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, paintDoubleHeadedArrow), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Line", "const Line& overwriteDoubleHeadedArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, overwriteDoubleHeadedArrow), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paintArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHODPR(Line, paintArrow, (Image&, double, const Vec2&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwriteArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHODPR(Line, overwriteArrow, (Image&, double, const Vec2&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paintDoubleHeadedArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHODPR(Line, paintDoubleHeadedArrow, (Image&, double, const Vec2&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwriteDoubleHeadedArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHODPR(Line, overwriteDoubleHeadedArrow, (Image&, double, const Vec2&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod("Rect", "const Rect& paint(Image& inout, const Color& in) const", asMETHODPR(Rect, paint, (Image&, const Color&) const, const Rect&), asCALL_THISCALL); assert(r >= 0);

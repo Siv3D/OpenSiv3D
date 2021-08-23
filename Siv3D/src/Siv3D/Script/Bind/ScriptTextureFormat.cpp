@@ -50,13 +50,13 @@ namespace s3d
 
 		//value()
 		//name()
-		r = engine->RegisterObjectMethod(TypeName, "int32 DXGIFormat() const", asMETHOD(BindType, DXGIFormat), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 GLInternalFormat() const", asMETHOD(BindType, GLInternalFormat), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 GLFormat() const", asMETHOD(BindType, GLFormat), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 GLType() const", asMETHOD(BindType, GLType), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 pixelSize() const", asMETHOD(BindType, pixelSize), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 num_channels() const", asMETHOD(BindType, num_channels), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isSRGB() const", asMETHOD(BindType, isSRGB), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 DXGIFormat() const", asMETHODPR(BindType, DXGIFormat, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 GLInternalFormat() const", asMETHODPR(BindType, GLInternalFormat, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 GLFormat() const", asMETHODPR(BindType, GLFormat, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 GLType() const", asMETHODPR(BindType, GLType, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 pixelSize() const", asMETHODPR(BindType, pixelSize, () const, uint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 num_channels() const", asMETHODPR(BindType, num_channels, () const, uint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isSRGB() const", asMETHODPR(BindType, isSRGB, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		//
 		// ==

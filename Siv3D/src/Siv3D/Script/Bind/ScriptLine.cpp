@@ -114,21 +114,21 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 vector() const", asMETHODPR(Line, vector, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normal() const", asMETHODPR(Line, normal, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Line reversed() const", asMETHOD(Line, reversed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line& reverse()", asMETHOD(Line, reverse), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line reversed() const", asMETHODPR(Line, reversed, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line& reverse()", asMETHODPR(Line, reverse, (), Line&), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "bool hasLength() const", asMETHOD(Line, hasLength), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double length() const", asMETHOD(Line, length), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHOD(Line, lengthSq), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasLength() const", asMETHOD(Line, hasLength, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double length() const", asMETHOD(Line, length, () const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHOD(Line, lengthSq, () const, double), asCALL_THISCALL); assert(r >= 0);
 		
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& p(size_t)", asMETHODPR(ShapeType, p, (size_t), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& p(size_t) const", asMETHODPR(ShapeType, p, (size_t) const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 point(size_t) const", asMETHODPR(ShapeType, point, (size_t) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 position(double) const", asMETHODPR(ShapeType, position, (double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 center() const", asMETHOD(ShapeType, center), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 center() const", asMETHODPR(ShapeType, center, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 closest(Vec2) const", asMETHOD(ShapeType, closest), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHOD(ShapeType, boundingRect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHODPR(ShapeType, boundingRect, () const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line extractLine(double, double) const", asMETHODPR(ShapeType, extractLine, (double, double) const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line lerp(const Line& in, double) const", asMETHODPR(ShapeType, lerp, (const Line&, double) const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(Line, hash, () const, size_t), asCALL_THISCALL); assert(r >= 0);
@@ -171,7 +171,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const Line& draw(double, const ColorF& in, const ColorF& in) const", asMETHODPR(ShapeType, draw, (double, const ColorF&, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Line& draw(const LineStyle& in, double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const LineStyle&, double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Line& draw(const LineStyle& in, double, const ColorF& in, const ColorF& in) const", asMETHODPR(ShapeType, draw, (const LineStyle&, double, const ColorF&, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Line& drawArrow(double width = 1.0, const Vec2& in headSize = Vec2(5.0, 5.0), const ColorF& in = Palette::White) const", asMETHOD(ShapeType, drawArrow), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Line& drawDoubleHeadedArrow(double width = 1.0, const Vec2& in headSize = Vec2(5.0, 5.0), const ColorF& in = Palette::White) const", asMETHOD(ShapeType, drawDoubleHeadedArrow), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Line& drawArrow(double width = 1.0, const Vec2& in headSize = Vec2(5.0, 5.0), const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawArrow, (double, const Vec2&, const ColorF&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Line& drawDoubleHeadedArrow(double width = 1.0, const Vec2& in headSize = Vec2(5.0, 5.0), const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawDoubleHeadedArrow, (double, const Vec2&, const ColorF&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 	}
 }

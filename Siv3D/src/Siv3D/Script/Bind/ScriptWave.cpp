@@ -161,24 +161,24 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void push_front(const WaveSample& in)", asMETHODPR(BindType, push_front, (const WaveSample&), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void push_back(const WaveSample& in)", asMETHODPR(BindType, push_back, (const WaveSample&), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pop_front()", asMETHOD(BindType, pop_front), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void pop_front_N(size_t)", asMETHOD(BindType, pop_front_N), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_front_N(size_t)", asMETHODPR(BindType, pop_front_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pop_back()", asMETHOD(BindType, pop_back), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void pop_back_N(size_t)", asMETHOD(BindType, pop_back_N), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Wave& opShl(const WaveSample& in)", asMETHOD(BindType, operator <<), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_back_N(size_t)", asMETHODPR(BindType, pop_back_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Wave& opShl(const WaveSample& in)", asMETHODPR(BindType, operator <<, (const WaveSample&), Wave&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "WaveSample& front()", asMETHODPR(BindType, front, (), WaveSample&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const WaveSample& front() const", asMETHODPR(BindType, front, () const, const WaveSample&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "WaveSample& back()", asMETHODPR(BindType, back, (), WaveSample&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const WaveSample& back() const", asMETHODPR(BindType, back, () const, const WaveSample&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool empty() const", asMETHOD(BindType, empty), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(BindType, empty), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool empty() const", asMETHODPR(BindType, empty, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(BindType, empty, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "size_t size_bytes() const", asMETHOD(BindType, size_bytes), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHOD(BindType, size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t max_size() const", asMETHOD(BindType, max_size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void reserve(size_t)", asMETHOD(BindType, reserve), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t capacity() const", asMETHOD(BindType, capacity), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t size_bytes() const", asMETHODPR(BindType, size_bytes, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHODPR(BindType, size, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t max_size() const", asMETHODPR(BindType, max_size, () const, size_t), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void reserve(size_t)", asMETHODPR(BindType, reserve, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t capacity() const", asMETHODPR(BindType, capacity, () const, size_t), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void shrink_to_fit()", asMETHOD(BindType, shrink_to_fit), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(BindType, clear), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void release()", asMETHOD(BindType, release), asCALL_THISCALL); assert(r >= 0);
