@@ -184,21 +184,21 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scaleAt(Vec2, double, double)", asMETHODPR(LineString, scaleAt, (Vec2, double, double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scaleAt(Vec2, Vec2)", asMETHODPR(LineString, scaleAt, (Vec2, Vec2), LineString&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "RectF computeBoundingRect() const", asMETHOD(LineString, computeBoundingRect), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString simplified(double maxDistance = 2.0, bool closeRing = CloseRing::No) const", asMETHOD(LineString, simplified), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString densified(double maxDistance = 2.0, bool closeRing = CloseRing::No) const", asMETHOD(LineString, densified), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF computeBoundingRect() const", asMETHODPR(LineString, computeBoundingRect, () const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString simplified(double maxDistance = 2.0, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, simplified, (double, CloseRing) const, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString densified(double maxDistance = 2.0, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, densified, (double, CloseRing) const, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRom(int32 interpolation = 24) const", asMETHODPR(LineString, catmullRom, (int32) const, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRom(bool closeRing, int32 interpolation = 24) const", asMETHODPR(LineString, catmullRom, (CloseRing, int32) const, LineString), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "double calculateLength(bool closeRing = CloseRing::No) const", asMETHOD(LineString, num_lines), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 calculatePointFromOrigin(double, bool closeRing = CloseRing::No) const", asMETHOD(LineString, num_lines), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString extractLineString(double, double, bool closeRing = CloseRing::No) const", asMETHOD(LineString, num_lines), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double calculateLength(bool closeRing = CloseRing::No) const", asMETHODPR(LineString, calculateLength, (CloseRing) const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 calculatePointFromOrigin(double, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, calculatePointFromOrigin, (double, CloseRing) const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString extractLineString(double, double, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, extractLineString, (double, double, CloseRing) const, LineString), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "Array<Vec2> computeNormals(bool closeRing = CloseRing::No) const", asFUNCTION(), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBuffer(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateBuffer), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBufferClosed(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateBufferClosed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBuffer(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateRoundBuffer), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBufferClosed(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateRoundBufferClosed), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBuffer(double distance, int32 quality = 24) const", asMETHODPR(ShapeType, calculateBuffer, (double, int32) const, Polygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBufferClosed(double distance, int32 quality = 24) const", asMETHODPR(ShapeType, calculateBufferClosed, (double, int32) const, Polygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBuffer(double distance, int32 quality = 24) const", asMETHODPR(ShapeType, calculateRoundBuffer, (double, int32) const, Polygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateRoundBufferClosed(double distance, int32 quality = 24) const", asMETHODPR(ShapeType, calculateRoundBufferClosed, (double, int32) const, Polygon), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Spline2D asSpline(bool closeRing = CloseRing::No) const", asMETHODPR(ShapeType, asSpline, (CloseRing) const, Spline2D), asCALL_THISCALL); assert(r >= 0);
 
 

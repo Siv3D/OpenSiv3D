@@ -127,7 +127,7 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 position(double) const", asMETHODPR(ShapeType, position, (double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 center() const", asMETHODPR(ShapeType, center, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 closest(Vec2) const", asMETHOD(ShapeType, closest), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 closest(Vec2) const", asMETHODPR(ShapeType, closest, (Vec2) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHODPR(ShapeType, boundingRect, () const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line extractLine(double, double) const", asMETHODPR(ShapeType, extractLine, (double, double) const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line lerp(const Line& in, double) const", asMETHODPR(ShapeType, lerp, (const Line&, double) const, Line), asCALL_THISCALL); assert(r >= 0);

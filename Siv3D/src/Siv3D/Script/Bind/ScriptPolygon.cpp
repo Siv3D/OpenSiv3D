@@ -165,7 +165,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Polygon& rotateAt(Vec2, double)", asMETHODPR(ShapeType, rotateAt, (Vec2, double), ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon transformed(double s, double c, const Vec2& in) const", asMETHODPR(ShapeType, transformed, (double, double, const Vec2&) const, Polygon), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Polygon& transform(double s, double c, const Vec2& in)", asMETHOD(ShapeType, transform), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon& transform(double s, double c, const Vec2& in)", asMETHODPR(ShapeType, transform, (double, double, const Vec2&), Polygon&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon scaled(double s) const", asMETHODPR(ShapeType, scaled, (double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Polygon scaled(double sx, double sy) const", asMETHODPR(ShapeType, scaled, (double, double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
