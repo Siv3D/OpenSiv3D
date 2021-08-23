@@ -131,6 +131,8 @@ namespace s3d
 			/// @return フォントの変更に成功した場合 true, それ以外の場合は false
 			bool setFont(const Font& font) const;
 
+			/// @brief `Print` で使われているフォントを返します。
+			/// @return `Print` で使われているフォント
 			[[nodiscard]]
 			const Font& getFont() const;
 		};

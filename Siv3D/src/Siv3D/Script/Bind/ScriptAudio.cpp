@@ -185,7 +185,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "double getSpeed() const", asMETHODPR(BindType, getSpeed, () const, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Audio& setSpeed(double) const", asMETHODPR(BindType, setSpeed, (double) const, const Audio&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Audio& fadeSpeed(double, const Duration& in) const", asMETHODPR(BindType, fadeSpeed, (double, const Duration&) const, const Audio&), asCALL_THISCALL); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod(TypeName, "const Audio& setSpeedBySemitone(int32) const", asMETHODPR(BindType, setSpeedBySemitone, (int32) const, const Audio&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Audio& fadeSpeedBySemitone(int32, const Duration& in) const", asMETHODPR(BindType, fadeSpeedBySemitone, (int32, const Duration&) const, const Audio&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void swap(Audio& inout)", asMETHODPR(BindType, swap, (Audio&), void), asCALL_THISCALL); assert(r >= 0);
 	}

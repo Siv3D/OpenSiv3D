@@ -389,6 +389,11 @@ namespace s3d
 		return setSpeed(std::exp2(semitone / 12.0));
 	}
 
+	const Audio& Audio::fadeSpeedBySemitone(const int32 semitone, const Duration& fadeTime) const
+	{
+		return fadeSpeed(std::exp2(semitone / 12.0), fadeTime);
+	}
+
 	const float* Audio::getSamples(const size_t channel) const
 	{
 		if (2 <= channel)

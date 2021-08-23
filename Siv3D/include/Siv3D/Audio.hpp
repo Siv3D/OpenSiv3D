@@ -317,19 +317,34 @@ namespace s3d
 		/// @brief 指定した時間をかけて音量をフェードアウトさせたのち停止します。
 		/// @param fadeTime フェードアウト時間
 		void stop(const Duration& fadeTime) const;
-
+		
+		/// @brief オーディオを重複可能にして一度だけ再生します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param volume 音量
+		/// @param pan パン
+		/// @param speed 再生スピード
 		void playOneShot(size_t busIndex = 0, double volume = 1.0, double pan = 0.0, double speed = 1.0) const;
 
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを一時停止します
+		/// @param fadeTime 
 		void pauseAllShots() const;
 
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを、指定した時間をかけて音量をフェードアウトさせたのち一時停止します
+		/// @param fadeTime フェードアウト時間
 		void pauseAllShots(const Duration& fadeTime) const;
 
+		/// @brief `playOneShot()` 後に一時停止されたオーディオを再開します
 		void resumeAllShots() const;
-
+		
+		/// @brief `playOneShot()` 後に一時停止されたすべてのオーディオを、指定した時間をかけて音量をフェードインさせながら再開します
+		/// @param fadeTime フェードイン時間
 		void resumeAllShots(const Duration& fadeTime) const;
 
+		/// @brief `playOneShot()` で再生中のすべてのオーディオをすべて停止します
 		void stopAllShots() const;
 
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを、指定した時間をかけて音量をフェードアウトさせたのち停止します
+		/// @param fadeTime フェードアウト時間
 		void stopAllShots(const Duration& fadeTime) const;
 
 		/// @brief 再生位置（サンプル）を返します。
@@ -402,9 +417,24 @@ namespace s3d
 		/// @return *this
 		const Audio& setSpeed(double speed) const;
 
+		/// @brief 指定した時間をかけて目標のスピード（再生速度の倍率）に変更します。
+		/// @param speed スピード（再生速度の倍率）
+		/// @param fadeTime フェード時間
+		/// @return *this
 		const Audio& fadeSpeed(double speed, const Duration& fadeTime) const;
 
+		/// @brief 半音単位で音階が変わるようスピード（再生速度の倍率）を設定します。
+		/// @param semitone 目標の半音単位
+		/// @remark `setSpeed(std::exp2(semitone / 12.0))` と同じです。
+		/// @return *this
 		const Audio& setSpeedBySemitone(int32 semitone) const;
+
+		/// @brief 定した時間をかけて、半音単位で音階が変わるようスピード（再生速度の倍率）を設定します。
+		/// @param semitone 目標の半音単位
+		/// @param fadeTime フェード時間
+		/// @remark `fadeSpeed(std::exp2(semitone / 12.0), fadeTime)` と同じです。
+		/// @return *this
+		const Audio& fadeSpeedBySemitone(int32 semitone, const Duration& fadeTime) const;
 
 		/// @brief 音声波形のサンプルデータにアクセスします。
 		/// @param channel 左チャンネルの場合 0, 右チャンネルの場合 1
@@ -413,6 +443,8 @@ namespace s3d
 		[[nodiscard]]
 		const float* getSamples(size_t channel) const;
 
+		/// @brief オーディオを入れ替えます。
+		/// @param other 入れ替える先のオーディオ
 		void swap(Audio& other) noexcept;
 	};
 }

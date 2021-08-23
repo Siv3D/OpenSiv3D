@@ -24,9 +24,13 @@ namespace s3d
 		{
 			r = engine->RegisterGlobalProperty("const Color Black", (void*)&Palette::Black); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Dimgray", (void*)&Palette::Dimgray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Dimgrey", (void*)&Palette::Dimgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Gray", (void*)&Palette::Gray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Grey", (void*)&Palette::Grey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Darkgray", (void*)&Palette::Darkgray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Darkgrey", (void*)&Palette::Darkgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Silver", (void*)&Palette::Silver); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Lightgray", (void*)&Palette::Lightgray); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Lightgrey", (void*)&Palette::Lightgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Gainsboro", (void*)&Palette::Gainsboro); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Whitesmoke", (void*)&Palette::Whitesmoke); assert(r >= 0);
@@ -54,7 +58,9 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const Color Lavender", (void*)&Palette::Lavender); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Lightsteelblue", (void*)&Palette::Lightsteelblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Lightslategray", (void*)&Palette::Lightslategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Lightslategrey", (void*)&Palette::Lightslategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Slategray", (void*)&Palette::Slategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Slategrey", (void*)&Palette::Slategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Steelblue", (void*)&Palette::Steelblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Royalblue", (void*)&Palette::Royalblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Midnightblue", (void*)&Palette::Midnightblue); assert(r >= 0);
@@ -81,6 +87,7 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const Color Darkcyan", (void*)&Palette::Darkcyan); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Teal", (void*)&Palette::Teal); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Darkslategray", (void*)&Palette::Darkslategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const Color Darkslategrey", (void*)&Palette::Darkslategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Darkgreen", (void*)&Palette::Darkgreen); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Green", (void*)&Palette::Green); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Forestgreen", (void*)&Palette::Forestgreen); assert(r >= 0);
@@ -172,9 +179,13 @@ namespace s3d
 		{
 			r = engine->RegisterGlobalProperty("const ColorF Black", (void*)&Linear::Palette::Black); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Dimgray", (void*)&Linear::Palette::Dimgray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Dimgrey", (void*)&Linear::Palette::Dimgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Gray", (void*)&Linear::Palette::Gray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Grey", (void*)&Linear::Palette::Grey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Darkgray", (void*)&Linear::Palette::Darkgray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Darkgrey", (void*)&Linear::Palette::Darkgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Silver", (void*)&Linear::Palette::Silver); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Lightgray", (void*)&Linear::Palette::Lightgray); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Lightgrey", (void*)&Linear::Palette::Lightgrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Gainsboro", (void*)&Linear::Palette::Gainsboro); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Whitesmoke", (void*)&Linear::Palette::Whitesmoke); assert(r >= 0);
@@ -202,7 +213,9 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const ColorF Lavender", (void*)&Linear::Palette::Lavender); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Lightsteelblue", (void*)&Linear::Palette::Lightsteelblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Lightslategray", (void*)&Linear::Palette::Lightslategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Lightslategrey", (void*)&Linear::Palette::Lightslategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Slategray", (void*)&Linear::Palette::Slategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Slategrey", (void*)&Linear::Palette::Slategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Steelblue", (void*)&Linear::Palette::Steelblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Royalblue", (void*)&Linear::Palette::Royalblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Midnightblue", (void*)&Linear::Palette::Midnightblue); assert(r >= 0);
@@ -229,6 +242,7 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const ColorF Darkcyan", (void*)&Linear::Palette::Darkcyan); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Teal", (void*)&Linear::Palette::Teal); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Darkslategray", (void*)&Linear::Palette::Darkslategray); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const ColorF Darkslategrey", (void*)&Linear::Palette::Darkslategrey); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Darkgreen", (void*)&Linear::Palette::Darkgreen); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Green", (void*)&Linear::Palette::Green); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const ColorF Forestgreen", (void*)&Linear::Palette::Forestgreen); assert(r >= 0);

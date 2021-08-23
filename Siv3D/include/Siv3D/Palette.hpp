@@ -27,9 +27,13 @@ namespace s3d
 
 				inline constexpr Color Black				{   0,   0,   0 };
 				inline constexpr Color Dimgray				{ 105, 105, 105 };
+				inline constexpr Color Dimgrey				{ 105, 105, 105 };
 				inline constexpr Color Gray					{ 128, 128, 128 };
+				inline constexpr Color Grey					{ 128, 128, 128 };
 				inline constexpr Color Darkgray				{ 169, 169, 169 };
+				inline constexpr Color Darkgrey				{ 169, 169, 169 };
 				inline constexpr Color Silver				{ 192, 192, 192 };
+				inline constexpr Color Lightgray			{ 211, 211, 211 };
 				inline constexpr Color Lightgrey			{ 211, 211, 211 };
 				inline constexpr Color Gainsboro			{ 220, 220, 220 };
 				inline constexpr Color Whitesmoke			{ 245, 245, 245 };
@@ -58,7 +62,9 @@ namespace s3d
 				inline constexpr Color Lavender				{ 230, 230, 250 };
 				inline constexpr Color Lightsteelblue		{ 176, 196, 222 };
 				inline constexpr Color Lightslategray		{ 119, 136, 153 };
+				inline constexpr Color Lightslategrey		{ 119, 136, 153 };
 				inline constexpr Color Slategray			{ 112, 128, 144 };
+				inline constexpr Color Slategrey			{ 112, 128, 144 };
 				inline constexpr Color Steelblue			{  70, 130, 180 };
 				inline constexpr Color Royalblue			{  65, 105, 225 };
 				inline constexpr Color Midnightblue			{  25,  25, 112 };
@@ -85,6 +91,7 @@ namespace s3d
 				inline constexpr Color Darkcyan				{   0, 139, 139 };
 				inline constexpr Color Teal					{   0, 128, 128 };
 				inline constexpr Color Darkslategray		{  47,  79,  79 };
+				inline constexpr Color Darkslategrey		{  47,  79,  79 };
 				inline constexpr Color Darkgreen			{   0, 100,   0 };
 				inline constexpr Color Green				{   0, 128,   0 };
 				inline constexpr Color Forestgreen			{  34, 139,  34 };
@@ -179,9 +186,13 @@ namespace s3d
 			{
 				inline constexpr ColorF Black				{ 0.00000, 0.00000, 0.00000 };
 				inline constexpr ColorF Dimgray				{ 0.14126, 0.14126, 0.14126 };
+				inline constexpr ColorF Dimgrey				{ 0.14126, 0.14126, 0.14126 };
 				inline constexpr ColorF Gray				{ 0.21586, 0.21586, 0.21586 };
+				inline constexpr ColorF Grey				{ 0.21586, 0.21586, 0.21586 };
 				inline constexpr ColorF Darkgray			{ 0.39676, 0.39676, 0.39676 };
+				inline constexpr ColorF Darkgrey			{ 0.39676, 0.39676, 0.39676 };
 				inline constexpr ColorF Silver				{ 0.52712, 0.52712, 0.52712 };
+				inline constexpr ColorF Lightgray			{ 0.65141, 0.65141, 0.65141 };
 				inline constexpr ColorF Lightgrey			{ 0.65141, 0.65141, 0.65141 };
 				inline constexpr ColorF Gainsboro			{ 0.71569, 0.71569, 0.71569 };
 				inline constexpr ColorF Whitesmoke			{ 0.91310, 0.91310, 0.91310 };
@@ -210,7 +221,9 @@ namespace s3d
 				inline constexpr ColorF Lavender			{ 0.79130, 0.79130, 0.95597 };
 				inline constexpr ColorF Lightsteelblue		{ 0.43415, 0.55201, 0.73046 };
 				inline constexpr ColorF Lightslategray		{ 0.18447, 0.24620, 0.31855 };
+				inline constexpr ColorF Lightslategrey		{ 0.18447, 0.24620, 0.31855 };
 				inline constexpr ColorF Slategray			{ 0.16203, 0.21586, 0.27889 };
+				inline constexpr ColorF Slategrey			{ 0.16203, 0.21586, 0.27889 };
 				inline constexpr ColorF Steelblue			{ 0.06125, 0.22323, 0.45641 };
 				inline constexpr ColorF Royalblue			{ 0.05286, 0.14126, 0.75294 };
 				inline constexpr ColorF Midnightblue		{ 0.00972, 0.00972, 0.16203 };
@@ -237,6 +250,7 @@ namespace s3d
 				inline constexpr ColorF Darkcyan			{ 0.00000, 0.25818, 0.25818 };
 				inline constexpr ColorF Teal				{ 0.00000, 0.21586, 0.21586 };
 				inline constexpr ColorF Darkslategray		{ 0.02843, 0.07819, 0.07819 };
+				inline constexpr ColorF Darkslategrey		{ 0.02843, 0.07819, 0.07819 };
 				inline constexpr ColorF Darkgreen			{ 0.00000, 0.12744, 0.00000 };
 				inline constexpr ColorF Green				{ 0.00000, 0.21586, 0.00000 };
 				inline constexpr ColorF Forestgreen			{ 0.01600, 0.25818, 0.01600 };
