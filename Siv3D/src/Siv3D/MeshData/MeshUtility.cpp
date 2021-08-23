@@ -55,7 +55,7 @@ namespace s3d
 			if (size > static_cast<uint64_t>(UINT32_MAX))
 				return nullptr;
 
-			auto ptr = aligned_alloc(16, static_cast<size_t>(size)      );
+			auto ptr = static_cast<void*>(AlignedMalloc<DirectX::XMVECTOR>(count));
 			return ScopedAlignedArrayFloat(static_cast<float*>(ptr));
 		}
 
@@ -74,7 +74,7 @@ namespace s3d
 			uint64_t size = sizeof(DirectX::XMVECTOR) * count;
 			if (size > static_cast<uint64_t>(UINT32_MAX))
 				return nullptr;
-			auto ptr = aligned_alloc(16, static_cast<size_t>(size));
+			auto ptr = static_cast<void*>(AlignedMalloc<DirectX::XMVECTOR>(count));
 			return ScopedAlignedArrayXMVECTOR(static_cast<DirectX::XMVECTOR*>(ptr));
 		}
 

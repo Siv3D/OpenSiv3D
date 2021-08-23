@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/MeshData.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
+# include <Siv3D/Memory.hpp>
 # include <functional>
 
 namespace s3d
