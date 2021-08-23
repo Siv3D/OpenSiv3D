@@ -161,9 +161,9 @@ namespace s3d
 		
 		r = engine->RegisterObjectMethod(TypeName, "size_t num_points() const", asMETHODPR(LineString, num_points, () const, size_t), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t num_lines(bool closeRing = CloseRing::No) const", asMETHODPR(LineString, num_lines, (CloseRing) const, size_t), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line line(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, line), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtPoint(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, normalAtPoint), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtLine(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, normalAtLine), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line line(size_t index, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, line, (size_t, CloseRing) const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtPoint(size_t index, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, normalAtPoint, (size_t, CloseRing) const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtLine(size_t index, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, normalAtLine, (size_t, CloseRing) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(double, double) const", asMETHODPR(LineString, movedBy, (double, double) const, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(Vec2) const", asMETHODPR(LineString, movedBy, (Vec2) const, LineString), asCALL_THISCALL); assert(r >= 0);
@@ -226,6 +226,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(const LineStyle& in, double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (const LineStyle&, double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(LineString& inout)", asMETHOD(ShapeType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(LineString& inout)", asMETHODPR(ShapeType, swap, (LineString&), void), asCALL_THISCALL); assert(r >= 0);
 	}
 }

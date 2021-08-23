@@ -397,8 +397,8 @@ namespace s3d
 
 
 
-		r = engine->RegisterObjectMethod("Point", "const Point& paint(Image& inout, int, const Color& in) const", asMETHOD(Point, paint), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Point", "const Point& overwrite(Image& inout, int, const Color& in) const", asMETHOD(Point, overwrite), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Point", "const Point& paint(Image& inout, const Color& in) const", asMETHODPR(Point, paint, (Image&, const Color&) const, const Point&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Point", "const Point& overwrite(Image& inout, const Color& in) const", asMETHODPR(Point, overwrite, (Image&, const Color&) const, const Point&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, const Color& in) const", asMETHODPR(Line, paint, (Image&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, int32, const Color& in) const", asMETHODPR(Line, paint, (Image&, int32, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);

@@ -117,9 +117,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Line reversed() const", asMETHODPR(Line, reversed, () const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line& reverse()", asMETHODPR(Line, reverse, (), Line&), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "bool hasLength() const", asMETHOD(Line, hasLength, () const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double length() const", asMETHOD(Line, length, () const, double), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHOD(Line, lengthSq, () const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasLength() const", asMETHODPR(Line, hasLength, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double length() const", asMETHODPR(Line, length, () const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double lengthSq() const", asMETHODPR(Line, lengthSq, () const, double), asCALL_THISCALL); assert(r >= 0);
 		
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& p(size_t)", asMETHODPR(ShapeType, p, (size_t), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& p(size_t) const", asMETHODPR(ShapeType, p, (size_t) const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
