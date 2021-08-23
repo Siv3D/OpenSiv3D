@@ -763,129 +763,67 @@ namespace s3d
 		[[nodiscard]]
 		String removed_at(size_t index)&&;
 
-		/// <summary>
-		/// 指定した条件を満たす文字を削除します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		String& remove_if(Fty f);
 
-		/// <summary>
-		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除した新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		String removed_if(Fty f) const&;
 
-		/// <summary>
-		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除した新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		String removed_if(Fty f)&&;
 
-		/// <summary>
-		/// 指定した文字を置換します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した文字を置換します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return *this
 		String& replace(value_type oldChar, value_type newChar);
 
-		/// <summary>
-		/// 指定した文字列を置換します。
-		/// </summary>
-		/// <param name="oldStr">
-		/// 置換対象の文字列
-		/// </param>
-		/// <param name="newStr">
-		/// 置換後の文字列
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した文字列を置換します。
+		/// @param oldStr 置換対象の文字列
+		/// @param newStr 置換後の文字列
+		/// @return *this
 		String& replace(const StringView oldStr, const StringView newStr);
 
-		/// <summary>
-		/// 指定した文字を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した文字を置換した新しい文字列を返します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String replaced(value_type oldChar, value_type newChar) const&;
 
-		/// <summary>
-		/// 指定した文字を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した文字を置換した新しい文字列を返します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String replaced(value_type oldChar, value_type newChar)&&;
 
-		/// <summary>
-		/// 指定した文字列を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldStr">
-		/// 置換対象の文字列
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字列
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した文字列を置換した新しい文字列を返します。
+		/// @param oldStr 置換対象の文字列
+		/// @param newStr 置換後の文字列
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String replaced(StringView oldStr, StringView newStr) const;
 
-		/// <summary>
-		/// 指定した条件を満たす文字を別の文字に置き換えます。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を別の文字に置き換えます。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @param newChar 置換後の文字
+		/// @return this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		String& replace_if(Fty f, const value_type newChar);
 

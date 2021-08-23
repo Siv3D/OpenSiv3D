@@ -28,10 +28,13 @@ namespace s3d
 	struct Cylinder;
 	struct Cone;
 
+	/// @brief レイ
 	struct Ray
 	{
+		/// @brief 始点
 		SIMD_Float4 origin;
 
+		/// @brief 方向（正規化ベクトル）
 		SIMD_Float4 direction;
 
 		SIV3D_NODISCARD_CXX20
@@ -65,30 +68,57 @@ namespace s3d
 		[[nodiscard]]
 		Vec3 SIV3D_VECTOR_CALL point_at(Arithmetic distance) const noexcept;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param triangle 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Triangle3D& triangle) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param sphere 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Sphere& sphere) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param plane 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Plane& plane) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param plane 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const InfinitePlane& plane) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param aabb 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Box& aabb) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param obb 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const OrientedBox& obb) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param frustum 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const ViewFrustum& frustum) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param cylinder 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Cylinder& cylinder) const;
 
+		/// @brief レイが交差するかを調べます。
+		/// @param cone 交差判定する相手の形状
+		/// @return 交差する場合、視点からの距離。それ以外の場合は none
 		[[nodiscard]]
 		Optional<float> SIV3D_VECTOR_CALL intersects(const Cone& cone) const;
 

@@ -181,8 +181,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Quad rotatedAt(double, double, double) const", asMETHODPR(ShapeType, rotatedAt, (double, double, double) const, Quad), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Quad rotatedAt(Vec2, double) const", asMETHODPR(ShapeType, rotatedAt, (Vec2, double) const, Quad), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Quad shearedX(double) const", asMETHOD(ShapeType, shearedX, (double) const, Quad), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Quad shearedY(double) const", asMETHOD(ShapeType, shearedY, (double) const, Quad), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Quad shearedX(double) const", asMETHODPR(ShapeType, shearedX, (double) const, Quad), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Quad shearedY(double) const", asMETHODPR(ShapeType, shearedY, (double) const, Quad), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "RoundRect rounded(double) const", asMETHODPR(ShapeType, rounded, (double) const, RoundRect), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Polygon rounded(double, double, double, double) const", asMETHODPR(ShapeType, rounded, (double, double, double, double) const, Polygon), asCALL_THISCALL); assert(r >= 0);
