@@ -269,23 +269,23 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "void addFallback(const Font& in) const", asMETHODPR(BindType, addFallback, (const Font&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "const String& familyName() const", asMETHOD(BindType, familyName), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const String& styleName() const", asMETHOD(BindType, styleName), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool hasColor() const", asMETHOD(BindType, hasColor), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const String& familyName() const", asMETHODPR(BindType, familyName, () const, const String&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const String& styleName() const", asMETHODPR(BindType, styleName, () const, const String&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasColor() const", asMETHODPR(BindType, hasColor, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		// style()
 		// method()
 		// 
-		r = engine->RegisterObjectMethod(TypeName, "int32 fontSize() const", asMETHOD(BindType, fontSize), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 ascender() const", asMETHOD(BindType, ascender), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 descender() const", asMETHOD(BindType, descender), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHOD(BindType, height), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double spaceWidth() const", asMETHOD(BindType, spaceWidth), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 fontSize() const", asMETHODPR(BindType, fontSize, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 ascender() const", asMETHODPR(BindType, ascender, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 descender() const", asMETHODPR(BindType, descender, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHODPR(BindType, height, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double spaceWidth() const", asMETHODPR(BindType, spaceWidth, () const, double), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "int32 indentSize() const", asMETHOD(BindType, indentSize), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Font& setIndentSize(int32) const", asMETHOD(BindType, setIndentSize), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 indentSize() const", asMETHODPR(BindType, indentSize, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Font& setIndentSize(int32) const", asMETHODPR(BindType, setIndentSize, (int32) const, const Font&), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "const Font& setBufferThickness(int32) const", asMETHOD(BindType, setBufferThickness), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 getBufferThickness() const", asMETHOD(BindType, getBufferThickness), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Font& setBufferThickness(int32) const", asMETHODPR(BindType, setBufferThickness, (int32) const, const Font&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 getBufferThickness() const", asMETHODPR(BindType, getBufferThickness, () const, int32), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool hasGlyph(char32) const", asMETHODPR(BindType, hasGlyph, (char32) const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool hasGlyph(const String& in)", asFUNCTION(FontHasGlyph), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "uint32 num_glyphs() const", asMETHOD(BindType, num_glyphs), asCALL_THISCALL); assert(r >= 0);
@@ -300,7 +300,7 @@ namespace s3d
 		// ...
 
 		r = engine->RegisterObjectMethod(TypeName, "bool preload(const String& in)", asFUNCTION(FontPreload), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const Texture& getTexture() const", asMETHOD(BindType, getTexture), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Texture& getTexture() const", asMETHODPR(BindType, getTexture, () const, const Texture&), asCALL_THISCALL); assert(r >= 0);
 
 		// ...
 
@@ -317,6 +317,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T9), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T10), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(Texture& inout)", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(Font& inout)", asMETHODPR(BindType, swap, (Font&), void), asCALL_THISCALL); assert(r >= 0);
 	}
 }

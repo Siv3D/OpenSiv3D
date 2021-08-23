@@ -147,16 +147,16 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Ellipse scaled(double s) const", asMETHODPR(ShapeType, scaled, (double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Ellipse scaled(double sx, double sy) const", asMETHODPR(ShapeType, scaled, (double, double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 top() const", asMETHOD(ShapeType, top), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 right() const", asMETHOD(ShapeType, right), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 bottom() const", asMETHOD(ShapeType, bottom), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 left() const", asMETHOD(ShapeType, left), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 top() const", asMETHODPR(ShapeType, top, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 right() const", asMETHODPR(ShapeType, right, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 bottom() const", asMETHODPR(ShapeType, bottom, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 left() const", asMETHODPR(ShapeType, left, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 	
-		r = engine->RegisterObjectMethod(TypeName, "Line horizontalDiameter() const", asMETHOD(ShapeType, horizontalDiameter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line verticalDiameter() const", asMETHOD(ShapeType, verticalDiameter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "double area() const", asMETHOD(ShapeType, area), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Circle boundingCircle() const", asMETHOD(ShapeType, boundingCircle), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHOD(ShapeType, boundingRect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line horizontalDiameter() const", asMETHODPR(ShapeType, horizontalDiameter, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line verticalDiameter() const", asMETHODPR(ShapeType, verticalDiameter, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "double area() const", asMETHODPR(ShapeType, area, () const, double), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Circle boundingCircle() const", asMETHODPR(ShapeType, boundingCircle, () const, Circle), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect() const", asMETHODPR(ShapeType, boundingRect, () const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon(uint32 quality = 24) const", asMETHODPR(ShapeType, asPolygon, (uint32) const, Polygon), asCALL_THISCALL); assert(r >= 0);
 	
@@ -198,13 +198,13 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool contains(const MultiPolygon& in) const", asMETHODPR(ShapeType, contains, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool contains(const LineString& in) const", asMETHODPR(ShapeType, contains, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool leftClicked() const", asMETHOD(ShapeType, leftClicked), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool leftPressed() const", asMETHOD(ShapeType, leftPressed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool leftReleased() const", asMETHOD(ShapeType, leftReleased), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightClicked() const", asMETHOD(ShapeType, rightClicked), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightPressed() const", asMETHOD(ShapeType, rightPressed), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(ShapeType, rightReleased), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(ShapeType, mouseOver), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftClicked() const", asMETHODPR(ShapeType, leftClicked, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftPressed() const", asMETHODPR(ShapeType, leftPressed, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool leftReleased() const", asMETHODPR(ShapeType, leftReleased, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightClicked() const", asMETHODPR(ShapeType, rightClicked, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightPressed() const", asMETHODPR(ShapeType, rightPressed, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHODPR(ShapeType, rightReleased, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHODPR(ShapeType, mouseOver, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "const Ellipse& draw(const ColorF& in color = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Ellipse& draw(const ColorF& in innerColor, const ColorF& in outerColor) const", asMETHODPR(ShapeType, draw, (const ColorF&, const ColorF&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);

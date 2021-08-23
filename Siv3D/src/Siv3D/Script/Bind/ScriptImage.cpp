@@ -186,35 +186,35 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "Image& opAssign(const Image& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "int32 width() const", asMETHOD(BindType, width), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHOD(BindType, height), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point size() const", asMETHOD(BindType, size), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 stride() const", asMETHOD(BindType, stride), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 num_pixels() const", asMETHOD(BindType, num_pixels), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "uint32 size_bytes() const", asMETHOD(BindType, size_bytes), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 width() const", asMETHODPR(BindType, width, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHODPR(BindType, height, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point size() const", asMETHODPR(BindType, size, () const, Size), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 stride() const", asMETHODPR(BindType, stride, () const, uint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 num_pixels() const", asMETHODPR(BindType, num_pixels, () const, uint32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t size_bytes() const", asMETHODPR(BindType, size_bytes, () const, size_t), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(BindType, isEmpty), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(BindType, isEmpty, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void shrink_to_fit()", asMETHOD(BindType, shrink_to_fit), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(BindType, clear), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void release()", asMETHOD(BindType, release), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(Image& inout)", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image cloned()", asMETHOD(BindType, cloned), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(Image& inout)", asMETHODPR(BindType, swap, (Image&), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image cloned() const", asMETHODPR(BindType, cloned, () const, Image), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Color& opIndex(uint32 x, uint32 y)", asFUNCTION(OpIndexUU), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Color& opIndex(uint32 x, uint32 y) const", asFUNCTION(OpIndexUUC), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& opIndex(const Point& in)", asFUNCTION(OpIndexP), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Color& opIndex(const Point& in) const", asFUNCTION(OpIndexPC), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void fill(Color)", asMETHOD(BindType, fill), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void fill(Color)", asMETHODPR(BindType, fill, (Color), void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void resize(uint32 x, uint32 y)", asMETHODPR(BindType, resize, (size_t, size_t), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void resize(size_t x, size_t y)", asMETHODPR(BindType, resize, (size_t, size_t), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void resize(Point)", asMETHODPR(BindType, resize, (Size), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void resize(uint32 x, uint32 y, const Color& in)", asMETHODPR(BindType, resize, (size_t, size_t, Color), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void resize(size_t x, size_t y, const Color& in)", asMETHODPR(BindType, resize, (size_t, size_t, Color), void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void resize(Point, Color)", asMETHODPR(BindType, resize, (Size, Color), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void resizeRows(uint32, Color)", asMETHOD(BindType, resizeRows), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void resizeRows(size_t, Color)", asMETHODPR(BindType, resizeRows, (size_t, Color), void), asCALL_THISCALL); assert(r >= 0);
 
 		//getPixel()
 		//samplePixel()
@@ -233,7 +233,7 @@ namespace s3d
 		//bool applyAlphaFromRChannel(FilePathView alpha);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool save(const String& in, ImageFormat format = ImageFormat::Unspecified) const", asFUNCTION(Save), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool saveWithDialog() const", asMETHOD(BindType, saveWithDialog), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool saveWithDialog() const", asMETHODPR(BindType, saveWithDialog, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 
 		// ...

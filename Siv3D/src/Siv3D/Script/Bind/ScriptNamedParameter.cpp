@@ -101,8 +101,8 @@ namespace s3d
 
 			{
 				r = engine->RegisterGlobalProperty("const sampleRate_ sampleRate", (void*)&argSampleRate); assert(r >= 0);
-				r = engine->RegisterObjectMethod("sampleRate_", "sampleRate_uint32 opAssign(uint32) const", asMETHOD(ArgSampleRate, set), asCALL_THISCALL); assert(r >= 0);
-				r = engine->RegisterObjectMethod("sampleRate_", "sampleRate_uint32 opCall(uint32) const", asMETHOD(ArgSampleRate, set), asCALL_THISCALL); assert(r >= 0);
+				r = engine->RegisterObjectMethod("sampleRate_", "sampleRate_uint32 opAssign(uint32) const", asMETHODPR(ArgSampleRate, set, (uint32) const, ArgUint32), asCALL_THISCALL); assert(r >= 0);
+				r = engine->RegisterObjectMethod("sampleRate_", "sampleRate_uint32 opCall(uint32) const", asMETHODPR(ArgSampleRate, set, (uint32) const, ArgUint32), asCALL_THISCALL); assert(r >= 0);
 				r = engine->RegisterObjectBehaviour("sampleRate_uint32", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(ArgUint32_DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 				r = engine->RegisterObjectBehaviour("sampleRate_uint32", asBEHAVE_CONSTRUCT, "void f(const sampleRate_uint32 &in)", asFUNCTION(ArgUint32_CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			}

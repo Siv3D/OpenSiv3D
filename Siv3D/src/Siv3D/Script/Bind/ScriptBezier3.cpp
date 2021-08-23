@@ -44,8 +44,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& p(size_t)", asMETHODPR(ShapeType, p, (size_t), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& p(size_t) const", asMETHODPR(ShapeType, p, (size_t) const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 point(size_t) const", asMETHODPR(ShapeType, point, (size_t) const, Vec2), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 getPos(double) const", asMETHOD(ShapeType, getPos), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 getTangent(double) const", asMETHOD(ShapeType, getTangent), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 getPos(double) const", asMETHODPR(ShapeType, getPos, (double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 getTangent(double) const", asMETHODPR(ShapeType, getTangent, (double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString getLineString(int32 quality = 24) const", asMETHODPR(ShapeType, getLineString, (int32) const, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString getLineString(double start, double end, int32 quality = 24) const", asMETHODPR(ShapeType, getLineString, (double, double, int32) const, LineString), asCALL_THISCALL); assert(r >= 0);
 

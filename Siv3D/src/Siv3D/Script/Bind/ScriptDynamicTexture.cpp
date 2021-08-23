@@ -105,10 +105,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool fill(const Image& in)", asMETHODPR(BindType, fill, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool fillRegion(const Image& in, const Rect& in)", asMETHODPR(BindType, fillRegion, (const Image&, const Rect&), bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool fillIfNotBusy(const Image& in)", asMETHOD(BindType, fillIfNotBusy), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool fillRegionIfNotBusy(const Image& in, const Rect& in)", asMETHOD(BindType, fillRegionIfNotBusy), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fillIfNotBusy(const Image& in)", asMETHODPR(BindType, fillIfNotBusy, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fillRegionIfNotBusy(const Image& in, const Rect& in)", asMETHODPR(BindType, fillRegionIfNotBusy, (const Image&, const Rect&), bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void swap(DynamicTexture& inout)", asMETHOD(BindType, swap), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void swap(DynamicTexture& inout)", asMETHODPR(BindType, swap, (DynamicTexture&), void), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod(TypeName, "DynamicTexture& opAssign(const DynamicTexture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
@@ -118,14 +118,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asFUNCTION(IsEmpty), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Texture& in)", asFUNCTION(Equals), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "int32 width() const", asMETHOD(BindType, width), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHOD(BindType, height), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Point size() const", asMETHOD(BindType, size), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 width() const", asMETHODPR(BindType, width, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHODPR(BindType, height, () const, int32), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point size() const", asMETHODPR(BindType, size, () const, Size), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "TextureDesc getDesc() const", asMETHOD(BindType, getDesc), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isMipped() const", asMETHOD(BindType, isMipped), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool srgbSampling() const", asMETHOD(BindType, srgbSampling), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isSDF() const", asMETHOD(BindType, isSDF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool hasDepth() const", asMETHOD(BindType, hasDepth), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isMipped() const", asMETHODPR(BindType, isMipped, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool srgbSampling() const", asMETHODPR(BindType, srgbSampling, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isSDF() const", asMETHODPR(BindType, isSDF, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool hasDepth() const", asMETHODPR(BindType, hasDepth, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Rect region(int32, int32) const", asMETHODPR(BindType, region, (int32, int32) const, Rect), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Rect region(Point = Point(0, 0)) const", asMETHODPR(BindType, region, (Point) const, Rect), asCALL_THISCALL); assert(r >= 0);

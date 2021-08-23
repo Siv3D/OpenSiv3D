@@ -42,7 +42,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const LineStyleParameters& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters opCall(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters opCall(double) const", asMETHODPR(LineStyle::Parameters, offset, (double) const, LineStyle::Parameters), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHODPR(LineStyle::Parameters, offset, (double) const, LineStyle::Parameters), asCALL_THISCALL); assert(r >= 0);
 	}
 }

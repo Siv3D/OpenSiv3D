@@ -111,8 +111,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Line stretched(double) const", asMETHODPR(Line, stretched, (double) const, Line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line stretched(double, double) const", asMETHODPR(Line, stretched, (double, double) const, Line), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 vector() const", asMETHOD(Line, vector), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 normal() const", asMETHOD(Line, normal), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 vector() const", asMETHODPR(Line, vector, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 normal() const", asMETHODPR(Line, normal, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Line reversed() const", asMETHOD(Line, reversed), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line& reverse()", asMETHOD(Line, reverse), asCALL_THISCALL); assert(r >= 0);

@@ -167,16 +167,16 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 bl() const", asMETHOD(ShapeType, bl), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 br() const", asMETHOD(ShapeType, br), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 topCenter() const", asMETHOD(ShapeType, topCenter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 rightCenter() const", asMETHOD(ShapeType, rightCenter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 bottomCenter() const", asMETHOD(ShapeType, bottomCenter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 leftCenter() const", asMETHOD(ShapeType, leftCenter), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 center() const", asMETHOD(ShapeType, center), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 topCenter() const", asMETHODPR(ShapeType, topCenter, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 rightCenter() const", asMETHODPR(ShapeType, rightCenter, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 bottomCenter() const", asMETHODPR(ShapeType, bottomCenter, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 leftCenter() const", asMETHODPR(ShapeType, leftCenter, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 center() const", asMETHODPR(ShapeType, center, () const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Line top() const", asMETHOD(ShapeType, top), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line right() const", asMETHOD(ShapeType, right), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line bottom() const", asMETHOD(ShapeType, bottom), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Line left() const", asMETHOD(ShapeType, left), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line top() const", asMETHODPR(ShapeType, top, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line right() const", asMETHODPR(ShapeType, right, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line bottom() const", asMETHODPR(ShapeType, bottom, () const, Line), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Line left() const", asMETHODPR(ShapeType, left, () const, Line), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 point(size_t) const", asMETHODPR(ShapeType, point, (size_t) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line side(size_t) const", asMETHODPR(ShapeType, side, (size_t) const, Line), asCALL_THISCALL); assert(r >= 0);

@@ -134,8 +134,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& front() const", asMETHODPR(LineString, front, () const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2& back()", asMETHODPR(LineString, back, (), Vec2&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Vec2& back() const", asMETHODPR(LineString, back, () const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool empty() const", asMETHOD(LineString, empty), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(LineString, empty), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool empty() const", asMETHODPR(LineString, empty, () const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(LineString, empty, () const, bool), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "size_t size() const", asMETHOD(LineString, size), asCALL_THISCALL); assert(r >= 0);
@@ -159,7 +159,7 @@ namespace s3d
 		// ...
 		// ...
 		
-		r = engine->RegisterObjectMethod(TypeName, "size_t num_points() const", asMETHOD(LineString, num_points), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "size_t num_points() const", asMETHODPR(LineString, num_points, () const, size_t), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t num_lines(bool closeRing = CloseRing::No) const", asMETHOD(LineString, num_lines), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line line(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, line), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtPoint(size_t index, bool closeRing = CloseRing::No) const", asMETHOD(LineString, normalAtPoint), asCALL_THISCALL); assert(r >= 0);
