@@ -265,4 +265,22 @@ namespace s3d
 			}
 		}
 	}
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpLess(const T lhs, const U rhs) noexcept
+	{
+		if constexpr (std::is_signed_v<T> == std::is_signed_v<U>)
+		{
+			return (lhs < rhs);
+		}
+		else if constexpr (std::is_signed_v<U>)
+		{
+			return (0 < rhs) && (lhs < static_cast<std::make_unsigned_t<U>>(rhs));
+		}
+		else
+		{
+			return (lhs < 0) || (static_cast<std::make_unsigned_t<T>>(lhs) < rhs);
+		}
+	}
 }

@@ -1162,14 +1162,14 @@ namespace s3d
 		CounterType  n = 0;
 		using DiffType = std::common_type_t<int64, StartType>;
 
-		if (s == 0 || (b != a && (b < a) != (s < 0)))
+		if (s == 0 || (b != a && (CmpLess(b, a)) != (s < 0)))
 		{
 			n = 0;
 		}
 		else
 		{
 			S abs_s = s > 0 ? s : -s;
-			CounterType diff = b > a ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
+			CounterType diff = CmpLess(a, b) ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
 
 			if (abs_s == 1)
 			{
@@ -1192,14 +1192,14 @@ namespace s3d
 		CounterType n;
 		using DiffType = std::common_type_t<int64, StartType>;
 
-		if (b == a || s == 0 || (b < a) != (s < 0))
+		if (b == a || s == 0 || (CmpLess(b, a)) != (s < 0))
 		{
 			n = 0;
 		}
 		else
 		{
 			S abs_s = s > 0 ? s : -s;
-			CounterType diff = b > a ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
+			CounterType diff = CmpLess(a, b) ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
 
 			if (abs_s == 1)
 			{
