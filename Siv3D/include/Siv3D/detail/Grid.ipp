@@ -1381,7 +1381,7 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, Point>>*>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::IndexedGenerate(const Size size, Fty generator)
 	{
-		return Generate(size.x, size.y, generator);
+		return IndexedGenerate(size.x, size.y, generator);
 	}
 
 	template <class Type, class Allocator>
