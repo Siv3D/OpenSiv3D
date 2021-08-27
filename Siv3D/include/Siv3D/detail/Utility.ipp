@@ -268,6 +268,31 @@ namespace s3d
 
 	template <class T, class U>
 	[[nodiscard]]
+	inline constexpr bool CmpEqual(const T lhs, const U rhs) noexcept
+	{
+		if constexpr (std::is_signed_v<T> == std::is_signed_v<U>)
+		{
+			return (lhs == rhs);
+		}
+		else if constexpr (std::is_signed_v<U>)
+		{
+			return (lhs == static_cast<std::make_unsigned_t<U>>(rhs)) && (0 <= rhs);
+		}
+		else
+		{
+			return (static_cast<std::make_unsigned_t<T>>(lhs) == rhs) && (0 <= lhs);
+		}
+	}
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpNotEqual(const T lhs, const U rhs) noexcept
+	{
+		return (not CmpEqual(lhs, rhs));
+	}
+
+	template <class T, class U>
+	[[nodiscard]]
 	inline constexpr bool CmpLess(const T lhs, const U rhs) noexcept
 	{
 		if constexpr (std::is_signed_v<T> == std::is_signed_v<U>)

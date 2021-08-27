@@ -1162,7 +1162,7 @@ namespace s3d
 		CounterType  n = 0;
 		using DiffType = std::common_type_t<int64, StartType>;
 
-		if (s == 0 || (b != a && (CmpLess(b, a)) != (s < 0)))
+		if (s == 0 || (CmpNotEqual(a, b) && (CmpLess(b, a) != (s < 0))))
 		{
 			n = 0;
 		}

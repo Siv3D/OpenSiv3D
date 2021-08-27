@@ -321,6 +321,14 @@ namespace s3d
 
 	template <class T, class U>
 	[[nodiscard]]
+	inline constexpr bool CmpEqual(T lhs, U rhs) noexcept;
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpNotEqual(T lhs, U rhs) noexcept;
+
+	template <class T, class U>
+	[[nodiscard]]
 	inline constexpr bool CmpLess(T lhs, U rhs) noexcept;
 }
 
