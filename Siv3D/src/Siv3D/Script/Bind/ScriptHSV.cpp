@@ -124,8 +124,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "ColorF applySRGBCurve() const", asMETHODPR(HSV, applySRGBCurve, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color toColor() const", asMETHODPR(HSV, toColor, () const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color toColor(uint32) const", asMETHODPR(HSV, toColor, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color toColorF() const", asMETHODPR(HSV, toColorF, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color toColorF(double) const", asMETHODPR(HSV, toColorF, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF toColorF() const", asMETHODPR(HSV, toColorF, () const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF toColorF(double) const", asMETHODPR(HSV, toColorF, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec3 hsv() const", asMETHODPR(HSV, hsv, () const noexcept, Vec3), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec4 hsva() const", asMETHODPR(HSV, hsva, () const noexcept, Vec4), asCALL_THISCALL); assert(r >= 0);

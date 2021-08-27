@@ -47,7 +47,7 @@ namespace s3d
 		r = engine->RegisterObjectProperty(TypeName, "String text", asOFFSET(BindType, text)); assert(r >= 0);
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TexturedCircle& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const DrawableText& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Font& in, const String& in)", asFUNCTION(ConstructFS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
@@ -57,14 +57,14 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "Array<double>@ getXAdvances(double) const", asFUNCTION(GetXAdvancesD), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "RectF region(double x, double y) const", asMETHODPR(BindType, region, (double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF region(Vec2) const", asMETHODPR(BindType, region, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF region(Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, region, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF region(double, double x, double y) const", asMETHODPR(BindType, region, (double, double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF region(double, Vec2) const", asMETHODPR(BindType, region, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF region(double, Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, region, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(double x, double y) const", asMETHODPR(BindType, regionBase, (double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(Vec2) const", asMETHODPR(BindType, regionBase, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, regionBase, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(double, double x, double y) const", asMETHODPR(BindType, regionBase, (double, double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(double, Vec2) const", asMETHODPR(BindType, regionBase, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF regionBase(double, Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, regionBase, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionAt(double x, double y) const", asMETHODPR(BindType, regionAt, (double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionAt(Vec2) const", asMETHODPR(BindType, regionAt, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
@@ -72,9 +72,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionAt(double, Vec2) const", asMETHODPR(BindType, regionAt, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(double x, double y) const", asMETHODPR(BindType, regionBaseAt, (double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(Vec2) const", asMETHODPR(BindType, regionBaseAt, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, regionBaseAt, (Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(double, double x, double y) const", asMETHODPR(BindType, regionBaseAt, (double, double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(double, Vec2) const", asMETHODPR(BindType, regionBaseAt, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "RectF regionBaseAt(double, Vec2 pos = Vec2(0,0)) const", asMETHODPR(BindType, regionBaseAt, (double, Vec2) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		//r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect(double x, double y) const", asMETHODPR(BindType, boundingRect, (double, double) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "RectF boundingRect(const Vec2& in pos = Vec2(0, 0)) const", asMETHODPR(BindType, boundingRect, (const Vec2&) const, RectF), asCALL_THISCALL); assert(r >= 0);
