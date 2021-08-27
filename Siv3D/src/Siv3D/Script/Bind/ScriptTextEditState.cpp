@@ -9,7 +9,8 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp> // FIXME
+# include <Siv3D/Script.hpp>
+# include <Siv3D/TextEditState.hpp>
 
 namespace s3d
 {
@@ -37,24 +38,11 @@ namespace s3d
 		self->~TextEditState();
 	}
 
-	static bool TextBox(TextEditState& text, const Vec2& pos, double width, size_t maxChars, bool enabled) // FIXME ->ScriptSimpleGUI.cpp
-	{
-		Optional<size_t> d = (maxChars > 0) ? (Optional<size_t>)maxChars : unspecified;
-		return SimpleGUI::TextBox(text, pos, width, d, enabled);
-	}
-
-	static bool TextBoxAt(TextEditState& text, const Vec2& center, double width, size_t maxChars, bool enabled) // FIXME ->ScriptSimpleGUI.cpp
-	{
-		Optional<size_t> d = (maxChars > 0) ? (Optional<size_t>)maxChars : unspecified;
-		return SimpleGUI::TextBoxAt(text, center, width, d, enabled);
-	}
-
 	void RegisterTextEditState(asIScriptEngine* engine)
 	{
-		constexpr char TypeName[] = "TextEditState";
-
 		int32 r = 0;
-		r = engine->RegisterObjectType("TextEditState", sizeof(TextEditState), asOBJ_VALUE | asGetTypeTraits<TextEditState>()); assert(r >= 0); // FIXME ->ScriptTypes.cpp
+
+		constexpr char TypeName[] = "TextEditState";
 
 		r = engine->RegisterObjectProperty(TypeName, "String text", asOFFSET(BindType, text)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "size_t cursorPos", asOFFSET(BindType, cursorPos)); assert(r >= 0);
@@ -70,10 +58,5 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "void clear() const", asMETHOD(BindType, clear), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->SetDefaultNamespace("SimpleGUI"); assert(r >= 0); // FIXME ->ScriptSimpleGUI.cpp
-		{
-			r = engine->RegisterGlobalFunction("bool TextBox(TextEditState&, const Vec2&in, double = 200.0, size_t = 0, bool = true)", asFUNCTION(TextBox), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("bool TextBoxAt(TextEditState&, const Vec2&in, double = 200.0, size_t = 0, bool = true)", asFUNCTION(TextBoxAt), asCALL_CDECL); assert(r >= 0);
-		}
 	}
 }

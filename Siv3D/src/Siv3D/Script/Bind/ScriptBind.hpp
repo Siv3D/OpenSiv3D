@@ -119,6 +119,8 @@ namespace s3d
 		Print_impl,
 		SayBuffer,
 		Say_impl,
+		TextEditState,
+
 	};
 
 	using AngelScript::asIScriptEngine;
@@ -247,10 +249,10 @@ namespace s3d
 	void RegisterScene(asIScriptEngine* engine);
 	void RegisterTextInputMode(asIScriptEngine* engine);
 	void RegisterTextInput(asIScriptEngine* engine);
+	void RegisterTextEditState(asIScriptEngine* engine);
 	void RegisterSimpleGUI(asIScriptEngine* engine);
 	void RegisterLanguageCode(asIScriptEngine* engine);
 	void RegisterTextToSpeech(asIScriptEngine* engine);
 	void RegisterSay(asIScriptEngine* engine);
 	void RegisterDialog(asIScriptEngine* engine);
-
 }

@@ -124,6 +124,8 @@ namespace s3d
 		RegisterType(engine, "Print_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
 		RegisterType(engine, "SayBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "Say_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
+		RegisterType(engine, "TextEditState", sizeof(TextEditState), asOBJ_VALUE | asGetTypeTraits<TextEditState>());
+
 
 		RegisterEnum(engine, "SpecialFolder");
 		RegisterEnum(engine, "CopyOption");
@@ -217,6 +219,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int32>(ScriptTypeID::Print_impl));
 		assert(engine->GetTypeIdByDecl("SayBuffer") == static_cast<int32>(ScriptTypeID::SayBuffer));
 		assert(engine->GetTypeIdByDecl("Say_impl") == static_cast<int32>(ScriptTypeID::Say_impl));
+		assert(engine->GetTypeIdByDecl("TextEditState") == static_cast<int32>(ScriptTypeID::TextEditState));
 
 		r = engine->RegisterTypedef("size_t", "uint64"); assert(r >= 0);
 		r = engine->RegisterTypedef("GlyphIndex", "uint32"); assert(r >= 0);

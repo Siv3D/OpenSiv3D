@@ -531,6 +531,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSpline2D.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSystem.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextEditState.cpp"
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInputMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextStyle.cpp

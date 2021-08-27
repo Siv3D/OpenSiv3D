@@ -203,6 +203,7 @@ namespace s3d
 			RegisterScene(m_engine);
 			RegisterTextInputMode(m_engine);
 			RegisterTextInput(m_engine);
+			RegisterTextEditState(m_engine);
 			RegisterSimpleGUI(m_engine);
 			RegisterLanguageCode(m_engine);
 			RegisterTextToSpeech(m_engine);
