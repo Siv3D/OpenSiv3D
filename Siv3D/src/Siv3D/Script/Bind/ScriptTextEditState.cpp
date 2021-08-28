@@ -23,10 +23,14 @@ namespace s3d
 		new(self) BindType();
 	}
 
+# if not SIV3D_PLATFORM(WEB)
+
 	static void CopyConstruct(const TextEditState& other, BindType* self)
 	{
 		new(self) BindType(other);
 	}
+
+# endif
 
 	static void ConstructS(const String& defaultText, BindType* self)
 	{
@@ -52,8 +56,12 @@ namespace s3d
 		r = engine->RegisterObjectProperty(TypeName, "Stopwatch cursorStopwatch", asOFFSET(BindType, cursorStopwatch)); assert(r >= 0);
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+	
+# if not SIV3D_PLATFORM(WEB)
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextEditState& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in)", asFUNCTION(ConstructS), asCALL_CDECL_OBJLAST); assert(r >= 0);
+# endif
+
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in) explicit", asFUNCTION(ConstructS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void clear() const", asMETHOD(BindType, clear), asCALL_THISCALL); assert(r >= 0);
