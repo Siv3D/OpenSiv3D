@@ -42,7 +42,7 @@ namespace s3d
 
 	inline constexpr BlendState::BlendState(const Predefined predefined) noexcept
 	{
-		constexpr BlendState PredefinedStates[9] =
+		constexpr BlendState PredefinedStates[10] =
 		{
 			BlendState{ true },																// NonPremultiplied
 			BlendState{ true, Blend::One },													// Premultiplied
@@ -53,6 +53,7 @@ namespace s3d
 			BlendState{ true, Blend::Zero,		Blend::SrcColor,	BlendOp::Add },			// Multiplicative
 			BlendState{ true, Blend::DestColor,	Blend::SrcColor,	BlendOp::Add },			// Multiplicative2X
 			BlendState{ false, Blend::SrcAlpha, Blend::InvSrcAlpha, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add, true },	// OpaqueAlphaToCoverage
+			BlendState{ true, Blend::Zero, Blend::One, BlendOp::Add, Blend::SrcAlpha, Blend::DestAlpha, BlendOp::Max },	// MaxAlpha
 		};
 
 		*this = PredefinedStates[FromEnum(predefined)];

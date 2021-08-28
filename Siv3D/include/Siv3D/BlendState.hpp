@@ -97,6 +97,8 @@ namespace s3d
 
 			OpaqueAlphaToCoverage,
 
+			MaxAlpha,
+
 			Default2D = NonPremultiplied,
 
 			Default3D = Opaque,
@@ -193,6 +195,10 @@ namespace s3d
 		/// @brief Alpha to Coverage
 		/// @remark BlendState{ false, .alphaToCoverageEnable = true }	
 		static constexpr Predefined OpaqueAlphaToCoverage = Predefined::OpaqueAlphaToCoverage;
+
+		/// @brief アルファの最大値のみ更新
+		/// @remark BlendState{ true, Blend::Zero, Blend::One, BlendOp::Add, Blend::SrcAlpha, Blend::DestAlpha, BlendOp::Max }
+		static constexpr Predefined MaxAlpha = Predefined::MaxAlpha;
 
 		/// @brief デフォルトのブレンド
 		/// @remark BlendState{ true }	
