@@ -15,6 +15,7 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/DLL.hpp>
 # include <Siv3D/WindowState.hpp>
+# include <Siv3D/ResizeMode.hpp>
 # include <Siv3D/Optional.hpp>
 
 namespace s3d
@@ -40,6 +41,8 @@ namespace s3d
 		Size m_border = Size(0, 0);
 		Size m_targetWindowPos = Point(0, 0);
 		RECT m_storedWindowRect = { 0, 0, 0, 0 }; // フルスクリーンからウィンドウモードに復帰するときのウィンドウサイズ
+		Optional<ResizeMode> m_oldResizeMode;
+		bool m_toggleFullscreenEnabled = true;
 		bool m_toggleFullscreenRequest = false;
 		bool m_showWindowCalled = false;
 
@@ -87,6 +90,12 @@ namespace s3d
 
 		void setFullscreen(bool fullscreen, size_t monitorIndex) override;
 
+		void setToggleFullscreenEnabled(bool enabled) override;
+
+		bool isToggleFullscreenEnabled() const override;
+
+
+		void setFullscreen(bool fullscreen, size_t monitorIndex, bool skipSceneResize);
 
 		void show();
 

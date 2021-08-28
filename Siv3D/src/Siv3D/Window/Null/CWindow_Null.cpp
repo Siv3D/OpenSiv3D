@@ -103,4 +103,11 @@ namespace s3d
 	{
 		LOG_TRACE(U"CWindow_Null::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
 	}
+
+	void CWindow_Null::setToggleFullscreenEnabled(bool) {}
+	
+	bool CWindow_Null::isToggleFullscreenEnabled() const
+	{
+		return false;
+	}
 }

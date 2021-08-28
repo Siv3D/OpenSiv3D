@@ -281,12 +281,29 @@ namespace s3d
 
 	void CWindow::update()
 	{
-		if (m_toggleFullscreenRequest)
+		if (m_toggleFullscreenEnabled && m_toggleFullscreenRequest)
 		{
-			setFullscreen(not m_state.fullscreen, System::GetCurrentMonitorIndex());
+			if (not m_oldResizeMode)
+			{
+				m_oldResizeMode = Scene::GetResizeMode();
+			}
 
-			m_toggleFullscreenRequest = false;
+			const bool toFullScreen = (not m_state.fullscreen);
+
+			setFullscreen(not m_state.fullscreen, System::GetCurrentMonitorIndex(), true);
+
+			if (toFullScreen)
+			{
+				Scene::SetResizeMode(ResizeMode::Keep);
+			}
+			else if (m_oldResizeMode)
+			{
+				Scene::SetResizeMode(*m_oldResizeMode);
+				m_oldResizeMode.reset();
+			}
 		}
+
+		m_toggleFullscreenRequest = false;
 
 		if constexpr (SIV3D_BUILD(DEBUG))
 		{
@@ -435,7 +452,7 @@ namespace s3d
 
 		if (m_state.fullscreen)
 		{
-			return(false);
+			setFullscreen(false, System::GetCurrentMonitorIndex());
 		}
 
 		if (m_state.maximized)
@@ -468,6 +485,21 @@ namespace s3d
 	}
 
 	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex)
+	{
+		setFullscreen(fullscreen, monitorIndex, false);
+	}
+
+	void CWindow::setToggleFullscreenEnabled(const bool enabled)
+	{
+		m_toggleFullscreenEnabled = enabled;
+	}
+
+	bool CWindow::isToggleFullscreenEnabled() const
+	{
+		return false;
+	}
+
+	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex, const bool skipSceneResize)
 	{
 		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
 
@@ -502,9 +534,18 @@ namespace s3d
 
 		m_state.fullscreen = fullscreen;
 
-		if (Scene::GetResizeMode() != ResizeMode::Keep)
+		if (not skipSceneResize)
 		{
-			SIV3D_ENGINE(Renderer)->updateSceneSize();
+			if (m_oldResizeMode)
+			{
+				Scene::SetResizeMode(*m_oldResizeMode);
+				m_oldResizeMode.reset();
+			}
+
+			if (Scene::GetResizeMode() != ResizeMode::Keep)
+			{
+				SIV3D_ENGINE(Renderer)->updateSceneSize();
+			}
 		}
 	}
 

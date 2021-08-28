@@ -282,6 +282,13 @@ namespace s3d
 		}
 	}
 
+	void CWindow::setToggleFullscreenEnabled(bool) {}
+	
+	bool CWindow::isToggleFullscreenEnabled() const
+	{
+		return false;
+	}
+
 	void CWindow::updateState()
 	{
 		// frameBufferSize

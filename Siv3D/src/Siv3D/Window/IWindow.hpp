@@ -51,5 +51,9 @@ namespace s3d
 		virtual void setMinimumFrameBufferSize(const Size& size) = 0;
 
 		virtual void setFullscreen(bool fullscreen, size_t monitorIndex) = 0;
+
+		virtual void setToggleFullscreenEnabled(bool enabled) = 0;
+
+		virtual bool isToggleFullscreenEnabled() const = 0;
 	};
 }

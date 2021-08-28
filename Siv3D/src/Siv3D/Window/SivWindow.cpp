@@ -147,5 +147,15 @@ namespace s3d
 		{
 			SIV3D_ENGINE(Window)->setFullscreen(fullscreen, monitorIndex);
 		}
+
+		void SetToggleFullscreenEnabled(const bool enabled)
+		{
+			SIV3D_ENGINE(Window)->setToggleFullscreenEnabled(enabled);
+		}
+
+		bool IsToggleFullscreenEnabled()
+		{
+			return SIV3D_ENGINE(Window)->isToggleFullscreenEnabled();
+		}
 	}
 }

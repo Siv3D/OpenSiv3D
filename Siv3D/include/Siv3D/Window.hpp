@@ -125,6 +125,11 @@ namespace s3d
 		void SetMinimumFrameBufferSize(Size size);
 
 		void SetFullscreen(bool fullscreen, size_t monitorIndex = System::GetCurrentMonitorIndex());
+
+		void SetToggleFullscreenEnabled(bool enabled);
+
+		[[nodiscard]]
+		bool IsToggleFullscreenEnabled();
 	}
 }
 
