@@ -21,7 +21,7 @@ namespace s3d
 {
 	namespace Shader
 	{
-		void Copy(const TextureRegion& from, RenderTexture& to)
+		void Copy(const TextureRegion& from, const RenderTexture& to)
 		{
 			if (not from.texture)
 			{
@@ -49,7 +49,7 @@ namespace s3d
 			from.draw();
 		}
 
-		void Downsample(const TextureRegion& from, RenderTexture& to)
+		void Downsample(const TextureRegion& from, const RenderTexture& to)
 		{
 			if (not from.texture)
 			{
@@ -72,17 +72,17 @@ namespace s3d
 			from.resized(to.size()).draw();
 		}
 
-		void GaussianBlurH(const TextureRegion& from, RenderTexture& to)
+		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to)
 		{
 			GaussianBlur(from, to, Vec2{ 1, 0 });
 		}
 
-		void GaussianBlurV(const TextureRegion& from, RenderTexture& to)
+		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to)
 		{
 			GaussianBlur(from, to, Vec2{ 0, 1 });
 		}
 
-		void GaussianBlur(const TextureRegion& from, RenderTexture& to, const Vec2& direction)
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction)
 		{
 			if (not from.texture)
 			{
@@ -111,7 +111,7 @@ namespace s3d
 			from.draw();
 		}
 
-		void GaussianBlur(const TextureRegion& from, RenderTexture& internalBuffer, RenderTexture& to)
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to)
 		{
 			Shader::GaussianBlurH(from, internalBuffer);
 			Shader::GaussianBlurV(internalBuffer, to);

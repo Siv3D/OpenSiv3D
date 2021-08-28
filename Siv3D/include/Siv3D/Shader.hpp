@@ -22,17 +22,17 @@ namespace s3d
 {
 	namespace Shader
 	{
-		void Copy(const TextureRegion& from, RenderTexture& to);
+		void Copy(const TextureRegion& from, const RenderTexture& to);
 
-		void Downsample(const TextureRegion& from, RenderTexture& to);
+		void Downsample(const TextureRegion& from, const RenderTexture& to);
 
-		void GaussianBlurH(const TextureRegion& from, RenderTexture& to);
+		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to);
 
-		void GaussianBlurV(const TextureRegion& from, RenderTexture& to);
+		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to);
 
-		void GaussianBlur(const TextureRegion& from, RenderTexture& to, const Vec2& direction);
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction);
 
-		void GaussianBlur(const TextureRegion& from, RenderTexture& internalBuffer, RenderTexture& to);
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to);
 
 		void LinearToScreen(const TextureRegion& src, const Vec2& pos);
 
