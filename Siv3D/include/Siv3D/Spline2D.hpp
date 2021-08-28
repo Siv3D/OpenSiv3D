@@ -43,13 +43,7 @@ namespace s3d
 		explicit Spline2D(const Array<Vec2>& points, double tension = 0.0);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Spline2D(const LineString& points, double tension = 0.0);
-
-		SIV3D_NODISCARD_CXX20
 		Spline2D(const Array<Vec2>& points, CloseRing closeRing, double tension = 0.0);
-
-		SIV3D_NODISCARD_CXX20
-		Spline2D(const LineString& points, CloseRing closeRing, double tension = 0.0);
 
 		[[nodiscard]]
 		size_t size() const noexcept;

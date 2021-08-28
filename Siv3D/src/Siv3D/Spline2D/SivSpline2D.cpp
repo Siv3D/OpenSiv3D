@@ -20,12 +20,6 @@ namespace s3d
 		// do nothing
 	}
 
-	Spline2D::Spline2D(const LineString& points, const double tension)
-		: Spline2D(points, CloseRing::No, tension)
-	{
-		// do nothing
-	}
-
 	Spline2D::Spline2D(const Array<Vec2>& points, const CloseRing closeRing, double tension)
 	{
 		if (points.size() < 2)
@@ -40,45 +34,6 @@ namespace s3d
 			Array<Vec2> points2(Arg::reserve = (points.size() + 3));
 			points2.push_back(points.back());
 			points2.append(points);
-			points2.push_back(points.front());
-			points2.push_back(points[1]);
-
-			m_splinesBuffer.resize(points2.size() - 1);
-
-			SplineLib::SplinesFromPoints(static_cast<int32>(points2.size()), points2.data(),
-				static_cast<int32>(m_splinesBuffer.size()), m_splinesBuffer.data(), tension);
-
-			m_offset	= 1;
-			m_size		= (m_splinesBuffer.size() - 2);
-
-			m_isRing = true;
-		}
-		else
-		{
-			m_splinesBuffer.resize(points.size() - 1);
-
-			SplineLib::SplinesFromPoints(static_cast<int32>(points.size()), points.data(),
-				static_cast<int32>(m_splinesBuffer.size()), m_splinesBuffer.data(), tension);
-
-			m_offset	= 0;
-			m_size		= m_splinesBuffer.size();
-		}
-	}
-
-	Spline2D::Spline2D(const LineString& points, const CloseRing closeRing, double tension)
-	{
-		if (points.size() < 2)
-		{
-			return;
-		}
-
-		tension = Clamp(tension, -1.0, 1.0);
-
-		if (closeRing)
-		{
-			Array<Vec2> points2(Arg::reserve = (points.size() + 3));
-			points2.push_back(points.back());
-			points2.insert(points2.end(), points.begin(), points.end());
 			points2.push_back(points.front());
 			points2.push_back(points[1]);
 
