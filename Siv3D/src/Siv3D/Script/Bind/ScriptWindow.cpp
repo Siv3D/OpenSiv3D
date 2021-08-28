@@ -90,6 +90,9 @@ namespace s3d
 
 			r = engine->RegisterGlobalFunction("void SetMinimumFrameBufferSize(Point)", asFUNCTION(Window::SetMinimumFrameBufferSize), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("void SetFullscreen(bool, size_t monitorIndex = System::GetCurrentMonitorIndex())", asFUNCTION(Window::SetFullscreen), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("void SetToggleFullscreenEnabled(bool enabled)", asFUNCTION(Window::SetToggleFullscreenEnabled), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("bool IsToggleFullscreenEnabled()", asFUNCTION(Window::IsToggleFullscreenEnabled), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
