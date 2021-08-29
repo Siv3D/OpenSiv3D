@@ -22,11 +22,25 @@
 #	pragma clang diagnostic ignored "-Wdeprecated-anon-enum-enum-conversion"
 # endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(5054)
+
 # include <opencv2/core.hpp>
-# include <opencv2/imgproc.hpp>
-# include <opencv2/photo.hpp>
-# include <opencv2/videoio.hpp>
-# include <opencv2/objdetect.hpp>
+
+# if  __has_include(<opencv2/imgproc.hpp>)
+#	include <opencv2/imgproc.hpp>
+# endif
+
+# if  __has_include(<opencv2/photo.hpp>)
+#	include <opencv2/photo.hpp>
+# endif
+
+# if  __has_include(<opencv2/videoio.hpp>)
+#	include <opencv2/videoio.hpp>
+# endif
+
+# if  __has_include(<opencv2/objdetect.hpp>)
+#	include <opencv2/objdetect.hpp>
+# endif
+
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # ifdef __clang__
 #	pragma clang diagnostic pop
