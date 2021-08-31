@@ -115,6 +115,6 @@ namespace s3d
 
 	size_t AnimatedGIFReader::GetFrameIndex(const double timeSec, const Array<int32>& delaysMillisec, const int32 durationMillisec) noexcept
 	{
-		return MillisecToIndex(static_cast<int64>(timeSec * 1000), delaysMillisec, durationMillisec);
+		return MillisecToIndex(static_cast<int64>(timeSec * 1000LL), delaysMillisec, durationMillisec);
 	}
 }
