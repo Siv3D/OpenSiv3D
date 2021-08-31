@@ -40,11 +40,17 @@ namespace s3d
 		}
 
 		using difference_type = typename std::iterator_traits<RandomIt>::difference_type;
+		auto it = first;
 
-		for (RandomIt it = first + 1; it < last; ++it)
+		for (difference_type targetIndex = 1; ++it != last; ++targetIndex)
 		{
-			const uint64 n = static_cast<uint64>(it - first);
-			std::iter_swap(it, first + static_cast<difference_type>(Random<uint64>(0, n, std::forward<URBG>(urbg))));
+			difference_type offset
+				= Random(static_cast<difference_type>(targetIndex), std::forward<URBG>(urbg));
+
+			if (offset != targetIndex)
+			{
+				std::iter_swap(it, first + offset);
+			}
 		}
 	}
 }
