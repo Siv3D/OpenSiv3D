@@ -107,4 +107,14 @@ namespace s3d
 
 		return (frameIndex - 1);
 	}
+
+	size_t AnimatedGIFReader::GetFrameIndex(const double timeSec, const Array<int32>& delaysMillisec) noexcept
+	{
+		return GetFrameIndex(timeSec, delaysMillisec, delaysMillisec.sum());
+	}
+
+	size_t AnimatedGIFReader::GetFrameIndex(const double timeSec, const Array<int32>& delaysMillisec, const int32 durationMillisec) noexcept
+	{
+		return MillisecToIndex(static_cast<int64>(timeSec * 1000), delaysMillisec, durationMillisec);
+	}
 }

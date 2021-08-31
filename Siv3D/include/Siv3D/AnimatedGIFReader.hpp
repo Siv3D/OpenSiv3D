@@ -81,19 +81,34 @@ namespace s3d
 		bool read(Array<Image>& images, Array<int32>& delaysMillisec, int32& durationMillisec) const;
 
 		/// @brief 時間を GIF アニメーションのフレームインデックスに変換します。
-		/// @param timeMillisec 時間
+		/// @param timeMillisec 時間（ミリ秒）
 		/// @param delaysMillisec GIF アニメーションのフレーム時間（ミリ秒）を格納した配列
 		/// @return 時間に対応する GIF アニメーションのフレーム位置
 		[[nodiscard]]
 		static size_t MillisecToIndex(int64 timeMillisec, const Array<int32>& delaysMillisec) noexcept;
 
 		/// @brief 時間を GIF アニメーションのフレームインデックスに変換します。
-		/// @param timeMillisec 時間
+		/// @param timeMillisec 時間（ミリ秒）
 		/// @param delaysMillisec GIF アニメーションのフレーム時間（ミリ秒）を格納した配列
 		/// @param durationMillisec フレームの合計時間（ミリ秒）
 		/// @return 時間に対応する GIF アニメーションのフレームインデックス
 		[[nodiscard]]
 		static size_t MillisecToIndex(int64 timeMillisec, const Array<int32>& delaysMillisec, int32 durationMillisec) noexcept;
+
+		/// @brief 時間を GIF アニメーションのフレームインデックスに変換します。
+		/// @param timeSec 時間（秒）
+		/// @param delaysMillisec GIF アニメーションのフレーム時間（ミリ秒）を格納した配列
+		/// @return 時間に対応する GIF アニメーションのフレームインデックス
+		[[nodiscard]]
+		static size_t GetFrameIndex(double timeSec, const Array<int32>& delaysMillisec) noexcept;
+
+		/// @brief 時間を GIF アニメーションのフレームインデックスに変換します。
+		/// @param timeSec 時間（秒）
+		/// @param delaysMillisec GIF アニメーションのフレーム時間（ミリ秒）を格納した配列
+		/// @param durationMillisec フレームの合計時間（ミリ秒）
+		/// @return 時間に対応する GIF アニメーションのフレームインデックス
+		[[nodiscard]]
+		static size_t GetFrameIndex(double timeSec, const Array<int32>& delaysMillisec, int32 durationMillisec) noexcept;
 
 	private:
 
