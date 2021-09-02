@@ -4,21 +4,6 @@
 
 **OpenSiv3D** is a C++20 framework for creative coding.
 
-# v0.4.3 (stable)
-
-## Installation Guide & Documentation
-
-- English: https://siv3d.github.io/
-- 日本語: https://siv3d.github.io/ja-jp/
-
-## SDK Downloads
-
-| Platform        | Version        | Date       | Requirements                  |
-|:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows | [**0.4.3**](https://siv3d.github.io/#getting-started) | 11 April 2020 | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK |
-| macOS           | [**0.4.3**](https://siv3d.github.io/#getting-started) | 11 April 2020 | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
-| Linux           | [**0.4.3**](https://siv3d.github.io/#getting-started)* | 11 April 2020 | - Tested compilers: Clang 8.0.1 / GCC 9.1.0<br>- OpenGL 4.1 compatible graphics card |
-
 # v0.6.0 beta 5 (pre-release)
 
 ## SDK Downloads
@@ -32,7 +17,7 @@
 
 <small>* Some functionality may be missing or limited</small>
 
-## Installation Guide & Documentation
+## Installation Guide & Documentation (v0.6.0)
 
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
 - Documentation (English)
@@ -40,7 +25,23 @@
 - [Open Source Software used in OpenSiv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
-## Examples (v0.6)
+
+# v0.4.3 (stable)
+
+## Installation Guide & Documentation (v0.4.3)
+
+- English: https://siv3d.github.io/
+- 日本語: https://siv3d.github.io/ja-jp/
+
+## SDK Downloads
+
+| Platform        | Version        | Date       | Requirements                  |
+|:---------------:|:---------------:|:-------------:|:------------------------------|
+| Windows | [**0.4.3**](https://siv3d.github.io/#getting-started) | 11 April 2020 | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK |
+| macOS           | [**0.4.3**](https://siv3d.github.io/#getting-started) | 11 April 2020 | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
+| Linux           | [**0.4.3**](https://siv3d.github.io/#getting-started)* | 11 April 2020 | - Tested compilers: Clang 8.0.1 / GCC 9.1.0<br>- OpenGL 4.1 compatible graphics card |
+
+# Examples (v0.6.0)
 
 ### 1. Hello, Siv3D!
 
