@@ -21,7 +21,7 @@
 # define SIV3D_VERSION_REVISION			0
 
 /// @biref プレリリースタグ | Pre-release tag
-# define SIV3D_VERSION_PRERELEASE_TAG	U"beta4"
+# define SIV3D_VERSION_PRERELEASE_TAG	U"beta5"
 
 /// @biref ライブラリのバージョン | Library version
 # define SIV3D_VERSION			((SIV3D_VERSION_MAJOR * 100 * 100) + (SIV3D_VERSION_MINOR * 100) + (SIV3D_VERSION_REVISION))
@@ -30,4 +30,4 @@
 # define SIV3D_VERSION_STRING	U"0.6.0" SIV3D_VERSION_PRERELEASE_TAG
 
 /// @biref ライブラリのバージョン名 | Library version name
-# define SIV3D_VERSION_NAME		U"Siv3D August 2021"
+# define SIV3D_VERSION_NAME		U"Siv3D September 2021"
