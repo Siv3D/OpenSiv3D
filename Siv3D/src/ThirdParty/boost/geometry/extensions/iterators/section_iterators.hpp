@@ -5,6 +5,10 @@
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 // Copyright (c) 2015 Adam Wulkiewicz, Lodz, Poland.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -23,12 +27,12 @@
 
 #include <iterator>
 
-#include <boost/range.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 
+#include <boost/geometry/algorithms/overlaps.hpp>
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/iterators/base.hpp>
-#include <boost/geometry/algorithms/overlaps.hpp>
-
 #include <boost/geometry/util/math.hpp>
 
 namespace boost { namespace geometry

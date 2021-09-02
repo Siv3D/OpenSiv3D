@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -41,7 +41,7 @@ namespace s3d
 		{
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
-			m_io_service_thread = std::async([=] { m_io_service->run(); });
+			m_io_service_thread = Async([this] { m_io_service->run(); });
 		}
 
 		m_acceptor = std::make_unique<asio::ip::tcp::acceptor>(*m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port));
@@ -69,7 +69,7 @@ namespace s3d
 		{
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
-			m_io_service_thread = std::async([=] { m_io_service->run(); });
+			m_io_service_thread = Async([this] { m_io_service->run(); });
 		}
 
 		m_acceptor = std::make_unique<asio::ip::tcp::acceptor>(*m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port));
@@ -125,7 +125,7 @@ namespace s3d
 		return m_sessions.any([](const auto& session) { return session.second->isActive(); });
 	}
 
-	bool TCPServer::TCPServerDetail::hasSession(const SessionID id)
+	bool TCPServer::TCPServerDetail::hasSession(const TCPSessionID id)
 	{
 		updateSession();
 
@@ -139,7 +139,7 @@ namespace s3d
 		return m_sessions.count_if([](const auto& session) { return session.second->isActive(); });
 	}
 
-	Array<SessionID> TCPServer::TCPServerDetail::getSessionIDs()
+	Array<TCPSessionID> TCPServer::TCPServerDetail::getSessionIDs()
 	{
 		updateSession();
 
@@ -151,14 +151,14 @@ namespace s3d
 		return m_port;
 	}
 
-	size_t TCPServer::TCPServerDetail::available(const Optional<SessionID>& id)
+	size_t TCPServer::TCPServerDetail::available(const Optional<TCPSessionID>& id)
 	{
 		if (m_sessions.isEmpty())
 		{
 			return 0;
 		}
 
-		const SessionID sessionID = id.value_or(m_sessions.front().first);
+		const TCPSessionID sessionID = id.value_or(m_sessions.front().first);
 
 		for (auto& session : m_sessions)
 		{
@@ -171,14 +171,14 @@ namespace s3d
 		return 0;
 	}
 
-	bool TCPServer::TCPServerDetail::skip(const size_t size, const Optional<SessionID>& id)
+	bool TCPServer::TCPServerDetail::skip(const size_t size, const Optional<TCPSessionID>& id)
 	{
 		if (m_sessions.isEmpty())
 		{
 			return false;
 		}
 
-		const SessionID sessionID = id.value_or(m_sessions.front().first);
+		const TCPSessionID sessionID = id.value_or(m_sessions.front().first);
 
 		for (auto& session : m_sessions)
 		{
@@ -191,14 +191,14 @@ namespace s3d
 		return false;
 	}
 
-	bool TCPServer::TCPServerDetail::lookahead(void* dst, const size_t size, const Optional<SessionID>& id) const
+	bool TCPServer::TCPServerDetail::lookahead(void* dst, const size_t size, const Optional<TCPSessionID>& id) const
 	{
 		if (m_sessions.isEmpty())
 		{
 			return false;
 		}
 
-		const SessionID sessionID = id.value_or(m_sessions.front().first);
+		const TCPSessionID sessionID = id.value_or(m_sessions.front().first);
 
 		for (auto& session : m_sessions)
 		{
@@ -211,14 +211,14 @@ namespace s3d
 		return false;
 	}
 
-	bool TCPServer::TCPServerDetail::read(void* dst, const size_t size, const Optional<SessionID>& id)
+	bool TCPServer::TCPServerDetail::read(void* dst, const size_t size, const Optional<TCPSessionID>& id)
 	{
 		if (m_sessions.isEmpty())
 		{
 			return false;
 		}
 
-		const SessionID sessionID = id.value_or(m_sessions.front().first);
+		const TCPSessionID sessionID = id.value_or(m_sessions.front().first);
 
 		for (auto& session : m_sessions)
 		{
@@ -231,14 +231,14 @@ namespace s3d
 		return false;
 	}
 
-	bool TCPServer::TCPServerDetail::send(const void* data, const size_t size, const Optional<SessionID>& id)
+	bool TCPServer::TCPServerDetail::send(const void* data, const size_t size, const Optional<TCPSessionID>& id)
 	{
 		if (m_sessions.isEmpty())
 		{
 			return false;
 		}
 
-		const SessionID sessionID = id.value_or(m_sessions.front().first);
+		const TCPSessionID sessionID = id.value_or(m_sessions.front().first);
 
 		for (auto& session : m_sessions)
 		{
@@ -269,19 +269,23 @@ namespace s3d
 			return;
 		}
 
-		const SessionID id = ++m_currentSessionID;
+		const TCPSessionID id = ++m_currentTCPSessionID;
 
 		session->init(id);
 
-		LOG_INFO(U"TCPServer: accepted: remote {}<{}> local {}<{}>"_fmt(
-			Unicode::WidenAscii(session->socket().remote_endpoint().address().to_string()),
-			session->socket().remote_endpoint().port(),
-			Unicode::WidenAscii(session->socket().local_endpoint().address().to_string()),
-			session->socket().local_endpoint().port()));
+		{
+			const auto& socket = session->socket();
+
+			LOG_INFO(U"TCPServer: accepted: remote {}<{}> local {}<{}>"_fmt(
+				Unicode::WidenAscii(socket.remote_endpoint().address().to_string()),
+				socket.remote_endpoint().port(),
+				Unicode::WidenAscii(socket.local_endpoint().address().to_string()),
+				socket.local_endpoint().port()));
+		}
 
 		m_sessions.push_back({ id, session });
 
-		LOG_DEBUG(U"TCPServer session [{}] created"_fmt(id));
+		LOG_TRACE(U"TCPServer session [{}] created"_fmt(id));
 
 		m_sessions.back().second->startReceive();
 

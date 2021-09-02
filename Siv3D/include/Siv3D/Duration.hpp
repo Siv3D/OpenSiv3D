@@ -2,145 +2,94 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
 # include <chrono>
+# include "Common.hpp"
 # include "Fwd.hpp"
-# include "Format.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 日数 (int32)
-	/// Days (int32)
-	/// </summary>
-	using Days = std::chrono::duration<int32, std::ratio<86400>>;
+	/// @brief 日数 | Days
+	using Days			= std::chrono::duration<int32, std::ratio<86400>>;
 
-	/// <summary>
-	/// 日数 (double)
-	/// Days (double)
-	/// </summary>
-	using DaysF = std::chrono::duration<double, std::ratio<86400>>;
+	/// @brief 日数 | Days
+	using DaysF			= std::chrono::duration<double, std::ratio<86400>>;
 
+	/// @brief 時間 | Hours
+	using Hours			= std::chrono::hours;
 
-	/// <summary>
-	/// 時間 (int32)
-	/// Hours (int32)
-	/// </summary>
-	using Hours = std::chrono::hours;
+	/// @brief 時間 | Hours
+	using HoursF		= std::chrono::duration<double, std::ratio<3600>>;
 
-	/// <summary>
-	/// 時間 (double)
-	/// Hours (double)
-	/// </summary>
-	using HoursF = std::chrono::duration<double, std::ratio<3600>>;
+	/// @brief 分 | Minutes
+	using Minutes		= std::chrono::minutes;
 
+	/// @brief 分 | Minutes
+	using MinutesF		= std::chrono::duration<double, std::ratio<60>>;
 
-	/// <summary>
-	/// 分 (int32)
-	/// Minutes (int32)
-	/// </summary>
-	using Minutes = std::chrono::minutes;
+	/// @brief 秒 | Seconds
+	using Seconds		= std::chrono::seconds;
 
-	/// <summary>
-	/// 分 (double)
-	/// Minutes (double)
-	/// </summary>
-	using MinutesF = std::chrono::duration<double, std::ratio<60>>;
+	/// @brief 秒 | Seconds
+	using SecondsF		= std::chrono::duration<double>;
 
+	/// @brief ミリ秒 | Milliseconds
+	using Milliseconds	= std::chrono::milliseconds;
 
-	/// <summary>
-	/// 秒 (int64)
-	/// Seconds (int64)
-	/// </summary>
-	using Seconds = std::chrono::seconds;
+	/// @brief ミリ秒 | Milliseconds
+	using MillisecondsF	= std::chrono::duration<double, std::milli>;
 
-	/// <summary>
-	/// 秒 (double)
-	/// Seconds (double)
-	/// </summary>
-	using SecondsF = std::chrono::duration<double>;
+	/// @brief マイクロ秒 | Microseconds
+	using Microseconds	= std::chrono::microseconds;
 
+	/// @brief マイクロ秒 | Microseconds
+	using MicrosecondsF	= std::chrono::duration<double, std::micro>;
 
-	/// <summary>
-	/// ミリ秒 (int64)
-	/// Milliseconds (int64)
-	/// </summary>
-	using Milliseconds = std::chrono::milliseconds;
+	/// @brief ナノ秒 | Nanoseconds
+	using Nanoseconds	= std::chrono::nanoseconds;
 
-	/// <summary>
-	/// ミリ秒 (double)
-	/// Milliseconds (double)
-	/// </summary>
-	using MillisecondsF = std::chrono::duration<double, std::milli>;
+	/// @brief ナノ秒 | Nanoseconds
+	using NanosecondsF	= std::chrono::duration<double, std::nano>;
 
+	/// @brief 秒 | Seconds
+	using Duration		= SecondsF;
 
-	/// <summary>
-	/// マイクロ秒 (int64)
-	/// Microseconds (int64)
-	/// </summary>
-	using Microseconds = std::chrono::microseconds;
-
-	/// <summary>
-	/// マイクロ秒 (double)
-	/// Microseconds (double)
-	/// </summary>
-	using MicrosecondsF = std::chrono::duration<double, std::micro>;
-
-
-	/// <summary>
-	/// ナノ秒 (int64)
-	/// Nanoseconds (int64)
-	/// </summary>
-	using Nanoseconds = std::chrono::nanoseconds;
-
-	/// <summary>
-	/// ナノ秒 (double)
-	/// Nanoseconds (double)
-	/// </summary>
-	using NanosecondsF = std::chrono::duration<double, std::nano>;
-
-	using Duration = SecondsF;
-
-	/// <summary>
-	/// 時間の単位を変換します。
-	/// </summary>
-	/// <param name="duration">
-	/// 変換する時間
-	/// </param>
-	/// <returns>
-	/// DurationTo 型に変換された時間
-	/// </returns>
+	/// @brief 時間の単位を変換します。
+	/// @tparam DurationTo 変換前の時間の型
+	/// @tparam DurationFrom 変換後の時間の型
+	/// @param duration 変換前の時間
+	/// @return 変換後の時間
 	template <class DurationTo, class DurationFrom>
-	[[nodiscard]] inline constexpr DurationTo DurationCast(const DurationFrom& duration)
-	{
-		return std::chrono::duration_cast<DurationTo>(duration);
-	}
+	[[nodiscard]]
+	inline constexpr DurationTo DurationCast(const DurationFrom& duration) noexcept;
 
 	inline namespace Literals
 	{
 		inline namespace DurationLiterals
 		{
-			[[nodiscard]] inline constexpr Days operator ""_d(unsigned long long days)
-			{
-				return Days(days);
-			}
+			/// @brief Days 型の値を得るユーザ定義リテラル
+			/// @param days 日数
+			/// @return 日数
+			[[nodiscard]]
+			inline constexpr Days operator ""_d(unsigned long long days);
 
-			[[nodiscard]] inline constexpr DaysF operator ""_d(long double days)
-			{
-				return DaysF(days);
-			}
+			/// @brief DaysF 型の値を得るユーザ定義リテラル
+			/// @param days 日数
+			/// @return 日数
+			[[nodiscard]]
+			inline constexpr DaysF operator ""_d(long double days);
 		}
 	}
 
-	/// <summary>
+	/// @brief 時間を文字列に変換します。
 	/// DD		日 (00-)
 	/// D		日 (0-)
 	/// dd		日 (00-)
@@ -161,52 +110,81 @@ namespace s3d
 	/// x		小数点以下 1 桁秒 (0-9)
 	/// xx		小数点以下 2 桁秒 (00-99)
 	/// xxx		小数点以下 3 桁秒 (000-999)
-	/// </summary>
-	/// <param name="duration">
-	/// 時間
-	/// </param>
-	/// <param name="format">
-	/// フォーマット指定
-	/// </param>
-	/// <returns>
-	/// フォーマットされた時間
-	/// </returns>
-	[[nodiscard]] String FormatTime(const Duration& duration, StringView format);
-}
+	/// @param duration 時間
+	/// @param format フォーマット指定
+	/// @return フォーマットされた時間
+	[[nodiscard]]
+	String FormatTime(const Duration& duration, StringView format = U"HH:mm:ss.xxx"_sv);
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
-{
+	/// @brief 日数をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param days 日数
 	void Formatter(FormatData& formatData, const Days& days);
 
+	/// @brief 日数をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param days 日数
 	void Formatter(FormatData& formatData, const DaysF& days);
 
+	/// @brief 時間をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param hours 時間
 	void Formatter(FormatData& formatData, const Hours& hours);
 
+	/// @brief 時間をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param hours 時間
 	void Formatter(FormatData& formatData, const HoursF& hours);
 
+	/// @brief 分をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param minutes 分
 	void Formatter(FormatData& formatData, const Minutes& minutes);
 
+	/// @brief 分をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param minutes 分
 	void Formatter(FormatData& formatData, const MinutesF& minutes);
 
+	/// @brief 秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param seconds 秒
 	void Formatter(FormatData& formatData, const Seconds& seconds);
 
+	/// @brief 秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param seconds 秒
 	void Formatter(FormatData& formatData, const SecondsF& seconds);
 
+	/// @brief ミリ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param milliseconds ミリ秒
 	void Formatter(FormatData& formatData, const Milliseconds& milliseconds);
 
+	/// @brief ミリ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param milliseconds ミリ秒
 	void Formatter(FormatData& formatData, const MillisecondsF& milliseconds);
 
+	/// @brief マイクロ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param microseconds マイクロ秒
 	void Formatter(FormatData& formatData, const Microseconds& microseconds);
 
+	/// @brief マイクロ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param microseconds マイクロ秒
 	void Formatter(FormatData& formatData, const MicrosecondsF& microseconds);
 
+	/// @brief ナノ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param nanoseconds ナノ秒
 	void Formatter(FormatData& formatData, const Nanoseconds& nanoseconds);
 
+	/// @brief ナノ秒をフォーマットします。
+	/// @param formatData フォーマットデータ
+	/// @param nanoseconds ナノ秒
 	void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds);
 }
+
+# include "detail/Duration.ipp"

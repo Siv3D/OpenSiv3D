@@ -2,70 +2,57 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <array>
 # include <random>
-# include "Fwd.hpp"
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 乱数生成エンジン
-	/// </summary>
+	/// @brief ハードウェア情報に基づく非決定的な乱数エンジン
 	class HardwareRNG
 	{
-	private:
+	public:
 
 		using engine_type = std::random_device;
 
-		engine_type m_engine;
-
-	public:
-
+		/// @brief 生成される乱数の型
 		using result_type = engine_type::result_type;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		HardwareRNG() = default;
 
-		/// <summary>
-		/// 生成される乱数の最小値を返します。
-		/// </summary>
-		/// <returns>
-		/// 生成される乱数の最小値
-		/// </returns>
-		[[nodiscard]] static constexpr result_type min()
-		{
-			return engine_type::min();
-		}
+		/// @brief この乱数生成器で生成される乱数の最小値を返します。
+		/// @return 乱数の最小値
+		[[nodiscard]]
+		static constexpr result_type min() noexcept;
 
-		/// <summary>
-		/// 生成される乱数の最大値を返します。
-		/// </summary>
-		/// <returns>
-		/// 生成される乱数の最大値
-		/// </returns>
-		[[nodiscard]] static constexpr result_type max()
-		{
-			return engine_type::max();
-		}
+		/// @brief この乱数生成器で生成される乱数の最大値を返します。
+		/// @return 乱数の最大値
+		[[nodiscard]]
+		static constexpr result_type max() noexcept;
 
-		/// <summary>
-		/// 乱数を生成します。
-		/// </summary>
-		/// <returns>
-		/// 乱数
-		/// </returns>
-		result_type operator()()
-		{
-			return m_engine();
-		}
+		/// @brief 乱数を生成します。
+		/// @return 生成された乱数
+		result_type operator()();
+
+		/// @brief 疑似乱数生成エンジンで使うための乱数シード列を作成します。
+		/// @return 乱数シード列
+		template <size_t N>
+		std::array<result_type, N> generateSeeds() noexcept;
+
+	private:
+
+		engine_type m_engine;
 	};
 }
+
+# include "detail/HardwareRNG.ipp"

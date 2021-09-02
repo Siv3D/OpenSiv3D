@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,8 +11,9 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
-# include "Format.hpp"
+# include "Common.hpp"
+# include "Font.hpp"
+# include "Formatter.hpp"
 
 namespace s3d
 {
@@ -24,12 +25,12 @@ namespace s3d
 
 			PrintBuffer();
 
-			PrintBuffer(PrintBuffer&& other);
+			PrintBuffer(PrintBuffer&& other) noexcept;
 
 			~PrintBuffer();
 
-			template <class Type>
-			PrintBuffer& operator <<(const Type& value)
+			SIV3D_CONCEPT_FORMATTABLE
+			PrintBuffer& operator <<(const Formattable& value)
 			{
 				Formatter(*formatData, value);
 
@@ -39,30 +40,107 @@ namespace s3d
 
 		struct Print_impl
 		{
-			void writeln(const String& text) const;
+			void write(const char32_t* s) const;
 
-			void operator()(const String& text) const;
+			void write(StringView s) const;
+
+			void write(const String& s) const;
+
+			void writeln(const char32_t* s) const;
+
+			void writeln(StringView s) const;
+
+			void writeln(const String& s) const;
+
+			void operator()(const char32_t* s) const;
+
+			void operator()(StringView s) const;
+
+			void operator()(const String& s) const;
+
+		# if __cpp_lib_concepts
+
+			template <Concept::Formattable... Args>
+			void write(const Args&... args) const
+			{
+				return write(Format(args...));
+			}
+
+			// Format できない値が Print.write() に渡されたときに発生するエラーです
+			template <class... Args>
+			void write(const Args&... args) const = delete;
+
+			template <Concept::Formattable... Args>
+			void writeln(const Args&... args) const
+			{
+				return write(Format(args..., U'\n'));
+			}
+
+			// Format できない値が Print.writeln() に渡されたときに発生するエラーです
+			template <class... Args>
+			void writeln(const Args&... args) const = delete;
+
+			template <Concept::Formattable... Args>
+			void operator()(const Args&... args) const
+			{
+				return write(Format(args..., U'\n'));
+			}
+
+			// Format できない値が Print() に渡されたときに発生するエラーです
+			template <class... Args>
+			void operator()(const Args&... args) const = delete;
+
+		# else
+
+			template <class... Args>
+			void write(const Args&... args) const
+			{
+				return write(Format(args...));
+			}
+
+			template <class... Args>
+			void writeln(const Args&... args) const
+			{
+				return write(Format(args..., U'\n'));
+			}
 
 			template <class... Args>
 			void operator()(const Args&... args) const
 			{
-				writeln(Format(args...));
+				return write(Format(args..., U'\n'));
 			}
 
-			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
-			PrintBuffer operator <<(const Type& value) const
+		# endif
+
+			/// @brief Format 可能な値を Print で出力するバッファに追加します。
+			/// @tparam Formattable 値の型（Format 可能な型でないといけません）
+			/// @param value 出力する値
+			/// @return Print 出力のバッファ
+			SIV3D_CONCEPT_FORMATTABLE
+			PrintBuffer operator <<(const Formattable& value) const
 			{
 				PrintBuffer buf;
 
-				// U"..." (const char32*) ではない文字列リテラルを使うと、ここでエラーになります
 				Formatter(*buf.formatData, value);
 
 				return buf;
 			}
+
+			/// @brief `Print` で使われるフォントを変更します。
+			/// @param font 新しいフォント
+			/// @return フォントの変更に成功した場合 true, それ以外の場合は false
+			bool setFont(const Font& font) const;
+
+			/// @brief `Print` で使われているフォントを返します。
+			/// @return `Print` で使われているフォント
+			[[nodiscard]]
+			const Font& getFont() const;
 		};
 	}
 
-	inline constexpr auto Print = detail::Print_impl();
+	/// @brief 画面にテキストをデバッグ出力するオブジェクトです。`<<` で値を送ります。
+	inline constexpr auto Print = detail::Print_impl{};
 
+	/// @brief `Print` でデバッグ出力した内容をクリアします。
 	void ClearPrint();
 }

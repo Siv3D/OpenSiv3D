@@ -2,82 +2,87 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/HashTable.hpp>
 # include <Siv3D/Script.hpp>
-# include "AngelScript/scriptbuilder.h"
+# include <Siv3D/Array.hpp>
+# include <Siv3D/HashTable.hpp>
+# include "angelscript/scriptbuilder.h"
 
 namespace s3d
 {
 	class ScriptData
 	{
-	private:
-
-		AngelScript::asIScriptEngine* m_engine = nullptr;
-
-		std::shared_ptr<ScriptModuleData> m_moduleData;
-
-		HashTable<String, AngelScript::asIScriptFunction*> m_functions;
-
-		std::string m_moduleName;
-
-		FilePath m_fullpath;
-
-		int32 m_compileOption = 0;
-
-		Array<String> m_messages;
-
-		std::function<bool(void)> m_systemUpdateCallback;
-
-		bool m_fromFile = false;
-
-		bool m_complieSucceeded = false;
-
-		bool m_initialized = false;
-
 	public:
 
 		struct Null {};
-
 		struct Code {};
-
 		struct File {};
 
 		ScriptData() = default;
 
-		ScriptData(Null, AngelScript::asIScriptEngine* engine);
+		ScriptData(Null, AngelScript::asIScriptEngine * engine);
 
-		ScriptData(Code, const String& code, AngelScript::asIScriptEngine* engine, int32 compileOption);
+		ScriptData(Code, StringView code, AngelScript::asIScriptEngine* engine, ScriptCompileOption compileOption);
 
-		ScriptData(File, const FilePath& path, AngelScript::asIScriptEngine* engine, int32 compileOption);
+		ScriptData(File, FilePathView path, AngelScript::asIScriptEngine* engine, ScriptCompileOption compileOption);
 
-		AngelScript::asIScriptFunction* getFunction(const String& decl);
+		[[nodiscard]]
+		bool isInitialized() const noexcept;
 
-		std::shared_ptr<ScriptModuleData> getModuleData() const;
+		void setScriptID(uint64 id) noexcept;
 
-		bool compileSucceeded() const;
+		[[nodiscard]]
+		bool compileSucceeded() const noexcept;
+
+		[[nodiscard]]
+		bool reload(ScriptCompileOption compileOption, uint64 scriptID);
+
+		[[nodiscard]]
+		const std::shared_ptr<ScriptModule>& getModule() const;
+
+		[[nodiscard]]
+		AngelScript::asIScriptFunction* getFunction(StringView decl);
+
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
+
+		[[nodiscard]]
+		const Array<String>& getMessages() const noexcept;
+
+		[[nodiscard]]
+		Array<String> getFunctionDeclarations(IncludeParamNames includeParamNames) const;
 
 		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
 
 		const std::function<bool(void)>& getSystemUpdateCallback() const;
 
-		const Array<String>& getMessages() const;
+	private:
 
-		bool reload(int32 compileOption, uint64 scriptID);
+		AngelScript::asIScriptEngine* m_engine = nullptr;
 
-		const FilePath& path() const;
+		std::shared_ptr<ScriptModule> m_module;
 
-		bool withLineCues() const;
+		std::string m_moduleName;
 
-		bool isInitialized() const;
+		HashTable<String, AngelScript::asIScriptFunction*> m_functions;
 
-		void setScriptID(uint64 id);
+		std::function<bool(void)> m_systemUpdateCallback;
+
+		Array<String> m_messages;
+
+		ScriptCompileOption m_compileOption = ScriptCompileOption::Default;
+
+		FilePath m_fullpath;
+
+		bool m_complieSucceeded = false;
+
+		bool m_initialized = false;
 	};
 }

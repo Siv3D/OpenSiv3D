@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,65 +13,89 @@
 # include <boost/geometry/geometries/geometries.hpp>
 # include <boost/geometry/geometries/register/point.hpp>
 # include <Siv3D/Polygon.hpp>
-# include <Siv3D/Rectangle.hpp>
-# include <Siv3D/Triangle.hpp>
+# include <Siv3D/2DShapes.hpp>
 
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+# endif
+
+BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Point, s3d::int32, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Float2, float, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Vec2, double, boost::geometry::cs::cartesian, x, y)
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
 
 namespace s3d
 {
-	using gPolygon		= boost::geometry::model::polygon<Vec2, false, false, Array, Array>;
-	using gRing			= boost::geometry::model::ring<Vec2, false, false, Array>;
-	using gLineString	= boost::geometry::model::linestring<Vec2, Array>;
-	using gMultiPoint	= boost::geometry::model::multi_point<Vec2>;
+	using CwOpenPolygon	= boost::geometry::model::polygon<Vec2, false, false, Array, Array>;
+	using CWOpenRing	= boost::geometry::model::ring<Vec2, false, false, Array>;
+	using GLineString	= boost::geometry::model::linestring<Vec2, Array>;
 
 	class Polygon::PolygonDetail
 	{
 	private:
 
-		gPolygon m_polygon;
-
-		RectF m_boundingRect{ 0 };
+		CwOpenPolygon m_polygon;
 
 		Array<Array<Vec2>> m_holes;
 
 		Array<Float2> m_vertices;
 
-		Array<uint16> m_indices;
+		Array<TriangleIndex> m_indices;
+
+		RectF m_boundingRect{ 0 };
 
 	public:
 
 		PolygonDetail();
 
-		PolygonDetail(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes, bool checkValidity);
+		PolygonDetail(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes, SkipValidation skipValidation);
 
-		PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, const RectF& boundingRect, bool checkValidity);
+		PolygonDetail(const Vec2* pOuterVertex, size_t vertexSize, Array<TriangleIndex> indices, const RectF& boundingRect, SkipValidation skipValidation);
+	
+		PolygonDetail(const Array<Vec2>& outer, Array<Array<Vec2>> holes, Array<Float2> vertices, Array<TriangleIndex> indices, const RectF& boundingRect, SkipValidation skipValidation);
 
-		PolygonDetail(const Float2* pOuterVertex, size_t vertexSize, const Array<uint16>& indices, bool checkValidity);
+		PolygonDetail(const Float2* pOuterVertex, size_t vertexSize, Array<TriangleIndex> indices);
 
-		PolygonDetail(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint16>& indices, const RectF& boundingRect, bool checkValidity);
+		[[nodiscard]]
+		const Array<Vec2>& outer() const noexcept;
 
-		void copyFrom(const PolygonDetail& other);
+		[[nodiscard]]
+		const Array<Array<Vec2>>& inners() const noexcept;
 
-		void moveFrom(PolygonDetail& other) noexcept;
+		[[nodiscard]]
+		const Array<Float2>& vertices() const noexcept;
 
-		void moveBy(double x, double y);
+		[[nodiscard]]
+		const Array<TriangleIndex>& indices() const noexcept;
 
-		void rotateAt(const Vec2& pos, double angle);
+		[[nodiscard]]
+		const RectF& boundingRect() const noexcept;
+
+		void moveBy(Vec2 v) noexcept;
+
+		void rotateAt(Vec2 pos, double angle);
 
 		void transform(double s, double c, const Vec2& pos);
 
 		void scale(double s);
 
-		void scale(const Vec2& s);
+		void scale(Vec2 s);
 
-		double area() const;
+		void scaleAt(Vec2 pos, double s);
 
-		double perimeter() const;
+		void scaleAt(Vec2 pos, Vec2 s);
+
+		double area() const noexcept;
+
+		double perimeter() const noexcept;
 
 		Vec2 centroid() const;
 
-		Polygon calculateConvexHull() const;
+		Polygon computeConvexHull() const;
 
 		Polygon calculateBuffer(double distance) const;
 
@@ -79,19 +103,16 @@ namespace s3d
 
 		Polygon simplified(double maxDistance) const;
 
-		bool append(const Polygon& polygon);
+		bool append(const RectF& other);
+
+		bool append(const Polygon& other);
+
+		bool intersects(const Line& other) const;
+
+		bool intersects(const RectF& other) const;
 
 		bool intersects(const PolygonDetail& other) const;
 
-		const Array<Vec2>& outer() const;
-
-		const Array<Array<Vec2>>& inners() const;
-
-		const RectF& boundingRect() const;
-
-		const Array<Float2>& vertices() const;
-
-		const Array<uint16>& indices() const;
 
 		void draw(const ColorF& color) const;
 
@@ -103,6 +124,6 @@ namespace s3d
 
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color) const;
 
-		const gPolygon& getPolygon() const;
+		const CwOpenPolygon& getPolygon() const noexcept;
 	};
 }

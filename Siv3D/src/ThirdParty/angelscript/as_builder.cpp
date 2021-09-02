@@ -1,6 +1,6 @@
 /*
    AngelCode Scripting Library
-   Copyright (c) 2003-2019 Andreas Jonsson
+   Copyright (c) 2003-2021 Andreas Jonsson
 
    This software is provided 'as-is', without any express or implied
    warranty. In no event will the authors be held liable for any
@@ -386,7 +386,7 @@ int asCBuilder::CompileGlobalVar(const char *sectionName, const char *code, int 
 
 	node = node->firstChild;
 	node->DisconnectParent();
-	RegisterGlobalVar(node, script, module->defaultNamespace);
+	RegisterGlobalVar(node, script, module->m_defaultNamespace);
 
 	CompileGlobalVariables();
 
@@ -410,10 +410,10 @@ int asCBuilder::CompileGlobalVar(const char *sectionName, const char *code, int 
 		for( asUINT n = 0; n < functions.GetLength(); n++ )
 		{
 			asCScriptFunction *func = engine->scriptFunctions[functions[n]->funcId];
-			if( module->globalFunctions.GetIndex(func) >= 0 )
+			if( module->m_globalFunctions.GetIndex(func) >= 0 )
 			{
-				module->globalFunctions.Erase(module->globalFunctions.GetIndex(func));
-				module->scriptFunctions.RemoveValue(func);
+				module->m_globalFunctions.Erase(module->m_globalFunctions.GetIndex(func));
+				module->m_scriptFunctions.RemoveValue(func);
 				func->ReleaseInternal();
 			}
 		}
@@ -552,13 +552,13 @@ int asCBuilder::CompileFunction(const char *sectionName, const char *code, int l
 	if( func == 0 )
 		return asOUT_OF_MEMORY;
 
-	GetParsedFunctionDetails(node, scripts[0], 0, func->name, func->returnType, func->parameterNames, func->parameterTypes, func->inOutFlags, func->defaultArgs, funcTraits, module->defaultNamespace);
+	GetParsedFunctionDetails(node, scripts[0], 0, func->name, func->returnType, func->parameterNames, func->parameterTypes, func->inOutFlags, func->defaultArgs, funcTraits, module->m_defaultNamespace);
 	func->id                           = engine->GetNextScriptFunctionId();
 	func->scriptData->scriptSectionIdx = engine->GetScriptSectionNameIndex(sectionName ? sectionName : "");
 	int row, col;
 	scripts[0]->ConvertPosToRowCol(node->tokenPos, &row, &col);
 	func->scriptData->declaredAt       = (row & 0xFFFFF)|((col & 0xFFF)<<20);
-	func->nameSpace                    = module->defaultNamespace;
+	func->nameSpace                    = module->m_defaultNamespace;
 
 	// Make sure the default args are declared correctly
 	int r = ValidateDefaultArgs(script, node, func);
@@ -571,14 +571,14 @@ int asCBuilder::CompileFunction(const char *sectionName, const char *code, int l
 	// Tell the engine that the function exists already so the compiler can access it
 	if( compileFlags & asCOMP_ADD_TO_MODULE )
 	{
-		r = CheckNameConflict(func->name.AddressOf(), node, scripts[0], module->defaultNamespace, false, false);
+		r = CheckNameConflict(func->name.AddressOf(), node, scripts[0], module->m_defaultNamespace, false, false);
 		if( r < 0 )
 		{
 			func->ReleaseInternal();
 			return asERROR;
 		}
 
-		module->globalFunctions.Put(func);
+		module->m_globalFunctions.Put(func);
 
 		module->AddScriptFunction(func);
 	}
@@ -622,10 +622,10 @@ int asCBuilder::CompileFunction(const char *sectionName, const char *code, int l
 		for( asUINT n = 0; n < functions.GetLength(); n++ )
 		{
 			asCScriptFunction *f = engine->scriptFunctions[functions[n]->funcId];
-			if( module->globalFunctions.GetIndex(f) >= 0 )
+			if( module->m_globalFunctions.GetIndex(f) >= 0 )
 			{
-				module->globalFunctions.Erase(module->globalFunctions.GetIndex(f));
-				module->scriptFunctions.RemoveValue(f);
+				module->m_globalFunctions.Erase(module->m_globalFunctions.GetIndex(f));
+				module->m_scriptFunctions.RemoveValue(f);
 				f->ReleaseInternal();
 			}
 		}
@@ -1096,7 +1096,7 @@ asCObjectProperty *asCBuilder::GetObjectProperty(asCDataType &obj, const char *p
 	{
 		if( props[n]->name == prop )
 		{
-			if( module->accessMask & props[n]->accessMask )
+			if( module->m_accessMask & props[n]->accessMask )
 				return props[n];
 			else
 				return 0;
@@ -1137,7 +1137,7 @@ bool asCBuilder::DoesGlobalPropertyExist(const char *prop, asSNameSpace *ns, asC
 	// Check previously compiled global variables
 	if( module )
 	{
-		globProp = module->scriptGlobals.GetFirst(ns, prop);
+		globProp = module->m_scriptGlobals.GetFirst(ns, prop);
 		if( globProp )
 		{
 			if( outProp ) *outProp = globProp;
@@ -1172,7 +1172,7 @@ asCGlobalProperty *asCBuilder::GetGlobalProperty(const char *prop, asSNameSpace 
 		if( isAppProp )
 		{
 			// Don't return the property if the module doesn't have access to it
-			if( !(module->accessMask & globProp->accessMask) )
+			if( !(module->m_accessMask & globProp->accessMask) )
 				globProp = 0;
 		}
 		return globProp;
@@ -1602,8 +1602,29 @@ int asCBuilder::CheckNameConflict(const char *name, asCScriptNode *node, asCScri
 	}
 
 #ifndef AS_NO_COMPILER
-	// Check against class types
+	// Check against interface types
 	asUINT n;
+	for (n = 0; n < interfaceDeclarations.GetLength(); n++)
+	{
+		if (interfaceDeclarations[n]->name == name &&
+			interfaceDeclarations[n]->typeInfo->nameSpace == ns)
+		{
+			if (code)
+			{
+				asCString str;
+				if (ns->name != "")
+					str = ns->name + "::" + name;
+				else
+					str = name;
+				str.Format(TXT_NAME_CONFLICT_s_INTF, str.AddressOf());
+				WriteError(str, code, node);
+			}
+
+			return -1;
+		}
+	}
+
+	// Check against class types
 	for( n = 0; n < classDeclarations.GetLength(); n++ )
 	{
 		if( classDeclarations[n]->name == name &&
@@ -1649,7 +1670,7 @@ int asCBuilder::CheckNameConflict(const char *name, asCScriptNode *node, asCScri
 	for( n = 0; n < funcDefs.GetLength(); n++ )
 	{
 		if( funcDefs[n]->name == name &&
-			module->funcDefs[funcDefs[n]->idx]->nameSpace == ns )
+			module->m_funcDefs[funcDefs[n]->idx]->nameSpace == ns )
 		{
 			if( code )
 			{
@@ -1915,7 +1936,7 @@ void asCBuilder::CompleteFuncDef(sFuncDef *funcDef)
 	asCArray<asCString *>      defaultArgs;
 	asSFunctionTraits          funcTraits;
 
-	asCFuncdefType *fdt = module->funcDefs[funcDef->idx];
+	asCFuncdefType *fdt = module->m_funcDefs[funcDef->idx];
 	asASSERT( fdt );
 	asCScriptFunction *func = fdt->funcdef;
 
@@ -1972,7 +1993,7 @@ void asCBuilder::CompleteFuncDef(sFuncDef *funcDef)
 			{
 				// Replace our funcdef for the existing one
 				funcDef->idx = fdt2->funcdef->id;
-				module->funcDefs[module->funcDefs.IndexOf(fdt)] = fdt2;
+				module->ReplaceFuncDef(fdt, fdt2);
 				fdt2->AddRefInternal();
 
 				engine->funcDefs.RemoveValue(fdt);
@@ -1994,7 +2015,7 @@ void asCBuilder::CompleteFuncDef(sFuncDef *funcDef)
 
 	// Remember if the type was declared as external so the saved bytecode can be flagged accordingly
 	if (funcTraits.GetTrait(asTRAIT_EXTERNAL) && found)
-		module->externalTypes.PushLast(engine->scriptFunctions[funcDef->idx]->funcdefType);
+		module->m_externalTypes.PushLast(engine->scriptFunctions[funcDef->idx]->funcdefType);
 }
 
 int asCBuilder::RegisterGlobalVar(asCScriptNode *node, asCScriptCode *file, asSNameSpace *ns)
@@ -2080,10 +2101,12 @@ int asCBuilder::RegisterMixinClass(asCScriptNode *node, asCScriptCode *file, asS
 
 	asCScriptNode *n = cl->firstChild;
 
-	// Skip potential 'final' and 'shared' tokens
+	// Skip potential decorator tokens
 	while( n->tokenType == ttIdentifier &&
 		   (file->TokenEquals(n->tokenPos, n->tokenLength, FINAL_TOKEN) ||
-		    file->TokenEquals(n->tokenPos, n->tokenLength, SHARED_TOKEN)) )
+		    file->TokenEquals(n->tokenPos, n->tokenLength, SHARED_TOKEN) ||
+			file->TokenEquals(n->tokenPos, n->tokenLength, ABSTRACT_TOKEN) ||
+			file->TokenEquals(n->tokenPos, n->tokenLength, EXTERNAL_TOKEN)) )
 	{
 		// Report error, because mixin class cannot be final or shared
 		asCString msg;
@@ -2259,7 +2282,7 @@ int asCBuilder::RegisterClass(asCScriptNode *node, asCScriptCode *file, asSNameS
 				// We'll use the existing type
 				decl->isExistingShared = true;
 				decl->typeInfo         = st;
-				module->classTypes.PushLast(st);
+				module->AddClassType(st);
 				st->AddRefInternal();
 				break;
 			}
@@ -2276,7 +2299,7 @@ int asCBuilder::RegisterClass(asCScriptNode *node, asCScriptCode *file, asSNameS
 
 	// Remember if the class was declared as external so the saved bytecode can be flagged accordingly
 	if (isExternal)
-		module->externalTypes.PushLast(st);
+		module->m_externalTypes.PushLast(st);
 
 	if (!decl->isExistingShared)
 	{
@@ -2310,7 +2333,7 @@ int asCBuilder::RegisterClass(asCScriptNode *node, asCScriptCode *file, asSNameS
 		st->name = name;
 		st->nameSpace = ns;
 		st->module = module;
-		module->classTypes.PushLast(st);
+		module->AddClassType(st);
 		if (isShared)
 		{
 			engine->sharedScriptTypes.PushLast(st);
@@ -2429,12 +2452,12 @@ int asCBuilder::RegisterInterface(asCScriptNode *node, asCScriptCode *file, asSN
 				// We'll use the existing type
 				decl->isExistingShared = true;
 				decl->typeInfo = st;
-				module->classTypes.PushLast(st);
+				module->AddClassType(st);
 				st->AddRefInternal();
 
 				// Remember if the interface was declared as external so the saved bytecode can be flagged accordingly
 				if (isExternal)
-					module->externalTypes.PushLast(st);
+					module->m_externalTypes.PushLast(st);
 
 				return 0;
 			}
@@ -2463,7 +2486,7 @@ int asCBuilder::RegisterInterface(asCScriptNode *node, asCScriptCode *file, asSN
 	st->name = name;
 	st->nameSpace = ns;
 	st->module = module;
-	module->classTypes.PushLast(st);
+	module->AddClassType(st);
 	if( isShared )
 	{
 		engine->sharedScriptTypes.PushLast(st);
@@ -2751,8 +2774,8 @@ void asCBuilder::CompileGlobalVariables()
 		// If the length of the arrays are not the same, then this is the compilation
 		// of a single variable, in which case the initialization order of the previous
 		// variables must be preserved.
-		if( module->scriptGlobals.GetSize() == initOrder.GetSize() )
-			module->scriptGlobals.SwapWith(initOrder);
+		if( module->m_scriptGlobals.GetSize() == initOrder.GetSize() )
+			module->m_scriptGlobals.SwapWith(initOrder);
 	}
 
 	CleanupEnumValues();
@@ -2921,7 +2944,8 @@ void asCBuilder::CompileInterfaces()
 		// If any of the derived interfaces are found after this interface, then move this to the end of the list
 		for( asUINT m = n+1; m < interfaceDeclarations.GetLength(); m++ )
 		{
-			if( intfType->Implements(interfaceDeclarations[m]->typeInfo) )
+			if( intfType != interfaceDeclarations[m]->typeInfo &&
+				intfType->Implements(interfaceDeclarations[m]->typeInfo) )
 			{
 				interfaceDeclarations.RemoveIndex(n);
 				interfaceDeclarations.PushLast(intfDecl);
@@ -4320,7 +4344,7 @@ int asCBuilder::RegisterEnum(asCScriptNode *node, asCScriptCode *file, asSNameSp
 
 	// Remember if the type was declared as external so the saved bytecode can be flagged accordingly
 	if (isExternal && existingSharedType)
-		module->externalTypes.PushLast(existingSharedType);
+		module->m_externalTypes.PushLast(existingSharedType);
 
 	// Check the name and add the enum
 	int r = CheckNameConflict(name.AddressOf(), tmp->firstChild, file, ns, true, false);
@@ -4347,7 +4371,7 @@ int asCBuilder::RegisterEnum(asCScriptNode *node, asCScriptCode *file, asSNameSp
 			st->nameSpace = ns;
 			st->module    = module;
 		}
-		module->enumTypes.PushLast(st);
+		module->AddEnumType(st);
 
 		if( !existingSharedType && isShared )
 		{
@@ -4513,7 +4537,7 @@ int asCBuilder::RegisterTypedef(asCScriptNode *node, asCScriptCode *file, asSNam
 		st->aliasForType    = dataType;
 		st->module          = module;
 
-		module->typeDefs.PushLast(st);
+		module->AddTypeDef(st);
 
 		// Store the location of this declaration for reference in name collisions
 		sClassDeclaration *decl = asNEW(sClassDeclaration);
@@ -4762,7 +4786,7 @@ int asCBuilder::RegisterScriptFunctionFromNode(asCScriptNode *node, asCScriptCod
 	return RegisterScriptFunction(node, file, objType, isInterface, isGlobalFunction, ns, isExistingShared, isMixin, name, returnType, parameterNames, parameterTypes, inOutFlags, defaultArgs, funcTraits);
 }
 
-asCScriptFunction *asCBuilder::RegisterLambda(asCScriptNode *node, asCScriptCode *file, asCScriptFunction *funcDef, const asCString &name, asSNameSpace *ns)
+asCScriptFunction *asCBuilder::RegisterLambda(asCScriptNode *node, asCScriptCode *file, asCScriptFunction *funcDef, const asCString &name, asSNameSpace *ns, bool isShared)
 {
 	// Get the parameter names from the node
 	asCArray<asCString> parameterNames;
@@ -4785,7 +4809,9 @@ asCScriptFunction *asCBuilder::RegisterLambda(asCScriptNode *node, asCScriptCode
 
 	// Get the return and parameter types from the funcDef
 	asCString funcName = name;
-	int r = RegisterScriptFunction(args, file, 0, 0, true, ns, false, false, funcName, funcDef->returnType, parameterNames, funcDef->parameterTypes, funcDef->inOutFlags, defaultArgs, asSFunctionTraits());
+	asSFunctionTraits traits;
+	traits.SetTrait(asTRAIT_SHARED, isShared);
+	int r = RegisterScriptFunction(args, file, 0, 0, true, ns, false, false, funcName, funcDef->returnType, parameterNames, funcDef->parameterTypes, funcDef->inOutFlags, defaultArgs, traits);
 	if( r < 0 )
 		return 0;
 
@@ -4968,7 +4994,7 @@ int asCBuilder::RegisterScriptFunction(asCScriptNode *node, asCScriptCode *file,
 
 		// Remember if the function was declared as external so the saved bytecode can be flagged accordingly
 		if (funcTraits.GetTrait(asTRAIT_EXTERNAL) && func->isExistingShared)
-			module->externalFunctions.PushLast(engine->scriptFunctions[func->funcId]);
+			module->m_externalFunctions.PushLast(engine->scriptFunctions[func->funcId]);
 
 		if (funcTraits.GetTrait(asTRAIT_EXTERNAL) && !func->isExistingShared)
 		{
@@ -5099,7 +5125,7 @@ int asCBuilder::RegisterScriptFunction(asCScriptNode *node, asCScriptCode *file,
 		module->AddScriptFunction(f);
 
 		// TODO: clean up: This should be done by AddScriptFunction() itself
-		module->globalFunctions.Put(f);
+		module->m_globalFunctions.Put(f);
 	}
 	else
 	{
@@ -5136,7 +5162,9 @@ int asCBuilder::RegisterScriptFunction(asCScriptNode *node, asCScriptCode *file,
 			else
 			{
 				// The copy constructor needs to be marked for easy finding
-				if (parameterTypes.GetLength() == 1 && parameterTypes[0].GetTypeInfo() == objType)
+				if( parameterTypes.GetLength() == 1 && 
+				    parameterTypes[0].GetTypeInfo() == objType && 
+					(parameterTypes[0].IsReference() || parameterTypes[0].IsObjectHandle()) )
 				{
 					// Verify that there are not multiple options matching the copy constructor
 					// TODO: Need a better message, since the parameters can be slightly different, e.g. & vs @
@@ -5423,21 +5451,21 @@ void asCBuilder::GetFunctionDescriptions(const char *name, asCArray<int> &funcs,
 	asUINT n;
 
 	// Get the script declared global functions
-	const asCArray<unsigned int> &idxs = module->globalFunctions.GetIndexes(ns, name);
+	const asCArray<unsigned int> &idxs = module->m_globalFunctions.GetIndexes(ns, name);
 	for( n = 0; n < idxs.GetLength(); n++ )
 	{
-		const asCScriptFunction *f = module->globalFunctions.Get(idxs[n]);
+		const asCScriptFunction *f = module->m_globalFunctions.Get(idxs[n]);
 		asASSERT( f->objectType == 0 );
 		funcs.PushLast(f->id);
 	}
 
 	// Add the imported functions
 	// TODO: optimize: Linear search: This is probably not that critial. Also bindInformation will probably be removed in near future
-	for( n = 0; n < module->bindInformations.GetLength(); n++ )
+	for( n = 0; n < module->m_bindInformations.GetLength(); n++ )
 	{
-		if( module->bindInformations[n]->importedFunctionSignature->name == name &&
-			module->bindInformations[n]->importedFunctionSignature->nameSpace == ns )
-			funcs.PushLast(module->bindInformations[n]->importedFunctionSignature->id);
+		if( module->m_bindInformations[n]->importedFunctionSignature->name == name &&
+			module->m_bindInformations[n]->importedFunctionSignature->nameSpace == ns )
+			funcs.PushLast(module->m_bindInformations[n]->importedFunctionSignature->id);
 	}
 
 	// Add the registered global functions
@@ -5447,7 +5475,7 @@ void asCBuilder::GetFunctionDescriptions(const char *name, asCArray<int> &funcs,
 		asCScriptFunction *f = engine->registeredGlobalFuncs.Get(idxs2[n]);
 
 		// Verify if the module has access to the function
-		if( module->accessMask & f->accessMask )
+		if( module->m_accessMask & f->accessMask )
 		{
 			funcs.PushLast(f->id);
 		}
@@ -5468,7 +5496,7 @@ void asCBuilder::GetObjectMethodDescriptions(const char *name, asCObjectType *ob
 		// TODO: child funcdef: A scope can include a template type, e.g. array<ns::type>
 		int n = scope.FindLast("::");
 		asCString className = n >= 0 ? scope.SubString(n+2) : scope;
-		asCString nsName = n >= 0 ? scope.SubString(0, n) : "";
+		asCString nsName = n >= 0 ? scope.SubString(0, n) : asCString("");
 
 		// If a namespace was specifically defined, then this must be used
 		asSNameSpace *ns = 0;
@@ -5508,7 +5536,7 @@ void asCBuilder::GetObjectMethodDescriptions(const char *name, asCObjectType *ob
 		asCScriptFunction *func = engine->scriptFunctions[objectType->methods[n]];
 		if( func->name == name &&
 			(!objIsConst || func->IsReadOnly()) &&
-			(func->accessMask & module->accessMask) )
+			(func->accessMask & module->m_accessMask) )
 		{
 			// When the scope is defined the returned methods should be the true methods, not the virtual method stubs
 			if( scope == "" )
@@ -5845,7 +5873,7 @@ asCDataType asCBuilder::CreateDataTypeFromNode(asCScriptNode *node, asCScriptCod
 					isImplicitHandle = true;
 
 				// Make sure the module has access to the object type
-				if( !module || (module->accessMask & ti->accessMask) )
+				if( !module || (module->m_accessMask & ti->accessMask) )
 				{
 					if( asOBJ_TYPEDEF == (ti->flags & asOBJ_TYPEDEF) )
 					{
@@ -5952,6 +5980,19 @@ asCDataType asCBuilder::CreateDataTypeFromNode(asCScriptNode *node, asCScriptCod
 	{
 		if( n->tokenType == ttOpenBracket )
 		{
+			if (isImplicitHandle)
+			{
+				// Make the type a handle
+				if (dt.MakeHandle(true, acceptHandleForScope) < 0)
+				{
+					if (reportError)
+						WriteError(TXT_OBJECT_HANDLE_NOT_SUPPORTED, file, n);
+					if (isValid)
+						*isValid = false;
+				}
+				isImplicitHandle = false;
+			}
+
 			// Make sure the sub type can be instantiated
 			if( !dt.CanBeInstantiated() )
 			{
@@ -6266,24 +6307,24 @@ bool asCBuilder::DoesTypeExist(const asCString &type)
 		if (module)
 		{
 			// Add script classes and interfaces
-			for (n = 0; n < module->classTypes.GetLength(); n++)
-				if (!knownTypes.MoveTo(0, module->classTypes[n]->name))
-					knownTypes.Insert(module->classTypes[n]->name, true);
+			for (n = 0; n < module->m_classTypes.GetLength(); n++)
+				if (!knownTypes.MoveTo(0, module->m_classTypes[n]->name))
+					knownTypes.Insert(module->m_classTypes[n]->name, true);
 
 			// Add script enums
-			for (n = 0; n < module->enumTypes.GetLength(); n++)
-				if (!knownTypes.MoveTo(0, module->enumTypes[n]->name))
-					knownTypes.Insert(module->enumTypes[n]->name, true);
+			for (n = 0; n < module->m_enumTypes.GetLength(); n++)
+				if (!knownTypes.MoveTo(0, module->m_enumTypes[n]->name))
+					knownTypes.Insert(module->m_enumTypes[n]->name, true);
 
 			// Add script typedefs
-			for (n = 0; n < module->typeDefs.GetLength(); n++)
-				if (!knownTypes.MoveTo(0, module->typeDefs[n]->name))
-					knownTypes.Insert(module->typeDefs[n]->name, true);
+			for (n = 0; n < module->m_typeDefs.GetLength(); n++)
+				if (!knownTypes.MoveTo(0, module->m_typeDefs[n]->name))
+					knownTypes.Insert(module->m_typeDefs[n]->name, true);
 
 			// Add script funcdefs
-			for (n = 0; n < module->funcDefs.GetLength(); n++)
-				if (!knownTypes.MoveTo(0, module->funcDefs[n]->name))
-					knownTypes.Insert(module->funcDefs[n]->name, true);
+			for (n = 0; n < module->m_funcDefs.GetLength(); n++)
+				if (!knownTypes.MoveTo(0, module->m_funcDefs[n]->name))
+					knownTypes.Insert(module->m_funcDefs[n]->name, true);
 		}
 	}
 
@@ -6346,9 +6387,9 @@ asCFuncdefType *asCBuilder::GetFuncDef(const char *type, asSNameSpace *ns, asCOb
 
 		if (module)
 		{
-			for (asUINT n = 0; n < module->funcDefs.GetLength(); n++)
+			for (asUINT n = 0; n < module->m_funcDefs.GetLength(); n++)
 			{
-				asCFuncdefType *funcDef = module->funcDefs[n];
+				asCFuncdefType *funcDef = module->m_funcDefs[n];
 				if (funcDef && funcDef->nameSpace == ns && funcDef->name == type)
 					return funcDef;
 			}
@@ -6405,7 +6446,7 @@ int asCBuilder::GetEnumValue(const char *name, asCDataType &outDt, asDWORD &outV
 		if( ns != et->nameSpace ) continue;
 
 		// Don't bother with types the module doesn't have access to
-		if( (et->accessMask & module->accessMask) == 0 )
+		if( (et->accessMask & module->m_accessMask) == 0 )
 			continue;
 
 		if( GetEnumValueFromType(et, name, outDt, outValue) )
@@ -6420,9 +6461,9 @@ int asCBuilder::GetEnumValue(const char *name, asCDataType &outDt, asDWORD &outV
 		}
 	}
 
-	for( t = 0; t < module->enumTypes.GetLength(); t++ )
+	for( t = 0; t < module->m_enumTypes.GetLength(); t++ )
 	{
-		asCEnumType *et = module->enumTypes[t];
+		asCEnumType *et = module->m_enumTypes[t];
 		if( ns != et->nameSpace ) continue;
 
 		if( GetEnumValueFromType(et, name, outDt, outValue) )

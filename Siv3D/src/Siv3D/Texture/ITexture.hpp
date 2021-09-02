@@ -1,22 +1,21 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 # include <Siv3D/Texture.hpp>
-# include <Siv3D/TextureFormat.hpp>
 
 namespace s3d
 {
-	class ISiv3DTexture
+	class SIV3D_NOVTABLE ISiv3DTexture
 	{
 	public:
 
@@ -24,55 +23,59 @@ namespace s3d
 
 		virtual ~ISiv3DTexture() = default;
 
-		virtual void updateAsync(size_t maxUpdate) = 0;
+		virtual void updateAsyncTextureLoad(size_t maxUpdate) = 0;
 
-		virtual TextureID createUnmipped(const Image& image, TextureDesc desc) = 0;
+		virtual size_t getTextureCount() const = 0;
 
-		virtual TextureID create(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
+		virtual Texture::IDType createUnmipped(const Image& image, TextureDesc desc) = 0;
 
-		virtual TextureID createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) = 0;
+		virtual Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) = 0;
 
-		virtual TextureID createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
+		virtual Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) = 0;
 
-		virtual TextureID createRT(const Size& size, const TextureFormat& format) = 0;
+		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
 
-		virtual TextureID createRT(const Image& image) = 0;
+		virtual Texture::IDType createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) = 0;
 
-		virtual TextureID createRT(const Grid<float>& image) = 0;
+		virtual Texture::IDType createRT(const Image& image, const HasDepth hasDepth) = 0;
 
-		virtual TextureID createRT(const Grid<Float2>& image) = 0;
+		virtual Texture::IDType createRT(const Grid<float>& image, const HasDepth hasDepth) = 0;
 
-		virtual TextureID createRT(const Grid<Float4>& image) = 0;
+		virtual Texture::IDType createRT(const Grid<Float2>& image, const HasDepth hasDepth) = 0;
 
-		virtual TextureID createMSRT(const Size& size, const TextureFormat& format) = 0;
+		virtual Texture::IDType createRT(const Grid<Float4>& image, const HasDepth hasDepth) = 0;
 
-		virtual void release(TextureID handleID) = 0;
+		virtual Texture::IDType createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) = 0;
 
-		virtual Size getSize(TextureID handleID) = 0;
+		virtual void release(Texture::IDType handleID) = 0;
 
-		virtual TextureDesc getDesc(TextureID handleID) = 0;
+		virtual Size getSize(Texture::IDType handleID) = 0;
 
-		virtual TextureFormat getFormat(TextureID handleID) = 0;
+		virtual TextureDesc getDesc(Texture::IDType handleID) = 0;
 
-		virtual void clearRT(TextureID handleID, const ColorF& color) = 0;
+		virtual TextureFormat getFormat(Texture::IDType handleID) = 0;
 
-		virtual void readRT(TextureID handleID, Image& image) = 0;
+		virtual bool hasDepth(Texture::IDType handleID) = 0;
 
-		virtual void readRT(TextureID handleID, Grid<float>& image) = 0;
+		virtual bool fill(Texture::IDType handleID, const ColorF& color, bool wait) = 0;
 
-		virtual void readRT(TextureID handleID, Grid<Float2>& image) = 0;
+		virtual bool fillRegion(Texture::IDType handleID, const ColorF& color, const Rect& rect) = 0;
 
-		virtual void readRT(TextureID handleID, Grid<Float4>& image) = 0;
+		virtual bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) = 0;
 
-		virtual void resolveMSRT(TextureID handleID) = 0;
+		virtual bool fillRegion(Texture::IDType handleID, const void* src, uint32 stride, const Rect& rect, bool wait) = 0;
+	
 
+		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
 
-		virtual bool fill(TextureID handleID, const ColorF& color, bool wait) = 0;
+		virtual void readRT(Texture::IDType handleID, Image& image) = 0;
 
-		virtual bool fillRegion(TextureID handleID, const ColorF& color, const Rect& rect) = 0;
+		virtual void readRT(Texture::IDType handleID, Grid<float>& image) = 0;
 
-		virtual bool fill(TextureID handleID, const void* src, uint32 stride, bool wait) = 0;
+		virtual void readRT(Texture::IDType handleID, Grid<Float2>& image) = 0;
 
-		virtual bool fillRegion(TextureID handleID, const void* src, uint32 stride, const Rect& rect, bool wait) = 0;
+		virtual void readRT(Texture::IDType handleID, Grid<Float4>& image) = 0;
+
+		virtual void resolveMSRT(Texture::IDType handleID) = 0;
 	};
 }

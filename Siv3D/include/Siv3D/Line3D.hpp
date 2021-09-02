@@ -2,155 +2,196 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
-# include "SIMD_Float4.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
+	struct Mat4x4;
+
 	struct Line3D
 	{
-		Vec3 begin, end;
+		using position_type = Vec3;
 
+		using value_type = position_type::value_type;
+
+
+		position_type begin;
+
+		position_type end;
+
+
+		SIV3D_NODISCARD_CXX20
 		Line3D() = default;
 
+		SIV3D_NODISCARD_CXX20
 		Line3D(const Line3D&) = default;
 
-		Line3D& operator=(const Line3D&) = default;
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(value_type bx, value_type by, value_type bz, value_type ex, value_type ey, value_type ez) noexcept;
 
-		Line3D(Line3D&&) = default;
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(const position_type& _begin, value_type ex, value_type ey, value_type ez) noexcept;
 
-		Line3D& operator=(Line3D&&) = default;
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(value_type bx, value_type by, value_type bz, const position_type& _end) noexcept;
 
-		constexpr Line3D(double bx, double by, double bz, double ex, double ey, double ez) noexcept
-			: begin(bx, by, bz)
-			, end(ex, ey, ez) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(const position_type& _begin, const position_type& _end) noexcept;
 
-		constexpr Line3D(double bx, double by, double bz, const Vec3& _end) noexcept
-			: begin(bx, by, bz)
-			, end(_end) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Line3D(const position_type& origin, Arg::direction_<position_type> direction) noexcept;
 
-		constexpr Line3D(const Vec3& _begin, double ex, double ey, double ez) noexcept
-			: begin(_begin)
-			, end(ex, ey, ez) {}
-
-		constexpr Line3D(const Vec3& _begin, const Vec3& _end) noexcept
-			: begin(_begin)
-			, end(_end) {}
-
-		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
-
-		void draw(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
-	};
+		Line3D& operator =(const Line3D&) = default;
 
 
-	struct alignas(16) SIMD_Line3D
-	{
-		SIMD_Float4 vec[2];
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Line3D& lhs, const Line3D& rhs) noexcept
+		{
+			return (lhs.begin == rhs.begin)
+				&& (lhs.end == rhs.end);
+		}
 
-		SIMD_Line3D() = default;
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Line3D& lhs, const Line3D& rhs) noexcept
+		{
+			return (lhs.begin != rhs.begin)
+				|| (lhs.end != rhs.end);
+		}
 
-		SIMD_Line3D(const SIMD_Line3D&) = default;
 
-		SIMD_Line3D& operator=(const SIMD_Line3D&) = default;
+		constexpr Line3D& set(value_type x0, value_type y0, value_type z0, value_type x1, value_type y1, value_type z1) noexcept;
 
-		SIMD_Line3D(SIMD_Line3D&&) = default;
+		constexpr Line3D& set(position_type p0, value_type x1, value_type y1, value_type z1) noexcept;
 
-		SIMD_Line3D& operator=(SIMD_Line3D&&) = default;
+		constexpr Line3D& set(value_type x0, value_type y0, value_type z0, position_type p1) noexcept;
 
-		constexpr SIMD_Line3D(SIMD_Float4 _begin, SIMD_Float4 _end) noexcept
-			: vec{ _begin, _end } {}
+		constexpr Line3D& set(position_type p0, position_type p1) noexcept;
 
-		SIMD_Line3D(const Float3& _begin, const Float3& _end) noexcept
-			: vec{ { _begin, 0.0f }, { _end, 0.0f } } {}
+		constexpr Line3D& set(const Line3D& line) noexcept;
 
-		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
 
-		void draw(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
+		[[nodiscard]]
+		constexpr Line3D movedBy(value_type x, value_type y, value_type z) const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D movedBy(position_type v) const noexcept;
+
+		constexpr Line3D& moveBy(value_type x, value_type y, value_type z) noexcept;
+
+		constexpr Line3D& moveBy(position_type v) noexcept;
+
+
+		[[nodiscard]]
+		Line3D stretched(value_type length) const noexcept;
+
+		[[nodiscard]]
+		Line3D stretched(value_type lengthBegin, value_type lengthEnd) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr position_type vector() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D reversed() const noexcept;
+
+		constexpr Line3D& reverse() noexcept;
+
+
+		[[nodiscard]]
+		constexpr bool hasLength() const noexcept;
+
+		[[nodiscard]]
+		value_type length() const noexcept;
+
+		[[nodiscard]]
+		constexpr value_type lengthSq() const noexcept;
+
+		[[nodiscard]]
+		position_type& p(size_t index) noexcept;
+
+		[[nodiscard]]
+		const position_type& p(size_t index) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type point(size_t index);
+
+		[[nodiscard]]
+		constexpr position_type position(double t) const noexcept;
+
+		[[nodiscard]]
+		constexpr position_type center() const noexcept;
+
+		[[nodiscard]]
+		constexpr Line3D lerp(const Line3D& other, double f) const noexcept;
+
+
+		[[nodiscard]]
+		Line3D toScreen(const Mat4x4& vp) const noexcept;
+
+		[[nodiscard]]
+		Line toScreenLine(const Mat4x4& vp) const noexcept;
+
+
+		const Line3D& draw(const ColorF& color = Palette::White) const;
+
+		const Line3D& draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
+
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line3D& value)
+		{
+			return output << CharType('(')
+				<< value.begin << CharType(',') << CharType(' ')
+				<< value.end << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Line3D& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.begin >> unused
+				>> value.end >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Line3D& value);
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/Line3D.ipp"
 
-namespace s3d
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Line3D, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Line3D& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line3D& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output << CharType('(')
-			<< value.begin << CharType(',') << CharType(' ')
-			<< value.end << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Line3D& value)
+	template <class FormatContext>
+	auto format(const s3d::Line3D& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input >> unused
-			>> value.begin >> unused
-			>> value.end >> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.begin, value.end);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.begin, value.end);
+		}
 	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <>
-	struct hash<s3d::Line3D>
-	{
-		[[nodiscard]] size_t operator ()(const s3d::Line3D& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::Line3D, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Line3D& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin, value.end);
-		}
-	};
-}
+};

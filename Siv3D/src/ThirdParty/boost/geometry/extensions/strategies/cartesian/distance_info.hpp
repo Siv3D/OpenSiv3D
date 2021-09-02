@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2013 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2018-2020.
+// Modifications copyright (c) 2018-2020 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -17,7 +17,6 @@
 #define BOOST_GEOMETRY_STRATEGY_CARTESIAN_DISTANCE_INFO_HPP
 
 #include <boost/core/ignore_unused.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/point_type.hpp>

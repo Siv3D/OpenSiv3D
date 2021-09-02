@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2018.
-// Modifications copyright (c) 2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2018-2020.
+// Modifications copyright (c) 2018-2020 Oracle and/or its affiliates.
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -20,6 +20,7 @@
 #define BOOST_GEOMETRY_EXTENSIONS_ALGEBRA_GEOMETRIES_MATRIX_HPP
 
 #include <cstddef>
+#include <type_traits>
 
 #include <boost/geometry/extensions/algebra/core/access.hpp>
 #include <boost/geometry/extensions/algebra/core/coordinate_dimension.hpp>
@@ -96,12 +97,12 @@ struct coordinate_type<model::matrix<CoordinateType, Rows, Cols> >
 
 template <typename CoordinateType, std::size_t Rows, std::size_t Cols>
 struct indexed_dimension<model::matrix<CoordinateType, Rows, Cols>, 0>
-    : boost::integral_constant<std::size_t, Rows>
+    : std::integral_constant<std::size_t, Rows>
 {};
 
 template <typename CoordinateType, std::size_t Rows, std::size_t Cols>
 struct indexed_dimension<model::matrix<CoordinateType, Rows, Cols>, 1>
-    : boost::integral_constant<std::size_t, Cols>
+    : std::integral_constant<std::size_t, Cols>
 {};
 
 template <typename CoordinateType, std::size_t Rows, std::size_t Cols, std::size_t I, std::size_t J>

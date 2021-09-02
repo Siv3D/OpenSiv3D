@@ -2,15 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/ImageProcessing.hpp>
-# include <Siv3D/Number.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
 
 namespace s3d
 {
@@ -18,22 +18,28 @@ namespace s3d
 	{
 		static Image GenerateMip(const Image& src)
 		{
-			if (!src)
+			if (not src)
 			{
-				return Image();
+				return{};
 			}
 
 			const Color* pSrc = src.data();
 			const int32 srcW = src.width();
 			const int32 srcH = src.height();
 
-			const int32 targetWidth = std::max(src.width() / 2, 1);
-			const int32 targetHeight = std::max(src.height() / 2, 1);
+			const int32 targetWidth = Max(src.width() / 2, 1);
+			const int32 targetHeight = Max(src.height() / 2, 1);
+			
+			if ((targetWidth <= 4) && (targetHeight <= 4))
+			{
+				return src.scaled(targetWidth, targetHeight, InterpolationAlgorithm::Area);
+			}
+			
 			Image result(targetWidth, targetHeight);
 			Color* pDst = result.data();
 
-			const float sddx = (srcW - 1.0f) / std::max(targetWidth - 1, 1);
-			const float sddy = (srcH - 1.0f) / std::max(targetHeight - 1, 1);
+			const float sddx = (srcW - 1.0f) / Max(targetWidth - 1, 1);
+			const float sddy = (srcH - 1.0f) / Max(targetHeight - 1, 1);
 
 			for (int32 y = 0; y < targetHeight; ++y)
 			{
@@ -43,7 +49,7 @@ namespace s3d
 
 				sy -= dy;
 
-				const int32 dyO = std::min(dy + 1, srcH - 1);
+				const int32 dyO = Min(dy + 1, srcH - 1);
 
 				for (int32 x = 0; x < targetWidth; ++x)
 				{
@@ -53,8 +59,8 @@ namespace s3d
 
 					sx -= dx;
 
-					const int32 dxO = std::min(dx + 1, srcW - 1);
-			
+					const int32 dxO = Min(dx + 1, srcW - 1);
+
 					const Color& c0 = pSrc[dy * srcW + dx];
 					const Color& c1 = pSrc[dy * srcW + dxO];
 					const Color& c2 = pSrc[dyO * srcW + dx];
@@ -71,38 +77,24 @@ namespace s3d
 
 			return result;
 		}
-
-		struct SDFPixel
-		{
-			Point border;
-			
-			float distance;
-			
-			bool white;
-		};
-
-		inline float CalcDistance(const int32 x, const int32 y, const Point pos) noexcept
-		{
-			return std::sqrt(static_cast<float>((x - pos.x) * (x - pos.x) + (y - pos.y) * (y - pos.y)));
-		}
 	}
 
 	namespace ImageProcessing
 	{
 		Array<Image> GenerateMips(const Image& src)
 		{
-			const uint32 mipCount = CalculateMipCount(src.width(), src.height()) - 1;
+			const size_t mipCount = (CalculateMipCount(src.width(), src.height()) - 1);
 
-			if (mipCount == 0)
+			if (mipCount < 1)
 			{
-				return Array<Image>();
+				return{};
 			}
 
 			Array<Image> mipImages(mipCount);
 
 			mipImages[0] = detail::GenerateMip(src);
 
-			for (uint32 i = 1; i < mipCount; ++i)
+			for (size_t i = 1; i < mipCount; ++i)
 			{
 				mipImages[i] = detail::GenerateMip(mipImages[i - 1]);
 			}
@@ -110,220 +102,303 @@ namespace s3d
 			return mipImages;
 		}
 
-		Image GenerateSDF(const Image& image, const uint32 scale, const double spread)
+		void Sobel(const Image& src, Image& dst, const int32 dx, const int32 dy, int32 apertureSize)
 		{
-			if (!image)
+			// 1. パラメータチェック
 			{
-				return Image();
-			}
-
-			const size_t num_pixels = image.num_pixels();
-			const int32 imageWidth = image.width();
-			const int32 imageHeight = image.height();
-			const int32 resultWidth = imageWidth / scale;
-			const int32 resultHeight = imageHeight / scale;
-
-			Array<detail::SDFPixel> pixels(num_pixels);
-			{
-				const Color* pSrc = image.data();
-				const Color* const pSrcEnd = pSrc + num_pixels;
-				detail::SDFPixel* pDst = pixels.data();
-
-				while (pSrc != pSrcEnd)
+				if (not src)
 				{
-					pDst->distance = Largest<float>;
-					pDst->border.set(-1, -1);
-					pDst->white = (pSrc->r == 255);
+					return;
+				}
 
-					++pSrc;
-					++pDst;
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (IsEven(apertureSize))
+				{
+					++apertureSize;
 				}
 			}
 
+			// 2. 出力画像のサイズ変更
 			{
-				detail::SDFPixel* pDst = pixels.data();
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
 
-				for (int32 y = 0; y < imageHeight; ++y)
+			// 3. 処理
+			{
+				const cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(src);
+				cv::Mat_<uint8> detected_edges;
+				cv::Sobel(gray, detected_edges, CV_8U, dx, dy, apertureSize);
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, OverwriteAlpha::No);
+			}
+		}
+
+		void Laplacian(const Image& src, Image& dst, int32 apertureSize)
+		{
+			// 1. パラメータチェック
+			{
+				if (not src)
 				{
-					for (int32 x = 0; x < imageWidth; ++x)
-					{
-						const bool center = pDst->white;
-						const bool isEdge = (center &&
-							(((0 < x) && (pDst - 1)->white != center)
-								|| ((x < imageWidth - 1) && (pDst + 1)->white != center)
-								|| ((0 < y) && (pDst - imageWidth)->white != center)
-								|| ((y < imageHeight - 1) && (pDst + imageWidth)->white != center)
-								));
+					return;
+				}
 
-						if (isEdge)
-						{
-							pDst->distance = 0.0f;
-							pDst->border.set(x, y);
-						}
+				if (&src == &dst)
+				{
+					return;
+				}
 
-						++pDst;
-					}
+				if (IsEven(apertureSize))
+				{
+					++apertureSize;
 				}
 			}
 
+			// 2. 出力画像のサイズ変更
 			{
-				constexpr float sqrt2 = Math::Constants::Sqrt2_v<float>;
-				detail::SDFPixel* pixel = pixels.data();
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
 
-				for (int32 y = 0; y < imageHeight; ++y)
+			// 3. 処理
+			{
+				const cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(src);
+				cv::Mat_<uint8> detected_edges;
+				cv::Laplacian(gray, detected_edges, CV_8U, apertureSize);
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, OverwriteAlpha::No);
+			}
+		}
+
+		void Canny(const Image& src, Image& dst, const uint8 lowThreshold, const uint8 highThreshold, int32 apertureSize, const bool useL2Gradient)
+		{
+			// 1. パラメータチェック
+			{
+				if (not src)
 				{
-					const bool y0 = (0 < y);
-
-					for (int32 x = 0; x < imageWidth; ++x)
-					{
-						{
-							const detail::SDFPixel* offsetPixel = (pixel - imageWidth - 1);
-
-							if ((0 < x) && y0 && (offsetPixel->distance + sqrt2) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel - imageWidth);
-
-							if (y0 && (offsetPixel->distance + 1.0f) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel - imageWidth + 1);
-
-							if ((x < imageWidth - 1) && y0 && (offsetPixel->distance + sqrt2) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel - 1);
-
-							if ((0 < x) && (offsetPixel->distance + 1.0f) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						++pixel;
-					}
+					return;
 				}
 
-				pixel = pixels.data() + num_pixels - 1;
-
-				for (int32 y = imageHeight - 1; y >= 0; --y)
+				if (&src == &dst)
 				{
-					const bool yH = (y < imageHeight - 1);
+					return;
+				}
 
-					for (int32 x = imageWidth - 1; x >= 0; --x)
-					{
-						{
-							const detail::SDFPixel* offsetPixel = (pixel + 1);
-
-							if ((x < imageWidth - 1) && (offsetPixel->distance + 1.0f) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel + imageWidth - 1);
-
-							if ((0 < x) && yH && (offsetPixel->distance + sqrt2) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel + imageWidth);
-
-							if (yH && (offsetPixel->distance + 1.0f) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						{
-							const detail::SDFPixel* offsetPixel = (pixel + imageWidth + 1);
-
-							if ((x < imageWidth - 1) && yH && (offsetPixel->distance + sqrt2) < pixel->distance)
-							{
-								pixel->border = offsetPixel->border;
-								pixel->distance = detail::CalcDistance(x, y, pixel->border);
-							}
-						}
-
-						--pixel;
-					}
+				if (IsEven(apertureSize))
+				{
+					++apertureSize;
 				}
 			}
 
+			// 2. 出力画像のサイズ変更
 			{
-				detail::SDFPixel* pDst = pixels.data();
-				detail::SDFPixel* const pDstEnd = pDst + num_pixels;
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
 
-				while (pDst != pDstEnd)
+			// 3. 処理
+			{
+				const cv::Mat_<uint8> gray = OpenCV_Bridge::ToGrayScale(src);
+				cv::Mat_<uint8> detected_edges;
+				cv::blur(gray, detected_edges, cv::Size(3, 3));
+				cv::Canny(detected_edges, detected_edges, lowThreshold, highThreshold, apertureSize, useL2Gradient);
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, OverwriteAlpha::No);
+			}
+		}
+
+		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (not src)
 				{
-					if (!pDst->white)
-					{
-						pDst->distance = -pDst->distance;
-					}
-
-					++pDst;
+					return dst.clear();
 				}
 			}
 
-			Image result(resultWidth, resultHeight, Color(255, 255));
+			// 2. 出力画像のサイズ変更
 			{
-				const float div = 1.0f / (scale * scale * static_cast<float>(spread));
-				const detail::SDFPixel* pSrcLine = pixels.data();
-				Color* pDst = result.data();
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
 
-				for (int32 y = 0; y < imageHeight; y += scale)
+			// 3. 処理
+			{
+				const cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(src);
+				cv::Mat_<cv::Vec3b> matDst;
+				cv::edgePreservingFilter(matSrc, matDst,
+					(filterType == EdgePreservingFilterType::Recursive)
+					? cv::RECURS_FILTER : cv::NORMCONV_FILTER,
+					static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+				OpenCV_Bridge::FromMatVec3b(matDst, dst, OverwriteAlpha::No);
+			}
+		}
+
+		void DetailEnhance(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (not src)
 				{
-					for (int32 x = 0; x < imageWidth; x += scale)
-					{
-						const detail::SDFPixel* pSrc = pSrcLine + x;
-
-						float sum = 0.0f;
-
-						for (size_t dy = 0u; dy < scale; ++dy)
-						{
-							for (size_t dx = 0u; dx < scale; ++dx)
-							{
-								sum += pSrc[dx].distance;
-							}
-
-							pSrc += imageWidth;
-						}
-
-						const float d = sum * div;
-
-						const uint8 sd = (d <= -1.0f) ? 0 : (1.0f <= d) ? 255 : static_cast<uint8>((d + 1.0f) * 127.5f + 0.5f);
-
-						(pDst++)->a = sd;
-					}
-
-					pSrcLine += (imageWidth * scale);
+					return dst.clear();
 				}
 			}
 
-			return result;
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(src);
+				cv::Mat_<cv::Vec3b> matDst;
+				cv::detailEnhance(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+				OpenCV_Bridge::FromMatVec3b(matDst, dst, OverwriteAlpha::No);
+			}
+		}
+
+		void Stylization(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (not src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+				std::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(src);
+				cv::Mat_<cv::Vec3b> matDst;
+				cv::stylization(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+				OpenCV_Bridge::FromMatVec3b(matDst, dst, OverwriteAlpha::No);
+			}
+		}
+
+		ColorF SSIM(const Image& image1, const Image& image2)
+		{
+			if (image1.size() != image2.size())
+			{
+				return ColorF{ 1.0 };
+			}
+
+			const double C1 = 6.5025, C2 = 58.5225;
+			const int32 x = image1.width(), y = image1.height();
+
+			cv::Mat_<cv::Vec3f> I1(y, x), I2(y, x);
+			OpenCV_Bridge::ToMatVec3f255(image1, I1);
+			OpenCV_Bridge::ToMatVec3f255(image2, I2);
+
+			cv::Mat I2_2 = I2.mul(I2);        // I2^2
+			cv::Mat I1_2 = I1.mul(I1);        // I1^2
+			cv::Mat I1_I2 = I1.mul(I2);        // I1 * I2
+
+			/*************************** END INITS **********************************/
+
+			cv::Mat mu1, mu2;   // PRELIMINARY COMPUTING
+			cv::GaussianBlur(I1, mu1, cv::Size(11, 11), 1.5);
+			cv::GaussianBlur(I2, mu2, cv::Size(11, 11), 1.5);
+
+
+			cv::Mat mu1_2 = mu1.mul(mu1);
+			cv::Mat mu2_2 = mu2.mul(mu2);
+			cv::Mat mu1_mu2 = mu1.mul(mu2);
+
+			cv::Mat sigma1_2, sigma2_2, sigma12;
+
+			cv::GaussianBlur(I1_2, sigma1_2, cv::Size(11, 11), 1.5);
+			sigma1_2 -= mu1_2;
+
+			cv::GaussianBlur(I2_2, sigma2_2, cv::Size(11, 11), 1.5);
+			sigma2_2 -= mu2_2;
+
+			cv::GaussianBlur(I1_I2, sigma12, cv::Size(11, 11), 1.5);
+			sigma12 -= mu1_mu2;
+
+			///////////////////////////////// FORMULA ////////////////////////////////
+			cv::Mat t1, t2, t3;
+
+			t1 = 2 * mu1_mu2 + C1;
+			t2 = 2 * sigma12 + C2;
+			t3 = t1.mul(t2);              // t3 = ((2*mu1_mu2 + C1).*(2*sigma12 + C2))
+
+			t1 = mu1_2 + mu2_2 + C1;
+			t2 = sigma1_2 + sigma2_2 + C2;
+			t1 = t1.mul(t2);               // t1 =((mu1_2 + mu2_2 + C1).*(sigma1_2 + sigma2_2 + C2))
+
+			cv::Mat ssim_map;
+			cv::divide(t3, t1, ssim_map);      // ssim_map =  t3./t1;
+
+			cv::Scalar mssim = cv::mean(ssim_map); // mssim = average of ssim map
+			return{ mssim[2], mssim[1], mssim[0], 1.0 };
+		}
+
+		void Inpaint(const Image& image, const Image& maskImage, const Color& maskColor, Image& result, int32 radius)
+		{
+			// 1. パラメータチェック
+			{
+				if ((not image) || (not maskImage))
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = Max(radius, 0);
+			}
+
+			// 2. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(image);
+
+				cv::Mat_<uint8> matMask(image.height(), image.width());
+				OpenCV_Bridge::MaskByColor(maskImage, matMask, maskColor);
+
+				cv::Mat_<cv::Vec3b> matDst;
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::Yes);
+			}
+		}
+
+		void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius)
+		{
+			// 1. パラメータチェック
+			{
+				if ((not image) || (not maskImage))
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = Max(radius, 0);
+			}
+
+			// 2. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc = OpenCV_Bridge::ToMatVec3bBGR(image);
+				cv::Mat_<uint8> matMask(static_cast<int32>(maskImage.height()), static_cast<int32>(maskImage.width()), const_cast<uint8*>(maskImage.data()), static_cast<int32>(maskImage.width()));
+				cv::Mat_<cv::Vec3b> matDst;
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+				OpenCV_Bridge::FromMatVec3b(matDst, result, OverwriteAlpha::Yes);
+			}
 		}
 	}
 }

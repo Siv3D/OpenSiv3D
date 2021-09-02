@@ -2,117 +2,122 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include <functional>
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "IEffect.hpp"
+# include "Duration.hpp"
 # include "AssetHandle.hpp"
-# include "Uncopyable.hpp"
 
 namespace s3d
 {
-	struct IEffect : private Uncopyable
+	/// @brief エフェクトグループ
+	class Effect : public AssetHandle<Effect>
 	{
-		virtual ~IEffect() = default;
-
-		virtual bool update(double timeSec) = 0;
-	};
-
-	class Effect
-	{
-	private:
-
-		class Tag {};
-
-		using EffectHandle = AssetHandle<Tag>;
-
-		friend EffectHandle::AssetHandle();
-		
-		friend EffectHandle::AssetHandle(const IDWrapperType id) noexcept;
-		
-		friend EffectHandle::~AssetHandle();
-
-		std::shared_ptr<EffectHandle> m_handle;
-
 	public:
 
-		using IDType = EffectHandle::IDWrapperType;
+		/// @brief エフェクトグループを作成します。
+		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		SIV3D_NODISCARD_CXX20
+		Effect(double maxLifeTimeSec = 10.0);
 
-		Effect();
+		/// @brief エフェクトグループを作成します。
+		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		SIV3D_NODISCARD_CXX20
+		Effect(const Duration& maxLifeTimeSec);
 
-		~Effect();
+		/// @brief デストラクタ
+		virtual ~Effect();
 
-		void release();
+		/// @brief エフェクトグループに新しいエフェクトを追加します
+		/// @param effect 追加するエフェクト
+		const Effect& add(std::unique_ptr<IEffect>&& effect) const;
 
-		/// <summary>
-		/// エフェクトハンドルの ID を示します。
-		/// </summary>
-		[[nodiscard]] IDType id() const;
+		/// @brief エフェクトグループに新しいエフェクトを追加します
+		/// @tparam IEffectType 追加するエフェクトの型
+		/// @tparam ...Args コンストラクタ引数の型
+		/// @param ...args コンストラクタ引数
+		template <class IEffectType, class... Args, std::enable_if_t<std::is_base_of_v<IEffect, IEffectType>>* = nullptr>
+		const Effect& add(Args&&... args) const;
 
-		/// <summary>
-		/// 2 つの Effect が同じかどうかを返します。
-		/// </summary>
-		/// <param name="effect">
-		/// 比較する Effect
-		/// </param>
-		/// <returns>
-		/// 2 つの Effect が同じ場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator ==(const Effect& effect) const;
+		/// @brief エフェクトグループに新しいエフェクトを追加します
+		/// @remark 関数オブジェクトは double 型を受け取り bool 型を返す必要があります。
+		/// @tparam Fty エフェクト（関数オブジェクト）の型
+		/// @param f エフェクトの関数オブジェクト
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, double>>* = nullptr>
+		const Effect& add(Fty f) const;
 
-		/// <summary>
-		/// 2 つの Effect が異なるかどうかを返します。
-		/// </summary>
-		/// <param name="effect">
-		/// 比較する Effect
-		/// </param>
-		/// <returns>
-		/// 2 つの Effect が異なる場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator !=(const Effect& effect) const;
+		/// @brief エフェクトグループがアクティブなエフェクトを持っているかを返します。
+		/// @remark `Effect::hasEffects()` と同じ結果を返します。
+		/// @return アクティブなエフェクトがある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		explicit operator bool() const;
 
-		[[nodiscard]] explicit operator bool() const;
+		/// @brief エフェクトグループがアクティブなエフェクトを持っていないかを返します。
+		/// @return アクティブなエフェクトがない場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isEmpty() const;
 
-		/// <summary>
-		/// エフェクトが空かどうかを示します。
-		/// </summary>
-		[[nodiscard]] bool isEmpty() const;
+		/// @brief エフェクトグループがアクティブなエフェクトを持っているかを返します。
+		/// @return アクティブなエフェクトがある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool hasEffects() const;
 
-		[[nodiscard]] bool hasEffects() const;
+		/// @brief エフェクトグループでアクティブなエフェクトの個数を返します。
+		/// @return アクティブなエフェクトの個数
+		[[nodiscard]]
+		size_t num_effects() const;
 
-		[[nodiscard]] size_t num_effects() const;
-
-		void add(std::unique_ptr<IEffect>&& effect) const;
-
-		template <class EffectElement, class... Args>
-		void add(Args&&... args) const
-		{
-			add(std::make_unique<EffectElement>(std::forward<Args>(args)...));
-		}
-
-		void add(std::function<bool(double)> f) const;
-
+		/// @brief このエフェクトグループの時間経過を一時停止します。
 		void pause() const;
 
-		[[nodiscard]] bool isPaused() const;
+		/// @brief このエフェクトグループの時間経過が一時停止されているかを返します。
+		/// @return 一時停止されている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPaused() const;
 
+		/// @brief このエフェクトグループの時間経過が一時停止されている場合、再開します。
 		void resume() const;
 
-		void setSpeed(double speed) const;
+		/// @brief このエフェクトグループの時間経過の速さを、実時間に対する倍率 (2.0 で 2 倍早く経過）で設定します。
+		/// @param speed 時間経過の速さ
+		const Effect& setSpeed(double speed) const;
 
-		[[nodiscard]] double getSpeed() const;
+		/// @brief このエフェクトグループの時間経過の速さを返します。
+		/// @return 時間経過の速さ
+		[[nodiscard]]
+		double getSpeed() const;
 
+		/// @brief このエフェクトグループでのエフェクトの最大継続時間（秒）を設定します。
+		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		const Effect& setMaxLifeTime(double maxLifeTimeSec);
+
+		/// @brief このエフェクトグループでのエフェクトの最大継続時間（秒）を設定します。
+		/// @param maxLifeTimeSec このエフェクトグループでのエフェクトの最大継続時間（秒）
+		void setMaxLifeTime(const Duration& maxLifeTimeSec);
+
+		/// @brief このエフェクトグループでのエフェクトの最大継続時間（秒）を返します。
+		/// @return このエフェクトグループでのエフェクトの最大継続時間（秒）
+		[[nodiscard]]
+		double getMaxLifeTime() const;
+
+		/// @brief このエフェクトグループ内のエフェクトの `update()` を実行します。
 		void update() const;
 
+		/// @brief このエフェクトグループ内の全てのエフェクトを、経過時間に関わらず消去します。
 		void clear() const;
-	};
 
-	using EffectID = Effect::IDType;
+		void swap(Effect& other) noexcept;
+	};
 }
+
+template <>
+inline void std::swap(s3d::Effect& a, s3d::Effect& b) noexcept;
+
+# include "detail/Effect.ipp"

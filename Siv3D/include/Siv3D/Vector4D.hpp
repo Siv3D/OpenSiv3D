@@ -2,767 +2,434 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <cmath>
-# include <utility>
-# include "Fwd.hpp"
-# include "PointVector.hpp"
-# include "Format.hpp"
-# include "Hash.hpp"
+# include "Common.hpp"
+# include "FormatData.hpp"
+# include "FormatLiteral.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 4 次元ベクトル
-	/// </summary>
+	/// @brief 4 次元のベクトル
+	/// @tparam Type ベクトルの要素の型
 	template <class Type>
 	struct Vector4D
 	{
-		template <class U>
-		using vector_type = Vector4D<U>;
-
 		using value_type = Type;
+
+		static constexpr size_t Dimension = 4;
 
 		value_type x, y, z, w;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Vector4D() noexcept = default;
+		SIV3D_NODISCARD_CXX20
+		Vector4D() = default;
 
-		constexpr Vector4D(const Vector4D&) noexcept = default;
+		SIV3D_NODISCARD_CXX20
+		Vector4D(const Vector4D&) = default;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(value_type _x, value_type _y, value_type _z, value_type _w) noexcept;
 
 		template <class X, class Y, class Z, class W>
-		constexpr Vector4D(X _x, Y _y, Z _z, W _w) noexcept
-			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(_y))
-			, z(static_cast<value_type>(_z))
-			, w(static_cast<value_type>(_w)) {}
-
-		constexpr Vector4D(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
-			: x(_x)
-			, y(_y)
-			, z(_z)
-			, w(_w) {}
-
-		template <class X, class Y>
-		constexpr Vector4D(X _x, Y _y, const Vector2D<value_type>& zw) noexcept
-			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(_y))
-			, z(zw.x)
-			, w(zw.y) {}
-
-		template <class X, class W>
-		constexpr Vector4D(X _x, const Vector2D<value_type>& yz, W _w) noexcept
-			: x(static_cast<value_type>(_x))
-			, y(yz.x)
-			, z(yz.y)
-			, w(static_cast<value_type>(_w)) {}
-
-		template <class Z, class W>
-		constexpr Vector4D(const Vector2D<value_type>& xy, Z _z, W _w) noexcept
-			: x(xy.x)
-			, y(xy.y)
-			, z(static_cast<value_type>(_z))
-			, w(static_cast<value_type>(_w)) {}
-
-		constexpr Vector4D(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept
-			: x(xy.x)
-			, y(xy.y)
-			, z(zw.x)
-			, w(zw.y) {}
-
-		template <class X>
-		constexpr Vector4D(X _x, const Vector3D<value_type>& yzw) noexcept
-			: x(static_cast<value_type>(_x))
-			, y(yzw.x)
-			, z(yzw.y)
-			, w(yzw.z) {}
-
-		template <class Z>
-		constexpr Vector4D(const Vector3D<value_type>& xyz, Z _z) noexcept
-			: x(xyz.x)
-			, y(xyz.y)
-			, z(xyz.z)
-			, w(static_cast<value_type>(_z)) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(X _x, Y _y, Z _z, W _w) noexcept;
 
 		template <class U>
-		constexpr Vector4D(const Vector4D<U>& v) noexcept
-			: x(static_cast<value_type>(v.x))
-			, y(static_cast<value_type>(v.y))
-			, z(static_cast<value_type>(v.z))
-			, w(static_cast<value_type>(v.w)) {}
-
-		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
-		{
-			return index == 0 ? x
-				: index == 1 ? y
-				: index == 2 ? z
-				: index == 3 ? w
-				: 0;
-		}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(const Vector4D<U>& v) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator +() const noexcept
-		{
-			return *this;
-		}
+		template <class X, class Y>
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(X _x, Y _y, const Vector2D<value_type>& zw) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator -() const noexcept
-		{
-			return{ -x, -y, -z, -w };
-		}
+		template <class X, class W>
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(X _x, const Vector2D<value_type>& yz, W _w) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator +(const Vector4D& v) const noexcept
-		{
-			return{ x + v.x, y + v.y, z + v.z, w + v.w };
-		}
+		template <class Z, class W>
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(const Vector2D<value_type>& xy, Z _z, W _w) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator -(const Vector4D& v) const noexcept
-		{
-			return{ x - v.x, y - v.y, z - v.z, w - v.w };
-		}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator *(value_type s) const noexcept
-		{
-			return{ x * s, y * s, z * s, w * s };
-		}
+		template <class X>
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(X _x, const Vector3D<value_type>& yzw) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator *(const Vector4D& v) const noexcept
-		{
-			return{ x * v.x, y * v.y, z * v.z, w * v.w };
-		}
+		template <class Z>
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector4D(const Vector3D<value_type>& xyz, Z _z) noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator /(value_type s) const noexcept
-		{
-			return *this * (static_cast<value_type>(1.0) / s);
-		}
+		[[nodiscard]]
+		constexpr value_type elem(size_t index) const noexcept;
 
-		[[nodiscard]] constexpr Vector4D operator /(const Vector4D& v) const noexcept
-		{
-			return{ x / v.x, y / v.y, z / v.z, w / v.w };
-		}
+		[[nodiscard]]
+		value_type* getPointer() noexcept;
 
-		constexpr Vector4D& operator +=(const Vector4D& v) noexcept
-		{
-			x += v.x; y += v.y; z += v.z; w += v.w;
-			return *this;
-		}
+		[[nodiscard]]
+		const value_type* getPointer() const noexcept;
 
-		constexpr Vector4D& operator -=(const Vector4D& v) noexcept
-		{
-			x -= v.x; y -= v.y; z -= v.z; w -= v.w;
-			return *this;
-		}
+		constexpr Vector4D& operator =(const Vector4D&) = default;
 
-		constexpr Vector4D& operator *=(value_type s) noexcept
-		{
-			x *= s; y *= s; z *= s; w *= s;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator +() const noexcept;
 
-		constexpr Vector4D& operator *=(const Vector4D& v) noexcept
-		{
-			x *= v.x; y *= v.y; z *= v.z; w *= v.w;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator -() const noexcept;
 
-		constexpr Vector4D& operator /=(value_type s) noexcept
-		{
-			return *this *= (static_cast<value_type>(1.0) / s);
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator +(Vector4D v) const noexcept;
 
-		constexpr Vector4D& operator /=(const Vector4D& v) noexcept
-		{
-			x /= v.x; y /= v.y; z /= v.z; w /= v.w;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator -(Vector4D v) const noexcept;
 
-		[[nodiscard]] constexpr bool operator ==(const Vector4D& v) const noexcept
-		{
-			return v.x == x && v.y == y && v.z == z && v.w == w;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator *(value_type s) const noexcept;
 
-		[[nodiscard]] constexpr bool operator !=(const Vector4D& v) const noexcept
-		{
-			return v.x != x || v.y != y || v.z != z || v.w != w;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator *(Vector4D v) const noexcept;
 
-		constexpr Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
-		{
-			x = _x; y = _y; z = _z; w = _w;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator /(value_type s) const noexcept;
 
-		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept
-		{
-			x = xy.x; y = xy.y; z = _z; w = _w;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector4D operator /(Vector4D v) const noexcept;
 
-		constexpr Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept
-		{
-			x = _x; y = yz.x; z = yz.y; w = _w;
-			return *this;
-		}
+		constexpr Vector4D& operator +=(Vector4D v) noexcept;
 
-		constexpr Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept
-		{
-			x = _x; y = _y; z = zw.x; w = zw.y;
-			return *this;
-		}
+		constexpr Vector4D& operator -=(Vector4D v) noexcept;
 
-		constexpr Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept
-		{
-			x = xyz.x; y = xyz.y; z = xyz.z; w = _w;
-			return *this;
-		}
+		constexpr Vector4D& operator *=(value_type s) noexcept;
 
-		constexpr Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept
-		{
-			x = _x; y = yzw.x; z = yzw.y; w = yzw.z;
-			return *this;
-		}
+		constexpr Vector4D& operator *=(Vector4D v) noexcept;
 
-		constexpr Vector4D& set(const Vector4D& v) noexcept
-		{
-			return *this = v;
-		}
+		constexpr Vector4D& operator /=(value_type s) noexcept;
 
-		[[nodiscard]] constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
-		{
-			return{ x + _x, y + _y, z + _z, w + _w };
-		}
+		constexpr Vector4D& operator /=(Vector4D v) noexcept;
 
-		[[nodiscard]] constexpr Vector4D movedBy(const Vector4D& v) const noexcept
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend constexpr Vector4D operator *(Arithmetic s, const Vector4D& v) noexcept
 		{
-			return{ x + v.x, y + v.y, z + v.z, w + v.w };
+			return (v * static_cast<Type>(s));
 		}
 
-		constexpr Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Vector4D& lhs, const Vector4D& rhs) noexcept
 		{
-			x += _x; y += _y; z += _z; w += _w;
-			return *this;
+			return (lhs.x == rhs.x)
+				&& (lhs.y == rhs.y)
+				&& (lhs.z == rhs.z)
+				&& (lhs.w == rhs.w);
 		}
 
-		constexpr Vector4D& moveBy(const Vector4D& v) noexcept
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Vector4D& lhs, const Vector4D& rhs) noexcept
 		{
-			return *this += v;
+			return (lhs.x != rhs.x)
+				|| (lhs.y != rhs.y)
+				|| (lhs.z != rhs.z)
+				|| (lhs.w != rhs.w);
 		}
 
-		[[nodiscard]] constexpr bool isZero() const noexcept
-		{
-			return x == static_cast<value_type>(0.0)
-				&& y == static_cast<value_type>(0.0)
-				&& z == static_cast<value_type>(0.0)
-				&& w == static_cast<value_type>(0.0);
-		}
+		[[nodiscard]]
+		constexpr bool epsilonEquals(Vector4D other, value_type epsilon) const noexcept;
 
-		[[nodiscard]] bool hasNaN() const noexcept
-		{
-			return std::isnan(x)
-				|| std::isnan(y)
-				|| std::isnan(z)
-				|| std::isnan(w);
-		}
+		[[nodiscard]]
+		constexpr bool hasSameDirection(Vector4D other) const noexcept;
 
-		[[nodiscard]] constexpr Type dot(const Vector4D& v) const
-		{
-			return x * v.x + y * v.y + z * v.z + w * v.w;
-		}
+		[[nodiscard]]
+		constexpr bool hasOppositeDirection(Vector4D other) const noexcept;
 
-		[[nodiscard]] value_type length() const noexcept
-		{
-			return std::sqrt(lengthSq());
-		}
+		[[nodiscard]]
+		constexpr bool isZero() const noexcept;
 
-		[[nodiscard]] constexpr value_type lengthSq() const noexcept
-		{
-			return dot(*this);
-		}
+		[[nodiscard]]
+		bool hasNaN() const noexcept;
 
-		[[nodiscard]] value_type lengthInv() const noexcept
-		{
-			return static_cast<value_type>(1.0) / length();
-		}
+		[[nodiscard]]
+		constexpr value_type minComponent() const noexcept;
 
-		Vector4D& setLength(value_type _length) noexcept
-		{
-			const value_type len = length();
+		[[nodiscard]]
+		constexpr value_type maxComponent() const noexcept;
 
-			if (len == 0.0)
-			{
-				return *this;
-			}
+		constexpr void clear() noexcept;
 
-			return *this *= (_length / len);
-		}
+		constexpr Vector4D& set(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept;
 
-		[[nodiscard]] Vector4D clampLength(value_type maxLength) const noexcept
-		{
-			const value_type len = length();
-
-			if (len <= maxLength)
-			{
-				return *this;
-			}
-			else
-			{
-				return *this * (maxLength / len);
-			}
-		}
+		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept;
 
-		[[nodiscard]] value_type distanceFrom(double _x, double _y, double _z, double _w) const noexcept
-		{
-			return (*this - Vector4D(_x, _y, _z, _w)).length();
-		}
+		constexpr Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept;
 
-		[[nodiscard]] value_type distanceFrom(const Vector4D& v) const noexcept
-		{
-			return (*this - v).length();
-		}
+		constexpr Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept;
 
-		[[nodiscard]] constexpr value_type distanceFromSq(double _x, double _y, double _z, double _w) const noexcept
-		{
-			return (*this - Vector4D(_x, _y, _z, _w)).lengthSq();
-		}
+		constexpr Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept;
 
-		[[nodiscard]] constexpr value_type distanceFromSq(const Vector4D& v) const noexcept
-		{
-			return (*this - v).lengthSq();
-		}
+		constexpr Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept;
 
-		[[nodiscard]] Vector4D normalized() const noexcept
-		{
-			return *this * lengthInv();
-		}
+		constexpr Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept;
 
-		Vector4D& normalize() noexcept
-		{
-			return *this *= lengthInv();
-		}
+		constexpr Vector4D& set(Vector4D v) noexcept;
 
-		[[nodiscard]] constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
-		{
-			return Vector4D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f, w + (other.w - w) * f);
-		}
+		[[nodiscard]]
+		constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> xx() const noexcept
-		{
-			return{ x, x };
-		}
+		[[nodiscard]]
+		constexpr Vector4D movedBy(Vector4D v) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> xy() const noexcept
-		{
-			return{ x, y };
-		}
+		constexpr Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> xz() const noexcept
-		{
-			return{ x, z };
-		}
+		constexpr Vector4D& moveBy(Vector4D v) noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> xw() const noexcept
-		{
-			return{ x, w };
-		}
+		[[nodiscard]]
+		constexpr value_type dot(Vector4D v) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> yx() const noexcept
-		{
-			return{ y, x };
-		}
+		[[nodiscard]]
+		value_type length() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> yy() const noexcept
-		{
-			return{ y, y };
-		}
+		[[nodiscard]]
+		constexpr value_type lengthSq() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> yz() const noexcept
-		{
-			return{ y, z };
-		}
+		[[nodiscard]]
+		value_type invLength() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> yw() const noexcept
-		{
-			return{ y, w };
-		}
+		[[nodiscard]]
+		constexpr value_type manhattanLength() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ z, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> zx() const noexcept
-		{
-			return{ z, x };
-		}
+		[[nodiscard]]
+		constexpr value_type manhattanDistanceFrom(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ z, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> zy() const noexcept
-		{
-			return{ z, y };
-		}
+		[[nodiscard]]
+		constexpr value_type manhattanDistanceFrom(Vector4D v) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ z, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> zz() const noexcept
-		{
-			return{ z, z };
-		}
+		[[nodiscard]]
+		value_type distanceFrom(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ z, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> zw() const noexcept
-		{
-			return{ z, w };
-		}
+		[[nodiscard]]
+		value_type distanceFrom(Vector4D v) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ w, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> wx() const noexcept
-		{
-			return{ w, x };
-		}
+		[[nodiscard]]
+		constexpr value_type distanceFromSq(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ w, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> wy() const noexcept
-		{
-			return{ w, y };
-		}
+		[[nodiscard]]
+		constexpr value_type distanceFromSq(Vector4D v) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ w, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> wz() const noexcept
-		{
-			return{ w, z };
-		}
+		[[nodiscard]]
+		Vector4D withLength(value_type _length) const noexcept;
 
-		/// <summary>
-		/// Vector2D{ w, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector2D<value_type> ww() const noexcept
-		{
-			return{ w, w };
-		}
+		Vector4D& setLength(value_type _length) noexcept;
 
-		/// <summary>
-		/// Vector3D{ x, x, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> xxx() const noexcept
-		{
-			return{ x, x, x };
-		}
+		[[nodiscard]]
+		Vector4D limitLength(value_type maxLength) const noexcept;
 
-		/// <summary>
-		/// Vector3D{ y, y, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> yyy() const noexcept
-		{
-			return{ y, y, y };
-		}
+		Vector4D& limitLengthSelf(value_type maxLength) noexcept;
 
-		/// <summary>
-		/// Vector3D{ z, z, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> zzz() const noexcept
-		{
-			return{ z, z, z };
-		}
+		[[nodiscard]]
+		Vector4D normalized() const noexcept;
 
-		/// <summary>
-		/// Vector3D{ w, w, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> www() const noexcept
-		{
-			return{ w, w, w };
-		}
+		Vector4D& normalize() noexcept;
 
-		/// <summary>
-		/// Vector3D{ x, y, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> xyz() const noexcept
-		{
-			return{ x, y, z };
-		}
+		[[nodiscard]]
+		constexpr Vector4D getMidpoint(Vector4D other) const noexcept;
 
-		/// <summary>
-		/// Vector3D{ z, y, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> zyx() const noexcept
-		{
-			return{ z, y, x };
-		}
+		[[nodiscard]]
+		constexpr Vector4D lerp(Vector4D other, value_type f) const noexcept;
 
-		/// <summary>
-		/// Vector3D{ y, z, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> yzw() const noexcept
-		{
-			return{ y, z, w };
-		}
+		[[nodiscard]]
+		size_t hash() const noexcept;
 
-		/// <summary>
-		/// Vector3D{ w, z, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector3D<value_type> wzy() const noexcept
-		{
-			return{ w, z, y };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> xx() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ x, x, x, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D xxxx() const noexcept
-		{
-			return{ x, x, x, x };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> xy() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ y, y, y, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D yyyy() const noexcept
-		{
-			return{ y, y, y, y };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> xz() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ z, z, z, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D zzzz() const noexcept
-		{
-			return{ z, z, z, z };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> xw() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ w, w, w, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D wwww() const noexcept
-		{
-			return{ w, w, w, w };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> yx() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ x, y, z, w }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D xyzw() const noexcept
-		{
-			return{ x, y, z, w };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> yy() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ w, x, y, z }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D wxyz() const noexcept
-		{
-			return{ w, x, y, z };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> yz() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ z, w, x, y }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D zwxy() const noexcept
-		{
-			return{ z, w, x, y };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> yw() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ y, z, w, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D yzwx() const noexcept
-		{
-			return{ y, z, w, x };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> zx() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ w, z, y, x }
-		/// </summary>
-		[[nodiscard]] constexpr Vector4D wzyx() const noexcept
-		{
-			return{ w, z, y, x };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> zy() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ 0, 0, 0, 0 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D Zero() noexcept
-		{
-			return{ 0, 0, 0, 0 };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> zz() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ 1, 1, 1, 1 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D One() noexcept
-		{
-			return{ 1, 1, 1, 1 };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> zw() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ value, value, value, value }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D All(value_type value = 1) noexcept
-		{
-			return{ value, value, value, value };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> wx() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ 1, 0, 0, 0 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitX() noexcept
-		{
-			return{ 1, 0, 0, 0 };
-		}
+		[[nodiscard]]
+		constexpr Vector2D<value_type> wy() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D<value_type> wz() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D<value_type> ww() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> xxx() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> xyz() const noexcept;
 
-		/// <summary>
-		/// Vector4D{ 0, 1, 0, 0 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitY() noexcept
+		[[nodiscard]]
+		constexpr Vector3D<value_type> yyy() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> yxz() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> yzw() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> zzz() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> zyx() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> www() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<value_type> wzy() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D xyz0() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D xyz1() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D xyzw() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D xxxx() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D yyyy() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D zzzz() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D wwww() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector4D wzyx() const noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D Zero() noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D One() noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D All(value_type value = 1) noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D UnitX() noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D UnitY() noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D UnitZ() noexcept;
+
+		[[nodiscard]]
+		static constexpr Vector4D UnitW() noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Vector4D& value)
 		{
-			return{ 0, 1, 0, 0 };
+			return output << CharType('(')
+				<< value.x << CharType(',') << CharType(' ')
+				<< value.y << CharType(',') << CharType(' ')
+				<< value.z << CharType(',') << CharType(' ')
+				<< value.w << CharType(')');
 		}
 
-		/// <summary>
-		/// Vector4D{ 0, 0, 1, 0 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitZ() noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Vector4D& value)
 		{
-			return{ 0, 0, 1, 0 };
+			CharType unused;
+			return input >> unused
+				>> value.x >> unused
+				>> value.y >> unused
+				>> value.z >> unused
+				>> value.w >> unused;
 		}
 
-		/// <summary>
-		/// Vector4D{ 0, 0, 0, 1 }
-		/// </summary>
-		[[nodiscard]] static constexpr Vector4D UnitW() noexcept
+		friend void Formatter(FormatData& formatData, const Vector4D& value)
 		{
-			return{ 0, 0, 0, 1 };
+			_Formatter(formatData, value);
 		}
+
+		static void _Formatter(FormatData& formatData, const Vector4D& value);
 	};
-
-	template <class Type, class U, std::enable_if_t<std::is_scalar_v<U>>* = nullptr>
-	[[nodiscard]] inline constexpr Vector4D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
-	{
-		return v * static_cast<Type>(s);
-	}
 
 	using Float4	= Vector4D<float>;
 	using Vec4		= Vector4D<double>;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
+template <class Type>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Vector4D<Type>, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Float4& value);
-	
-	void Formatter(FormatData& formatData, const Vec4& value);
+	std::u32string tag;
 
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Vector4D<Type>& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output << CharType('(')
-			<< value.x << CharType(',') << CharType(' ')
-			<< value.y << CharType(',') << CharType(' ')
-			<< value.z << CharType(',') << CharType(' ')
-			<< value.w << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& input, Vector4D<Type>& value)
+	template <class FormatContext>
+	auto format(const s3d::Vector4D<Type>& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input >> unused
-			>> value.x >> unused
-			>> value.y >> unused
-			>> value.z >> unused
-			>> value.w >> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {}, {})", value.x, value.y, value.z, value.w);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.x, value.y, value.z, value.w);
+		}
 	}
-}
+};
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
+template <class Type>
+struct std::hash<s3d::Vector4D<Type>>
 {
-	template <class Type>
-	struct hash<s3d::Vector4D<Type>>
+	[[nodiscard]]
+	size_t operator()(const s3d::Vector4D<Type>& value) const noexcept
 	{
-		[[nodiscard]] size_t operator()(const s3d::Vector4D<Type>& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <class Type>
-	struct formatter<s3d::Vector4D<Type>, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Vector4D<Type>& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.z, value.w);
-		}
-	};
-}
+		return value.hash();
+	}
+};

@@ -2,16 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# if  __has_include(<bit>)
+#	include <bit>
+# endif
+# include <cstring>
 # include <functional>
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Utility.hpp"
 
 namespace s3d
 {
@@ -24,16 +29,14 @@ namespace s3d
 
 	enum class CullMode : uint8
 	{
-		None = 1,
+		Off = 1,
 		
 		Front = 2,
 		
 		Back = 3,
 	};
 
-	/// <summary>
-	/// ラスタライザーステート
-	/// </summary>
+	/// @brief ラスタライザーステート
 	struct RasterizerState
 	{
 	private:
@@ -75,178 +78,125 @@ namespace s3d
 
 	public:
 
-		using StorageType = uint64;
+		using storage_type = uint64;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		/// @brief 面の塗りつぶし方法
+		FillMode fillMode : 2	= FillMode::Solid;
 
-		union
-		{
-			struct
-			{
-				/// <summary>
-				/// 面の塗りつぶし方法
-				/// </summary>
-				FillMode fillMode : 2;
+		/// @brief カリングの基準
+		CullMode cullMode : 2	= CullMode::Back;
 
-				/// <summary>
-				/// カリングの基準
-				/// </summary>
-				CullMode cullMode : 2;
+		/// @brief シザーテストの有効無効
+		bool scissorEnable : 2	= false;
 
-				/// <summary>
-				/// シザーテストを有効にするかどうかを示します。 
-				/// </summary>
-				bool scissorEnable : 2;
+		/// @brief アンチエイリアスされた Line3D 描画
+		bool antialiasedLine3D : 2	= false;
 
-				/// <summary>
-				/// アンチエイリアスされた Line3D 描画
-				/// </summary>
-				bool antialiasedLine3D : 2;
+		/// @brief 深度バイアス
+		int32 depthBias	= 0;
 
-				/// <summary>
-				/// デプスのバイアス
-				/// </summary>
-				int32 depthBias;
-			};
-
-			StorageType _data;
-		};
-
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
-
-		explicit RasterizerState(
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr RasterizerState(
 			FillMode _fillMode = FillMode::Solid,
 			CullMode _cullMode = CullMode::Back,
 			bool _scissorEnable = false,
 			bool _antialiasedLine3D = false,
 			int32 _depthBias = 0
-		)
-			: fillMode(_fillMode)
-			, cullMode(_cullMode)
-			, scissorEnable(_scissorEnable)
-			, antialiasedLine3D(_antialiasedLine3D)
-			, depthBias(_depthBias) {}
+		);
 
-		RasterizerState(Predefined predefined);
+		SIV3D_NODISCARD_CXX20
+		constexpr RasterizerState(Predefined predefined) noexcept;
 
-		bool operator ==(const RasterizerState& b) const noexcept
-		{
-			return _data == b._data;
-		}
+		[[nodiscard]]
+		storage_type asValue() const noexcept;
 
-		bool operator !=(const RasterizerState& b) const noexcept
-		{
-			return _data != b._data;
-		}
+		[[nodiscard]]
+		bool operator ==(const RasterizerState& other) const noexcept;
 
-		/// <summary>
-		/// ソリッド表示、裏向きの面をカリング
-		/// RasterizerState{ FillMode::Solid, CullMode::Back }
-		/// </summary>
+		[[nodiscard]]
+		bool operator !=(const RasterizerState& other) const noexcept;
+
+		/// @brief ソリッド表示、裏向きの面をカリング
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Back }
 		static const Predefined SolidCullBack = Predefined::SolidCullBack;
 
-		/// <summary>
-		/// ソリッド表示、表向きの面をカリング
-		/// RasterizerState{ FillMode::Solid, CullMode::Front }
-		/// </summary>
+		/// @brief ソリッド表示、表向きの面をカリング
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Front }
 		static const Predefined SolidCullFront = Predefined::SolidCullFront;
 
-		/// <summary>
-		/// ソリッド表示、カリングなし
-		/// RasterizerState{ FillMode::Solid, CullMode::None }
-		/// </summary>
+		/// @brief ソリッド表示、カリングなし
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off }
 		static const Predefined SolidCullNone = Predefined::SolidCullNone;
 
-		/// <summary>
-		/// ワイヤフレーム表示、裏向きの面をカリング
-		/// RasterizerState{ FillMode::Wireframe, CullMode::Back }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、裏向きの面をカリング
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Back }
 		static const Predefined WireframeCullBack = Predefined::WireframeCullBack;
 
-		/// <summary>
-		/// ワイヤフレーム表示、表向きの面をカリング
-		/// RasterizerState{ FillMode::Wireframe, CullMode::Front }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、表向きの面をカリング
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Front }
 		static const Predefined WireframeCullFront = Predefined::WireframeCullFront;
 
-		/// <summary>
-		/// ワイヤフレーム表示、カリングなし
-		/// RasterizerState{ FillMode::Wireframe, CullMode::None }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、カリングなし
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Off }
 		static const Predefined WireframeCullNone = Predefined::WireframeCullNone;
 
-		/// <summary>
-		/// アンチエイリアスされた Line3D 描画
-		/// RasterizerState{ FillMode::Solid, CullMode::None, false, true }
-		/// </summary>
+		/// @brief アンチエイリアスされた Line3D 描画
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, false, true }
 		static const Predefined AntialiasedLine3D = Predefined::AntialiasedLine3D;
 
-		/// <summary>
-		/// ソリッド表示、裏向きの面をカリング、シザーテスト
-		/// RasterizerState{ FillMode::Solid, CullMode::Back, true }
-		/// </summary>
+		/// @brief ソリッド表示、裏向きの面をカリング、シザーテスト
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Back, true }
 		static const Predefined SolidCullBackScissor = Predefined::SolidCullBackScissor;
 
-		/// <summary>
-		/// ソリッド表示、表向きの面をカリング、シザーテスト
-		/// RasterizerState{ FillMode::Solid, CullMode::Front, true }
-		/// </summary>
+		/// @brief ソリッド表示、表向きの面をカリング、シザーテスト
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Front, true }
 		static const Predefined SolidCullFrontScissor = Predefined::SolidCullFrontScissor;
 
-		/// <summary>
-		/// ソリッド表示、カリングなし、シザーテスト
-		/// RasterizerState{ FillMode::Solid, CullMode::None, true }
-		/// </summary>
+		/// @brief ソリッド表示、カリングなし、シザーテスト
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, true }
 		static const Predefined SolidCullNoneScissor = Predefined::SolidCullNoneScissor;
 
-		/// <summary>
-		/// ワイヤフレーム表示、裏向きの面をカリング、シザーテスト
-		/// RasterizerState{ FillMode::Wireframe, CullMode::Back, true }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、裏向きの面をカリング、シザーテスト
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Back, true }
 		static const Predefined WireframeCullBackScissor = Predefined::WireframeCullBackScissor;
 
-		/// <summary>
-		/// ワイヤフレーム表示、表向きの面をカリング、シザーテスト
-		/// RasterizerState{ FillMode::Wireframe, CullMode::Front, true }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、表向きの面をカリング、シザーテスト
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Front, true }
 		static const Predefined WireframeCullFrontScissor = Predefined::WireframeCullFrontScissor;
 
-		/// <summary>
-		/// ワイヤフレーム表示、カリングなし、シザーテスト
-		/// RasterizerState{ FillMode::Wireframe, CullMode::None, true }
-		/// </summary>
+		/// @brief ワイヤフレーム表示、カリングなし、シザーテスト
+		/// @remark RasterizerState{ FillMode::Wireframe, CullMode::Off, true }
 		static const Predefined WireframeCullNoneScissor = Predefined::WireframeCullNoneScissor;
-		
-		/// <summary>
-		/// アンチエイリアスされた Line3D 描画、シザーテスト
-		/// RasterizerState{ FillMode::Solid, CullMode::None, true, true }
-		/// </summary>
+
+		/// @brief アンチエイリアスされた Line3D 描画、シザーテスト
+		/// @remark RasterizerState{ FillMode::Solid, CullMode::Off, true, true }
 		static const Predefined AntialiasedLine3DScissor = Predefined::AntialiasedLine3DScissor;
 
-		/// <summary>
-		/// 2D 描画時のデフォルト
-		/// RasterizerState::SolidNone
-		/// </summary>
+		/// @brief 2D 描画時のデフォルト
+		/// @remark RasterizerState::SolidNone
 		static const Predefined Default2D = Predefined::Default2D;
 
-		/// <summary>
-		/// 3D 描画時のデフォルト
-		/// RasterizerState::SolidBack
-		/// </summary>
+		/// @brief 3D 描画時のデフォルト
+		/// @remark RasterizerState::SolidBack
 		static const Predefined Default3D = Predefined::Default3D;
 	};
-
-	static_assert(sizeof(RasterizerState) == sizeof(RasterizerState::StorageType));
+	static_assert(sizeof(RasterizerState) == sizeof(RasterizerState::storage_type));
 }
 
-namespace std
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+template <>
+struct std::hash<s3d::RasterizerState>
 {
-	template <>
-	struct hash<s3d::RasterizerState>
+	[[nodiscard]]
+	size_t operator()(const s3d::RasterizerState& value) const noexcept
 	{
-		size_t operator()(const s3d::RasterizerState& keyVal) const noexcept
-		{
-			return hash<s3d::RasterizerState::StorageType>()(keyVal._data);
-		}
-	};
-}
+		return hash<s3d::RasterizerState::storage_type>()(value.asValue());
+	}
+};
+
+# include "detail/RasterizerState.ipp"

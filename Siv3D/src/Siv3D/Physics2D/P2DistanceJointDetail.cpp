@@ -2,48 +2,78 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/Physics2D/P2Body.hpp>
 # include "P2DistanceJointDetail.hpp"
-# include "Physics2DUtility.hpp"
+# include "P2WorldDetail.hpp"
+# include "P2BodyDetail.hpp"
 
 namespace s3d
 {
-	P2DistanceJoint::P2DistanceJointDetail::P2DistanceJointDetail(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
-		: m_world(world)
+	detail::P2DistanceJointDetail::P2DistanceJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length, const EnableCollision enableCollision)
+		: m_world{ world }
+		, m_bodyA{ bodyA.getWeakPtr() }
+		, m_bodyB{ bodyB.getWeakPtr() }
 	{
 		b2DistanceJointDef def;
-		def.Initialize(bodyA.getBodyPtr(), bodyB.getBodyPtr(), detail::ToB2Vec2(anchorPosA), detail::ToB2Vec2(anchorPosB));
-		m_joint = static_cast<b2DistanceJoint*>(world.getWorldPtr()->CreateJoint(&def));
-		m_joint->SetLength(static_cast<float32>(length));
+		def.Initialize(m_bodyA.lock()->getBodyPtr(), m_bodyB.lock()->getBodyPtr(), detail::ToB2Vec2(worldAnchorPosA), detail::ToB2Vec2(worldAnchorPosB));
+		def.collideConnected = enableCollision.getBool();
+		m_joint = static_cast<b2DistanceJoint*>(m_world->getWorldPtr()->CreateJoint(&def));
+		m_joint->SetLength(static_cast<float>(length));
 	}
 
-	P2DistanceJoint::P2DistanceJointDetail::~P2DistanceJointDetail()
+	detail::P2DistanceJointDetail::~P2DistanceJointDetail()
 	{
-		if (!m_joint)
+		if (not m_joint)
 		{
 			return;
 		}
 
-		m_world.getWorldPtr()->DestroyJoint(m_joint);
+		if (m_bodyA.expired() || m_bodyB.expired())
+		{
+			return;
+		}
+
+		m_world->getWorldPtr()->DestroyJoint(m_joint);
 	}
 
-	b2DistanceJoint& P2DistanceJoint::P2DistanceJointDetail::getJoint()
+	b2DistanceJoint& detail::P2DistanceJointDetail::getJoint() noexcept
 	{
 		assert(m_joint);
 
 		return *m_joint;
 	}
 
-	const b2DistanceJoint& P2DistanceJoint::P2DistanceJointDetail::getJoint() const
+	const b2DistanceJoint& detail::P2DistanceJointDetail::getJoint() const noexcept
 	{
 		assert(m_joint);
 
 		return *m_joint;
+	}
+
+	void detail::P2DistanceJointDetail::setLinearStiffness(const double frequencyHz, const double dampingRatio) noexcept
+	{
+		assert(m_joint);
+
+		auto pA = m_bodyA.lock();
+		auto pB = m_bodyB.lock();
+
+		if (not pA || not pB)
+		{
+			return;
+		}
+
+		float stiffness, damping;
+		b2LinearStiffness(stiffness, damping, static_cast<float>(frequencyHz), static_cast<float>(dampingRatio),
+			pA->getBodyPtr(), pB->getBodyPtr());
+
+		m_joint->SetStiffness(stiffness);
+		m_joint->SetDamping(damping);
 	}
 }

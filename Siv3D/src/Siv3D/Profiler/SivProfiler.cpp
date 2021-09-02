@@ -2,34 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/Profiler.hpp>
-# include "IProfiler.hpp"
+# include <Siv3D/Profiler/IProfiler.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Profiler
 	{
-		int32 FPS()
+		int32 FPS() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DProfiler>()->getFPS();
+			return SIV3D_ENGINE(Profiler)->getFPS();
 		}
 
-		void EnableAssetCreationWarning(const bool enabled)
+		void EnableAssetCreationWarning(const bool enbaled)
 		{
-			Siv3DEngine::Get<ISiv3DProfiler>()->setAssetCreationWarningEnabled(enabled);
+			SIV3D_ENGINE(AssetMonitor)->setWarningEnabled(enbaled);
 		}
 
-		Statistics GetStatistics()
+		const ProfilerStat& GetStat()
 		{
-			return Siv3DEngine::Get<ISiv3DProfiler>()->getStatistics();
+			return SIV3D_ENGINE(Profiler)->getStat();
 		}
 	}
 }

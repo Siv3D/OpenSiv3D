@@ -2,210 +2,281 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/AudioAsset.hpp>
-# include <Siv3DEngine.hpp>
-# include <Asset/IAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Asset/IAsset.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static Audio FromAsset(const IAsset* asset)
 		{
-			if (const AudioAssetData* audioAssetData = dynamic_cast<const AudioAssetData*>(asset))
+			if (const AudioAssetData* assetData = dynamic_cast<const AudioAssetData*>(asset))
 			{
-				return audioAssetData->audio;
+				return assetData->audio;
 			}
 
-			return Audio();
+			return{};
 		}
-	}
 
-	const String& AudioAssetData::Name()
-	{
-		static const String name = U"Audio";
-
-		return name;
-	}
-
-	bool AudioAssetData::DefaultPreload(AudioAssetData& asset)
-	{
-		if (asset.audio)
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
 		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ AudioAsset::Register(): Audio file `" + path + U"` not found");
+				return false;
+			}
+
 			return true;
 		}
-
-		asset.audio = Audio(asset.path, asset.loop);
-
-		return !asset.audio.isEmpty();
 	}
 
-	bool AudioAssetData::DefaultUpdate(AudioAssetData&)
+	AudioAsset::AudioAsset(const AssetNameView name)
+		: Audio{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Audio, name)) } {}
+	
+	bool AudioAsset::Register(const AssetName& name, const FilePathView path)
 	{
-		return true;
+		return Register(name, path, none);
 	}
 
-	bool AudioAssetData::DefaultRelease(AudioAssetData& asset)
+	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Loop loop)
 	{
-		asset.audio.release();
-
-		return true;
-	}
-
-	AudioAssetData::AudioAssetData()
-		: IAsset()
-		, onPreload(DefaultPreload)
-		, onUpdate(DefaultUpdate)
-		, onRelease(DefaultRelease)
-	{
-
-	}
-
-	AudioAssetData::AudioAssetData(
-		const FilePath& _path,
-		const Optional<AudioLoopTiming>& _loop,
-		const AssetParameter& _parameter,
-		std::function<bool(AudioAssetData&)> _onPreload,
-		std::function<bool(AudioAssetData&)> _onUpdate,
-		std::function<bool(AudioAssetData&)> _onRelease)
-		: IAsset(_parameter)
-		, path(_path)
-		, loop(_loop)
-		, onPreload(_onPreload)
-		, onUpdate(_onUpdate)
-		, onRelease(_onRelease)
-	{
-
-	}
-
-	bool AudioAssetData::preload()
-	{
-		if (uninitialized())
+		if (loop)
 		{
-			setState(onPreload(*this) ? State::LoadSucceeded : State::LoadFailed);
+			return Register(name, path, AudioLoopTiming{});
 		}
-
-		return loadSucceeded();
-	}
-
-	void AudioAssetData::preloadAsync()
-	{
-		if (uninitialized())
+		else
 		{
-			launchLoading([this]() { return onPreload(*this); });
-
-			setState(State::PreloadingAsync);
+			return Register(name, path, none);
 		}
 	}
 
-	bool AudioAssetData::update()
+	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
-		if (!isPreloaded())
+		return Register(name, path, AudioLoopTiming{ *loopBegin });
+	}
+
+	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
+	{
+		return Register(name, path, AudioLoopTiming{ *loopBegin, *loopEnd });
+	}
+
+	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Optional<AudioLoopTiming>& loop)
+	{
+		if (not detail::CheckFileExists(path))
 		{
 			return false;
 		}
 
-		return onUpdate(*this);
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(path, loop);
+
+		return Register(name, std::move(data));
 	}
 
-	bool AudioAssetData::release()
+	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path)
 	{
-		if (uninitialized())
+		return Register(name, Audio::Stream, path, Loop::No);
+	}
+
+	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Loop loop)
+	{
+		if (not detail::CheckFileExists(path))
 		{
-			return true;
+			return false;
 		}
 
-		const bool result = onRelease(*this);
+		std::unique_ptr<AudioAssetData> data;
+		
+		if (loop)
+		{
+			data = std::make_unique<AudioAssetData>(Audio::Stream, path, Arg::loopBegin = 0);
+		}
+		else
+		{
+			data = std::make_unique<AudioAssetData>(Audio::Stream, path);
+		}
 
-		setState(State::Uninitialized);
-
-		return result;
+		return Register(name, std::move(data));
 	}
 
-	AudioAsset::AudioAsset(const AssetName& name)
-		: Audio(detail::FromAsset(Siv3DEngine::Get<ISiv3DAsset>()->getAsset(AssetType::Audio, name)))
+	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
 
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(Audio::Stream, path, loopBegin);
+
+		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		return Register(name, path, none, parameter);
+		return Register(name, instrument, key, duration, SecondsF{ 1.0 }, velocity, sampleRate);
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePath& path, const Optional<AudioLoopTiming>& loop, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Audio, name, std::make_unique<AudioAssetData>(path, loop, parameter));
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(instrument, key, noteOn, noteOff, velocity, sampleRate);
+
+		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetName& name, std::unique_ptr<AudioAssetData>&& data)
 	{
-		return Register(name, instrumrnt, key, duration, 1.0, Wave::DefaultSamplingRate, 0.01f, parameter);
+		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Audio, name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path)
 	{
-		return Register(name, instrumrnt, key, duration, velocity, Wave::DefaultSamplingRate, 0.01f, parameter);
+		return Register(nameAndTag, path, none);
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, Arg::samplingRate_<uint32> samplingRate, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path, const Loop loop)
 	{
-		return Register(name, instrumrnt, key, duration, velocity, samplingRate, 0.01f, parameter);
+		if (loop)
+		{
+			return Register(nameAndTag, path, AudioLoopTiming{});
+		}
+		else
+		{
+			return Register(nameAndTag, path, none);
+		}
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, Arg::samplingRate_<uint32> samplingRate, const float silenceValue, const AssetParameter& parameter)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
-		return Register(name, AudioAssetData(FilePath(), none, parameter,
-			[=](AudioAssetData& a) { a.audio = Audio(instrumrnt, key, duration, velocity, samplingRate, silenceValue); return !!a.audio; },
-			AudioAssetData::DefaultUpdate,
-			AudioAssetData::DefaultRelease
-		));
+		return Register(nameAndTag, path, AudioLoopTiming{ *loopBegin });
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const AudioAssetData& data)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Audio, name, std::make_unique<AudioAssetData>(data));
+		return Register(nameAndTag, path, AudioLoopTiming{ *loopBegin, *loopEnd });
 	}
 
-	bool AudioAsset::IsRegistered(const AssetName& name)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const FilePathView path, const Optional<AudioLoopTiming>& loop)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isRegistered(AssetType::Audio, name);
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(path, loop, nameAndTag.tags);
+
+		return Register(nameAndTag.name, std::move(data));
 	}
 
-	bool AudioAsset::Preload(const AssetName& name)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, const FilePathView path)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->preload(AssetType::Audio, name);
+		return Register(nameAndTag, Audio::Stream, path, Loop::No);
 	}
 
-	void AudioAsset::Release(const AssetName& name)
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, const FilePathView path, const Loop loop)
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->release(AssetType::Audio, name);
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<AudioAssetData> data;
+
+		if (loop)
+		{
+			data = std::make_unique<AudioAssetData>(Audio::Stream, path, Arg::loopBegin = 0, nameAndTag.tags);
+		}
+		else
+		{
+			data = std::make_unique<AudioAssetData>(Audio::Stream, path, nameAndTag.tags);
+		}
+
+		return Register(nameAndTag.name, std::move(data));
+	}
+
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
+	{
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(Audio::Stream, path, loopBegin, nameAndTag.tags);
+
+		return Register(nameAndTag.name, std::move(data));
+	}
+
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+	{
+		return Register(nameAndTag, instrument, key, duration, SecondsF{ 1.0 }, velocity, sampleRate);
+	}
+
+	bool AudioAsset::Register(const AssetNameAndTags& nameAndTag, const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+	{
+		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(instrument, key, noteOn, noteOff, velocity, sampleRate, nameAndTag.tags);
+
+		return Register(nameAndTag.name, std::move(data));
+	}
+
+
+	bool AudioAsset::IsRegistered(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Audio, name);
+	}
+
+	bool AudioAsset::Load(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->load(AssetType::Audio, name, {});
+	}
+
+	void AudioAsset::LoadAsync(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Audio, name, {});
+	}
+
+	void AudioAsset::Wait(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->wait(AssetType::Audio, name);
+	}
+
+	bool AudioAsset::IsReady(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->isReady(AssetType::Audio, name);
+	}
+
+	void AudioAsset::Release(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->release(AssetType::Audio, name);
 	}
 
 	void AudioAsset::ReleaseAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->releaseAll(AssetType::Audio);
+		SIV3D_ENGINE(Asset)->releaseAll(AssetType::Audio);
 	}
 
-	void AudioAsset::Unregister(const AssetName& name)
+	void AudioAsset::Unregister(const AssetNameView name)
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregister(AssetType::Audio, name);
+		SIV3D_ENGINE(Asset)->unregister(AssetType::Audio, name);
 	}
 
 	void AudioAsset::UnregisterAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregisterAll(AssetType::Audio);
+		SIV3D_ENGINE(Asset)->unregisterAll(AssetType::Audio);
 	}
 
-	bool AudioAsset::IsReady(const AssetName& name)
+	HashTable<AssetName, AssetInfo> AudioAsset::Enumerate()
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isReady(AssetType::Audio, name);
+		return SIV3D_ENGINE(Asset)->enumerate(AssetType::Audio);
 	}
 }

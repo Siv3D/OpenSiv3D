@@ -2,67 +2,69 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <AssetHandleManager/AssetHandleManager.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include <Siv3D/HashTable.hpp>
 # include "ScriptData.hpp"
 # include "IScript.hpp"
 
 namespace s3d
 {
-	class CScript : public ISiv3DScript
+	class CScript final : public ISiv3DScript
 	{
-	private:
-
-		AngelScript::asIScriptEngine* m_engine = nullptr;
-
-		AssetHandleManager<ScriptID, ScriptData> m_scripts{ U"Script" };
-
-		bool m_shutDown = true;
-		
-		Array<String> m_messageArray;
-
 	public:
 
 		CScript();
 
 		~CScript() override;
 
-		bool init() override;
+		void init() override;
 
 		void shutdown() override;
 
-		ScriptID createFromCode(const String& code, int32 compileOption) override;
+		Script::IDType createFromCode(StringView code, ScriptCompileOption compileOption) override;
 
-		ScriptID createFromFile(const FilePath& path, int32 compileOption) override;
+		Script::IDType createFromFile(FilePathView path, ScriptCompileOption compileOption) override;
 
-		void release(ScriptID handleID) override;
+		void release(Script::IDType handleID) override;
 
-		AngelScript::asIScriptFunction* getFunction(ScriptID handleID, const String& decl) override;
+		bool compiled(Script::IDType handleID) override;
 
-		std::shared_ptr<ScriptModuleData> getModuleData(ScriptID handleID) override;
+		bool reload(Script::IDType handleID, ScriptCompileOption compileOption) override;
 
-		bool compiled(ScriptID handleID) override;
+		const std::shared_ptr<ScriptModule>& getModule(Script::IDType handleID) override;
 
-		void setSystemUpdateCallback(ScriptID handleID, const std::function<bool(void)>& callback) override;
+		AngelScript::asIScriptFunction* getFunction(Script::IDType handleID, StringView decl) override;
 
-		bool reload(ScriptID handleID, int32 compileOption) override;
+		Array<String> getFunctionDeclarations(Script::IDType handleID, IncludeParamNames includeParamNames) override;
 
-		const FilePath& path(ScriptID handleID) override;
+		const FilePath& path(Script::IDType handleID) override;
 
-		Array<String> retrieveMessagesInternal() override;
+		Array<String> retrieveMessages_internal() override;
 
-		const Array<String>& retrieveMessages(ScriptID handleID) override;
+		const Array<String>& getMessages(Script::IDType handleID) override;
 
+		void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) override;
+		
 		const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) override;
 
 		AngelScript::asIScriptEngine* getEngine() override;
+
+	private:
+
+		AngelScript::asIScriptEngine* m_engine = nullptr;
+
+		AssetHandleManager<Script::IDType, ScriptData> m_scripts{ U"Script" };
+
+		bool m_shutDown = true;
+
+		Array<String> m_messages;
 	};
 }

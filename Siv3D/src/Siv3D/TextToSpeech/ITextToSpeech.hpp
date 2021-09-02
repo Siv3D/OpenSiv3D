@@ -2,20 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 # include <Siv3D/TextToSpeech.hpp>
 
 namespace s3d
 {
-	class ISiv3DTextToSpeech
+	class SIV3D_NOVTABLE ISiv3DTextToSpeech
 	{
 	public:
 
@@ -25,13 +25,13 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual bool hasLanguage(int32 languageCode) = 0;
+		virtual bool hasLanguage(LanguageCode languageCode) = 0;
 
-		virtual void setDefaultLanguage(int32 languageCode) = 0;
+		virtual void setDefaultLanguage(LanguageCode languageCode) = 0;
 
-		virtual int32 getDefaultLanguage() const = 0;
+		virtual LanguageCode getDefaultLanguage() const = 0;
 
-		virtual bool speak(StringView text, int32 languageCode) = 0;
+		virtual bool speak(StringView text, LanguageCode languageCode) = 0;
 
 		virtual bool isSpeaking() const = 0;
 

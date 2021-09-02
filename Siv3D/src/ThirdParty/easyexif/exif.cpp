@@ -263,14 +263,14 @@ bool extract_values(C &container, const unsigned char *buf, const unsigned base,
     } else {
       reversed_data = entry.data();
       // this reversing works, but is ugly
-      unsigned char *data = reinterpret_cast<unsigned char *>(&reversed_data);
+      unsigned char *rdata = reinterpret_cast<unsigned char *>(&reversed_data);
       unsigned char tmp;
-      tmp = data[0];
-      data[0] = data[3];
-      data[3] = tmp;
-      tmp = data[1];
-      data[1] = data[2];
-      data[2] = tmp;
+      tmp = rdata[0];
+      rdata[0] = rdata[3];
+      rdata[3] = tmp;
+      tmp = rdata[1];
+      rdata[1] = rdata[2];
+      rdata[2] = tmp;
     }
     data = reinterpret_cast<const unsigned char *>(&(reversed_data));
   } else {
@@ -586,10 +586,10 @@ int easyexif::EXIFInfo::parseFromEXIFSegment(const unsigned char *buf,
   // typical user might want.
   if (exif_sub_ifd_offset + 4 <= len) {
     offs = exif_sub_ifd_offset;
-    int num_entries = parse_value<uint16_t>(buf + offs, alignIntel);
-    if (offs + 6 + 12 * num_entries > len) return PARSE_EXIF_ERROR_CORRUPT;
+    int num_sub_entries = parse_value<uint16_t>(buf + offs, alignIntel);
+    if (offs + 6 + 12 * num_sub_entries > len) return PARSE_EXIF_ERROR_CORRUPT;
     offs += 2;
-    while (--num_entries >= 0) {
+    while (--num_sub_entries >= 0) {
       IFEntry result =
           parseIFEntry(buf, offs, alignIntel, tiff_header_start, len);
       switch (result.tag()) {
@@ -756,10 +756,10 @@ int easyexif::EXIFInfo::parseFromEXIFSegment(const unsigned char *buf,
   // there. Note that it's possible that the GPS SubIFD doesn't exist.
   if (gps_sub_ifd_offset + 4 <= len) {
     offs = gps_sub_ifd_offset;
-    int num_entries = parse_value<uint16_t>(buf + offs, alignIntel);
-    if (offs + 6 + 12 * num_entries > len) return PARSE_EXIF_ERROR_CORRUPT;
+    int num_sub_entries = parse_value<uint16_t>(buf + offs, alignIntel);
+    if (offs + 6 + 12 * num_sub_entries > len) return PARSE_EXIF_ERROR_CORRUPT;
     offs += 2;
-    while (--num_entries >= 0) {
+    while (--num_sub_entries >= 0) {
       unsigned short tag, format;
       unsigned length, data;
       parseIFEntryHeader(buf + offs, alignIntel, tag, format, length, data);

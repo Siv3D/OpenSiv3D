@@ -2,111 +2,104 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <Shader/IShader.hpp>
 # include <Siv3D/VertexShader.hpp>
-# include <Siv3D/ByteArrayView.hpp>
-# include <Siv3D/EngineMessageBox.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/System.hpp>
+# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	template <>
-	AssetHandle<VertexShader::Tag>::AssetHandle()
+	AssetIDWrapper<AssetHandle<VertexShader>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
-			EngineMessageBox::Show(U"`VertexShader` must be initialized after engine setup.");
-			std::exit(-1);
+			FreestandingMessageBox::ShowError(U"`VertexShader` must be initialized after engine-setup. Please fix the C++ code.");
+			std::abort();
 		}
 	}
 
 	template <>
-	AssetHandle<VertexShader::Tag>::AssetHandle(const IDWrapperType id) noexcept
-		: m_id(id)
+	AssetIDWrapper<AssetHandle<VertexShader>>::~AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
-		{
-			EngineMessageBox::Show(U"`VertexShader` must be initialized after engine setup.");
-			std::exit(-1);
-		}
-	}
-
-	template <>
-	AssetHandle<VertexShader::Tag>::~AssetHandle()
-	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::Get<ISiv3DShader>())
+		if (auto p = SIV3D_ENGINE(Shader))
 		{
-			p->release(m_id);
+			p->releaseVS(m_id);
 		}
 	}
 
-	VertexShader::VertexShader()
-		: m_handle(std::make_shared<VertexShaderHandle>())
-	{
+	VertexShader::VertexShader() {}
 
+	VertexShader::VertexShader(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Shader)->createVSFromFile(path, entryPoint, bindings)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	VertexShader::VertexShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings)
-		: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createVSFromFile(std::move(path), bindings)))
+	VertexShader::~VertexShader() {}
+
+	const Blob& VertexShader::getBinary() const noexcept
 	{
-
-	}
-	
-	//VertexShader::VertexShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings)
-	//	: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVSFromSource(source.value(), bindings)))
-	//{
-	//	
-	//}
-
-	VertexShader::~VertexShader()
-	{
-
+		return SIV3D_ENGINE(Shader)->getBinaryVS(m_handle->id());
 	}
 
-	void VertexShader::release()
+	void VertexShader::swap(VertexShader& other) noexcept
 	{
-		m_handle = std::make_shared<VertexShaderHandle>();
+		m_handle.swap(other.m_handle);
 	}
 
-	bool VertexShader::isEmpty() const
+	VertexShader VertexShader::HLSL(const FilePathView path, const StringView entryPoint)
 	{
-		return m_handle->id().isNullAsset();
+		if (System::GetRendererType() != EngineOption::Renderer::Direct3D11)
+		{
+			throw Error{ U"HLSL must be used with EngineOption::Renderer::Direct3D11" };
+		}
+
+		return VertexShader{ path, entryPoint, {} };
 	}
 
-	VertexShader::operator bool() const
+	VertexShader VertexShader::GLSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
 	{
-		return !isEmpty();
+		if (System::GetRendererType() != EngineOption::Renderer::OpenGL)
+		{
+			throw Error{ U"GLSL must be used with EngineOption::Renderer::OpenGL" };
+		}
+
+		return VertexShader{ path, {}, bindings };
 	}
 
-	VertexShaderID VertexShader::id() const
+	VertexShader VertexShader::MSL(const StringView entryPoint, const FilePathView path)
 	{
-		return m_handle->id();
+		if (System::GetRendererType() != EngineOption::Renderer::Metal)
+		{
+			throw Error{ U"MSL must be used with EngineOption::Renderer::Metal" };
+		}
+
+		return VertexShader{ path, entryPoint, {} };
 	}
 
-	bool VertexShader::operator ==(const VertexShader& shader) const
+	VertexShader VertexShader::ESSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
 	{
-		return m_handle->id() == shader.m_handle->id();
-	}
+		if (System::GetRendererType() != EngineOption::Renderer::WebGL2)
+		{
+			throw Error{ U"ESSL must be used with EngineOption::Renderer::WebGL2" };
+		}
 
-	bool VertexShader::operator !=(const VertexShader& shader) const
-	{
-		return m_handle->id() != shader.m_handle->id();
-	}
-
-	ByteArrayView VertexShader::getBinaryView() const
-	{
-		return Siv3DEngine::Get<ISiv3DShader>()->getBinaryView(m_handle->id());
+		return VertexShader{ path, {}, bindings };
 	}
 }

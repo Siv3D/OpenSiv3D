@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,55 +11,42 @@
 
 # include <Siv3D/ScopedRenderStates2D.hpp>
 # include <Siv3D/Math.hpp>
-# include <Siv3D/Random.hpp>
-# include <Siv3D/TextureRegion.hpp>
-# include <Siv3D/TexturedQuad.hpp>
-# include <Siv3DEngine.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 # include "ParticleSystem2DDetail.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static float DefaultSizeOverLifeTimeFunc(float startSize, float startLifeTime, float remainingLifeTime)
 		{
-			return startSize* (remainingLifeTime / startLifeTime);
+			return startSize * (remainingLifeTime / startLifeTime);
 		};
 
+		[[nodiscard]]
 		static Float4 DefaultColorOverLifeTimeFunc(const Float4& startColor, float, float)
 		{
 			return startColor;
 		};
 	}
 
-	ParticleSystem2D::ParticleSystem2DDetail::ParticleSystem2DDetail()
-	{
-
-	}
+	ParticleSystem2D::ParticleSystem2DDetail::ParticleSystem2DDetail() {}
 
 	ParticleSystem2D::ParticleSystem2DDetail::ParticleSystem2DDetail(const Vec2& position, const Vec2& force)
-		: m_position(position)
-		, m_force(force)
-	{
-
-	}
+		: m_position{ position }
+		, m_force{ force } {}
 
 	ParticleSystem2D::ParticleSystem2DDetail::ParticleSystem2DDetail(const Vec2& position, const Vec2& force, std::unique_ptr<IEmitter2D>&& emitter,
 		const ParticleSystem2DParameters& parameters, const Texture& texture)
-		: m_position(position)
-		, m_force(force)
-		, m_parameters(parameters)
-		, m_emitter(std::move(emitter))
-		, m_particleTexture(texture)
-	{
+		: m_position{ position }
+		, m_force{ force }
+		, m_parameters{ parameters }
+		, m_emitter{ std::move(emitter) }
+		, m_particleTexture{ texture } {}
 
-	}
-
-	ParticleSystem2D::ParticleSystem2DDetail::~ParticleSystem2DDetail()
-	{
-		
-	}
+	ParticleSystem2D::ParticleSystem2DDetail::~ParticleSystem2DDetail() {}
 
 	void ParticleSystem2D::ParticleSystem2DDetail::setPosition(const Vec2& position) noexcept
 	{
@@ -93,7 +80,7 @@ namespace s3d
 
 	void ParticleSystem2D::ParticleSystem2DDetail::prewarm()
 	{
-		if (!m_emitter)
+		if (not m_emitter)
 		{
 			return;
 		}
@@ -114,7 +101,7 @@ namespace s3d
 
 		m_remainingTime += deltaTime;
 
-		if (!m_emitter)
+		if (not m_emitter)
 		{
 			m_remainingTime = 0.0;
 			return;
@@ -131,7 +118,7 @@ namespace s3d
 
 	void ParticleSystem2D::ParticleSystem2DDetail::draw() const
 	{
-		ScopedRenderStates2D blend(m_parameters.blendState);
+		ScopedRenderStates2D blend{ m_parameters.blendState };
 
 		if (m_particleTexture)
 		{
@@ -145,7 +132,7 @@ namespace s3d
 
 	void ParticleSystem2D::ParticleSystem2DDetail::drawDebug() const
 	{
-		ScopedRenderStates2D blend(m_parameters.blendState);
+		ScopedRenderStates2D blend{ m_parameters.blendState };
 
 		if (m_emitter)
 		{
@@ -157,19 +144,19 @@ namespace s3d
 
 	void ParticleSystem2D::ParticleSystem2DDetail::updateCurrentparticles(float deltaTime)
 	{
-		const Float2 deltaVelocity = m_force * deltaTime;
+		const Float2 deltaVelocity = (m_force * deltaTime);
 
 		for (auto& particle : m_particles)
 		{
 			particle.update(deltaTime, deltaVelocity);
 		}
 
-		m_particles.remove_if([](const Particle2D & p) { return p.isDead(); });
+		m_particles.remove_if([](const Particle2D& p) { return p.isDead(); });
 	}
 
 	void ParticleSystem2D::ParticleSystem2DDetail::addParticles(const ParticleSystem2DParameters& params)
 	{
-		const double timePerParticle = 1.0 / params.rate;
+		const double timePerParticle = (1.0 / params.rate);
 
 		while (m_remainingTime > timePerParticle)
 		{
@@ -217,9 +204,9 @@ namespace s3d
 			const float size = sizeOverLifeTimeFunc(particle.startSize, particle.startLifeTime, particle.remainingLifeTime);
 			const Float4 color = colorOverLifeTimeFunc(particle.startColor, particle.startLifeTime, particle.remainingLifeTime);
 
-			RectF(Arg::center = particle.position, size)
+			RectF{ Arg::center = particle.position, size }
 				.rotated(particle.rotation)
-				.draw(ColorF(color));
+				.draw(ColorF{ color });
 		}
 	}
 
@@ -230,7 +217,7 @@ namespace s3d
 		const ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc =
 			m_parameters.colorOverLifeTimeFunc ? m_parameters.colorOverLifeTimeFunc : detail::DefaultColorOverLifeTimeFunc;
 
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTexturedParticles(m_particleTexture, m_particles, sizeOverLifeTimeFunc, colorOverLifeTimeFunc);
+		SIV3D_ENGINE(Renderer2D)->addTexturedParticles(m_particleTexture, m_particles, sizeOverLifeTimeFunc, colorOverLifeTimeFunc);
 	}
 
 	void ParticleSystem2D::ParticleSystem2DDetail::drawDebugParticle() const
@@ -245,9 +232,9 @@ namespace s3d
 			const float size = sizeOverLifeTimeFunc(particle.startSize, particle.startLifeTime, particle.remainingLifeTime);
 			const Float4 color = colorOverLifeTimeFunc(particle.startColor, particle.startLifeTime, particle.remainingLifeTime);
 
-			RectF(Arg::center = particle.position, size)
+			RectF{ Arg::center = particle.position, size }
 				.rotated(particle.rotation)
-				.drawFrame(1, ColorF(color));
+				.drawFrame(1, ColorF{ color });
 		}
 	}
 }

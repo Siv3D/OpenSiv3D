@@ -2,114 +2,163 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include <array>
+# include "Common.hpp"
+# include "Concepts.hpp"
 # include "PointVector.hpp"
+# include "Random.hpp"
+# include "Noise.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Perlin Noise | パーリンノイズ
-	/// </summary>
-	class PerlinNoise
+	/// @brief Perlin Noise 生成器
+	/// @tparam Float 出力結果の型
+	template <class Float>
+	class BasicPerlinNoise
 	{
-	private:
-
-		uint8 p[512];
-
 	public:
 
-		explicit PerlinNoise(uint32 seed = 0);
+		using state_type = std::array<uint8, 256>;
+		
+		using value_type = Float;
 
-		void reseed(uint32 seed);
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr BasicPerlinNoise() noexcept;
 
-		[[nodiscard]] double noise(double x) const;
+		SIV3D_NODISCARD_CXX20
+		explicit BasicPerlinNoise(uint64 seed);
 
-		[[nodiscard]] double noise(double x, double y) const;
+		SIV3D_CONCEPT_URBG
+		SIV3D_NODISCARD_CXX20
+		explicit BasicPerlinNoise(URBG&& urbg);
 
-		[[nodiscard]] double noise(double x, double y, double z) const;
+		void reseed(uint64 seed);
 
-		[[nodiscard]] double noise(const Vec2& xy) const
-		{
-			return noise(xy.x, xy.y);
-		}
+		SIV3D_CONCEPT_URBG
+		void reseed(URBG&& urbg);
 
-		[[nodiscard]] double noise(const Vec3& xyz) const
-		{
-			return noise(xyz.x, xyz.y, xyz.z);
-		}
+		[[nodiscard]]
+		value_type noise1D(value_type x) const noexcept;
 
-		[[nodiscard]] double octaveNoise(double x, int32 octaves) const;
+		[[nodiscard]]
+		value_type noise2D(value_type x, value_type y) const noexcept;
 
-		[[nodiscard]] double octaveNoise(double x, double y, int32 octaves) const;
+		[[nodiscard]]
+		value_type noise2D(Vector2D<value_type> xy) const noexcept;
 
-		[[nodiscard]] double octaveNoise(double x, double y, double z, int32 octaves) const;
+		[[nodiscard]]
+		value_type noise3D(value_type x, value_type y, value_type z) const noexcept;
 
-		[[nodiscard]] double octaveNoise(const Vec2& xy, int32 octaves) const
-		{
-			return octaveNoise(xy.x, xy.y, octaves);
-		}
+		[[nodiscard]]
+		value_type noise3D(Vector3D<value_type> xyz) const noexcept;
 
-		[[nodiscard]] double octaveNoise(const Vec3& xyz, int32 octaves) const
-		{
-			return octaveNoise(xyz.x, xyz.y, xyz.z, octaves);
-		}
 
-		[[nodiscard]] double noise0_1(double x) const
-		{
-			return noise(x) * 0.5 + 0.5;
-		}
+		[[nodiscard]]
+		value_type noise1D0_1(value_type x) const noexcept;
 
-		[[nodiscard]] double noise0_1(double x, double y) const
-		{
-			return noise(x, y) * 0.5 + 0.5;
-		}
+		[[nodiscard]]
+		value_type noise2D0_1(value_type x, value_type y) const noexcept;
 
-		[[nodiscard]] double noise0_1(double x, double y, double z) const
-		{
-			return noise(x, y, z) * 0.5 + 0.5;
-		}
+		[[nodiscard]]
+		value_type noise2D0_1(Vector2D<value_type> xy) const noexcept;
 
-		[[nodiscard]] double noise0_1(const Vec2& xy) const
-		{
-			return noise0_1(xy.x, xy.y);
-		}
+		[[nodiscard]]
+		value_type noise3D0_1(value_type x, value_type y, value_type z) const noexcept;
 
-		[[nodiscard]] double noise0_1(const Vec3& xyz) const
-		{
-			return noise0_1(xyz.x, xyz.y, xyz.z);
-		}
+		[[nodiscard]]
+		value_type noise3D0_1(Vector3D<value_type> xyz) const noexcept;
 
-		[[nodiscard]] double octaveNoise0_1(double x, int32 octaves) const
-		{
-			return octaveNoise(x, octaves) * 0.5 + 0.5;
-		}
 
-		[[nodiscard]] double octaveNoise0_1(double x, double y, int32 octaves) const
-		{
-			return octaveNoise(x, y, octaves) * 0.5 + 0.5;
-		}
+		[[nodiscard]]
+		value_type octave1D(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
 
-		[[nodiscard]] double octaveNoise0_1(double x, double y, double z, int32 octaves) const
-		{
-			return octaveNoise(x, y, z, octaves) * 0.5 + 0.5;
-		}
+		[[nodiscard]]
+		value_type octave2D(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
 
-		[[nodiscard]] double octaveNoise0_1(const Vec2& xy, int32 octaves) const
-		{
-			return octaveNoise0_1(xy.x, xy.y, octaves);
-		}
+		[[nodiscard]]
+		value_type octave2D(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
 
-		[[nodiscard]] double octaveNoise0_1(const Vec3& xyz, int32 octaves) const
-		{
-			return octaveNoise0_1(xyz.x, xyz.y, xyz.z, octaves);
-		}
+		[[nodiscard]]
+		value_type octave3D(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type octave1D0_1(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D0_1(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave2D0_1(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D0_1(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type octave3D0_1(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type normalizedOctave1D(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		value_type normalizedOctave1D0_1(value_type x, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D0_1(value_type x, value_type y, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave2D0_1(Vector2D<value_type> xy, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D0_1(value_type x, value_type y, value_type z, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+		[[nodiscard]]
+		value_type normalizedOctave3D0_1(Vector3D<value_type> xyz, int32 octaves, value_type persistence = value_type(0.5)) const noexcept;
+
+
+		[[nodiscard]]
+		constexpr const state_type& serialize() const noexcept;
+
+		constexpr void deserialize(const state_type& state) noexcept;
+
+	private:
+
+		state_type m_perm;
+
+		static constexpr Float Fade(Float t) noexcept;
+
+		static constexpr Float Lerp(Float a, Float b, Float t) noexcept;
+
+		static constexpr Float Grad(uint8 hash, Float x, Float y, Float z) noexcept;
 	};
+
+	using PerlinNoiseF	= BasicPerlinNoise<float>;
+	using PerlinNoise	= BasicPerlinNoise<double>;
 }
+
+# include "detail/PerlinNoise.ipp"

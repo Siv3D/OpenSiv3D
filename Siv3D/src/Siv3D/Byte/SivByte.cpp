@@ -1,35 +1,35 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <array>
-# include <iostream>
 # include <Siv3D/Byte.hpp>
-# include <Siv3D/Format.hpp>
 # include <Siv3D/ParseInt.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
 		template <class CharType>
-		[[nodiscard]] constexpr std::array<CharType, 2> ToHex(const Byte value)
+		[[nodiscard]]
+		constexpr std::array<CharType, 2> ToHex(const Byte value) noexcept
 		{
 			constexpr char s[16] =
 			{
 				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
 			};
 
-			return{{
+			return{ {
 				static_cast<CharType>(s[static_cast<uint8>(value) >> 4]),
-				static_cast<CharType>(s[static_cast<uint8>(value) & 0xF]) }};
+				static_cast<CharType>(s[static_cast<uint8>(value) & 0xF]) } };
 		}
 	}
 
@@ -60,7 +60,7 @@ namespace s3d
 
 		input >> in;
 
-		value = Byte(ParseInt<uint8>(Unicode::FromUTF8(in), Arg::radix = 16));
+		value = Byte{ ParseInt<uint8>(Unicode::FromUTF8(in), Arg::radix = 16) };
 
 		return input;
 	}
@@ -71,7 +71,7 @@ namespace s3d
 
 		input >> in;
 
-		value = Byte(ParseInt<uint8>(Unicode::FromWString(in), Arg::radix = 16));
+		value = Byte{ ParseInt<uint8>(Unicode::FromWstring(in), Arg::radix = 16) };
 
 		return input;
 	}

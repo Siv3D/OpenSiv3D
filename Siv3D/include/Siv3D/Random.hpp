@@ -2,197 +2,272 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <algorithm>
+# include "Common.hpp"
+# include "Concepts.hpp"
+# include "SMFT.hpp"
 # include "Distribution.hpp"
-# include "Duration.hpp"
-# include "DefaultRNG.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// [0, 1) の範囲の乱数を返します。
-	/// </summary>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// [0, 1) の範囲の乱数
-	/// </returns>
-	double Random();
+	/// @brief デフォルトの乱数エンジンの種類 (PRNG::SFMT19937_64)
+	using DefaultRNG = PRNG::SFMT19937_64;
 
-	/// <summary>
-	/// 指定した型と範囲の乱数を返します。
-	/// </summary>
-	/// <param name="min">
-	/// 生成したい乱数の最小値
-	/// </param>
-	/// <param name="max">
-	/// 生成したい乱数の最大値
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// 指定した型と範囲の乱数
-	/// </returns>
-	template <class Type>
-	inline Type Random(const Type& min, const Type& max)
-	{
-		return UniformDistribution<Type>(min, max)(GetDefaultRNG());
-	}
+	/// @brief 現在のスレッドの乱数エンジンの参照を返します。
+	/// @return 現在のスレッドの乱数エンジン
+	[[nodiscard]]
+	DefaultRNG& GetDefaultRNG() noexcept;
 
-	/// <summary>
-	/// 0 から、指定した範囲までの乱数を返します。
-	/// </summary>
-	/// <param name="max">
-	/// 生成したい乱数の最大値
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// 0 以上 max 以下の乱数
-	/// </returns>
-	template <class Type>
-	inline Type Random(const Type& max)
-	{
-		return UniformDistribution<Type>(0, max)(GetDefaultRNG());
-	}
+	/// @brief 現在のスレッドの乱数エンジンのシード値を設定します。 
+	/// @param seed シード値
+	void Reseed(uint64 seed) noexcept;
 
-	/// <summary>
-	/// 指定した型と範囲の乱数を返します。
-	/// </summary>
-	/// <param name="min">
-	/// 生成したい乱数の最小値
-	/// </param>
-	/// <param name="max">
-	/// 生成したい乱数の最大値
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// 指定した型と範囲の乱数
-	/// </returns>
-	template <>
-	char32 Random<char32>(const char32& min, const char32& max);
+	/// @brief 現在のスレッドの乱数エンジンのシード値配列を設定します。 
+	/// @param seeds シード値配列
+	void Reseed(const std::array<uint64, 16>& seeds) noexcept;
 
-	/// <summary>
-	/// 指定した型と範囲の乱数を返します。
-	/// </summary>
-	/// <param name="min">
-	/// 生成したい乱数の最小値
-	/// </param>
-	/// <param name="max">
-	/// 生成したい乱数の最大値
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// 指定した型と範囲の乱数
-	/// </returns>
-	template <>
-	Duration Random<Duration>(const Duration& min, const Duration& max);
+	/// @brief [0, 1) の範囲の乱数を返します。
+	/// @remark グローバルな乱数エンジンを使用します。
+	/// @return [0, 1) の範囲の乱数
+	double Random() noexcept;
 
-	/// <summary>
-	/// 2 値の乱数を返します。
-	/// </summary>
-	/// <param name="p">
-	/// true を返す確率 [0.0, 1.0]
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// 確率 p でtrue, 確率 (1-p) で false
-	/// </returns>
-	bool RandomBool(double p = 0.5);
+	/// @brief [0, 1) の範囲の乱数を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 乱数エンジン
+	/// @return [0, 1) の範囲の乱数
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline double Random(URBG&& urbg) noexcept;
 
-	uint8 RandomUint8();
+	/// @brief 現在のスレッドの乱数エンジンを用いて、min 以上 max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param min 生成する乱数の最小値
+	/// @param max 生成する乱数の最大値
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic Random(Arithmetic min, Arithmetic max);
 
-	uint16 RandomUint16();
+	/// @brief min 以上 max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param min 生成する乱数の最小値
+	/// @param max 生成する乱数の最大値
+	/// @param urbg 乱数エンジン
+	/// @return 生成された乱数
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic Random(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-	uint32 RandomUint32();
+	/// @brief 現在のスレッドの乱数エンジンを用いて、0 以上 max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param max 生成する乱数の最大値
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic Random(Arithmetic max);
 
-	uint64 RandomUint64();
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic Random(Arithmetic max, URBG&& urbg);
 
-	int8 RandomInt8();
+	/// @brief 現在のスレッドの乱数エンジンを用いて、min より大きく max 未満の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param min 生成する乱数の範囲の基準となる値（これより大きい）
+	/// @param max 生成する乱数の範囲の基準となる値（これ未満）
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic RandomOpen(Arithmetic min, Arithmetic max);
 
-	int16 RandomInt16();
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomOpen(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-	int32 RandomInt32();
+	/// @brief 現在のスレッドの乱数エンジンを用いて、min 以上 max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param min 生成する乱数の最小値
+	/// @param max 生成する乱数の最大値
+	/// @remark Random(min, max) と同じです。
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic RandomClosed(Arithmetic min, Arithmetic max);
 
-	int64 RandomInt64();
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomClosed(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-	/// <summary>
-	/// コンテナの中身をシャッフルします。
-	/// </summary>
-	/// <param name="c">
-	/// コンテナ
-	/// </param>
-	/// <returns>
-	/// なし
-	/// </returns>
-	template <class Container>
-	inline void Shuffle(Container& c)
-	{
-		std::shuffle(c.begin(), c.end(), GetDefaultRNG());
-	}
+	/// @brief 現在のスレッドの乱数エンジンを用いて、min より大きく max 以下の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param min 生成する乱数の範囲の基準となる値（これより大きい）
+	/// @param max 生成する乱数の最大値
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic RandomOpenClosed(Arithmetic min, Arithmetic max);
 
-	/// <summary>
-	/// 指定した範囲の値をシャッフルします。
-	/// </summary>
-	/// <param name="first">
-	/// 範囲の開始位置
-	/// </param>
-	/// <param name="last">
-	/// 範囲の終了位置
-	/// </param>
-	/// <returns>
-	/// なし
-	/// </returns>
-	template <class RandomIt>
-	inline void Shuffle(RandomIt first, RandomIt last)
-	{
-		std::shuffle(first, last, GetDefaultRNG());
-	}
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomOpenClosed(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-	namespace detail
-	{
-		template <class Type>
-		struct RNG_impl
-		{
-			const Type m_min, m_max;
+	/// @brief 現在のスレッドの乱数エンジンを用いて、min 以上 max 未満の範囲の乱数を生成して返します。
+	/// @tparam Arithmetic 生成する乱数の型
+	/// @param min 生成する乱数の最小値
+	/// @param max 生成する乱数の範囲の基準となる値（これ未満）
+	/// @return 生成された乱数
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline Arithmetic RandomClosedOpen(Arithmetic min, Arithmetic max);
 
-			constexpr RNG_impl(Type min, Type max)
-				: m_min(min)
-				, m_max(max) {}
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic Arithmetic, Concept::UniformRandomBitGenerator URBG>
+# else
+	template <class Arithmetic, class URBG, std::enable_if_t<std::conjunction_v<std::is_arithmetic<Arithmetic>, std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline Arithmetic RandomClosedOpen(Arithmetic min, Arithmetic max, URBG&& urbg);
 
-			Type operator()() const
-			{
-				return Random<Type>(m_min, m_max);
-			}
-		};
-	}
+	/// @brief 現在のスレッドの乱数エンジンを用いて、指定した確率で true を返します。
+	/// @param p 確率
+	/// @return p で指定した確率に基づき、true または false
+	[[nodiscard]]
+	inline bool RandomBool(double p = 0.5) noexcept;
 
-	template <class Type>
-	inline constexpr auto RNG(const Type& max)
-	{
-		return detail::RNG_impl<Type>(0, max);
-	}
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline bool RandomBool(double p, URBG&& urbg) noexcept;
 
-	template <class Type>
-	inline constexpr auto RNG(const Type& min, const Type& max)
-	{
-		return detail::RNG_impl<Type>(min, max);
-	}
+	/// @brief 現在のスレッドの乱数エンジンを用いて、uint8 型で表現されるランダムな値を返します。
+	/// @return uint8 型のランダムな値
+	[[nodiscard]]
+	inline uint8 RandomUint8();
+
+	/// @brief 指定した乱数エンジンを用いて、uint8 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return uint8 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline uint8 RandomUint8(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、uint16 型で表現されるランダムな値を返します。
+	/// @return uint16 型のランダムな値
+	[[nodiscard]]
+	inline uint16 RandomUint16();
+
+	/// @brief 指定した乱数エンジンを用いて、uint16 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return uint16 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline uint16 RandomUint16(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、uint32 型で表現されるランダムな値を返します。
+	/// @return uint32 型のランダムな値
+	[[nodiscard]]
+	inline uint32 RandomUint32();
+
+	/// @brief 指定した乱数エンジンを用いて、uint32 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return uint32 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline uint32 RandomUint32(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、uint64 型で表現されるランダムな値を返します。
+	/// @return uint64 型のランダムな値
+	[[nodiscard]]
+	inline uint64 RandomUint64();
+
+	/// @brief 指定した乱数エンジンを用いて、uint64 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return uint64 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline uint64 RandomUint64(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、int8 型で表現されるランダムな値を返します。
+	/// @return int8 型のランダムな値
+	[[nodiscard]]
+	inline int8 RandomInt8();
+
+	/// @brief 指定した乱数エンジンを用いて、int8 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return int8 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline int8 RandomInt8(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、int16 型で表現されるランダムな値を返します。
+	/// @return int16 型のランダムな値
+	[[nodiscard]]
+	inline int16 RandomInt16();
+
+	/// @brief 指定した乱数エンジンを用いて、int16 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return int16 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline int16 RandomInt16(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、int32 型で表現されるランダムな値を返します。
+	/// @return int32 型のランダムな値
+	[[nodiscard]]
+	inline int32 RandomInt32();
+
+	/// @brief 指定した乱数エンジンを用いて、int32 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return int32 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline int32 RandomInt32(URBG&& urbg);
+
+	/// @brief 現在のスレッドの乱数エンジンを用いて、int64 型で表現されるランダムな値を返します。
+	/// @return int64 型のランダムな値
+	[[nodiscard]]
+	inline int64 RandomInt64();
+
+	/// @brief 指定した乱数エンジンを用いて、int64 型で表現されるランダムな値を返します。
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param urbg 使用する乱数エンジン
+	/// @return int64 型のランダムな値
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline int64 RandomInt64(URBG&& urbg);
 }
+
+# include "detail/Random.ipp"

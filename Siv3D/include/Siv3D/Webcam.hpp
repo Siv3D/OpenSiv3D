@@ -2,88 +2,91 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Array.hpp"
-# include "String.hpp"
-# include "PointVector.hpp"
+# include <memory>
+# include "Common.hpp"
+# include "Optional.hpp"
+# include "DynamicTexture.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Webcam device information
-	/// </summary>
-	struct WebcamInfo
-	{
-		/// <summary>
-		/// Webcam index
-		/// </summary>
-		uint32 index = 0;
-
-		/// <summary>
-		/// Name of the device
-		/// </summary>
-		String name;
-
-		/// <summary>
-		/// Unique name
-		/// </summary>
-		String uniqueName;
-	};
-
+	/// @brief Web カメラ
 	class Webcam
 	{
+	public:
+
+		enum class Permission
+		{
+			Allowed,
+
+			Denied,
+		};
+
+		SIV3D_NODISCARD_CXX20
+		Webcam();
+
+		SIV3D_NODISCARD_CXX20
+		explicit Webcam(uint32 cameraIndex, StartImmediately startImmediately = StartImmediately::No);
+
+		SIV3D_NODISCARD_CXX20
+		Webcam(uint32 cameraIndex, const Size& targetResolution, StartImmediately startImmediately = StartImmediately::No);
+
+		~Webcam();
+
+		/// @brief Web カメラの使用権限を返します。
+		/// @return 許可されている場合 `Permission::Allowed`, 拒否されている場合 `Permission::Denied`, 権限をリクエスト中である場合 `none`
+		[[nodiscard]]
+		Optional<Permission> getPermission() const;
+
+		bool open(uint32 cameraIndex);
+
+		void close();
+
+		/// @brief Web カメラが起動しているかを返します。
+		/// @return Web カメラが起動している場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isOpen() const;
+
+		/// @brief Web カメラが起動しているかを返します。
+		/// @remark `Webcam::isOpen()` と同じです。
+		/// @return Web カメラが起動している場合 true, それ以外の場合は false
+		[[nodiscard]]
+		explicit operator bool() const;
+
+		bool start();
+
+		[[nodiscard]]
+		bool isActive() const;
+
+		[[nodiscard]]
+		uint32 cameraIndex() const;
+
+		[[nodiscard]]
+		Size getResolution() const;
+
+		bool setResolution(int32 width, int32 height);
+
+		bool setResolution(Size resolution);
+
+		[[nodiscard]]
+		bool hasNewFrame() const;
+
+		bool getFrame(Image& image);
+
+		bool getFrame(DynamicTexture& texture);
+
 	private:
 
 		class WebcamDetail;
 
 		std::shared_ptr<WebcamDetail> pImpl;
-
-	public:
-
-		Webcam();
-
-		explicit Webcam(size_t index);
-
-		~Webcam();
-
-		[[nodiscard]] bool isAvailable() const;
-
-		[[nodiscard]] explicit operator bool() const;
-
-		bool start();
-
-		void stop();
-
-		[[nodiscard]] bool isActive() const;
-
-		[[nodiscard]] size_t index() const;
-
-		[[nodiscard]] Size getResolution() const;
-
-		bool setResolution(const Size& resolution);
-		
-		bool setResolution(int32 width, int32 height);
-
-		[[nodiscard]] bool hasNewFrame() const;
-
-		bool getFrame(Image& image);
-
-		bool getFrame(DynamicTexture& texture);
 	};
-
-	namespace System
-	{
-		/// <summary>
-		/// 使用可能な Web カメラの一覧を返します。
-		/// </summary>
-		[[nodiscard]] Array<WebcamInfo> EnumerateWebcams();
-	}
 }

@@ -2,32 +2,31 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
 # include "String.hpp"
+# include "Array.hpp"
+# include "Blob.hpp"
+# include "MemoryReader.hpp"
 
 namespace s3d
 {
+	/// @brief ZIP アーカイブファイルの読み込み
 	class ZIPReader
 	{
-	private:
-
-		class ZIPReaderDetail;
-
-		std::shared_ptr<ZIPReaderDetail> pImpl;
-
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		ZIPReader();
 
+		SIV3D_NODISCARD_CXX20
 		explicit ZIPReader(FilePathView path);
 
 		~ZIPReader();
@@ -36,16 +35,29 @@ namespace s3d
 
 		void close();
 
-		bool isOpen() const;
+		[[nodiscard]]
+		bool isOpen() const noexcept;
 
-		explicit operator bool() const;
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
+		[[nodiscard]]
 		const Array<FilePath>& enumPaths() const;
 
 		bool extractAll(FilePathView targetDirectory) const;
 
-		bool extract(StringView pattern, FilePathView targetDirectory) const;
+		bool extractFiles(StringView pattern, FilePathView targetDirectory) const;
 
-		[[nodiscard]] ByteArray extractToMemory(FilePathView filePath) const;
+		[[nodiscard]]
+		MemoryReader extract(FilePathView filePath) const;
+
+		[[nodiscard]]
+		Blob extractToBlob(FilePathView filePath) const;
+
+	private:
+
+		class ZIPReaderDetail;
+
+		std::shared_ptr<ZIPReaderDetail> pImpl;
 	};
 }

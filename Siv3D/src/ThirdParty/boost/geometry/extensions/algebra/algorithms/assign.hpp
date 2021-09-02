@@ -43,7 +43,9 @@ struct assign_zero<vector_tag, Vector>
 template <typename GeometryTag, typename Geometry>
 struct assign_identity
 {
-    BOOST_MPL_ASSERT_MSG(false, NOT_IMPLEMENTED_FOR_THIS_GEOMETRY, (GeometryTag, Geometry));
+    BOOST_GEOMETRY_STATIC_ASSERT_FALSE(
+        "Not implemented for this Geometry type.",
+        GeometryTag, Geometry);
 };
 
 template <typename R>

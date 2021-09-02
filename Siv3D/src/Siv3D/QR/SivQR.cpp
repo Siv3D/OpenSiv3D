@@ -1,76 +1,50 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <sstream>
 # include <Siv3D/QR.hpp>
-# include <Siv3D/Print.hpp>
-# include <Siv3D/Char.hpp>
-# include <QRCode/qrcode.h>
-# include "QRDecoderDetail.hpp"
+# include <Siv3D/Image.hpp>
+# include <Siv3D/StringView.hpp>
+# include <Siv3D/TextWriter.hpp>
+# include <ThirdParty/qr-code-generator-library/QrCode.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		struct QRCapacityTable
+		[[nodiscard]]
+		static Grid<bool> ToGrid(const qrcodegen::QrCode& qr)
 		{
-			// 0: low 1: medium 2: quartile 3: high
-			// 0: Numeric 1: Alphanumeric 2: Byte
-			uint16 caps[4][3];
-		};
+			const int32 size = qr.getSize();
 
-		constexpr QRCapacityTable CapacityTable[40] =
+			Grid<bool> grid(size, size);
+
+			for (int32 y = 0; y < size; ++y)
+			{
+				for (int32 x = 0; x < size; ++x)
+				{
+					grid[y][x] = qr.getModule(x, y);
+				}
+			}
+
+			return grid;
+		}
+
+		[[nodiscard]]
+		inline constexpr qrcodegen::QrCode::Ecc ToEcc(const QRErrorCorrection ec)
 		{
-			{ {{ 41, 25, 17 },{ 34, 20, 14 },{ 27, 16, 11 },{ 17, 10, 7 }} },
-			{ {{ 77, 47, 32 },{ 63, 38, 26 },{ 48, 29, 20 },{ 34, 20, 14 }} },
-			{ {{ 127, 77, 53 },{ 101, 61, 42 },{ 77, 47, 32 },{ 58, 35, 24 }} },
-			{ {{ 187, 114, 78 },{ 149, 90, 62 },{ 111, 67, 46 },{ 82, 50, 34 }} },
-			{ {{ 255, 154, 106 },{ 202, 122, 84 },{ 144, 87, 60 },{ 106, 64, 44 }} },
-			{ {{ 322, 195, 134 },{ 255, 154, 106 },{ 178, 108, 74 },{ 139, 84, 58 }} },
-			{ {{ 370, 224, 154 },{ 293, 178, 122 },{ 207, 125, 86 },{ 154, 93, 64 }} },
-			{ {{ 461, 279, 192 },{ 365, 221, 152 },{ 259, 157, 108 },{ 202, 122, 84 }} },
-			{ {{ 552, 335, 230 },{ 432, 262, 180 },{ 312, 189, 130 },{ 235, 143, 98 }} },
-			{ {{ 652, 395, 271 },{ 513, 311, 213 },{ 364, 221, 151 },{ 288, 174, 119 }} },
-			{ {{ 772, 468, 321 },{ 604, 366, 251 },{ 427, 259, 177 },{ 331, 200, 137 }} },
-			{ {{ 883, 535, 367 },{ 691, 419, 287 },{ 489, 296, 203 },{ 374, 227, 155 }} },
-			{ {{ 1022, 619, 425 },{ 796, 483, 331 },{ 580, 352, 241 },{ 427, 259, 177 }} },
-			{ {{ 1101, 667, 458 },{ 871, 528, 362 },{ 621, 376, 258 },{ 468, 283, 194 }} },
-			{ {{ 1250, 758, 520 },{ 991, 600, 412 },{ 703, 426, 292 },{ 530, 321, 220 }} },
-			{ {{ 1408, 854, 586 },{ 1082, 656, 450 },{ 775, 470, 322 },{ 602, 365, 250 }} },
-			{ {{ 1548, 938, 644 },{ 1212, 734, 504 },{ 876, 531, 364 },{ 674, 408, 280 }} },
-			{ {{ 1725, 1046, 718 },{ 1346, 816, 560 },{ 948, 574, 394 },{ 746, 452, 310 }} },
-			{ {{ 1903, 1153, 792 },{ 1500, 909, 624 },{ 1063, 644, 442 },{ 813, 493, 338 }} },
-			{ {{ 2061, 1249, 858 },{ 1600, 970, 666 },{ 1159, 702, 482 },{ 919, 557, 382 }} },
-			{ {{ 2232, 1352, 929 },{ 1708, 1035, 711 },{ 1224, 742, 509 },{ 969, 587, 403 }} },
-			{ {{ 2409, 1460, 1003 },{ 1872, 1134, 779 },{ 1358, 823, 565 },{ 1056, 640, 439 }} },
-			{ {{ 2620, 1588, 1091 },{ 2059, 1248, 857 },{ 1468, 890, 611 },{ 1108, 672, 461 }} },
-			{ {{ 2812, 1704, 1171 },{ 2188, 1326, 911 },{ 1588, 963, 661 },{ 1228, 744, 511 }} },
-			{ {{ 3057, 1853, 1273 },{ 2395, 1451, 997 },{ 1718, 1041, 715 },{ 1286, 779, 535 }} },
-			{ {{ 3283, 1990, 1367 },{ 2544, 1542, 1059 },{ 1804, 1094, 751 },{ 1425, 864, 593 }} },
-			{ {{ 3517, 2132, 1465 },{ 2701, 1637, 1125 },{ 1933, 1172, 805 },{ 1501, 910, 625 }} },
-			{ {{ 3669, 2223, 1528 },{ 2857, 1732, 1190 },{ 2085, 1263, 868 },{ 1581, 958, 658 }} },
-			{ {{ 3909, 2369, 1628 },{ 3035, 1839, 1264 },{ 2181, 1322, 908 },{ 1677, 1016, 698 }} },
-			{ {{ 4158, 2520, 1732 },{ 3289, 1994, 1370 },{ 2358, 1429, 982 },{ 1782, 1080, 742 }} },
-			{ {{ 4417, 2677, 1840 },{ 3486, 2113, 1452 },{ 2473, 1499, 1030 },{ 1897, 1150, 790 }} },
-			{ {{ 4686, 2840, 1952 },{ 3693, 2238, 1538 },{ 2670, 1618, 1112 },{ 2022, 1226, 842 }} },
-			{ {{ 4965, 3009, 2068 },{ 3909, 2369, 1628 },{ 2805, 1700, 1168 },{ 2157, 1307, 898 }} },
-			{ {{ 5253, 3183, 2188 },{ 4134, 2506, 1722 },{ 2949, 1787, 1228 },{ 2301, 1394, 958 }} },
-			{ {{ 5529, 3351, 2303 },{ 4343, 2632, 1809 },{ 3081, 1867, 1283 },{ 2361, 1431, 983 }} },
-			{ {{ 5836, 3537, 2431 },{ 4588, 2780, 1911 },{ 3244, 1966, 1351 },{ 2524, 1530, 1051 }} },
-			{ {{ 6153, 3729, 2563 },{ 4775, 2894, 1989 },{ 3417, 2071, 1423 },{ 2625, 1591, 1093 }} },
-			{ {{ 6479, 3927, 2699 },{ 5039, 3054, 2099 },{ 3599, 2181, 1499 },{ 2735, 1658, 1139 }} },
-			{ {{ 6743, 4087, 2809 },{ 5313, 3220, 2213 },{ 3791, 2298, 1579 },{ 2927, 1774, 1219 }} },
-			{ {{ 7089, 4296, 2953 },{ 5596, 3391, 2331 },{ 3993, 2420, 1663 },{ 3057, 1852, 1273 }} },
-		};
+			return qrcodegen::QrCode::Ecc{ FromEnum(ec) };
+		}
 
-		constexpr bool alnumTable[128] = {
+		static constexpr bool alnumTable[128] = {
 			false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
 			false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
 			true, false, false, false, true, true, false, false, false, false, true, true, false, true, true, true,
@@ -81,158 +55,204 @@ namespace s3d
 			false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 		};
 
-		static constexpr bool IsAlnumQR(const char8 ch) noexcept
+		[[nodiscard]]
+		inline constexpr bool IsAlnumQR(const char8 ch) noexcept
 		{
 			return (static_cast<uint8>(ch) < 128) && alnumTable[static_cast<uint8>(ch)];
 		}
 
-		static constexpr Optional<int32> CalculateMinimumVersion(const QRMode mode, const QRErrorCorrection ec, const size_t size) noexcept
+		static void FillCell(Color* pOrigin, const int32 cellSize, const size_t imageWidth)
 		{
-			for (int32 i = QR::MinVersion; i <= QR::MaxVersion; ++i)
-			{
-				if (size <= CapacityTable[i - 1].caps[static_cast<size_t>(ec)][static_cast<size_t>(mode)])
-				{
-					return i;
-				}
-			}
+			Color* pLine = pOrigin;
 
-			return none;
+			for (int32 y = 0; y < cellSize; ++y)
+			{
+				Color* pDst = pLine;
+
+				for (int32 x = 0; x < cellSize; ++x)
+				{
+					(*pDst++).setRGB(0);
+				}
+
+				pLine += imageWidth;
+			}
 		}
 
-		static bool MakeQR(QRCode& qr, const void* data, const size_t size, const QRMode mode, const QRErrorCorrection ec, const Optional<int32>& version)
+		[[nodiscard]]
+		std::string MakeSVGSource(const Grid<bool>& qr, const size_t borderCells)
 		{
-			const Optional<int32> minimumVersion = detail::CalculateMinimumVersion(mode, ec, size);
+			std::ostringstream ss;
+			ss << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+			ss << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
+			ss << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewBox=\"0 0 ";
+			ss << (qr.width() + borderCells * 2) << " " << (qr.height() + borderCells * 2) << "\" stroke=\"none\">\n";
+			ss << "\t<rect width=\"100%\" height=\"100%\" fill=\"#FFFFFF\"/>\n";
+			ss << "\t<path d=\"";
 
-			if (!minimumVersion || (version && (version.value() <= minimumVersion.value())))
+			for (size_t y = 0; y < qr.height(); ++y)
 			{
-				return false;
-			}
-
-			const int32 v = version.value_or(minimumVersion.value());
-
-			Array<uint8> qrcodeData(qrcode_getBufferSize(static_cast<uint8>(v)));
-
-			::QRCode qrcode;
-
-			const int32 error = qrcode_initBytes(&qrcode, qrcodeData.data(), static_cast<uint8>(v), static_cast<uint8>(ec),
-				static_cast<const uint8*>(data), static_cast<uint16>(size));
-
-			if (error != 0)
-			{
-				return false;
-			}
-
-			qr.version	= v;
-			qr.mode		= mode;
-			qr.ec		= ec;
-			qr.image.resize(qrcode.size, qrcode.size);
-			qr.image.fill(Color(255));
-
-			for (uint8 y = 0; y < qrcode.size; ++y)
-			{
-				for (uint8 x = 0; x < qrcode.size; ++x)
+				for (size_t x = 0; x < qr.width(); ++x)
 				{
-					if (qrcode_getModule(&qrcode, x, y))
+					if (qr[y][x] == false)
 					{
-						qr.image[y][x] = Palette::Black;
+						continue;
 					}
+
+					if (x != 0 || y != 0)
+					{
+						ss << " ";
+					}
+
+					ss << "M" << (x + borderCells) << "," << (y + borderCells) << "h1v1h-1z";
 				}
 			}
 
-			return true;
+			ss << "\" fill=\"#000000\"/>\n";
+			ss << "</svg>\n";
+
+			return ss.str();
 		}
-	}
-
-	bool QRCode::save(const FilePath& path, int32 size, const int32 borderCells)
-	{
-		if (!image)
-		{
-			return false;
-		}
-
-		size = std::max(size, image.width());
-
-		return image.bordered(std::max(borderCells, 0)).scaled(Size(size, size), Interpolation::Nearest).save(path);
-	}
-
-	QRDecoder::QRDecoder()
-		: pImpl(std::make_shared<QRDecoderDetail>())
-	{
-
-	}
-
-	QRDecoder::~QRDecoder()
-	{
-
-	}
-
-	bool QRDecoder::decode(const Image& image, QRContent& content)
-	{
-		return pImpl->decode(image, content);
-	}
-
-	bool QRDecoder::decode(const Image& image, Array<QRContent>& contents)
-	{
-		return pImpl->decode(image, contents);
 	}
 
 	namespace QR
 	{
-		size_t CalculateCapacity(const int32 version, const QRMode mode, const QRErrorCorrection ec)
+		Grid<bool> EncodeNumber(const StringView s, const QRErrorCorrection ec, const int32 minVersion)
 		{
-			// [Siv3D ToDo]
-			if (mode == QRMode::Kanji)
+			if (not std::all_of(s.begin(), s.end(), IsDigit))
 			{
-				return 0;
+				return{};
 			}
 
-			if (!InRange(version, MinVersion, MaxVersion))
+			try
 			{
-				return 0;
+				const std::vector<qrcodegen::QrSegment> segs{ qrcodegen::QrSegment::makeNumeric(s.toUTF8().c_str()) };
+				const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeSegments(segs, detail::ToEcc(ec), minVersion);
+				return detail::ToGrid(qr);
 			}
-
-			return detail::CapacityTable[version - 1].caps[static_cast<size_t>(ec)][static_cast<size_t>(mode)];
+			catch (const std::exception&)
+			{
+				return{};
+			}
 		}
 
-		bool EncodeNumber(QRCode& qr, const StringView view, const QRErrorCorrection ec, const Optional<int32>& version)
+		Grid<bool> EncodeAlnum(const StringView s, const QRErrorCorrection ec, const int32 minVersion)
 		{
-			const std::string utf8 = Unicode::ToUTF8(view);
+			const std::string utf8 = s.toUTF8();
 
-			if (!std::all_of(utf8.begin(), utf8.end(), IsDigit))
+			if (not std::all_of(utf8.begin(), utf8.end(), detail::IsAlnumQR))
+			{
+				return{};
+			}
+
+			try
+			{
+				const std::vector<qrcodegen::QrSegment> segs{ qrcodegen::QrSegment::makeAlphanumeric(utf8.c_str()) };
+				const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeSegments(segs, detail::ToEcc(ec), minVersion);
+				return detail::ToGrid(qr);
+			}
+			catch (const std::exception&)
+			{
+				return{};
+			}
+		}
+
+		Grid<bool> EncodeText(const StringView s, const QRErrorCorrection ec, const int32 minVersion)
+		{
+			try
+			{
+				const std::vector<qrcodegen::QrSegment> segs = qrcodegen::QrSegment::makeSegments(s.toUTF8().c_str());
+				const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeSegments(segs, detail::ToEcc(ec), minVersion);
+				return detail::ToGrid(qr);
+			}
+			catch (const std::exception&)
+			{
+				return{};
+			}
+		}
+
+		Grid<bool> EncodeBinary(const void* data, const size_t size, const QRErrorCorrection ec, const int32 minVersion)
+		{
+			const std::vector<std::uint8_t> binary(static_cast<const std::uint8_t*>(data)
+				, static_cast<const std::uint8_t*>(data) + size);
+
+			try
+			{
+				const std::vector<qrcodegen::QrSegment> segs{ qrcodegen::QrSegment::makeBytes(binary) };
+				const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeSegments(segs, detail::ToEcc(ec), minVersion);
+				return detail::ToGrid(qr);
+			}
+			catch (const std::exception&)
+			{
+				return{};
+			}
+		}
+
+		Image MakeImage(const Grid<bool>& qr, const int32 cellSize, const size_t borderCells)
+		{
+			const size_t cellWidth = (qr.width() + (borderCells * 2));
+			const size_t cellHeight = (qr.height() + (borderCells * 2));
+			const size_t imageWidth = (cellWidth * cellSize);
+			const size_t imageHeight = (cellHeight * cellSize);
+
+			if ((imageWidth > Image::MaxWidth)
+				|| (imageHeight > Image::MaxHeight))
+			{
+				return{};
+			}
+
+			Image image(imageWidth, imageHeight, Color(255));
+
+			for (size_t cx = 0; cx < cellWidth; ++cx)
+			{
+				if ((cx < borderCells) || ((qr.width() + borderCells) <= cx))
+				{
+					continue;
+				}
+
+				for (size_t cy = 0; cy < cellHeight; ++cy)
+				{
+					if ((cy < borderCells) || ((qr.height() + borderCells) <= cy))
+					{
+						continue;
+					}
+
+					if (qr[cy - borderCells][cx - borderCells])
+					{
+						detail::FillCell(&image[cy * cellSize][cx * cellSize], cellSize, imageWidth);
+					}
+				}
+			}
+
+			return image;
+		}
+
+		SVG MakeSVG(const Grid<bool>& qr, size_t borderCells)
+		{
+			if (not qr)
+			{
+				return{};
+			}
+
+			return SVG::Parse(detail::MakeSVGSource(qr, borderCells));
+		}
+
+		bool SaveSVG(const FilePathView path, const Grid<bool>& qr, const size_t borderCells)
+		{
+			if (not qr)
 			{
 				return false;
 			}
 
-			return detail::MakeQR(qr, utf8.data(), utf8.size(), QRMode::Numeric, ec, version);
-		}
+			TextWriter writer{ path };
 
-		bool EncodeAlnum(QRCode& qr, const StringView view, const QRErrorCorrection ec, const Optional<int32>& version)
-		{
-			const std::string utf8 = Unicode::ToUTF8(String(view).uppercase());
-
-			if (!std::all_of(utf8.begin(), utf8.end(), detail::IsAlnumQR))
+			if (not writer)
 			{
 				return false;
 			}
 
-			return detail::MakeQR(qr, utf8.data(), utf8.size(), QRMode::Alnum, ec, version);
-		}
+			writer.writeUTF8(detail::MakeSVGSource(qr, borderCells));
 
-		bool EncodeText(QRCode& qr, const StringView view, const QRErrorCorrection ec, const Optional<int32>& version)
-		{
-			const std::string utf8 = Unicode::ToUTF8(view);
-
-			return detail::MakeQR(qr, utf8.data(), utf8.size(), QRMode::Binary, ec, version);
-		}
-
-		bool EncodeBinary(QRCode& qr, const void* data, const size_t size, const QRErrorCorrection ec, const Optional<int32>& version)
-		{
-			return detail::MakeQR(qr, data, size, QRMode::Binary, ec, version);
-		}
-
-		bool EncodeBinary(QRCode& qr, const ByteArrayView view, const QRErrorCorrection ec, const Optional<int32>& version)
-		{
-			return EncodeBinary(qr, view.data(), view.size(), ec, version);
+			return true;
 		}
 	}
 }

@@ -2,92 +2,170 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
-# include <AssetHandleManager/AssetHandleManager.hpp>
-# include "FontData.hpp"
-# include "FontFace.hpp"
+# include <Siv3D/PixelShader.hpp>
+# include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "IFont.hpp"
+# include "FontData.hpp"
+# include "EmojiData.hpp"
+# include "IconData.hpp"
 
 namespace s3d
 {
-	class CFont : public ISiv3DFont
+	struct FontShader
 	{
-	private:
+		PixelShader shaders[10];
 
-		FT_Library m_freeType = nullptr;
+		[[nodiscard]]
+		const PixelShader& getFontShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor) noexcept
+		{
+			if (hasColor)
+			{
+				return shaders[1];
+			}
+			else if (method == FontMethod::Bitmap)
+			{
+				return shaders[0];
+			}
+			
+			return shaders[2 + (FromEnum(method) - 1) * 4 + FromEnum(type)];
+		}
+	};
 
-		FontFace m_colorEmoji;
-
-		FontFace m_awesomeIconSolid;
-
-		FontFace m_awesomeIconBrands;
-
-		AssetHandleManager<FontID, FontData> m_fonts{ U"Font" };
-
-		bool loadColorEmojiFace();
-
-		bool loadAwesomeIconFace();
-
+	class CFont final : public ISiv3DFont
+	{
 	public:
 
 		CFont();
 
-		~CFont() override;
+		~CFont();
 
 		void init() override;
 
-		Image getColorEmoji(StringView emoji) override;
+		size_t getFontCount() const override;
 
-		Image getColorEmojiSilhouette(StringView emoji) override;
+		Font::IDType create(FilePathView path, size_t faceIndex, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
 
-		Image getAwesomeIcon(uint16 code, int32 size) override;
+		Font::IDType create(Typeface typeface, FontMethod fontMethod, int32 fontSize, FontStyle style) override;
 
-		Optional<const FontFace&> getAwesomeIconFontFaceFotCode(uint16 code) const override;
+		void release(Font::IDType handleID) override;
 
-		FontID create(Typeface typeface, int32 fontSize, FontStyle style) override;
+		bool addFallbackFont(Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font) override;
 
-		FontID create(const FilePath& path, int32 fontSize, FontStyle style) override;
+		void setIndentSize(Font::IDType handleID, int32 indentSize) override;
 
-		void release(FontID handleID) override;
+		const FontFaceProperty& getProperty(Font::IDType handleID) override;
 
-		const String& getFamilyName(FontID handleID) override;
+		FontMethod getMethod(Font::IDType handleID) override;
 
-		const String& getStyleName(FontID handleID) override;
+		void setBufferThickness(Font::IDType handleID, int32 thickness) override;
 
-		int32 getFontSize(FontID handleID) override;
+		int32 getBufferThickness(Font::IDType handleID) override;
 
-		int32 getAscent(FontID handleID) override;
+		bool hasGlyph(Font::IDType handleID, StringView ch) override;
 
-		int32 getDescent(FontID handleID) override;
+		GlyphIndex getGlyphIndex(Font::IDType handleID, StringView ch) override;
 
-		Array<Glyph> getGlyphs(FontID handleID, const String& codePoints) override;
+		Array<GlyphCluster> getGlyphClusters(Font::IDType handleID, StringView s, bool recursive) override;
 
-		Array<Glyph> getVerticalGlyphs(FontID handleID, const String& codePoints) override;
+		GlyphInfo getGlyphInfo(Font::IDType handleID, StringView ch) override;
 
-		OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) override;
+		GlyphInfo getGlyphInfoByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
 
-		const Texture& getTexture(FontID handleID) override;
+		OutlineGlyph renderOutline(Font::IDType handleID, StringView ch, CloseRing closeRing) override;
 
-		RectF getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale) override;
+		OutlineGlyph renderOutlineByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, CloseRing closeRing) override;
 
-		RectF getRegion(FontID handleID, const String& codePoints, double lineSpacingScale) override;
+		Array<OutlineGlyph> renderOutlines(Font::IDType handleID, StringView s, CloseRing closeRing) override;
+		
+		PolygonGlyph renderPolygon(Font::IDType handleID, StringView ch) override;
 
-		Array<int32> getXAdvances(FontID handleID, const String& codePoints) override;
+		PolygonGlyph renderPolygonByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
 
-		RectF draw(FontID handleID, const String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
+		Array<PolygonGlyph> renderPolygons(Font::IDType handleID, StringView s) override;
+		
+		BitmapGlyph renderBitmap(Font::IDType handleID, StringView s) override;
 
-		bool draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) override;
+		BitmapGlyph renderBitmapByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) override;
 
-		Rect paint(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
+		SDFGlyph renderSDF(Font::IDType handleID, StringView s, int32 buffer) override;
 
-		Rect overwrite(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
+		SDFGlyph renderSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) override;
+
+		MSDFGlyph renderMSDF(Font::IDType handleID, StringView s, int32 buffer) override;
+
+		MSDFGlyph renderMSDFByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex, int32 buffer) override;
+	
+		bool preload(Font::IDType handleID, StringView chars) override;
+
+		const Texture& getTexture(Font::IDType handleID) override;
+
+		Glyph getGlyph(Font::IDType handleID, StringView ch) override;
+
+		Array<Glyph> getGlyphs(Font::IDType handleID, StringView s) override;
+
+		Array<double> getXAdvances(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, double fontSize) override;
+
+		RectF region(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
+
+		RectF regionBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, double lineHeightScale) override;
+
+		RectF draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+
+		bool draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+
+		RectF drawBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+	
+		RectF drawFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+
+		RectF drawBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
+
+		RectF regionFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
+
+		RectF regionBaseFallback(Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, double fontSize, double lineHeightScale) override;
+	
+		double xAdvanceFallback(Font::IDType handleID, const GlyphCluster& cluster, double fontSize) override;
+
+
+		bool hasEmoji(StringView emoji) override;
+
+		GlyphIndex getEmojiGlyphIndex(StringView emoji) override;
+
+		Image renderEmojiBitmap(GlyphIndex glyphIndex) override;
+
+
+		bool hasIcon(Icon::Type iconType, char32 codePoint) override;
+
+		GlyphIndex getIconGlyphIndex(Icon::Type iconType, char32 codePoint) override;
+
+		Image renderIconBitmap(Icon::Type iconType, char32 codePoint, int32 fontPixelSize) override;
+
+		Image renderIconSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
+
+		Image renderIconMSDF(Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer) override;
+
+
+		const PixelShader& getFontShader(FontMethod method, TextStyle::Type type, HasColor hasColor) const override;
+
+	private:
+
+		FT_Library m_freeType = nullptr;
+
+		AssetHandleManager<Font::IDType, FontData> m_fonts{ U"Font" };
+
+		std::unique_ptr<FontShader> m_shader;
+
+		std::unique_ptr<EmojiData> m_defaultEmoji;
+
+		Array<std::unique_ptr<IconData>> m_defaultIcons;
 	};
 }

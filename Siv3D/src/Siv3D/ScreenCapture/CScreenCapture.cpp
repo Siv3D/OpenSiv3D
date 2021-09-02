@@ -2,48 +2,112 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <Graphics/IGraphics.hpp>
-# include <Siv3D/EngineLog.hpp>
 # include "CScreenCapture.hpp"
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/Keyboard.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	CScreenCapture::CScreenCapture()
-	{
-
-	}
+	CScreenCapture::CScreenCapture() {}
 
 	CScreenCapture::~CScreenCapture()
 	{
-		LOG_TRACE(U"CScreenCapture::~CScreenCapture()");
+		LOG_SCOPED_TRACE(U"CScreenCapture::~CScreenCapture()");
 	}
 
-	const FilePath& CScreenCapture::getDefaultScreenshotDirectory() const
+	void CScreenCapture::init()
 	{
-		return m_defaultScreenshotDirectory;
+		LOG_SCOPED_TRACE(U"CScreenCapture::init()");
+
+	# if SIV3D_PLATFORM(MACOS)
+
+		m_screenshotDirectory = FileSystem::GetFolderPath(SpecialFolder::Pictures) + U"Screenshot/";
+
+	# else
+
+		m_screenshotDirectory = FileSystem::InitialDirectory() + U"Screenshot/";
+
+	# endif
+
+		LOG_INFO(U"Default Screenshot directory: \"{}\""_fmt(m_screenshotDirectory));
 	}
 
-	void CScreenCapture::requestScreenCapture(const FilePath& path)
+	void CScreenCapture::update()
 	{
-		if (path)
+		m_hasNewFrame = false;
+
+		// スクリーンショットのショートカットに対応
+		if (not m_requestedPaths)
 		{
-			m_requestedPaths.push_back(path);
+			bool captureKeyDown = false;
+
+			for (const auto& inputGroup : m_screenshotShortcutKeys)
+			{
+				if (inputGroup.down())
+				{
+					captureKeyDown = true;
+					break;
+				}
+			}
+
+			if (captureKeyDown)
+			{
+				ScreenCapture::SaveCurrentFrame();
+			}
 		}
 
-		if (!m_hasRequest)
+		if (m_requestedPaths)
 		{
-			m_hasRequest = true;
+			SIV3D_ENGINE(Renderer)->captureScreenshot();
 
-			Siv3DEngine::Get<ISiv3DGraphics>()->requestScreenCapture();
-		}	
+			const Image& image = SIV3D_ENGINE(Renderer)->getScreenCapture();
+
+			if (not image)
+			{
+				LOG_FAIL(U"✖ failed to capture a screen shot");
+			}
+			else
+			{
+				for (const auto& requestedPath : m_requestedPaths)
+				{
+					if (requestedPath)
+					{
+						const FilePath path = (m_screenshotDirectory + requestedPath);
+						image.save(path);
+						LOG_INFO(U"📷 Screen capture saved (path: \"{0}\")"_fmt(path));
+					}
+				}
+			}
+
+			m_requestedPaths.clear();
+			m_hasNewFrame = true;
+		}
+	}
+
+	const FilePath& CScreenCapture::getScreenshotDirectory() const
+	{
+		return m_screenshotDirectory;
+	}
+
+	void CScreenCapture::setScreenshotDirectory(FilePath&& path)
+	{
+		m_screenshotDirectory = std::move(path);
+	}
+
+	void CScreenCapture::requestScreenCapture(FilePath&& path)
+	{
+		m_requestedPaths.push_back(std::move(path));
 	}
 
 	bool CScreenCapture::hasNewFrame() const
@@ -53,6 +117,11 @@ namespace s3d
 
 	const Image& CScreenCapture::receiveScreenCapture() const
 	{
-		return Siv3DEngine::Get<ISiv3DGraphics>()->getScreenCapture();
+		return SIV3D_ENGINE(Renderer)->getScreenCapture();
+	}
+
+	void CScreenCapture::setScreenshotShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys)
+	{
+		m_screenshotShortcutKeys = screenshotShortcutKeys;
 	}
 }

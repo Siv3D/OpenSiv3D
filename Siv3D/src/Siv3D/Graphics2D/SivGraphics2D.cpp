@@ -2,117 +2,100 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Graphics2D.hpp>
-# include <Siv3D/Color.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3DEngine.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
-# include <Graphics/IGraphics.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Graphics2D
 	{
-		ColorF GetColorMul()
+		Float4 GetColorMul()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getColorMul();
+			return SIV3D_ENGINE(Renderer2D)->getColorMul();
 		}
 
-		ColorF GetColorAdd()
+		Float4 GetColorAdd()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getColorAdd();
+			return SIV3D_ENGINE(Renderer2D)->getColorAdd();
 		}
 
 		BlendState GetBlendState()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getBlendState();
+			return SIV3D_ENGINE(Renderer2D)->getBlendState();
 		}
 
 		RasterizerState GetRasterizerState()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getRasterizerState();
+			return SIV3D_ENGINE(Renderer2D)->getRasterizerState();
 		}
 
-		void SetSamplerState(const uint32 slot, const SamplerState& samplerState)
+		SamplerState GetSamplerState(const ShaderStage shaderStage, const uint32 slot)
 		{
-			if (slot >= SamplerState::MaxSamplerCount)
-			{
-				return;
-			}
-
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSSamplerState(slot, samplerState);
-		}
-
-		SamplerState GetSamplerState(const uint32 slot)
-		{
-			if (slot >= SamplerState::MaxSamplerCount)
+			if (SamplerState::MaxSamplerCount <= slot)
 			{
 				return SamplerState::Default2D;
 			}
 
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getPSSamplerState(slot);
-		}
-
-		Optional<Rect> GetViewport()
-		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getViewport();
-		}
-
-		Optional<PixelShader> GetCustomPixelShader()
-		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCustomPS();
-		}
-
-		Optional<RenderTexture> GetRenderTarget()
-		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT();
+			return SIV3D_ENGINE(Renderer2D)->getSamplerState(shaderStage, slot);
 		}
 
 		void SetScissorRect(const Rect& rect)
 		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setScissorRect(rect);
+			SIV3D_ENGINE(Renderer2D)->setScissorRect(rect);
 		}
 
 		Rect GetScissorRect()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getScissorRect();
+			return SIV3D_ENGINE(Renderer2D)->getScissorRect();
 		}
 
-		void SetLocalTransform(const Mat3x2& transform)
+		Optional<Rect> GetViewport()
 		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setLocalTransform(transform);
+			return SIV3D_ENGINE(Renderer2D)->getViewport();
+		}
+
+		Optional<VertexShader> GetCustomVertexShader()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getCustomVS();
+		}
+
+		Optional<PixelShader> GetCustomPixelShader()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getCustomPS();
 		}
 
 		const Mat3x2& GetLocalTransform()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getLocalTransform();
-		}
-
-		void SetCameraTransform(const Mat3x2& transform)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setCameraTransform(transform);
+			return SIV3D_ENGINE(Renderer2D)->getLocalTransform();
 		}
 
 		const Mat3x2& GetCameraTransform()
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getCameraTransform();
+			return SIV3D_ENGINE(Renderer2D)->getCameraTransform();
 		}
 
-		double GetMaxScaling()
+		float GetMaxScaling() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getMaxScaling();
+			return SIV3D_ENGINE(Renderer2D)->getMaxScaling();
+		}
+
+		Optional<RenderTexture> GetRenderTarget()
+		{
+			return SIV3D_ENGINE(Renderer2D)->getRenderTarget();
 		}
 
 		Size GetRenderTargetSize()
 		{
-			if (const auto rt = Siv3DEngine::Get<ISiv3DRenderer2D>()->getRT())
+			if (const auto rt = SIV3D_ENGINE(Renderer2D)->getRenderTarget())
 			{
 				return rt->size();
 			}
@@ -122,86 +105,111 @@ namespace s3d
 			}
 		}
 
-		void SetSDFParameters(const double pixelRange, const double offset)
+		void SetVSTexture(const uint32 slot, const Optional<Texture>& texture)
 		{
-			SetSDFParameters(Float4(pixelRange, offset, 0.0f, 0.0f));
-		}
-
-		void SetSDFParameters(const Float4& parameters)
-		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setSDFParameters(parameters);
-		}
-
-		Float4 GetSDFParameters()
-		{
-			return Siv3DEngine::Get<ISiv3DRenderer2D>()->getSDFParameters();
-		}
-
-		void SetTexture(const uint32 slot, const Optional<Texture>& texture)
-		{
-			if (slot >= SamplerState::MaxSamplerCount)
+			if (SamplerState::MaxSamplerCount <= slot)
 			{
 				return;
 			}
 
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->setPSTexture(slot, texture);
+			SIV3D_ENGINE(Renderer2D)->setVSTexture(slot, texture);
+		}
+
+		void SetPSTexture(const uint32 slot, const Optional<Texture>& texture)
+		{
+			if (SamplerState::MaxSamplerCount <= slot)
+			{
+				return;
+			}
+
+			SIV3D_ENGINE(Renderer2D)->setPSTexture(slot, texture);
 		}
 
 		void Flush()
 		{
-			Siv3DEngine::Get<ISiv3DRenderer2D>()->flush();
+			SIV3D_ENGINE(Renderer2D)->flush();
+		}
+
+		void DrawTriangles(const uint32 count)
+		{
+			SIV3D_ENGINE(Renderer2D)->addNullVertices(count * 3);
 		}
 
 		namespace Internal
 		{
-			void SetColorMul(const ColorF& color)
+			void SetColorMul(const Float4& color)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorMul(color.toFloat4());
+				SIV3D_ENGINE(Renderer2D)->setColorMul(color);
 			}
 
-			void SetColorAdd(const ColorF& color)
+			void SetColorAdd(const Float4& color)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setColorAdd(color.toFloat4());
+				SIV3D_ENGINE(Renderer2D)->setColorAdd(color);
 			}
 
 			void SetBlendState(const BlendState& blendState)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setBlendState(blendState);
+				SIV3D_ENGINE(Renderer2D)->setBlendState(blendState);
 			}
 
 			void SetRasterizerState(const RasterizerState& rasterizerState)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRasterizerState(rasterizerState);
+				SIV3D_ENGINE(Renderer2D)->setRasterizerState(rasterizerState);
 			}
 
-			void SetSamplerState(const SamplerState& samplerState)
+			void SetSamplerState(const ShaderStage shaderStage, const uint32 slot, const SamplerState& samplerState)
 			{
-				s3d::Graphics2D::SetSamplerState(0, samplerState);
+				if (SamplerState::MaxSamplerCount <= slot)
+				{
+					return;
+				}
+
+				SIV3D_ENGINE(Renderer2D)->setSamplerState(shaderStage, slot, samplerState);
 			}
 
 			void SetViewport(const Optional<Rect>& viewport)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setViewport(viewport);
+				SIV3D_ENGINE(Renderer2D)->setViewport(viewport);
+			}
+
+			void SetSDFParameters(const std::array<Float4, 3>& params)
+			{
+				SIV3D_ENGINE(Renderer2D)->setSDFParameters(params);
+			}
+
+			void SetInternalPSConstants(const Float4& value)
+			{
+				SIV3D_ENGINE(Renderer2D)->setInternalPSConstants(value);
+			}
+
+			void SetCustomVertexShader(const Optional<VertexShader>& vs)
+			{
+				SIV3D_ENGINE(Renderer2D)->setCustomVS(vs);
 			}
 
 			void SetCustomPixelShader(const Optional<PixelShader>& ps)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setCustomPS(ps);
+				SIV3D_ENGINE(Renderer2D)->setCustomPS(ps);
 			}
 
-			void SetConstantBuffer(const ShaderStage stage, const uint32 index, const detail::ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
+			void SetLocalTransform(const Mat3x2& transform)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setConstant(stage, index, buffer, data, num_vectors);
+				SIV3D_ENGINE(Renderer2D)->setLocalTransform(transform);
+			}
+
+			void SetCameraTransform(const Mat3x2& transform)
+			{
+				SIV3D_ENGINE(Renderer2D)->setCameraTransform(transform);
 			}
 
 			void SetRenderTarget(const Optional<RenderTexture>& rt)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setRT(rt);
+				SIV3D_ENGINE(Renderer2D)->setRenderTarget(rt);
 			}
 
-			void SetInternalConstantBufferValue(const ShaderStage stage, const Float4& value)
+			void SetConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 			{
-				Siv3DEngine::Get<ISiv3DRenderer2D>()->setInternalConstantBufferValue(stage, value);
+				SIV3D_ENGINE(Renderer2D)->setConstantBuffer(stage, slot, buffer, data, num_vectors);
 			}
 		}
 	}

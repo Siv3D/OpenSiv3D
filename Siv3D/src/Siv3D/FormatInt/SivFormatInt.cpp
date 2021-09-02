@@ -1,126 +1,105 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/String.hpp>
+# include <cstring>
 # include <Siv3D/FormatInt.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/IntFormatter.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static constexpr char DIGITS[] =
-			"0001020304050607080910111213141516171819"
-			"2021222324252627282930313233343536373839"
-			"4041424344454647484950515253545556575859"
-			"6061626364656667686970717273747576777879"
-			"8081828384858687888990919293949596979899";
-
-		IntFormatter::IntFormatter(const std::int32_t value)
+		void AppendUint32(char32** const p, const uint32 value)
 		{
-			formatSigned(value);
-		}
+			uint32 val = value;
 
-		IntFormatter::IntFormatter(const std::int64_t value)
-		{
-			formatSigned(value);
-		}
+			char32 buffer[12];
+			char32* pos = &buffer[11];
+			*pos = U'\0';
 
-		IntFormatter::IntFormatter(const std::uint32_t value)
-			: str_(format_decimal(value))
-		{
-		
-		}
-
-		IntFormatter::IntFormatter(const std::uint64_t value)
-			: str_(format_decimal(value))
-		{
-		
-		}
-
-		std::size_t IntFormatter::size() const noexcept
-		{
-			return buffer_ - str_ + BUFFER_SIZE - 1;
-		}
-
-		const char32* IntFormatter::data() const noexcept
-		{
-			return str_;
-		}
-
-		const char32* IntFormatter::c_str() const noexcept
-		{
-			buffer_[BUFFER_SIZE - 1] = '\0';
-			return str_;
-		}
-
-		String IntFormatter::str() const
-		{
-			return String(str_, size());
-		}
-
-		char32* IntFormatter::format_decimal(std::uint64_t value)
-		{
-			char32 *buffer_end = buffer_ + BUFFER_SIZE - 1;
-
-			while (value >= 100)
+			do
 			{
-				unsigned index = (value % 100) * 2;
-				value /= 100;
-				*--buffer_end = DIGITS[index + 1];
-				*--buffer_end = DIGITS[index];
+				*(--pos) = U'0' + static_cast<char32>(val % 10);
+
+				val = val / 10;
+
+			} while (val != 0);
+
+			const size_t length = &buffer[11] - pos;
+
+			std::memcpy(*p, pos, length * sizeof(char32));
+
+			*p += length;
+		}
+
+		void AppendInt32(char32** const p, const int32 value)
+		{
+			bool negative;
+			uint32 val;
+
+			if (value < 0)
+			{
+				negative = true;
+				val = -value;
+			}
+			else
+			{
+				negative = false;
+				val = value;
 			}
 
-			if (value < 10)
+			char32 buffer[12];
+			char32* pos = &buffer[11];
+			*pos = U'\0';
+
+			do
 			{
-				*--buffer_end = static_cast<char>('0' + value);
-				return buffer_end;
+				*(--pos) = U'0' + static_cast<char32>(val % 10);
+
+				val = val / 10;
+
+			} while (val != 0);
+
+			if (negative)
+			{
+				*(--pos) = U'-';
 			}
 
-			unsigned index = static_cast<unsigned>(value * 2);
-			*--buffer_end = DIGITS[index + 1];
-			*--buffer_end = DIGITS[index];
-			return buffer_end;
+			const size_t length = &buffer[11] - pos;
+
+			std::memcpy(*p, pos, length * sizeof(char32));
+
+			*p += length;
 		}
 
-		void IntFormatter::formatSigned(std::int64_t value)
-		{
-			std::uint64_t abs_value = static_cast<std::uint64_t>(value);
-			bool negative = value < 0;
-			if (negative)
-				abs_value = 0 - abs_value;
-			str_ = format_decimal(abs_value);
-			if (negative)
-				*--str_ = '-';
-		}
-
-
-		template <class UnsignedInteger>
-		[[nodiscard]] inline String ItoW(const UnsignedInteger value, const unsigned radix, const bool isNegative, const LetterCase letterCase)
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		inline String ItoW(const UnsignedInt value, const unsigned radix, const bool isNegative, const LetterCase letterCase)
 		{
 			if (radix < 2 || 36 < radix)
 			{
-				return String();
+				return{};
 			}
 
-			char32 buffer[std::numeric_limits<UnsignedInteger>::digits];
+			char32 buffer[std::numeric_limits<UnsignedInt>::digits];
 			char32* p = buffer;
 			size_t length = 0;
-			UnsignedInteger remaining = value;
+			UnsignedInt remaining = value;
 
 			if (isNegative)
 			{
 				*p++ = '-';
 				++length;
-				remaining = static_cast<UnsignedInteger>(-static_cast<typename std::make_signed<UnsignedInteger>::type>(remaining));
+				remaining = static_cast<UnsignedInt>(-static_cast<std::make_signed_t<UnsignedInt>>(remaining));
 			}
 
 			char32* first_digit = p;
@@ -128,8 +107,8 @@ namespace s3d
 
 			do
 			{
-				const UnsignedInteger digit = static_cast<UnsignedInteger>(remaining % static_cast<UnsignedInteger>(radix));
-				remaining /= static_cast<UnsignedInteger>(radix);
+				const UnsignedInt digit = static_cast<UnsignedInt>(remaining % static_cast<UnsignedInt>(radix));
+				remaining /= static_cast<UnsignedInt>(radix);
 				*p++ = static_cast<char32>(digit < 10 ? (U'0' + digit) : (a + digit - 10));
 				++length;
 			} while (remaining > 0);
@@ -149,67 +128,82 @@ namespace s3d
 
 	String ToString(const int8 value)
 	{
-		return detail::IntFormatter(static_cast<int32>(value)).str();
+		return detail::IntFormatter{ static_cast<int32>(value) }.str();
 	}
 
 	String ToString(const uint8 value)
 	{
-		return detail::IntFormatter(static_cast<uint32>(value)).str();
+		return detail::IntFormatter{ static_cast<uint32>(value) }.str();
 	}
 
 	String ToString(const int16 value)
 	{
-		return detail::IntFormatter(static_cast<int32>(value)).str();
+		return detail::IntFormatter{ static_cast<int32>(value) }.str();
 	}
 
 	String ToString(const uint16 value)
 	{
-		return detail::IntFormatter(static_cast<uint32>(value)).str();
+		return detail::IntFormatter{ static_cast<uint32>(value) }.str();
 	}
 
 	String ToString(const int32 value)
 	{
-		return detail::IntFormatter(value).str();
+		return detail::IntFormatter{ value }.str();
 	}
 
 	String ToString(const uint32 value)
 	{
-		return detail::IntFormatter(value).str();
+		return detail::IntFormatter{ value }.str();
 	}
 
 	String ToString(const long value)
 	{
-		return detail::IntFormatter(static_cast<int64>(value)).str();
+		if constexpr (sizeof(long) == sizeof(int32))
+		{
+			return detail::IntFormatter{ static_cast<int32>(value) }.str();
+		}
+		else
+		{
+			return detail::IntFormatter{ static_cast<int64>(value) }.str();
+		}
 	}
 
 	String ToString(const unsigned long value)
 	{
-		return detail::IntFormatter(static_cast<uint64>(value)).str();
+		if constexpr (sizeof(unsigned long) == sizeof(uint32))
+		{
+			return detail::IntFormatter{ static_cast<uint32>(value) }.str();
+		}
+		else
+		{
+			return detail::IntFormatter{ static_cast<uint64>(value) }.str();
+		}
 	}
 
 	String ToString(const long long value)
 	{
-		return detail::IntFormatter(static_cast<int64>(value)).str();
+		return detail::IntFormatter{ static_cast<int64>(value) }.str();
 	}
 
 	String ToString(const unsigned long long value)
 	{
-		return detail::IntFormatter(static_cast<uint64>(value)).str();
+		return detail::IntFormatter{ static_cast<uint64>(value) }.str();
 	}
+
 
 	String ToString(const char value, Arg::radix_<uint32> radix, const LetterCase letterCase)
 	{
-		return detail::ItoW<uint8>(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), letterCase);
+		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), letterCase);
 	}
 
 	String ToString(const int8 value, Arg::radix_<uint32> radix, const LetterCase letterCase)
 	{
-		return detail::ItoW<uint8>(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), letterCase);
+		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), letterCase);
 	}
 
 	String ToString(const uint8 value, Arg::radix_<uint32> radix, const LetterCase letterCase)
 	{
-		return detail::ItoW<uint8>(value, radix.value(), false, letterCase);
+		return detail::ItoW(value, radix.value(), false, letterCase);
 	}
 
 	String ToString(const int16 value, Arg::radix_<uint32> radix, const LetterCase letterCase)
@@ -250,174 +244,5 @@ namespace s3d
 	String ToString(const unsigned long long value, Arg::radix_<uint32> radix, const LetterCase letterCase)
 	{
 		return detail::ItoW(value, radix.value(), false, letterCase);
-	}
-
-
-
-	String ToBinary(const char value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const int8 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const uint8 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const int16 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const uint16 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const int32 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const uint32 value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const long value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const unsigned long value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const long long value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-	String ToBinary(const unsigned long long value)
-	{
-		return ToString(value, Arg::radix = 2);
-	}
-
-
-	String ToOctal(const char value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const int8 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const uint8 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const int16 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const uint16 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const int32 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const uint32 value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const long value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const unsigned long value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const long long value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-	String ToOctal(const unsigned long long value)
-	{
-		return ToString(value, Arg::radix = 8);
-	}
-
-
-	String ToHex(const char value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const int8 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const uint8 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const int16 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const uint16 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const int32 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const uint32 value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const long value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const unsigned long value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const long long value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
-	}
-
-	String ToHex(const unsigned long long value, const LetterCase letterCase)
-	{
-		return ToString(value, Arg::radix = 16, letterCase);
 	}
 }

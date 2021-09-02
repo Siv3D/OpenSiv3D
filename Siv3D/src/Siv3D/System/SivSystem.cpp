@@ -1,18 +1,19 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/System.hpp>
-# include <Siv3D/UserAction.hpp>
-# include <Siv3DEngine.hpp>
-# include "ISystem.hpp"
+# include <Siv3D/System/ISystem.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/UserAction/IUserAction.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -20,32 +21,39 @@ namespace s3d
 	{
 		bool Update()
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->update();
+			return SIV3D_ENGINE(System)->update();
 		}
 
-		void Exit()
+		void Exit() noexcept
 		{
-			Siv3DEngine::Get<ISiv3DSystem>()->reportUserActions(UserAction::ExitFlag);
+			SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::SystemExitCalled);
 		}
 
-		void SetTerminationTriggers(const uint32 userActionFlags)
+		void SetTerminationTriggers(const uint32 userActionFlags) noexcept
 		{
-			Siv3DEngine::Get<ISiv3DSystem>()->setTerminationTriggers(userActionFlags);
+			SIV3D_ENGINE(UserAction)->setTerminationTriggers(userActionFlags);
 		}
 
-		uint32 GetTerminationTriggers()
+		uint32 GetTerminationTriggers() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getTerminationTriggers();
+			return SIV3D_ENGINE(UserAction)->getTerminationTriggers();
 		}
 
-		uint32 GetUserActions()
+		uint32 GetUserActions() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getUserActions();
+			return SIV3D_ENGINE(UserAction)->getPreviousUserActions();
 		}
 
 		void Sleep(const Duration& duration)
 		{
-			Sleep(static_cast<int32>(duration.count() * 1000));
+			const int32 milliSec = static_cast<int32>(duration.count() * 1000);
+			
+			Sleep(milliSec);
+		}
+
+		EngineOption::Renderer GetRendererType()
+		{
+			return SIV3D_ENGINE(Renderer)->getRendererType();
 		}
 	}
 }

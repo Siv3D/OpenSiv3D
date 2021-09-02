@@ -2,19 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/String.hpp>
-# include <Siv3D/Optional.hpp>
 # include <Siv3D/ParseFloat.hpp>
 # include <Siv3D/Error.hpp>
-# include <double-conversion/double-conversion.h>
+# include <Siv3D/FormatLiteral.hpp>
+# include <ThirdParty/double-conversion/double-conversion.h>
 
 namespace s3d
 {
@@ -22,52 +20,7 @@ namespace s3d
 	{
 		inline static constexpr double sNaN = std::numeric_limits<double>::signaling_NaN();
 
-		static float ParseFloat(const StringView view)
-		{
-			using namespace double_conversion;
-
-			const int flags =
-				  StringToDoubleConverter::ALLOW_LEADING_SPACES
-				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
-				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
-				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
-
-			int unused;
-			const double result = conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused);
-
-			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
-			{
-				throw ParseError(U"ParseFloat<float>(\"{}\") failed"_fmt(view));
-			}
-
-			return static_cast<float>(result);
-		}
-
-		static double ParseDouble(const StringView view)
-		{
-			using namespace double_conversion;
-
-			const int flags =		
-				  StringToDoubleConverter::ALLOW_LEADING_SPACES
-				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
-				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
-				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
-
-			int unused;
-			const double result = conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused);
-
-			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
-			{
-				throw ParseError(U"ParseFloat<double>(\"{}\") failed"_fmt(view));
-			}
-
-			return result;
-		}
-
-		template <class FloatType>
-		static Optional<FloatType> ParseFloatingPointOpt(const StringView view) noexcept
+		static double ParseDouble(const StringView s)
 		{
 			using namespace double_conversion;
 
@@ -79,7 +32,30 @@ namespace s3d
 			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
 
 			int unused;
-			const double result = conv.Siv3D_StringToIeee(view.data(), static_cast<int>(view.length()), false, &unused);
+			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), false, &unused);
+
+			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
+			{
+				throw ParseError(U"ParseFloat(\"{}\") failed"_fmt(s));
+			}
+
+			return result;
+		}
+
+		template <class FloatType>
+		static Optional<FloatType> ParseFloatingPointOpt(const StringView s) noexcept
+		{
+			using namespace double_conversion;
+
+			const int flags =
+				StringToDoubleConverter::ALLOW_LEADING_SPACES
+				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
+				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
+				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
+			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
+
+			int unused;
+			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), false, &unused);
 
 			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
 			{
@@ -91,40 +67,38 @@ namespace s3d
 	}
 
 	template <>
-	float ParseFloat<float>(const StringView view)
+	float ParseFloat<float>(const StringView s)
 	{
-		return detail::ParseFloat(view);
+		return static_cast<float>(detail::ParseDouble(s));
 	}
 
 	template <>
-	double ParseFloat<double>(const StringView view)
+	double ParseFloat<double>(const StringView s)
 	{
-		return detail::ParseDouble(view);
+		return detail::ParseDouble(s);
 	}
 
 	template <>
-	long double ParseFloat<long double>(const StringView view)
+	long double ParseFloat<long double>(const StringView s)
 	{
-		return detail::ParseDouble(view);
-	}
-
-
-
-	template <>
-	Optional<float> ParseFloatOpt<float>(const StringView view)
-	{
-		return detail::ParseFloatingPointOpt<float>(view);
+		return detail::ParseDouble(s);
 	}
 
 	template <>
-	Optional<double> ParseFloatOpt<double>(const StringView view)
+	Optional<float> ParseFloatOpt<float>(const StringView s) noexcept
 	{
-		return detail::ParseFloatingPointOpt<double>(view);
+		return detail::ParseFloatingPointOpt<float>(s);
 	}
 
 	template <>
-	Optional<long double> ParseFloatOpt<long double>(const StringView view)
+	Optional<double> ParseFloatOpt<double>(const StringView s) noexcept
 	{
-		return detail::ParseFloatingPointOpt<long double>(view);
+		return detail::ParseFloatingPointOpt<double>(s);
+	}
+
+	template <>
+	Optional<long double> ParseFloatOpt<long double>(const StringView s) noexcept
+	{
+		return detail::ParseFloatingPointOpt<long double>(s);
 	}
 }

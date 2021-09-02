@@ -2,18 +2,19 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Key.hpp"
+# include "Common.hpp"
 # include "Optional.hpp"
 # include "DeadZone.hpp"
+# include "InputGroups.hpp"
+# include "XInputVibration.hpp"
 
 namespace s3d
 {
@@ -21,205 +22,133 @@ namespace s3d
 	{
 		struct XInput_impl
 		{
-			XInput_impl(size_t _userIndex);
+			SIV3D_NODISCARD_CXX20
+			explicit XInput_impl(size_t playerIndex) noexcept;
 
+			[[nodiscard]]
 			bool isConnected() const;
 
+			[[nodiscard]]
 			explicit operator bool() const;
 
-			/// <summary>
-			/// 左トリガーにデッドゾーンを設定します。
-			/// </summary>
-			/// <param name="deadZone">
-			/// 設定するデッドゾーン
-			/// </param>
-			/// <returns>
-			/// なし
-			/// </returns>
-			void setLeftTriggerDeadZone(const DeadZone& deadZone = { 0.12, 1.0, DeadZoneType::Independent });
+			/// @brief 左トリガーにデッドゾーンを設定します。
+			/// @param deadZone 設定するデッドゾーン
+			void setLeftTriggerDeadZone(const DeadZone& deadZone = { .size = 0.12, .maxValue = 1.0, .type = DeadZoneType::Independent });
 
-			/// <summary>
-			/// 右トリガーにデッドゾーンを設定します。
-			/// </summary>
-			/// <param name="deadZone">
-			/// 設定するデッドゾーン
-			/// </param>
-			/// <returns>
-			/// なし
-			/// </returns>
-			void setRightTriggerDeadZone(const DeadZone& deadZone = { 0.12, 1.0, DeadZoneType::Independent });
+			/// @brief 右トリガーにデッドゾーンを設定します。
+			/// @param deadZone 設定するデッドゾーン
+			void setRightTriggerDeadZone(const DeadZone& deadZone = { .size = 0.12, .maxValue = 1.0, .type = DeadZoneType::Independent });
 
-			/// <summary>
-			/// 左スティックにデッドゾーンを設定します。
-			/// </summary>
-			/// <param name="deadZone">
-			/// 設定するデッドゾーン
-			/// </param>
-			/// <returns>
-			/// なし
-			/// </returns>
-			void setLeftThumbDeadZone(const DeadZone& deadZone = { 0.24, 1.0, DeadZoneType::Circular });
+			void setLeftThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
-			/// <summary>
-			/// 右スティックにデッドゾーンを設定します。
-			/// </summary>
-			/// <param name="deadZone">
-			/// 設定するデッドゾーン
-			/// </param>
-			/// <returns>
-			/// なし
-			/// </returns>
-			void setRightThumbDeadZone(const DeadZone& deadZone = { 0.26, 1.0, DeadZoneType::Circular });
+			void setRightThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
-			/// <summary>
-			/// ユーザインデックス
-			/// </summary>
-			uint32 userIndex;
+			/// @brief プレイヤーインデックス
+			uint32 playerIndex;
 
-			/// <summary>
-			/// 十字ボタンの上ボタン
-			/// </summary>
-			Key buttonUp;
+			/// @brief 十字ボタンの上ボタン
+			Input buttonUp;
 
-			/// <summary>
-			/// 十字ボタンの下ボタン
-			/// </summary>
-			Key buttonDown;
+			/// @brief 十字ボタンの下ボタン
+			Input buttonDown;
 
-			/// <summary>
-			/// 十字ボタンの左ボタン
-			/// </summary>
-			Key buttonLeft;
+			/// @brief 十字ボタンの左ボタン
+			Input buttonLeft;
 
-			/// <summary>
-			/// 十字ボタンの右ボタン
-			/// </summary>
-			Key buttonRight;
+			/// @brief 十字ボタンの右ボタン
+			Input buttonRight;
 
-			/// <summary>
-			/// START ボタン
-			/// </summary>
-			Key buttonStart;
+			/// @brief START ボタン
+			Input buttonStart;
 
-			/// <summary>
-			/// BACK ボタン
-			/// </summary>
-			Key buttonBack;
+			/// @brief Menu ボタン
+			/// @remark START ボタンと同じです。
+			Input buttonMenu;
 
-			/// <summary>
-			/// 左スティックの押し込み
-			/// </summary>
-			Key buttonLThumb;
+			/// @brief BACK ボタン
+			Input buttonBack;
 
-			/// <summary>
-			/// 右スティックの押し込み
-			/// </summary>
-			Key buttonRThumb;
+			/// @brief View ボタン
+			/// @remark BACK ボタンと同じです。
+			Input buttonView;
 
-			/// <summary>
-			/// LB ボタン
-			/// </summary>
-			Key buttonLB;
+			/// @brief 左スティックの押し込み
+			Input buttonLThumb;
 
-			/// <summary>
-			/// RB ボタン
-			/// </summary>
-			Key buttonRB;
+			/// @brief 右スティックの押し込み
+			Input buttonRThumb;
 
-			/// <summary>
-			/// A ボタン
-			/// </summary>
-			Key buttonA;
+			/// @brief LB ボタン
+			Input buttonLB;
 
-			/// <summary>
-			/// B ボタン
-			/// </summary>
-			Key buttonB;
+			/// @brief RB ボタン
+			Input buttonRB;
 
-			/// <summary>
-			/// X ボタン
-			/// </summary>
-			Key buttonX;
+			/// @brief A ボタン
+			Input buttonA;
 
-			/// <summary>
-			/// Y ボタン
-			/// </summary>
-			Key buttonY;
+			/// @brief B ボタン
+			Input buttonB;
 
-			/// <summary>
-			/// 左トリガーの値 [0.0, 1.0]
-			/// </summary>
+			/// @brief X ボタン
+			Input buttonX;
+
+			/// @brief Y ボタン
+			Input buttonY;
+
+			/// @brief 左トリガーの値 [0.0, 1.0]
 			double leftTrigger;
 
-			/// <summary>
-			/// 右トリガーの値 [0.0, 1.0]
-			/// </summary>
+			/// @brief 右トリガーの値 [0.0, 1.0]
 			double rightTrigger;
 
-			/// <summary>
-			/// 左スティックの X 軸の値 [-1.0, 1.0]
-			/// </summary>
+			/// @brief 左スティックの X 軸の値 [-1.0, 1.0]
 			double leftThumbX;
 
-			/// <summary>
-			/// 左スティックの Y 軸の値 [-1.0, 1.0]
-			/// </summary>
+			/// @brief 左スティックの Y 軸の値 [-1.0, 1.0]
 			double leftThumbY;
 
-			/// <summary>
-			/// 右スティックの X 軸の値 [-1.0, 1.0]
-			/// </summary>
-			double rightThumbX ;
+			/// @brief 右スティックの X 軸の値 [-1.0, 1.0]
+			double rightThumbX;
 
-			/// <summary>
-			/// 右スティックの Y 軸の値 [-1.0, 1.0]
-			/// </summary>
+			/// @brief 右スティックの Y 軸の値 [-1.0, 1.0]
 			double rightThumbY;
-	
-			[[nodiscard]] Optional<int32> leftThumbD4(double threshold = 0.2) const;
 
-			[[nodiscard]] Optional<int32> leftThumbD8(double threshold = 0.2) const;
+			[[nodiscard]]
+			Optional<int32> leftThumbD4(double threshold = 0.2) const;
 
-			[[nodiscard]] Optional<int32> rightThumbD4(double threshold = 0.2) const;
+			[[nodiscard]]
+			Optional<int32> leftThumbD8(double threshold = 0.2) const;
 
-			[[nodiscard]] Optional<int32> rightThumbD8(double threshold = 0.2) const;
-			
-			/// <summary>
-			/// バイブレーションを設定します。
-			/// </summary>
-			/// <param name="leftMotorSpeed">
-			/// 低周波の左モータのスピード、0 は停止、1.0 は最大速度
-			/// </param>
-			/// <param name="rightMotorSpeed">
-			/// 高周波の右モータのスピード、0 は停止、1.0 は最大速度
-			/// </param>
-			/// <returns>
-			/// なし
-			/// </returns>
-			void setVibration(double leftMotorSpeed, double rightMotorSpeed) const;
+			[[nodiscard]]
+			Optional<int32> rightThumbD4(double threshold = 0.2) const;
 
-			[[nodiscard]] std::pair<double, double> getVibration() const;
+			[[nodiscard]]
+			Optional<int32> rightThumbD8(double threshold = 0.2) const;
 
-			/// <summary>
-			/// バイブレーションを停止します。
-			/// </summary>
-			/// <returns>
-			/// なし
-			/// </returns>
+			void setVibration(const XInputVibration& vibration) const;
+
+			[[nodiscard]]
+			const XInputVibration& getVibration() const;
+
+			/// @brief バイブレーションを停止します。
 			void stopVibration() const;
 
+			/// @brief バイブレーションを一時停止します。
 			void pauseVibration() const;
 
+			/// @brief 一時停止したバイブレーションを再開します。
 			void resumeVibration() const;
 		};
 
 		struct XInput_helper
 		{
-			const XInput_impl& operator()(size_t userIndex) const;
+			static constexpr size_t MaxPlayerCount = 4;
 
-			static constexpr size_t MaxUserCount = 4;
+			[[nodiscard]]
+			const XInput_impl& operator()(size_t playerIndex) const;
 		};
 	}
 
-	constexpr auto XInput = detail::XInput_helper();
+	inline constexpr auto XInput = detail::XInput_helper{};
 }

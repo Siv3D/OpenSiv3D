@@ -2,60 +2,40 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Format.hpp"
-# include "Logger.hpp"
+# include "Common.hpp"
+# include "LogType.hpp"
+# include "StringView.hpp"
+# include "String.hpp"
+# include "FormatLiteral.hpp"
+# include "detail/EngineLog.ipp"
 
-namespace s3d
-{
-	namespace detail
-	{
-		void OutputEnginelog(StringView text);
-	}
-}
+# if SIV3D_BUILD(DEBUG)
 
-# define SIMPLE_LOG(MESSAGE) s3d::detail::OutputEnginelog(MESSAGE)
-
-# if SIV3D_BUILD_TYPE(DEBUG)
-
-#	define LOG_TEST(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Trace,MESSAGE)
-#	define LOG_TRACE(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Trace,MESSAGE)
-#	define LOG_DEBUG(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
-#	define LOG_INFO(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Info,MESSAGE)
-#	define LOG_WARNING(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Warning,MESSAGE)
-#	define LOG_FAIL(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Fail,MESSAGE)
-#	define LOG_ERROR(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Error,MESSAGE)
-#	define LOG_SCRIPT(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Script,MESSAGE)
-#	define LOG_FAIL_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Fail,__COUNTER__,MESSAGE)
-
-# elif defined(SIV3D_MINIMUM)
-
-#	define LOG_TRACE(MESSAGE)		((void)0)
-#	define LOG_DEBUG(MESSAGE)		((void)0)
-#	define LOG_INFO(MESSAGE)		((void)0)
-#	define LOG_WARNING(MESSAGE)		((void)0)
-#	define LOG_FAIL(MESSAGE)		((void)0)
-#	define LOG_ERROR(MESSAGE)		((void)0)
-#	define LOG_SCRIPT(MESSAGE)		((void)0)
-#	define LOG_FAIL_ONCE(MESSAGE)	((void)0)
+#	define LOG_TEST(S)		s3d::Internal::OutputEngineLog(s3d::LogType::App,		S)
+#	define LOG_ERROR(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Error,		S)
+#	define LOG_FAIL(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Fail,		S)
+#	define LOG_WARNING(S)	s3d::Internal::OutputEngineLog(s3d::LogType::Warning,	S)
+#	define LOG_INFO(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Info,		S)
+#	define LOG_TRACE(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Trace,		S)
+#	define LOG_VERBOSE(S)	s3d::Internal::OutputEngineLog(s3d::LogType::Verbose,	S)
+#	define LOG_SCOPED_TRACE(S)	const s3d::Internal::ScopedEngineLog s3d_scoped_trace{s3d::LogType::Trace, S}
 
 # else
 
-#	define LOG_TRACE(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Trace,MESSAGE)
-#	define LOG_DEBUG(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
-#	define LOG_INFO(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Info,MESSAGE)
-#	define LOG_WARNING(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Warning,MESSAGE)
-#	define LOG_FAIL(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Fail,MESSAGE)
-#	define LOG_ERROR(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Error,MESSAGE)
-#	define LOG_SCRIPT(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Script,MESSAGE)
-#	define LOG_FAIL_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Fail,__COUNTER__,MESSAGE)
+#	define LOG_ERROR(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Error,		S)
+#	define LOG_FAIL(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Fail,		S)
+#	define LOG_WARNING(S)	s3d::Internal::OutputEngineLog(s3d::LogType::Warning,	S)
+#	define LOG_INFO(S)		s3d::Internal::OutputEngineLog(s3d::LogType::Info,		S)
+#	define LOG_TRACE(S)		((void)0)
+#	define LOG_VERBOSE(S)	((void)0)
+#	define LOG_SCOPED_TRACE(S)	((void)0)
 
 # endif

@@ -2,80 +2,70 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Window.hpp"
+# include "Common.hpp"
+# include "StringView.hpp"
+# include "MessageBoxResult.hpp"
+# include "MessageBoxStyle.hpp"
 
 namespace s3d
 {
-	enum class MessageBoxStyle
-	{
-		Default,
-
-		Info,
-
-		Warning,
-
-		Error,
-
-		Question,
-	};
-
-	enum class MessageBoxButtons
-	{
-		/// <summary>
-		/// [OK]
-		/// </summary>
-		OK,
-
-		/// <summary>
-		/// [OK] [キャンセル]
-		/// </summary>
-		OKCancel,
-
-		/// <summary>
-		/// [はい] [いいえ]
-		/// </summary>
-		YesNo,
-	};
-
-	enum class MessageBoxSelection
-	{
-		OK,
-
-		Cancel,
-
-		Yes,
-
-		No,
-
-		None
-	};
-
 	namespace System
 	{
-		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons = MessageBoxButtons::OK);
+		/// @brief 「OK」ボタンを持つメッセージボックスを表示する。
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK`
+		MessageBoxResult MessageBoxOK(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
-		inline MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxButtons buttons = MessageBoxButtons::OK)
-		{
-			return ShowMessageBox(title, text, MessageBoxStyle::Default, buttons);
-		}
+		/// @brief 「OK」ボタンを持つメッセージボックスを表示する。
+		/// @param title メッセージボックスのタイトル
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK`
+		MessageBoxResult MessageBoxOK(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
-		inline MessageBoxSelection ShowMessageBox(const String& text, MessageBoxStyle style, MessageBoxButtons buttons = MessageBoxButtons::OK)
-		{
-			return ShowMessageBox(Window::GetTitle(), text, style, buttons);
-		}
+		/// @brief 「OK」「キャンセル」ボタンを持つメッセージボックスを表示する。
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK` または `MessageBoxResult::Cancel`
+		[[nodiscard]]
+		MessageBoxResult MessageBoxOKCancel(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 
-		inline MessageBoxSelection ShowMessageBox(const String& text, MessageBoxButtons buttons = MessageBoxButtons::OK)
-		{
-			return ShowMessageBox(text, MessageBoxStyle::Default, buttons);
-		}
+		/// @brief 「OK」「キャンセル」ボタンを持つメッセージボックスを表示する。
+		/// @param title メッセージボックスのタイトル
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すかメッセージボックスを閉じるまで制御を返しません。
+		/// @return `MessageBoxResult::OK` または `MessageBoxResult::Cancel`
+		[[nodiscard]]
+		MessageBoxResult MessageBoxOKCancel(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
+
+		/// @brief 「はい」「いいえ」ボタンを持つメッセージボックスを表示する。
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すまで制御を返しません。
+		/// @return `MessageBoxResult::Yes` または `MessageBoxResult::No`
+		[[nodiscard]]
+		MessageBoxResult MessageBoxYesNo(StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
+
+		/// @brief 「はい」「いいえ」ボタンを持つメッセージボックスを表示する。
+		/// @param title メッセージボックスのタイトル
+		/// @param text 本文
+		/// @param style スタイル
+		/// @remark この関数はユーザがボタンを押すまで制御を返しません。
+		/// @return `MessageBoxResult::Yes` または `MessageBoxResult::No`
+		[[nodiscard]]
+		MessageBoxResult MessageBoxYesNo(StringView title, StringView text, MessageBoxStyle style = MessageBoxStyle::Default);
 	}
 }

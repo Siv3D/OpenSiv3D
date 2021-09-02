@@ -2,40 +2,47 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Graphics2D.hpp"
+# include "Common.hpp"
 # include "Uncopyable.hpp"
+# include "2DShapes.hpp"
+# include "Graphics2D.hpp"
+# include "Scene.hpp"
 
 namespace s3d
 {
 	class ScopedRenderTarget2D : Uncopyable
 	{
-	private:
+	public:
 
+		SIV3D_NODISCARD_CXX20
+		ScopedRenderTarget2D() = default;
+
+		SIV3D_NODISCARD_CXX20
+		explicit ScopedRenderTarget2D(const Optional<RenderTexture>& rt);
+
+		SIV3D_NODISCARD_CXX20
+		ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept;
+
+		~ScopedRenderTarget2D();
+
+		//ScopedRenderTarget2D& operator =(ScopedRenderTarget2D && other) noexcept;
+
+	private:
+		
 		Optional<Optional<RenderTexture>> m_oldRenderTarget;
 
 		Optional<Optional<Rect>> m_oldViewport;
 
 		void clear() noexcept;
-
-	public:
-
-		ScopedRenderTarget2D() = default;
-
-		explicit ScopedRenderTarget2D(const Optional<RenderTexture>& rt);
-
-		ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept;
-
-		~ScopedRenderTarget2D();
-
-		ScopedRenderTarget2D& operator =(ScopedRenderTarget2D&& other) noexcept;
 	};
 }
+
+# include "detail/ScopedRenderTarget2D.ipp"

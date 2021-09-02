@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,13 +11,12 @@
 
 # include <cfloat>
 # include <Siv3D/Subdivision2D.hpp>
-# include <Siv3D/Rectangle.hpp>
-# include <Siv3D/Error.hpp>
 
 namespace s3d
 {
 	///////////////////////////////////////////////////////////////
 	//
+	//	https://github.com/opencv/opencv/blob/master/modules/imgproc/src/subdivision2d.cpp
 	//
 
 	/*M///////////////////////////////////////////////////////////////////////////////////////
@@ -61,69 +60,69 @@ namespace s3d
 	//
 	//M*/
 
-	static constexpr double TriangleArea(const Vec2& a, const Vec2& b, const Vec2& c)
+	namespace detail
 	{
-		return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
-	}
-
-	static constexpr int32 IsPtInCircle3(const Vec2& pt, const Vec2& a, const Vec2& b, const Vec2& c)
-	{
-		const double eps = FLT_EPSILON * 0.125;
-		double val = (a.x * a.x + a.y * a.y) * TriangleArea(b, c, pt);
-		val -= (b.x * b.x + b.y * b.y) * TriangleArea(a, c, pt);
-		val += (c.x * c.x + c.y * c.y) * TriangleArea(a, b, pt);
-		val -= (pt.x * pt.x + pt.y * pt.y) * TriangleArea(a, b, c);
-
-		return (val > eps) ? 1 : (val < -eps) ? -1 : 0;
-	}
-
-	static constexpr Vec2 ComputeVoronoiPoint(const Vec2& org0, const Vec2& dst0, const Vec2& org1, const Vec2& dst1)
-	{
-		double a0 = dst0.x - org0.x;
-		double b0 = dst0.y - org0.y;
-		double c0 = -0.5 * (a0 * (dst0.x + org0.x) + b0 * (dst0.y + org0.y));
-
-		double a1 = dst1.x - org1.x;
-		double b1 = dst1.y - org1.y;
-		double c1 = -0.5 * (a1 * (dst1.x + org1.x) + b1 * (dst1.y + org1.y));
-
-		if (double det = a0 * b1 - a1 * b0;
-			det != 0)
+		[[nodiscard]]
+		static constexpr double TriangleArea(const Vec2& a, const Vec2& b, const Vec2& c)
 		{
-			det = 1. / det;
-			return Vec2((b0 * c1 - b1 * c0) * det, (a1 * c0 - a0 * c1) * det);
+			return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 		}
 
-		return Vec2(FLT_MAX, FLT_MAX);
+		[[nodiscard]]
+		static constexpr int32 IsPtInCircle3(const Vec2& pt, const Vec2& a, const Vec2& b, const Vec2& c)
+		{
+			const double eps = FLT_EPSILON * 0.125;
+			double val = (a.x * a.x + a.y * a.y) * TriangleArea(b, c, pt);
+			val -= (b.x * b.x + b.y * b.y) * TriangleArea(a, c, pt);
+			val += (c.x * c.x + c.y * c.y) * TriangleArea(a, b, pt);
+			val -= (pt.x * pt.x + pt.y * pt.y) * TriangleArea(a, b, c);
+
+			return (val > eps) ? 1 : (val < -eps) ? -1 : 0;
+		}
+
+		[[nodiscard]]
+		static constexpr Vec2 ComputeVoronoiPoint(const Vec2& org0, const Vec2& dst0, const Vec2& org1, const Vec2& dst1)
+		{
+			double a0 = dst0.x - org0.x;
+			double b0 = dst0.y - org0.y;
+			double c0 = -0.5 * (a0 * (dst0.x + org0.x) + b0 * (dst0.y + org0.y));
+
+			double a1 = dst1.x - org1.x;
+			double b1 = dst1.y - org1.y;
+			double c1 = -0.5 * (a1 * (dst1.x + org1.x) + b1 * (dst1.y + org1.y));
+
+			if (double det = a0 * b1 - a1 * b0;
+				det != 0)
+			{
+				det = 1. / det;
+				return Vec2((b0 * c1 - b1 * c0) * det, (a1 * c0 - a0 * c1) * det);
+			}
+
+			return Vec2(FLT_MAX, FLT_MAX);
+		}
+
+		[[nodiscard]]
+		static constexpr int32 IsRightOf2(const Vec2& pt, const Vec2& org, const Vec2& diff)
+		{
+			double cw_area = (org.x - pt.x) * diff.y - (org.y - pt.y) * diff.x;
+			return ((cw_area > 0) - (cw_area < 0));
+		}
 	}
 
-	static constexpr int32 IsRightOf2(const Vec2& pt, const Vec2& org, const Vec2& diff)
-	{
-		double cw_area = (org.x - pt.x) * diff.y - (org.y - pt.y) * diff.x;
-		return ((cw_area > 0) - (cw_area < 0));
-	}
-
-
-
-	Subdivision2D::Subdivision2D()
-	{
-
-	}
-
-	Subdivision2D::Subdivision2D(const RectF & rect)
+	Subdivision2D::Subdivision2D(const RectF& rect)
 	{
 		initDelaunay(rect);
 	}
 
-	Subdivision2D::Subdivision2D(const RectF & rect, const Array<Vec2> & points)
-		: Subdivision2D(rect)
+	Subdivision2D::Subdivision2D(const RectF& rect, const Array<Vec2>& points)
+		: Subdivision2D{ rect }
 	{
 		addPoints(points);
 	}
 
-	void Subdivision2D::initDelaunay(const RectF & rect)
+	void Subdivision2D::initDelaunay(const RectF& rect)
 	{
-		const double big_coord = 3.0 * std::max(rect.w, rect.h);
+		const double big_coord = 3.0 * Max(rect.w, rect.h);
 		const double rx = rect.x;
 		const double ry = rect.y;
 
@@ -165,7 +164,7 @@ namespace s3d
 		m_recentEdge = edge_AB;
 	}
 
-	int32 Subdivision2D::addPoint(const Vec2 & point)
+	int32 Subdivision2D::addPoint(const Vec2& point)
 	{
 		// If a point with the same coordinates exists already, no new point is added.
 		// returns the ID of the point.
@@ -229,7 +228,7 @@ namespace s3d
 			curr_dst = edgeEnd(curr_edge);
 
 			if (isRightOf(m_vertices[temp_dst].pt, curr_edge) > 0 &&
-				IsPtInCircle3(m_vertices[curr_org].pt, m_vertices[temp_dst].pt,
+				detail::IsPtInCircle3(m_vertices[curr_org].pt, m_vertices[temp_dst].pt,
 					m_vertices[curr_dst].pt, m_vertices[curr_point].pt) < 0)
 			{
 				swapEdges(curr_edge);
@@ -250,7 +249,7 @@ namespace s3d
 		return curr_point;
 	}
 
-	void Subdivision2D::addPoints(const Array<Vec2> & points)
+	void Subdivision2D::addPoints(const Array<Vec2>& points)
 	{
 		for (const Vec2& point : points)
 		{
@@ -274,7 +273,7 @@ namespace s3d
 			return none;
 		}
 
-		if (!m_validGeometry)
+		if (not m_validGeometry)
 		{
 			calcVoronoi();
 		}
@@ -307,7 +306,7 @@ namespace s3d
 				[[maybe_unused]] int32 r = edgeEnd(edge, &t);
 				assert(r > 0);
 
-				if (IsRightOf2(t, start, diff) >= 0)
+				if (detail::IsRightOf2(t, start, diff) >= 0)
 				{
 					break;
 				}
@@ -320,7 +319,7 @@ namespace s3d
 				[[maybe_unused]] int32 r = edgeBegin(edge, &t);
 				assert(r > 0);
 
-				if (IsRightOf2(t, start, diff) < 0)
+				if (detail::IsRightOf2(t, start, diff) < 0)
 				{
 					break;
 				}
@@ -333,7 +332,7 @@ namespace s3d
 			edgeBegin(edge, &t);
 			tempDiff -= t;
 
-			if (IsRightOf2(point, t, tempDiff) >= 0)
+			if (detail::IsRightOf2(point, t, tempDiff) >= 0)
 			{
 				vertex = edgeBegin(rotateEdge(edge, 3));
 				break;
@@ -420,12 +419,11 @@ namespace s3d
 		return triangles;
 	}
 
-	void Subdivision2D::calculateTriangles(Array<Triangle> & triangleList) const
+	void Subdivision2D::calculateTriangles(Array<Triangle>& triangleList) const
 	{
 		triangleList.clear();
 		int32 total = static_cast<int32>(m_qEdges.size() * 4);
 		std::vector<bool> edgemask(total, false);
-		constexpr bool filterPoints = true;
 
 		for (int32 i = 4; i < total; i += 2)
 		{
@@ -437,19 +435,19 @@ namespace s3d
 			Vec2 a, b, c;
 			int32 edge_a = i;
 			edgeBegin(edge_a, &a);
-			if (filterPoints && !m_rect.contains(a))
+			if (not m_rect.contains(a))
 			{
 				continue;
 			}
 			int32 edge_b = getEdge(edge_a, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_b, &b);
-			if (filterPoints && !m_rect.contains(b))
+			if (not m_rect.contains(b))
 			{
 				continue;
 			}
 			int32 edge_c = getEdge(edge_b, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_c, &c);
-			if (filterPoints && !m_rect.contains(c))
+			if (not m_rect.contains(c))
 			{
 				continue;
 			}
@@ -482,11 +480,13 @@ namespace s3d
 		size_t i, total;
 		if (indices.isEmpty())
 		{
-			i = 4, total = m_vertices.size();
+			i = 4;
+			total = m_vertices.size();
 		}
 		else
 		{
-			i = 0, total = indices.size();
+			i = 0;
+			total = indices.size();
 		}
 
 		Array<Vec2> buf;
@@ -522,7 +522,7 @@ namespace s3d
 	Vec2 Subdivision2D::getVertex(VertexID vertex, EdgeID* firstEdge) const
 	{
 		assert((size_t)vertex < m_vertices.size());
-		
+
 		if (firstEdge)
 		{
 			*firstEdge = m_vertices[vertex].firstEdge;
@@ -549,9 +549,9 @@ namespace s3d
 	Subdivision2D::EdgeID Subdivision2D::getEdge(EdgeID edge, Subdivision2DEdgeType nextEdgeType) const
 	{
 		assert((size_t)(edge >> 2) < m_qEdges.size());
-		
+
 		edge = m_qEdges[edge >> 2].next[(edge + FromEnum(nextEdgeType)) & 3];
-		
+
 		return (edge & ~3) + ((edge + (FromEnum(nextEdgeType) >> 4)) & 3);
 	}
 
@@ -563,7 +563,7 @@ namespace s3d
 	Subdivision2D::EdgeID Subdivision2D::nextEdge(EdgeID edge) const
 	{
 		assert((size_t)(edge >> 2) < m_qEdges.size());
-		
+
 		return m_qEdges[edge >> 2].next[edge & 3];
 	}
 
@@ -595,16 +595,16 @@ namespace s3d
 	Subdivision2D::VertexID Subdivision2D::edgeBegin(EdgeID edge, Vec2* beginPos) const
 	{
 		assert((size_t)(edge >> 2) < m_qEdges.size());
-		
+
 		int32 vidx = m_qEdges[edge >> 2].pt[edge & 3];
-		
+
 		if (beginPos)
 		{
 			assert((size_t)vidx < m_vertices.size());
-			
+
 			*beginPos = m_vertices[vidx].pt;
 		}
-		
+
 		return vidx;
 	}
 
@@ -616,30 +616,18 @@ namespace s3d
 	Subdivision2D::VertexID Subdivision2D::edgeEnd(EdgeID edge, Vec2* endPos) const
 	{
 		assert((size_t)(edge >> 2) < m_qEdges.size());
-		
+
 		int32 vidx = m_qEdges[edge >> 2].pt[(edge + 2) & 3];
-		
+
 		if (endPos)
 		{
 			assert((size_t)vidx < m_vertices.size());
-		
+
 			*endPos = m_vertices[vidx].pt;
 		}
 
 		return vidx;
 	}
-
-	bool Subdivision2D::isEmpty() const noexcept
-	{
-		return (m_addedPoints == 0);
-	}
-
-	Subdivision2D::operator bool() const noexcept
-	{
-		return !isEmpty();
-	}
-
-
 
 	Subdivision2DPointLocation Subdivision2D::locate(const Vec2& pt, int32& _edge, int32& _vertex)
 	{
@@ -665,7 +653,7 @@ namespace s3d
 
 		if (pt.x < m_rect.x || pt.y < m_rect.y || pt.x >= m_bottomRight.x || pt.y >= m_bottomRight.y)
 		{
-			throw Error(U"");
+			throw Error(U"Subdivision: point is out of bounds");
 		}
 
 		int32 edge = m_recentEdge;
@@ -757,7 +745,7 @@ namespace s3d
 				edge = 0;
 			}
 			else if ((t1 < t3 || t2 < t3) &&
-				std::abs(TriangleArea(pt, org_pt, dst_pt)) < FLT_EPSILON)
+				std::abs(detail::TriangleArea(pt, org_pt, dst_pt)) < FLT_EPSILON)
 			{
 				location = Subdivision2DPointLocation::OnEdge;
 				vertex = 0;
@@ -875,7 +863,7 @@ namespace s3d
 		Vec2 org, dst;
 		edgeBegin(edge, &org);
 		edgeEnd(edge, &dst);
-		double cw_area = TriangleArea(pt, dst, org);
+		double cw_area = detail::TriangleArea(pt, dst, org);
 
 		return (cw_area > 0) - (cw_area < 0);
 	}
@@ -913,7 +901,7 @@ namespace s3d
 				edgeBegin(edge1, &org1);
 				edgeEnd(edge1, &dst1);
 
-				Vec2 virt_point = ComputeVoronoiPoint(org0, dst0, org1, dst1);
+				Vec2 virt_point = detail::ComputeVoronoiPoint(org0, dst0, org1, dst1);
 
 				if (std::abs(virt_point.x) < FLT_MAX * 0.5 &&
 					std::abs(virt_point.y) < FLT_MAX * 0.5)
@@ -933,7 +921,7 @@ namespace s3d
 				edgeBegin(edge1, &org1);
 				edgeEnd(edge1, &dst1);
 
-				Vec2 virt_point = ComputeVoronoiPoint(org0, dst0, org1, dst1);
+				Vec2 virt_point = detail::ComputeVoronoiPoint(org0, dst0, org1, dst1);
 
 				if (std::abs(virt_point.x) < FLT_MAX * 0.5 &&
 					std::abs(virt_point.y) < FLT_MAX * 0.5)

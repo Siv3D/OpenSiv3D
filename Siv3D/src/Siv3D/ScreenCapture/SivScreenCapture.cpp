@@ -2,66 +2,68 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
-# include "IScreenCapture.hpp"
 # include <Siv3D/ScreenCapture.hpp>
-# include <Siv3D/DateTime.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/DynamicTexture.hpp>
+# include <Siv3D/ScreenCapture/IScreenCapture.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace ScreenCapture
 	{
-		void SaveCurrentFrame()
+		FilePath GetScreenshotDirectory()
 		{
-			const FilePath path = Siv3DEngine::Get<ISiv3DScreenCapture>()->getDefaultScreenshotDirectory() + DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png";
-
-			SaveCurrentFrame(path);
+			return SIV3D_ENGINE(ScreenCapture)->getScreenshotDirectory();
 		}
 
-		void SaveCurrentFrame(const FilePath& path)
+		void SetScreenshotDirectory(FilePath&& path)
 		{
-			if (!path)
-			{
-				return;
-			}
+			SIV3D_ENGINE(ScreenCapture)->setScreenshotDirectory(std::move(path));
+		}
 
-			Siv3DEngine::Get<ISiv3DScreenCapture>()->requestScreenCapture(path);
+		void SaveCurrentFrame(FilePath&& path)
+		{
+			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(std::move(path));
 		}
 
 		void RequestCurrentFrame()
 		{
-			Siv3DEngine::Get<ISiv3DScreenCapture>()->requestScreenCapture(FilePath());
+			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(FilePath());
 		}
 
 		bool HasNewFrame()
 		{
-			return Siv3DEngine::Get<ISiv3DScreenCapture>()->hasNewFrame();
+			return SIV3D_ENGINE(ScreenCapture)->hasNewFrame();
 		}
 
 		const Image& GetFrame()
 		{
-			return Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture();
+			return SIV3D_ENGINE(ScreenCapture)->receiveScreenCapture();
 		}
 
 		bool GetFrame(Image& image)
 		{
-			image = Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture();
+			image = SIV3D_ENGINE(ScreenCapture)->receiveScreenCapture();
 
 			return !!image;
 		}
 
 		bool GetFrame(DynamicTexture& texture)
 		{
-			return texture.fill(Siv3DEngine::Get<ISiv3DScreenCapture>()->receiveScreenCapture());
+			return texture.fill(SIV3D_ENGINE(ScreenCapture)->receiveScreenCapture());
+		}
+
+		void SetShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys)
+		{
+			SIV3D_ENGINE(ScreenCapture)->setScreenshotShortcutKeys(screenshotShortcutKeys);
 		}
 	}
 }

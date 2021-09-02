@@ -2,34 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/ManagedScript.hpp>
-# include "ManagedScriptDetail.hpp"
+# include <Siv3D/ManagedScript/ManagedScriptDetail.hpp>
 
 namespace s3d
 {
 	ManagedScript::ManagedScript()
-		: pImpl(std::make_shared<ManagedScriptDetail>())
-	{
+		: pImpl{ std::make_shared<ManagedScriptDetail>() } {}
 
-	}
+	ManagedScript::ManagedScript(const FilePathView path)
+		: pImpl{ std::make_shared<ManagedScriptDetail>(path) } {}
 
-	ManagedScript::ManagedScript(const FilePath& path)
-		: pImpl(std::make_shared<ManagedScriptDetail>(path))
-	{
-
-	}
-
-	ManagedScript::~ManagedScript()
-	{
-
-	}
+	ManagedScript::~ManagedScript() {}
 
 	bool ManagedScript::isEmpty() const
 	{
@@ -38,7 +29,7 @@ namespace s3d
 
 	ManagedScript::operator bool() const
 	{
-		return !isEmpty();
+		return (not pImpl->isEmpty());
 	}
 
 	bool ManagedScript::compiled() const

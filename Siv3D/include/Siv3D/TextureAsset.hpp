@@ -2,109 +2,74 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Asset.hpp"
 # include "Texture.hpp"
+# include "TextureAssetData.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Texture アセットデータ
-	/// </summary>
-	struct TextureAssetData : IAsset
-	{
-		FilePath path;
-
-		TextureDesc desc = TextureDesc::Unmipped;
-
-		Texture texture;
-
-		std::function<bool(TextureAssetData&)> onPreload;
-
-		std::function<bool(TextureAssetData&)> onUpdate;
-
-		std::function<bool(TextureAssetData&)> onRelease;
-
-		static const String& Name();
-
-		static bool DefaultPreload(TextureAssetData& asset);
-
-		static bool DefaultUpdate(TextureAssetData&);
-
-		static bool DefaultRelease(TextureAssetData& asset);
-
-		TextureAssetData();
-
-		explicit TextureAssetData(
-			const FilePath& _path,
-			TextureDesc _desc = TextureDesc::Unmipped,
-			const AssetParameter& _parameter = AssetParameter(),
-			std::function<bool(TextureAssetData&)> _onPreload = DefaultPreload,
-			std::function<bool(TextureAssetData&)> _onUpdate = DefaultUpdate,
-			std::function<bool(TextureAssetData&)> _onRelease = DefaultRelease);
-
-		bool preload() override;
-
-		void preloadAsync() override;
-
-		bool update() override;
-
-		bool release() override;
-	};
-
-	/// <summary>
-	/// Texture アセット
-	/// </summary>
 	class TextureAsset : public Texture
 	{
 	public:
 
-		TextureAsset(const AssetName& name);
+		SIV3D_NODISCARD_CXX20
+		explicit TextureAsset(AssetNameView name);
 
-		TextureAsset(const AssetName& name, const Texture& dummy);
+		static bool Register(const AssetName& name, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const FilePath& path, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const Icon& icon, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
-		static bool Register(const AssetName& name, const Icon& icon, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const Emoji& emoji, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data);
 
-		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
 
-		static bool Register(const AssetName& name, const TextureAssetData& data);
+		static bool Register(const AssetNameAndTags& nameAndTags, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
-		[[nodiscard]] static bool IsRegistered(const AssetName& name);
+		static bool Register(const AssetNameAndTags& nameAndTags, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Preload(const AssetName& name);
+		static bool Register(const AssetNameAndTags& nameAndTags, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//static bool PreloadByTag(const AssetTag& tag);
+		static bool Register(const AssetNameAndTags& nameAndTags, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
-		//static bool PreloadAll();
+		static bool Register(const AssetNameAndTags& nameAndTags, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
 
-		static void Release(const AssetName& name);
 
-		//static void ReleaseByTag(const AssetTag& tag);
+		[[nodiscard]]
+		static bool IsRegistered(AssetNameView name);
+
+		static bool Load(AssetNameView name);
+
+		static void LoadAsync(AssetNameView name);
+
+		static void Wait(AssetNameView name);
+
+		[[nodiscard]]
+		static bool IsReady(AssetNameView name);
+
+		static void Release(AssetNameView name);
 
 		static void ReleaseAll();
 
-		static void Unregister(const AssetName& name);
-
-		//static void UnregisterByTag(const AssetTag& tag);
+		static void Unregister(AssetNameView name);
 
 		static void UnregisterAll();
 
-		[[nodiscard]] static bool IsReady(const AssetName& name);
+		[[nodiscard]]
+		static HashTable<AssetName, AssetInfo> Enumerate();
 	};
 }

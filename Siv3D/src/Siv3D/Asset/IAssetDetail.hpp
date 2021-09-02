@@ -2,54 +2,40 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# define SIV3D_CONCURRENT
-# include <Siv3D/ConcurrentTask.hpp>
 # include <Siv3D/Asset.hpp>
 
 namespace s3d
 {
 	class IAsset::IAssetDetail
 	{
-	private:
-
-		AssetParameter m_parameter;
-
-		std::unique_ptr<ConcurrentTask<bool>> m_loadingThread;
-
-		State m_state = State::Uninitialized;
-
 	public:
 
 		IAssetDetail();
 
-		IAssetDetail(const AssetParameter& parameter);
+		explicit IAssetDetail(const Array<String>& tags);
 
 		~IAssetDetail();
 
-		void setState(const State state);
+		[[nodiscard]]
+		AssetState getState() const;
 
-		const AssetParameter& getParameter() const;
+		void setState(AssetState state);
 
-		bool isReady() const;
+		[[nodiscard]]
+		const Array<AssetTag>& getTags() const;
 
-		void wait();
+	private:
 
-		bool isLoadingAsync();
+		Array<String> m_tags;
 
-		bool isPreloaded() const;
-
-		bool loadSucceeded() const;
-
-		bool uninitialized() const;
-
-		void launchLoading(std::function<bool()>&& loader);
+		std::atomic<AssetState> m_state = AssetState::Uninitialized;
 	};
 }

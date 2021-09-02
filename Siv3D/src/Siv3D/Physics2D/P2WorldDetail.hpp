@@ -2,71 +2,94 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <atomic>
-# include <Siv3D/Physics2D.hpp>
-# include <Box2D/Box2D.h>
-# include "P2ContactListner.hpp"
+# include <Siv3D/Physics2D/P2World.hpp>
+# include "P2Common.hpp"
+# include "P2ContactListener.hpp"
 
 namespace s3d
 {
-	class P2World::P2WorldDetail
+	class detail::P2WorldDetail
 	{
+	public:
+
+		explicit P2WorldDetail(Vec2 gravity);
+
+		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
+
+		[[nodiscard]]
+		P2Body createPlaceholder(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos);
+
+		[[nodiscard]]
+		P2Body createLine(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createLineString(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createClosedLineString(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createCircle(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createCircleSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createRect(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createTriangle(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createQuad(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createPolygon(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2PivotJoint createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision);
+
+		[[nodiscard]]
+		P2DistanceJoint createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, double length, EnableCollision enableCollision);
+
+		[[nodiscard]]
+		P2SliderJoint createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, EnableCollision enableCollision);
+
+		[[nodiscard]]
+		P2WheelJoint createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& axis, EnableCollision enableCollision);
+
+		[[nodiscard]]
+		P2MouseJoint createMouseJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& body, const Vec2& worldTargetPos);
+
+		[[nodiscard]]
+		const HashTable<P2ContactPair, P2Collision>& getCollisions() const noexcept;
+
+		[[nodiscard]]
+		b2World& getData() noexcept;
+
+		[[nodiscard]]
+		const b2World& getData() const noexcept;
+
+		[[nodiscard]]
+		b2World* getWorldPtr() noexcept;
+
 	private:
 
 		b2World m_world;
 
 		P2ContactListener m_contactListner;
 
-		std::atomic<P2BodyID> m_currentID = 0;
+		std::atomic<P2BodyID> m_currentID = { 0 };
 
-		P2BodyID generateNextID();
-
-	public:
-
-		P2WorldDetail(const Vec2& gravity);
-
-		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
-
-		[[nodiscard]] P2Body createDummy(P2World& world, const Vec2& center, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createLine(P2World& world, const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createClosedLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		[[nodiscard]] P2PivotJoint createPivotJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
-
-		[[nodiscard]] P2DistanceJoint createDistanceJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double length);
-
-		[[nodiscard]] P2RopeJoint createRopeJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, double maxLength);
-
-		[[nodiscard]] P2SliderJoint createSliderJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis);
-
-		[[nodiscard]] const HashTable<P2ContactPair, P2Collision>& getCollisions() const;
-
-		[[nodiscard]] b2World& getData();
-
-		[[nodiscard]] const b2World& getData() const;
-
-		[[nodiscard]] b2World* getWorldPtr();
+		[[nodiscard]]
+		P2BodyID generateNextID() noexcept;
 	};
 }

@@ -1,26 +1,26 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <cassert>
-# include <string>
+# include <iosfwd>
 # include <string_view>
-# include <algorithm>
-# include <iostream>
-# include "Types.hpp"
+# include <string>
+# include "Common.hpp"
 # include "Hash.hpp"
-# include "TypeTraits.hpp"
 
 namespace s3d
 {
+	struct FormatData;
+
+	/// @brief 所有権を持たない文字列クラス
 	class StringView
 	{
 	public:
@@ -39,424 +39,303 @@ namespace s3d
 		using size_type					= typename string_view_type::size_type;
 		using difference_type			= typename string_view_type::difference_type;
 
+		static constexpr size_type npos{ static_cast<size_type>(-1) };
+
+		SIV3D_NODISCARD_CXX20
+		constexpr StringView() = default;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr StringView(const StringView&) = default;
+
+		SIV3D_NODISCARD_CXX20
+		StringView(const std::u32string& s) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr StringView(std::u32string_view s) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr StringView(const value_type* s, size_type length) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr StringView(const value_type* s) noexcept;
+
+		constexpr StringView& operator =(const StringView&) = default;
+
+		[[nodiscard]]
+		constexpr const_iterator begin() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_iterator end() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_iterator cbegin() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_iterator cend() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reverse_iterator rbegin() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reverse_iterator rend() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reverse_iterator crbegin() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reverse_iterator crend() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reference operator[](size_type index) const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reference at(size_type index) const;
+
+		[[nodiscard]]
+		constexpr const_reference front() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_reference back() const noexcept;
+
+		[[nodiscard]]
+		constexpr const_pointer data() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type size() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type size_bytes() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type length() const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type max_size() const noexcept;
+
+		[[nodiscard]]
+		constexpr bool empty() const noexcept;
+
+		[[nodiscard]]
+		constexpr bool isEmpty() const noexcept;
+
+		[[nodiscard]]
+		explicit constexpr operator bool() const noexcept;
+
+		constexpr void remove_prefix(size_type n) noexcept;
+
+		constexpr void remove_suffix(size_type n) noexcept;
+
+		constexpr void swap(StringView& other) noexcept;
+
+		constexpr void clear() noexcept;
+
+		size_type copy(value_type* dst, size_type n, size_type pos = 0) const;
+
+		[[nodiscard]]
+		constexpr StringView substr(size_type pos = 0, size_type n = npos) const;
+
+		[[nodiscard]]
+		constexpr int32 compare(StringView s) const noexcept;
+
+		[[nodiscard]]
+		constexpr int32 compare(size_type pos1, size_type n1, StringView s) const noexcept;
+
+		[[nodiscard]]
+		constexpr int32 compare(size_type pos1, size_type n1, StringView s, size_type pos2, size_type n2) const noexcept;
+
+		[[nodiscard]]
+		constexpr int32 compare(const value_type* s) const noexcept;
+
+		[[nodiscard]]
+		constexpr int32 compare(size_type pos1, size_type n1, const value_type* s) const noexcept;
+
+		[[nodiscard]]
+		constexpr int32 compare(size_type pos1, size_type n1, const value_type* s, size_type n2) const noexcept;
+
+		/// @brief 文字列が指定した文字から始まるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字から始まる場合 true, それ以外の場合は false	
+		[[nodiscard]]
+		constexpr bool starts_with(value_type ch) const noexcept;
+		
+		/// @brief 文字列が指定した文字列から始まるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列から始まる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool starts_with(StringView s) const noexcept;
+
+		/// @brief 文字列が指定した文字で終わるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字で終わる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool ends_with(value_type ch) const noexcept;
+
+		/// @brief 文字列が指定した文字列で終わるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列で終わる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool ends_with(StringView s) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type indexOf(StringView s, size_type pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type indexOf(value_type ch, size_type pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type indexOf(const value_type* s, size_type pos, size_type count) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type indexOf(const value_type* s, size_type pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t indexOfNot(value_type ch, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type lastIndexOf(StringView s, size_type pos = npos) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type lastIndexOf(value_type ch, size_type pos = npos) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type lastIndexOf(const value_type* s, size_type pos, size_type count) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_type lastIndexOf(const value_type* s, size_type pos = npos) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t lastIndexNotOf(value_type ch, size_t pos = npos) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t indexOfAny(StringView anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t indexOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t lastIndexOfAny(StringView anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t lastIndexOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t indexNotOfAny(StringView anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t indexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t lastIndexNotOfAny(StringView anyof, size_t pos = 0) const noexcept;
+
+		[[nodiscard]]
+		constexpr size_t lastIndexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+
+		/// @brief 文字列が指定した文字を含むかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool includes(value_type ch) const noexcept;
+
+		/// @brief 文字列が指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool includes(StringView s) const noexcept;
+
+		/// @brief 文字列を std::string に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::string narrow() const;
+
+		/// @brief 文字列を std::wstring に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::wstring toWstr() const;
+
+		/// @brief 文字列を UTF-8 文字列に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::string toUTF8() const;
+
+		/// @brief 文字列のハッシュを返します。
+		/// @return 文字列のハッシュ
+		[[nodiscard]]
+		uint64 hash() const noexcept;
+
+		[[nodiscard]]
+		friend constexpr bool operator ==(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) == 0);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator !=(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) != 0);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator <(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) < 0);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator <=(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) <= 0);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator >(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) > 0);
+		}
+
+		[[nodiscard]]
+		friend constexpr bool operator >=(StringView lhs, StringView rhs) noexcept
+		{
+			return (lhs.compare(rhs) >= 0);
+		}
+
+		friend std::ostream& operator <<(std::ostream& output, const StringView& value);
+
+		friend std::wostream& operator <<(std::wostream& output, const StringView& value);
+
+		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const StringView& value);
+
+		friend void Formatter(FormatData& formatData, StringView s);
+
 	private:
 
 		string_view_type m_view;
-
-	public:
-
-		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
-
-		constexpr StringView() noexcept = default;
-
-		constexpr StringView(const StringView&) noexcept = default;
-
-		StringView(const std::u32string& text) noexcept
-			: m_view(text) {}
-
-		constexpr StringView(std::u32string_view sv) noexcept
-			: m_view(sv) {}
-
-		constexpr StringView(const value_type* text, const size_type count)
-			: m_view(text, count) {}
-
-		constexpr StringView(const value_type* text)
-			: m_view(text) {}
-
-		constexpr StringView& operator =(const StringView&) noexcept = default;
-
-		[[nodiscard]] constexpr const_iterator begin() const noexcept
-		{
-			return m_view.begin();
-		}
-
-		[[nodiscard]] constexpr const_iterator end() const noexcept
-		{
-			return m_view.end();
-		}
-
-		[[nodiscard]] constexpr const_iterator cbegin() const noexcept
-		{
-			return m_view.cbegin();
-		}
-
-		[[nodiscard]] constexpr const_iterator cend() const noexcept
-		{
-			return m_view.cend();
-		}
-
-		[[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept
-		{
-			return m_view.rbegin();
-		}
-
-		[[nodiscard]] constexpr const_reverse_iterator rend() const noexcept
-		{
-			return m_view.rend();
-		}
-
-		[[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept
-		{
-			return m_view.crbegin();
-		}
-
-		[[nodiscard]] constexpr const_reverse_iterator crend() const noexcept
-		{
-			return m_view.crend();
-		}
-
-		[[nodiscard]] constexpr const_reference operator[](const size_type index) const
-		{
-			return m_view[index];
-		}
-
-		[[nodiscard]] constexpr const_reference at(const size_type index) const
-		{
-			if (index >= m_view.size())
-			{
-				throw std::out_of_range("StringView::at() index out of range");
-			}
-
-			return m_view[index];
-		}
-
-		[[nodiscard]] constexpr const_reference front() const
-		{
-			assert(!empty() && "cannot call StringView::front() on empty StringView");
-
-			return m_view[0];
-		}
-
-		[[nodiscard]] constexpr const_reference back() const
-		{
-			assert(!empty() && "cannot call StringView::back() on empty StringView");
-
-			return m_view[m_view.length() - 1];
-		}
-
-		[[nodiscard]] constexpr const_pointer data() const noexcept
-		{
-			return m_view.data();
-		}
-
-		[[nodiscard]] constexpr size_type size() const noexcept
-		{
-			return m_view.size();
-		}
-
-		[[nodiscard]] constexpr size_type size_bytes() const noexcept
-		{
-			return m_view.size() * sizeof(value_type);
-		}
-
-		[[nodiscard]] constexpr size_type length() const noexcept
-		{
-			return m_view.length();
-		}
-
-		[[nodiscard]] constexpr size_type max_size() const noexcept
-		{
-			return std::numeric_limits<size_type>::max();
-		}
-
-		[[nodiscard]] constexpr bool empty() const noexcept
-		{
-			return m_view.empty();;
-		}
-
-		[[nodiscard]] constexpr bool isEmpty() const noexcept
-		{
-			return m_view.empty();
-		}
-
-		[[nodiscard]] explicit constexpr operator bool() const noexcept
-		{
-			return (!m_view.empty());
-		}
-
-		constexpr void remove_prefix(const size_type n) noexcept
-		{
-			m_view.remove_prefix(n);
-		}
-
-		constexpr void remove_suffix(const size_type n) noexcept
-		{
-			m_view.remove_suffix(n);
-		}
-
-		constexpr void swap(StringView& other) noexcept
-		{
-			m_view.swap(other.m_view);
-		}
-
-		constexpr void clear() noexcept
-		{
-			*this = StringView();
-		}
-
-		size_type copy(value_type* dst, const size_type n, const size_type pos = 0) const
-		{
-			return m_view.copy(dst, n, pos);
-		}
-
-		[[nodiscard]] constexpr StringView substr(const size_type pos = 0, const size_type n = npos) const
-		{
-			if (pos > m_view.size())
-			{
-				throw std::out_of_range("StringView::substr()");
-			}
-
-			return StringView(m_view.data() + pos, std::min(n, m_view.size() - pos));
-		}
-
-		[[nodiscard]] constexpr int32 compare(const StringView sv) const noexcept
-		{
-			return m_view.compare(sv.m_view);
-		}
-
-		[[nodiscard]] constexpr int32 compare(const size_type pos1, const size_type n1, const StringView sv) const noexcept
-		{
-			return m_view.compare(pos1, n1, sv.m_view);
-		}
-
-		[[nodiscard]] constexpr int32 compare(const size_type pos1, const size_type n1, const StringView sv, const size_type pos2, const size_type n2) const noexcept
-		{
-			return m_view.compare(pos1, n1, sv.m_view, pos2, n2);
-		}
-
-		[[nodiscard]] constexpr int32 compare(const value_type* str) const noexcept
-		{
-			return m_view.compare(str);
-		}
-
-		[[nodiscard]] constexpr int32 compare(const size_type pos1, const size_type n1, const value_type* str) const noexcept
-		{
-			return m_view.compare(pos1, n1, str);
-		}
-
-		[[nodiscard]] constexpr int32 compare(const size_type pos1, const size_type n1, const value_type* str, const size_type n2) const noexcept
-		{
-			return m_view.compare(pos1, n1, str, n2);
-		}
-
-		[[nodiscard]] constexpr bool starts_with(const value_type ch) const
-		{
-			return !empty() && front() == ch;
-		}
-
-		[[nodiscard]] constexpr bool starts_with(const StringView text) const
-		{
-			return m_view.size() >= text.size() && std::char_traits<value_type>::compare(m_view.data(), text.data(), text.size()) == 0;
-		}
-
-		[[nodiscard]] bool ends_with(const value_type ch) const
-		{
-			return !empty() && back() == ch;
-		}
-
-		[[nodiscard]] constexpr bool ends_with(const StringView text) const
-		{
-			return m_view.size() >= text.size() && std::char_traits<value_type>::compare(m_view.data() + m_view.size() - text.size(), text.data(), text.size()) == 0;
-		}
-
-		[[nodiscard]] constexpr size_type indexOf(const StringView str, const size_type pos = 0) const noexcept
-		{
-			return m_view.find(str.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_type indexOf(const value_type ch, const size_type pos = 0) const noexcept
-		{
-			return m_view.find(ch, pos);
-		}
-
-		[[nodiscard]] constexpr size_type indexOf(const value_type* str, const size_type pos, const size_type count) const noexcept
-		{
-			return m_view.find(str, pos, count);
-		}
-
-		[[nodiscard]] constexpr size_type indexOf(const value_type* str, const size_type pos = 0) const noexcept
-		{
-			return m_view.find(str, pos);
-		}
-
-		[[nodiscard]] constexpr size_t indexOfNot(const value_type ch, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_first_not_of(ch, pos);
-		}
-
-		[[nodiscard]] constexpr size_type lastIndexOf(const StringView str, const size_type pos = npos) const noexcept
-		{
-			return m_view.rfind(str.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_type lastIndexOf(const value_type ch, const size_type pos = npos) const noexcept
-		{
-			return m_view.rfind(ch, pos);
-		}
-
-		[[nodiscard]] constexpr size_type lastIndexOf(const value_type* str, const size_type pos, const size_type count) const noexcept
-		{
-			return m_view.rfind(str, pos, count);
-		}
-
-		[[nodiscard]] constexpr size_type lastIndexOf(const value_type* str, const size_type pos = npos) const noexcept
-		{
-			return m_view.rfind(str, pos);
-		}
-
-		[[nodiscard]] constexpr size_t lastIndexNotOf(const value_type ch, const size_t pos = npos) const noexcept
-		{
-			return m_view.find_last_not_of(ch, pos);
-		}
-
-		[[nodiscard]] constexpr size_t indexOfAny(const StringView anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_first_of(anyof.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_t indexOfAny(const value_type* anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_first_of(anyof, pos);
-		}
-
-		[[nodiscard]] constexpr size_t lastIndexOfAny(const StringView anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_last_of(anyof.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_t lastIndexOfAny(const value_type* anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_last_of(anyof, pos);
-		}
-
-		[[nodiscard]] constexpr size_t indexNotOfAny(const StringView anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_first_not_of(anyof.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_t indexNotOfAny(const value_type* anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_first_not_of(anyof, pos);
-		}
-
-		[[nodiscard]] constexpr size_t lastIndexNotOfAny(const StringView anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_last_not_of(anyof.m_view, pos);
-		}
-
-		[[nodiscard]] constexpr size_t lastIndexNotOfAny(const value_type* anyof, const size_t pos = 0) const noexcept
-		{
-			return m_view.find_last_not_of(anyof, pos);
-		}
 	};
 
-
-	//////////////////////////////////////////////////
-	//
-	//	Literals
-	//
-	//////////////////////////////////////////////////
+	inline void swap(StringView& a, StringView& b) noexcept;
 
 	inline namespace Literals
 	{
 		inline namespace StringViewLiterals
 		{
-			[[nodiscard]] constexpr StringView operator ""_sv(const char32_t* text, const size_t length) noexcept
-			{
-				return StringView(text, length);
-			}
+			[[nodiscard]]
+			inline constexpr StringView operator ""_sv(const char32_t* s, size_t length) noexcept;
 		}
-	}
-
-
-	//////////////////////////////////////////////////
-	//
-	//	Comparison Functions
-	//
-	//////////////////////////////////////////////////
-
-	[[nodiscard]] inline constexpr bool operator ==(const StringView x, const StringView y) noexcept
-	{
-		return x.compare(y) == 0;
-	}
-
-	[[nodiscard]] inline constexpr bool operator !=(const StringView x, const StringView y) noexcept
-	{
-		return !(x == y);
-	}
-
-	[[nodiscard]] inline constexpr bool operator <(const StringView x, const StringView y) noexcept
-	{
-		return x.compare(y) < 0;
-	}
-
-	[[nodiscard]] inline constexpr bool operator <=(const StringView x, const StringView y) noexcept
-	{
-		return x.compare(y) <= 0;
-	}
-
-	[[nodiscard]] inline constexpr bool operator >(const StringView x, const StringView y) noexcept
-	{
-		return x.compare(y) > 0;
-	}
-
-	[[nodiscard]] inline constexpr bool operator >=(const StringView x, const StringView y) noexcept
-	{
-		return x.compare(y) >= 0;
 	}
 
 	using FilePathView = StringView;
-
-	template <class E>
-	struct IsMemoryContiguousContainer<std::basic_string_view<E>> : std::bool_constant<std::is_trivially_copyable_v<E>> {};
-
-	template <>
-	struct IsMemoryContiguousContainer<StringView> : std::true_type {};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+template <>
+inline void std::swap(s3d::StringView& a, s3d::StringView& b) noexcept;
 
-namespace s3d
+template <>
+struct std::hash<s3d::StringView>
 {
-	void Formatter(FormatData& formatData, const StringView& value);
-
-	std::ostream& operator <<(std::ostream& output, const StringView& value);
-
-	std::wostream& operator <<(std::wostream& output, const StringView& value);
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <>
-	struct hash<s3d::StringView>
+	[[nodiscard]]
+	size_t operator()(const s3d::StringView& value) const noexcept
 	{
-		[[nodiscard]] size_t operator()(const s3d::StringView& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value.data(), value.size_bytes());
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	Swap
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	inline void swap(s3d::StringView& a, s3d::StringView& b) noexcept
-	{
-		a.swap(b);
+		return value.hash();
 	}
-}
+};
+
+# include "detail/StringView.ipp"

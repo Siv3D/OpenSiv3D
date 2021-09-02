@@ -2,468 +2,410 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <AssetHandleManager/AssetReport.hpp>
-# include <Siv3D/EngineMessageBox.hpp>
-# include "IAudio.hpp"
+# include <Siv3D/Audio.hpp>
+# include <Siv3D/Audio/IAudio.hpp>
+# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
 	template <>
-	AssetHandle<Audio::Tag>::AssetHandle()
+	AssetIDWrapper<AssetHandle<Audio>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
-			EngineMessageBox::Show(U"`Audio` must be initialized after engine setup.");
-			std::exit(-1);
+			FreestandingMessageBox::ShowError(U"`Audio` must be initialized after engine-setup. Please fix the C++ code.");
+			std::abort();
 		}
 	}
 
 	template <>
-	AssetHandle<Audio::Tag>::AssetHandle(const IDWrapperType id) noexcept
-		: m_id(id)
+	AssetIDWrapper<AssetHandle<Audio>>::~AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
-		{
-			EngineMessageBox::Show(U"`Audio` must be initialized after engine setup.");
-			std::exit(-1);
-		}
-	}
-
-	template <>
-	AssetHandle<Audio::Tag>::~AssetHandle()
-	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::Get<ISiv3DAudio>())
+		if (auto p = SIV3D_ENGINE(Audio))
 		{
 			p->release(m_id);
 		}
 	}
 
-	Audio::Audio()
-		: m_handle(std::make_shared<AudioHandle>())
-	{
-
-	}
+	Audio::Audio() {}
 
 	Audio::Audio(Wave&& wave)
-		: m_handle(std::make_shared<AudioHandle>(Siv3DEngine::Get<ISiv3DAudio>()->create(std::move(wave))))
+		: Audio{ std::move(wave), Loop::No } {}
+
+	Audio::Audio(Wave&& wave, const Loop loop)
+		:Audio{ std::move(wave), (loop ? Optional<AudioLoopTiming>{{ 0, 0 }} : none) } {}
+
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<uint64> loopBegin)
+		: Audio{ std::move(wave), AudioLoopTiming{ *loopBegin, 0 } } {}
+
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
+		: Audio{ std::move(wave), AudioLoopTiming{ *loopBegin, *loopEnd } } {}
+
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin)
+		: Audio{ std::move(wave), loopBegin, Arg::loopEnd = Duration{ 0 } } {}
+
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->create(std::move(wave), *loopBegin, *loopEnd)) }
 	{
-		ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Audio::Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop)
-		: Audio(std::move(wave))
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->create(std::move(wave), loop)) }
 	{
-		if (loop)
-		{
-			if (loop->endPos)
-			{
-				setLoop(Arg::loopBegin = loop->beginPos, Arg::loopEnd = loop->endPos);
-			}
-			else
-			{
-				setLoop(Arg::loopBegin = loop->beginPos);
-			}
-		}
-	}
-
-	Audio::Audio(Wave&& wave, const Arg::loop_<bool> loop)
-		: Audio(std::move(wave))
-	{
-		if (*loop)
-		{
-			setLoop(true);
-		}
-	}
-
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<uint64> loopBegin)
-		: Audio(std::move(wave))
-	{
-		setLoop(loopBegin);
-	}
-
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
-		: Audio(std::move(wave))
-	{
-		setLoop(loopBegin, loopEnd);
-	}
-
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin)
-		: Audio(std::move(wave))
-	{
-		setLoop(loopBegin);
-	}
-
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
-		: Audio(std::move(wave))
-	{
-		setLoop(loopBegin, loopEnd);
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Audio::Audio(const Wave& wave)
-		: Audio(Wave(wave))
-	{
+		: Audio{ wave, Loop::No } {}
 
-	}
+	Audio::Audio(const Wave& wave, const Loop loop)
+		: Audio{ wave, (loop ? Optional<AudioLoopTiming>{{ 0, 0 }} : none) } {}
+
+	Audio::Audio(const Wave& wave, const Arg::loopBegin_<uint64> loopBegin)
+		: Audio{ wave, AudioLoopTiming{ *loopBegin, 0 } } {}
+
+	Audio::Audio(const Wave& wave, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
+		: Audio{ wave, AudioLoopTiming{ *loopBegin, *loopEnd } } {}
+
+	Audio::Audio(const Wave& wave, const Arg::loopBegin_<Duration> loopBegin)
+		: Audio{ wave, AudioLoopTiming{ static_cast<uint64>(loopBegin->count() * wave.sampleRate()), 0 } } {}
+
+	Audio::Audio(const Wave& wave, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
+		: Audio{ wave, AudioLoopTiming{ static_cast<uint64>(loopBegin->count() * wave.sampleRate()), static_cast<uint64>(loopEnd->count() * wave.sampleRate()) } } {}
 
 	Audio::Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop)
-		: Audio(Wave(wave), loop)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->create(Wave{ wave }, loop)) }
 	{
-
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loop_<bool> loop)
-		: Audio(Wave(wave), loop)
-	{
+	Audio::Audio(const FilePathView path)
+		: Audio{ path, Loop::No } {}
 
+	Audio::Audio(const FilePathView path, const Loop loop)
+		: Audio{ Wave{ path }, loop } {}
+
+	Audio::Audio(const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
+		: Audio{ path, AudioLoopTiming{ *loopBegin, 0 } } {}
+
+	Audio::Audio(const FilePathView path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
+		: Audio{ path, AudioLoopTiming{ *loopBegin, *loopEnd } } {}
+
+	Audio::Audio(const FilePathView path, const Arg::loopBegin_<Duration> loopBegin)
+		: Audio{ path, loopBegin, Arg::loopEnd = Duration{ 0 } } {}
+
+	Audio::Audio(const FilePathView path, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
+		: Audio{ Wave{ path }, loopBegin, loopEnd } {}
+
+	Audio::Audio(const FilePathView path, const Optional<AudioLoopTiming>& loop)
+		: Audio{ Wave{ path }, loop } {}
+
+	Audio::Audio(FileStreaming, const FilePathView path)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->createStreamingNonLoop(path)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin)
-		: Audio(Wave(wave), loopBegin)
+	Audio::Audio(FileStreaming, const FilePathView path, const Loop loop)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(
+			((loop ? SIV3D_ENGINE(Audio)->createStreamingLoop(path, 0) : SIV3D_ENGINE(Audio)->createStreamingNonLoop(path)))) }
 	{
-
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd)
-		: Audio(Wave(wave), loopBegin, loopEnd)
+	Audio::Audio(FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->createStreamingLoop(path, *loopBegin)) }
 	{
-
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin)
-		: Audio(Wave(wave), loopBegin)
-	{
+	Audio::Audio(const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+		: Audio{ Wave{ instrument, key, duration, velocity, sampleRate } } {}
 
-	}
-
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd)
-		: Audio(Wave(wave), loopBegin, loopEnd)
-	{
-
-	}
-
-	Audio::Audio(const FilePath& path)
-		: Audio(Wave(path))
-	{
-
-	}
-
-	Audio::Audio(const FilePath& path, const Optional<AudioLoopTiming>& loop)
-		: Audio(path)
-	{
-		if (loop)
-		{
-			if (loop->endPos)
-			{
-				setLoop(Arg::loopBegin = loop->beginPos, Arg::loopEnd = loop->endPos);
-			}
-			else
-			{
-				setLoop(Arg::loopBegin = loop->beginPos);
-			}
-		}
-	}
-
-	Audio::Audio(const FilePath& path, const Arg::loop_<bool> loop)
-		: Audio(path)
-	{
-		if (*loop)
-		{
-			setLoop(true);
-		}
-	}
-
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<uint64> loopBegin)
-		: Audio(path)
-	{
-		setLoop(loopBegin);
-	}
-
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
-		: Audio(path)
-	{
-		setLoop(loopBegin, loopEnd);
-	}
-
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<Duration> loopBegin)
-		: Audio(path)
-	{
-		setLoop(loopBegin);
-	}
-
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
-		: Audio(path)
-	{
-		setLoop(loopBegin, loopEnd);
-	}
-
-	Audio::Audio(const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate, const float silenceValue)
-		: Audio(Wave(instrumrnt, key, duration, velocity, samplingRate, silenceValue))
-	{
-
-	}
+	Audio::Audio(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+		: Audio{ Wave{ instrument, key, noteOn, noteOff, velocity, sampleRate } } {}
 
 	Audio::Audio(IReader&& reader, const AudioFormat format)
-		: Audio(Wave(std::move(reader), format))
-	{
+		: Audio{ Wave{ std::move(reader), format } } {}
 
+	Audio::~Audio() {}
+
+	bool Audio::isStreaming() const
+	{
+		return SIV3D_ENGINE(Audio)->isStreaming(m_handle->id());
 	}
 
-	Audio::~Audio()
+	uint32 Audio::sampleRate() const
 	{
-
-	}
-
-	void Audio::release()
-	{
-		m_handle = std::make_shared<AudioHandle>();
-	}
-
-	bool Audio::isEmpty() const
-	{
-		return m_handle->id().isNullAsset();
-	}
-
-	AudioID Audio::id() const
-	{
-		return m_handle->id();
-	}
-
-	bool Audio::operator ==(const Audio& audio) const
-	{
-		return m_handle->id() == audio.m_handle->id();
-	}
-
-	bool Audio::operator !=(const Audio& audio) const
-	{
-		return m_handle->id() != audio.m_handle->id();
-	}
-
-	uint32 Audio::samplingRate() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->samplingRate(m_handle->id());
+		return SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
 	}
 
 	size_t Audio::samples() const
 	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->samples(m_handle->id());
-	}
-
-	void Audio::setLoop(const bool loop)
-	{
-		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
-			m_handle->id(),
-			loop,
-			0,
-			loop ? samples() - 1 : 0);
-	}
-
-	void Audio::setLoop(const Arg::loopBegin_<uint64> loopBegin)
-	{
-		assert(*loopBegin < samples());
-
-		const uint64 loopBeginSample = *loopBegin;
-		const uint64 loopEndSample = samples() - 1;
-
-		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
-			m_handle->id(),
-			true,
-			loopBeginSample,
-			loopEndSample);
-	}
-
-	void Audio::setLoop(const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
-	{
-		assert(*loopBegin < samples());
-		assert(*loopBegin < *loopEnd);
-
-		const uint64 loopBeginSample = *loopBegin;
-		const uint64 loopEndSample = std::min<uint64>(*loopEnd, samples() - 1);
-
-		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
-			m_handle->id(),
-			true,
-			loopBeginSample,
-			loopEndSample);
-	}
-
-	void Audio::setLoop(const Arg::loopBegin_<Duration> loopBegin)
-	{
-		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
-		const uint64 loopEndSample = samples() - 1;
-
-		assert(loopBeginSample < loopEndSample);
-
-		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
-			m_handle->id(),
-			true,
-			loopBeginSample,
-			loopEndSample);
-	}
-
-	void Audio::setLoop(const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
-	{
-		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
-		const uint64 loopEndSample = std::min<uint64>(static_cast<uint64>(samplingRate() * std::max(loopEnd->count(), 0.0)), samples() - 1);
-
-		assert(loopBeginSample < loopEndSample);
-
-		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
-			m_handle->id(),
-			true,
-			loopBeginSample,
-			loopEndSample);
-	}
-
-	Optional<AudioLoopTiming> Audio::getLoop() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->getLoop(m_handle->id());
-	}
-
-	bool Audio::isLoop() const
-	{
-		return getLoop().has_value();
-	}
-
-	bool Audio::play(const Duration& fadeinDuration) const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->play(m_handle->id(), fadeinDuration);
-	}
-
-	void Audio::pause(const Duration& fadeoutDuration) const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->pause(m_handle->id(), fadeoutDuration);
-	}
-
-	void Audio::stop(const Duration& fadeoutDuration) const
-	{
-		Siv3DEngine::Get<ISiv3DAudio>()->stop(m_handle->id(), fadeoutDuration);
-	}
-
-	void Audio::playOneShot(const double volume, const double speed) const
-	{
-		Siv3DEngine::Get<ISiv3DAudio>()->playOneShot(m_handle->id(), volume, speed);
-	}
-
-	void Audio::stopAllShots() const
-	{
-		Siv3DEngine::Get<ISiv3DAudio>()->stopAllShots(m_handle->id());
-	}
-
-	bool Audio::isPlaying() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->isPlaying(m_handle->id());
-	}
-
-	bool Audio::isPaused() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->isPaused(m_handle->id());
-	}
-
-	int64 Audio::posSample() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->posSample(m_handle->id());
-	}
-
-	double Audio::posSec() const
-	{
-		return static_cast<double>(posSample()) / samplingRate();
-	}
-
-	int64 Audio::streamPosSample() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->streamPosSample(m_handle->id());
-	}
-
-	int64 Audio::samplesPlayed() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->samplesPlayed(m_handle->id());
+		return SIV3D_ENGINE(Audio)->samples(m_handle->id());
 	}
 
 	double Audio::lengthSec() const
 	{
-		return static_cast<double>(samples()) / samplingRate();
-	}
+		const size_t samples = SIV3D_ENGINE(Audio)->samples(m_handle->id());
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
 
-	const Wave& Audio::getWave() const
-	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->getWave(m_handle->id());
-	}
-
-	void Audio::setPosSec(const double posSec) const
-	{
-		const int64 sample = static_cast<int64>(posSec * samplingRate());
-
-		setPosSample(sample);
-	}
-
-	void Audio::setPosSample(const int64 posSample) const
-	{
-		Siv3DEngine::Get<ISiv3DAudio>()->setPosSample(m_handle->id(), posSample);
-	}
-
-	void Audio::setVolume(const double volume) const
-	{
-		setVolumeLR(volume, volume);
-	}
-
-	void Audio::setVolumeLR(const double left, const double right) const
-	{
-		const std::pair<double, double> volume =
+		if (sampleRate == 0)
 		{
-			Clamp(left, 0.0, 1.0),
-			Clamp(right, 0.0, 1.0)
-		};
+			return 0.0;
+		}
 
-		Siv3DEngine::Get<ISiv3DAudio>()->setVolume(m_handle->id(), volume);
+		return (static_cast<double>(samples) / sampleRate);
 	}
 
-	void Audio::setVolume_dB(const double attenuation_dB) const
+	int64 Audio::samplesPlayed() const
 	{
-		setVolumeLR_dB(attenuation_dB, attenuation_dB);
+		return SIV3D_ENGINE(Audio)->samplesPlayed(m_handle->id());
 	}
 
-	void Audio::setVolumeLR_dB(const double attenuationLeft_dB, const double attenuationRight_dB) const
+	bool Audio::isActive() const
 	{
-		const double left = std::pow(10.0, attenuationLeft_dB / 20.0);
-		const double right = std::pow(10.0, attenuationRight_dB / 20.0);
-		setVolumeLR(left, right);
+		return SIV3D_ENGINE(Audio)->isActive(m_handle->id());
 	}
 
-	void Audio::setSpeed(const double speed) const
+	bool Audio::isPlaying() const
 	{
-		Siv3DEngine::Get<ISiv3DAudio>()->setSpeed(m_handle->id(), speed);
+		return SIV3D_ENGINE(Audio)->isPlaying(m_handle->id());
 	}
 
-	void Audio::setSpeedBySemitone(const int32 semitone) const
+	bool Audio::isPaused() const
 	{
-		setSpeed(std::exp2(semitone / 12.0));
+		return SIV3D_ENGINE(Audio)->isPaused(m_handle->id());
+	}
+
+	bool Audio::isLoop() const
+	{
+		return SIV3D_ENGINE(Audio)->isLoop(m_handle->id());
+	}
+
+	AudioLoopTiming Audio::getLoopTiming() const
+	{
+		return SIV3D_ENGINE(Audio)->getLoopTiming(m_handle->id());
+	}
+
+	void Audio::setLoop(const bool loop) const
+	{
+		SIV3D_ENGINE(Audio)->setLoop(m_handle->id(), loop);
+	}
+
+	void Audio::setLoopPoint(const uint64 loopBegin) const
+	{
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+		const double loopBeginSec = (static_cast<double>(loopBegin) / sampleRate);
+
+		SIV3D_ENGINE(Audio)->setLoopPoint(m_handle->id(), SecondsF{ loopBeginSec });
+	}
+
+	void Audio::setLoopPoint(const Duration& loopBegin) const
+	{
+		SIV3D_ENGINE(Audio)->setLoopPoint(m_handle->id(), Max(loopBegin, SecondsF{ 0.0 }));
+	}
+
+	void Audio::play(const size_t busIndex) const
+	{
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex);
+	}
+
+	void Audio::play(const Duration& fadeTime, const size_t busIndex) const
+	{
+		play(busIndex, fadeTime);
+	}
+
+	void Audio::play(const size_t busIndex, const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex, fadeTime);
+	}
+
+	void Audio::pause() const
+	{
+		SIV3D_ENGINE(Audio)->pause(m_handle->id());
+	}
+
+	void Audio::pause(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->pause(m_handle->id(), fadeTime);
+	}
+
+	void Audio::stop() const
+	{
+		SIV3D_ENGINE(Audio)->stop(m_handle->id());
+	}
+
+	void Audio::stop(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->stop(m_handle->id(), fadeTime);
+	}
+
+	void Audio::playOneShot(const size_t busIndex, const double volume, const double pan, const double speed) const
+	{
+		SIV3D_ENGINE(Audio)->playOneShot(m_handle->id(), busIndex, volume, pan, speed);
+	}
+
+	void Audio::pauseAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->pauseAllShots(m_handle->id());
+	}
+
+	void Audio::pauseAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->pauseAllShots(m_handle->id(), fadeTime);
+	}
+
+	void Audio::resumeAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->resumeAllShots(m_handle->id());
+	}
+
+	void Audio::resumeAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->resumeAllShots(m_handle->id(), fadeTime);
+	}
+
+	void Audio::stopAllShots() const
+	{
+		SIV3D_ENGINE(Audio)->stopAllShots(m_handle->id());
+	}
+
+	void Audio::stopAllShots(const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->stopAllShots(m_handle->id(), fadeTime);
+	}
+
+	int64 Audio::posSample() const
+	{
+		const double posSec = SIV3D_ENGINE(Audio)->posSec(m_handle->id());
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+
+		return static_cast<int64>(posSec * sampleRate);
+	}
+
+	double Audio::posSec() const
+	{
+		return SIV3D_ENGINE(Audio)->posSec(m_handle->id());
+	}
+
+	void Audio::seekSamples(const size_t posSample) const
+	{
+		const size_t sampleRate = SIV3D_ENGINE(Audio)->sampleRate(m_handle->id());
+
+		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), SecondsF{ (static_cast<double>(posSample) / sampleRate) });
+	}
+
+	void Audio::seekTime(const double posSec) const
+	{
+		seekTime(SecondsF{ posSec });
+	}
+
+	void Audio::seekTime(const Duration& pos) const
+	{
+		SIV3D_ENGINE(Audio)->seekTo(m_handle->id(), Max(pos, SecondsF(0.0)));
+	}
+
+	size_t Audio::loopCount() const
+	{
+		return SIV3D_ENGINE(Audio)->getLoopCount(m_handle->id());
+	}
+
+	double Audio::getVolume() const
+	{
+		return SIV3D_ENGINE(Audio)->getVolume(m_handle->id());
+	}
+
+	const Audio& Audio::setVolume(const double volume) const
+	{
+		SIV3D_ENGINE(Audio)->setVolume(m_handle->id(), volume);
+
+		return *this;
+	}
+
+	const Audio& Audio::fadeVolume(const double volume, const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->fadeVolume(m_handle->id(), volume, fadeTime);
+
+		return *this;
+	}
+
+	double Audio::getPan() const
+	{
+		return SIV3D_ENGINE(Audio)->getPan(m_handle->id());
+	}
+
+	const Audio& Audio::setPan(const double pan) const
+	{
+		SIV3D_ENGINE(Audio)->setPan(m_handle->id(), Clamp(pan, -1.0, 1.0));
+
+		return *this;
+	}
+
+	const Audio& Audio::fadePan(const double pan, const Duration& fadeTime) const
+	{
+		SIV3D_ENGINE(Audio)->fadePan(m_handle->id(), Clamp(pan, -1.0, 1.0), fadeTime);
+
+		return *this;
 	}
 
 	double Audio::getSpeed() const
 	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->getSpeed(m_handle->id());
+		return SIV3D_ENGINE(Audio)->getSpeed(m_handle->id());
 	}
 
-	double Audio::getMinSpeed() const
+	const Audio& Audio::setSpeed(const double speed) const
 	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->getMinMaxSpeed(m_handle->id()).first;
+		SIV3D_ENGINE(Audio)->setSpeed(m_handle->id(), speed);
+
+		return *this;
 	}
 
-	double Audio::getMaxSpeed() const
+	const Audio& Audio::fadeSpeed(const double speed, const Duration& fadeTime) const
 	{
-		return Siv3DEngine::Get<ISiv3DAudio>()->getMinMaxSpeed(m_handle->id()).second;
+		SIV3D_ENGINE(Audio)->fadeSpeed(m_handle->id(), speed, fadeTime);
+
+		return *this;
+	}
+
+	const Audio& Audio::setSpeedBySemitone(const int32 semitone) const
+	{
+		return setSpeed(std::exp2(semitone / 12.0));
+	}
+
+	const Audio& Audio::fadeSpeedBySemitone(const int32 semitone, const Duration& fadeTime) const
+	{
+		return fadeSpeed(std::exp2(semitone / 12.0), fadeTime);
+	}
+
+	const float* Audio::getSamples(const size_t channel) const
+	{
+		if (2 <= channel)
+		{
+			return nullptr;
+		}
+
+		return SIV3D_ENGINE(Audio)->getSamples(m_handle->id(), channel);
+	}
+
+	void Audio::swap(Audio& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
 	}
 }

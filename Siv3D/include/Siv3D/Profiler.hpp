@@ -2,43 +2,32 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "ProfilerStat.hpp"
 
 namespace s3d
 {
-	struct Statistics
-	{
-		size_t drawcalls = 0;
-
-		size_t triangles = 0;
-	};
-
-	/// <summary>
-	/// プロファイリング
-	/// </summary>
-	/// <remarks>
-	/// プロファイリング機能を提供します。
-	/// </remarks>
 	namespace Profiler
 	{
-		/// <summary>
-		/// 実測のフレームレートを取得します。
-		/// </summary>
-		/// <returns>
-		/// フレームレート
-		/// </returns>
-		[[nodiscard]] int32 FPS();
+		/// @brief 1 秒間に更新されたフレーム数（フレームレート）を返します。
+		/// @remark この値は 1 秒ごとに更新されます。
+		/// @return 1 秒間に更新されたフレーム数
+		[[nodiscard]]
+		int32 FPS() noexcept;
 
-		void EnableAssetCreationWarning(bool enabled);
+		/// @brief アセットを毎フレーム連続して作成した場合の警告の ON / OFF を設定します。
+		/// @param enbaled 警告を有効にするか
+		void EnableAssetCreationWarning(bool enbaled);
 
-		[[nodiscard]] Statistics GetStatistics();
+		[[nodiscard]]
+		const ProfilerStat& GetStat();
 	}
 }

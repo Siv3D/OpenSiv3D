@@ -2,110 +2,143 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include "CSoundFont.hpp"
-# include <Siv3D/SoundFont.hpp>
-# include <Siv3D/Wave.hpp>
+# include <Siv3D/Error.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/Resource.hpp>
-# include <Siv3D/EngineLog.hpp>
-# include <EngineDirectory/EngineDirectory.hpp>
+# include <Siv3D/CacheDirectory/CacheDirectory.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		// 実行ファイルに同梱されている、圧縮済みフォントファイルをキャッシュフォルダに展開する。
+		// キャッシュフォルダに展開済みのフォントがある場合はスキップ。
+		bool ExtractEngineSoundFonts()
+		{
+			LOG_SCOPED_TRACE(U"detail::ExtractEngineSoundFonts()");
+
+			const FilePath soundfontCacheDirectory = CacheDirectory::Engine() + U"soundfont/";
+
+			LOG_INFO(U"soundfontCacheDirectory: " + soundfontCacheDirectory);
+
+			{
+				const FilePath name = U"GMGSx.sf2";
+				const FilePath cachedSoundFontPath = (soundfontCacheDirectory + name);
+				const bool existsInCache = FileSystem::Exists(cachedSoundFontPath);
+
+				// 展開済みのフォントがある場合はスキップ
+				if (existsInCache)
+				{
+					LOG_INFO(U"ℹ️ Engine font `{0}` found in the user cache directory"_fmt(name));
+					return true;
+				}
+
+				const FilePath fontResourcePath = Resource(U"engine/soundfont/" + name + U".zstdcmp");
+				const bool existsInResource = FileSystem::Exists(fontResourcePath);
+
+				if (not existsInResource)
+				{
+					LOG_INFO(U"Engine soundfont `{0}` not found"_fmt(fontResourcePath));
+					return false;
+				}
+
+				// フォントファイルの展開に失敗したらエラー
+				if (not Compression::DecompressFileToFile(fontResourcePath, cachedSoundFontPath))
+				{
+					LOG_ERROR(U"✖ Engine font `{0}` decompression failed"_fmt(name));
+					FileSystem::Remove(cachedSoundFontPath);
+					return false;
+				}
+			}
+
+			return true;
+		}
+	}
+
 	CSoundFont::CSoundFont()
 	{
-		
+
 	}
 
 	CSoundFont::~CSoundFont()
 	{
-		LOG_TRACE(U"CSoundFont::~CSoundFont()");
+		LOG_SCOPED_TRACE(U"CSoundFont::~CSoundFont()");
+	}
 
-		if (m_standardSoundFont)
+	void CSoundFont::init()
+	{
+		LOG_SCOPED_TRACE(U"CSoundFont::init()");
+
+		// エンジンサウンドフォントの展開
 		{
-			::tsf_close(m_standardSoundFont);
+			m_hasGMGSx = detail::ExtractEngineSoundFonts();
 		}
 	}
 
-	bool CSoundFont::init()
+	Wave CSoundFont::render(const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
-		LOG_TRACE(U"CSoundFont::init()");
-
-		if (m_standardSoundFont)
+		if (not m_hasGMGSx)
 		{
-			return true;
+			return{};
 		}
 
-		if (m_unavailable)
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
+
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
 		{
-			return false;
+			return{};
 		}
 
-		const String soundFontName = U"GMGSx.sf2";
-		const FilePath soundFontDirectory = EngineDirectory::CurrectVersionCommon() + U"soundfont/";
-		const FilePath soundFontResourcePath = Resource(U"engine/soundfont/" + soundFontName + U".zstdcmp");
-
-		if (!FileSystem::Exists(soundFontDirectory + soundFontName)
-			&& FileSystem::Exists(soundFontResourcePath))
-		{
-			if (!Compression::DecompressFileToFile(soundFontResourcePath, soundFontDirectory + soundFontName))
-			{
-				LOG_FAIL(U"❌ Failed to decompress standard soundfont");
-			}
-		}
-
-		m_standardSoundFont = ::tsf_load_filename((soundFontDirectory + soundFontName).narrow().c_str());
-
-		if (!m_standardSoundFont)
-		{
-			m_unavailable = true;
-
-			return false;
-		}
-
-		LOG_INFO(U"ℹ️ CSoundFont initialized");
-
-		return true;
+		return soundFont.render(instrument, key, noteOn, noteOff, velocity, sampleRate);
 	}
 
-	void CSoundFont::render(Wave& wave, size_t samples, const uint32 samplingRate, const uint8 instrument, const uint8 key, const double velocity)
+	Wave CSoundFont::renderMIDI(const FilePathView path, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
 	{
-		if (!wave)
+		if (not m_hasGMGSx)
 		{
-			return;
+			return{};
 		}
 
-		if (!m_standardSoundFont)
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
+
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
 		{
-			if (!init())
-			{
-				return;
-			}
+			return{};
 		}
 
-		::tsf_set_output(m_standardSoundFont, TSF_STEREO_INTERLEAVED, samplingRate, 0);
+		return soundFont.renderMIDI(path, midiScore, tail, sampleRate);
+	}
 
-		::tsf_note_on(m_standardSoundFont, instrument, key, static_cast<float>(velocity));
-
-		samples = std::min(samples, wave.size());
-
-		::tsf_render_float(m_standardSoundFont, &wave[0].left, static_cast<int32>(samples), 0);
-
-		::tsf_note_off(m_standardSoundFont, instrument, key);
-
-		if (const size_t rest = wave.size() - samples)
+	Wave CSoundFont::renderMIDI(IReader& reader, std::array<Array<MIDINote>, 16>& midiScore, const Arg::sampleRate_<uint32> sampleRate, const Duration& tail)
+	{
+		if (not m_hasGMGSx)
 		{
-			::tsf_render_float(m_standardSoundFont, &wave[samples].left, static_cast<int32>(rest), 0);
+			return{};
 		}
 
-		::tsf_reset(m_standardSoundFont);
+		const FilePath standardSoundFont = CacheDirectory::Engine() + U"soundfont/GMGSx.sf2";
+
+		SoundFont soundFont{ standardSoundFont };
+
+		if (not soundFont)
+		{
+			return{};
+		}
+
+		return soundFont.renderMIDI(reader, midiScore, tail, sampleRate);
 	}
 }

@@ -2,6 +2,10 @@
 
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -13,10 +17,10 @@
 #include <iterator>
 #include <sstream>
 #include <string>
+#include <type_traits>
 
 #include <boost/cstdint.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 
 #include <boost/geometry/core/assert.hpp>
 
@@ -30,7 +34,7 @@ template <typename OutputIterator>
 bool hex2wkb(std::string const& hex, OutputIterator bytes)
 {
     // Bytes can be only written to output iterator.
-    BOOST_STATIC_ASSERT((boost::is_convertible<
+    BOOST_STATIC_ASSERT((std::is_convertible<
         typename std::iterator_traits<OutputIterator>::iterator_category,
         const std::output_iterator_tag&>::value));
 
@@ -61,7 +65,7 @@ template <typename Iterator>
 bool wkb2hex(Iterator begin, Iterator end, std::string& hex)
 {
     // Stream of bytes can only be passed using random access iterator.
-    BOOST_STATIC_ASSERT((boost::is_convertible<
+    BOOST_STATIC_ASSERT((std::is_convertible<
         typename std::iterator_traits<Iterator>::iterator_category,
         const std::random_access_iterator_tag&>::value));
 

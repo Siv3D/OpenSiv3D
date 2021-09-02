@@ -2,107 +2,103 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Asset.hpp"
 # include "Audio.hpp"
+# include "AudioAssetData.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Audio アセットデータ
-	/// </summary>
-	struct AudioAssetData : IAsset
-	{
-		FilePath path;
-
-		Optional<AudioLoopTiming> loop;
-
-		Audio audio;
-
-		std::function<bool(AudioAssetData&)> onPreload;
-
-		std::function<bool(AudioAssetData&)> onUpdate;
-
-		std::function<bool(AudioAssetData&)> onRelease;
-
-		static const String& Name();
-
-		static bool DefaultPreload(AudioAssetData& asset);
-
-		static bool DefaultUpdate(AudioAssetData&);
-
-		static bool DefaultRelease(AudioAssetData& asset);
-
-		AudioAssetData();
-
-		explicit AudioAssetData(
-			const FilePath& _path,
-			const Optional<AudioLoopTiming>& _loop = none,
-			const AssetParameter& _parameter = AssetParameter(),
-			std::function<bool(AudioAssetData&)> _onPreload = DefaultPreload,
-			std::function<bool(AudioAssetData&)> _onUpdate = DefaultUpdate,
-			std::function<bool(AudioAssetData&)> _onRelease = DefaultRelease);
-
-		bool preload() override;
-
-		void preloadAsync() override;
-
-		bool update() override;
-
-		bool release() override;
-	};
-
-	/// <summary>
-	/// Audio アセット
-	/// </summary>
 	class AudioAsset : public Audio
 	{
 	public:
 
-		AudioAsset(const AssetName& name);
+		SIV3D_NODISCARD_CXX20
+		explicit AudioAsset(AssetNameView name);
 
-		static bool Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, FilePathView path);
 
-		static bool Register(const AssetName& name, const FilePath& path, const Optional<AudioLoopTiming>& loop, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, FilePathView path, const Loop loop);
 
-		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
-		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, FilePathView path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, const AssetParameter& parameter = AssetParameter{});
+		//static bool Register(const AssetName& name, FilePathView path, Arg::loopBegin_<Duration> loopBegin);
+	
+		//static bool Register(const AssetName& name, FilePathView path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
+	
+		static bool Register(const AssetName& name, FilePathView path, const Optional<AudioLoopTiming>& loop);
+		
+		static bool Register(const AssetName& name, Audio::FileStreaming, FilePathView path);
+		
+		static bool Register(const AssetName& name, Audio::FileStreaming, FilePathView path, Loop loop);
+	
+		static bool Register(const AssetName& name, Audio::FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
+			
+		static bool Register(const AssetName& name, GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
-		static bool Register(const AssetName& name, GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity, Arg::samplingRate_<uint32> samplingRate, float silenceValue, const AssetParameter& parameter = AssetParameter{});
+		static bool Register(const AssetName& name, GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
-		static bool Register(const AssetName& name, const AudioAssetData& data);
+		static bool Register(const AssetName& name, std::unique_ptr<AudioAssetData>&& data);
 
-		[[nodiscard]] static bool IsRegistered(const AssetName& name);
 
-		static bool Preload(const AssetName& name);
+		static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path);
 
-		//static bool PreloadByTag(const AssetTag& tag);
+		static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, const Loop loop);
 
-		//static bool PreloadAll();
+		static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
-		static void Release(const AssetName& name);
+		static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		//static void ReleaseByTag(const AssetTag& tag);
+		//static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, Arg::loopBegin_<Duration> loopBegin);
+
+		//static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, FilePathView path, const Optional<AudioLoopTiming>& loop);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, FilePathView path);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, FilePathView path, Loop loop);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, Audio::FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
+
+		static bool Register(const AssetNameAndTags& nameAndTag, GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
+
+
+		[[nodiscard]]
+		static bool IsRegistered(AssetNameView name);
+
+		static bool Load(AssetNameView name);
+
+		static void LoadAsync(AssetNameView name);
+
+		static void Wait(AssetNameView name);
+
+		[[nodiscard]]
+		static bool IsReady(AssetNameView name);
+
+		static void Release(AssetNameView name);
 
 		static void ReleaseAll();
 
-		static void Unregister(const AssetName& name);
-
-		//static void UnregisterByTag(const AssetTag& tag);
+		static void Unregister(AssetNameView name);
 
 		static void UnregisterAll();
 
-		[[nodiscard]] static bool IsReady(const AssetName& name);
+		[[nodiscard]]
+		static HashTable<AssetName, AssetInfo> Enumerate();
 	};
 }
+

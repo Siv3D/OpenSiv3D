@@ -1,67 +1,58 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "AssetHandle.hpp"
-# include "String.hpp"
-# include "NamedParameter.hpp"
 # include "Array.hpp"
-# include "ShaderCommon.hpp"
+# include "ConstantBufferBinding.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
-	class PixelShader
+	/// @brief ピクセルシェーダ
+	class PixelShader : public AssetHandle<PixelShader>
 	{
-	protected:
-
-		class Tag {};
-
-		using PixelShaderHandle = AssetHandle<Tag>;
-		
-		friend PixelShaderHandle::AssetHandle();
-		
-		friend PixelShaderHandle::AssetHandle(const IDWrapperType id) noexcept;
-
-		friend PixelShaderHandle::~AssetHandle();
-
-		std::shared_ptr<PixelShaderHandle> m_handle;
-
 	public:
 
-		using IDType = PixelShaderHandle::IDWrapperType;
-
+		SIV3D_NODISCARD_CXX20
 		PixelShader();
-
-		PixelShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings);
-		
-		//PixelShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings);
 
 		virtual ~PixelShader();
 
-		void release();
+		[[nodiscard]]
+		const Blob& getBinary() const noexcept;
 
-		bool isEmpty() const;
+		void swap(PixelShader& other) noexcept;
 
-		[[nodiscard]] explicit operator bool() const;
+		[[nodiscard]]
+		static PixelShader HLSL(FilePathView path, StringView entryPoint = U"PS");
 
-		[[nodiscard]] IDType id() const;
+		[[nodiscard]]
+		static PixelShader GLSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
-		[[nodiscard]] bool operator ==(const PixelShader& shader) const;
+		[[nodiscard]]
+		static PixelShader MSL(StringView entryPoint, FilePathView path = {});
 
-		[[nodiscard]] bool operator !=(const PixelShader& shader) const;
+		[[nodiscard]]
+		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
+	
+	private:
 
-		[[nodiscard]] ByteArrayView getBinaryView() const;
+		SIV3D_NODISCARD_CXX20
+		PixelShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 	};
-
-	using PixelShaderID = PixelShader::IDType;
 }
+
+template <>
+inline void std::swap(s3d::PixelShader& a, s3d::PixelShader& b) noexcept;
+
+# include "detail/PixelShader.ipp"

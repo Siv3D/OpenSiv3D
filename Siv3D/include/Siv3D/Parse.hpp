@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,141 +11,109 @@
 
 # pragma once
 # include <sstream>
-# include "Fwd.hpp"
+# include <typeinfo>
+# include "Common.hpp"
 # include "Error.hpp"
+# include "Unicode.hpp"
 # include "ParseBool.hpp"
 # include "ParseInt.hpp"
 # include "ParseFloat.hpp"
+# include "Demangle.hpp"
 
 namespace s3d
 {
-	////////////////////////////////////////////////////////////////
-	//
-	//		Parse
-	//
-	////////////////////////////////////////////////////////////////
-
-	/// <summary>
-	/// 文字列をデータ型に変換します。
-	/// </summary>
-	/// <param name="text">
-	/// 変換する文字列
-	/// </param>
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
-	/// <returns>
-	/// 文字列から変換されたデータ
-	/// </returns>
+	/// @brief 文字列をパースしてデータ型に変換します。
+	/// @tparam Type 変換先のデータ型
+	/// @param s 変換する文字列
+	/// @throw ParseError パースに失敗した場合
+	/// @return 文字列から変換されたデータ
 	template <class Type>
-	[[nodiscard]] inline Type Parse(StringView text)
-	{
-		if constexpr (std::is_integral_v<Type>)
-		{
-			return ParseInt<Type>(text);
-		}
-		else if constexpr (std::is_floating_point_v<Type>)
-		{
-			return ParseFloat<Type>(text);
-		}
-		else
-		{
-			Type to;
+	[[nodiscard]]
+	inline Type Parse(StringView s);
 
-			if (!(std::wistringstream{ Unicode::ToWString(text) } >> to))
-			{
-				throw ParseError(U"Parse({}) failed"_fmt(text));
-			}
-
-			return to;
-		}
-	}
-
+	/// @brief 文字列をパースして bool 型に変換します。
+	/// @param s 変換する文字列
+	/// @throw ParseError パースに失敗した場合
+	/// @return 文字列から変換されたデータ
 	template <>
-	[[nodiscard]] bool Parse<bool>(StringView text);
+	[[nodiscard]]
+	inline bool Parse<bool>(StringView s);
 
+	/// @brief 文字列をパースして char 型に変換します。
+	/// @param s 変換する文字列
+	/// @throw ParseError パースに失敗した場合
+	/// @return 文字列から変換されたデータ
 	template <>
-	[[nodiscard]] char Parse<char>(StringView text);
+	[[nodiscard]]
+	inline char Parse<char>(StringView s);
 
+	/// @brief 文字列をパースして char32 型に変換します。
+	/// @param s 変換する文字列
+	/// @throw ParseError パースに失敗した場合
+	/// @return 文字列から変換されたデータ
 	template <>
-	[[nodiscard]] char32 Parse<char32>(StringView text);
+	[[nodiscard]]
+	inline char32 Parse<char32>(StringView s);
 
+	/// @brief 文字列をパースして返します。
+	/// @param s 変換する文字列
+	/// @remark 前後の空白文字は除去されます。
+	/// @return 文字列から変換されたデータ
 	template <>
-	[[nodiscard]] String Parse<String>(StringView text);
+	[[nodiscard]]
+	inline String Parse<String>(StringView s);
 
-	////////////////////////////////////////////////////////////////
-	//
-	//		ParseOpt
-	//
-	////////////////////////////////////////////////////////////////
-
-	/// <summary>
-	/// 文字列をデータ型に変換します。
-	/// </summary>
-	/// <param name="str">
-	/// 変換する文字列
-	/// </param>
-	/// <returns>
-	/// 文字列から変換されたデータの Optional, 失敗した場合は none
-	/// </returns>
+	/// @brief 文字列をパースしてデータ型に変換します。
+	/// @tparam Type 変換先のデータ型
+	/// @param s 変換する文字列
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <class Type>
-	[[nodiscard]] inline Optional<Type> ParseOpt(StringView text)
-	{
-		if constexpr (std::is_integral_v<Type>)
-		{
-			return ParseIntOpt<Type>(text);
-		}
-		else if constexpr (std::is_floating_point_v<Type>)
-		{
-			return ParseFloatOpt<Type>(text);
-		}
-		else
-		{
-			Type to;
+	[[nodiscard]]
+	inline Optional<Type> ParseOpt(StringView s);
 
-			if (std::wistringstream{ Unicode::ToWString(text) } >> to)
-			{
-				return Optional<Type>(std::move(to));
-			}
-
-			return none;
-		}
-	}
-
+	/// @brief 文字列をパースして bool 型に変換します。
+	/// @param s 変換する文字列
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
-	[[nodiscard]] Optional<bool> ParseOpt<bool>(StringView text);
+	[[nodiscard]]
+	inline Optional<bool> ParseOpt<bool>(StringView s);
 
+	/// @brief 文字列をパースして char 型に変換します。
+	/// @param s 変換する文字列
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
-	[[nodiscard]] Optional<char> ParseOpt<char>(StringView text);
+	[[nodiscard]]
+	inline Optional<char> ParseOpt<char>(StringView s);
 
+	/// @brief 文字列をパースして char32 型に変換します。
+	/// @param s 変換する文字列
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
-	[[nodiscard]] Optional<char32> ParseOpt<char32>(StringView text);
+	[[nodiscard]]
+	inline Optional<char32> ParseOpt<char32>(StringView s);
 
+	/// @brief 文字列をパースして返します。
+	/// @param s 変換する文字列
+	/// @remark 前後の空白文字は除去されます。
+	/// @return 文字列から変換されたデータの Optional, 文字列が空だった場合は none
 	template <>
-	[[nodiscard]] Optional<String> ParseOpt<String>(StringView text);
+	[[nodiscard]]
+	inline Optional<String> ParseOpt<String>(StringView s);
 
-	////////////////////////////////////////////////////////////////
-	//
-	//		ParseOr
-	//
-	////////////////////////////////////////////////////////////////
-
-	/// <summary>
-	/// 文字列をデータ型に変換します。
-	/// </summary>
-	/// <param name="text">
-	/// 変換する文字列
-	/// </param>
-	/// <param name="defaultValue">
-	/// 変換に失敗した場合に返す値
-	/// </param>
-	/// <returns>
-	/// 文字列から変換されたデータの, 失敗した場合は defaultValue
-	/// </returns>
+	/// @brief 文字列をパースしてデータ型に変換します。
+	/// @tparam Type 変換先のデータ型
+	/// @tparam U パースに失敗したときに代わりに返す値を構築する引数の型
+	/// @param s 変換する文字列
+	/// @param defaultValue パースに失敗したときに代わりに返す値を構築する引数
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータ、失敗した場合は defaultValue から構築した Type 型の値
 	template <class Type, class U>
-	[[nodiscard]] Type ParseOr(StringView text, U&& defaultValue)
-	{
-		return ParseOpt<Type>(text).value_or(std::forward<U>(defaultValue));
-	}
+	[[nodiscard]]
+	Type ParseOr(StringView s, U&& defaultValue);
 }
+
+# include "detail/Parse.ipp"

@@ -2,39 +2,34 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TextReader.hpp>
-# include "TextReaderDetail.hpp"
+# include <Siv3D/TextReader/TextReaderDetail.hpp>
 
 namespace s3d
 {
 	TextReader::TextReader()
-		: pImpl(std::make_shared<TextReaderDetail>())
+		: pImpl{ std::make_shared<TextReaderDetail>() }
 	{
 
 	}
 
 	TextReader::TextReader(const FilePathView path, const Optional<TextEncoding>& encoding)
-		: TextReader()
+		: TextReader{}
 	{
 		open(path, encoding);
 	}
 
-	TextReader::TextReader(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding)
-		: TextReader()
+	TextReader::TextReader(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
+		: TextReader{}
 	{
-		open(reader, encoding);
-	}
-
-	TextReader::~TextReader()
-	{
-
+		open(std::move(reader), encoding);
 	}
 
 	bool TextReader::open(const FilePathView path, const Optional<TextEncoding>& encoding)
@@ -42,9 +37,9 @@ namespace s3d
 		return pImpl->open(path, encoding);
 	}
 
-	bool TextReader::open(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding)
+	bool TextReader::open(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
 	{
-		return pImpl->open(reader, encoding);
+		return pImpl->open(std::move(reader), encoding);
 	}
 
 	void TextReader::close()
@@ -52,92 +47,58 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool TextReader::isOpen() const
+	bool TextReader::isOpen() const noexcept
 	{
 		return pImpl->isOpen();
 	}
 
 	Optional<char32> TextReader::readChar()
 	{
-		if (pImpl->eof())
-		{
-			return none;
-		}
-
-		if (const char32 ch = pImpl->readChar())
-		{
-			return ch;
-		}
-
-		return none;
+		return pImpl->readChar();
 	}
 
 	Optional<String> TextReader::readLine()
 	{
-		if (pImpl->eof())
-		{
-			return none;
-		}
+		return pImpl->readLine();
+	}
 
-		String line;
-
-		pImpl->readLine(line);
-
-		return line;
+	Array<String> TextReader::readLines()
+	{
+		return pImpl->readLines();
 	}
 
 	String TextReader::readAll()
 	{
-		String result;
-
-		pImpl->readAll(result);
-
-		return result;
+		return pImpl->readAll();
 	}
 
 	bool TextReader::readChar(char32& ch)
 	{
-		if (pImpl->eof())
-		{
-			return false;
-		}
-
-		ch = pImpl->readChar();
-
-		return ch != U'\0';
+		return pImpl->readChar(ch);
 	}
 
-	bool TextReader::readLine(String& str)
+	bool TextReader::readLine(String& line)
 	{
-		if (pImpl->eof())
-		{
-			return false;
-		}
-
-		str.clear();
-
-		pImpl->readLine(str);
-
-		return true;
+		return pImpl->readLine(line);
 	}
 
-	void TextReader::readAll(String& str)
+	bool TextReader::readLines(Array<String>& lines)
 	{
-		if (!isOpen())
-		{
-			return;
-		}
-
-		pImpl->readAll(str);
+		return pImpl->readLines(lines);
 	}
 
-	const FilePath& TextReader::path() const
+	bool TextReader::readAll(String& s)
 	{
-		return pImpl->path();
+		return pImpl->readAll(s);
 	}
 
-	TextEncoding TextReader::encoding() const
+	TextEncoding TextReader::encoding() const noexcept
 	{
 		return pImpl->encoding();
+	}
+
+	const FilePath& TextReader::path() const noexcept
+	{
+		return pImpl->path();
 	}
 }

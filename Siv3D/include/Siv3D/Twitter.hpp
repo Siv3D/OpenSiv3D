@@ -2,35 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Twitter
-	/// </summary>
-	/// <remarks>
-	/// Twitter に関する機能を提供します。
-	/// </remarks>
+	/// @brief Twitter に関する機能
 	namespace Twitter
 	{
-		/// <summary>
-		/// Twitter への投稿ページをユーザの既定のブラウザで開きます。
-		/// </summary>
-		/// <param name="text">
-		/// 投稿するテキスト
-		/// </param>
-		/// <returns>
-		/// ブラウザを起動できたら true, それ以外の場合は false
-		/// </returns>
+		/// @brief Twitter への投稿ページをユーザの既定のブラウザで開きます。
+		/// @param text 投稿するテキスト
+		/// @return ブラウザを起動できたら true, それ以外の場合は false
 		bool OpenTweetWindow(StringView text);
 
 		bool OpenLikeWindow(uint64 tweetID);

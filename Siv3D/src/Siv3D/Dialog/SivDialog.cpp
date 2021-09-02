@@ -1,17 +1,15 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Dialog.hpp>
-# include <Siv3D/Wave.hpp>
-# include <Siv3D/Audio.hpp>
 
 namespace s3d
 {
@@ -25,6 +23,8 @@ namespace s3d
 			FileFilter::BMP(),
 			FileFilter::GIF(),
 			FileFilter::TGA(),
+			FileFilter::SVG(),
+			FileFilter::WebP(),
 			FileFilter::PPM(),
 		};
 
@@ -33,7 +33,21 @@ namespace s3d
 			FileFilter::AllAudioFiles(),
 			FileFilter::WAVE(),
 			FileFilter::MP3(),
-			FileFilter::AAC()
+			FileFilter::AAC(),
+			FileFilter::OggVorbis(),
+			FileFilter::Opus(),
+			FileFilter::MIDI(),
+		# if SIV3D_PLATFORM(WINDOWS)
+			FileFilter::WMA(),
+			FileFilter::FLAC(),
+		# elif SIV3D_PLATFORM(MACOS)
+			FileFilter::AIFF(),
+			FileFilter::FLAC(),
+		# elif SIV3D_PLATFORM(LINUX)
+
+		# elif SIV3D_PLATFORM(WEB)
+
+		# endif
 		};
 
 		static const Array<FileFilter> SaveImageFilters =
@@ -50,89 +64,92 @@ namespace s3d
 		static const Array<FileFilter> SaveWaveFilters =
 		{
 			FileFilter::WAVE(),
+			//FileFilter::MP3(),
+			FileFilter::OggVorbis(),
+			//FileFilter::Opus(),
 		};
 	}
 
 	namespace Dialog
 	{
-		Image OpenImage(const FilePath& defaultPath, const String& title)
+		Image OpenImage(const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Image(path.value());
+				return Image{ *path };
 			}
 			else
 			{
-				return Image();
+				return{};
 			}
 		}
 
-		Texture OpenTexture(const FilePath& defaultPath, const String& title)
+		Texture OpenTexture(const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Texture(path.value());
+				return Texture{ *path };
 			}
 			else
 			{
-				return Texture();
+				return{};
 			}
 		}
 
-		Texture OpenTexture(const TextureDesc desc, const FilePath& defaultPath, const String& title)
+		Texture OpenTexture(const TextureDesc desc, const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
 			{
-				return Texture(path.value(), desc);
+				return Texture{ *path, desc };
 			}
 			else
 			{
-				return Texture();
+				return{};
 			}
 		}
 
-		Wave OpenWave(const FilePath& defaultPath, const String& title)
+		Wave OpenWave(const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
 			{
-				return Wave(path.value());
+				return Wave{ *path };
 			}
 			else
 			{
-				return Wave();
+				return{};
 			}
 		}
 
-		Audio OpenAudio(const FilePath& defaultPath, const String& title)
+		Audio OpenAudio(const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
 			{
-				return Audio(path.value());
+				return Audio{ *path };
 			}
 			else
 			{
-				return Audio();
+				return{};
 			}
 		}
 
-		Audio OpenAudio(const Arg::loop_<bool> loop, const FilePath& defaultPath, const String& title)
+		Audio OpenAudio(Audio::FileStreaming, const FilePathView defaultPath, const StringView title)
 		{
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
 			{
-				return Audio(path.value(), loop);
+				return Audio{ Audio::Stream, *path };
 			}
 			else
 			{
-				return Audio();
+				return{};
 			}
 		}
 
-		Optional<FilePath> SaveImage(const FilePath& defaultPath, const String& title)
+		Optional<FilePath> SaveImage(const FilePathView defaultPath, const StringView title)
 		{
 			return SaveFile(detail::SaveImageFilters, defaultPath, title);
 		}
 
-		Optional<FilePath> SaveWave(const FilePath& defaultPath, const String& title)
+		Optional<FilePath> SaveWave(const FilePathView defaultPath, const StringView title)
 		{
 			return SaveFile(detail::SaveWaveFilters, defaultPath, title);
 		}

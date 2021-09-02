@@ -2,170 +2,149 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
+# include "Array.hpp"
 # include "Random.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// イテレータの範囲からランダムに値を選択します。
-	/// </summary>
-	/// <param name="begin">
-	/// 開始位置
-	/// </param>
-	/// <param name="end">
-	/// 終了位置
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// イテレータの範囲からランダムに選択された値
-	/// </returns>
+	/// @brief 指定した範囲から 1 つの要素をランダムに返します。
+	/// @tparam Iterator イテレータの型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param begin 範囲の開始位置を指すイテレータ
+	/// @param end 範囲の終端位置を指すイテレータ
+	/// @param urbg 乱数エンジン
+	/// @return 指定した範囲内のランダムな要素 1 つ
+	template <class Iterator, class URBG>
+	[[nodiscard]]
+	inline auto Sample(Iterator begin, Iterator end, URBG&& urbg);
+
+	/// @brief 指定した範囲から 1 つの要素をランダムに返します。
+	/// @tparam Iterator イテレータの型
+	/// @param begin 範囲の開始位置を指すイテレータ
+	/// @param end 範囲の終端位置を指すイテレータ
+	/// @return 指定した範囲内のランダムな要素 1 つ
 	template <class Iterator>
-	inline auto Sample(Iterator begin, Iterator end)
-	{
-		assert(begin != end);
-		
-		std::advance(begin, Random(std::distance(begin, end) - 1));
-		
-		return *begin;
-	}
+	[[nodiscard]]
+	inline auto Sample(Iterator begin, Iterator end);
 
-	/// <summary>
-	/// イテレータの範囲からランダムにいくつかの値を選択します。
-	/// </summary>
-	/// <param name="n">
-	/// 個数
-	/// </param>
-	/// <param name="begin">
-	/// 開始位置
-	/// </param>
-	/// <param name="end">
-	/// 終了位置
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// イテレータの範囲からランダムに選択された値
-	/// </returns>
+	/// @brief 範囲から指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Iterator イテレータの型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param n 取得する要素数
+	/// @param begin 範囲の開始位置を指すイテレータ
+	/// @param end 範囲の終端位置を指すイテレータ
+	/// @param urbg 乱数エンジン
+	/// @remark n が範囲内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、範囲内に存在していたときと同じ順序です
+	/// @return 範囲から選択した要素の配列
+	template <class Iterator, class URBG>
+	[[nodiscard]]
+	inline auto Sample(size_t n, Iterator begin, Iterator end, URBG&& urbg);
+
+	/// @brief 範囲から指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Iterator イテレータの型
+	/// @param n 取得する要素数
+	/// @param begin 範囲の開始位置を指すイテレータ
+	/// @param end 範囲の終端位置を指すイテレータ
+	/// @remark n が範囲内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、範囲内に存在していたときと同じ順序です
+	/// @return  範囲から選択した要素の配列
 	template <class Iterator>
-	inline auto Sample(size_t n, Iterator begin, Iterator end)
-	{
-		Array<typename std::iterator_traits<Iterator>::value_type> result;
+	[[nodiscard]]
+	inline auto Sample(size_t n, Iterator begin, Iterator end);
 
-		result.reserve(std::min<size_t>(n, std::distance(begin, end)));
+	/// @brief コンテナから 1 つの要素をランダムに返します。
+	/// @tparam Container コンテナの型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param c コンテナ
+	/// @param urbg 乱数エンジン
+	/// @return コンテナ内のランダムな要素 1 つ
+	template <class Container, class URBG>
+	[[nodiscard]]
+	inline auto Sample(const Container& c, URBG&& urbg);
 
-		std::sample(begin, end, std::back_inserter(result), n, GetDefaultRNG());
-
-		return result;
-	}
-
-	/// <summary>
-	/// コンテナの中からランダムに値を選択します。
-	/// </summary>
-	/// <param name="c">
-	/// コンテナ
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// コンテナの中からランダムに選択された値
-	/// </returns>
+	/// @brief コンテナから 1 つの要素をランダムに返します。
+	/// @tparam Container コンテナの型
+	/// @param c コンテナ
+	/// @return コンテナ内のランダムな要素 1 つ
 	template <class Container>
-	inline auto Sample(const Container& c)
-	{
-		assert(std::size(c) != 0);
+	[[nodiscard]]
+	inline auto Sample(const Container& c);
 
-		auto it = std::begin(c);
+	/// @brief コンテナから指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Container コンテナの型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param n 取得する要素数
+	/// @param c コンテナ
+	/// @param urbg 乱数エンジン
+	/// @remark n が範囲内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、範囲内に存在していたときと同じ順序です
+	/// @return コンテナから選択した要素の配列
+	template <class Container, class URBG>
+	[[nodiscard]]
+	inline Array<typename Container::value_type> Sample(size_t n, const Container& c, URBG&& urbg);
 
-		std::advance(it, Random(std::size(c) - 1));
-
-		return *it;
-	}
-
+	/// @brief コンテナから指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Container コンテナの型
+	/// @param n 取得する要素数
+	/// @param c コンテナ
+	/// @remark n が範囲内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、範囲内に存在していたときと同じ順序です
+	/// @return コンテナから選択した要素の配列
 	template <class Container>
-	inline auto Sample(size_t n, const Container& c)
-	{
-		Array<typename Container::value_type> result;
+	[[nodiscard]]
+	inline Array<typename Container::value_type> Sample(size_t n, const Container& c);
 
-		result.reserve(std::min(n, std::size(c)));
+	/// @brief initializer_list から 1 つの要素をランダムに返します。
+	/// @tparam Type initializer_list の要素の型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param ilist initializer_list
+	/// @param urbg 乱数エンジン
+	/// @return initializer_list 内のランダムな要素 1 つ
+	template <class Type, class URBG>
+	[[nodiscard]]
+	inline auto Sample(std::initializer_list<Type> ilist, URBG&& urbg);
 
-		std::sample(std::begin(c), std::end(c), std::back_inserter(result), n, GetDefaultRNG());
-
-		return result;
-	}
-
-	/// <summary>
-	/// リストの中からランダムに値を選択します。
-	/// </summary>
-	/// <param name="ilist">
-	/// 値のリスト
-	/// </param>
-	/// <remarks>
-	/// グローバルな乱数エンジンを使用します。
-	/// </remarks>
-	/// <returns>
-	/// リストの中からランダムに選択された値
-	/// </returns>
+	/// @brief initializer_list から 1 つの要素をランダムに返します。
+	/// @tparam Type initializer_list の要素の型
+	/// @param ilist initializer_list
+	/// @return initializer_list 内のランダムな要素 1 つ
 	template <class Type>
-	inline auto Sample(std::initializer_list<Type> ilist)
-	{
-		assert(ilist.size() != 0);
+	[[nodiscard]]
+	inline auto Sample(std::initializer_list<Type> ilist);
 
-		return *(ilist.begin() + Random(ilist.size() - 1));
-	}
+	/// @brief initializer_list から指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Type initializer_list の要素の型
+	/// @tparam URBG 使用する乱数エンジンの型
+	/// @param n 取得する要素数
+	/// @param ilist initializer_list
+	/// @param urbg 乱数エンジン
+	/// @remark n が initializer_list 内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、initializer_list 内に存在していたときと同じ順序です
+	/// @return initializer_list から選択した要素の配列
+	template <class Type, class URBG>
+	[[nodiscard]]
+	inline Array<Type> Sample(size_t n, std::initializer_list<Type> ilist, URBG&& urbg);
 
+	/// @brief initializer_list から指定した個数の要素を重複無くランダムに選択して返します。
+	/// @tparam Type initializer_list の要素の型
+	/// @param n 取得する要素数
+	/// @param ilist initializer_list
+	/// @remark n が initializer_list 内に存在する要素数を超える場合、すべての要素を返します。
+	/// @remark 戻り値に含まれる要素の順序は、initializer_list 内に存在していたときと同じ順序です
+	/// @return initializer_list から選択した要素の配列
 	template <class Type>
-	inline auto Sample(size_t n, std::initializer_list<Type> ilist)
-	{
-		Array<Type> result;
-
-		result.reserve(std::min(n, ilist.size()));
-
-		std::sample(ilist.begin(), ilist.end(), std::back_inserter(result), n, GetDefaultRNG());
-
-		return result;
-	}
-
-	template <class Iterator>
-	inline auto DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, DiscreteDistribution& weight)
-	{
-		assert(begin != end);
-		assert(std::distance(begin, end) == static_cast<int64>(weight.size()));
-
-		std::advance(begin, weight(GetDefaultRNG()));
-
-		return *begin;
-	}
-
-	template <class Container>
-	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight)
-	{
-		assert(std::size(c) != 0);
-		assert(std::size(c) == weight.size());
-
-		auto it = std::begin(c);
-
-		std::advance(it, weight(GetDefaultRNG()));
-
-		return *it;
-	}
-
-	template <class Type>
-	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight)
-	{
-		assert(ilist.size() != 0);
-
-		return *(ilist.begin() + weight(GetDefaultRNG()));
-	}
+	[[nodiscard]]
+	inline Array<Type> Sample(size_t n, std::initializer_list<Type> ilist);
 }
+
+# include "detail/Sample.ipp"

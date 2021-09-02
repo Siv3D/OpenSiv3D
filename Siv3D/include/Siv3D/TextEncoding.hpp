@@ -2,103 +2,62 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "BinaryReader.hpp"
+# include "Common.hpp"
+# include "IReader.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// テキストファイルのエンコーディング形式
-	/// </summary>
-	/// <remarks>
-	/// テキストファイルの文字エンコーディング形式を示します。
-	/// </remarks>
-	enum class TextEncoding
+	/// @brief テキストファイルのエンコーディング形式
+	enum class TextEncoding : uint8
 	{
+		/// @brief 不明なエンコーティング
 		Unknown,
 
-		/// <summary>
-		/// UTF-8
-		/// </summary>
+		/// @brief UTF-8
 		UTF8_NO_BOM,
 
-		/// <summary>
-		/// UTF-8 with BOM
-		/// </summary>
-		UTF8,
+		/// @brief UTF-8 with BOM
+		UTF8_WITH_BOM,
 
-		/// <summary>
-		/// UTF-16(LE) with BOM
-		/// </summary>
+		/// @brief UTF-16(LE) with BOM
 		UTF16LE,
 
-		/// <summary>
-		/// UTF-16(BE) with BOM
-		/// </summary>
+		/// @brief UTF-16(BE) with BOM
 		UTF16BE,
 
-		/// <summary>
-		/// デフォルト [UTF-8]
-		/// </summary>
-		Default = UTF8,		
+		/// @brief デフォルト [UTF-8]
+		Default = UTF8_NO_BOM,
 	};
 
 	namespace Unicode
 	{
-		/// <summary>
-		/// ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
-		/// </summary>
-		/// <param name="reader">
-		/// IReader
-		/// </param>
-		/// <returns>
-		/// テキストファイルのエンコーディング形式
-		/// </returns>
-		[[nodiscard]] TextEncoding GetTextEncoding(const IReader& reader);
+		/// @brief ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
+		/// @param reader IReader
+		/// @return テキストファイルのエンコーディング形式	
+		[[nodiscard]]
+		TextEncoding GetTextEncoding(const IReader& reader);
 
-		/// <summary>
-		/// ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <returns>
-		/// テキストファイルのエンコーディング形式
-		/// </returns>
-		[[nodiscard]] inline TextEncoding GetTextEncoding(const FilePathView path)
-		{
-			return GetTextEncoding(BinaryReader(path));
-		}
+		/// @brief ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
+		/// @param path ファイルパス
+		/// @return テキストファイルのエンコーディング形式
+		[[nodiscard]]
+		TextEncoding GetTextEncoding(FilePathView path);
 
-		/// <summary>
-		/// テキストファイルの BOM のサイズ（バイト）を返します。
-		/// </summary>
-		/// <param name="encoding">
-		/// エンコーディング形式
-		/// </param>
-		/// <returns>
-		/// テキストファイルの BOM のサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] inline constexpr int32 GetBOMSize(TextEncoding encoding) noexcept
-		{
-			switch (encoding)
-			{
-			case TextEncoding::UTF8:
-				return 3;
-			case TextEncoding::UTF16LE:
-			case TextEncoding::UTF16BE:
-				return 2;
-			default:
-				return 0;
-			}
-		}
+		/// @brief テキストファイルの BOM のサイズ（バイト）を返します。
+		/// @param encoding エンコーディング形式
+		/// @return テキストファイルの BOM のサイズ（バイト）
+		[[nodiscard]]
+		inline constexpr int32 GetBOMSize(TextEncoding encoding) noexcept;
 	}
 }
+
+# include "detail/TextEncoding.ipp"

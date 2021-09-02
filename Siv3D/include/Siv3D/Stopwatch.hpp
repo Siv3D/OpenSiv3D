@@ -2,286 +2,174 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Time.hpp"
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
+# include "Common.hpp"
+# include "ISteadyClock.hpp"
 # include "Duration.hpp"
+# include "FormatData.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// ストップウォッチ
-	/// Stopwatch
-	/// </summary>
+	/// @brief ストップウォッチ
 	class Stopwatch
 	{
-	private:
-
-		int64 m_startTimeMicrosec = 0;
-
-		int64 m_accumulationMicrosec = 0;
-
-		bool m_isStarted = false;
-
-		bool m_pausing = true;
-
 	public:
 
-		/// <summary>
-		/// ストップウォッチを作成します。
-		/// </summary>
-		/// <param name="startImmediately">
-		/// 即座に計測を開始する場合は true
-		/// </param>
-		explicit Stopwatch(bool startImmediately = false)
-		{
-			if (startImmediately)
-			{
-				start();
-			}
-		}
+		/// @brief ストップウォッチを作成します。
+		/// @param startImmediately 即座に計測を開始する場合は `StartImmediately::Yes`
+		/// @param pSteadyClock 基準時刻取得用のカスタム関数。nullptr の場合はシステム時刻
+		SIV3D_NODISCARD_CXX20
+		explicit Stopwatch(StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
-		/// <summary>
-		/// ストップウォッチを作成します。
-		/// </summary>
-		/// <param name="startImmediately">
-		/// 即座に計測を開始する場合は true
-		/// </param>
-		explicit Stopwatch(const Duration& time, bool startImmediately = false)
-		{
-			set(time);
+		/// @brief 指定した時間だけ経過し一時停止している状態のストップウォッチを作成します。
+		/// @param startTime 経過時間
+		/// @param startImmediately 即座に計測を開始する場合は `StartImmediately::Yes`
+		/// @param pSteadyClock 基準時刻取得用のカスタム関数。nullptr の場合はシステム時刻
+		SIV3D_NODISCARD_CXX20
+		explicit Stopwatch(const Duration& startTime, StartImmediately startImmediately = StartImmediately::No, ISteadyClock* pSteadyClock = nullptr);
 
-			if (startImmediately)
-			{
-				start();
-			}
-		}
+		/// @brief ストップウォッチが動作中であるかを示します（開始後の一時停止も動作中に含みます）。
+		/// @return ストップウォッチが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isStarted() const noexcept;
 
-		/// <summary>
-		/// ストップウォッチを開始・再開します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void start()
-		{
-			if (!m_pausing)
-			{
-				return;
-			}
+		/// @brief ストップウォッチが一時停止中であるかを示します。
+		/// @return ストップウォッチが開始後一時停止中である場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPaused() const noexcept;
 
-			m_isStarted = true;
+		/// @brief ストップウォッチが時間を計測中であるかを示します。
+		/// @return ストップウォッチが開始されていて、なおかつ一時停止中でない場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isRunning() const noexcept;
 
-			m_pausing = false;
+		/// @brief ストップウォッチを開始・再開します。
+		void start();
 
-			m_startTimeMicrosec = Time::GetMicrosec();
-		}
+		/// @brief 開始しているストップウォッチを一時停止します。
+		void pause();
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[日]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[日]
-		/// </returns>
-		[[nodiscard]] int32 d() const { return static_cast<int32>(d64()); }
+		/// @brief ストップウォッチが一時停止中である場合、再開します。
+		void resume();
 
-		[[nodiscard]] int64 d64() const { return us() / (1000LL * 1000LL * 60LL * 60LL * 24LL); }
+		/// @brief ストップウォッチを停止し、経過時間を 0 にリセットします。
+		void reset() noexcept;
 
-		[[nodiscard]] double dF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL)); }
+		/// @brief 経過時間を 0 にリセットして、ストップウォッチを再び開始します。
+		void restart();
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[時]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[時]
-		/// </returns>
-		[[nodiscard]] int32 h() const { return static_cast<int32>(h64()); }
+		/// @brief ストップウォッチの経過時間を変更します。
+		/// @param time 新しく設定する経過時間
+		/// @remark 指定した時間だけ経過している状態にします。計測中であるかの状態は引き継がれます。
+		void set(const Duration& time);
 
-		[[nodiscard]] int64 h64() const { return us() / (1000LL * 1000LL * 60LL * 60LL); }
+		/// @brief 経過時間を [日] で返します。
+		/// @return 経過時間 [日]
+		[[nodiscard]]
+		int32 d() const;
 
-		[[nodiscard]] double hF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL)); }
+		/// @brief 経過時間を [日] で返します。
+		/// @return 経過時間 [日]
+		[[nodiscard]]
+		int64 d64() const;
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[分]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[分]
-		/// </returns>
-		[[nodiscard]] int32 min() const { return static_cast<int32>(min64()); }
+		/// @brief 経過時間を [日] で返します。
+		/// @return 経過時間 [日]
+		[[nodiscard]]
+		double dF() const;
 
-		[[nodiscard]] int64 min64() const { return us() / (1000LL * 1000LL * 60LL); }
+		/// @brief 経過時間を [時] で返します。
+		/// @return 経過時間 [時]
+		[[nodiscard]]
+		int32 h() const;
 
-		[[nodiscard]] double minF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL)); }
+		/// @brief 経過時間を [時] で返します。
+		/// @return 経過時間 [時]
+		[[nodiscard]]
+		int64 h64() const;
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[秒]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[秒]
-		/// </returns>
-		[[nodiscard]] int32 s() const { return static_cast<int32>(s64()); }
+		/// @brief 経過時間を [時] で返します。
+		/// @return 経過時間 [時]
+		[[nodiscard]]
+		double hF() const;
 
-		[[nodiscard]] int64 s64() const { return us() / (1000LL * 1000LL); }
+		/// @brief 経過時間を [分] で返します。
+		/// @return 経過時間 [分]
+		[[nodiscard]]
+		int32 min() const;
 
-		[[nodiscard]] double sF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL)); }
+		/// @brief 経過時間を [分] で返します。
+		/// @return 経過時間 [分]
+		[[nodiscard]]
+		int64 min64() const;
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[ミリ秒]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[ミリ秒]
-		/// </returns>
-		[[nodiscard]] int32 ms() const { return static_cast<int32>(ms64()); }
+		/// @brief 経過時間を [分] で返します。
+		/// @return 経過時間 [分]
+		[[nodiscard]]
+		double minF() const;
 
-		[[nodiscard]] int64 ms64() const { return us() / (1000LL); }
+		/// @brief 経過時間を [秒] で返します。
+		/// @return 経過時間 [秒]
+		[[nodiscard]]
+		int32 s() const;
 
-		[[nodiscard]] double msF() const { return static_cast<double>(us() / static_cast<double>(1000LL)); }
+		/// @brief 経過時間を [秒] で返します。
+		/// @return 経過時間 [秒]
+		[[nodiscard]]
+		int64 s64() const;
 
-		/// <summary>
-		/// ストップウォッチの経過時間を[マイクロ秒]で返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間[マイクロ秒]
-		/// </returns>
-		[[nodiscard]] int64 us() const
-		{
-			const int64 t = Time::GetMicrosec();
+		/// @brief 経過時間を [秒] で返します。
+		/// @return 経過時間 [秒]
+		[[nodiscard]]
+		double sF() const;
 
-			if (!m_isStarted)
-			{
-				return 0;
-			}
+		/// @brief 経過時間を [ミリ秒] で返します。
+		/// @return 経過時間 [ミリ秒]
+		[[nodiscard]]
+		int32 ms() const;
 
-			if (m_pausing)
-			{
-				return m_accumulationMicrosec;
-			}
+		/// @brief 経過時間を [ミリ秒] で返します。
+		/// @return 経過時間 [ミリ秒]
+		[[nodiscard]]
+		int64 ms64() const;
 
-			return m_accumulationMicrosec + (t - m_startTimeMicrosec);
-		}
+		/// @brief 経過時間を [ミリ秒] で返します。
+		/// @return 経過時間 [ミリ秒]
+		[[nodiscard]]
+		double msF() const;
 
-		[[nodiscard]] int64 us64() const
-		{
-			return us();
-		}
+		/// @brief 経過時間を [マイクロ秒] で返します。
+		/// @return 経過時間 [マイクロ秒]
+		[[nodiscard]]
+		int64 us() const;
 
-		[[nodiscard]] double usF() const { return static_cast<double>(us()); }
+		/// @brief 経過時間を [マイクロ秒] で返します。
+		/// @return 経過時間 [マイクロ秒]
+		[[nodiscard]]
+		int64 us64() const;
 
-		/// <summary>
-		/// ストップウォッチの経過時間を返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間
-		/// </returns>
-		[[nodiscard]] Duration elapsed() const { return SecondsF(sF()); }
+		/// @brief 経過時間を [マイクロ秒] で返します。
+		/// @return 経過時間 [マイクロ秒]
+		[[nodiscard]]
+		double usF() const;
 
-		/// <summary>
-		/// ストップウォッチが動作中であるかを示します（一時停止していることもあります）。
-		/// </summary>
-		/// <remarks>
-		/// ストップウォッチが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false
-		/// </remarks>
-		[[nodiscard]] bool isStarted() const { return m_isStarted; }
+		/// @brief 経過時間を返します。
+		/// @return 経過時間
+		[[nodiscard]]
+		Duration elapsed() const;
 
-		/// <summary>
-		/// ストップウォッチが一時停止中であるかを示します。
-		/// </summary>
-		/// <remarks>
-		/// ストップウォッチが開始後一時停止中である場合 true, それ以外の場合は false
-		/// </remarks>
-		[[nodiscard]] bool isPaused() const { return m_isStarted && m_pausing; }
-
-		/// <summary>
-		/// ストップウォッチが時間を計測中であるかを示します。
-		/// </summary>
-		/// <remarks>
-		/// ストップウォッチが開始されていて、なおかつ一時停止中でない場合 true, それ以外の場合は false
-		/// </remarks>
-		[[nodiscard]] bool isRunning() const { return m_isStarted && !m_pausing; }
-
-		/// <summary>
-		/// ストップウォッチを一時停止します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void pause()
-		{
-			m_accumulationMicrosec = us();
-
-			m_pausing = true;
-		}
-
-		/// <summary>
-		/// ストップウォッチが一時停止中である場合、再開します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void resume()
-		{
-			if (!isPaused())
-			{
-				return;
-			}
-
-			start();
-		}
-
-		/// <summary>
-		/// ストップウォッチを停止し、経過時間を 0 にリセットします。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void reset() noexcept
-		{
-			m_accumulationMicrosec = 0;
-
-			m_isStarted = false;
-
-			m_pausing = true;
-		}
-
-		/// <summary>
-		/// 経過時間を 0 にリセットして、ストップウォッチを開始します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void restart()
-		{
-			reset();
-
-			start();
-		}
-
-		/// <summary>
-		/// ストップウォッチの経過時間を変更します。
-		/// </summary>
-		/// <param name="time">
-		/// 新しく設定する経過時間
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void set(const Duration& time)
-		{
-			m_isStarted = true;
-
-			m_accumulationMicrosec = static_cast<int64>(time.count() * (1000LL * 1000LL));
-
-			m_startTimeMicrosec = Time::GetMicrosec();
-		}
-
-		/// <summary>
+		/// @brief 経過時間を文字列に変換します。
 		/// DD		日 (00-)
 		/// D		日 (0-)
 		/// dd		日 (00-)
@@ -302,47 +190,138 @@ namespace s3d
 		/// x		小数点以下 1 桁秒 (0-9)
 		/// xx		小数点以下 2 桁秒 (00-99)
 		/// xxx		小数点以下 3 桁秒 (000-999)
-		/// </summary>
-		/// <param name="format">
-		/// フォーマット指定
-		/// </param>
-		/// <returns>
-		/// フォーマットされた経過時間
-		/// </returns>
-		[[nodiscard]] String format(StringView format = U"H:mm:ss.xx"_sv) const;
+		/// @param format フォーマット指定
+		/// @return フォーマットされた時間
+		[[nodiscard]]
+		String format(StringView format = U"H:mm:ss.xx"_sv) const;
+
+	# if __cpp_impl_three_way_comparison
+
+		/// @brief 経過時間を比較します。
+		/// @param s ストップウォッチ
+		/// @param timeUs 比較する時間
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend auto operator <=>(const Stopwatch& s, const MicrosecondsF& timeUs)
+		{
+			return (s.usF() <=> timeUs.count());
+		}
+
+	# else
+
+		/// @brief 経過時間を比較します。
+		/// @param s ストップウォッチ
+		/// @param time 比較する時間
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator <(const Stopwatch& s, const MicrosecondsF& time)
+		{
+			return (s.elapsed() < time);
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param s ストップウォッチ
+		/// @param time 比較する時間
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator <=(const Stopwatch& s, const MicrosecondsF& time)
+		{
+			return (s.elapsed() <= time);
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param s ストップウォッチ
+		/// @param time 比較する時間
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator >(const Stopwatch& s, const MicrosecondsF& time)
+		{
+			return (s.elapsed() > time);
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param s ストップウォッチ
+		/// @param time 比較する時間
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator >=(const Stopwatch& s, const MicrosecondsF& time)
+		{
+			return (s.elapsed() >= time);
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param time 比較する時間
+		/// @param s ストップウォッチ
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator <(const MicrosecondsF& time, const Stopwatch& s)
+		{
+			return (time < s.elapsed());
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param time 比較する時間
+		/// @param s ストップウォッチ
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator <=(const MicrosecondsF& time, const Stopwatch& s)
+		{
+			return (time <= s.elapsed());
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param time 比較する時間
+		/// @param s ストップウォッチ
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator >(const MicrosecondsF& time, const Stopwatch& s)
+		{
+			return (time > s.elapsed());
+		}
+
+		/// @brief 経過時間を比較します。
+		/// @param time 比較する時間
+		/// @param s ストップウォッチ
+		/// @return 比較の結果
+		[[nodiscard]]
+		friend bool operator >=(const MicrosecondsF& time, const Stopwatch& s)
+		{
+			return (time >= s.elapsed());
+		}
+
+	# endif
+
+		/// @brief 
+		/// @tparam CharType 
+		/// @param output 
+		/// @param value 
+		/// @return 
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Stopwatch& value)
+		{
+			return output << value.format();
+		}
+
+		/// @brief 
+		/// @param formatData 
+		/// @param value 
+		friend void Formatter(FormatData& formatData, const Stopwatch& value)
+		{
+			formatData.string.append(value.format());
+		}
+
+	private:
+
+		int64 m_startTimeMicrosec = 0;
+
+		int64 m_accumulationMicrosec = 0;
+
+		ISteadyClock* m_pSteadyClock = nullptr;
+
+		bool m_isStarted = false;
+
+		bool m_pausing = true;
 	};
-
-	[[nodiscard]] bool operator <(const Stopwatch& s, const MicrosecondsF& time);
-
-	[[nodiscard]] bool operator <=(const Stopwatch& s, const MicrosecondsF& time);
-
-	[[nodiscard]] bool operator >(const Stopwatch& s, const MicrosecondsF& time);
-
-	[[nodiscard]] bool operator >=(const Stopwatch& s, const MicrosecondsF& time);
-
-
-	[[nodiscard]] bool operator <(const MicrosecondsF& time, const Stopwatch& s);
-
-	[[nodiscard]] bool operator <=(const MicrosecondsF& time, const Stopwatch& s);
-
-	[[nodiscard]] bool operator >(const MicrosecondsF& time, const Stopwatch& s);
-
-	[[nodiscard]] bool operator >=(const MicrosecondsF& time, const Stopwatch& s);
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Stopwatch& value);
-
-	template <class CharType>
-	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Stopwatch& value)
-	{
-		return output << value.format();
-	}
-}
+# include "detail/Stopwatch.ipp"

@@ -2,518 +2,477 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <cmath>
-# include <utility>
-# include "Platform.hpp"
-# include "Fwd.hpp"
-# include "Point.hpp"
-# include "Format.hpp"
-# include "Hash.hpp"
-# include "MathConstants.hpp"
+# include "Common.hpp"
+# include "FormatData.hpp"
+# include "FormatLiteral.hpp"
+# include "2DShapesFwd.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 2 次元ベクトル
-	/// </summary>
+	/// @brief 2 次元のベクトル
+	/// @tparam Type ベクトルの要素の型
 	template <class Type>
 	struct Vector2D
 	{
-		template <class U>
-		using vector_type = Vector2D<U>;
-
+		/// @brief ベクトルの要素の型
 		using value_type = Type;
 
-		value_type x, y;
+		/// @brief ベクトルの次元数
+		static constexpr size_t Dimension = 2;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Vector2D() noexcept = default;
+		/// @brief ベクトルの X 成分
+		value_type x;
+		
+		/// @brief ベクトルの Y 成分
+		value_type y;
 
-		constexpr Vector2D(const Vector2D&) noexcept = default;
+		SIV3D_NODISCARD_CXX20
+		Vector2D() = default;
+
+		SIV3D_NODISCARD_CXX20
+		Vector2D(const Vector2D&) = default;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector2D(value_type _x, value_type _y) noexcept
+			: x{ _x }
+			, y{ _y } {}
 
 		template <class X, class Y>
-		constexpr Vector2D(X _x, Y _y) noexcept
-			: x(static_cast<value_type>(_x))
-			, y(static_cast<value_type>(_y)) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector2D(X _x, Y _y) noexcept;
 
-		constexpr Vector2D(value_type _x, value_type _y) noexcept
-			: x(_x)
-			, y(_y) {}
-
-		constexpr Vector2D(const Point& v) noexcept
-			: x(static_cast<value_type>(v.x))
-			, y(static_cast<value_type>(v.y)) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector2D(Point p) noexcept;
 
 		template <class U>
-		constexpr Vector2D(const Vector2D<U>& v) noexcept
-			: x(static_cast<value_type>(v.x))
-			, y(static_cast<value_type>(v.y)) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector2D(const Vector2D<U>& v) noexcept;
 
-		[[nodiscard]] constexpr value_type elem(size_t index) const noexcept
+		[[nodiscard]]
+		constexpr value_type elem(size_t index) const noexcept;
+
+		[[nodiscard]]
+		value_type* getPointer() noexcept;
+
+		[[nodiscard]]
+		const value_type* getPointer() const noexcept;
+
+		constexpr Vector2D& operator =(const Vector2D&) = default;
+
+		[[nodiscard]]
+		constexpr Vector2D operator +() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator -() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator +(Vector2D v) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator -(Vector2D v) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator *(value_type s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator *(Vector2D v) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator /(value_type s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D operator /(Vector2D v) const noexcept;
+
+		constexpr Vector2D& operator +=(Vector2D v) noexcept;
+
+		constexpr Vector2D& operator -=(Vector2D v) noexcept;
+
+		constexpr Vector2D& operator *=(value_type s) noexcept;
+
+		constexpr Vector2D& operator *=(Vector2D v) noexcept;
+
+		constexpr Vector2D& operator /=(value_type s) noexcept;
+
+		constexpr Vector2D& operator /=(Vector2D v) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend constexpr Vector2D operator *(Arithmetic s, Vector2D v) noexcept
 		{
-			return index == 0 ? x
-				: index == 1 ? y
-				: 0;
+			return (v * static_cast<Type>(s));
 		}
 
-		[[nodiscard]] constexpr Vector2D operator +() const noexcept
+		[[nodiscard]]
+		friend constexpr bool operator ==(Vector2D lhs, Vector2D rhs) noexcept
 		{
-			return *this;
+			return (lhs.x == rhs.x)
+				&& (lhs.y == rhs.y);
 		}
 
-		[[nodiscard]] constexpr Vector2D operator -() const noexcept
+		[[nodiscard]]
+		friend constexpr bool operator !=(Vector2D lhs, Vector2D rhs) noexcept
 		{
-			return{ -x, -y };
+			return (lhs.x != rhs.x)
+				|| (lhs.y != rhs.y);
 		}
 
-		[[nodiscard]] constexpr Vector2D operator +(const Vector2D& v) const noexcept
-		{
-			return{ x + v.x, y + v.y };
-		}
+		[[nodiscard]]
+		constexpr bool epsilonEquals(Vector2D other, value_type epsilon) const noexcept;
 
-		[[nodiscard]] constexpr Vector2D operator -(const Vector2D& v) const noexcept
-		{
-			return{ x - v.x, y - v.y };
-		}
+		[[nodiscard]]
+		constexpr bool hasSameDirection(Vector2D other) const noexcept;
 
-		[[nodiscard]] constexpr Vector2D operator *(value_type s) const noexcept
-		{
-			return{ x * s, y * s };
-		}
+		[[nodiscard]]
+		constexpr bool hasOppositeDirection(Vector2D other) const noexcept;
 
-		[[nodiscard]] constexpr Vector2D operator *(const Vector2D& v) const noexcept
-		{
-			return{ x * v.x, y * v.y };
-		}
+		[[nodiscard]]
+		constexpr bool isZero() const noexcept;
 
-		[[nodiscard]] constexpr Vector2D operator /(value_type s) const noexcept
-		{
-			return *this * (static_cast<value_type>(1.0) / s);
-		}
+		[[nodiscard]]
+		bool hasNaN() const noexcept;
 
-		[[nodiscard]] constexpr Vector2D operator /(const Vector2D& v) const noexcept
-		{
-			return{ x / v.x, y / v.y };
-		}
+		[[nodiscard]]
+		constexpr value_type minComponent() const noexcept;
 
-		constexpr Vector2D& operator +=(const Vector2D& v) noexcept
-		{
-			x += v.x; y += v.y;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr value_type maxComponent() const noexcept;
 
-		constexpr Vector2D& operator -=(const Vector2D& v) noexcept
-		{
-			x -= v.x; y -= v.y;
-			return *this;
-		}
+		constexpr void clear() noexcept;
 
-		constexpr Vector2D& operator *=(value_type s) noexcept
-		{
-			x *= s; y *= s;
-			return *this;
-		}
+		constexpr Vector2D& set(value_type _x, value_type _y) noexcept;
 
-		constexpr Vector2D& operator *=(const Vector2D& v) noexcept
-		{
-			x *= v.x; y *= v.y;
-			return *this;
-		}
+		constexpr Vector2D& set(Vector2D v) noexcept;
 
-		constexpr Vector2D& operator /=(value_type s) noexcept
-		{
-			return *this *= (static_cast<value_type>(1.0) / s);
-		}
+		[[nodiscard]]
+		constexpr Vector2D movedBy(value_type _x, value_type _y) const noexcept;
 
-		constexpr Vector2D& operator /=(const Vector2D& v) noexcept
-		{
-			x /= v.x; y /= v.y;
-			return *this;
-		}
+		[[nodiscard]]
+		constexpr Vector2D movedBy(Vector2D v) const noexcept;
 
-		[[nodiscard]] constexpr bool operator ==(const Vector2D& v) const noexcept
-		{
-			return v.x == x && v.y == y;
-		}
+		constexpr Vector2D& moveBy(value_type _x, value_type _y) noexcept;
 
-		[[nodiscard]] constexpr bool operator !=(const Vector2D& v) const noexcept
-		{
-			return v.x != x || v.y != y;
-		}
+		constexpr Vector2D& moveBy(Vector2D v) noexcept;
 
-		constexpr Vector2D& set(value_type _x, value_type _y) noexcept
-		{
-			x = _x; y = _y;
-			return *this;
-		}
-
-		constexpr Vector2D& set(const Vector2D& v) noexcept
-		{
-			return *this = v;
-		}
-
-		[[nodiscard]] constexpr Vector2D movedBy(value_type _x, value_type _y) const noexcept
-		{
-			return{ x + _x, y + _y };
-		}
-
-		[[nodiscard]] constexpr Vector2D movedBy(const Vector2D& v) const noexcept
-		{
-			return{ x + v.x, y + v.y };
-		}
-
-		constexpr Vector2D& moveBy(value_type _x, value_type _y) noexcept
-		{
-			x += _x; y += _y;
-			return *this;
-		}
-
-		constexpr Vector2D& moveBy(const Vector2D& v) noexcept
-		{
-			return *this += v;
-		}
-
-		[[nodiscard]] Vector2D clamped(const RectF& rect) const noexcept;
+		[[nodiscard]]
+		Vector2D clamped(const RectF& rect) const noexcept;
 
 		Vector2D& clamp(const RectF& rect) noexcept;
 
-		[[nodiscard]] constexpr bool isZero() const noexcept
-		{
-			return x == static_cast<value_type>(0.0)
-				&& y == static_cast<value_type>(0.0);
-		}
+		[[nodiscard]]
+		constexpr value_type dot(Vector2D v) const noexcept;
 
-		[[nodiscard]] bool hasNaN() const noexcept
-		{
-			return std::isnan(x)
-				|| std::isnan(y);
-		}
+		[[nodiscard]]
+		constexpr value_type cross(Vector2D v) const noexcept;
 
-		[[nodiscard]] constexpr value_type dot(const Vector2D& v) const noexcept
-		{
-			return x * v.x + y * v.y;
-		}
+		[[nodiscard]]
+		value_type length() const noexcept;
 
-		[[nodiscard]] constexpr value_type cross(const Vector2D& v) const noexcept
-		{
-			return x * v.y - y * v.x;
-		}
+		[[nodiscard]]
+		constexpr value_type lengthSq() const noexcept;
 
-		[[nodiscard]] value_type length() const noexcept
-		{
-			return std::sqrt(lengthSq());
-		}
+		[[nodiscard]]
+		value_type invLength() const noexcept;
 
-		[[nodiscard]] constexpr value_type lengthSq() const noexcept
-		{
-			return dot(*this);
-		}
+		[[nodiscard]]
+		constexpr value_type manhattanLength() const noexcept;
 
-		[[nodiscard]] value_type lengthInv() const noexcept
-		{
-			return static_cast<value_type>(1.0) / length();
-		}
+		[[nodiscard]]
+		constexpr value_type manhattanDistanceFrom(value_type _x, value_type _y) const noexcept;
 
-		Vector2D& setLength(value_type _length) noexcept
-		{
-			const value_type len = length();
+		[[nodiscard]]
+		constexpr value_type manhattanDistanceFrom(Vector2D v) const noexcept;
 
-			if (len == 0.0)
-			{
-				return *this;
-			}
+		[[nodiscard]]
+		value_type distanceFrom(value_type _x, value_type _y) const noexcept;
 
-			return *this *= (_length / len);
-		}
+		[[nodiscard]]
+		value_type distanceFrom(Vector2D v) const noexcept;
 
-		[[nodiscard]] Vector2D clampLength(value_type maxLength) const noexcept
-		{
-			const value_type len = length();
+		[[nodiscard]]
+		constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept;
 
-			if (len <= maxLength)
-			{
-				return *this;
-			}
-			else
-			{
-				return *this * (maxLength / len);
-			}
-		}
+		[[nodiscard]]
+		constexpr value_type distanceFromSq(Vector2D v) const noexcept;
 
-		[[nodiscard]] value_type distanceFrom(value_type _x, value_type _y) const noexcept
-		{
-			return distanceFrom({ _x, _y });
-		}
+		[[nodiscard]]
+		Vector2D withLength(value_type _length) const noexcept;
 
-		[[nodiscard]] value_type distanceFrom(const Vector2D& v) const noexcept
-		{
-			return (*this - v).length();
-		}
+		Vector2D& setLength(value_type _length) noexcept;
 
-		[[nodiscard]] constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept
-		{
-			return distanceFromSq({ _x, _y });
-		}
+		[[nodiscard]]
+		Vector2D limitLength(value_type maxLength) const noexcept;
 
-		[[nodiscard]] constexpr value_type distanceFromSq(const Vector2D& v) const noexcept
-		{
-			return (*this - v).lengthSq();
-		}
+		Vector2D& limitLengthSelf(value_type maxLength) noexcept;
 
-		[[nodiscard]] Vector2D normalized() const noexcept
-		{
-			return *this * lengthInv();
-		}
+		[[nodiscard]]
+		Vector2D normalized() const noexcept;
 
-		Vector2D& normalize() noexcept
-		{
-			return *this *= lengthInv();
-		}
+		Vector2D& normalize() noexcept;
 
-		[[nodiscard]] Vector2D rotated(value_type angle) const noexcept
-		{
-			const value_type s = std::sin(angle);
-			const value_type c = std::cos(angle);
-			return{ x * c - y * s, x * s + y * c };
-		}
+		[[nodiscard]]
+		Vector2D rotated(value_type angle) const noexcept;
 
-		Vector2D& rotate(value_type angle) noexcept
-		{
-			return *this = rotated(angle);
-		}
-		
-		[[nodiscard]] value_type getAngle(const Vector2D& v) const
-		{
-			if (isZero() || v.isZero())
-			{
-				return static_cast<value_type>(Math::Constants::NaN);
-			}
+		Vector2D& rotate(value_type angle) noexcept;
 
-			return std::atan2(cross(v), dot(v));
-		}
+		[[nodiscard]]
+		Vector2D rotatedAt(Vector2D center, value_type angle) const noexcept;
 
-		[[nodiscard]] constexpr Vector2D projection(const Vector2D& onto) const noexcept
-		{
-			return onto.lengthSq() ? onto * dot(onto) / onto.lengthSq() : Zero();
-		}
+		Vector2D& rotateAt(Vector2D center, value_type angle) noexcept;
 
-		[[nodiscard]] constexpr Vector2D lerp(const Vector2D& other, double f) const noexcept
-		{
-			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
-		}
+		[[nodiscard]]
+		value_type getAngle() const noexcept;
 
-		[[nodiscard]] constexpr Point asPoint() const noexcept
-		{
-			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
-		}
+		[[nodiscard]] 
+		value_type getAngle(Vector2D other) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D getPerpendicularCW() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D getPerpendicularCCW() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D getMidpoint(Vector2D other) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D projection(Vector2D onto) const noexcept;
+
+		[[nodiscard]]
+		Vector2D getPointByAngleAndDistance(value_type angle, value_type distance) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector2D lerp(Vector2D other, value_type f) const noexcept;
+
+		[[nodiscard]]
+		constexpr Point asPoint() const noexcept;
+
+		[[nodiscard]]
+		Circle asCircle(double r) const noexcept;
 
 		template <class Shape2DType>
-		[[nodiscard]] bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
 
 		/// <summary>
 		/// Vector2D{ x, x }
 		/// </summary>
-		[[nodiscard]] constexpr Vector2D xx() const noexcept
-		{
-			return{ x, x };
-		}
+		[[nodiscard]]
+		constexpr Vector2D xx() const noexcept;
 
 		/// <summary>
 		/// Vector2D{ x, y }
 		/// </summary>
-		[[nodiscard]] constexpr Vector2D xy() const noexcept
-		{
-			return{ x, y };
-		}
+		[[nodiscard]]
+		constexpr Vector2D xy() const noexcept;
 
 		/// <summary>
 		/// Vector2D{ y, x }
 		/// </summary>
-		[[nodiscard]] constexpr Vector2D yx() const noexcept
-		{
-			return{ y, x };
-		}
+		[[nodiscard]]
+		constexpr Vector2D yx() const noexcept;
 
 		/// <summary>
 		/// Vector2D{ y, y }
 		/// </summary>
-		[[nodiscard]] constexpr Vector2D yy() const noexcept
-		{
-			return{ y, y };
-		}
- 
+		[[nodiscard]]
+		constexpr Vector2D yy() const noexcept;
+
+		/// <summary>
+		/// Vector2D{ x, 0 }
+		/// </summary>
+		[[nodiscard]]
+		constexpr Vector2D x0() const noexcept;
+
+		/// <summary>
+		/// Vector2D{ y, 0 }
+		/// </summary>
+		[[nodiscard]]
+		constexpr Vector2D y0() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vector3D<Type> xy0() const noexcept;
+
 		/// <summary>
 		/// Vector2D{ 0, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D Zero() noexcept
-		{
-			return{ 0, 0 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D Zero() noexcept;
 
 		/// <summary>
 		/// Vector2D{ 1, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D One() noexcept
-		{
-			return{ 1, 1 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D One() noexcept;
 
 		/// <summary>
 		/// Vector2D{ value, value }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D All(value_type value = 1) noexcept
-		{
-			return{ value, value };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D All(value_type value = 1) noexcept;
 
 		/// <summary>
 		/// Vector2D{ 1, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D UnitX() noexcept
-		{
-			return{ 1, 0 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D UnitX() noexcept;
 
 		/// <summary>
 		/// Vector2D{ 0, 1 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D UnitY() noexcept
-		{
-			return{ 0, 1 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D UnitY() noexcept;
 
 		/// <summary>
 		/// Vector2D{ -length, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D Left(value_type length = 1) noexcept
-		{
-			return{ -length, 0 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D Left(value_type length = 1) noexcept;
 
 		/// <summary>
 		/// Vector2D{ length, 0 }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D Right(value_type length = 1) noexcept
-		{
-			return{ length, 0 };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D Right(value_type length = 1) noexcept;
 
 		/// <summary>
 		/// Vector2D{ 0, -length }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D Up(value_type length = 1) noexcept
-		{
-			return{ 0, -length };
-		}
+		[[nodiscard]]
+		static constexpr Vector2D Up(value_type length = 1) noexcept;
 
 		/// <summary>
 		/// Vector2D{ 0, length }
 		/// </summary>
-		[[nodiscard]] static constexpr Vector2D Down(value_type length = 1) noexcept
-		{
-			return{ 0, length };
-		}
-	};
+		[[nodiscard]]
+		static constexpr Vector2D Down(value_type length = 1) noexcept;
 
-	template <class Type, class U, std::enable_if_t<std::is_scalar_v<U>>* = nullptr>
-	[[nodiscard]] inline constexpr Vector2D<Type> operator *(U s, const Vector2D<Type>& v) noexcept
-	{
-		return v * static_cast<Type>(s);
-	}
+		/// <summary>
+		/// Vector2D{ 0.5, 0.5 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorCenter() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 0, 0 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorTopLeft() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 0.5, 0 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorTopCenter() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 1, 0 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorTopRight() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 1, 0.5 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorRightCenter() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 1, 1 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorBottomRight() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 0.5, 1 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorBottomCenter() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 0, 1 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorBottomLeft() noexcept;
+
+		/// <summary>
+		/// Vector2D{ 0, 0.5 }
+		/// </summary>
+		[[nodiscard]]
+		static constexpr Vector2D AnchorLeftCenter() noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Vector2D& value)
+		{
+			return output << CharType('(')
+				<< value.x << CharType(',') << CharType(' ')
+				<< value.y << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Vector2D& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.x >> unused
+				>> value.y >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Vector2D& value)
+		{
+			_Formatter(formatData, value);
+		}
+
+		static void _Formatter(FormatData& formatData, const Vector2D& value);
+	};
 
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
 	using SizeF		= Vec2;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
+template <class Type>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Vector2D<Type>, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Float2& value);
+	std::u32string tag;
 
-	void Formatter(FormatData& formatData, const Vec2& value);
-
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector2D<Type>& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return os << CharType('(')
-			<< value.x << CharType(',') << CharType(' ')
-			<< value.y << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector2D<Type>& value)
+	template <class FormatContext>
+	auto format(const s3d::Vector2D<Type>& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return is >> unused
-			>> value.x >> unused
-			>> value.y >> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.x, value.y);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.x, value.y);
+		}
 	}
-}
+};
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
+template <class Type>
+struct std::hash<s3d::Vector2D<Type>>
 {
-	template <class Type>
-	struct hash<s3d::Vector2D<Type>>
+	[[nodiscard]]
+	size_t operator()(const s3d::Vector2D<Type>& value) const noexcept
 	{
-		[[nodiscard]] size_t operator()(const s3d::Vector2D<Type>& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <class Type>
-	struct formatter<s3d::Vector2D<Type>, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Vector2D<Type>& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y);
-		}
-	};
-}
+		return value.hash();
+	}
+};

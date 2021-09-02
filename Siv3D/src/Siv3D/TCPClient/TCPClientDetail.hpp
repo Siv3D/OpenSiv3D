@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,8 +11,9 @@
 
 # pragma once
 # include <Siv3D/TCPClient.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/Network.hpp>
+# include <Siv3D/AsyncTask.hpp>
+# include <Siv3D/Byte.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 # define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -35,7 +36,7 @@ namespace s3d
 
 			asio::ip::tcp::socket m_socket;
 
-			NetworkError m_error = NetworkError::OK;
+			TCPError m_error = TCPError::OK;
 
 			bool m_isActive = false;
 
@@ -82,7 +83,7 @@ namespace s3d
 			{
 				m_isActive = true;
 
-				m_error = NetworkError::OK;
+				m_error = TCPError::OK;
 			}
 
 			void close()
@@ -92,7 +93,7 @@ namespace s3d
 					return;
 				}
 
-				if (m_error != NetworkError::EoF)
+				if (m_error != TCPError::EoF)
 				{
 					m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
 				}
@@ -101,19 +102,19 @@ namespace s3d
 
 				if (!m_isSending)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 					m_receivedBuffer.clear();
 					m_streamBuffer.consume(m_streamBuffer.size());
 				}
 
 				if (m_isActive)
 				{
-					LOG_DEBUG(U"Session closed");
+					LOG_TRACE(U"Session closed");
 				}
 
 				m_isSending = false;
@@ -125,14 +126,14 @@ namespace s3d
 				return m_isActive;
 			}
 
-			NetworkError getError() const
+			TCPError getError() const
 			{
 				return m_error;
 			}
 
 			size_t available()
 			{
-				std::lock_guard lock(m_mutexReceivedBuffer);
+				std::lock_guard lock{ m_mutexReceivedBuffer };
 
 				return m_receivedBuffer.size();
 			}
@@ -151,13 +152,13 @@ namespace s3d
 					{
 						LOG_FAIL(U"TCPClient: onReceive failed: {}"_fmt(Unicode::Widen(error.message())));
 
-						m_error = NetworkError::Error;
+						m_error = TCPError::Error;
 					}
 					else
 					{
 						LOG_INFO(U"TCPClient: EOF");
 
-						m_error = NetworkError::EoF;
+						m_error = TCPError::EoF;
 					}
 
 					m_streamBuffer.consume(m_streamBuffer.size());
@@ -171,13 +172,13 @@ namespace s3d
 				const size_t size = m_streamBuffer.size();
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() + size > maxBufferSize)
 					{
 						LOG_FAIL(U"TCPClient: onReceive exceeded the maximum buffer size");
 
-						m_error = NetworkError::NoBufferSpaceAvailable;
+						m_error = TCPError::NoBufferSpaceAvailable;
 
 						m_streamBuffer.consume(m_streamBuffer.size());
 
@@ -200,7 +201,7 @@ namespace s3d
 
 				if (!m_isActive)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 					return;
 				}
@@ -209,7 +210,7 @@ namespace s3d
 				{
 					LOG_FAIL(U"TCPClient: send failed: {}"_fmt(Unicode::Widen(error.message())));
 
-					m_error = NetworkError::Error;
+					m_error = TCPError::Error;
 
 					close();
 
@@ -217,7 +218,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					if (!m_sendingBuffer.empty())
 					{
@@ -244,14 +245,14 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (size > m_receivedBuffer.size())
 					{
 						return false;
 					}
 
-					m_receivedBuffer.drop(size);
+					m_receivedBuffer.pop_front_N(size);
 				}
 
 				return true;
@@ -270,7 +271,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -296,7 +297,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -305,7 +306,7 @@ namespace s3d
 
 					std::memcpy(dst, m_receivedBuffer.data(), size);
 
-					m_receivedBuffer.drop(size);
+					m_receivedBuffer.pop_front_N(size);
 				}
 
 				return true;
@@ -324,7 +325,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					m_sendingBuffer.emplace_back(static_cast<const Byte*>(data), static_cast<const Byte*>(data) + size);
 
@@ -349,11 +350,11 @@ namespace s3d
 
 		std::unique_ptr<asio::ip::tcp::acceptor> m_acceptor;
 
-		std::future<void> m_io_service_thread;
+		AsyncTask<void> m_io_service_thread;
 
 		std::shared_ptr<detail::ClientSession> m_session;
 
-		NetworkError m_error = NetworkError::OK;
+		TCPError m_error = TCPError::OK;
 
 		bool m_isConnected = false;
 
@@ -367,7 +368,7 @@ namespace s3d
 
 		~TCPClientDetail();
 
-		bool connect(const IPv4& ip, uint16 port);
+		bool connect(const IPv4Address& ip, uint16 port);
 
 		void cancelConnect();
 
@@ -379,7 +380,7 @@ namespace s3d
 
 		bool hasError() const;
 
-		NetworkError getError() const;
+		TCPError getError() const;
 
 		size_t available();
 

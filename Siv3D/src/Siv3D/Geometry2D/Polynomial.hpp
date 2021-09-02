@@ -2,15 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Optional.hpp>
@@ -415,7 +415,7 @@ namespace s3d
 				
 				if (root)
 				{
-					roots.push_back(root.value());
+					roots.push_back(*root);
 				}
 			}
 			else
@@ -431,7 +431,7 @@ namespace s3d
 
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 
 					// find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
@@ -441,7 +441,7 @@ namespace s3d
 
 						if (root)
 						{
-							roots.push_back(root.value());
+							roots.push_back(*root);
 						}
 					}
 
@@ -450,7 +450,7 @@ namespace s3d
 					
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 				}
 				else
@@ -460,7 +460,7 @@ namespace s3d
 
 					if (root)
 					{
-						roots.push_back(root.value());
+						roots.push_back(*root);
 					}
 				}
 			}

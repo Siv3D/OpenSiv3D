@@ -2,562 +2,694 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/EngineLog.hpp>
-# include <Siv3D/EngineError.hpp>
+# include <Siv3D/Font.hpp>
+# include <Siv3D/Error.hpp>
 # include <Siv3D/Resource.hpp>
-# include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Compression.hpp>
-# include <Siv3D/Image.hpp>
-# include <EngineDirectory/EngineDirectory.hpp>
+# include <Siv3D/ShaderCommon.hpp>
+# include <Siv3D/ScopedCustomShader2D.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "CFont.hpp"
+# include "GlyphCache/IGlyphCache.hpp"
+# include "FontCommon.hpp"
 
 namespace s3d
 {
-	namespace detail
-	{
-		enum class StandardFont
-		{
-			MPlusThin,
-			MPlusLight,
-			MPlusRegular,
-			MPlusMedium,
-			MPlusBold,
-			MPlusHeavy,
-			MPlusBlack,
-			NotoEmojiRegular,
-			NotoColorEmoji,
-			AwesomeSolid,
-			AwesomeBrands,
-		};
-
-		static constexpr std::array<FilePathView, 11> StandardFontNames =
-		{
-			U"mplus/mplus-1p-thin.ttf"_sv,
-			U"mplus/mplus-1p-light.ttf"_sv,
-			U"mplus/mplus-1p-regular.ttf"_sv,
-			U"mplus/mplus-1p-medium.ttf"_sv,
-			U"mplus/mplus-1p-bold.ttf"_sv,
-			U"mplus/mplus-1p-heavy.ttf"_sv,
-			U"mplus/mplus-1p-black.ttf"_sv,
-			U"noto/NotoEmoji-Regular.ttf"_sv,
-			U"noto/NotoColorEmoji.ttf"_sv,
-			U"fontawesome/fontawesome-solid.otf"_sv,
-			U"fontawesome/fontawesome-brands.otf"_sv,
-		};
-
-		[[nodiscard]] static FilePath GetEngineFontDirectory()
-		{
-			return EngineDirectory::CurrectVersionCommon() + U"font/";
-		}
-
-		[[nodiscard]] FilePath GetEngineFontPath(const Typeface typeface)
-		{
-			return GetEngineFontDirectory() + StandardFontNames[FromEnum(typeface)];
-		}
-
-		[[nodiscard]] static bool ExtractFontFiles()
-		{
-			const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + U"font/";
-
-			for (const auto& fontName : detail::StandardFontNames)
-			{
-				const FilePath fontResourcePath = Resource(U"engine/font/" + fontName + U".zstdcmp");
-
-				if (!FileSystem::Exists(fontDirectory + fontName)
-					&& FileSystem::Exists(fontResourcePath))
-				{
-					if (!Compression::DecompressFileToFile(fontResourcePath, fontDirectory + fontName))
-					{
-						return false;
-					}
-				}
-			}
-
-			return true;
-		}
-	}
-
 	CFont::CFont()
 	{
-
+		// do nothing
 	}
 
 	CFont::~CFont()
 	{
-		LOG_TRACE(U"CFont::~CFont()");
+		LOG_SCOPED_TRACE(U"CFont::~CFont()");
+
+		m_defaultIcons.clear();
+
+		m_defaultEmoji.reset();
 
 		m_fonts.destroy();
 
-		m_awesomeIconBrands.destroy();
-		m_awesomeIconSolid.destroy();
-		m_colorEmoji.destroy();
-
 		if (m_freeType)
 		{
-			::FT_Done_FreeType(m_freeType);
+			FT_Done_FreeType(m_freeType);
 		}
 	}
 
 	void CFont::init()
 	{
-		LOG_TRACE(U"CFont::init()");
+		LOG_SCOPED_TRACE(U"CFont::init()");
 
-		if (const FT_Error error = ::FT_Init_FreeType(&m_freeType))
+		if (const FT_Error error = FT_Init_FreeType(&m_freeType))
 		{
-			throw EngineError(U"FT_Init_FreeType() faild");
+			throw EngineError{ U"FT_Init_FreeType() failed" };
 		}
 
-		if (!detail::ExtractFontFiles())
+		// null Font を管理に登録
 		{
-			throw EngineError(U"ExtractFontFiles() faild");
-		}
+			// null Font を作成
+			auto nullFont = std::make_unique<FontData>(FontData::Null{});
 
-		if (!loadColorEmojiFace())
-		{
-			LOG_INFO(U"ℹ️ ColorEmoji not included");
-		}
-
-		if (!loadAwesomeIconFace())
-		{
-			LOG_INFO(U"ℹ️ Icon font not included");
-		}
-
-		auto nullFont = std::make_unique<FontData>(FontData::Null{}, m_freeType);
-
-		if (!nullFont->isInitialized())
-		{
-			throw EngineError(U"Null Font initialization failed");
-		}
-
-		m_fonts.setNullData(std::move(nullFont));
-
-		LOG_INFO(U"ℹ️ CFont initialized");
-	}
-
-	Image CFont::getColorEmoji(const StringView emoji)
-	{
-		if (!m_colorEmoji)
-		{
-			return Image();
-		}
-
-		const auto glyphs = m_colorEmoji.get(emoji);
-
-		if (glyphs.second != 1)
-		{
-			return Image();
-		}
-
-		const uint32_t glyphIndex = glyphs.first[0].codepoint;
-
-		if (glyphIndex == 0)
-		{
-			return Image();
-		}
-
-		const FT_Face face = m_colorEmoji.face;
-
-		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
-		{
-			return Image();
-		}
-
-		if (const FT_Error error = ::FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL))
-		{
-			return Image();
-		}
-
-		const int32 bitmapWidth = face->glyph->bitmap.width;
-		const int32 bitmapHeight = face->glyph->bitmap.rows;
-
-		Image image(bitmapWidth, bitmapHeight);
-
-		Color* pDst = image.data();
-		Color* const pDstEnd = pDst + image.num_pixels();
-		const uint8_t* pSrc = face->glyph->bitmap.buffer;
-
-		while (pDst != pDstEnd)
-		{
-			uint8 r = pSrc[2], g = pSrc[1], b = pSrc[0], a = pSrc[3];
-
-			if (0 < a&& a < 254)
+			if (not nullFont->isInitialized()) // もし作成に失敗していたら
 			{
-				const float t = 255.0f / a;
-				r = static_cast<uint8>(r * t);
-				g = static_cast<uint8>(g * t);
-				b = static_cast<uint8>(b * t);
+				throw EngineError(U"Null Font initialization failed");
 			}
 
-			pDst->set(r, g, b, a);
-
-			++pDst;
-			pSrc += 4;
+			// 管理に登録
+			m_fonts.setNullData(std::move(nullFont));
 		}
 
-		return image;
-	}
-
-	Image CFont::getColorEmojiSilhouette(const StringView emoji)
-	{
-		if (!m_colorEmoji)
+		// フォント用シェーダ
 		{
-			return Image();
-		}
+			m_shader = std::make_unique<FontShader>();
 
-		const auto glyphs = m_colorEmoji.get(emoji);
+			// Bitmap Font
+			m_shader->shaders[0]	= HLSL{ Resource(U"engine/shader/d3d11/bitmapfont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/bitmapfont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		if (glyphs.second != 1)
-		{
-			return Image();
-		}
+			// Color Bitmap Font
+			m_shader->shaders[1]	= HLSL{ Resource(U"engine/shader/d3d11/texture.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		const uint32_t glyphIndex = glyphs.first[0].codepoint;
+			// SDF Font
+			m_shader->shaders[2]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		if (glyphIndex == 0)
-		{
-			return Image();
-		}
+			// SDF Font (Outline)
+			m_shader->shaders[3]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outline.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		const FT_Face face = m_colorEmoji.face;
+			// SDF Font (Shadow)
+			m_shader->shaders[4]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_shadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
-		{
-			return Image();
-		}
+			// SDF Font (Outline + Shadow)
+			m_shader->shaders[5]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outlineshadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		if (const FT_Error error = ::FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL))
-		{
-			return Image();
-		}
+			// MSDF Font
+			m_shader->shaders[6]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		const int32 bitmapWidth = face->glyph->bitmap.width;
-		const int32 bitmapHeight = face->glyph->bitmap.rows;
+			// MSDF Font (Outline)
+			m_shader->shaders[7]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outline.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		Image image(bitmapWidth, bitmapHeight, Palette::White);
+			// MSDF Font (Shadow)
+			m_shader->shaders[8]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_shadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		Color* pDst = image.data();
-		Color* const pDstEnd = pDst + image.num_pixels();
-		const uint8_t* pSrc = face->glyph->bitmap.buffer + 3;
+			// MSDF Font (Outline + Shadow)
+			m_shader->shaders[9]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outlineshadow.ps") }
+									| GLSL{ Resource(U"engine/shader/glsl/msdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
+									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
-		while (pDst != pDstEnd)
-		{
-			pDst->setA(*pSrc);
-			++pDst;
-			pSrc += 4;
-		}
-
-		return image;
-	}
-
-	Image CFont::getAwesomeIcon(const uint16 code, int32 size)
-	{
-		if (!m_awesomeIconSolid || !m_awesomeIconBrands || size < 1)
-		{
-			return Image();
-		}
-
-		size = std::max(size - 2, 1);
-
-		FT_Face face = m_awesomeIconSolid.face;
-
-		FT_UInt glyphIndex = ::FT_Get_Char_Index(face, code);
-
-		if (glyphIndex == 0)
-		{
-			face = m_awesomeIconBrands.face;
-
-			glyphIndex = ::FT_Get_Char_Index(face, code);
-
-			if (glyphIndex == 0)
+			for (const auto& shader : m_shader->shaders)
 			{
-				return Image();
+				if (not shader)
+				{
+					throw EngineError{ U"CFont::init(): Failed to load font shaders" };
+				}
 			}
 		}
 
-		if (const FT_Error error = ::FT_Set_Pixel_Sizes(face, 0, size))
+		// エンジンフォントの展開
 		{
-			return Image();
-		}
-
-		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT | FT_LOAD_NO_BITMAP))
-		{
-			return Image();
-		}
-
-		const FT_GlyphSlot slot = face->glyph;
-
-		if (const FT_Error error = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL))
-		{
-			return Image();
-		}
-
-		const int32 bitmapWidth = slot->bitmap.width;
-		const int32 bitmapHeight = slot->bitmap.rows;
-
-		Image image(bitmapWidth + 2, bitmapHeight + 2, Color(255, 0));
-		const uint8* bitmapBuffer = slot->bitmap.buffer;
-
-		for (int32 y = 0; y < bitmapHeight; ++y)
-		{
-			for (int32 x = 0; x < bitmapWidth; ++x)
+			if (not detail::ExtractEngineFonts())
 			{
-				image[y + 1][x + 1].a = bitmapBuffer[y * bitmapWidth + x];
+				throw EngineError{ U"CFont::init(): Failed to extract font files" };
 			}
 		}
 
-		return image;
+		// デフォルト絵文字
+		{
+			m_defaultEmoji = detail::CreateDefaultEmoji(m_freeType);
+
+			if (not m_defaultEmoji->isInitialized())
+			{
+				LOG_INFO(U"CFont::init(): Failed to create default emojis");
+			}
+		}
+
+		// デフォルトアイコン
+		{
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_Awesome_Solid);
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_Awesome_Brand);
+			m_defaultIcons << detail::CreateDefaultIcon(m_freeType, Typeface::Icon_MaterialDesign);
+
+			if (not m_defaultIcons.all([](const std::unique_ptr<IconData>& d) { return d->isInitialized(); }))
+			{
+				LOG_INFO(U"CFont::init(): Failed to create default icons");
+			}
+		}
 	}
 
-	Optional<const FontFace&> CFont::getAwesomeIconFontFaceFotCode(const uint16 code) const
+	size_t CFont::getFontCount() const
 	{
-		if (!m_awesomeIconSolid || !m_awesomeIconBrands)
-		{
-			return none;
-		}
-
-		if (::FT_Get_Char_Index(m_awesomeIconSolid.face, code))
-		{
-			return m_awesomeIconSolid;
-		}
-		else if (::FT_Get_Char_Index(m_awesomeIconBrands.face, code))
-		{
-			return m_awesomeIconBrands;
-		}
-		else
-		{
-			return none;
-		}
+		return m_fonts.size();
 	}
 
-	FontID CFont::create(const Typeface typeface, const int32 fontSize, const FontStyle style)
+	Font::IDType CFont::create(const FilePathView path, const size_t faceIndex, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
 	{
-		return create(detail::GetEngineFontPath(typeface), fontSize, style);
-	}
+		// Font を作成
+		auto font = std::make_unique<FontData>(m_freeType, path, faceIndex, fontMethod, fontSize, style);
 
-	FontID CFont::create(const FilePath& path, const int32 fontSize, const FontStyle style)
-	{
-		const FilePath emojiPath = detail::GetEngineFontDirectory()
-			+ detail::StandardFontNames[FromEnum(detail::StandardFont::NotoEmojiRegular)];
-
-		auto font = std::make_unique<FontData>(m_freeType, path, emojiPath, fontSize, style);
-
-		if (!font->isInitialized())
+		if (not font->isInitialized()) // もし作成に失敗していたら
 		{
-			return FontID::NullAsset();
+			return Font::IDType::NullAsset();
 		}
 
-		const String info = U"(`{0} {1}` size: {2})"_fmt(font->getFamilyName(), font->getStyleName(), fontSize);
+		const auto& prop = font->getProperty();
+		const String fontName = (prop.styleName) ? (prop.familiyName + U' ' + prop.styleName) : (prop.familiyName);
+		const String info = U"(`{0}`, size: {1}, style: {2}, ascender: {3}, descender: {4})"_fmt(fontName, prop.fontPixelSize, detail::ToString(prop.style), prop.ascender, prop.descender);
 
+		// Font を管理に登録
 		return m_fonts.add(std::move(font), info);
 	}
 
-	void CFont::release(const FontID handleID)
+	Font::IDType CFont::create(const Typeface typeface, const FontMethod fontMethod, const int32 fontSize, const FontStyle style)
+	{
+		const detail::TypefaceInfo info = detail::GetTypefaceInfo(typeface);
+
+		return create(info.path, info.faceIndex, fontMethod, fontSize, style);
+	}
+
+	void CFont::release(const Font::IDType handleID)
 	{
 		m_fonts.erase(handleID);
 	}
 
-	const String& CFont::getFamilyName(const FontID handleID)
+	bool CFont::addFallbackFont(const Font::IDType handleID, const std::weak_ptr<AssetHandle<Font>::AssetIDWrapperType>& font)
 	{
-		return m_fonts[handleID]->getFamilyName();
+		return m_fonts[handleID]->addFallbackFont(font);
 	}
 
-	const String& CFont::getStyleName(const FontID handleID)
+	void CFont::setIndentSize(const Font::IDType handleID, const int32 indentSize)
 	{
-		return m_fonts[handleID]->getStyleName();
+		m_fonts[handleID]->setIndentSize(indentSize);
 	}
 
-	int32 CFont::getFontSize(const FontID handleID)
+	const FontFaceProperty& CFont::getProperty(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getFontSize();
+		return m_fonts[handleID]->getProperty();
 	}
 
-	int32 CFont::getAscent(const FontID handleID)
+	FontMethod CFont::getMethod(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getAscent();
+		return m_fonts[handleID]->getMethod();
 	}
 
-	int32 CFont::getDescent(const FontID handleID)
+	void CFont::setBufferThickness(const Font::IDType handleID, const int32 thickness)
 	{
-		return m_fonts[handleID]->getDescent();
+		return m_fonts[handleID]->getGlyphCache().setBufferWidth(thickness);
 	}
 
-	Array<Glyph> CFont::getGlyphs(const FontID handleID, const String& codePoints)
+	int32 CFont::getBufferThickness(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getGlyphs(codePoints);
+		return m_fonts[handleID]->getGlyphCache().getBufferWidth();
 	}
 
-	Array<Glyph> CFont::getVerticalGlyphs(FontID handleID, const String& codePoints)
+	bool CFont::hasGlyph(const Font::IDType handleID, StringView ch)
 	{
-		return m_fonts[handleID]->getVerticalGlyphs(codePoints);
+		return m_fonts[handleID]->hasGlyph(ch);
 	}
 
-	OutlineGlyph CFont::getOutlineGlyph(const FontID handleID, const char32 codePoint)
+	GlyphIndex CFont::getGlyphIndex(const Font::IDType handleID, const StringView ch)
 	{
-		return m_fonts[handleID]->getOutlineGlyph(codePoint);
+		return m_fonts[handleID]->getGlyphIndex(ch);
 	}
 
-	const Texture& CFont::getTexture(const FontID handleID)
+	Array<GlyphCluster> CFont::getGlyphClusters(const Font::IDType handleID, const StringView s, const bool recursive)
 	{
-		return m_fonts[handleID]->getTexture();
+		return m_fonts[handleID]->getGlyphClusters(s, recursive);
 	}
 
-	RectF CFont::getBoundingRect(const FontID handleID, const String& codePoints, const double lineSpacingScale)
+	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
 	{
-		return m_fonts[handleID]->getBoundingRect(codePoints, lineSpacingScale);
+		const auto& font = m_fonts[handleID];
+
+		return font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch));
 	}
 
-	RectF CFont::getRegion(const FontID handleID, const String& codePoints, const double lineSpacingScale)
+	GlyphInfo CFont::getGlyphInfoByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
 	{
-		return m_fonts[handleID]->getRegion(codePoints, lineSpacingScale);
+		return m_fonts[handleID]->getGlyphInfoByGlyphIndex(glyphIndex);
 	}
 
-	Array<int32> CFont::getXAdvances(const FontID handleID, const String& codePoints)
+	OutlineGlyph CFont::renderOutline(const Font::IDType handleID, const StringView ch, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->getXAdvances(codePoints);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderOutlineByGlyphIndex(font->getGlyphIndex(ch), closeRing);
 	}
 
-	RectF CFont::draw(const FontID handleID, const String& codePoints, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
+	OutlineGlyph CFont::renderOutlineByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->draw(codePoints, pos, color, lineSpacingScale);
+		return m_fonts[handleID]->renderOutlineByGlyphIndex(glyphIndex, closeRing);
 	}
 
-	bool CFont::draw(const FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, const double lineSpacingScale)
+	Array<OutlineGlyph> CFont::renderOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
 	{
-		return m_fonts[handleID]->draw(codePoints, area, color, lineSpacingScale);
+		return m_fonts[handleID]->renderOutlines(s, closeRing);
 	}
 
-	Rect CFont::paint(const FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale)
+	PolygonGlyph CFont::renderPolygon(const Font::IDType handleID, const StringView ch)
 	{
-		return m_fonts[handleID]->paint(dst, false, codePoints, pos, color, lineSpacingScale);
+		const auto& font = m_fonts[handleID];
+
+		return font->renderPolygonByGlyphIndex(font->getGlyphIndex(ch));
 	}
 
-	Rect CFont::overwrite(const FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale)
+	PolygonGlyph CFont::renderPolygonByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
 	{
-		return m_fonts[handleID]->paint(dst, true, codePoints, pos, color, lineSpacingScale);
+		return m_fonts[handleID]->renderPolygonByGlyphIndex(glyphIndex);
 	}
 
-	bool CFont::loadColorEmojiFace()
+	Array<PolygonGlyph> CFont::renderPolygons(const Font::IDType handleID, const StringView s)
 	{
-		const FilePath path = detail::GetEngineFontDirectory()
-			+ detail::StandardFontNames[FromEnum(detail::StandardFont::NotoColorEmoji)];
+		return m_fonts[handleID]->renderPolygons(s);
+	}
 
-		if (!FileSystem::Exists(path))
+	BitmapGlyph CFont::renderBitmap(const Font::IDType handleID, const StringView s)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return font->renderBitmapByGlyphIndex(font->getGlyphIndex(s));
+	}
+
+	BitmapGlyph CFont::renderBitmapByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		return m_fonts[handleID]->renderBitmapByGlyphIndex(glyphIndex);
+	}
+
+	SDFGlyph CFont::renderSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return font->renderSDFByGlyphIndex(font->getGlyphIndex(s), buffer);
+	}
+
+	SDFGlyph CFont::renderSDFByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const int32 buffer)
+	{
+		return m_fonts[handleID]->renderSDFByGlyphIndex(glyphIndex, buffer);
+	}
+
+	MSDFGlyph CFont::renderMSDF(const Font::IDType handleID, const StringView s, const int32 buffer)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return font->renderMSDFByGlyphIndex(font->getGlyphIndex(s), buffer);
+	}
+
+	MSDFGlyph CFont::renderMSDFByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex, const int32 buffer)
+	{
+		return m_fonts[handleID]->renderMSDFByGlyphIndex(glyphIndex, buffer);
+	}
+
+	bool CFont::preload(const Font::IDType handleID, const StringView chars)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return font->getGlyphCache().preload(*font, chars);
+	}
+
+	const Texture& CFont::getTexture(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getGlyphCache().getTexture();
+	}
+
+	Glyph CFont::getGlyph(const Font::IDType handleID, const StringView ch)
+	{
+		if (not ch)
 		{
-			return false;
+			return{};
 		}
 
-		if (const FT_Error error = ::FT_New_Face(m_freeType, path.narrow().c_str(), 0, &m_colorEmoji.face))
+		const auto& font = m_fonts[handleID];
+		Glyph glyph{ font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch)) };
+		glyph.codePoint = ch.front();
+		glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+		return glyph;
+	}
+
+	Array<Glyph> CFont::getGlyphs(const Font::IDType handleID, const StringView s)
+	{
+		const auto& font = m_fonts[handleID];
+		const Array<GlyphCluster> clusters = font->getGlyphClusters(s, false);
+
+		Array<Glyph> glyphs(Arg::reserve = clusters.size());
+		for (const auto& cluster : clusters)
 		{
-			return false;
+			Glyph glyph{ font->getGlyphInfoByGlyphIndex(cluster.glyphIndex) };
+			glyph.codePoint = s[cluster.pos];
+			glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+			glyph.buffer = font->getGlyphCache().getBufferThickness(glyph.glyphIndex);
+			glyphs << glyph;
 		}
 
-		FT_ULong length = 0;
+		return glyphs;
+	}
 
-		const FT_Face face = m_colorEmoji.face;
-
-		if (const FT_Error error = ::FT_Load_Sfnt_Table(face, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
+	Array<double> CFont::getXAdvances(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const double fontSize)
+	{
+		const auto& font = m_fonts[handleID];
 		{
-			return false;
+			return m_fonts[handleID]->getGlyphCache().getXAdvances(*font, s, clusters, fontSize);
 		}
+	}
 
-		if (!length)
+	RectF CFont::region(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
 		{
-			return false;
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, false, pos, fontSize, lineHeightScale);
 		}
+	}
 
-		if (face->num_fixed_sizes == 0)
+	RectF CFont::regionBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
 		{
-			return false;
+			return m_fonts[handleID]->getGlyphCache().region(*font, s, clusters, true, pos, fontSize, lineHeightScale);
 		}
+	}
 
-		int32 bestMatch = 0;
-		int32 diff = std::abs(128 - face->available_sizes[0].width);
+	RectF CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		const HasColor hasColor{ font->getProperty().hasColor };
 
-		for (int32 i = 1; i < face->num_fixed_sizes; ++i)
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			const int32 ndiff = std::abs(128 - face->available_sizes[i].width);
-
-			if (ndiff < diff)
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
 			{
-				bestMatch = i;
-				diff = ndiff;
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
 			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
 		}
 
-		if (const FT_Error error = ::FT_Select_Size(face, bestMatch))
+		if (textStyle.type == TextStyle::Type::CustomShader)
 		{
-			return false;
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
-
-		m_colorEmoji.hbFont = ::hb_ft_font_create_referenced(face);
-
-		if (!m_colorEmoji.hbFont)
+		else
 		{
-			return false;
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, false, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
 		}
-
-		return true;
 	}
 
-	bool CFont::loadAwesomeIconFace()
+	bool CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
-		// solid
-		{
-			const FilePath path = detail::GetEngineFontDirectory()
-				+ detail::StandardFontNames[FromEnum(detail::StandardFont::AwesomeSolid)];
+		const auto& font = m_fonts[handleID];
+		const HasColor hasColor{ font->getProperty().hasColor };
 
-			if (!FileSystem::Exists(path))
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
 			{
-				return false;
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
+		{
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, area, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+	}
+
+	RectF CFont::drawBase(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		const HasColor hasColor{ font->getProperty().hasColor };
+
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
+		{
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
+			return m_fonts[handleID]->getGlyphCache().draw(*font, s, clusters, true, pos, fontSize, textStyle, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+	}
+
+	RectF CFont::drawFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		const HasColor hasColor{ font->getProperty().hasColor };
+		
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
+		{
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, false, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+	}
+
+	RectF CFont::drawBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		const HasColor hasColor{ font->getProperty().hasColor };
+		
+		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
+		{
+			Float4 param = textStyle.param;
+			if (font->getMethod() == FontMethod::SDF)
+			{
+				param.x = (0.25f + param.x * 0.5f);
+				param.y = (0.25f + param.y * 0.5f);
+			}
+			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		if (textStyle.type == TextStyle::Type::CustomShader)
+		{
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+		else
+		{
+			ScopedCustomShader2D ps{ m_shader->getFontShader(font->getMethod(), textStyle.type, hasColor) };
+			return m_fonts[handleID]->getGlyphCache().drawFallback(*font, cluster, true, pos, fontSize, (hasColor ? ColorF{ 1.0, color.a } : color), lineHeightScale);
+		}
+	}
+
+	RectF CFont::regionFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, false, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	RectF CFont::regionBaseFallback(const Font::IDType handleID, const GlyphCluster& cluster, const Vec2& pos, const double fontSize, double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().regionFallback(*font, cluster, true, pos, fontSize, lineHeightScale);
+		}
+	}
+
+	double CFont::xAdvanceFallback(const Font::IDType handleID, const GlyphCluster& cluster, const double fontSize)
+	{
+		const auto& font = m_fonts[handleID];
+		{
+			return m_fonts[handleID]->getGlyphCache().xAdvanceFallback(*font, cluster, fontSize);
+		}
+	}
+
+
+	bool CFont::hasEmoji(const StringView emoji)
+	{
+		return m_defaultEmoji->hasGlyph(emoji);
+	}
+
+	GlyphIndex CFont::getEmojiGlyphIndex(const StringView emoji)
+	{
+		return m_defaultEmoji->getGlyphIndex(emoji);
+	}
+
+	Image CFont::renderEmojiBitmap(const GlyphIndex glyphIndex)
+	{
+		return m_defaultEmoji->renderBitmap(glyphIndex).image;
+	}
+
+
+	bool CFont::hasIcon(const Icon::Type iconType, const char32 codePoint)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			return m_defaultIcons[0]->hasGlyph(codePoint)
+				|| m_defaultIcons[1]->hasGlyph(codePoint);
+		}
+		else
+		{
+			return m_defaultIcons[2]->hasGlyph(codePoint);
+		}
+	}
+
+	GlyphIndex CFont::getIconGlyphIndex(const Icon::Type iconType, const char32 codePoint)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			GlyphIndex glyphIndex = m_defaultIcons[0]->getGlyphIndex(codePoint);
+
+			if (glyphIndex == 0)
+			{
+				glyphIndex = m_defaultIcons[1]->getGlyphIndex(codePoint);
 			}
 
-			if (const FT_Error error = ::FT_New_Face(m_freeType, path.narrow().c_str(), 0, &m_awesomeIconSolid.face))
+			return glyphIndex;
+		}
+		else
+		{
+			return m_defaultIcons[2]->getGlyphIndex(codePoint);
+		}
+	}
+
+	Image CFont::renderIconBitmap(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
 			{
-				if (error == FT_Err_Unknown_File_Format)
+				auto& iconData = m_defaultIcons[i];
+
+				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
 				{
-					// unsupported format
+					return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
 				}
-				else
-				{
-					// failed to open or load
-				}
-
-				return false;
 			}
 		}
-
-		// brands
+		else
 		{
-			const FilePath path = detail::GetEngineFontDirectory()
-				+ detail::StandardFontNames[FromEnum(detail::StandardFont::AwesomeBrands)];
+			auto& iconData = m_defaultIcons[2];
 
-			if (!FileSystem::Exists(path))
+			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
 			{
-				return false;
-			}
-
-			if (const FT_Error error = ::FT_New_Face(m_freeType, path.narrow().c_str(), 0, &m_awesomeIconBrands.face))
-			{
-				if (error == FT_Err_Unknown_File_Format)
-				{
-					// unsupported format
-				}
-				else
-				{
-					// failed to open or load
-				}
-
-				return false;
+				return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
 			}
 		}
 
-		return true;
+		return{};
+	}
+
+	Image CFont::renderIconSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
+			{
+				auto& iconData = m_defaultIcons[i];
+
+				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
+				{
+					return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
+				}
+			}
+		}
+		else
+		{
+			auto& iconData = m_defaultIcons[2];
+
+			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
+			{
+				return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
+			}
+		}
+
+		return{};
+	}
+
+	Image CFont::renderIconMSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
+	{
+		if (iconType == Icon::Type::Awesome)
+		{
+			for (size_t i = 0; i < 2; ++i)
+			{
+				auto& iconData = m_defaultIcons[i];
+
+				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
+				{
+					return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
+				}
+			}
+		}
+		else
+		{
+			auto& iconData = m_defaultIcons[2];
+
+			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
+			{
+				return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
+			}
+		}
+
+		return{};
+	}
+
+	const PixelShader& CFont::getFontShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor) const
+	{
+		return m_shader->getFontShader(method, type, hasColor);
 	}
 }

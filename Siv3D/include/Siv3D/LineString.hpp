@@ -2,107 +2,83 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
+# include "ColorHSV.hpp"
 # include "Array.hpp"
-# include "Line.hpp"
+# include "2DShapes.hpp"
+# include "Polygon.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	class LineString : protected Array<Vec2>
+	/// @brief 点の集合（とそれをつないで表現される線分）
+	class LineString
 	{
-	private:
-
-		using base_type = Array<Vec2>;
-
-		[[nodiscard]] LineString _catmullRom(int32 interpolation, bool isClosed) const;
-
-		[[nodiscard]] Polygon _calculateBuffer(double distance, int32 quality, bool isClosed) const;
-
-		const LineString& _paint(Image& dst, int32 thickness, const Color& color, bool isClosed) const;
-
-		const LineString& _overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased, bool isClosed) const;
-
-		const LineString& _draw(const LineStyle& style, double thickness, const ColorF& color, bool isClosed) const;
-
-		void _drawCatmullRom(const LineStyle& style, double thickness, const ColorF& color, int32 interpolation, bool isClosed) const;
-
 	public:
 
-		using typename base_type::value_type;
-		using typename base_type::pointer;
-		using typename base_type::const_pointer;
-		using typename base_type::reference;
-		using typename base_type::const_reference;
-		using typename base_type::iterator;
-		using typename base_type::const_iterator;
-		using typename base_type::reverse_iterator;
-		using typename base_type::const_reverse_iterator;
-		using typename base_type::size_type;
-		using typename base_type::difference_type;
-		using typename base_type::allocator_type;
+		using base_type					= Array<Vec2>;
+		using allocator_type			= base_type::allocator_type;
+		using value_type				= base_type::value_type;
+		using size_type					= base_type::size_type;
+		using difference_type			= base_type::difference_type;
+		using pointer					= base_type::pointer;
+		using const_pointer				= base_type::const_pointer;
+		using reference					= base_type::reference;
+		using const_reference			= base_type::const_reference;
+		using iterator					= base_type::iterator;
+		using const_iterator			= base_type::const_iterator;
+		using reverse_iterator			= base_type::reverse_iterator;
+		using const_reverse_iterator	= base_type::const_reverse_iterator;
 
-		using base_type::Array;
-		using base_type::assign;
-		using base_type::get_allocator;
-		using base_type::at;
-		using base_type::operator[];
-		using base_type::front;
-		using base_type::back;
-		using base_type::data;
-		using base_type::begin;
-		using base_type::cbegin;
-		using base_type::end;
-		using base_type::cend;
-		using base_type::rbegin;
-		using base_type::crbegin;
-		using base_type::rend;
-		using base_type::crend;
-		using base_type::empty;
-		using base_type::size;
-		using base_type::max_size;
-		using base_type::reserve;
-		using base_type::capacity;
-		using base_type::shrink_to_fit;
-		using base_type::clear;
-		using base_type::insert;
-		using base_type::emplace;
-		using base_type::erase;
-		using base_type::push_back;
-		using base_type::emplace_back;
-		using base_type::pop_back;
-		using base_type::resize;
-
-		using base_type::count;
-		using base_type::count_if;
-		using base_type::isEmpty;
-		using base_type::operator bool;
-		using base_type::release;
-		using base_type::size_bytes;
-		using base_type::push_front;
-		using base_type::pop_front;
-		using base_type::choice;
-		using base_type::fill;
-		using base_type::join;
-		using base_type::remove;
-
+		SIV3D_NODISCARD_CXX20
 		LineString() = default;
 
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(const allocator_type& alloc) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		LineString(size_t count, const value_type& value, const allocator_type& alloc = allocator_type{});
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(size_t count, const allocator_type& alloc = allocator_type{});
+
+		template <class Iterator>
+		LineString(Iterator first, Iterator last, const allocator_type& alloc = allocator_type{});
+
+		SIV3D_NODISCARD_CXX20
 		LineString(const LineString& lines);
 
-		LineString(LineString&& lines);
-		
+		SIV3D_NODISCARD_CXX20
+		LineString(const LineString& lines, const allocator_type& alloc);
+
+		SIV3D_NODISCARD_CXX20
+		LineString(LineString&& lines) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		LineString(std::initializer_list<value_type> init, const allocator_type& alloc = allocator_type{});
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(const Array<Point>& points);
+
+		SIV3D_NODISCARD_CXX20
 		explicit LineString(const Array<Vec2>& points);
 
-		explicit LineString(Array<Vec2>&& points);
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(Array<Vec2>&& points) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		explicit LineString(Arg::reserve_<size_type> size);
+
+		LineString& operator =(const Array<Point>& other);
 
 		LineString& operator =(const Array<Vec2>& other);
 
@@ -112,77 +88,366 @@ namespace s3d
 
 		LineString& operator =(LineString&& other) noexcept;
 
+		[[nodiscard]]
+		const Array<value_type>& asArray() const noexcept;
+		
+		[[nodiscard]]
+		operator const Array<value_type>& () const noexcept;
+
+		template <class Iterator>
+		void assign(Iterator first, Iterator last);
+
+		void assign(size_type n, const value_type& value);
+
+		void assign(std::initializer_list<value_type> il);
+
+		void assign(const Array<Point>& other);
+
+		void assign(const Array<Vec2>& other);
+
+		void assign(Array<Vec2>&& other) noexcept;
+
 		void assign(const LineString& other);
 
 		void assign(LineString&& other) noexcept;
 
-		LineString& operator <<(const Vec2& value);
+		[[nodiscard]]
+		allocator_type get_allocator() const noexcept;
+
+		[[nodiscard]]
+		value_type& at(size_t index)&;
+
+		[[nodiscard]]
+		const value_type& at(size_t index) const&;
+
+		[[nodiscard]]
+		value_type at(size_t index)&&;
+
+		[[nodiscard]]
+		value_type& operator[](size_t index) & noexcept;
+
+		[[nodiscard]]
+		const value_type& operator[](size_t index) const& noexcept;
+
+		[[nodiscard]]
+		value_type operator[](size_t index) && noexcept;
+
+		void push_front(const value_type & value);
+
+		void push_back(const value_type & value);
+
+		void pop_front();
+
+		void pop_front_N(size_t n);
+
+		void pop_back() noexcept;
+
+		void pop_back_N(size_t n);
+
+		LineString& operator <<(const value_type& value);
+
+		template <class... Args>
+		iterator emplace(const_iterator position, Args&&... args);
+
+		template <class... Args>
+		decltype(auto) emplace_back(Args&&... args);
+
+		[[nodiscard]]
+		value_type& front() noexcept;
+
+		[[nodiscard]]
+		const value_type& front() const noexcept;
+
+		[[nodiscard]]
+		value_type& back() noexcept;
+
+		[[nodiscard]]
+		const value_type& back() const noexcept;
 
 		void swap(LineString& other) noexcept;
 
-		LineString& append(const Array<Vec2>& other);
+		[[nodiscard]]
+		const value_type* data() const noexcept;
+
+		[[nodiscard]]
+		value_type* data() noexcept;
+
+		[[nodiscard]]
+		iterator begin() noexcept;
+
+		[[nodiscard]]
+		iterator end() noexcept;
+
+		[[nodiscard]]
+		const_iterator begin() const noexcept;
+
+		[[nodiscard]]
+		const_iterator end() const noexcept;
+
+		[[nodiscard]]
+		const_iterator cbegin() const noexcept;
+
+		[[nodiscard]]
+		const_iterator cend() const noexcept;
+
+		[[nodiscard]]
+		reverse_iterator rbegin() noexcept;
+
+		[[nodiscard]]
+		reverse_iterator rend() noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator rbegin() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator rend() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator crbegin() const noexcept;
+
+		[[nodiscard]]
+		const_reverse_iterator crend() const noexcept;
+
+		[[nodiscard]]
+		bool empty() const noexcept;
+
+		[[nodiscard]]
+		bool isEmpty() const noexcept;
+
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
+
+		[[nodiscard]]
+		size_t size_bytes() const noexcept;
+
+		[[nodiscard]]
+		size_t size() const noexcept;
+
+		[[nodiscard]]
+		size_t max_size() const noexcept;
+
+		void reserve(size_t newCapacity);
+
+		[[nodiscard]]
+		size_t capacity() const noexcept;
+
+		void shrink_to_fit();
+
+		void clear() noexcept;
+
+		void release();
+
+		iterator insert(const_iterator where, const value_type& value);
+
+		iterator insert(const_iterator where, size_t count, const value_type& value);
+
+		template <class Iterator>
+		iterator insert(const_iterator where, Iterator first, Iterator last);
+
+		iterator insert(const_iterator where, std::initializer_list<value_type> il);
+
+		iterator erase(const_iterator where) noexcept;
+
+		iterator erase(const_iterator first, const_iterator last) noexcept;
+
+		void resize(size_t newSize);
+
+		void resize(size_t newSize, const value_type& value);
+
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, value_type>>* = nullptr>
+		[[nodiscard]]
+		bool all(Fty f = Identity) const;
+
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, value_type>>* = nullptr>
+		[[nodiscard]]
+		bool any(Fty f = Identity) const;
+
+		[[nodiscard]]
+		value_type& choice();
+
+		[[nodiscard]]
+		const value_type& choice() const;
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		value_type& choice(URBG&& rbg);
+
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		const value_type& choice(URBG&& rbg) const;
+
+		SIV3D_CONCEPT_INTEGRAL
+		[[nodiscard]]
+		LineString choice(Int n) const;
+
+	# if __cpp_lib_concepts
+		template <Concept::Integral Size_t, Concept::UniformRandomBitGenerator URBG>
+	# else
+		template <class Size_t, class URBG, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr,
+			std::enable_if_t<std::conjunction_v<std::is_invocable<URBG&>, std::is_unsigned<std::invoke_result_t<URBG&>>>>* = nullptr>
+	# endif
+		[[nodiscard]]
+		LineString choice(Size_t n, URBG&& rbg) const;
+
+		[[nodiscard]]
+		size_t count(const value_type& value) const;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, value_type>>* = nullptr>
+		[[nodiscard]]
+		size_t count_if(Fty f) const;
+
+		LineString& fill(const value_type& value);
+
+		[[nodiscard]]
+		String join(StringView sep = U", "_sv, StringView begin = U"{"_sv, StringView end = U"}"_sv) const;
+
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, value_type>>* = nullptr>
+		[[nodiscard]]
+		bool none(Fty f = Identity) const;
+
+		LineString& append(const Array<value_type>&other);
 
 		LineString& append(const LineString& other);
 
-		LineString& remove(const Vec2& value);
+		LineString& remove(const value_type& value);
 
 		LineString& remove_at(size_t index);
 
 		template <class Fty>
-		LineString& remove_if(Fty f)
-		{
-			base_type::remove_if(f);
-
-			return *this;
-		}
+		LineString& remove_if(Fty f);
 
 		LineString& reverse();
 
-		LineString& rotate(std::ptrdiff_t count = 1);
+		[[nodiscard]]
+		LineString reversed() const;
 
 		LineString& shuffle();
 
-		template <class URBG>
-		LineString& shuffle(URBG&& rbg)
-		{
-			base_type::shuffle(std::forward<URBG>(rbg));
+		SIV3D_CONCEPT_URBG
+		LineString& shuffle(URBG&& rbg);
 
-			return *this;
-		}
+		[[nodiscard]]
+		LineString slice(size_t index) const;
 
-		[[nodiscard]] LineString slice(size_t index) const;
+		[[nodiscard]]
+		LineString slice(size_t index, size_t length) const;
 
-		[[nodiscard]] LineString slice(size_t index, size_t length) const;
+		LineString& unique_consecutive();
 
-		[[nodiscard]] size_t num_lines() const noexcept;
+		[[nodiscard]]
+		LineString uniqued_consecutive() const&;
 
-		[[nodiscard]] Line line(size_t index) const;
+		[[nodiscard]]
+		LineString uniqued_consecutive()&&;
 
-		[[nodiscard]] LineString movedBy(double x, double y) const;
+		[[nodiscard]]
+		size_t num_points() const noexcept;
 
-		[[nodiscard]] LineString movedBy(const Vec2& v) const;
+		[[nodiscard]]
+		size_t num_lines(CloseRing closeRing = CloseRing::No) const noexcept;
+
+		[[nodiscard]]
+		Line line(size_t index, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Vec2 normalAtPoint(size_t index, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Vec2 normalAtLine(size_t index, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString movedBy(double x, double y) const;
+
+		[[nodiscard]]
+		LineString movedBy(Vec2 v) const;
 
 		LineString& moveBy(double x, double y) noexcept;
 
-		LineString& moveBy(const Vec2& v) noexcept;
+		LineString& moveBy(Vec2 v) noexcept;
 
-		[[nodiscard]] RectF calculateBoundingRect() const noexcept;
+		[[nodiscard]]
+		LineString scaled(double s) const;
+
+		[[nodiscard]]
+		LineString scaled(double sx, double sy) const;
+
+		[[nodiscard]]
+		LineString scaled(Vec2 s) const;
+
+		LineString& scale(double s);
+
+		LineString& scale(double sx, double sy);
+
+		LineString& scale(Vec2 s);
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, double s) const;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, double sx, double sy) const;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, Vec2 s) const;
+
+		LineString& scaleAt(Vec2 pos, double s);
+
+		LineString& scaleAt(Vec2 pos, double sx, double sy);
+
+		LineString& scaleAt(Vec2 pos, Vec2 s);
+
+		[[nodiscard]]
+		RectF computeBoundingRect() const noexcept;
+		
+		[[nodiscard]]
+		LineString simplified(double maxDistance = 2.0, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 点と点の間の距離が `maxDistance` より大きくならないよう、区間ごとに最小回数で均等に分割した結果を返します。
+		/// @param maxDistance 点と点の間の最大距離
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 分割した結果
+		[[nodiscard]]
+		LineString densified(double maxDistance, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString catmullRom(int32 interpolation = 24) const;
+
+		[[nodiscard]]
+		LineString catmullRom(CloseRing closeRing, int32 interpolation = 24) const;
+
+		[[nodiscard]]
+		double calculateLength(CloseRing closeRing = CloseRing::No) const noexcept;
+
+		[[nodiscard]]
+		Vec2 calculatePointFromOrigin(double distanceFromOrigin, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		LineString extractLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Array<Vec2> computeNormals(CloseRing closeRing = CloseRing::No) const;
+
+		[[nodiscard]]
+		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateRoundBuffer(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
+		Polygon calculateRoundBufferClosed(double distance, int32 bufferQuality = 24) const;
+
+		[[nodiscard]]
+		Spline2D asSpline(CloseRing closeRing = CloseRing::No) const;
 
 		template <class Shape2DType>
-		[[nodiscard]] bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
 
-		[[nodiscard]] LineString densified(double maxDistance) const;
-
-		[[nodiscard]] LineString catmullRom(int32 interpolation = 24) const;
-
-		[[nodiscard]] LineString catmullRomClosed(int32 interpolation = 24) const;
-
-		[[nodiscard]] Polygon calculateBuffer(double distance, int32 quality = 24) const;
-
-		[[nodiscard]] Polygon calculateBufferClosed(double distance, int32 quality = 24) const;
+		template <class Shape2DType>
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
 		const LineString& paint(Image& dst, const Color& color) const;
 
@@ -192,101 +457,43 @@ namespace s3d
 
 		const LineString& paintClosed(Image& dst, int32 thickness, const Color& color) const;
 
-		const LineString& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const LineString& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const LineString& overwrite(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const LineString& overwrite(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const LineString& overwriteClosed(Image& dst, const Color& color, bool antialiased = true) const;
+		const LineString& overwriteClosed(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const LineString& overwriteClosed(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+		const LineString& overwriteClosed(Image& dst, int32 thickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		const LineString& draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 連続した線分を描画します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const LineString& draw(double thickness, const ColorF& color = Palette::White) const;
+
+		const LineString& draw(double thickness, const Array<ColorF>& colors) const;
 
 		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
 		const LineString& drawClosed(const ColorF& color = Palette::White) const;
 
-		const LineString& drawClosed(double thickness, const ColorF& color = Palette::White) const;
+		const LineString& drawClosed(double thickness, const ColorF & color = Palette::White) const;
+
+		const LineString& drawClosed(double thickness, const Array<ColorF>& colors) const;
 
 		const LineString& drawClosed(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		void drawCatmullRom(const ColorF& color = Palette::White, int32 interpolation = 24) const;
+		friend void Formatter(FormatData& formatData, const LineString& value);
 
-		void drawCatmullRom(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
+	private:
 
-		void drawCatmullRom(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		void drawCatmullRomClosed(const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		void drawCatmullRomClosed(double thickness, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		void drawCatmullRomClosed(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, int32 interpolation = 24) const;
-
-		// drawArray
+		base_type m_data;
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+template <>
+inline void std::swap(s3d::LineString& a, s3d::LineString& b) noexcept;
 
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const LineString& value);
-
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const LineString& value)
-	{
-		output << CharType('(');
-
-		bool b = false;
-
-		for (const auto& point : value)
-		{
-			if (std::exchange(b, true))
-			{
-				output << CharType(',');
-			}
-
-			output << point;
-		}
-
-		return output << CharType(')');
-	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <>
-	struct hash<s3d::LineString>
-	{
-		[[nodiscard]] size_t operator ()(const s3d::LineString& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value.data(), value.size_bytes());
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	Swap
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	inline void swap(s3d::LineString& a, s3d::LineString& b) noexcept
-	{
-		a.swap(b);
-	}
-}
+# include "detail/LineString.ipp"

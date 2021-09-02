@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,9 @@
 
 # pragma once
 # include <Siv3D/TCPServer.hpp>
-# include <Siv3D/Array.hpp>
+# include <Siv3D/AsyncTask.hpp>
+# include <Siv3D/Byte.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 # define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -24,7 +26,6 @@
 # define  ASIO_STANDALONE
 # include <asio/asio.hpp>
 
-
 namespace s3d
 {
 	namespace detail
@@ -35,7 +36,7 @@ namespace s3d
 
 			asio::ip::tcp::socket m_socket;
 
-			SessionID m_id = 0;
+			TCPSessionID m_id = 0;
 
 			bool m_isActive = false;
 
@@ -96,12 +97,12 @@ namespace s3d
 
 				if (!m_isSending)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 					m_receivedBuffer.clear();
 					m_streamBuffer.consume(m_streamBuffer.size());
 				}
@@ -112,19 +113,19 @@ namespace s3d
 
 				if (m_id)
 				{
-					LOG_DEBUG(U"Session [{}] closed"_fmt(m_id));
+					LOG_TRACE(U"Session [{}] closed"_fmt(m_id));
 				}
 
 				m_id = 0;
 			}
 
-			void init(const SessionID id)
+			void init(const TCPSessionID id)
 			{
 				m_id = id;
 
 				m_isActive = true;
 
-				LOG_DEBUG(U"Session [{}] created"_fmt(id));
+				LOG_TRACE(U"Session [{}] created"_fmt(id));
 			}
 
 			asio::ip::tcp::socket& socket()
@@ -139,7 +140,7 @@ namespace s3d
 
 			size_t available()
 			{
-				std::lock_guard lock(m_mutexReceivedBuffer);
+				std::lock_guard lock{ m_mutexReceivedBuffer };
 
 				return m_receivedBuffer.size();
 			}
@@ -176,7 +177,7 @@ namespace s3d
 				const size_t size = m_streamBuffer.size();
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() + size > maxBufferSize)
 					{
@@ -203,7 +204,7 @@ namespace s3d
 
 				if (!m_isActive)
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 					m_sendingBuffer.clear();
 					return;
 				}
@@ -218,7 +219,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					if (!m_sendingBuffer.empty())
 					{
@@ -245,14 +246,14 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (size > m_receivedBuffer.size())
 					{
 						return false;
 					}
 
-					m_receivedBuffer.drop(size);
+					m_receivedBuffer.pop_front_N(size);
 				}
 
 				return true;
@@ -271,7 +272,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexReceivedBuffer);
+					std::lock_guard lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -297,7 +298,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard<std::mutex> lock(m_mutexReceivedBuffer);
+					std::lock_guard<std::mutex> lock{ m_mutexReceivedBuffer };
 
 					if (m_receivedBuffer.size() < size)
 					{
@@ -306,7 +307,7 @@ namespace s3d
 
 					std::memcpy(dst, m_receivedBuffer.data(), size);
 
-					m_receivedBuffer.drop(size);
+					m_receivedBuffer.pop_front_N(size);
 				}
 
 				return true;
@@ -320,7 +321,7 @@ namespace s3d
 				}
 
 				{
-					std::lock_guard lock(m_mutexSendingBuffer);
+					std::lock_guard lock{ m_mutexSendingBuffer };
 
 					m_sendingBuffer.emplace_back(static_cast<const Byte*>(data), static_cast<const Byte*>(data) + size);
 
@@ -345,11 +346,11 @@ namespace s3d
 
 		std::unique_ptr<asio::ip::tcp::acceptor> m_acceptor;
 
-		std::future<void> m_io_service_thread;
+		AsyncTask<void> m_io_service_thread;
 
-		Array<std::pair<SessionID, std::shared_ptr<detail::ServerSession>>> m_sessions;
+		Array<std::pair<TCPSessionID, std::shared_ptr<detail::ServerSession>>> m_sessions;
 
-		std::atomic<SessionID> m_currentSessionID = 0;
+		std::atomic<TCPSessionID> m_currentTCPSessionID = 0;
 
 		uint16 m_port = 0;
 
@@ -379,22 +380,22 @@ namespace s3d
 
 		bool hasSession();
 
-		bool hasSession(SessionID id);
+		bool hasSession(TCPSessionID id);
 
 		size_t num_sessions();
 
-		Array<SessionID> getSessionIDs();
+		Array<TCPSessionID> getSessionIDs();
 
 		uint16 port() const;
 
-		size_t available(const Optional<SessionID>& id);
+		size_t available(const Optional<TCPSessionID>& id);
 
-		bool skip(size_t size, const Optional<SessionID>& id);
+		bool skip(size_t size, const Optional<TCPSessionID>& id);
 
-		bool lookahead(void* dst, size_t size, const Optional<SessionID>& id) const;
+		bool lookahead(void* dst, size_t size, const Optional<TCPSessionID>& id) const;
 
-		bool read(void* dst, size_t size, const Optional<SessionID>& id);
+		bool read(void* dst, size_t size, const Optional<TCPSessionID>& id);
 
-		bool send(const void* data, size_t size, const Optional<SessionID>& id);
+		bool send(const void* data, size_t size, const Optional<TCPSessionID>& id);
 	};
 }

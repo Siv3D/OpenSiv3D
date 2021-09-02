@@ -2,55 +2,70 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Zlib.hpp>
-# include <Siv3D/ByteArray.hpp>
-# include <zlib/zlib.h>
+# include <ThirdParty/zlib/zlib.h>
 
 namespace s3d
 {
 	namespace detail
 	{
-		[[nodiscard]] ::Bytef* ToBytef(Byte* p)
+		[[nodiscard]]
+		::Bytef* ToBytef(void* p) noexcept
 		{
-			return static_cast<::Bytef*>(static_cast<void*>(p));
+			return static_cast<::Bytef*>(p);
 		}
 
-		[[nodiscard]] ::Bytef* ToBytef(const Byte* p)
+		[[nodiscard]]
+		::Bytef* ToBytef(const void* p) noexcept
 		{
-			return const_cast<::Bytef*>(static_cast<const ::Bytef*>(static_cast<const void*>(p)));
+			return const_cast<::Bytef*>(static_cast<const ::Bytef*>(p));
 		}
 	}
 
 	namespace Zlib
 	{
-		ByteArray Compress(const ByteArrayViewAdapter view, const int32 _compressionLevel)
+		Blob Compress(const void* data, const size_t size, const int32 compressionLevel)
 		{
+			Blob blob;
+
+			if (Compress(data, size, blob, compressionLevel))
+			{
+				return blob;
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		bool Compress(const void* data, const size_t size, Blob& dst, const int32 _compressionLevel)
+		{
+			dst.clear();
+
 			const int32 compressionLevel = Clamp(_compressionLevel, MinCompressionLevel, MaxCompressionLevel);
 			constexpr uint32 BufferSize = 2048;
 			Byte buffer[BufferSize];
 
 			z_stream z;
-			z.zalloc	= Z_NULL;
-			z.zfree		= Z_NULL;
-			z.opaque	= Z_NULL;
-			z.next_in	= detail::ToBytef(view.data());
-			z.avail_in	= static_cast<uint32>(view.size());
-			z.next_out	= detail::ToBytef(buffer);
+			z.zalloc = Z_NULL;
+			z.zfree = Z_NULL;
+			z.opaque = Z_NULL;
+			z.next_in = detail::ToBytef(data);
+			z.avail_in = static_cast<uint32>(size);
+			z.next_out = detail::ToBytef(buffer);
 			z.avail_out = BufferSize;
 
 			if (deflateInit(&z, compressionLevel) != Z_OK)
 			{
 				return{};
 			}
-
-			Array<Byte> result;
 
 			for (;;)
 			{
@@ -69,16 +84,16 @@ namespace s3d
 
 				if (z.avail_out == 0)
 				{
-					result.insert(result.end(), std::begin(buffer), std::end(buffer));
-					z.next_out	= detail::ToBytef(buffer);
-					z.avail_out	= BufferSize;
+					dst.append(buffer, sizeof(buffer));
+					z.next_out = detail::ToBytef(buffer);
+					z.avail_out = BufferSize;
 				}
 			}
 
 			if (const size_t writeSize = (BufferSize - z.avail_out);
 				writeSize > 0)
 			{
-				result.insert(result.end(), std::begin(buffer), std::begin(buffer) + writeSize);
+				dst.append(buffer, writeSize);
 			}
 
 			if (deflateEnd(&z) != Z_OK)
@@ -86,21 +101,47 @@ namespace s3d
 				return{};
 			}
 
-			return ByteArray(std::move(result));
+			return true;
 		}
 
-		ByteArray Decompress(const ByteArrayView view)
+		Blob Compress(const Blob& blob, const int32 compressionLevel)
 		{
+			return Compress(blob.data(), blob.size(), compressionLevel);
+		}
+
+		bool Compress(const Blob& blob, Blob& dst, const int32 compressionLevel)
+		{
+			return Compress(blob.data(), blob.size(), dst, compressionLevel);
+		}
+
+		Blob Decompress(const void* data, const size_t size)
+		{
+			Blob blob;
+
+			if (Decompress(data, size, blob))
+			{
+				return blob;
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		bool Decompress(const void* data, const size_t size, Blob& dst)
+		{
+			dst.clear();
+
 			constexpr uint32 BufferSize = 2048;
 			Byte buffer[BufferSize];
 
 			z_stream z;
-			z.zalloc	= Z_NULL;
-			z.zfree		= Z_NULL;
-			z.opaque	= Z_NULL;
-			z.next_in	= detail::ToBytef(view.data());
-			z.avail_in	= static_cast<uint32>(view.size());
-			z.next_out	= detail::ToBytef(buffer);
+			z.zalloc = Z_NULL;
+			z.zfree = Z_NULL;
+			z.opaque = Z_NULL;
+			z.next_in = detail::ToBytef(data);
+			z.avail_in = static_cast<uint32>(size);
+			z.next_out = detail::ToBytef(buffer);
 			z.avail_out = BufferSize;
 
 			if (inflateInit(&z) != Z_OK)
@@ -108,7 +149,6 @@ namespace s3d
 				return{};
 			}
 
-			Array<Byte> result;
 			int32 r = Z_OK;
 
 			while (r != Z_STREAM_END)
@@ -127,7 +167,7 @@ namespace s3d
 
 				if (z.avail_out == 0)
 				{
-					result.insert(result.end(), std::begin(buffer), std::end(buffer));
+					dst.append(buffer, sizeof(buffer));
 					z.next_out = detail::ToBytef(buffer);
 					z.avail_out = BufferSize;
 				}
@@ -136,7 +176,7 @@ namespace s3d
 			if (const size_t writeSize = (BufferSize - z.avail_out);
 				writeSize > 0)
 			{
-				result.insert(result.end(), std::begin(buffer), std::begin(buffer) + writeSize);
+				dst.append(buffer, writeSize);
 			}
 
 			if (inflateEnd(&z) != Z_OK)
@@ -144,7 +184,17 @@ namespace s3d
 				return{};
 			}
 
-			return ByteArray(std::move(result));
+			return true;
+		}
+
+		Blob Decompress(const Blob& blob)
+		{
+			return Decompress(blob.data(), blob.size());
+		}
+
+		bool Decompress(const Blob& blob, Blob& dst)
+		{
+			return Decompress(blob.data(), blob.size(), dst);
 		}
 	}
 }

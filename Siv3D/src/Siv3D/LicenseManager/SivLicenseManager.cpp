@@ -2,30 +2,33 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/LicenseManager.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/TextWriter.hpp>
 # include <Siv3D/System.hpp>
-# include <Siv3DEngine.hpp>
-# include <EngineDirectory/EngineDirectory.hpp>
-# include "ILicenseManager.hpp"
+# include <Siv3D/LicenseManager/ILicenseManager.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/CacheDirectory/CacheDirectory.hpp>
 
 namespace s3d
 {
-constexpr static char header[] =
-R"(<!DOCTYPE html>
-<html lang="ja">
+	namespace detail
+	{
+		constexpr static std::string_view header =
+			R"(<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="utf-8">
 <title>Licenses</title>
 <style>
-body		{ background-color: #f9f9f9; font-family: 'Segoe UI','Meiryo','Hiragino Kaku Gothic Pro','Osaka','MS PGothic','Arial',sans-serif; }
+body		{ background-color: #f9f9f9; font-family: 'Segoe UI','Helvetica Neue','Arial','Hiragino Kaku Gothic ProN','Hiragino Sans','Meiryo',sans-serif; }
 h3			{ color: #333333; text-align: center; font-size: 28px; }
 div			{ font-size: 14px; line-height: 2; word-wrap: break-word; }
 div.c0		{ color: #333333; text-align: center; font-size: 20px; }
@@ -36,70 +39,74 @@ div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9
 <body>
 <h3>Licenses</h3>)";
 
-constexpr static char footer[] =
-R"-(<br>
+		constexpr static std::string_view footer =
+			R"-(<br>
 </body>
 </html>)-";
 
-constexpr static char divEnd[] = "</div>\n";
+		constexpr static std::string_view divEnd = "</div>\n";
 
-constexpr static char licenseC0[] = R"-(<div class="c0">)-";
+		constexpr static std::string_view licenseC0 = R"-(<div class="c0">)-";
 
-constexpr static char licenseC1[] = R"-(<div class="c1">)-";
+		constexpr static std::string_view licenseC1 = R"-(<div class="c1">)-";
 
-constexpr static char licenseC2[] = R"-(<div class="c2">)-";
+		constexpr static std::string_view licenseC2 = R"-(<div class="c2">)-";
+	}
 
 	namespace LicenseManager
 	{
-		void SetApplicationLicense(const String& uniqueID, const LicenseInfo& license)
+		void SetApplicationLicense(const String& applicationName, const LicenseInfo& license)
 		{
-			Siv3DEngine::Get<ISiv3DLicenseManager>()->setApplicationLicense(uniqueID, license);
+			SIV3D_ENGINE(LicenseManager)->setApplicationLicense(applicationName, license);
 		}
 
 		void AddLicense(const LicenseInfo& license)
 		{
-			Siv3DEngine::Get<ISiv3DLicenseManager>()->addLicense(license);
+			SIV3D_ENGINE(LicenseManager)->addLicense(license);
 		}
 
 		const Array<LicenseInfo>& EnumLicenses()
 		{
-			return Siv3DEngine::Get<ISiv3DLicenseManager>()->enumLicenses();
+			return SIV3D_ENGINE(LicenseManager)->enumLicenses();
 		}
 
-		void ShowInBrowser()
+		void EnableDefaultTrigger()
 		{
-			const String& uniqueID = Siv3DEngine::Get<ISiv3DLicenseManager>()->getUniqueID();
-
-			const FilePath path = uniqueID ? EngineDirectory::ApplicationLicensePath(uniqueID)
-				: EngineDirectory::DefaultLicensePath();
-			{
-				TextWriter writer(path);
-				writer.writeUTF8(header);
-
-				for (const auto& license : EnumLicenses())
-				{
-					writer.writelnUTF8(licenseC0);
-					writer.writeln(license.name);
-					writer.writelnUTF8(divEnd);
-
-					writer.writelnUTF8(licenseC1);
-					writer.writeln(license.copyright.replaced(U"\n", U"<br>"));
-					writer.writelnUTF8(divEnd);
-
-					writer.writelnUTF8(licenseC2);
-					writer.writeln(license.text.replaced(U"\n", U"<br>"));
-					writer.writelnUTF8(divEnd);
-				}
-
-				writer.writeUTF8(footer);
-			}
-			
-			System::LaunchBrowser(path);
+			SIV3D_ENGINE(LicenseManager)->setDefaultTriggerRnabled(true);
 		}
 
 		void DisableDefaultTrigger()
 		{
-			Siv3DEngine::Get<ISiv3DLicenseManager>()->disableDefaultTrigger();
+			SIV3D_ENGINE(LicenseManager)->setDefaultTriggerRnabled(false);
+		}
+
+		void ShowInBrowser()
+		{
+			const String& applicationName = SIV3D_ENGINE(LicenseManager)->getApplicationName();
+			const FilePath path = (CacheDirectory::Apps(applicationName) + U"Licenses.html");
+			{
+				TextWriter writer(path);
+				writer.writeUTF8(detail::header);
+
+				for (const auto& license : EnumLicenses())
+				{
+					writer.writelnUTF8(detail::licenseC0);
+					writer.writeln(license.title.xml_escaped());
+					writer.writelnUTF8(detail::divEnd);
+
+					writer.writelnUTF8(detail::licenseC1);
+					writer.writeln(license.copyright.xml_escaped().replaced(U"\n", U"<br>"));
+					writer.writelnUTF8(detail::divEnd);
+
+					writer.writelnUTF8(detail::licenseC2);
+					writer.writeln(license.text.replaced(U"\n", U"<br>"));
+					writer.writelnUTF8(detail::divEnd);
+				}
+
+				writer.writeUTF8(detail::footer);
+			}
+
+			System::LaunchBrowser(path);
 		}
 	}
 }

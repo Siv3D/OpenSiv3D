@@ -1,18 +1,17 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/DragDrop.hpp>
-# include <Siv3D/Optional.hpp>
-# include "IDragDrop.hpp"
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/DragDrop/IDragDrop.hpp>
 
 namespace s3d
 {
@@ -20,42 +19,42 @@ namespace s3d
 	{
 		void AcceptFilePaths(const bool accept)
 		{
-			Siv3DEngine::Get<ISiv3DDragDrop>()->acceptFilePaths(accept);
+			SIV3D_ENGINE(DragDrop)->acceptFilePaths(accept);
 		}
 
 		void AcceptText(const bool accept)
 		{
-			Siv3DEngine::Get<ISiv3DDragDrop>()->acceptText(accept);
+			SIV3D_ENGINE(DragDrop)->acceptText(accept);
 		}
 
 		Optional<DragStatus> DragOver()
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->dragOver();
+			return SIV3D_ENGINE(DragDrop)->dragOver();
 		}
 
 		bool HasNewFilePaths()
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->hasNewFilePaths();
+			return SIV3D_ENGINE(DragDrop)->hasNewFilePaths();
 		}
 
 		bool HasNewText()
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->hasNewText();
+			return SIV3D_ENGINE(DragDrop)->hasNewText();
 		}
 
 		void Clear()
 		{
-			Siv3DEngine::Get<ISiv3DDragDrop>()->clear();
+			SIV3D_ENGINE(DragDrop)->clear();
 		}
 
 		Array<DroppedFilePath> GetDroppedFilePaths()
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->getDroppedFilePaths();
+			return SIV3D_ENGINE(DragDrop)->getDroppedFilePaths();
 		}
 
 		Array<DroppedText> GetDroppedText()
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->getDroppedText();
+			return SIV3D_ENGINE(DragDrop)->getDroppedText();
 		}
 	}
 
@@ -65,7 +64,7 @@ namespace s3d
 	{
 		Optional<int32> MakeDragDrop(const FilePath& path)
 		{
-			return Siv3DEngine::Get<ISiv3DDragDrop>()->makeDragDrop(path);
+			return SIV3D_ENGINE(DragDrop)->makeDragDrop(path);
 		}
 	}
 

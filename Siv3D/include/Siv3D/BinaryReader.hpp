@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,223 +11,125 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "IReader.hpp"
-# include "ByteArray.hpp"
+# include "StringView.hpp"
+# include "OpenMode.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 読み込み用バイナリファイル
-	/// </summary>
+	class String;
+	using FilePath = String;
+
+	/// @brief 読み込み用バイナリファイル
 	class BinaryReader : public IReader
 	{
+	public:
+
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
+		BinaryReader();
+
+		/// @brief ファイルを開きます。
+		/// @param path ファイルパス
+		SIV3D_NODISCARD_CXX20
+		explicit BinaryReader(FilePathView path);
+
+		/// @brief lookahead をサポートしているかを返します。
+		/// @return true
+		[[nodiscard]]
+		bool supportsLookahead() const noexcept override;
+
+		/// @brief ファイルを開きます。
+		/// @param path ファイルパス
+		/// @return ファイルのオープンに成功した場合 true, それ以外の場合は false
+		bool open(FilePathView path);
+
+		/// @brief ファイルを閉じます。
+		/// @remark ファイルが開いていない場合は何もしません。
+		void close();
+
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isOpen() const noexcept override;
+
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false	
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
+
+		/// @brief ファイルのサイズを返します。
+		/// @return ファイルのサイズ（バイト）
+		[[nodiscard]]
+		int64 size() const override;
+
+		/// @brief 現在の読み込み位置を返します。
+		/// @return 現在の読み込み位置（バイト）		
+		[[nodiscard]]
+		int64 getPos() const override;
+
+		/// @brief 読み込み位置を変更します。
+		/// @param pos 新しい読み込み位置（バイト）
+		/// @return 読み込み位置の変更に成功した場合 true, それ以外の場合は false
+		bool setPos(int64 pos) override;
+
+		/// @brief ファイルを読み飛ばし、読み込み位置を変更します。
+		/// @param offset 読み飛ばすサイズ（バイト）
+		/// @return 新しい読み込み位置
+		int64 skip(int64 offset) override;
+
+		/// @brief ファイルからデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		int64 read(void* dst, int64 size) override;
+
+		/// @brief ファイルからデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param pos 先頭から数えた読み込み開始位置（バイト）
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		int64 read(void* dst, int64 pos, int64 size) override;
+
+		/// @brief ファイルからデータを読み込みます。
+		/// @tparam TriviallyCopyable 読み込む値の型
+		/// @param dst 読み込み先
+		/// @return 読み込みに成功したら true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool read(TriviallyCopyable& dst);
+
+		/// @brief 読み込み位置を変更しないでファイルからデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		int64 lookahead(void* dst, int64 size) const override;
+
+		/// @brief 読み込み位置を変更しないでファイルからデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param pos 先頭から数えた読み込み開始位置（バイト）
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		int64 lookahead(void* dst, int64 pos, int64 size) const override;
+
+		/// @brief 読み込み位置を変更しないでファイルからデータを読み込みます。
+		/// @tparam TriviallyCopyable 読み込む値の型
+		/// @param dst 読み込み先
+		/// @return 読み込みに成功したら true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool lookahead(TriviallyCopyable& dst);
+
+		/// @brief 開いているファイルのパスを返します。
+		/// @return 開いているファイルのパス。ファイルが開いていない場合は空の文字列
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
+
 	private:
 
 		class BinaryReaderDetail;
 
 		std::shared_ptr<BinaryReaderDetail> pImpl;
-
-	public:
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		BinaryReader();
-
-		/// <summary>
-		/// バイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		explicit BinaryReader(FilePathView path)
-			: BinaryReader()
-		{
-			open(path);
-		}
-
-		/// <summary>
-		/// バイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <returns>
-		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool open(FilePathView path);
-
-		/// <summary>
-		/// バイナリファイルをクローズします。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void close();
-
-		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool isOpen() const override;
-
-		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpen(); }
-
-		/// <summary>
-		/// バイナリファイルのサイズを返します。
-		/// </summary>
-		/// <returns>
-		/// バイナリファイルのサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] int64 size() const override;
-
-		/// <summary>
-		/// 現在の読み込み位置を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の読み込み位置（バイト）
-		/// </returns>
-		[[nodiscard]] int64 getPos() const override;
-
-		/// <summary>
-		/// 読み込み位置を変更します。
-		/// </summary>
-		/// <param name="pos">
-		/// 新しい読み込み位置（バイト）
-		/// </param>
-		/// <returns>
-		/// 読み込み位置の変更に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool setPos(int64 pos) override;
-
-		/// <summary>
-		/// ファイルを読み飛ばし、読み込み位置を変更します。
-		/// </summary>
-		/// <param name="offset">
-		/// 読み飛ばすサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 新しい読み込み位置
-		/// </returns>
-		int64 skip(int64 offset) override;
-
-		/// <summary>
-		/// ファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		int64 read(void* buffer, int64 size) override;
-
-		/// <summary>
-		/// ファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="pos">
-		/// 先頭から数えた読み込み開始位置（バイト）
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		int64 read(void* buffer, int64 pos, int64 size) override;
-
-		/// <summary>
-		/// ファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="to">
-		/// 読み込み先
-		/// </param>
-		/// <returns>
-		/// 読み込みに成功したら true, それ以外の場合は false
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool read(Type& to)
-		{
-			return read(std::addressof(to), sizeof(Type)) == sizeof(Type);
-		}
-
-		/// <summary>
-		/// 読み込み位置を変更しないデータ読み込みをサポートしているかを返します。
-		/// </summary>
-		/// <returns>
-		/// つねに true
-		/// </returns>
-		[[nodiscard]] bool supportsLookahead() const override { return true; }
-
-		/// <summary>
-		/// 読み込み位置を変更しないでファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		int64 lookahead(void* buffer, int64 size) const override;
-
-		/// <summary>
-		/// 読み込み位置を変更しないでファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="pos">
-		/// 先頭から数えた読み込み開始位置（バイト）
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		int64 lookahead(void* buffer, int64 pos, int64 size) const override;
-
-		/// <summary>
-		/// 読み込み位置を変更しないでファイルからデータを読み込みます。
-		/// </summary>
-		/// <param name="to">
-		/// 読み込み先
-		/// </param>
-		/// <returns>
-		/// 読み込みに成功したら true, それ以外の場合は false
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool lookahead(Type& to)
-		{
-			return lookahead(std::addressof(to), sizeof(Type)) == sizeof(Type);
-		}
-
-		/// <summary>
-		/// オープンしているファイルのパスを返します。
-		/// </summary>
-		/// <remarks>
-		/// クローズしている場合は空の文字列です。
-		/// </remarks>
-		[[nodiscard]] const FilePath& path() const;
-
-		[[nodiscard]] ByteArray readAll();
 	};
 }
+
+# include "detail/BinaryReader.ipp"

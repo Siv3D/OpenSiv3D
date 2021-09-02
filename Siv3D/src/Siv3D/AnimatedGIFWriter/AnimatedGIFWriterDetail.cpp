@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,24 +14,21 @@
 
 namespace s3d
 {
-	AnimatedGIFWriter::AnimatedGIFWriterDetail::AnimatedGIFWriterDetail()
-	{
-
-	}
+	AnimatedGIFWriter::AnimatedGIFWriterDetail::AnimatedGIFWriterDetail() {}
 
 	AnimatedGIFWriter::AnimatedGIFWriterDetail::~AnimatedGIFWriterDetail()
 	{
 		close();
 	}
 
-	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePathView path, const Size& size, const bool dither, const bool hasAlpha)
+	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::open(const FilePathView path, const Size size, const Dither dither, const HasAlpha hasAlpha)
 	{
 		if (m_opened)
 		{
 			close();
 		}
 
-		if (!m_writer.open(path))
+		if (not m_writer.open(path))
 		{
 			return false;
 		}
@@ -40,11 +37,11 @@ namespace s3d
 
 		m_imageSize = size;
 
-		m_dither = dither;
+		m_dither = dither.getBool();
 
-		m_hasAlpha = hasAlpha;
+		m_hasAlpha = hasAlpha.getBool();
 
-		if (!GifBegin(&m_gif, m_imageSize.x, m_imageSize.y, 6, 8, m_dither))
+		if (not GifBegin(&m_gif, m_imageSize.x, m_imageSize.y, 6, 8, m_dither))
 		{
 			m_writer.close();
 
@@ -60,7 +57,7 @@ namespace s3d
 
 	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::close()
 	{
-		if (!m_opened)
+		if (not m_opened)
 		{
 			return false;
 		}
@@ -83,7 +80,7 @@ namespace s3d
 
 	bool AnimatedGIFWriter::AnimatedGIFWriterDetail::writeFrame(const Image& image, const int32 delay)
 	{
-		if (!m_opened)
+		if (not m_opened)
 		{
 			return false;
 		}
@@ -106,7 +103,7 @@ namespace s3d
 
 	size_t AnimatedGIFWriter::AnimatedGIFWriterDetail::frameCount() const
 	{
-		if (!m_opened)
+		if (not m_opened)
 		{
 			return 0;
 		}
@@ -116,7 +113,7 @@ namespace s3d
 
 	Size AnimatedGIFWriter::AnimatedGIFWriterDetail::imageSize() const
 	{
-		if (!m_opened)
+		if (not m_opened)
 		{
 			return{ 0,0 };
 		}

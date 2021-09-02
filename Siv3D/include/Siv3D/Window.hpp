@@ -2,289 +2,135 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Formatter.hpp"
+# include "Monitor.hpp"
 # include "PointVector.hpp"
-# include "Rectangle.hpp"
-# include "Optional.hpp"
-# include "Unspecified.hpp"
+# include "StringView.hpp"
+# include "WindowStyle.hpp"
+# include "WindowState.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
 	namespace Window
-	{
-		/// <summary>
-		/// ウィンドウのクライアント領域の幅と高さ（ピクセル）のデフォルト値です。
-		/// </summary>
-		inline constexpr Size DefaultClientSize = Size(800, 600);
-	}
+	{	
+		/// @brief ウィンドウのデフォルトのタイトル
+		inline constexpr StringView DefaultTitle = U"Siv3D App";
 
-	/// <summary>
-	/// 
-	/// </summary>
-	enum class WindowStyle
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		Fixed,
-
-		/// <summary>
-		/// 
-		/// </summary>
-		Sizable,
-
-		/// <summary>
-		/// 
-		/// </summary>
-		Frameless,
-	};
-
-	/// <summary>
-	/// 
-	/// </summary>
-	enum class WindowResizeOption
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		ResizeSceneSize,
-
-		/// <summary>
-		/// 
-		/// </summary>
-		KeepSceneSize,
-
-		/// <summary>
-		/// 
-		/// </summary>
-		UseDefaultScaleMode,
-	};
-
-	/// <summary>
-	/// 
-	/// </summary>
-	struct WindowState
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		Size clientSize = Window::DefaultClientSize;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		Size minimumSize = Size(240, 180);
-
-		/// <summary>
-		/// 
-		/// </summary>
-		Rect bounds = Rect(0);
-
-		/// <summary>
-		/// 
-		/// </summary>
-		Size frameSize = Size(0, 0);
-
-		/// <summary>
-		/// 
-		/// </summary>
-		int32 titleBarHeight = 0;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		WindowStyle style = WindowStyle::Fixed;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		double contentScale = 1.0;
-
-		/// <summary>
-		/// 
-		/// </summary>		
-		bool minimized = false;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		bool maximized = false;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		bool fullscreen = false;
-	};
-
-	namespace Window
-	{
-		/// <summary>
-		/// ウィンドウのタイトルを変更します。
-		/// </summary>
+		/// @brief ウィンドウのタイトルを変更します。
+		/// @param title 新しいタイトル
 		void SetTitle(const String& title);
 
-		/// <summary>
-		/// ウィンドウのタイトルを変更します。
-		/// </summary>
-		template <class... Args>
-		inline void SetTitle(const Args&... args)
-		{
-			SetTitle(Format(args...));
-		}
+		/// @brief ウィンドウのタイトルを変更します。
+		/// @tparam ...Args 新しいタイトルの値の型
+		/// @param ...args 新しいタイトル
+		SIV3D_CONCEPT_FORMATTABLE_ARGS
+		inline void SetTitle(const Args&... args);
 
-		/// <summary>
-		/// 現在のウィンドウタイトルを返します。
-		/// </summary>
-		const String& GetTitle();
+		/// @brief 現在のウィンドウのタイトルを返します。
+		/// @return  現在のウィンドウのタイトル
+		[[nodiscard]]
+		const String& GetTitle() noexcept;
 
-		/// <summary>
-		/// 現在のウィンドウステートを返します。
-		/// </summary>
-		WindowState GetState();
+		/// @brief 現在のウィンドウの状態を返します。
+		/// @return 現在のウィンドウの状態
+		[[nodiscard]]
+		const WindowState& GetState() noexcept;
 
-		/// <summary>
-		/// ウィンドウスタイルを変更します。
-		/// </summary>
+		/// @brief ウィンドウスタイルを変更します。
+		/// @param style 新しいウィンドウスタイル
 		void SetStyle(WindowStyle style);
 
-		/// <summary>
-		/// 現在のウィンドウスタイルを返します。
-		/// </summary>
-		WindowStyle GetStyle();
+		/// @brief 現在のウィンドウスタイルを返します。
+		/// @return 現在のウィンドウスタイル
+		[[nodiscard]]
+		inline WindowStyle GetStyle() noexcept;
 
-		/// <summary>
-		/// 現在のウィンドウのクライアント領域の幅と高さ（ピクセル）を返します。
-		/// </summary>
-		/// <returns>
-		/// ウィンドウのクライアント領域の幅と高さ（ピクセル）
-		/// </returns>
-		[[nodiscard]] Size ClientSize();
+		/// @brief ウィンドウを指定したスクリーン座標に移動させます。
+		/// @param pos 移動先のスクリーン座標
+		void SetPos(Point pos);
 
-		/// <summary>
-		/// 現在のウィンドウのクライアント領域における中心座標（ピクセル）を返します。
-		/// </summary>
-		/// <returns>
-		/// ウィンドウのクライアント領域における中心座標（ピクセル）
-		/// </returns>
-		[[nodiscard]] Point ClientCenter();
+		/// @brief ウィンドウを指定したスクリーン座標に移動させます。
+		/// @param x 移動先のスクリーン X 座標
+		/// @param y 移動先のスクリーン Y 座標
+		inline void SetPos(int32 x, int32 y);
 
-		/// <summary>
-		/// 現在のウィンドウのクライアント領域の幅（ピクセル）を返します。
-		/// </summary>
-		/// <returns>
-		/// ウィンドウのクライアント領域の幅(ピクセル）
-		/// </returns>
-		[[nodiscard]] int32 ClientWidth();
+		/// @brief 現在のウィンドウの位置をスクリーン座標で返します。
+		/// @return 現在のウィンドウの位置
+		[[nodiscard]]
+		inline Point GetPos() noexcept;
 
-		/// <summary>
-		/// 現在のウィンドウのクライアント領域の高さ（ピクセル）を返します。
-		/// </summary>
-		/// <returns>
-		/// ウィンドウのクライアント領域の高さ(ピクセル）
-		/// </returns>
-		[[nodiscard]] int32 ClientHeight();
-
-		/// <summary>
-		/// ウィンドウを指定した座標に移動させます。
-		/// </summary>
-		void SetPos(const Point& pos);
-
-		/// <summary>
-		/// ウィンドウを指定した座標に移動させます。
-		/// </summary>
-		void SetPos(int32 x, int32 y);
-
-		/// <summary>
-		/// ウィンドウをスクリーンの中心に移動させます。
-		/// </summary>
+		/// @brief ウィンドウを現在のモニタのワークエリアの中央に移動させます。
 		void Centering();
 
-		/// <summary>
-		/// ウィンドウのクライアント領域のサイズを変更します。
-		/// </summary>
-		/// <param name="size">
-		/// 新しいウィンドウのクライアント領域のサイズ(ピクセル）
-		/// </param>
-		/// <param name="option">
-		/// シーンの解像度を追従させるかを決めるオプション
-		/// </param>
-		/// <param name="centering">
-		/// サイズ変更後にウィンドウをスクリーンの中心に移動させるかのフラグ
-		/// </param>
-		/// <remarks>
-		/// フルスクリーンモードが解除されます。
-		/// </remarks>
-		/// <returns>
-		/// サイズの変更に成功した場合 `true`, それ以外の場合 `false`
-		/// </returns>
-		bool Resize(const Size& size, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
-
-		/// <summary>
-		/// ウィンドウのクライアント領域のサイズを変更します。
-		/// </summary>
-		/// <param name="width">
-		/// 新しいウィンドウのクライアント領域の幅(ピクセル）
-		/// </param>
-		/// <param name="height">
-		/// 新しいウィンドウのクライアント領域の高さ(ピクセル）
-		/// </param>
-		/// <param name="option">
-		/// シーンの解像度を追従させるかを決めるオプション
-		/// </param>
-		/// <param name="centering">
-		/// サイズ変更後にウィンドウをスクリーンの中心に移動させるかのフラグ
-		/// </param>
-		/// <remarks>
-		/// フルスクリーンモードが解除されます。
-		/// </remarks>
-		/// <returns>
-		/// サイズの変更に成功した場合 `true`, それ以外の場合 `false`
-		/// </returns>
-		bool Resize(int32 width, int32 height, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool centering = true);
-
-		/// <summary>
-		/// ウィンドウを最大化します。
-		/// </summary>
+		/// @brief ウィンドウを最大化します。
 		void Maximize();
 
-		/// <summary>
-		/// 最大・最小化されたウィンドウを元のサイズに戻します。
-		/// </summary>
+		/// @brief 最大・最小化されたウィンドウを元のサイズに戻します。
 		void Restore();
 
-		/// <summary>
-		/// ウィンドウを最小化します。
-		/// </summary>
+		/// @brief ウィンドウを最小化します。
 		void Minimize();
 
-		/// <summary>
-		/// フルスクリーンモードの設定をします。
-		/// </summary>
-		[[nodiscard]] bool SetFullscreen(bool fullscreen, const Optional<Size>& fullscreenResolution = unspecified, WindowResizeOption option = WindowResizeOption::ResizeSceneSize);
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param size 新しいサイズ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		inline bool Resize(Size size, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		inline bool Resize(int32 width, int32 height, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param size 新しいサイズ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		bool ResizeVirtual(Size size, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウのクライアントサイズを仮想サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		inline bool ResizeVirtual(int32 width, int32 height, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウのクライアントサイズを実サイズ基準で変更します。
+		/// @param size 新しいサイズ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		bool ResizeActual(Size size, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウのクライアントサイズを実サイズ基準で変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @param centering ウィンドウを画面の中心に移動させるか
+		/// @return サイズの変更に成功した場合 true, それ以外の場合は false
+		inline bool ResizeActual(int32 width, int32 height, s3d::Centering centering = Centering::Yes);
+
+		/// @brief ウィンドウを手動でリサイズするときの最小サイズを実サイズ基準で設定します。
+		/// @param size 設定するサイズ（ピクセル）
+		void SetMinimumFrameBufferSize(Size size);
+
+		void SetFullscreen(bool fullscreen, size_t monitorIndex = System::GetCurrentMonitorIndex());
+
+		void SetToggleFullscreenEnabled(bool enabled);
+
+		[[nodiscard]]
+		bool IsToggleFullscreenEnabled();
 	}
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-	namespace Platform::Windows::Window
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		[[nodiscard]] void* GetHWND();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[[nodiscard]] bool ChangeDisplayResolution(const Size& size);
-	}
-
-# endif
 }
+
+# include "detail/Window.ipp"

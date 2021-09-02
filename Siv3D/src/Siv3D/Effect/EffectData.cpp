@@ -2,20 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CEffect.hpp"
+# include "EffectData.hpp"
 
 namespace s3d
 {
-	EffectData::EffectData(Null)
+	EffectData::EffectData(Null, const double maxLifeTimeSec)
+		: m_maxLifeTimeSec{ maxLifeTimeSec }
+		, m_initialized{ true } {}
+
+	bool EffectData::isInitialized() const noexcept
 	{
-		m_initialized = true;
+		return m_initialized;
 	}
 
 	void EffectData::add(std::unique_ptr<IEffect>&& effect)
@@ -28,31 +32,51 @@ namespace s3d
 		m_effects.emplace_back(std::move(effect), 0);
 	}
 
-	size_t EffectData::num_effects() const
+	size_t EffectData::num_effects() const noexcept
 	{
 		return m_effects.size();
 	}
 
-	void EffectData::pause()
+	void EffectData::pause() noexcept
 	{
 		m_paused = true;
 	}
 
-	void EffectData::resume()
+	bool EffectData::isPaused() const noexcept
+	{
+		return m_paused;
+	}
+
+	void EffectData::resume() noexcept
 	{
 		m_paused = false;
 	}
 
-	void EffectData::setSpeed(const double speed)
+	void EffectData::setSpeed(const double speed) noexcept
 	{
 		m_speed = speed;
 	}
 
-	void EffectData::setCurrectDeltaTimeUs(const uint64 currentDeltaUs)
+	double EffectData::getSpeed() const noexcept
 	{
-		const int64 deltaUs = m_paused ? 0 : static_cast<int64>(currentDeltaUs * m_speed);
+		return m_speed;
+	}
 
-		m_lastDeltaSec = deltaUs / 1'000'000.0;
+	void EffectData::setMaxLifeTime(const double maxLifeTimeSec) noexcept
+	{
+		m_maxLifeTimeSec = maxLifeTimeSec;
+	}
+
+	double EffectData::getMaxLifeTime() const noexcept
+	{
+		return m_maxLifeTimeSec;
+	}
+
+	void EffectData::setCurrectDeltaTimeUs(const uint64 currentDeltaUs) noexcept
+	{
+		const int64 deltaUs = (m_paused ? 0 : static_cast<int64>(currentDeltaUs * m_speed));
+
+		m_lastDeltaSec = (deltaUs / 1'000'000.0);
 	}
 
 	void EffectData::update()
@@ -71,18 +95,27 @@ namespace s3d
 			if (timeSec < 0.0)
 			{
 				++it;
-
 				continue;
 			}
-			else if (timeSec > MaxEffectLengthSec
-				|| (it->first->update(timeSec) == false))
+
+			if (m_maxLifeTimeSec < timeSec)
 			{
 				it = m_effects.erase(it);
+				continue;
 			}
-			else
+		
+			if (it->first->update(timeSec) == false)
 			{
-				++it;
+				if (m_effects.empty()) // effect is cleared.
+				{
+					break;
+				}
+
+				it = m_effects.erase(it);
+				continue;
 			}
+			
+			++it;
 		}
 	}
 

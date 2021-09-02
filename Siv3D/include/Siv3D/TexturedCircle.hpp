@@ -2,18 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Circle.hpp"
+# include "Common.hpp"
 # include "Texture.hpp"
 # include "FloatRect.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -25,20 +25,14 @@ namespace s3d
 
 		FloatRect uvRect;
 
-		TexturedCircle();
+		SIV3D_NODISCARD_CXX20
+		TexturedCircle() = default;
 
-		TexturedCircle(
-			const Texture& _texture,
-			float l,
-			float t,
-			float r,
-			float b,
-			const Circle& _circle);
+		SIV3D_NODISCARD_CXX20
+		TexturedCircle(const Texture& _texture, float l, float t, float r, float b, const Circle& _circle);
 
-		TexturedCircle(
-			const Texture& _texture,
-			const FloatRect& _uvRect,
-			const Circle& _circle);
+		SIV3D_NODISCARD_CXX20
+		TexturedCircle(const Texture& _texture, const FloatRect& _uvRect, const Circle& _circle);
 
 		const Circle& draw(const ColorF& diffuse = Palette::White) const;
 

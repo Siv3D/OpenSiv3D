@@ -2,110 +2,52 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 音声フォーマット
-	/// </summary>
-	enum class AudioFormat
+	/// @brief 音声フォーマット
+	enum class AudioFormat : uint8
 	{
-		/// <summary>
-		/// 不明
-		/// </summary>
+		/// @brief 不明
 		Unknown,
 
-		/// <summary>
-		/// WAVE
-		/// </summary>
+		/// @brief WAVE
 		WAVE,
 
-		/// <summary>
-		/// MP3
-		/// </summary>
+		/// @brief MP3
 		MP3,
 
-		/// <summary>
-		/// AAC
-		/// </summary>
+		/// @brief AAC
 		AAC,
 
-		/// <summary>
-		/// Ogg Vorbis
-		/// </summary>
+		/// @brief Ogg Vorbis
 		OggVorbis,
 
-		//opus, ...
+		/// @brief Opus
+		Opus,
 
-		/// <summary>
-		/// 指定しない / データと拡張子から判断
-		/// </summary>
+		/// @brief WMA
+		WMA,
+
+		/// @brief AIFF
+		AIFF,
+
+		/// @brief FLAC
+		FLAC,
+
+		/// @brief MIDI
+		MIDI,
+
+		/// @brief 指定しない（データと拡張子から判断）
 		Unspecified = Unknown,
 	};
-
-	/// <summary>
-	/// WAVE の保存形式
-	/// </summary>
-	enum class WAVEFormat
-	{
-		/// <summary>
-		/// 8bit ステレオ
-		/// </summary>
-		Stereo8U,
-
-		/// <summary>
-		/// 16bit ステレオ
-		/// </summary>
-		Stereo16S,
-
-		/// <summary>
-		/// 32bit float ステレオ
-		/// </summary>
-		Stereo32F,
-
-		/// <summary>
-		/// デフォルト（16bit ステレオ）
-		/// </summary>
-		Default = Stereo16S,
-	};
-
-	class IAudioFormat
-	{
-	public:
-
-		virtual ~IAudioFormat() = default;
-
-		virtual AudioFormat format() const = 0;
-
-		virtual const Array<String>& possibleExtexsions() const = 0;
-
-		virtual bool isHeader(const uint8(&bytes)[16], const IReader& reader) const = 0;
-
-		virtual Wave decodeFromFile(const FilePath& path) const = 0;
-
-		virtual Wave decode(IReader& reader) const = 0;
-
-		//virtual bool encode(const Wave& wave, IWriter& writer) const = 0;
-
-		//virtual bool save(const Wave& wave, const FilePath& path) const = 0;
-	};
-
-	namespace AudioProcessing
-	{
-		[[nodiscard]] AudioFormat GetFormat(const FilePath& path);
-
-		[[nodiscard]] AudioFormat GetFormat(const IReader& reader);
-
-		[[nodiscard]] AudioFormat GetFormatFromFilePath(const FilePath& path);
-	}
 }

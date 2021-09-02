@@ -2,25 +2,40 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "../ThirdParty/tsl/hopscotch_set.h"
+# include "Common.hpp"
+# if SIV3D_INTRINSIC(SSE)
+#	define PHMAP_HAVE_SSE2 1
+#	define PHMAP_HAVE_SSSE3 1
+# endif
+# include <ThirdParty/parallel_hashmap/phmap.h>
+# include "HeterogeneousLookupHelper.hpp"
 
 namespace s3d
 {
-	template <
-		class Key,
-		class Hash = std::hash<Key>,
-		class KeyEqual = std::equal_to<Key>,
-		class Allocator = std::allocator<Key>,
-		unsigned int NeighborhoodSize = 62,
-		bool StoreHash = false,
-		class GrowthPolicy = tsl::hh::power_of_two_growth_policy<2>>
-		using HashSet = tsl::hopscotch_set<Key, Hash, KeyEqual, Allocator, NeighborhoodSize, StoreHash, GrowthPolicy>;
+	template <class Type,
+		class Hash	= std::conditional_t<std::is_same_v<Type, String>, StringHash, phmap::container_internal::hash_default_hash<Type>>,
+		class Eq	= std::conditional_t<std::is_same_v<Type, String>, StringCompare, phmap::container_internal::hash_default_eq<Type>>,
+		class Alloc	= phmap::container_internal::Allocator<Type>>
+	using HashSet = phmap::flat_hash_set<Type, Hash, Eq, Alloc>;
+
+	template <class Type>
+	inline void swap(HashSet<Type>& a, HashSet<Type>& b) noexcept;
+
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const HashSet<Type>& set);
 }
+
+# include "detail/HashSet.ipp"
+
+# if SIV3D_INTRINSIC(SSE)
+#	undef PHMAP_HAVE_SSE2
+#	undef PHMAP_HAVE_SSSE3
+# endif

@@ -2,22 +2,23 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <easyexif/exif.h>
 # include <Siv3D/Exif.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/BinaryReader.hpp>
+# include <ThirdParty/easyexif/exif.h>
 
 namespace s3d
 {
 	Optional<Exif> Exif::Read(const FilePathView path)
 	{
-		return Read(BinaryReader(path));
+		return Read(BinaryReader{ path });
 	}
 
 	Optional<Exif> Exif::Read(const IReader& reader)
@@ -33,60 +34,71 @@ namespace s3d
 			return none;
 		}
 
-		Exif result;
-		result.imageDescription = Unicode::Widen(info.ImageDescription);
-		result.make = Unicode::Widen(info.Make);
-		result.model = Unicode::Widen(info.Model);
-		result.orientation = info.Orientation;
-		result.bitsPerSample = info.BitsPerSample;
-		result.software = Unicode::Widen(info.Software);
-		result.dateTime = Unicode::Widen(info.DateTime);
-		result.dateTimeOriginal = Unicode::Widen(info.DateTimeOriginal);
-		result.dateTimeDigitized = Unicode::Widen(info.DateTimeDigitized);
-		result.subSecTimeOriginal = Unicode::Widen(info.SubSecTimeOriginal);
-		result.copyright = Unicode::Widen(info.Copyright);
-		result.exposureTime = info.ExposureTime;
-		result.FNumber = info.FNumber;
-		result.exposureProgram = info.ExposureProgram;
-		result.ISOSpeedRatings = info.ISOSpeedRatings;
-		result.shutterSpeedValue = info.ShutterSpeedValue;
-		result.exposureBiasValue = info.ExposureBiasValue;
-		result.subjectDistance = info.SubjectDistance;
-		result.focalLength = info.FocalLength;
-		result.focalLengthIn35mm = info.FocalLengthIn35mm;
-		result.flash = info.Flash;
-		result.flashReturnedLight = info.FlashReturnedLight;
-		result.flashMode = info.FlashMode;
-		result.meteringMode = info.MeteringMode;
-		result.imageWidth = info.ImageWidth;
-		result.imageHeight = info.ImageHeight;
+		return Exif{
+			.imageDescription	= Unicode::Widen(info.ImageDescription),
+			.make				= Unicode::Widen(info.Make),
+			.model				= Unicode::Widen(info.Model),
+			.orientation		= info.Orientation,
+			.bitsPerSample		= info.BitsPerSample,
+			.software			= Unicode::Widen(info.Software),
+			.dateTime			= Unicode::Widen(info.DateTime),
+			.dateTimeOriginal	= Unicode::Widen(info.DateTimeOriginal),
+			.dateTimeDigitized	= Unicode::Widen(info.DateTimeDigitized),
+			.subSecTimeOriginal	= Unicode::Widen(info.SubSecTimeOriginal),
+			.copyright			= Unicode::Widen(info.Copyright),
+			.exposureTime		= info.ExposureTime,
+			.FNumber			= info.FNumber,
+			.exposureProgram	= info.ExposureProgram,
+			.ISOSpeedRatings	= info.ISOSpeedRatings,
+			.shutterSpeedValue	= info.ShutterSpeedValue,
+			.exposureBiasValue	= info.ExposureBiasValue,
+			.subjectDistance	= info.SubjectDistance,
+			.focalLength		= info.FocalLength,
+			.focalLengthIn35mm	= info.FocalLengthIn35mm,
+			.flash				= static_cast<bool>(info.Flash),
+			.flashReturnedLight	= info.FlashReturnedLight,
+			.flashMode			= info.FlashMode,
+			.meteringMode		= info.MeteringMode,
+			.imageWidth			= info.ImageWidth,
+			.imageHeight		= info.ImageHeight,
 
-		result.geoLocation.latitude = info.GeoLocation.Latitude;
-		result.geoLocation.longitude = info.GeoLocation.Longitude;
-		result.geoLocation.altitude = info.GeoLocation.Altitude;
-		result.geoLocation.altitudeRef = info.GeoLocation.AltitudeRef;
-		result.geoLocation.DOP = info.GeoLocation.DOP;
+			.geoLocation =
+			{
+				.latitude		= info.GeoLocation.Latitude,
+				.longitude		= info.GeoLocation.Longitude,
+				.altitude		= info.GeoLocation.Altitude,
+				.altitudeRef	= info.GeoLocation.AltitudeRef,
+				.DOP			= info.GeoLocation.DOP,
 
-		result.geoLocation.latComponents.degrees = info.GeoLocation.LatComponents.degrees;
-		result.geoLocation.latComponents.minutes = info.GeoLocation.LatComponents.minutes;
-		result.geoLocation.latComponents.seconds = info.GeoLocation.LatComponents.seconds;
-		result.geoLocation.latComponents.direction = info.GeoLocation.LatComponents.direction;
+				.latComponents =
+				{
+					.degrees	= info.GeoLocation.LatComponents.degrees,
+					.minutes	= info.GeoLocation.LatComponents.minutes,
+					.seconds	= info.GeoLocation.LatComponents.seconds,
+					.direction	= static_cast<char32>(info.GeoLocation.LatComponents.direction),
+				},
 
-		result.geoLocation.lonComponents.degrees = info.GeoLocation.LonComponents.degrees;
-		result.geoLocation.lonComponents.minutes = info.GeoLocation.LonComponents.minutes;
-		result.geoLocation.lonComponents.seconds = info.GeoLocation.LonComponents.seconds;
-		result.geoLocation.lonComponents.direction = info.GeoLocation.LonComponents.direction;
+				.lonComponents =
+				{
+					.degrees	= info.GeoLocation.LonComponents.degrees,
+					.minutes	= info.GeoLocation.LonComponents.minutes,
+					.seconds	= info.GeoLocation.LonComponents.seconds,
+					.direction	= static_cast<char32>(info.GeoLocation.LonComponents.direction),
+				},
+			},
 
-		result.lensInfo.FStopMin = info.LensInfo.FStopMin;
-		result.lensInfo.FStopMax = info.LensInfo.FStopMax;
-		result.lensInfo.focalLengthMin = info.LensInfo.FocalLengthMin;
-		result.lensInfo.focalLengthMax = info.LensInfo.FocalLengthMax;
-		result.lensInfo.focalPlaneXResolution = info.LensInfo.FocalPlaneXResolution;
-		result.lensInfo.focalPlaneYResolution = info.LensInfo.FocalPlaneYResolution;
-		result.lensInfo.focalPlaneResolutionUnit = info.LensInfo.FocalPlaneResolutionUnit;
-		result.lensInfo.make = Unicode::Widen(info.LensInfo.Make);
-		result.lensInfo.model = Unicode::Widen(info.LensInfo.Model);
-
-		return result;
+			.lensInfo =
+			{
+				.FStopMin					= info.LensInfo.FStopMin,
+				.FStopMax					= info.LensInfo.FStopMax,
+				.focalLengthMin				= info.LensInfo.FocalLengthMin,
+				.focalLengthMax				= info.LensInfo.FocalLengthMax,
+				.focalPlaneXResolution		= info.LensInfo.FocalPlaneXResolution,
+				.focalPlaneYResolution		= info.LensInfo.FocalPlaneYResolution,
+				.focalPlaneResolutionUnit	= info.LensInfo.FocalPlaneResolutionUnit,
+				.make						= Unicode::Widen(info.LensInfo.Make),
+				.model						= Unicode::Widen(info.LensInfo.Model),
+			}
+		};
 	}
 }

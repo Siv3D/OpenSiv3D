@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,9 +12,6 @@
 # pragma once
 # include <cfloat>
 # include <Siv3D/NavMesh.hpp>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/Triangle.hpp>
 # include <RecastDetour/Recast.h>
 # include <RecastDetour/DetourCommon.h>
 # include <RecastDetour/DetourNavMesh.h>
@@ -23,27 +20,50 @@
 
 namespace s3d
 {
+	struct NavMeshAABB
+	{
+		float bmin[3] = { FLT_MAX, FLT_MAX, FLT_MAX };
+
+		float bmax[3] = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
+	};
+
 	class NavMesh::NavMeshDetail
 	{
+	public:
+
+		NavMeshDetail();
+
+		~NavMeshDetail();
+
+		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
+
+		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
+
+		Array<Vec2> query(const Float2& start, const Float2& end, const Array<std::pair<int32, double>>& areaCosts) const;
+
+		Array<Vec3> query(const Float3& start, const Float3& end, const Array<std::pair<int32, double>>& areaCosts) const;
+
 	private:
 
-		rcContext m_ctx;
-		
-		rcHeightfield* m_hf = nullptr;
-		
-		rcCompactHeightfield* m_chf = nullptr;
-		
-		rcContourSet* m_cset = nullptr;
-		
-		rcPolyMesh* m_mesh = nullptr;
-		
-		rcPolyMeshDetail* m_dmesh = nullptr;
-		
-		std::shared_ptr<dtNavMesh> m_navmesh;
+		struct Data
+		{
+			rcContext ctx;
 
-		float m_bmin[3] = { FLT_MAX, FLT_MAX, FLT_MAX };
-		
-		float m_bmax[3] = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
+			rcHeightfield* hf = nullptr;
+
+			rcCompactHeightfield* chf = nullptr;
+
+			rcContourSet* cset = nullptr;
+
+			rcPolyMesh* mesh = nullptr;
+
+			rcPolyMeshDetail* dmesh = nullptr;
+
+			std::shared_ptr<dtNavMesh> navmesh;
+
+			dtNavMeshQuery navmeshQuery;
+
+		} m_data;
 
 		unsigned char* m_navData = nullptr;
 
@@ -51,30 +71,11 @@ namespace s3d
 
 		bool m_built = false;
 
-		Array<Float3> m_vertices;
+		bool build(const NavMeshConfig& config, const NavMeshAABB& aabb,
+			const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs);
 
-		Array<uint16> m_indices;
+		void init();
 
-		Array<uint8> m_areaIDs;
-
-		void updateAABB(const Float3& v);
-
-		void destroy();
-
-		void create();
-
-		void reset();
-
-		bool build(const NavMeshConfig& config);
-
-	public:
-
-		NavMeshDetail();
-
-		~NavMeshDetail();
-
-		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
-
-		Array<Vec3> query(const Float3& start, const Float3& end) const;
+		void release();
 	};
 }

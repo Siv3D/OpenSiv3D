@@ -409,7 +409,6 @@ struct datastream {
 static inline int grid_bit(const struct quirc_code *code, int x, int y)
 {
 	int p = y * code->size + x;
-
 	return (code->cell_bitmap[p >> 3] >> (p & 7)) & 1;
 }
 
@@ -916,4 +915,19 @@ quirc_decode_error_t quirc_decode(const struct quirc_code *code,
 		return err;
 
 	return QUIRC_SUCCESS;
+}
+
+void quirc_flip(struct quirc_code *code)
+{
+	struct quirc_code flipped = {0};
+	unsigned int offset = 0;
+	for (int y = 0; y < code->size; y++) {
+		for (int x = 0; x < code->size; x++) {
+			if (grid_bit(code, y, x)) {
+				flipped.cell_bitmap[offset >> 3u] |= (1u << (offset & 7u));
+			}
+			offset++;
+		}
+	}
+	memcpy(&code->cell_bitmap, &flipped.cell_bitmap, sizeof(flipped.cell_bitmap));
 }

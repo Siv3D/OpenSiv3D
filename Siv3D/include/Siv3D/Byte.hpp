@@ -2,89 +2,57 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <type_traits>
 # include <functional>
-# include <iosfwd>
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Concepts.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// バイトを表現する型
-	/// </summary>
-	enum class Byte : unsigned char { };
+	/// @brief 1 バイトを表現する型
+	enum class Byte : unsigned char {};
 
-	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	[[nodiscard]] inline constexpr Byte operator <<(const Byte value, const Integer shift) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(static_cast<unsigned int>(value) << shift));
-	}
+	SIV3D_CONCEPT_INTEGRAL
+	[[nodiscard]]
+	inline constexpr Byte operator <<(Byte value, Int shift) noexcept;
 
-	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	[[nodiscard]] inline constexpr Byte operator >>(const Byte value, const Integer shift) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(static_cast<unsigned int>(value) >> shift));
-	}
+	SIV3D_CONCEPT_INTEGRAL
+	[[nodiscard]]
+	inline constexpr Byte operator >>(Byte value, Int shift) noexcept;
 
-	[[nodiscard]] inline constexpr Byte operator |(const Byte x, const Byte y) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(static_cast<unsigned int>(x) | static_cast<unsigned int>(y)));
-	}
+	[[nodiscard]]
+	inline constexpr Byte operator |(Byte x, Byte y) noexcept;
 
-	[[nodiscard]] inline constexpr Byte operator &(const Byte x, const Byte y) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(static_cast<unsigned int>(x) & static_cast<unsigned int>(y)));
-	}
+	[[nodiscard]]
+	inline constexpr Byte operator &(Byte x, Byte y) noexcept;
 
-	[[nodiscard]] inline constexpr Byte operator ^(const Byte x, const Byte y) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(static_cast<unsigned int>(x) ^ static_cast<unsigned int>(y)));
-	}
+	[[nodiscard]]
+	inline constexpr Byte operator ^(Byte x, Byte y) noexcept;
 
-	[[nodiscard]] inline constexpr Byte operator ~(const Byte value) noexcept
-	{
-		return static_cast<Byte>(static_cast<unsigned char>(~static_cast<unsigned int>(value)));
-	}
+	[[nodiscard]]
+	inline constexpr Byte operator ~(Byte value) noexcept;
 
-	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	inline constexpr Byte& operator <<=(Byte& value, const Integer shift) noexcept
-	{
-		return value = (value << shift);
-	}
+	SIV3D_CONCEPT_INTEGRAL
+	inline constexpr Byte& operator <<=(Byte& value, Int shift) noexcept;
 
-	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	inline constexpr Byte& operator >>=(Byte& value, const Integer shift) noexcept
-	{
-		return value = (value >> shift);
-	}
+	SIV3D_CONCEPT_INTEGRAL
+	inline constexpr Byte& operator >>=(Byte& value, Int shift) noexcept;
 
-	inline constexpr Byte& operator |=(Byte& x, const Byte y) noexcept
-	{
-		return x = (x | y);
-	}
+	inline constexpr Byte& operator |=(Byte& x, Byte y) noexcept;
 
-	inline constexpr Byte& operator &=(Byte& x, const Byte y) noexcept
-	{
-		return x = (x & y);
-	}
+	inline constexpr Byte& operator &=(Byte& x, Byte y) noexcept;
 
-	inline constexpr Byte& operator ^=(Byte& x, const Byte y) noexcept
-	{
-		return x = (x ^ y);
-	}
+	inline constexpr Byte& operator ^=(Byte& x, Byte y) noexcept;
 
-	inline constexpr uint8 AsUint8(Byte value) noexcept
-	{
-		return static_cast<uint8>(value);
-	}
+	[[nodiscard]]
+	inline constexpr uint8 AsUint8(Byte value) noexcept;
 }
 
 //////////////////////////////////////////////////
@@ -95,6 +63,8 @@ namespace s3d
 
 namespace s3d
 {
+	struct FormatData;
+
 	void Formatter(FormatData& formatData, const Byte& value);
 
 	std::ostream& operator <<(std::ostream& output, const Byte& value);
@@ -112,14 +82,14 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-namespace std
+template <>
+struct std::hash<s3d::Byte>
 {
-	template <>
-	struct hash<s3d::Byte>
+	[[nodiscard]]
+	size_t operator()(const s3d::Byte& value) const noexcept
 	{
-		[[nodiscard]] size_t operator()(const s3d::Byte& value) const noexcept
-		{
-			return hash<s3d::uint8>()(static_cast<s3d::uint8>(value));
-		}
-	};
-}
+		return hash<s3d::uint8>()(static_cast<s3d::uint8>(value));
+	}
+};
+
+# include "detail/Byte.ipp"

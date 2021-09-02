@@ -2,23 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/ByteArray.hpp>
-# include <Siv3D/Error.hpp>
-# include <Siv3D/EngineLog.hpp>
-# include <Siv3D/FileSystem.hpp>
 # include "ZIPReaderDetail.hpp"
-# include <minizip/mz.h>
-# include <minizip/mz_strm.h>
-# include <minizip/mz_strm_mem.h>
-# include <minizip/mz_zip.h>
-# include <minizip/mz_zip_rw.h>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <ThirdParty/minizip/mz.h>
+# include <ThirdParty/minizip/mz_strm.h>
+# include <ThirdParty/minizip/mz_strm_mem.h>
+# include <ThirdParty/minizip/mz_zip.h>
+# include <ThirdParty/minizip/mz_zip_rw.h>
 
 namespace s3d
 {
@@ -29,9 +27,9 @@ namespace s3d
 			bool allowOverwrite = true;
 		};
 
-		static int32 ExtractEntryCallback(void*, void*, mz_zip_file* file_info, const char*)
+		static int32 ExtractEntryCallback(void*, void*, [[maybe_unused]] mz_zip_file* file_info, const char*)
 		{
-			LOG_DEBUG(U"Extracting: `{}`"_fmt(Unicode::Widen(file_info->filename)));
+			LOG_TRACE(U"Extracting: `{}`"_fmt(Unicode::Widen(file_info->filename)));
 
 			return MZ_OK;
 		}
@@ -41,7 +39,7 @@ namespace s3d
 			uint8 raw = 0;
 			::mz_zip_reader_get_raw(handle, &raw);
 
-			double progress = 0;
+			[[maybe_unused]] double progress = 0;
 
 			if (raw && file_info->compressed_size > 0)
 			{
@@ -52,18 +50,18 @@ namespace s3d
 				progress = (static_cast<double>(position) / file_info->uncompressed_size) * 100;
 			}
 
-			LOG_DEBUG(U"Extracting: {:.1f}%"_fmt(progress));
+			LOG_TRACE(U"Extracting: {:.1f}%"_fmt(progress));
 
 			return MZ_OK;
 		}
 
-		static int32 ExtractOverwriteCallback(void*, void* zipOption, mz_zip_file*, const char* path)
+		static int32 ExtractOverwriteCallback(void*, void* zipOption, mz_zip_file*, [[maybe_unused]] const char* path)
 		{
 			const ZipOption* option = static_cast<ZipOption*>(zipOption);
 
 			if (!option->allowOverwrite)
 			{
-				LOG_DEBUG(U"Extracting: path `{}` already exists"_fmt(Unicode::Widen(path)));
+				LOG_TRACE(U"Extracting: path `{}` already exists"_fmt(Unicode::Widen(path)));
 
 				return MZ_EXIST_ERROR;
 			}
@@ -74,7 +72,7 @@ namespace s3d
 
 	ZIPReader::ZIPReaderDetail::ZIPReaderDetail()
 	{
-
+		// do nothing
 	}
 
 	ZIPReader::ZIPReaderDetail::~ZIPReaderDetail()
@@ -96,7 +94,6 @@ namespace s3d
 		::mz_zip_reader_set_progress_cb(m_reader, &option, detail::ExtractProgressCallback);
 		::mz_zip_reader_set_overwrite_cb(m_reader, &option, detail::ExtractOverwriteCallback);
 
-		const std::string archivePathC = Unicode::Narrow(path);
 		{
 			int32 err = MZ_OK;
 			
@@ -108,15 +105,17 @@ namespace s3d
 
 				err = ::mz_zip_reader_open_buffer(m_reader,
 					const_cast<uint8*>(static_cast<const std::uint8_t*>(m_resource.data())),
-					static_cast<int32>(m_resource.size()), false);
+					static_cast<int32>(m_resource.size()), 0);
 			}
 			else
 			{
+				const std::string archivePathC = Unicode::Narrow(path);
 				err = ::mz_zip_reader_open_file(m_reader, archivePathC.c_str());
 			}
 
 		# else
 
+			const std::string archivePathC = Unicode::Narrow(path);
 			err = ::mz_zip_reader_open_file(m_reader, archivePathC.c_str());
 
 		# endif
@@ -169,7 +168,7 @@ namespace s3d
 
 	void ZIPReader::ZIPReaderDetail::close()
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return;
 		}
@@ -181,7 +180,7 @@ namespace s3d
 		::mz_zip_reader_delete(&m_reader); // 内部で m_reader = nullptr;
 	}
 
-	bool ZIPReader::ZIPReaderDetail::isOpen() const
+	bool ZIPReader::ZIPReaderDetail::isOpen() const noexcept
 	{
 		return (m_reader != nullptr);
 	}
@@ -198,23 +197,22 @@ namespace s3d
 
 	bool ZIPReader::ZIPReaderDetail::extract(const StringView pattern, const FilePathView targetDirectory) const
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return false;
 		}
 
-		if (!targetDirectory.ends_with(U'/') && !FileSystem::IsDirectory(targetDirectory))
+		if ((not targetDirectory.ends_with(U'/')) && (not FileSystem::IsDirectory(targetDirectory)))
 		{
 			LOG_FAIL(U"ZIPReader::extract(): `{}` is not a directory"_fmt(targetDirectory));
 			return false;
 		}
 
-		const std::string patternC = Unicode::Narrow(pattern);
-		const std::string targetDirectoryC = Unicode::Narrow(targetDirectory);
 		int32 err = MZ_OK;
 
 		if (pattern)
 		{
+			const std::string patternC = Unicode::Narrow(pattern);
 			::mz_zip_reader_set_pattern(m_reader, patternC.c_str(), 1);
 		}
 		else
@@ -222,6 +220,7 @@ namespace s3d
 			::mz_zip_reader_set_pattern(m_reader, "*", 1);
 		}
 
+		const std::string targetDirectoryC = Unicode::Narrow(targetDirectory);
 		err = ::mz_zip_reader_save_all(m_reader, targetDirectoryC.c_str());
 
 		if (err == MZ_END_OF_LIST)
@@ -232,7 +231,7 @@ namespace s3d
 			}
 			else
 			{
-				LOG_DEBUG(U"ZIPReader::extract(): No files in archive");
+				LOG_TRACE(U"ZIPReader::extract(): No files in archive");
 				err = MZ_OK;
 			}
 		}
@@ -244,9 +243,9 @@ namespace s3d
 		return (err == MZ_OK);
 	}
 
-	ByteArray ZIPReader::ZIPReaderDetail::extractToMemory(const FilePathView filePath) const
+	Blob ZIPReader::ZIPReaderDetail::extractToBlob(const FilePathView filePath) const
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return{};
 		}
@@ -289,11 +288,6 @@ namespace s3d
 			return{};
 		}
 
-		if (err != MZ_OK)
-		{
-			return{};
-		}
-
-		return ByteArray(std::move(data));
+		return Blob{ std::move(data) };
 	}
 }

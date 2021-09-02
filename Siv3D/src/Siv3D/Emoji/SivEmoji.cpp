@@ -2,32 +2,73 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Emoji.hpp>
-# include <Siv3D/Image.hpp>
-# include <Siv3DEngine.hpp>
-# include <Font/IFont.hpp>
+# include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
+	bool Emoji::HasGlyph(const StringView emoji)
+	{
+		return SIV3D_ENGINE(Font)->hasEmoji(emoji);
+	}
+
+	GlyphIndex Emoji::GetGlyphIndex(const StringView emoji)
+	{
+		return SIV3D_ENGINE(Font)->getEmojiGlyphIndex(emoji);
+	}
+
 	Image Emoji::CreateImage(const StringView emoji)
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getColorEmoji(emoji);
+		const GlyphIndex glyphIndex = SIV3D_ENGINE(Font)->getEmojiGlyphIndex(emoji);
+
+		return CreateImageByGlyphIndex(glyphIndex);
 	}
 
-	Image Emoji::CreateSilhouetteImage(StringView emoji)
+	Image Emoji::CreateImageByGlyphIndex(const GlyphIndex glyphIndex)
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getColorEmojiSilhouette(emoji);
+		if (glyphIndex == 0)
+		{
+			return{};
+		}
+
+		return SIV3D_ENGINE(Font)->renderEmojiBitmap(glyphIndex);
 	}
 
-	//size_t CheckEmoji(Array<char32_t>::const_iterator it)
-	//{
-	//	return Siv3DEngine::GetFont()->checkEmoji(it);
-	//}
+	Image Emoji::CreateSilhouetteImage(const StringView emoji)
+	{
+		const GlyphIndex glyphIndex = SIV3D_ENGINE(Font)->getEmojiGlyphIndex(emoji);
+
+		return CreateSilhouetteImageByGlyphIndex(glyphIndex);
+	}
+
+	Image Emoji::CreateSilhouetteImageByGlyphIndex(const GlyphIndex glyphIndex)
+	{
+		Image image = CreateImageByGlyphIndex(glyphIndex);
+
+		for (auto& pixel : image)
+		{
+			pixel.setRGB(255, 255, 255);
+		}
+
+		return image;
+	}
+
+	inline namespace Literals
+	{
+		inline namespace EmojiLiterals
+		{
+			Emoji operator ""_emoji(const char32* s, const size_t length)
+			{
+				return Emoji{ String(s, length) };
+			}
+		}
+	}
 }

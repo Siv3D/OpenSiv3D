@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,45 +11,12 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Format.hpp"
-# include "FormatUtility.hpp"
+# include "Formatter.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// ログファイルの詳細度
-	/// </summary>
-	enum class OutputLevel
-	{
-		/// <summary>
-		/// 低
-		/// </summary>
-		Less,
-
-		/// <summary>
-		/// 通常
-		/// </summary>
-		Normal,
-
-		/// <summary>
-		/// 高
-		/// </summary>
-		More,
-	};
-
-	enum class LogDescription
-	{
-		Error,		// Less
-		Fail,		// Less
-		Warning,	// Less
-		Script,		// Less
-		App,		// Normal
-		Info,		// Normal
-		Debug,		// More
-		Trace,		// More
-	};
-
 	namespace detail
 	{
 		struct LoggerBuffer
@@ -58,12 +25,12 @@ namespace s3d
 
 			LoggerBuffer();
 
-			LoggerBuffer(LoggerBuffer&& other);
+			LoggerBuffer(LoggerBuffer&& other) noexcept;
 
 			~LoggerBuffer();
 
-			template <class Type>
-			LoggerBuffer& operator <<(const Type& value)
+			SIV3D_CONCEPT_FORMATTABLE
+			LoggerBuffer& operator <<(const Formattable& value)
 			{
 				Formatter(*formatData, value);
 
@@ -73,18 +40,58 @@ namespace s3d
 
 		struct Logger_impl
 		{
-			void writeln(const String& text) const;
+			void writeln(const char32_t* s) const;
 
-			void operator()(const String& text) const;
+			void writeln(StringView s) const;
+
+			void writeln(const String& s) const;
+
+			void operator()(const char32_t* s) const;
+
+			void operator()(StringView s) const;
+
+			void operator()(const String& s) const;
+
+		# if __cpp_lib_concepts
+
+			template <Concept::Formattable... Args>
+			void writeln(const Args&... args) const
+			{
+				return writeln(Format(args...));
+			}
+
+			// Format できない値が Logger.writeln() に渡されたときに発生するエラーです
+			template <class... Args>
+			void writeln(const Args&... args) const = delete;
+
+			template <Concept::Formattable... Args>
+			void operator()(const Args&... args) const
+			{
+				return writeln(Format(args...));
+			}
+
+			// Format できない値が Logger() に渡されたときに発生するエラーです
+			template <class... Args>
+			void operator()(const Args&... args) const = delete;
+
+		# else
+
+			template <class... Args>
+			void writeln(const Args&... args) const
+			{
+				return writeln(Format(args...));
+			}
 
 			template <class... Args>
 			void operator()(const Args&... args) const
 			{
-				writeln(Format(args...));
+				return writeln(Format(args...));
 			}
 
-			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
-			LoggerBuffer operator <<(const Type& value) const
+		# endif
+
+			SIV3D_CONCEPT_FORMATTABLE
+			LoggerBuffer operator <<(const Formattable& value) const
 			{
 				LoggerBuffer buf;
 
@@ -93,15 +100,13 @@ namespace s3d
 				return buf;
 			}
 
-			void setOutputLevel(OutputLevel level) const;
+			/// @brief ログ出力を無効化します
+			void disable() const;
 
-			void _outputLog(LogDescription desc, const String& text) const;
-
-			void _outputLogOnce(LogDescription desc, uint32 id, const String& text) const;
-
-			void writeRawHTML_UTF8(std::string_view htmlText) const;
+			/// @brief ログ出力を有効化します
+			void enable() const;
 		};
 	}
 
-	inline constexpr auto Logger = detail::Logger_impl();
+	inline constexpr auto Logger = detail::Logger_impl{};
 }

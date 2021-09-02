@@ -1,0 +1,3 @@
+GMGSx.sf2 is soundfont created by Kenneth Rundt author of Synthfont.
+It is public domain licensed and has similar sound output as gm.dls or Roland gs.sf2.
+It can be obtained in Synthfont 2 installation folder.

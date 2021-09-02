@@ -2,18 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Window.hpp>
-# include <Siv3D/Monitor.hpp>
+# include <Siv3D/Utility.hpp>
 # include <Siv3D/Error.hpp>
-# include <Siv3DEngine.hpp>
-# include "IWindow.hpp"
+# include <Siv3D/Monitor.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/WindowState.hpp>
+# include <Siv3D/Window/IWindow.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -21,131 +24,138 @@ namespace s3d
 	{
 		void SetTitle(const String& title)
 		{
-			Siv3DEngine::Get<ISiv3DWindow>()->setWindowTitle(title);
+			SIV3D_ENGINE(Window)->setWindowTitle(title);
 		}
 
-		const String& GetTitle()
+		const String& GetTitle() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->getWindowTitle();
+			return SIV3D_ENGINE(Window)->getWindowTitle();
 		}
 
-		WindowState GetState()
+		const WindowState& GetState() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->getWindowState();
+			return SIV3D_ENGINE(Window)->getState();
 		}
 
 		void SetStyle(const WindowStyle style)
 		{
-			Siv3DEngine::Get<ISiv3DWindow>()->setStyle(style);
+			SIV3D_ENGINE(Window)->setStyle(style);
 		}
 
-		WindowStyle GetStyle()
+		void SetPos(const Point pos)
 		{
-			return GetState().style;
-		}
-
-		Size ClientSize()
-		{
-			return GetState().clientSize;
-		}
-
-		Point ClientCenter()
-		{
-			return GetState().clientSize / 2;
-		}
-
-		int32 ClientWidth()
-		{
-			return GetState().clientSize.x;
-		}
-
-		int32 ClientHeight()
-		{
-			return GetState().clientSize.y;
-		}
-
-		void SetPos(const Point& pos)
-		{
-			Siv3DEngine::Get<ISiv3DWindow>()->setPos(pos);
-		}
-
-		void SetPos(int32 x, int32 y)
-		{
-			SetPos(Point(x, y));
+			SIV3D_ENGINE(Window)->setPos(pos);
 		}
 
 		void Centering()
 		{
-			const auto monitors = System::EnumerateActiveMonitors();
-
-			if (!monitors)
+			try
 			{
-				return;
+				const Monitor currentMonitor = System::GetCurrentMonitor();
+				const Rect workArea = System::GetCurrentMonitor().workArea;
+				const Rect windowBounds = SIV3D_ENGINE(Window)->getState().bounds;
+				const Point pos = (workArea.pos + (workArea.size - windowBounds.size) / 2);
+
+				SetPos(pos);
 			}
-
-			const Rect workArea = monitors[System::GetCurrentMonitorIndex()].workArea;
-			const Rect windowBounds = Siv3DEngine::Get<ISiv3DWindow>()->getWindowBounds();
-
-			Point pos = workArea.pos + (workArea.size - windowBounds.size) / 2;
-
-			if (pos.y < 0)
-			{
-				pos.y = 0;
-			}
-
-			SetPos(pos);
-		}
-
-		bool Resize(const Size& size, const WindowResizeOption option, const bool centering)
-		{
-			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
-			{
-				throw Error(U"Window::Resize(): width and height must be in the range [1, 8192]");
-			}
-
-			return Siv3DEngine::Get<ISiv3DWindow>()->resizeClient(size, option, centering);
-		}
-
-		bool Resize(const int32 width, const int32 height, const WindowResizeOption option, const bool centering)
-		{
-			return Resize(Size(width, height), option, centering);
+			catch (const Error&) {}
 		}
 
 		void Maximize()
 		{
-			Siv3DEngine::Get<ISiv3DWindow>()->maximize();
+			SIV3D_ENGINE(Window)->maximize();
 		}
 
 		void Restore()
 		{
-			Siv3DEngine::Get<ISiv3DWindow>()->restore();
+			SIV3D_ENGINE(Window)->restore();
 		}
 
 		void Minimize()
 		{
-			Siv3DEngine::Get<ISiv3DWindow>()->minimize();
+			SIV3D_ENGINE(Window)->minimize();
 		}
 
-		bool SetFullscreen(const bool fullscreen, const Optional<Size>& fullscreenResolution, const WindowResizeOption option)
+		bool ResizeVirtual(const Size size, const s3d::Centering centering)
 		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->setFullscreen(fullscreen, fullscreenResolution, option);
+			if ((not InRange(size.x, 1, 8192))
+				|| (not InRange(size.y, 1, 8192)))
+			{
+				throw Error(U"Window::ResizeVirtual(): width and height must be in the range [1, 8192]");
+			}
+
+			if (not SIV3D_ENGINE(Window)->resizeByVirtualSize(size))
+			{
+				return false;
+			}
+
+			if (const auto resizeMode = Scene::GetResizeMode();
+				resizeMode == ResizeMode::Actual)
+			{
+				Scene::Resize(SIV3D_ENGINE(Window)->getState().frameBufferSize);
+			}
+			else if (resizeMode == ResizeMode::Virtual)
+			{
+				Scene::Resize(size);
+			}
+
+			if (centering)
+			{
+				Centering();
+			}
+
+			return true;
+		}
+
+		bool ResizeActual(const Size size, const s3d::Centering centering)
+		{
+			if ((not InRange(size.x, 1, 8192))
+				|| (not InRange(size.y, 1, 8192)))
+			{
+				throw Error(U"Window::ResizeActual(): width and height must be in the range [1, 8192]");
+			}
+
+			if (not SIV3D_ENGINE(Window)->resizeByFrameBufferSize(size))
+			{
+				return false;
+			}
+
+			if (const auto resizeMode = Scene::GetResizeMode();
+				resizeMode == ResizeMode::Actual)
+			{
+				Scene::Resize(SIV3D_ENGINE(Window)->getState().frameBufferSize);
+			}
+			else if (resizeMode == ResizeMode::Virtual)
+			{
+				Scene::Resize(size);
+			}
+
+			if (centering)
+			{
+				Centering();
+			}
+
+			return true;
+		}
+
+		void SetMinimumFrameBufferSize(const Size size)
+		{
+			SIV3D_ENGINE(Window)->setMinimumFrameBufferSize(size);
+		}
+
+		void SetFullscreen(const bool fullscreen, const size_t monitorIndex)
+		{
+			SIV3D_ENGINE(Window)->setFullscreen(fullscreen, monitorIndex);
+		}
+
+		void SetToggleFullscreenEnabled(const bool enabled)
+		{
+			SIV3D_ENGINE(Window)->setToggleFullscreenEnabled(enabled);
+		}
+
+		bool IsToggleFullscreenEnabled()
+		{
+			return SIV3D_ENGINE(Window)->isToggleFullscreenEnabled();
 		}
 	}
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-	namespace Platform::Windows::Window
-	{
-		void* GetHWND()
-		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->getHandle();
-		}
-
-		bool ChangeDisplayResolution(const Size& size)
-		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->changeDisplayResolution(size);
-		}
-	}
-
-# endif
 }

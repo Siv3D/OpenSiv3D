@@ -2,57 +2,36 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// テクスチャの設定
-	/// </summary>
-	enum class TextureDesc
+	/// @brief テクスチャの設定
+	enum class TextureDesc : uint8
 	{
-		/// <summary>
-		/// ミップマップなし
-		/// </summary>
+		/// @brief ミップマップなし
 		Unmipped,
 
-		/// <summary>
-		/// ミップマップなし、sRGB
-		/// </summary>
+		/// @brief ミップマップなし、sRGB
 		UnmippedSRGB,
 
-		/// <summary>
-		/// ミップマップあり
-		/// </summary>
+		/// @brief ミップマップあり
 		Mipped,
 
-		/// <summary>
-		/// ミップマップあり、sRGB
-		/// </summary>
+		/// @brief ミップマップあり、sRGB
 		MippedSRGB,
 
-		/// <summary>
-		/// Signed Distance Field
-		/// </summary>
+		/// @brief Signed Distance Field
 		SDF,
-
-		/// <summary>
-		/// 3D 用のテクスチャのデフォルト [ミップマップあり、sRGB]
-		/// </summary>
-		For3D = MippedSRGB,
 	};
-
-	namespace detail
-	{
-		bool IsMipped(TextureDesc desc) noexcept;
-
-		bool IsSRGB(TextureDesc desc) noexcept;
-	}
 }
+
+# include "detail/TextureDesc.ipp"

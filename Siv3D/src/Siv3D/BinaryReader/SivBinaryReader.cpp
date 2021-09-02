@@ -2,20 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/BinaryReader.hpp>
-# include <BinaryReader/BinaryReaderDetail.hpp>
+# include <Siv3D/BinaryReader/BinaryReaderDetail.hpp>
 
 namespace s3d
 {
 	BinaryReader::BinaryReader()
-		: pImpl(std::make_shared<BinaryReaderDetail>())
+		: pImpl{ std::make_shared<BinaryReaderDetail>() }
 	{
 
 	}
@@ -30,7 +30,7 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool BinaryReader::isOpen() const
+	bool BinaryReader::isOpen() const noexcept
 	{
 		return pImpl->isOpen();
 	}
@@ -47,50 +47,63 @@ namespace s3d
 
 	bool BinaryReader::setPos(const int64 pos)
 	{
-		if (pos < 0 || pImpl->size() < pos)
+		if (not InRange<int64>(pos, 0, pImpl->size()))
 		{
 			return false;
 		}
 
-		return pImpl->setPos(pos) == pos;
+		return (pImpl->setPos(pos) == pos);
 	}
 
 	int64 BinaryReader::skip(const int64 offset)
 	{
-		return pImpl->setPos(pImpl->getPos() + offset);
+		const int64 clampedPos = Clamp<int64>(pImpl->getPos() + offset, 0, pImpl->size());
+
+		return pImpl->setPos(clampedPos);
 	}
 
-	int64 BinaryReader::read(void* const buffer, const int64 size)
+	int64 BinaryReader::read(void* const dst, const int64 size)
 	{
-		return pImpl->read(buffer, size);
+		if ((dst == nullptr) || (size <= 0))
+		{
+			return 0;
+		}
+
+		return pImpl->read(NonNull{ dst }, size);
 	}
 
-	int64 BinaryReader::read(void* const buffer, const int64 pos, const int64 size)
+	int64 BinaryReader::read(void* const dst, const int64 pos, const int64 size)
 	{
-		return pImpl->read(buffer, pos, size);
+		if ((dst == nullptr) || (size <= 0) || (not InRange<int64>(pos, 0, pImpl->size())))
+		{
+			return 0;
+		}
+
+		return pImpl->read(NonNull{ dst }, pos, size);
 	}
 
-	int64 BinaryReader::lookahead(void* const buffer, const int64 size) const
+	int64 BinaryReader::lookahead(void* const dst, const int64 size) const
 	{
-		return pImpl->lookahead(buffer, size);
+		if ((dst == nullptr) || (size <= 0))
+		{
+			return 0;
+		}
+
+		return pImpl->lookahead(NonNull{ dst }, size);
 	}
 
-	int64 BinaryReader::lookahead(void* const buffer, const int64 pos, const int64 size) const
+	int64 BinaryReader::lookahead(void* const dst, const int64 pos, const int64 size) const
 	{
-		return pImpl->lookahead(buffer, pos, size);
+		if ((dst == nullptr) || (size <= 0) || (not InRange<int64>(pos, 0, pImpl->size())))
+		{
+			return 0;
+		}
+
+		return pImpl->lookahead(NonNull{ dst }, pos, size);
 	}
 
-	const FilePath& BinaryReader::path() const
+	const FilePath& BinaryReader::path() const noexcept
 	{
 		return pImpl->path();
-	}
-
-	ByteArray BinaryReader::readAll()
-	{
-		Array<Byte> data(static_cast<size_t>(size()));
-
-		read(data.data(), 0, size());
-
-		return ByteArray(std::move(data));
 	}
 }

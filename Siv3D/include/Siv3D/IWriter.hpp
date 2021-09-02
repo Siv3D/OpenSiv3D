@@ -2,92 +2,60 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "ByteArrayViewAdapter.hpp"
+# include "Common.hpp"
+# include "Concepts.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// IWriter インタフェースクラス
-	/// </summary>
+	/// @brief Writer インタフェース
 	class IWriter
 	{
 	public:
 
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
+		/// @brief デストラクタ 
 		virtual ~IWriter() = default;
 
-		/// <summary>
-		/// Writer が使用可能かを示します。
-		/// </summary>
-		/// <returns>
-		/// Writer が使用可能な場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] virtual bool isOpen() const = 0;
+		/// @brief Writer が使用可能かを返します。
+		/// @return Writer が使用可能な場合 true, それ以外の場合は false
+		[[nodiscard]]
+		virtual bool isOpen() const noexcept = 0;
 
-		/// <summary>
-		/// Writer のサイズを返します。
-		/// </summary>
-		/// <returns>
-		/// Writer のサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] virtual int64 size() const = 0;
+		/// @brief Writer のサイズを返します。
+		/// @return Writer のサイズ（バイト）
+		[[nodiscard]]
+		virtual int64 size() const = 0;
 
-		/// <summary>
-		/// Writer の現在の書き込み位置を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の書き込み位置（バイト）
-		/// </returns>
-		[[nodiscard]] virtual int64 getPos() const = 0;
+		/// @brief Writer の現在の書き込み位置を返します。
+		/// @return 現在の書き込み位置（バイト）
+		[[nodiscard]]
+		virtual int64 getPos() const = 0;
 
-		/// <summary>
-		/// Writer の書き込み位置を変更します。
-		/// </summary>
-		/// <param name="pos">
-		/// 新しい書き込み位置（バイト）
-		/// </param>
-		/// <returns>
-		/// 書き込み位置の変更に成功した場合 true, それ以外の場合は false
-		/// </returns>
+		/// @brief Writer の書き込み位置を変更します。
+		/// @param pos 新しい書き込み位置（バイト）
+		/// @return 書き込み位置の変更に成功した場合 true, それ以外の場合は false
 		virtual bool setPos(int64 pos) = 0;
 
-		/// <summary>
-		/// Writer にデータを書き込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 書き込むデータ
-		/// </param>
-		/// <param name="size">
-		/// 書き込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		virtual int64 write(const void* buffer, size_t size) = 0;
+		/// @brief Writer にデータを書き込みます。
+		/// @param src 書き込むデータ
+		/// @param sizeBytes 書き込むサイズ（バイト）
+		/// @return 実際に書き込んだサイズ（バイト）
+		virtual int64 write(const void* src, int64 sizeBytes) = 0;
 
-		/// <summary>
-		/// Writer にデータを書き込みます。
-		/// </summary>
-		/// <param name="view">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		int64 write(ByteArrayViewAdapter view)
-		{
-			return write(view.data(), view.size());
-		}
+		/// @brief Writer にデータを書き込みます。
+		/// @tparam TriviallyCopyable 書き込む値の型
+		/// @param src 書き込むデータ
+		/// @return 書き込みに成功した場合 true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool write(const TriviallyCopyable& src);
 	};
 }
+
+# include "detail/IWriter.ipp"

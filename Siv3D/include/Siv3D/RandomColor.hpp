@@ -2,38 +2,83 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
+# include "Common.hpp"
 # include "Color.hpp"
+# include "ColorF.hpp"
 # include "HSV.hpp"
 
 namespace s3d
 {
-	Color RandomColor();
+	[[nodiscard]]
+	inline Color RandomColor();
 
-	Color RandomColor(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Color RandomColor(URBG&& urbg);
+
+	[[nodiscard]]
+	inline Color RandomColor(
 		const std::pair<uint32, uint32>& rMinMax,
 		const std::pair<uint32, uint32>& gMinMax,
 		const std::pair<uint32, uint32>& bMinMax);
 
-	ColorF RandomColorF();
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Color RandomColor(
+		const std::pair<uint32, uint32>& rMinMax,
+		const std::pair<uint32, uint32>& gMinMax,
+		const std::pair<uint32, uint32>& bMinMax,
+		URBG&& urbg);
 
-	ColorF RandomColorF(
+	[[nodiscard]]
+	inline ColorF RandomColorF();
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline ColorF RandomColorF(URBG&& urbg);
+
+	[[nodiscard]]
+	inline ColorF RandomColorF(
 		const std::pair<double, double>& rMinMax,
 		const std::pair<double, double>& gMinMax,
 		const std::pair<double, double>& bMinMax);
 
-	HSV RandomHSV();
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline ColorF RandomColorF(
+		const std::pair<double, double>& rMinMax,
+		const std::pair<double, double>& gMinMax,
+		const std::pair<double, double>& bMinMax,
+		URBG&& urbg);
 
-	HSV RandomHSV(
+	[[nodiscard]]
+	inline HSV RandomHSV();
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline HSV RandomHSV(URBG&& urbg);
+
+	[[nodiscard]]
+	inline HSV RandomHSV(
 		const std::pair<double, double>& hMinMax,
 		const std::pair<double, double>& sMinMax,
 		const std::pair<double, double>& vMinMax);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline HSV RandomHSV(
+		const std::pair<double, double>& hMinMax,
+		const std::pair<double, double>& sMinMax,
+		const std::pair<double, double>& vMinMax,
+		URBG&& urbg);
 }
+
+# include "detail/RandomColor.ipp"

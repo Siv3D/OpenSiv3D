@@ -49,31 +49,40 @@ namespace rectpack2D {
 		empty_spaces_type& root,
 		O ordering,
 		const rect_wh starting_bin,
-		const int discard_step,
+		int discard_step,
 		const bin_dimension tried_dimension
 	) {
 		auto candidate_bin = starting_bin;
+		int tries_before_discarding = 0;
+
+		if (discard_step <= 0)
+		{
+			tries_before_discarding = -discard_step;
+			discard_step = 1;
+		}
+		
+		//std::cout << "best_packing_for_ordering_impl dim: " << int(tried_dimension) << " w: " << starting_bin.w << " h: " << starting_bin.h << std::endl;
 
 		int starting_step = 0;
 
 		if (tried_dimension == bin_dimension::BOTH) {
-			starting_step = starting_bin.w / 2;
-
 			candidate_bin.w /= 2;
 			candidate_bin.h /= 2;
+
+			starting_step = candidate_bin.w / 2;
 		}
 		else if (tried_dimension == bin_dimension::WIDTH) {
-			starting_step = starting_bin.w / 2;
-
 			candidate_bin.w /= 2;
+			starting_step = candidate_bin.w / 2;
 		}
 		else {
-			starting_step = starting_bin.h / 2;
-
 			candidate_bin.h /= 2;
+			starting_step = candidate_bin.h / 2;
 		}
 
 		for (int step = starting_step; ; step = std::max(1, step / 2)) {
+			//std::cout << "candidate: " << candidate_bin.w << "x" << candidate_bin.h << std::endl;
+
 			root.reset(candidate_bin);
 
 			int total_inserted_area = 0;
@@ -97,7 +106,14 @@ namespace rectpack2D {
 				/* Attempt was successful. Try with a smaller bin. */
 
 				if (step <= discard_step) {
-					return candidate_bin;
+					if (tries_before_discarding > 0)
+					{
+						tries_before_discarding--;
+					}
+					else
+					{
+						return candidate_bin;
+					}
 				}
 
 				if (tried_dimension == bin_dimension::BOTH) {

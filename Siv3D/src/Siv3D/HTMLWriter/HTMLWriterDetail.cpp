@@ -2,11 +2,13 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::HTMLWriter is originally created by Kenta Masuda (HAMSTRO)
 //-----------------------------------------------
 
 # include "HTMLWriterDetail.hpp"
@@ -15,7 +17,7 @@ namespace s3d
 {
 	HTMLWriter::HTMLWriterDetail::HTMLWriterDetail()
 	{
-
+		// do nothing
 	}
 
 	HTMLWriter::HTMLWriterDetail::~HTMLWriterDetail()
@@ -23,21 +25,21 @@ namespace s3d
 		close();
 	}
 
-	bool HTMLWriter::HTMLWriterDetail::open(const FilePathView path, const String& title, const StringView styleSheet)
+	bool HTMLWriter::HTMLWriterDetail::open(const FilePathView path, const StringView title, const StringView styleSheet)
 	{
 		if (m_textWriter.isOpen())
 		{
 			close();
 		}
 
-		if (!m_textWriter.open(path))
+		if (not m_textWriter.open(path))
 		{
 			return false;
 		}
 
 		m_textWriter.writeln(U"<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\" />");
 
-		writeElementRaw(title.xml_escaped(), U"title");
+		writeElementRaw(String(title).xml_escaped(), U"title");
 
 		writeElementRaw(styleSheet, U"style");
 
@@ -48,7 +50,7 @@ namespace s3d
 
 	void HTMLWriter::HTMLWriterDetail::close()
 	{
-		if (!m_textWriter.isOpen())
+		if (not m_textWriter)
 		{
 			return;
 		}
@@ -65,7 +67,7 @@ namespace s3d
 
 	void HTMLWriter::HTMLWriterDetail::writeRaw(const StringView view)
 	{
-		if (!m_textWriter.isOpen())
+		if (not m_textWriter.isOpen())
 		{
 			return;
 		}
@@ -73,14 +75,14 @@ namespace s3d
 		m_textWriter.write(view);
 	}
 
-	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const String& tag)
+	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const StringView tag)
 	{
 		writeElementRaw(content, tag, tag);
 	}
 
-	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const String& startTag, const String& endTag)
+	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const StringView startTag, const StringView endTag)
 	{
-		if (!m_textWriter.isOpen())
+		if (not m_textWriter)
 		{
 			return;
 		}
@@ -92,7 +94,7 @@ namespace s3d
 		m_textWriter.write(U"</" + endTag + U">\n");
 	}
 
-	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const String& tag, const Array<std::pair<String, String>>& styles)
+	void HTMLWriter::HTMLWriterDetail::writeElementRaw(const StringView content, const StringView tag, const Array<std::pair<String, String>>& styles)
 	{
 		const String startTag =
 			styles.map([](const std::pair<String, String>& keyValue) {

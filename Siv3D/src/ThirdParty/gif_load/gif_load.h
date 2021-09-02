@@ -214,7 +214,7 @@ extern "C" {
 			uint8_t tran;        /** transparent color index                  **/
 		} *egch = 0;
 #pragma pack(pop)
-		struct GIF_WHDR wtmp, whdr = { 0 };
+		struct GIF_WHDR wtmp, whdr = {};
 		long desc, blen;
 		uint8_t* buff;
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,13 +11,16 @@
 
 # pragma once
 # include <string>
-# include "Fwd.hpp"
-# include "TypeTraits.hpp"
+# include "Common.hpp"
 # include "StringView.hpp"
-# include "Functor.hpp"
+# include "Utility.hpp"
+# include "Shuffle.hpp"
 
 namespace s3d
 {
+	template <class Type, class Allocator> class Array;
+
+	/// @brief 文字列
 	class String
 	{
 	public:
@@ -37,2006 +40,792 @@ namespace s3d
 		using reverse_iterator			= typename string_type::reverse_iterator;
 		using const_reverse_iterator	= typename string_type::const_reverse_iterator;
 
-	private:
-
-		string_type m_string;
-
-	public:
-
 		template <class StringViewIsh>
 		using IsStringViewIsh = std::enable_if_t<
 			std::conjunction_v<std::is_convertible<const StringViewIsh&, StringView>,
 			std::negation<std::is_convertible<const StringViewIsh&, const char32*>>>>;
 
-		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
-		
-		/// <summary>
-		/// default constructor
-		/// </summary>
-		String() = default;
+		static constexpr size_type npos{ static_cast<size_type>(-1) };
 
-		/// <summary>
-		/// 文字列をコピーして新しい文字列を作成します。
-		/// </summary>
-		/// <param name="text">
-		/// コピーする文字列
-		/// </param>
-		String(const String& text);
+		/// @brief デフォルトコンストラクタ | default constructor
+		SIV3D_NODISCARD_CXX20
+		String();
 
-		/// <summary>
-		/// 文字列をコピーして新しい文字列を作成します。
-		/// </summary>
-		/// <param name="text">
-		/// コピーする文字列
-		/// </param>
-		String(const string_type& text);
+		/// @brief 文字列をコピーして新しい文字列を作成します。
+		/// @param other コピーする文字列
+		SIV3D_NODISCARD_CXX20
+		String(const String& other);
 
-		String(const String& text, size_type pos);
+		/// @brief 文字列をコピーして新しい文字列を作成します。
+		/// @param s コピーする文字列
+		SIV3D_NODISCARD_CXX20
+		String(const string_type& s);
 
-		String(const String& text, size_type pos, size_type count);
+		SIV3D_NODISCARD_CXX20
+		String(const String& other, size_type pos);
 
-		String(const value_type* text);
+		SIV3D_NODISCARD_CXX20
+		String(const String& other, size_type pos, size_type count);
 
-		String(const value_type* text, size_type count);
+		SIV3D_NODISCARD_CXX20
+		String(const value_type* s);
 
+		SIV3D_NODISCARD_CXX20
+		String(const value_type* s, size_type count);
+
+		SIV3D_NODISCARD_CXX20
 		String(std::initializer_list<value_type> ilist);
 
+		SIV3D_NODISCARD_CXX20
 		String(size_t count, value_type ch);
 
 		template <class Iterator>
-		String(Iterator first, Iterator last)
-			: m_string(first, last) {}
+		SIV3D_NODISCARD_CXX20
+		String(Iterator first, Iterator last);
 
-		String(String&& text) noexcept;
+		SIV3D_NODISCARD_CXX20
+		String(String&& other) noexcept;
 
-		String(string_type&& text) noexcept;
+		SIV3D_NODISCARD_CXX20
+		String(string_type&& s) noexcept;
 
 		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
-		explicit String(const StringViewIsh& viewish)
-			: m_string(viewish.data(), viewish.size()) {}
+		SIV3D_NODISCARD_CXX20
+		explicit String(const StringViewIsh& s);
 
 		operator StringView() const noexcept;
 
-		String& operator =(const String& text);
+		String& operator =(const String& other);
 
-		String& operator =(const string_type& text);
+		String& operator =(const string_type& s);
 
-		String& operator =(String&& text) noexcept;
+		String& operator =(String&& other) noexcept;
 
-		String& operator =(string_type&& text) noexcept;
+		String& operator =(string_type&& s) noexcept;
 
-		String& operator =(const value_type* text);
+		String& operator =(const value_type* s);
 
 		String& operator =(std::initializer_list<value_type> ilist);
 
 		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
-		String& operator =(const StringViewIsh& viewish)
-		{
-			return assign(viewish);
-		}
+		String& operator =(const StringViewIsh& s);
 
-		String& operator <<(value_type ch);
+		String& assign(const String& s);
 
-		String& assign(const String& text);
+		String& assign(const string_type& s);
 
-		String& assign(const string_type& text);
-
-		String& assign(const value_type* text);
+		String& assign(const value_type* s);
 
 		String& assign(size_t count, value_type ch);
 
-		String& assign(String&& text) noexcept;
+		String& assign(String&& s) noexcept;
 
-		String& assign(string_type&& text) noexcept;
+		String& assign(string_type&& s) noexcept;
 
 		String& assign(std::initializer_list<value_type> ilist);
 
 		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
-		String& assign(const StringViewIsh& viewish)
-		{
-			m_string.assign(viewish.data(), viewish.size());
-
-			return *this;
-		}
+		String& assign(const StringViewIsh& s);
 
 		template <class Iterator>
-		String& assign(Iterator first, Iterator last)
-		{
-			m_string.assign(first, last);
+		String& assign(Iterator first, Iterator last);
+		
+		[[nodiscard]]
+		allocator_type get_allocator() const noexcept;
 
-			return *this;
-		}
+		String& operator <<(value_type ch);
 
-		String& operator +=(const String& text);
+		String& operator +=(const String& s);
 
-		String& operator +=(const string_type& text);
+		String& operator +=(const string_type& s);
 
-		String& operator +=(const value_type ch);
+		String& operator +=(value_type ch);
 
-		String& operator +=(const value_type* text);
+		String& operator +=(const value_type* s);
 
 		String& operator +=(std::initializer_list<value_type> ilist);
 
 		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
-		String& operator +=(const StringViewIsh& viewish)
-		{
-			return append(viewish);
-		}
+		String& operator +=(const StringViewIsh& s);
 
-		String& append(const String& text);
+		String& append(const String& s);
 
-		String& append(const string_type& text);
+		String& append(const string_type& s);
 
-		String& append(const value_type ch);
+		String& append(value_type ch);
 
-		String& append(const value_type* text);
+		String& append(const value_type* s);
 
-		String& append(const value_type* text, size_t count);
+		String& append(const value_type* s, size_t count);
 
 		String& append(std::initializer_list<value_type> ilist);
 
 		String& append(size_t count, value_type ch);
 
 		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
-		String& append(const StringViewIsh& viewish)
-		{
-			m_string.append(viewish.data(), viewish.size());
-
-			return *this;
-		}
+		String& append(const StringViewIsh& s);
 
 		template <class Iterator>
-		String& append(Iterator first, Iterator last)
-		{
-			m_string.append(first, last);
+		String& append(Iterator first, Iterator last);
 
-			return *this;
-		}
+		String& insert(size_t offset, const String& s);
 
-		/// <summary>
-		/// 指定した位置に文字列を挿入します。
-		/// </summary>
-		/// <param name="offset">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="text">
-		/// 挿入する文字列
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		String& insert(size_t offset, const String& text);
-
-		/// <summary>
-		/// 指定した位置に文字列を挿入します。
-		/// </summary>
-		/// <param name="offset">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="ilist">
-		/// 挿入する文字列の初期化リスト
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		String& insert(size_t offset, std::initializer_list<value_type> ilist);
 
-		/// <summary>
-		/// 指定した位置に文字列を挿入します。
-		/// </summary>
-		/// <param name="offset">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="text">
-		/// 挿入する文字列
-		/// </param>
-		/// <remarks>
-		/// text は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// *this
-		/// </returns>
-		String& insert(size_t offset, const value_type* text);
+		String& insert(size_t offset, const value_type* s);
 
-		/// <summary>
-		/// 指定した位置に文字列を挿入します。
-		/// </summary>
-		/// <param name="offset">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="text">
-		/// 挿入する文字列
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-		String& insert(size_t offset, const StringViewIsh& text)
-		{
-			m_string.insert(offset, text.data(), text.size());
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& insert(size_t offset, const StringViewIsh& s);
 
-			return *this;
-		}
-
-		/// <summary>
-		/// 指定した位置に文字を指定した個数だけ挿入します。
-		/// </summary>
-		/// <param name="offset">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="count">
-		/// 文字の個数
-		/// </param>
-		/// <param name="ch">
-		/// 挿入する文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		String& insert(size_t offset, size_t count, value_type ch);
 
-		/// <summary>
-		/// 指定した位置に文字を挿入します。
-		/// </summary>
-		/// <param name="where">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="ch">
-		/// 挿入する文字
-		/// </param>
-		/// <returns>
-		/// イテレータ
-		/// </returns>
 		iterator insert(const_iterator where, value_type ch);
 
-		/// <summary>
-		/// 指定した位置に文字を指定した個数挿入します。
-		/// </summary>
-		/// <param name="where">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="count">
-		/// 文字の個数
-		/// </param>
-		/// <param name="ch">
-		/// 挿入する文字
-		/// </param>
-		/// <returns>
-		/// イテレータ
-		/// </returns>
 		iterator insert(const_iterator where, size_t count, value_type ch);
 
-		/// <summary>
-		/// 指定した位置に指定した範囲の文字列を挿入します。
-		/// </summary>
-		/// <param name="where">
-		/// 挿入する位置
-		/// </param>
-		/// <param name="first">
-		/// 範囲の開始位置
-		/// </param>
-		/// <param name="last">
-		/// 範囲の終了位置
-		/// </param>
-		/// <returns>
-		/// イテレータ
-		/// </returns>
 		template <class Iterator>
-		iterator insert(const_iterator where, Iterator first, Iterator last)
-		{
-			return m_string.insert(where, first, last);
-		}
+		iterator insert(const_iterator where, Iterator first, Iterator last);
 
-		/// <summary>
-		/// 指定した範囲を削除し、新しい文字列を挿入します。
-		/// </summary>
-		/// <param name="first1">
-		/// 削除する範囲の開始位置
-		/// </param>
-		/// <param name="last1">
-		/// 削除する範囲の終了位置
-		/// </param>
-		/// <param name="first2">
-		/// 挿入する範囲の開始位置
-		/// </param>
-		/// <param name="last2">
-		/// 挿入する範囲の終了位置
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		template <class Iterator>
-		String& insert(const_iterator first1, const_iterator last1, Iterator first2, Iterator last2)
-		{
-			m_string.insert(first1, last1, first2, last2);
+		String& insert(const_iterator first1, const_iterator last1, Iterator first2, Iterator last2);
 
-			return *this;
-		}
-
-		/// <summary>
-		/// 指定した位置から指定した個数の文字を削除します。
-		/// </summary>
-		/// <param name="offset">
-		/// 削除開始する位置
-		/// </param>
-		/// <param name="count">
-		/// 削除する文字数。 npos の場合は終端まですべて
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		String& erase(size_t offset = 0, size_t count = npos);
 
-		/// <summary>
-		/// 指定した位置の文字を削除します。
-		/// </summary>
-		/// <param name="where">
-		/// 削除する位置
-		/// </param>
-		/// <returns>
-		/// 削除した直後の位置へのイテレータ
-		/// </returns>
-		iterator erase(const_iterator where);
+		iterator erase(const_iterator where) noexcept;
 
-		/// <summary>
-		/// 指定した範囲の文字列を削除します。
-		/// </summary>
-		/// <param name="first">
-		/// 削除する範囲の開始位置
-		/// </param>
-		/// <param name="last">
-		/// 削除する範囲の終了位置
-		/// </param>
-		/// <returns>
-		/// 削除した直後の位置へのイテレータ
-		/// </returns>
-		iterator erase(const_iterator first, const_iterator last);
+		iterator erase(const_iterator first, const_iterator last) noexcept;
 
-		/// <summary>
-		/// 文字列を消去し、空の文字列にします。
-		/// </summary>
-		/// <remarks>
-		/// メモリを解放したい場合は shrink_to_fit() を呼びます。
-		/// </remarks>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void clear() noexcept;
 
-		/// <summary>
-		/// 文字列の先頭位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭位置のイテレータ
-		/// </returns>
-		[[nodiscard]] iterator begin() noexcept
-		{
-			return m_string.begin();
-		}
+		[[nodiscard]]
+		iterator begin() noexcept;
 
-		/// <summary>
-		/// 文字列の先頭位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭位置のイテレータ
-		/// </returns>
-		[[nodiscard]] const_iterator begin() const noexcept
-		{
-			return m_string.begin();
-		}
+		[[nodiscard]]
+		iterator end() noexcept;
 
-		/// <summary>
-		/// 文字列の先頭位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭位置のイテレータ
-		/// </returns>
-		[[nodiscard]] const_iterator cbegin() const noexcept
-		{
-			return m_string.cbegin();
-		}
+		[[nodiscard]]
+		const_iterator begin() const noexcept;
 
-		/// <summary>
-		/// 文字列の終了位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の終了位置のイテレータ
-		/// </returns>
-		[[nodiscard]] iterator end() noexcept
-		{
-			return m_string.end();
-		}
+		[[nodiscard]]
+		const_iterator end() const noexcept;
 
-		/// <summary>
-		/// 文字列の終了位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の終了位置のイテレータ
-		/// </returns>
-		[[nodiscard]] const_iterator end() const noexcept
-		{
-			return m_string.end();
-		}
+		[[nodiscard]]
+		const_iterator cbegin() const noexcept;
 
-		/// <summary>
-		/// 文字列の終了位置のイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の終了位置のイテレータ
-		/// </returns>
-		[[nodiscard]] const_iterator cend() const noexcept
-		{
-			return m_string.cend();
-		}
+		[[nodiscard]]
+		const_iterator cend() const noexcept;
 
-		/// <summary>
-		/// 文字列の末尾のリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の末尾のリバースイテレータ
-		/// </returns>
-		[[nodiscard]] reverse_iterator rbegin() noexcept
-		{
-			return m_string.rbegin();
-		}
+		[[nodiscard]]
+		reverse_iterator rbegin() noexcept;
 
-		/// <summary>
-		/// 文字列の末尾のリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の末尾のリバースイテレータ
-		/// </returns>
-		[[nodiscard]] const_reverse_iterator rbegin() const noexcept
-		{
-			return m_string.rbegin();
-		}
+		[[nodiscard]]
+		reverse_iterator rend() noexcept;
 
-		/// <summary>
-		/// 文字列の末尾のリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の末尾のリバースイテレータ
-		/// </returns>
-		[[nodiscard]] const_reverse_iterator crbegin() const noexcept
-		{
-			return m_string.crbegin();
-		}
+		[[nodiscard]]
+		const_reverse_iterator rbegin() const noexcept;
 
-		/// <summary>
-		/// 文字列の先頭の前へのリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭の前へのリバースイテレータ
-		/// </returns>
-		[[nodiscard]] reverse_iterator rend() noexcept
-		{
-			return m_string.rend();
-		}
+		[[nodiscard]]
+		const_reverse_iterator rend() const noexcept;
 
-		/// <summary>
-		/// 文字列の先頭の前へのリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭の前へのリバースイテレータ
-		/// </returns>
-		[[nodiscard]] const_reverse_iterator rend() const noexcept
-		{
-			return m_string.rend();
-		}
+		[[nodiscard]]
+		const_reverse_iterator crbegin() const noexcept;
 
-		/// <summary>
-		/// 文字列の先頭の前へのリバースイテレータを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭の前へのリバースイテレータ
-		/// </returns>
-		[[nodiscard]] const_reverse_iterator crend() const noexcept
-		{
-			return m_string.crend();
-		}
+		[[nodiscard]]
+		const_reverse_iterator crend() const noexcept;
 
-		/// <summary>
-		/// 文字列の不要なメモリを解放します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void shrink_to_fit();
 
-		/// <summary>
-		/// 文字列を消去し、メモリを解放します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void release();
 
-		/// <summary>
-		/// 指定した位置の文字への参照を返します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <exception cref="std::out_of_range">
-		/// 範囲外アクセスの場合 throw されます。
-		/// </exception>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type& at(size_t offset) &
-		{
-			return m_string.at(offset);
-		}
+		[[nodiscard]]
+		value_type& at(size_t offset) &;
 
-		/// <summary>
-		/// 指定した位置の文字への参照を返します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <exception cref="std::out_of_range">
-		/// 範囲外アクセスの場合 throw されます。
-		/// </exception>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] const value_type& at(size_t offset) const &
-		{
-			return m_string.at(offset);
-		}
+		[[nodiscard]]
+		const value_type& at(size_t offset) const&;
 
-		/// <summary>
-		/// 指定した位置の文字を取得します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <exception cref="std::out_of_range">
-		/// 範囲外アクセスの場合 throw されます。
-		/// </exception>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type at(size_t offset) &&
-		{
-			return m_string.at(offset);
-		}
+		[[nodiscard]]
+		value_type at(size_t offset) &&;
 
-		/// <summary>
-		/// 指定した位置の文字への参照を返します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type& operator[](size_t offset) &
-		{
-			return m_string[offset];
-		}
+		[[nodiscard]]
+		value_type& operator[](size_t offset) & noexcept;
 
-		/// <summary>
-		/// 指定した位置の文字への参照を返します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] const value_type& operator[](size_t offset) const &
-		{
-			return m_string[offset];
-		}
+		[[nodiscard]]
+		const value_type& operator[](size_t offset) const& noexcept;
 
-		/// <summary>
-		/// 指定した位置の文字を取得します。
-		/// </summary>
-		/// <param name="offset">
-		/// 位置
-		/// </param>
-		/// <returns>
-		/// 指定した位置の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type operator[](size_t offset) &&
-		{
-			return std::move(m_string[offset]);
-		}
+		[[nodiscard]]
+		value_type operator[](size_t offset) && noexcept;
 
-		/// <summary>
-		/// 先頭に文字を追加します。
-		/// </summary>
-		/// <param name="value">
-		/// 追加する値
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void push_front(value_type ch);
 
-		/// <summary>
-		/// 末尾に文字を追加します。
-		/// </summary>
-		/// <param name="ch">
-		/// 追加する文字
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void push_back(value_type ch);
 
-		/// <summary>
-		/// 先頭の文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void pop_front();
 
-		/// <summary>
-		/// 末尾の文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void pop_back();
+		void pop_front_N(size_t n);
 
-		/// <summary>
-		/// 先頭の文字への参照を返します。
-		/// </summary>
-		/// <returns>
-		/// 先頭の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type& front()
-		{
-			return m_string.front();
-		}
+		void pop_back() noexcept;
 
-		/// <summary>
-		/// 先頭の文字への参照を返します。
-		/// </summary>
-		/// <returns>
-		/// 先頭の文字への参照
-		/// </returns>
-		[[nodiscard]] const value_type& front() const
-		{
-			return m_string.front();
-		}
+		void pop_back_N(size_t n) noexcept;
 
-		/// <summary>
-		/// 末尾の文字への参照を返します。
-		/// </summary>
-		/// <returns>
-		/// 末尾の文字への参照
-		/// </returns>
-		[[nodiscard]] value_type& back()
-		{
-			return m_string.back();
-		}
+		[[nodiscard]]
+		value_type& front() noexcept;
 
-		/// <summary>
-		/// 末尾の文字への参照を返します。
-		/// </summary>
-		/// <returns>
-		/// 末尾の文字への参照
-		/// </returns>
-		[[nodiscard]] const value_type& back() const
-		{
-			return m_string.back();
-		}
+		[[nodiscard]]
+		const value_type& front() const noexcept;
 
-		/// <summary>
-		/// C スタイル文字列の先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// C スタイル文字列の先頭のポインタ
-		/// </returns>
-		[[nodiscard]] const value_type* c_str() const noexcept
-		{
-			return m_string.c_str();
-		}
+		[[nodiscard]]
+		value_type& back() noexcept;
 
-		/// <summary>
-		/// 文字列の先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭へのポインタ
-		/// </returns>
-		[[nodiscard]] const value_type* data() const noexcept
-		{
-			return m_string.data();
-		}
+		[[nodiscard]]
+		const value_type& back() const noexcept;
 
-		/// <summary>
-		/// 文字列の先頭のポインタを返します。
-		/// </summary>
-		/// <returns>
-		/// 文字列の先頭へのポインタ
-		/// </returns>
-		[[nodiscard]] value_type* data() noexcept
-		{
-			return m_string.data();
-		}
+		[[nodiscard]]
+		const value_type* c_str() const noexcept;
 
-		/// <summary>
-		/// wstring 型の内部データの参照を返します。
-		/// </summary>
-		/// <returns>
-		/// wstring 型の内部データの参照
-		/// </returns>
-		[[nodiscard]] string_type& str()
-		{
-			return m_string;
-		}
+		[[nodiscard]]
+		const value_type* data() const noexcept;
 
-		/// <summary>
-		/// wstring 型の内部データの参照を返します。
-		/// </summary>
-		/// <returns>
-		/// wstring 型の内部データの参照
-		/// </returns>
-		[[nodiscard]] const string_type& str() const noexcept
-		{
-			return m_string;
-		}
+		[[nodiscard]]
+		value_type* data() noexcept;
 
-		/// <summary>
-		/// 文字列の長さを示します。
-		/// </summary>
-		/// <remarks>
-		/// 終端の '\0' を含みません。
-		/// </remarks>
-		[[nodiscard]] size_t length() const noexcept
-		{
-			return m_string.length();
-		}
+		[[nodiscard]]
+		string_type& str() noexcept;
 
-		/// <summary>
-		/// 文字列の長さを示します。
-		/// </summary>
-		/// <remarks>
-		/// 終端の '\0' を含みません。
-		/// </remarks>
-		[[nodiscard]] size_t size() const noexcept
-		{
-			return m_string.size();
-		}
+		[[nodiscard]]
+		const string_type& str() const noexcept;
 
-		[[nodiscard]] size_t size_bytes() const noexcept
-		{
-			return m_string.size() * sizeof(value_type);
-		}
+		[[nodiscard]]
+		size_t length() const noexcept;
 
-		/// <summary>
-		/// 空の文字列であるかを示します。
-		/// </summary>
-		[[nodiscard]] bool empty() const noexcept
-		{
-			return m_string.empty();
-		}
+		[[nodiscard]]
+		size_t size() const noexcept;
 
-		/// <summary>
-		/// 空の文字列であるかを示します。
-		/// </summary>
-		[[nodiscard]] bool isEmpty() const noexcept
-		{
-			return m_string.empty();
-		}
+		[[nodiscard]]
+		size_t size_bytes() const noexcept;
 
-		/// <summary>
-		/// 文字列に要素が含まれているかを示します。
-		/// </summary>
-		explicit operator bool() const noexcept
-		{
-			return !m_string.empty();
-		}
+		[[nodiscard]]
+		bool empty() const noexcept;
 
-		/// <summary>
-		/// メモリ上に確保可能な最大の文字列の長さを示します。
-		/// </summary>
-		[[nodiscard]] size_t maxSize() const noexcept
-		{
-			return m_string.max_size();
-		}
+		[[nodiscard]]
+		bool isEmpty() const noexcept;
 
-		/// <summary>
-		/// メモリを再確保せずに持てる文字列の長さを示します。
-		/// </summary>
-		[[nodiscard]] size_t capacity() const noexcept
-		{
-			return m_string.capacity();
-		}
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
-		/// <summary>
-		/// 文字列のサイズを変更します。
-		/// </summary>
-		/// <param name="newSize">
-		/// 新しいサイズ
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
+		[[nodiscard]]
+		size_t max_size() const noexcept;
+
+		[[nodiscard]]
+		size_t capacity() const noexcept;
+
 		void resize(size_t newSize);
 
-		/// <summary>
-		/// 文字列のサイズを変更します。
-		/// </summary>
-		/// <param name="newSize">
-		/// 新しいサイズ
-		/// </param>
-		/// <param name="ch">
-		/// 追加した領域を埋める文字
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void resize(size_t newSize, value_type ch);
 
-		/// <summary>
-		/// 文字列用のメモリを指定したサイズで確保します。
-		/// </summary>
-		/// <param name="newCapacity">
-		/// 確保する文字列のサイズ
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
 		void reserve(size_t newCapacity);
 
-		/// <summary>
-		/// 文字列を別の文字列と交換します。
-		/// </summary>
-		/// <param name="text">
-		/// 交換する文字列
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void swap(String& text) noexcept
-		{
-			m_string.swap(text.m_string);
-		}
+		void swap(String& other) noexcept;
 
-		/// <summary>
-		/// 指定した範囲の文字列を返します。
-		/// </summary>
-		/// <param name="offset">
-		/// 範囲の開始位置
-		/// </param>
-		/// <param name="count">
-		/// 範囲の長さ。npos の場合は文字列の終端まで
-		/// </param>
-		/// <returns>
-		/// 指定した範囲の文字列
-		/// </returns>
-		[[nodiscard]] String substr(size_t offset = 0, size_t count = npos) const;
+		/// @brief 文字列が指定した文字から始まるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字から始まる場合 true, それ以外の場合は false	
+		[[nodiscard]]
+		bool starts_with(value_type ch) const noexcept;
 
-		/// <summary>
-		/// 文字列を指定した位置から検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="text">
-		/// 検索する文字列
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <returns>
-		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOf(const String& text, size_t offset = 0) const noexcept;
+		/// @brief 文字列が指定した文字列から始まるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列から始まる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool starts_with(StringView s) const;
 
-		/// <summary>
-		/// 文字列を指定した位置から検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="text">
-		/// 検索する文字列
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <remarks>
-		/// text は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOf(const value_type* text, size_t offset = 0) const;
+		/// @brief 文字列が指定した文字で終わるかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字で終わる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool ends_with(value_type ch) const noexcept;
 
-		/// <summary>
-		/// 文字を指定した位置から検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOf(value_type ch, size_t offset = 0) const;
+		/// @brief 文字列が指定した文字列で終わるかを返します。
+		/// @param s 検索する文字列
+		/// @return 指定した文字列で終わる場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool ends_with(StringView s) const;
 
-		/// <summary>
-		/// 文字を指定した位置から検索し、最初にそれとは異なる文字が現れた位置を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOfNot(value_type ch, size_t offset = 0) const;
+		/// @brief 
+		/// @param offset 
+		/// @param count 
+		/// @return 
+		[[nodiscard]]
+		String substr(size_t offset = 0, size_t count = npos) const;
 
-		/// <summary>
-		/// 文字列を後方から逆順に検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="text">
-		/// 検索する文字列
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <returns>
-		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexOf(const String& text, size_t offset = npos) const;
+		/// @brief 
+		/// @param offset 
+		/// @param count 
+		/// @return 
+		[[nodiscard]]
+		StringView substrView(size_t offset = 0, size_t count = npos) const&;
 
-		/// <summary>
-		/// 文字列を後方から逆順に検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="text">
-		/// 検索する文字列
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <remarks>
-		/// text は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexOf(const value_type* text, size_t offset = npos) const;
+		/// @brief 
+		/// @param offset 
+		/// @param count 
+		/// @return 
+		[[nodiscard]]
+		StringView substrView(size_t offset = 0, size_t count = npos)&& = delete;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexOf(value_type ch, size_t offset = npos) const;
+		/// @brief 文字列を std::string に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::string narrow() const;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、最初にそれとは異なる文字が現れた位置を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexNotOf(value_type ch, size_t offset = npos) const;
+		/// @brief 文字列を std::wstring に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::wstring toWstr() const;
 
-		/// <summary>
-		/// 検索する文字のいずれかが最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOfAny(const String& anyof, size_t offset = 0) const;
+		/// @brief 文字列を UTF-8 文字列に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::string toUTF8() const;
 
-		/// <summary>
-		/// 検索する文字のいずれかが最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <remarks>
-		/// text は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexOfAny(const value_type* anyof, size_t offset = 0) const;
+		/// @brief 文字列を UTF-16 文字列に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		std::u16string toUTF16() const;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、検索する文字のいずれかが最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexOfAny(const String& anyof, size_t offset = npos) const;
+		/// @brief 文字列を UTF-32 文字列に変換します。
+		/// @return 変換された文字列
+		[[nodiscard]]
+		const std::u32string& toUTF32() const noexcept;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、検索する文字のいずれかが最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <remarks>
-		/// anyof は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexOfAny(const value_type* anyof, size_t offset = npos) const;
+		/// @brief 文字列のハッシュを返します。
+		/// @return 文字列のハッシュ
+		[[nodiscard]]
+		uint64 hash() const noexcept;
 
-		/// <summary>
-		/// 検索する文字に含まれない文字が最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexNotOfAny(const String& anyof, size_t offset = 0) const;
+		/// @brief 文字列を指定した位置から検索し、最初に現れた位置を返します。
+		/// @param s 検索する文字列
+		/// @param offset 検索を開始する位置
+		/// @return 	検索した文字列が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t indexOf(StringView s, size_t offset = 0) const noexcept;
 
-		/// <summary>
-		/// 検索する文字に含まれない文字が最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置
-		/// </param>
-		/// <remarks>
-		/// anyof は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t indexNotOfAny(const value_type* anyof, size_t offset = 0) const;
+		/// @brief 文字を指定した位置から検索し、最初に現れた位置を返します。
+		/// @param ch 検索する文字
+		/// @param offset 検索を開始する位置
+		/// @return 検索した文字が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t indexOf(value_type ch, size_t offset = 0) const noexcept;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、検索する文字に含まれない文字が最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexNotOfAny(const String& anyof, size_t offset = npos) const;
+		/// @brief 文字を指定した位置から検索し、最初にそれとは異なる文字が現れた位置を返します。
+		/// @param ch 検索する文字
+		/// @param offset 検索を開始する位置
+		/// @return 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t indexOfNot(value_type ch, size_t offset = 0) const noexcept;
 
-		/// <summary>
-		/// 文字を後方から逆順に検索し、検索する文字に含まれない文字が最初に現れた位置を返します。
-		/// </summary>
-		/// <param name="anyof">
-		/// 検索する文字の集合
-		/// </param>
-		/// <param name="offset">
-		/// 検索を開始する位置。npos の場合は終端から
-		/// </param>
-		/// <remarks>
-		/// anyof は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
-		/// </returns>
-		[[nodiscard]] size_t lastIndexNotOfAny(const value_type* anyof, size_t offset = npos) const;
+		/// @brief 文字列を後方から逆順に検索し、最初に現れた位置を返します。
+		/// @param s 検索する文字列
+		/// @param offset 検索を開始する位置。npos の場合は終端から
+		/// @return 検索した文字列が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t lastIndexOf(StringView s, size_t offset = npos) const noexcept;
 
-		/// <summary>
-		/// 文字列の大小を比較します。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
-		/// </returns>
-		[[nodiscard]] int32 compare(const String& text) const noexcept
-		{
-			return m_string.compare(text.m_string);
-		}
+		/// @brief 文字を後方から逆順に検索し、最初に現れた位置を返します。
+		/// @param ch 検索する文字
+		/// @param offset 検索を開始する位置。npos の場合は終端から
+		/// @return 検索した文字が最初に現れた位置。見つからなかった場合は npos	
+		[[nodiscard]]
+		size_t lastIndexOf(value_type ch, size_t offset = npos) const noexcept;
 
-		/// <summary>
-		/// 文字列の大小を比較します。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
-		/// </returns>
-		[[nodiscard]] int32 compare(StringView view) const noexcept
-		{
-			return m_string.compare(std::u32string_view(view.data(), view.size()));
-		}
+		/// @brief 文字を後方から逆順に検索し、最初にそれとは異なる文字が現れた位置を返します。
+		/// @param ch 検索する文字
+		/// @param offset 検索を開始する位置。npos の場合は終端から
+		/// @return 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos		
+		[[nodiscard]]
+		size_t lastIndexNotOf(value_type ch, size_t offset = npos) const noexcept;
 
-		/// <summary>
-		/// 文字列の大小を比較します。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <remarks>
-		/// text は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
-		/// </returns>
-		[[nodiscard]] int32 compare(const value_type* text) const
-		{
-			return m_string.compare(text);
-		}
+		/// @brief 検索する文字のいずれかが最初に現れた位置を返します。
+		/// @param anyof 検索する文字の集合
+		/// @param offset 検索を開始する位置
+		/// @return 検索した文字が最初に現れた位置。見つからなかった場合は npos	
+		[[nodiscard]]
+		size_t indexOfAny(StringView anyof, size_t offset = 0) const noexcept;
 
-		/// <summary>
-		/// 英字の大小を無視して文字列の大小を比較します。
-		/// </summary>
-		/// <param name="view">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
-		/// </returns>
-		[[nodiscard]] int32 case_insensitive_compare(StringView view) const noexcept;
+		/// @brief 文字を後方から逆順に検索し、検索する文字のいずれかが最初に現れた位置を返します。
+		/// @param anyof 検索する文字の集合
+		/// @param offset 検索を開始する位置。npos の場合は終端から
+		/// @return 検索した文字が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t lastIndexOfAny(StringView anyof, size_t offset = npos) const noexcept;
 
-		/// <summary>
-		/// 英字の大小を無視して文字列を比較します。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 英字の大小を無視した時に文字列が等しい場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool case_insensitive_equals(StringView view) const noexcept;
+		/// @brief 検索する文字に含まれない文字が最初に現れた位置を返します。
+		/// @param anyof 検索する文字の集合
+		/// @param offset 検索を開始する位置
+		/// @return 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t indexNotOfAny(StringView anyof, size_t offset = 0) const;
 
-		/// <summary>
-		/// 文字列が等しいかを調べます。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 等しければ true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator ==(const String& text) const;
+		/// @brief 文字を後方から逆順に検索し、検索する文字に含まれない文字が最初に現れた位置を返します。
+		/// @param anyof 検索する文字の集合
+		/// @param offset 検索を開始する位置。npos の場合は終端から
+		/// @return 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
+		[[nodiscard]]
+		size_t lastIndexNotOfAny(StringView anyof, size_t offset = npos) const;
 
-		/// <summary>
-		/// 文字列が等しくないかを調べます。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 等しくなければ true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator !=(const String& text) const;
+		/// @brief 文字列の大小を比較します。
+		/// @param s 比較対象の文字列
+		/// @return 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
+		[[nodiscard]]
+		int32 compare(const String& s) const noexcept;
 
-		/// <summary>
-		/// 文字列の &lt; 比較を行います。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果
-		/// </returns>
-		[[nodiscard]] bool operator <(const String& text) const;
+		/// @brief 文字列の大小を比較します。
+		/// @param s 比較対象の文字列
+		/// @return 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
+		[[nodiscard]]
+		int32 compare(StringView s) const noexcept;
 
-		/// <summary>
-		/// 文字列の &gt; 比較を行います。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果
-		/// </returns>
-		[[nodiscard]] bool operator >(const String& text) const;
+		/// @brief 文字列の大小を比較します。
+		/// @param s 比較対象の文字列
+		/// @remark s は NULL 終端されている必要があります。
+		/// @return 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
+		[[nodiscard]]
+		int32 compare(const value_type* s) const noexcept;
 
-		/// <summary>
-		/// 文字列の &lt;= 比較を行います。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果
-		/// </returns>
-		[[nodiscard]] bool operator <=(const String& text) const;
+		/// @brief 英字の大小を無視して文字列の大小を比較します。
+		/// @param s 比較対象の文字列
+		/// @return 比較結果。等しければ 0, 小さければ -1, 大きければ 1		
+		[[nodiscard]]
+		int32 case_insensitive_compare(StringView s) const noexcept;
 
-		/// <summary>
-		/// 文字列の &gt;= 比較を行います。
-		/// </summary>
-		/// <param name="text">
-		/// 比較対象の文字列
-		/// </param>
-		/// <returns>
-		/// 比較結果
-		/// </returns>
-		[[nodiscard]] bool operator >=(const String& text) const;
+		/// @brief 英字の大小を無視して文字列を比較します。
+		/// @param s 比較対象の文字列
+		/// @return 英字の大小を無視した時に文字列が等しい場合 true, それ以外の場合は false	
+		[[nodiscard]]
+		bool case_insensitive_equals(StringView s) const noexcept;
 
-		/// <summary>
-		/// 全ての文字が条件を満たすかを返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 条件を満たさない文字が 1 つでもあれば false, それ以外の場合は true
-		/// </returns>
-		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] bool all(Fty f = Id) const
-		{
-			for (const auto v : m_string)
-			{
-				if (!f(v))
-				{
-					return false;
-				}
-			}
+		/// @brief 全ての要素が条件を満たすかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 全ての要素が条件を満たすか、配列が空の場合 true, それ以外の場合は false
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		[[nodiscard]]
+		bool all(Fty f = Identity) const;
 
-			return true;
-		}
+		/// @brief 条件を満たす要素があるかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		[[nodiscard]]
+		bool any(Fty f = Identity) const;
 
-		/// <summary>
-		/// 少なくとも 1 つの文字が条件を満たすかを返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 条件を満たす文字が 1 つでもあれば true, それ以外の場合は false
-		/// </returns>
-		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] bool any(Fty f = Id) const
-		{
-			for (const auto v : m_string)
-			{
-				if (f(v))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <summary>
-		/// 最初に登場する英字を大文字にします。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 最初に登場する英字を大文字にします。
+		/// @return *this
 		String& capitalize() noexcept;
 
-		/// <summary>
-		/// 最初に登場する英字を大文字にした文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String capitalized() const &;
+		/// @brief 最初に登場する英字を大文字にした文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String capitalized() const&;
 
-		/// <summary>
-		/// 最初に登場する英字を大文字にした文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String capitalized() && ;
+		/// @brief 最初に登場する英字を大文字にした文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String capitalized()&&;
 
-		/// <summary>
-		/// 指定した文字の個数を数えます。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <returns>
-		/// 見つかった文字の個数
-		/// </returns>
-		[[nodiscard]] size_t count(value_type ch) const noexcept;
+		/// @brief 指定した値と等しい要素の個数を返します。
+		/// @param ch 検索する値
+		/// @return 指定した値と等しい要素の個数	
+		[[nodiscard]]
+		size_t count(value_type ch) const noexcept;
 
-		/// <summary>
-		/// 指定した文字列の個数を数えます。
-		/// </summary>
-		/// <param name="str">
-		/// 検索する文字列
-		/// </param>
-		/// <remarks>
-		/// "aaa" から "aa" を検索する場合の結果は 2 です。
-		/// </remarks>
-		/// <returns>
-		/// 見つかった文字列の個数
-		/// </returns>
-		[[nodiscard]] size_t count(StringView view) const;
+		/// @brief 指定した文字列の個数を数えます。
+		/// @param s 検索する文字列
+		/// @remark `"aaa"` から `"aa"` を検索する場合の結果は 2 です。
+		/// @return 見つかった文字列の個数
+		[[nodiscard]]
+		size_t count(StringView s) const;
 
-		/// <summary>
-		/// 条件に合う文字の個数を数えます。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 見つかった文字の個数
-		/// </returns>
+		/// @brief 条件を満たす要素の個数を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 条件を満たす要素の個数	
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] size_t count_if(Fty f) const
-		{
-			size_t result = 0;
+		[[nodiscard]]
+		size_t count_if(Fty f) const;
 
-			for (const auto v : m_string)
-			{
-				if (f(v))
-				{
-					++result;
-				}
-			}
-
-			return result;
-		}
-
-		String& dropBack(size_t n);
-
-		/// <summary>
-		/// 指定された数だけ先頭の文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="n">
-		/// 削除する文字数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String dropped(size_t n) const;
-
-		/// <summary>
-		/// 文字列の先頭から、指定された条件を満たす連続した文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String dropped_while(Fty f) const
-		{
-			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
-		}
-
-		/// <summary>
-		/// 文字列の各文字への参照を引数に、先頭の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字への参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 全ての要素を順番に引数にして関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @remark `for (auto& ch : s) f(ch);` と同じです。
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
-		String& each(Fty f)
-		{
-			for (auto& v : m_string)
-			{
-				f(v);
-			}
+		String& each(Fty f);
 
-			return *this;
-		}
-
-		/// <summary>
-		/// 文字列の各文字への参照を引数に、先頭の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字への参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 全ての要素を順番に引数にして関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @remark `for (const auto& ch : s) f(ch);` と同じです。
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
-		const String& each(Fty f) const
-		{
-			for (const auto v : m_string)
-			{
-				f(v);
-			}
+		const String& each(Fty f) const;
 
-			return *this;
-		}
-
-		/// <summary>
-		/// 文字列の各文字のインデックスと参照を引数に、先頭の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字のインデックスと参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 全ての要素とそのインデックスを順番に引数にして関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @remark `for (size_t i = 0; auto& ch : s) f(i++, ch);` と同じです。
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, char32&>>* = nullptr>
-		String& each_index(Fty f)
-		{
-			size_t i = 0;
+		String& each_index(Fty f);
 
-			for (auto& v : m_string)
-			{
-				f(i++, v);
-			}
-
-			return *this;
-		}
-
-		/// <summary>
-		/// 文字列の各文字のインデックスと参照を引数に、先頭の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字のインデックスと参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 全ての要素とそのインデックスを順番に引数にして関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @remark `for (size_t i = 0; const auto& ch : s) f(i++, ch);` と同じです。
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, size_t, char32>>* = nullptr>
-		const String& each_index(Fty f) const
-		{
-			size_t i = 0;
+		const String& each_index(Fty f) const;
 
-			for (const auto v : m_string)
-			{
-				f(i++, v);
-			}
+		/// @brief タブ文字を半角空白に置換した文字列を返します。
+		/// @param tabSize タブ置換後の半角空白の数
+		/// @return 新しい文字列	
+		[[nodiscard]]
+		String expandTabs(size_t tabSize = 4) const;
 
-			return *this;
-		}
+		/// @brief 指定したインデックスにある要素を返します。インデックスが範囲外の場合デフォルト値を返します。
+		/// @param index インデックス
+		/// @param defaultValue インデックスが範囲外の場合に返すデフォルト値
+		/// @return  指定したインデックスにある要素、範囲外の場合 defaultValue	
+		[[nodiscard]]
+		value_type fetch(size_t index, value_type defaultValue) const noexcept;
 
-		/// <summary>
-		/// 指定した文字で終わるかを調べます。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <returns>
-		/// 指定した文字で終わる場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool ends_with(value_type ch) const noexcept;
-
-		/// <summary>
-		/// 指定した文字列で終わるかを調べます。
-		/// </summary>
-		/// <param name="str">
-		/// 検索する文字列
-		/// </param>
-		/// <returns>
-		/// 指定した文字列で終わる場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool ends_with(StringView view) const;
-
-		/// <summary>
-		/// タブ文字を半角空白に置換した文字列を返します。
-		/// </summary>
-		/// <param name="tabSize">
-		/// タブ置換後の半角空白の数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String expand_tabs(size_t tabSize = 4) const;
-
-		/// <summary>
-		/// 指定した位置の文字を返します。指定されたインデックスが存在しない場合はデフォルト値を返します。
-		/// </summary>
-		/// <param name="index">
-		/// 位置
-		/// </param>
-		/// <param name="defaultValue">
-		/// インデックスが存在しない場合に返されるデフォルト値
-		/// </param>
-		/// <returns>
-		/// 指定した位置の文字、もしくはデフォルト値
-		/// </returns>
-		[[nodiscard]] value_type fetch(size_t index, value_type defaultValue) const noexcept;
-
-		/// <summary>
-		/// 文字列のサイズを変えずに、全文字を指定された文字で置換します。
-		/// </summary>
-		/// <param name="value">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した値を全ての要素に代入します。
+		/// @param value 代入する値
+		/// @return *this
 		String& fill(value_type value);
 
-		/// <summary>
-		/// 指定した条件に合う文字のみを含む新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす要素だけを集めた新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @remark 結果において、要素の前後関係は維持されます。
+		/// @return 指定した条件を満たす要素を集めた新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String filter(Fty f) const
-		{
-			String new_array;
+		[[nodiscard]]
+		String filter(Fty f) const;
 
-			for (const auto& v : m_string)
-			{
-				if (f(v))
-				{
-					new_array.push_back(v);
-				}
-			}
+		/// @brief 指定した値と等しい要素があるかを返します。
+		/// @param value 検索する値
+		/// @return 指定した値と等しい要素がある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool includes(value_type ch) const;
 
-			return new_array;
-		}
+		/// @brief 指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool includes(StringView s) const;
 
-		/// <summary>
-		/// 指定した文字が含まれているかを調べます。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <returns>
-		/// 検索した文字が見つかった場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool includes(value_type ch) const;
-
-		/// <summary>
-		/// 指定した文字列が含まれているかを調べます。
-		/// </summary>
-		/// <param name="str">
-		/// 検索する文字列
-		/// </param>
-		/// <remarks>
-		/// str は NULL 終端されている必要があります。
-		/// </remarks>
-		/// <returns>
-		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool includes(const value_type* str) const;
-
-		/// <summary>
-		/// 指定した文字列が含まれているかを調べます。
-		/// </summary>
-		/// <param name="str">
-		/// 検索する文字列
-		/// </param>
-		/// <returns>
-		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool includes(const String& str) const;
-
-		/// <summary>
-		/// 指定した条件に合う文字が含まれているかを調べます。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 検索した文字が見つかった場合 true, それ以外の場合は false
-		/// </returns>
+		/// @brief 指定した条件を満たす要素があるかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @remark `.any(f)` と同じです。
+		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] bool includes_if(Fty f) const
-		{
-			return any(f);
-		}
+		[[nodiscard]]
+		bool includes_if(Fty f) const;
 
-		String& keep_if(std::function<bool(value_type)> f);
+		/// @brief 指定した条件を満たす要素のみを残して、それ以外を文字列から削除します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return *this
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		String& keep_if(Fty f);
 
-		/// <summary>
-		/// 指定した 1 行の文字数で改行するようにした新しい文字列を返します。
-		/// </summary>
-		/// <param name="width">
-		/// 1 行の文字数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String layout(size_t width) const;
+		/// @brief 指定した 1 行の文字数で改行するようにした新しい文字列を返します。
+		/// @param width 1 行の文字数
+		/// @return 新しい文字列	
+		[[nodiscard]]
+		String layout(size_t width) const;
 
-		/// <summary>
-		/// 英字をすべて小文字にします。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 別の文字列とのレーベンシュタイン距離を計算して返します。
+		/// @param other 別の文字列
+		/// @return 別の文字列とのレーベンシュタイン距離
+		[[nodiscard]]
+		size_t levenshteinDistanceFrom(StringView other) const noexcept;
+
+		/// @brief 英字をすべて小文字にします。
+		/// @return *this
 		String& lowercase() noexcept;
 
-		/// <summary>
-		/// 英字をすべて小文字にした新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String lowercased() const &;
+		/// @brief 英字をすべて小文字にした新しい文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String lowercased() const&;
 
-		/// <summary>
-		/// 英字をすべて小文字にした新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String lowercased() && ;
+		/// @brief 英字をすべて小文字にした新しい文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String lowercased()&&;
 
-		/// <summary>
-		/// 文字列の左を埋め文字で埋めます。
-		/// </summary>
-		/// <param name="length">
-		/// 文字列の左を埋め文字で埋めた後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。 
-		/// </remarks>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の左を埋め文字で埋めます。
+		/// @param length 文字列の左を埋め文字で埋めた後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、変更は行われません。 
+		/// @return *this
 		String& lpad(size_t length, value_type fillChar = U' ');
 
-		/// <summary>
-		/// 文字列の左を埋め文字で埋めた新しい文字列を返します。
-		/// </summary>
-		/// <param name="length">
-		/// 文字列の左を埋め文字で埋めた後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
-		/// </remarks>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String lpadded(size_t length, value_type fillChar = U' ') const &;
+		/// @brief 文字列の左を埋め文字で埋めた新しい文字列を返します。
+		/// @param length 文字列の左を埋め文字で埋めた後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、元の文字列のコピーが返ります。 
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String lpadded(size_t length, value_type fillChar = U' ') const&;
 
-		/// <summary>
-		/// 文字列を指定された文字で左詰めした新しい文字列を返します。
-		/// </summary>
-		/// <param name="length">
-		/// 左詰めした後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 左詰め用の埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
-		/// </remarks>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String lpadded(size_t length, value_type fillChar = U' ') &&;
+		/// @brief 文字列の左を埋め文字で埋めた新しい文字列を返します。
+		/// @param length 文字列の左を埋め文字で埋めた後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、元の文字列のコピーが返ります。 
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String lpadded(size_t length, value_type fillChar = U' ')&&;
 
-		/// <summary>
-		/// 文字列の先頭にある空白文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の先頭にある空白文字を削除します。
+		/// @return *this
 		String& ltrim();
 
-		/// <summary>
-		/// 文字列の先頭にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String ltrimmed() const &;
+		/// @brief 文字列の先頭にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String ltrimmed() const&;
 
-		/// <summary>
-		/// 文字列の先頭にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String ltrimmed() && ;
+		/// @brief 文字列の先頭にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String ltrimmed()&&;
 
-		/// <summary>
-		/// 文字列の各文字に関数を適用した戻り値からなる配列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字に適用する関数
-		/// </param>
-		/// <returns>
-		/// 文字列の各文字に関数を適用した戻り値からなる配列
-		/// </returns>
+		/// @brief 文字列の各要素に関数を適用した戻り値からなる配列を返します。
+		/// @tparam Fty 各文字に適用する関数の型
+		/// @param f 各文字に適用する関数
+		/// @return 文字列の各要素に関数を適用した戻り値からなる配列
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
-		auto map(Fty f) const
-		{
-			using T = std::decay_t<std::invoke_result_t<Fty, char32>>;
-			Array<T, std::allocator<T>> new_array;
+		auto map(Fty f) const;
 
-			new_array.reserve(size());
+		/// @brief 条件を満たす要素が存在しないかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 条件を満たす要素数が 0 個の場合 true, それ以外の場合は false
+		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		[[nodiscard]]
+		bool none(Fty f = Identity) const;
 
-			for (const auto v : m_string)
-			{
-				new_array.push_back(f(v));
-			}
-
-			return new_array;
-		}
-
-		/// <summary>
-		/// マルチバイト文字列に変換します。
-		/// </summary>
-		/// <returns>
-		/// 変換されたマルチバイト文字列
-		/// </returns>
-		[[nodiscard]] std::string narrow() const;
-
-		/// <summary>
-		/// 全ての文字が条件を満たさないかを返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 条件を満たす文字が 1 つでもあれば false, それ以外の場合は true
-		/// </returns>
-		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] bool none(Fty f = Id) const
-		{
-			for (const auto v : m_string)
-			{
-				if (f(v))
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		/// <summary>
-		/// 指定した文字を文字列から削除します。
-		/// </summary>
-		/// <param name="ch">
-		/// 削除する文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した文字を文字列から削除します。
+		/// @param ch 削除する文字
+		/// @return *this
 		String& remove(value_type ch);
 
-		/// <summary>
-		/// 指定した文字列をもとの文字列から削除します。
-		/// </summary>
-		/// <param name="view">
-		/// 削除する文字列
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		String& remove(StringView view);
+		/// @brief 指定した文字列をもとの文字列から削除します。
+		/// @param s 削除する文字列
+		/// @return *this
+		String& remove(StringView s);
 
-		/// <summary>
-		/// 指定した文字を除去した新しい文字列を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 除去対象の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String removed(value_type ch) const &;
+		/// @brief 指定した文字を除去した新しい文字列を返します。
+		/// @param ch 除去対象の文字
+		/// @return 新しい文字列	
+		[[nodiscard]]
+		String removed(value_type ch) const&;
+		
+		/// @brief 指定した文字を除去した新しい文字列を返します。
+		/// @param ch 除去対象の文字
+		/// @return 新しい文字列	
+		[[nodiscard]]
+		String removed(value_type ch)&&;
 
-		/// <summary>
-		/// 指定した文字を除去した新しい文字列を返します。
-		/// </summary>
-		/// <param name="ch">
-		/// 除去対象の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String removed(value_type ch) &&;
+		/// @brief 指定した文字列を除去した新しい文字列を返します。
+		/// @param s 除去対象の文字列
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String removed(StringView s) const;
 
-		/// <summary>
-		/// 指定した文字列を除去した新しい文字列を返します。
-		/// </summary>
-		/// <param name="str">
-		/// 除去対象の文字列
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String removed(StringView view) const;
-
-		/// <summary>
-		/// 指定したインデックスの文字を文字列から削除します。
-		/// </summary>
-		/// <param name="index">
-		/// インデックス
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定したインデックスにある要素を文字列から削除します。
+		/// @param index インデックス
+		/// @return *this
 		String& remove_at(size_t index);
 
-		/// <summary>
-		/// 指定したインデックスの文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="index">
-		/// インデックス
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String removed_at(size_t index) const &;
+		/// @brief 定したインデックスにある要素を削除した新しい文字列を返します。
+		/// @param index インデックス
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String removed_at(size_t index) const&;
 
-		/// <summary>
-		/// 指定したインデックスの文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="index">
-		/// インデックス
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String removed_at(size_t index) &&;
+		/// @brief 定したインデックスにある要素を削除した新しい文字列を返します。
+		/// @param index インデックス
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String removed_at(size_t index)&&;
 
-		/// <summary>
-		/// 指定した条件を満たす文字を削除します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		String& remove_if(Fty f)
-		{
-			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), f), m_string.end());
+		String& remove_if(Fty f);
 
-			return *this;
-		}
-
-		/// <summary>
-		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除した新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String removed_if(Fty f) const &
-		{
-			String new_string;
+		[[nodiscard]]
+		String removed_if(Fty f) const&;
 
-			for (const auto v : m_string)
-			{
-				if (!f(v))
-				{
-					new_string.push_back(v);
-				}
-			}
-
-			return new_string;
-		}
-
-		/// <summary>
-		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を削除した新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String removed_if(Fty f) &&
-		{
-			remove_if(f);
+		[[nodiscard]]
+		String removed_if(Fty f)&&;
 
-			return std::move(*this);
-		}
-
-		/// <summary>
-		/// 指定した文字を置換します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した文字を置換します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return *this
 		String& replace(value_type oldChar, value_type newChar);
 
-		/// <summary>
-		/// 指定した文字列を置換します。
-		/// </summary>
-		/// <param name="oldStr">
-		/// 置換対象の文字列
-		/// </param>
-		/// <param name="newStr">
-		/// 置換後の文字列
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		String& replace(const String& oldStr, const String& newStr);
+		/// @brief 指定した文字列を置換します。
+		/// @param oldStr 置換対象の文字列
+		/// @param newStr 置換後の文字列
+		/// @return *this
+		String& replace(const StringView oldStr, const StringView newStr);
 
-		/// <summary>
-		/// 指定した文字を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String replaced(value_type oldChar, value_type newChar) const &;
+		/// @brief 指定した文字を置換した新しい文字列を返します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String replaced(value_type oldChar, value_type newChar) const&;
 
-		/// <summary>
-		/// 指定した文字を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String replaced(value_type oldChar, value_type newChar) &&;
+		/// @brief 指定した文字を置換した新しい文字列を返します。
+		/// @param oldChar 置換対象の文字
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String replaced(value_type oldChar, value_type newChar)&&;
 
-		/// <summary>
-		/// 指定した文字列を置換した新しい文字列を返します。
-		/// </summary>
-		/// <param name="oldStr">
-		/// 置換対象の文字列
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字列
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
-		[[nodiscard]] String replaced(const String& oldStr, const String& newStr) const;
+		/// @brief 指定した文字列を置換した新しい文字列を返します。
+		/// @param oldStr 置換対象の文字列
+		/// @param newStr 置換後の文字列
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String replaced(StringView oldStr, StringView newStr) const;
+
+		/// @brief 指定した条件を満たす文字を別の文字に置き換えます。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @param newChar 置換後の文字
+		/// @return this
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		String& replace_if(Fty f, const value_type newChar);
 
 		/// <summary>
 		/// 指定した条件を満たす文字を別の文字に置き換えます。
@@ -2051,36 +840,8 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		String& replace_if(Fty f, const value_type newChar)
-		{
-			for (auto& v : m_string)
-			{
-				if (f(v))
-				{
-					v = newChar;
-				}
-			}
-
-			return *this;
-		}
-
-		/// <summary>
-		/// 指定した条件を満たす文字を別の文字に置き換えます。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) const &&
-		{
-			return String(*this).replace_if(f, newChar);
-		}
+		[[nodiscard]]
+		String replaced_if(Fty f, const value_type newChar) const&;
 
 		/// <summary>
 		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
@@ -2095,12 +856,8 @@ namespace s3d
 		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) &
-		{
-			replace_if(f, newChar);
-
-			return std::move(*this);
-		}
+		[[nodiscard]]
+		String replaced_if(Fty f, const value_type newChar)&&;
 
 		/// <summary>
 		/// 文字列を反転します。
@@ -2116,7 +873,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String reversed() const &;
+		[[nodiscard]]
+		String reversed() const&;
 
 		/// <summary>
 		/// 反転した文字列を返します。
@@ -2124,7 +882,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String reversed() &&;
+		[[nodiscard]]
+		String reversed()&&;
 
 		/// <summary>
 		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
@@ -2136,15 +895,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
-		String& reverse_each(Fty f)
-		{
-			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
-			{
-				f(*it);
-			}
-
-			return *this;
-		}
+		String& reverse_each(Fty f);
 
 		/// <summary>
 		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
@@ -2156,15 +907,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
-		const String& reverse_each(Fty f) const
-		{
-			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
-			{
-				f(*it);
-			}
-
-			return *this;
-		}
+		const String& reverse_each(Fty f) const;
 
 		/// <summary>
 		/// 文字列の各文字の位置をシフトさせ、はみ出た文字は反対側に挿入します。
@@ -2186,7 +929,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rotated(std::ptrdiff_t count = 1) const &;
+		[[nodiscard]]
+		String rotated(std::ptrdiff_t count = 1) const&;
 
 		/// <summary>
 		/// 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
@@ -2197,7 +941,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rotated(std::ptrdiff_t count = 1) &&;
+		[[nodiscard]]
+		String rotated(std::ptrdiff_t count = 1)&&;
 
 		/// <summary>
 		/// 文字列の右を埋め文字で埋めます。
@@ -2231,7 +976,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rpadded(size_t length, value_type fillChar = U' ') const &;
+		[[nodiscard]]
+		String rpadded(size_t length, value_type fillChar = U' ') const&;
 
 		/// <summary>
 		/// 文字列の右を埋め文字で埋めた新しい文字列を返します。
@@ -2248,7 +994,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rpadded(size_t length, value_type fillChar = U' ') &&;
+		[[nodiscard]]
+		String rpadded(size_t length, value_type fillChar = U' ')&&;
 
 		/// <summary>
 		/// 文字列の末尾にある空白文字を削除します。
@@ -2264,7 +1011,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rtrimmed() const &;
+		[[nodiscard]]
+		String rtrimmed() const&;
 
 		/// <summary>
 		/// 文字列の末尾にある空白文字を削除した新しい文字列を返します。
@@ -2272,7 +1020,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String rtrimmed() &&;
+		[[nodiscard]]
+		String rtrimmed()&&;
 
 		/// <summary>
 		/// 文字列をランダムに並び替えます。
@@ -2291,13 +1040,8 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
-		String& shuffle(URBG&& rbg)
-		{
-			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
-
-			return *this;
-		}
+		SIV3D_CONCEPT_URBG
+		String& shuffle(URBG&& rbg);
 
 		/// <summary>
 		/// ランダムに並び替えた新しい文字列を返します。
@@ -2305,7 +1049,8 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		[[nodiscard]] String shuffled() const &;
+		[[nodiscard]]
+		String shuffled() const&;
 
 		/// <summary>
 		/// ランダムに並び替えた新しい文字列を返します。
@@ -2313,7 +1058,8 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		[[nodiscard]] String shuffled() &&;
+		[[nodiscard]]
+		String shuffled()&&;
 
 		/// <summary>
 		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
@@ -2324,11 +1070,9 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
-		[[nodiscard]] String shuffled(URBG&& rbg) const &
-		{
-			return String(*this).shuffle(std::forward<URBG>(rbg));
-		}
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		String shuffled(URBG&& rbg) const&;
 
 		/// <summary>
 		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
@@ -2339,13 +1083,9 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
-		[[nodiscard]] String shuffled(URBG&& rbg) &&
-		{
-			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
-
-			return std::move(*this);
-		}
+		SIV3D_CONCEPT_URBG
+		[[nodiscard]]
+		String shuffled(URBG&& rbg)&&;
 
 		/// <summary>
 		/// 指定した区切り文字で文字列を分割します。
@@ -2356,33 +1096,14 @@ namespace s3d
 		/// <returns>
 		/// 分割された文字列
 		/// </returns>
-		[[nodiscard]] Array<String, std::allocator<String>> split(value_type ch) const;
+		[[nodiscard]]
+		Array<String, std::allocator<String>> split(value_type ch) const;
 
-		[[nodiscard]] std::pair<String, String> split_at(size_t pos) const;
+		[[nodiscard]]
+		std::pair<String, String> split_at(size_t pos) const;
 
-		[[nodiscard]] Array<String, std::allocator<String>> split_lines() const;
-
-		/// <summary>
-		/// 指定した文字から始まるかを調べます。
-		/// </summary>
-		/// <param name="ch">
-		/// 検索する文字
-		/// </param>
-		/// <returns>
-		/// 指定した文字から始まる場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool starts_with(value_type ch) const noexcept;
-
-		/// <summary>
-		/// 指定した文字列から始まるかを調べます。
-		/// </summary>
-		/// <param name="str">
-		/// 検索する文字列
-		/// </param>
-		/// <returns>
-		/// 指定した文字列から始まる場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool starts_with(StringView view) const;
+		[[nodiscard]]
+		Array<String, std::allocator<String>> split_lines() const;
 
 		/// <summary>
 		/// 英字の大文字と小文字を入れ替えます。
@@ -2398,7 +1119,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String swapcased() const &;
+		[[nodiscard]]
+		String swapcased() const&;
 
 		/// <summary>
 		/// 英字の大文字と小文字を入れ替えた文字列を返します。
@@ -2406,7 +1128,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String swapcased() &&;
+		[[nodiscard]]
+		String swapcased()&&;
 
 		/// <summary>
 		/// 文字列の先頭と末尾にある空白文字を削除します。
@@ -2422,7 +1145,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String trimmed() const &;
+		[[nodiscard]]
+		String trimmed() const&;
 
 		/// <summary>
 		/// 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
@@ -2430,7 +1154,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String trimmed() &&;
+		[[nodiscard]]
+		String trimmed()&&;
 
 		/// <summary>
 		/// 英字をすべて大文字にします。
@@ -2446,7 +1171,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String uppercased() const &;
+		[[nodiscard]]
+		String uppercased() const&;
 
 		/// <summary>
 		/// 英字をすべて大文字にした文字列を返します。
@@ -2454,45 +1180,16 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String uppercased() &&;
+		[[nodiscard]]
+		String uppercased()&&;
 
-		/// <summary>
-		/// 文字列を UTF8 の std::string にエンコードします。
-		/// </summary>
-		/// <returns>
-		/// UTF8 でエンコードされた std::string
-		/// </returns>
-		[[nodiscard]] std::string toUTF8() const;
+		String& rsort() noexcept;
 
-		/// <summary>
-		/// 文字列を UTF16 の std::u16string にエンコードします。
-		/// </summary>
-		/// <returns>
-		/// UTF16 でエンコードされた std::u16string
-		/// </returns>
-		[[nodiscard]] std::u16string toUTF16() const;
+		[[nodiscard]]
+		String rsorted() const&;
 
-		/// <summary>
-		/// 文字列を UTF32 の std::u32string にエンコードします。
-		/// </summary>
-		/// <returns>
-		/// UTF32 でエンコードされた std::u32string
-		/// </returns>
-		[[nodiscard]] const std::u32string& toUTF32() const;
-
-		/// <summary>
-		/// 文字列を std::wstring にエンコードします。
-		/// </summary>
-		/// <returns>
-		/// 変換された std::wstring
-		/// </returns>
-		[[nodiscard]] std::wstring toWstr() const;
-
-		String& rsort();
-
-		[[nodiscard]] String rsorted() const&;
-
-		[[nodiscard]] String rsorted()&&;
+		[[nodiscard]]
+		String rsorted()&&;
 
 		/// <summary>
 		/// 文字列を辞書順でソートします。
@@ -2500,7 +1197,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& sort();
+		String& sort() noexcept;
 
 		/// <summary>
 		/// 文字列を指定された比較関数でソートします。
@@ -2512,12 +1209,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
-		String& sort_by(Fty f)
-		{
-			std::sort(m_string.begin(), m_string.end(), f);
-
-			return *this;
-		}
+		String& sort_by(Fty f);
 
 		/// <summary>
 		/// 文字列を辞書順でソートした新しい文字列を返します。
@@ -2525,7 +1217,8 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		[[nodiscard]] String sorted() const &;
+		[[nodiscard]]
+		String sorted() const&;
 
 		/// <summary>
 		/// 文字列を辞書順でソートした新しい文字列を返します。
@@ -2533,7 +1226,8 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		[[nodiscard]] String sorted() &&;
+		[[nodiscard]]
+		String sorted()&&;
 
 		/// <summary>
 		/// 文字列を指定された比較関数でソートした新しい文字列を返します。
@@ -2545,10 +1239,8 @@ namespace s3d
 		/// ソート済みの文字列
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
-		[[nodiscard]] String sorted_by(Fty f) const &
-		{
-			return String(*this).sort_by(f);
-		}
+		[[nodiscard]]
+		String sorted_by(Fty f) const&;
 
 		/// <summary>
 		/// 文字列を指定された比較関数でソートした新しい文字列を返します。
@@ -2560,12 +1252,8 @@ namespace s3d
 		/// ソート済みの文字列
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
-		[[nodiscard]] String sorted_by(Fty f) &&
-		{
-			std::sort(m_string.begin(), m_string.end(), f);
-
-			return std::move(*this);
-		}
+		[[nodiscard]]
+		String sorted_by(Fty f)&&;
 
 		/// <summary>
 		/// 文字列の先頭から指定された文字数分取り出した新しい文字列を返します。
@@ -2576,7 +1264,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String take(size_t n) const;
+		[[nodiscard]]
+		String take(size_t n) const;
 
 		/// <summary>
 		/// 文字列の先頭から、指定された条件を満たす連続した文字を取り出した新しい文字列を返します。
@@ -2588,10 +1277,25 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
-		[[nodiscard]] String take_while(Fty f) const
-		{
-			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
-		}
+		[[nodiscard]]
+		String take_while(Fty f) const;
+
+		/// <summary>
+		/// 文字列をソートせずに、重複する文字を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		String& stable_unique();
+
+		/// <summary>
+		/// 文字列をソートせずに、重複する文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		[[nodiscard]]
+		String stable_uniqued() const;
 
 		/// <summary>
 		/// 文字列をソートし、重複する文字を削除します。
@@ -2599,7 +1303,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& unique();
+		String& sort_and_unique();
 
 		/// <summary>
 		/// 文字列をソートし、重複する文字を削除した新しい文字列を返します。
@@ -2607,7 +1311,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String uniqued() const &;
+		[[nodiscard]]
+		String sorted_and_uniqued() const&;
 
 		/// <summary>
 		/// 文字列をソートし、重複する文字を削除した新しい文字列を返します。
@@ -2615,13 +1320,34 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String uniqued() &&;
+		[[nodiscard]]
+		String sorted_and_uniqued()&&;
 
-		String& unique_sorted();
+		/// <summary>
+		/// 同じ文字が連続する場合、その先頭以外を除去します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		String& unique_consecutive();
 
-		[[nodiscard]] String uniqued_sorted() const&;
+		/// <summary>
+		/// 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		[[nodiscard]]
+		String uniqued_consecutive() const&;
 
-		[[nodiscard]] String uniqued_sorted() &&;
+		/// <summary>
+		/// 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		[[nodiscard]]
+		String uniqued_consecutive()&&;
 
 		/// <summary>
 		/// 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。
@@ -2635,7 +1361,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String values_at(std::initializer_list<size_t> indices) const;
+		[[nodiscard]]
+		String values_at(std::initializer_list<size_t> indices) const;
 
 		/// <summary>
 		/// 文字列に XML エスケープを行います。
@@ -2657,214 +1384,141 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String xml_escaped() const;
+		[[nodiscard]]
+		String xml_escaped() const;
+
+
+		friend bool operator ==(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator ==(const value_type* lhs, const String& rhs);
+
+		friend bool operator ==(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator !=(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator !=(const value_type* lhs, const String& rhs);
+
+		friend bool operator !=(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator <(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator <(const value_type* lhs, const String& rhs);
+
+		friend bool operator <(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator >(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator >(const value_type* lhs, const String& rhs);
+
+		friend bool operator >(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator <=(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator <=(const value_type* lhs, const String& rhs);
+
+		friend bool operator <=(const String& lhs, const value_type* rhs);
+
+
+		friend bool operator >=(const String& lhs, const String& rhs) noexcept;
+
+		friend bool operator >=(const value_type* lhs, const String& rhs);
+
+		friend bool operator >=(const String& lhs, const value_type* rhs);
+
+
+		friend String operator +(const value_type lhs, const String& rhs);
+
+		friend String operator +(const value_type lhs, String&& rhs);
+
+		friend String operator +(const value_type* lhs, const String& rhs);
+
+		friend String operator +(const value_type* lhs, String&& rhs);
+
+		friend String operator +(StringView lhs, const String& rhs);
+
+		friend String operator +(StringView lhs, String&& rhs);
+
+		friend String operator +(const String& lhs, const value_type rhs);
+
+		friend String operator +(const String& lhs, const value_type* rhs);
+
+		friend String operator +(const String& lhs, StringView rhs);
+
+		friend String operator +(const String& lhs, const String& rhs);
+
+		friend String operator +(const String& lhs, String&& rhs);
+
+		friend String operator +(String&& lhs, const value_type rhs);
+
+		friend String operator +(String&& lhs, const value_type* rhs);
+
+		friend String operator +(String&& lhs, StringView rhs);
+
+		friend String operator +(String&& lhs, const String& rhs);
+
+		friend String operator +(String&& lhs, String&& rhs);
+
+		friend std::ostream& operator <<(std::ostream& output, const String& value);
+
+		friend std::wostream& operator <<(std::wostream& output, const String& value);
+
+		friend std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const String& value);
+
+		friend std::istream& operator >>(std::istream& input, String& value);
+
+		friend std::wistream& operator >>(std::wistream& input, String& value);
+
+		friend void Formatter(FormatData& formatData, const String& s);
+
+	private:
+
+		string_type m_string;
 	};
 
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const String::value_type lhs, const StringViewIsh& rhs)
-	{
-		String result;
-		result.reserve(1 + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
+	[[nodiscard]]
+	inline String operator +(const String::value_type lhs, StringView rhs);
 
-	[[nodiscard]] String operator +(const String::value_type lhs, const String& rhs);
+	[[nodiscard]]
+	inline String operator +(const String::value_type* lhs, StringView rhs);
 
-	[[nodiscard]] String operator +(const String::value_type lhs, String&& rhs);
+	[[nodiscard]]
+	inline String operator +(StringView lhs, const String::value_type* rhs);
 
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const String::value_type* lhs, const StringViewIsh& rhs)
-	{
-		const size_t len = std::char_traits<String::value_type>::length(lhs);
-		String result;
-		result.reserve(len + rhs.size());
-		result.append(lhs, len);
-		result.append(rhs);
-		return result;
-	}
+	[[nodiscard]]
+	inline String operator +(StringView lhs, StringView rhs);
 
-	[[nodiscard]] String operator +(const String::value_type* lhs, const String& rhs);
+	[[nodiscard]]
+	inline String operator +(StringView lhs, const String::value_type rhs);
 
-	[[nodiscard]] String operator +(const String::value_type* lhs, String&& rhs);
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + 1);
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type* rhs)
-	{
-		const size_t len = std::char_traits<String::value_type>::length(rhs);
-		String result;
-		result.reserve(lhs.size() + len);
-		result.append(lhs);
-		result.append(rhs, len);
-		return result;
-	}
-
-	template <class StringViewIshT, class StringViewIshU, class = String::IsStringViewIsh<StringViewIshT>, class = String::IsStringViewIsh<StringViewIshU>>
-	[[nodiscard]] inline String operator +(const StringViewIshT& lhs, const StringViewIshU& rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String& rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, String&& rhs)
-	{
-		return std::move(rhs.insert(0, lhs));
-	}
-
-	[[nodiscard]] String operator +(const String& lhs, const String::value_type rhs);
-
-	[[nodiscard]] String operator +(const String& lhs, const String::value_type* rhs);
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(const String& lhs, const StringViewIsh& rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	[[nodiscard]] String operator +(const String& lhs, const String& rhs);
-
-	[[nodiscard]] String operator +(const String& lhs, String&& rhs);
-
-	[[nodiscard]] String operator +(String&& lhs, const String::value_type rhs);
-
-	[[nodiscard]] String operator +(String&& lhs, const String::value_type* rhs);
-
-	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
-	[[nodiscard]] inline String operator +(String&& lhs, const StringViewIsh& rhs)
-	{
-		return std::move(lhs.append(rhs));
-	}
-
-	[[nodiscard]] String operator +(String&& lhs, const String& rhs);
-
-	[[nodiscard]] String operator +(String&& lhs, String&& rhs);
-
-
-	[[nodiscard]] bool operator ==(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator ==(const String& lhs, const String::value_type* rhs);
-
-	[[nodiscard]] bool operator !=(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator !=(const String& lhs, const String::value_type* rhs);
-
-	[[nodiscard]] bool operator <(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator <(const String& lhs, const String::value_type* rhs);
-
-	[[nodiscard]] bool operator >(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator >(const String& lhs, const String::value_type* rhs);
-
-	[[nodiscard]] bool operator <=(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator <=(const String& lhs, const String::value_type* rhs);
-
-	[[nodiscard]] bool operator >=(const String::value_type* lhs, const String& rhs);
-
-	[[nodiscard]] bool operator >=(const String& lhs, const String::value_type* rhs);
-
-	//////////////////////////////////////////////////
-	//
-	//	Literals
-	//
-	//////////////////////////////////////////////////
+	inline void swap(String& a, String& b) noexcept;
 
 	inline namespace Literals
 	{
 		inline namespace StringLiterals
 		{
-			[[nodiscard]] inline String operator ""_s(const char32_t* text, const size_t length) noexcept
-			{
-				return String(text, length);
-			}
+			[[nodiscard]]
+			inline String operator ""_s(const char32_t* s, size_t length);
 		}
 	}
 
 	using FilePath = String;
-
-	template <class E>
-	struct IsMemoryContiguousContainer<std::basic_string<E>> : std::bool_constant<std::is_trivially_copyable_v<E>> {};
-
-	template <>
-	struct IsMemoryContiguousContainer<String> : std::true_type {};
 }
 
+template <>
+inline void std::swap(s3d::String& a, s3d::String& b) noexcept;
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
+template <>
+struct std::hash<s3d::String>
 {
-	std::ostream& operator <<(std::ostream& output, const String& value);
-
-	std::wostream& operator <<(std::wostream& output, const String& value);
-
-	std::istream& operator >>(std::istream& input, String& value);
-
-	std::wistream& operator >>(std::wistream& input, String& value);
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <>
-	struct hash<s3d::String>
+	[[nodiscard]]
+	size_t operator()(const s3d::String& value) const noexcept
 	{
-		[[nodiscard]] size_t operator()(const s3d::String& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value.data(), value.size_bytes());
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	Swap
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	inline void swap(s3d::String& a, s3d::String& b) noexcept
-	{
-		a.swap(b);
+		return value.hash();
 	}
-}
+};
+
+# include "detail/String.ipp"

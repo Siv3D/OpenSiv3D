@@ -2,23 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <Texture/ITexture.hpp>
-# include <Siv3D/EngineLog.hpp>
 # include "CAsset.hpp"
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		constexpr StringView GetAssetTypeName(const AssetType assetType)
+		[[nodiscard]]
+		constexpr StringView GetAssetTypeName(const AssetType assetType) noexcept
 		{
 			switch (assetType)
 			{
@@ -28,23 +29,24 @@ namespace s3d
 				return U"Texture"_sv;
 			case AssetType::Font:
 				return U"Font"_sv;
+			case AssetType::VertexShader:
+				return U"VertexShader"_sv;
+			case AssetType::PixelShader:
+				return U"PixelShader"_sv;
 			default:
 				return U"Unknown"_sv;
 			}
 		}
 	}
 
-	CAsset::CAsset()
-	{
-
-	}
+	CAsset::CAsset() {}
 
 	CAsset::~CAsset()
 	{
-		LOG_TRACE(U"CAsset::~CAsset()");
+		LOG_SCOPED_TRACE(U"CAsset::~CAsset()");
 
-		Siv3DEngine::Get<ISiv3DTexture>()->updateAsync(Largest<size_t>);
-		
+		SIV3D_ENGINE(Texture)->updateAsyncTextureLoad(Largest<size_t>);
+
 		// wait for all
 		for (auto& assetList : m_assetLists)
 		{
@@ -55,197 +57,191 @@ namespace s3d
 		}
 	}
 
-	void CAsset::init()
-	{
-		LOG_TRACE(U"CAsset::init()");
-
-		LOG_INFO(U"ℹ️ Asset initialized");
-	}
-
 	void CAsset::update()
 	{
-		Siv3DEngine::Get<ISiv3DTexture>()->updateAsync(4);
+		SIV3D_ENGINE(Texture)->updateAsyncTextureLoad(4);
 	}
 
-	bool CAsset::registerAsset(const AssetType assetType, const String& name, std::unique_ptr<IAsset>&& asset)
+	bool CAsset::registerAsset(const AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset)
 	{
-		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 
-		if (assetList.find(name) != assetList.end())
+		if (assetList.contains(name))
 		{
-			LOG_FAIL(U"❌ {}Asset: Asset Name \"{}\" is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
-
+			LOG_FAIL(U"❌ {}Asset: Asset Name `{}` is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
 			return false;
 		}
 
-		auto result = assetList.emplace(name, std::move(asset));
+		assetList.emplace(name, std::move(asset));
 
-		LOG_DEBUG(U"ℹ️ {}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
-
-		if (result.first.value()->getParameter().loadAsync)
-		{
-			result.first.value()->preloadAsync();
-
-			return true;
-		}
-		else if (result.first.value()->getParameter().loadImmediately)
-		{
-			return result.first.value()->preload();
-		}
+		LOG_TRACE(U"ℹ️ {}Asset: Asset `{}` registered"_fmt(detail::GetAssetTypeName(assetType), name));
 
 		return true;
 	}
 
-	IAsset* CAsset::getAsset(const AssetType assetType, const String& name)
+	IAsset* CAsset::getAsset(const AssetType assetType, const AssetNameView name)
 	{
-		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
-
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
 
 		if (it == assetList.end())
 		{
-			LOG_FAIL_ONCE(U"❌ CAsset::getAsset(): Unregistered {}Asset \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
-
+			//LOG_FAIL_ONCE(U"❌ CAsset::getAsset(): Unregistered {}Asset `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return nullptr;
 		}
 
 		IAsset* pAsset = it->second.get();
 
-		if (!pAsset->isPreloaded())
+		if (not pAsset->isFinished())
 		{
-			if (pAsset->isLoadingAsync())
+			if (pAsset->isAsyncLoading())
 			{
 				return nullptr;
 			}
 
-			if (!pAsset->preload())
+			if (not pAsset->load())
 			{
 				return nullptr;
-			}	
+			}
 		}
 
 		return pAsset;
 	}
 
-	bool CAsset::isRegistered(AssetType assetType, const String& name) const
+	bool CAsset::isRegistered(const AssetType assetType, const AssetNameView name) const
 	{
-		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
-
-		return assetList.find(name) != assetList.end();
+		return m_assetLists[FromEnum(assetType)].contains(name);
 	}
 
-	bool CAsset::preload(AssetType assetType, const String& name)
+	bool CAsset::load(const AssetType assetType, const AssetNameView name, const String& hint)
 	{
-		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
-
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
 
 		if (it == assetList.end())
 		{
-			LOG_FAIL_ONCE(U"❌ CAsset::preload(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
-
+			//LOG_FAIL_ONCE(U"❌ CAsset::load(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return false;
 		}
 
-		IAsset* pAsset = it->second.get();
-
-		if (!pAsset->isPreloaded())
-		{
-			pAsset->wait();
-
-			pAsset->preload();
-
-			LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
-		}
-
-		return pAsset->loadSucceeded();
+		return it->second->load(hint);
 	}
 
-	void CAsset::release(AssetType assetType, const String& name)
+	void CAsset::loadAsync(const AssetType assetType, const AssetNameView name, const String& hint)
 	{
-		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
-
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
 
 		if (it == assetList.end())
 		{
-			LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
-
+			//LOG_FAIL_ONCE(U"❌ CAsset::loadAsync(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return;
 		}
 
-		IAsset* pAsset = it->second.get();
+		it->second->loadAsync(hint);
+	}
 
-		pAsset->wait();
+	void CAsset::wait(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
 
-		pAsset->release();
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::wait(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
 
-		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+		it->second->wait();
+	}
+
+	bool CAsset::isReady(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::isReady(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return false;
+		}
+
+		return it->second->isFinished();
+	}
+
+	void CAsset::release(const AssetType assetType, const AssetNameView name)
+	{
+		auto& assetList = m_assetLists[FromEnum(assetType)];
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
+			return;
+		}
+
+		it->second->release();
+
+		LOG_TRACE(U"ℹ️ {}Asset: `{}` released"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)
 	{
-		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 
-		for (auto& asset : assetList)
+		for (auto&&[name, asset] : assetList)
 		{
-			asset.second->wait();
+			asset->release();
 
-			asset.second->release();
+			LOG_TRACE(U"ℹ️ {}Asset: `{}` released"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 	}
 
-	void CAsset::unregister(AssetType assetType, const String& name)
+	void CAsset::unregister(const AssetType assetType, const AssetNameView name)
 	{
-		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
-
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
 
 		if (it == assetList.end())
 		{
-			LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
-
+			//LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: `{}`"_fmt(detail::GetAssetTypeName(assetType), name));
 			return;
 		}
 
-		IAsset* pAsset = it->second.get();
-
-		pAsset->wait();
-
-		pAsset->release();
+		it->second->release();
 
 		assetList.erase(it);
 
-		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_TRACE(U"ℹ️ {}Asset: `{}` unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::unregisterAll(const AssetType assetType)
 	{
-		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 
-		for (auto& asset : assetList)
+		for (auto&& [name, asset] : assetList)
 		{
-			asset.second->wait();
+			asset->release();
 
-			asset.second->release();
+			LOG_TRACE(U"ℹ️ {}Asset: `{}` unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
 		assetList.clear();
 	}
 
-	bool CAsset::isReady(const AssetType assetType, const String& name) const
+	HashTable<AssetName, AssetInfo> CAsset::enumerate(const AssetType assetType)
 	{
-		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+		HashTable<AssetName, AssetInfo> result;
 
-		const auto it = assetList.find(name);
+		auto& assetList = m_assetLists[FromEnum(assetType)];
 
-		if (it == assetList.end())
+		result.reserve(assetList.size());
+
+		for (auto&& [name, asset] : assetList)
 		{
-			LOG_FAIL_ONCE(U"❌ CAsset::isReady(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
-
-			return false;
+			result.emplace(name, AssetInfo{ asset->getState(), asset->getTags() });
 		}
 
-		return it->second->isReady();
+		return result;
 	}
 }

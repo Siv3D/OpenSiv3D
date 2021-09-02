@@ -2,120 +2,61 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Asset.hpp>
-# include <Asset/IAssetDetail.hpp>
+# include "IAssetDetail.hpp"
 
 namespace s3d
 {
-	AssetParameter AssetParameter::Default()
-	{
-		return AssetParameter{};
-	}
-
-	AssetParameter AssetParameter::LoadImmediately()
-	{
-		AssetParameter parameter;
-
-		parameter.loadImmediately = true;
-
-		return parameter;
-	}
-
-	AssetParameter AssetParameter::LoadAsync()
-	{
-		AssetParameter parameter;
-
-		parameter.loadImmediately = true;
-
-		parameter.loadAsync = true;
-
-		return parameter;
-	}
-
-	AssetParameter AssetParameter::withTag(const AssetTag& tag) const
-	{
-		AssetParameter parameter(*this);
-
-		parameter.tags << tag;
-
-		return parameter;
-	}
-
-	AssetParameter AssetParameter::withTag(const Array<AssetTag>& _tags) const
-	{
-		AssetParameter parameter(*this);
-
-		parameter.tags.append(_tags);
-
-		return parameter;
-	}
-
 	IAsset::IAsset()
-		: pImpl(std::make_shared<IAssetDetail>())
-	{
+		: pImpl{ std::make_shared<IAssetDetail>() } {}
 
+	IAsset::IAsset(const Array<String>& tags)
+		: pImpl{ std::make_shared<IAssetDetail>(tags) } {}
+
+	IAsset::~IAsset() {}
+
+	AssetState IAsset::getState() const
+	{
+		return pImpl->getState();
 	}
 
-	IAsset::IAsset(const AssetParameter& parameter)
-		: pImpl(std::make_shared<IAssetDetail>(parameter))
+	const Array<AssetTag>& IAsset::getTags() const
 	{
-
+		return pImpl->getTags();
 	}
 
-	IAsset::~IAsset()
+	bool IAsset::isAsyncLoading() const
 	{
-
+		return (pImpl->getState() == AssetState::AsyncLoading);
 	}
 
-	const AssetParameter& IAsset::getParameter() const
+	bool IAsset::isFinished() const
 	{
-		return pImpl->getParameter();
+		const AssetState state = pImpl->getState();
+
+		return ((state == AssetState::Loaded)
+			|| (state == AssetState::Failed));
 	}
 
-	bool IAsset::isReady() const
+	bool IAsset::isUninitialized() const
 	{
-		return pImpl->isReady();
+		return (pImpl->getState() == AssetState::Uninitialized);
 	}
 
-	void IAsset::wait()
+	bool IAsset::isLoaded() const
 	{
-		pImpl->wait();
+		return (pImpl->getState() == AssetState::Loaded);
 	}
 
-	bool IAsset::isLoadingAsync()
-	{
-		return pImpl->isLoadingAsync();
-	}
-
-	bool IAsset::isPreloaded() const
-	{
-		return pImpl->isPreloaded();
-	}
-
-	bool IAsset::loadSucceeded() const
-	{
-		return pImpl->loadSucceeded();
-	}
-
-	void  IAsset::setState(const State state)
+	void IAsset::setState(const AssetState state)
 	{
 		pImpl->setState(state);
-	}
-
-	bool IAsset::uninitialized() const
-	{
-		return pImpl->uninitialized();
-	}
-
-	void IAsset::launchLoading(std::function<bool()>&& loader)
-	{
-		pImpl->launchLoading(std::move(loader));
 	}
 }

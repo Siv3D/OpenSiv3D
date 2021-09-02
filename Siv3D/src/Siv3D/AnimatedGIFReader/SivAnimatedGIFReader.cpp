@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,21 +15,18 @@
 namespace s3d
 {
 	AnimatedGIFReader::AnimatedGIFReader()
-		: pImpl(std::make_shared<AnimatedGIFReaderDetail>())
-	{
-
-	}
+		: pImpl{ std::make_shared<AnimatedGIFReaderDetail>() } {}
 
 	AnimatedGIFReader::AnimatedGIFReader(const FilePathView path)
-		: AnimatedGIFReader()
+		: AnimatedGIFReader{}
 	{
 		open(path);
 	}
 
-	AnimatedGIFReader::AnimatedGIFReader(const std::shared_ptr<IReader>& reader)
+	AnimatedGIFReader::AnimatedGIFReader(IReader&& reader)
 		: AnimatedGIFReader()
 	{
-		open(reader);
+		open(std::move(reader));
 	}
 
 	AnimatedGIFReader::~AnimatedGIFReader()
@@ -42,9 +39,9 @@ namespace s3d
 		return pImpl->open(path);
 	}
 
-	bool AnimatedGIFReader::open(const std::shared_ptr<IReader>& reader)
+	bool AnimatedGIFReader::open(IReader&& reader)
 	{
-		return pImpl->open(reader);
+		return pImpl->open(std::move(reader));
 	}
 
 	void AnimatedGIFReader::close()
@@ -62,33 +59,62 @@ namespace s3d
 		return isOpen();
 	}
 
-	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delays, int32& duration) const
+	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delaysMillisec) const
 	{
-		return pImpl->read(images, delays, duration);
+		return pImpl->read(images, delaysMillisec);
 	}
 
-	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delays, const int32 duration) noexcept
+	bool AnimatedGIFReader::read(Array<Image>& images, Array<int32>& delaysMillisec, int32& durationMillisec) const
 	{
-		if (!delays || duration <= 0)
+		if (pImpl->read(images, delaysMillisec))
+		{
+			durationMillisec = delaysMillisec.sum();
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delaysMillisec) noexcept
+	{
+		return MillisecToIndex(timeMillisec, delaysMillisec, delaysMillisec.sum());
+	}
+
+	size_t AnimatedGIFReader::MillisecToIndex(const int64 timeMillisec, const Array<int32>& delaysMillisec, const int32 durationMillisec) noexcept
+	{
+		if ((not delaysMillisec) || durationMillisec <= 0)
 		{
 			return 0;
 		}
 
-		const int64 currentTime = timeMillisec % duration;
+		const int64 currentTime = (timeMillisec % durationMillisec);
 		size_t frameIndex = 0;
 		int64 sum = 0;
 
-		for (const auto& delay: delays)
+		for (const auto& delayMillisec : delaysMillisec)
 		{
 			if (sum > currentTime)
 			{
 				return frameIndex - 1;
 			}
 
-			sum += delay;
+			sum += delayMillisec;
 			++frameIndex;
 		}
 
 		return (frameIndex - 1);
+	}
+
+	size_t AnimatedGIFReader::GetFrameIndex(const double timeSec, const Array<int32>& delaysMillisec) noexcept
+	{
+		return GetFrameIndex(timeSec, delaysMillisec, delaysMillisec.sum());
+	}
+
+	size_t AnimatedGIFReader::GetFrameIndex(const double timeSec, const Array<int32>& delaysMillisec, const int32 durationMillisec) noexcept
+	{
+		return MillisecToIndex(static_cast<int64>(timeSec * 1000LL), delaysMillisec, durationMillisec);
 	}
 }

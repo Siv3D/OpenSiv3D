@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,10 +13,13 @@
 
 namespace s3d
 {
-	enum class LetterCase
+	/// @brief アルファベットの大文字・小文字
+	enum class LetterCase : uint8
 	{
+		/// @brief 小文字
 		Lower,
 
+		/// @brief 大文字
 		Upper,
 	};
 }

@@ -2,113 +2,74 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Array.hpp"
-# include "String.hpp"
-# include "PointVector.hpp"
 # include "Optional.hpp"
+# include "DragItemType.hpp"
+# include "DragStatus.hpp"
+# include "DroppedFilePath.hpp"
+# include "DroppedText.hpp"
 
 namespace s3d
 {
-	enum class DragItemType
-	{
-		/// <summary>
-		/// ファイルパス
-		/// </summary>
-		FilePaths,
-
-		/// <summary>
-		/// テキスト
-		/// </summary>
-		Text
-	};
-
-	struct DragStatus
-	{
-		/// <summary>
-		/// ドラッグしているアイテムの種類
-		/// </summary>
-		DragItemType itemType;
-
-		/// <summary>
-		/// ドラッグしているカーソルの位置（クライアント座標）
-		/// </summary>
-		Point pos;
-	};
-
-	struct DroppedFilePath
-	{
-		/// <summary>
-		/// ファイルパス
-		/// </summary>
-		FilePath path;
-
-		/// <summary>
-		/// ドロップされた位置（クライアント座標）
-		/// </summary>
-		Point pos;
-
-		/// <summary>
-		/// ドロップされた時刻（ミリ秒）
-		/// </summary>
-		/// <remarks>
-		/// Time::GetMillisec() で取得する時刻と比較できます。
-		/// </remarks>
-		uint64 timeMillisec;
-	};
-
-	struct DroppedText
-	{
-		/// <summary>
-		/// テキスト
-		/// </summary>
-		String text;
-
-		/// <summary>
-		/// ドロップされたクライアント位置（クライアント座標）
-		/// </summary>
-		Point pos;
-
-		/// <summary>
-		/// ドロップされた時刻（ミリ秒）
-		/// </summary>
-		/// <remarks>
-		/// Time::GetMillisec() で取得する時刻と比較できます。
-		/// </remarks>
-		uint64 timeMillisec;
-	};
-
 	namespace DragDrop
 	{
+		/// @brief ドラッグ＆ドロップでファイルパスを受け付けるかを設定します。
+		/// @param accept ファイルパスを受け付けるか
+		/// @remark デフォルトでは true です。
 		void AcceptFilePaths(bool accept);
 
+		/// @brief ドラッグ＆ドロップでテキストを受け付けるかを設定します。
+		/// @param accept テキストを受け付けるか
+		/// @remark デフォルトでは false です。
 		void AcceptText(bool accept);
 
-		[[nodiscard]] Optional<DragStatus> DragOver();
+		/// @brief ウィンドウ上でドラッグ中のアイテムの情報を返します。
+		/// @return ドラッグ中のアイテムの情報。ドラッグ中でない場合 none
+		[[nodiscard]]
+		Optional<DragStatus> DragOver();
 
-		[[nodiscard]] bool HasNewFilePaths();
+		/// @brief 新しいファイルパスがドロップされたアイテムリストにあるかを返します。
+		/// @return 新しいファイルパスがドロップされている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool HasNewFilePaths();
 
-		[[nodiscard]] bool HasNewText();
+		/// @brief 新しいテキストがドロップされたアイテムリストにあるかを返します。
+		/// @return 新しいテキストがドロップされている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool HasNewText();
 
+		/// @brief ドロップされているオブジェクトの情報を消去します。
 		void Clear();
 
-		[[nodiscard]] Array<DroppedFilePath> GetDroppedFilePaths();
+		/// @brief ドロップされたファイルパスの情報一覧を返します。
+		/// @remark この関数で返されたアイテムは、現在のアイテムリストから削除されます。
+		/// @return ドロップされたファイルパスの情報一覧
+		[[nodiscard]]
+		Array<DroppedFilePath> GetDroppedFilePaths();
 
-		[[nodiscard]] Array<DroppedText> GetDroppedText();
+		/// @brief ドロップされたテキストの情報一覧を返します。
+		/// @remark この関数で返されたアイテムは、現在のアイテムリストから削除されます。
+		/// @return ドロップされたテキストの情報一覧
+		[[nodiscard]]
+		Array<DroppedText> GetDroppedText();
 	}
 
 # if SIV3D_PLATFORM(WINDOWS)
 
 	namespace Platform::Windows::DragDrop
 	{
+		/// @brief 指定したファイルのドラッグを開始します。
+		/// @param path ファイルパス
+		/// @return ドロップのアクションを表す数値
 		Optional<int32> MakeDragDrop(const FilePath& path);
 	}
 

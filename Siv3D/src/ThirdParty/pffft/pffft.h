@@ -77,6 +77,7 @@
 #ifndef PFFFT_H
 #define PFFFT_H
 
+#define _USE_MATH_DEFINES
 #include <stddef.h> // for size_t
 
 #ifdef __cplusplus

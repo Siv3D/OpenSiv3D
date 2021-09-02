@@ -2,39 +2,34 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <serial/serial.h>
 # include <Siv3D/Serial.hpp>
 # include "SerialDetail.hpp"
 
 namespace s3d
 {
 	Serial::Serial()
-		: pImpl(std::make_shared<SerialDetail>())
-	{
+		: pImpl{ std::make_shared<SerialDetail>() } {}
 
+	Serial::Serial(const StringView port, const int32 baudrate,
+		const ByteSize byteSize, const Parity parity, const StopBits stopBits, const FlowControl flowControl)
+		: Serial{}
+	{
+		open(port, baudrate, byteSize, parity, stopBits, flowControl);
 	}
 
-	Serial::Serial(const String& port, const int32 baudrate)
-		: pImpl(std::make_shared<SerialDetail>(port, baudrate))
+	Serial::~Serial() {}
+
+	bool Serial::open(const StringView port, const int32 baudrate,
+		const ByteSize byteSize, const Parity parity, const StopBits stopBits, const FlowControl flowControl)
 	{
-
-	}
-
-	Serial::~Serial()
-	{
-
-	}
-
-	bool Serial::open(const String& port, const int32 baudrate)
-	{
-		return pImpl->open(port, baudrate);
+		return pImpl->open(port, baudrate, byteSize, parity, stopBits, flowControl);
 	}
 
 	void Serial::close()
@@ -110,7 +105,7 @@ namespace s3d
 			read(dst.data(), dst.size_bytes());
 		}
 
-		return !dst.isEmpty();
+		return (not dst.isEmpty());
 	}
 
 	size_t Serial::write(const void* src, const size_t size)
@@ -118,32 +113,48 @@ namespace s3d
 		return pImpl->write(src, size);
 	}
 
-	bool Serial::writeByte(uint8 byte)
+	bool Serial::writeByte(const uint8 byte)
 	{
 		return write(byte);
 	}
 
-	bool Serial::writeByte(Byte byte)
+	bool Serial::writeByte(const Byte byte)
 	{
 		return write(byte);
 	}
 
-	namespace System
+	void Serial::setRTS(const bool level)
 	{
-		Array<SerialPortInfo> EnumerateSerialPorts()
-		{
-			Array<SerialPortInfo> infos;
+		pImpl->setRTS(level);
+	}
 
-			for (const auto& p : serial::list_ports())
-			{
-				SerialPortInfo info;
-				info.port = Unicode::Widen(p.port);
-				info.description = Unicode::FromUTF8(p.description);
-				info.hardwareID = Unicode::Widen(p.hardware_id);
-				infos << info;
-			}
+	void Serial::setDTR(const bool level)
+	{
+		pImpl->setDTR(level);
+	}
 
-			return infos;
-		}
+	bool Serial::waitForChange()
+	{
+		return pImpl->waitForChange();
+	}
+
+	bool Serial::getCTS()
+	{
+		return pImpl->getCTS();
+	}
+
+	bool Serial::getDSR()
+	{
+		return pImpl->getDSR();
+	}
+
+	bool Serial::getRI()
+	{
+		return pImpl->getRI();
+	}
+
+	bool Serial::getCD()
+	{
+		return pImpl->getCD();
 	}
 }

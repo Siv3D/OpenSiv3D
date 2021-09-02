@@ -2,24 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/XInput.hpp>
-# include <Siv3D/Math.hpp>
 # include <Siv3D/Circular.hpp>
-# include <Siv3DEngine.hpp>
-# include "IXInput.hpp"
+# include <Siv3D/Math.hpp>
+# include <Siv3D/XInput/IXInput.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static constexpr int32 Get4Direction(const double angle)
+		static constexpr int32 Get4Direction(const double angle) noexcept
 		{
 			const double deg = Math::ToDegrees(angle);
 
@@ -35,7 +35,7 @@ namespace s3d
 				return 2;
 		}
 
-		static constexpr int32 Get8Direction(const double angle)
+		static constexpr int32 Get8Direction(const double angle) noexcept
 		{
 			const double deg = Math::ToDegrees(angle);
 
@@ -59,35 +59,34 @@ namespace s3d
 				return 4;
 		}
 
-		XInput_impl::XInput_impl(const size_t _userIndex)
-			: userIndex(static_cast<uint32>(_userIndex))
-			, buttonUp(InputDevice::XInput, 0, static_cast<uint8>(userIndex))
-			, buttonDown(InputDevice::XInput, 1, static_cast<uint8>(userIndex))
-			, buttonLeft(InputDevice::XInput, 2, static_cast<uint8>(userIndex))
-			, buttonRight(InputDevice::XInput, 3, static_cast<uint8>(userIndex))
-			, buttonStart(InputDevice::XInput, 4, static_cast<uint8>(userIndex))
-			, buttonBack(InputDevice::XInput, 5, static_cast<uint8>(userIndex))
-			, buttonLThumb(InputDevice::XInput, 6, static_cast<uint8>(userIndex))
-			, buttonRThumb(InputDevice::XInput, 7, static_cast<uint8>(userIndex))
-			, buttonLB(InputDevice::XInput, 8, static_cast<uint8>(userIndex))
-			, buttonRB(InputDevice::XInput, 9, static_cast<uint8>(userIndex))
-			, buttonA(InputDevice::XInput, 12, static_cast<uint8>(userIndex))
-			, buttonB(InputDevice::XInput, 13, static_cast<uint8>(userIndex))
-			, buttonX(InputDevice::XInput, 14, static_cast<uint8>(userIndex))
-			, buttonY(InputDevice::XInput, 15, static_cast<uint8>(userIndex))
-			, leftTrigger(0.0)
-			, rightTrigger(0.0)
-			, leftThumbX(0.0)
-			, leftThumbY(0.0)
-			, rightThumbX(0.0)
-			, rightThumbY(0.0)
-		{
-
-		}
+		XInput_impl::XInput_impl(const size_t _playerIndex) noexcept
+			: playerIndex{ static_cast<uint32>(_playerIndex) }
+			, buttonUp{ InputDeviceType::XInput, 0, static_cast<uint8>(_playerIndex) }
+			, buttonDown{ InputDeviceType::XInput, 1, static_cast<uint8>(_playerIndex) }
+			, buttonLeft{ InputDeviceType::XInput, 2, static_cast<uint8>(_playerIndex) }
+			, buttonRight{ InputDeviceType::XInput, 3, static_cast<uint8>(_playerIndex) }
+			, buttonStart{ InputDeviceType::XInput, 4, static_cast<uint8>(_playerIndex) }
+			, buttonMenu{ InputDeviceType::XInput, 4, static_cast<uint8>(_playerIndex) }
+			, buttonBack{ InputDeviceType::XInput, 5, static_cast<uint8>(_playerIndex) }
+			, buttonView{ InputDeviceType::XInput, 5, static_cast<uint8>(_playerIndex) }
+			, buttonLThumb{ InputDeviceType::XInput, 6, static_cast<uint8>(_playerIndex) }
+			, buttonRThumb{ InputDeviceType::XInput, 7, static_cast<uint8>(_playerIndex) }
+			, buttonLB{ InputDeviceType::XInput, 8, static_cast<uint8>(_playerIndex) }
+			, buttonRB{ InputDeviceType::XInput, 9, static_cast<uint8>(_playerIndex) }
+			, buttonA{ InputDeviceType::XInput, 12, static_cast<uint8>(_playerIndex) }
+			, buttonB{ InputDeviceType::XInput, 13, static_cast<uint8>(_playerIndex) }
+			, buttonX{ InputDeviceType::XInput, 14, static_cast<uint8>(_playerIndex) }
+			, buttonY{ InputDeviceType::XInput, 15, static_cast<uint8>(_playerIndex) }
+			, leftTrigger{ 0.0 }
+			, rightTrigger{ 0.0 }
+			, leftThumbX{ 0.0 }
+			, leftThumbY{ 0.0 }
+			, rightThumbX{ 0.0 }
+			, rightThumbY{ 0.0 } {}
 
 		bool XInput_impl::isConnected() const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->isConnected(userIndex);
+			return SIV3D_ENGINE(XInput)->isConnected(playerIndex);
 		}
 
 		XInput_impl::operator bool() const
@@ -97,27 +96,27 @@ namespace s3d
 
 		void XInput_impl::setLeftTriggerDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::LefTrigger, deadZone);
+			SIV3D_ENGINE(XInput)->setDeadZone(playerIndex, DeadZoneIndex::LefTrigger, deadZone);
 		}
 
 		void XInput_impl::setRightTriggerDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::RightTrigger, deadZone);
+			SIV3D_ENGINE(XInput)->setDeadZone(playerIndex, DeadZoneIndex::RightTrigger, deadZone);
 		}
 
 		void XInput_impl::setLeftThumbDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::LeftThumb, deadZone);
+			SIV3D_ENGINE(XInput)->setDeadZone(playerIndex, DeadZoneIndex::LeftThumb, deadZone);
 		}
 
 		void XInput_impl::setRightThumbDeadZone(const DeadZone& deadZone)
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setDeadZone(userIndex, DeadZoneIndex::RightThumb, deadZone);
+			SIV3D_ENGINE(XInput)->setDeadZone(playerIndex, DeadZoneIndex::RightThumb, deadZone);
 		}
 
 		Optional<int32> XInput_impl::leftThumbD4(const double threshold) const
 		{
-			const Circular circular(Vec2(leftThumbX, -leftThumbY));
+			const Circular circular{ Vec2{ leftThumbX, -leftThumbY} };
 
 			if (circular.r < threshold)
 			{
@@ -129,7 +128,7 @@ namespace s3d
 
 		Optional<int32> XInput_impl::leftThumbD8(const double threshold) const
 		{
-			const Circular circular(Vec2(leftThumbX, -leftThumbY));
+			const Circular circular{ Vec2{ leftThumbX, -leftThumbY} };
 
 			if (circular.r < threshold)
 			{
@@ -141,7 +140,7 @@ namespace s3d
 
 		Optional<int32> XInput_impl::rightThumbD4(const double threshold) const
 		{
-			const Circular circular(Vec2(rightThumbX, -rightThumbY));
+			const Circular circular{ Vec2{ rightThumbX, -rightThumbY} };
 
 			if (circular.r < threshold)
 			{
@@ -153,7 +152,7 @@ namespace s3d
 
 		Optional<int32> XInput_impl::rightThumbD8(const double threshold) const
 		{
-			const Circular circular(Vec2(rightThumbX, -rightThumbY));
+			const Circular circular{ Vec2{ rightThumbX, -rightThumbY} };
 
 			if (circular.r < threshold)
 			{
@@ -163,34 +162,34 @@ namespace s3d
 			return Get8Direction(circular.theta);
 		}
 
-		void XInput_impl::setVibration(const double leftMotorSpeed, const double rightMotorSpeed) const
+		void XInput_impl::setVibration(const XInputVibration& vibration) const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setVibration(userIndex, leftMotorSpeed, rightMotorSpeed);
+			SIV3D_ENGINE(XInput)->setVibration(playerIndex, vibration);
 		}
 
-		std::pair<double, double> XInput_impl::getVibration() const
+		const XInputVibration& XInput_impl::getVibration() const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->getVibration(userIndex);
+			return SIV3D_ENGINE(XInput)->getVibration(playerIndex);
 		}
 
 		void XInput_impl::stopVibration() const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->setVibration(userIndex, 0.0, 0.0);
+			SIV3D_ENGINE(XInput)->setVibration(playerIndex, XInputVibration{});
 		}
 
 		void XInput_impl::pauseVibration() const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->pauseVibration(userIndex);
+			SIV3D_ENGINE(XInput)->pauseVibration(playerIndex);
 		}
 
 		void XInput_impl::resumeVibration() const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->resumeVibration(userIndex);
+			SIV3D_ENGINE(XInput)->resumeVibration(playerIndex);
 		}
 
-		const XInput_impl& XInput_helper::operator()(const size_t userIndex) const
+		const XInput_impl& XInput_helper::operator()(const size_t playerIndex) const
 		{
-			return Siv3DEngine::Get<ISiv3DXInput>()->getInput(userIndex);
+			return SIV3D_ENGINE(XInput)->getInput(static_cast<uint32>(playerIndex));
 		}
 	}
 }

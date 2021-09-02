@@ -2,16 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Quad.hpp"
+# include "Common.hpp"
+# include "PointVector.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -19,12 +20,18 @@ namespace s3d
 	{
 		Float2 p[4];
 
+		SIV3D_NODISCARD_CXX20
 		FloatQuad() = default;
 
-		constexpr FloatQuad(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept
-			: p{ p0, p1, p2, p3 } {}
+		SIV3D_NODISCARD_CXX20
+		constexpr FloatQuad(const Float2& p0, const Float2& p1, const Float2& p2, const Float2& p3) noexcept;
 
-		constexpr FloatQuad(const Quad& q) noexcept
-			: p{ q.p0, q.p1, q.p2, q.p3 } {}
+		SIV3D_NODISCARD_CXX20
+		constexpr FloatQuad(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept;
+	
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr FloatQuad(const Quad& q) noexcept;
 	};
 }
+
+# include "detail/FloatQuad.ipp"

@@ -2,180 +2,111 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
+# include "Common.hpp"
 # include "IWriter.hpp"
-# include "FileSystem.hpp"
+# include "StringView.hpp"
+# include "OpenMode.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 書き込み用バイナリファイル
-	/// </summary>
+	class String;
+	using FilePath = String;
+
+	/// @brief 書き込み用バイナリファイル
 	class BinaryWriter : public IWriter
 	{
+	public:
+
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
+		BinaryWriter();
+
+		/// @brief ファイルを開きます。
+		/// @param path ファイルパス
+		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
+		SIV3D_NODISCARD_CXX20
+		explicit BinaryWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc);
+
+		/// @brief ファイルを開きます。
+		/// @param path ファイルパス
+		/// @param openMode オープンモード (`OpenMode` の組み合わせ）
+		/// @return ファイルのオープンに成功した場合 true, それ以外の場合は false
+		bool open(FilePathView path, OpenMode openMode = OpenMode::Trunc);
+
+		/// @brief ファイルを閉じます。
+		/// @remark ファイルがオープンしていない場合は何もしません。
+		void close();
+
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isOpen() const noexcept override;
+
+		/// @brief ファイルが開いているかを返します。
+		/// @return ファイルが開いている場合 true, それ以外の場合は false	
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
+
+		/// @brief 書き込んだデータのバッファをフラッシュして、確実にファイルに書き込みます。
+		void flush();
+
+		/// @brief 開いているファイルの内容をすべて消去し、サイズが 0 のファイルにします。
+		void clear();
+
+		/// @brief 開いているファイルの現在のサイズ（バイト）を返します。
+		/// @return 開いているファイルの現在のサイズ（バイト）
+		[[nodiscard]]
+		int64 size() const override;
+
+		/// @brief 現在の書き込み位置を返します。
+		/// @return 現在の書き込み位置
+		[[nodiscard]]
+		int64 getPos() const override;
+
+		/// @brief 書き込み位置を変更します。
+		/// @param pos 新しい書き込み位置（バイト）
+		/// @return 書き込み位置の変更に成功した場合 true, それ以外の場合は false
+		bool setPos(int64 pos) override;
+
+		/// @brief 書き込み位置をファイルの終端に移動させます。
+		/// @return 新しい書き込み位置（バイト）
+		int64 seekToEnd();
+
+		/// @brief 現在の書き込み位置にデータを書き込みます。
+		/// @param src 書き込むデータ
+		/// @param sizeBytes 書き込むサイズ（バイト）
+		/// @remark 書き込み位置がファイルの終端の場合、書き込んだ分だけファイルのサイズが拡張されます。
+		/// @return 実際に書き込んだサイズ（バイト）
+		int64 write(const void* src, int64 sizeBytes) override;
+
+		/// @brief 現在の書き込み位置にデータを書き込みます。
+		/// @tparam TriviallyCopyable 書き込む値の型
+		/// @param src 書き込むデータ
+		/// @remark 書き込み位置がファイルの終端の場合、書き込んだ分だけファイルのサイズが拡張されます。
+		/// @return 書き込みに成功した場合 true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool write(const TriviallyCopyable& src);
+
+		/// @brief 開いているファイルのパスを返します。
+		/// @return 開いているファイルのパス。ファイルが開いていない場合は空の文字列
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
+	
 	private:
 
 		class BinaryWriterDetail;
 
 		std::shared_ptr<BinaryWriterDetail> pImpl;
-
-	public:
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		BinaryWriter();
-
-		/// <summary>
-		/// 書き込み用のバイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <param name="openMode">
-		/// オープンモード
-		/// </param>
-		explicit BinaryWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc)
-			: BinaryWriter()
-		{
-			open(path, openMode);
-		}
-
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
-		~BinaryWriter() = default;
-
-		/// <summary>
-		/// 書き込み用のバイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <param name="openMode">
-		/// オープンモード
-		/// </param>
-		/// <returns>
-		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool open(FilePathView path, OpenMode openMode = OpenMode::Trunc);
-
-		/// <summary>
-		/// バイナリファイルの書き込みバッファをフラッシュします。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void flush();
-
-		/// <summary>
-		/// バイナリファイルをクローズします。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void close();
-
-		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool isOpen() const override;
-
-		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpen(); }
-
-		/// <summary>
-		/// 現在開いているファイルの内容を消去し、書き込み位置を先頭に戻します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void clear();
-
-		/// <summary>
-		/// バイナリファイルのサイズを返します。
-		/// </summary>
-		/// <returns>
-		/// バイナリファイルのサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] int64 size() const override;
-
-		/// <summary>
-		/// 現在の書き込み位置を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の書き込み位置（バイト）
-		/// </returns>
-		[[nodiscard]] int64 getPos() const override;
-
-		/// <summary>
-		/// 書き込み位置を変更します。
-		/// </summary>
-		/// <param name="pos">
-		/// 新しい書き込み位置（バイト）
-		/// </param>
-		/// <returns>
-		/// 書き込み位置の変更に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool setPos(int64 pos) override;
-
-		/// <summary>
-		/// 書き込み位置を終端に移動します。
-		/// </summary>
-		/// <returns>
-		/// 新しい書き込み位置（バイト）
-		/// </returns>
-		int64 seekToEnd();
-
-		/// <summary>
-		/// ファイルにデータを書き込みます。
-		/// </summary>
-		/// <param name="src">
-		/// 書き込むデータ
-		/// </param>
-		/// <param name="size">
-		/// 書き込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		int64 write(const void* src, size_t size) override;
-
-		/// <summary>
-		/// ファイルにデータを書き込みます。
-		/// </summary>
-		/// <param name="view">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		int64 write(ByteArrayViewAdapter view)
-		{
-			return write(view.data(), view.size());
-		}
-
-		/// <summary>
-		/// オープンしているファイルのパスを返します。
-		/// </summary>
-		/// <remarks>
-		/// クローズしている場合は空の文字列です。
-		/// </remarks>
-		[[nodiscard]] const FilePath& path() const;
 	};
 }
+
+# include "detail/BinaryWriter.ipp"

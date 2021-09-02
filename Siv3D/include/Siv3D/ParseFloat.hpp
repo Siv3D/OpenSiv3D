@@ -2,40 +2,49 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
-	template <class FloatType>
-	FloatType ParseFloat(StringView view);
+	SIV3D_CONCEPT_FLOATING_POINT
+	[[nodiscard]]
+	Float ParseFloat(StringView s);
 
 	template <>
-	float ParseFloat<float>(StringView view);
+	[[nodiscard]]
+	float ParseFloat<float>(StringView s);
 
 	template <>
-	double ParseFloat<double>(StringView view);
+	[[nodiscard]]
+	double ParseFloat<double>(StringView s);
 
 	template <>
-	long double ParseFloat<long double>(StringView view);
+	[[nodiscard]]
+	long double ParseFloat<long double>(StringView s);
 
 
-	template <class FloatType>
-	Optional<FloatType> ParseFloatOpt(StringView view);
-
-	template <>
-	Optional<float> ParseFloatOpt<float>(StringView view);
-
-	template <>
-	Optional<double> ParseFloatOpt<double>(StringView view);
+	SIV3D_CONCEPT_FLOATING_POINT
+	[[nodiscard]]
+	Optional<Float> ParseFloatOpt(StringView s) noexcept;
 
 	template <>
-	Optional<long double> ParseFloatOpt<long double>(StringView view);
+	[[nodiscard]]
+	Optional<float> ParseFloatOpt<float>(StringView s) noexcept;
+
+	template <>
+	[[nodiscard]]
+	Optional<double> ParseFloatOpt<double>(StringView s) noexcept;
+
+	template <>
+	[[nodiscard]]
+	Optional<long double> ParseFloatOpt<long double>(StringView s) noexcept;
 }

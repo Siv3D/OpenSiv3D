@@ -2,53 +2,63 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "FileAction.hpp"
 # include "Array.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
-	enum class FileAction
+	/// @brief ファイルの操作とファイルパス
+	struct FileChange
 	{
-		Unknown,
+		/// @brief ファイルパス
+		FilePath path;
 
-		Added,
-
-		Removed,
-
-		Modified,
+		/// @brief ファイルの操作
+		FileAction action;
 	};
 
+	/// @brief ディレクトリの監視
 	class DirectoryWatcher
 	{
-	private:
-
-		class DirectoryWatcherDetail;
-
-		std::shared_ptr<DirectoryWatcherDetail> m_detail;
-
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		DirectoryWatcher();
 
+		SIV3D_NODISCARD_CXX20
 		explicit DirectoryWatcher(const FilePath& directory);
 
 		~DirectoryWatcher();
 
+		[[nodiscard]]
 		bool isOpen() const;
 
+		[[nodiscard]]
 		explicit operator bool() const;
 
-		Array<std::pair<FilePath, FileAction>> retrieveChanges() const;
+		Array<FileChange> retrieveChanges() const;
 
+		bool retrieveChanges(Array<FileChange>& fileChanges) const;
+
+		void clearChanges();
+
+		[[nodiscard]]
 		FilePath directory() const;
+
+	private:
+
+		class DirectoryWatcherDetail;
+
+		std::shared_ptr<DirectoryWatcherDetail> pImpl;
 	};
 }

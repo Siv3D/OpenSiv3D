@@ -2,209 +2,169 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
-# include "Fwd.hpp"
-# include "PredefinedNamedParameter.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
-# include "MathConstants.hpp"
+# include "FastMath.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 円座標
-	/// </summary>
-	template <int32 Oclock>
+	/// @brief 円座標
+	template <class Float, int32 Oclock = 0>
 	struct CircularBase
 	{
-	private:
+		using value_type = Float;
+		
+		using position_type = Vector2D<value_type>;
 
-		[[nodiscard]] static constexpr double Clamp(const double theta) noexcept
-		{
-			return theta <= -Math::Constants::Pi ? theta + Math::Constants::TwoPi : theta;
-		}
-        
-		[[nodiscard]] static constexpr double Clock() noexcept
-		{
-			return Oclock * (Math::Constants::TwoPi / 12);
-		}
+		/// @brief 半径
+		value_type r;
 
-		[[nodiscard]] static constexpr double Offset(const double theta) noexcept
-		{
-			return Clamp(theta - Clock());
-		}
+		/// @brief 角度（ラジアン）
+		value_type theta;
 
-	public:
-
-		/// <summary>
-		/// 半径
-		/// </summary>
-		double r;
-
-		/// <summary>
-		/// 角度（ラジアン）
-		/// </summary>
-		double theta;
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		CircularBase() = default;
 
-		constexpr CircularBase(double _r, double _theta) noexcept
-			: r(_r)
-			, theta(_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr CircularBase(value_type _r, value_type _theta) noexcept;
 
-		constexpr CircularBase(Arg::r_<double> _r, Arg::theta_<double> _theta) noexcept
-			: r(*_r)
-			, theta(*_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr CircularBase(Arg::r_<value_type> _r, Arg::theta_<value_type> _theta) noexcept;
 
-		constexpr CircularBase(Arg::theta_<double> _theta, Arg::r_<double> _r) noexcept
-			: r(*_r)
-			, theta(*_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr CircularBase(Arg::theta_<value_type> _theta, Arg::r_<value_type> _r) noexcept;
 
-		CircularBase(const Vec2& v) noexcept
-			: r(v.length()), theta(Offset(std::atan2(v.x, -v.y))) {}
+		SIV3D_NODISCARD_CXX20
+		CircularBase(position_type v) noexcept;
 
-		[[nodiscard]] constexpr CircularBase operator +() const noexcept
+		[[nodiscard]]
+		constexpr CircularBase operator +() const noexcept;
+
+		[[nodiscard]]
+		constexpr CircularBase operator -() const noexcept;
+
+		[[nodiscard]]
+		position_type operator +(position_type v) const noexcept;
+
+		[[nodiscard]]
+		position_type operator -(position_type v) const noexcept;
+
+		[[nodiscard]]
+		constexpr CircularBase rotated(value_type angle) const noexcept;
+
+		constexpr CircularBase& rotate(value_type angle) noexcept;
+
+		[[nodiscard]]
+		Float2 toFloat2() const noexcept;
+
+		[[nodiscard]]
+		Vec2 toVec2() const noexcept;
+
+		[[nodiscard]]
+		Float2 fastToFloat2() const noexcept;
+
+		[[nodiscard]]
+		Vec2 fastToVec2() const noexcept;
+
+		[[nodiscard]]
+		position_type toPosition() const noexcept;
+
+		[[nodiscard]]
+		operator position_type() const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const CircularBase& value)
 		{
-			return *this;
+			return output << CharType('(')
+				<< value.r << CharType(',') << CharType(' ')
+				<< value.theta << CharType(')');
 		}
 
-		[[nodiscard]] constexpr CircularBase operator -() const noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, CircularBase& value)
 		{
-			return{ r, Clamp(theta - Math::Constants::Pi) };
+			CharType unused;
+			return input >> unused
+				>> value.r >> unused
+				>> value.theta >> unused;
 		}
 
-		[[nodiscard]] Vec2 operator +(const Vec2& v) const noexcept
+		friend void Formatter(FormatData& formatData, const CircularBase& value)
 		{
-			return toVec2() + v;
+			Formatter(formatData, position_type{ value.r, value.theta });
 		}
 
-		[[nodiscard]] Vec2 operator -(const Vec2& v) const noexcept
-		{
-			return toVec2() - v;
-		}
+	private:
 
-		[[nodiscard]] constexpr CircularBase rotated(double angle) const noexcept
-		{
-			return CircularBase(*this).rotate(angle);
-		}
+		[[nodiscard]]
+		static constexpr value_type ClampAngle(value_type theta) noexcept;
 
-		constexpr CircularBase& rotate(double angle) noexcept
-		{
-			theta += angle;
+		[[nodiscard]]
+		static constexpr value_type Clock() noexcept;
 
-			return *this;
-		}
-
-		[[nodiscard]] Float2 toFloat2() const noexcept
-		{
-			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
-		}
-
-		[[nodiscard]] Vec2 toVec2() const noexcept
-		{
-			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
-		}
-
-		[[nodiscard]] operator Vec2() const noexcept
-		{
-			return toVec2();
-		}
+		[[nodiscard]]
+		static constexpr value_type Offset(value_type theta) noexcept;
 	};
 
-	using Circular	= CircularBase<0>;
-	using Circular0	= CircularBase<0>;
-	using Circular3	= CircularBase<3>;
-	using Circular6	= CircularBase<6>;
-	using Circular9	= CircularBase<9>;
+	using Circular	= CircularBase<double, 0>;
+	using Circular0	= CircularBase<double, 0>;
+	using Circular3	= CircularBase<double, 3>;
+	using Circular6	= CircularBase<double, 6>;
+	using Circular9	= CircularBase<double, 9>;
+
+	using CircularF		= CircularBase<float, 0>;
+	using Circular0F	= CircularBase<float, 0>;
+	using Circular3F	= CircularBase<float, 3>;
+	using Circular6F	= CircularBase<float, 6>;
+	using Circular9F	= CircularBase<float, 9>;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/Circular.ipp"
 
-namespace s3d
+template <class Float, s3d::int32 Oclock>
+struct SIV3D_HIDDEN fmt::formatter<s3d::CircularBase<Float, Oclock>, s3d::char32>
 {
-	template <int32 Oclock>
-	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& value)
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		Formatter(formatData, Vec2(value.r, value.theta));
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType, int32 Oclock>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const CircularBase<Oclock>& value)
+	template <class FormatContext>
+	auto format(const s3d::CircularBase<Float, Oclock>& value, FormatContext& ctx)
 	{
-		return output << CharType('(')
-			<< value.r << CharType(',') << CharType(' ')
-			<< value.theta << CharType(')');
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {})", value.r, value.theta);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.r, value.theta);
+		}
 	}
+};
 
-	template <class CharType, int32 Oclock>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, CircularBase<Oclock>& value)
+template <class Float, s3d::int32 Oclock>
+struct std::hash<s3d::CircularBase<Float, Oclock>>
+{
+	[[nodiscard]]
+	size_t operator()(const s3d::CircularBase<Float, Oclock>& value) const noexcept
 	{
-		CharType unused;
-		return input >> unused
-			>> value.r >> unused
-			>> value.theta >> unused;
+		return value.hash();
 	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <s3d::int32 Oclock>
-	struct hash<s3d::CircularBase<Oclock>>
-	{
-		[[nodiscard]] size_t operator ()(const s3d::CircularBase<Oclock>& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <s3d::int32 Oclock>
-	struct formatter<s3d::CircularBase<Oclock>, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::CircularBase<Oclock>& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.theta);
-		}
-	};
-}
+};

@@ -1,32 +1,57 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/StringView.hpp>
-# include <Siv3D/Format.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const StringView& value)
+	std::string StringView::narrow() const
 	{
-		formatData.string.append(value);
+		return Unicode::Narrow(*this);
+	}
+
+	std::wstring StringView::toWstr() const
+	{
+		return Unicode::ToWstring(*this);
+	}
+
+	std::string StringView::toUTF8() const
+	{
+		return Unicode::ToUTF8(*this);
+	}
+
+	uint64 StringView::hash() const noexcept
+	{
+		return Hash::FNV1a(data(), size_bytes());
 	}
 
 	std::ostream& operator <<(std::ostream& output, const StringView& value)
 	{
-		return output << Unicode::Narrow(value);
+		return (output << value.narrow());
 	}
 
 	std::wostream& operator <<(std::wostream& output, const StringView& value)
 	{
-		return output << Unicode::ToWString(value);
+		return (output << value.toWstr());
+	}
+
+	std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const StringView& value)
+	{
+		return output.write(value.data(), value.size());
+	}
+
+	void Formatter(FormatData& formatData, const StringView s)
+	{
+		formatData.string.append(s);
 	}
 }

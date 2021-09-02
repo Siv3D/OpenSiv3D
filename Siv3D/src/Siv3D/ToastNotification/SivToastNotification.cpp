@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/ToastNotification.hpp>
-# include "../Siv3DEngine.hpp"
-# include "IToastNotification.hpp"
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/ToastNotification/IToastNotification.hpp>
 
 namespace s3d
 {
@@ -23,32 +23,70 @@ namespace s3d
 		{
 			bool IsAvailable()
 			{
-				return Siv3DEngine::Get<ISiv3DToastNotification>()->isAvailable();
+				return SIV3D_ENGINE(ToastNotification)->isAvailable();
 			}
 
-			NotificationID Show(const ToastNotificationProperty& prop)
+			ToastNotificationID Show(const ToastNotificationItem& item)
 			{
-				return Siv3DEngine::Get<ISiv3DToastNotification>()->show(prop);
+				return SIV3D_ENGINE(ToastNotification)->show(item);
 			}
 
-			ToastNotificationState GetState(const NotificationID id)
+			ToastNotificationState GetState(const ToastNotificationID id)
 			{
-				return Siv3DEngine::Get<ISiv3DToastNotification>()->getState(id);
+				return SIV3D_ENGINE(ToastNotification)->getState(id);
 			}
 
-			Optional<size_t> GetAction(const NotificationID id)
+			Optional<size_t> GetAction(const ToastNotificationID id)
 			{
-				return Siv3DEngine::Get<ISiv3DToastNotification>()->getAction(id);
+				return SIV3D_ENGINE(ToastNotification)->getAction(id);
 			}
 
-			void Hide(const NotificationID id)
+			void Hide(const ToastNotificationID id)
 			{
-				Siv3DEngine::Get<ISiv3DToastNotification>()->hide(id);
+				SIV3D_ENGINE(ToastNotification)->hide(id);
 			}
 
 			void Clear()
 			{
-				Siv3DEngine::Get<ISiv3DToastNotification>()->clear();
+				SIV3D_ENGINE(ToastNotification)->clear();
+			}
+		}
+	}
+
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web
+	{
+		namespace Notification
+		{
+			bool IsAvailable()
+			{
+				return SIV3D_ENGINE(ToastNotification)->isAvailable();
+			}
+
+			ToastNotificationID Show(const ToastNotificationItem& item)
+			{
+				return SIV3D_ENGINE(ToastNotification)->show(item);
+			}
+
+			ToastNotificationState GetState(const ToastNotificationID id)
+			{
+				return SIV3D_ENGINE(ToastNotification)->getState(id);
+			}
+
+			Optional<size_t> GetAction(const ToastNotificationID id)
+			{
+				return SIV3D_ENGINE(ToastNotification)->getAction(id);
+			}
+
+			void Hide(const ToastNotificationID id)
+			{
+				SIV3D_ENGINE(ToastNotification)->hide(id);
+			}
+
+			void Clear()
+			{
+				SIV3D_ENGINE(ToastNotification)->clear();
 			}
 		}
 	}

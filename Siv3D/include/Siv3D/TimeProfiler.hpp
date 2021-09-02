@@ -2,36 +2,58 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "String.hpp"
+# include "Array.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
 	class TimeProfiler
 	{
-	private:
-
-		class TimeProfilerDetail;
-
-		std::unique_ptr<TimeProfilerDetail> pImpl;
-
 	public:
 
-		TimeProfiler(const String& name = U"Profiler");
+		TimeProfiler() = default;
 
-		~TimeProfiler();
+		TimeProfiler(const String& name);
 
-		void begin(const String& label);
+		void begin(StringView name);
 
-		void end();
+		void end(StringView name);
+
+		void log() const;
+
+		void console() const;
+
+		void print() const;
+
+	private:
+
+		static constexpr size_t BufferSize = 100;
+
+		struct Data
+		{
+			uint32 index = 0;
+
+			uint32 ringBufferIndex = 0;
+
+			uint64 beginNS = 0;
+
+			Array<uint32> buffer{ Arg::reserve = BufferSize };
+		};
+
+		String m_name;
+
+		HashTable<String, Data> m_data;
+
+		void getData(Array<std::pair<String, Data>>& ordered, size_t& maxLabelLength) const;
 	};
 }

@@ -2,74 +2,64 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
-# include "Fwd.hpp"
+# include "Common.hpp"
 
 namespace s3d
 {
+	struct WaveSampleS16;
+	struct WaveSample;
+
 	struct WaveSampleS16
 	{
 		int16 left;
 
 		int16 right;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSampleS16() = default;
 
-		explicit constexpr WaveSampleS16(int16 mono) noexcept
-			: left(mono)
-			, right(mono) {}
+		SIV3D_NODISCARD_CXX20
+		WaveSampleS16(const WaveSampleS16&) = default;
 
-		constexpr WaveSampleS16(int16 _left, int16 _right) noexcept
-			: left(_left)
-			, right(_right) {}
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr WaveSampleS16(int16 mono) noexcept;
 
-		constexpr WaveSampleS16& set(int16 mono) noexcept
-		{
-			left = right = mono;
-			return *this;
-		}
+		SIV3D_NODISCARD_CXX20
+		constexpr WaveSampleS16(int16 _left, int16 _right) noexcept;
 
-		constexpr WaveSampleS16& set(int16 _left, int16 _right) noexcept
-		{
-			left = _left;
-			right = _right;
-			return *this;
-		}
+		constexpr WaveSampleS16& set(int16 mono) noexcept;
 
-		constexpr WaveSampleS16& set(const WaveSampleS16& sample) noexcept
-		{
-			return operator =(sample);
-		}
+		constexpr WaveSampleS16& set(int16 _left, int16 _right) noexcept;
 
-		void swapChannel() noexcept
-		{
-			std::swap(left, right);
-		}
+		constexpr WaveSampleS16& set(WaveSampleS16 sample) noexcept;
 
-		[[nodiscard]] constexpr WaveSample asWaveSample() const noexcept;
+		constexpr void swapChannel() noexcept;
 
-		[[nodiscard]] static constexpr WaveSampleS16 FromF32(float mono)
-		{
-			return WaveSampleS16(static_cast<int16>(mono * 32767));
-		}
+		[[nodiscard]]
+		constexpr WaveSample asWaveSample() const noexcept;
 
-		[[nodiscard]] static constexpr WaveSampleS16 FromF32(float _left, float _right)
-		{
-			return WaveSampleS16(static_cast<int16>(_left * 32767), static_cast<int16>(_right * 32767));
-		}
+		[[nodiscard]]
+		static constexpr WaveSampleS16 FromFloat32(float mono) noexcept;
 
-		[[nodiscard]] static constexpr WaveSampleS16 Zero()
-		{
-			return{ 0, 0 };
-		}
+		[[nodiscard]]
+		static constexpr WaveSampleS16 FromFloat32(float _left, float _right) noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSampleS16 Zero() noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSampleS16 Min() noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSampleS16 Max() noexcept;
 	};
 
 	struct WaveSample
@@ -78,86 +68,76 @@ namespace s3d
 
 		float right;
 
+		SIV3D_NODISCARD_CXX20
 		WaveSample() = default;
 
-		explicit constexpr WaveSample(float mono) noexcept
-			: left(mono)
-			, right(mono) {}
+		SIV3D_NODISCARD_CXX20
+		WaveSample(const WaveSample&) = default;
 
-		constexpr WaveSample(float _left, float _right) noexcept
-			: left(_left)
-			, right(_right) {}
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr WaveSample(float mono) noexcept;
 
-		explicit constexpr WaveSample(const WaveSampleS16& sample) noexcept
-			: left(sample.left / 32768.0f)
-			, right(sample.right / 32768.0f) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr WaveSample(float _left, float _right) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr WaveSample(WaveSampleS16 sample) noexcept;
 
 		constexpr WaveSample& operator =(const WaveSample& sample) = default;
 
-		constexpr WaveSample& operator =(float mono) noexcept
+		constexpr WaveSample& operator =(float mono) noexcept;
+
+		constexpr WaveSample& operator =(WaveSampleS16 sample) noexcept;
+
+		[[nodiscard]]
+		constexpr WaveSample operator *(float s) const noexcept;
+
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		friend constexpr WaveSample operator *(Float s, WaveSample v) noexcept
 		{
-			left = right = mono;
-			return *this;
+			return (v * static_cast<float>(s));
 		}
 
-		constexpr WaveSample& operator =(const WaveSampleS16& sample) noexcept
-		{
-			left = sample.left / 32768.0f;
-			right = sample.right / 32768.0f;
-			return *this;
-		}
+		constexpr WaveSample& operator *=(float s) noexcept;
 
-		constexpr WaveSample& set(float mono) noexcept
-		{
-			left = right = mono;
-			return *this;
-		}
+		constexpr void clear() noexcept;
 
-		constexpr WaveSample& set(float _left, float _right) noexcept
-		{
-			left = _left;
-			right = _right;
-			return *this;
-		}
+		constexpr WaveSample& set(float mono) noexcept;
 
-		constexpr WaveSample& set(const WaveSample& sample) noexcept
-		{
-			return operator =(sample);
-		}
+		constexpr WaveSample& set(float _left, float _right) noexcept;
 
-		constexpr WaveSample& set(const WaveSampleS16& sample) noexcept
-		{
-			return operator =(sample);
-		}
+		constexpr WaveSample& set(WaveSample sample) noexcept;
 
-		void swapChannel() noexcept
-		{
-			std::swap(left, right);
-		}
+		constexpr WaveSample& set(WaveSampleS16 sample) noexcept;
 
-		[[nodiscard]] constexpr WaveSampleS16 asWaveSampleS16() const noexcept
-		{
-			return WaveSampleS16{ static_cast<int16>(left * 32767), static_cast<int16>(right * 32767) };
-		}
+		constexpr void swapChannel() noexcept;
 
-		[[nodiscard]] static constexpr WaveSample FromS16(int16 mono)
-		{
-			return WaveSample(mono / 32768.0f);
-		}
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		constexpr WaveSample lerp(WaveSample other, Float f) const noexcept;
 
-		[[nodiscard]] static constexpr WaveSample FromS16(int16 _left, int16 _right)
-		{
-			return WaveSample(_left / 32768.0f, _right / 32768.0f);
-		}
+		[[nodiscard]]
+		constexpr WaveSampleS16 asWaveSampleS16() const noexcept;
+		
+		[[nodiscard]]
+		static constexpr WaveSample FromInt16(int16 mono) noexcept;
 
-		[[nodiscard]] static constexpr WaveSample Zero()
-		{
-			return{ 0.0f, 0.0f };
-		}
+		[[nodiscard]]
+		static constexpr WaveSample FromInt16(int16 _left, int16 _right) noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSample Zero() noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSample Min() noexcept;
+
+		[[nodiscard]]
+		static constexpr WaveSample Max() noexcept;
 	};
 
-	inline constexpr WaveSample WaveSampleS16::asWaveSample() const noexcept
-	{
-		return WaveSample{ left / 32768.0f, right / 32768.0f };
-	}
+	static_assert(sizeof(WaveSampleS16) == 4);
+	static_assert(sizeof(WaveSample) == 8);
 }
+
+# include "detail/WaveSample.ipp"

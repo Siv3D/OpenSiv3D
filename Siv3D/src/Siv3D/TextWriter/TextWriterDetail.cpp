@@ -2,20 +2,23 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include "TextWriterDetail.hpp"
+# include <Siv3D/Endian.hpp>
+# include <Siv3D/Unicode.hpp>
+# include <Siv3D/UnicodeConverter.hpp>
 
 namespace s3d
 {
 	TextWriter::TextWriterDetail::TextWriterDetail()
 	{
-
+		// do nothing
 	}
 
 	TextWriter::TextWriterDetail::~TextWriterDetail()
@@ -25,10 +28,7 @@ namespace s3d
 
 	bool TextWriter::TextWriterDetail::open(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
 	{
-		if (isOpen())
-		{
-			close();
-		}
+		close();
 
 		if (openMode == OpenMode::Append)
 		{
@@ -44,53 +44,34 @@ namespace s3d
 			m_encoding = encoding;
 		}
 
-		FilePath fullPath;
-
-		const FilePath parentFilePath = FileSystem::ParentPath(path, 0, &fullPath);
-
-		if (!FileSystem::Exists(parentFilePath))
-		{
-			FileSystem::CreateDirectories(parentFilePath);
-		}
-
-		if (!m_binaryWriter.open(fullPath, openMode))
+		if (not m_binaryWriter.open(path, openMode))
 		{
 			return false;
 		}
 
-		const bool addBOM = (m_encoding == TextEncoding::UTF8)
-			|| (m_encoding == TextEncoding::UTF16LE)
-			|| (m_encoding == TextEncoding::UTF16BE);
-
-		if (!addBOM || m_binaryWriter.size() != 0)
+		if (m_binaryWriter.size() > 0)
 		{
 			return true;
 		}
 
 		switch (m_encoding)
 		{
-		case TextEncoding::UTF8:
+		case TextEncoding::UTF8_WITH_BOM:
 			{
-				const uint8 utf8BOM[] = { 0xEF, 0xBB, 0xBF };
-
+				constexpr uint8 utf8BOM[] = { 0xEF, 0xBB, 0xBF };
 				m_binaryWriter.write(utf8BOM);
-
 				break;
 			}
 		case TextEncoding::UTF16LE:
 			{
-				const uint8 utf16LEBOM[] = { 0xFF, 0xFE };
-
+				constexpr uint8 utf16LEBOM[] = { 0xFF, 0xFE };
 				m_binaryWriter.write(utf16LEBOM);
-
 				break;
 			}
 		case TextEncoding::UTF16BE:
 			{
-				const uint8 utf16BEBOM[] = { 0xFE, 0xFF };
-
+				constexpr uint8 utf16BEBOM[] = { 0xFE, 0xFF };
 				m_binaryWriter.write(utf16BEBOM);
-
 				break;
 			}
 		default:
@@ -102,22 +83,19 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::close()
 	{
-		if (!isOpen())
-		{
-			return;
-		}
-
 		m_binaryWriter.close();
+
+		m_encoding = TextEncoding::Default;
 	}
 
-	bool TextWriter::TextWriterDetail::isOpen() const
+	bool TextWriter::TextWriterDetail::isOpen() const noexcept
 	{
 		return m_binaryWriter.isOpen();
 	}
 
 	void TextWriter::TextWriterDetail::clear()
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return;
 		}
@@ -127,78 +105,17 @@ namespace s3d
 		open(path, OpenMode::Trunc, m_encoding);
 	}
 
-	void TextWriter::TextWriterDetail::write(const StringView view)
+	void TextWriter::TextWriterDetail::write(const StringView s)
 	{
-		if (!isOpen())
-		{
-			return;
-		}
-
 		switch (m_encoding)
 		{
-		case TextEncoding::Unknown:
-			{
-				char previous = '\0';
-
-				for (const char ch : Unicode::Narrow(view))
-				{
-					if (ch == '\n' && previous != '\r')
-					{
-						m_binaryWriter.write("\r\n", sizeof(char) * 2);
-					}
-					else
-					{
-						m_binaryWriter.write(ch);
-					}
-
-					previous = ch;
-				}
-
-				break;
-			}
-		case TextEncoding::UTF8_NO_BOM:
-		case TextEncoding::UTF8:
-			{
-				char8 previous = '\0';
-
-				Unicode::Translator_UTF32toUTF8 translator;
-
-				for (const char32 ch32 : view)
-				{
-					const size_t length = translator.put(ch32);
-
-					if (length == 1)
-					{
-						const char8 ch = translator.get()[0];
-
-						if (ch == '\n' && previous != '\r')
-						{
-							m_binaryWriter.write("\r\n", 2);
-						}
-						else
-						{
-							m_binaryWriter.write(ch);
-
-							previous = ch;
-						}
-					}
-					else
-					{
-						m_binaryWriter.write(translator.get().data(), length);
-
-						previous = '\0';
-					}
-				}
-
-				break;
-			}
 		case TextEncoding::UTF16LE:
 			{
 				char16 previous = u'\0';
 
-				Unicode::Translator_UTF32toUTF16 translator;
+				UTF32toUTF16_Converter translator;
 
-				for (const char32 ch32 : view)
+				for (const char32 ch32 : s)
 				{
 					const size_t length = translator.put(ch32);
 
@@ -206,21 +123,19 @@ namespace s3d
 					{
 						const char16 ch = translator.get()[0];
 
-						if (ch == u'\n' && previous != u'\r')
+						if ((ch == u'\n') && (previous != u'\r'))
 						{
 							m_binaryWriter.write(u"\r\n", 4);
 						}
 						else
 						{
 							m_binaryWriter.write(ch);
-
 							previous = ch;
 						}
 					}
 					else
 					{
 						m_binaryWriter.write(translator.get());
-
 						previous = '\0';
 					}
 				}
@@ -231,9 +146,9 @@ namespace s3d
 			{
 				char16 previous = u'\0';
 
-				Unicode::Translator_UTF32toUTF16 translator;
+				UTF32toUTF16_Converter translator;
 
-				for (const char32 ch32 : view)
+				for (const char32 ch32 : s)
 				{
 					const size_t length = translator.put(ch32);
 
@@ -241,28 +156,59 @@ namespace s3d
 					{
 						const char16 ch = translator.get()[0];
 
-						if (ch == u'\n' && previous != u'\r')
+						if ((ch == u'\n') && (previous != u'\r'))
 						{
 							const uint8 newLine[] = { 0x00, 0x0D, 0x00, 0x0A };
 							m_binaryWriter.write(newLine);
 						}
 						else
 						{
-							m_binaryWriter.write(static_cast<char16>(((ch << 8) & 0xFF00) | ((ch >> 8) & 0xFF)));
-
+							m_binaryWriter.write(SwapEndian(static_cast<uint16>(ch)));
 							previous = ch;
 						}
 					}
 					else
 					{
-						const char16 chars[2] =
+						const uint16 chars[2] =
 						{
-							static_cast<char16>(((translator.get()[0] << 8) & 0xFF00) | ((translator.get()[0] >> 8) & 0xFF)),
-							static_cast<char16>(((translator.get()[1] << 8) & 0xFF00) | ((translator.get()[1] >> 8) & 0xFF))
+							SwapEndian(static_cast<uint16>(translator.get()[0])),
+							SwapEndian(static_cast<uint16>(translator.get()[1]))
 						};
 
 						m_binaryWriter.write(chars);
+						previous = '\0';
+					}
+				}
 
+				break;
+			}
+		default:
+			{
+				char8 previous = '\0';
+
+				UTF32toUTF8_Converter translator;
+
+				for (const char32 ch32 : s)
+				{
+					const size_t length = translator.put(ch32);
+
+					if (length == 1)
+					{
+						const char8 ch = translator.get()[0];
+
+						if ((ch == '\n') && (previous != '\r'))
+						{
+							m_binaryWriter.write("\r\n", 2);
+						}
+						else
+						{
+							m_binaryWriter.write(ch);
+							previous = ch;
+						}
+					}
+					else
+					{
+						m_binaryWriter.write(translator.get().data(), length);
 						previous = '\0';
 					}
 				}
@@ -274,20 +220,8 @@ namespace s3d
 
 	void TextWriter::TextWriterDetail::writeNewLine()
 	{
-		if (!isOpen())
-		{
-			return;
-		}
-
 		switch (m_encoding)
 		{
-		case TextEncoding::Unknown:
-		case TextEncoding::UTF8_NO_BOM:
-		case TextEncoding::UTF8:
-			{
-				m_binaryWriter.write("\r\n", 2);
-				break;
-			}
 		case TextEncoding::UTF16LE:
 			{
 				m_binaryWriter.write(u"\r\n", 4);
@@ -299,50 +233,27 @@ namespace s3d
 				m_binaryWriter.write(newLine);
 				break;
 			}
+		default:
+			{
+				m_binaryWriter.write("\r\n", 2);
+				break;
+			}
 		}
 	}
 
-	void TextWriter::TextWriterDetail::writeUTF8(const std::string_view view)
+	void TextWriter::TextWriterDetail::writeUTF8(const std::string_view s)
 	{
-		if (!isOpen())
-		{
-			return;
-		}
-
 		switch (m_encoding)
 		{
-		case TextEncoding::Unknown:
-		case TextEncoding::UTF8_NO_BOM:
-		case TextEncoding::UTF8:
-			{
-				char previous = '\0';
-
-				for (const char8 ch : view)
-				{
-					if (ch == '\n' && previous != '\r')
-					{
-						m_binaryWriter.write("\r\n", sizeof(char) * 2);
-					}
-					else
-					{
-						m_binaryWriter.write(ch);
-					}
-
-					previous = ch;
-				}
-
-				break;
-			}
 		case TextEncoding::UTF16LE:
 			{
 				char16_t previous = '\0';
 
-				for (const char16_t ch : Unicode::UTF8ToUTF16(view))
+				for (const char16_t ch : Unicode::UTF8ToUTF16(s))
 				{
-					if (ch == '\n' && previous != '\r')
+					if ((ch == '\n') && (previous != '\r'))
 					{
 						const uint8 newLine[] = { 0x0D, 0x00, 0x0A, 0x00 };
-
 						m_binaryWriter.write(newLine);
 					}
 					else
@@ -359,17 +270,36 @@ namespace s3d
 			{
 				char16_t previous = '\0';
 
-				for (const char16_t ch : Unicode::UTF8ToUTF16(view))
+				for (const char16_t ch : Unicode::UTF8ToUTF16(s))
 				{
-					if (ch == '\n' && previous != '\r')
+					if ((ch == '\n') && (previous != '\r'))
 					{
 						const uint8 newLine[] = { 0x00, 0x0D, 0x00, 0x0A };
-
 						m_binaryWriter.write(newLine);
 					}
 					else
 					{
-						m_binaryWriter.write(static_cast<char16>(((ch << 8) & 0xFF00) | ((ch >> 8) & 0xFF)));
+						m_binaryWriter.write(SwapEndian(static_cast<uint16>(ch)));
+					}
+
+					previous = ch;
+				}
+
+				break;
+			}
+		default:
+			{
+				char previous = '\0';
+
+				for (const char8 ch : s)
+				{
+					if ((ch == '\n') && (previous != '\r'))
+					{
+						m_binaryWriter.write("\r\n", 2);
+					}
+					else
+					{
+						m_binaryWriter.write(ch);
 					}
 
 					previous = ch;
@@ -380,7 +310,12 @@ namespace s3d
 		}
 	}
 
-	const FilePath& TextWriter::TextWriterDetail::path() const
+	TextEncoding TextWriter::TextWriterDetail::encoding() const noexcept
+	{
+		return m_encoding;
+	}
+
+	const FilePath& TextWriter::TextWriterDetail::path() const noexcept
 	{
 		return m_binaryWriter.path();
 	}

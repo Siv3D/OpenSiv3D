@@ -1,137 +1,102 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Scene.hpp>
-# include <Siv3D/Rectangle.hpp>
-# include <Siv3D/FloatRect.hpp>
-# include <Siv3D/Error.hpp>
-# include <Siv3DEngine.hpp>
-# include <Window/IWindow.hpp>
-# include <Graphics/IGraphics.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
-# include <System/ISystem.hpp>
+# include <Siv3D/Scene/IScene.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Scene
 	{
-		void Resize(const s3d::Size& size)
+		void Resize(const s3d::Size size)
 		{
-			if (!InRange(size.x, 1, 8192) || !InRange(size.y, 1, 8192))
-			{
-				throw Error(U"Scene::Resize(): width and height must be in the range [1, 8192]");
-			}
-
-			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneSize(size);
+			SIV3D_ENGINE(Renderer)->setSceneBufferSize(size);
 		}
 
-		void Resize(int32 width, int32 height)
+		s3d::Size Size() noexcept
 		{
-			Resize(s3d::Size(width, height));
+			return SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		}
 
-		s3d::Size Size()
+		void SetResizeMode(const ResizeMode resizeMode)
 		{
-			return Siv3DEngine::Get<ISiv3DGraphics>()->getSceneSize();
+			return SIV3D_ENGINE(Renderer)->setSceneResizeMode(resizeMode);
 		}
 
-		int32 Width()
+		ResizeMode GetResizeMode() noexcept
 		{
-			return Size().x;
-		}
-
-		int32 Height()
-		{
-			return Size().y;
-		}
-
-		Point Center()
-		{
-			return Size() / 2;
-		}
-
-		Vec2 CenterF()
-		{
-			return Size() * 0.5;
-		}
-
-		s3d::Rect Rect()
-		{
-			return s3d::Rect(Size());
-		}
-
-		void SetScaleMode(const ScaleMode scaleMode)
-		{
-			Siv3DEngine::Get<ISiv3DWindow>()->setScaleMode(scaleMode);
-		}
-
-		ScaleMode GetScaleMode()
-		{
-			return Siv3DEngine::Get<ISiv3DWindow>()->getScaleMode();
+			return SIV3D_ENGINE(Renderer)->getSceneResizeMode();
 		}
 
 		void SetTextureFilter(const TextureFilter textureFilter)
 		{
-			Siv3DEngine::Get<ISiv3DGraphics>()->setSceneTextureFilter(textureFilter);
+			SIV3D_ENGINE(Renderer)->setSceneTextureFilter(textureFilter);
 		}
 
-		TextureFilter GetTextureFilter()
+		TextureFilter GetTextureFilter() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DGraphics>()->getSceneTextureFilter();
+			return SIV3D_ENGINE(Renderer)->getSceneTextureFilter();
 		}
 
 		void SetBackground(const ColorF& color)
 		{
-			Siv3DEngine::Get<ISiv3DGraphics>()->setBackgroundColor(color);
+			SIV3D_ENGINE(Renderer)->setBackgroundColor(color);
+		}
+
+		const ColorF& GetBackground() noexcept
+		{
+			return SIV3D_ENGINE(Renderer)->getBackgroundColor();
 		}
 
 		void SetLetterbox(const ColorF& color)
 		{
-			Siv3DEngine::Get<ISiv3DGraphics>()->setLetterboxColor(color);
+			SIV3D_ENGINE(Renderer)->setLetterboxColor(color);
+		}
+
+		const ColorF& GetLetterBox() noexcept
+		{
+			return SIV3D_ENGINE(Renderer)->getLetterboxColor();
 		}
 
 		void SetMaxDeltaTime(const double timeSec)
 		{
-			Siv3DEngine::Get<ISiv3DSystem>()->getFrameDelta().setMaxDeltaTimeSec(timeSec);
+			SIV3D_ENGINE(Scene)->getFrameTimer().setMaxDeltaTimeSec(timeSec);
 		}
 
-		double GetMaxDeltaTime()
+		double GetMaxDeltaTime() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getFrameDelta().getMaxDeltaTimeSec();
+			return SIV3D_ENGINE(Scene)->getFrameTimer().getMaxDeltaTimeSec();
 		}
 
-		double DeltaTime()
+		double DeltaTime() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getFrameDelta().getDeltaTimeSec();
+			return SIV3D_ENGINE(Scene)->getFrameTimer().getDeltaTimeSec();
 		}
 
-		double Time()
+		double Time() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getFrameDelta().getTimeSec();
+			return SIV3D_ENGINE(Scene)->getFrameTimer().getTimeSec();
 		}
 
-		int32 FrameCount()
+		int32 FrameCount() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DSystem>()->getUserFrameCount();
+			return SIV3D_ENGINE(Scene)->getFrameCounter().getUserFrameCount();
 		}
 
-		Vec2 ClientToScene(const Vec2& pos)
+		Vec2 ClientToScene(const Vec2 pos) noexcept
 		{
-			if (Siv3DEngine::Get<ISiv3DWindow>()->getScaleMode() == ScaleMode::ResizeFill)
-			{
-				return pos;
-			}
-
-			auto [s, viewRect] = Siv3DEngine::Get<ISiv3DRenderer2D>()->getLetterboxingTransform();
-			return (pos - Vec2(viewRect.left, viewRect.top)) / s;
+			auto [s, viewRect] = SIV3D_ENGINE(Renderer)->getLetterboxComposition();
+			return (pos - viewRect.pos) / s;
 		}
 	}
 }

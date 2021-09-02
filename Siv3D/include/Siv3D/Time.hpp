@@ -2,88 +2,60 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 時間
-	/// </summary>
-	/// <remarks>
-	/// 時間に関する機能を提供します。
-	/// </remarks>
+	/// @brief 時間
+	/// @remark 時間に関する機能を提供します。
 	namespace Time
 	{
-		/// <summary>
-		/// コンピューターが起動してからの経過時間を秒で返します。
-		/// </summary>
-		/// <returns>
-		/// コンピューターが起動してからの経過時間（秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetSec();
+		/// @brief アプリケーションが起動してからの経過時間を秒で返します。
+		/// @return アプリケーションが起動してからの経過時間（秒）
+		[[nodiscard]]
+		uint64 GetSec() noexcept;
 
-		/// <summary>
-		/// コンピューターが起動してからの経過時間をミリ秒で返します。
-		/// </summary>
-		/// <returns>
-		/// コンピューターが起動してからの経過時間（ミリ秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetMillisec();
+		/// @brief アプリケーションが起動してからの経過時間をミリ秒で返します。
+		/// @return アプリケーションが起動してからの経過時間（ミリ秒）
+		[[nodiscard]]
+		uint64 GetMillisec() noexcept;
 
-		/// <summary>
-		/// コンピューターが起動してからの経過時間をマイクロ秒で返します。
-		/// </summary>
-		/// <returns>
-		/// コンピューターが起動してからの経過時間（マイクロ秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetMicrosec();
+		/// @brief アプリケーションが起動してからの経過時間をマイクロ秒で返します。
+		/// @return アプリケーションが起動してからの経過時間（マイクロ秒）
+		[[nodiscard]]
+		uint64 GetMicrosec() noexcept;
 
-		/// <summary>
-		/// コンピューターが起動してからの経過時間をナノ秒で返します。
-		/// </summary>
-		/// <returns>
-		/// コンピューターが起動してからの経過時間（ナノ秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetNanosec();
+		/// @brief アプリケーションが起動してからの経過時間をナノ秒で返します。
+		/// @return アプリケーションが起動してからの経過時間（ナノ秒）
+		[[nodiscard]]
+		uint64 GetNanosec() noexcept;
 
-		/// <summary>
-		/// 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間を秒で返します。
-		/// </summary>
-		/// <returns>
-		/// 1970 年 1 月 1 日午前 0 時からの経過秒数
-		/// </returns>
-		[[nodiscard]] uint64 GetSecSinceEpoch();
+		/// @brief 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間を秒で返します。
+		/// @return 1970 年 1 月 1 日午前 0 時からの経過時間（秒）
+		[[nodiscard]]
+		uint64 GetSecSinceEpoch();
 
-		/// <summary>
-		/// 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間をミリ秒で返します。
-		/// </summary>
-		/// <returns>
-		/// 1970 年 1 月 1 日午前 0 時からの経過時間（ミリ秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetMillisecSinceEpoch();
+		/// @brief 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間をミリ秒で返します。
+		/// @return 1970 年 1 月 1 日午前 0 時からの経過時間（ミリ秒）
+		[[nodiscard]]
+		uint64 GetMillisecSinceEpoch();
 
-		/// <summary>
-		/// 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間をマイクロ秒で返します。
-		/// </summary>
-		/// <returns>
-		/// 1970 年 1 月 1 日午前 0 時からの経過時間（マイクロ秒）
-		/// </returns>
-		[[nodiscard]] uint64 GetMicrosecSinceEpoch();
+		/// @brief 協定世界時 (UTC) で 1970 年 1 月 1 日午前 0 時からの経過時間をマイクロ秒で返します。
+		/// @return 1970 年 1 月 1 日午前 0 時からの経過時間（マイクロ秒）
+		[[nodiscard]]
+		uint64 GetMicrosecSinceEpoch();
 
-		/// <summary>
-		/// 現在の協定世界時 (UTC) との時差を分で返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の協定世界時 (UTC) との時差（分）
-		/// </returns>
-		[[nodiscard]] int32 UTCOffsetMinutes();
+		/// @brief 協定世界時 (UTC) との時差を分で返します。
+		/// @return 協定世界時 (UTC) との時差（分）
+		[[nodiscard]]
+		int32 UTCOffsetMinutes();
 	}
 }

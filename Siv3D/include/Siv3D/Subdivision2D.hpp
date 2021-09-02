@@ -2,56 +2,56 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Array.hpp"
 # include "PointVector.hpp"
-# include "Rectangle.hpp"
-# include "Triangle.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
 	enum class Subdivision2DPointLocation : int32
 	{
+		/// @brief エラー
 		Error = -2,
 
-		// Subdivision bounding rect 外
+		/// @brief Subdivision bounding rect の外
 		OutsideRect = -1,
 
-		// Facet 内
+		/// @brief Facet 内
 		Inside = 0,
 
-		// 頂点の重複
+		/// @brief 頂点の重複
 		Vertex = 1,
 
-		// Edge 上
+		/// @brief Edge 上
 		OnEdge = 2,
 	};
 
 	enum class Subdivision2DEdgeType : int32
 	{
-		NextAroundOrgin			= 0x00,
+		NextAroundOrgin = 0x00,
 
-		NextAroundDst			= 0x22,
+		NextAroundDst = 0x22,
 
-		PreviousAroundOrigin	= 0x11,
+		PreviousAroundOrigin = 0x11,
 
-		PreviousAroundDst		= 0x33,
+		PreviousAroundDst = 0x33,
 
-		NextAroundLeft			= 0x13,
+		NextAroundLeft = 0x13,
 
-		NextAroundRight			= 0x31,
+		NextAroundRight = 0x31,
 
-		PreviousAroundLeft		= 0x20,
+		PreviousAroundLeft = 0x20,
 
-		PreviousAroundRight		= 0x02
+		PreviousAroundRight = 0x02
 	};
 
 	struct VoronoiFacet
@@ -63,6 +63,77 @@ namespace s3d
 
 	class Subdivision2D
 	{
+	public:
+
+		using EdgeID = int32;
+		using VertexID = int32;
+
+		SIV3D_NODISCARD_CXX20
+		Subdivision2D() = default;
+
+		SIV3D_NODISCARD_CXX20
+		explicit Subdivision2D(const RectF& rect);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Subdivision2D(const RectF& rect, const Array<Vec2>& points);
+
+		[[nodiscard]]
+		bool isEmpty() const noexcept;
+
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
+
+		void initDelaunay(const RectF& rect);
+
+		int32 addPoint(const Vec2& point);
+
+		void addPoints(const Array<Vec2>& points);
+
+		Optional<VertexID> findNearest(const Vec2& point, Vec2* nearestPt = nullptr);
+
+		[[nodiscard]]
+		Array<Line> calculateEdges() const;
+
+		// each edge as a Line
+		void calculateEdges(Array<Line>& edgeList) const;
+
+		[[nodiscard]]
+		Array<EdgeID> calculateLeadingEdges() const;
+
+		// one edge ID for each triangle
+		void calculateLeadingEdges(Array<EdgeID>& leadingEdgeList) const;
+
+		[[nodiscard]]
+		Array<Triangle> calculateTriangles() const;
+
+		void calculateTriangles(Array<Triangle>& triangleList) const;
+
+		[[nodiscard]]
+		Array<VoronoiFacet> calculateVoronoiFacets();
+
+		void calculateVoronoiFacets(Array<VoronoiFacet>& facets);
+
+		void calculateVoronoiFacets(const Array<VertexID>& indices, Array<VoronoiFacet>& facets);
+
+		[[nodiscard]]
+		Vec2 getVertex(VertexID vertex, EdgeID* firstEdge = nullptr) const;
+
+		[[nodiscard]]
+		EdgeID getEdge(EdgeID edge, Subdivision2DEdgeType nextEdgeType) const;
+
+		[[nodiscard]]
+		EdgeID nextEdge(EdgeID edge) const;
+
+		[[nodiscard]]
+		EdgeID rotateEdge(EdgeID edge, int32 rotate) const;
+
+		[[nodiscard]]
+		EdgeID symEdge(EdgeID edge) const;
+
+		VertexID edgeBegin(EdgeID edge, Vec2* beginPos = nullptr) const;
+
+		VertexID edgeEnd(EdgeID edge, Vec2* endPos = nullptr) const;
+
 	private:
 
 		struct Vertex
@@ -75,20 +146,13 @@ namespace s3d
 
 			Vertex() = default;
 
-			constexpr Vertex(const Vec2& _pt, bool _isvirtual, int32 _firstEdge = 0)
-				: firstEdge(_firstEdge)
-				, type(_isvirtual)
-				, pt(_pt) {}
+			constexpr Vertex(const Vec2& _pt, bool _isvirtual, int32 _firstEdge = 0);
 
-			[[nodiscard]] constexpr bool isvirtual() const noexcept
-			{
-				return (type > 0);
-			}
+			[[nodiscard]]
+			constexpr bool isvirtual() const noexcept;
 
-			[[nodiscard]] constexpr bool isfree() const noexcept
-			{
-				return (type < 0);
-			}
+			[[nodiscard]]
+			constexpr bool isfree() const noexcept;
 		};
 
 		struct QuadEdge
@@ -99,19 +163,10 @@ namespace s3d
 
 			QuadEdge() = default;
 
-			explicit constexpr QuadEdge(int32 edgeidx)
-			{
-				assert((edgeidx & 3) == 0);
-				next[0] = edgeidx;
-				next[1] = edgeidx + 3;
-				next[2] = edgeidx + 2;
-				next[3] = edgeidx + 1;
-			}
+			explicit constexpr QuadEdge(int32 edgeidx);
 
-			[[nodiscard]] constexpr bool isfree() const noexcept
-			{
-				return (next[0] <= 0);
-			}
+			[[nodiscard]]
+			constexpr bool isfree() const noexcept;
 		};
 
 		Array<Vertex> m_vertices;
@@ -128,9 +183,9 @@ namespace s3d
 
 		int32 m_recentEdge = 0;
 
-		RectF m_rect = RectF(0, 0);
+		RectF m_rect = RectF{ 0, 0 };
 
-		Vec2 m_bottomRight = Vec2(0, 0);
+		Vec2 m_bottomRight = Vec2{ 0, 0 };
 
 		Subdivision2DPointLocation locate(const Vec2& pt, int32& _edge, int32& _vertex);
 
@@ -155,62 +210,7 @@ namespace s3d
 		void calcVoronoi();
 
 		void clearVoronoi();
-
-	public:
-
-		using EdgeID = int32;
-		using VertexID = int32;
-
-		Subdivision2D();
-
-		explicit Subdivision2D(const RectF& rect);
-
-		explicit Subdivision2D(const RectF& rect, const Array<Vec2>& points);
-
-		void initDelaunay(const RectF& rect);
-
-		int32 addPoint(const Vec2& point);
-
-		void addPoints(const Array<Vec2>& points);
-
-		Optional<VertexID> findNearest(const Vec2& point, Vec2* nearestPt = nullptr);
-
-		[[nodiscard]] Array<Line> calculateEdges() const;
-
-		// each edge as a Line
-		void calculateEdges(Array<Line>& edgeList) const;
-
-		[[nodiscard]] Array<EdgeID> calculateLeadingEdges() const;
-
-		// one edge ID for each triangle
-		void calculateLeadingEdges(Array<EdgeID>& leadingEdgeList) const;
-
-		[[nodiscard]] Array<Triangle> calculateTriangles() const;
-
-		void calculateTriangles(Array<Triangle>& triangleList) const;
-
-		[[nodiscard]] Array<VoronoiFacet> calculateVoronoiFacets();
-
-		void calculateVoronoiFacets(Array<VoronoiFacet>& facets);
-
-		void calculateVoronoiFacets(const Array<VertexID>& indices, Array<VoronoiFacet>& facets);
-
-		[[nodiscard]] Vec2 getVertex(VertexID vertex, EdgeID* firstEdge = nullptr) const;
-
-		[[nodiscard]] EdgeID getEdge(EdgeID edge, Subdivision2DEdgeType nextEdgeType) const;
-
-		[[nodiscard]] EdgeID nextEdge(EdgeID edge) const;
-
-		[[nodiscard]] EdgeID rotateEdge(EdgeID edge, int32 rotate) const;
-
-		[[nodiscard]] EdgeID symEdge(EdgeID edge) const;
-
-		VertexID edgeBegin(EdgeID edge, Vec2* beginPos = nullptr) const;
-
-		VertexID edgeEnd(EdgeID edge, Vec2* endPos = nullptr) const;
-
-		[[nodiscard]] bool isEmpty() const noexcept;
-
-		[[nodiscard]] explicit operator bool() const noexcept;
 	};
 }
+
+# include "detail/Subdivision2D.ipp"

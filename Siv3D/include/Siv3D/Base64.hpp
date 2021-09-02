@@ -2,71 +2,51 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "String.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// Base64
-	/// </summary>
-	/// <remarks>
-	/// Base64 エンコード/デコードの機能を提供します。
-	/// </remarks>
 	namespace Base64
 	{
-		/// <summary>
-		/// データを Base64 エンコードします。
-		/// </summary>
-		/// <param name="data">
-		/// エンコードするデータの先頭ポインタ
-		/// </param>
-		/// <param name="size">
-		/// エンコードするデータのサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// エンコードされたテキストデータ、エンコードに失敗した場合空の文字列
-		/// </returns>
-		[[nodiscard]] String Encode(const void* data, size_t size);
+		/// @brief データを Base64 エンコードします。
+		/// @param data 入力データ
+		/// @param size 入力データのサイズ（バイト）
+		/// @return Base64 エンコードされた入力データ
+		[[nodiscard]]
+		String Encode(const void* data, size_t size);
 
-		/// <summary>
-		/// データを Base64 エンコードします。
-		/// </summary>
-		/// <param name="view">
-		/// エンコードするデータ
-		/// </param>
-		/// <returns>
-		/// エンコードされたテキストデータ、エンコードに失敗した場合空の文字列
-		/// </returns>
-		[[nodiscard]] String Encode(ByteArrayView view);
+		/// @brief データを Base64 エンコードし、dst に格納します。
+		/// @param data 入力データ
+		/// @param size 入力データのサイズ（バイト）
+		/// @param dst Base64 エンコードされた入力データの格納先
+		void Encode(const void* data, size_t size, String& dst);
 
-		/// <summary>
-		/// データを Base64 エンコードします。
-		/// </summary>
-		/// <param name="view">
-		/// エンコードするデータ
-		/// </param>
-		/// <returns>
-		/// エンコードされたテキストデータ、エンコードに失敗した場合空の文字列
-		/// </returns>
-		[[nodiscard]] String Encode(ByteArrayViewAdapter view);
+		/// @brief データを Base64 エンコードし、dst に格納します。
+		/// @param data 入力データ
+		/// @param size 入力データのサイズ（バイト）
+		/// @param dst Base64 エンコードされた入力データの格納先
+		void Encode(const void* data, size_t size, std::string& dst);
 
-		/// <summary>
-		/// テキストを Base64 でデコードします。
-		/// </summary>
-		/// <param name="view">
-		/// デコードするテキスト
-		/// </param>
-		/// <returns>
-		/// デコードされたバイナリデータ、デコードに失敗した場合空のバイナリデータ
-		/// </returns>
-		[[nodiscard]] ByteArray Decode(StringView view);
-	};
+		/// @brief Base64 データをデコードします。
+		/// @param base64 入力 Base64
+		/// @return デコードされたデータ
+		[[nodiscard]]
+		Blob Decode(StringView base64);
+
+		/// @brief Base64 データをデコードします。
+		/// @param base64 入力 Base64
+		/// @return デコードされたデータ
+		[[nodiscard]]
+		Blob Decode(std::string_view base64);
+	}
 }

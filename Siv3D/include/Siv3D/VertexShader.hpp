@@ -1,67 +1,58 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "AssetHandle.hpp"
-# include "String.hpp"
-# include "NamedParameter.hpp"
 # include "Array.hpp"
-# include "ShaderCommon.hpp"
+# include "ConstantBufferBinding.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
-	class VertexShader
+	/// @brief 頂点シェーダ
+	class VertexShader : public AssetHandle<VertexShader>
 	{
-	protected:
-
-		class Tag {};
-
-		using VertexShaderHandle = AssetHandle<Tag>;
-
-		friend VertexShaderHandle::AssetHandle();
-	
-		friend VertexShaderHandle::AssetHandle(const IDWrapperType id) noexcept;
-		
-		friend VertexShaderHandle::~AssetHandle();
-
-		std::shared_ptr<VertexShaderHandle> m_handle;
-
 	public:
 
-		using IDType = VertexShaderHandle::IDWrapperType;
-
+		SIV3D_NODISCARD_CXX20
 		VertexShader();
-
-		VertexShader(const FilePath& path, const Array<ConstantBufferBinding>& bindings);
-		
-		//VertexShader(Arg::source_<String> source, const Array<ConstantBufferBinding>& bindings);
 
 		virtual ~VertexShader();
 
-		void release();
+		[[nodiscard]]
+		const Blob& getBinary() const noexcept;
 
-		[[nodiscard]] bool isEmpty() const;
+		void swap(VertexShader& other) noexcept;
 
-		[[nodiscard]] explicit operator bool() const;
+		[[nodiscard]]
+		static VertexShader HLSL(FilePathView path, StringView entryPoint = U"VS");
 
-		[[nodiscard]] IDType id() const;
+		[[nodiscard]]
+		static VertexShader GLSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
-		[[nodiscard]] bool operator ==(const VertexShader& shader) const;
+		[[nodiscard]]
+		static VertexShader MSL(StringView entryPoint, FilePathView path = {});
 
-		[[nodiscard]] bool operator !=(const VertexShader& shader) const;
+		[[nodiscard]]
+		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
-		[[nodiscard]] ByteArrayView getBinaryView() const;
+	private:
+
+		SIV3D_NODISCARD_CXX20
+		VertexShader(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings);
 	};
-
-	using VertexShaderID = VertexShader::IDType;
 }
+
+template <>
+inline void std::swap(s3d::VertexShader& a, s3d::VertexShader& b) noexcept;
+
+# include "detail/VertexShader.ipp"

@@ -1,21 +1,22 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <functional>
+# include <utility>
 # include <cmath>
-# include "Fwd.hpp"
-# include "PlaceHolder.hpp"
+# include <functional>
+# include "Common.hpp"
 # include "Meta.hpp"
-# include "Functor.ipp"
+# include "PlaceHolder.hpp"
+# include "detail/Functor.ipp"
 
 namespace s3d
 {
@@ -58,25 +59,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Equal(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::equal_to<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator ==(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryEqualX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator ==(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryEqualY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator ==(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::equal_to<Type>();
+		return detail::BinaryEqual_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -118,25 +101,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto NotEqual(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::not_equal_to<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator !=(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryNotEqualX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator !=(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryNotEqualY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator !=(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::not_equal_to<Type>();
+		return detail::BinaryNotEqual_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -178,25 +143,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto LessThan(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::less<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator <(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryLessThanX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator <(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryLessThanY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator <(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::less<Type>();
+		return detail::BinaryLessThan_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -238,25 +185,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto LessThanEqual(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::less_equal<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator <=(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryLessThanEqualX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator <=(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryLessThanEqualY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator <=(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::less_equal<Type>();
+		return detail::BinaryLessThanEqual_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -298,25 +227,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto GreaterThan(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::greater<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator >(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryGreaterThanX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator >(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryGreaterThanY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator >(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::greater<Type>();
+		return detail::BinaryGreaterThan_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -358,25 +269,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto GreaterThanEqual(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::greater_equal<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator >=(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryGreaterThanEqualX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator >=(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryGreaterThanEqualY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator >=(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::greater_equal<Type>();
+		return detail::BinaryGreaterThanEqual_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -385,11 +278,11 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	constexpr auto UnaryPlus = detail::UnaryPlus_impl();
+	constexpr auto UnaryPlus = detail::UnaryPlus_impl{};
 
 	[[nodiscard]] inline constexpr auto operator +(PlaceHolder_t) noexcept
 	{
-		return detail::UnaryPlus_impl();
+		return detail::UnaryPlus_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -398,11 +291,11 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	constexpr auto Negate = detail::Negate_impl();
+	constexpr auto Negate = detail::Negate_impl{};
 
 	[[nodiscard]] inline constexpr auto operator -(PlaceHolder_t) noexcept
 	{
-		return detail::Negate_impl();
+		return detail::Negate_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -444,25 +337,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Plus(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::plus<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator +(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryPlusX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator +(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryPlusY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator +(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::plus<Type>();
+		return detail::BinaryPlus_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -504,25 +379,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Minus(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::minus<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator -(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryMinusX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator -(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryMinusY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator -(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::minus<Type>();
+		return detail::BinaryMinus_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -564,25 +421,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Multiplies(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::multiplies<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator *(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryMultipliesX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator *(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryMultipliesY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator *(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::multiplies<Type>();
+		return detail::BinaryMultiplies_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -624,25 +463,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Divides(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return std::divides<Type>();
-	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator /(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryDividesX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator /(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryDividesY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator /(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return std::divides<Type>();
+		return detail::BinaryDivides_impl{};
 	}
 
 	//////////////////////////////////////////////////
@@ -653,7 +474,7 @@ namespace s3d
 
 	[[nodiscard]] inline constexpr auto Modulus() noexcept
 	{
-		return detail::ModulusF_impl();
+		return detail::ModulusF_impl{};
 	}
 
 	template <class TypeX>
@@ -663,9 +484,9 @@ namespace s3d
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
-	[[nodiscard]] inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
+	[[nodiscard]] inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF_impl{}(std::forward<TypeX>(x), std::forward<TypeY>(y))))
 	{
-		return detail::ModulusF_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+		return detail::ModulusF_impl{}(std::forward<TypeX>(x), std::forward<TypeY>(y));
 	}
 
 	template <class TypeY>
@@ -683,79 +504,6 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Modulus(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return detail::ModulusF_impl();
+		return detail::BinaryModulus_impl{};
 	}
-
-	template <class TypeY>
-	[[nodiscard]] inline constexpr auto operator %(PlaceHolder_t, TypeY&& y) noexcept
-	{
-		return detail::BinaryModulusX_impl<TypeY>(std::forward<TypeY>(y));
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto operator %(TypeX&& x, PlaceHolder_t) noexcept
-	{
-		return detail::BinaryModulusY_impl<TypeX>(std::forward<TypeX>(x));
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator %(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::ModulusF_impl();
-	}
-
-	//////////////////////////////////////////////////
-	//
-	//	!()
-	//
-	//////////////////////////////////////////////////
-
-	inline constexpr auto Not = detail::UnaryNot_impl();
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto operator !(PlaceHolder_t) noexcept
-	{
-		return detail::UnaryNot_impl();
-	}
-
-	//////////////////////////////////////////////////
-	//
-	//	IsOdd
-	//
-	//////////////////////////////////////////////////
-
-	inline constexpr auto IsOdd = detail::Odd_impl();
-
-	//////////////////////////////////////////////////
-	//
-	//	IsEven
-	//
-	//////////////////////////////////////////////////
-
-	inline constexpr auto IsEven = detail::Even_impl();
-
-	//////////////////////////////////////////////////
-	//
-	//	Id
-	//
-	//////////////////////////////////////////////////
-
-	inline constexpr auto Id = detail::Id_impl();
-
-	//////////////////////////////////////////////////
-	//
-	//	FromEnum
-	//
-	//////////////////////////////////////////////////
-
-	inline constexpr auto FromEnum = detail::FromEnum_impl();
-
-	//////////////////////////////////////////////////
-	//
-	//	ToEnum
-	//
-	//////////////////////////////////////////////////
-
-	template <class Enum>
-	inline constexpr auto ToEnum = detail::ToEnum_impl<Enum>();
 }

@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,31 +19,31 @@ namespace s3d
 	}
 
 	ProController::ProController(const detail::Gamepad_impl& gamepad, const DeadZone& left, const DeadZone& right)
-		: m_gamepadUserIndex(gamepad.userIndex)
-		, m_proControllerType(GetControllerType(gamepad.getInfo()))
-		, m_LStickDeadZone(left)
-		, m_RStickDeadZone(right)
+		: m_gamepadUserIndex{ gamepad.playerIndex }
+		, m_proControllerType{ GetControllerType(gamepad.getInfo()) }
+		, m_LStickDeadZone{ left }
+		, m_RStickDeadZone{ right }
 	{
 		if (m_proControllerType != ProControllerType::Invalid)
 		{
-			buttonA = Key(InputDevice::Gamepad, 1, static_cast<uint8>(gamepad.userIndex));
-			buttonB = Key(InputDevice::Gamepad, 0, static_cast<uint8>(gamepad.userIndex));
-			buttonX = Key(InputDevice::Gamepad, 3, static_cast<uint8>(gamepad.userIndex));
-			buttonY = Key(InputDevice::Gamepad, 2, static_cast<uint8>(gamepad.userIndex));
-			buttonL = Key(InputDevice::Gamepad, 4, static_cast<uint8>(gamepad.userIndex));
-			buttonR = Key(InputDevice::Gamepad, 5, static_cast<uint8>(gamepad.userIndex));
-			buttonZL = Key(InputDevice::Gamepad, 6, static_cast<uint8>(gamepad.userIndex));
-			buttonZR = Key(InputDevice::Gamepad, 7, static_cast<uint8>(gamepad.userIndex));
-			buttonMinus = Key(InputDevice::Gamepad, 8, static_cast<uint8>(gamepad.userIndex));
-			buttonPlus = Key(InputDevice::Gamepad, 9, static_cast<uint8>(gamepad.userIndex));
-			buttonLStick = Key(InputDevice::Gamepad, 10, static_cast<uint8>(gamepad.userIndex));
-			buttonRStick = Key(InputDevice::Gamepad, 11, static_cast<uint8>(gamepad.userIndex));
-			buttonHome = Key(InputDevice::Gamepad, 12, static_cast<uint8>(gamepad.userIndex));
-			buttonScreenshot = Key(InputDevice::Gamepad, 13, static_cast<uint8>(gamepad.userIndex));
-			povUp = Key(InputDevice::Gamepad, 0x80, static_cast<uint8>(gamepad.userIndex));
-			povDown = Key(InputDevice::Gamepad, 0x82, static_cast<uint8>(gamepad.userIndex));
-			povLeft = Key(InputDevice::Gamepad, 0x83, static_cast<uint8>(gamepad.userIndex));
-			povRight = Key(InputDevice::Gamepad, 0x81, static_cast<uint8>(gamepad.userIndex));
+			buttonA = Input{ InputDeviceType::Gamepad, 1, static_cast<uint8>(gamepad.playerIndex) };
+			buttonB = Input{ InputDeviceType::Gamepad, 0, static_cast<uint8>(gamepad.playerIndex) };
+			buttonX = Input{ InputDeviceType::Gamepad, 3, static_cast<uint8>(gamepad.playerIndex) };
+			buttonY = Input{ InputDeviceType::Gamepad, 2, static_cast<uint8>(gamepad.playerIndex) };
+			buttonL = Input{ InputDeviceType::Gamepad, 4, static_cast<uint8>(gamepad.playerIndex) };
+			buttonR = Input{ InputDeviceType::Gamepad, 5, static_cast<uint8>(gamepad.playerIndex) };
+			buttonZL = Input{ InputDeviceType::Gamepad, 6, static_cast<uint8>(gamepad.playerIndex) };
+			buttonZR = Input{ InputDeviceType::Gamepad, 7, static_cast<uint8>(gamepad.playerIndex) };
+			buttonMinus = Input{ InputDeviceType::Gamepad, 8, static_cast<uint8>(gamepad.playerIndex) };
+			buttonPlus = Input{ InputDeviceType::Gamepad, 9, static_cast<uint8>(gamepad.playerIndex) };
+			buttonLStick = Input{ InputDeviceType::Gamepad, 10, static_cast<uint8>(gamepad.playerIndex) };
+			buttonRStick = Input{ InputDeviceType::Gamepad, 11, static_cast<uint8>(gamepad.playerIndex) };
+			buttonHome = Input{ InputDeviceType::Gamepad, 12, static_cast<uint8>(gamepad.playerIndex) };
+			buttonScreenshot = Input{ InputDeviceType::Gamepad, 13, static_cast<uint8>(gamepad.playerIndex) };
+			povUp = Input{ InputDeviceType::Gamepad, 0x80, static_cast<uint8>(gamepad.playerIndex) };
+			povDown = Input{ InputDeviceType::Gamepad, 0x82, static_cast<uint8>(gamepad.playerIndex) };
+			povLeft = Input{ InputDeviceType::Gamepad, 0x83, static_cast<uint8>(gamepad.playerIndex) };
+			povRight = Input{ InputDeviceType::Gamepad, 0x81, static_cast<uint8>(gamepad.playerIndex) };
 		}
 	}
 
@@ -51,9 +51,9 @@ namespace s3d
 	{
 		size_t count = 0;
 
-		for (size_t i = 0; i < Gamepad.MaxUserCount; ++i)
+		for (size_t i = 0; i < Gamepad.MaxPlayerCount; ++i)
 		{
-			const auto gamepad = Gamepad(i);
+			const auto& gamepad = Gamepad(i);
 
 			if (ProController::IsProController(gamepad))
 			{
@@ -71,7 +71,7 @@ namespace s3d
 	bool ProController::isConnected() const
 	{
 		return (m_proControllerType != ProControllerType::Invalid) && m_gamepadUserIndex
-			&& Gamepad(m_gamepadUserIndex.value()).isConnected();
+			&& Gamepad(*m_gamepadUserIndex).isConnected();
 	}
 
 	ProController::operator bool() const
@@ -81,64 +81,60 @@ namespace s3d
 
 	Optional<int32> ProController::povD8() const
 	{
-		if (!m_gamepadUserIndex)
+		if (not m_gamepadUserIndex)
 		{
 			return none;
 		}
 
-		return Gamepad(m_gamepadUserIndex.value()).povD8();
+		return Gamepad(*m_gamepadUserIndex).povD8();
 	}
 
 	Vec2 ProController::LStick() const
 	{
-		if (!m_gamepadUserIndex)
+		if (not m_gamepadUserIndex)
 		{
-			return Vec2(0, 0);
+			return{ 0.0, 0.0 };
 		}
 
-		const auto gamepad = Gamepad(m_gamepadUserIndex.value());
+		const auto gamepad = Gamepad(*m_gamepadUserIndex);
 
 		if (gamepad.axes.size() < 4)
 		{
-			return Vec2(0, 0);
+			return{ 0.0, 0.0 };
 		}
 
-		Vec2 v(gamepad.axes[0], gamepad.axes[1]);
+		Vec2 v{ gamepad.axes[0], gamepad.axes[1] };
 
-		if (m_LStickDeadZone.type == DeadZoneType::None)
+		if (m_LStickDeadZone.type == DeadZoneType::None_)
 		{
 			return v;
 		}
 
-		m_LStickDeadZone.apply(v.x, v.y);
-
-		return v;
+		return m_LStickDeadZone(v);
 	}
 
 	Vec2 ProController::RStick() const
 	{
-		if (!m_gamepadUserIndex)
+		if (not m_gamepadUserIndex)
 		{
-			return Vec2(0, 0);
+			return{ 0.0, 0.0 };
 		}
 
-		const auto gamepad = Gamepad(m_gamepadUserIndex.value());
+		const auto gamepad = Gamepad(*m_gamepadUserIndex);
 
 		if (gamepad.axes.size() < 4)
 		{
-			return Vec2(0, 0);
+			return{ 0.0, 0.0 };
 		}
 
-		Vec2 v(gamepad.axes[3], gamepad.axes[2]);
+		Vec2 v{ gamepad.axes[2], gamepad.axes[3] };
 
-		if (m_RStickDeadZone.type == DeadZoneType::None)
+		if (m_RStickDeadZone.type == DeadZoneType::None_)
 		{
 			return v;
 		}
 
-		m_RStickDeadZone.apply(v.x, v.y);
-
-		return v;
+		return m_RStickDeadZone(v);
 	}
 
 	ProController::ProControllerType ProController::GetControllerType(const GamepadInfo& info) noexcept

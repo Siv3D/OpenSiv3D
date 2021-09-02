@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,20 +13,25 @@
 
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const Error& value)
-	{
-		const String text = U"[Exception] " + value.what();
-
-		formatData.string.append(text);
-	}
-
 	std::ostream& operator <<(std::ostream& output, const Error& value)
 	{
-		return output << "[Exception] " << value.what().narrow();
+		return (output << '[' << value.type() << "] " << value.what().narrow());
 	}
 
 	std::wostream& operator <<(std::wostream& output, const Error& value)
 	{
-		return output << L"[Exception] " << value.what().toWstr();
+		return (output << L'[' << value.type() << L"] " << value.what().toWstr());
+	}
+
+	std::basic_ostream<char32>& operator <<(std::basic_ostream<char32>& output, const Error& value)
+	{
+		return output << (U'[' + value.type() + U"] " + value.what());
+	}
+
+	void Formatter(FormatData& formatData, const Error& value)
+	{
+		const String s = (U"["_s + value.type() + U"] " + value.what());
+
+		formatData.string.append(s);
 	}
 }

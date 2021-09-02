@@ -2,24 +2,30 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Optional.hpp"
 
 namespace s3d
 {
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
-	[[nodiscard]] bool ParseBool(StringView view);
+	/// @brief 文字列をパースして bool 型に変換します。
+	/// @param s 変換する文字列
+	/// @throw ParseError パースに失敗した場合 | Thrown when a parsing error occurs
+	/// @return 文字列から変換されたデータ
+	[[nodiscard]]
+	bool ParseBool(StringView s);
 
-	[[nodiscard]] Optional<bool> ParseBoolOpt(StringView view);
+	/// @brief 文字列をパースして bool 型に変換します。
+	/// @param s 変換する文字列
+	/// @remark この関数はパースに失敗しても例外を投げません。
+	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
+	[[nodiscard]]
+	Optional<bool> ParseBoolOpt(StringView s) noexcept;
 }

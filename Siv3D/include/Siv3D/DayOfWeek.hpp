@@ -2,64 +2,39 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 曜日
-	/// Day of week
-	/// </summary>
-	enum class DayOfWeek
+	/// @brief 曜日 | Day of week
+	enum class DayOfWeek : uint8
 	{
-		/// <summary>
-		/// 日曜日
-		/// Sunday
-		/// </summary>
+		/// @brief 日曜日 | Sunday
 		Sunday,
 
-		/// <summary>
-		/// 月曜日
-		/// Monday
-		/// </summary>
+		/// @brief 月曜日 | Monday
 		Monday,
 
-		/// <summary>
-		/// 火曜日
-		/// Tuesday
-		/// </summary>
+		/// @brief 火曜日 | Tuesday
 		Tuesday,
 
-		/// <summary>
-		/// 水曜日
-		/// Wednesday
-		/// </summary>
+		/// @brief 水曜日 | Wednesday
 		Wednesday,
 
-		/// <summary>
-		/// 木曜日
-		/// Thursday
-		/// </summary>
+		/// @brief 木曜日 | Thursday
 		Thursday,
 
-		/// <summary>
-		/// 金曜日
-		/// Friday
-		/// </summary>
+		/// @brief 金曜日 | Friday
 		Friday,
 
-		/// <summary>
-		/// 土曜日
-		/// Saturday
-		/// </summary>
+		/// @brief 土曜日 | Saturday
 		Saturday
 	};
 }

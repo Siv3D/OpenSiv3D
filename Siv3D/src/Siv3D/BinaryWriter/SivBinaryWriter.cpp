@@ -2,20 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/BinaryWriter.hpp>
-# include <BinaryWriter/BinaryWriterDetail.hpp>
+# include <Siv3D/BinaryWriter/BinaryWriterDetail.hpp>
 
 namespace s3d
 {
 	BinaryWriter::BinaryWriter()
-		: pImpl(std::make_shared<BinaryWriterDetail>())
+		: pImpl{ std::make_shared<BinaryWriterDetail>() }
 	{
 
 	}
@@ -25,19 +25,19 @@ namespace s3d
 		return pImpl->open(path, openMode);
 	}
 
-	void BinaryWriter::flush()
-	{
-		pImpl->flush();
-	}
-
 	void BinaryWriter::close()
 	{
 		pImpl->close();
 	}
 
-	bool BinaryWriter::isOpen() const
+	bool BinaryWriter::isOpen() const noexcept
 	{
 		return pImpl->isOpen();
+	}
+
+	void BinaryWriter::flush()
+	{
+		pImpl->flush();
 	}
 
 	void BinaryWriter::clear()
@@ -55,14 +55,14 @@ namespace s3d
 		return pImpl->getPos();
 	}
 
-	bool BinaryWriter::setPos(int64 pos)
+	bool BinaryWriter::setPos(const int64 pos)
 	{
-		if (pos < 0 || pImpl->size() < pos)
+		if (not InRange<int64>(pos, 0, pImpl->size()))
 		{
 			return false;
 		}
 
-		return pImpl->setPos(pos) == pos;
+		return (pImpl->setPos(pos) == pos);
 	}
 
 	int64 BinaryWriter::seekToEnd()
@@ -70,12 +70,17 @@ namespace s3d
 		return pImpl->setPos(pImpl->size());
 	}
 
-	int64 BinaryWriter::write(const void* const src, const size_t size)
+	int64 BinaryWriter::write(const void* src, const int64 sizeBytes)
 	{
-		return pImpl->write(src, size);
+		if ((src == nullptr) || (sizeBytes <= 0))
+		{
+			return 0;
+		}
+
+		return pImpl->write(NonNull{ src }, sizeBytes);
 	}
 
-	const FilePath& BinaryWriter::path() const
+	const FilePath& BinaryWriter::path() const noexcept
 	{
 		return pImpl->path();
 	}

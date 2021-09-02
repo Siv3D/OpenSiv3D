@@ -1,21 +1,19 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
-# include "Fwd.hpp"
-# include "String.hpp"
-# include "Format.hpp"
+# include <memory>
+# include "Common.hpp"
+# include "Formatter.hpp"
 # include "Parse.hpp"
-# include "Unicode.hpp"
 
 namespace s3d
 {
@@ -27,12 +25,12 @@ namespace s3d
 
 			ConsoleBuffer();
 
-			ConsoleBuffer(ConsoleBuffer&& other);
+			ConsoleBuffer(ConsoleBuffer&& other) noexcept;
 
 			~ConsoleBuffer();
 
-			template <class Type>
-			ConsoleBuffer& operator <<(const Type& value)
+			SIV3D_CONCEPT_FORMATTABLE
+			ConsoleBuffer& operator <<(const Formattable& value)
 			{
 				Formatter(*formatData, value);
 
@@ -44,11 +42,57 @@ namespace s3d
 		{
 			void open() const;
 
-			void write(const char32_t* text) const;
+			void write(const char32_t* s) const;
 
-			void write(StringView text) const;
+			void write(StringView s) const;
 
-			void write(const String& text) const;
+			void write(const String& s) const;
+
+			void writeln(const char32_t* s) const;
+
+			void writeln(StringView s) const;
+
+			void writeln(const String& s) const;
+
+			void operator()(const char32_t* s) const;
+
+			void operator()(StringView s) const;
+
+			void operator()(const String& s) const;
+
+		# if __cpp_lib_concepts
+			
+			template <Concept::Formattable... Args>
+			void write(const Args&... args) const
+			{
+				return write(Format(args...));
+			}
+
+			// Format できない値が Console.write() に渡されたときに発生するエラーです
+			template <class... Args>
+			void write(const Args&... args) const = delete;
+
+			template <Concept::Formattable... Args>
+			void writeln(const Args&... args) const
+			{
+				return write(Format(args..., U'\n'));
+			}
+
+			// Format できない値が Console.writeln() に渡されたときに発生するエラーです
+			template <class... Args>
+			void writeln(const Args&... args) const = delete;
+
+			template <Concept::Formattable... Args>
+			void operator()(const Args&... args) const
+			{
+				return write(Format(args..., U'\n'));
+			}
+
+			// Format できない値が Console() に渡されたときに発生するエラーです
+			template <class... Args>
+			void operator()(const Args&... args) const = delete;
+
+		# else
 
 			template <class... Args>
 			void write(const Args&... args) const
@@ -56,24 +100,22 @@ namespace s3d
 				return write(Format(args...));
 			}
 
-			void writeln(const String& text) const;
-
 			template <class... Args>
 			void writeln(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}
 
-			void operator()(const String& text) const;
-
 			template <class... Args>
 			void operator()(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}
+	
+		# endif
 
-			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
-			ConsoleBuffer operator <<(const Type& value) const
+			SIV3D_CONCEPT_FORMATTABLE
+			ConsoleBuffer operator <<(const Formattable& value) const
 			{
 				ConsoleBuffer buf;
 
@@ -113,8 +155,13 @@ namespace s3d
 
 				return *this;
 			}
+
+			void setSystemDefaultCodePage() const;
+
+			void setUTF8CodePage() const;
 		};
 	}
 
-	inline constexpr auto Console = detail::Console_impl();
+	/// @brief コンソール入出力
+	inline constexpr auto Console = detail::Console_impl{};
 }

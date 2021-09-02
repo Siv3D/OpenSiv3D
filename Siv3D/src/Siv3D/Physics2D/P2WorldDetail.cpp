@@ -2,149 +2,164 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/Physics2D/P2Body.hpp>
 # include "P2WorldDetail.hpp"
-# include "Physics2DUtility.hpp"
+# include "P2Common.hpp"
 
 namespace s3d
 {
-	P2World::P2WorldDetail::P2WorldDetail(const Vec2& gravity)
-		: m_world(detail::ToB2Vec2(gravity))
+	detail::P2WorldDetail::P2WorldDetail(const Vec2 gravity)
+		: m_world{ detail::ToB2Vec2(gravity) }
 	{
 		m_world.SetContactListener(&m_contactListner);
 	}
 
-	void P2World::P2WorldDetail::update(const double timeStep, const int32 velocityIterations, const int32 positionIterations)
+	void detail::P2WorldDetail::update(const double timeStep, const int32 velocityIterations, const int32 positionIterations)
 	{
 		m_contactListner.clearContacts();
 
-		m_world.Step(static_cast<float32>(timeStep), velocityIterations, positionIterations);
+		m_world.Step(static_cast<float>(timeStep), velocityIterations, positionIterations);
 	}
 
-	P2Body P2World::P2WorldDetail::createDummy(P2World& world, const Vec2& center, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createPlaceholder(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& center)
 	{
-		return P2Body(world, generateNextID(), center, bodyType);
+		return P2Body{ world, generateNextID(), center, bodyType };
 	}
 
-	P2Body P2World::P2WorldDetail::createLine(P2World& world, const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createLine(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addLine(line, material, filter);
+		body.addLine(localPos, oneSided, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createLineString(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addLineString(lines, material, filter);
+		body.addLineString(localPos, oneSided, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createClosedLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createClosedLineString(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addClosedLineString(lines, material, filter);
+		body.addClosedLineString(localPos, oneSided, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createCircle(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addCircle(circle, material, filter);
+		body.addCircle(localPos, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createCircleSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addRect(rect, material, filter);
+		body.addCircleSensor(localPos, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createRect(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addTriangle(triangle, material, filter);
+		body.addRect(localPos, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createTriangle(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addQuad(quad, material, filter);
+		body.addTriangle(localPos, material, filter);
 
 		return body;
 	}
 
-	P2Body P2World::P2WorldDetail::createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	P2Body detail::P2WorldDetail::createQuad(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material, const P2Filter& filter)
 	{
-		P2Body body(world, generateNextID(), center, bodyType);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
-		body.addPolygon(polygon, material, filter);
+		body.addQuad(localPos, material, filter);
 
 		return body;
 	}
 
-	P2PivotJoint P2World::P2WorldDetail::createPivotJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	P2Body detail::P2WorldDetail::createPolygon(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material, const P2Filter& filter)
 	{
-		return P2PivotJoint(world, bodyA, bodyB, anchorPos);
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addPolygon(localPos, material, filter);
+
+		return body;
 	}
 
-	P2DistanceJoint P2World::P2WorldDetail::createDistanceJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double length)
+	P2PivotJoint detail::P2WorldDetail::createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const EnableCollision enableCollision)
 	{
-		return P2DistanceJoint(world, bodyA, anchorPosA, bodyB, anchorPosB, length);
+		return P2PivotJoint{ world, bodyA, bodyB, worldAnchorPos, enableCollision };
 	}
 
-	P2RopeJoint P2World::P2WorldDetail::createRopeJoint(P2World& world, const P2Body& bodyA, const Vec2& anchorPosA, const P2Body& bodyB, const Vec2& anchorPosB, const double maxLength)
+	P2DistanceJoint detail::P2WorldDetail::createDistanceJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const Vec2& worldAnchorPosA, const P2Body& bodyB, const Vec2& worldAnchorPosB, const double length, const EnableCollision enableCollision)
 	{
-		return P2RopeJoint(world, bodyA, anchorPosA, bodyB, anchorPosB, maxLength);
+		return P2DistanceJoint{ world, bodyA, worldAnchorPosA, bodyB, worldAnchorPosB, length, enableCollision };
 	}
 
-	P2SliderJoint P2World::P2WorldDetail::createSliderJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos, const Vec2& normalizedAxis)
+	P2SliderJoint detail::P2WorldDetail::createSliderJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
 	{
-		return P2SliderJoint(world, bodyA, bodyB, anchorPos, normalizedAxis);
+		return P2SliderJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision };
 	}
 
-	const HashTable<P2ContactPair, P2Collision>& P2World::P2WorldDetail::getCollisions() const
+	P2WheelJoint detail::P2WorldDetail::createWheelJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, const Vec2& normalizedAxis, const EnableCollision enableCollision)
+	{
+		return P2WheelJoint{ world, bodyA, bodyB, worldAnchorPos, normalizedAxis, enableCollision };
+	}
+
+	P2MouseJoint detail::P2WorldDetail::createMouseJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& body, const Vec2& worldTargetPos)
+	{
+		return P2MouseJoint{ world, body, worldTargetPos };
+	}
+
+	const HashTable<P2ContactPair, P2Collision>& detail::P2WorldDetail::getCollisions() const noexcept
 	{
 		return m_contactListner.getCollisions();
 	}
 
-	b2World& P2World::P2WorldDetail::getData()
+	b2World& detail::P2WorldDetail::getData() noexcept
 	{
 		return m_world;
 	}
 
-	const b2World& P2World::P2WorldDetail::getData() const
+	const b2World& detail::P2WorldDetail::getData() const noexcept
 	{
 		return m_world;
 	}
 
-	b2World* P2World::P2WorldDetail::getWorldPtr()
+	b2World* detail::P2WorldDetail::getWorldPtr() noexcept
 	{
 		return &m_world;
 	}
 
-	P2BodyID P2World::P2WorldDetail::generateNextID()
+	P2BodyID detail::P2WorldDetail::generateNextID() noexcept
 	{
 		return ++m_currentID;
 	}

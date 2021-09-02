@@ -2,30 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/PointVector.hpp>
-# include "IMouse.hpp"
+# include <Siv3D/Mouse/IMouse.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Mouse
 	{
-		double Wheel()
+		const Array<Input>& GetAllInputs() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DMouse>()->wheel().y;
+			return SIV3D_ENGINE(Mouse)->getAllInput();
 		}
-		
-		double WheelH()
+
+		double Wheel() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DMouse>()->wheel().x;
+			return SIV3D_ENGINE(Mouse)->wheel().y;
+		}
+
+		double WheelH() noexcept
+		{
+			return SIV3D_ENGINE(Mouse)->wheel().x;
 		}
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,7 @@
 
 # include <Siv3D/FFT.hpp>
 # include <Siv3D/Wave.hpp>
-# include <Siv3D/AlignedMemory.hpp>
+# include <Siv3D/Memory.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CFFT.hpp"
 
@@ -24,7 +24,7 @@ namespace s3d
 
 	CFFT::~CFFT()
 	{
-		LOG_TRACE(U"CFFT::~CFFT()");
+		LOG_SCOPED_TRACE(U"CFFT::~CFFT()");
 
 		AlignedFree(m_workBuffer);
 
@@ -43,7 +43,7 @@ namespace s3d
 
 	void CFFT::init()
 	{
-		LOG_TRACE(U"CFFT::init()");
+		LOG_SCOPED_TRACE(U"CFFT::init()");
 
 		int32 i = 0;
 
@@ -55,11 +55,9 @@ namespace s3d
 		m_inoutBuffer = AlignedMalloc<float, 16>(16384);
 
 		m_workBuffer = AlignedMalloc<float, 16>(16384);
-
-		LOG_INFO(U"ℹ️ CFFT initialized");
 	}
 
-	void CFFT::fft(FFTResult& result, const Wave& wave, uint32 pos, const FFTSampleLength sampleLength)
+	void CFFT::fft(FFTResult& result, const Wave& wave, const uint32 pos, const FFTSampleLength sampleLength)
 	{
 		const int32 samples = 256 << static_cast<int32>(sampleLength);
 		const int32 begin = std::max(static_cast<int32>(pos) - 1 - samples, 0);
@@ -75,7 +73,7 @@ namespace s3d
 			for (int32 i = 0; i < fillCount; ++i)
 			{
 				*pDst++ = (pSrc->left + pSrc->right) / 2;
-				
+
 				++pSrc;
 			}
 		}
@@ -85,10 +83,10 @@ namespace s3d
 			*pDst++ = 0.0f;
 		}
 
-		doFFT(result, wave.samplingRate(), sampleLength);
+		doFFT(result, wave.sampleRate(), sampleLength);
 	}
 
-	void CFFT::fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, const uint32 samplingRate, const FFTSampleLength sampleLength)
+	void CFFT::fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, const uint32 sampleRate, const FFTSampleLength sampleLength)
 	{
 		const int32 samples = 256 << static_cast<int32>(sampleLength);
 
@@ -106,17 +104,17 @@ namespace s3d
 			*pDst++ = (static_cast<int32>(sample.left) + static_cast<int32>(sample.right)) / (32768.0f * 2);
 		}
 
-		doFFT(result, samplingRate, sampleLength);
+		doFFT(result, sampleRate, sampleLength);
 	}
 
-	void CFFT::fft(FFTResult& result, const float* input, size_t size, const uint32 samplingRate, const FFTSampleLength sampleLength)
+	void CFFT::fft(FFTResult& result, const float* input, size_t size, const uint32 sampleRate, const FFTSampleLength sampleLength)
 	{
 		std::memcpy(m_inoutBuffer, input, sizeof(float) * size);
 
-		doFFT(result, samplingRate, sampleLength);
+		doFFT(result, sampleRate, sampleLength);
 	}
 
-	void CFFT::doFFT(FFTResult& result, const uint32 samplingRate, const FFTSampleLength sampleLength)
+	void CFFT::doFFT(FFTResult& result, const uint32 sampleRate, const FFTSampleLength sampleLength)
 	{
 		result.buffer.resize(128 << static_cast<int32>(sampleLength));
 
@@ -133,7 +131,7 @@ namespace s3d
 			*pDst++ = std::sqrt(f0 * f0 + f1 * f1) * m;
 		}
 
-		result.samplingRate = samplingRate;
-		result.resolution = static_cast<double>(samplingRate) / (256 << static_cast<int32>(sampleLength));
+		result.sampleRate = sampleRate;
+		result.resolution = static_cast<double>(sampleRate) / (256 << static_cast<int32>(sampleLength));
 	}
 }

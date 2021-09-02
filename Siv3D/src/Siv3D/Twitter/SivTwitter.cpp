@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,21 +11,22 @@
 
 # include <Siv3D/Twitter.hpp>
 # include <Siv3D/String.hpp>
-# include <Siv3D/FormatUtility.hpp>
 # include <Siv3D/System.hpp>
-# include <Siv3D/Char.hpp>
+# include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/FormatInt.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		String PercentEncode(const StringView str)
+		[[nodiscard]]
+		static String PercentEncode(const StringView str)
 		{
 			String result;
 
-			for (const auto ch : Unicode::ToUTF8(str))
+			for (const auto ch : str.toUTF8())
 			{
-				if (IsAlnum(ch) || ch == '-' || ch == '_' || ch == '.' || ch == '~')
+				if (IsAlnum(ch) || (ch == '-') || (ch == '_') || (ch == '.') || (ch == '~'))
 				{
 					result << static_cast<char32>(ch);
 				}

@@ -2,448 +2,359 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
-# include "Line.hpp"
-# include "Array.hpp"
-# include "Geometry2D.hpp"
-# include "MathConstants.hpp"
-# include "PredefinedNamedParameter.hpp"
+# include "ColorHSV.hpp"
+# include "LineStyle.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	class Texture;
+	struct TextureRegion;
+	struct TexturedCircle;
+
+	/// @brief 円
 	struct Circle
 	{
-		using position_type = Vec2;
+		using position_type	= Vec2;
 
-		using size_type = position_type::value_type;
+		using size_type		= position_type::value_type;
 
-		using value_type = position_type::value_type;
+		using value_type	= position_type::value_type;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 
 		union
 		{
-			/// <summary>
-			/// 円の中心座標
-			/// </summary>
+			/// @brief 円の中心座標
 			position_type center;
 
 			struct
 			{
-				/// <summary>
-				/// 円の中心の X 座標
-				/// </summary>
+				/// @brief 円の中心の X 座標
 				value_type x;
 
-				/// <summary>
-				/// 円の中心の Y 座標
-				/// </summary>
+				/// @brief 円の中心の Y 座標
 				value_type y;
 			};
 		};
 
-		/// <summary>
-		/// 円の半径
-		/// </summary>
+		/// @brief 円の半径
 		size_type r;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
+		/// @brief 
+		SIV3D_NODISCARD_CXX20
 		Circle() = default;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		explicit constexpr Circle(size_type _r) noexcept
-			: center(0.0, 0.0)
-			, r(_r) {}
+		/// @brief 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Circle(size_type _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_x">
-		/// 円の中心の X 座標
-		/// </param>
-		/// <param name="_y">
-		/// 円の中心の Y 座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(value_type _x, value_type _y, size_type _r) noexcept
-			: center(_x, _y)
-			, r(_r) {}
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Circle(Arithmetic _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_center">
-		/// 円の中心の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(const position_type& _center, size_type _r) noexcept
-			: center(_center)
-			, r(_r) {}
+		/// @brief 
+		/// @param _x 
+		/// @param _y 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(value_type _x, value_type _y, size_type _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_center">
-		/// 円の中心の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(Arg::center_<position_type> _center, size_type _r) noexcept
-			: center(_center.value())
-			, r(_r) {}
+		/// @brief 
+		/// @tparam X 
+		/// @tparam Y 
+		/// @tparam R 
+		/// @param _x 
+		/// @param _y 
+		/// @param _r 
+		/// @return 
+		template <class X, class Y, class R>
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(X _x, Y _y, R _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="topLeft">
-		/// 円に外接する正方形の左上の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(Arg::topLeft_<position_type> topLeft, size_type _r) noexcept
-			: center(topLeft->x + _r, topLeft->y + _r)
-			, r(_r) {}
+		/// @brief 
+		/// @param _center 
+		/// @param _r 
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(position_type _center, size_type _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="topRight">
-		/// 円に外接する正方形の右上の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(Arg::topRight_<position_type> topRight, size_type _r) noexcept
-			: center(topRight->x - _r, topRight->y + _r)
-			, r(_r) {}
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(position_type _center, Arithmetic _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="bottomLeft">
-		/// 円に外接する正方形の左下の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept
-			: center(bottomLeft->x + _r, bottomLeft->y - _r)
-			, r(_r) {}
+		/// @brief 
+		/// @param _center 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::center_<position_type> _center, Arithmetic _r) noexcept;
 
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="bottomRight">
-		/// 円に外接する正方形の右下の座標
-		/// </param>
-		/// <param name="_r">
-		/// 円の半径
-		/// </param>
-		constexpr Circle(Arg::bottomRight_<position_type> bottomRight, size_type _r) noexcept
-			: center(bottomRight->x - _r, bottomRight->y - _r)
-			, r(_r) {}
+		/// @brief 
+		/// @param topLeft 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::topLeft_<position_type> topLeft, Arithmetic _r) noexcept;
 
-		constexpr Circle(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept
-			: center(topCenter->x, topCenter->y + _r)
-			, r(_r) {}
+		/// @brief 
+		/// @param topCenter 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::topCenter_<position_type> topCenter, Arithmetic _r) noexcept;
 
-		constexpr Circle(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept
-			: center(bottomCenter->x, bottomCenter->y - _r)
-			, r(_r) {}
+		/// @brief 
+		/// @param topRight 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::topRight_<position_type> topRight, Arithmetic _r) noexcept;
 
-		constexpr Circle(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept
-			: center(leftCenter->x + _r, leftCenter->y)
-			, r(_r) {}
+		/// @brief 
+		/// @param rightCenter 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::rightCenter_<position_type> rightCenter, Arithmetic _r) noexcept;
 
-		constexpr Circle(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept
-			: center(rightCenter->x - _r, rightCenter->y)
-			, r(_r) {}
+		/// @brief 
+		/// @param bottomRight 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::bottomRight_<position_type> bottomRight, Arithmetic _r) noexcept;
 
-		Circle(const position_type& p0, const position_type& p1) noexcept;
+		/// @brief 
+		/// @param bottomCenter 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::bottomCenter_<position_type> bottomCenter, Arithmetic _r) noexcept;
 
+		/// @brief 
+		/// @param bottomLeft 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::bottomLeft_<position_type> bottomLeft, Arithmetic _r) noexcept;
+
+		/// @brief 
+		/// @param leftCenter 
+		/// @param _r 
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr Circle(Arg::leftCenter_<position_type> leftCenter, Arithmetic _r) noexcept;
+
+		/// @brief 
+		/// @param p0 
+		/// @param p1 
+		SIV3D_NODISCARD_CXX20
+		Circle(position_type p0, position_type p1) noexcept;
+
+		/// @brief 
+		/// @param p0 
+		/// @param p1 
+		/// @param p2 
+		SIV3D_NODISCARD_CXX20
 		Circle(const position_type& p0, const position_type& p1, const position_type& p2) noexcept;
 
-		explicit Circle(const Line& diameter) noexcept
-			: Circle(diameter.begin, diameter.end) {}
+		/// @brief 
+		/// @param diameter 
+		SIV3D_NODISCARD_CXX20
+		explicit Circle(const Line& diameter) noexcept;
 
+		/// @brief 
+		/// @param _center 
+		/// @param p 
+		SIV3D_NODISCARD_CXX20
 		Circle(Arg::center_<position_type> _center, const position_type& p) noexcept;
 
-		[[nodiscard]] constexpr bool operator ==(const Circle& circle) const noexcept
+		[[nodiscard]]
+		friend constexpr bool operator ==(const Circle& lhs, const Circle& rhs) noexcept
 		{
-			return center == circle.center
-				&& r == circle.r;
+			return (lhs.center == rhs.center)
+				&& (lhs.r == rhs.r);
 		}
 
-		[[nodiscard]] constexpr bool operator !=(const Circle& circle) const noexcept
+		[[nodiscard]]
+		friend constexpr bool operator !=(const Circle& lhs, const Circle& rhs) noexcept
 		{
-			return center != circle.center
-				|| r != circle.r;
+			return (lhs.center != rhs.center)
+				|| (lhs.r != rhs.r);
 		}
 
-		constexpr Circle& set(value_type _x, value_type _y, size_type _r) noexcept
-		{
-			center.set(_x, _y);
-			r = _r;
-			return *this;
-		}
+		constexpr Circle& set(value_type _x, value_type _y, size_type _r) noexcept;
 
-		constexpr Circle& set(const position_type& _center, size_type _r) noexcept
-		{
-			return set(_center.x, _center.y, _r);
-		}
+		constexpr Circle& set(position_type _center, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::center_<position_type> _center, size_type _r) noexcept
-		{
-			return set(_center->x, _center->y, _r);
-		}
+		constexpr Circle& set(Arg::center_<position_type> _center, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::topLeft_<position_type> topLeft, size_type _r) noexcept
-		{
-			return set(topLeft->x + _r, topLeft->y + _r, _r);
-		}
+		constexpr Circle& set(Arg::topLeft_<position_type> topLeft, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::topRight_<position_type> topRight, size_type _r) noexcept
-		{
-			return set(topRight->x - _r, topRight->y + _r, _r);
-		}
+		constexpr Circle& set(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept
-		{
-			return set(bottomLeft->x + _r, bottomLeft->y - _r, _r);
-		}
+		constexpr Circle& set(Arg::topRight_<position_type> topRight, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::bottomRight_<position_type> bottomRight, size_type _r) noexcept
-		{
-			return set(bottomRight->x - _r, bottomRight->y - _r, _r);
-		}
+		constexpr Circle& set(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept
-		{
-			return set(topCenter->x, topCenter->y + _r, _r);
-		}
+		constexpr Circle& set(Arg::bottomRight_<position_type> bottomRight, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept
-		{
-			return set(bottomCenter->x, bottomCenter->y - _r, _r);
-		}
+		constexpr Circle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept
-		{
-			return set(leftCenter->x + _r, leftCenter->y, _r);
-		}
+		constexpr Circle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept;
 
-		constexpr Circle& set(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept
-		{
-			return set(rightCenter->x - _r, rightCenter->y, _r);
-		}
+		constexpr Circle& set(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept;
 
-		constexpr Circle& set(const Circle& circle) noexcept
-		{
-			return *this = circle;
-		}
+		constexpr Circle& set(const Circle& circle) noexcept;
 
-		constexpr Circle& setCenter(value_type _x, value_type _y) noexcept
-		{
-			center.set(_x, _y);
-			return *this;
-		}
+		constexpr Circle& setCenter(value_type _x, value_type _y) noexcept;
 
-		constexpr Circle& setCenter(const position_type& _center) noexcept
-		{
-			return setCenter(_center.x, _center.y);
-		}
+		constexpr Circle& setCenter(position_type _center) noexcept;
 
-		constexpr Circle& setPos(value_type _x, value_type _y) noexcept
-		{
-			return setCenter(_x, _y);
-		}
+		constexpr Circle& setPos(value_type _x, value_type _y) noexcept;
 
-		constexpr Circle& setPos(const position_type& _center) noexcept
-		{
-			return setCenter(_center.x, _center.y);
-		}
+		constexpr Circle& setPos(position_type _center) noexcept;
 
-		constexpr Circle& setPos(Arg::center_<position_type> _center) noexcept
-		{
-			return setCenter(_center->x, _center->y);
-		}
+		constexpr Circle& setPos(Arg::center_<position_type> _center) noexcept;
 
-		constexpr Circle& setPos(Arg::topLeft_<position_type> topLeft) noexcept
-		{
-			return setCenter(topLeft->x + r, topLeft->y + r);
-		}
+		constexpr Circle& setPos(Arg::topLeft_<position_type> topLeft) noexcept;
 
-		constexpr Circle& setPos(Arg::topRight_<position_type> topRight) noexcept
-		{
-			return setCenter(topRight->x - r, topRight->y + r);
-		}
+		constexpr Circle& setPos(Arg::topCenter_<position_type> topCenter) noexcept;
 
-		constexpr Circle& setPos(Arg::bottomLeft_<position_type> bottomLeft) noexcept
-		{
-			return setCenter(bottomLeft->x + r, bottomLeft->y - r);
-		}
+		constexpr Circle& setPos(Arg::topRight_<position_type> topRight) noexcept;
 
-		constexpr Circle& setPos(Arg::bottomRight_<position_type> bottomRight) noexcept
-		{
-			return setCenter(bottomRight->x - r, bottomRight->y - r);
-		}
+		constexpr Circle& setPos(Arg::rightCenter_<position_type> rightCenter) noexcept;
 
-		constexpr Circle& setPos(Arg::topCenter_<position_type> topCenter) noexcept
-		{
-			return setCenter(topCenter->x, topCenter->y + r);
-		}
+		constexpr Circle& setPos(Arg::bottomRight_<position_type> bottomRight) noexcept;
 
-		constexpr Circle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
-		{
-			return setCenter(bottomCenter->x, bottomCenter->y - r);
-		}
+		constexpr Circle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept;
 
-		constexpr Circle& setPos(Arg::leftCenter_<position_type> leftCenter) noexcept
-		{
-			return setCenter(leftCenter->x + r, leftCenter->y);
-		}
+		constexpr Circle& setPos(Arg::bottomLeft_<position_type> bottomLeft) noexcept;
 
-		constexpr Circle& setPos(Arg::rightCenter_<position_type> rightCenter) noexcept
-		{
-			return setCenter(rightCenter->x - r, rightCenter->y);
-		}
+		constexpr Circle& setPos(Arg::leftCenter_<position_type> leftCenter) noexcept;
 
-		constexpr Circle& setR(double _r) noexcept
-		{
-			r = _r;
-			return *this;
-		}
+		constexpr Circle& setR(value_type _r) noexcept;
 
-		[[nodiscard]] constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
-		{
-			return{ center.movedBy(_x, _y), r };
-		}
+		[[nodiscard]]
+		constexpr Circle movedBy(value_type _x, value_type _y) const noexcept;
 
-		[[nodiscard]] constexpr Circle movedBy(const position_type& v) const noexcept
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]]
+		constexpr Circle movedBy(position_type v) const noexcept;
 
-		constexpr Circle& moveBy(value_type _x, value_type _y) noexcept
-		{
-			center.moveBy(_x, _y);
-			return *this;
-		}
+		constexpr Circle& moveBy(value_type _x, value_type _y) noexcept;
 
-		constexpr Circle& moveBy(const position_type& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		constexpr Circle& moveBy(position_type v) noexcept;
 
-		[[nodiscard]] constexpr Circle stretched(value_type size) const noexcept
-		{
-			return Circle(center, r + size);
-		}
+		[[nodiscard]]
+		constexpr Circle stretched(value_type size) const noexcept;
 
-		[[nodiscard]] Ellipse stretched(double _x, double _y) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse stretched(double _x, double _y) const noexcept;
 
-		[[nodiscard]] constexpr Circle scaled(double s) const noexcept
-		{
-			return Circle(center, r * s);
-		}
+		[[nodiscard]]
+		constexpr Circle scaled(double s) const noexcept;
 
-		[[nodiscard]] Ellipse scaled(double sx, double sy) const noexcept;
+		[[nodiscard]]
+		constexpr Ellipse scaled(double sx, double sy) const noexcept;
 
-		[[nodiscard]] constexpr position_type top() const noexcept
-		{
-			return{ center.x, center.y - r };
-		}
+		[[nodiscard]]
+		constexpr position_type top() const noexcept;
 
-		[[nodiscard]] constexpr position_type right() const noexcept
-		{
-			return{ center.x + r, center.y };
-		}
+		[[nodiscard]]
+		constexpr position_type right() const noexcept;
 
-		[[nodiscard]] constexpr position_type bottom() const noexcept
-		{
-			return{ center.x, center.y + r };
-		}
+		[[nodiscard]]
+		constexpr position_type bottom() const noexcept;
 
-		[[nodiscard]] constexpr position_type left() const noexcept
-		{
-			return{ center.x - r, center.y };
-		}
+		[[nodiscard]]
+		constexpr position_type left() const noexcept;
 
-		[[nodiscard]] constexpr Line lineDiameter() const noexcept
-		{
-			return{ left(), right() };
-		}
+		[[nodiscard]]
+		constexpr Line horizontalDiameter() const noexcept;
 
-		[[nodiscard]] constexpr value_type area() const noexcept
-		{
-			return r * r * Math::Constants::Pi;
-		}
+		[[nodiscard]]
+		constexpr Line verticalDiameter() const noexcept;
 
-		[[nodiscard]] constexpr value_type perimeter() const noexcept
-		{
-			return 2 * r * Math::Constants::Pi;
-		}
+		[[nodiscard]]
+		constexpr value_type area() const noexcept;
+
+		[[nodiscard]]
+		constexpr value_type perimeter() const noexcept;
+
+		[[nodiscard]]
+		constexpr RectF boundingRect() const noexcept;
+
+		[[nodiscard]]
+		position_type getPointByAngle(double angle) const noexcept;
+
+		[[nodiscard]]
+		Polygon asPolygon(uint32 quality = 24) const;
+
+		[[nodiscard]]
+		Polygon pieAsPolygon(double startAngle, double angle, uint32 quality = 24) const;
+
+		[[nodiscard]]
+		Polygon arcAsPolygon(double startAngle, double angle, double innerThickness, double outerThickness, uint32 quality = 24) const;
+
+		[[nodiscard]]
+		constexpr Circle lerp(const Circle& other, double f) const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
 
 		template <class Shape2DType>
-		[[nodiscard]] bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		[[nodiscard]]
+		constexpr bool intersects(const Shape2DType& other) const;
 
 		template <class Shape2DType>
-		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
-		{
-			return Geometry2D::IntersectAt(*this, shape);
-		}
+		[[nodiscard]]
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& other) const;
 
 		template <class Shape2DType>
-		[[nodiscard]] bool contains(const Shape2DType& shape) const
-		{
-			return Geometry2D::Contains(*this, shape);
-		}
+		[[nodiscard]]
+		bool contains(const Shape2DType& other) const;
 
-		[[nodiscard]] bool leftClicked() const;
+		[[nodiscard]]
+		bool leftClicked() const noexcept;
 
-		[[nodiscard]] bool leftPressed() const;
+		[[nodiscard]]
+		bool leftPressed() const noexcept;
 
-		[[nodiscard]] bool leftReleased() const;
+		[[nodiscard]]
+		bool leftReleased() const noexcept;
 
-		[[nodiscard]] bool rightClicked() const;
+		[[nodiscard]]
+		bool rightClicked() const noexcept;
 
-		[[nodiscard]] bool rightPressed() const;
+		[[nodiscard]]
+		bool rightPressed() const noexcept;
 
-		[[nodiscard]] bool rightReleased() const;
+		[[nodiscard]]
+		bool rightReleased() const noexcept;
 
-		[[nodiscard]] bool mouseOver() const;
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
 
-		const Circle& paint(Image& dst, const Color& color, bool antialiased = true) const;
+		const Circle& paint(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
+		const Circle& overwrite(Image& dst, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
-		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
 		//const Circle& paintPie(Image& dst, double startAngle, double angle, const Color& color) const;
 
@@ -453,232 +364,96 @@ namespace s3d
 
 		//const Circle& overwriteArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
 
-
-		/// <summary>
-		/// 円を描きます。
-		/// </summary>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 円を描きます。
+		/// @param color 円の色
+		/// @return *this
 		const Circle& draw(const ColorF& color = Palette::White) const;
 
-		/// <summary>
-		/// 円を描きます。
-		/// </summary>
-		/// <param name="innerColor">
-		/// 色
-		/// </param>
-		/// <param name="outerColor">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
-		/// <summary>
-		/// 円の枠を描きます。
-		/// </summary>
-		/// <param name="thickness">
-		/// 枠の太さ
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Circle& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		/// <summary>
-		/// 円の枠を描きます。
-		/// </summary>
-		/// <param name="innerThickness">
-		/// 内側の太さ
-		/// </param>
-		/// <param name="outerThickness">
-		/// 外側の太さ
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		/// <summary>
-		/// 円の枠を描きます。
-		/// </summary>
-		/// <param name="innerThickness">
-		/// 内側の太さ
-		/// </param>
-		/// <param name="outerThickness">
-		/// 外側の太さ
-		/// </param>
-		/// <param name="innerColor">
-		/// 色
-		/// </param>
-		/// <param name="outerColor">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
-
-		/// <summary>
-		/// 扇形を描きます。
-		/// </summary>
-		/// <param name="startAngle">
-		/// 開始角度
-		/// </param>
-		/// <param name="angle">
-		/// 角度
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		
 		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
 
 		const Circle& drawPie(double startAngle, double angle, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		/// <summary>
-		/// 弧を描きます。
-		/// </summary>
-		/// <param name="startAngle">
-		/// 開始角度
-		/// </param>
-		/// <param name="angle">
-		/// 角度
-		/// </param>
-		/// <param name="innerThickness">
-		/// 内側の太さ
-		/// </param>
-		/// <param name="outerThickness">
-		/// 外側の太さ
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
 		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
 		const Circle& drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		/// <summary>
-		/// 円の影を描きます。
-		/// </summary>
-		/// <param name="offset">
-		/// 影の移動量（ピクセル）
-		/// </param>
-		/// <param name="blurRadius">
-		/// 影のぼかしの大きさ（ピクセル）
-		/// </param>
-		/// <param name="spread">
-		/// 長方形の広がり（ピクセル）
-		/// </param>
-		/// <param name="color">
-		/// 影の色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+		const Circle& drawArc(const LineStyle& style, double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
-		[[nodiscard]] TexturedCircle operator ()(const Texture& texture) const;
+		const Circle& drawArc(const LineStyle& style, double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
-		[[nodiscard]] TexturedCircle operator ()(const TextureRegion& textureRegion) const;
+		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
-		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
+		[[nodiscard]]
+		TexturedCircle operator ()(const Texture& texture) const;
+
+		[[nodiscard]]
+		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)
+		{
+			return output << CharType('(')
+				<< value.x << CharType(',') << CharType(' ')
+				<< value.y << CharType(',') << CharType(' ')
+				<< value.r << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Circle& value)
+		{
+			CharType unused;
+			return input >> unused
+				>> value.x >> unused
+				>> value.y >> unused
+				>> value.r >> unused;
+		}
+
+		friend void Formatter(FormatData& formatData, const Circle& value);
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Circle, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Circle& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output << CharType('(')
-			<< value.x << CharType(',') << CharType(' ')
-			<< value.y << CharType(',') << CharType(' ')
-			<< value.r << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Circle& value)
+	template <class FormatContext>
+	auto format(const s3d::Circle& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input >> unused
-			>> value.x >> unused
-			>> value.y >> unused
-			>> value.r >> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.x, value.y, value.r);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.x, value.y, value.r);
+		}
 	}
-}
+};
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
+template <>
+struct std::hash<s3d::Circle>
 {
-	template <>
-	struct hash<s3d::Circle>
+	[[nodiscard]]
+	size_t operator()(const s3d::Circle& value) const noexcept
 	{
-		[[nodiscard]] size_t operator ()(const s3d::Circle& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::Circle, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Circle& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.r);
-		}
-	};
-}
+		return value.hash();
+	}
+};

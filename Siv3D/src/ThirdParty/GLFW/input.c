@@ -1,5 +1,5 @@
 //========================================================================
-// GLFW 3.3 - www.glfw.org
+// GLFW 3.4 - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
 // Copyright (c) 2006-2019 Camilla Löwy <elmindreda@glfw.org>
@@ -24,13 +24,15 @@
 //    distribution.
 //
 //========================================================================
+// Please use C89 style variable declarations in this file because VS 2010
+//========================================================================
 
 //-----------------------------------------------
 //
 //	[Siv3D]
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -51,6 +53,22 @@
 #define _GLFW_JOYSTICK_AXIS     1
 #define _GLFW_JOYSTICK_BUTTON   2
 #define _GLFW_JOYSTICK_HATBIT   3
+
+// Initializes the platform joystick API if it has not been already
+//
+static GLFWbool initJoysticks(void)
+{
+    if (!_glfw.joysticksInitialized)
+    {
+        if (!_glfwPlatformInitJoysticks())
+        {
+            _glfwPlatformTerminateJoysticks();
+            return GLFW_FALSE;
+        }
+    }
+
+    return _glfw.joysticksInitialized = GLFW_TRUE;
+}
 
 // Finds a mapping based on joystick GUID
 //
@@ -780,9 +798,13 @@ GLFWAPI GLFWcursor* glfwCreateStandardCursor(int shape)
     if (shape != GLFW_ARROW_CURSOR &&
         shape != GLFW_IBEAM_CURSOR &&
         shape != GLFW_CROSSHAIR_CURSOR &&
-        shape != GLFW_HAND_CURSOR &&
-        shape != GLFW_HRESIZE_CURSOR &&
-        shape != GLFW_VRESIZE_CURSOR)
+        shape != GLFW_POINTING_HAND_CURSOR &&
+        shape != GLFW_RESIZE_EW_CURSOR &&
+        shape != GLFW_RESIZE_NS_CURSOR &&
+        shape != GLFW_RESIZE_NWSE_CURSOR &&
+        shape != GLFW_RESIZE_NESW_CURSOR &&
+        shape != GLFW_RESIZE_ALL_CURSOR &&
+        shape != GLFW_NOT_ALLOWED_CURSOR)
     {
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid standard cursor 0x%08X", shape);
         return NULL;
@@ -948,6 +970,9 @@ GLFWAPI int glfwJoystickPresent(int jid)
         return GLFW_FALSE;
     }
 
+    if (!initJoysticks())
+        return GLFW_FALSE;
+
     js = _glfw.joysticks + jid;
     if (!js->present)
         return GLFW_FALSE;
@@ -972,6 +997,9 @@ GLFWAPI const float* glfwGetJoystickAxes(int jid, int* count)
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick ID %i", jid);
         return NULL;
     }
+
+    if (!initJoysticks())
+        return NULL;
 
     js = _glfw.joysticks + jid;
     if (!js->present)
@@ -1001,6 +1029,9 @@ GLFWAPI const unsigned char* glfwGetJoystickButtons(int jid, int* count)
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick ID %i", jid);
         return NULL;
     }
+
+    if (!initJoysticks())
+        return NULL;
 
     js = _glfw.joysticks + jid;
     if (!js->present)
@@ -1035,6 +1066,9 @@ GLFWAPI const unsigned char* glfwGetJoystickHats(int jid, int* count)
         return NULL;
     }
 
+    if (!initJoysticks())
+        return NULL;
+
     js = _glfw.joysticks + jid;
     if (!js->present)
         return NULL;
@@ -1061,6 +1095,9 @@ GLFWAPI const char* glfwGetJoystickName(int jid)
         return NULL;
     }
 
+    if (!initJoysticks())
+        return NULL;
+
     js = _glfw.joysticks + jid;
     if (!js->present)
         return NULL;
@@ -1085,6 +1122,9 @@ GLFWAPI const char* glfwGetJoystickGUID(int jid)
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick ID %i", jid);
         return NULL;
     }
+
+    if (!initJoysticks())
+        return NULL;
 
     js = _glfw.joysticks + jid;
     if (!js->present)
@@ -1154,6 +1194,10 @@ GLFWAPI const char* siv3dGetJoystickInfo(int joy, unsigned* vendorID, unsigned* 
 GLFWAPI GLFWjoystickfun glfwSetJoystickCallback(GLFWjoystickfun cbfun)
 {
     _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
+
+    if (!initJoysticks())
+        return NULL;
+
     _GLFW_SWAP_POINTERS(_glfw.callbacks.joystick, cbfun);
     return cbfun;
 }
@@ -1233,6 +1277,9 @@ GLFWAPI int glfwJoystickIsGamepad(int jid)
         return GLFW_FALSE;
     }
 
+    if (!initJoysticks())
+        return GLFW_FALSE;
+
     js = _glfw.joysticks + jid;
     if (!js->present)
         return GLFW_FALSE;
@@ -1257,6 +1304,9 @@ GLFWAPI const char* glfwGetGamepadName(int jid)
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick ID %i", jid);
         return NULL;
     }
+
+    if (!initJoysticks())
+        return NULL;
 
     js = _glfw.joysticks + jid;
     if (!js->present)
@@ -1289,6 +1339,9 @@ GLFWAPI int glfwGetGamepadState(int jid, GLFWgamepadstate* state)
         _glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick ID %i", jid);
         return GLFW_FALSE;
     }
+
+    if (!initJoysticks())
+        return GLFW_FALSE;
 
     js = _glfw.joysticks + jid;
     if (!js->present)

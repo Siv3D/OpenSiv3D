@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,138 +11,116 @@
 
 # pragma once
 # include <memory>
-# include <algorithm>
-# include "Fwd.hpp"
-# include "AlignedMemory.hpp"
+# include "Common.hpp"
+# include "Memory.hpp"
+# include "Utility.hpp"
 
 namespace s3d
 {
-	namespace detail
+	class IConstantBufferDetail;
+
+	/// @brief 定数バッファ（シェーダ）ベース
+	class ConstantBufferBase
 	{
-		class ConstantBufferBase
-		{
-		private:
+	public:
 
-			class ConstantBufferDetail;
+		SIV3D_NODISCARD_CXX20
+		ConstantBufferBase() = default;
 
-			std::shared_ptr<ConstantBufferDetail> m_detail;
+		SIV3D_NODISCARD_CXX20
+		ConstantBufferBase(const ConstantBufferBase&) = default;
 
-		public:
+		SIV3D_NODISCARD_CXX20
+		explicit ConstantBufferBase(size_t size);
 
-			ConstantBufferBase() = default;
+		bool _internal_update(const void* data, size_t size);
 
-			ConstantBufferBase(const ConstantBufferBase&) = default;
+		[[nodiscard]]
+		const IConstantBufferDetail* _detail() const;
+	
+	private:
 
-			explicit ConstantBufferBase(size_t size);
+		std::shared_ptr<IConstantBufferDetail> pImpl;
+	};
 
-			bool _internal_update(const void* data, size_t size);
-
-			const ConstantBufferDetail* _detail() const;
-		};
-	}
-
+	/// @brief 定数バッファ（シェーダ）
+	/// @tparam Type 定数バッファ用の型
 	template <class Type>
 	class ConstantBuffer
 	{
 	public:
 
-		static constexpr size_t Size = sizeof(Type);
+		static_assert(sizeof(Type) <= (16 * 4096)); // <= 64KB
 
-		static constexpr size_t Alignment = std::max<size_t>(alignof(Type), 16);
+		static_assert(std::is_trivially_copyable_v<Type>);
+
+		static constexpr size_t _alignment = Max<size_t>(alignof(Type), 16);
+
+	SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
+
+		struct alignas(_alignment) WrapperType
+		{
+			Type data;
+		};
+
+	SIV3D_DISABLE_MSVC_WARNINGS_POP()
+
+		static constexpr size_t Size		= sizeof(WrapperType);
+
+		static constexpr size_t NumVectors	= (Size / 16);
+
+		static constexpr size_t Alignment	= alignof(WrapperType);
+
+		SIV3D_NODISCARD_CXX20
+		ConstantBuffer();
+
+		SIV3D_NODISCARD_CXX20
+		ConstantBuffer(const Type& data);
+
+		~ConstantBuffer();
+
+		ConstantBuffer& operator =(const Type& data);
+
+		[[nodiscard]]
+		constexpr size_t size() const noexcept;
+
+		[[nodiscard]]
+		const float* data() const noexcept;
+
+		[[nodiscard]]
+		Type& get() noexcept;
+
+		[[nodiscard]]
+		const Type& get() const noexcept;
+
+		[[nodiscard]]
+		bool isDirty() const noexcept;
+
+		bool _update_if_dirty();
+
+		[[nodiscard]]
+		const ConstantBufferBase& base() const noexcept;
+
+		[[nodiscard]]
+		Type& operator *() noexcept;
+
+		[[nodiscard]]
+		const Type& operator *() const noexcept;
+
+		[[nodiscard]]
+		Type* operator ->() noexcept;
+
+		[[nodiscard]]
+		const Type* operator ->() const noexcept;
 
 	private:
 
-		static_assert(Size <= 16 * 4096); // <= 64KB
+		ConstantBufferBase m_base;
 
-		static_assert(Size % 16 == 0);
+		WrapperType* const m_wrapper = AlignedNew<WrapperType>();
 
-		detail::ConstantBufferBase m_base;
-
-		Type* const m_data = AlignedMalloc<Type, Alignment>();
-
-		bool m_hasDirty = false;
-
-		bool update()
-		{
-			return m_base._internal_update(m_data, Size);
-		}
-
-	public:
-
-		ConstantBuffer()
-			: m_base(Size)
-		{
-			
-		}
-
-		explicit ConstantBuffer(const Type& data)
-			: ConstantBuffer()
-		{
-			m_hasDirty = true;
-			*m_data = data;
-		}
-
-		~ConstantBuffer()
-		{
-			AlignedFree(m_data);
-		}
-
-		[[nodiscard]] constexpr size_t getDataSize() const noexcept
-		{
-			return Size;
-		}
-
-		[[nodiscard]] const float* getPtr() const
-		{
-			return static_cast<const float*>(static_cast<const void*>(m_data));
-		}
-
-		[[nodiscard]] Type& get()
-		{
-			m_hasDirty = true;
-			return *m_data;
-		}
-
-		[[nodiscard]] const Type& get() const
-		{
-			return *m_data;
-		}
-
-		bool _update_if_dirty()
-		{
-			if (!m_hasDirty)
-			{
-				return true;
-			}
-
-			return update();
-		}
-
-		[[nodiscard]] const detail::ConstantBufferBase& base() const
-		{
-			return m_base;
-		}
-
-		[[nodiscard]] Type& operator *()
-		{
-			m_hasDirty = true;
-			return *m_data;
-		}
-
-		[[nodiscard]] const Type& operator *() const
-		{
-			return *m_data;
-		}
-
-		[[nodiscard]] Type* operator ->()
-		{
-			m_hasDirty = true;
-			return m_data;
-		}
-
-		[[nodiscard]] const Type* operator ->() const
-		{
-			return *m_data;
-		}
+		bool m_hasDirty = true;
 	};
 }
+
+# include "detail/ConstantBuffer.ipp"

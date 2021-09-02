@@ -2,138 +2,87 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include "Common.hpp"
 # include "Fwd.hpp"
-# include "ByteArray.hpp"
-# include "Image.hpp"
-# include "Unspecified.hpp"
+# include "Grid.hpp"
+# include "SVG.hpp"
+# include "QRErrorCorrection.hpp"
 
 namespace s3d
 {
-	enum class QRErrorCorrection
-	{
-		Low,
-
-		Medium,
-
-		Quartile,
-
-		High,
-	};
-
-	enum class QRMode
-	{
-		Invalid,
-
-		Numeric,
-
-		/// <remarks>
-		/// 0-9, A-Z, $ % * + - . / : と半角スペース
-		/// 小文字と大文字は区別されない
-		/// </remarks>
-		Alnum,
-
-		Binary,
-
-		Kanji,
-	};
-
-	struct QRCode
-	{
-		Image image;
-
-		int32 version = 0;
-
-		QRMode mode = QRMode::Numeric;
-
-		QRErrorCorrection ec = QRErrorCorrection::Low;
-
-		bool save(const FilePath& path, int32 size = 512, int32 borderCells = 4);
-	};
-
-	struct QRContent
-	{
-		Quad quad;
-
-		String text;
-
-		ByteArray data;
-
-		int32 version = 0;
-
-		QRMode mode = QRMode::Invalid;
-
-		QRErrorCorrection ec = QRErrorCorrection::Low;
-
-		[[nodiscard]] bool isValid() const noexcept
-		{
-			return (mode != QRMode::Invalid);
-		}
-
-		[[nodiscard]] explicit operator bool() const noexcept
-		{
-			return isValid();
-		}
-
-		void clear()
-		{
-			quad.set(0, 0, 0, 0, 0, 0, 0, 0);
-			text.clear();
-			data.release();
-			version = 0;
-			mode = QRMode::Invalid;
-			ec = QRErrorCorrection::Low;
-		}
-	};
-
-	class QRDecoder
-	{
-	private:
-
-		class QRDecoderDetail;
-
-		std::shared_ptr<QRDecoderDetail> pImpl;
-
-	public:
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		QRDecoder();
-
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
-		~QRDecoder();
-
-		bool decode(const Image& image, QRContent& content);
-
-		bool decode(const Image& image, Array<QRContent>& contents);
-	};
-
+	/// @brief QR コードに関連する機能
 	namespace QR
 	{
-		constexpr int32 MinVersion = 1;
+		/// @brief QR コードの最小サイズを示す番号
+		inline constexpr int32 MinVersion = 1;
 
-		constexpr int32 MaxVersion = 40;
+		/// @brief QR コードの最大サイズを示す番号
+		inline constexpr int32 MaxVersion = 40;
 
-		[[nodiscard]] size_t CalculateCapacity(int32 version, QRMode mode, QRErrorCorrection ec);
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
+		[[nodiscard]]
+		Grid<bool> EncodeNumber(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
-		bool EncodeNumber(QRCode& qr, StringView view, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
+		[[nodiscard]]
+		Grid<bool> EncodeAlnum(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
-		bool EncodeAlnum(QRCode& qr, StringView view, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
+		/// @brief 
+		/// @param s 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
+		[[nodiscard]]
+		Grid<bool> EncodeText(StringView s, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
-		bool EncodeText(QRCode& qr, StringView view, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
+		/// @brief 
+		/// @param data 
+		/// @param size 
+		/// @param ec 
+		/// @param minVersion 
+		/// @return 
+		[[nodiscard]]
+		Grid<bool> EncodeBinary(const void* data, size_t size, QRErrorCorrection ec = QRErrorCorrection::Low, int32 minVersion = MinVersion);
 
-		bool EncodeBinary(QRCode& qr, const void* data, size_t size, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
+		/// @brief QR コードを Image に変換します。
+		/// @param qr QR コードを表現する二次元配列
+		/// @param cellSize 1 セルの一辺のサイズ（ピクセル）
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 変換後の Image データ
+		[[nodiscard]]
+		Image MakeImage(const Grid<bool>& qr, int32 cellSize = 16, size_t borderCells = 4);
 
-		bool EncodeBinary(QRCode& qr, ByteArrayView view, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
+		/// @brief QR コードを SVG データに変換します。
+		/// @param qr QR コードを表現する二次元配列
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 変換後の SVG データ
+		[[nodiscard]]
+		SVG MakeSVG(const Grid<bool>& qr, size_t borderCells = 4);
+
+		/// @brief QR コードを SVG 画像ファイルとして保存します。
+		/// @param path 保存するファイルパス
+		/// @param qr QR コードを表現する二次元配列
+		/// @param borderCells QR コードの周囲の余白をセル何個分にするか
+		/// @remark borderCells は 4 以上が推奨されています。
+		/// @return 保存に成功した場合 true, それ以外の場合は false
+		bool SaveSVG(FilePathView path, const Grid<bool>& qr, size_t borderCells = 4);
 	}
 }

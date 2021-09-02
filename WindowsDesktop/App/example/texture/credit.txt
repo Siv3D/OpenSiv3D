@@ -1,0 +1,17 @@
+[earth.jpg]
+https://visibleearth.nasa.gov/images/57735/the-blue-marble-land-surface-ocean-color-sea-ice-and-clouds/57737l
+
+[grass.jpg]
+https://www.goodtextures.com/
+
+[ground.jpg]
+https://www.sharetextures.com/textures/ground/ground-5/
+
+[rock.jpg]
+https://www.sharetextures.com/textures/ground/ground-stone/
+
+[uv.png]
+http://uvchecker.byvalle.com/
+
+[wood.jpg]
+https://www.sharetextures.com/textures/wood/wood-fine-24/

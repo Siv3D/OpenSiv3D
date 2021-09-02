@@ -2,35 +2,43 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Physics2D.hpp>
-# include <Box2D/Box2D.h>
+# include <Siv3D/Physics2D/P2Body.hpp>
+# include <Siv3D/Physics2D/P2PivotJoint.hpp>
+# include "P2Common.hpp"
 
 namespace s3d
 {
-	class P2PivotJoint::P2PivotJointDetail
+	class detail::P2PivotJointDetail
 	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		P2PivotJointDetail(const std::shared_ptr<detail::P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision);
+
+		~P2PivotJointDetail();
+
+		[[nodiscard]]
+		b2RevoluteJoint& getJoint();
+
+		[[nodiscard]]
+		const b2RevoluteJoint& getJoint() const;
+
 	private:
 
 		b2RevoluteJoint* m_joint = nullptr;
 
-		P2World m_world;
+		std::shared_ptr<detail::P2WorldDetail> m_world;
 
-	public:
+		std::weak_ptr<P2Body::P2BodyDetail> m_bodyA;
 
-		P2PivotJointDetail(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
-
-		~P2PivotJointDetail();
-
-		[[nodiscard]] b2RevoluteJoint& getJoint();
-
-		[[nodiscard]] const b2RevoluteJoint& getJoint() const;
+		std::weak_ptr<P2Body::P2BodyDetail> m_bodyB;
 	};
 }

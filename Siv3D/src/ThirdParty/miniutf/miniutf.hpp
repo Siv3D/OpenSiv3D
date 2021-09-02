@@ -2,15 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 
 namespace s3d::detail
 {
@@ -40,12 +40,12 @@ namespace s3d::detail
 	{
 		int32 offset;
 
-		char32_t codePoint;
+		char32 codePoint;
 	};
 
-	static constexpr const offset_pt invalid_pt = { -1, 0 };
+	inline constexpr const offset_pt invalid_pt = { -1, 0 };
 
-	static offset_pt utf8_decode_check(const char8* s, const size_t length)
+	inline offset_pt utf8_decode_check(const char8* s, const size_t length)
 	{
 		uint32_t b0, b1, b2, b3;
 
@@ -74,7 +74,7 @@ namespace s3d::detail
 				return invalid_pt;
 			}
 
-			const char32_t pt = (b0 & 0x1F) << 6 | (b1 & 0x3F);
+			const char32 pt = (b0 & 0x1F) << 6 | (b1 & 0x3F);
 
 			if (pt < 0x80)
 			{
@@ -101,7 +101,7 @@ namespace s3d::detail
 				return invalid_pt;
 			}
 
-			const char32_t pt = (b0 & 0x0F) << 12 | (b1 & 0x3F) << 6 | (b2 & 0x3F);
+			const char32 pt = (b0 & 0x0F) << 12 | (b1 & 0x3F) << 6 | (b2 & 0x3F);
 
 			if (pt < 0x800)
 			{
@@ -133,7 +133,7 @@ namespace s3d::detail
 				return invalid_pt;
 			}
 
-			const char32_t pt = (b0 & 0x0F) << 18 | (b1 & 0x3F) << 12 | (b2 & 0x3F) << 6 | (b3 & 0x3F);
+			const char32 pt = (b0 & 0x0F) << 18 | (b1 & 0x3F) << 12 | (b2 & 0x3F) << 6 | (b3 & 0x3F);
 
 			if (pt < 0x10000 || pt >= 0x110000)
 			{
@@ -149,7 +149,7 @@ namespace s3d::detail
 		}
 	}
 
-	static char32_t utf8_decode(const char8* s, const size_t length, int32& offset)
+	inline char32 utf8_decode(const char8* s, const size_t length, int32& offset)
 	{
 		const offset_pt res = utf8_decode_check(s, length);
 
@@ -167,16 +167,16 @@ namespace s3d::detail
 		}
 	}
 
-	inline constexpr bool is_high_surrogate(const char16_t c) { return (c >= 0xD800) && (c < 0xDC00); }
+	inline constexpr bool is_high_surrogate(const char16 c) { return (c >= 0xD800) && (c < 0xDC00); }
 
-	inline constexpr bool is_low_surrogate(const char16_t c) { return (c >= 0xDC00) && (c < 0xE000); }
+	inline constexpr bool is_low_surrogate(const char16 c) { return (c >= 0xDC00) && (c < 0xE000); }
 
-	static offset_pt utf16_decode_check(const char16* const s, const size_t length)
+	inline offset_pt utf16_decode_check(const char16* const s, const size_t length)
 	{
 		if (is_high_surrogate(s[0]) && length >= 2 && is_low_surrogate(s[1]))
 		{
 			// High surrogate followed by low surrogate
-			const char32_t pt = (((s[0] - 0xD800) << 10) | (s[1] - 0xDC00)) + 0x10000;
+			const char32 pt = (((s[0] - 0xD800) << 10) | (s[1] - 0xDC00)) + 0x10000;
 
 			return{ 2, pt };
 		}
@@ -191,7 +191,7 @@ namespace s3d::detail
 		}
 	}
 
-	static char32 utf16_decode(const char16* s, const size_t length, int32& offset)
+	inline char32 utf16_decode(const char16* s, const size_t length, int32& offset)
 	{
 		const offset_pt res = utf16_decode_check(s, length);
 

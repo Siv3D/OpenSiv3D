@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,38 +12,42 @@
 # pragma once
 # include "NamedParameter.hpp"
 
-namespace s3d
+namespace s3d::Arg
 {
-	namespace Arg
-	{
-		SIV3D_NAMED_PARAMETER(generator);			// Array
-		SIV3D_NAMED_PARAMETER(indexedGenerator);	// Array
-		SIV3D_NAMED_PARAMETER(generator0_1);
-		SIV3D_NAMED_PARAMETER(radix);
-		SIV3D_NAMED_PARAMETER(r);
-		SIV3D_NAMED_PARAMETER(theta);
-		SIV3D_NAMED_PARAMETER(phi);
-		SIV3D_NAMED_PARAMETER(y);
-		SIV3D_NAMED_PARAMETER(angle);
-		SIV3D_NAMED_PARAMETER(direction);
-		SIV3D_NAMED_PARAMETER(center);
-		SIV3D_NAMED_PARAMETER(topLeft);
-		SIV3D_NAMED_PARAMETER(topRight);
-		SIV3D_NAMED_PARAMETER(bottomLeft);
-		SIV3D_NAMED_PARAMETER(bottomRight);
-		SIV3D_NAMED_PARAMETER(left);
-		SIV3D_NAMED_PARAMETER(right);
-		SIV3D_NAMED_PARAMETER(top);
-		SIV3D_NAMED_PARAMETER(bottom);
-		SIV3D_NAMED_PARAMETER(topCenter);
-		SIV3D_NAMED_PARAMETER(bottomCenter);
-		SIV3D_NAMED_PARAMETER(leftCenter);
-		SIV3D_NAMED_PARAMETER(rightCenter);
-		SIV3D_NAMED_PARAMETER(source);
-		SIV3D_NAMED_PARAMETER(loop);
-		SIV3D_NAMED_PARAMETER(loopBegin);
-		SIV3D_NAMED_PARAMETER(loopEnd);
-		SIV3D_NAMED_PARAMETER(code);
-		SIV3D_NAMED_PARAMETER(samplingRate);
-	}
+	SIV3D_NAMED_PARAMETER(radix);				// ToString
+	SIV3D_NAMED_PARAMETER(generator);			// Array, Image
+	SIV3D_NAMED_PARAMETER(indexedGenerator);	// Array
+	SIV3D_NAMED_PARAMETER(reserve);				// Array
+	SIV3D_NAMED_PARAMETER(generator0_1);		// Image
+
+
+	SIV3D_NAMED_PARAMETER(r);					// Circular
+	SIV3D_NAMED_PARAMETER(theta);				// Circular
+	SIV3D_NAMED_PARAMETER(phi);					// Cylindrical
+	SIV3D_NAMED_PARAMETER(y);					// Cylindrical
+
+	SIV3D_NAMED_PARAMETER(angle);				// Line
+	SIV3D_NAMED_PARAMETER(direction);			// Line
+
+	SIV3D_NAMED_PARAMETER(center);				// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(topLeft);				// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(topRight);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(bottomLeft);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(bottomRight);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(topCenter);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(bottomCenter);		// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(leftCenter);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(rightCenter);			// Rect, RectF, Circle
+	SIV3D_NAMED_PARAMETER(top);					// Rect, RectF
+	SIV3D_NAMED_PARAMETER(bottom);				// Rect, RectF
+	SIV3D_NAMED_PARAMETER(left);				// Rect, RectF
+	SIV3D_NAMED_PARAMETER(right);				// Rect, RectF
+
+	SIV3D_NAMED_PARAMETER(code);				// XMLReader
+
+	SIV3D_NAMED_PARAMETER(sampleRate);			// Wave
+
+
+	SIV3D_NAMED_PARAMETER(loopBegin);			// Audio
+	SIV3D_NAMED_PARAMETER(loopEnd);				// Audio
 }

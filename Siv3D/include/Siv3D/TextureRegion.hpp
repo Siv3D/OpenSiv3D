@@ -2,15 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Texture.hpp"
 # include "FloatRect.hpp"
 
@@ -20,63 +20,46 @@ namespace s3d
 	{
 		Texture texture;
 
-		FloatRect uvRect = FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
+		FloatRect uvRect = FloatRect{ 0.0f, 0.0f, 0.0f, 0.0f };
 
-		Float2 size = Float2(0.0f, 0.0f);
+		Float2 size = Float2{ 0.0f, 0.0f };
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion() = default;
 
+		SIV3D_NODISCARD_CXX20
 		TextureRegion(const Texture& _texture);
 
-		TextureRegion(
-			const Texture& _texture,
-			float l,
-			float t,
-			float r,
-			float b,
-			double sx,
-			double sy);
+		SIV3D_NODISCARD_CXX20
+		TextureRegion(const Texture& _texture, float l, float t, float r, float b, double sx, double sy);
 
-		TextureRegion(
-			const Texture& _texture,
-			float l,
-			float t,
-			float r,
-			float b,
-			const Vec2& _size);
+		SIV3D_NODISCARD_CXX20
+		TextureRegion(const Texture& _texture, float l, float t, float r, float b, const Vec2& _size);
 
-		TextureRegion(
-			const Texture& _texture,
-			const FloatRect& _uvRect,
-			double sx,
-			double sy);
+		SIV3D_NODISCARD_CXX20
+		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, double sx, double sy);
 
-		TextureRegion(
-			const Texture& _texture,
-			const FloatRect& _uvRect,
-			const Vec2& _size);
+		SIV3D_NODISCARD_CXX20
+		TextureRegion(const Texture& _texture, const FloatRect& _uvRect, const Vec2& _size);
+	
+		[[nodiscard]]
+		RectF region(double x, double y) const noexcept;
 
-		[[nodiscard]] RectF region(double x, double y) const;
+		[[nodiscard]]
+		RectF region(Vec2 pos = Vec2{ 0, 0 }) const noexcept;
 
-		[[nodiscard]] RectF region(const Vec2& pos = Vec2(0, 0)) const;
+		[[nodiscard]]
+		RectF regionAt(double x, double y) const noexcept;
 
-		[[nodiscard]] RectF regionAt(double x, double y) const;
+		[[nodiscard]]
+		RectF regionAt(Vec2 pos) const noexcept;
 
-		[[nodiscard]] RectF regionAt(const Vec2& pos) const;
+		[[nodiscard]]
+		TextureRegion stretched(double x, double y) const;
 
-		[[nodiscard]] TextureRegion stretched(double x, double y) const;
+		[[nodiscard]]
+		TextureRegion stretched(Vec2 _size) const;
 
-		[[nodiscard]] TextureRegion stretched(const Vec2& _size) const;
-
-		/// <summary>
-		/// テクスチャを描きます。
-		/// </summary>
-		/// <param name="diffuse">
-		/// 乗算する色
-		/// </param>
-		/// <returns>
-		/// 描画領域
-		/// </returns>
 		RectF draw(const ColorF& diffuse = Palette::White) const;
 
 		RectF draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
@@ -85,21 +68,6 @@ namespace s3d
 
 		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
-		/// <summary>
-		/// 指定した位置にテクスチャを描きます。
-		/// </summary>
-		/// <param name="x">
-		/// 描画開始位置の X 座標
-		/// </param>
-		/// <param name="y">
-		/// 描画開始位置の Y 座標
-		/// </param>
-		/// <param name="diffuse">
-		/// 乗算する色
-		/// </param>
-		/// <returns>
-		/// 描画領域
-		/// </returns>
 		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
 		RectF draw(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
@@ -108,18 +76,6 @@ namespace s3d
 
 		RectF draw(double x, double y, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
-		/// <summary>
-		/// 指定した位置にテクスチャを描きます。
-		/// </summary>
-		/// <param name="pos">
-		/// 描画開始位置
-		/// </param>
-		/// <param name="diffuse">
-		/// 乗算する色
-		/// </param>
-		/// <returns>
-		/// 描画領域
-		/// </returns>
 		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 
 		RectF draw(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
@@ -147,77 +103,74 @@ namespace s3d
 
 		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const;
 
-		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
-
-		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
-
-		/// <summary>
-		/// 中心位置を指定してテクスチャを描きます。
-		/// </summary>
-		/// <param name="x">
-		/// 中心位置の X 座標
-		/// </param>
-		/// <param name="y">
-		/// 中心位置の X 座標
-		/// </param>
-		/// <param name="diffuse">
-		/// 乗算する色
-		/// </param>
-		/// <returns>
-		/// 描画領域
-		/// </returns>
 		RectF drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
 		RectF drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
-		/// <summary>
-		/// 中心位置を指定してテクスチャを描きます。
-		/// </summary>
-		/// <param name="pos">
-		/// 中心位置の座標
-		/// </param>
-		/// <param name="diffuse">
-		/// 乗算する色
-		/// </param>
-		/// <returns>
-		/// 描画領域
-		/// </returns>
+		/// @brief 中心位置を指定してテクスチャの一部分を描画します。
+		/// @param pos 描画する中心の座標
+		/// @param diffuse 描画時に乗算する色
+		/// @return テクスチャが描画された領域
 		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
 
 		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
-		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		[[nodiscard]] TextureRegion mirrored() const;
+		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
+		RectF drawAtClipped(double x, double y, const RectF & clipRect, const ColorF & diffuse = Palette::White) const;
 
-		[[nodiscard]] TextureRegion flipped() const;
+		RectF drawAtClipped(const Vec2 & pos, const RectF & clipRect, const ColorF & diffuse = Palette::White) const;
 
-		[[nodiscard]] TextureRegion flipped(bool doFlip) const;
 
-		[[nodiscard]] TextureRegion scaled(double s) const;
+		[[nodiscard]]
+		TextureRegion mirrored() const;
 
-		[[nodiscard]] TextureRegion scaled(double sx, double sy) const;
+		[[nodiscard]]
+		TextureRegion mirrored(bool doMirror) const;
 
-		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
+		[[nodiscard]]
+		TextureRegion flipped() const;
 
-		[[nodiscard]] TextureRegion resized(double _size) const;
+		[[nodiscard]]
+		TextureRegion flipped(bool doFlip) const;
 
-		[[nodiscard]] TextureRegion resized(double width, double height) const;
+		[[nodiscard]]
+		TextureRegion scaled(double s) const;
 
-		[[nodiscard]] TextureRegion resized(const Vec2& _size) const;
+		[[nodiscard]]
+		TextureRegion scaled(double sx, double sy) const;
 
-		[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
+		[[nodiscard]]
+		TextureRegion scaled(Vec2 s) const;
 
-		[[nodiscard]] TextureRegion fitted(const Vec2& _size, bool scaleUp = true) const;
+		[[nodiscard]]
+		TextureRegion resized(double _size) const;
 
-		[[nodiscard]] TexturedQuad rotated(double angle) const;
+		[[nodiscard]]
+		TextureRegion resized(double width, double height) const;
 
-		[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]]
+		TextureRegion resized(Vec2 _size) const;
 
-		[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]]
+		TextureRegion fitted(double width, double height, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
+
+		[[nodiscard]]
+		TextureRegion fitted(const Vec2& _size, AllowScaleUp allowScaleUp = AllowScaleUp::Yes) const;
+
+		[[nodiscard]]
+		TexturedQuad rotated(double angle) const;
+
+		[[nodiscard]]
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
+
+		[[nodiscard]]
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+
+		[[nodiscard]]
+		TexturedRoundRect rounded(double r) const;
 	};
 }

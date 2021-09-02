@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,25 +12,26 @@
 # include <Siv3D/Line3D.hpp>
 # include <Siv3D/Mat4x4.hpp>
 # include <Siv3D/Graphics2D.hpp>
+# include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/Renderer3D/IRenderer3D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+
 
 namespace s3d
 {
-	void Line3D::draw(const Mat4x4& vp, const ColorF& color) const
-	{
-		draw(vp, 1, color);
-	}
-
-	void Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
+	Line3D Line3D::toScreen(const Mat4x4& vp) const noexcept
 	{
 		constexpr size_t vertexCount = 2;
-		const Float3 vec[vertexCount] = { begin, end };
-		Float3 out[vertexCount];
-
-		SIMD::Vector3TransformCoordStream(out, vec, vertexCount, vp);
+		Float3 vertices[vertexCount] = { begin, end };
+		DirectX::XMVector3TransformCoordStream(
+			reinterpret_cast<DirectX::XMFLOAT3*>(vertices),
+			sizeof(Float3),
+			reinterpret_cast<const DirectX::XMFLOAT3*>(vertices),
+			sizeof(Float3), vertexCount, vp);
 
 		const Float2 resolution = Graphics2D::GetRenderTargetSize();
 
-		for (auto& v : out)
+		for (auto& v : vertices)
 		{
 			v.x += 1.0f;
 			v.y += 1.0f;
@@ -40,42 +41,50 @@ namespace s3d
 			v.y *= resolution.y;
 		}
 
-		Line(out[0].xy(), out[1].xy()).draw(thickness, color);
+		return{ vertices[0], vertices[1] };
 	}
 
-	void SIMD_Line3D::draw(const Mat4x4& vp, const ColorF& color) const
+	Line Line3D::toScreenLine(const Mat4x4& vp) const noexcept
 	{
-		draw(vp, 1, color);
+		const Line3D line = toScreen(vp);
+
+		return{ line.begin.xy(), line.end.xy() };
 	}
 
-	void SIMD_Line3D::draw(const Mat4x4& vp, const double thickness, const ColorF& color) const
+	const Line3D& Line3D::draw(const ColorF& color) const
 	{
-		constexpr size_t vertexCount = 2;
-		Float3 out[vertexCount];
+		const Float4 rgba = color.toFloat4();
 
-		SIMD::Vector3TransformCoordStream(out, vec, vertexCount, vp);
+		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { rgba, rgba });
 
-		const Float2 resolution = Graphics2D::GetRenderTargetSize();
-
-		for (auto& v : out)
-		{
-			v.x += 1.0f;
-			v.y += 1.0f;
-			v.x *= 0.5f * resolution.x;
-			v.y *= 0.5f;
-			v.y = 1.0f - v.y;
-			v.y *= resolution.y;
-		}
-
-		Line(out[0].xy(), out[1].xy()).draw(thickness, color);
+		return *this;
 	}
+
+	const Line3D& Line3D::draw(const ColorF& colorBegin, const ColorF& colorEnd) const
+	{
+		SIV3D_ENGINE(Renderer3D)->addLine3D(begin, end, { colorBegin.toFloat4(), colorEnd.toFloat4() });
+
+		return *this;
+	}
+
 
 	void Formatter(FormatData& formatData, const Line3D& value)
 	{
-		formatData.string.push_back(U'(');
-		Formatter(formatData, value.begin);
+		formatData.string.append(U"(("_sv);
+
+		formatData.string.append(ToString(value.begin.x, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		Formatter(formatData, value.end);
-		formatData.string.push_back(U')');
+		formatData.string.append(ToString(value.begin.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.begin.z, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(value.end.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.end.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.end.z, formatData.decimalPlaces.value));
+
+		formatData.string.append(U"))"_sv);
 	}
 }

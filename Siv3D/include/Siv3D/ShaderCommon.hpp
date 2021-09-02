@@ -2,66 +2,176 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "String.hpp"
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-# define SIV3D_VERTEX_SHADER_EXTENSION U".hlsl"
-# define SIV3D_PIXEL_SHADER_EXTENSION U".hlsl"
-# define SIV3D_SELECT_SHADER(HLSL_SHADER_EXTENSION, GLSL_SHADER_EXTENSION) HLSL_SHADER_EXTENSION
-
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
-
-# define SIV3D_VERTEX_SHADER_EXTENSION U".vert"
-# define SIV3D_PIXEL_SHADER_EXTENSION U".frag"
-# define SIV3D_SELECT_SHADER(HLSL_SHADER_EXTENSION, GLSL_SHADER_EXTENSION) GLSL_SHADER_EXTENSION
-
-# else
-
-# error Unimplemented
-
-# endif
+# include "Common.hpp"
+# include "Optional.hpp"
+# include "VertexShader.hpp"
+# include "PixelShader.hpp"
+# include "System.hpp"
 
 namespace s3d
 {
-	enum class ShaderStage
-	{
-		Vertex,
+	class ShaderGroup;
+	struct HLSL;
+	struct GLSL;
+	struct MSL;
+	struct ESSL;
 
-		Pixel,
+	/// @brief HLSL ファイル
+	struct HLSL
+	{
+		FilePath path;
+
+		String entryPoint;
+
+		SIV3D_NODISCARD_CXX20
+		explicit HLSL(FilePath _path);
+
+		SIV3D_NODISCARD_CXX20
+		HLSL(FilePath _path, String _entryPoint);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& glsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
 	};
 
-	struct ConstantBufferBinding
+	/// @brief GLSL ファイル
+	struct GLSL
 	{
-		String name;
-		
-		uint32 index;
+		FilePath path;
+
+		Array<ConstantBufferBinding> bindings;
+
+		SIV3D_NODISCARD_CXX20
+		GLSL(FilePath _path, Array<ConstantBufferBinding> _bindings);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
 	};
-	
-	namespace Shader
+
+	/// @brief Metal Shading Language ファイル
+	struct MSL
 	{
-		namespace Internal
-		{
-			constexpr uint32 MakeUniformBlockBinding(ShaderStage stage, uint32 index) noexcept
-			{
-				if (stage == ShaderStage::Vertex)
-				{
-					return index;
-				}
-				else
-				{
-					return index + 12;
-				}
-			}
-		}
-	}
+		FilePath path;
+
+		String entryPoint;
+
+		SIV3D_NODISCARD_CXX20
+		explicit MSL(StringView _entryPoint);
+
+		SIV3D_NODISCARD_CXX20
+		MSL(FilePath _path, StringView _entryPoint);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& glsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
+	};
+
+	/// @brief OpenGL ES Shading Language ファイル
+	struct ESSL
+	{
+		FilePath path;
+
+		Array<ConstantBufferBinding> bindings;
+
+		SIV3D_NODISCARD_CXX20
+		ESSL(FilePath _path, Array<ConstantBufferBinding> _bindings);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
+	};
+
+	class ShaderGroup
+	{
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		ShaderGroup() = default;
+
+		SIV3D_NODISCARD_CXX20
+		ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl, const Optional<ESSL>& essl);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& glsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
+
+		[[nodiscard]]
+		std::tuple<FilePath, String, Array<ConstantBufferBinding>> getParameters() const;
+
+	private:
+
+		Optional<HLSL> m_hlsl;
+		Optional<GLSL> m_glsl;
+		Optional<MSL>  m_msl;
+		Optional<ESSL> m_essl;
+	};
 }
+
+# include "detail/ShaderCommon.ipp"

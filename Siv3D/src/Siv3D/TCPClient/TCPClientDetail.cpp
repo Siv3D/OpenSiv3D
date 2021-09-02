@@ -2,14 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/IPv4.hpp>
+# include <Siv3D/IPv4Address.hpp>
 # include "TCPClientDetail.hpp"
 
 namespace s3d
@@ -24,7 +24,7 @@ namespace s3d
 		disconnect();
 	}
 
-	bool TCPClient::TCPClientDetail::connect(const IPv4& ip, uint16 port)
+	bool TCPClient::TCPClientDetail::connect(const IPv4Address& ip, uint16 port)
 	{
 		if (!m_work)
 		{
@@ -32,7 +32,7 @@ namespace s3d
 
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
-			m_io_service_thread = std::async([=] { m_io_service->run(); });
+			m_io_service_thread = Async([this] { m_io_service->run(); });
 		}
 
 		if (m_isConnected)
@@ -49,7 +49,7 @@ namespace s3d
 
 		m_waitingConnection = true;
 
-		m_session->socket().async_connect(asio::ip::tcp::endpoint(asio::ip::address::from_string(ip.toStr().narrow()), port),
+		m_session->socket().async_connect(asio::ip::tcp::endpoint(asio::ip::address::from_string(ip.to_string()), port),
 			std::bind(&TCPClientDetail::onConnect, this, std::placeholders::_1));
 
 		return true;
@@ -88,7 +88,7 @@ namespace s3d
 
 		m_waitingConnection = false;
 		
-		m_error = NetworkError::OK;
+		m_error = TCPError::OK;
 		
 		m_isConnected = false;
 
@@ -118,12 +118,12 @@ namespace s3d
 
 	bool TCPClient::TCPClientDetail::hasError() const
 	{
-		return getError() != NetworkError::OK;
+		return getError() != TCPError::OK;
 	}
 
-	NetworkError TCPClient::TCPClientDetail::getError() const
+	TCPError TCPClient::TCPClientDetail::getError() const
 	{
-		if (!m_session || (m_error != NetworkError::OK))
+		if (!m_session || (m_error != TCPError::OK))
 		{
 			return m_error;
 		}
@@ -139,13 +139,13 @@ namespace s3d
 			{
 				LOG_FAIL(U"TCPClient: Connection refused: [error: {}] {}"_fmt(error.value(), Unicode::Widen(error.message())));
 
-				m_error = NetworkError::ConnectionRefused;
+				m_error = TCPError::ConnectionRefused;
 			}
 			else
 			{
 				LOG_FAIL(U"TCPClient: connect failed: {}"_fmt(Unicode::Widen(error.message())));
 
-				m_error = NetworkError::Error;
+				m_error = TCPError::Error;
 			}
 
 			cancelConnect();
@@ -153,11 +153,15 @@ namespace s3d
 			return;
 		}
 
-		LOG_INFO(U"TCPClient: accepted: remote {}<{}> local {}<{}>"_fmt(
-			Unicode::WidenAscii(m_session->socket().remote_endpoint().address().to_string()),
-			m_session->socket().remote_endpoint().port(),
-			Unicode::WidenAscii(m_session->socket().local_endpoint().address().to_string()),
-			m_session->socket().local_endpoint().port()));
+		{
+			const auto& socket = m_session->socket();
+
+			LOG_INFO(U"TCPClient: accepted: remote {}<{}> local {}<{}>"_fmt(
+				Unicode::WidenAscii(socket.remote_endpoint().address().to_string()),
+				socket.remote_endpoint().port(),
+				Unicode::WidenAscii(socket.local_endpoint().address().to_string()),
+				socket.local_endpoint().port()));
+		}
 
 		m_waitingConnection = false;
 

@@ -2,34 +2,33 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/ZIPReader.hpp>
-# include <Siv3D/ByteArray.hpp>
 # include "ZIPReaderDetail.hpp"
 
 namespace s3d
 {
 	ZIPReader::ZIPReader()
-		: pImpl(std::make_shared<ZIPReaderDetail>())
+		: pImpl{ std::make_shared<ZIPReaderDetail>() }
 	{
 
 	}
 
 	ZIPReader::ZIPReader(const FilePathView path)
-		: ZIPReader()
+		: ZIPReader{}
 	{
 		open(path);
 	}
 
 	ZIPReader::~ZIPReader()
 	{
-
+		// do nothing
 	}
 
 	bool ZIPReader::open(const FilePathView path)
@@ -42,14 +41,14 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool ZIPReader::isOpen() const
+	bool ZIPReader::isOpen() const noexcept
 	{
 		return pImpl->isOpen();
 	}
 
-	ZIPReader::operator bool() const
+	ZIPReader::operator bool() const noexcept
 	{
-		return isOpen();
+		return pImpl->isOpen();
 	}
 
 	const Array<FilePath>& ZIPReader::enumPaths() const
@@ -62,13 +61,18 @@ namespace s3d
 		return pImpl->extractAll(targetDirectory);
 	}
 
-	bool ZIPReader::extract(const StringView pattern, const FilePathView targetDirectory) const
+	bool ZIPReader::extractFiles(const StringView pattern, const FilePathView targetDirectory) const
 	{
 		return pImpl->extract(pattern, targetDirectory);
 	}
 
-	ByteArray ZIPReader::extractToMemory(const FilePathView filePath) const
+	MemoryReader ZIPReader::extract(const FilePathView filePath) const
 	{
-		return pImpl->extractToMemory(filePath);
+		return MemoryReader{ pImpl->extractToBlob(filePath) };
+	}
+
+	Blob ZIPReader::extractToBlob(const FilePathView filePath) const
+	{
+		return pImpl->extractToBlob(filePath);
 	}
 }

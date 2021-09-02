@@ -2,39 +2,67 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "StringView.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
 	namespace Compression
 	{
-		constexpr int32 DefaultCompressionLevel = 11;
+		inline constexpr int32 MinLevel = 1;
 
-		constexpr int32 MinCompressionLevel = 1;
+		inline constexpr int32 DefaultLevel = 11;
 
-		constexpr int32 MaxCompressionLevel = 22;
+		inline constexpr int32 MaxLevel = 22;
 
-		[[nodiscard]] ByteArray Compress(ByteArrayViewAdapter view, int32 compressionLevel = DefaultCompressionLevel);
+		[[nodiscard]]
+		Blob Compress(const void* data, size_t size, int32 compressionLevel = DefaultLevel);
 
-		[[nodiscard]] ByteArray CompressFile(FilePathView path, int32 compressionLevel = DefaultCompressionLevel);
+		bool Compress(const void* data, size_t size, Blob& dst, int32 compressionLevel = DefaultLevel);
 
-		bool CompressToFile(ByteArrayViewAdapter view, FilePathView outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		[[nodiscard]]
+		Blob Compress(const Blob& blob, int32 compressionLevel = DefaultLevel);
 
-		bool CompressFileToFile(FilePathView inputPath, FilePathView outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool Compress(const Blob& blob, Blob& dst, int32 compressionLevel = DefaultLevel);
 
-		[[nodiscard]] ByteArray Decompress(ByteArrayView view);
+		[[nodiscard]]
+		Blob CompressFile(FilePathView path, int32 compressionLevel = DefaultLevel);
 
-		[[nodiscard]] ByteArray DecompressFile(FilePathView path);
+		bool CompressFile(FilePathView path, Blob& dst, int32 compressionLevel = DefaultLevel);
 
-		bool DecompressToFile(ByteArrayView view, FilePathView outputPath);
+		bool CompressToFile(const void* data, size_t size, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
+
+		bool CompressToFile(const Blob& blob, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
+
+		bool CompressFileToFile(FilePathView inputPath, FilePathView outputPath, int32 compressionLevel = DefaultLevel);
+
+		[[nodiscard]]
+		Blob Decompress(const void* data, size_t size);
+
+		bool Decompress(const void* data, size_t size, Blob& dst);
+
+		[[nodiscard]]
+		Blob Decompress(const Blob& blob);
+
+		bool Decompress(const Blob& blob, Blob& dst);
+
+		[[nodiscard]]
+		Blob DecompressFile(FilePathView path);
+
+		bool DecompressFile(FilePathView path, Blob& dst);
+
+		bool DecompressToFile(const void* data, size_t size, FilePathView outputPath);
+
+		bool DecompressToFile(const Blob& blob, FilePathView outputPath);
 
 		bool DecompressFileToFile(FilePathView inputPath, FilePathView outputPath);
 	}

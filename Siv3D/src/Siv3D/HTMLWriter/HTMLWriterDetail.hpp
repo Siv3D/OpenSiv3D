@@ -2,11 +2,13 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
+//-----------------------------------------------
+// s3d::HTMLWriter is originally created by Kenta Masuda (HAMSTRO)
 //-----------------------------------------------
 
 # pragma once
@@ -17,17 +19,13 @@ namespace s3d
 {
 	class HTMLWriter::HTMLWriterDetail
 	{
-	private:
-
-		TextWriter m_textWriter;
-
 	public:
 
 		HTMLWriterDetail();
 
 		~HTMLWriterDetail();
 
-		bool open(FilePathView path, const String& title, const StringView styleSheet);
+		bool open(FilePathView path, StringView title, StringView styleSheet);
 
 		void close();
 
@@ -35,12 +33,16 @@ namespace s3d
 
 		void writeRaw(StringView view);
 
-		void writeElementRaw(StringView content, const String& tag);
+		void writeElementRaw(StringView content, StringView tag);
 
-		void writeElementRaw(StringView content, const String& startTag, const String& endTag);
+		void writeElementRaw(StringView content, StringView startTag, StringView endTag);
 
-		void writeElementRaw(StringView content, const String& tag, const Array<std::pair<String, String>>& styles);
-		
+		void writeElementRaw(StringView content, StringView tag, const Array<std::pair<String, String>>& styles);
+
 		const FilePath& path() const;
+
+	private:
+
+		TextWriter m_textWriter;
 	};
 }

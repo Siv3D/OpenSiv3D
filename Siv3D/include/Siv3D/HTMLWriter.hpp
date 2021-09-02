@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,59 +12,53 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Array.hpp"
 # include "String.hpp"
 # include "Grid.hpp"
-# include "Color.hpp"
+# include "ColorHSV.hpp"
+# include "Optional.hpp"
 # include "Unspecified.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	/// @brief HTML 文書の書き出し
 	class HTMLWriter
 	{
-	private:
-
-		class HTMLWriterDetail;
-
-		std::shared_ptr<HTMLWriterDetail> pImpl;
-
 	public:
 
 		static String DefaultStyle();
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		HTMLWriter();
 
-		HTMLWriter(FilePathView path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
+		SIV3D_NODISCARD_CXX20
+		HTMLWriter(FilePathView path, StringView title = U"Untitled", StringView styleSheet = DefaultStyle());
 
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
 		~HTMLWriter();
 
-		bool open(FilePathView path, const String& title = U"Untitled", StringView styleSheet = DefaultStyle());
+		bool open(FilePathView path, StringView title = U"Untitled", StringView styleSheet = DefaultStyle());
 
 		void close();
 
-		[[nodiscard]] bool isOpen() const;
+		[[nodiscard]]
+		bool isOpen() const noexcept;
 
-		[[nodiscard]] explicit operator bool() const;
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
-		void writeRaw(StringView view);
+		void writeRaw(StringView s);
 
-		void writeParagraph(StringView view, const Color& color = Palette::Black);
+		void writeParagraph(StringView s, const Color& color = Palette::Black);
 
-		void writeHeader(StringView view, int32 level = 1);
+		void writeHeader(StringView s, int32 level = 1);
 
 		void writeList(const Array<String>& items);
 
 		void writeOrderedList(const Array<String>& items);
 
-		void writeTable(const Grid<String>& items, bool hasHeader = false);
+		void writeTable(const Grid<String>& items, HasHeader hasHeader = HasHeader::No);
 
 		void writeLine(int32 thickness = 2, const Color& color = Color(223, 226, 229));
 
@@ -72,6 +66,13 @@ namespace s3d
 
 		void writeImage(FilePathView url, const Optional<Size>& size = unspecified);
 
-		[[nodiscard]] const FilePath& path() const;
+		[[nodiscard]]
+		const FilePath& path() const;
+
+	private:
+
+		class HTMLWriterDetail;
+
+		std::shared_ptr<HTMLWriterDetail> pImpl;
 	};
 }

@@ -2,58 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
-# include <Siv3D/Texture.hpp>
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	TexturedQuad::TexturedQuad()
-	{
+	TexturedQuad::TexturedQuad(const Texture& _texture, const float l, const float t, const float r, const float b, const Quad& _quad, const Float2& _center)
+		: quad{ _quad }
+		, texture{ _texture }
+		, uvRect{ l, t, r, b }
+		, center{ _center } {}
 
-	}
-
-	TexturedQuad::TexturedQuad(
-		const Texture& _texture,
-		float l,
-		float t,
-		float r,
-		float b,
-		const Quad& _quad,
-		const Float2& _center)
-		: quad(_quad)
-		, texture(_texture)
-		, uvRect(l, t, r, b)
-		, center(_center)
-	{
-	
-	}
-
-	TexturedQuad::TexturedQuad(
-		const Texture& _texture,
-		const FloatRect& _uvRect,
-		const Quad& _quad,
-		const Float2& _center)
-		: quad(_quad)
-		, texture(_texture)
-		, uvRect(_uvRect)
-		, center(_center)
-	{
-	
-	}
+	TexturedQuad::TexturedQuad(const Texture& _texture, const FloatRect& _uvRect, const Quad& _quad, const Float2& _center)
+		: quad{ _quad }
+		, texture{ _texture }
+		, uvRect{ _uvRect }
+		, center{ _center } {}
 
 	const Quad& TexturedQuad::draw(const ColorF& diffuse) const
 	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTexturedQuad(texture, quad, uvRect, diffuse.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ quad }, uvRect, diffuse.toFloat4());
 
 		return quad;
 	}
@@ -62,7 +39,7 @@ namespace s3d
 	{
 		const Quad q = quad.movedBy(x, y);
 
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ q }, uvRect, diffuse.toFloat4());
 
 		return q;
 	}
@@ -76,7 +53,7 @@ namespace s3d
 	{
 		const Quad q = quad.movedBy(x - center.x, y - center.y);
 
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addTexturedQuad(texture, FloatQuad{ q }, uvRect, diffuse.toFloat4());
 
 		return q;
 	}

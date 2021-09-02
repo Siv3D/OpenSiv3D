@@ -2,35 +2,74 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Image.hpp"
 
 namespace s3d
 {
 	struct Icon
 	{
-		uint32 code;
+		enum class Type : uint8
+		{
+			Awesome,
 
-		int32 size;
+			MaterialDesign,
+		};
 
-		//
-		//	https://fontawesome.com/icons?d=gallery&s=brands,solid&m=free
-		//
-		//	example:
-		//		Icon(0xf000) for fa-glass
-		constexpr Icon(uint32 _code, int32 _size) noexcept
-			: code(_code)
-			, size(_size) {}
+		Type type = Type::Awesome;
 
-		[[nodiscard]] static Image CreateImage(uint32 _code, int32 _size);
+		uint32 code = 0;
 
-		[[nodiscard]] static Image CreateMSDFImage(uint32 _code, double scale);
+		SIV3D_NODISCARD_CXX20
+		Icon() = default;
+
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr Icon(uint32 _code) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr Icon(Type _type, uint32 _code) noexcept;
+
+		[[nodiscard]]
+		static bool HasGlyph(uint32 code);
+
+		[[nodiscard]]
+		static bool HasGlyph(Type type, uint32 code);
+
+		[[nodiscard]]
+		static Image CreateImage(uint32 code, int32 size);
+
+		[[nodiscard]]
+		static Image CreateImage(Type type, uint32 code, int32 size);
+
+		[[nodiscard]]
+		static Image CreateSDFImage(uint32 code, int32 size, int32 buffer = 3);
+
+		[[nodiscard]]
+		static Image CreateSDFImage(Type type, uint32 code, int32 size, int32 buffer = 3);
+
+		[[nodiscard]]
+		static Image CreateMSDFImage(uint32 code, int32 size, int32 buffer = 3);
+
+		[[nodiscard]]
+		static Image CreateMSDFImage(Type type, uint32 code, int32 size, int32 buffer = 3);
 	};
+
+	inline namespace Literals
+	{
+		inline namespace IconLiterals
+		{
+			[[nodiscard]]
+			inline constexpr Icon operator ""_icon(unsigned long long codePoint) noexcept;
+		}
+	}
 }
+
+# include "detail/Icon.ipp"

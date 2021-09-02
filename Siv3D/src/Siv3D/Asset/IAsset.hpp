@@ -2,16 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/Asset.hpp>
+# include <Siv3D/HashTable.hpp>
 
 namespace s3d
 {
@@ -22,9 +23,13 @@ namespace s3d
 		Texture,
 
 		Font,
+
+		VertexShader,
+
+		PixelShader,
 	};
 
-	class ISiv3DAsset
+	class SIV3D_NOVTABLE ISiv3DAsset
 	{
 	public:
 
@@ -32,26 +37,30 @@ namespace s3d
 
 		virtual ~ISiv3DAsset() = default;
 
-		virtual void init() = 0;
-
 		virtual void update() = 0;
 
-		virtual bool registerAsset(AssetType assetType, const String& name, std::unique_ptr<IAsset>&& asset) = 0;
+		virtual bool registerAsset(AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset) = 0;
 
-		virtual IAsset* getAsset(AssetType assetType, const String& name) = 0;
+		virtual IAsset* getAsset(AssetType assetType, AssetNameView name) = 0;
 
-		virtual bool isRegistered(AssetType assetType, const String& name) const = 0;
+		virtual bool isRegistered(AssetType assetType, AssetNameView name) const = 0;
 
-		virtual bool preload(AssetType assetType, const String& name) = 0;
+		virtual bool load(AssetType assetType, AssetNameView name, const String& hint) = 0;
 
-		virtual void release(AssetType assetType, const String& name) = 0;
+		virtual void loadAsync(AssetType assetType, AssetNameView name, const String& hint) = 0;
+
+		virtual void wait(AssetType assetType, AssetNameView name) = 0;
+
+		virtual bool isReady(AssetType assetType, AssetNameView name) = 0;
+
+		virtual void release(AssetType assetType, AssetNameView name) = 0;
 
 		virtual void releaseAll(AssetType assetType) = 0;
 
-		virtual void unregister(AssetType assetType, const String& name) = 0;
+		virtual void unregister(AssetType assetType, AssetNameView name) = 0;
 
 		virtual void unregisterAll(AssetType assetType) = 0;
 
-		virtual bool isReady(AssetType assetType, const String& name) const = 0;
+		virtual HashTable<AssetName, AssetInfo> enumerate(AssetType assetType) = 0;
 	};
 }

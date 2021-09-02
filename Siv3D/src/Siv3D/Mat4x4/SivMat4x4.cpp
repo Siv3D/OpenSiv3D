@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,13 +16,13 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Mat4x4& value)
 	{
 		formatData.string.push_back(U'(');
-		Formatter(formatData, value.r[0]);
-		formatData.string.append(U",\n "_sv);
-		Formatter(formatData, value.r[1]);
-		formatData.string.append(U",\n "_sv);
-		Formatter(formatData, value.r[2]);
-		formatData.string.append(U",\n "_sv);
-		Formatter(formatData, value.r[3]);
-		formatData.string.push_back(L')');
+		Formatter(formatData, value.value.r[0]);
+		formatData.string.push_back(U',');
+		Formatter(formatData, value.value.r[1]);
+		formatData.string.push_back(U',');
+		Formatter(formatData, value.value.r[2]);
+		formatData.string.push_back(U',');
+		Formatter(formatData, value.value.r[3]);
+		formatData.string.push_back(U')');
 	}
 }

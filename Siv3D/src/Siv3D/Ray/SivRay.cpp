@@ -2,24 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <cfloat>
 # include <Siv3D/Ray.hpp>
-# include <Siv3D/Triangle3D.hpp>
 # include <Siv3D/Sphere.hpp>
-# include <Siv3D/AABB.hpp>
-# include <Siv3D/OBB.hpp>
-# include <Siv3D/SIMD_Float4.hpp>
-# include <Siv3D/SIMDMath.hpp>
+# include <Siv3D/Plane.hpp>
+# include <Siv3D/Box.hpp>
+# include <Siv3D/OrientedBox.hpp>
+# include <Siv3D/ViewFrustum.hpp>
+# include <Siv3D/Cylinder.hpp>
+# include <Siv3D/Cone.hpp>
+# include <Siv3D/Math.hpp>
+# include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		inline constexpr float Dot2(const Float3 v) noexcept
+		{
+			return v.dot(v);
+		}
+	}
+
 	///////////////////////////////////////////////////////////////
 	//
 	//
@@ -29,7 +40,7 @@ namespace s3d
 	//
 	//	The MIT License(MIT)
 	//
-	//	Copyright(c) 2011 - 2019 Microsoft Corp
+	//	Copyright(c) 2011 - 2020 Microsoft Corp
 	//
 	//	Permission is hereby granted, free of charge, to any person obtaining a copy of this
 	//	softwareand associated documentation files(the "Software"), to deal in the Software
@@ -48,315 +59,302 @@ namespace s3d
 	//	CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 	//	OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	namespace detail
-	{
-		inline constexpr __m128 m128_RayEpsilon{ 1e-20f, 1e-20f, 1e-20f, 1e-20f };
-		inline constexpr __m128 m128_FltMin{ -FLT_MAX, -FLT_MAX, -FLT_MAX, -FLT_MAX };
-		inline constexpr __m128 m128_FltMax{ FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX };
-
-		//-----------------------------------------------------------------------------
-		// Return true if any of the elements of a 3 vector are equal to 0xffffffff.
-		// Slightly more efficient than using XMVector3EqualInt.
-		//-----------------------------------------------------------------------------
-		inline bool Vector3AnyTrue(__m128 V)
-		{
-			// Duplicate the fourth element from the first element.
-			__m128 C = SIMD::Swizzle<SIMD::constants::SwizzleX, SIMD::constants::SwizzleY, SIMD::constants::SwizzleZ, SIMD::constants::SwizzleX>(V);
-
-			return SIMD::ComparisonAnyTrue(SIMD::Vector4EqualIntR(C, SIMD::TrueInt()));
-		}
-
-		inline constexpr __m128 m128_UnitQuaternionEpsilon{ 1.0e-4f, 1.0e-4f, 1.0e-4f, 1.0e-4f };
-
-		inline bool QuaternionIsUnit(__m128 q)
-		{
-			__m128 Difference = SIMD::Subtract(SIMD::Vector4Length(q), SIMD::One());
-			return SIMD::Vector4Less(SIMD::Abs(Difference), m128_UnitQuaternionEpsilon);
-		}
-	}
-
 	Optional<float> Ray::intersects(const Triangle3D& triangle) const
 	{
-		//assert(DirectX::Internal::XMVector3IsUnit(Direction));
-		
-		__m128 Origin = SIMD_Float4(origin, 0.0f);
-		__m128 Direction = SIMD_Float4(direction, 0.0f);
-		__m128 V0 = SIMD_Float4(triangle.p0, 0.0f);
-		__m128 V1 = SIMD_Float4(triangle.p1, 0.0f);
-		__m128 V2 = SIMD_Float4(triangle.p2, 0.0f);
+		float dist;
 
-		__m128 Zero = SIMD::Zero();
-
-		__m128 e1 = SIMD::Subtract(V1, V0);
-		__m128 e2 = SIMD::Subtract(V2, V0);
-
-		// p = Direction ^ e2;
-		__m128 p = SIMD::Vector3Cross(Direction, e2);
-
-		// det = e1 * p;
-		__m128 det = SIMD::Vector3Dot(e1, p);
-
-		__m128 u, v, t;
-
-		if (SIMD::Vector3GreaterOrEqual(det, detail::m128_RayEpsilon))
+		if (DirectX::TriangleTests::Intersects(origin, direction, triangle.p0, triangle.p1, triangle.p2, dist))
 		{
-			// Determinate is positive (front side of the triangle).
-			__m128 s = SIMD::Subtract(Origin, V0);
-
-			// u = s * p;
-			u = SIMD::Vector3Dot(s, p);
-
-			__m128 NoIntersection = SIMD::Less(u, Zero);
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(u, det));
-
-			// q = s ^ e1;
-			__m128 q = SIMD::Vector3Cross(s, e1);
-
-			// v = Direction * q;
-			v = SIMD::Vector3Dot(Direction, q);
-
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(v, Zero));
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(SIMD::Add(u, v), det));
-
-			// t = e2 * q;
-			t = SIMD::Vector3Dot(e2, q);
-
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(t, Zero));
-
-			if (SIMD::Vector4EqualInt(NoIntersection, SIMD::TrueInt()))
-			{
-				return none;
-			}
-		}
-		else if (SIMD::Vector3LessOrEqual(det, detail::m128_RayEpsilon))
-		{
-			// Determinate is negative (back side of the triangle).
-			__m128 s = SIMD::Subtract(Origin, V0);
-
-			// u = s * p;
-			u = SIMD::Vector3Dot(s, p);
-
-			__m128 NoIntersection = SIMD::Greater(u, Zero);
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(u, det));
-
-			// q = s ^ e1;
-			__m128 q = SIMD::Vector3Cross(s, e1);
-
-			// v = Direction * q;
-			v = SIMD::Vector3Dot(Direction, q);
-
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(v, Zero));
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(SIMD::Add(u, v), det));
-
-			// t = e2 * q;
-			t = SIMD::Vector3Dot(e2, q);
-
-			NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(t, Zero));
-
-			if (SIMD::Vector4EqualInt(NoIntersection, SIMD::TrueInt()))
-			{
-				return none;
-			}
+			return dist;
 		}
 		else
 		{
-			// Parallel ray.
 			return none;
 		}
-
-		t = SIMD::Divide(t, det);
-
-		// (u / det) and (v / dev) are the barycentric cooridinates of the intersection.
-
-		float distance = 0.0f;
-		SIMD::StoreFloat(&distance, t);
-		return distance;
 	}
 
 	Optional<float> Ray::intersects(const Sphere& sphere) const
 	{
-		//assert(DirectX::Internal::XMVector3IsUnit(Direction));
+		using namespace DirectX;
 
-		const __m128 Origin = SIMD_Float4(origin, 0.0f);
-		const __m128 Direction = SIMD_Float4(direction, 0.0f);
+		assert(DirectX::Internal::XMVector3IsUnit(direction));
 
-		__m128 vCenter = SIMD_Float4(sphere.center, 0.0f);
-		__m128 vRadius = SIMD::SetAll(static_cast<float>(sphere.r));
+		XMVECTOR vCenter = SIMD_Float4{ sphere.center, 0.0f };
+		XMVECTOR vRadius = SIMD_Float4{ static_cast<float>(sphere.r) };
 
 		// l is the vector from the ray origin to the center of the sphere.
-		__m128 l = SIMD::Subtract(vCenter, Origin);
+		XMVECTOR l = XMVectorSubtract(vCenter, origin);
 
 		// s is the projection of the l onto the ray direction.
-		__m128 s = SIMD::Vector3Dot(l, Direction);
+		XMVECTOR s = XMVector3Dot(l, direction);
 
-		__m128 l2 = SIMD::Vector3Dot(l, l);
+		XMVECTOR l2 = XMVector3Dot(l, l);
 
-		__m128 r2 = SIMD::Multiply(vRadius, vRadius);
+		XMVECTOR r2 = XMVectorMultiply(vRadius, vRadius);
 
 		// m2 is squared distance from the center of the sphere to the projection.
-		__m128 m2 = SIMD::NegativeMultiplySubtract(s, s, l2);
+		XMVECTOR m2 = XMVectorNegativeMultiplySubtract(s, s, l2);
 
-		__m128 NoIntersection;
+		XMVECTOR NoIntersection;
 
 		// If the ray origin is outside the sphere and the center of the sphere is
 		// behind the ray origin there is no intersection.
-		NoIntersection = SIMD::AndInt(SIMD::Less(s, SIMD::Zero()), SIMD::Greater(l2, r2));
+		NoIntersection = XMVectorAndInt(XMVectorLess(s, XMVectorZero()), XMVectorGreater(l2, r2));
 
 		// If the squared distance from the center of the sphere to the projection
 		// is greater than the radius squared the ray will miss the sphere.
-		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Greater(m2, r2));
+		NoIntersection = XMVectorOrInt(NoIntersection, XMVectorGreater(m2, r2));
 
 		// The ray hits the sphere, compute the nearest intersection point.
-		__m128 q = SIMD::Sqrt(SIMD::Subtract(r2, m2));
-		__m128 t1 = SIMD::Subtract(s, q);
-		__m128 t2 = SIMD::Add(s, q);
+		XMVECTOR q = XMVectorSqrt(XMVectorSubtract(r2, m2));
+		XMVECTOR t1 = XMVectorSubtract(s, q);
+		XMVECTOR t2 = XMVectorAdd(s, q);
 
-		__m128 OriginInside = SIMD::LessOrEqual(l2, r2);
-		__m128 t = SIMD::Select(t1, t2, OriginInside);
+		XMVECTOR OriginInside = XMVectorLessOrEqual(l2, r2);
+		XMVECTOR t = XMVectorSelect(t1, t2, OriginInside);
 
-		if (SIMD::Vector4NotEqualInt(NoIntersection, SIMD::TrueInt()))
+		if (XMVector4NotEqualInt(NoIntersection, XMVectorTrueInt()))
 		{
-			float distance = 0.0f;
 			// Store the x-component to *pDist.
-			SIMD::StoreFloat(&distance, t);
-			return distance;
+			float dist;
+			XMStoreFloat(&dist, t);
+			return dist;
 		}
 
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const AABB& aabb) const
+	Optional<float> Ray::intersects(const Plane& plane) const
 	{
-		//assert(SIMD::Internal::Vector3IsUnit(Direction));
+		return intersects(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
+	}
 
-		const __m128 Origin = SIMD_Float4(origin, 0.0f);
-		const __m128 Direction = SIMD_Float4(direction, 0.0f);
+	Optional<float> Ray::intersects(const InfinitePlane& plane) const
+	{
+		const Float3 o = origin.xyz();
+		const Float3 d = direction.xyz();
+		const Float4 p = plane.value.toFloat4();
+		return -(o.dot(p.xyz()) + p.w) / d.dot(p.xyz());
+	}
+
+	Optional<float> Ray::intersects(const Box& aabb) const
+	{
+		using namespace DirectX;
+
+		assert(DirectX::Internal::XMVector3IsUnit(direction));
 
 		// Load the box.
-		__m128 vCenter = SIMD_Float4(aabb.center, 0.0f);
-		__m128 vExtents = SIMD_Float4(aabb.size, 0.0f);
-		vExtents = SIMD::Multiply(vExtents, SIMD::constants::m128_OneHalf);
+		XMVECTOR vCenter = SIMD_Float4{ aabb.center, 0.0f };
+		XMVECTOR vExtents = SIMD_Float4{ (aabb.size * 0.5), 0.0f };
 
 		// Adjust ray origin to be relative to center of the box.
-		__m128 TOrigin = SIMD::Subtract(vCenter, Origin);
+		XMVECTOR TOrigin = XMVectorSubtract(vCenter, origin);
 
 		// Compute the dot product againt each axis of the box.
 		// Since the axii are (1,0,0), (0,1,0), (0,0,1) no computation is necessary.
-		__m128 AxisDotOrigin = TOrigin;
-		__m128 AxisDotDirection = Direction;
+		XMVECTOR AxisDotOrigin = TOrigin;
+		XMVECTOR AxisDotDirection = direction;
 
 		// if (fabs(AxisDotDirection) <= Epsilon) the ray is nearly parallel to the slab.
-		__m128 IsParallel = SIMD::LessOrEqual(SIMD::Abs(AxisDotDirection), detail::m128_RayEpsilon);
+		XMVECTOR IsParallel = XMVectorLessOrEqual(XMVectorAbs(AxisDotDirection), g_RayEpsilon);
 
 		// Test against all three axii simultaneously.
-		__m128 InverseAxisDotDirection = SIMD::Reciprocal(AxisDotDirection);
-		__m128 t1 = SIMD::Multiply(SIMD::Subtract(AxisDotOrigin, vExtents), InverseAxisDotDirection);
-		__m128 t2 = SIMD::Multiply(SIMD::Add(AxisDotOrigin, vExtents), InverseAxisDotDirection);
+		XMVECTOR InverseAxisDotDirection = XMVectorReciprocal(AxisDotDirection);
+		XMVECTOR t1 = XMVectorMultiply(XMVectorSubtract(AxisDotOrigin, vExtents), InverseAxisDotDirection);
+		XMVECTOR t2 = XMVectorMultiply(XMVectorAdd(AxisDotOrigin, vExtents), InverseAxisDotDirection);
 
 		// Compute the max of min(t1,t2) and the min of max(t1,t2) ensuring we don't
 		// use the results from any directions parallel to the slab.
-		__m128 t_min = SIMD::Select(SIMD::Min(t1, t2), detail::m128_FltMin, IsParallel);
-		__m128 t_max = SIMD::Select(SIMD::Max(t1, t2), detail::m128_FltMax, IsParallel);
+		XMVECTOR t_min = XMVectorSelect(XMVectorMin(t1, t2), g_FltMin, IsParallel);
+		XMVECTOR t_max = XMVectorSelect(XMVectorMax(t1, t2), g_FltMax, IsParallel);
 
 		// t_min.x = maximum( t_min.x, t_min.y, t_min.z );
 		// t_max.x = minimum( t_max.x, t_max.y, t_max.z );
-		t_min = SIMD::Max(t_min, SIMD::SplatY(t_min));  // x = max(x,y)
-		t_min = SIMD::Max(t_min, SIMD::SplatZ(t_min));  // x = max(max(x,y),z)
-		t_max = SIMD::Min(t_max, SIMD::SplatY(t_max));  // x = min(x,y)
-		t_max = SIMD::Min(t_max, SIMD::SplatZ(t_max));  // x = min(min(x,y),z)
+		t_min = XMVectorMax(t_min, XMVectorSplatY(t_min));  // x = max(x,y)
+		t_min = XMVectorMax(t_min, XMVectorSplatZ(t_min));  // x = max(max(x,y),z)
+		t_max = XMVectorMin(t_max, XMVectorSplatY(t_max));  // x = min(x,y)
+		t_max = XMVectorMin(t_max, XMVectorSplatZ(t_max));  // x = min(min(x,y),z)
 
 		// if ( t_min > t_max ) return false;
-		__m128 NoIntersection = SIMD::Greater(SIMD::SplatX(t_min), SIMD::SplatX(t_max));
+		XMVECTOR NoIntersection = XMVectorGreater(XMVectorSplatX(t_min), XMVectorSplatX(t_max));
 
 		// if ( t_max < 0.0f ) return false;
-		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(SIMD::SplatX(t_max), SIMD::Zero()));
+		NoIntersection = XMVectorOrInt(NoIntersection, XMVectorLess(XMVectorSplatX(t_max), XMVectorZero()));
 
 		// if (IsParallel && (-Extents > AxisDotOrigin || Extents < AxisDotOrigin)) return false;
-		__m128 ParallelOverlap = SIMD::InBounds(AxisDotOrigin, vExtents);
-		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::AndCInt(IsParallel, ParallelOverlap));
+		XMVECTOR ParallelOverlap = XMVectorInBounds(AxisDotOrigin, vExtents);
+		NoIntersection = XMVectorOrInt(NoIntersection, XMVectorAndCInt(IsParallel, ParallelOverlap));
 
-		if (!detail::Vector3AnyTrue(NoIntersection))
+		if (!DirectX::Internal::XMVector3AnyTrue(NoIntersection))
 		{
-			float distance = 0.0f;
 			// Store the x-component to *pDist
-			SIMD::StoreFloat(&distance, t_min);
-			return distance;
+			float dist;
+			XMStoreFloat(&dist, t_min);
+			return dist;
 		}
-		
+
 		return none;
 	}
 
-	Optional<float> Ray::intersects(const OBB& obb) const
+	Optional<float> Ray::intersects(const OrientedBox& obb) const
 	{
-		//assert(SIMD::Internal::Vector3IsUnit(Direction));
+		using namespace DirectX;
 
-		const __m128 Origin = SIMD_Float4(origin, 0.0f);
-		const __m128 Direction = SIMD_Float4(direction, 0.0f);
+		assert(DirectX::Internal::XMVector3IsUnit(direction));
 
-		using SIMD::constants::u_SELECT_0;
-		using SIMD::constants::u_SELECT_1;
-		static const SIMD::Uint4A SelectY = { { { u_SELECT_0, u_SELECT_1, u_SELECT_0, u_SELECT_0 } } };
-		static const SIMD::Uint4A SelectZ = { { { u_SELECT_0, u_SELECT_0, u_SELECT_1, u_SELECT_0 } } };
+		static const XMVECTORU32 SelectY = { { { XM_SELECT_0, XM_SELECT_1, XM_SELECT_0, XM_SELECT_0 } } };
+		static const XMVECTORU32 SelectZ = { { { XM_SELECT_0, XM_SELECT_0, XM_SELECT_1, XM_SELECT_0 } } };
 
 		// Load the box.
-		__m128 vCenter = SIMD_Float4(obb.center, 0.0f);
-		__m128 vExtents = SIMD_Float4(obb.size, 0.0f);
-		vExtents = SIMD::Multiply(vExtents, SIMD::constants::m128_OneHalf);
-		__m128 vOrientation = obb.orientation;
+		XMVECTOR vCenter = SIMD_Float4{ obb.center, 0.0f };
+		XMVECTOR vExtents = SIMD_Float4{ (obb.size * 0.5), 0.0f };
+		XMVECTOR vOrientation = obb.orientation;
 
-		assert(detail::QuaternionIsUnit(vOrientation));
+		assert(DirectX::Internal::XMQuaternionIsUnit(vOrientation));
 
 		// Get the boxes normalized side directions.
-		Mat4x4 R = SIMD::MatrixRotationQuaternion(vOrientation);
+		XMMATRIX R = XMMatrixRotationQuaternion(vOrientation);
 
 		// Adjust ray origin to be relative to center of the box.
-		__m128 TOrigin = SIMD::Subtract(vCenter, Origin);
+		XMVECTOR TOrigin = XMVectorSubtract(vCenter, origin);
 
 		// Compute the dot product againt each axis of the box.
-		__m128 AxisDotOrigin = SIMD::Vector3Dot(R.r[0], TOrigin);
-		AxisDotOrigin = SIMD::Select(AxisDotOrigin, SIMD::Vector3Dot(R.r[1], TOrigin), SelectY);
-		AxisDotOrigin = SIMD::Select(AxisDotOrigin, SIMD::Vector3Dot(R.r[2], TOrigin), SelectZ);
+		XMVECTOR AxisDotOrigin = XMVector3Dot(R.r[0], TOrigin);
+		AxisDotOrigin = XMVectorSelect(AxisDotOrigin, XMVector3Dot(R.r[1], TOrigin), SelectY);
+		AxisDotOrigin = XMVectorSelect(AxisDotOrigin, XMVector3Dot(R.r[2], TOrigin), SelectZ);
 
-		__m128 AxisDotDirection = SIMD::Vector3Dot(R.r[0], Direction);
-		AxisDotDirection = SIMD::Select(AxisDotDirection, SIMD::Vector3Dot(R.r[1], Direction), SelectY);
-		AxisDotDirection = SIMD::Select(AxisDotDirection, SIMD::Vector3Dot(R.r[2], Direction), SelectZ);
+		XMVECTOR AxisDotDirection = XMVector3Dot(R.r[0], direction);
+		AxisDotDirection = XMVectorSelect(AxisDotDirection, XMVector3Dot(R.r[1], direction), SelectY);
+		AxisDotDirection = XMVectorSelect(AxisDotDirection, XMVector3Dot(R.r[2], direction), SelectZ);
 
 		// if (fabs(AxisDotDirection) <= Epsilon) the ray is nearly parallel to the slab.
-		__m128 IsParallel = SIMD::LessOrEqual(SIMD::Abs(AxisDotDirection), detail::m128_RayEpsilon);
+		XMVECTOR IsParallel = XMVectorLessOrEqual(XMVectorAbs(AxisDotDirection), g_RayEpsilon);
 
 		// Test against all three axes simultaneously.
-		__m128 InverseAxisDotDirection = SIMD::Reciprocal(AxisDotDirection);
-		__m128 t1 = SIMD::Multiply(SIMD::Subtract(AxisDotOrigin, vExtents), InverseAxisDotDirection);
-		__m128 t2 = SIMD::Multiply(SIMD::Add(AxisDotOrigin, vExtents), InverseAxisDotDirection);
+		XMVECTOR InverseAxisDotDirection = XMVectorReciprocal(AxisDotDirection);
+		XMVECTOR t1 = XMVectorMultiply(XMVectorSubtract(AxisDotOrigin, vExtents), InverseAxisDotDirection);
+		XMVECTOR t2 = XMVectorMultiply(XMVectorAdd(AxisDotOrigin, vExtents), InverseAxisDotDirection);
 
 		// Compute the max of min(t1,t2) and the min of max(t1,t2) ensuring we don't
 		// use the results from any directions parallel to the slab.
-		__m128 t_min = SIMD::Select(SIMD::Min(t1, t2), detail::m128_FltMin, IsParallel);
-		__m128 t_max = SIMD::Select(SIMD::Max(t1, t2), detail::m128_FltMax, IsParallel);
+		XMVECTOR t_min = XMVectorSelect(XMVectorMin(t1, t2), g_FltMin, IsParallel);
+		XMVECTOR t_max = XMVectorSelect(XMVectorMax(t1, t2), g_FltMax, IsParallel);
 
 		// t_min.x = maximum( t_min.x, t_min.y, t_min.z );
 		// t_max.x = minimum( t_max.x, t_max.y, t_max.z );
-		t_min = SIMD::Max(t_min, SIMD::SplatY(t_min));  // x = max(x,y)
-		t_min = SIMD::Max(t_min, SIMD::SplatZ(t_min));  // x = max(max(x,y),z)
-		t_max = SIMD::Min(t_max, SIMD::SplatY(t_max));  // x = min(x,y)
-		t_max = SIMD::Min(t_max, SIMD::SplatZ(t_max));  // x = min(min(x,y),z)
+		t_min = XMVectorMax(t_min, XMVectorSplatY(t_min));  // x = max(x,y)
+		t_min = XMVectorMax(t_min, XMVectorSplatZ(t_min));  // x = max(max(x,y),z)
+		t_max = XMVectorMin(t_max, XMVectorSplatY(t_max));  // x = min(x,y)
+		t_max = XMVectorMin(t_max, XMVectorSplatZ(t_max));  // x = min(min(x,y),z)
 
 		// if ( t_min > t_max ) return false;
-		__m128 NoIntersection = SIMD::Greater(SIMD::SplatX(t_min), SIMD::SplatX(t_max));
+		XMVECTOR NoIntersection = XMVectorGreater(XMVectorSplatX(t_min), XMVectorSplatX(t_max));
 
 		// if ( t_max < 0.0f ) return false;
-		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::Less(SIMD::SplatX(t_max), SIMD::Zero()));
+		NoIntersection = XMVectorOrInt(NoIntersection, XMVectorLess(XMVectorSplatX(t_max), XMVectorZero()));
 
 		// if (IsParallel && (-Extents > AxisDotOrigin || Extents < AxisDotOrigin)) return false;
-		__m128 ParallelOverlap = SIMD::InBounds(AxisDotOrigin, vExtents);
-		NoIntersection = SIMD::OrInt(NoIntersection, SIMD::AndCInt(IsParallel, ParallelOverlap));
+		XMVECTOR ParallelOverlap = XMVectorInBounds(AxisDotOrigin, vExtents);
+		NoIntersection = XMVectorOrInt(NoIntersection, XMVectorAndCInt(IsParallel, ParallelOverlap));
 
-		if (!detail::Vector3AnyTrue(NoIntersection))
+		if (!DirectX::Internal::XMVector3AnyTrue(NoIntersection))
 		{
-			float distance = 0.0f;
 			// Store the x-component to *pDist
-			SIMD::StoreFloat(&distance, t_min);
-			return true;
+			float dist;
+			XMStoreFloat(&dist, t_min);
+			return dist;
+		}
+
+		return none;
+	}
+
+	Optional<float> Ray::intersects(const ViewFrustum& frustum) const
+	{
+		using namespace DirectX;
+		const auto& f = frustum.getData();
+
+		// If ray starts inside the frustum, return a distance of 0 for the hit
+		if (f.Contains(origin) == CONTAINS)
+		{
+			return 0.0f;
+		}
+
+		// Build the frustum planes.
+		XMVECTOR Planes[6];
+		Planes[0] = XMVectorSet(0.0f, 0.0f, -1.0f, f.Near);
+		Planes[1] = XMVectorSet(0.0f, 0.0f, 1.0f, -f.Far);
+		Planes[2] = XMVectorSet(1.0f, 0.0f, -f.RightSlope, 0.0f);
+		Planes[3] = XMVectorSet(-1.0f, 0.0f, f.LeftSlope, 0.0f);
+		Planes[4] = XMVectorSet(0.0f, 1.0f, -f.TopSlope, 0.0f);
+		Planes[5] = XMVectorSet(0.0f, -1.0f, f.BottomSlope, 0.0f);
+
+		// Load origin and orientation of the frustum.
+		XMVECTOR frOrigin = XMLoadFloat3(&f.Origin);
+		XMVECTOR frOrientation = XMLoadFloat4(&f.Orientation);
+
+		// This algorithm based on "Fast Ray-Convex Polyhedron Intersectin," in James Arvo, ed., Graphics Gems II pp. 247-250
+		float tnear = -FLT_MAX;
+		float tfar = FLT_MAX;
+
+		for (size_t i = 0; i < 6; ++i)
+		{
+			XMVECTOR Plane = DirectX::Internal::XMPlaneTransform(Planes[i], frOrientation, frOrigin);
+			Plane = XMPlaneNormalize(Plane);
+
+			XMVECTOR AxisDotOrigin = XMPlaneDotCoord(Plane, origin);
+			XMVECTOR AxisDotDirection = XMVector3Dot(Plane, direction);
+
+			if (XMVector3LessOrEqual(XMVectorAbs(AxisDotDirection), g_RayEpsilon))
+			{
+				// Ray is parallel to plane - check if ray origin is inside plane's
+				if (XMVector3Greater(AxisDotOrigin, g_XMZero))
+				{
+					// Ray origin is outside half-space.
+					return none;
+				}
+			}
+			else
+			{
+				// Ray not parallel - get distance to plane.
+				float vd = XMVectorGetX(AxisDotDirection);
+				float vn = XMVectorGetX(AxisDotOrigin);
+				float t = -vn / vd;
+				if (vd < 0.0f)
+				{
+					// Front face - T is a near point.
+					if (t > tfar)
+					{
+						return none;
+					}
+					if (t > tnear)
+					{
+						// Hit near face.
+						tnear = t;
+					}
+				}
+				else
+				{
+					// back face - T is far point.
+					if (t < tnear)
+					{
+						return none;
+					}
+					if (t < tfar)
+					{
+						// Hit far face.
+						tfar = t;
+					}
+				}
+			}
+		}
+
+		// Survived all tests.
+		// Note: if ray originates on polyhedron, may want to change 0.0f to some
+		// epsilon to avoid intersecting the originating face.
+		float distance = (tnear >= 0.0f) ? tnear : tfar;
+		if (distance >= 0.0f)
+		{
+			return distance;
 		}
 
 		return none;
@@ -366,12 +364,241 @@ namespace s3d
 	//
 	///////////////////////////////////////////////////////////////
 
+	Optional<float> Ray::intersects(const Cylinder& cylinder) const
+	{
+		// https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
+
+		const Float3 ro = origin.xyz();
+		const Float3 rd = direction.xyz();
+		const Float3 d = (cylinder.orientation * Float3{ 0, static_cast<float>(cylinder.h), 0 });
+		const Float3 pa = (cylinder.center + (d * 0.5f));
+		const Float3 pb = (cylinder.center - (d * 0.5f));
+		const float ra = static_cast<float>(cylinder.r);
+
+		const Float3 ca = pb - pa;
+		const Float3 oc = ro - pa;
+		float caca = ca.dot(ca);
+		float card = ca.dot(rd);
+		float caoc = ca.dot(oc);
+		float a = caca - card * card;
+		float b = caca * oc.dot(rd) - caoc * card;
+		float c = caca * oc.dot(oc) - caoc * caoc - ra * ra * caca;
+		float h = b * b - a * c;
+		
+		if (h < 0.0f)
+		{
+			return none;
+		}
+
+		h = std::sqrt(h);
+
+		float t = (-b - h) / a;
+		
+		// body
+		float y = caoc + t * card;
+		if ((0.0f < y) && (y < caca))
+		{
+			return static_cast<float>(t);
+		}
+
+		// caps
+		t = (((y < 0.0f) ? 0.0f : caca) - caoc) / card;
+		
+		if (std::abs(b + a * t) < h)
+		{
+			return t;
+		}
+		
+		return none;
+	}
+
+	Optional<float> Ray::intersects(const Cone& cone) const
+	{
+		// https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
+
+		const Float3 ro = origin.xyz();
+		const Float3 rd = direction.xyz();
+		const Float3 d = (cone.orientation * Float3{ 0, static_cast<float>(cone.h), 0 });
+		const Float3 pa = (cone.center + d);
+		const Float3 pb = cone.center;
+		constexpr float ra = 0.0f;
+		const float rb = static_cast<float>(cone.r);
+
+		const Float3 ba = pb - pa;
+		const Float3 oa = ro - pa;
+		const Float3 ob = ro - pb;
+		const float m0 = ba.dot(ba);
+		const float m1 = oa.dot(ba);
+		const float m2 = rd.dot(ba);
+		const float m3 = rd.dot(oa);
+		const float m5 = oa.dot(oa);
+		const float m9 = ob.dot(ba);
+
+		// caps
+		if (m1 < 0.0f)
+		{
+			if (detail::Dot2(oa * m2 - rd * m1) < (ra * ra * m2 * m2))
+			{
+				return (-m1 / m2);
+			}
+		}
+		else if (0.0f < m9)
+		{
+			float t = (-m9 / m2);
+			
+			if (detail::Dot2(ob + rd * t) < (rb * rb))
+			{
+				return t;
+			}
+		}
+
+		// body
+		float rr = ra - rb;
+		float hy = m0 + rr * rr;
+		float k2 = m0 * m0 - m2 * m2 * hy;
+		float k1 = m0 * m0 * m3 - m1 * m2 * hy + m0 * ra * (rr * m2 * 1.0f);
+		float k0 = m0 * m0 * m5 - m1 * m1 * hy + m0 * ra * (rr * m1 * 2.0f - m0 * ra);
+		float h = k1 * k1 - k2 * k0;
+		
+		if (h < 0.0f)
+		{
+			return none;
+		}
+		
+		float t = (-k1 - std::sqrt(h)) / k2;
+		float y = m1 + t * m2;
+		
+		if ((y < 0.0) || (m0 < y))
+		{
+			return none;
+		}
+		
+		return t;
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Triangle3D& triangle) const
+	{
+		float dist;
+
+		if (DirectX::TriangleTests::Intersects(origin, direction, triangle.p0, triangle.p1, triangle.p2, dist))
+		{
+			return point_at(dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Sphere& sphere) const
+	{
+		if (const auto dist = intersects(sphere))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Plane& plane) const
+	{
+		return intersectsAt(Box{ plane.center, Vec3{ plane.size.x, 0.0f, plane.size.y } });
+	}
+
+	Optional<Float3> Ray::intersectsAt(const InfinitePlane& plane) const
+	{
+		if (const auto dist = intersects(plane))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Box& aabb) const
+	{
+		if (const auto dist = intersects(aabb))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const OrientedBox& obb) const
+	{
+		if (const auto dist = intersects(obb))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3>SIV3D_VECTOR_CALL Ray::intersectsAt(const ViewFrustum& frustum) const
+	{
+		if (const auto dist = intersects(frustum))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Cylinder& cylinder) const
+	{
+		if (const auto dist = intersects(cylinder))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	Optional<Float3> Ray::intersectsAt(const Cone& cone) const
+	{
+		if (const auto dist = intersects(cone))
+		{
+			return point_at(*dist);
+		}
+		else
+		{
+			return none;
+		}
+	}
+
 	void Formatter(FormatData& formatData, const Ray& value)
 	{
-		formatData.string.push_back(U'(');
-		Formatter(formatData, value.origin);
+		const Float4 o = value.origin.toFloat4();
+		const Float4 d = value.direction.toFloat4();
+
+		formatData.string.append(U"(("_sv);
+
+		formatData.string.append(ToString(o.x, formatData.decimalPlaces.value));
 		formatData.string.append(U", "_sv);
-		Formatter(formatData, value.direction);
-		formatData.string.push_back(U')');
+		formatData.string.append(ToString(o.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(o.z, formatData.decimalPlaces.value));
+		formatData.string.append(U"), ("_sv);
+
+		formatData.string.append(ToString(d.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(d.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(d.z, formatData.decimalPlaces.value));
+
+		formatData.string.append(U"))"_sv);
 	}
 }

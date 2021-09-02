@@ -2,60 +2,62 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CEffect.hpp"
+# include <Siv3D/Effect.hpp>
+# include <Siv3D/Error.hpp>
 # include <Siv3D/Time.hpp>
-# include <Siv3D/EngineError.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include "CEffect.hpp"
 
 namespace s3d
 {
 	CEffect::CEffect()
 	{
-
+		// do nothing
 	}
 
 	CEffect::~CEffect()
 	{
-		LOG_TRACE(U"CEffect::~CEffect()");
+		LOG_SCOPED_TRACE(U"CEffect::~CEffect()");
 
 		m_effects.destroy();
 	}
 
 	void CEffect::init()
 	{
-		LOG_TRACE(U"CEffect::init()");
+		LOG_SCOPED_TRACE(U"CEffect::init()");
 
-		auto nullEffect = std::make_unique<EffectData>(EffectData::Null{});
-
-		if (!nullEffect->isInitialized())
+		// null Effect を管理に登録
 		{
-			throw EngineError(U"Null Effect initialization failed");
+			// null Effect を作成
+			auto nullEffect = std::make_unique<EffectData>(EffectData::Null{});
+
+			if (not nullEffect->isInitialized()) // もし作成に失敗していたら
+			{
+				throw EngineError(U"Null Effect initialization failed");
+			}
+
+			// 管理に登録
+			m_effects.setNullData(std::move(nullEffect));
 		}
-
-		m_effects.setNullData(std::move(nullEffect));
-
-		LOG_INFO(U"ℹ️ CEffect initialized");
 	}
 
 	void CEffect::update()
 	{
-		if (m_previousTimeUs == 0)
+		if (m_previousTimeUs == 0) // first frame
 		{
 			m_previousTimeUs = Time::GetMicrosec();
 		}
 		else
 		{
 			const uint64 currentTimeUs = Time::GetMicrosec();
-
-			const uint64 currentDeltaTimeUS = currentTimeUs - m_previousTimeUs;
-
+			const uint64 currentDeltaTimeUS = (currentTimeUs - m_previousTimeUs);
 			m_previousTimeUs = currentTimeUs;
 
 			for (auto& data : m_effects)
@@ -65,26 +67,28 @@ namespace s3d
 		}
 	}
 
-	EffectID CEffect::create()
+	Effect::IDType CEffect::create(double maxLifeTimeSec)
 	{
-		auto effet = std::make_unique<EffectData>(EffectData::Null{});
+		// Effect を作成
+		auto effect = std::make_unique<EffectData>(EffectData::Null{}, maxLifeTimeSec);
 
-		if (!effet->isInitialized())
+		if (not effect->isInitialized()) // もし作成に失敗していたら
 		{
-			return EffectID::NullAsset();
+			return Effect::IDType::NullAsset();
 		}
 
-		return m_effects.add(std::move(effet));
+		// Effect を管理に登録
+		return m_effects.add(std::move(effect));
 	}
 
-	void CEffect::release(const EffectID handleID)
+	void CEffect::release(const Effect::IDType handleID)
 	{
 		m_effects.erase(handleID);
 	}
 
-	void CEffect::add(const EffectID handleID, std::unique_ptr<IEffect>&& effect)
+	void CEffect::add(const Effect::IDType handleID, std::unique_ptr<IEffect>&& effect)
 	{
-		if (!effect)
+		if (not effect)
 		{
 			return;
 		}
@@ -92,42 +96,52 @@ namespace s3d
 		m_effects[handleID]->add(std::move(effect));
 	}
 
-	size_t CEffect::num_effects(const EffectID handleID)
+	size_t CEffect::num_effects(const Effect::IDType handleID)
 	{
 		return m_effects[handleID]->num_effects();
 	}
 
-	void CEffect::pause(const EffectID handleID)
+	void CEffect::pause(const Effect::IDType handleID)
 	{
 		m_effects[handleID]->pause();
 	}
 
-	bool CEffect::isPaused(const EffectID handleID)
+	bool CEffect::isPaused(const Effect::IDType handleID)
 	{
 		return m_effects[handleID]->isPaused();
 	}
 
-	void CEffect::resume(const EffectID handleID)
+	void CEffect::resume(const Effect::IDType handleID)
 	{
 		m_effects[handleID]->resume();
 	}
 
-	void CEffect::setSpeed(const EffectID handleID, const double speed)
+	void CEffect::setSpeed(const Effect::IDType handleID, const double speed)
 	{
 		m_effects[handleID]->setSpeed(speed);
 	}
 
-	double CEffect::getSpeed(const EffectID handleID)
+	double CEffect::getSpeed(const Effect::IDType handleID)
 	{
 		return m_effects[handleID]->getSpeed();
 	}
 
-	void CEffect::updateEffect(const EffectID handleID)
+	void CEffect::setMaxLifeTime(const Effect::IDType handleID, const double maxLifeTimeSec)
+	{
+		m_effects[handleID]->setMaxLifeTime(maxLifeTimeSec);
+	}
+
+	double CEffect::getMaxLifeTime(const Effect::IDType handleID)
+	{
+		return m_effects[handleID]->getMaxLifeTime();
+	}
+
+	void CEffect::updateEffect(const Effect::IDType handleID)
 	{
 		m_effects[handleID]->update();
 	}
 
-	void CEffect::clear(const EffectID handleID)
+	void CEffect::clear(const Effect::IDType handleID)
 	{
 		m_effects[handleID]->clear();
 	}

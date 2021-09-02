@@ -2,47 +2,54 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <tinyxml/tinyxml2.h>
+# include <ThirdParty/tinyxml/tinyxml2.h>
 # include <Siv3D/XMLReader.hpp>
-# include <Siv3D/Unicode.hpp>
 # include <Siv3D/TextReader.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
-	XMLElementDetail::XMLElementDetail(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* elem)
-		: document(doc)
-		, element(elem)
+	struct XMLElement::XMLElementDetail
 	{
-	
-	}
+		std::shared_ptr<tinyxml2::XMLDocument> document;
+
+		const tinyxml2::XMLElement* element;
+
+		XMLElementDetail() = default;
+
+		XMLElementDetail(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* elem);
+	};
+
+	XMLElement::XMLElementDetail::XMLElementDetail(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* elem)
+		: document{ doc }
+		, element{ elem } {}
 
 	XMLElement::XMLElement()
-		: m_detail(std::make_unique<XMLElementDetail>())
-	{
-
-	}
+		: m_detail{ std::make_unique<XMLElementDetail>() } {}
 
 	XMLElement::XMLElement(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* element)
-		: m_detail(std::make_unique<XMLElementDetail>(doc, element))
-	{
-
-	}
+		: m_detail{ std::make_unique<XMLElementDetail>(doc, element) } {}
 
 	bool XMLElement::isNull() const
 	{
-		return !m_detail->element;
+		return (not m_detail->element);
+	}
+
+	XMLElement::operator bool() const
+	{
+		return (not isNull());
 	}
 
 	String XMLElement::name() const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
 			return String();
 		}
@@ -52,9 +59,9 @@ namespace s3d
 
 	String XMLElement::text() const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
-			return String();
+			return{};
 		}
 
 		if (const char* text = m_detail->element->GetText())
@@ -63,58 +70,58 @@ namespace s3d
 		}
 		else
 		{
-			return String();
+			return{};
 		}
 	}
 
 	XMLElement XMLElement::firstChild() const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
-			return XMLElement();
+			return{};
 		}
 
 		if (const auto element = m_detail->element->FirstChildElement())
 		{
-			return XMLElement(m_detail->document, element);
+			return XMLElement{ m_detail->document, element };
 		}
 		else
 		{
-			return XMLElement();
+			return{};
 		}
 	}
 
 	XMLElement XMLElement::nextSibling() const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
-			return XMLElement();
+			return{};
 		}
 
 		if (const auto element = m_detail->element->NextSiblingElement())
 		{
-			return XMLElement(m_detail->document, element);
+			return XMLElement{ m_detail->document, element };
 		}
 		else
 		{
-			return XMLElement();
+			return{};
 		}
 	}
 
 	XMLElement XMLElement::parent() const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
-			return XMLElement();
+			return{};
 		}
 
 		if (const auto element = m_detail->element->Parent()->ToElement())
 		{
-			return XMLElement(m_detail->document, element);
+			return XMLElement{ m_detail->document, element };
 		}
 		else
 		{
-			return XMLElement();
+			return{};
 		}
 	}
 
@@ -122,7 +129,7 @@ namespace s3d
 	{
 		Array<std::pair<String, String>> results;
 
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
 			return results;
 		}
@@ -137,7 +144,7 @@ namespace s3d
 
 	Optional<String> XMLElement::attribute(const String& name) const
 	{
-		if (!m_detail->element)
+		if (not m_detail->element)
 		{
 			return none;
 		}
@@ -152,22 +159,22 @@ namespace s3d
 		}
 	}
 
-	XMLReader::XMLReader(const FilePathView path, const bool preserveWhitespace)
+	XMLReader::XMLReader(const FilePathView path, const PreserveWhitespace preserveWhitespace)
 	{
 		open(path, preserveWhitespace);
 	}
 
-	XMLReader::XMLReader(Arg::code_<String> code, const bool preserveWhitespace)
+	XMLReader::XMLReader(const Arg::code_<String> code, const PreserveWhitespace preserveWhitespace)
 	{
 		open(code, preserveWhitespace);
 	}
 
-	XMLReader::XMLReader(const std::shared_ptr<IReader>& reader, const bool preserveWhitespace)
+	XMLReader::XMLReader(std::unique_ptr<IReader>&& reader, const PreserveWhitespace preserveWhitespace)
 	{
-		open(reader, preserveWhitespace);
+		open(std::move(reader), preserveWhitespace);
 	}
 
-	bool XMLReader::open(const FilePathView path, const bool preserveWhitespace)
+	bool XMLReader::open(const FilePathView path, const PreserveWhitespace preserveWhitespace)
 	{
 		close();
 
@@ -181,7 +188,7 @@ namespace s3d
 
 		const auto root = document->FirstChildElement();
 
-		if (!root)
+		if (not root)
 		{
 			return false;
 		}
@@ -191,7 +198,7 @@ namespace s3d
 		return true;
 	}
 
-	bool XMLReader::open(Arg::code_<String> code, const bool preserveWhitespace)
+	bool XMLReader::open(Arg::code_<String> code, const PreserveWhitespace preserveWhitespace)
 	{
 		close();
 
@@ -207,7 +214,7 @@ namespace s3d
 
 		const auto root = document->FirstChildElement();
 
-		if (!root)
+		if (not root)
 		{
 			return false;
 		}
@@ -217,9 +224,9 @@ namespace s3d
 		return true;
 	}
 
-	bool XMLReader::open(const std::shared_ptr<IReader>& reader, const bool preserveWhitespace)
+	bool XMLReader::open(std::unique_ptr<IReader>&& reader, const PreserveWhitespace preserveWhitespace)
 	{
-		return open(Arg::code = TextReader(reader).readAll(), preserveWhitespace);
+		return open(Arg::code = TextReader{ std::move(reader) }.readAll(), preserveWhitespace);
 	}
 
 	void XMLReader::close()
@@ -230,5 +237,10 @@ namespace s3d
 	bool XMLReader::isOpen() const
 	{
 		return !!m_detail;
+	}
+
+	XMLReader::operator bool() const
+	{
+		return isOpen();
 	}
 }

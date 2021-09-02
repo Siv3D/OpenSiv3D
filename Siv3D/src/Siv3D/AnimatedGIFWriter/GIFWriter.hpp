@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <string>
 # include <Siv3D/IWriter.hpp>
 
 //
@@ -783,10 +784,8 @@ struct GifWriter
 // Creates a gif file.
 // The input GIFWriter is assumed to be uninitialized.
 // The delay value is the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.
-inline bool GifBegin(GifWriter * writer, uint32_t width, uint32_t height, uint32_t delay, int32_t bitDepth = 8, bool dither = false)
+inline bool GifBegin(GifWriter * writer, uint32_t width, uint32_t height, uint32_t delay, [[maybe_unused]] int32_t bitDepth = 8, [[maybe_unused]] bool dither = false)
 {
-	dither, bitDepth;
-
 	//fopen_s(&writer->f, filename, "wb");
 
 	//writer->f = fopen(filename, "wb");

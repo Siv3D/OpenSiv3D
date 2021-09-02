@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,33 +11,22 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Array.hpp"
 # include "Optional.hpp"
 # include "Unspecified.hpp"
 
 namespace s3d
 {
-	using SessionID = uint64;
+	using TCPSessionID = uint64;
 
 	class TCPServer
 	{
-	private:
-
-		class TCPServerDetail;
-
-		std::shared_ptr<TCPServerDetail> pImpl;
-
 	public:
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		TCPServer();
 
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
 		~TCPServer();
 
 		void startAccept(uint16 port);
@@ -46,46 +35,52 @@ namespace s3d
 
 		void cancelAccept();
 
-		[[nodiscard]] bool isAccepting() const;
+		[[nodiscard]]
+		bool isAccepting() const;
 
 		void disconnect();
 
-		[[nodiscard]] bool hasSession() const;
+		[[nodiscard]]
+		bool hasSession() const;
 
-		[[nodiscard]] bool hasSession(SessionID id) const;
+		[[nodiscard]]
+		bool hasSession(TCPSessionID id) const;
 
-		[[nodiscard]] size_t num_sessions() const;
+		[[nodiscard]]
+		size_t num_sessions() const;
 
-		[[nodiscard]] Array<SessionID> getSessionIDs() const;
+		[[nodiscard]]
+		Array<TCPSessionID> getSessionIDs() const;
 
-		[[nodiscard]] uint16 port() const;
+		[[nodiscard]]
+		uint16 port() const;
 
-		[[nodiscard]] size_t available(const Optional<SessionID>& id = unspecified);
+		[[nodiscard]]
+		size_t available(const Optional<TCPSessionID>& id = unspecified);
 
-		bool skip(size_t size, const Optional<SessionID>& id = unspecified);
+		bool skip(size_t size, const Optional<TCPSessionID>& id = unspecified);
 
-		bool lookahead(void* dst, size_t size, const Optional<SessionID>& id = unspecified) const;
+		bool lookahead(void* dst, size_t size, const Optional<TCPSessionID>& id = unspecified) const;
 
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool lookahead(Type& to, const Optional<SessionID>& id = unspecified)
-		{
-			return lookahead(std::addressof(to), sizeof(Type), id);
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool lookahead(TriviallyCopyable& to, const Optional<TCPSessionID>& id = unspecified);
 
-		bool read(void* dst, size_t size, const Optional<SessionID>& id = unspecified);
+		bool read(void* dst, size_t size, const Optional<TCPSessionID>& id = unspecified);
 
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool read(Type& to, const Optional<SessionID>& id = unspecified)
-		{
-			return read(std::addressof(to), sizeof(Type), id);
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool read(TriviallyCopyable& to, const Optional<TCPSessionID>& id = unspecified);
 
-		bool send(const void* data, size_t size, const Optional<SessionID>& id = unspecified);
+		bool send(const void* data, size_t size, const Optional<TCPSessionID>& id = unspecified);
 
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool send(const Type& to, const Optional<SessionID>& id = unspecified)
-		{
-			return send(std::addressof(to), sizeof(Type), id);
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool send(const TriviallyCopyable& to, const Optional<TCPSessionID>& id = unspecified);
+
+	private:
+
+		class TCPServerDetail;
+
+		std::shared_ptr<TCPServerDetail> pImpl;
 	};
 }
+
+# include "detail/TCPServer.ipp"

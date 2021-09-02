@@ -2,175 +2,157 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Vector3D.hpp"
-# include "MathConstants.hpp"
+# include "Common.hpp"
+# include "PointVector.hpp"
+# include "FastMath.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 円柱座標
-	/// </summary>
-	struct Cylindrical
+	template <class Float>
+	struct CylindricalBase
 	{
-		double r, phi, y;
+		using value_type = Float;
 
-		Cylindrical() = default;
+		using position_type = Vector3D<value_type>;
 
-		constexpr Cylindrical(double _r, double _phi, double _y) noexcept
-			: r(_r)
-			, phi(_phi)
-			, y(_y) {}
-
-		constexpr Cylindrical(Arg::r_<double> _r, Arg::phi_<double> _phi, Arg::y_<double> _y) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		constexpr Cylindrical(Arg::r_<double> _r, Arg::y_<double> _y, Arg::phi_<double> _phi) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		constexpr Cylindrical(Arg::phi_<double> _phi, Arg::r_<double> _r, Arg::y_<double> _y) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		constexpr Cylindrical(Arg::phi_<double> _phi, Arg::y_<double> _y, Arg::r_<double> _r) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		constexpr Cylindrical(Arg::y_<double> _y, Arg::r_<double> _r, Arg::phi_<double> _phi) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		constexpr Cylindrical(Arg::y_<double> _y, Arg::phi_<double> _phi, Arg::r_<double> _r) noexcept
-			: r(*_r)
-			, phi(*_phi)
-			, y(*_y) {}
-
-		Cylindrical(const Vec3& pos)
-			: r(pos.xz().length())
-			, phi(std::atan2(pos.z, pos.x))
-			, y(pos.y) {}
+		value_type r;
 		
-		[[nodiscard]] constexpr Cylindrical operator +() const noexcept
+		value_type phi;
+		
+		value_type y;
+
+		SIV3D_NODISCARD_CXX20
+		CylindricalBase() = default;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(value_type _r, value_type _phi, value_type _y) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::r_<value_type> _r, Arg::phi_<value_type> _phi, Arg::y_<value_type> _y) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::r_<value_type> _r, Arg::y_<value_type> _y, Arg::phi_<value_type> _phi) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::phi_<value_type> _phi, Arg::r_<value_type> _r, Arg::y_<value_type> _y) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::phi_<value_type> _phi, Arg::y_<value_type> _y, Arg::r_<value_type> _r) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::y_<value_type> _y, Arg::r_<value_type> _r, Arg::phi_<value_type> _phi) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		constexpr CylindricalBase(Arg::y_<value_type> _y, Arg::phi_<value_type> _phi, Arg::r_<value_type> _r) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		CylindricalBase(position_type pos) noexcept;
+
+		[[nodiscard]]
+		constexpr CylindricalBase operator +() const noexcept;
+
+		[[nodiscard]]
+		constexpr CylindricalBase operator -() const noexcept;
+
+		[[nodiscard]]
+		position_type operator +(position_type v) const noexcept;
+
+		[[nodiscard]]
+		position_type operator -(position_type v) const noexcept;
+
+		[[nodiscard]]
+		Float3 toFloat3() const noexcept;
+
+		[[nodiscard]]
+		Vec3 toVec3() const noexcept;
+
+		[[nodiscard]]
+		Float3 fastToFloat3() const noexcept;
+
+		[[nodiscard]]
+		Vec3 fastToVec3() const noexcept;
+
+		[[nodiscard]]
+		position_type toPosition() const noexcept;
+
+		[[nodiscard]]
+		operator position_type() const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const CylindricalBase& value)
 		{
-			return *this;
+			return output << CharType('(')
+				<< value.r << CharType(',') << CharType(' ')
+				<< value.phi << CharType(',') << CharType(' ')
+				<< value.y << CharType(')');
 		}
 
-		[[nodiscard]] constexpr Cylindrical operator -() const noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, CylindricalBase& value)
 		{
-			return{ r, phi + Math::Constants::Pi, -y };
+			CharType unused;
+			return input >> unused
+				>> value.r >> unused
+				>> value.phi >> unused
+				>> value.y >> unused;
 		}
 
-		[[nodiscard]] Vec3 operator +(const Vec3& v) const;
-
-		[[nodiscard]] Vec3 operator -(const Vec3& v) const;
-
-		[[nodiscard]] Float3 toFloat3() const
+		friend void Formatter(FormatData& formatData, const CylindricalBase& value)
 		{
-			return{ r * std::cos(phi), y, r * std::sin(phi) };
-		}
-
-		[[nodiscard]] Vec3 toVec3() const
-		{
-			return{ r * std::cos(phi), y, r * std::sin(phi) };
-		}
-
-		[[nodiscard]] operator Vec3() const
-		{
-			return toVec3();
+			Formatter(formatData, position_type{ value.r, value.phi, value.y });
 		}
 	};
+
+	using Cylindrical	= CylindricalBase<double>;
+	using CylindricalF	= CylindricalBase<float>;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/Cylindrical.ipp"
 
-namespace s3d
+template <class Float>
+struct SIV3D_HIDDEN fmt::formatter<s3d::CylindricalBase<Float>, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Cylindrical& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Cylindrical& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output		<< CharType('(')
-			<< value.r		<< CharType(',') << CharType(' ')
-			<< value.phi	<< CharType(',') << CharType(' ')
-			<< value.y		<< CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Cylindrical& value)
+	template <class FormatContext>
+	auto format(const s3d::CylindricalBase<Float>& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input		>> unused
-			>> value.r		>> unused
-			>> value.phi	>> unused
-			>> value.y		>> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.r, value.phi, value.y);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.r, value.phi, value.y);
+		}
 	}
-}
+};
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
+template <class Float>
+struct std::hash<s3d::CylindricalBase<Float>>
 {
-	template <>
-	struct hash<s3d::Cylindrical>
+	[[nodiscard]]
+	size_t operator()(const s3d::CylindricalBase<Float>& value) const noexcept
 	{
-		[[nodiscard]] size_t operator ()(const s3d::Cylindrical& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::Cylindrical, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Cylindrical& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.phi, value.y);
-		}
-	};
-}
+		return value.hash();
+	}
+};

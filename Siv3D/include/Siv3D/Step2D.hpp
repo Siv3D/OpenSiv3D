@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
@@ -22,159 +22,104 @@ namespace s3d
 
 		class Iterator
 		{
-			int32 m_countX;
-			
-			int32 m_startX;
-			
-			Size m_step_counter;
-			
-			Size m_counter;
-			
-			Size m_step;
-
 		public:
 
-			constexpr Iterator() noexcept
-				: m_countX(0)
-				, m_startX(0)
-				, m_step_counter(0, 0)
-				, m_counter(0, 0)
-				, m_step(0, 0) {}
+			SIV3D_NODISCARD_CXX20
+			constexpr Iterator() noexcept;
 
-			constexpr Iterator(Size steps_count, Size start, Size step) noexcept
-				: m_countX(steps_count.x)
-				, m_startX(start.x)
-				, m_step_counter(steps_count)
-				, m_counter(start)
-				, m_step(step) {}
+			SIV3D_NODISCARD_CXX20
+			constexpr Iterator(Size steps_count, Size start, Size step) noexcept;
 
-			constexpr Iterator& operator ++() noexcept
-			{
-				if (m_step_counter.x == 1)
-				{
-					m_step_counter.x = m_countX;
+			constexpr Iterator& operator ++() noexcept;
 
-					--m_step_counter.y;
+			constexpr Iterator operator ++(int) noexcept;
 
-					m_counter.x = m_startX;
+			[[nodiscard]]
+			constexpr const Point& operator *() const noexcept;
 
-					m_counter.y = m_counter.y + m_step.y;
-				}
-				else
-				{
-					--m_step_counter.x;
+			[[nodiscard]]
+			constexpr const Point* operator ->() const noexcept;
 
-					m_counter.x = m_counter.x + m_step.x;
-				}
+			[[nodiscard]]
+			constexpr bool operator ==(const Iterator& r) const noexcept;
 
-				return *this;
-			}
+			[[nodiscard]]
+			constexpr bool operator !=(const Iterator& r) const noexcept;
 
-			constexpr Iterator operator ++(int) noexcept
-			{
-				Iterator it = *this;
+		private:
 
-				++(*this);
+			int32 m_countX;
 
-				return it;
-			}
+			int32 m_startX;
 
-			constexpr const Point& operator *() const noexcept
-			{
-				return m_counter;
-			}
+			Size m_step_counter;
 
-			constexpr const Point* operator ->() const noexcept
-			{
-				return &m_counter;
-			}
+			Size m_counter;
 
-			constexpr bool operator ==(const Iterator& r) const noexcept
-			{
-				return m_step_counter == r.m_step_counter;
-			}
-
-			constexpr bool operator !=(const Iterator& r) const noexcept
-			{
-				return !(m_step_counter == r.m_step_counter);
-			}
+			Size m_step;
 		};
 
 		using iterator = Iterator;
 
-	private:
-		
-		Point m_start;
-		
-		Size m_step_count;
-		
-		Size m_step_length;
-		
-		iterator m_end_iterator;
-		
-		iterator m_start_iterator;
+		SIV3D_NODISCARD_CXX20
+		constexpr Step2D(Point start, Size step_count, Size step) noexcept;
 
-	public:
+		[[nodiscard]]
+		constexpr iterator begin() const noexcept;
 
-		constexpr Step2D(Point start, Size step_count, Size step) noexcept
-			: m_start(start)
-			, m_step_count(step_count)
-			, m_step_length(step)
-			, m_end_iterator({ step_count.x, 0 }, Size(0, 0), Size(0, 0))
-			, m_start_iterator(step_count, start, step) {}
+		[[nodiscard]]
+		constexpr iterator end() const noexcept;
 
-		constexpr iterator begin() const noexcept
-		{
-			return m_start_iterator;
-		}
+		[[nodiscard]]
+		constexpr Point startValue() const noexcept;
 
-		constexpr iterator end() const noexcept { return m_end_iterator; }
+		[[nodiscard]]
+		constexpr Size count() const noexcept;
 
-		constexpr Point startValue() const noexcept { return m_start; }
-		
-		constexpr Size count() const noexcept { return m_step_count; }
+		[[nodiscard]]
+		constexpr int32 num_elements() const noexcept;
 
-		constexpr int32 num_elements() const noexcept { return m_step_count.x * m_step_count.y; }
+		[[nodiscard]]
+		constexpr Size step() const noexcept;
 
-		constexpr Size step() const noexcept { return m_step_length; }
+		[[nodiscard]]
+		constexpr bool isEmpty() const noexcept;
 
-		constexpr bool isEmpty() const noexcept { return (m_step_count.x == 0 || m_step_count.y == 0); }
-
+		/// @brief 範囲の値を配列に変換します。
+		/// @return 配列
+		[[nodiscard]]
 		Array<Point> asArray() const;
+
+	private:
+
+		Point m_start;
+
+		Size m_step_count;
+
+		Size m_step_length;
+
+		iterator m_end_iterator;
+
+		iterator m_start_iterator;
 	};
 
-	inline constexpr auto step(Size n) noexcept
-	{
-		return Step2D(Point(0, 0), n, Point(1, 1));
-	}
+	[[nodiscard]]
+	inline constexpr auto step(Size n) noexcept;
 
-	inline constexpr auto step(Point a, Size n) noexcept
-	{
-		return Step2D(a, n, Point(1, 1));
-	}
+	[[nodiscard]]
+	inline constexpr auto step(Point a, Size n) noexcept;
 
-	inline constexpr auto step(Point a, Size n, Size s) noexcept
-	{
-		return Step2D(a, n, s);
-	}
+	[[nodiscard]]
+	inline constexpr auto step(Point a, Size n, Size s) noexcept;
 
-	inline constexpr auto step_backward(Size n) noexcept
-	{
-		return Step2D(Point(n.x - 1, n.y - 1), n, Size(-1, -1));
-	}
+	[[nodiscard]]
+	inline constexpr auto step_backward(Size n) noexcept;
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//               Iota [beg, end)
-	//
+	[[nodiscard]]
+	inline constexpr auto Iota2D(Size end) noexcept;
 
-	inline constexpr auto Iota2D(Size end) noexcept
-	{
-		return Step2D(Point(0, 0), end, Point(1, 1));
-	}
-
-	inline constexpr auto Iota2D(int32 xEnd, int32 yEnd) noexcept
-	{
-		return Iota2D(Size(xEnd, yEnd));
-	}
+	[[nodiscard]]
+	inline constexpr auto Iota2D(int32 xEnd, int32 yEnd) noexcept;
 }
+
+# include "detail/Step2D.ipp"

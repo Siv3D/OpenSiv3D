@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,485 +11,792 @@
 
 # pragma once
 # include <memory>
-# include <iostream>
-# include "Fwd.hpp"
 # include "BigInt.hpp"
-# include "String.hpp"
-# include "Format.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 100 桁の有効桁数を持つ浮動小数点数型
-	/// </summary>
+	/// @brief 100 桁の精度を持つ浮動小数点数型
 	class BigFloat
 	{
 	private:
 
 		struct BigFloatDetail;
-		std::unique_ptr<BigFloatDetail> pImpl;
-
-		friend BigFloat operator /(int64 a, const BigFloat& b);
-		friend BigFloat operator /(uint64 a, const BigFloat& b);
-		friend BigFloat operator /(long double a, const BigFloat& b);
 
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		BigFloat();
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat(Integer i) : BigFloat(static_cast<int64>(i)) {}
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat(Integer i) : BigFloat(static_cast<uint64>(i)) {}
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat(Float f) : BigFloat(static_cast<long double>(f)) {}
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		SIV3D_NODISCARD_CXX20
+		BigFloat(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		SIV3D_NODISCARD_CXX20
+		BigFloat(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		SIV3D_NODISCARD_CXX20
+		BigFloat(Float f);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(int64 f);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(uint64 f);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(long double f);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(const BigInt& number);
-		explicit BigFloat(const std::string_view number);
-		explicit BigFloat(const StringView number);
+		
+		SIV3D_NODISCARD_CXX20
+		explicit BigFloat(std::string_view number);
+		
+		SIV3D_NODISCARD_CXX20
+		explicit BigFloat(StringView number);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(const BigFloat& other);
+		
+		SIV3D_NODISCARD_CXX20
 		BigFloat(BigFloat&& other) noexcept;
+		
 		~BigFloat();
 
+		//////////////////////////////////////////////////
+		//
+		//	assign
+		//
+		//////////////////////////////////////////////////
+
 		BigFloat& assign(int64 i);
+		
 		BigFloat& assign(uint64 i);
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& assign(Integer i) { return assign(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& assign(Integer i) { return assign(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& assign(Float f) { return assign(static_cast<long double>(f)); }
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& assign(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& assign(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& assign(Float f);
+		
 		BigFloat& assign(long double f);
+		
 		BigFloat& assign(const BigInt& number);
-		BigFloat& assign(const std::string_view number);
-		BigFloat& assign(const StringView number);
+		
+		BigFloat& assign(std::string_view number);
+		
+		BigFloat& assign(StringView number);
+		
 		BigFloat& assign(const BigFloat& other);
+		
 		BigFloat& assign(BigFloat&& other) noexcept;
 
+		//////////////////////////////////////////////////
+		//
+		//	=
+		//
+		//////////////////////////////////////////////////
+
 		BigFloat& operator =(int64 i);
+		
 		BigFloat& operator =(uint64 i);
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator =(Integer i) { return assign(i); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator =(Integer i) { return assign(i); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& operator =(Float f) { return assign(static_cast<long double>(f)); }
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& operator =(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& operator =(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& operator =(Float f);
+		
 		BigFloat& operator =(long double f);
+		
 		BigFloat& operator =(const BigInt& number);
-		BigFloat& operator =(const std::string_view number);
-		BigFloat& operator =(const StringView number);
+		
+		BigFloat& operator =(std::string_view number);
+		
+		BigFloat& operator =(StringView number);
+		
 		BigFloat& operator =(const BigFloat& other);
+		
 		BigFloat& operator =(BigFloat&& other) noexcept;
 
-		[[nodiscard]] const BigFloat& operator +() const;
+		//////////////////////////////////////////////////
+		//
+		//	+
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		const BigFloat& operator +() const;
+		
 		BigFloat& operator ++();
+		
 		BigFloat operator ++(int);
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator +(Integer i) const { return operator +(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator +(Integer i) const { return operator +(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		[[nodiscard]] BigFloat operator +(Float f) const { return operator +(static_cast<long double>(f)); }
-		[[nodiscard]] BigFloat operator +(int64 i) const;
-		[[nodiscard]] BigFloat operator +(uint64 i) const;
-		[[nodiscard]] BigFloat operator +(long double f) const;
-		[[nodiscard]] BigFloat operator +(const BigInt& number) const;
-		[[nodiscard]] BigFloat operator +(const BigFloat& number) const;
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator +=(Integer i) { return operator +=(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator +=(Integer i) { return operator +=(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& operator +=(Float f) { return operator +=(static_cast<long double>(f)); }
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator +(SignedInt i) const;
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator +(UnsignedInt i) const;
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		BigFloat operator +(Float f) const;
+		
+		[[nodiscard]]
+		BigFloat operator +(int64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator +(uint64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator +(long double f) const;
+		
+		[[nodiscard]]
+		BigFloat operator +(const BigInt& number) const;
+		
+		[[nodiscard]]
+		BigFloat operator +(const BigFloat& number) const;
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& operator +=(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& operator +=(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& operator +=(Float f);
+		
 		BigFloat& operator +=(int64 i);
+		
 		BigFloat& operator +=(uint64 i);
+		
 		BigFloat& operator +=(long double f);
+		
 		BigFloat& operator +=(const BigInt& number);
+		
 		BigFloat& operator +=(const BigFloat& number);
 
-		[[nodiscard]] BigFloat operator -() const &;
-		[[nodiscard]] BigFloat operator -() &&;
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator +(Arithmetic a, const BigFloat& b)
+		{
+			return (b + a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	-
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		BigFloat operator -() const&;
+		
+		[[nodiscard]]
+		BigFloat operator -()&&;
+		
 		BigFloat& operator --();
+		
 		BigFloat operator --(int);
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator -(Integer i) const { return operator -(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator -(Integer i) const { return operator -(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		[[nodiscard]] BigFloat operator -(Float f) const { return operator -(static_cast<long double>(f)); }
-		[[nodiscard]] BigFloat operator -(int64 i) const;
-		[[nodiscard]] BigFloat operator -(uint64 i) const;
-		[[nodiscard]] BigFloat operator -(long double f) const;
-		[[nodiscard]] BigFloat operator -(const BigInt& number) const;
-		[[nodiscard]] BigFloat operator -(const BigFloat& number) const;
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator -=(Integer i) { return operator -=(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator -=(Integer i) { return operator -=(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& operator -=(Float f) { return operator -=(static_cast<long double>(f)); }
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator -(SignedInt i) const;
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator -(UnsignedInt i) const;
+		
+		SIV3D_CONCEPT_FLOATING_POINT		
+		[[nodiscard]]
+		BigFloat operator -(Float f) const;
+		
+		[[nodiscard]]
+		BigFloat operator -(int64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator -(uint64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator -(long double f) const;
+		
+		[[nodiscard]]
+		BigFloat operator -(const BigInt& number) const;
+		
+		[[nodiscard]]
+		BigFloat operator -(const BigFloat& number) const;
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& operator -=(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& operator -=(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& operator -=(Float f);
+		
 		BigFloat& operator -=(int64 i);
+		
 		BigFloat& operator -=(uint64 i);
+		
 		BigFloat& operator -=(long double f);
+		
 		BigFloat& operator -=(const BigInt& number);
+		
 		BigFloat& operator -=(const BigFloat& number);
 
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator *(Integer i) const { return operator *(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator *(Integer i) const { return operator *(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		[[nodiscard]] BigFloat operator *(Float f) const { return operator *(static_cast<long double>(f)); }
-		[[nodiscard]] BigFloat operator *(int64 i) const;
-		[[nodiscard]] BigFloat operator *(uint64 i) const;
-		[[nodiscard]] BigFloat operator *(long double f) const;
-		[[nodiscard]] BigFloat operator *(const BigInt& number) const;
-		[[nodiscard]] BigFloat operator *(const BigFloat& number) const;
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator *=(Integer i) { return operator *=(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator *=(Integer i) { return operator *=(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& operator *=(Float f) { return operator *=(static_cast<long double>(f)); }
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator -(Arithmetic a, const BigFloat& b)
+		{
+			return (-b + a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	*
+		//
+		//////////////////////////////////////////////////
+
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator *(SignedInt i) const;
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator *(UnsignedInt i) const;
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		BigFloat operator *(Float f) const;
+		
+		[[nodiscard]]
+		BigFloat operator *(int64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator *(uint64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator *(long double f) const;
+		
+		[[nodiscard]]
+		BigFloat operator *(const BigInt& number) const;
+		
+		[[nodiscard]]
+		BigFloat operator *(const BigFloat& number) const;
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& operator *=(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& operator *=(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& operator *=(Float f);
+		
 		BigFloat& operator *=(int64 i);
+		
 		BigFloat& operator *=(uint64 i);
+		
 		BigFloat& operator *=(long double f);
+		
 		BigFloat& operator *=(const BigInt& number);
+		
 		BigFloat& operator *=(const BigFloat& number);
 
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator /(Integer i) const { return operator /(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] BigFloat operator /(Integer i) const { return operator /(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		[[nodiscard]] BigFloat operator /(Float f) const { return operator /(static_cast<long double>(f)); }
-		[[nodiscard]] BigFloat operator /(int64 i) const;
-		[[nodiscard]] BigFloat operator /(uint64 i) const;
-		[[nodiscard]] BigFloat operator /(long double f) const;
-		[[nodiscard]] BigFloat operator /(const BigInt& number) const;
-		[[nodiscard]] BigFloat operator /(const BigFloat& number) const;
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator /=(Integer i) { return operator /=(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		BigFloat& operator /=(Integer i) { return operator /=(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<(std::is_floating_point_v<Float>)>* = nullptr>
-		BigFloat& operator /=(Float f) { return operator /=(static_cast<long double>(f)); }
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator *(Arithmetic a, const BigFloat& b)
+		{
+			return (b * a);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	/
+		//
+		//////////////////////////////////////////////////
+
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		[[nodiscard]] BigFloat operator /(SignedInt i) const;
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		BigFloat operator /(UnsignedInt i) const;
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		BigFloat operator /(Float f) const;
+		
+		[[nodiscard]]
+		BigFloat operator /(int64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator /(uint64 i) const;
+		
+		[[nodiscard]]
+		BigFloat operator /(long double f) const;
+		
+		[[nodiscard]]
+		BigFloat operator /(const BigInt& number) const;
+		
+		[[nodiscard]]
+		BigFloat operator /(const BigFloat& number) const;
+		
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		BigFloat& operator /=(SignedInt i);
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		BigFloat& operator /=(UnsignedInt i);
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		BigFloat& operator /=(Float f);
+		
 		BigFloat& operator /=(int64 i);
+		
 		BigFloat& operator /=(uint64 i);
+		
 		BigFloat& operator /=(long double f);
+		
 		BigFloat& operator /=(const BigInt& number);
+		
 		BigFloat& operator /=(const BigFloat& number);
 
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] int32 compare(Integer i) const { return compare(static_cast<int64>(i)); }
-		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-		[[nodiscard]] int32 compare(Integer i) const { return compare(static_cast<uint64>(i)); }
-		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>* = nullptr>
-		[[nodiscard]] int32 compare(Float f) const { return compare(static_cast<long double>(f)); }
-		[[nodiscard]] int32 compare(int64 i) const;
-		[[nodiscard]] int32 compare(uint64 i) const;
-		[[nodiscard]] int32 compare(long double f) const;
-		[[nodiscard]] int32 compare(const BigInt& number) const;
-		[[nodiscard]] int32 compare(const BigFloat& number) const;
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline BigFloat operator /(Arithmetic a, const BigFloat& b)
+		{
+			return BigFloat{ a } / b;
+		}
 
-		[[nodiscard]] explicit operator bool() const;
-		[[nodiscard]] bool isZero() const;
-		[[nodiscard]] int32 sign() const;
-		[[nodiscard]] BigFloat abs() const;
+		//////////////////////////////////////////////////
+		//
+		//	compare
+		//
+		//////////////////////////////////////////////////
 
-		[[nodiscard]] float asFloat() const;
-		[[nodiscard]] double asDouble() const;
-		[[nodiscard]] long double asLongDouble() const;
+		SIV3D_CONCEPT_SIGNED_INTEGRAL
+		[[nodiscard]]
+		int32 compare(SignedInt i) const;
+		
+		SIV3D_CONCEPT_UNSIGNED_INTEGRAL
+		[[nodiscard]]
+		int32 compare(UnsignedInt i) const;
+		
+		SIV3D_CONCEPT_FLOATING_POINT
+		[[nodiscard]]
+		int32 compare(Float f) const;
+		
+		[[nodiscard]]
+		int32 compare(int64 i) const;
+		
+		[[nodiscard]]
+		int32 compare(uint64 i) const;
+		
+		[[nodiscard]]
+		int32 compare(long double f) const;
+		
+		[[nodiscard]]
+		int32 compare(const BigInt& number) const;
+		
+		[[nodiscard]]
+		int32 compare(const BigFloat& number) const;
 
-		[[nodiscard]] std::string stdStr() const;
-		[[nodiscard]] std::wstring stdWstr() const;
-		[[nodiscard]] String str() const;
+		//////////////////////////////////////////////////
+		//
+		//	==
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat& a, const BigFloat b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator ==(const BigFloat a, const BigFloat& b)
+		{
+			return (b.compare(a) == 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	!=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator !=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) != 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator !=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) == 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator !=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) != 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	<
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator <(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) < 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) < 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) > 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	<=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator <=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) <= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) <= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator <=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) >= 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	>
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator >(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) > 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) > 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) < 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	>=
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline bool operator >=(const BigFloat& a, const BigFloat& b)
+		{
+			return (a.compare(b) >= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >=(const BigFloat& a, const Arithmetic b)
+		{
+			return (a.compare(b) >= 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline bool operator >=(const Arithmetic a, const BigFloat& b)
+		{
+			return (b.compare(a) <= 0);
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	utilities
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		explicit operator bool() const;
+		
+		[[nodiscard]]
+		bool isZero() const;
+		
+		[[nodiscard]]
+		int32 sign() const;
+		
+		[[nodiscard]]
+		BigFloat abs() const;
 
 		void swap(BigFloat& other) noexcept;
 
-		//size_t hash() const;
+		size_t hash() const;
 
-		BigFloatDetail& detail();
-		const BigFloatDetail& detail() const;
+		//////////////////////////////////////////////////
+		//
+		//	conversions
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		float asFloat() const;
+		
+		[[nodiscard]]
+		double asDouble() const;
+		
+		[[nodiscard]]
+		long double asLongDouble() const;
+
+		[[nodiscard]]
+		std::string to_string() const;
+				
+		[[nodiscard]]
+		std::wstring to_wstring() const;
+		
+		[[nodiscard]]
+		String str() const;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const BigFloat& value)
+		{
+			return (output << value.str());
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, BigFloat& value)
+		{
+			if (String s; input >> s)
+			{
+				value.assign(s);
+			}
+
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const BigFloat& value);
+
+		//////////////////////////////////////////////////
+		//
+		//	detail
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		BigFloatDetail& _detail();
+
+		[[nodiscard]]
+		const BigFloatDetail& _detail() const;
+
+	private:
+
+		std::unique_ptr<BigFloatDetail> pImpl;
 	};
 
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator +(const Type& a, const BigFloat& b)
+	namespace Math
 	{
-		return b + a;
-	}
+		[[nodiscard]]
+		BigFloat Fmod(const BigFloat& x, const BigFloat& y);
 
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator -(const Type& a, const BigFloat& b)
-	{
-		return -b + a;
-	}
+		[[nodiscard]]
+		BigFloat Fraction(const BigFloat& x);
 
-	template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator *(const Type& a, const BigFloat& b)
-	{
-		return b * a;
-	}
+		[[nodiscard]]
+		BigFloat Frexp(const BigFloat& x, int32& exp);
 
-	template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
-	[[nodiscard]] inline BigFloat operator /(Integer a, const BigFloat& b)
-	{
-		return static_cast<int64>(a) / b;
-	}
+		[[nodiscard]]
+		BigFloat Ldexp(const BigFloat& x, const BigFloat& y);
 
-	template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
-	[[nodiscard]] inline BigFloat operator /(Integer a, const BigFloat& b)
-	{
-		return static_cast<uint64>(a) / b;
-	}
+		[[nodiscard]]
+		BigFloat Log(const BigFloat& x);
 
-	template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>* = nullptr>
-	[[nodiscard]] inline BigFloat operator /(Float a, const BigFloat& b)
-	{
-		return static_cast<long double>(a) / b;
-	}
+		[[nodiscard]]
+		BigFloat Log2(const BigFloat& x);
 
-	[[nodiscard]] BigFloat operator /(int64 a, const BigFloat& b);
-	[[nodiscard]] BigFloat operator /(uint64 a, const BigFloat& b);
-	[[nodiscard]] BigFloat operator /(long double a, const BigFloat& b);
+		[[nodiscard]]
+		BigFloat Log10(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Modf(const BigFloat& x, BigFloat& exp);
+
+		[[nodiscard]]
+		BigInt Pow(const BigInt& x, uint32 y);
+
+		[[nodiscard]]
+		BigFloat Pow(const BigFloat& x, const BigFloat& y);
+
+		[[nodiscard]]
+		int32 Sign(const BigInt& x);
+
+		[[nodiscard]]
+		int32 Sign(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat ToRadians(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat ToDegrees(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Abs(const BigInt& x);
+
+		[[nodiscard]]
+		BigFloat Abs(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat AbsDiff(const BigFloat& x, const BigFloat& y);
+
+		[[nodiscard]]
+		BigFloat Square(const BigInt& x);
+
+		[[nodiscard]]
+		BigFloat Square(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Exp(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Exp2(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Rsqrt(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sqrt(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Ceil(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Floor(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Round(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Clamp(const BigFloat& x, const BigFloat& min, const BigFloat& max);
+
+		[[nodiscard]]
+		BigFloat Saturate(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Acos(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Asin(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Atan(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Atan2(const BigFloat& y, const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Cos(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Cosh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sin(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Sinh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Tan(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Tanh(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Normalize(const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Smoothstep(const BigFloat& min, const BigFloat& max, const BigFloat& x);
+
+		[[nodiscard]]
+		BigFloat Smoothstep(const BigFloat& x);
+	}
 
 	inline namespace Literals
 	{
 		inline namespace BigNumLiterals
 		{
-			[[nodiscard]] BigFloat operator ""_bigF(unsigned long long int i);
-
-			[[nodiscard]] BigFloat operator ""_bigF(const char* number, size_t);
-
-			[[nodiscard]] BigFloat operator ""_bigF(const char32* number, size_t);
+			[[nodiscard]]
+			BigFloat operator ""_bigF(const char* s);
 		}
 	}
-
-	[[nodiscard]] inline bool operator ==(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) == 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator ==(const BigFloat& a, Number b)
-	{
-		return a.compare(b) == 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator ==(Number a, const BigFloat& b)
-	{
-		return b.compare(a) == 0;
-	}
-
-	[[nodiscard]] inline bool operator !=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) != 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator !=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) != 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator !=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) != 0;
-	}
-
-	[[nodiscard]] inline bool operator <(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) < 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <(const BigFloat& a, Number b)
-	{
-		return a.compare(b) < 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <(Number a, const BigFloat& b)
-	{
-		return b.compare(a) < 0;
-	}
-
-	[[nodiscard]] inline bool operator <=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) <= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) <= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator <=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) <= 0;
-	}
-
-	[[nodiscard]] inline bool operator >(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) > 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >(const BigFloat& a, Number b)
-	{
-		return a.compare(b) > 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >(Number a, const BigFloat& b)
-	{
-		return b.compare(a) > 0;
-	}
-
-	[[nodiscard]] inline bool operator >=(const BigFloat& a, const BigFloat& b)
-	{
-		return a.compare(b) >= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >=(const BigFloat& a, Number b)
-	{
-		return a.compare(b) >= 0;
-	}
-
-	template <class Number, std::enable_if_t<std::is_arithmetic_v<Number>>* = nullptr>
-	[[nodiscard]] inline bool operator >=(Number a, const BigFloat& b)
-	{
-		return b.compare(a) >= 0;
-	}
-
-	namespace Math
-	{
-		[[nodiscard]] BigFloat Abs(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Sqrt(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Floor(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Ceil(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Round(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Exp(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Exp2(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log2(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Log10(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Cos(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Sin(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Tan(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Acos(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Asin(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Atan(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Cosh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Sinh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Tanh(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Ldexp(const BigFloat& x, int64 exp);
-
-		[[nodiscard]] std::pair<BigFloat, int32> Frexp(const BigFloat& x);
-
-		BigFloat Frexp(const BigFloat& x, int32& exp);
-
-		[[nodiscard]] BigFloat Pow(const BigFloat& x, const BigFloat& y);
-
-		[[nodiscard]] BigFloat Fmod(const BigFloat& x, const BigFloat& y);
-
-		[[nodiscard]] BigFloat Atan2(const BigFloat& x, const BigFloat& y);
-
-		[[nodiscard]] BigFloat Sign(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Radians(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Degrees(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Square(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Rsqrt(const BigFloat& x);
-
-		[[nodiscard]] BigFloat Saturate(const BigFloat& x);
-	}
-
-	template <>
-	struct IsBigFloat<BigFloat> : std::true_type {};
-
-	template <>
-	struct IsBigNumber<BigInt> : std::true_type {};
-
-	template <>
-	struct IsBigNumber<BigFloat> : std::true_type {};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+template <>
+inline void std::swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept;
 
-namespace s3d
+template <>
+struct std::hash<s3d::BigFloat>
 {
-	void Formatter(FormatData& formatData, const BigFloat& value);
-
-	std::ostream& operator <<(std::ostream output, const BigFloat& value);
-
-	std::wostream& operator <<(std::wostream& output, const BigFloat& value);
-
-	std::istream& operator >>(std::istream& input, BigFloat& value);
-
-	std::wistream& operator >>(std::wistream& input, BigFloat& value);
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-//namespace std
-//{
-//	template <>
-//	struct hash<s3d::BigFloat>
-//	{
-//		[[nodiscard]] size_t operator()(const s3d::BigFloat& value) const noexcept
-//		{
-//			return value.hash();
-//		}
-//	};
-//}
-
-//////////////////////////////////////////////////
-//
-//	Swap
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	void inline swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept
+	[[nodiscard]]
+	size_t operator()(const s3d::BigFloat& value) const noexcept
 	{
-		a.swap(b);
+		return value.hash();
 	}
-}
+};
+
+# include "detail/BigFloat.ipp"

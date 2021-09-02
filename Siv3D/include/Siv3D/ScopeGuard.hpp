@@ -2,56 +2,48 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <type_traits>
+# include "Common.hpp"
 
 namespace s3d
 {
-	template<typename Callback>
-	class ScopeGuard
+	template <class Callback>
+	class ScopeGuard final
 	{
-	private:
-
-		Callback m_callback;
-
-		bool m_active = true;
-
 	public:
 
 		ScopeGuard() = delete;
 
 		ScopeGuard(const ScopeGuard&) = delete;
 
-		ScopeGuard(ScopeGuard&& other) noexcept(std::is_nothrow_constructible_v<Callback, Callback&&>)
-			: m_callback(std::forward<Callback>(other.m_callback))
-			, m_active(other.m_active)
-		{
-			other.m_active = false;
-		}
+		SIV3D_NODISCARD_CXX20
+		ScopeGuard(ScopeGuard&& other) noexcept(std::is_nothrow_constructible_v<Callback, Callback&&>);
 
-		ScopeGuard(Callback&& callback) noexcept(std::is_nothrow_constructible_v<Callback, Callback&&>)
-			: m_callback(std::forward<Callback>(callback)) {}
+		SIV3D_NODISCARD_CXX20
+		ScopeGuard(Callback&& callback) noexcept(std::is_nothrow_constructible_v<Callback, Callback&&>);
 
-		~ScopeGuard() noexcept
-		{
-			if (m_active)
-			{
-				m_callback();
-			}
-		}
+		~ScopeGuard() noexcept(std::is_nothrow_invocable_v<Callback> && std::is_nothrow_destructible_v<Callback>);
 
 		ScopeGuard& operator =(const ScopeGuard&) = delete;
 
-		void dismiss() noexcept
-		{
-			m_active = false;
-		}
+		void dismiss() noexcept;
+
+	private:
+
+		Callback m_callback;
+
+		bool m_active = true;
 	};
+
+	template <class Callback>
+	ScopeGuard(Callback) -> ScopeGuard<Callback>;
 }
+
+# include "detail/ScopeGuard.ipp"

@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Common.hpp>
 
 namespace AngelScript
 {
@@ -33,16 +34,24 @@ namespace s3d
 		Float = 10,
 		Double = 11,
 
-		//Optional = ,
-		Arg_samplingRate = 67108877,
-		Arg_samplingRateValue,
+		//Arg_samplingRate = 67108877,
+		//Arg_samplingRateValue,
+
+		TopLeft_ = 67108877,
+		TopLeft_Vec2,
+		Center_,
+		Center_Vec2,
+		SampleRate_,
+		SampleRate_Uint32,
+
+		Char32,
 		String,
 		None_t,
 		Duration,
 		Date,
 		DateTime,
 		Stopwatch,
-		CustomStopwatch,
+		VariableSpeedStopwatch,
 		Timer,
 		//TimeProfiler,
 		MillisecClock,
@@ -54,11 +63,14 @@ namespace s3d
 		Point,
 		Float2,
 		Vec2,
+		Float3,
 		Vec3,
+		Float4,
 		Vec4,
 		Circular,
 		OffsetCircular,
 		Mat3x2,
+		TriangleIndex,
 		Bezier2,
 		Bezier3,
 		Line,
@@ -70,29 +82,17 @@ namespace s3d
 		Quad,
 		RoundRect,
 		Polygon,
-		MultiPolygon,
+		//MultiPolygon,
 		LineString,
-
+		Spline2D,
+		LineStyleParameters,
+		LineStyle,
+		Shape2D,
 		FloatRect,
 
-		LineStyle,
-		LineStyleParameters,
-		Shape2D,
-
-		//CursorStyle,
-
 		//
+		Input,
 		Image,
-		
-		SayBuffer,
-		Say_impl,
-		
-		Key,
-
-		WaveSample,
-		Wave,
-		Audio,
-
 		TextureFormat,
 		Texture,
 		TextureRegion,
@@ -100,112 +100,159 @@ namespace s3d
 		TexturedCircle,
 		TexturedRoundRect,
 		DynamicTexture,
+		VideoTexture,
+		TextStyle,
 		Font,
 		DrawableText,
-
 		Transformer2D,
 		ScopedViewport2D,
-
+		Camera2D,
 		Emoji,
 		Icon,
 
+		WaveSample,
+		Wave,
+		AudioFileStreaming,
+		Audio,
+
 		PrintBuffer,
 		Print_impl,
+		SayBuffer,
+		Say_impl,
+		TextEditState,
 
 	};
 
-	void RegisterTypes(AngelScript::asIScriptEngine* engine);
-	void RegisterUtility(AngelScript::asIScriptEngine* engine);
-	void RegisterNamedArg(AngelScript::asIScriptEngine* engine);
-	void RegisterFormat(AngelScript::asIScriptEngine* engine);
-	void RegisterNone_t(AngelScript::asIScriptEngine* engine);
-	void RegisterOptional(AngelScript::asIScriptEngine* engine);
-	void RegisterDuration(AngelScript::asIScriptEngine* engine);
-	void RegisterDate(AngelScript::asIScriptEngine* engine);
-	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
-	void RegisterTime(AngelScript::asIScriptEngine* engine);
-	void RegisterStopwatch(AngelScript::asIScriptEngine* engine);
-	void RegisterCustomStopwatch(AngelScript::asIScriptEngine* engine);
-	void RegisterTimer(AngelScript::asIScriptEngine* engine);
-	//void RegisterTimeProfiler(AngelScript::asIScriptEngine* engine);
-	void RegisterMillisecClock(AngelScript::asIScriptEngine* engine);
-	void RegisterMicrosecClock(AngelScript::asIScriptEngine* engine);
-	void RegisterRDTSCClock(AngelScript::asIScriptEngine* engine);
-	//void RegisterDirectoryWatcher(AngelScript::asIScriptEngine* engine);
-	void RegisterColor(AngelScript::asIScriptEngine* engine);
-	void RegisterColorF(AngelScript::asIScriptEngine* engine);
-	void RegisterPalette(AngelScript::asIScriptEngine* engine);
-	void RegisterHSV(AngelScript::asIScriptEngine* engine);
-	void RegisterPoint(AngelScript::asIScriptEngine* engine);
-	void RegisterFloat2(AngelScript::asIScriptEngine* engine);
-	void RegisterVec2(AngelScript::asIScriptEngine* engine);
-	void RegisterVec3(AngelScript::asIScriptEngine* engine);
-	void RegisterVec4(AngelScript::asIScriptEngine* engine);
-	void RegisterCircular(AngelScript::asIScriptEngine* engine);
-	void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
-	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
-	//void RegisterSpherical(AngelScript::asIScriptEngine* engine);
-	void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
-	void RegisterLine(AngelScript::asIScriptEngine* engine);
-	void RegisterRect(AngelScript::asIScriptEngine* engine);
-	void RegisterRectF(AngelScript::asIScriptEngine* engine);
-	void RegisterCircle(AngelScript::asIScriptEngine* engine);
-	void RegisterEllipse(AngelScript::asIScriptEngine* engine);
-	void RegisterTriangle(AngelScript::asIScriptEngine* engine);
-	void RegisterQuad(AngelScript::asIScriptEngine* engine);
-	void RegisterRoundRect(AngelScript::asIScriptEngine* engine);
-	void RegisterPolygon(AngelScript::asIScriptEngine* engine);
-	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
-	void RegisterLineString(AngelScript::asIScriptEngine* engine);
+	using AngelScript::asIScriptEngine;
 
-	void RegisterFloatRect(AngelScript::asIScriptEngine* engine);
+	void RegisterTypes(asIScriptEngine* engine);
+	void RegisterYesNo(asIScriptEngine* engine);
+	void RegisterNamedParameter(asIScriptEngine* engine);
+	void RegisterUtility(asIScriptEngine* engine);
+	void RegisterChar(asIScriptEngine* engine);
+	void RegisterNone_t(asIScriptEngine* engine);
+	void RegisterOptional(asIScriptEngine* engine);
+	void RegisterNumber(asIScriptEngine* engine);
+	void RegisterFloatingPoint(asIScriptEngine* engine);
 
-	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
-	void RegisterShape2D(AngelScript::asIScriptEngine* engine);
-	void RegisterRandom(AngelScript::asIScriptEngine* engine);
-	void RegisterMathConstants(AngelScript::asIScriptEngine* engine);
-	void RegisterMath(AngelScript::asIScriptEngine* engine);
+	void RegisterDuration(asIScriptEngine* engine);
+	void RegisterDate(asIScriptEngine* engine);
+	void RegisterDateTime(asIScriptEngine* engine);
+	void RegisterTime(asIScriptEngine* engine);
+	void RegisterStopwatch(asIScriptEngine* engine);
+	void RegisterVariableSpeedStopwatch(asIScriptEngine* engine);
+	void RegisterTimer(asIScriptEngine* engine);
+	void RegisterProfiler(asIScriptEngine* engine);
+	void RegisterMillisecClock(asIScriptEngine* engine);
+	void RegisterMicrosecClock(asIScriptEngine* engine);
+	void RegisterRDTSCClock(asIScriptEngine* engine);
 
-	void RegisterPeriodic(AngelScript::asIScriptEngine* engine);
-	void RegisterEasing(AngelScript::asIScriptEngine* engine);
+	void RegisterSpecialFolder(asIScriptEngine* engine);
+	void RegisterCopyOption(asIScriptEngine* engine);
+	void RegisterFileSystem(asIScriptEngine* engine);
+	void RegisterResource(asIScriptEngine* engine);
+	void RegisterMathConstants(asIScriptEngine* engine);
+	void RegisterMath(asIScriptEngine* engine);
+	void RegisterEasing(asIScriptEngine* engine);
+	void RegisterPeriodic(asIScriptEngine* engine);
+	void RegisterPrimeNumber(asIScriptEngine* engine);
 
-	void RegisterImage(AngelScript::asIScriptEngine* engine);
+	void RegisterColor(asIScriptEngine* engine);
+	void RegisterColorF(asIScriptEngine* engine);
+	void RegisterHSV(asIScriptEngine* engine);
+	void RegisterPalette(asIScriptEngine* engine);
 
-	void RegisterTextToSpeech(AngelScript::asIScriptEngine* engine);
-	void RegisterSay(AngelScript::asIScriptEngine* engine);
-	void RegisterKey(AngelScript::asIScriptEngine* engine);
-	void RegisterMouse(AngelScript::asIScriptEngine* engine);
+	void RegisterPoint(asIScriptEngine* engine);
+	void RegisterVec2(asIScriptEngine* engine);
+	void RegisterFloat2(asIScriptEngine* engine);
+	void RegisterVec3(asIScriptEngine* engine);
+	void RegisterFloat3(asIScriptEngine* engine);
+	void RegisterVec4(asIScriptEngine* engine);
+	void RegisterFloat4(asIScriptEngine* engine);
+	void RegisterCircular(asIScriptEngine* engine);
+	void RegisterOffsetCircular(asIScriptEngine* engine);
+	void RegisterMat3x2(asIScriptEngine* engine);
+	void RegisterTriangleIndex(asIScriptEngine* engine);
+	void RegisterBezier2(asIScriptEngine* engine);
+	void RegisterBezier3(asIScriptEngine* engine);
+	void RegisterLine(asIScriptEngine* engine);
+	void RegisterRect(asIScriptEngine* engine);
+	void RegisterRectF(asIScriptEngine* engine);
+	void RegisterCircle(asIScriptEngine* engine);
+	void RegisterEllipse(asIScriptEngine* engine);
+	void RegisterTriangle(asIScriptEngine* engine);
+	void RegisterQuad(asIScriptEngine* engine);
+	void RegisterRoundRect(asIScriptEngine* engine);
+	void RegisterPolygon(asIScriptEngine* engine);
+	void RegisterLineString(asIScriptEngine* engine);
+	void RegisterSpline2D(asIScriptEngine* engine);
+	void RegisterLineStyleParameters(asIScriptEngine* engine);
+	void RegisterLineStyle(asIScriptEngine* engine);
+	void RegisterShape2D(asIScriptEngine* engine);
+	void RegisterFloatRect(asIScriptEngine* engine);
+	void RegisterInterpolation(asIScriptEngine* engine);
 
-	void RegisterSoundFont(AngelScript::asIScriptEngine* engine);
-	void RegisterWave(AngelScript::asIScriptEngine* engine);
-	void RegisterAudio(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturePixelFormat(asIScriptEngine* engine);
+	void RegisterTextureFormat(asIScriptEngine* engine);
+	void RegisterTextureDesc(asIScriptEngine* engine);
+	void RegisterTexture(asIScriptEngine* engine);
+	void RegisterTextureRegion(asIScriptEngine* engine);
+	void RegisterTexturedQuad(asIScriptEngine* engine);
+	void RegisterTexturedCircle(asIScriptEngine* engine);
+	void RegisterTexturedRoundRect(asIScriptEngine* engine);
+	void RegisterDynamicTexture(asIScriptEngine* engine);
+	void RegisterVideoTexture(asIScriptEngine* engine);
 
-	void RegisterTextureFormat(AngelScript::asIScriptEngine* engine);
-	void RegisterTexture(AngelScript::asIScriptEngine* engine);
-	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
-	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
-	void RegisterTexturedCircle(AngelScript::asIScriptEngine* engine);
-	void RegisterTexturedRoundRect(AngelScript::asIScriptEngine* engine);
-	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
-	void RegisterFont(AngelScript::asIScriptEngine* engine);
-	void RegisterDrawableText(AngelScript::asIScriptEngine* engine);
-	void RegisterTransformer2D(AngelScript::asIScriptEngine* engine);
-	void RegisterScopedViewport2D(AngelScript::asIScriptEngine* engine);
+	void RegisterFontStyle(asIScriptEngine * engine);
+	void RegisterTypeface(asIScriptEngine * engine);
+	void RegisterFontMethod(asIScriptEngine * engine);
+	void RegisterTextStyle(asIScriptEngine* engine);
+	void RegisterFont(asIScriptEngine* engine);
+	void RegisterDrawableText(asIScriptEngine* engine);
 
-	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
-	void RegisterIcon(AngelScript::asIScriptEngine* engine);
+	void RegisterInput(asIScriptEngine* engine);
+	void RegisterKeyboard(asIScriptEngine* engine);
+	void RegisterMouse(asIScriptEngine* engine);
 
-	void RegisterPrint(AngelScript::asIScriptEngine* engine);
+	void RegisterImageFormat(asIScriptEngine* engine);
+	void RegisterImage(asIScriptEngine* engine);
 
-	void RegisterSystem(AngelScript::asIScriptEngine* engine);
-	void RegisterWindow(AngelScript::asIScriptEngine* engine);
-	void RegisterCursor(AngelScript::asIScriptEngine* engine);
-	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
-	void RegisterScene(AngelScript::asIScriptEngine* engine);
-	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
-	void RegisterDialog(AngelScript::asIScriptEngine* engine);
+	void RegisterTransformer2D(asIScriptEngine* engine);
+	void RegisterScopedViewport2D(asIScriptEngine* engine);
+	void RegisterCameraControl(asIScriptEngine* engine);
+	void RegisterCamera2D(asIScriptEngine* engine);
 
-	//void Register_Webcam(asIScriptEngine* engine);
+	void RegisterEmoji(asIScriptEngine* engine);
+	void RegisterIcon(asIScriptEngine* engine);
+	void RegisterAudioFormat(asIScriptEngine* engine);
+	void RegisterGMInstrument(asIScriptEngine* engine);
+	void RegisterPianoKey(asIScriptEngine* engine);
+	void RegisterWaveSample(asIScriptEngine* engine);
+	void RegisterWave(asIScriptEngine* engine);
+	void RegisterAudio(asIScriptEngine* engine);
+	void RegisterGlobalAudio(asIScriptEngine* engine);
+
+	void RegisterRandom(asIScriptEngine* engine);
+	void RegisterPrint(asIScriptEngine* engine);
+	void RegisterPutText(asIScriptEngine* engine);
+	void RegisterThreading(asIScriptEngine* engine);
+	void RegisterUserAction(asIScriptEngine* engine);
+	void RegisterSystem(asIScriptEngine* engine);
+	void RegisterWindowStyle(asIScriptEngine* engine);
+	void RegisterWindow(asIScriptEngine* engine);
+	void RegisterMonitor(asIScriptEngine* engine);
+	void RegisterCursorStyle(asIScriptEngine* engine);
+	void RegisterCursor(asIScriptEngine* engine);
+	void RegisterGraphics(asIScriptEngine* engine);
+	void RegisterGraphics2D(asIScriptEngine* engine);
+	void RegisterResizeMode(asIScriptEngine* engine);
+	void RegisterScene(asIScriptEngine* engine);
+	void RegisterTextInputMode(asIScriptEngine* engine);
+	void RegisterTextInput(asIScriptEngine* engine);
+	void RegisterTextEditState(asIScriptEngine* engine);
+	void RegisterSimpleGUI(asIScriptEngine* engine);
+	void RegisterLanguageCode(asIScriptEngine* engine);
+	void RegisterTextToSpeech(asIScriptEngine* engine);
+	void RegisterSay(asIScriptEngine* engine);
+	void RegisterDialog(asIScriptEngine* engine);
 }

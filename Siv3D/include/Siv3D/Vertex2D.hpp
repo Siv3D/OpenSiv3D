@@ -2,78 +2,46 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// スプライトの頂点データ
-	/// </summary>
-	struct Vertex2D
+	/// @brief 2D 図形の基本頂点データ
+	struct alignas(16) Vertex2D
 	{
+		/// @brief 2D 描画のインデックス配列に使われる型
 		using IndexType = uint16;
 
-		/// <summary>
-		/// 位置
-		/// </summary>
+		/// @brief 位置
 		Float2 pos;
 		
-		/// <summary>
-		/// UV 座標
-		/// </summary>
+		/// @brief UV 座標
 		Float2 tex;
 		
-		/// <summary>
-		/// 色
-		/// </summary>
+		/// @brief 色
 		Float4 color;
 
-		void set(float x, float y, const Float4& _color) noexcept
-		{
-			pos.set(x, y);
-			color = _color;
-		}
+		constexpr void set(float x, float y, Float4 _color) noexcept;
 
-		void set(float x, float y, float u, float v) noexcept
-		{
-			pos.set(x, y);
-			tex.set(u, v);
-		}
+		constexpr void set(float x, float y, float u, float v) noexcept;
 
-		void set(float x, float y, float u, float v, const Float4& _color) noexcept
-		{
-			pos.set(x, y);
-			tex.set(u, v);
-			color = _color;
-		}
+		constexpr void set(float x, float y, float u, float v, Float4 _color) noexcept;
 
-		void set(const Float2& _pos, const Float4& _color) noexcept
-		{
-			pos = _pos;
-			color = _color;
-		}
+		constexpr void set(Float2 _pos, Float4 _color) noexcept;
 
-		void set(const Float2& _pos, float u, float v, const Float4& _color) noexcept
-		{
-			pos = _pos;
-			tex.set(u, v);
-			color = _color;
-		}
+		constexpr void set(Float2 _pos, float u, float v, Float4 _color) noexcept;
 
-		void set(const Float2& _pos, const Float2& _tex, const Float4& _color) noexcept
-		{
-			pos = _pos;
-			tex = _tex;
-			color = _color;
-		}
+		constexpr void set(Float2 _pos, Float2 _tex, Float4 _color) noexcept;
 	};
 }
+
+# include "detail/Vertex2D.ipp"

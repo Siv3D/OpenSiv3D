@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,21 +11,18 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
-# include "Optional.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
+# include "String.hpp"
 # include "HashTable.hpp"
-# include "MathConstants.hpp"
+# include "Optional.hpp"
+# include "PointVector.hpp"
+# include "ColorHSV.hpp"
 
 namespace s3d
 {
 	class MathParser
 	{
-	private:
-
-		class MathParserDetail;
-
-		std::shared_ptr<MathParserDetail> pImpl;
+	public:
 
 		using Fty0	= double(*)();
 		using Fty1	= double(*)(double);
@@ -39,93 +36,121 @@ namespace s3d
 		using Fty9	= double(*)(double, double, double, double, double, double, double, double, double);
 		using Fty10	= double(*)(double, double, double, double, double, double, double, double, double, double);
 
-	public:
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		MathParser();
 
-		explicit MathParser(const String& expression);
+		SIV3D_NODISCARD_CXX20
+		explicit MathParser(StringView expression);
 
-		[[nodiscard]] String getErrorMessage() const;
+		[[nodiscard]]
+		String getErrorMessage() const;
 
-		void setExpression(const String& expression);
+		void setExpression(StringView expression);
 
-		bool setConstant(const String& name, double value);
+		bool setConstant(StringView name, double value);
 
-		bool setVaribale(const String& name, double* value);
+		bool setVaribale(StringView name, double* value);
 
-		bool setFunction(const String& name, Fty0 f);
+		bool setFunction(StringView name, Fty0 f);
 
-		bool setFunction(const String& name, Fty1 f);
+		bool setFunction(StringView name, Fty1 f);
 
-		bool setFunction(const String& name, Fty2 f);
+		bool setFunction(StringView name, Fty2 f);
 
-		bool setFunction(const String& name, Fty3 f);
+		bool setFunction(StringView name, Fty3 f);
 
-		bool setFunction(const String& name, Fty4 f);
+		bool setFunction(StringView name, Fty4 f);
 
-		bool setFunction(const String& name, Fty5 f);
+		bool setFunction(StringView name, Fty5 f);
 
-		bool setFunction(const String& name, Fty6 f);
+		bool setFunction(StringView name, Fty6 f);
 
-		bool setFunction(const String& name, Fty7 f);
+		bool setFunction(StringView name, Fty7 f);
 
-		bool setFunction(const String& name, Fty8 f);
+		bool setFunction(StringView name, Fty8 f);
 
-		bool setFunction(const String& name, Fty9 f);
+		bool setFunction(StringView name, Fty9 f);
 
-		bool setFunction(const String& name, Fty10 f);
+		bool setFunction(StringView name, Fty10 f);
 
-		bool setPrefixOperator(const String& name, Fty1 f);
+		bool setPrefixOperator(StringView name, Fty1 f);
 
-		bool setPostfixOperator(const String& name, Fty1 f);
+		bool setPostfixOperator(StringView name, Fty1 f);
 
-		void removeVariable(const String& name);
+		void removeVariable(StringView name);
 
 		void clear();
 
-		[[nodiscard]] String getExpression() const;
+		[[nodiscard]]
+		String getExpression() const;
 
-		[[nodiscard]] HashTable<String, double*> getUsedVariables() const;
+		[[nodiscard]]
+		HashTable<String, double*> getUsedVariables() const;
 
-		[[nodiscard]] HashTable<String, double*> getVariables() const;
+		[[nodiscard]]
+		HashTable<String, double*> getVariables() const;
 
-		[[nodiscard]] HashTable<String, double> getConstants() const;
+		[[nodiscard]]
+		HashTable<String, double> getConstants() const;
 
 		// function, variable, constant
 		// "0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		[[nodiscard]] String validNameCharacters() const;
+		[[nodiscard]]
+		String validNameCharacters() const;
 
 		// prefix
 		// "/+-*^?<>=#!$%&|~'_"
-		[[nodiscard]] String validPrefixCharacters() const;
+		[[nodiscard]]
+		String validPrefixCharacters() const;
 
 		// postfix
 		// "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-*^/?<>=#!$%&|~'_"
-		[[nodiscard]] String validPostfixCharacters() const;
+		[[nodiscard]]
+		String validPostfixCharacters() const;
 
+		[[nodiscard]]
 		Optional<double> evalOpt() const;
 
-		double evalOr(double defaultValue = Math::Constants::NaN) const;
+		[[nodiscard]]
+		double evalOr(double defaultValue = Math::NaN) const;
 
+		[[nodiscard]]
 		double eval() const;
 
+		[[nodiscard]]
 		Array<double> evalArray() const;
 
+		[[nodiscard]]
 		Vec2 evalVec2() const;
 
+		[[nodiscard]]
 		Vec3 evalVec3() const;
 
+		[[nodiscard]]
 		Vec4 evalVec4() const;
 
+		[[nodiscard]]
 		ColorF evalColorF() const;
 
+		[[nodiscard]]
 		HSV evalHSV() const;
+
+	private:
+
+		class MathParserDetail;
+
+		std::shared_ptr<MathParserDetail> pImpl;
 	};
 
-	[[nodiscard]] double Eval(const String& expression);
+	/// @brief 数式を評価してその結果を返します。
+	/// @param expression 数式
+	/// @return 数式を評価した結果。エラーの場合は `Math::NaN`
+	[[nodiscard]]
+	double Eval(StringView expression);
 
-	[[nodiscard]] Optional<double> EvalOpt(const String& expression);
+	/// @brief 数式を評価してその結果を返します。
+	/// @param expression 数式
+	/// @return 数式を評価した結果。エラーの場合は none
+	[[nodiscard]]
+	Optional<double> EvalOpt(StringView expression);
 }

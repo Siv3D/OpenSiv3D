@@ -2,6 +2,10 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -10,13 +14,11 @@
 #define BOOST_GEOMETRY_EXTENSIONS_STRATEGIES_GEOGRAPHIC_DISTANCE_CROSS_TRACK_HPP
 
 
-#include <boost/concept_check.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_void.hpp>
+#include <type_traits>
 
+#include <boost/concept_check.hpp>
 
 #include <boost/geometry/strategies/spherical/distance_cross_track.hpp>
-
 
 
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
@@ -36,16 +38,16 @@ struct default_strategy<point_tag, segment_tag, Point, PointOfSegment, geographi
     typedef cross_track
         <
             void,
-            typename boost::mpl::if_
+            std::conditional_t
                 <
-                    boost::is_void<Strategy>,
+                    std::is_void<Strategy>::value,
                     typename default_strategy
                         <
                             point_tag, point_tag, Point, PointOfSegment,
                             geographic_tag, geographic_tag
                         >::type,
                     Strategy
-                >::type
+                >
         > type;
 };
 

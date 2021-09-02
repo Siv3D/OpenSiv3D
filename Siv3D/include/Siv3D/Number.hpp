@@ -2,113 +2,67 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <type_traits>
 # include <limits>
 # include <cmath>
+# include "Common.hpp"
+# include "Concepts.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 表現できる最大の数値
-	/// </summary>
+	/// @brief 表現できる最大の数値
+	/// @tparam Type 数値型
 	template <class Type>
 	constexpr Type Largest = std::numeric_limits<Type>::max();
 
-	/// <summary>
-	/// 表現できる最小の数値
-	/// </summary>
+	/// @brief 表現できる最小の数値
+	/// @tparam Type 数値型
 	template <class Type>
 	constexpr Type Smallest = std::numeric_limits<Type>::lowest();
 
-	/// <summary>
-	/// 正の無限大
-	/// </summary>
-	template <class FloatingPoint>
-	constexpr FloatingPoint Inf = std::numeric_limits<FloatingPoint>::infinity();
+	/// @brief 正の無限大
+	SIV3D_CONCEPT_FLOATING_POINT
+	constexpr Float Inf = std::numeric_limits<Float>::infinity();
 
-	/// <summary>
-	/// qNaN
-	/// </summary>
-	template <class FloatingPoint>
-	constexpr FloatingPoint QNaN = std::numeric_limits<FloatingPoint>::quiet_NaN();
+	/// @brief qNaN
+	SIV3D_CONCEPT_FLOATING_POINT
+	constexpr Float QNaN = std::numeric_limits<Float>::quiet_NaN();
 
-	/// <summary>
-	/// sNaN
-	/// </summary>
-	template <class FloatingPoint>
-	constexpr FloatingPoint SNaN = std::numeric_limits<FloatingPoint>::signaling_NaN();
-    
-    /// <summary>
-    /// 数値が非数 (NaN) であるかを示します。
-    /// </summary>
-    /// <param name="value">
-    /// 数値
-    /// </param>
-    /// <returns>
-    /// 数値が非数 (NaN) である場合 true, それ以外の場合は false
-    /// </returns>
-    template <class Type>
-	[[nodiscard]] inline bool IsNaN([[maybe_unused]] const Type value)
-    {
-		if constexpr (std::is_floating_point_v<Type>)
-		{
-			return std::isnan(value);
-		}
-		else
-		{
-			return false;
-		}
-    }
-    
-    /// <summary>
-    /// 数値が有限値であるかを示します。
-    /// </summary>
-    /// <param name="value">
-    /// 数値
-    /// </param>
-    /// <returns>
-    /// 数値が有限値である場合 true, それ以外の場合は false
-    /// </returns>
-    template <class Type>
-	[[nodiscard]] inline bool IsFinite([[maybe_unused]] const Type value)
-    {
-		if constexpr (std::is_floating_point_v<Type>)
-		{
-			return std::isfinite(value);
-		}
-		else
-		{
-			return true;
-		}
-    }
+	/// @brief sNaN
+	SIV3D_CONCEPT_FLOATING_POINT
+	constexpr Float SNaN = std::numeric_limits<Float>::signaling_NaN();
 
-    /// <summary>
-    /// 数値が無限であるかを示します。
-    /// </summary>
-    /// <param name="value">
-    /// 数値
-    /// </param>
-    /// <returns>
-    /// 数値が無限である場合 true, それ以外の場合は false
-    /// </returns>
-    template <class Type>
-	[[nodiscard]] inline bool IsInfinity([[maybe_unused]] const Type value)
-    {
-		if constexpr (std::is_floating_point_v<Type>)
-		{
-			return std::isinf(value);
-		}
-		else
-		{
-			return false;
-		}
-    }
+	/// @brief 数値が非数 (NaN) であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @remark 無限は非数ではありません。
+	/// @return 数値が非数 (NaN) である場合 true, それ以外の場合は false
+	template <class Type>
+	[[nodiscard]]
+	inline bool IsNaN(Type value) noexcept;
+
+	/// @brief 数値が有限値であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @return 数値が有限値である場合 true, それ以外の場合は false
+	template <class Type>
+	[[nodiscard]]
+	inline bool IsFinite(Type value) noexcept;
+
+	/// @brief 数値が無限であるかを示します。
+	/// @tparam Type 数値型
+	/// @param value 数値
+	/// @return 数値が無限である場合 true, それ以外の場合は false
+	template <class Type>
+	[[nodiscard]]
+	inline bool IsInfinity(Type value) noexcept;
 }
+
+# include "detail/Number.ipp"

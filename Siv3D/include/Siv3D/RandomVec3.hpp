@@ -2,61 +2,168 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
+# include "Common.hpp"
 # include "PointVector.hpp"
+# include "Sphere.hpp"
+# include "Box.hpp"
+# include "DiscreteDistribution.hpp"
 
 namespace s3d
 {
-	Vec3 RandomVec3onUnitSphere();
+	[[nodiscard]]
+	inline Vec3 RandomVec3();
 
-	Vec3 RandomVec3insideUnitSphere();
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(URBG&& urbg);
+	
+	[[nodiscard]]
+	inline Vec3 RandomVec3onUnitSphere();
 
-	Vec3 RandomVec3();
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3onUnitSphere(URBG&& urbg);
 
-	Vec3 RandomVec3(double length);
+	[[nodiscard]]
+	inline Vec3 RandomVec3insideUnitSphere();
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3insideUnitSphere(URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(double length);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(double length, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		double x,
 		double y,
 		const std::pair<double, double>& zMinMax);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		double x,
+		double y,
+		const std::pair<double, double>& zMinMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		double x,
 		const std::pair<double, double>& yMinMax,
 		double z);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		double x,
+		const std::pair<double, double>& yMinMax,
+		double z, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		double y,
 		double z);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		const std::pair<double, double>& xMinMax,
+		double y,
+		double z, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		double x,
 		const std::pair<double, double>& yMinMax,
 		const std::pair<double, double>& zMinMax);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		double x,
+		const std::pair<double, double>& yMinMax,
+		const std::pair<double, double>& zMinMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		double y,
 		const std::pair<double, double>& zMinMax);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		const std::pair<double, double>& xMinMax,
+		double y,
+		const std::pair<double, double>& zMinMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
 		double z);
 
-	Vec3 RandomVec3(
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		const std::pair<double, double>& xMinMax,
+		const std::pair<double, double>& yMinMax,
+		double z, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
 		const std::pair<double, double>& xMinMax,
 		const std::pair<double, double>& yMinMax,
 		const std::pair<double, double>& zMinMax);
 
-	Vec3 RandomVec3(double xMax, double yMax, double zMax);
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(
+		const std::pair<double, double>& xMinMax,
+		const std::pair<double, double>& yMinMax,
+		const std::pair<double, double>& zMinMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(double xMax, double yMax, double zMax);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(double xMax, double yMax, double zMax, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Box& box);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Box& box, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Sphere& sphere);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3(const Sphere& sphere, URBG&& urbg);
+
+	[[nodiscard]]
+	inline Vec3 RandomVec3on(const Sphere& sphere);
+
+	SIV3D_CONCEPT_URBG
+	[[nodiscard]]
+	inline Vec3 RandomVec3on(const Sphere& sphere, URBG&& urbg);
 }
+
+# include "detail/RandomVec3.ipp"

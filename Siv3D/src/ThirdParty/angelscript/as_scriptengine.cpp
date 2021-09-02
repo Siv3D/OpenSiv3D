@@ -1,6 +1,6 @@
 /*
    AngelCode Scripting Library
-   Copyright (c) 2003-2019 Andreas Jonsson
+   Copyright (c) 2003-2021 Andreas Jonsson
 
    This software is provided 'as-is', without any express or implied
    warranty. In no event will the authors be held liable for any
@@ -218,6 +218,9 @@ AS_API const char * asGetLibraryOptions()
 #endif
 #ifdef AS_SPARC
 		"AS_SPARC "
+#endif
+#ifdef AS_ARM64
+		"AS_ARM64 "
 #endif
 	;
 
@@ -919,15 +922,15 @@ asCModule *asCScriptEngine::FindNewOwnerForSharedType(asCTypeInfo *in_type, asCM
 		asCModule *mod = scriptModules[n];
 		if( mod == in_type->module ) continue;
 		if( in_type->flags & asOBJ_ENUM )
-			foundIdx = mod->enumTypes.IndexOf(CastToEnumType(in_type));
+			foundIdx = mod->m_enumTypes.IndexOf(CastToEnumType(in_type));
 		else if (in_type->flags & asOBJ_TYPEDEF)
-			foundIdx = mod->typeDefs.IndexOf(CastToTypedefType(in_type));
+			foundIdx = mod->m_typeDefs.IndexOf(CastToTypedefType(in_type));
 		else if (in_type->flags & asOBJ_FUNCDEF)
-			foundIdx = mod->funcDefs.IndexOf(CastToFuncdefType(in_type));
+			foundIdx = mod->m_funcDefs.IndexOf(CastToFuncdefType(in_type));
 		else if (in_type->flags & asOBJ_TEMPLATE)
-			foundIdx = mod->templateInstances.IndexOf(CastToObjectType(in_type));
+			foundIdx = mod->m_templateInstances.IndexOf(CastToObjectType(in_type));
 		else
-			foundIdx = mod->classTypes.IndexOf(CastToObjectType(in_type));
+			foundIdx = mod->m_classTypes.IndexOf(CastToObjectType(in_type));
 
 		if( foundIdx >= 0 )
 		{
@@ -948,13 +951,34 @@ asCModule *asCScriptEngine::FindNewOwnerForSharedFunc(asCScriptFunction *in_func
 	if( in_func->module != in_mod)
 		return in_func->module;
 
+	// Check if this is a class method or class factory for a type that has already been moved to a different module
+	if ((in_func->objectType && in_func->objectType->module && in_func->objectType->module != in_func->module) ||
+		(in_func->IsFactory() && in_func->returnType.GetTypeInfo()->module && in_func->returnType.GetTypeInfo()->module != in_func->module))
+	{
+		// The object type for the method has already been transferred to 
+		// another module, so transfer the method to the same module
+		if (in_func->objectType)
+			in_func->module = in_func->objectType->module;
+		else
+			in_func->module = in_func->returnType.GetTypeInfo()->module;
+
+		// Make sure the function is listed in the module
+		// The compiler may not have done this earlier, since the object
+		// type is shared and originally compiled from another module
+		if (in_func->module->m_scriptFunctions.IndexOf(in_func) < 0)
+		{
+			in_func->module->m_scriptFunctions.PushLast(in_func);
+			in_func->AddRefInternal();
+		}
+	}
+
 	for( asUINT n = 0; n < scriptModules.GetLength(); n++ )
 	{
 		// TODO: optimize: If the modules already stored the shared types separately, this would be quicker
 		int foundIdx = -1;
 		asCModule *mod = scriptModules[n];
 		if( mod == in_func->module ) continue;
-		foundIdx = mod->scriptFunctions.IndexOf(in_func);
+		foundIdx = mod->m_scriptFunctions.IndexOf(in_func);
 
 		if( foundIdx >= 0 )
 		{
@@ -1350,7 +1374,9 @@ int asCScriptEngine::GetFactoryIdByDecl(const asCObjectType *ot, const char *dec
 	for( asUINT n = 0; n < ot->beh.factories.GetLength(); n++ )
 	{
 		asCScriptFunction *f = scriptFunctions[ot->beh.factories[n]];
-		if( f->IsSignatureEqual(&func) )
+
+		// We don't really care if the name of the function is correct
+		if( f->IsSignatureExceptNameEqual(&func) )
 		{
 			id = ot->beh.factories[n];
 			break;
@@ -1495,7 +1521,9 @@ int asCScriptEngine::RegisterObjectProperty(const char *obj, const char *declara
 	prop->isCompositeIndirect = isCompositeIndirect;
 	prop->accessMask          = defaultAccessMask;
 
-	CastToObjectType(dt.GetTypeInfo())->properties.PushLast(prop);
+	asCObjectType *ot = CastToObjectType(dt.GetTypeInfo());
+	asUINT idx = ot->properties.GetLength();
+	ot->properties.PushLast(prop);
 
 	// Add references to types so they are not released too early
 	if( type.GetTypeInfo() )
@@ -1509,7 +1537,8 @@ int asCScriptEngine::RegisterObjectProperty(const char *obj, const char *declara
 
 	currentGroup->AddReferencesForType(this, type.GetTypeInfo());
 
-	return asSUCCESS;
+	// Return the index of the property to signal success
+	return idx;
 }
 
 // interface
@@ -2111,6 +2140,8 @@ int asCScriptEngine::RegisterBehaviourToObjectType(asCObjectType *objectType, as
 	}
 	else if( behaviour == asBEHAVE_LIST_CONSTRUCT )
 	{
+		func.name = "$list";
+		
 		// Verify that the return type is void
 		if( func.returnType != asCDataType::CreatePrimitive(ttVoid, false) )
 		{
@@ -2131,7 +2162,9 @@ int asCScriptEngine::RegisterBehaviourToObjectType(asCObjectType *objectType, as
 		}
 
 		// Verify the parameters
-		if( func.parameterTypes.GetLength() != 1 || !func.parameterTypes[0].IsReference() )
+		// The templates take a hidden parameter with the object type
+		if( (!(objectType->flags & asOBJ_TEMPLATE) && (func.parameterTypes.GetLength() != 1 || !func.parameterTypes[0].IsReference())) || 
+			((objectType->flags & asOBJ_TEMPLATE) && (func.parameterTypes.GetLength() != 2 || !func.parameterTypes[0].IsReference() || !func.parameterTypes[1].IsReference())) )
 		{
 			if( listPattern )
 				listPattern->Destroy(this);
@@ -2166,6 +2199,9 @@ int asCScriptEngine::RegisterBehaviourToObjectType(asCObjectType *objectType, as
 	}
 	else if( behaviour == asBEHAVE_FACTORY || behaviour == asBEHAVE_LIST_FACTORY )
 	{
+		if( behaviour == asBEHAVE_LIST_FACTORY )
+			func.name = "$list";
+		
 		// Must be a ref type and must not have asOBJ_NOHANDLE
 		if( !(objectType->flags & asOBJ_REF) || (objectType->flags & asOBJ_NOHANDLE) )
 		{
@@ -2565,13 +2601,14 @@ int asCScriptEngine::RegisterGlobalProperty(const char *declaration, void *point
 	prop->SetRegisteredAddress(pointer);
 	varAddressMap.Insert(prop->GetAddressOfValue(), prop);
 
-	registeredGlobalProps.Put(prop);
+	asUINT idx = registeredGlobalProps.Put(prop);
 	prop->AddRef();
 	currentGroup->globalProps.PushLast(prop);
 
 	currentGroup->AddReferencesForType(this, type.GetTypeInfo());
 
-	return asSUCCESS;
+	// Return the index of the property to signal success
+	return int(idx);
 }
 
 // internal
@@ -2650,10 +2687,13 @@ int asCScriptEngine::GetGlobalPropertyByIndex(asUINT index, const char **name, c
 }
 
 // interface
-int asCScriptEngine::GetGlobalPropertyIndexByName(const char *name) const
+int asCScriptEngine::GetGlobalPropertyIndexByName(const char *in_name) const
 {
-	asSNameSpace *ns = defaultNamespace;
-
+	asCString name;
+	asSNameSpace *ns = 0;
+	if( DetermineNameAndNamespace(in_name, defaultNamespace, name, ns) < 0 )
+		return asINVALID_ARG;
+			
 	// Find the global var id
 	while( ns )
 	{
@@ -3254,13 +3294,13 @@ asCModule *asCScriptEngine::GetModule(const char *name, bool create)
 	asCModule *retModule = 0;
 
 	ACQUIRESHARED(engineRWLock);
-	if( lastModule && lastModule->name == name )
+	if( lastModule && lastModule->m_name == name )
 		retModule = lastModule;
 	else
 	{
 		// TODO: optimize: Improve linear search
 		for( asUINT n = 0; n < scriptModules.GetLength(); ++n )
-			if( scriptModules[n] && scriptModules[n]->name == name )
+			if( scriptModules[n] && scriptModules[n]->m_name == name )
 			{
 				retModule = scriptModules[n];
 				break;
@@ -3376,9 +3416,9 @@ asCObjectType *asCScriptEngine::GetTemplateInstanceType(asCObjectType *templateT
 					// It may be without ownership if it was previously created from application with for example GetTypeInfoByDecl
 					type->module = requestingModule;
 				}
-				if( !requestingModule->templateInstances.Exists(type) )
+				if( !requestingModule->m_templateInstances.Exists(type) )
 				{
-					requestingModule->templateInstances.PushLast(type);
+					requestingModule->m_templateInstances.PushLast(type);
 					type->AddRefInternal();
 				}
 			}
@@ -3418,7 +3458,7 @@ asCObjectType *asCScriptEngine::GetTemplateInstanceType(asCObjectType *templateT
 	{
 		// Set the ownership of this template type
 		ot->module = requestingModule;
-		requestingModule->templateInstances.PushLast(ot);
+		requestingModule->m_templateInstances.PushLast(ot);
 		ot->AddRefInternal();
 	}
 	else
@@ -3434,7 +3474,7 @@ asCObjectType *asCScriptEngine::GetTemplateInstanceType(asCObjectType *templateT
 				ot->module = subTypes[n].GetTypeInfo()->module;
 				if( ot->module )
 				{
-					ot->module->templateInstances.PushLast(ot);
+					ot->module->m_templateInstances.PushLast(ot);
 					ot->AddRefInternal();
 					break;
 				}
@@ -3458,7 +3498,7 @@ asCObjectType *asCScriptEngine::GetTemplateInstanceType(asCObjectType *templateT
 				ot->templateSubTypes.SetLength(0);
 				if( ot->module )
 				{
-					ot->module->templateInstances.RemoveValue(ot);
+					ot->module->m_templateInstances.RemoveValue(ot);
 					ot->ReleaseInternal();
 				}
 				ot->ReleaseInternal();
@@ -4928,7 +4968,8 @@ int asCScriptEngine::RefCastObject(void *obj, asITypeInfo *fromType, asITypeInfo
 
 	// Look for ref cast behaviours
 	asCScriptFunction *universalCastFunc = 0;
-	asCObjectType *from = reinterpret_cast<asCObjectType*>(fromType);
+	asCObjectType *from = CastToObjectType(reinterpret_cast< asCTypeInfo*>(fromType));
+	if( from == 0 ) return asINVALID_ARG;
 	for( asUINT n = 0; n < from->methods.GetLength(); n++ )
 	{
 		asCScriptFunction *func = scriptFunctions[from->methods[n]];
@@ -5012,7 +5053,8 @@ void *asCScriptEngine::CreateScriptObject(const asITypeInfo *type)
 {
 	if( type == 0 ) return 0;
 
-	asCObjectType *objType = const_cast<asCObjectType*>(reinterpret_cast<const asCObjectType *>(type));
+	asCObjectType *objType = CastToObjectType(const_cast<asCTypeInfo*>(reinterpret_cast<const asCTypeInfo*>(type)));
+	if (objType == 0) return 0;
 	void *ptr = 0;
 
 	// Check that there is a default factory for ref types
@@ -5211,7 +5253,9 @@ void *asCScriptEngine::CreateUninitializedScriptObject(const asITypeInfo *type)
 	if( type == 0 || !(type->GetFlags() & asOBJ_SCRIPT_OBJECT) )
 		return 0;
 
-	asCObjectType *objType = const_cast<asCObjectType*>(reinterpret_cast<const asCObjectType*>(type));
+	asCObjectType *objType = CastToObjectType(const_cast<asCTypeInfo*>(reinterpret_cast<const asCTypeInfo*>(type)));
+	if (objType == 0)
+		return 0;
 
 	// Construct the object, but do not call the actual constructor that initializes the members
 	// The initialization will be done by the application afterwards, e.g. through serialization.
@@ -5228,9 +5272,11 @@ void *asCScriptEngine::CreateScriptObjectCopy(void *origObj, const asITypeInfo *
 {
 	if( origObj == 0 || type == 0 ) return 0;
 
+	const asCObjectType* ot = CastToObjectType(const_cast<asCTypeInfo*>(reinterpret_cast<const asCTypeInfo*>(type)));
+	if (ot == 0) return 0;
+
 	void *newObj = 0;
 
-	const asCObjectType *ot = reinterpret_cast<const asCObjectType*>(type);
 	if ((ot->flags & asOBJ_SCRIPT_OBJECT) && ot->beh.copyfactory)
 	{
 		// Call the script class' default factory with a context
@@ -5254,7 +5300,7 @@ void *asCScriptEngine::CreateScriptObjectCopy(void *origObj, const asITypeInfo *
 		}
 #endif
 	}
-	else if( ot->beh.copyconstruct )
+	else if(ot->beh.copyconstruct )
 	{
 		// Manually allocate the memory, then call the copy constructor
 		newObj = CallAlloc(ot);
@@ -5319,7 +5365,8 @@ int asCScriptEngine::AssignScriptObject(void *dstObj, void *srcObj, const asITyp
 	// TODO: Warn about invalid call in message stream (make it optional)
 	if( type == 0 || dstObj == 0 || srcObj == 0 ) return asINVALID_ARG;
 
-	const asCObjectType *objType = reinterpret_cast<const asCObjectType*>(type);
+	const asCObjectType *objType = CastToObjectType(const_cast<asCTypeInfo*>(reinterpret_cast<const asCTypeInfo*>(type)));
+	if (objType == 0) return asINVALID_ARG;
 
 	// If value assign for ref types has been disabled, then don't do anything if the type is a ref type
 	if (ep.disallowValueAssignForRefType && (objType->flags & asOBJ_REF) && !(objType->flags & asOBJ_SCOPED))
@@ -5357,7 +5404,7 @@ void asCScriptEngine::AddRefScriptObject(void *obj, const asITypeInfo *type)
 	// Make sure it is not a null pointer
 	if( obj == 0 || type == 0 ) return;
 
-	const asCTypeInfo *ti = static_cast<const asCTypeInfo*>(type);
+	const asCTypeInfo *ti = reinterpret_cast<const asCTypeInfo*>(type);
 	if (ti->flags & asOBJ_FUNCDEF)
 	{
 		CallObjectMethod(obj, functionBehaviours.beh.addref);
@@ -5379,7 +5426,7 @@ void asCScriptEngine::ReleaseScriptObject(void *obj, const asITypeInfo *type)
 	// Make sure it is not a null pointer
 	if( obj == 0 || type == 0 ) return;
 
-	const asCTypeInfo *ti = static_cast<const asCTypeInfo*>(type);
+	const asCTypeInfo *ti = reinterpret_cast<const asCTypeInfo*>(type);
 	if (ti->flags & asOBJ_FUNCDEF)
 	{
 		CallObjectMethod(obj, functionBehaviours.beh.release);
@@ -5778,7 +5825,7 @@ asCFuncdefType *asCScriptEngine::FindMatchingFuncdef(asCScriptFunction *func, as
 			// Add the new funcdef to the module so it will
 			// be available when saving the bytecode
 			funcDef->module = module;
-			module->funcDefs.PushLast(funcDef); // the refCount was already accounted for in the constructor
+			module->AddFuncDef(funcDef); // the refCount was already accounted for in the constructor
 		}
 
 		// Observe, if the funcdef is created without informing a module a reference will be stored in the
@@ -5790,9 +5837,9 @@ asCFuncdefType *asCScriptEngine::FindMatchingFuncdef(asCScriptFunction *func, as
 	{
 		// Unless this is a registered funcDef the returned funcDef must
 		// be stored as part of the module for saving/loading bytecode
-		if (!module->funcDefs.Exists(funcDef))
+		if (!module->m_funcDefs.Exists(funcDef))
 		{
-			module->funcDefs.PushLast(funcDef);
+			module->AddFuncDef(funcDef);
 			funcDef->AddRefInternal();
 		}
 		else
@@ -6026,9 +6073,13 @@ asITypeInfo *asCScriptEngine::GetObjectTypeByIndex(asUINT index) const
 }
 
 // interface
-asITypeInfo *asCScriptEngine::GetTypeInfoByName(const char *name) const
+asITypeInfo *asCScriptEngine::GetTypeInfoByName(const char *in_name) const
 {
-	asSNameSpace *ns = defaultNamespace;
+	asCString name;
+	asSNameSpace *ns = 0;
+	if( DetermineNameAndNamespace(in_name, defaultNamespace, name, ns) < 0 )
+		return 0;
+			
 	while (ns)
 	{
 		// Check the object types
@@ -6070,6 +6121,49 @@ asITypeInfo *asCScriptEngine::GetTypeInfoByName(const char *name) const
 
 	return 0;
 }
+
+// internal
+int asCScriptEngine::DetermineNameAndNamespace(const char *in_name, asSNameSpace *implicitNs, asCString &out_name, asSNameSpace *&out_ns) const
+{
+	if( in_name == 0 )
+		return asINVALID_ARG;
+	
+	asCString name = in_name;
+	asCString scope;
+	asSNameSpace *ns = implicitNs;
+	
+	// Check if the given name contains a scope
+	int pos = name.FindLast("::");
+	if( pos >= 0 )
+	{
+		scope = name.SubString(0, pos);
+		name = name.SubString(pos+2);
+		if( pos == 0 )
+		{
+			// The scope is '::' so the search must start in the global namespace
+			ns = nameSpaces[0];
+		}
+		else if( scope.SubString(0, 2) == "::" )
+		{
+			// The scope starts with '::' so the given scope is fully qualified
+			ns = FindNameSpace(scope.SubString(2).AddressOf());
+		}
+		else
+		{
+			// The scope doesn't start with '::' so it is relative to the current namespace
+			if( implicitNs->name == "" )
+				ns = FindNameSpace(scope.AddressOf());
+			else
+				ns = FindNameSpace((implicitNs->name + "::" + scope).AddressOf());
+		}
+	}
+	
+	out_name = name;
+	out_ns = ns;
+	
+	return 0;
+}
+
 
 // interface
 asITypeInfo *asCScriptEngine::GetTypeInfoById(int typeId) const

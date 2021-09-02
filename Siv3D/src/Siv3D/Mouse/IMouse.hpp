@@ -1,24 +1,22 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
-# include <Siv3D/Fwd.hpp>
-# include <Key/InputState.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/InputGroups.hpp>
 
 namespace s3d
 {
-	constexpr uint32 MouseButtonCount = 8;
-
-	class ISiv3DMouse
+	class SIV3D_NOVTABLE ISiv3DMouse
 	{
 	public:
 
@@ -38,10 +36,12 @@ namespace s3d
 
 		virtual Duration pressedDuration(uint32 index) const = 0;
 
-		virtual const Vec2& wheel() const = 0;
-		
-		virtual void onScroll(double v, double h) = 0;
-		
+		virtual const Array<Input>& getAllInput() const noexcept = 0;
+
+		virtual const Vec2& wheel() const noexcept = 0;
+
 		virtual void onMouseButtonUpdated(int32 index, bool pressed) = 0;
+
+		virtual void onScroll(double x, double y) = 0;
 	};
 }

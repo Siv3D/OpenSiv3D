@@ -2,32 +2,32 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TextWriter.hpp>
-# include "TextWriterDetail.hpp"
+# include <Siv3D/TextWriter/TextWriterDetail.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
 		TextWriterBuffer::TextWriterBuffer(TextWriter& writer)
-			: m_writer(writer)
-			, m_isLast(true)
-			, formatData(std::make_unique<FormatData>())
+			: formatData{ std::make_unique<FormatData>() }
+			, m_writer{ writer }
+			, m_isLast{ true }
 		{
-		
+			// do nothing
 		}
 
-		TextWriterBuffer::TextWriterBuffer(TextWriterBuffer&& other)
-			: m_writer(other.m_writer)
-			, m_isLast(true)
-			, formatData(std::move(other.formatData))
+		TextWriterBuffer::TextWriterBuffer(TextWriterBuffer&& other) noexcept
+			: formatData{ std::move(other.formatData) }
+			, m_writer{ other.m_writer }
+			, m_isLast{ true }
 		{
 			other.m_isLast = false;
 		}
@@ -42,24 +42,19 @@ namespace s3d
 	}
 
 	TextWriter::TextWriter()
-		: pImpl(std::make_shared<TextWriterDetail>())
+		: pImpl{ std::make_shared<TextWriterDetail>() }
 	{
-
-	}
-
-	TextWriter::~TextWriter()
-	{
-
+		// do nothing
 	}
 
 	TextWriter::TextWriter(const FilePathView path, const TextEncoding encoding)
-		: TextWriter()
+		: TextWriter{}
 	{
 		open(path, OpenMode::Trunc, encoding);
 	}
 
 	TextWriter::TextWriter(const FilePathView path, const OpenMode openMode, const TextEncoding encoding)
-		: TextWriter()
+		: TextWriter{}
 	{
 		open(path, openMode, encoding);
 	}
@@ -79,7 +74,7 @@ namespace s3d
 		pImpl->close();
 	}
 
-	bool TextWriter::isOpen() const
+	bool TextWriter::isOpen() const noexcept
 	{
 		return pImpl->isOpen();
 	}
@@ -89,52 +84,36 @@ namespace s3d
 		pImpl->clear();
 	}
 
-	void TextWriter::write(const StringView view)
+	void TextWriter::write(const StringView s)
 	{
-		pImpl->write(view);
+		pImpl->write(s);
 	}
 
-	void TextWriter::writeln(const StringView view)
+	void TextWriter::writeln(const StringView s)
 	{
-		pImpl->write(view);
+		pImpl->write(s);
 
 		pImpl->writeNewLine();
 	}
 
-	void TextWriter::writeln(const char32 ch)
+	void TextWriter::writeUTF8(const std::string_view s)
 	{
-		pImpl->write(StringView(&ch, 1));
+		pImpl->writeUTF8(s);
+	}
+
+	void TextWriter::writelnUTF8(const std::string_view s)
+	{
+		pImpl->writeUTF8(s);
 
 		pImpl->writeNewLine();
 	}
 
-	void TextWriter::writeln(const String& str)
+	TextEncoding TextWriter::encoding() const noexcept
 	{
-		pImpl->write(str);
-
-		pImpl->writeNewLine();
+		return pImpl->encoding();
 	}
 
-	void TextWriter::writeln(const char32* const str)
-	{
-		pImpl->write(str);
-
-		pImpl->writeNewLine();
-	}
-
-	void TextWriter::writeUTF8(const std::string_view view)
-	{
-		pImpl->writeUTF8(view);
-	}
-
-	void TextWriter::writelnUTF8(const std::string_view view)
-	{
-		pImpl->writeUTF8(view);
-
-		pImpl->writeNewLine();
-	}
-
-	const FilePath& TextWriter::path() const
+	const FilePath& TextWriter::path() const noexcept
 	{
 		return pImpl->path();
 	}

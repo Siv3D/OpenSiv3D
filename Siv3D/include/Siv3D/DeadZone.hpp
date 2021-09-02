@@ -2,94 +2,53 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// デッドゾーンの計算方式
-	/// </summary>
-	enum class DeadZoneType
+	/// @brief デッドゾーンの計算方式
+	enum class DeadZoneType : uint8
 	{
-		/// <summary>
-		/// デッドゾーンなし
-		/// </summary>
-		None,
+		/// @brief デッドゾーンなし
+		None_,
 
-		/// <summary>
-		/// 軸独立
-		/// </summary>
+		/// @brief 軸独立
 		Independent,
 
-		/// <summary>
-		/// 円形
-		/// </summary>
+		/// @brief 円形
 		Circular
 	};
 
-	/// <summary>
-	/// デッドゾーンの定義
-	/// </summary>
+	/// @brief デッドゾーンの設定
 	struct DeadZone
 	{
-		/// <summary>
-		/// デッドゾーンの大きさ
-		/// </summary>
+		/// @brief デッドゾーンの大きさ
 		double size = 0.0;
 
-		/// <summary>
-		/// 飽和地点
-		/// </summary>
+		/// @brief 飽和地点
 		double maxValue = 1.0;
 
-		/// <summary>
-		/// デッドゾーンの計算方式
-		/// </summary>
-		DeadZoneType type = DeadZoneType::None;
+		/// @brief デッドゾーンの計算方式
+		DeadZoneType type = DeadZoneType::None_;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		constexpr DeadZone() = default;
+		[[nodiscard]]
+		constexpr double operator ()(double value) const noexcept;
 
-		/// <summary>
-		/// デッドゾーンを定義します。
-		/// </summary>
-		/// <param name="_size">
-		/// デッドゾーンの大きさ
-		/// </param>
-		/// <param name="_maxValue">
-		/// 飽和地点
-		/// </param>
-		/// <param name="_type">
-		/// デッドゾーンの計算方式
-		/// </param>
-		constexpr DeadZone(double _size, double _maxValue, DeadZoneType _type)
-			: size(_size)
-			, maxValue(_maxValue)
-			, type(_type) {}
+		[[nodiscard]]
+		Vec2 operator ()(double x, double y) const noexcept;
 
-		/// <summary>
-		/// デッドゾーン無し
-		/// </summary>
-		/// <remarks>
-		/// { 0.0, 1.0, DeadZoneType::None }
-		/// </remarks>
-		[[nodiscard]] static constexpr DeadZone Disabled()
-		{
-			return DeadZone{ 0.0, 1.0, DeadZoneType::None };
-		}
-
-		[[nodiscard]] double apply(double value) const;
-
-		void apply(double& x, double& y) const;
+		[[nodiscard]]
+		Vec2 operator ()(Vec2 value) const noexcept;
 	};
 }
+
+# include "detail/DeadZone.ipp"

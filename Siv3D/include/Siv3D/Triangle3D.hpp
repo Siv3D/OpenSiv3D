@@ -2,15 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
 # include "SIMD_Float4.hpp"
 
@@ -18,134 +18,118 @@ namespace s3d
 {
 	struct Triangle3D
 	{
-		Vec3 p0, p1, p2;
+		SIMD_Float4 p0;
 
+		SIMD_Float4 p1;
+
+		SIMD_Float4 p2;
+
+
+		SIV3D_NODISCARD_CXX20
 		Triangle3D() = default;
 
-		Triangle3D(const Triangle3D&) = default;
+		SIV3D_NODISCARD_CXX20
+		Triangle3D(SIMD_Float4 _p0, SIMD_Float4 _p1, SIMD_Float4 _p2) noexcept;
 
-		Triangle3D& operator=(const Triangle3D&) = default;
-
-		Triangle3D(Triangle3D&&) = default;
-
-		Triangle3D& operator=(Triangle3D&&) = default;
-
-		constexpr Triangle3D(const Vec3& _p0, const Vec3& _p1, const Vec3& _p2) noexcept
-			: p0(_p0)
-			, p1(_p1)
-			, p2(_p2) {}
-
-		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
-
-		void drawFrame(const Mat4x4& vp, const ColorF& color = Palette::White) const;
-
-		void drawFrame(const Mat4x4& vp, double thickness, const ColorF& color = Palette::White) const;
-	};
+		SIV3D_NODISCARD_CXX20
+		Triangle3D(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept;
 
 
-	struct alignas(16) SIMD_Triangle3D
-	{
-		SIMD_Float4 vec[3];
+		[[nodiscard]]
+		friend bool SIV3D_VECTOR_CALL operator ==(const Triangle3D& lhs, const Triangle3D& rhs) noexcept
+		{
+			return (lhs.p0 == rhs.p0)
+				&& (lhs.p1 == rhs.p1)
+				&& (lhs.p2 == rhs.p2);
+		}
 
-		SIMD_Triangle3D() = default;
+		[[nodiscard]]
+		friend bool SIV3D_VECTOR_CALL operator !=(const Triangle3D& lhs, const Triangle3D& rhs) noexcept
+		{
+			return (lhs.p0 != rhs.p0)
+				|| (lhs.p1 != rhs.p1)
+				|| (lhs.p2 != rhs.p2);
+		}
 
-		SIMD_Triangle3D(const SIMD_Triangle3D&) = default;
 
-		SIMD_Triangle3D& operator=(const SIMD_Triangle3D&) = default;
+		Triangle3D& SIV3D_VECTOR_CALL set(float x0, float y0, float z0, float x1, float y1, float z1, float x2, float y2, float zy2) noexcept;
 
-		SIMD_Triangle3D(SIMD_Triangle3D&&) = default;
+		Triangle3D& SIV3D_VECTOR_CALL set(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept;
 
-		SIMD_Triangle3D& operator=(SIMD_Triangle3D&&) = default;
+		Triangle3D& SIV3D_VECTOR_CALL set(SIMD_Float4 _p0, SIMD_Float4 _p1, SIMD_Float4 _p2) noexcept;
 
-		constexpr SIMD_Triangle3D(SIMD_Float4 _p0, SIMD_Float4 _p1, SIMD_Float4 _p2) noexcept
-			: vec{ _p0, _p1, _p2 } {}
+		Triangle3D& SIV3D_VECTOR_CALL set(const Triangle3D& triangle) noexcept;
 
-		SIMD_Triangle3D(const Float3& _p0, const Float3& _p1, const Float3& _p2) noexcept
-			: vec{ { _p0, 0.0f }, { _p1, 0.0f }, { _p2, 0.0f } } {}
 
-		void draw(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+		[[nodiscard]]
+		Triangle3D SIV3D_VECTOR_CALL movedBy(float x, float y, float z) const noexcept;
 
-		void drawFrame(const Mat4x4& vp, const ColorF& color = Palette::White) const;
+		[[nodiscard]]
+		Triangle3D SIV3D_VECTOR_CALL movedBy(Float3 v) const noexcept;
 
-		void drawFrame(const Mat4x4& vp, double thickness = 1.0, const ColorF& color = Palette::White) const;
+		Triangle3D& SIV3D_VECTOR_CALL moveBy(float x, float y, float z) noexcept;
+
+		Triangle3D& SIV3D_VECTOR_CALL moveBy(Float3 v) noexcept;
+
+
+		[[nodiscard]]
+		Triangle3D SIV3D_VECTOR_CALL lerp(const Triangle3D& other, double f) const noexcept;
+
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle3D& value)
+		{
+			return output << CharType('(')
+				<< value.p0.xyz() << CharType(',') << CharType(' ')
+				<< value.p1.xyz() << CharType(',') << CharType(' ')
+				<< value.p2.xyz() << CharType(')');
+		}
+
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Triangle3D& value)
+		{
+			Float3 p0, p1, p2;
+			CharType unused;
+			input >> unused
+				>> p0 >> unused
+				>> p1 >> unused
+				>> p2 >> unused;
+
+			value.p0 = p0;
+			value.p1 = p1;
+			value.p2 = p2;
+
+			return input;
+		}
+
+		friend void Formatter(FormatData& formatData, const Triangle3D& value);
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/Triangle3D.ipp"
 
-namespace s3d
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::Triangle3D, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Triangle3D& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle3D& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output << CharType('(')
-			<< value.p0 << CharType(',') << CharType(' ')
-			<< value.p1 << CharType(',') << CharType(' ')
-			<< value.p2 << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Triangle3D& value)
+	template <class FormatContext>
+	auto format(const s3d::Triangle3D& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input >> unused
-			>> value.p0 >> unused
-			>> value.p1 >> unused
-			>> value.p2 >> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.p0.xyz(), value.p1.xyz(), value.p2.xyz());
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.p0.xyz(), value.p1.xyz(), value.p2.xyz());
+		}
 	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <>
-	struct hash<s3d::Triangle3D>
-	{
-		[[nodiscard]] size_t operator ()(const s3d::Triangle3D& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::Triangle3D, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Triangle3D& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.p0, value.p1, value.p2);
-		}
-	};
-}
+};

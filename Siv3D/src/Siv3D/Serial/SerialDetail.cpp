@@ -2,29 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <serial/serial.h>
 # include "SerialDetail.hpp"
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
-	Serial::SerialDetail::SerialDetail()
-	{
-
-	}
-
-	Serial::SerialDetail::SerialDetail(const String& port, const int32 baudrate)
-	{
-		open(port, baudrate);
-	}
-
-	bool Serial::SerialDetail::open(const String& port, int32 baudrate)
+	bool Serial::SerialDetail::open(const StringView port, const int32 baudrate,
+		const ByteSize byteSize, const Parity parity, const StopBits stopBits, const FlowControl flowControl)
 	{
 		if (isOpen())
 		{
@@ -33,12 +25,17 @@ namespace s3d
 
 		m_serial.setPort(port.narrow());
 		m_serial.setBaudrate(static_cast<uint32>(baudrate));
+		m_serial.setBytesize(static_cast<serial::bytesize_t>(FromEnum(byteSize)));
+		m_serial.setParity(static_cast<serial::parity_t>(FromEnum(parity)));
+		m_serial.setStopbits(static_cast<serial::stopbits_t>(FromEnum(stopBits)));
+		m_serial.setFlowcontrol(static_cast<serial::flowcontrol_t>(FromEnum(flowControl)));
 		try
 		{
 			m_serial.open();
 		}
-		catch(const serial::IOException&)
+		catch (const serial::IOException& e)
 		{
+			LOG_FAIL(U"❌ Failed to open Serial `{0}`. {1}"_fmt(port, Unicode::Widen(e.what())));
 			return false;
 		}
 
@@ -64,7 +61,7 @@ namespace s3d
 
 	bool Serial::SerialDetail::isOpen()
 	{
-		if (!m_serial.isOpen())
+		if (not m_serial.isOpen())
 		{
 			return false;
 		}
@@ -106,7 +103,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clearInput()
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return;
 		}
@@ -116,7 +113,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clearOutput()
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return;
 		}
@@ -126,7 +123,7 @@ namespace s3d
 
 	void Serial::SerialDetail::clear()
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return;
 		}
@@ -136,7 +133,7 @@ namespace s3d
 
 	size_t Serial::SerialDetail::read(void* dst, const size_t size)
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return 0;
 		}
@@ -154,7 +151,7 @@ namespace s3d
 
 	size_t Serial::SerialDetail::write(const void* src, const size_t size)
 	{
-		if (!isOpen())
+		if (not isOpen())
 		{
 			return 0;
 		}
@@ -168,5 +165,82 @@ namespace s3d
 			close();
 			return 0;
 		}
+	}
+
+	void Serial::SerialDetail::setRTS(const bool level)
+	{
+		if (not isOpen())
+		{
+			return;
+		}
+
+		m_serial.setRTS(level);
+	}
+
+	void Serial::SerialDetail::setDTR(const bool level)
+	{
+		if (not isOpen())
+		{
+			return;
+		}
+
+		m_serial.setDTR(level);
+	}
+
+	bool Serial::SerialDetail::waitForChange()
+	{
+		if (not isOpen())
+		{
+			return false;
+		}
+
+		try
+		{
+			return m_serial.waitForChange();
+		}
+		catch (const serial::SerialException&)
+		{
+			return false;
+		}
+	}
+
+	bool Serial::SerialDetail::getCTS()
+	{
+		if (not isOpen())
+		{
+			return false;
+		}
+
+		return m_serial.getCTS();
+	}
+
+	bool Serial::SerialDetail::getDSR()
+	{
+		if (not isOpen())
+		{
+			return false;
+		}
+
+		return m_serial.getDSR();
+	}
+
+	bool Serial::SerialDetail::getRI()
+	{
+		if (not isOpen())
+		{
+			return false;
+		}
+
+		return m_serial.getRI();
+	}
+
+	bool Serial::SerialDetail::getCD()
+	{
+		if (not isOpen())
+		{
+			return false;
+		}
+
+		return m_serial.getCD();
 	}
 }

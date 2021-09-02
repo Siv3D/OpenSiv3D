@@ -2,29 +2,26 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/MathParser.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/Color.hpp>
-# include <Siv3D/HSV.hpp>
 # include "MathParserDetail.hpp"
 
 namespace s3d
 {
 	MathParser::MathParser()
-		: pImpl(std::make_shared<MathParserDetail>())
+		: pImpl{ std::make_shared<MathParserDetail>() }
 	{
 
 	}
 
-	MathParser::MathParser(const String& expression)
-		: MathParser()
+	MathParser::MathParser(const StringView expression)
+		: MathParser{}
 	{
 		setExpression(expression);
 	}
@@ -34,87 +31,87 @@ namespace s3d
 		return pImpl->getErrorMessage();
 	}
 
-	void MathParser::setExpression(const String& expression)
+	void MathParser::setExpression(const StringView expression)
 	{
 		pImpl->setExpression(expression);
 	}
 
-	bool MathParser::setConstant(const String& name, const double value)
+	bool MathParser::setConstant(const StringView name, const double value)
 	{
 		return pImpl->setConstant(name, value);
 	}
 
-	bool MathParser::setVaribale(const String& name, double* value)
+	bool MathParser::setVaribale(const StringView name, double* value)
 	{
 		return pImpl->setVaribale(name, value);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty0 f)
+	bool MathParser::setFunction(const StringView name, Fty0 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty1 f)
+	bool MathParser::setFunction(const StringView name, Fty1 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty2 f)
+	bool MathParser::setFunction(const StringView name, Fty2 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty3 f)
+	bool MathParser::setFunction(const StringView name, Fty3 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty4 f)
+	bool MathParser::setFunction(const StringView name, Fty4 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty5 f)
+	bool MathParser::setFunction(const StringView name, Fty5 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty6 f)
+	bool MathParser::setFunction(const StringView name, Fty6 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty7 f)
+	bool MathParser::setFunction(const StringView name, Fty7 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty8 f)
+	bool MathParser::setFunction(const StringView name, Fty8 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty9 f)
+	bool MathParser::setFunction(const StringView name, Fty9 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setFunction(const String& name, Fty10 f)
+	bool MathParser::setFunction(const StringView name, Fty10 f)
 	{
 		return pImpl->setFunction(name, f);
 	}
 
-	bool MathParser::setPrefixOperator(const String& name, Fty1 f)
+	bool MathParser::setPrefixOperator(const StringView name, Fty1 f)
 	{
 		return pImpl->setPrefixOperator(name, f);
 	}
 
-	bool MathParser::setPostfixOperator(const String& name, Fty1 f)
+	bool MathParser::setPostfixOperator(const StringView name, Fty1 f)
 	{
 		return pImpl->setPostfixOperator(name, f);
 	}
 
-	void MathParser::removeVariable(const String& name)
+	void MathParser::removeVariable(const StringView name)
 	{
 		pImpl->removeVariable(name);
 	}
@@ -171,7 +168,7 @@ namespace s3d
 
 	double MathParser::eval() const
 	{
-		return evalOr(Math::Constants::NaN);
+		return evalOr(Math::NaN);
 	}
 
 	Array<double> MathParser::evalArray() const
@@ -183,7 +180,7 @@ namespace s3d
 	{
 		Vec2 xy;
 
-		pImpl->eval(&xy.x, 2);
+		pImpl->eval(xy.getPointer(), 2);
 
 		return xy;
 	}
@@ -192,7 +189,7 @@ namespace s3d
 	{
 		Vec3 xyz;
 
-		pImpl->eval(&xyz.x, 3);
+		pImpl->eval(xyz.getPointer(), 3);
 
 		return xyz;
 	}
@@ -201,7 +198,7 @@ namespace s3d
 	{
 		Vec4 xyzw;
 
-		pImpl->eval(&xyzw.x, 4);
+		pImpl->eval(xyzw.getPointer(), 4);
 
 		return xyzw;
 	}
@@ -210,7 +207,7 @@ namespace s3d
 	{
 		ColorF rgba;
 
-		pImpl->eval(&rgba.r, 4);
+		pImpl->eval(rgba.getPointer(), 4);
 
 		return rgba;
 	}
@@ -224,13 +221,13 @@ namespace s3d
 		return hsva;
 	}
 
-	double Eval(const String& expression)
+	double Eval(const StringView expression)
 	{
-		return MathParser(expression).eval();
+		return MathParser{ expression }.eval();
 	}
 
-	Optional<double> EvalOpt(const String& expression)
+	Optional<double> EvalOpt(const StringView expression)
 	{
-		return MathParser(expression).evalOpt();
+		return MathParser{ expression }.evalOpt();
 	}
 }

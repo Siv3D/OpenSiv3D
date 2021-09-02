@@ -2,19 +2,22 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 
 namespace s3d
 {
-	class ISiv3DGUI
+	class Font;
+	class Texture;
+
+	class SIV3D_NOVTABLE ISiv3DGUI
 	{
 	public:
 
@@ -24,7 +27,7 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual const Font& getDefaultGUIFont() = 0;
+		virtual const Font& getDefaultFont() const noexcept = 0;
 
 		virtual const Texture& getColorPickerTexture() = 0;
 	};

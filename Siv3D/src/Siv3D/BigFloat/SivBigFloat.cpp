@@ -1,97 +1,84 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <cstring>
-# include <Siv3D/BigFloat.hpp>
-# include <BigInt/BigIntDetail.hpp>
 # include "BigFloatDetail.hpp"
+# include <Siv3D/BigInt/BigIntDetail.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
-	////////////////////////////////////////////////////////////////
-	//
-	//	Constructor
-	//
-	////////////////////////////////////////////////////////////////
-
 	BigFloat::BigFloat()
-		: BigFloat(0.0)
+		: BigFloat{ 0.0 }
 	{
 
 	}
 
 	BigFloat::BigFloat(const int64 i)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const uint64 i)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(i);
 	}
 
 	BigFloat::BigFloat(const long double f)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(f);
 	}
 
 	BigFloat::BigFloat(const BigInt& number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const std::string_view number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const StringView number)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(number);
 	}
 
 	BigFloat::BigFloat(const BigFloat& other)
-		: pImpl(std::make_unique<BigFloatDetail>())
+		: pImpl{ std::make_unique<BigFloatDetail>() }
 	{
 		assign(other);
 	}
 
 	BigFloat::BigFloat(BigFloat&& other) noexcept
-		: pImpl(std::move(other.pImpl))
+		: pImpl{ std::move(other.pImpl) }
 	{
 
 	}
-
-	////////////////////////////////////////////////////////////////
-	//
-	//	Destructor
-	//
-	////////////////////////////////////////////////////////////////
 
 	BigFloat::~BigFloat()
 	{
 
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
-	//	Assign
+	//	assign
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	BigFloat& BigFloat::assign(const int64 i)
 	{
@@ -113,19 +100,14 @@ namespace s3d
 
 	BigFloat& BigFloat::assign(const BigInt& number)
 	{
-		this->pImpl->data.assign(number.pImpl->data);
+		this->pImpl->data.assign(number._detail().data);
 		return *this;
 	}
 
 	BigFloat& BigFloat::assign(const std::string_view number)
 	{
-# if SIV3D_PLATFORM(LINUX)
-		// work around (clang)
-		const std::string s{ number };
-		this->pImpl->data.assign(s);
-# else
 		this->pImpl->data.assign(number);
-# endif
+
 		return *this;
 	}
 
@@ -146,6 +128,12 @@ namespace s3d
 		this->pImpl = std::move(other.pImpl);
 		return *this;
 	}
+
+	//////////////////////////////////////////////////
+	//
+	//	=
+	//
+	//////////////////////////////////////////////////
 
 	BigFloat& BigFloat::operator =(int64 i)
 	{
@@ -187,11 +175,11 @@ namespace s3d
 		return assign(std::move(other));
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
-	//	+, ++
+	//	+
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	const BigFloat& BigFloat::operator +() const
 	{
@@ -235,7 +223,7 @@ namespace s3d
 	BigFloat BigFloat::operator +(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data + BigFloatDetail::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data + BigFloatDetail::value_type(number._detail().data);
 		return tmp;
 	}
 
@@ -266,7 +254,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator +=(const BigInt& number)
 	{
-		this->pImpl->data += BigFloatDetail::value_type(number.pImpl->data);
+		this->pImpl->data += BigFloatDetail::value_type(number._detail().data);
 		return *this;
 	}
 
@@ -276,20 +264,20 @@ namespace s3d
 		return *this;
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
-	//	-, --
+	//	-
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
-	BigFloat BigFloat::operator -() const &
+	BigFloat BigFloat::operator -() const&
 	{
 		BigFloat tmp;
 		tmp.pImpl->data = -(this->pImpl->data);
 		return tmp;
 	}
 
-	BigFloat BigFloat::operator -() &&
+	BigFloat BigFloat::operator -()&&
 	{
 		this->pImpl->data = -(this->pImpl->data);
 		return std::move(*this);
@@ -332,7 +320,7 @@ namespace s3d
 	BigFloat BigFloat::operator -(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data - BigFloatDetail::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data - BigFloatDetail::value_type(number._detail().data);
 		return tmp;
 	}
 
@@ -363,7 +351,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator -=(const BigInt& number)
 	{
-		this->pImpl->data -= BigFloatDetail::value_type(number.pImpl->data);
+		this->pImpl->data -= BigFloatDetail::value_type(number._detail().data);
 		return *this;
 	}
 
@@ -373,11 +361,11 @@ namespace s3d
 		return *this;
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
 	//	*
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	BigFloat BigFloat::operator *(const int64 i) const
 	{
@@ -403,7 +391,7 @@ namespace s3d
 	BigFloat BigFloat::operator *(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data * BigFloatDetail::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data * BigFloatDetail::value_type(number._detail().data);
 		return tmp;
 	}
 
@@ -434,7 +422,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator *=(const BigInt& number)
 	{
-		this->pImpl->data *= BigFloatDetail::value_type(number.pImpl->data);
+		this->pImpl->data *= BigFloatDetail::value_type(number._detail().data);
 		return *this;
 	}
 
@@ -444,11 +432,11 @@ namespace s3d
 		return *this;
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
 	//	/
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	BigFloat BigFloat::operator /(const int64 i) const
 	{
@@ -474,7 +462,7 @@ namespace s3d
 	BigFloat BigFloat::operator /(const BigInt& number) const
 	{
 		BigFloat tmp;
-		tmp.pImpl->data = this->pImpl->data / BigFloatDetail::value_type(number.pImpl->data);
+		tmp.pImpl->data = this->pImpl->data / BigFloatDetail::value_type(number._detail().data);
 		return tmp;
 	}
 
@@ -505,7 +493,7 @@ namespace s3d
 
 	BigFloat& BigFloat::operator /=(const BigInt& number)
 	{
-		this->pImpl->data /= BigFloatDetail::value_type(number.pImpl->data);
+		this->pImpl->data /= BigFloatDetail::value_type(number._detail().data);
 		return *this;
 	}
 
@@ -515,32 +503,11 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat operator /(const int64 a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
-	BigFloat operator /(const uint64 a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
-	BigFloat operator /(const long double a, const BigFloat& b)
-	{
-		BigFloat tmp;
-		tmp.pImpl->data = a / b.pImpl->data;
-		return tmp;
-	}
-
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
-	//	Compare
+	//	compare
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	int32 BigFloat::compare(const int64 i) const
 	{
@@ -570,7 +537,7 @@ namespace s3d
 			return 1;
 		}
 
-		return this->pImpl->data.compare(BigFloatDetail::value_type(number.pImpl->data));
+		return this->pImpl->data.compare(BigFloatDetail::value_type(number._detail().data));
 	}
 
 	int32 BigFloat::compare(const BigFloat& number) const
@@ -578,11 +545,11 @@ namespace s3d
 		return this->pImpl->data.compare(number.pImpl->data);
 	}
 
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
-	//	Math
+	//	utilities
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	BigFloat::operator bool() const
 	{
@@ -606,11 +573,21 @@ namespace s3d
 		return tmp;
 	}
 
-	////////////////////////////////////////////////////////////////
+	void BigFloat::swap(BigFloat& other) noexcept
+	{
+		return this->pImpl->data.swap(other.pImpl->data);
+	}
+
+	size_t BigFloat::hash() const
+	{
+		return std::hash<boost::multiprecision::cpp_dec_float_100>{}(this->pImpl->data);
+	}
+
+	//////////////////////////////////////////////////
 	//
-	//	Conversion
+	//	conversions
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
 	float BigFloat::asFloat() const
 	{
@@ -627,13 +604,7 @@ namespace s3d
 		return this->pImpl->data.convert_to<long double>();
 	}
 
-	////////////////////////////////////////////////////////////////
-	//
-	//	String
-	//
-	////////////////////////////////////////////////////////////////
-
-	std::string BigFloat::stdStr() const
+	std::string BigFloat::to_string() const
 	{
 		std::string result = pImpl->data.str(0, std::ios_base::fixed);
 
@@ -658,7 +629,7 @@ namespace s3d
 		return result;
 	}
 
-	std::wstring BigFloat::stdWstr() const
+	std::wstring BigFloat::to_wstring() const
 	{
 		const std::string str = pImpl->data.str();
 
@@ -667,395 +638,376 @@ namespace s3d
 
 	String BigFloat::str() const
 	{
-		const std::string t = stdStr();
+		const std::string t = to_string();
 
 		return String(t.begin(), t.end());
 	}
-
-
-	inline namespace Literals
-	{
-		inline namespace BigNumLiterals
-		{
-			BigFloat operator ""_bigF(const unsigned long long int i)
-			{
-				return BigFloat(i);
-			}
-
-			BigFloat operator ""_bigF(const char* number, size_t)
-			{
-				return BigFloat(number);
-			}
-
-			BigFloat operator ""_bigF(const char32* number, size_t)
-			{
-				return BigFloat(number);
-			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////
-	//
-	//	Swap
-	//
-	////////////////////////////////////////////////////////////////
-
-	void BigFloat::swap(BigFloat& other) noexcept
-	{
-		return this->pImpl->data.swap(other.pImpl->data);
-	}
-
-	////////////////////////////////////////////////////////////////
-	//
-	//	Hash
-	//
-	////////////////////////////////////////////////////////////////
-
-	//size_t BigFloat::hash() const
-	//{
-	//	return std::hash<boost::multiprecision::cpp_dec_float_100>()(this->pImpl->data);
-	//}
-
-	////////////////////////////////////////////////////////////////
-	//
-	//	Format
-	//
-	////////////////////////////////////////////////////////////////
 
 	void Formatter(FormatData& formatData, const BigFloat& value)
 	{
 		formatData.string.append(value.str());
 	}
 
-	std::ostream& operator <<(std::ostream output, const BigFloat& value)
-	{
-		return output << value.stdStr();
-	}
-
-	std::wostream& operator <<(std::wostream& output, const BigFloat& value)
-	{
-		return output << value.stdWstr();
-	}
-
-	std::istream& operator >>(std::istream& input, BigFloat& value)
-	{
-		std::string s;
-
-		input >> s;
-
-		value.assign(s);
-
-		return input;
-	}
-
-	std::wistream& operator >>(std::wistream& input, BigFloat& value)
-	{
-		std::wstring s;
-
-		input >> s;
-
-		value.assign(Unicode::FromWString(s));
-
-		return input;
-	}
-
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 	//
 	//	detail
 	//
-	////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////
 
-	BigFloat::BigFloatDetail& BigFloat::detail()
+	BigFloat::BigFloatDetail& BigFloat::_detail()
 	{
 		return *pImpl;
 	}
 
-	const BigFloat::BigFloatDetail& BigFloat::detail() const
+	const BigFloat::BigFloatDetail& BigFloat::_detail() const
 	{
 		return *pImpl;
 	}
-
-	////////////////////////////////////////////////////////////////
-	//
-	//	Math Functions
-	//
-	////////////////////////////////////////////////////////////////
 
 	namespace Math
 	{
-		BigFloat Abs(const BigFloat& x)
+		BigFloat Fmod(const BigFloat& x, const BigFloat& y)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::abs(x.detail().data);
-
+			result._detail().data = boost::multiprecision::fmod(x._detail().data, y._detail().data);
 			return result;
 		}
 
-		BigFloat Sqrt(const BigFloat& x)
+		BigFloat Fraction(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::sqrt(x.detail().data);
-
+			result._detail().data = (x._detail().data - boost::multiprecision::floor(x._detail().data));
 			return result;
 		}
 
-		BigFloat Floor(const BigFloat& x)
+		BigFloat Frexp(const BigFloat& x, int32& exp)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::floor(x.detail().data);
-
+			result._detail().data = boost::multiprecision::frexp(x._detail().data, &exp);
 			return result;
 		}
 
-		BigFloat Ceil(const BigFloat& x)
+		BigFloat Ldexp(const BigFloat& x, const BigFloat& y)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::ceil(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Round(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::round(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Exp(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::exp(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Exp2(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::exp2(x.detail().data);
-
+			result._detail().data = (x._detail().data * boost::multiprecision::pow(2, y._detail().data));
 			return result;
 		}
 
 		BigFloat Log(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::log(x.detail().data);
-
+			result._detail().data = boost::multiprecision::log(x._detail().data);
 			return result;
 		}
 
 		BigFloat Log2(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::log2(x.detail().data);
-
+			result._detail().data = boost::multiprecision::log2(x._detail().data);
 			return result;
 		}
 
 		BigFloat Log10(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::log10(x.detail().data);
-
+			result._detail().data = boost::multiprecision::log10(x._detail().data);
 			return result;
 		}
 
-		BigFloat Cos(const BigFloat& x)
+		BigFloat Modf(const BigFloat& x, BigFloat& exp)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::cos(x.detail().data);
-
+			result._detail().data = boost::multiprecision::modf(x._detail().data, &exp._detail().data);
 			return result;
 		}
 
-		BigFloat Sin(const BigFloat& x)
+		BigInt Pow(const BigInt& x, const uint32 y)
 		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::sin(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Tan(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::tan(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Acos(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::acos(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Asin(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::asin(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Atan(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::atan(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Cosh(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::cosh(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Sinh(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::sinh(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Tanh(const BigFloat& x)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::tanh(x.detail().data);
-
-			return result;
-		}
-
-		BigFloat Ldexp(const BigFloat& x, const int64 exp)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::ldexp(x.detail().data, exp);
-
-			return result;
-		}
-
-		std::pair<BigFloat, int32> Frexp(const BigFloat& x)
-		{
-			BigFloat result;
-
-			int32 exp = 0;
-
-			result.detail().data = boost::multiprecision::frexp(x.detail().data, &exp);
-
-			return{ result, exp };
-		}
-
-		BigFloat Frexp(const BigFloat& x, int32& exp)
-		{
-			BigFloat result;
-
-			result.detail().data = boost::multiprecision::frexp(x.detail().data, &exp);
-
+			BigInt result;
+			result._detail().data = boost::multiprecision::pow(x._detail().data, y);
 			return result;
 		}
 
 		BigFloat Pow(const BigFloat& x, const BigFloat& y)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::pow(x.detail().data, y.detail().data);
-
+			result._detail().data = boost::multiprecision::pow(x._detail().data, y._detail().data);
 			return result;
 		}
 
-		BigFloat Fmod(const BigFloat& x, const BigFloat& y)
+		int32 Sign(const BigInt& x)
+		{
+			const int32 c = x.compare(0);
+
+			if (c < 0)
+			{
+				return -1;
+			}
+			else if (0 < c)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		int32 Sign(const BigFloat& x)
+		{
+			const int32 c = x.compare(0);
+
+			if (c < 0)
+			{
+				return -1;
+			}
+			else if (0 < c)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		BigFloat ToRadians(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::fmod(x.detail().data, y.detail().data);
-
+			result._detail().data = (x._detail().data * (boost::math::constants::pi<boost::multiprecision::cpp_dec_float_100>() / 180));
 			return result;
 		}
 
-		BigFloat Atan2(const BigFloat& x, const BigFloat& y)
+		BigFloat ToDegrees(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = boost::multiprecision::atan2(x.detail().data, y.detail().data);
-
+			result._detail().data = (x._detail().data * (180 / boost::math::constants::pi<boost::multiprecision::cpp_dec_float_100>()));
 			return result;
 		}
 
-		BigFloat Sign(const BigFloat& x)
+		BigFloat Abs(const BigInt& x)
 		{
-			return x < 0.0 ? -1.0 : x > 0.0 ? 1.0 : 0.0;
+			return x.abs();
 		}
 
-		BigFloat Radians(const BigFloat& x)
+		BigFloat Abs(const BigFloat& x)
 		{
-			static const BigFloat degToRad("0.017453292519943295769236907684886127134428718885417254560971914401710091146034494436822415696345094822123044925073790592483854692275281");
-
-			return x * degToRad;
+			return x.abs();
 		}
 
-		BigFloat Degrees(const BigFloat& x)
+		BigFloat AbsDiff(const BigFloat& x, const BigFloat& y)
 		{
-			static const BigFloat radToDeg("57.2957795130823208767981548141051703324054724665643215491602438612028471483215526324409689958511109441862233816328648932814482646012483");
+			return (x - y).abs();
+		}
 
-			return x * radToDeg;
+		BigFloat Square(const BigInt& x)
+		{
+			return (x * x);
 		}
 
 		BigFloat Square(const BigFloat& x)
 		{
-			return x * x;
+			return (x * x);
+		}
+
+		BigFloat Exp(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::exp(x._detail().data);
+			return result;
+		}
+
+		BigFloat Exp2(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::exp2(x._detail().data);
+			return result;
 		}
 
 		BigFloat Rsqrt(const BigFloat& x)
 		{
 			BigFloat result;
-
-			result.detail().data = 1.0 / boost::multiprecision::sqrt(x.detail().data);
-
+			result._detail().data = (1 / boost::multiprecision::sqrt(x._detail().data));
 			return result;
+		}
+
+		BigFloat Sqrt(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sqrt(x._detail().data);
+			return result;
+		}
+
+		BigFloat Ceil(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::ceil(x._detail().data);
+			return result;
+		}
+
+		BigFloat Floor(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::floor(x._detail().data);
+			return result;
+		}
+
+		BigFloat Round(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::round(x._detail().data);
+			return result;
+		}
+
+		BigFloat Clamp(const BigFloat& x, const BigFloat& min, const BigFloat& max)
+		{
+			if (max < x)
+			{
+				return max;
+			}
+
+			if (x < min)
+			{
+				return min;
+			}
+
+			return x;
 		}
 
 		BigFloat Saturate(const BigFloat& x)
 		{
-			if (x <= 0.0)
+			if (1 < x)
 			{
-				return 0.0;
+				return 1;
 			}
-			else if (x >= 1.0)
+
+			if (x < 0)
 			{
-				return 1.0;
+				return 0;
 			}
-			else
+
+			return x;
+		}
+
+		BigFloat Acos(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::acos(x._detail().data);
+			return result;
+		}
+
+		BigFloat Asin(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::asin(x._detail().data);
+			return result;
+		}
+
+		BigFloat Atan(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::atan(x._detail().data);
+			return result;
+		}
+
+		BigFloat Atan2(const BigFloat& y, const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::atan2(y._detail().data, x._detail().data);
+			return result;
+		}
+
+		BigFloat Cos(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::cos(x._detail().data);
+			return result;
+		}
+
+		BigFloat Cosh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::cosh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Sin(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sin(x._detail().data);
+			return result;
+		}
+
+		BigFloat Sinh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::sinh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Tan(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::tan(x._detail().data);
+			return result;
+		}
+
+		BigFloat Tanh(const BigFloat& x)
+		{
+			BigFloat result;
+			result._detail().data = boost::multiprecision::tanh(x._detail().data);
+			return result;
+		}
+
+		BigFloat Normalize(const BigFloat& x)
+		{
+			if (x.isZero())
 			{
-				return x;
+				return 0;
+			}
+
+			return 1;
+		}
+
+		BigFloat Smoothstep(const BigFloat& min, const BigFloat& max, const BigFloat& x)
+		{
+			if (x <= min)
+			{
+				return 0;
+			}
+			else if (max <= x)
+			{
+				return 1;
+			}
+
+			const BigFloat t = ((x - min) / (max - min));
+
+			return (t * t * (3 - 2 * t));
+		}
+
+		BigFloat Smoothstep(const BigFloat& x)
+		{
+			if (x <= 0)
+			{
+				return 0;
+			}
+			else if (1 <= x)
+			{
+				return 1;
+			}
+
+			return (x * x * (3 - 2 * x));
+		}
+	}
+
+	inline namespace Literals
+	{
+		inline namespace BigNumLiterals
+		{
+			BigFloat operator ""_bigF(const char* s)
+			{
+				return BigFloat{ std::string_view{ s } };
 			}
 		}
 	}

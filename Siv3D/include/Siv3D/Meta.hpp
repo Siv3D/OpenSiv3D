@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,17 +11,9 @@
 
 # pragma once
 # include <type_traits>
-# include "Meta.ipp"
 
 namespace s3d
 {
-	struct Nonesuch
-	{
-		~Nonesuch() = delete;
-		Nonesuch(const Nonesuch&) = delete;
-		void operator =(const Nonesuch&) = delete;
-	};
-
 	namespace Meta
 	{
 		template <class, class = void>
@@ -119,7 +111,7 @@ namespace s3d
 		struct HasMultiply : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasMultiply<Type, Arg, std::void_t<decltype(std::declval<Type&>() * std::declval<Arg&>())>> : std::true_type {};
+		struct HasMultiply<Type, Arg, std::void_t<decltype(std::declval<Type&>()* std::declval<Arg&>())>> : std::true_type {};
 
 
 		template <class Type, class Arg = Type, class = void>
@@ -217,7 +209,7 @@ namespace s3d
 		struct HasBitwiseAnd : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseAnd<Type, Arg, std::void_t<decltype(std::declval<Type&>() & std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseAnd<Type, Arg, std::void_t<decltype(std::declval<Type&>()& std::declval<Arg&>())>> : std::true_type {};
 
 
 		template <class Type, class Arg = Type, class = void>
@@ -336,26 +328,19 @@ namespace s3d
 		template <class Type, class Type2 = Type> constexpr bool HasLogicalAnd_v = HasLogicalAnd<Type, Type2>::value;
 		template <class Type, class Type2 = Type> constexpr bool HasLogicalOr_v = HasLogicalOr<Type, Type2>::value;
 
-		template <template<class...> class Op, class... Args>
-		using IsDetected = typename detail::Detector<Nonesuch, void, Op, Args...>::value_t;
+		template <class ArrayIsh>
+		struct HasAsArray
+		{
+		private:
+			template <class U>
+			static auto test(int) -> decltype(std::declval<U>().asArray(), std::true_type());
 
-		template <template<class...> class Op, class... Args>
-		using Detected_t = typename detail::Detector<Nonesuch, void, Op, Args...>::type;
+			template <class U>
+			static auto test(...) -> decltype(std::false_type());
 
-		template <class Default, template<class...> class Op, class... Args>
-		using DetectedOr = detail::Detector<Default, void, Op, Args...>;
-
-		template< class Default, template<class...> class Op, class... Args >
-		using DetectedOr_t = typename DetectedOr<Default, Op, Args...>::type;
-
-		template <class Expected, template<class...> class Op, class... Args>
-		using IsDetectedExact = std::is_same<Expected, Detected_t<Op, Args...>>;
-
-		template <class To, template<class...> class Op, class... Args>
-		using IsDetectedConvertible = std::is_convertible<Detected_t<Op, Args...>, To>;
-
-		template <template<class...> class Op, class... Args > constexpr bool IsDetected_v = IsDetected<Op, Args...>::value;
-		template <class Expected, template<class...> class Op, class... Args> constexpr bool IsDetectedExact_v = IsDetectedExact<Expected, Op, Args...>::value;
-		template <class To, template<class...> class Op, class... Args> constexpr bool IsDetectedConvertible_v = IsDetectedConvertible<To, Op, Args...>::value;
+		public:
+			using type = decltype(test<ArrayIsh>(0));
+			static constexpr bool value = type::value;
+		};
 	}
 }

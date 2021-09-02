@@ -2,54 +2,36 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/DynamicTexture.hpp>
-# include <Siv3DEngine.hpp>
-# include <Texture/ITexture.hpp>
+# include <Siv3D/Texture/ITexture.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	DynamicTexture::DynamicTexture(const uint32 width, const uint32 height, const TextureFormat& format, const TextureDesc desc)
-		: Texture(Texture::Dynamic(), width, height, nullptr, 0, format, desc)
-	{
-
-	}
+		: Texture{ Texture::Dynamic{}, Size{ width, height }, nullptr, 0, format, desc } {}
 
 	DynamicTexture::DynamicTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
-		: Texture(Texture::Dynamic(), width, height, color, format, desc)
-	{
-
-	}
+		: Texture{ Texture::Dynamic{}, Size{ width, height }, color, format, desc } {}
 
 	DynamicTexture::DynamicTexture(const Image& image, const TextureDesc desc)
-		: Texture(Texture::Dynamic(), image.width(), image.height(), image.data(), image.stride(), TextureFormat::R8G8B8A8_Unorm, desc)
-	{
-
-	}
+		: Texture{ Texture::Dynamic{}, image.size(), image.data(), image.stride(), TextureFormat::R8G8B8A8_Unorm, desc } {}
 
 	DynamicTexture::DynamicTexture(const Image& image, const TextureFormat& format, const TextureDesc desc)
-		: Texture(Texture::Dynamic(), image.width(), image.height(), image.data(), image.stride(), format, desc)
-	{
-
-	}
+		: Texture{ Texture::Dynamic{}, image.size(), image.data(), image.stride(), format, desc } {}
 
 	DynamicTexture::DynamicTexture(const Size& size, const TextureFormat& format, const TextureDesc desc)
-		: DynamicTexture(size.x, size.y, format, desc)
-	{
-	
-	}
+		: Texture{ Texture::Dynamic{}, size, nullptr, 0, format, desc } {}
 
 	DynamicTexture::DynamicTexture(const Size& size, const ColorF& color, const TextureFormat& format, const TextureDesc desc)
-		: DynamicTexture(size.x, size.y, color, format, desc)
-	{
-	
-	}
+		: Texture{ Texture::Dynamic{}, size, color, format, desc } {}
 
 	bool DynamicTexture::fill(const ColorF& color)
 	{
@@ -58,7 +40,7 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fill(m_handle->id(), color, true);
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), color, true);
 	}
 
 	bool DynamicTexture::fillRegion(const ColorF& color, const Rect& rect)
@@ -68,14 +50,14 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fillRegion(m_handle->id(), color, rect);
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), color, rect);
 	}
 
 	bool DynamicTexture::fill(const Image& image)
 	{
 		if (isEmpty())
 		{
-			*this = DynamicTexture(image);
+			*this = DynamicTexture{ image };
 			return true;
 		}
 		else if (image.size() != size())
@@ -83,7 +65,7 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fill(m_handle->id(), image.data(), image.stride(), true);
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), image.data(), image.stride(), true);
 	}
 
 	bool DynamicTexture::fillRegion(const Image& image, const Rect& rect)
@@ -97,7 +79,7 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fillRegion(m_handle->id(), image.data(), image.stride(), rect, true);
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), image.data(), image.stride(), rect, true);
 	}
 
 	bool DynamicTexture::fillIfNotBusy(const Image& image)
@@ -112,7 +94,7 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fill(m_handle->id(), image.data(), image.stride(), false);
+		return SIV3D_ENGINE(Texture)->fill(m_handle->id(), image.data(), image.stride(), false);
 	}
 
 	bool DynamicTexture::fillRegionIfNotBusy(const Image& image, const Rect& rect)
@@ -126,6 +108,11 @@ namespace s3d
 			return false;
 		}
 
-		return Siv3DEngine::Get<ISiv3DTexture>()->fillRegion(m_handle->id(), image.data(), image.stride(), rect, false);
+		return SIV3D_ENGINE(Texture)->fillRegion(m_handle->id(), image.data(), image.stride(), rect, false);
+	}
+
+	void DynamicTexture::swap(DynamicTexture& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
 	}
 }

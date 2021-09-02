@@ -4,6 +4,10 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -17,10 +21,10 @@
 // Note the addition of this whole file was committed to SVN by accident,
 // probably obsolete
 
-#include <boost/range.hpp>
+#include <boost/range/iterator.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
-#include <boost/geometry/util/add_const_if_c.hpp>
+#include <boost/geometry/util/type_traits.hpp>
 
 
 namespace boost { namespace geometry
@@ -55,11 +59,7 @@ private :
     // Might be replaced declaring as BOOST_AUTO
     typedef typename boost::range_iterator
         <
-            typename add_const_if_c
-                <
-                    boost::is_const<Geometry>::value,
-                    range_type
-                >::type
+            detail::transcribe_const_t<Geometry, range_type>
         >::type iterator_type;
 
     iterator_type m_begin, m_end;

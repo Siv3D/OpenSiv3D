@@ -2,122 +2,47 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Ellipse.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Circular.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
-# include <Siv3D/Polygon.hpp>
-# include <Siv3DEngine.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
-	bool Ellipse::leftClicked() const
-	{
-		return MouseL.down() && mouseOver();
-	}
-
-	bool Ellipse::leftPressed() const
-	{
-		return MouseL.pressed() && mouseOver();
-	}
-
-	bool Ellipse::leftReleased() const
-	{
-		return MouseL.up() && mouseOver();
-	}
-
-	bool Ellipse::rightClicked() const
-	{
-		return MouseR.down() && mouseOver();
-	}
-
-	bool Ellipse::rightPressed() const
-	{
-		return MouseR.pressed() && mouseOver();
-	}
-
-	bool Ellipse::rightReleased() const
-	{
-		return MouseR.up() && mouseOver();
-	}
-
-	bool Ellipse::mouseOver() const
-	{
-		return Geometry2D::Intersect(Cursor::PosF(), *this);
-	}
-
-	const Ellipse& Ellipse::draw(const ColorF& color) const
-	{
-		const Float4 colors = color.toFloat4();
-
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipse(
-			center,
-			static_cast<float>(a),
-			static_cast<float>(b),
-			colors,
-			colors
-		);
-
-		return *this;
-	}
-
-	const Ellipse& Ellipse::draw(const ColorF& innerColor, const ColorF& outerColor) const
-	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipse(
-			center,
-			static_cast<float>(a),
-			static_cast<float>(b),
-			innerColor.toFloat4(),
-			outerColor.toFloat4()
-		);
-
-		return *this;
-	}
-
-	const Ellipse& Ellipse::drawFrame(const double thickness, const ColorF& color) const
-	{
-		return drawFrame(thickness * 0.5, thickness * 0.5, color);
-	}
-
-	const Ellipse& Ellipse::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
-	{
-		const Float4 colorF = color.toFloat4();
-
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipseFrame(
-			center,
-			static_cast<float>(a - innerThickness),
-			static_cast<float>(b - innerThickness),
-			static_cast<float>(innerThickness + outerThickness),
-			colorF,
-			colorF
-		);
-
-		return *this;
-	}
-
 	Polygon Ellipse::asPolygon(const uint32 quality) const
 	{
-		const uint32 n = std::max(quality, 3u);
-		
+		if ((a == 0.0) || (b == 0.0))
+		{
+			return{};
+		}
+
+		const uint32 n = Max(quality, 3u);
+
 		Array<Vec2> vertices(n, center);
 		Vec2* pPos = vertices.data();
 
-		double xMin = center.x, xMax = center.x;
-		const double yMin = center.y - b;
+		double xMin = center.x;
+		double xMax = center.x;
+		const double yMin = (center.y - b);
 		double yMax = center.y;
-		const double d = (Math::Constants::TwoPi / n);
-		
+		const double d = (Math::TwoPi / n);
+
 		for (uint32 i = 0; i < n; ++i)
 		{
-			const double rad = i * d;
-			pPos->moveBy(a * std::cos(rad), b * std::sin(rad));
+			const double rad = (i * d);
+			const auto [s, c] = FastMath::SinCos(rad);
+			pPos->moveBy(a * c, b * s);
 
 			if (pPos->x < xMin)
 			{
@@ -135,22 +60,115 @@ namespace s3d
 
 			++pPos;
 		}
-		
-		Array<uint16> indices(3 * (n - 2));
-		uint16* pIndex = indices.data();
 
-		for (uint16 i = 0; i < n - 2; ++i)
+		Array<TriangleIndex> indices(n - 2);
+		TriangleIndex* pIndex = indices.data();
+
+		for (Vertex2D::IndexType i = 0; i < n - 2; ++i)
 		{
+			pIndex->i0 = 0;
+			pIndex->i1 = (i + 1);
+			pIndex->i2 = (i + 2);
 			++pIndex;
-			(*pIndex++) = i + 1;
-			(*pIndex++) = i + 2;
 		}
 
-		return Polygon(vertices, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
+		return Polygon{ vertices, indices, RectF{ xMin, yMin, (xMax - xMin), (yMax - yMin) }, SkipValidation::Yes };
+	}
+
+	bool Ellipse::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool Ellipse::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool Ellipse::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool Ellipse::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool Ellipse::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool Ellipse::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool Ellipse::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+	const Ellipse& Ellipse::draw(const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addEllipse(
+			center,
+			static_cast<float>(a),
+			static_cast<float>(b),
+			color0,
+			color0
+		);
+
+		return *this;
+	}
+
+	const Ellipse& Ellipse::draw(const ColorF& innerColor, const ColorF& outerColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addEllipse(
+			center,
+			static_cast<float>(a),
+			static_cast<float>(b),
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const Ellipse& Ellipse::drawFrame(const double thickness, const ColorF& color) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	}
+
+	const Ellipse& Ellipse::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		const Float4 color0 = color.toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addEllipseFrame(
+			center,
+			static_cast<float>(a - innerThickness),
+			static_cast<float>(b - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			color0,
+			color0
+		);
+
+		return *this;
 	}
 
 	void Formatter(FormatData& formatData, const Ellipse& value)
 	{
-		Formatter(formatData, Vec4(value.x, value.y, value.a, value.b));
+		formatData.string.push_back(U'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.a, formatData.decimalPlaces.value));
+		formatData.string.append(U", "_sv);
+		formatData.string.append(ToString(value.b, formatData.decimalPlaces.value));
+		formatData.string.push_back(U')');
 	}
 }

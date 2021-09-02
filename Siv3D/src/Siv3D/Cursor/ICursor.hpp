@@ -2,20 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/PointVector.hpp>
 # include "CursorState.hpp"
 
 namespace s3d
 {
-	class ISiv3DCursor
+	enum class CursorStyle : uint8;
+	struct Mat3x2;
+	class Image;
+
+	class SIV3D_NOVTABLE ISiv3DCursor
 	{
 	public:
 
@@ -25,23 +30,17 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual void update() = 0;
+		virtual bool update() = 0;
 
-		virtual void onMouseMove(int32 x, int32 y) = 0;
+		virtual const CursorState& getState() const noexcept = 0;
 
-		virtual void onAltPressed() = 0;
+		virtual void setPos(Point pos) = 0;
 
-		virtual const CursorState<Point>& screen() const = 0;
+		virtual const Mat3x2& getLocalTransform() const noexcept = 0;
 
-		virtual const CursorState<Point>& clientRaw() const = 0;
+		virtual const Mat3x2& getCameraTransform() const noexcept = 0;
 
-		virtual const CursorState<Vec2>& clientTransformedF() const = 0;
-
-		virtual const CursorState<Point>& clientTransformed() const = 0;
-
-		virtual const Array<std::pair<Point, uint64>>& getBufferTransformed() const = 0;
-
-		virtual void setPos(const Point& pos) = 0;
+		virtual const Mat3x2& getScreenTransform() const noexcept = 0;
 
 		virtual void setLocalTransform(const Mat3x2& matrix) = 0;
 
@@ -49,22 +48,16 @@ namespace s3d
 
 		virtual void setScreenTransform(const Mat3x2& matrix) = 0;
 
-		virtual const Mat3x2& getLocalTransform() const = 0;
-
-		virtual const Mat3x2& getCameraTransform() const = 0;
-
-		virtual const Mat3x2& getScreenTransform() const = 0;
+		virtual bool isClippedToWindow() const noexcept = 0;
 
 		virtual void clipToWindow(bool clip) = 0;
 
-		virtual void requestStyle(CursorStyle style) = 0;
-
 		virtual void setDefaultStyle(CursorStyle style) = 0;
 
-		virtual void applyStyleImmediately(CursorStyle style) = 0;
+		virtual void requestStyle(CursorStyle style) = 0;
 
-		virtual CursorStyle getRequestedStyle() const = 0;
+		virtual bool registerCursor(StringView name, const Image& image, Point hotSpot) = 0;
 
-		virtual CursorStyle getDefaultStyle() const = 0;
+		virtual void requestStyle(StringView name) = 0;
 	};
 }

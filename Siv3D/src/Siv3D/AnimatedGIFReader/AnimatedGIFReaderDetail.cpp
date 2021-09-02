@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -84,22 +84,22 @@ namespace s3d
 		if (!gif->lastImage) // first frame
 		{
 			image.resize(rawImageSize);
-			for (size_t yy = 0; yy < rawImageSize.y; ++yy)
+			for (int32 yy = 0; yy < rawImageSize.y; ++yy)
 			{
-				for (size_t xx = 0; xx < rawImageSize.x; ++xx)
+				for (int32 xx = 0; xx < rawImageSize.x; ++xx)
 				{
-					image[yy][xx] = Color::FromRGBA32(pict[(uint32_t)whdr->xdim * yy + xx + ddst]);
+					image[yy][xx] = Color::FromRGBA(pict[whdr->xdim * yy + xx + ddst]);
 				}
 			}
 		}
 		else
 		{
 			image = gif->lastImage;
-			for (size_t yy = 0; yy < rawImageSize.y; ++yy)
+			for (int32 yy = 0; yy < rawImageSize.y; ++yy)
 			{
-				for (size_t xx = 0; xx < rawImageSize.x; ++xx)
+				for (int32 xx = 0; xx < rawImageSize.x; ++xx)
 				{
-					image[yy + offset.y][xx + offset.x] = Color::FromRGBA32(pict[(uint32_t)whdr->xdim * yy + xx + ddst]);
+					image[yy + offset.y][xx + offset.x] = Color::FromRGBA(pict[whdr->xdim * yy + xx + ddst]);
 				}
 			}
 		}
@@ -144,64 +144,61 @@ namespace s3d
 
 namespace s3d
 {
-	AnimatedGIFReader::AnimatedGIFReaderDetail::AnimatedGIFReaderDetail()
-	{
-
-	}
+	AnimatedGIFReader::AnimatedGIFReaderDetail::AnimatedGIFReaderDetail() {}
 
 	AnimatedGIFReader::AnimatedGIFReaderDetail::~AnimatedGIFReaderDetail()
 	{
-
+		// do nothing
 	}
 
 	bool AnimatedGIFReader::AnimatedGIFReaderDetail::open(const FilePathView path)
 	{
-		m_data.createFromFile(path);
+		m_blob.createFromFile(path);
 
 		return isOpen();
 	}
 
-	bool AnimatedGIFReader::AnimatedGIFReaderDetail::open(const std::shared_ptr<IReader>& reader)
+	bool AnimatedGIFReader::AnimatedGIFReaderDetail::open(IReader&& reader)
 	{
-		Array<Byte> data(reader->size());
-		reader->read(data.data(), data.size_bytes());
-		m_data.create(std::move(data));
+		const size_t size_bytes = reader.size();
+
+		m_blob.resize(size_bytes);
+		reader.read(m_blob.data(), m_blob.size());
 
 		return isOpen();
 	}
 
 	void AnimatedGIFReader::AnimatedGIFReaderDetail::close()
 	{
-		m_data.release();
+		m_blob.release();
 	}
 
-	bool AnimatedGIFReader::AnimatedGIFReaderDetail::isOpen() const
+	bool AnimatedGIFReader::AnimatedGIFReaderDetail::isOpen() const noexcept
 	{
-		return (m_data.size() != 0);
+		return (not m_blob.isEmpty());
 	}
 
-	bool AnimatedGIFReader::AnimatedGIFReaderDetail::read(Array<Image>& images, Array<int32>& delays, int32& duration) const
+	bool AnimatedGIFReader::AnimatedGIFReaderDetail::read(Array<Image>& images, Array<int32>& delaysMillisec) const
 	{
-		if (!isOpen())
+		images.clear();
+		delaysMillisec.clear();
+
+		if (not isOpen())
 		{
 			return false;
 		}
 
 		GifData gif;
-		const long ret = GIF_Load(static_cast<const void*>(m_data.data()), static_cast<long>(m_data.size()),
+		const long ret = GIF_Load(static_cast<const void*>(m_blob.data()), static_cast<long>(m_blob.size()),
 			ReadAllCallback, nullptr, &gif, 0L);
 
 		if (ret < 0 || !gif.images)
 		{
-			images.clear();
-			delays.clear();
-			duration = 0;
 			return false;
 		}
 
 		images = std::move(gif.images);
-		delays = std::move(gif.delays);
-		duration = delays.sum();
+		delaysMillisec = std::move(gif.delays);
 
 		return true;
 	}

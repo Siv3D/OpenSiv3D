@@ -617,17 +617,17 @@ bool XMLUtil::ToBool( const char* str, bool* value )
         *value = (ival==0) ? false : true;
         return true;
     }
-    static const char* TRUE[] = { "true", "True", "TRUE", 0 };
-    static const char* FALSE[] = { "false", "False", "FALSE", 0 };
+    static const char* TRUE_VALS[] = { "true", "True", "TRUE", 0 };
+    static const char* FALSE_VALS[] = { "false", "False", "FALSE", 0 };
 
-    for (int i = 0; TRUE[i]; ++i) {
-        if (StringEqual(str, TRUE[i])) {
+    for (int i = 0; TRUE_VALS[i]; ++i) {
+        if (StringEqual(str, TRUE_VALS[i])) {
             *value = true;
             return true;
         }
     }
-    for (int i = 0; FALSE[i]; ++i) {
-        if (StringEqual(str, FALSE[i])) {
+    for (int i = 0; FALSE_VALS[i]; ++i) {
+        if (StringEqual(str, FALSE_VALS[i])) {
             *value = false;
             return true;
         }
@@ -1961,6 +1961,39 @@ XMLAttribute* XMLElement::CreateAttribute()
     return attrib;
 }
 
+
+XMLElement* XMLElement::InsertNewChildElement(const char* name)
+{
+    XMLElement* node = _document->NewElement(name);
+    return InsertEndChild(node) ? node : 0;
+}
+
+XMLComment* XMLElement::InsertNewComment(const char* comment)
+{
+    XMLComment* node = _document->NewComment(comment);
+    return InsertEndChild(node) ? node : 0;
+}
+
+XMLText* XMLElement::InsertNewText(const char* text)
+{
+    XMLText* node = _document->NewText(text);
+    return InsertEndChild(node) ? node : 0;
+}
+
+XMLDeclaration* XMLElement::InsertNewDeclaration(const char* text)
+{
+    XMLDeclaration* node = _document->NewDeclaration(text);
+    return InsertEndChild(node) ? node : 0;
+}
+
+XMLUnknown* XMLElement::InsertNewUnknown(const char* text)
+{
+    XMLUnknown* node = _document->NewUnknown(text);
+    return InsertEndChild(node) ? node : 0;
+}
+
+
+
 //
 //	<ele></ele>
 //	<ele>foo<b>bar</b></ele>
@@ -2101,7 +2134,7 @@ XMLDocument::~XMLDocument()
 }
 
 
-void XMLDocument::MarkInUse(XMLNode* node)
+void XMLDocument::MarkInUse(const XMLNode* const node)
 {
 	TIXMLASSERT(node);
 	TIXMLASSERT(node->_parent == 0);
@@ -2635,8 +2668,6 @@ void XMLPrinter::OpenElement( const char* name, bool compactMode )
 
     if ( _textDepth < 0 && !_firstElement && !compactMode ) {
         Putc( '\n' );
-    }
-    if ( !compactMode ) {
         PrintSpace( _depth );
     }
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,48 +13,81 @@
 
 //////////////////////////////////////////////////
 //
-//	プラットフォームマクロ
-//	Platform Macros
+//	プラットフォーム | Target Platform
 //
 //////////////////////////////////////////////////
 
 # define SIV3D_PLATFORM(X) SIV3D_PLATFORM_PRIVATE_DEFINITION_##X()
-# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 0
-# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 0
-# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS()	0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS()		0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX()		0
+# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WEB()		0
 
-# if defined(_WIN32)
+# if defined(_WIN32) // Windows
 
-	/// <summary>
-	/// ターゲットプラットフォームの名前
-	/// Name of the Target Platform
-	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Windows Desktop"
+	# undef	 SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS()	1
 
-	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS
-	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WINDOWS() 1
+# elif defined(__APPLE__) && defined(__MACH__) // macOS
 
-# elif defined(__APPLE__) && defined(__MACH__)
-
-	/// <summary>
-	/// ターゲットプラットフォームの名前
-	/// Name of the Target Platform
-	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"macOS"
+	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS()		1
 
-	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS
-	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_MACOS() 1
+# elif defined(__linux__) // Linux
 
-# elif defined(__linux__)
-
-	/// <summary>
-	/// ターゲットプラットフォームの名前
-	/// Name of the Target Platform
-	/// </summary>
 	# define SIV3D_PLATFORM_NAME	U"Linux"
+	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX()		1
 
-	# undef SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX
-	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_LINUX() 1
+# elif defined(__EMSCRIPTEN__) // Web
+
+	# define SIV3D_PLATFORM_NAME	U"Web"
+	# undef  SIV3D_PLATFORM_PRIVATE_DEFINITION_WEB
+	# define SIV3D_PLATFORM_PRIVATE_DEFINITION_WEB()		1
+
+# else
+
+	# error Unsupported platform
+
+# endif
+
+// Reference:
+// - Better Macros, Better Flags
+//   https://www.fluentcpp.com/2019/05/28/better-macros-better-flags/
+
+
+//////////////////////////////////////////////////
+//
+//	命令セット | Intrinsics
+//
+//////////////////////////////////////////////////
+
+# define SIV3D_INTRINSIC(X) SIV3D_INTRINSIC_PRIVATE_DEFINITION_##X()
+# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	0
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	# undef  SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE
+	# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	1
+
+# elif SIV3D_PLATFORM(MACOS)
+
+	# undef  SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE
+	# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	1
+
+# elif SIV3D_PLATFORM(LINUX)
+
+	# undef  SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE
+	# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	1
+
+# elif SIV3D_PLATFORM(WEB)
+
+	# if defined(__SSE4_2__) && __SSE4_2__
+		# undef  SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE
+		# define SIV3D_INTRINSIC_PRIVATE_DEFINITION_SSE()	1
+	# endif
 
 # else
 
@@ -65,97 +98,139 @@
 
 //////////////////////////////////////////////////
 //
-//	機能マクロ
-//	Feature Macros
+//	ビルド設定 | Build Mode
 //
 //////////////////////////////////////////////////
 
-# define SIV3D_WITH_FEATURE(X) SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_##X()
-# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 0
+# define SIV3D_BUILD(X) SIV3D_BUILD_PRIVATE_DEFINITION_##X()
+# define SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG()		0
+# define SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE()	0
 
-# if SIV3D_PLATFORM(WINDOWS)
+# if defined(_DEBUG) || defined(DEBUG) // Debug Build
 
-	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
-	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
+	# undef SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG
+	# define SIV3D_BUILD_PRIVATE_DEFINITION_DEBUG()		1
 
-# elif SIV3D_PLATFORM(MACOS)
+# else // Release Build
 
-	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
-	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
-
-# elif SIV3D_PLATFORM(LINUX)
-
-	# undef SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2
-	# define SIV3D_WITH_FEATURE_PRIVATE_DEFINITION_SSE2() 1
-
-# else
-
-	# error Unimplemented
+	# undef SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE
+	# define SIV3D_BUILD_PRIVATE_DEFINITION_RELEASE()	1
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	ビルド設定マクロ
-//	Build Type Macros
+//	Visual Studio バージョンのチェック | Version Check for Visual Studio
 //
 //////////////////////////////////////////////////
 
-# define SIV3D_BUILD_TYPE(X) SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_##X()
-# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 0
-# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 0
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1929) // 古い Visual Studio | Old MSVC
 
-# if defined(_DEBUG) || defined(DEBUG)
-
-	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG
-	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_DEBUG() 1
-
-# else
-
-	# undef SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE
-	# define SIV3D_BUILD_TYPE_PRIVATE_DEFINITION_RELEASE() 1
-
-# endif
-
-namespace s3d
-{
-	namespace Platform
-	{
-		inline constexpr bool DebugBuild = SIV3D_BUILD_TYPE(DEBUG);
-	}
-}
-
-
-//////////////////////////////////////////////////
-//
-//	__vectorcall
-//
-//////////////////////////////////////////////////
-
-# if SIV3D_PLATFORM(WINDOWS)
-
-	# define SIV3D_VECTOR_CALL __vectorcall
-
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
-
-	# define SIV3D_VECTOR_CALL
-
-# else
-
-	# error Unimplemented
+	// お使いの Visual Studio のバージョンが古い場合、このエラーが発生します
+	// This error occures when your Visual Studio version is not up to date.
+	# error Please update the Visual Studio. Visual Studio 2019 16.10 or later is required to build this project.
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	コンパイラ拡張
-//	Compiler Extensions
+//	Windows ビルド設定のチェック | Target Windows System Check
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS)
+# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64) // x86 は非サポート | x86 is not supported
+
+	# error Windows x86 is not supported.
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+//	C++ コンパイラ対応 | C++ Compiler Support
+//
+//////////////////////////////////////////////////
+
+# if defined(__cplusplus)
+
+	// コンストラクタの [[nodiscard]] | [[nodiscard]] for constructors
+	# if (__has_cpp_attribute(nodiscard) >= 201907L)
+
+		# define SIV3D_NODISCARD_CXX20 [[nodiscard]]
+
+	# else
+
+		# define SIV3D_NODISCARD_CXX20
+
+	# endif
+
+
+	// [[likely]], [[unlikely]] アトリビュート | [[likely]] and [[unlikely]] attributes
+	# if (__has_cpp_attribute(likely) && __has_cpp_attribute(unlikely) && !(defined(__GNUC__) && (9 <= __GNUC__) && (__GNUC__ < 10)))
+
+		# define SIV3D_LIKELY [[likely]]
+		# define SIV3D_UNLIKELY [[unlikely]]
+
+	# else
+
+		# define SIV3D_LIKELY
+		# define SIV3D_UNLIKELY
+
+	# endif
+
+
+	// メンバ変数への [[maybe_unused]] | [[maybe_unused]] for non-static data member
+	# if (__has_cpp_attribute(maybe_unused) && !(defined(__GNUC__)))
+
+		# define SIV3D_MAYBE_UNUSED_NSDM [[maybe_unused]]
+
+	# else
+
+		# define SIV3D_MAYBE_UNUSED_NSDM
+
+	# endif
+
+
+	// constexpr std::bit_cast
+	# if (__cpp_lib_bit_cast >= 201806L)
+	
+		# define SIV3D_CONSTEXPR_BITCAST constexpr
+
+	# else
+
+		# define SIV3D_CONSTEXPR_BITCAST
+
+	# endif
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+//	visibility
+//
+//////////////////////////////////////////////////
+
+# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
+
+	# define SIV3D_HIDDEN __attribute__((visibility("hidden")))
+
+# else
+
+	# define SIV3D_HIDDEN
+
+# endif
+
+
+//////////////////////////////////////////////////
+//
+//	コンパイラ拡張 (MSVC) | Compiler Extensions (MSVC)
+//
+//////////////////////////////////////////////////
+
+# if defined(_MSC_VER)
 
     # define SIV3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
 			 __pragma(warning(push))					\
@@ -164,52 +239,70 @@ namespace s3d
 	# define SIV3D_DISABLE_MSVC_WARNINGS_POP()			\
 			 __pragma(warning(pop))
 
+	# define SIV3D_NOVTABLE __declspec(novtable)
+
 # else
 
 	# define SIV3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)
-
 	# define SIV3D_DISABLE_MSVC_WARNINGS_POP()
+	# define SIV3D_NOVTABLE
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	Visual Studio のバージョンチェック
-//	MSVC Version Check
+//	コンパイラ拡張 (Clang) | Compiler Extensions (Clang)
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_FULL_VER < 192428314)
+# if defined(__clang__)
 
-	# error Visual Studio 2019 16.4 or later is required to build this project.
+	# define SIV3D_DISABLE_CLANG_WARNINGS_POP()\
+		_Pragma("clang diagnostic pop")
+
+# else
+
+	# define SIV3D_DISABLE_CLANG_WARNINGS_POP()
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	Windows システムのチェック
-//	Target Windows system check
+//	コンパイラ拡張 (GCC) | Compiler Extensions (GCC)
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && !defined(_WIN64)
+# if defined(__GNUC__)
 
-	# error Windows 32-bit is no longer supported.
+	# define SIV3D_DISABLE_GCC_WARNINGS_POP()\
+		_Pragma("GCC diagnostic pop")
+
+# else
+
+	# define SIV3D_DISABLE_GCC_WARNINGS_POP()
 
 # endif
 
 
 //////////////////////////////////////////////////
 //
-//	警告抑制
-//	Disable warning messages
+//	実行ファイル埋め込みリソース | Embedded Resource
 //
 //////////////////////////////////////////////////
 
+namespace s3d::Platform
+{
 # if SIV3D_PLATFORM(WINDOWS)
 
-	# pragma warning(disable : 26444 26451 26495 26812)
+	/// @brief ファイルを実行ファイルに埋め込み可能であるか
+	inline constexpr bool HasEmbeddedResource = true;
+
+# else
+
+	/// @brief ファイルを実行ファイルに埋め込み可能であるか
+	inline constexpr bool HasEmbeddedResource = false;
 
 # endif
+}

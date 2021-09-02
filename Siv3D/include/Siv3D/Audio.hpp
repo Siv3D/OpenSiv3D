@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,291 +11,445 @@
 
 # pragma once
 # include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Optional.hpp"
-# include "AssetHandle.hpp"
 # include "Wave.hpp"
-# include "Duration.hpp"
-# include "NamedParameter.hpp"
+# include "AudioLoopTiming.hpp"
+# include "AssetHandle.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	struct AudioLoopTiming
+	/// @brief オーディオ
+	class Audio : public AssetHandle<Audio>
 	{
-		int64 beginPos = 0;
-
-		int64 endPos = 0;
-
-		constexpr AudioLoopTiming() noexcept
-			: beginPos(0)
-			, endPos(0) {}
-
-		explicit constexpr AudioLoopTiming(int64 _beginPos) noexcept
-			: beginPos(_beginPos)
-			, endPos(0) {}
-
-		constexpr AudioLoopTiming(int64 _beginPos, int64 _endPos) noexcept
-			: beginPos(_beginPos)
-			, endPos(_endPos) {}
-	};
-
-	class Audio
-	{
-	protected:
-
-		class Tag {};
-
-		using AudioHandle = AssetHandle<Tag>;
-		
-		friend AudioHandle::AssetHandle();
-		
-		friend AudioHandle::AssetHandle(const IDWrapperType id) noexcept;
-
-		friend AudioHandle::~AssetHandle();
-
-		std::shared_ptr<AudioHandle> m_handle;
-
 	public:
 
-		using IDType = AudioHandle::IDWrapperType;
+		/// @brief ストリーミング再生を指定するフラグ
+		static constexpr struct FileStreaming {} Stream{};
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		/// @brief バスの最大数
+		static constexpr size_t MaxBusCount = 4;
+
+		/// @brief フィルターの最大数
+		static constexpr size_t MaxFilterCount = 8;
+
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		Audio();
 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		SIV3D_NODISCARD_CXX20
 		explicit Audio(Wave&& wave);
 
-		Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop);
+		/// @brief 
+		/// @param wave 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(Wave&& wave, const Loop loop);
 
-		Audio(Wave&& wave, Arg::loop_<bool> loop);
-
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop);
+
+		/// @brief 
+		/// @param wave 
+		SIV3D_NODISCARD_CXX20
 		explicit Audio(const Wave& wave);
 
-		Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop);
+		/// @brief 
+		/// @param wave 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(const Wave& wave, const Loop loop);
 
-		Audio(const Wave& wave, Arg::loop_<bool> loop);
-
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin);
 
+		/// @brief 
+		/// @param wave 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		explicit Audio(const FilePath& path);
+		/// @brief 
+		/// @param wave 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop);
 
-		Audio(const FilePath& path, const Optional<AudioLoopTiming>& loop);
+		/// @brief 
+		/// @param path 
+		SIV3D_NODISCARD_CXX20
+		explicit Audio(FilePathView path);
 
-		Audio(const FilePath& path, Arg::loop_<bool> loop);
+		/// @brief 
+		/// @param path 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, const Loop loop);
 
-		Audio(const FilePath& path, Arg::loopBegin_<uint64> loopBegin);
+		/// @brief 
+		/// @param path 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
-		Audio(const FilePath& path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
+		/// @brief 
+		/// @param path 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin);
+		/// @brief 
+		/// @param path 
+		/// @param loopBegin 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, Arg::loopBegin_<Duration> loopBegin);
 
-		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
+		/// @brief 
+		/// @param path 
+		/// @param loopBegin 
+		/// @param loopEnd 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		Audio(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Wave::DefaultSamplingRate, float silenceValue = 0.01f);
+		/// @brief 
+		/// @param path 
+		/// @param loop 
+		SIV3D_NODISCARD_CXX20
+		Audio(FilePathView path, const Optional<AudioLoopTiming>& loop);
 
+		/// @brief 
+		/// @param  
+		/// @param path 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
+		SIV3D_NODISCARD_CXX20
+		Audio(FileStreaming, FilePathView path);
+
+		/// @brief 
+		/// @param  
+		/// @param path 
+		/// @param loop 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
+		SIV3D_NODISCARD_CXX20
+		Audio(FileStreaming, FilePathView path, Loop loop);
+
+		/// @brief 
+		/// @param  
+		/// @param path 
+		/// @param loopBegin 
+		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
+		/// @remark 対応しない形式の場合、ストリーミング再生にはなりません。
+		SIV3D_NODISCARD_CXX20
+		Audio(FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
+
+		/// @brief 
+		/// @param instrument 
+		/// @param key 
+		/// @param duration 
+		/// @param velocity 
+		/// @param sampleRate 
+		/// @return 
+		SIV3D_NODISCARD_CXX20
+		Audio(GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
+
+		/// @brief 
+		/// @param instrument 
+		/// @param key 
+		/// @param noteOn 
+		/// @param noteOff 
+		/// @param velocity 
+		/// @param sampleRate 
+		/// @return 
+		SIV3D_NODISCARD_CXX20
+		Audio(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
+
+		/// @brief 
+		/// @param reader 
+		/// @param format 
+		SIV3D_NODISCARD_CXX20
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
+		/// @brief デストラクタ
 		virtual ~Audio();
 
-		void release();
+		/// @brief ストリーミングオーディオであるかを返します。
+		/// @return ストリーミングオーディオである場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isStreaming() const;
 
-		/// <summary>
-		/// オーディオが空かどうかを示します。
-		/// </summary>
-		[[nodiscard]] bool isEmpty() const;
+		/// @brief オーディオのサンプリングレートを返します。
+		/// @return オーディオのサンプリングレート
+		[[nodiscard]]
+		uint32 sampleRate() const;
 
-		/// <summary>
-		/// オーディオが空ではないかを返します。
-		/// </summary>
-		/// <returns>
-		/// オーディオが空ではない場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] explicit operator bool() const
-		{
-			return !isEmpty();
-		}
+		/// @brief オーディオの長さ（サンプル）を返します。
+		/// @return オーディオの長さ（サンプル）
+		[[nodiscard]]
+		size_t samples() const;
 
-		[[nodiscard]] IDType id() const;
+		/// @brief オーディオの長さ（秒）を返します。
+		/// @return オーディオの長さ（秒）
+		[[nodiscard]]
+		double lengthSec() const;
 
-		[[nodiscard]] bool operator ==(const Audio& audio) const;
+		/// @brief ループを含め再生したサンプル数の累計を返します。
+		/// @return 再生したサンプル数の累計
+		[[nodiscard]]
+		int64 samplesPlayed() const;
 
-		[[nodiscard]] bool operator !=(const Audio& audio) const;
+		/// @brief オーディオがアクティブであるかを返します。
+		/// @remark 再生して、stop していないオーディオはアクティブです。
+		/// @return オーディオがアクティブな場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isActive() const;
 
-		[[nodiscard]] uint32 samplingRate() const;
+		/// @brief オーディオが再生中であるかを返します。
+		/// @return オーディオが再生中の場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPlaying() const;
 
-		[[nodiscard]] size_t samples() const;
+		/// @brief オーディオが一時停止中であるかを返します。
+		/// @return オーディオが一時停止中の場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isPaused() const;
 
-		void setLoop(bool loop);
-
-		void setLoop(Arg::loopBegin_<uint64> loopBegin);
-
-		void setLoop(Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
-
-		void setLoop(Arg::loopBegin_<Duration> loopBegin);
-
-		void setLoop(Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
-
-		Optional<AudioLoopTiming> getLoop() const;
-
+		/// @brief 新しく再生したときにループが有効になるかを返します。
+		/// @return 新しく再生したときにループが有効になる場合 true, それ以外の場合は false
+		[[nodiscard]]
 		bool isLoop() const;
 
-		bool play(const Duration& fadeinDuration = SecondsF(0.0)) const;
+		/// @brief ループ再生する場合のループ範囲を返します。
+		/// @return ループ再生する場合のループ範囲
+		[[nodiscard]]
+		AudioLoopTiming getLoopTiming() const;
 
-		void pause(const Duration& fadeoutDuration = SecondsF(0.0)) const;
+		/// @brief 新しく再生するときのループの有無を設定します。
+		/// @param loop ループの有無
+		void setLoop(bool loop) const;
 
-		void stop(const Duration& fadeoutDuration = SecondsF(0.0)) const;
+		/// @brief 新しくループ再生するときのループ開始位置（サンプル）を設定します。
+		/// @param loopBegin ループ開始位置（サンプル）
+		void setLoopPoint(uint64 loopBegin) const;
 
-		void playOneShot(double volume = 1.0, double speed = 1.0) const;
+		/// @brief 新しくループ再生するときのループ開始位置（秒）を設定します。
+		/// @param loopBegin ループ開始位置（秒）
+		void setLoopPoint(const Duration& loopBegin) const;
 
+		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @remark オーディオが一時停止中の場合 `busIndex` を無視して再生を再開します。
+		/// @remark すでに再生中の場合は何もしません。
+		void play(size_t busIndex = 0) const;
+
+		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
+		/// @param fadeTime フェードイン時間
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @remark すでに再生中の場合は何もしません。
+		void play(const Duration& fadeTime, size_t busIndex = 0) const;
+
+		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param fadeTime フェードイン時間
+		/// @remark すでに再生中の場合は何もしません。
+		void play(size_t busIndex, const Duration& fadeTime) const;
+
+		/// @brief 再生中のオーディオを一時停止します。
+		void pause() const;
+
+		/// @brief 指定した時間をかけて音量をフェードアウトさせたのち一時停止します。
+		/// @param fadeTime フェードアウト時間
+		void pause(const Duration& fadeTime) const;
+
+		/// @brief オーディオを即座に停止し、非アクティブにします。
+		void stop() const;
+
+		/// @brief 指定した時間をかけて音量をフェードアウトさせたのち停止します。
+		/// @param fadeTime フェードアウト時間
+		void stop(const Duration& fadeTime) const;
+		
+		/// @brief オーディオを重複可能にして一度だけ再生します。
+		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param volume 音量
+		/// @param pan パン
+		/// @param speed 再生スピード
+		void playOneShot(size_t busIndex = 0, double volume = 1.0, double pan = 0.0, double speed = 1.0) const;
+
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを一時停止します
+		/// @param fadeTime 
+		void pauseAllShots() const;
+
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを、指定した時間をかけて音量をフェードアウトさせたのち一時停止します
+		/// @param fadeTime フェードアウト時間
+		void pauseAllShots(const Duration& fadeTime) const;
+
+		/// @brief `playOneShot()` 後に一時停止されたオーディオを再開します
+		void resumeAllShots() const;
+		
+		/// @brief `playOneShot()` 後に一時停止されたすべてのオーディオを、指定した時間をかけて音量をフェードインさせながら再開します
+		/// @param fadeTime フェードイン時間
+		void resumeAllShots(const Duration& fadeTime) const;
+
+		/// @brief `playOneShot()` で再生中のすべてのオーディオをすべて停止します
 		void stopAllShots() const;
 
-		/// <summary>
-		/// サウンドが再生中であるかを返します。
-		/// </summary>
-		[[nodiscard]] bool isPlaying() const;
+		/// @brief `playOneShot()` で再生中のすべてのオーディオを、指定した時間をかけて音量をフェードアウトさせたのち停止します
+		/// @param fadeTime フェードアウト時間
+		void stopAllShots(const Duration& fadeTime) const;
 
-		/// <summary>
-		/// サウンドが一時停止中であるかを返します。
-		/// </summary>
-		[[nodiscard]] bool isPaused() const;
+		/// @brief 再生位置（サンプル）を返します。
+		/// @return 再生位置（サンプル）
+		[[nodiscard]]
+		int64 posSample() const;
 
-		/// <summary>
-		/// 再生位置（サンプル）を返します。
-		/// </summary>
-		[[nodiscard]] int64 posSample() const;
+		/// @brief 再生位置（秒）を返します。
+		/// @return 再生位置（秒）
+		[[nodiscard]]
+		double posSec() const;
 
-		/// <summary>
-		/// 再生位置（秒）を返します。
-		/// </summary>
-		[[nodiscard]] double posSec() const;
+		/// @brief 再生位置を指定した位置（サンプル）に設定します。
+		/// @param posSample 再生位置（サンプル）
+		void seekSamples(size_t posSample) const;
 
-		/// <summary>
-		/// 再生バッファに送信済みのサウンドの位置（サンプル）を返します。
-		/// </summary>
-		[[nodiscard]] int64 streamPosSample() const;
+		/// @brief 再生位置を指定した位置（秒）に設定します。
+		/// @param posSec 再生位置（秒）
+		void seekTime(double posSec) const;
 
-		/// <summary>
-		/// ループを含めた再生済みのサンプル数を返します。
-		/// </summary>
-		[[nodiscard]] int64 samplesPlayed() const;
+		/// @brief 再生位置を指定した位置に設定します。
+		/// @param pos 再生位置
+		void seekTime(const Duration& pos) const;
 
-		/// <summary>
-		/// サウンドの長さ（秒）を返します。
-		/// </summary>
-		[[nodiscard]] double lengthSec() const;
+		/// @brief ループ再生された回数を返します。
+		/// @return ループ再生された回数
+		[[nodiscard]]
+		size_t loopCount() const;
 
-		/// <summary>
-		/// 波形データにアクセスします。
-		/// </summary>
-		/// <returns>
-		/// サウンドの波形データへの参照
-		/// </returns>
-		[[nodiscard]] const Wave& getWave() const;
+		/// @brief 音量の設定 [0.0, 1.0] を返します。
+		/// @return 音量の設定 [0.0, 1.0]
+		[[nodiscard]]
+		double getVolume() const;
 
-		/// <summary>
-		/// 再生位置を変更します。
-		/// </summary>
-		/// <param name="sec">
-		/// 再生位置（秒）
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setPosSec(double posSec) const;
+		/// @brief 音量 [0.0, 1.0] を設定します。
+		/// @param volume 音量 [0.0, 1.0]
+		/// @return *this
+		const Audio& setVolume(double volume) const;
 
-		/// <summary>
-		/// 再生位置を変更します。
-		/// </summary>
-		/// <param name="posSample">
-		/// 再生位置（サンプル）
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setPosSample(int64 posSample) const;
+		/// @brief 指定した時間をかけて目標の音量に変更します。
+		/// @param volume 目標の音量 [0.0, 1.0]
+		/// @param fadeTime フェード時間
+		/// @return *this
+		const Audio& fadeVolume(double volume, const Duration& fadeTime) const;
 
-		/// <summary>
-		/// 音量を変更します。
-		/// </summary>
-		/// <param name="volume">
-		/// 音量 [0.0, 1.0]
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setVolume(double volume) const;
+		/// @brief パンの設定 [-1.0, 1.0] を返します。
+		/// @return パンの設定 [-1.0, 1.0]
+		[[nodiscard]]
+		double getPan() const;
 
-		/// <summary>
-		/// 音量を変更します。
-		/// </summary>
-		/// <param name="left">
-		/// 左チャンネルの音量 [0.0, 1.0]
-		/// </param>
-		/// <param name="right">
-		/// 右チャンネルの音量 [0.0, 1.0]
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setVolumeLR(double left, double right) const;
+		/// @brief パン [-1.0, 1.0] を設定します。
+		/// @param pan パン [-1.0, 1.0]. -1.0 が左、0.0 が中央、1.0 が右
+		/// @return *this
+		const Audio& setPan(double pan) const;
 
-		/// <summary>
-		/// 音量を減衰レベル（dB）で設定します。
-		/// </summary>
-		/// <param name="attenuation_dB">
-		/// 減衰レベル（dB） [-100, 0.0]
-		/// </param>
-		/// <remarks>
-		/// atten. = vol.
-		/// 0 dB = 1.0
-		/// -6 dB = 0.5
-		/// -12 dB = 0.25
-		/// -18 db = 0.125
-		/// </remarks>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setVolume_dB(double attenuation_dB) const;
+		/// @brief 指定した時間をかけて目標のパンに変更します。
+		/// @param pan パン [-1.0, 1.0]. -1.0 が左、0.0 が中央、1.0 が右
+		/// @param fadeTime フェード時間
+		/// @return *this
+		const Audio& fadePan(double pan, const Duration& fadeTime) const;
 
-		/// <summary>
-		/// 音量を減衰レベル（dB）で設定します。
-		/// </summary>
-		/// <param name="attenuationLeft_dB">
-		/// 左チャンネルの減衰レベル（dB）
-		/// </param>
-		/// <param name="attenuationRight_dB">
-		/// 右チャンネルの減衰レベル（dB）
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void setVolumeLR_dB(double attenuationLeft_dB, double attenuationRight_dB) const;
+		/// @brief スピードの設定を返します。
+		/// @return スピードの設定
+		[[nodiscard]]
+		double getSpeed() const;
 
-		void setSpeed(double speed) const;
+		/// @brief スピード（再生速度の倍率）を設定します。
+		/// @param speed スピード（再生速度の倍率）
+		/// @remark スピードが上下すると音の高さも上下します。
+		/// @return *this
+		const Audio& setSpeed(double speed) const;
 
-		void setSpeedBySemitone(int32 semitone) const;
+		/// @brief 指定した時間をかけて目標のスピード（再生速度の倍率）に変更します。
+		/// @param speed スピード（再生速度の倍率）
+		/// @param fadeTime フェード時間
+		/// @return *this
+		const Audio& fadeSpeed(double speed, const Duration& fadeTime) const;
 
-		[[nodiscard]] double getSpeed() const;
+		/// @brief 半音単位で音階が変わるようスピード（再生速度の倍率）を設定します。
+		/// @param semitone 目標の半音単位
+		/// @remark `setSpeed(std::exp2(semitone / 12.0))` と同じです。
+		/// @return *this
+		const Audio& setSpeedBySemitone(int32 semitone) const;
 
-		[[nodiscard]] double getMinSpeed() const;
+		/// @brief 定した時間をかけて、半音単位で音階が変わるようスピード（再生速度の倍率）を設定します。
+		/// @param semitone 目標の半音単位
+		/// @param fadeTime フェード時間
+		/// @remark `fadeSpeed(std::exp2(semitone / 12.0), fadeTime)` と同じです。
+		/// @return *this
+		const Audio& fadeSpeedBySemitone(int32 semitone, const Duration& fadeTime) const;
 
-		[[nodiscard]] double getMaxSpeed() const;
+		/// @brief 音声波形のサンプルデータにアクセスします。
+		/// @param channel 左チャンネルの場合 0, 右チャンネルの場合 1
+		/// @remark ストリーミング再生の場合は利用できません。
+		/// @return 指定したチャンネルの音声波形データの先頭ポインタ。ストリーミング再生の場合は nullptr
+		[[nodiscard]]
+		const float* getSamples(size_t channel) const;
+
+		/// @brief オーディオを入れ替えます。
+		/// @param other 入れ替える先のオーディオ
+		void swap(Audio& other) noexcept;
 	};
-
-	using AudioID = Audio::IDType;
 }
+
+template <>
+inline void std::swap(s3d::Audio& a, s3d::Audio& b) noexcept;
+
+# include "detail/Audio.ipp"

@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,70 +11,122 @@
 
 # include <Siv3D/Microphone.hpp>
 # include <Siv3D/Math.hpp>
-# include <Siv3D/EngineLog.hpp>
-# include <Microphone/MicrophoneDetail.hpp>
+# include <Siv3D/FFTResult.hpp>
+# include <Siv3D/FFT.hpp>
+# include <Siv3D/Microphone/MicrophoneDetail.hpp>
 
 namespace s3d
 {
-	namespace detail
+	Microphone::Microphone()
+		: pImpl{ std::make_shared<MicrophoneDetail>() } {}
+
+	Microphone::Microphone(const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, DefaultBufferDuration, Loop::Yes, startImmediately } {}
+
+	Microphone::Microphone(const Duration& duration, const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, duration, Loop::Yes, startImmediately } {}
+
+	Microphone::Microphone(const Duration& duration, const Loop loop, const StartImmediately startImmediately)
+		: Microphone{ unspecified, unspecified, duration, loop, startImmediately } {}
+
+	Microphone::Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const Duration& duration, const Loop loop, const StartImmediately startImmediately)
+		: Microphone{}
 	{
-		uint32 ToSamplingRate(RecordingFormat format) noexcept
+		if (not pImpl->open(deviceIndex, sampleRate, duration, loop))
 		{
-			switch (format)
-			{
-			case RecordingFormat::S11025:
-				return 11025;
-			case RecordingFormat::S22050:
-				return 22050;
-			default:
-			case RecordingFormat::S44100:
-				return 44100;
-			case RecordingFormat::S48000:
-				return 48000;
-			case RecordingFormat::S96000:
-				return 96000;
-			}
+			return;
+		}
+
+		if (startImmediately)
+		{
+			pImpl->start();
 		}
 	}
 
-	Microphone::Microphone()
-		: pImpl(std::make_shared<MicrophoneDetail>())
+	Microphone::Microphone(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const size_t bufferLength, const Loop loop, const StartImmediately startImmediately)
+		: Microphone{}
 	{
+		if (not pImpl->open(deviceIndex, sampleRate, bufferLength, loop))
+		{
+			return;
+		}
 
+		if (startImmediately)
+		{
+			pImpl->start();
+		}
 	}
 
-	Microphone::Microphone(const Optional<size_t> deviceID, const RecordingFormat format, const size_t bufferLength, const bool loop)
-		: Microphone()
-	{
-		LOG_TRACE(U"Microphone::Microphone(deviceID = {}, format = {}, bufferLength = {}, loop = {})"_fmt(
-			deviceID, detail::ToSamplingRate(format), bufferLength, loop));
+	Microphone::~Microphone() {}
 
-		pImpl->init(deviceID, format, bufferLength, loop);
+	Optional<Microphone::Permission> Microphone::getPermission() const
+	{
+		// [Siv3D ToDo]
+		return Microphone::Permission::Allowed;
 	}
 
-	Microphone::~Microphone()
+	bool Microphone::open(const StartImmediately startImmediately)
 	{
-
+		return open(unspecified, unspecified, DefaultBufferDuration, Loop::Yes, startImmediately);
 	}
 
-	bool Microphone::init(const Optional<size_t> deviceID, const RecordingFormat format, const size_t bufferLength, const bool loop)
+	bool Microphone::open(const Duration& duration, const StartImmediately startImmediately)
 	{
-		return pImpl->init(deviceID, format, bufferLength, loop);
+		return open(unspecified, unspecified, duration, Loop::Yes, startImmediately);
 	}
 
-	bool Microphone::isAvailable() const
+	bool Microphone::open(const Duration& duration, const Loop loop, const StartImmediately startImmediately)
 	{
-		return pImpl->isAvailable();
+		return open(unspecified, unspecified, duration, loop, startImmediately);
 	}
 
+	bool Microphone::open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const Duration& duration, const Loop loop, const StartImmediately startImmediately)
+	{
+		if (not pImpl->open(deviceIndex, sampleRate, duration, loop))
+		{
+			return false;
+		}
+
+		if (startImmediately)
+		{
+			return pImpl->start();
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	bool Microphone::open(const Optional<uint32>& deviceIndex, const Optional<uint32>& sampleRate, const size_t bufferLength, const Loop loop, const StartImmediately startImmediately)
+	{
+		if (not pImpl->open(deviceIndex, sampleRate, bufferLength, loop))
+		{
+			return false;
+		}
+
+		if (startImmediately)
+		{
+			return pImpl->start();
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	void Microphone::close()
+	{
+		pImpl->close();
+	}
+
+	bool Microphone::isOpen() const
+	{
+		return pImpl->isOpen();
+	}
+	
 	Microphone::operator bool() const
 	{
-		return isAvailable();
-	}
-
-	void Microphone::release()
-	{
-		pImpl->release();
+		return isOpen();
 	}
 
 	bool Microphone::start()
@@ -92,12 +144,27 @@ namespace s3d
 		return pImpl->isRecording();
 	}
 
-	uint32 Microphone::samplingRate() const
+	uint32 Microphone::microphoneIndex() const
 	{
-		return pImpl->samplingRate();
+		return pImpl->microphoneIndex();
 	}
 
-	const Array<WaveSampleS16>& Microphone::getBuffer() const
+	uint32 Microphone::getSampleRate() const
+	{
+		return pImpl->getSampleRate();
+	}
+
+	size_t Microphone::getBufferLength() const
+	{
+		return pImpl->getBufferLength();
+	}
+
+	bool Microphone::isLoop() const
+	{
+		return pImpl->isLoop();
+	}
+
+	const Wave& Microphone::getBuffer() const
 	{
 		return pImpl->getBuffer();
 	}
@@ -109,108 +176,134 @@ namespace s3d
 
 	double Microphone::mean(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}
 
-		const Array<WaveSampleS16>& buffer = getBuffer();
-		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 1.0);
-		const size_t readLength = static_cast<size_t>(lengthSec * samplingRate());
-		int64 sum = 0;
-
-		for (size_t samplesLeft = readLength, pos = posSample(); samplesLeft; --samplesLeft)
+		const Wave& wave = getBuffer();
+		const size_t writePos = posSample();
+		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 5.0);
+		const size_t readLength = static_cast<size_t>(lengthSec * getSampleRate());
+		double sum = 0.0;
 		{
-			if (pos == 0)
+			const size_t headLength = Min(writePos, readLength);
+			const size_t tailLength = (readLength - headLength);
+
+			if (tailLength)
 			{
-				pos = buffer.size();
+				const WaveSample* pSrc = &wave[wave.size() - tailLength];
+
+				for (size_t i = 0; i < tailLength; ++i)
+				{
+					sum += (Abs(pSrc->left) + Abs(pSrc->right));
+					++pSrc;
+				}
 			}
 
-			const auto& sample = buffer[--pos];
-			sum += std::abs(static_cast<int32>(sample.left));
-			sum += std::abs(static_cast<int32>(sample.right));
+			if (headLength)
+			{
+				const WaveSample* pSrc = &wave[writePos - headLength];
+
+				for (size_t i = 0; i < headLength; ++i)
+				{
+					sum += (Abs(pSrc->left) + Abs(pSrc->right));
+					++pSrc;
+				}
+			}
 		}
 
-		return sum / (32768.0 * 2) / readLength;
+		return (sum / (readLength * 2.0));
 	}
 
 	double Microphone::rootMeanSquare(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}
 
-		const Array<WaveSampleS16>& buffer = getBuffer();
-		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 1.0);
-		const size_t readLength = static_cast<size_t>(lengthSec * samplingRate());
-		double sum = 0;
-
-		for (size_t samplesLeft = readLength, pos = posSample(); samplesLeft; --samplesLeft)
+		const Wave& wave = getBuffer();
+		const size_t writePos = posSample();
+		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 5.0);
+		const size_t readLength = static_cast<size_t>(lengthSec * getSampleRate());
+		double sum = 0.0;
 		{
-			if (pos == 0)
+			const size_t headLength = Min(writePos, readLength);
+			const size_t tailLength = (readLength - headLength);
+
+			if (tailLength)
 			{
-				pos = buffer.size();
+				const WaveSample* pSrc = &wave[wave.size() - tailLength];
+
+				for (size_t i = 0; i < tailLength; ++i)
+				{
+					sum += (Math::Square(pSrc->left) + Math::Square(pSrc->right));
+					++pSrc;
+				}
 			}
 
-			const auto& sample = buffer[--pos];
-			sum += Math::Square(sample.left / 32768.0);
-			sum += Math::Square(sample.right / 32768.0);
+			if (headLength)
+			{
+				const WaveSample* pSrc = &wave[writePos - headLength];
+
+				for (size_t i = 0; i < headLength; ++i)
+				{
+					sum += (Math::Square(pSrc->left) + Math::Square(pSrc->right));
+					++pSrc;
+				}
+			}
 		}
 
-		return std::sqrt(sum / (readLength * 2));
+		return Math::Sqrt(sum / (readLength * 2.0));
 	}
 
 	double Microphone::peak(const Duration& duration) const
 	{
-		if (!isRecording())
+		if (not isRecording())
 		{
 			return 0.0;
 		}
 
-		const Array<WaveSampleS16>& buffer = getBuffer();
-		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 1.0);
-		const size_t readLength = static_cast<size_t>(lengthSec * samplingRate());
-		int32 max = 0;
-
-		for (size_t samplesLeft = readLength, pos = posSample(); samplesLeft; --samplesLeft)
+		const Wave& wave = getBuffer();
+		const size_t writePos = posSample();
+		const double lengthSec = Clamp(static_cast<double>(duration.count()), 0.001, 5.0);
+		const size_t readLength = static_cast<size_t>(lengthSec * getSampleRate());
+		float max = 0.0f;
 		{
-			if (pos == 0)
+			const size_t headLength = Min(writePos, readLength);
+			const size_t tailLength = (readLength - headLength);
+
+			if (tailLength)
 			{
-				pos = buffer.size();
+				const WaveSample* pSrc = &wave[wave.size() - tailLength];
+
+				for (size_t i = 0; i < tailLength; ++i)
+				{
+					max = Max(Abs(pSrc->left), max);
+					max = Max(Abs(pSrc->right), max);
+					++pSrc;
+				}
 			}
 
-			const auto& sample = buffer[--pos];
-			max = std::max(std::abs(static_cast<int32>(sample.left)), max);
-			max = std::max(std::abs(static_cast<int32>(sample.right)), max);
+			if (headLength)
+			{
+				const WaveSample* pSrc = &wave[writePos - headLength];
+
+				for (size_t i = 0; i < headLength; ++i)
+				{
+					max = Max(Abs(pSrc->left), max);
+					max = Max(Abs(pSrc->right), max);
+					++pSrc;
+				}
+			}
 		}
 
-		return max / 32768.0;
+		return max;
 	}
 
 	void Microphone::fft(FFTResult& result, const FFTSampleLength sampleLength) const
 	{
-		FFT::Analyze(result, getBuffer(), static_cast<uint32>(posSample()), samplingRate(), sampleLength);
-	}
-
-	bool Microphone::saveBuffer(const FilePath& path) const
-	{
-		if (!isAvailable())
-		{
-			return false;
-		}
-
-		const Array<WaveSampleS16>& buffer = getBuffer();
-		Wave wave(buffer.size(), Arg::samplingRate = samplingRate());
-		WaveSample* pDst = wave.data();
-		const WaveSample* pDstEnd = pDst + wave.size();
-		const WaveSampleS16* pSrc = buffer.data();
-
-		while (pDst != pDstEnd)
-		{
-			*pDst++ = *pSrc++;
-		}
-
-		return wave.save(path);
+		FFT::Analyze(result, getBuffer(), posSample(), sampleLength);
 	}
 }

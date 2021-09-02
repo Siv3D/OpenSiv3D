@@ -2,222 +2,212 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TextureAsset.hpp>
-# include <Siv3D/Emoji.hpp>
-# include <Siv3D/Icon.hpp>
-# include <Siv3DEngine.hpp>
-# include <Asset/IAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Asset/IAsset.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static Texture FromAsset(const IAsset* asset)
 		{
-			if (const TextureAssetData* textureAssetData = dynamic_cast<const TextureAssetData*>(asset))
+			if (const TextureAssetData* assetData = dynamic_cast<const TextureAssetData*>(asset))
 			{
-				return textureAssetData->texture;
+				return assetData->texture;
 			}
 
-			return Texture();
+			return{};
 		}
-	}
 
-	const String& TextureAssetData::Name()
-	{
-		static const String name = U"Texture";
-
-		return name;
-	}
-
-	bool TextureAssetData::DefaultPreload(TextureAssetData& asset)
-	{
-		if (asset.texture)
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
 		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ TextureAsset::Register(): Image file `" + path + U"` not found");
+				return false;
+			}
+
 			return true;
 		}
-
-		asset.texture = Texture(asset.path, asset.desc);
-
-		return !asset.texture.isEmpty();
 	}
 
-	bool TextureAssetData::DefaultUpdate(TextureAssetData&)
+	TextureAsset::TextureAsset(const AssetNameView name)
+		: Texture{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Texture, name)) } {}
+
+	bool TextureAsset::Register(const AssetName& name, const FilePathView path, const TextureDesc desc)
 	{
-		return true;
-	}
-
-	bool TextureAssetData::DefaultRelease(TextureAssetData& asset)
-	{
-		asset.texture.release();
-
-		return true;
-	}
-
-	TextureAssetData::TextureAssetData()
-		: IAsset()
-		, onPreload(DefaultPreload)
-		, onUpdate(DefaultUpdate)
-		, onRelease(DefaultRelease)
-	{
-
-	}
-
-	TextureAssetData::TextureAssetData(
-		const FilePath& _path,
-		TextureDesc _desc,
-		const AssetParameter& _parameter,
-		std::function<bool(TextureAssetData&)> _onPreload,
-		std::function<bool(TextureAssetData&)> _onUpdate,
-		std::function<bool(TextureAssetData&)> _onRelease)
-		: IAsset(_parameter)
-		, path(_path)
-		, desc(_desc)
-		, onPreload(_onPreload)
-		, onUpdate(_onUpdate)
-		, onRelease(_onRelease)
-	{
-
-	}
-
-	bool TextureAssetData::preload()
-	{
-		if (uninitialized())
-		{
-			setState(onPreload(*this) ? State::LoadSucceeded : State::LoadFailed);
-		}
-
-		return loadSucceeded();
-	}
-
-	void TextureAssetData::preloadAsync()
-	{
-		if (uninitialized())
-		{
-			launchLoading([this]() { return onPreload(*this); });
-
-			setState(State::PreloadingAsync);
-		}
-	}
-
-	bool TextureAssetData::update()
-	{
-		if (!isPreloaded())
+		if (not detail::CheckFileExists(path))
 		{
 			return false;
 		}
 
-		return onUpdate(*this);
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc);
+
+		return Register(name, std::move(data));
 	}
 
-	bool TextureAssetData::release()
+	bool TextureAsset::Register(const AssetName& name, const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
 	{
-		if (uninitialized())
+		if (not detail::CheckFileExists(rgb))
 		{
-			return true;
+			return false;
 		}
 
-		const bool result = onRelease(*this);
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
 
-		setState(State::Uninitialized);
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
 
-		return result;
+		return Register(name, std::move(data));
 	}
 
-	TextureAsset::TextureAsset(const AssetName& name)
-		: Texture(detail::FromAsset(Siv3DEngine::Get<ISiv3DAsset>()->getAsset(AssetType::Texture, name)))
+	bool TextureAsset::Register(const AssetName& name, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
 	{
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
 
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc);
+
+		return Register(name, std::move(data));
 	}
 
-	TextureAsset::TextureAsset(const AssetName& name, const Texture& dummy)
-		: Texture(IsReady(name) ? detail::FromAsset(Siv3DEngine::Get<ISiv3DAsset>()->getAsset(AssetType::Texture, name)) : dummy)
+	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const TextureDesc desc)
 	{
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(emoji, desc);
 
+		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const FilePath& path, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const int32 size, const TextureDesc desc)
 	{
-		return Register(name, path, TextureDesc::Unmipped, parameter);
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(icon, size, desc);
+
+		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const FilePath& path, TextureDesc desc, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Texture, name, std::make_unique<TextureAssetData>(path, desc, parameter));
+		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Texture, name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView path, const TextureDesc desc)
 	{
-		return Register(name, icon, TextureDesc::Mipped, parameter);
+		if (not detail::CheckFileExists(path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(path, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const TextureDesc desc, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const FilePathView rgb, const FilePathView alpha, TextureDesc desc)
 	{
-		return Register(name, TextureAssetData(FilePath(), desc, parameter,
-			[=](TextureAssetData & a) { a.texture = Texture(icon, a.desc); return !!a.texture; },
-			TextureAssetData::DefaultUpdate,
-			TextureAssetData::DefaultRelease
-		));
+		if (not detail::CheckFileExists(rgb))
+		{
+			return false;
+		}
+
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
 	{
-		return Register(name, emoji, TextureDesc::Mipped, parameter);
+		if (not detail::CheckFileExists(alpha))
+		{
+			return false;
+		}
+
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(rgb, alpha, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const TextureDesc desc, const AssetParameter& parameter)
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Emoji& emoji, const TextureDesc desc)
 	{
-		return Register(name, TextureAssetData(FilePath(), desc, parameter,
-			[=](TextureAssetData & a) { a.texture = Texture(emoji, a.desc); return !!a.texture; },
-			TextureAssetData::DefaultUpdate,
-			TextureAssetData::DefaultRelease
-		));
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(emoji, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const TextureAssetData& data)
+	bool TextureAsset::Register(const AssetNameAndTags& nameAndTags, const Icon& icon, const int32 size, const TextureDesc desc)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Texture, name, std::make_unique<TextureAssetData>(data));
+		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(icon, size, desc, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool TextureAsset::IsRegistered(const AssetName& name)
+	bool TextureAsset::IsRegistered(const AssetNameView name)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isRegistered(AssetType::Texture, name);
+		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Texture, name);
 	}
 
-	bool TextureAsset::Preload(const AssetName& name)
+	bool TextureAsset::Load(const AssetNameView name)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->preload(AssetType::Texture, name);
+		return SIV3D_ENGINE(Asset)->load(AssetType::Texture, name, {});
 	}
 
-	void TextureAsset::Release(const AssetName& name)
+	void TextureAsset::LoadAsync(const AssetNameView name)
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->release(AssetType::Texture, name);
+		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Texture, name, {});
+	}
+
+	void TextureAsset::Wait(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->wait(AssetType::Texture, name);
+	}
+
+	bool TextureAsset::IsReady(const AssetNameView name)
+	{
+		return SIV3D_ENGINE(Asset)->isReady(AssetType::Texture, name);
+	}
+
+	void TextureAsset::Release(const AssetNameView name)
+	{
+		SIV3D_ENGINE(Asset)->release(AssetType::Texture, name);
 	}
 
 	void TextureAsset::ReleaseAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->releaseAll(AssetType::Texture);
+		SIV3D_ENGINE(Asset)->releaseAll(AssetType::Texture);
 	}
 
-	void TextureAsset::Unregister(const AssetName& name)
+	void TextureAsset::Unregister(const AssetNameView name)
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregister(AssetType::Texture, name);
+		SIV3D_ENGINE(Asset)->unregister(AssetType::Texture, name);
 	}
 
 	void TextureAsset::UnregisterAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregisterAll(AssetType::Texture);
+		SIV3D_ENGINE(Asset)->unregisterAll(AssetType::Texture);
 	}
 
-	bool TextureAsset::IsReady(const AssetName& name)
+	HashTable<AssetName, AssetInfo> TextureAsset::Enumerate()
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isReady(AssetType::Texture, name);
+		return SIV3D_ENGINE(Asset)->enumerate(AssetType::Texture);
 	}
 }

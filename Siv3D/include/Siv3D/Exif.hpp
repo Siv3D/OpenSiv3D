@@ -2,17 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Optional.hpp"
 # include "String.hpp"
+# include "IReader.hpp"
 
 namespace s3d
 {
@@ -21,9 +22,11 @@ namespace s3d
 	//
 	struct Exif
 	{
-		[[nodiscard]] static Optional<Exif> Read(FilePathView path);
+		[[nodiscard]]
+		static Optional<Exif> Read(FilePathView path);
 
-		[[nodiscard]] static Optional<Exif> Read(const IReader& reader);
+		[[nodiscard]]
+		static Optional<Exif> Read(const IReader& reader);
 
 		String imageDescription;	// Image description
 		String make;				// Camera manufacturer's name

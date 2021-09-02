@@ -2,446 +2,562 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/LineString.hpp>
-# include <Siv3D/Optional.hpp>
-# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Spline.hpp>
-# include <Siv3D/Polygon.hpp>
-# include <Siv3DEngine.hpp>
-# include <Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Spline2D.hpp>
+# include <Siv3D/Math.hpp>
+# include <Siv3D/Interpolation.hpp>
+# include <Siv3D/Formatter.hpp>
+# include <Siv3D/Renderer2D/IRenderer2D.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static constexpr bool Open = false;
-
-		static constexpr bool Closed = true;
-	}
-
-	LineString::LineString(const LineString& lines)
-		: base_type(lines.begin(), lines.end())
-	{
-
-	}
-
-	LineString::LineString(LineString&& lines)
-		: base_type(std::move(lines))
-	{
-
-	}
-
-	LineString::LineString(const Array<Vec2>& points)
-		: base_type(points.begin(), points.end())
-	{
-
-	}
-
-	LineString::LineString(Array<Vec2>&& points)
-		: base_type(std::move(points))
-	{
-
-	}
-
-	LineString& LineString::operator =(const Array<Vec2>& other)
-	{
-		base_type::operator=(other);
-
-		return *this;
-	}
-
-	LineString& LineString::operator =(Array<Vec2>&& other) noexcept
-	{
-		base_type::operator=(std::move(other));
-
-		return *this;
-	}
-
-	LineString& LineString::operator =(const LineString& other)
-	{
-		base_type::operator=(other);
-
-		return *this;
-	}
-
-	LineString& LineString::operator =(LineString&& other) noexcept
-	{
-		base_type::operator=(std::move(other));
-
-		return *this;
-	}
-
-	void LineString::assign(const LineString& other)
-	{
-		base_type::operator=(other);
-	}
-
-	void LineString::assign(LineString&& other) noexcept
-	{
-		base_type::operator=(std::move(other));
-	}
-
-	LineString& LineString::operator <<(const Vec2& value)
-	{
-		base_type::push_back(value);
-
-		return *this;
-	}
-
-	void LineString::swap(LineString& other) noexcept
-	{
-		base_type::swap(other);
-	}
-
-	LineString& LineString::append(const Array<Vec2>& other)
-	{
-		base_type::insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	LineString& LineString::append(const LineString& other)
-	{
-		base_type::insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	LineString& LineString::remove(const Vec2& value)
-	{
-		base_type::remove(value);
-
-		return *this;
-	}
-
-	LineString& LineString::remove_at(const size_t index)
-	{
-		base_type::remove_at(index);
-
-		return *this;
-	}
-
-	LineString& LineString::reverse()
-	{
-		base_type::reverse();
-
-		return *this;
-	}
-
-	LineString& LineString::rotate(const std::ptrdiff_t count)
-	{
-		base_type::rotate(count);
-
-		return *this;
-	}
-
-	LineString& LineString::shuffle()
-	{
-		base_type::shuffle();
-
-		return *this;
-	}
-
-	LineString LineString::slice(const size_t index) const
-	{
-		return LineString(base_type::slice(index));
-	}
-
-	LineString LineString::slice(const size_t index, const size_t length) const
-	{
-		return LineString(base_type::slice(index, length));
-	}
-
-	size_t LineString::num_lines() const noexcept
-	{
-		return size() < 2 ? 0 : size() - 1;
-	}
-
-	Line LineString::line(const size_t index) const
-	{
-		return{ base_type::operator[](index), base_type::operator[](index + 1) };
-	}
-
-	LineString LineString::movedBy(const double x, const double y) const
-	{
-		return LineString(*this).moveBy(x, y);
-	}
-
-	LineString LineString::movedBy(const Vec2& v) const
-	{
-		return movedBy(v.x, v.y);
-	}
-
-	LineString& LineString::moveBy(const double x, const double y) noexcept
-	{
-		for (auto& point : *this)
+		LineString CatmullRom(const LineString& lines, int32 interpolation, const CloseRing closeRing)
 		{
-			point.moveBy(x, y);
+			const size_t linesSize = lines.size();
+
+			if ((linesSize < 2) || (interpolation < 2))
+			{
+				return lines;
+			}
+
+			// [Siv3D ToDo] 最適化
+
+			Array<Vec2> points;
+			{
+				const Vec2* pSrc = lines.data();
+
+				points.reserve(linesSize + (closeRing ? 3 : 2));
+
+				if (closeRing)
+				{
+					points.push_back(pSrc[linesSize - 1]);
+				}
+				else
+				{
+					points.push_back(pSrc[0]);
+				}
+
+				points.insert(points.end(), lines.begin(), lines.end());
+
+				if (closeRing)
+				{
+					points.push_back(pSrc[0]);
+					points.push_back(pSrc[1]);
+				}
+				else
+				{
+					points.push_back(pSrc[linesSize - 1]);
+				}
+			}
+
+			LineString splinePoints;
+			{
+				const Vec2* pSrc = points.data();
+
+				splinePoints.reserve((points.size() - 3) * interpolation + 1);
+
+				for (size_t i = 1; i < points.size() - 2; ++i)
+				{
+					const bool isLast = ((i + 1) == points.size() - 2);
+
+					for (int32 t = 0; t < (interpolation + isLast); ++t)
+					{
+						const Vec2 p = Spline::CatmullRom(pSrc[i - 1], pSrc[i], pSrc[i + 1], pSrc[i + 2], t / static_cast<double>(interpolation));
+
+						splinePoints.push_back(p);
+					}
+				}
+			}
+
+			return splinePoints;
+		}
+	}
+
+	LineString& LineString::unique_consecutive()
+	{
+		erase(std::unique(begin(), end()), end());
+
+		return *this;
+	}
+
+	LineString LineString::uniqued_consecutive() const&
+	{
+		LineString result;
+
+		std::unique_copy(begin(), end(), std::back_inserter(result));
+
+		return result;
+	}
+
+	LineString LineString::uniqued_consecutive()&&
+	{
+		erase(std::unique(begin(), end()), end());
+
+		shrink_to_fit();
+
+		return std::move(*this);
+	}
+
+	Vec2 LineString::normalAtPoint(const size_t index, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{ Math::NaN, Math::NaN };
 		}
 
-		return *this;
-	}
-
-	LineString& LineString::moveBy(const Vec2& v) noexcept
-	{
-		return moveBy(v.x, v.y);
-	}
-
-	RectF LineString::calculateBoundingRect() const noexcept
-	{
-		if (isEmpty())
+		if (size() <= index)
 		{
-			return RectF(0);
+			throw std::out_of_range("LineString::normalAtPoint() index out of range");
 		}
 
-		const Vec2* it = data();
-		const Vec2* itEnd = it + size();
+		const size_t n = size();
+		const Vec2* pSrc = data();
+		const Vec2 curr = pSrc[index];
+		Vec2 prev, next;
 
-		double left = it->x;
-		double top = it->y;
-		double right = left;
-		double bottom = top;
-		++it;
+		if (index == 0)
+		{
+			if (closeRing)
+			{
+				prev = pSrc[n - 2];
+				next = pSrc[index + 1];
+			}
+			else
+			{
+				prev = pSrc[0];
+				next = pSrc[index + 1];
+			}
+		}
+		else if (index == (n - 1))
+		{
+			if (closeRing)
+			{
+				prev = pSrc[index - 1];
+				next = pSrc[0];
+			}
+			else
+			{
+				prev = pSrc[index - 1];
+				next = pSrc[(n - 1)];
+			}
+		}
+		else
+		{
+			prev = pSrc[index - 1];
+			next = pSrc[index + 1];
+		}
+
+		const double a0 = (curr - prev).getAngle();
+		const double a1 = (next - curr).getAngle();
+		return Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+	}
+
+	Vec2 LineString::normalAtLine(const size_t index, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{ Math::NaN, Math::NaN };
+		}
+
+		const bool hasCloseLine = static_cast<bool>(closeRing);
+
+		if ((size() - 1 + hasCloseLine) <= index)
+		{
+			throw std::out_of_range("LineString::normalAtLine() index out of range");
+		}
+
+		const size_t num_lines = (size() - 1);
+		const Vec2* pSrc = data();
+		const Vec2 curr = pSrc[index];
+		Vec2 next;
+
+		if (closeRing)
+		{
+			if (index == num_lines)
+			{
+				next = pSrc[0];
+			}
+			else
+			{
+				next = pSrc[index + 1];
+			}
+		}
+		else
+		{
+			next = pSrc[index + 1];
+		}
+
+		const Vec2 v = (next - curr).normalized();
 		
-		while (it != itEnd)
-		{
-			if (it->x < left)
-			{
-				left = it->x;
-			}
-			else if (right < it->x)
-			{
-				right = it->x;
-			}
-
-			if (it->y < top)
-			{
-				top = it->y;
-			}
-			else if (bottom < it->y)
-			{
-				bottom = it->y;
-			}
-
-			++it;
-		}
-
-		return RectF(left, top, right - left, bottom - top);
+		return{ v.y, -v.x };
 	}
 
 	LineString LineString::catmullRom(const int32 interpolation) const
 	{
-		return _catmullRom(interpolation, detail::Open);
+		return detail::CatmullRom(*this, interpolation, CloseRing::No);
 	}
 
-	LineString LineString::catmullRomClosed(const int32 interpolation) const
+	LineString LineString::catmullRom(const CloseRing closeRing, const int32 interpolation) const
 	{
-		return _catmullRom(interpolation, detail::Closed);
+		return detail::CatmullRom(*this, interpolation, closeRing);
 	}
 
-	Polygon LineString::calculateBuffer(const double distance, const int32 quality) const
+	double LineString::calculateLength(const CloseRing closeRing) const noexcept
 	{
-		return _calculateBuffer(distance, quality, detail::Open);
+		const size_t n = num_lines();
+		const Vec2* pData = data();
+		double length = 0.0;
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			length += (pData[i].distanceFrom(pData[i + 1]));
+		}
+
+		if (closeRing)
+		{
+			length += (pData[n]).distanceFrom(pData[0]);
+		}
+
+		return length;
 	}
 
-	Polygon LineString::calculateBufferClosed(const double distance, const int32 quality) const
+	Vec2 LineString::calculatePointFromOrigin(const double distanceFromOrigin, const CloseRing closeRing) const
 	{
-		return _calculateBuffer(distance, quality, detail::Closed);
+		if (isEmpty())
+		{
+			throw std::out_of_range("LineString::calculatePointFromOrigin() line is empty");
+		}
+
+		if (distanceFromOrigin <= 0.0)
+		{
+			return front();
+		}
+
+		const size_t n = num_lines();
+		const Vec2* pData = data();
+		double currentLength = 0.0;
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			const double length = (pData[i].distanceFrom(pData[i + 1]));
+
+			if (distanceFromOrigin <= (currentLength + length))
+			{
+				return pData[i] + (pData[i + 1] - pData[i]).setLength(distanceFromOrigin - currentLength);
+			}
+
+			currentLength += length;
+		}
+
+		if (closeRing)
+		{
+			const double length = (pData[n]).distanceFrom(pData[0]);
+
+			if (distanceFromOrigin <= (currentLength + length))
+			{
+				return pData[n] + (pData[0] - pData[n]).setLength(distanceFromOrigin - currentLength);
+			}
+
+			return front();
+		}
+		else
+		{
+			return back();
+		}
+	}
+
+	LineString LineString::extractLineString(double distanceFromOrigin, double length, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{};
+		}
+
+		if (length <= 0.0)
+		{
+			distanceFromOrigin += length;
+			length = -length;
+		}
+
+		const size_t N = (num_lines() + (closeRing ? 1 : 0));
+		Array<double> lens(N);
+		{
+			for (size_t i = 0; i < num_lines(); ++i)
+			{
+				lens[i] = line(i).length();
+			}
+
+			if (closeRing)
+			{
+				lens.back() = front().distanceFrom(back());
+			}
+		}
+
+		const double perim = lens.sum();
+
+		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
+		length = Min(length, perim);
+		const double distanceToTarget = (distanceFromOrigin + length);
+
+		LineString points;
+		double currentLength = 0.0;
+		const Vec2* pSrc = data();
+
+		for (size_t n = 0; n < (N * 2); ++n)
+		{
+			const size_t i = (n % N);
+			const double len = lens[i];
+			const Vec2 pFrom = pSrc[i];
+			const Vec2 pTo = pSrc[((N <= (i + 1)) ? (i - (N - 1)) : (i + 1)) % size()];
+
+			if (not points)
+			{
+				if ((distanceFromOrigin <= (currentLength + len)))
+				{
+					const Vec2 origin = pFrom + (pTo - pFrom)
+						.setLength(distanceFromOrigin - currentLength);
+					points << origin;
+
+					if (distanceToTarget <= (currentLength + len))
+					{
+						const Vec2 target = pFrom + (pTo - pFrom)
+							.setLength(distanceToTarget - currentLength);
+						points << target;
+						break;
+					}
+
+					points << pTo;
+				}
+			}
+			else
+			{
+				if (distanceToTarget <= (currentLength + len))
+				{
+					const Vec2 target = pFrom + (pTo - pFrom)
+						.setLength(distanceToTarget - currentLength);
+					points << target;
+					break;
+				}
+
+				points << pTo;
+			}
+
+			currentLength += len;
+		}
+
+		return points;
+	}
+
+	Array<Vec2> LineString::computeNormals(const CloseRing closeRing) const
+	{
+		Array<Vec2> normals(size());
+
+		const size_t n = size();
+		const Vec2* pSrc = data();
+		Vec2* pDst = normals.data();
+
+		if (closeRing)
+		{
+			for (size_t i = 0; i < n; ++i)
+			{
+				const Vec2 prev = (i == 0) ? pSrc[n - 2] : pSrc[i - 1];
+				const Vec2 curr = pSrc[i];
+				const Vec2 next = (i == (n - 1)) ? pSrc[0] : pSrc[i + 1];
+				const double a0 = (curr - prev).getAngle();
+				const double a1 = (next - curr).getAngle();
+				pDst[i] = Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < n; ++i)
+			{
+				const Vec2 prev = (i == 0) ? pSrc[0] : pSrc[i - 1];
+				const Vec2 curr = pSrc[i];
+				const Vec2 next = (i == (n - 1)) ? pSrc[i] : pSrc[i + 1];
+				const double a0 = (curr - prev).getAngle();
+				const double a1 = (next - curr).getAngle();
+				pDst[i] = Circular{ 1, (Math::LerpAngle(a0, a1, 0.5) - Math::HalfPi) };
+			}
+		}
+
+		return normals;
+	}
+
+	Spline2D LineString::asSpline(const CloseRing closeRing) const
+	{
+		return{ *this, closeRing };
 	}
 
 	const LineString& LineString::paint(Image& dst, const Color& color) const
 	{
-		return _paint(dst, 1, color, detail::Open);
-	}
-
-	const LineString& LineString::paint(Image& dst, const int32 thickness, const Color& color) const
-	{
-		return _paint(dst, thickness, color, detail::Open);
+		return paint(dst, 1, color);
 	}
 
 	const LineString& LineString::paintClosed(Image& dst, const Color& color) const
 	{
-		return _paint(dst, 1, color, detail::Closed);
+		return paintClosed(dst, 1, color);
 	}
 
-	const LineString& LineString::paintClosed(Image& dst, const int32 thickness, const Color& color) const
+	const LineString& LineString::overwrite(Image& dst, const Color& color, const Antialiased antialiased) const
 	{
-		return _paint(dst, thickness, color, detail::Closed);
+		return overwrite(dst, 1, color, antialiased);
 	}
 
-	const LineString& LineString::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	const LineString& LineString::overwriteClosed(Image& dst, const Color& color, const Antialiased antialiased) const
 	{
-		return _overwrite(dst, 1, color, antialiased, detail::Open);
-	}
-
-	const LineString& LineString::overwrite(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
-	{
-		return _overwrite(dst, thickness, color, antialiased, detail::Open);
-	}
-
-	const LineString& LineString::overwriteClosed(Image& dst, const Color& color, const bool antialiased) const
-	{
-		return _overwrite(dst, 1, color, antialiased, detail::Closed);
-	}
-
-	const LineString& LineString::overwriteClosed(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
-	{
-		return _overwrite(dst, thickness, color, antialiased, detail::Closed);
+		return overwriteClosed(dst, 1, color, antialiased);
 	}
 
 	const LineString& LineString::draw(const ColorF& color) const
 	{
-		return _draw(LineStyle::SquareCap, 1.0, color, detail::Open);
+		return draw(1.0, color);
 	}
 
 	const LineString& LineString::draw(const double thickness, const ColorF& color) const
 	{
-		return _draw(LineStyle::SquareCap, thickness, color, detail::Open);
-	}
-
-	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color) const
-	{
-		return _draw(style, thickness, color, detail::Open);
-	}
-
-	const LineString& LineString::drawClosed(const ColorF& color) const
-	{
-		return _draw(LineStyle::SquareCap, 1.0, color, detail::Closed);
-	}
-
-	const LineString& LineString::drawClosed(const double thickness, const ColorF& color) const
-	{
-		return _draw(LineStyle::SquareCap, thickness, color, detail::Closed);
-	}
-
-	const LineString& LineString::drawClosed(const LineStyle& style, const double thickness, const ColorF& color) const
-	{
-		return _draw(style, thickness, color, detail::Closed);
-	}
-
-	void LineString::drawCatmullRom(const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(LineStyle::SquareCap, 1.0, color, interpolation, detail::Open);
-	}
-
-	void LineString::drawCatmullRom(const double thickness, const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(LineStyle::SquareCap, thickness, color, interpolation, detail::Open);
-	}
-
-	void LineString::drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(style, thickness, color, interpolation, detail::Open);
-	}
-
-	void LineString::drawCatmullRomClosed(const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(LineStyle::SquareCap, 1.0, color, interpolation, detail::Closed);
-	}
-
-	void LineString::drawCatmullRomClosed(const double thickness, const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(LineStyle::SquareCap, thickness, color, interpolation, detail::Closed);
-	}
-
-	void LineString::drawCatmullRomClosed(const LineStyle& style, const double thickness, const ColorF& color, const int32 interpolation) const
-	{
-		_drawCatmullRom(style, thickness, color, interpolation, detail::Closed);
-	}
-
-	LineString LineString::_catmullRom(const int32 interpolation, const bool isClosed) const
-	{
-		if (size() < 2)
-		{
-			return *this;
-		}
-
-		// [Siv3D ToDo] 最適化
-
-		Array<Vec2> points;
-		{
-			points.reserve(size() + 2 + isClosed);
-
-			if (isClosed)
-			{
-				points.push_back((*this)[size() - 1]);
-			}
-			else
-			{
-				points.push_back((*this)[0]);
-			}
-
-			for (const auto& point : *this)
-			{
-				points.push_back(point);
-			}
-
-			if (isClosed)
-			{
-				points.push_back((*this)[0]);
-				points.push_back((*this)[1]);
-			}
-			else
-			{
-				points.push_back((*this)[size() - 1]);
-			}
-		}
-
-		LineString splinePoints;
-		{
-			splinePoints.reserve((points.size() - 3)*interpolation + 1);
-
-			for (size_t i = 1; i < points.size() - 2; ++i)
-			{
-				const bool isLast = (i + 1) == points.size() - 2;
-
-				for (int32 t = 0; t < (interpolation + isLast); ++t)
-				{
-					const Vec2 p = Spline::CatmullRom(points[i - 1], points[i], points[i + 1], points[i + 2], t / static_cast<double>(interpolation));
-
-					splinePoints.push_back(p);
-				}
-			}
-		}
-
-		return splinePoints;
-	}
-
-	const LineString& LineString::_draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
-	{
-		if (size() < 2)
-		{
-			return *this;
-		}
-
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(
-			style,
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
 			data(),
-			static_cast<uint16>(size()),
+			size(),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
 			color.toFloat4(),
-			isClosed
+			CloseRing::No
 		);
 
 		return *this;
 	}
 
-	void LineString::_drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const int32 interpolation, const bool isClosed) const
+	const LineString& LineString::draw(const double thickness, const Array<ColorF>& colors) const
 	{
-		_catmullRom(interpolation, isClosed)._draw(style, thickness, color, isClosed);
+		if (size() != colors.size())
+		{
+			return *this;
+		}
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			data(),
+			colors.data(),
+			size(),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			CloseRing::No
+		);
+
+		return *this;
+	}
+
+	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			style,
+			data(),
+			size(),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			CloseRing::No
+		);
+
+		return *this;
+	}
+
+	const LineString& LineString::drawClosed(const ColorF& color) const
+	{
+		return drawClosed(1.0, color);
+	}
+
+	const LineString& LineString::drawClosed(const double thickness, const ColorF& color) const
+	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			LineStyle::Default,
+			data(),
+			(size() - isRing),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			CloseRing::Yes
+		);
+
+		return *this;
+	}
+
+	const LineString& LineString::drawClosed(const double thickness, const Array<ColorF>& colors) const
+	{
+		if (size() != colors.size())
+		{
+			return *this;
+		}
+
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			data(),
+			colors.data(),
+			(size() - isRing),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			CloseRing::Yes
+		);
+
+		return *this;
+	}
+
+	const LineString& LineString::drawClosed(const LineStyle& style, const double thickness, const ColorF& color) const
+	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		const bool isRing = (front() == back());
+
+		SIV3D_ENGINE(Renderer2D)->addLineString(
+			style,
+			data(),
+			(size() - isRing),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			CloseRing::Yes
+		);
+
+		return *this;
 	}
 
 	void Formatter(FormatData& formatData, const LineString& value)
 	{
-		formatData.string.append(value.join(U", "_sv, U"("_sv, U")"_sv));
+		Formatter(formatData, value.begin(), value.end());
 	}
 }

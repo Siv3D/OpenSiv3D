@@ -2,84 +2,57 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
-# include <AssetHandleManager/AssetReport.hpp>
-# include <Siv3D/EngineMessageBox.hpp>
-# include "IEffect.hpp"
+# include <Siv3D/Effect.hpp>
+# include <Siv3D/Effect/IEffect.hpp>
+# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	template <>
-	AssetHandle<Effect::Tag>::AssetHandle()
+	AssetIDWrapper<AssetHandle<Effect>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
-			EngineMessageBox::Show(U"`Effect` must be initialized after engine setup.");
-			std::exit(-1);
+			FreestandingMessageBox::ShowError(U"`Effect` must be initialized after engine-setup. Please fix the C++ code.");
+			std::abort();
 		}
 	}
 
 	template <>
-	AssetHandle<Effect::Tag>::AssetHandle(const IDWrapperType id) noexcept
-		: m_id(id)
+	AssetIDWrapper<AssetHandle<Effect>>::~AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
-		{
-			EngineMessageBox::Show(U"`Effect` must be initialized after engine setup.");
-			std::exit(-1);
-		}
-	}
-
-	template <>
-	AssetHandle<Effect::Tag>::~AssetHandle()
-	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::Get<ISiv3DEffect>())
+		if (auto p = SIV3D_ENGINE(Effect))
 		{
 			p->release(m_id);
 		}
 	}
 
-	Effect::Effect()
-		: m_handle(std::make_shared<EffectHandle>(Siv3DEngine::Get<ISiv3DEffect>()->create()))
+	Effect::Effect(const double maxLifeTimeSec)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Effect)->create(maxLifeTimeSec)) }
 	{
-		ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
+
+	Effect::Effect(const Duration& maxLifeTimeSec)
+		: Effect{ maxLifeTimeSec.count() } {}
 
 	Effect::~Effect()
 	{
 
-	}
-
-	void Effect::release()
-	{
-		m_handle = std::make_shared<EffectHandle>();
-	}
-
-	EffectID Effect::id() const
-	{
-		return m_handle->id();
-	}
-
-	bool Effect::operator ==(const Effect& effect) const
-	{
-		return m_handle->id() == effect.m_handle->id();
-	}
-
-	bool Effect::operator !=(const Effect& effect) const
-	{
-		return m_handle->id() != effect.m_handle->id();
 	}
 
 	Effect::operator bool() const
@@ -89,74 +62,82 @@ namespace s3d
 
 	bool Effect::isEmpty() const
 	{
-		return !hasEffects();
+		return (not hasEffects());
+	}
+
+	const Effect& Effect::add(std::unique_ptr<IEffect>&& effect) const
+	{
+		SIV3D_ENGINE(Effect)->add(m_handle->id(), std::move(effect));
+
+		return *this;
 	}
 
 	bool Effect::hasEffects() const
 	{
-		return num_effects() > 0;
+		return (0 < num_effects());
 	}
 
 	size_t Effect::num_effects() const
 	{
-		return Siv3DEngine::Get<ISiv3DEffect>()->num_effects(m_handle->id());
-	}
-
-	void Effect::add(std::unique_ptr<IEffect>&& effect) const
-	{
-		Siv3DEngine::Get<ISiv3DEffect>()->add(m_handle->id(), std::move(effect));
-	}
-
-	void Effect::add(std::function<bool(double)> f) const
-	{
-		struct AnonymousEffect : IEffect
-		{
-			std::function<bool(double)> function;
-
-			explicit AnonymousEffect(std::function<bool(double)> _function)
-				: function(_function) {}
-
-			bool update(double timeSec) override
-			{
-				return function(timeSec);
-			}
-		};
-
-		add(std::make_unique<AnonymousEffect>(f));
+		return SIV3D_ENGINE(Effect)->num_effects(m_handle->id());
 	}
 
 	void Effect::pause() const
 	{
-		Siv3DEngine::Get<ISiv3DEffect>()->pause(m_handle->id());
+		SIV3D_ENGINE(Effect)->pause(m_handle->id());
 	}
 
 	bool Effect::isPaused() const
 	{
-		return Siv3DEngine::Get<ISiv3DEffect>()->isPaused(m_handle->id());
+		return SIV3D_ENGINE(Effect)->isPaused(m_handle->id());
 	}
 
 	void Effect::resume() const
 	{
-		Siv3DEngine::Get<ISiv3DEffect>()->resume(m_handle->id());
+		SIV3D_ENGINE(Effect)->resume(m_handle->id());
 	}
 
-	void Effect::setSpeed(const double speed) const
+	const Effect& Effect::setSpeed(const double speed) const
 	{
-		Siv3DEngine::Get<ISiv3DEffect>()->setSpeed(m_handle->id(), speed);
+		SIV3D_ENGINE(Effect)->setSpeed(m_handle->id(), speed);
+
+		return *this;
 	}
 
 	double Effect::getSpeed() const
 	{
-		return Siv3DEngine::Get<ISiv3DEffect>()->getSpeed(m_handle->id());
+		return SIV3D_ENGINE(Effect)->getSpeed(m_handle->id());
+	}
+
+	const Effect& Effect::setMaxLifeTime(const double maxLifeTimeSec)
+	{
+		SIV3D_ENGINE(Effect)->setMaxLifeTime(m_handle->id(), maxLifeTimeSec);
+
+		return *this;
+	}
+
+	void Effect::setMaxLifeTime(const Duration& maxLifeTimeSec)
+	{
+		SIV3D_ENGINE(Effect)->setMaxLifeTime(m_handle->id(), maxLifeTimeSec.count());
+	}
+
+	double Effect::getMaxLifeTime() const
+	{
+		return SIV3D_ENGINE(Effect)->getMaxLifeTime(m_handle->id());
 	}
 
 	void Effect::update() const
 	{
-		Siv3DEngine::Get<ISiv3DEffect>()->updateEffect(m_handle->id());
+		SIV3D_ENGINE(Effect)->updateEffect(m_handle->id());
 	}
 
 	void Effect::clear() const
 	{
-		Siv3DEngine::Get<ISiv3DEffect>()->clear(m_handle->id());
+		SIV3D_ENGINE(Effect)->clear(m_handle->id());
+	}
+
+	void Effect::swap(Effect& other) noexcept
+	{
+		m_handle.swap(other.m_handle);
 	}
 }

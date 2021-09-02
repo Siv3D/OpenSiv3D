@@ -2,31 +2,32 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "ILogger.hpp"
+# include <Siv3D/LogType.hpp>
+# include <Siv3D/Logger/ILogger.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
 		LoggerBuffer::LoggerBuffer()
-			: formatData(std::make_unique<FormatData>())
+			: formatData{ std::make_unique<FormatData>() }
 		{
-		
+
 		}
 
-		LoggerBuffer::LoggerBuffer(LoggerBuffer&& other)
-			: formatData(std::move(other.formatData))
+		LoggerBuffer::LoggerBuffer(LoggerBuffer&& other) noexcept
+			: formatData{ std::move(other.formatData) }
 		{
-		
+
 		}
 
 		LoggerBuffer::~LoggerBuffer()
@@ -37,34 +38,48 @@ namespace s3d
 			}
 		}
 
-		void Logger_impl::writeln(const String& text) const
+
+		void Logger_impl::writeln(const char32_t* s) const
 		{
-			Siv3DEngine::Get<ISiv3DLogger>()->write(LogDescription::App, text);
+			writeln(StringView{ s });
 		}
 
-		void Logger_impl::operator()(const String& text) const
+		void Logger_impl::writeln(const StringView s) const
 		{
-			writeln(text);
+			if (Siv3DEngine::isActive())
+			{
+				SIV3D_ENGINE(Logger)->write(LogType::App, s);
+			}
 		}
 
-		void Logger_impl::setOutputLevel(const OutputLevel level) const
+		void Logger_impl::writeln(const String& s) const
 		{
-			Siv3DEngine::Get<ISiv3DLogger>()->setOutputLevel(level);
+			writeln(StringView{ s });
 		}
 
-		void Logger_impl::_outputLog(const LogDescription desc, const String& text) const
+		void Logger_impl::operator()(const char32_t* s) const
 		{
-			Siv3DEngine::Get<ISiv3DLogger>()->write(desc, text);
+			writeln(s);
 		}
 
-		void Logger_impl::_outputLogOnce(const LogDescription desc, const uint32 id, const String& text) const
+		void Logger_impl::operator()(const StringView s) const
 		{
-			Siv3DEngine::Get<ISiv3DLogger>()->writeOnce(desc, id, text);
+			writeln(s);
 		}
 
-		void Logger_impl::writeRawHTML_UTF8(const std::string_view htmlText) const
+		void Logger_impl::operator()(const String& s) const
 		{
-			Siv3DEngine::Get<ISiv3DLogger>()->writeRawHTML_UTF8(htmlText);
+			writeln(s);
+		}
+
+		void Logger_impl::disable() const
+		{
+			SIV3D_ENGINE(Logger)->setEnabled(false);
+		}
+
+		void Logger_impl::enable() const
+		{
+			SIV3D_ENGINE(Logger)->setEnabled(true);
 		}
 	}
 }

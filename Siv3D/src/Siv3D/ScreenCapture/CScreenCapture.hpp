@@ -1,33 +1,25 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Common.hpp>
+# include <Siv3D/Optional.hpp>
+# include <Siv3D/ScreenCapture.hpp>
+# include <Siv3D/Keyboard.hpp>
 # include "IScreenCapture.hpp"
-# include <Siv3D/Array.hpp>
-# include <Siv3D/String.hpp>
 
 namespace s3d
 {
-	class CScreenCapture : public ISiv3DScreenCapture
+	class CScreenCapture final : public ISiv3DScreenCapture
 	{
-	private:
-
-		FilePath m_defaultScreenshotDirectory;
-
-		Array<FilePath> m_requestedPaths;
-
-		bool m_hasRequest = false;
-
-		bool m_hasNewFrame = false;
-
 	public:
 
 		CScreenCapture();
@@ -38,12 +30,26 @@ namespace s3d
 
 		void update() override;
 
-		const FilePath& getDefaultScreenshotDirectory() const override;
+		const FilePath& getScreenshotDirectory() const override;
 
-		void requestScreenCapture(const FilePath& path) override;
+		void setScreenshotDirectory(FilePath&& path) override;
+
+		void requestScreenCapture(FilePath&& path) override;
 
 		bool hasNewFrame() const override;
 
 		const Image& receiveScreenCapture() const override;
+
+		void setScreenshotShortcutKeys(const Array<InputGroup>& screenshotShortcutKeys) override;
+
+	private:
+
+		FilePath m_screenshotDirectory;
+
+		Array<FilePath> m_requestedPaths;
+
+		Array<InputGroup> m_screenshotShortcutKeys = { KeyPrintScreen, KeyF12 };
+
+		bool m_hasNewFrame = false;
 	};
 }

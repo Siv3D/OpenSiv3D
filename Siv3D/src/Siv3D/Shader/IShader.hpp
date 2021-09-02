@@ -1,28 +1,33 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Blob.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 
 namespace s3d
 {
 	enum class EnginePS
 	{
 		Copy,
+		
 		GaussianBlur_9,
+
+		ApplySrgbCurve,
 	};
 
-	class ISiv3DShader
+	class SIV3D_NOVTABLE ISiv3DShader
 	{
 	public:
 
@@ -30,22 +35,32 @@ namespace s3d
 
 		virtual ~ISiv3DShader() = default;
 
-		virtual VertexShaderID createVS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) = 0;
-		virtual VertexShaderID createVSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) = 0;
-		//virtual VertexShaderID createVSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings) = 0;
+		virtual void init() = 0;
 
-		virtual PixelShaderID createPS(ByteArray&& binary, const Array<ConstantBufferBinding>& bindings) = 0;
-		virtual PixelShaderID createPSFromFile(const FilePath& path, const Array<ConstantBufferBinding>& bindings) = 0;
-		//virtual PixelShaderID createPSFromSource(const String& source, const Array<ConstantBufferBinding>& bindings) = 0;
+		virtual VertexShader::IDType createVSFromFile(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings) = 0;
 
-		virtual void release(VertexShaderID handleID) = 0;
-		virtual void release(PixelShaderID handleID) = 0;
+		virtual VertexShader::IDType createVSFromSource(StringView source, StringView entryPoint, const Array<ConstantBufferBinding>& bindings) = 0;
 
-		virtual ByteArrayView getBinaryView(VertexShaderID handleID) = 0;
-		virtual ByteArrayView getBinaryView(PixelShaderID handleID) = 0;
+		virtual PixelShader::IDType createPSFromFile(FilePathView path, StringView entryPoint, const Array<ConstantBufferBinding>& bindings) = 0;
+		
+		virtual PixelShader::IDType createPSFromSource(StringView source, StringView entryPoint, const Array<ConstantBufferBinding>& bindings) = 0;
 
-		virtual void setVS(VertexShaderID handleID) = 0;
-		virtual void setPS(PixelShaderID handleID) = 0;
+		virtual void releaseVS(VertexShader::IDType handleID) = 0;
+
+		virtual void releasePS(PixelShader::IDType handleID) = 0;
+
+		virtual void setVS(VertexShader::IDType handleID) = 0;
+
+		virtual void setPS(PixelShader::IDType handleID) = 0;
+
+		virtual const Blob& getBinaryVS(VertexShader::IDType handleID) = 0;
+
+		virtual const Blob& getBinaryPS(PixelShader::IDType handleID) = 0;
+
+		virtual void setConstantBufferVS(uint32 slot, const ConstantBufferBase& cb) = 0;
+
+		virtual void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) = 0;
+
 
 		virtual const PixelShader& getEnginePS(EnginePS ps) const = 0;
 	};

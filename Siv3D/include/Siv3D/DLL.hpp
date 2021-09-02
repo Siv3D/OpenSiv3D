@@ -1,107 +1,128 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Platform.hpp>
+# include "Common.hpp"
+# include "StringView.hpp"
 
 # if SIV3D_PLATFORM(WINDOWS)
 
-# include <Siv3D/Windows.hpp>
+# include <Siv3D/Windows/Windows.hpp>
 
 namespace s3d
 {
+	using LibraryHandle = HMODULE;
+
 	namespace DLL
 	{
-		HMODULE LoadSystemLibrary(const wchar_t* library);
+		[[nodiscard]]
+		LibraryHandle LoadSystemLibraryNoThrow(const wchar_t* library);
+
+		[[nodiscard]]
+		LibraryHandle LoadSystemLibrary(const wchar_t* library);
+
+		[[nodiscard]]
+		LibraryHandle Load(StringView path);
+
+		void Unload(LibraryHandle& library);
 
 		class GetFunctionNoThrow
 		{
-		private:
-
-			void* p;
-
 		public:
 
-			GetFunctionNoThrow(HMODULE module, const char* name);
+			SIV3D_NODISCARD_CXX20
+			GetFunctionNoThrow(LibraryHandle _module, const char* name);
 
 			template <class Type>
-			operator Type() const
+			operator Type() const noexcept
 			{
-				return reinterpret_cast<Type>(p);
+				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 
 		class GetFunction
 		{
-		private:
-
-			void* p;
-
 		public:
 
-			GetFunction(HMODULE module, const char* name);
+			SIV3D_NODISCARD_CXX20
+			GetFunction(LibraryHandle _module, const char* name);
 
 			template <class Type>
-			operator Type() const
+			operator Type() const noexcept
 			{
-				return reinterpret_cast<Type>(p);
+				return static_cast<Type>(p);
 			}
+
+		private:
+
+			const void* p;
 		};
 	}
 }
 
 # endif
 
-# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# if SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 # include <dlfcn.h>
 
 namespace s3d
 {
+	using LibraryHandle = void*;
+
 	namespace DLL
 	{
-		void* LoadLibrary(const char* path);
-		
+		[[nodiscard]]
+		LibraryHandle Load(StringView path);
+	
+		void Unload(LibraryHandle& library);
+
 		class GetFunctionNoThrow
 		{
-		private:
-			
-			void* p;
-			
 		public:
-			
-			GetFunctionNoThrow(void* module, const char* name);
-			
+
+			SIV3D_NODISCARD_CXX20
+			GetFunctionNoThrow(LibraryHandle _module, const char* name);
+
 			template <class Type>
-			operator Type() const
+			operator Type() const noexcept
 			{
 				return reinterpret_cast<Type>(p);
 			}
+
+		private:
+
+			void* p;
 		};
-		
+
 		class GetFunction
 		{
-		private:
-			
-			void* p;
-			
 		public:
-			
-			GetFunction(void* module, const char* name);
-			
+
+			SIV3D_NODISCARD_CXX20
+			GetFunction(LibraryHandle _module, const char* name);
+
 			template <class Type>
-			operator Type() const
+			operator Type() const noexcept
 			{
 				return reinterpret_cast<Type>(p);
 			}
+
+		private:
+
+			void* p;
 		};
 	}
 }

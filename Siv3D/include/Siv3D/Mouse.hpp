@@ -2,75 +2,59 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Key.hpp"
+# include "Common.hpp"
+# include "Array.hpp"
+# include "InputGroups.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// マウス左ボタン
-	/// </summary>
-	constexpr Key MouseL{ InputDevice::Mouse, 0 };
-
-	/// <summary>
-	/// マウス右ボタン
-	/// </summary>
-	constexpr Key MouseR{ InputDevice::Mouse, 1 };
-
-	/// <summary>
-	/// マウス中央ボタン
-	/// </summary>
-	constexpr Key MouseM{ InputDevice::Mouse, 2 };
-
-	/// <summary>
-	/// マウス X1 ボタン
-	/// </summary>
-	constexpr Key MouseX1{ InputDevice::Mouse, 3 };
-
-	/// <summary>
-	/// マウス X2 ボタン
-	/// </summary>
-	constexpr Key MouseX2{ InputDevice::Mouse, 4 };
-
-	/// <summary>
-	/// マウス X3 ボタン
-	/// </summary>
-	constexpr Key MouseX3{ InputDevice::Mouse, 5 };
-
-	/// <summary>
-	/// マウス X4 ボタン
-	/// </summary>
-	constexpr Key MouseX4{ InputDevice::Mouse, 6 };
-
-	/// <summary>
-	/// マウス X5 ボタン
-	/// </summary>
-	constexpr Key MouseX5{ InputDevice::Mouse, 7 };
-	
 	namespace Mouse
 	{
-		/// <summary>
-		/// マウスホイールのスクロール量を返します。
-		/// </summary>
-		/// <returns>
-		/// マウスホイールのスクロール量
-		/// </returns>
-		double Wheel();
-		
-		/// <summary>
-		/// マウスの水平ホイールのスクロール量を返します。
-		/// </summary>
-		/// <returns>
-		/// マウスの水平ホイールのスクロール量
-		/// </returns>
-		double WheelH();
+		/// @brief 現在のフレームで何らかの入力操作があるマウスのボタンの一覧を取得します。
+		/// @return 現在のフレームで何らかの入力操作があるマウスのボタンの一覧
+		[[nodiscard]]
+		const Array<Input>& GetAllInputs() noexcept;
+
+		/// @brief マウスホイールのスクロール量を返します。
+		/// @return マウスホイールのスクロール量
+		[[nodiscard]]
+		double Wheel() noexcept;
+
+		/// @brief マウスの水平ホイールのスクロール量を返します。
+		/// @return マウスの水平ホイールのスクロール量
+		[[nodiscard]]
+		double WheelH() noexcept;
 	}
+
+	/// @brief マウス左ボタン
+	inline constexpr Input MouseL{ InputDeviceType::Mouse, 0 };
+
+	/// @brief マウス右ボタン
+	inline constexpr Input MouseR{ InputDeviceType::Mouse, 1 };
+
+	/// @brief マウス中央ボタン
+	inline constexpr Input MouseM{ InputDeviceType::Mouse, 2 };
+
+	/// @brief マウス X1 ボタン
+	inline constexpr Input MouseX1{ InputDeviceType::Mouse, 3 };
+
+	/// @brief マウス X2 ボタン
+	inline constexpr Input MouseX2{ InputDeviceType::Mouse, 4 };
+
+	/// @brief マウス X3 ボタン
+	inline constexpr Input MouseX3{ InputDeviceType::Mouse, 5 };
+
+	/// @brief マウス X4 ボタン
+	inline constexpr Input MouseX4{ InputDeviceType::Mouse, 6 };
+
+	/// @brief マウス X5 ボタン
+	inline constexpr Input MouseX5{ InputDeviceType::Mouse, 7 };
 }

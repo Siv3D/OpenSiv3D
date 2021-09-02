@@ -2,311 +2,217 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
-# include "Color.hpp"
-# include "Utility.hpp"
+# include "Common.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// HSV カラー
-	/// </summary>
-	/// <remarks>
-	/// 色を 色相(H), 彩度(S), 明度(V), アルファで表現します。
-	/// </remarks>
+	/// @brief HSV 表色系の色
 	struct HSV
 	{
-		/// <summary>
-		/// 色相 |Hue [0.0, 360.0)
-		/// </summary>
+		/// @brief 色相 |Hue [0.0, 360.0)
 		double h;
 
-		/// <summary>
-		/// 彩度 | Saturation [0.0, 1.0]
-		/// </summary>
+		/// @brief 彩度 | Saturation [0.0, 1.0]
 		double s;
 
-		/// <summary>
-		/// 明度 | Value [0.0, 1.0]
-		/// </summary>
+		/// @brief 明度 | Value [0.0, 1.0]
 		double v;
 
-		/// <summary>
-		/// アルファ | Alpha [0.0, 1.0]
-		/// </summary>
+		/// @brief アルファ | Alpha [0.0, 1.0]
 		double a = 1.0;
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		HSV() = default;
 
-		/// <summary>
-		/// コピーコンストラクタ
-		/// </summary>
-		constexpr HSV(const HSV&) noexcept = default;
+		SIV3D_NODISCARD_CXX20
+		HSV(const HSV&) = default;
 
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="_h">
-		/// 色相 [0.0, 360.0)
-		/// </param>
-		/// <param name="_a">
-		/// アルファ [0.0, 1.0]
-		/// </param>
-		explicit constexpr HSV(double _h, double _a = 1.0) noexcept
-			: h(_h)
-			, s(1.0)
-			, v(1.0)
-			, a(_a) {}
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr HSV(double _h, double _a = 1.0) noexcept;
 
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="_h">
-		/// 色相 [0.0, 360.0)
-		/// </param>
-		/// <param name="_s">
-		/// 彩度 [0.0, 1.0]
-		/// </param>
-		/// <param name="_v">
-		/// 明度 [0.0, 1.0]
-		/// </param>
-		/// <param name="_a">
-		/// アルファ [0.0, 1.0]
-		/// </param>
-		constexpr HSV(double _h, double _s, double _v, double _a = 1.0) noexcept
-			: h(_h)
-			, s(_s)
-			, v(_v)
-			, a(_a) {}
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr HSV(Arithmetic _h, double _a = 1.0) noexcept;
 
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="hsv">
-		/// HSV カラー
-		/// </param>
-		/// <param name="_a">
-		/// アルファ [0.0, 1.0]
-		/// </param>
-		constexpr HSV(const HSV& hsv, double _a) noexcept
-			: h(hsv.h)
-			, s(hsv.s)
-			, v(hsv.v)
-			, a(_a) {}
+		/// @brief HSV 表色系の色を作成します。
+		/// @param _h 色相
+		/// @param _s 彩度
+		/// @param _v 明度
+		/// @param _a アルファ
+		SIV3D_NODISCARD_CXX20
+		constexpr HSV(double _h, double _s, double _v, double _a = 1.0) noexcept;
 
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="color">
-		/// RGB カラー
-		/// </param>
-		HSV(const Color& color) noexcept;
+		SIV3D_CONCEPT_ARITHMETIC
+		SIV3D_NODISCARD_CXX20
+		constexpr HSV(Arithmetic _h, double _s, double _v, double _a = 1.0) noexcept;
 
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="col">
-		/// RGB カラー
-		/// </param>
+		/// @brief HSV 表色系の色を作成します。
+		/// @param hsv 色
+		/// @param _a アルファ
+		SIV3D_NODISCARD_CXX20
+		constexpr HSV(const HSV& hsv, double _a) noexcept;
+
+		/// @brief HSV 表色系の色を作成します。
+		/// @param color 色
+		SIV3D_NODISCARD_CXX20
+		HSV(Color color) noexcept;
+
+		/// @brief HSV 表色系の色を作成します。
+		/// @param color 色
+		SIV3D_NODISCARD_CXX20
 		HSV(const ColorF& color) noexcept;
 
-		/// <summary>
-		/// 色が等しいかを調べます。
-		/// </summary>
-		/// <param name="hsva">
-		/// 比較対象の色
-		/// </param>
-		/// <returns>
-		/// 等しければ true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator ==(const HSV& hsva) const noexcept
+		[[nodiscard]]
+		constexpr double elem(size_t index) const noexcept;
+
+		[[nodiscard]]
+		double* getPointer() noexcept;
+
+		[[nodiscard]]
+		const double* getPointer() const noexcept;
+
+		constexpr HSV& operator =(const HSV&) = default;
+
+		[[nodiscard]]
+		constexpr HSV operator +(const HSV& hsv) const noexcept;
+
+		[[nodiscard]]
+		constexpr HSV operator -(const HSV& hsv) const noexcept;
+
+		[[nodiscard]]
+		friend constexpr bool operator ==(const HSV& lhs, const HSV& rhs) noexcept
 		{
-			return (h == hsva.h) && (s == hsva.s) && (v == hsva.v) && (a == hsva.a);
+			return (lhs.h == rhs.h)
+				&& (lhs.s == rhs.s)
+				&& (lhs.v == rhs.v)
+				&& (lhs.a == rhs.a);
 		}
 
-		/// <summary>
-		/// 色が等しくないかを調べます。
-		/// </summary>
-		/// <param name="hsva">
-		/// 比較対象の色
-		/// </param>
-		/// <returns>
-		/// 等しくなければ true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] bool operator !=(const HSV& hsva) const noexcept
+		[[nodiscard]]
+		friend constexpr bool operator !=(const HSV& lhs, const HSV& rhs) noexcept
 		{
-			return (h != hsva.h) || (s != hsva.s) || (v != hsva.v) || (a != hsva.a);
+			return (lhs.h != rhs.h)
+				|| (lhs.s != rhs.s)
+				|| (lhs.v != rhs.v)
+				|| (lhs.a != rhs.a);
 		}
 
-		/// <summary>
-		/// HSV の値を加算します。
-		/// </summary>
-		/// <param name="hsv">
-		/// 加算する値
-		/// </param>
-		/// <returns>
-		/// 加算した結果
-		/// </returns>
-		[[nodiscard]] constexpr HSV operator +(const HSV& hsv) const noexcept
+		constexpr HSV& setH(double _h) noexcept;
+
+		constexpr HSV& setS(double _s) noexcept;
+
+		constexpr HSV& setV(double _v) noexcept;
+
+		constexpr HSV& setA(double _a) noexcept;
+
+		constexpr HSV& setHSV(double _h, double _s, double _v) noexcept;
+
+		constexpr HSV& set(double _h, double _s, double _v, double _a = 1.0) noexcept;
+
+		constexpr HSV& set(const HSV& hsva) noexcept;
+
+		constexpr HSV withAlpha(double _a) const noexcept;
+
+		[[nodiscard]]
+		constexpr HSV lerp(const HSV& other, double f) const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		[[nodiscard]]
+		ColorF removeSRGBCurve() const noexcept;
+
+		[[nodiscard]]
+		ColorF applySRGBCurve() const noexcept;
+
+		[[nodiscard]]
+		Color toColor() const noexcept;
+
+		[[nodiscard]]
+		Color toColor(uint32 alpha) const noexcept;
+
+		[[nodiscard]]
+		ColorF toColorF() const noexcept;
+
+		[[nodiscard]]
+		ColorF toColorF(double alpha) const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec3 hsv() const noexcept;
+
+		[[nodiscard]]
+		constexpr Vec4 hsva() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const HSV& value)
 		{
-			return{ h + hsv.h, Clamp(s + hsv.s, 0.0, 1.0), Clamp(v + hsv.v, 0.0, 1.0), a };
+			return output << CharType('(')
+				<< value.h << CharType(',') << CharType(' ')
+				<< value.s << CharType(',') << CharType(' ')
+				<< value.v << CharType(',') << CharType(' ')
+				<< value.a << CharType(')');
 		}
 
-		/// <summary>
-		/// HSV の値を減算します。
-		/// </summary>
-		/// <param name="hsv">
-		/// 減算する値
-		/// </param>
-		/// <returns>
-		/// 減算した結果
-		/// </returns>
-		[[nodiscard]] constexpr HSV operator -(const HSV& hsv) const noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, HSV& value)
 		{
-			return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
+			CharType unused;
+			return input >> unused
+				>> value.h >> unused
+				>> value.s >> unused
+				>> value.v >> unused
+				>> value.a >> unused;
 		}
 
-		[[nodiscard]] constexpr HSV lerp(const HSV& other, const double f) const noexcept
+		[[nodiscard]]
+		static constexpr HSV Zero() noexcept;
+
+		friend void Formatter(FormatData& formatData, const HSV& value)
 		{
-			return{ h + (other.h - h) * f,
-					s + (other.s - s) * f,
-					v + (other.v - v) * f,
-					a + (other.a - a) * f };
+			Formatter(formatData, value.hsva());
 		}
-
-		/// <summary>
-		/// Color 型に変換します。
-		/// </summary>
-		/// <returns>
-		/// 変換した値
-		/// </returns>
-		[[nodiscard]] Color toColor() const noexcept;
-
-		/// <summary>
-		/// Color 型に変換します。
-		/// </summary>
-		/// <param name="alpha">
-		/// アルファ値 [0, 255]
-		/// </param>
-		/// <returns>
-		/// 変換した値
-		/// </returns>
-		[[nodiscard]] Color toColor(const uint32 alpha) const noexcept
-		{
-			return toColor().setA(alpha);
-		}
-
-		/// <summary>
-		/// ColorF 型に変換します。
-		/// </summary>
-		/// <returns>
-		/// 変換した値
-		/// </returns>
-		[[nodiscard]] ColorF toColorF() const noexcept;
-
-		/// <summary>
-		/// ColorF 型に変換します。
-		/// </summary>
-		/// <param name="alpha">
-		/// アルファ値 [0.0, 1.0]
-		/// </param>
-		/// <returns>
-		/// 変換した値
-		/// </returns>
-		[[nodiscard]] ColorF toColorF(const double alpha) const noexcept
-		{
-			return toColorF().setA(alpha);
-		}
-
-		/// <summary>
-		/// Vector3D{ h, s, v }
-		/// </summary>
-		[[nodiscard]] Vec3 hsv() const noexcept;
-
-		/// <summary>
-		/// Vector4D{ h, s, v, a }
-		/// </summary>
-		[[nodiscard]] Vec4 hsva() const noexcept;
-
-		[[nodiscard]] size_t hash() const;
 	};
 
-	/// <summary>
-	/// 色相から Color を作成します。
-	/// </summary>
-	/// <param name="hue">
-	/// 色相 [0.0, 360.0)
-	/// </param>
-	/// <returns>
-	/// 作成したカラー
-	/// </returns>
-	[[nodiscard]] Color HueToColor(double hue) noexcept;
+	[[nodiscard]]
+	inline Color HueToColor(double hue) noexcept;
 
-	/// <summary>
-	/// 色相から ColorF を作成します。
-	/// </summary>
-	/// <param name="hue">
-	/// 色相 [0.0, 360.0)
-	/// </param>
-	/// <returns>
-	/// 作成したカラー
-	/// </returns>
-	[[nodiscard]] ColorF HueToColorF(double hue) noexcept;
+	[[nodiscard]]
+	inline ColorF HueToColorF(double hue) noexcept;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
+template <>
+struct SIV3D_HIDDEN fmt::formatter<s3d::HSV, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const HSV& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const HSV& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output << CharType('(')
-			<< value.h << CharType(',') << CharType(' ')
-			<< value.s << CharType(',') << CharType(' ')
-			<< value.v << CharType(')') << CharType(' ')
-			<< value.a << CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& input, HSV& value)
+	template <class FormatContext>
+	auto format(const s3d::HSV& value, FormatContext& ctx)
 	{
-		CharType unused;
-
-		input >> unused
-			>> value.h >> unused
-			>> value.s >> unused
-			>> value.v >> unused;
-
-		if (unused == CharType(','))
+		if (tag.empty())
 		{
-			input >> value.a >> unused;
+			return format_to(ctx.out(), U"({}, {}, {}, {})", value.h, value.s, value.v, value.a);
 		}
 		else
 		{
-			value.a = 1.0;
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.h, value.s, value.v, value.a);
 		}
-
-		return input;
 	}
-}
+};
 
 //////////////////////////////////////////////////
 //
@@ -314,45 +220,12 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-namespace std
+template <>
+struct std::hash<s3d::HSV>
 {
-	template <>
-	struct hash<s3d::HSV>
+	[[nodiscard]]
+	size_t operator()(const s3d::HSV& value) const noexcept
 	{
-		[[nodiscard]] size_t operator ()(const s3d::HSV& value) const noexcept
-		{
-			return value.hash();
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::HSV, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::HSV& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.h, value.s, value.v, value.a);
-		}
-	};
-}
+		return value.hash();
+	}
+};

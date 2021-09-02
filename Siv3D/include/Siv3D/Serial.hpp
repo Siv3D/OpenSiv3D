@@ -2,48 +2,88 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include <memory>
+# include "Common.hpp"
 # include "Array.hpp"
+# include "StringView.hpp"
+# include "Byte.hpp"
 
 namespace s3d
 {
+	/// @brief シリアル通信
 	class Serial
 	{
-	private:
-
-		class SerialDetail;
-
-		std::shared_ptr<SerialDetail> pImpl;
-
 	public:
 
+		enum class ByteSize : uint8
+		{
+			FiveBits	= 5,
+			SixBits		= 6,
+			SevenBits	= 7,
+			EightBits	= 8
+		};
+
+		enum class Parity : uint8
+		{
+			None_	= 0,
+			Odd		= 1,
+			Even	= 2,
+			Mark	= 3,
+			Space	= 4
+		};
+
+		enum StopBits : uint8
+		{
+			One				= 1,
+			Two				= 2,
+			OnePointFive
+		};
+
+		enum class FlowControl : uint8
+		{
+			None_,
+			Software,
+			Hardware
+		};
+
+		SIV3D_NODISCARD_CXX20
 		Serial();
 
-		explicit Serial(const String& port, int32 baudrate = 9600);
+		SIV3D_NODISCARD_CXX20
+		explicit Serial(StringView port, int32 baudrate = 9600,
+			ByteSize byteSize = ByteSize::EightBits, Parity parity = Parity::None_,
+			StopBits stopBits = StopBits::One, FlowControl flowControl = FlowControl::None_);
 
 		~Serial();
 
-		bool open(const String& port, int32 baudrate = 9600);
+		bool open(StringView port, int32 baudrate = 9600,
+			ByteSize byteSize = ByteSize::EightBits, Parity parity = Parity::None_,
+			StopBits stopBits = StopBits::One, FlowControl flowControl = FlowControl::None_);
 
 		void close();
 
-		[[nodiscard]] bool isOpen() const;
+		[[nodiscard]]
+		bool isOpen() const;
 
-		[[nodiscard]] explicit operator bool() const;
+		[[nodiscard]]
+		explicit operator bool() const;
 
-		[[nodiscard]] int32 baudrate() const noexcept;
+		[[nodiscard]]
+		int32 baudrate() const noexcept;
 
-		[[nodiscard]] const String& port() const noexcept;
+		[[nodiscard]]
+		const String& port() const noexcept;
 
-		[[nodiscard]] size_t available();
+		[[nodiscard]]
+		size_t available();
 
 		void clearInput();
 
@@ -57,11 +97,8 @@ namespace s3d
 
 		bool readBytes(Array<uint8>& dst);
 
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>> * = nullptr>
-		bool read(Type& to)
-		{
-			return read(std::addressof(to), sizeof(Type)) == sizeof(Type);
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool read(TriviallyCopyable& to);
 
 		size_t write(const void* src, size_t size);
 
@@ -69,24 +106,33 @@ namespace s3d
 
 		bool writeByte(Byte byte);
 
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>> * = nullptr>
-		bool write(const Type& from)
-		{
-			return (write(std::addressof(from), sizeof(Type))) == sizeof(Type);
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool write(const TriviallyCopyable& from);
+
+		void setRTS(bool level);
+
+		void setDTR(bool level);
+
+		bool waitForChange();
+
+		[[nodiscard]]
+		bool getCTS();
+
+		[[nodiscard]]
+		bool getDSR();
+
+		[[nodiscard]]
+		bool getRI();
+
+		[[nodiscard]]
+		bool getCD();
+
+	private:
+
+		class SerialDetail;
+
+		std::shared_ptr<SerialDetail> pImpl;
 	};
-
-	struct SerialPortInfo
-	{
-		String port;
-
-		String description;
-
-		String hardwareID;
-	};
-
-	namespace System
-	{
-		[[nodiscard]] Array<SerialPortInfo> EnumerateSerialPorts();
-	}
 }
+
+# include "detail/Serial.ipp"

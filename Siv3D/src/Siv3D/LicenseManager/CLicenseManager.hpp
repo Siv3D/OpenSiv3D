@@ -2,19 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Version.hpp>
 # include "ILicenseManager.hpp"
 
 namespace s3d
 {
-	class CLicenseManager : public ISiv3DLicenseManager
+	class CLicenseManager final : public ISiv3DLicenseManager
 	{
 	private:
 
@@ -22,11 +23,11 @@ namespace s3d
 
 		bool m_hasApplicationLicense = false;
 
-		size_t m_num_customLicenes = 0;
+		size_t m_num_customLicenses = 0;
 
-		String m_uniqueID;
+		String m_applicationName;
 
-		bool m_openIfF1KeyPressed = true;
+		bool m_openLicenseWithF1Key = true;
 
 	public:
 
@@ -36,14 +37,14 @@ namespace s3d
 
 		void update() override;
 
-		void setApplicationLicense(const String& uniqueID, const LicenseInfo& license) override;
+		void setApplicationLicense(const String& applicationName, const LicenseInfo& license) override;
 
 		void addLicense(const LicenseInfo& license) override;
 
-		const Array<LicenseInfo>& enumLicenses() const override;
+		const Array<LicenseInfo>& enumLicenses() const noexcept override;
 
-		const String& getUniqueID() const override;
+		const String& getApplicationName() const noexcept override;
 
-		void disableDefaultTrigger() override;
+		void setDefaultTriggerRnabled(bool enabled) noexcept override;
 	};
 }

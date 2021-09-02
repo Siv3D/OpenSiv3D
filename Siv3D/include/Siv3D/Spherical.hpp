@@ -2,177 +2,157 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Vector3D.hpp"
-# include "MathConstants.hpp"
+# include "Common.hpp"
+# include "PointVector.hpp"
+# include "FastMath.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 球面座標
-	/// </summary>
-	struct Spherical
+	template <class Float>
+	struct SphericalBase
 	{
-		double r, theta, phi;
+		using value_type = Float;
 
-		Spherical() = default;
+		using position_type = Vector3D<value_type>;
 
-		constexpr Spherical(double _r, double _theta, double _phi) noexcept
-			: r(_r)
-			, theta(_theta)
-			, phi(_phi) {}
+		value_type r;
+		
+		value_type theta;
+		
+		value_type phi;
 
-		constexpr Spherical(Arg::r_<double> _r, Arg::theta_<double> _theta, Arg::phi_<double> _phi) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		SphericalBase() = default;
 
-		constexpr Spherical(Arg::r_<double> _r, Arg::phi_<double> _phi, Arg::theta_<double> _theta) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(value_type _r, value_type _theta, value_type _phi) noexcept;
 
-		constexpr Spherical(Arg::theta_<double> _theta, Arg::r_<double> _r, Arg::phi_<double> _phi) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::r_<value_type> _r, Arg::theta_<value_type> _theta, Arg::phi_<value_type> _phi) noexcept;
 
-		constexpr Spherical(Arg::theta_<double> _theta, Arg::phi_<double> _phi, Arg::r_<double> _r) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::r_<value_type> _r, Arg::phi_<value_type> _phi, Arg::theta_<value_type> _theta) noexcept;
 
-		constexpr Spherical(Arg::phi_<double> _phi, Arg::r_<double> _r, Arg::theta_<double> _theta) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::theta_<value_type> _theta, Arg::r_<value_type> _r, Arg::phi_<value_type> _phi) noexcept;
 
-		constexpr Spherical(Arg::phi_<double> _phi, Arg::theta_<double> _theta, Arg::r_<double> _r) noexcept
-			: r(*_r)
-			, theta(*_theta)
-			, phi(*_phi) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::theta_<value_type> _theta, Arg::phi_<value_type> _phi, Arg::r_<value_type> _r) noexcept;
 
-		Spherical(const Vec3& pos)
-			: r(pos.length())
-			, theta(std::acos(pos.y / r))
-			, phi(std::atan2(pos.z, pos.x)) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::phi_<value_type> _phi, Arg::r_<value_type> _r, Arg::theta_<value_type> _theta) noexcept;
 
-		[[nodiscard]] constexpr Spherical operator +() const noexcept
+		SIV3D_NODISCARD_CXX20
+		constexpr SphericalBase(Arg::phi_<value_type> _phi, Arg::theta_<value_type> _theta, Arg::r_<value_type> _r) noexcept;
+
+		SIV3D_NODISCARD_CXX20
+		SphericalBase(position_type pos) noexcept;
+
+		[[nodiscard]]
+		constexpr SphericalBase operator +() const noexcept;
+
+		[[nodiscard]]
+		constexpr SphericalBase operator -() const noexcept;
+
+		[[nodiscard]]
+		position_type operator +(position_type v) const noexcept;
+
+		[[nodiscard]]
+		position_type operator -(position_type v) const noexcept;
+
+		[[nodiscard]]
+		Float3 toFloat3() const noexcept;
+
+		[[nodiscard]]
+		Vec3 toVec3() const noexcept;
+
+		[[nodiscard]]
+		Float3 fastToFloat3() const noexcept;
+
+		[[nodiscard]]
+		Vec3 fastToVec3() const noexcept;
+
+		[[nodiscard]]
+		position_type toPosition() const noexcept;
+
+		[[nodiscard]]
+		operator position_type() const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const SphericalBase& value)
 		{
-			return *this;
+			return output << CharType('(')
+				<< value.r << CharType(',') << CharType(' ')
+				<< value.theta << CharType(',') << CharType(' ')
+				<< value.phi << CharType(')');
 		}
 
-		[[nodiscard]] constexpr Spherical operator -() const noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, SphericalBase& value)
 		{
-			return{ r, theta + Math::Constants::Pi, phi + Math::Constants::Pi };
+			CharType unused;
+			return input >> unused
+				>> value.r >> unused
+				>> value.theta >> unused
+				>> value.phi >> unused;
 		}
 
-		[[nodiscard]] Vec3 operator +(const Vec3& v) const;
-
-		[[nodiscard]] Vec3 operator -(const Vec3& v) const;
-
-		[[nodiscard]] Float3 toFloat3() const
+		friend void Formatter(FormatData& formatData, const SphericalBase& value)
 		{
-			const double s = std::sin(theta);
-			return{ r * s * std::cos(phi), r * std::cos(theta), r * s * std::sin(phi) };
-		}
-
-		[[nodiscard]] Vec3 toVec3() const
-		{
-			const double s = std::sin(theta);
-			return{ r * s * std::cos(phi), r * std::cos(theta), r * s * std::sin(phi) };
-		}
-
-		[[nodiscard]] operator Vec3() const
-		{
-			return toVec3();
+			Formatter(formatData, position_type{ value.r, value.theta, value.phi });
 		}
 	};
+
+	using Spherical		= SphericalBase<double>;
+	using SphericalF	= SphericalBase<float>;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/Spherical.ipp"
 
-namespace s3d
+template <class Float>
+struct SIV3D_HIDDEN fmt::formatter<s3d::SphericalBase<Float>, s3d::char32>
 {
-	void Formatter(FormatData& formatData, const Spherical& value);
+	std::u32string tag;
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Spherical& value)
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
 	{
-		return output		<< CharType('(')
-			<< value.r		<< CharType(',') << CharType(' ')
-			<< value.theta	<< CharType(',') << CharType(' ')
-			<< value.phi	<< CharType(')');
+		return s3d::detail::GetFormatTag(tag, ctx);
 	}
 
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Spherical& value)
+	template <class FormatContext>
+	auto format(const s3d::SphericalBase<Float>& value, FormatContext& ctx)
 	{
-		CharType unused;
-		return input		>> unused
-			>> value.r		>> unused
-			>> value.theta	>> unused
-			>> value.phi	>> unused;
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"({}, {}, {})", value.r, value.theta, value.phi);
+		}
+		else
+		{
+			const std::u32string format
+				= (U"({:" + tag + U"}, {:" + tag + U"}, {:" + tag + U"})");
+			return format_to(ctx.out(), format, value.r, value.theta, value.phi);
+		}
 	}
-}
+};
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
+template <class Float>
+struct std::hash<s3d::SphericalBase<Float>>
 {
-	template <>
-	struct hash<s3d::Spherical>
+	[[nodiscard]]
+	size_t operator()(const s3d::SphericalBase<Float>& value) const noexcept
 	{
-		[[nodiscard]] size_t operator ()(const s3d::Spherical& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <>
-	struct formatter<s3d::Spherical, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::Spherical& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.theta, value.phi);
-		}
-	};
-}
+		return value.hash();
+	}
+};

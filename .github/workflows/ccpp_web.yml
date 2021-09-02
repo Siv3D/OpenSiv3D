@@ -1,0 +1,358 @@
+name: C/C++ CI for Web
+
+on:
+  push:
+    branches: [ v6_* ]
+    tags: [ v** ]
+  pull_request:
+    branches: [ v6_* ]
+
+jobs:
+  pre-build:
+    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache boost
+        id: cache_boost
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-boost-headers
+        with:
+          path: Dependencies/boost_1_73_0/boost
+          key: ${{ env.cache-name }}
+
+      - name: Download boost
+        if: ${{ !steps.cache_boost.outputs.cache-hit }}
+        working-directory: Dependencies
+        run: |
+          git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-1.73.0
+          rm -r boost_1_73_0
+          mv boost boost_1_73_0
+
+      - name: Place boost
+        if: ${{ !steps.cache_boost.outputs.cache-hit }}
+        working-directory: Dependencies/boost_1_73_0
+        run: |
+          ./bootstrap.sh
+          ./b2 headers
+          mkdir boost_tmp
+          cp -L -r boost boost_tmp
+          rm -r boost
+          mv boost_tmp/boost boost
+
+  build:
+    needs: pre-build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+            output-file: 'libSiv3D.a'
+            external-lib-folder-name: wasm
+          - name: wasm-simd
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: '-msimd128 -msse4.2'
+            output-file: 'libSiv3D.a'
+            external-lib-folder-name: wasm
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder
+        run: mkdir Web/build
+
+      - name: Cache OpenSiv3D Build result
+        id: cache_siv3d_library
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-library
+        with:
+          path: Web/build
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
+
+      - name: Cache boost
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-boost-headers
+        with:
+          path: Dependencies/boost_1_73_0/boost
+          key: ${{ env.cache-name }}
+
+      - name: Prebuild emscripten ports
+        run: |
+          embuilder.py build ogg vorbis libpng
+  
+      - name: Build project
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        working-directory: Web/build
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
+          cmake --build . --parallel 4
+
+      - name: Bundle output
+        run: |
+          mkdir -p Package/lib
+          cp -r Siv3D/include Package
+          cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }} Package
+          cp -r Web/App/resources Package
+          cp -r Web/App/example Package
+          mv Package/${{ matrix.config.external-lib-folder-name }} Package/lib
+          cp Web/build/${{ matrix.config.output-file }} Package/lib
+          cp Web/Siv3D.js Package/lib
+          zip -r OpenSiv3D.zip Package
+          tar -cvzf OpenSiv3D.tgz Package/*
+
+      - name: Save Bundles
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: OpenSiv3D.*
+
+  test:
+    needs: build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+          # - name: wasm-simd
+          #  container: 'emscripten/emsdk:2.0.22'
+          #  cmake-cflags: '-msimd128 -msse4.2'
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder  
+        run: mkdir Web/App/build
+  
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+      - name: Restore Siv3D library
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/build
+          cp -r Package/lib/* Web/build
+
+      - name: Cache OpenSiv3D Test Build result
+        id: cache_siv3d_test
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-test
+        with:
+          path: Web/App
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*', 'Test/**/*.*') }}
+
+      - name: Create & Build test project
+        if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
+        working-directory: Web/App/build
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
+          cmake --build .
+
+      - name: Test project
+        working-directory: Web/App
+        run: node --experimental-wasm-simd Siv3DTest.js
+
+  build-app:
+    needs: build
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+          - name: wasm-simd
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: '-msimd128 -msse4.2'
+    container: 
+      image: ${{ matrix.config.container }}
+    runs-on: ubuntu-latest
+
+    outputs: 
+      cache-hit: ${{ steps.cache_siv3d_app.outputs.cache-hit }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create build folder
+        working-directory: Web/App
+        run: mkdir build
+
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+      - name: Restore Siv3D library
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/build
+          cp -r Package/lib/* Web/build
+
+      - name: Cache OpenSiv3D App Build result
+        id: cache_siv3d_app
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-siv3d-app
+        with:
+          path: Web/App
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
+
+      - name: Create & Build Siv3d App
+        if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
+        working-directory: Web/App/build
+        run: |
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
+          cmake --build .
+
+      - name: Save Bundles
+        uses: actions/upload-artifact@v2
+        with:
+          name: Siv3DTest-${{ matrix.config.name }}
+          path: Web/App/Siv3DTest.*
+
+  pre-deploy:
+    if: ${{ contains(github.ref, 'tags/v') }}
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+    steps:
+      - name: Create release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+  deploy:
+    needs: pre-deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - name: wasm
+          - name: wasm-simd
+    steps:
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+      
+      - name: Upload Release Asset (zip)
+        id: upload-release-asset-zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
+          asset_path: OpenSiv3D.zip
+          asset_name: OpenSiv3D.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset (tgz)
+        id: upload-release-asset-tgz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.pre-deploy.outputs.upload_url }}
+          asset_path: OpenSiv3D.tgz
+          asset_name: OpenSiv3D.tgz
+          asset_content_type: application/gzip
+
+  deploy-gh-pages:
+    needs: build-app
+    if: ${{ github.event_name == 'push' && !needs.build-app.outputs.cache-hit }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Destination Folders
+        run: |
+          mkdir -p Dest/v6-wasm-app
+          mkdir -p Dest/v6-wasm-simd-app
+
+      - name: Place Siv3D Apps (wasm)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm
+          path: Dest/v6-wasm-app
+
+      - name: Place Siv3D Apps (wasm-simd)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm-simd
+          path: Dest/v6-wasm-simd-app
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Dest
+          keep_files: true
+
+  e2e-test-prerequisites:
+    runs-on: ubuntu-latest
+    outputs:
+      browserstack-keys-found: ${{ steps.check-keys.outputs.keys-found }}
+    steps: 
+      - name: Check Keys
+        id: check-keys
+        env: 
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: echo "::set-output name=keys-found::${{ env.BROWSERSTACK_USERNAME != '' && env.BROWSERSTACK_ACCESS_KEY != '' }}"
+
+  e2e-test:
+    needs: [ deploy-gh-pages, e2e-test-prerequisites ]
+    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      
+      - name: Create Destination Folders
+        run: mkdir -p Dest/v6-wasm-app
+      - name: Place Siv3D Apps (wasm)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm
+          path: Dest/v6-wasm-app
+      
+      - name: 'Checkout the repository'
+        uses: actions/checkout@v2
+
+      - name: 'Building web application to be tested'
+        working-directory: Web/CI
+        run: npm install
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        working-directory: Web/CI
+        run: npm test  # See sample test script above

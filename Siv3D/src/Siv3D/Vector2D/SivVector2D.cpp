@@ -2,40 +2,65 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Vector2D.hpp>
-# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/2DShapes.hpp>
 
 namespace s3d
 {
-	template <class Type>
-	Vector2D<Type> Vector2D<Type>::clamped(const RectF& rect) const noexcept
+	template <>
+	Vector2D<float> Vector2D<float>::clamped(const RectF& rect) const noexcept
 	{
 		return{
 			Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w)),
 			Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h)) };
 	}
+	
+	template <>
+	Vector2D<double> Vector2D<double>::clamped(const RectF& rect) const noexcept
+	{
+		return{
+			Clamp(x, rect.x, (rect.x + rect.w)),
+			Clamp(y, rect.y, (rect.y + rect.h)) };
+	}
 
-	template <class Type>
-	Vector2D<Type>& Vector2D<Type>::clamp(const RectF& rect) noexcept
+	template <>
+	Vector2D<float>& Vector2D<float>::clamp(const RectF& rect) noexcept
 	{
 		x = Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w));
 		y = Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h));
 		return *this;
 	}
-
-	void Formatter(FormatData& formatData, const Float2& value)
+	
+	template <>
+	Vector2D<double>& Vector2D<double>::clamp(const RectF& rect) noexcept
 	{
-		Formatter(formatData, Vec2(value));
+		x = Clamp(x, rect.x, (rect.x + rect.w));
+		y = Clamp(y, rect.y, (rect.y + rect.h));
+		return *this;
 	}
 
-	void Formatter(FormatData& formatData, const Vec2& value)
+	template <>
+	Circle Vector2D<float>::asCircle(const double r) const noexcept
+	{
+		return{ *this, r };
+	}
+
+	template <>
+	Circle Vector2D<double>::asCircle(const double r) const noexcept
+	{
+		return{ *this, r };
+	}
+
+	template <>
+	void Vector2D<double>::_Formatter(FormatData& formatData, const Vector2D<double>& value)
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlaces.value));
@@ -43,7 +68,13 @@ namespace s3d
 		formatData.string.append(ToString(value.y, formatData.decimalPlaces.value));
 		formatData.string.push_back(U')');
 	}
-	
+
+	template <>
+	void Vector2D<float>::_Formatter(FormatData& formatData, const Vector2D<float>& value)
+	{
+		Vector2D<double>::_Formatter(formatData, value);
+	}
+
 	template struct Vector2D<float>;
 	template struct Vector2D<double>;
 }

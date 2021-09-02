@@ -2,115 +2,140 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
+# include "Common.hpp"
+# include "TexturePixelFormat.hpp"
 # include "StringView.hpp"
 
 namespace s3d
 {
-	enum class TextureFormatValue
-	{
-		Unknown,
-
-		// 32
-		R8G8B8A8_Unorm,
-
-		// 32
-		R8G8B8A8_Unorm_SRGB,
-
-		// 32
-		R16G16_Float,
-
-		// 32
-		R32_Float,
-
-		// 32
-		R10G10B10A2_Unorm,
-
-		// 32
-		R11G11B10_UFloat,
-
-		// 64
-		R16G16B16A16_Float,
-
-		// 64
-		R32G32_Float,
-
-		// 128
-		R32G32B32A32_Float,
-	};
-
 	class TextureFormat
 	{
-	private:
-
-		TextureFormatValue m_value = TextureFormatValue::Unknown;
-
 	public:
 
+		SIV3D_NODISCARD_CXX20
 		TextureFormat() = default;
 
-		constexpr TextureFormat(TextureFormatValue value) noexcept
-			: m_value(value) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr TextureFormat(TexturePixelFormat value) noexcept;
 
-		[[nodiscard]] constexpr TextureFormatValue value() const noexcept
-		{
-			return m_value;
-		}
+		[[nodiscard]]
+		constexpr TexturePixelFormat value() const noexcept;
 
-		[[nodiscard]] StringView name() const noexcept;
+		[[nodiscard]]
+		StringView name() const noexcept;
 
-		[[nodiscard]] int32 DXGIFormat() const noexcept;
+		[[nodiscard]]
+		int32 DXGIFormat() const noexcept;
 
-		[[nodiscard]] int32 GLInternalFormat() const noexcept;
+		[[nodiscard]]
+		int32 GLInternalFormat() const noexcept;
 
-		[[nodiscard]] int32 GLFormat() const noexcept;
+		[[nodiscard]]
+		int32 GLFormat() const noexcept;
 
-		[[nodiscard]] int32 GLType() const noexcept;
+		[[nodiscard]]
+		int32 GLType() const noexcept;
 
 		// 1 ピクセル当たりのサイズ
-		[[nodiscard]] uint32 pixelSize() const noexcept;
+		[[nodiscard]]
+		uint32 pixelSize() const noexcept;
 
 		// チャンネル数
-		[[nodiscard]] uint32 num_channels() const noexcept;
+		[[nodiscard]]
+		uint32 num_channels() const noexcept;
 
-		[[nodiscard]] bool isSRGB() const noexcept;
+		[[nodiscard]]
+		bool isSRGB() const noexcept;
 
-		[[nodiscard]] constexpr bool operator ==(const TextureFormat& other) const noexcept
+	# if __cpp_impl_three_way_comparison
+
+		[[nodiscard]]
+		friend constexpr bool operator ==(TextureFormat lhs, TextureFormat rhs) noexcept
 		{
-			return m_value == other.m_value;
+			return (lhs.value() == rhs.value());
 		}
 
-		[[nodiscard]] constexpr bool operator !=(const TextureFormat& other) const noexcept
+		[[nodiscard]]
+		friend constexpr auto operator <=>(TextureFormat lhs, TextureFormat rhs) noexcept
 		{
-			return m_value != other.m_value;
+			return (lhs.value() <=> rhs.value());
 		}
 
-		static constexpr TextureFormatValue Unknown = TextureFormatValue::Unknown;
+	# else
 
-		static constexpr TextureFormatValue R8G8B8A8_Unorm = TextureFormatValue::R8G8B8A8_Unorm;
+		[[nodiscard]]
+		friend constexpr bool operator ==(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value == rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R8G8B8A8_Unorm_SRGB = TextureFormatValue::R8G8B8A8_Unorm_SRGB;
+		[[nodiscard]]
+		friend constexpr bool operator !=(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value != rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R16G16_Float = TextureFormatValue::R16G16_Float;
+		[[nodiscard]]
+		friend constexpr bool operator <(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value < rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R32_Float = TextureFormatValue::R32_Float;
+		[[nodiscard]]
+		friend constexpr bool operator <=(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value <= rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R10G10B10A2_Unorm = TextureFormatValue::R10G10B10A2_Unorm;
+		[[nodiscard]]
+		friend constexpr bool operator >(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value > rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R11G11B10_UFloat = TextureFormatValue::R11G11B10_UFloat;
+		[[nodiscard]]
+		friend constexpr bool operator >=(const TextureFormat& lhs, const TextureFormat& rhs) noexcept
+		{
+			return (lhs.m_value >= rhs.m_value);
+		}
 
-		static constexpr TextureFormatValue R16G16B16A16_Float = TextureFormatValue::R16G16B16A16_Float;
+	# endif
 
-		static constexpr TextureFormatValue R32G32_Float = TextureFormatValue::R32G32_Float;
+		static constexpr TexturePixelFormat Unknown = TexturePixelFormat::Unknown;
 
-		static constexpr TextureFormatValue R32G32B32A32_Float = TextureFormatValue::R32G32B32A32_Float;
+		static constexpr TexturePixelFormat R8G8B8A8_Unorm = TexturePixelFormat::R8G8B8A8_Unorm;
+
+		static constexpr TexturePixelFormat R8G8B8A8_Unorm_SRGB = TexturePixelFormat::R8G8B8A8_Unorm_SRGB;
+
+		static constexpr TexturePixelFormat R16G16_Float = TexturePixelFormat::R16G16_Float;
+
+		static constexpr TexturePixelFormat R32_Float = TexturePixelFormat::R32_Float;
+
+		static constexpr TexturePixelFormat R10G10B10A2_Unorm = TexturePixelFormat::R10G10B10A2_Unorm;
+
+		static constexpr TexturePixelFormat R11G11B10_UFloat = TexturePixelFormat::R11G11B10_UFloat;
+
+		static constexpr TexturePixelFormat R16G16B16A16_Float = TexturePixelFormat::R16G16B16A16_Float;
+
+		static constexpr TexturePixelFormat R32G32_Float = TexturePixelFormat::R32G32_Float;
+
+		static constexpr TexturePixelFormat R32G32B32A32_Float = TexturePixelFormat::R32G32B32A32_Float;
+
+	private:
+
+		TexturePixelFormat m_value = TexturePixelFormat::Unknown;
 	};
 }
+
+# include "detail/TextureFormat.ipp"

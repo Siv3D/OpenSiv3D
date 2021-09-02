@@ -2,17 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <fstream>
 # include <Siv3D/TextReader.hpp>
-# include <Siv3D/BinaryReader.hpp>
 
 namespace s3d
 {
@@ -20,21 +18,32 @@ namespace s3d
 	{
 	private:
 
-		std::shared_ptr<IReader> m_reader;
+		std::unique_ptr<IReader> m_reader;
 
-		std::ifstream m_ifs;
+		struct Info
+		{
+			FilePath fullPath;
+			TextEncoding encoding = TextEncoding::Default;
+			bool isOpen = false;
+		} m_info;
 
-		FilePath m_fullPath;
+		[[nodiscard]]
+		bool readByte(uint8& c);
 
-		int64 m_size = 0;
+		[[nodiscard]]
+		bool readTwoBytes(uint16& c);
 
-		TextEncoding m_encoding = TextEncoding::Default;
+		[[nodiscard]]
+		bool readUTF8(char32& c);
 
-		Optional<FilePath> m_temporaryFile;
+		[[nodiscard]]
+		bool readUTF16LE(char32& c);
 
-		bool m_opened = false;
+		[[nodiscard]]
+		bool readUTF16BE(char32& c);
 
-		char32_t readCodePoint();
+		[[nodiscard]]
+		bool readCodePoint(char32& codePoint);
 
 	public:
 
@@ -42,24 +51,43 @@ namespace s3d
 
 		~TextReaderDetail();
 
+		[[nodiscard]]
 		bool open(FilePathView path, const Optional<TextEncoding>& encoding);
 
-		bool open(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding);
+		[[nodiscard]]
+		bool open(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding);
 
 		void close();
 
-		bool isOpen() const;
+		[[nodiscard]]
+		bool isOpen() const noexcept;
 
-		void readAll(String& out);
+		[[nodiscard]]
+		Optional<char32> readChar();
 
-		void readLine(String& text);
+		[[nodiscard]]
+		Optional<String> readLine();
 
-		char32 readChar();
+		[[nodiscard]]
+		Array<String> readLines();
 
-		bool eof();
+		[[nodiscard]]
+		String readAll();
 
-		const FilePath& path() const;
+		[[nodiscard]]
+		bool readChar(char32& ch);
 
-		TextEncoding encoding() const;
+		[[nodiscard]]
+		bool readLine(String& line);
+
+		bool readLines(Array<String>& lines);
+
+		bool readAll(String& s);
+
+		[[nodiscard]]
+		TextEncoding encoding() const noexcept;
+
+		[[nodiscard]]
+		const FilePath& path() const noexcept;
 	};
 }

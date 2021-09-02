@@ -2,96 +2,77 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
+# include "Optional.hpp"
+# include "PointVector.hpp"
 # include "String.hpp"
-# include "Rectangle.hpp"
+# include "2DShapes.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
+	/// @brief モニターの情報
 	struct Monitor
 	{
-		/// <summary>
-		/// ディスプレイの名前
-		/// </summary>
+		/// @brief ディスプレイの名前
 		String name;
-	
-		/// <summary>
-		/// ディスプレイ ID
-		/// </summary>
+
+		/// @brief ディスプレイ ID
 		String id;
-		
-		/// <summary>
-		/// 内部的に使われているディスプレイの名前
-		/// </summary>
+
+		/// @brief 内部的に使われているディスプレイの名前
 		String displayDeviceName;
+
+		/// @brief ディスプレイ全体の位置とサイズ
+		Rect displayRect = Rect{ 0 };
+
+		/// @brief タスクバーなどを除いた利用可能な領域の位置とサイズ
+		Rect workArea = Rect{ 0 };
 		
-		/// <summary>
-		/// ディスプレイ全体の位置とサイズ
-		/// </summary>
-		Rect displayRect;
+		/// @brief フルスクリーン時の解像度
+		Size fullscreenResolution = Size{ 0, 0 };
 
-		/// <summary>
-		/// タスクバーなどを除いた利用可能な領域の位置とサイズ
-		/// </summary>
-		Rect workArea;
+		/// @brief メインディスプレイであるか
+		bool isPrimary = false;
 
-		/// <summary>
-		/// メインディスプレイかどうか
-		/// </summary>
-		bool isPrimary;
+		/// @brief 物理的なサイズ (mm)
+		Optional<Size> sizeMillimeter;
+
+		/// @brief UI の拡大倍率
+		Optional<double> scaling;
+
+		/// @brief リフレッシュレート
+		Optional<double> refreshRate;
+
+		/// @brief モニターの情報を文字列に変換します。
+		/// @return モニターの情報
+		[[nodiscard]]
+		String format() const;
 	};
 
 	namespace System
 	{
-		/// <summary>
-		/// 使用可能なモニターの一覧を取得します。
-		/// </summary>
-		[[nodiscard]] Array<Monitor> EnumerateActiveMonitors();
+		/// @brief 使用可能なモニターの一覧を取得します。
+		/// @return 使用可能なモニターの一覧
+		[[nodiscard]]
+		Array<Monitor> EnumerateMonitors();
 
-		/// <summary>
-		/// ウィンドウが配置されているモニターのインデックスを取得します。
-		/// </summary>
-		[[nodiscard]] size_t GetCurrentMonitorIndex();
+		/// @brief ウィンドウが配置されているモニターのインデックスを取得します。
+		/// @return ウィンドウが配置されているモニターのインデックス
+		[[nodiscard]]
+		size_t GetCurrentMonitorIndex();
+
+		/// @brief ウィンドウが配置されているモニターの情報を取得します。
+		/// @return ウィンドウが配置されているモニターの情報
+		[[nodiscard]]
+		Monitor GetCurrentMonitor();
 	}
-
-	namespace DisplayResolution
-	{
-		inline constexpr Size VGA_640x480(640, 480);
-
-		inline constexpr Size SVGA_800x600(800, 600);
-
-		inline constexpr Size XGA_1024x768(1024, 768);
-
-		inline constexpr Size HD_1280x720(1280, 720);
-
-		inline constexpr Size HD_1366x768(1366, 768);
-		
-		inline constexpr Size FHD_1920x1080(1920, 1080);
-		
-		inline constexpr Size WQHD_2560x1440(2560, 1440);
-		
-		inline constexpr Size UHD_3840x2160(3840, 2160);
-		
-		inline constexpr Size UHD_7680x4320(7680, 4320);
-	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
-
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Monitor& value);
 }

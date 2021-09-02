@@ -2,28 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/String.hpp>
-# include <Siv3D/StringView.hpp>
-# include <Siv3D/Optional.hpp>
 # include <Siv3D/ParseBool.hpp>
 # include <Siv3D/Error.hpp>
-# include <Siv3D/Format.hpp>
-# include <Siv3D/Char.hpp>
+# include <Siv3D/FormatLiteral.hpp>
 
 namespace s3d
 {
-	bool ParseBool(const StringView view)
+	bool ParseBool(const StringView s)
 	{
-		const char32* start = view.data();
-		const char32* end = start + view.size();
+		if (const auto opt = ParseBoolOpt(s))
+		{
+			return *opt;
+		}
+		else
+		{
+			throw ParseError(U"ParseBool(\"{}\") failed"_fmt(s));
+		}
+	}
+
+	Optional<bool> ParseBoolOpt(const StringView s) noexcept
+	{
+		const char32* start	= s.data();
+		const char32* end	= (start + s.size());
 
 		while (start < end && IsSpace(start[0]))
 		{
@@ -37,10 +44,11 @@ namespace s3d
 
 		if (start >= end)
 		{
-			throw ParseError(U"ParseBool(\"{}\") failed"_fmt(view));
+			return none;
 		}
 
-		if ((end - start) == 4)
+		if (auto length = (end - start);
+			length == 4)
 		{
 			if ((start[0] == U'T' || start[0] == U't')
 				&& (start[1] == U'R' || start[1] == U'r')
@@ -50,7 +58,7 @@ namespace s3d
 				return true;
 			}
 		}
-		else if ((end - start) == 5)
+		else if (length == 5)
 		{
 			if ((start[0] == U'F' || start[0] == U'f')
 				&& (start[1] == U'A' || start[1] == U'a')
@@ -61,19 +69,7 @@ namespace s3d
 				return false;
 			}
 		}
-		
-		throw ParseError(U"ParseBool(\"{}\") failed"_fmt(view));
-	}
 
-	Optional<bool> ParseBoolOpt(const StringView view)
-	{
-		try
-		{
-			return ParseBool(view);
-		}
-		catch (const ParseError&)
-		{
-			return none;
-		}
+		return none;
 	}
 }

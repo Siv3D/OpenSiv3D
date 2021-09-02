@@ -2,122 +2,136 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "Optional.hpp"
-# include "Uncopyable.hpp"
-# include "Color.hpp"
 # include "BlendState.hpp"
 # include "RasterizerState.hpp"
 # include "SamplerState.hpp"
-# include "Rectangle.hpp"
-# include "Mat3x2.hpp"
+# include "ShaderStage.hpp"
+# include "VertexShader.hpp"
 # include "PixelShader.hpp"
-# include "ConstantBuffer.hpp"
+# include "Texture.hpp"
 # include "RenderTexture.hpp"
+# include "ConstantBuffer.hpp"
+# include "Mat3x2.hpp"
 
 namespace s3d
 {
 	namespace Graphics2D
 	{
-		// 現在のグローバル乗算カラーを取得
-		[[nodiscard]] ColorF GetColorMul();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Float4 GetColorMul();
 
-		// 現在のグローバル加算カラーを取得
-		[[nodiscard]] ColorF GetColorAdd();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Float4 GetColorAdd();
 
-		// 現在のブレンドステートを取得
-		[[nodiscard]] BlendState GetBlendState();
+		/// @brief 現在適用されているブレンドステートを返します。
+		/// @return 現在適用されているブレンドステート
+		[[nodiscard]]
+		BlendState GetBlendState();
 
-		// 現在のラスタライザーステートを取得
-		[[nodiscard]] RasterizerState GetRasterizerState();
+		/// @brief 現在適用されているラスタライザーステートを返します。
+		/// @return 現在適用されているラスタライザーステート
+		[[nodiscard]]
+		RasterizerState GetRasterizerState();
 
-		// サンプラーステートを設定
-		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
+		/// @brief 
+		/// @param shaderStage 
+		/// @param slot 
+		/// @return 
+		[[nodiscard]]
+		SamplerState GetSamplerState(ShaderStage shaderStage = ShaderStage::Pixel, uint32 slot = 0);
 
-		// 現在のサンプラーステートを取得
-		[[nodiscard]] SamplerState GetSamplerState(uint32 slot = 0);
-
-		// 現在のカスタムビューポートを取得
-		[[nodiscard]] Optional<Rect> GetViewport();
-
-		// 現在のカスタムピクセルシェーダを取得
-		[[nodiscard]] Optional<PixelShader> GetCustomPixelShader();
-
-		// 現在のレンダーターゲットを取得
-		[[nodiscard]] Optional<RenderTexture> GetRenderTarget();
-
-		// シザー矩形を設定
-		// *RasterizerState で有効化
+		/// @brief シザー矩形を設定します。
+		/// @param rect シザー矩形
+		/// @remark シザー矩形は RasterizerState で scissorEnable を true にすることで有効になります。
 		void SetScissorRect(const Rect& rect);
 
-		// 現在のシザー矩形を取得
-		[[nodiscard]] Rect GetScissorRect();
-		
-		void SetLocalTransform(const Mat3x2& transform);
+		[[nodiscard]]
+		Rect GetScissorRect();
 
-		[[nodiscard]] const Mat3x2& GetLocalTransform();
+		[[nodiscard]]
+		Optional<Rect> GetViewport();
 
-		void SetCameraTransform(const Mat3x2& transform);
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Optional<VertexShader> GetCustomVertexShader();
 
-		[[nodiscard]] const Mat3x2& GetCameraTransform();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Optional<PixelShader> GetCustomPixelShader();
 
-		// 現在の描画の拡大率係数を取得
-		[[nodiscard]] double GetMaxScaling();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		const Mat3x2& GetLocalTransform();
 
-		// 現在のレンダーターゲットのサイズを取得
-		[[nodiscard]] Size GetRenderTargetSize();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		const Mat3x2& GetCameraTransform();
 
-		// SDF 描画用のパラメータを設定
-		void SetSDFParameters(double pixelRange, double offset = 0.0);
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		float GetMaxScaling() noexcept;
 
-		// SDF 描画用のパラメータを設定
-		void SetSDFParameters(const Float4& parameters);
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Optional<RenderTexture> GetRenderTarget();
 
-		// 現在の SDF 描画用のパラメータを取得
-		[[nodiscard]] Float4 GetSDFParameters();
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Size GetRenderTargetSize();
 
-		// マルチテクスチャ用のテクスチャをセット
-		void SetTexture(uint32 slot, const Optional<Texture>& texture);
+		/// @brief 2D 描画の頂点シェーダのテクスチャスロットにテクスチャをアタッチします。
+		/// @param slot スロット。最大 (SamplerState::MaxSamplerCount - 1)
+		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
+		void SetVSTexture(uint32 slot, const Optional<Texture>& texture);
 
-		// 現在までの 2D 描画を実行
+		/// @brief 2D 描画のピクセルシェーダのテクスチャスロットにテクスチャをアタッチします。
+		/// @param slot スロット。最大 (SamplerState::MaxSamplerCount - 1)
+		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
+		void SetPSTexture(uint32 slot, const Optional<Texture>& texture);
+
+		/// @brief 現在までの 2D 描画を実行します。
 		void Flush();
 
-		namespace Internal
-		{
-			void SetColorMul(const ColorF& color);
+		/// @brief 頂点情報を設定せずに 2D 三角形を描画します。
+		/// @remark 頂点シェーダを使って、各三角形に適切な頂点情報を与える必要があります。
+		/// @param count 描画する三角形の個数
+		void DrawTriangles(uint32 count);
 
-			void SetColorAdd(const ColorF& color);
-
-			void SetBlendState(const BlendState& blendState);
-
-			void SetRasterizerState(const RasterizerState& rasterizerState);
-
-			void SetSamplerState(const SamplerState& samplerState);
-
-			void SetViewport(const Optional<Rect>& viewport);
-
-			void SetCustomPixelShader(const Optional<PixelShader>& ps);
-
-			void SetConstantBuffer(ShaderStage stage, uint32 index, const detail::ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
-		
-			void SetRenderTarget(const Optional<RenderTexture>& rt);
-
-			void SetInternalConstantBufferValue(ShaderStage stage, const Float4& value);
-		}
-
-		// 定数バッファを設定
 		template <class Type>
-		inline void SetConstantBuffer(ShaderStage stage, uint32 index, const ConstantBuffer<Type>& buffer)
-		{
-			Internal::SetConstantBuffer(stage, index, buffer.base(), buffer.getPtr(), sizeof(Type) / sizeof(Float4));
-		}
+		inline void SetVSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
+		template <class Type>
+		inline void SetPSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
+
+		/// @brief 
+		/// @tparam Type 
+		/// @param stage 
+		/// @param slot 
+		/// @param buffer 
+		template <class Type>
+		inline void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBuffer<Type>& buffer);
 	}
 }
+
+# include "detail/Graphics2D.ipp"

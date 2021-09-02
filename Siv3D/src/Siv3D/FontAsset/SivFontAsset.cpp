@@ -2,224 +2,180 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/FontAsset.hpp>
-# include <Siv3DEngine.hpp>
-# include <Asset/IAsset.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Asset/IAsset.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static Font FromAsset(const IAsset* asset)
 		{
-			if (const FontAssetData* fontAssetData = dynamic_cast<const FontAssetData*>(asset))
+			if (const FontAssetData* assetData = dynamic_cast<const FontAssetData*>(asset))
 			{
-				return fontAssetData->font;
+				return assetData->font;
 			}
 
-			return Font();
+			return{};
 		}
 
-		FilePath GetEngineFontPath(const Typeface typeface);
-	}
-
-	const String& FontAssetData::Name()
-	{
-		static const String name = U"Font";
-
-		return name;
-	}
-
-	bool FontAssetData::DefaultPreload(FontAssetData& asset)
-	{
-		if (asset.font)
+		[[nodiscard]]
+		static bool CheckFileExists(const FilePathView path)
 		{
+			if (not FileSystem::Exists(path))
+			{
+				LOG_FAIL(U"❌ FontAsset::Register(): Font file `" + path + U"` not found");
+				return false;
+			}
+
 			return true;
 		}
-
-		asset.font = Font(asset.fontSize, asset.path, asset.style);
-
-		return !asset.font.isEmpty();
 	}
 
-	bool FontAssetData::DefaultUpdate(FontAssetData&)
+	FontAsset::FontAsset(const AssetNameView name)
+		: Font{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Font, name)) } {}
+
+	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const FontStyle style)
 	{
-		return true;
+		return Register(name, FontMethod::Bitmap, fontSize, path, 0, style);
 	}
 
-	bool FontAssetData::DefaultRelease(FontAssetData& asset)
+	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
-		asset.font.release();
-
-		return true;
+		return Register(name, FontMethod::Bitmap, fontSize, path, faceIndex, style);
 	}
 
-	FontAssetData::FontAssetData()
-		: IAsset()
-		, onPreload(DefaultPreload)
-		, onUpdate(DefaultUpdate)
-		, onRelease(DefaultRelease)
+	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const Typeface typeface, const FontStyle style)
 	{
-
+		return Register(name, FontMethod::Bitmap, fontSize, typeface, style);
 	}
 
-	FontAssetData::FontAssetData(
-		int32 _fontSize,
-		Typeface typeface,
-		FontStyle _style,
-		const AssetParameter& _parameter,
-		std::function<bool(FontAssetData&)> _onPreload,
-		std::function<bool(FontAssetData&)> _onUpdate,
-		std::function<bool(FontAssetData&)> _onRelease)
-		: IAsset(_parameter)
-		, fontSize(_fontSize)
-		, path(detail::GetEngineFontPath(typeface))
-		, style(_style)
-		, onPreload(_onPreload)
-		, onUpdate(_onUpdate)
-		, onRelease(_onRelease)
+	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
 	{
-
+		return Register(name, fontMethod, fontSize, path, 0, style);
 	}
 
-	FontAssetData::FontAssetData(
-		int32 _fontSize,
-		const FilePath& _path,
-		FontStyle _style,
-		const AssetParameter& _parameter,
-		std::function<bool(FontAssetData&)> _onPreload,
-		std::function<bool(FontAssetData&)> _onUpdate,
-		std::function<bool(FontAssetData&)> _onRelease)
-		: IAsset(_parameter)
-		, fontSize(_fontSize)
-		, path(_path)
-		, style(_style)
-		, onPreload(_onPreload)
-		, onUpdate(_onUpdate)
-		, onRelease(_onRelease)
+	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
-
-	}
-
-	bool FontAssetData::preload()
-	{
-		if (uninitialized())
-		{
-			setState(onPreload(*this) ? State::LoadSucceeded : State::LoadFailed);
-		}
-
-		return loadSucceeded();
-	}
-
-	void FontAssetData::preloadAsync()
-	{
-		if (uninitialized())
-		{
-			launchLoading([this]() { return onPreload(*this); });
-
-			setState(State::PreloadingAsync);
-		}
-	}
-
-	bool FontAssetData::update()
-	{
-		if (!isPreloaded())
+		if (not detail::CheckFileExists(path))
 		{
 			return false;
 		}
 
-		return onUpdate(*this);
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, path, faceIndex, style);
+	
+		return Register(name, std::move(data));
 	}
 
-	bool FontAssetData::release()
+	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
 	{
-		if (uninitialized())
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, typeface, style);
+
+		return Register(name, std::move(data));
+	}
+
+	bool FontAsset::Register(const AssetName& name, std::unique_ptr<FontAssetData>&& data)
+	{
+		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Font, name, std::move(data));
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, path, 0, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, path, faceIndex, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const int32 fontSize, const Typeface typeface, const FontStyle style)
+	{
+		return Register(nameAndTags, FontMethod::Bitmap, fontSize, typeface, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
+	{
+		return Register(nameAndTags, fontMethod, fontSize, path, 0, style);
+	}
+
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	{
+		if (not detail::CheckFileExists(path))
 		{
-			return true;
+			return false;
 		}
 
-		const bool result = onRelease(*this);
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, path, faceIndex, style, nameAndTags.tags);
 
-		setState(State::Uninitialized);
-
-		return result;
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	FontAsset::FontAsset(const AssetName& name)
-		: Font(detail::FromAsset(Siv3DEngine::Get<ISiv3DAsset>()->getAsset(AssetType::Font, name)))
+	bool FontAsset::Register(const AssetNameAndTags& nameAndTags, const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
 	{
+		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, typeface, style, nameAndTags.tags);
 
+		return Register(nameAndTags.name, std::move(data));
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const AssetParameter& parameter)
+	bool FontAsset::IsRegistered(const AssetNameView name)
 	{
-		return Register(name, fontSize, Typeface::Default, FontStyle::Default, parameter);
+		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Font, name);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const Typeface typeface, const AssetParameter& parameter)
+	bool FontAsset::Load(const AssetNameView name, const String& preloadText)
 	{
-		return Register(name, fontSize, typeface, FontStyle::Default, parameter);
+		return SIV3D_ENGINE(Asset)->load(AssetType::Font, name, preloadText);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const Typeface typeface, FontStyle style, const AssetParameter& parameter)
+	void FontAsset::LoadAsync(const AssetNameView name, const String& preloadText)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Font, name, std::make_unique<FontAssetData>(fontSize, typeface, style, parameter));
+		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Font, name, preloadText);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePath& path, const AssetParameter& parameter)
+	void FontAsset::Wait(const AssetNameView name)
 	{
-		return Register(name, fontSize, path, FontStyle::Default, parameter);
+		SIV3D_ENGINE(Asset)->wait(AssetType::Font, name);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePath& path, FontStyle style, const AssetParameter& parameter)
+	bool FontAsset::IsReady(const AssetNameView name)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Font, name, std::make_unique<FontAssetData>(fontSize, path, style, parameter));
+		return SIV3D_ENGINE(Asset)->isReady(AssetType::Font, name);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const FontAssetData& data)
+	void FontAsset::Release(const AssetNameView name)
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->registerAsset(AssetType::Font, name, std::make_unique<FontAssetData>(data));
-	}
-
-	bool FontAsset::IsRegistered(const AssetName& name)
-	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isRegistered(AssetType::Font, name);
-	}
-
-	bool FontAsset::Preload(const AssetName& name)
-	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->preload(AssetType::Font, name);
-	}
-
-	void FontAsset::Release(const AssetName& name)
-	{
-		Siv3DEngine::Get<ISiv3DAsset>()->release(AssetType::Font, name);
+		SIV3D_ENGINE(Asset)->release(AssetType::Font, name);
 	}
 
 	void FontAsset::ReleaseAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->releaseAll(AssetType::Font);
+		SIV3D_ENGINE(Asset)->releaseAll(AssetType::Font);
 	}
 
-	void FontAsset::Unregister(const AssetName& name)
+	void FontAsset::Unregister(const AssetNameView name)
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregister(AssetType::Font, name);
+		SIV3D_ENGINE(Asset)->unregister(AssetType::Font, name);
 	}
 
 	void FontAsset::UnregisterAll()
 	{
-		Siv3DEngine::Get<ISiv3DAsset>()->unregisterAll(AssetType::Font);
+		SIV3D_ENGINE(Asset)->unregisterAll(AssetType::Font);
 	}
 
-	bool FontAsset::IsReady(const AssetName& name)
+	HashTable<AssetName, AssetInfo> FontAsset::Enumerate()
 	{
-		return Siv3DEngine::Get<ISiv3DAsset>()->isReady(AssetType::Font, name);
+		return SIV3D_ENGINE(Asset)->enumerate(AssetType::Font);
 	}
 }

@@ -2,110 +2,75 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Number.hpp"
+# include <memory>
+# include "Common.hpp"
+# include "AssetIDWrapper.hpp"
 
 namespace s3d
 {
-	template <class Type>
-	class AssetIDWrapper
-	{
-	public:
-
-		using ValueType = uint32;
-
-		inline static const ValueType NullAssetID = 0;
-
-		inline static const ValueType InvalidID = Largest<ValueType>;
-
-	private:
-
-		ValueType m_value = NullAssetID;
-
-	public:
-
-		[[nodiscard]] static constexpr AssetIDWrapper NullAsset() noexcept
-		{
-			return AssetIDWrapper(NullAssetID);
-		}
-
-		[[nodiscard]] static constexpr AssetIDWrapper InvalidValue() noexcept
-		{
-			return AssetIDWrapper(InvalidID);
-		}
-
-		constexpr AssetIDWrapper() = default;
-
-		explicit constexpr AssetIDWrapper(ValueType id) noexcept
-			: m_value(id) {}
-
-		[[nodiscard]] constexpr ValueType value() const noexcept
-		{
-			return m_value;
-		}
-
-		[[nodiscard]] constexpr bool isNullAsset() const noexcept
-		{
-			return m_value == NullAssetID;
-		}
-
-		[[nodiscard]] constexpr bool operator ==(const AssetIDWrapper& other) const noexcept
-		{
-			return m_value == other.m_value;
-		}
-
-		[[nodiscard]] constexpr bool operator !=(const AssetIDWrapper& other) const noexcept
-		{
-			return m_value != other.m_value;
-		}
-	};
-
-	template <class Type>
+	/// @brief アセットハンドル
+	/// @tparam AssetType アセットのタグ
+	template <class AssetType>
 	class AssetHandle
 	{
-	private:
-
-		AssetIDWrapper<Type> m_id;
-
 	public:
 
-		using IDWrapperType = AssetIDWrapper<Type>;
+		/// @brief アセット ID ラッパー型
+		using AssetIDWrapperType = AssetIDWrapper<AssetHandle>;
 
+		/// @brief アセット ID 型
+		using IDType = typename AssetIDWrapperType::IDType;
+
+		SIV3D_NODISCARD_CXX20
 		AssetHandle();
 
-		explicit AssetHandle(IDWrapperType id) noexcept;
+		SIV3D_NODISCARD_CXX20
+		explicit AssetHandle(std::shared_ptr<AssetIDWrapperType>&& id);
 
-		~AssetHandle();
+		/// @brief アセットの内部管理 ID を返します。
+		/// @remark アセットが作成されるときに割り当てられる（同じ種類のアセット内で）一意の値です。
+		/// @return アセットの内部管理 ID
+		[[nodiscard]]
+		IDType id() const noexcept;
 
-		[[nodiscard]] constexpr IDWrapperType id() const noexcept
-		{
-			return m_id;
-		}
+		/// @brief アセットが空であるかを返します。
+		/// @return アセットが空の場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isEmpty() const noexcept;
+
+		/// @brief アセットが空でないかを返します。
+		/// @return アセットが空でない場合 true, それ以外の場合は false
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
+
+		/// @brief 2 つのアセットが同じオブジェクトであるかを返します。
+		/// @param other 比較するオブジェクト 
+		/// @return 2 つのアセットが同じオブジェクトである場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool operator ==(const AssetHandle& other) const noexcept;
+
+		/// @brief 2 つのアセットが異なるオブジェクトであるかを返します。
+		/// @param other 比較するオブジェクト 
+		/// @return 2 つのアセットが異なるオブジェクトである場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool operator !=(const AssetHandle& other) const noexcept;
+
+		/// @brief このハンドルが管理するアセットを解放します。
+		/// @remark 解放されたアセットは空になります。
+		void release();
+
+	protected:
+
+		std::shared_ptr<AssetIDWrapperType> m_handle;
 	};
 }
 
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <class Type>
-	struct hash<s3d::AssetIDWrapper<Type>>
-	{
-		[[nodiscard]] size_t operator()(const s3d::AssetIDWrapper<Type>& value) const noexcept
-		{
-			return hash<typename s3d::AssetIDWrapper<Type>::ValueType>()(value.value());
-		}
-	};
-}
+# include "detail/AssetHandle.ipp"

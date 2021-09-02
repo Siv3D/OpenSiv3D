@@ -1,24 +1,18 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-// s3d::TOMLReader is originally created by azaika (OpenSiv3D Project)
-//-----------------------------------------------
 
-# include <cpptoml/cpptoml.h>
+# include <ThirdParty/cpptoml/cpptoml.h>
 # include <Siv3D/TOMLReader.hpp>
-# include <Siv3D/Optional.hpp>
-# include <Siv3D/String.hpp>
 # include <Siv3D/Time.hpp>
-# include <Siv3D/DateTime.hpp>
 # include <Siv3D/TextReader.hpp>
-# include <Siv3D/Format.hpp>
 
 namespace s3d
 {
@@ -329,7 +323,7 @@ namespace s3d
 
 	Optional<int64> TOMLValue::getOptInt64() const
 	{
-		if (!isNumber())
+		if (not isNumber())
 		{
 			return none;
 		}
@@ -351,7 +345,7 @@ namespace s3d
 
 	Optional<double> TOMLValue::getOptDouble() const
 	{
-		if (!isNumber())
+		if (not isNumber())
 		{
 			return none;
 		}
@@ -365,7 +359,8 @@ namespace s3d
 
 	Optional<bool> TOMLValue::getOptBool() const
 	{
-		if (!isBool()) {
+		if (not isBool())
+		{
 			return none;
 		}
 
@@ -520,12 +515,12 @@ namespace s3d
 
 	Optional<String> TOMLValue::getOptString() const
 	{
-		if (!isString())
+		if (not isString())
 		{
 			return none;
 		}
 
-		return Optional<String>(InPlace, getString());
+		return getString();
 	}
 
 	////////////////////////////////
@@ -552,12 +547,12 @@ namespace s3d
 
 	Optional<Date> TOMLValue::getOptDate() const
 	{
-		if (!isDate())
+		if (not isDate())
 		{
 			return none;
 		}
 
-		return Optional<Date>(InPlace, getDate());
+		return getDate();
 	}
 
 	////////////////////////////////
@@ -626,12 +621,12 @@ namespace s3d
 
 	Optional<DateTime> TOMLValue::getOptDateTime() const
 	{
-		if (!isDateTime())
+		if (not isDateTime())
 		{
 			return none;
 		}
 
-		return Optional<DateTime>(InPlace, getDateTime());
+		return getDateTime();
 	}
 
 	////////////////////////////////
@@ -643,9 +638,9 @@ namespace s3d
 		open(path);
 	}
 
-	TOMLReader::TOMLReader(const std::shared_ptr<IReader>& reader)
+	TOMLReader::TOMLReader(std::unique_ptr<IReader>&& reader)
 	{
-		open(reader);
+		open(std::move(reader));
 	}
 
 	bool TOMLReader::open(const FilePathView path)
@@ -670,7 +665,7 @@ namespace s3d
 		return m_detail != nullptr;
 	}
 
-	bool TOMLReader::open(const std::shared_ptr<IReader>& reader)
+	bool TOMLReader::open(std::unique_ptr<IReader>&& reader)
 	{
 		if (isOpen())
 		{
@@ -678,7 +673,7 @@ namespace s3d
 		}
 
 		std::stringstream ss;
-		ss << TextReader(reader).readAll().toUTF8();
+		ss << TextReader{ std::move(reader) }.readAll().toUTF8();
 
 		try
 		{
@@ -719,7 +714,7 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const TOMLReader& reader)
 	{
-		if (!reader.isEmpty())
+		if (reader)
 		{
 			Formatter(formatData, static_cast<TOMLValue>(reader));
 		}

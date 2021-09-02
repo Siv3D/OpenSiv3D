@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014-2020.
+// Modifications copyright (c) 2014-2020 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -44,7 +44,7 @@ struct radius_type<nsphere_tag, S>
 };
 
 template <typename S, std::size_t D>
-struct radius_access<nsphere_tag, S, D, boost::false_type>
+struct radius_access<nsphere_tag, S, D, std::false_type>
     : detail::radius_access<nsphere_tag, S, D>
 {
     BOOST_STATIC_ASSERT((D == 0));

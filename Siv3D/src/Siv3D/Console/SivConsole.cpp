@@ -2,32 +2,27 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Console.hpp>
-# include <Siv3DEngine.hpp>
-# include <Console/IConsole.hpp>
+# include <Siv3D/Unicode.hpp>
+# include <Siv3D/Console/IConsole.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
 		ConsoleBuffer::ConsoleBuffer()
-			: formatData(std::make_unique<FormatData>())
-		{
-		
-		}
+			: formatData{ std::make_unique<FormatData>() } {}
 
-		ConsoleBuffer::ConsoleBuffer(ConsoleBuffer&& other)
-			: formatData(std::move(other.formatData))
-		{
-		
-		}
+		ConsoleBuffer::ConsoleBuffer(ConsoleBuffer&& other) noexcept
+			: formatData{ std::move(other.formatData) } {}
 
 		ConsoleBuffer::~ConsoleBuffer()
 		{
@@ -37,40 +32,77 @@ namespace s3d
 			}
 		}
 
+
 		void Console_impl::open() const
 		{
-			Siv3DEngine::Get<ISiv3DConsole>()->open();
+			SIV3D_ENGINE(Console)->open();
 		}
 
-		void Console_impl::write(const char32_t* text) const
+		void Console_impl::write(const char32_t* s) const
 		{
 			open();
 
-			std::cout << Unicode::Narrow(text);
+			std::cout << Unicode::Narrow(s);
 		}
 
-		void Console_impl::write(StringView text) const
+		void Console_impl::write(const StringView s) const
 		{
 			open();
 
-			std::cout << text;
+			std::cout << s;
 		}
 
-		void Console_impl::write(const String& text) const
+		void Console_impl::write(const String& s) const
 		{
 			open();
 
-			std::cout << text;
+			std::cout << s;
 		}
 
-		void Console_impl::writeln(const String& text) const
+		void Console_impl::writeln(const char32_t* s) const
 		{
-			write(text + U'\n');
+			write(s);
+
+			std::cout << std::endl;
 		}
 
-		void Console_impl::operator()(const String& text) const
+		void Console_impl::writeln(const StringView s) const
 		{
-			writeln(text);
+			write(s);
+
+			std::cout << std::endl;
+		}
+
+		void Console_impl::writeln(const String& s) const
+		{
+			write(s);
+
+			std::cout << std::endl;
+		}
+
+		void Console_impl::operator()(const char32_t* s) const
+		{
+			writeln(s);
+		}
+
+		void Console_impl::operator()(const StringView s) const
+		{
+			writeln(s);
+		}
+
+		void Console_impl::operator()(const String& s) const
+		{
+			writeln(s);
+		}
+
+		void Console_impl::setSystemDefaultCodePage() const
+		{
+			SIV3D_ENGINE(Console)->setSystemDefaultCodePage();
+		}
+
+		void Console_impl::setUTF8CodePage() const
+		{
+			SIV3D_ENGINE(Console)->setUTF8CodePage();
 		}
 	}
 }

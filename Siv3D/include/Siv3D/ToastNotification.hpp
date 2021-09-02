@@ -2,49 +2,23 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "String.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
+# include "Optional.hpp"
+# include "AsyncTask.hpp"
+# include "ToastNotificationItem.hpp"
+# include "ToastNotificationState.hpp"
 
 namespace s3d
 {
-	struct ToastNotificationProperty
-	{
-		String title;
-
-		String message;
-
-		FilePath imagePath;
-
-		Array<String> actions;
-	};
-
-	enum class ToastNotificationState
-	{
-		None,
-		
-		Shown,
-		
-		Activated,
-		
-		UserCanceled,
-		
-		ApplicationHidden,
-		
-		TimedOut,
-		
-		Error,
-	};
-
-	using NotificationID = int64;
+	using ToastNotificationID = int64;
 
 # if SIV3D_PLATFORM(WINDOWS)
 
@@ -52,15 +26,47 @@ namespace s3d
 	{
 		namespace ToastNotification
 		{
-			[[nodiscard]] bool IsAvailable();
+			/// @brief トースト通知が可能な OS であるかを返します。
+			/// @return トースト通知が可能な場合 true, それ以外の場合は false
+			[[nodiscard]]
+			bool IsAvailable();
 
-			NotificationID Show(const ToastNotificationProperty& prop);
+			ToastNotificationID Show(const ToastNotificationItem& item);
 
-			[[nodiscard]] ToastNotificationState GetState(NotificationID id);
+			[[nodiscard]]
+			ToastNotificationState GetState(ToastNotificationID id);
 
-			[[nodiscard]] Optional<size_t> GetAction(NotificationID id);
+			[[nodiscard]]
+			Optional<size_t> GetAction(ToastNotificationID id);
 
-			void Hide(NotificationID id);
+			void Hide(ToastNotificationID id);
+
+			void Clear();
+		}
+	}
+
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web
+	{
+		namespace Notification
+		{
+			/// @brief トースト通知が可能な OS であるかを返します。
+			/// @return トースト通知が可能な場合 true, それ以外の場合は false
+			[[nodiscard]]
+			bool IsAvailable();
+
+			AsyncTask<bool> RequestPermission();
+
+			ToastNotificationID Show(const ToastNotificationItem& item);
+
+			[[nodiscard]]
+			ToastNotificationState GetState(ToastNotificationID id);
+
+			[[nodiscard]]
+			Optional<size_t> GetAction(ToastNotificationID id);
+
+			void Hide(ToastNotificationID id);
 
 			void Clear();
 		}

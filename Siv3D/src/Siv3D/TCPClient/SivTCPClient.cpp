@@ -2,30 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TCPClient.hpp>
-# include "TCPClientDetail.hpp"
+# include <Siv3D/TCPClient/TCPClientDetail.hpp>
 
 namespace s3d
 {
 	TCPClient::TCPClient()
-		: pImpl(std::make_shared<TCPClientDetail>())
-	{
+		: pImpl{ std::make_shared<TCPClientDetail>() } {}
+	
+	TCPClient::~TCPClient() {}
 
-	}
-
-	TCPClient::~TCPClient()
-	{
-
-	}
-
-	bool TCPClient::connect(const IPv4& ip, const uint16 port)
+	bool TCPClient::connect(const IPv4Address& ip, const uint16 port)
 	{
 		return pImpl->connect(ip, port);
 	}
@@ -55,7 +49,7 @@ namespace s3d
 		return pImpl->hasError();
 	}
 
-	NetworkError TCPClient::getError() const
+	TCPError TCPClient::getError() const
 	{
 		return pImpl->getError();
 	}

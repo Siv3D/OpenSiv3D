@@ -2,41 +2,29 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/ParticleSystem2D.hpp>
-# include "ParticleSystem2DDetail.hpp"
+# include <Siv3D/ParticleSystem2D/ParticleSystem2DDetail.hpp>
 
 namespace s3d
 {
 	ParticleSystem2D::ParticleSystem2D()
-		: pImpl(std::make_shared<ParticleSystem2DDetail>())
-	{
-
-	}
-
-	ParticleSystem2D::~ParticleSystem2D()
-	{
-
-	}
+		: pImpl{ std::make_shared<ParticleSystem2DDetail>() } {}
 
 	ParticleSystem2D::ParticleSystem2D(const Vec2& position, const Vec2& force)
-		: pImpl(std::make_shared<ParticleSystem2DDetail>(position, force))
-	{
-
-	}
+		: pImpl{ std::make_shared<ParticleSystem2DDetail>(position, force) } {}
 
 	ParticleSystem2D::ParticleSystem2D(const Vec2& position, const Vec2& force, std::unique_ptr<IEmitter2D>&& emitter,
 		const ParticleSystem2DParameters& parameters, const Texture& texture)
-		: pImpl(std::make_shared<ParticleSystem2DDetail>(position, force, std::move(emitter), parameters, texture))
-	{
+		: pImpl{ std::make_shared<ParticleSystem2DDetail>(position, force, std::move(emitter), parameters, texture) } {}
 
-	}
+	ParticleSystem2D::~ParticleSystem2D() {}
 
 	void ParticleSystem2D::setPosition(const Vec2& position) noexcept
 	{

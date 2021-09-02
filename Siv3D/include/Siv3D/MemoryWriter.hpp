@@ -2,167 +2,69 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include "Common.hpp"
 # include "IWriter.hpp"
-# include "ByteArrayView.hpp"
-# include "ByteArray.hpp"
+# include "Blob.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 書き込み用バッファ
-	/// </summary>
+	/// @brief バイナリデータ書き出し
 	class MemoryWriter : public IWriter
 	{
-	private:
-
-		class MemoryWriterDetail;
-
-		std::shared_ptr<MemoryWriterDetail> pImpl;
-
 	public:
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		MemoryWriter();
+		SIV3D_NODISCARD_CXX20
+		MemoryWriter() = default;
 
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
-		~MemoryWriter() = default;
+		SIV3D_NODISCARD_CXX20
+		explicit MemoryWriter(Arg::reserve_<size_t> resrveSizeBytes);
 
-		/// <summary>
-		/// 書き込みバッファを解放します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void release();
+		[[nodiscard]]
+		bool isOpen() const noexcept override;
 
-		/// <summary>
-		/// 書き込み用バッファが使用可能かを返します。
-		/// </summary>
-		/// <returns>
-		/// つねに true
-		/// </returns>
-		[[nodiscard]] bool isOpen() const override { return true; }
+		[[nodiscard]]
+		explicit operator bool() const noexcept;
 
-		/// <summary>
-		/// 書き込み用バッファの内容を消去し、書き込み位置を先頭に戻します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void clear();
+		[[nodiscard]]
+		int64 size() const override;
 
-		/// <summary>
-		/// 書き込み用バッファが使用可能かを返します。
-		/// </summary>
-		/// <returns>
-		/// つねに true
-		/// </returns>
-		[[nodiscard]] explicit operator bool() const { return isOpen(); }
+		[[nodiscard]]
+		int64 getPos() const override;
 
-		/// <summary>
-		/// 書き込み用バッファのサイズを返します。
-		/// </summary>
-		/// <returns>
-		/// 書き込み用バッファのサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] int64 size() const override;
-
-		/// <summary>
-		/// 現在の書き込み位置を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の書き込み位置（バイト）
-		/// </returns>
-		[[nodiscard]] int64 getPos() const override;
-
-		/// <summary>
-		/// 書き込み位置を変更します。
-		/// </summary>
-		/// <param name="pos">
-		/// 新しい書き込み位置（バイト）
-		/// </param>
-		/// <returns>
-		/// 書き込み位置の変更に成功した場合 true, それ以外の場合は false
-		/// </returns>
 		bool setPos(int64 pos) override;
 
-		/// <summary>
-		/// 書き込み位置を終端に移動します。
-		/// </summary>
-		/// <returns>
-		/// 新しい書き込み位置（バイト）
-		/// </returns>
 		int64 seekToEnd();
 
-		/// <summary>
-		///	バッファにデータを書き込みます。
-		/// </summary>
-		/// <param name="src">
-		/// 書き込むデータ
-		/// </param>
-		/// <param name="size">
-		/// 書き込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		int64 write(const void* src, size_t size) override;
+		int64 write(const void* src, int64 sizeBytes) override;
 
-		/// <summary>
-		/// バッファにデータを書き込みます。
-		/// </summary>
-		/// <param name="view">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		int64 write(ByteArrayViewAdapter view)
-		{
-			return write(view.data(), view.size());
-		}
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool write(const TriviallyCopyable& src);
 
-		/// <summary>
-		/// 書き込みバッファの先頭ポインタを返します。
-		/// </summary>
-		/// <remarks>
-		/// 現在の書き込み位置に関係なく、バッファの先頭のポインタを返します。
-		/// </remarks>
-		/// <returns>
-		/// 書き込みバッファの先頭ポインタ
-		/// </returns>
-		[[nodiscard]] const Byte* data() const;
+		[[nodiscard]]
+		Blob retrieve();
 
-		/// <summary>
-		/// バッファの内容をファイルに保存します。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <remarks>
-		/// 現在の書き込み位置に関係なく、バッファの内容全てを保存します。
-		/// </remarks>
-		/// <returns>
-		/// 保存に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool save(FilePathView path) const;
+		const Blob& getBlob() const noexcept;
 
-		[[nodiscard]] ByteArrayView view() const;
+		void reserve(size_t sizeBytes);
 
-		[[nodiscard]] ByteArray retrieve();
+		void clear();
+
+		void release();
+
+	private:
+
+		Blob m_blob;
+
+		int64 m_writePos = 0;
 	};
 }
+
+# include "detail/MemoryWriter.ipp"

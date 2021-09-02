@@ -2,32 +2,26 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/Print.hpp>
-# include "IPrint.hpp"
+# include <Siv3D/Print/IPrint.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
 		PrintBuffer::PrintBuffer()
-			: formatData(std::make_unique<FormatData>())
-		{
+			: formatData{ std::make_unique<FormatData>() } {}
 
-		}
-
-		PrintBuffer::PrintBuffer(PrintBuffer&& other)
-			: formatData(std::move(other.formatData))
-		{
-
-		}
+		PrintBuffer::PrintBuffer(PrintBuffer&& other) noexcept
+			: formatData{ std::move(other.formatData) } {}
 
 		PrintBuffer::~PrintBuffer()
 		{
@@ -37,19 +31,72 @@ namespace s3d
 			}
 		}
 
-		void Print_impl::writeln(const String& text) const
+
+		void Print_impl::write(const char32_t* s) const
 		{
-			Siv3DEngine::Get<ISiv3DPrint>()->add(text);
+			SIV3D_ENGINE(Print)->write(s);
 		}
 
-		void Print_impl::operator()(const String& text) const
+		void Print_impl::write(const StringView s) const
 		{
-			writeln(text);
+			SIV3D_ENGINE(Print)->write(String{ s });
+		}
+
+		void Print_impl::write(const String& s) const
+		{
+			SIV3D_ENGINE(Print)->write(s);
+		}
+
+		void Print_impl::writeln(const char32_t* s) const
+		{
+			SIV3D_ENGINE(Print)->writeln(s);
+		}
+
+		void Print_impl::writeln(const StringView s) const
+		{
+			SIV3D_ENGINE(Print)->writeln(String{ s });
+		}
+
+		void Print_impl::writeln(const String& s) const
+		{
+			SIV3D_ENGINE(Print)->writeln(s);
+		}
+
+		void Print_impl::operator()(const char32_t* s) const
+		{
+			writeln(s);
+		}
+
+		void Print_impl::operator()(const StringView s) const
+		{
+			writeln(s);
+		}
+
+		void Print_impl::operator()(const String& s) const
+		{
+			writeln(s);
+		}
+
+		bool Print_impl::setFont(const Font& font) const
+		{
+			if (not font)
+			{
+				return false;
+			}
+
+			SIV3D_ENGINE(Print)->setFont(font);
+
+			return true;
+		}
+
+		const Font& Print_impl::getFont() const
+		{
+			return SIV3D_ENGINE(Print)->getFont();
 		}
 	}
 
 	void ClearPrint()
 	{
-		Siv3DEngine::Get<ISiv3DPrint>()->clear();
+		SIV3D_ENGINE(Print)->clear();
 	}
 }

@@ -1,0 +1,15 @@
+{
+  "name": "opensiv3d-ondevice-test",
+  "version": "1.0.0",
+  "description": "OpenSiv3D for Web On-Device Test",
+  "main": "browserStack.js",
+  "scripts": {
+    "test": "node browserStack.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.8"
+  }
+}

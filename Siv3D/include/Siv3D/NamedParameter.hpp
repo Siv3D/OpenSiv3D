@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,22 +12,23 @@
 # pragma once
 # include <type_traits>
 # include <tuple>
+# include <functional>
+# include <memory>
+# include <utility>
 
 namespace s3d
 {
+	/// @brief 名前付き変数作成クラス
+	/// @tparam Tag タグ名
+	/// @tparam Type 変数の値の型
 	template <class Tag, class Type>
 	class NamedParameter
 	{
-	private:
-
-		Type m_value;
-
 	public:
 
-		constexpr NamedParameter()
-			: m_value() {}
+		NamedParameter() = default;
 
-		constexpr NamedParameter(Type value)
+		constexpr NamedParameter(const Type& value)
 			: m_value(value) {}
 
 		template <class U, class V = Type, std::enable_if_t<std::is_convertible_v<U, V>>* = nullptr>
@@ -38,51 +39,58 @@ namespace s3d
 		constexpr NamedParameter(const NamedParameter<Tag, std::tuple<Args...>>& tuple)
 			: m_value(std::make_from_tuple<Type>(tuple.value())) {}
 
-		constexpr const Type* operator ->() const
+		constexpr const Type* operator ->() const noexcept
 		{
 			return std::addressof(m_value);
 		}
 
-		[[nodiscard]] constexpr const Type& operator *() const
+		[[nodiscard]]
+		constexpr const Type& operator *() const noexcept
 		{
 			return m_value;
 		}
 
-		[[nodiscard]] constexpr const Type& value() const
+		[[nodiscard]]
+		constexpr const Type& value() const noexcept
 		{
 			return m_value;
 		}
+
+	private:
+
+		Type m_value;
 	};
 
 	template <class Tag, class Type>
 	class NamedParameter<Tag, Type&>
 	{
-	private:
-
-		Type* m_ref;
-
 	public:
 
-		constexpr NamedParameter() noexcept
-			: m_ref(nullptr) {}
+		NamedParameter() = default;
 
 		constexpr NamedParameter(Type& value) noexcept
 			: m_ref(std::addressof(value)) {}
 
-		constexpr Type* operator ->() const
+		constexpr Type* operator ->() const noexcept
 		{
 			return m_ref;
 		}
 
-		[[nodiscard]] constexpr Type& operator *() const
+		[[nodiscard]]
+		constexpr Type& operator *() const noexcept
 		{
 			return *m_ref;
 		}
 
-		[[nodiscard]] constexpr Type& value() const
+		[[nodiscard]]
+		constexpr Type& value() const noexcept
 		{
 			return *m_ref;
 		}
+
+	private:
+
+		Type* m_ref = nullptr;
 	};
 
 	template <class Tag>
@@ -92,25 +100,29 @@ namespace s3d
 		using named_argument_type = NamedParameter<Tag, Type>;
 
 		template <class Type>
+		[[nodiscard]]
 		constexpr NamedParameter<Tag, std::decay_t<Type>> operator =(Type&& value) const
 		{
 			return NamedParameter<Tag, std::decay_t<Type>>(std::forward<Type>(value));
 		}
 
 		template <class... Args>
+		[[nodiscard]]
 		constexpr NamedParameter<Tag, std::tuple<std::decay_t<Args >...>> operator() (Args&&... args) const
 		{
 			return NamedParameter<Tag, std::tuple<std::decay_t<Args >...>>(std::make_tuple(std::forward<Args>(args)...));
 		}
 
 		template <class Type>
+		[[nodiscard]]
 		constexpr NamedParameter<Tag, Type&> operator =(std::reference_wrapper<Type> value) const
 		{
 			return NamedParameter<Tag, Type&>(value.get());
 		}
 
 		template <class Type>
-		constexpr NamedParameter<Tag, Type&> operator() (std::reference_wrapper<Type> value) const
+		[[nodiscard]]
+		constexpr NamedParameter<Tag, Type&> operator()(std::reference_wrapper<Type> value) const
 		{
 			return NamedParameter<Tag, Type&>(value.get());
 		}

@@ -2,16 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Base64.hpp>
-# include <Siv3D/ByteArrayView.hpp>
-# include <Siv3D/ByteArray.hpp>
 
 namespace s3d
 {
@@ -39,12 +37,14 @@ namespace s3d
 			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 		};
 
-		static constexpr size_t EncodeLength(const size_t srcLength)
+		[[nodiscard]]
+		inline constexpr size_t EncodeLength(const size_t srcLength) noexcept
 		{
 			return (srcLength / 3 + (srcLength % 3 ? 1 : 0)) * 4;
 		}
 
-		static constexpr size_t DecodeLength(const StringView view)
+		[[nodiscard]]
+		static constexpr size_t DecodeLength(const StringView view) noexcept
 		{
 			size_t length = (view.length() / 4) * 3;
 
@@ -56,26 +56,51 @@ namespace s3d
 
 			return length;
 		}
+
+		[[nodiscard]]
+		static constexpr size_t DecodeLength(const std::string_view view) noexcept
+		{
+			size_t length = (view.length() / 4) * 3;
+
+			if ((view.length() % 4 == 0) && (not view.empty()))
+			{
+				length -= (view[view.length() - 2] == '=') ? 2
+					: (view[view.length() - 1] == '=') ? 1 : 0;
+			}
+
+			return length;
+		}
 	}
 
 	namespace Base64
 	{
 		String Encode(const void* const data, const size_t size)
 		{
-			String result(detail::EncodeLength(size), U'=');
-			const size_t blocks = size / 3;
-			const size_t remain = size % 3;
+			String result;
+			
+			Encode(data, size, result);
+			
+			return result;
+		}
+
+		void Encode(const void* data, size_t size, String& dst)
+		{
+			dst.clear();
+			dst.resize(detail::EncodeLength(size), U'=');
+
+			const size_t blocks = (size / 3);
+			const size_t remain = (size % 3);
 			const uint8* pSrc = static_cast<const uint8*>(data);
 			const uint8* pSrcBlocksEnd = pSrc + 3 * blocks;
-			char32* pDst = &result[0];
+			char32* pDst = dst.data();
 
 			while (pSrc != pSrcBlocksEnd)
 			{
 				const uint32 n = pSrc[0] << 16 | pSrc[1] << 8 | pSrc[2];
 				*pDst++ = detail::chars[(n >> 18)];
 				*pDst++ = detail::chars[(n >> 12) & 0x3f];
-				*pDst++ = detail::chars[(n >>  6) & 0x3f];
-				*pDst++ = detail::chars[(n >>  0) & 0x3f];
+				*pDst++ = detail::chars[(n >> 6) & 0x3f];
+				*pDst++ = detail::chars[(n >> 0) & 0x3f];
 				pSrc += 3;
 			}
 
@@ -90,33 +115,57 @@ namespace s3d
 				const uint32 n = (pSrc[0] << 16) | (pSrc[1] << 8);
 				*pDst++ = detail::chars[(n >> 18)];
 				*pDst++ = detail::chars[(n >> 12) & 0x3f];
-				*pDst++ = detail::chars[(n >>  6) & 0x3f];
+				*pDst++ = detail::chars[(n >> 6) & 0x3f];
 			}
-
-			return result;
 		}
 
-		String Encode(const ByteArrayView view)
+		void Encode(const void* data, size_t size, std::string& dst)
 		{
-			return Encode(view.data(), view.size_bytes());
-		}
+			dst.clear();
+			dst.resize(detail::EncodeLength(size), '=');
 
-		String Encode(const ByteArrayViewAdapter view)
-		{
-			return Encode(view.data(), view.size_bytes());
-		}
+			const size_t blocks = (size / 3);
+			const size_t remain = (size % 3);
+			const uint8* pSrc = static_cast<const uint8*>(data);
+			const uint8* pSrcBlocksEnd = pSrc + 3 * blocks;
+			char* pDst = dst.data();
 
-		ByteArray Decode(const StringView view)
-		{
-			if (view.isEmpty())
+			while (pSrc != pSrcBlocksEnd)
 			{
-				return ByteArray();
+				const uint32 n = pSrc[0] << 16 | pSrc[1] << 8 | pSrc[2];
+				*pDst++ = detail::chars[(n >> 18)];
+				*pDst++ = detail::chars[(n >> 12) & 0x3f];
+				*pDst++ = detail::chars[(n >> 6) & 0x3f];
+				*pDst++ = detail::chars[(n >> 0) & 0x3f];
+				pSrc += 3;
 			}
 
-			Array<Byte> dst(detail::DecodeLength(view));
-			const size_t blocks = view.length() / 4;
-			const size_t remain = view.length() % 4;
-			const char32* pSrc = view.data();
+			if (remain == 1)
+			{
+				const uint32 n = (pSrc[0] << 16);
+				*pDst++ = detail::chars[(n >> 18)];
+				*pDst++ = detail::chars[(n >> 12) & 0x3f];
+			}
+			else if (remain == 2)
+			{
+				const uint32 n = (pSrc[0] << 16) | (pSrc[1] << 8);
+				*pDst++ = detail::chars[(n >> 18)];
+				*pDst++ = detail::chars[(n >> 12) & 0x3f];
+				*pDst++ = detail::chars[(n >> 6) & 0x3f];
+			}
+		}
+
+		Blob Decode(const StringView base64)
+		{
+			if (not base64)
+			{
+				return{};
+			}
+
+			Array<Byte> dst(detail::DecodeLength(base64));
+			const size_t blocks = (base64.length() / 4);
+			const size_t remain = (base64.length() % 4);
+			const char32* pSrc = base64.data();
 			Byte* pDst = dst.data();
 
 			for (size_t i = 0; i < blocks; ++i)
@@ -158,7 +207,62 @@ namespace s3d
 				}
 			}
 
-			return ByteArray(std::move(dst));
+			return Blob{ std::move(dst) };
+		}
+
+		Blob Decode(const std::string_view base64)
+		{
+			if (base64.empty())
+			{
+				return{};
+			}
+
+			Array<Byte> dst(detail::DecodeLength(base64));
+			const size_t blocks = (base64.length() / 4);
+			const size_t remain = (base64.length() % 4);
+			const char* pSrc = base64.data();
+			Byte* pDst = dst.data();
+
+			for (size_t i = 0; i < blocks; ++i)
+			{
+				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
+
+				const uint8 v3 = detail::decodeTable[*pSrc++ & 0xff];
+
+				if (v3 == 0xFF)
+				{
+					break;
+				}
+
+				*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
+
+				const uint8 v4 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+
+				if (v4 == 0xFF)
+				{
+					break;
+				}
+
+				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
+			}
+
+			if (remain)
+			{
+				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
+
+				if (remain == 3)
+				{
+					*pDst++ = static_cast<Byte>((v2 << 4 | detail::decodeTable[static_cast<uint8>(*pSrc++)] >> 2) & 0xff);
+				}
+			}
+
+			return Blob{ std::move(dst) };
 		}
 	}
 }

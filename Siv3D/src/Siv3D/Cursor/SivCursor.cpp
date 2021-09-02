@@ -2,147 +2,144 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/Window.hpp>
 # include <Siv3D/Cursor.hpp>
-# include <Siv3DEngine.hpp>
-# include "ICursor.hpp"
+# include <Siv3D/Window.hpp>
+# include <Siv3D/Cursor/ICursor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
 	namespace Cursor
 	{
-		Point Pos()
+		Point Pos() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformed().current;
+			return SIV3D_ENGINE(Cursor)->getState().point.current;
 		}
 
-		Point PreviousPos()
+		Vec2 PosF() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformed().previous;
+			return SIV3D_ENGINE(Cursor)->getState().vec2.current;
 		}
 
-		Point Delta()
+		Point PreviousPos() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformed().delta;
+			return SIV3D_ENGINE(Cursor)->getState().point.previous;
 		}
 
-		Vec2 PosF()
+		Vec2 PreviousPosF() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformedF().current;
+			return SIV3D_ENGINE(Cursor)->getState().vec2.previous;
 		}
 
-		Vec2 PreviousPosF()
+		Point Delta() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformedF().previous;
+			return SIV3D_ENGINE(Cursor)->getState().point.delta;
 		}
 
-		Vec2 DeltaF()
+		Vec2 DeltaF() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientTransformedF().delta;
+			return SIV3D_ENGINE(Cursor)->getState().vec2.delta;
 		}
 
-		Point PosRaw()
+		Point PosRaw() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientRaw().current;
+			return SIV3D_ENGINE(Cursor)->getState().raw.current;
 		}
 
-		Point PreviousPosRaw()
+		Point PreviousPosRaw() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientRaw().previous;
+			return SIV3D_ENGINE(Cursor)->getState().raw.previous;
 		}
 
-		Point DeltaRaw()
+		Point DeltaRaw() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->clientRaw().delta;
+			return SIV3D_ENGINE(Cursor)->getState().raw.delta;
 		}
 
-		Point ScreenPos()
+		Point ScreenPos() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->screen().current;
+			return SIV3D_ENGINE(Cursor)->getState().screen.current;
 		}
 
-		Point PreviousScreenPos()
+		Point ScreenPreviousPos() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->screen().previous;
+			return SIV3D_ENGINE(Cursor)->getState().screen.previous;
 		}
 
-		Point ScreenDelta()
+		Point ScreenDelta() noexcept
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->screen().delta;
+			return SIV3D_ENGINE(Cursor)->getState().screen.delta;
 		}
 
-		Array<std::pair<Point, uint64>> GetBuffer()
+		void SetPos(const Point pos)
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->getBufferTransformed();
-		}
-
-		void SetPos(const int32 x, const int32 y)
-		{
-			SetPos(Point(x, y));
-		}
-
-		void SetPos(const Point& pos)
-		{
-			Siv3DEngine::Get<ISiv3DCursor>()->setPos(pos);
+			SIV3D_ENGINE(Cursor)->setPos(pos);
 		}
 
 		bool OnClientRect()
 		{
-			return Geometry2D::Intersect(
-				Siv3DEngine::Get<ISiv3DCursor>()->clientRaw().current,
-				Rect(Window::GetState().clientSize));
+			return Rect(Window::GetState().frameBufferSize)
+				.intersects(SIV3D_ENGINE(Cursor)->getState().raw.current);
 		}
 
-		void SetLocalTransform(const Mat3x2& matrix)
+		bool IsClippedToWindow() noexcept
 		{
-			Siv3DEngine::Get<ISiv3DCursor>()->setLocalTransform(matrix);
+			return SIV3D_ENGINE(Cursor)->isClippedToWindow();
 		}
 
-		void SetCameraTransform(const Mat3x2& matrix)
+		void ClipToWindow(const bool clip)
 		{
-			Siv3DEngine::Get<ISiv3DCursor>()->setCameraTransform(matrix);
-		}
-
-		const Mat3x2& GetLocalTransform()
-		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->getLocalTransform();
-		}
-
-		const Mat3x2& GetCameraTransform()
-		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->getCameraTransform();
-		}
-
-		void ClipToWindow(bool clip)
-		{
-			Siv3DEngine::Get<ISiv3DCursor>()->clipToWindow(clip);
-		}
-
-		void RequestStyle(const CursorStyle style)
-		{
-			Siv3DEngine::Get<ISiv3DCursor>()->requestStyle(style);
+			SIV3D_ENGINE(Cursor)->clipToWindow(clip);
 		}
 
 		void SetDefaultStyle(const CursorStyle style)
 		{
-			Siv3DEngine::Get<ISiv3DCursor>()->setDefaultStyle(style);
+			SIV3D_ENGINE(Cursor)->setDefaultStyle(style);
 		}
 
-		CursorStyle GetRequestedStyle()
+		void RequestStyle(const CursorStyle style)
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->getRequestedStyle();
+			SIV3D_ENGINE(Cursor)->requestStyle(style);
 		}
 
-		CursorStyle GetDefaultStyle()
+		bool RegisterCustomCursorStyle(const StringView name, const Image& image, const Point hotSpot)
 		{
-			return Siv3DEngine::Get<ISiv3DCursor>()->getDefaultStyle();
+			return SIV3D_ENGINE(Cursor)->registerCursor(name, image, hotSpot);
+		}
+
+		void RequestStyle(const StringView name)
+		{
+			SIV3D_ENGINE(Cursor)->requestStyle(name);
+		}
+
+		const Mat3x2& GetLocalTransform() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->getLocalTransform();
+		}
+
+		const Mat3x2& GetCameraTransform() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->getCameraTransform();
+		}
+
+		namespace Internal
+		{
+			void SetLocalTransform(const Mat3x2& matrix)
+			{
+				SIV3D_ENGINE(Cursor)->setLocalTransform(matrix);
+			}
+
+			void SetCameraTransform(const Mat3x2& matrix)
+			{
+				SIV3D_ENGINE(Cursor)->setCameraTransform(matrix);
+			}
 		}
 	}
 }

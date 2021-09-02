@@ -2,15 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <array>
-# include <Siv3D/Functor.hpp>
 # include <Siv3D/TextureFormat.hpp>
 # include <Siv3D/StringView.hpp>
 
@@ -164,78 +163,81 @@ enum GL_CONSTANTS
 
 namespace s3d
 {
-	struct TextureFormatData
+	namespace detail
 	{
-		StringView name;
+		struct TextureFormatData
+		{
+			StringView name;
 
-		int32 DXGIFormat;
+			int32 DXGIFormat;
 
-		int32 GLInternalFormat;
+			int32 GLInternalFormat;
 
-		int32 GLFormat;
+			int32 GLFormat;
 
-		int32 GLType;
+			int32 GLType;
 
-		// 1 ピクセル当たりのサイズ
-		uint32 pixelSize;
+			// 1 ピクセル当たりのサイズ
+			uint32 pixelSize;
 
-		// チャンネル数
-		uint32 num_channels;
+			// チャンネル数
+			uint32 num_channels;
 
-		bool isSRGB;
-	};
-	
-	static constexpr std::array<TextureFormatData, 10> Propertytable =
-	{ {
-		{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
-		{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
-		{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, true },
-		{ U"R16G16_Float", DXGI_FORMAT_R16G16_FLOAT, GL_RG16F, GL_RG, GL_HALF_FLOAT, 4, 2, false },
-		{ U"R32_Float", DXGI_FORMAT_R32_FLOAT, GL_R32F, GL_RED, GL_FLOAT, 4, 1, false },
-		{ U"R10G10B10A2_Unorm", DXGI_FORMAT_R10G10B10A2_UNORM, GL_RGB10_A2, GL_RGBA, GL_UNSIGNED_INT_10_10_10_2, 4, 4, false },
-		{ U"R11G11B10_UFloat", DXGI_FORMAT_R11G11B10_FLOAT, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT, 4, 3, false },
-		{ U"R16G16B16A16_Float", DXGI_FORMAT_R16G16B16A16_FLOAT, GL_RGBA16F, GL_RGBA, GL_HALF_FLOAT, 8, 4, false },
-		{ U"R32G32_Float", DXGI_FORMAT_R32G32_FLOAT, GL_RG32F, GL_RG, GL_FLOAT, 8, 2, false },
-		{ U"R32G32B32A32_Float", DXGI_FORMAT_R32G32B32A32_FLOAT, GL_RGBA32F, GL_RGBA, GL_FLOAT, 16, 4, false },
-	} };
+			bool isSRGB;
+		};
+
+		static constexpr std::array<TextureFormatData, 10> TextureFormatPropertytable =
+		{ {
+			{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, false },
+			{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, false },
+			{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, 4, 4, true },
+			{ U"R16G16_Float", DXGI_FORMAT_R16G16_FLOAT, GL_RG16F, GL_RG, GL_HALF_FLOAT, 4, 2, false },
+			{ U"R32_Float", DXGI_FORMAT_R32_FLOAT, GL_R32F, GL_RED, GL_FLOAT, 4, 1, false },
+			{ U"R10G10B10A2_Unorm", DXGI_FORMAT_R10G10B10A2_UNORM, GL_RGB10_A2, GL_RGBA, GL_UNSIGNED_INT_10_10_10_2, 4, 4, false },
+			{ U"R11G11B10_UFloat", DXGI_FORMAT_R11G11B10_FLOAT, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT, 4, 3, false },
+			{ U"R16G16B16A16_Float", DXGI_FORMAT_R16G16B16A16_FLOAT, GL_RGBA16F, GL_RGBA, GL_HALF_FLOAT, 8, 4, false },
+			{ U"R32G32_Float", DXGI_FORMAT_R32G32_FLOAT, GL_RG32F, GL_RG, GL_FLOAT, 8, 2, false },
+			{ U"R32G32B32A32_Float", DXGI_FORMAT_R32G32B32A32_FLOAT, GL_RGBA32F, GL_RGBA, GL_FLOAT, 16, 4, false },
+		} };
+	}
 
 	StringView TextureFormat::name() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].name;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].name;
 	}
 
 	int32 TextureFormat::DXGIFormat() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].DXGIFormat;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].DXGIFormat;
 	}
 
 	int32 TextureFormat::GLInternalFormat() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].GLInternalFormat;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].GLInternalFormat;
 	}
 
 	int32 TextureFormat::GLFormat() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].GLFormat;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].GLFormat;
 	}
 
 	int32 TextureFormat::GLType() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].GLType;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].GLType;
 	}
 
 	uint32 TextureFormat::pixelSize() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].pixelSize;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].pixelSize;
 	}
 
 	uint32 TextureFormat::num_channels() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].num_channels;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].num_channels;
 	}
 
 	bool TextureFormat::isSRGB() const noexcept
 	{
-		return Propertytable[FromEnum(m_value)].isSRGB;
+		return detail::TextureFormatPropertytable[FromEnum(m_value)].isSRGB;
 	}
 }

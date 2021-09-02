@@ -2,157 +2,316 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/Font.hpp>
-# include <Siv3D/EngineMessageBox.hpp>
-# include <AssetHandleManager/AssetReport.hpp>
-# include "IFont.hpp"
+# include <Siv3D/DrawableText.hpp>
+# include <Siv3D/Font/IFont.hpp>
+# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include "FontFaceProperty.hpp"
 
 namespace s3d
 {
 	template <>
-	AssetHandle<Font::Tag>::AssetHandle()
+	AssetIDWrapper<AssetHandle<Font>>::AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
-			EngineMessageBox::Show(U"`Font` must be initialized after engine setup.");
-			std::exit(-1);
+			FreestandingMessageBox::ShowError(U"`Font` must be initialized after engine-setup. Please fix the C++ code.");
+			std::abort();
 		}
 	}
 
 	template <>
-	AssetHandle<Font::Tag>::AssetHandle(const IDWrapperType id) noexcept
-		: m_id(id)
+	AssetIDWrapper<AssetHandle<Font>>::~AssetIDWrapper()
 	{
-		if (!Siv3DEngine::isActive())
-		{
-			EngineMessageBox::Show(U"`Font` must be initialized after engine setup.");
-			std::exit(-1);
-		}
-	}
-
-	template <>
-	AssetHandle<Font::Tag>::~AssetHandle()
-	{
-		if (!Siv3DEngine::isActive())
+		if (not Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::Get<ISiv3DFont>())
+		if (auto p = SIV3D_ENGINE(Font))
 		{
 			p->release(m_id);
 		}
 	}
 
-	Font::Font()
-		: m_handle(std::make_shared<FontHandle>())
-	{
+	Font::Font() {}
 
-	}
+	Font::Font(const int32 fontSize, const FilePathView path, const FontStyle style)
+		: Font{ FontMethod::Bitmap, fontSize, path, 0, style } {}
+
+	Font::Font(const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+		: Font{ FontMethod::Bitmap, fontSize, path, faceIndex, style } {}
 
 	Font::Font(const int32 fontSize, const Typeface typeface, const FontStyle style)
-		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::Get<ISiv3DFont>()->create(typeface, fontSize, style)))
+		: Font{ FontMethod::Bitmap, fontSize, typeface, style } {}
+
+	Font::Font(const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
+		: Font{ fontMethod, fontSize, path, 0, style } {}
+
+	Font::Font(const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Font)->create(path, faceIndex, fontMethod, fontSize, style)) }
 	{
-		ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Font::Font(const int32 fontSize, const FilePath& path, const FontStyle style)
-		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::Get<ISiv3DFont>()->create(path, fontSize, style)))
+	Font::Font(const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Font)->create(typeface, fontMethod, fontSize, style)) }
 	{
-		ReportAssetCreation();
+		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
-	Font::~Font()
-	{
+	Font::~Font() {}
 
-	}
-
-	void Font::release()
+	bool Font::addFallback(const Font& font) const
 	{
-		m_handle = std::make_shared<FontHandle>();
-	}
+		if (not font)
+		{
+			LOG_FAIL(U"Font::addFallback() failed (font is empty)");
+			return false;
+		}
 
-	bool Font::isEmpty() const
-	{
-		return m_handle->id().isNullAsset();
-	}
-
-	Font::operator bool() const
-	{
-		return !isEmpty();
-	}
-
-	FontID Font::id() const
-	{
-		return m_handle->id();
-	}
-
-	bool Font::operator ==(const Font& font) const
-	{
-		return m_handle->id() == font.m_handle->id();
-	}
-
-	bool Font::operator !=(const Font& font) const
-	{
-		return m_handle->id() != font.m_handle->id();
+		return SIV3D_ENGINE(Font)->addFallbackFont(m_handle->id(), font.m_handle);
 	}
 
 	const String& Font::familyName() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getFamilyName(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).familiyName;
 	}
 
 	const String& Font::styleName() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getStyleName(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).styleName;
+	}
+
+	bool Font::hasColor() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).hasColor;
+	}
+
+	FontStyle Font::style() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).style;
+	}
+
+	FontMethod Font::method() const
+	{
+		return SIV3D_ENGINE(Font)->getMethod(m_handle->id());
 	}
 
 	int32 Font::fontSize() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getFontSize(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).fontPixelSize;
 	}
 
-	int32 Font::ascent() const
+	int32 Font::ascender() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getAscent(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).ascender;
 	}
 
-	int32 Font::descent() const
+	int32 Font::descender() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getDescent(m_handle->id());
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).descender;
 	}
 
 	int32 Font::height() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getAscent(m_handle->id()) + Siv3DEngine::Get<ISiv3DFont>()->getDescent(m_handle->id());
+		const auto& prop = SIV3D_ENGINE(Font)->getProperty(m_handle->id());
+
+		return (prop.ascender + prop.descender);
 	}
 
-	Glyph Font::getGlyph(const char32 codePoint) const
+	double Font::spaceWidth() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getGlyphs(m_handle->id(), String(1, codePoint))[0];
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).spaceWidth;
 	}
 
-	Array<Glyph> Font::getGlyphs(const String& text) const
+	int32 Font::indentSize() const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getGlyphs(m_handle->id(), text);
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).indentSize;
 	}
 
-	Array<Glyph> Font::getVerticalGlyphs(const String& text) const
+	const Font& Font::setIndentSize(const int32 indentSize) const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getVerticalGlyphs(m_handle->id(), text);
+		SIV3D_ENGINE(Font)->setIndentSize(m_handle->id(), indentSize);
+
+		return *this;
 	}
 
-	OutlineGlyph Font::getOutlineGlyph(const char32 codePoint) const
+	const Font& Font::setBufferThickness(const int32 thickness) const
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getOutlineGlyph(m_handle->id(), codePoint);
+		SIV3D_ENGINE(Font)->setBufferThickness(m_handle->id(), thickness);
+
+		return *this;
+	}
+
+	int32 Font::getBufferThickness() const
+	{
+		return SIV3D_ENGINE(Font)->getBufferThickness(m_handle->id());
+	}
+
+	bool Font::hasGlyph(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->hasGlyph(m_handle->id(), StringView(&ch, 1));
+	}
+
+	bool Font::hasGlyph(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->hasGlyph(m_handle->id(), ch);
+	}
+
+	uint32 Font::num_glyphs() const
+	{
+		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).numGlyphs;
+	}
+
+	GlyphIndex Font::getGlyphIndex(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphIndex(m_handle->id(), StringView(&ch, 1));
+	}
+
+	GlyphIndex Font::getGlyphIndex(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphIndex(m_handle->id(), ch);
+	}
+
+	Array<GlyphCluster> Font::getGlyphClusters(const StringView s, const UseFallback useFallback) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphClusters(m_handle->id(), s, useFallback.getBool());
+	}
+
+	GlyphInfo Font::getGlyphInfo(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), StringView(&ch, 1));
+	}
+
+	GlyphInfo Font::getGlyphInfo(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfo(m_handle->id(), ch);
+	}
+
+	GlyphInfo Font::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphInfoByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
+	OutlineGlyph Font::renderOutline(const char32 ch, const CloseRing closeRing) const
+	{
+		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), StringView(&ch, 1), closeRing);
+	}
+
+	OutlineGlyph Font::renderOutline(const StringView ch, const CloseRing closeRing) const
+	{
+		return SIV3D_ENGINE(Font)->renderOutline(m_handle->id(), ch, closeRing);
+	}
+
+	OutlineGlyph Font::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing) const
+	{
+		return SIV3D_ENGINE(Font)->renderOutlineByGlyphIndex(m_handle->id(), glyphIndex, closeRing);
+	}
+
+	Array<OutlineGlyph> Font::renderOutlines(const StringView s, const CloseRing closeRing) const
+	{
+		return SIV3D_ENGINE(Font)->renderOutlines(m_handle->id(), s, closeRing);
+	}
+
+	PolygonGlyph Font::renderPolygon(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), StringView(&ch, 1));
+	}
+
+	PolygonGlyph Font::renderPolygon(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), ch);
+	}
+
+	PolygonGlyph Font::renderPolygonByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygonByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
+	Array<PolygonGlyph> Font::renderPolygons(StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->renderPolygons(m_handle->id(), s);
+	}
+
+	BitmapGlyph Font::renderBitmap(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), StringView(&ch, 1));
+	}
+
+	BitmapGlyph Font::renderBitmap(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmap(m_handle->id(), ch);
+	}
+
+	BitmapGlyph Font::renderBitmapByGlyphIndex(const GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->renderBitmapByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
+	SDFGlyph Font::renderSDF(const char32 ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), StringView(&ch, 1), buffer);
+	}
+
+	SDFGlyph Font::renderSDF(const StringView ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDF(m_handle->id(), ch, buffer);
+	}
+
+	SDFGlyph Font::renderSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderSDFByGlyphIndex(m_handle->id(), glyphIndex, buffer);
+	}
+
+	MSDFGlyph Font::renderMSDF(const char32 ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), StringView(&ch, 1), buffer);
+	}
+
+	MSDFGlyph Font::renderMSDF(const StringView ch, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDF(m_handle->id(), ch, buffer);
+	}
+
+	MSDFGlyph Font::renderMSDFByGlyphIndex(const GlyphIndex glyphIndex, const int32 buffer) const
+	{
+		return SIV3D_ENGINE(Font)->renderMSDFByGlyphIndex(m_handle->id(), glyphIndex, buffer);
+	}
+
+	bool Font::preload(const StringView chars) const
+	{
+		return SIV3D_ENGINE(Font)->preload(m_handle->id(), chars);
+	}
+
+	const Texture& Font::getTexture() const
+	{
+		return SIV3D_ENGINE(Font)->getTexture(m_handle->id());
+	}
+
+	Glyph Font::getGlyph(const char32 ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyph(m_handle->id(), StringView(&ch, 1));
+	}
+
+	Glyph Font::getGlyph(const StringView ch) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyph(m_handle->id(), ch);
+	}
+
+	Array<Glyph> Font::getGlyphs(const StringView s) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphs(m_handle->id(), s);
 	}
 
 	DrawableText Font::operator()(const String& text) const
@@ -165,360 +324,13 @@ namespace s3d
 		return{ *this, std::move(text) };
 	}
 
-	const Texture& Font::getTexture() const
+	void Font::swap(Font& other) noexcept
 	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getTexture(m_handle->id());
+		m_handle.swap(other.m_handle);
 	}
 
-
-	GlyphIterator::GlyphIterator(const Font& font, String::const_iterator it, int32 index)
-		: m_font(font)
-		, m_iterator(it)
-		, m_index(index)
-	{
-	
-	}
-
-	GlyphIterator& GlyphIterator::operator ++()
-	{
-		++m_iterator;
-
-		++m_index;
-
-		return *this;
-	}
-
-	Glyph GlyphIterator::operator *() const
-	{
-		Glyph glyph = m_font.getGlyph(*m_iterator);
-
-		glyph.index = m_index;
-
-		return glyph;
-	}
-
-	bool GlyphIterator::operator ==(const GlyphIterator& other) const
-	{
-		return m_iterator == other.m_iterator;
-	}
-
-	bool GlyphIterator::operator !=(const GlyphIterator& other) const
-	{
-		return m_iterator != other.m_iterator;
-	}
-
-
-
-	DrawableText::DrawableText(const Font& _font, const String& _text)
-		: font(_font)
-		, text(_text)
-	{
-	
-	}
-
-	DrawableText::DrawableText(const Font& _font, String&& _text)
-		: font(_font)
-		, text(std::move(_text))
-	{
-	
-	}
-
-	GlyphIterator DrawableText::begin() const
-	{
-		return GlyphIterator(font, text.begin(), 0);
-	}
-
-	GlyphIterator DrawableText::end() const
-	{
-		return GlyphIterator(font, text.end(), static_cast<int32>(text.size()));
-	}
-
-	RectF DrawableText::boundingRect(const double x, const double y) const
-	{
-		return boundingRect(Vec2(x, y));
-	}
-
-	RectF DrawableText::boundingRect(const Vec2& pos) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getBoundingRect(font.id(), text, 1.0).moveBy(pos);
-	}
-
-	RectF DrawableText::boundingRect(Arg::topLeft_<Vec2> topLeft) const
-	{
-		return boundingRect(*topLeft);
-	}
-
-	RectF DrawableText::boundingRect(Arg::topRight_<Vec2> topRight) const
-	{
-		return boundingRect(topRight->movedBy(-region().w, 0));
-	}
-
-	RectF DrawableText::boundingRect(Arg::bottomLeft_<Vec2> bottomLeft) const
-	{
-		return boundingRect(bottomLeft->movedBy(0, -region().h));
-	}
-
-	RectF DrawableText::boundingRect(Arg::bottomRight_<Vec2> bottomRight) const
-	{
-		return boundingRect(bottomRight->movedBy(-region().size));
-	}
-
-	RectF DrawableText::boundingRect(Arg::topCenter_<Vec2> topCenter) const
-	{
-		return boundingRect(topCenter->movedBy(-region().w * 0.5, 0));
-	}
-
-	RectF DrawableText::boundingRect(Arg::bottomCenter_<Vec2> bottomCenter) const
-	{
-		return boundingRect(bottomCenter->movedBy(-region().w * 0.5, -region().h));
-	}
-
-	RectF DrawableText::boundingRect(Arg::leftCenter_<Vec2> leftCenter) const
-	{
-		return boundingRect(leftCenter->movedBy(0, -region().h * 0.5));
-	}
-
-	RectF DrawableText::boundingRect(Arg::rightCenter_<Vec2> rightCenter) const
-	{
-		return boundingRect(rightCenter->movedBy(-region().w, -region().h * 0.5));
-	}
-
-	RectF DrawableText::boundingRect(Arg::center_<Vec2> center) const
-	{
-		return boundingRectAt(*center);
-	}
-
-	RectF DrawableText::boundingRectAt(const double x, const double y) const
-	{
-		return boundingRectAt(Vec2(x, y));
-	}
-
-	RectF DrawableText::boundingRectAt(const Vec2 & pos) const
-	{
-		const RectF rect = boundingRect();
-
-		return rect.movedBy(pos - rect.center());
-	}
-
-	RectF DrawableText::region(const double x, const double y) const
-	{
-		return region(Vec2(x, y));
-	}
-
-	Rect DrawableText::region(const Point& pos) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getRegion(font.id(), text, 1.0).moveBy(pos);
-	}
-
-	RectF DrawableText::region(const Vec2& pos) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getRegion(font.id(), text, 1.0).moveBy(pos);
-	}
-
-	RectF DrawableText::region(Arg::topLeft_<Vec2> topLeft) const
-	{
-		return region(*topLeft);
-	}
-
-	RectF DrawableText::region(Arg::topRight_<Vec2> topRight) const
-	{
-		return region(topRight->movedBy(-region().w, 0));
-	}
-
-	RectF DrawableText::region(Arg::bottomLeft_<Vec2> bottomLeft) const
-	{
-		return region(bottomLeft->movedBy(0, -region().h));
-	}
-
-	RectF DrawableText::region(Arg::bottomRight_<Vec2> bottomRight) const
-	{
-		return region(bottomRight->movedBy(-region().size));
-	}
-
-	RectF DrawableText::region(Arg::topCenter_<Vec2> topCenter) const
-	{
-		return region(topCenter->movedBy(-region().w * 0.5, 0));
-	}
-
-	RectF DrawableText::region(Arg::bottomCenter_<Vec2> bottomCenter) const
-	{
-		return region(bottomCenter->movedBy(-region().w * 0.5, -region().h));
-	}
-
-	RectF DrawableText::region(Arg::leftCenter_<Vec2> leftCenter) const
-	{
-		return region(leftCenter->movedBy(0, -region().h * 0.5));
-	}
-
-	RectF DrawableText::region(Arg::rightCenter_<Vec2> rightCenter) const
-	{
-		return region(rightCenter->movedBy(-region().w, -region().h * 0.5));
-	}
-
-	RectF DrawableText::region(Arg::center_<Vec2> center) const
-	{
-		return regionAt(*center);
-	}
-
-	RectF DrawableText::regionAt(const double x, const double y) const
-	{
-		return regionAt(Vec2(x, y));
-	}
-
-	RectF DrawableText::regionAt(const Vec2 & pos) const
-	{
-		const RectF rect = region();
-
-		return rect.movedBy(pos - rect.center());
-	}
-
-	Array<int32> DrawableText::getXAdvances() const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->getXAdvances(font.id(), text);
-	}
-
-	RectF DrawableText::draw(const double x, const double y, const ColorF& color) const
-	{
-		return draw(Vec2(x, y), color);
-	}
-
-	RectF DrawableText::draw(const Vec2& pos, const ColorF& color) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->draw(font.id(), text, pos, color, 1.0);
-	}
-
-	RectF DrawableText::draw(Arg::topLeft_<Vec2> topLeft, const ColorF& color) const
-	{
-		return draw(*topLeft, color);
-	}
-
-	RectF DrawableText::draw(Arg::topRight_<Vec2> topRight, const ColorF& color) const
-	{
-		return draw(topRight->movedBy(-region().w, 0), color);
-	}
-
-	RectF DrawableText::draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& color) const
-	{
-		return draw(bottomLeft->movedBy(0, -region().h), color);
-	}
-
-	RectF DrawableText::draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF & color) const
-	{
-		return draw(bottomRight->movedBy(-region().size), color);
-	}
-
-	RectF DrawableText::draw(Arg::topCenter_<Vec2> topCenter, const ColorF & color) const
-	{
-		return draw(topCenter->movedBy(-region().w * 0.5, 0), color);
-	}
-
-	RectF DrawableText::draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF & color) const
-	{
-		return draw(bottomCenter->movedBy(-region().w * 0.5, -region().h), color);
-	}
-
-	RectF DrawableText::draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF & color) const
-	{
-		return draw(leftCenter->movedBy(0, -region().h * 0.5), color);
-	}
-
-	RectF DrawableText::draw(Arg::rightCenter_<Vec2> rightCenter, const ColorF & color) const
-	{
-		return draw(rightCenter->movedBy(-region().w, -region().h * 0.5), color);
-	}
-
-	RectF DrawableText::draw(Arg::center_<Vec2> center, const ColorF & color) const
-	{
-		return drawAt(*center, color);
-	}
-
-	RectF DrawableText::drawAt(const double x, const double y, const ColorF & color) const
-	{
-		return drawAt(Vec2(x, y), color);
-	}
-
-	RectF DrawableText::drawAt(const Vec2& pos, const ColorF & color) const
-	{
-		return draw(pos - region().center(), color);
-	}
-
-	RectF DrawableText::drawBase(const double x, const double y, const ColorF & color) const
-	{
-		return drawBase(Vec2(x, y), color);
-	}
-
-	RectF DrawableText::drawBase(const Vec2& pos, const ColorF & color) const
-	{
-		return draw(pos.movedBy(0, -font.ascent()), color);
-	}
-
-	RectF DrawableText::drawBase(Arg::left_<Vec2> left, const ColorF & color) const
-	{
-		return drawBase(*left, color);
-	}
-
-	RectF DrawableText::drawBase(Arg::right_<Vec2> right, const ColorF & color) const
-	{
-		return drawBase(right->movedBy(-region().w, 0), color);
-	}
-
-	RectF DrawableText::drawBase(Arg::center_<Vec2> center, const ColorF & color) const
-	{
-		return drawBase(center->movedBy(-region().w * 0.5, 0), color);
-	}
-
-	RectF DrawableText::drawBaseAt(const double x, const double y, const ColorF & color) const
-	{
-		return drawBaseAt(Vec2(x, y), color);
-	}
-
-	RectF DrawableText::drawBaseAt(const Vec2& pos, const ColorF & color) const
-	{
-		return drawBase(pos - region().center(), color);
-	}
-
-	bool DrawableText::draw(const RectF& area, const ColorF& color) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->draw(font.id(), text, area, color, 1.0);
-	}
-
-	Rect DrawableText::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
-	{
-		return paint(dst, Point(x, y), color);
-	}
-
-	Rect DrawableText::paint(Image& dst, const Point& pos, const Color& color) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->paint(font.id(), dst, text, pos, color, 1.0);
-	}
-
-	RectF DrawableText::paintAt(Image& dst, const int32 x, const int32 y, const Color& color) const
-	{
-		return paintAt(dst, Point(x, y), color);
-	}
-
-	RectF DrawableText::paintAt(Image& dst, const Point& pos, const Color& color) const
-	{
-		return paint(dst, (pos - region().center()).asPoint(), color);
-	}
-
-	Rect DrawableText::overwrite(Image & dst, const int32 x, const int32 y, const Color& color) const
-	{
-		return overwrite(dst, Point(x, y), color);
-	}
-
-	Rect DrawableText::overwrite(Image& dst, const Point& pos, const Color& color) const
-	{
-		return Siv3DEngine::Get<ISiv3DFont>()->overwrite(font.id(), dst, text, pos, color, 1.0);
-	}
-
-	RectF DrawableText::overwriteAt(Image& dst, const int32 x, const int32 y, const Color& color) const
-	{
-		return overwriteAt(dst, Point(x, y), color);
-	}
-
-	RectF DrawableText::overwriteAt(Image& dst, const Point& pos, const Color& color) const
+	const PixelShader& Font::GetPixelShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor)
 	{
-		return overwrite(dst, (pos - region().center()).asPoint(), color);
+		return SIV3D_ENGINE(Font)->getFontShader(method, type, hasColor);
 	}
 }

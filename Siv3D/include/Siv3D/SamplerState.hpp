@@ -2,58 +2,43 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <array>
+# if  __has_include(<bit>)
+#	include <bit>
+# endif
+# include <cstring>
 # include <functional>
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "Utility.hpp"
 # include "PointVector.hpp"
-# include "Hash.hpp"
+# include "TextureFilter.hpp"
 
 namespace s3d
 {
-	enum class TextureFilter : bool
-	{
-		Nearest,
-
-		Linear,
-	};
-
-	/// <summary>
-	/// テクスチャアドレスモード
-	/// </summary>
+	/// @brief テクスチャアドレスモード
 	enum class TextureAddressMode : uint8
 	{
-		/// <summary>
-		/// 繰り返し
-		/// </summary>
+		/// @brief 繰り返し
 		Repeat,
 
-		/// <summary>
-		/// ミラーで繰り返し
-		/// </summary>
+		/// @brief ミラーで繰り返し
 		Mirror,
 
-		/// <summary>
-		/// 繰り返しなし
-		/// </summary>
+		/// @brief 繰り返しなし
 		Clamp,
 
-		/// <summary>
-		/// 繰り返しなしで範囲外は境界色
-		/// </summary>
+		/// @brief 繰り返しなしで範囲外は境界色
 		Border,
 	};
 
-	/// <summary>
-	/// サンプラーステート
-	/// </summary>
+	/// @brief サンプラーステート
 	struct SamplerState
 	{
 	private:
@@ -86,47 +71,45 @@ namespace s3d
 			
 			Default2D = ClampLinear,
 			
-			Default3D = ClampAniso,
+			Default3D = RepeatAniso,
 		};
 
 	public:
 
 		static constexpr uint32 MaxSamplerCount = 8;
 
-		using StorageType = std::array<uint32, 5>;
+		static constexpr uint32 DefaultMaxAnisotropy = 4;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+		using storage_type = std::array<uint32, 6>;
 
-		union
-		{
-			struct
-			{
-				TextureAddressMode addressU : 2;
+		TextureAddressMode addressU : 4 = TextureAddressMode::Clamp;
 
-				TextureAddressMode addressV : 2;
+		TextureAddressMode addressV : 4 = TextureAddressMode::Clamp;
 
-				TextureAddressMode addressW : 2;
+		TextureAddressMode addressW : 4 = TextureAddressMode::Clamp;
 
-				TextureFilter min : 1;
+		TextureFilter min : 1	= TextureFilter::Linear;
 
-				TextureFilter mag : 1;
+		TextureFilter mag : 1	= TextureFilter::Linear;
 
-				TextureFilter mip : 1;
+		TextureFilter mip : 1	= TextureFilter::Linear;
 
-				uint8 maxAnisotropy : 7;
+		uint8 maxAnisotropy		= 1;
 
-				// [Siv3D ToDo] HalFloat に
-				int16 lodBias;
+		float lodBias			= 0.0f;
 
-				float borderColor[4];
-			};
+		Float4 borderColor		= Float4{ 0, 0, 0, 0 };
 
-			StorageType _data;
-		};
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr SamplerState(
+			TextureAddressMode address,
+			TextureFilter filter,
+			uint8 _maxAnisotropy = 1,
+			float _lodBias = 0.0f,
+			Float4 _borderColor = Float4{ 0, 0, 0, 0 }) noexcept;
 
-		SIV3D_DISABLE_MSVC_WARNINGS_POP()
-
-		explicit SamplerState(
+		SIV3D_NODISCARD_CXX20
+		explicit constexpr SamplerState(
 			TextureAddressMode _addressU = TextureAddressMode::Clamp,
 			TextureAddressMode _addressV = TextureAddressMode::Clamp,
 			TextureAddressMode _addressW = TextureAddressMode::Clamp,
@@ -134,94 +117,43 @@ namespace s3d
 			TextureFilter _mag = TextureFilter::Linear,
 			TextureFilter _mip = TextureFilter::Linear,
 			uint8 _maxAnisotropy = 1,
-			int16 _lodBias = 0,
-			Float4 _borderColor = Float4(0, 0, 0, 0)) noexcept
-			: addressU(_addressU)
-			, addressV(_addressV)
-			, addressW(_addressW)
-			, min(_min)
-			, mag(_mag)
-			, mip(_mip)
-			, maxAnisotropy(_maxAnisotropy)
-			, lodBias(_lodBias)
-			, borderColor{ _borderColor.x, _borderColor.y, _borderColor.z, _borderColor.w } {}
+			float _lodBias = 0.0f,
+			Float4 _borderColor = Float4{ 0, 0, 0, 0 }) noexcept;
 
-		SamplerState(Predefined predefined);
+		SIV3D_NODISCARD_CXX20
+		constexpr SamplerState(Predefined predefined) noexcept;
 
-		[[nodiscard]] bool operator ==(const SamplerState& b) const noexcept;
+		[[nodiscard]]
+		storage_type asValue() const noexcept;
 
-		[[nodiscard]] bool operator !=(const SamplerState& b) const noexcept;
+		[[nodiscard]]
+		bool operator ==(const SamplerState& other) const noexcept;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
+		[[nodiscard]]
+		bool operator !=(const SamplerState& other) const noexcept;
+
 		static constexpr Predefined RepeatNearest = Predefined::RepeatNearest;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined RepeatLinear = Predefined::RepeatLinear;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined RepeatAniso = Predefined::RepeatAniso;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined MirrorNearest = Predefined::MirrorNearest;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined MirrorLinear = Predefined::MirrorLinear;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined MirrorAniso = Predefined::MirrorAniso;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined ClampNearest = Predefined::ClampNearest;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined ClampLinear = Predefined::ClampLinear;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined ClampAniso = Predefined::ClampAniso;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined BorderNearest = Predefined::BorderNearest;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined BorderLinear = Predefined::BorderLinear;
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
 		static constexpr Predefined BorderAniso = Predefined::BorderAniso;
 
 		/// <summary>
@@ -236,18 +168,23 @@ namespace s3d
 		/// </summary>
 		static constexpr Predefined Default3D = Predefined::Default3D;
 	};
-
-	static_assert(sizeof(SamplerState) == sizeof(SamplerState::StorageType));
+	static_assert(sizeof(SamplerState) == sizeof(SamplerState::storage_type));
 }
 
-namespace std
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+template <>
+struct std::hash<s3d::SamplerState>
 {
-	template <>
-	struct hash<s3d::SamplerState>
+	[[nodiscard]]
+	size_t operator()(const s3d::SamplerState& value) const noexcept
 	{
-		size_t operator()(const s3d::SamplerState& keyVal) const noexcept
-		{
-			return s3d::Hash::FNV1a(&keyVal._data, sizeof(keyVal));
-		}
-	};
-}
+		return s3d::Hash::FNV1a(&value, sizeof(value));
+	}
+};
+
+# include "detail/SamplerState.ipp"

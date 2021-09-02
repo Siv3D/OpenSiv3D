@@ -1,41 +1,33 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/PlatformDetail.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/UUID.hpp>
 
 namespace s3d
 {
-	namespace detail
-	{
-		inline constexpr bool IsResourcePath(const FilePathView path)
-		{
-			return path.starts_with(U'/');
-		}
-	}
-
 	namespace FileSystem
 	{
 		String Extension(const FilePathView path)
 		{
-			if (path.isEmpty())
+			if (not path)
 			{
-				return String();
+				return{};
 			}
 
-			if constexpr(Platform::HasEmbeddedResource)
+			if constexpr (Platform::HasEmbeddedResource)
 			{
-				if (detail::IsResourcePath(path))
+				if (IsResourcePath(path))
 				{
-					return String();
+					return{};
 				}
 			}
 
@@ -43,31 +35,31 @@ namespace s3d
 
 			if (dotPos == String::npos)
 			{
-				return String();
+				return{};
 			}
 
 			const size_t sepPos = path.lastIndexOfAny(U"/\\");
 
-			if (sepPos != String::npos && dotPos < sepPos)
+			if ((sepPos != String::npos) && (dotPos < sepPos))
 			{
-				return String();
+				return{};
 			}
 
-			return String(path.substr(dotPos + 1)).lowercase();
+			return String{ path.substr(dotPos + 1) }.lowercase();
 		}
 
 		String FileName(const FilePathView path)
 		{
-			if (path.isEmpty())
+			if (not path)
 			{
-				return String();
+				return{};
 			}
 
 			if constexpr (Platform::HasEmbeddedResource)
 			{
-				if (detail::IsResourcePath(path))
+				if (IsResourcePath(path))
 				{
-					return String();
+					return{};
 				}
 			}
 
@@ -105,7 +97,7 @@ namespace s3d
 
 			if (fileName.isEmpty())
 			{
-				return String();
+				return{};
 			}
 
 			const size_t dotPos = fileName.lastIndexOf(U'.');
@@ -118,27 +110,30 @@ namespace s3d
 			return String(fileName.begin(), fileName.begin() + dotPos);
 		}
 
-		FilePath ParentPath(const FilePathView path, size_t level, FilePath * const baseFullPath)
+		FilePath ParentPath(const FilePathView path, const size_t level)
 		{
-			if (path.isEmpty())
+			FilePath unused;
+			return ParentPath(path, level, unused);
+		}
+
+		FilePath ParentPath(const FilePathView path, size_t level, FilePath& baseFullPath)
+		{
+			if (not path)
 			{
-				return FilePath();
+				return{};
 			}
 
 			if constexpr (Platform::HasEmbeddedResource)
 			{
-				if (detail::IsResourcePath(path))
+				if (IsResourcePath(path))
 				{
-					return String();
+					return{};
 				}
 			}
 
 			FilePath result = FullPath(path);
 
-			if (baseFullPath)
-			{
-				*baseFullPath = result;
-			}
+			baseFullPath = result;
 
 			if (result.ends_with(U'/'))
 			{
@@ -159,6 +154,31 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		FilePath UniqueFilePath(const FilePathView directory)
+		{
+			if (FileSystem::IsFile(directory))
+			{
+				return{};
+			}
+
+			FilePath directoryPath{ directory };
+
+			if (directoryPath && (not directoryPath.ends_with(U'/')))
+			{
+				directoryPath.push_back(U'/');
+			}
+
+			for (;;)
+			{
+				const FilePath path = (directoryPath + UUID::Generate().str() + U".tmp");
+
+				if (not Exists(path))
+				{
+					return path;
+				}
+			}
 		}
 	}
 }

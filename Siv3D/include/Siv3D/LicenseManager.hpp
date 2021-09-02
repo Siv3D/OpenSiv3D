@@ -2,39 +2,43 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include "Common.hpp"
+# include "LicenseInfo.hpp"
 # include "Array.hpp"
-# include "String.hpp"
 
 namespace s3d
 {
-	struct LicenseInfo
-	{
-		String name;
-
-		String copyright;
-
-		String text;
-	};
-
 	namespace LicenseManager
 	{
-		void SetApplicationLicense(const String& uniqueID, const LicenseInfo& license);
+		/// @brief ライセンス情報一覧の先頭にアプリケーションのライセンスを追加します。
+		/// @param applicationName アプリケーションの名前
+		/// @param license ライセンス情報
+		void SetApplicationLicense(const String& applicationName, const LicenseInfo& license);
 
+		/// @brief ライセンス情報の一覧に新しい要素を追加します。
+		/// @param license ライセンス情報
 		void AddLicense(const LicenseInfo& license);
 
-		[[nodiscard]] const Array<LicenseInfo>& EnumLicenses();
+		/// @brief ライセンス情報一覧を返します。
+		/// @return ライセンス情報一覧
+		[[nodiscard]]
+		const Array<LicenseInfo>& EnumLicenses();
 
-		void ShowInBrowser();
+		/// @brief [F1] キーでライセンス情報を表示する挙動を有効にします（デフォルトでは有効）。
+		void EnableDefaultTrigger();
 
+		/// @brief [F1] キーでライセンス情報を表示する挙動を無効化します。
 		void DisableDefaultTrigger();
+
+		/// @brief ライセンス情報を Web ブラウザで表示します。
+		void ShowInBrowser();
 	}
 }

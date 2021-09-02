@@ -1,25 +1,26 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3D/FileSystem.hpp>
-# include <Siv3D/BinaryWriter.hpp>
-# include <Siv3D/ByteArray.hpp>
-# include <Siv3D/EngineLog.hpp>
 # include "TextReaderDetail.hpp"
+# include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Endian.hpp>
+# include <Siv3D/Unicode.hpp>
+# include <Siv3D/UnicodeConverter.hpp>
 
 namespace s3d
 {
 	TextReader::TextReaderDetail::TextReaderDetail()
 	{
-
+		// do nothing
 	}
 
 	TextReader::TextReaderDetail::~TextReaderDetail()
@@ -27,156 +28,496 @@ namespace s3d
 		close();
 	}
 
+	bool TextReader::TextReaderDetail::open(const FilePathView path, const Optional<TextEncoding>& encoding)
+	{
+		if (m_info.isOpen)
+		{
+			close();
+		}
+
+		std::unique_ptr<IReader> tmpReader = std::make_unique<BinaryReader>(path);
+
+		if (not tmpReader->isOpen())
+		{
+			return false;
+		}
+
+		m_reader = std::move(tmpReader);
+
+		m_info =
+		{
+			.fullPath	= FileSystem::FullPath(path),
+			.encoding	= encoding ? *encoding : Unicode::GetTextEncoding(*m_reader),
+			.isOpen		= true
+		};
+
+		if (const size_t bomSize = Unicode::GetBOMSize(m_info.encoding))
+		{
+			m_reader->skip(bomSize);
+		}
+
+		return true;
+	}
+
+	bool TextReader::TextReaderDetail::open(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
+	{
+		if (m_info.isOpen)
+		{
+			close();
+		}
+
+		if (not reader)
+		{
+			return false;
+		}
+
+		if (not reader->isOpen())
+		{
+			return false;
+		}
+
+		m_reader = std::move(reader);
+
+		m_info =
+		{
+			.fullPath	= {},
+			.encoding	= encoding ? *encoding : Unicode::GetTextEncoding(*m_reader),
+			.isOpen		= true
+		};
+
+		if (const size_t bomSize = Unicode::GetBOMSize(m_info.encoding))
+		{
+			m_reader->skip(bomSize);
+		}
+
+		return true;
+	}
+
 	void TextReader::TextReaderDetail::close()
 	{
-		if (!m_opened)
+		if (not m_info.isOpen)
 		{
 			return;
 		}
 
-		if (m_reader)
-		{
-			m_reader.reset();
-		}
-		else
-		{
-			m_ifs.close();
-		}
+		m_reader.reset();
 
-		if (m_temporaryFile)
-		{
-			FileSystem::Remove(m_temporaryFile.value());
-
-			m_temporaryFile.reset();
-		}
-
-		m_encoding = TextEncoding::Default;
-
-		m_size = 0;
-
-		m_fullPath.clear();
-
-		m_opened = false;
+		m_info = {};
 	}
 
-	bool TextReader::TextReaderDetail::isOpen() const
+	bool TextReader::TextReaderDetail::isOpen() const noexcept
 	{
-		return m_opened;
+		return m_info.isOpen;
 	}
 
-	char32 TextReader::TextReaderDetail::readChar()
+	Optional<char32> TextReader::TextReaderDetail::readChar()
 	{
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return none;
+		}
+
 		for (;;)
 		{
-			const auto c = readCodePoint();
+			char32 codePoint;
 
-			if (c != U'\r')
+			if (not readCodePoint(codePoint))
 			{
-				return c;
+				return none;
+			}
+
+			if (codePoint == U'\0')
+			{
+				return none;
+			}
+			else if (codePoint != U'\r')
+			{
+				return codePoint;
 			}
 		}
 	}
 
-	bool TextReader::TextReaderDetail::eof()
+	Optional<String> TextReader::TextReaderDetail::readLine()
 	{
-		if (!m_opened)
+		if (not m_info.isOpen) SIV3D_UNLIKELY
 		{
+			return none;
+		}
+
+		String line;
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				if (line)
+				{
+					return line;
+				}
+
+				return none;
+			}
+
+			if ((codePoint == U'\n') || (codePoint == U'\0'))
+			{
+				return line;
+			}
+			else if (codePoint != U'\r')
+			{
+				line.push_back(codePoint);
+			}
+		}
+	}
+
+	Array<String> TextReader::TextReaderDetail::readLines()
+	{
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return{};
+		}
+
+		Array<String> lines;
+		String line;
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				if (line)
+				{
+					lines.push_back(std::move(line));
+				}
+
+				return lines;
+			}
+
+			if ((codePoint == U'\n') || (codePoint == U'\0'))
+			{
+				lines.push_back(line);
+				line.clear();
+			}
+			else if (codePoint != U'\r')
+			{
+				line.push_back(codePoint);
+			}
+		}
+	}
+
+	String TextReader::TextReaderDetail::readAll()
+	{
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return{};
+		}
+
+		String s;
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				return s;
+			}
+
+			if (codePoint == U'\0')
+			{
+				return s;
+			}
+			else if (codePoint != U'\r')
+			{
+				s.push_back(codePoint);
+			}
+		}
+	}
+
+	bool TextReader::TextReaderDetail::readChar(char32& ch)
+	{
+		ch = 0;
+
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return false;
+		}
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				return false;
+			}
+
+			if (codePoint == U'\0')
+			{
+				return false;
+			}
+			else if (codePoint != U'\r')
+			{
+				ch = codePoint;
+				return true;
+			}
+		}
+	}
+
+	bool TextReader::TextReaderDetail::readLine(String& line)
+	{
+		line.clear();
+
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return false;
+		}
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				if (line)
+				{
+					return true;
+				}
+
+				return false;
+			}
+
+			if ((codePoint == U'\n') || (codePoint == U'\0'))
+			{
+				return true;
+			}
+			else if (codePoint != U'\r')
+			{
+				line.push_back(codePoint);
+			}
+		}
+	}
+
+	bool TextReader::TextReaderDetail::readLines(Array<String>& lines)
+	{
+		lines.clear();
+
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return false;
+		}
+
+		String line;
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				if (line)
+				{
+					lines.push_back(std::move(line));
+				}
+
+				if (not lines)
+				{
+					return false;
+				}
+
+				return true;
+			}
+
+			if ((codePoint == U'\n') || (codePoint == U'\0'))
+			{
+				lines.push_back(line);
+				line.clear();
+			}
+			else if (codePoint != U'\r')
+			{
+				line.push_back(codePoint);
+			}
+		}
+	}
+
+	bool TextReader::TextReaderDetail::readAll(String& s)
+	{
+		s.clear();
+
+		if (not m_info.isOpen) SIV3D_UNLIKELY
+		{
+			return false;
+		}
+
+		for (;;)
+		{
+			char32 codePoint;
+
+			if (not readCodePoint(codePoint))
+			{
+				if (not s)
+				{
+					return false;
+				}
+
+				return true;
+			}
+
+			if (codePoint == U'\0')
+			{
+				return true;
+			}
+			else if (codePoint != U'\r')
+			{
+				s.push_back(codePoint);
+			}
+		}
+	}
+
+	TextEncoding TextReader::TextReaderDetail::encoding() const noexcept
+	{
+		return m_info.encoding;
+	}
+
+	const FilePath& TextReader::TextReaderDetail::path() const noexcept
+	{
+		return m_info.fullPath;
+	}
+
+	bool TextReader::TextReaderDetail::readByte(uint8& c)
+	{
+		return m_reader->read(c);
+	}
+
+	bool TextReader::TextReaderDetail::readTwoBytes(uint16& c)
+	{
+		return m_reader->read(c);
+	}
+
+	bool TextReader::TextReaderDetail::readUTF8(char32& c)
+	{
+		uint8 cx;
+
+		if (not readByte(cx))
+		{
+			return false;
+		}
+
+		UTF8toUTF32_Converter converter;
+
+		if (converter.put(cx)) // 1
+		{
+			c = converter.get();
 			return true;
 		}
 
-		if (m_reader)
+		if (not readByte(cx))
 		{
-			return m_reader->getPos() == m_size;
+			return false;
+		}
+
+		if (converter.put(cx)) // 2
+		{
+			c = converter.get();
+			return true;
+		}
+
+		if (not readByte(cx))
+		{
+			return false;
+		}
+
+		if (converter.put(cx)) // 3
+		{
+			c = converter.get();
+			return true;
+		}
+
+		if (not readByte(cx))
+		{
+			return false;
+		}
+
+		if (converter.put(cx)) // 4
+		{
+			c = converter.get();
+			return true;
+		}
+
+		return false;
+	}
+
+	bool TextReader::TextReaderDetail::readUTF16LE(char32& c)
+	{
+		uint16 c0 = 0, c1 = 0;
+		
+		if (not readTwoBytes(c0))
+		{
+			return false;
+		}
+
+		if (Unicode::IsHighSurrogate(c0))
+		{
+			if (not readTwoBytes(c1))
+			{
+				return false;
+			}
+
+			c = ((((c0 - 0xD800) << 10) | (c1 - 0xDC00)) + 0x10000);
 		}
 		else
 		{
-			return !m_ifs || m_ifs.tellg() == m_size;
+			c = c0;
 		}
+
+		return true;
 	}
 
-	const FilePath& TextReader::TextReaderDetail::path() const
+	bool TextReader::TextReaderDetail::readUTF16BE(char32& c)
 	{
-		return m_fullPath;
+		uint16 c0 = 0, c1 = 0;
+
+		if (not readTwoBytes(c0))
+		{
+			return false;
+		}
+
+		c0 = SwapEndian(c0);
+
+		if (Unicode::IsHighSurrogate(c0))
+		{
+			if (not readTwoBytes(c1))
+			{
+				return false;
+			}
+
+			c1 = SwapEndian(c1);
+
+			c = ((((c0 - 0xD800) << 10) | (c1 - 0xDC00)) + 0x10000);
+		}
+		else
+		{
+			c = c0;
+		}
+
+		return true;
 	}
 
-	TextEncoding TextReader::TextReaderDetail::encoding() const
+	bool TextReader::TextReaderDetail::readCodePoint(char32& codePoint)
 	{
-		return m_encoding;
-	}
-
-	char32 TextReader::TextReaderDetail::readCodePoint()
-	{
-		if (m_encoding == TextEncoding::Unknown)
+		if (m_info.encoding == TextEncoding::UTF16LE)
 		{
-			char8 ch = '\0';
-
-			m_ifs.get(ch);
-
-			return ch; // [Siv3D TODO]
+			return readUTF16LE(codePoint);
 		}
-		
-		if (m_reader->getPos() == m_reader->size())
+		else if (m_info.encoding == TextEncoding::UTF16BE)
 		{
-			return U'\0';
+			return readUTF16BE(codePoint);
 		}
-
-		if (m_encoding == TextEncoding::UTF16LE)
+		else
 		{
-			char16 c0 = 0, c1 = 0;
-			m_reader->read(c0);
-
-			if (Unicode::IsHighSurrogate(c0))
-			{
-				m_reader->read(c1);
-				return (((c0 - 0xD800) << 10) | (c1 - 0xDC00)) + 0x10000;
-			}
-
-			return c0;
-		}
-		else if (m_encoding == TextEncoding::UTF16BE)
-		{
-			char16 c0 = 0, c1 = 0;
-			m_reader->read(c0);
-			c0 = ((c0 << 8) & 0xff00) | ((c0 >> 8) & 0xFF);
-
-			if (Unicode::IsHighSurrogate(c0))
-			{
-				m_reader->read(c1);
-				c1 = ((c1 << 8) & 0xff00) | ((c1 >> 8) & 0xFF);
-
-				return (((c0 - 0xD800) << 10) | (c1 - 0xDC00)) + 0x10000;
-			}
-
-			return c0;
-		}
-		else // UTF-8
-		{
-			char8 buffer[4] = {};
-
-			const size_t readSize = static_cast<size_t>(m_reader->lookahead(buffer, sizeof(buffer)));
-
-			Unicode::Translator_UTF8toUTF32 translator;
-
-			size_t i = 0;
-
-			for (; i < readSize; ++i)
-			{
-				if (translator.put(buffer[i]))
-				{
-					break;
-				}
-			}
-
-			if (i != readSize)
-			{
-				m_reader->skip(i + 1);
-				return translator.get();
-			}
-			else
-			{
-				m_reader->skip(readSize);
-				return 0xFFFD;
-			}
+			return readUTF8(codePoint);
 		}
 	}
 }

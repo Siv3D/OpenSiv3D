@@ -70,6 +70,10 @@ par_shapes_mesh* par_shapes_create_cylinder(int slices, int stacks);
 // Again, height and radius are 1.0, but can be changed with par_shapes_scale.
 par_shapes_mesh* par_shapes_create_cone(int slices, int stacks);
 
+// Create a disk of radius 1.0 with texture coordinates and normals by squashing
+// a cone flat on the Z=0 plane.
+par_shapes_mesh* par_shapes_create_parametric_disk(int slices, int stacks);
+
 // Create a donut that sits on the Z=0 plane with the specified inner radius.
 // The outer radius can be controlled with par_shapes_scale.
 par_shapes_mesh* par_shapes_create_torus(int slices, int stacks, float radius);
@@ -349,6 +353,15 @@ par_shapes_mesh* par_shapes_create_cone(int slices, int stacks)
         stacks, 0);
 }
 
+par_shapes_mesh* par_shapes_create_parametric_disk(int slices, int stacks)
+{
+    par_shapes_mesh* m = par_shapes_create_cone(slices, stacks);
+    if (m) {
+        par_shapes_scale(m, 1.0f, 1.0f, 0.0f);
+    }
+    return m;
+}
+
 par_shapes_mesh* par_shapes_create_parametric_sphere(int slices, int stacks)
 {
     if (slices < 3 || stacks < 3) {
@@ -553,7 +566,7 @@ void par_shapes_export(par_shapes_mesh const* mesh, char const* filename)
     fclose(objfile);
 }
 
-static void par_shapes__sphere(float const* uv, float* xyz, void* userdata)
+static void par_shapes__sphere(float const* uv, float* xyz, void*)
 {
     float phi = uv[0] * PAR_PI;
     float theta = uv[1] * 2 * PAR_PI;
@@ -562,7 +575,7 @@ static void par_shapes__sphere(float const* uv, float* xyz, void* userdata)
     xyz[2] = cosf(phi);
 }
 
-static void par_shapes__hemisphere(float const* uv, float* xyz, void* userdata)
+static void par_shapes__hemisphere(float const* uv, float* xyz, void*)
 {
     float phi = uv[0] * PAR_PI;
     float theta = uv[1] * PAR_PI;
@@ -571,14 +584,14 @@ static void par_shapes__hemisphere(float const* uv, float* xyz, void* userdata)
     xyz[2] = cosf(phi);
 }
 
-static void par_shapes__plane(float const* uv, float* xyz, void* userdata)
+static void par_shapes__plane(float const* uv, float* xyz, void*)
 {
     xyz[0] = uv[0];
     xyz[1] = uv[1];
     xyz[2] = 0;
 }
 
-static void par_shapes__klein(float const* uv, float* xyz, void* userdata)
+static void par_shapes__klein(float const* uv, float* xyz, void*)
 {
     float u = uv[0] * PAR_PI;
     float v = uv[1] * 2 * PAR_PI;
@@ -595,7 +608,7 @@ static void par_shapes__klein(float const* uv, float* xyz, void* userdata)
     xyz[1] = -2 * (1 - cosf(u) / 2) * sinf(v);
 }
 
-static void par_shapes__cylinder(float const* uv, float* xyz, void* userdata)
+static void par_shapes__cylinder(float const* uv, float* xyz, void*)
 {
     float theta = uv[1] * 2 * PAR_PI;
     xyz[0] = sinf(theta);
@@ -603,7 +616,7 @@ static void par_shapes__cylinder(float const* uv, float* xyz, void* userdata)
     xyz[2] = uv[0];
 }
 
-static void par_shapes__cone(float const* uv, float* xyz, void* userdata)
+static void par_shapes__cone(float const* uv, float* xyz, void*)
 {
     float r = 1.0f - uv[0];
     float theta = uv[1] * 2 * PAR_PI;
@@ -807,10 +820,19 @@ void par_shapes_scale(par_shapes_mesh* m, float x, float y, float z)
         *points++ *= z;
     }
     float* n = m->normals;
-    if (n && (x != y || x != z || y != z)) {
-        x = 1.0f / x;
-        y = 1.0f / y;
-        z = 1.0f / z;
+    if (n && !(x == y && y == z)) {
+        bool x_zero = x == 0;
+        bool y_zero = y == 0;
+        bool z_zero = z == 0;
+        if (!x_zero && !y_zero && !z_zero) {
+            x = 1.0f / x;
+            y = 1.0f / y;
+            z = 1.0f / z;
+        } else {
+            x = x_zero && !y_zero && !z_zero;
+            y = y_zero && !x_zero && !z_zero;
+            z = z_zero && !x_zero && !y_zero;
+        }
         for (int i = 0; i < m->npoints; i++, n += 3) {
             n[0] *= x;
             n[1] *= y;

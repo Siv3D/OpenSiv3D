@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include "MathParserDetail.hpp"
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
@@ -25,89 +26,81 @@ namespace s3d
 
 	String MathParser::MathParserDetail::getErrorMessage() const
 	{
-		return Unicode::FromWString(m_errorMessage);
+		return Unicode::FromWstring(m_errorMessage);
 	}
 
-	void MathParser::MathParserDetail::setExpression(const String& expression)
+	void MathParser::MathParserDetail::setExpression(const StringView expression)
 	{
 		m_errorMessage.clear();
 
 		m_parser.SetExpr(expression.toWstr());
 	}
 
-	bool MathParser::MathParserDetail::setConstant(const String& name, const double value)
+	bool MathParser::MathParserDetail::setConstant(const StringView name, const double value)
 	{
 		m_errorMessage.clear();
 
 		try
 		{
 			m_parser.DefineConst(name.toWstr(), value);
-
 			return true;
 		}
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
 			return false;
 		}
 	}
 
-	bool MathParser::MathParserDetail::setVaribale(const String& name, double* value)
+	bool MathParser::MathParserDetail::setVaribale(const StringView name, double* value)
 	{
 		m_errorMessage.clear();
 
 		try
 		{
 			m_parser.DefineVar(name.toWstr(), value);
-
 			return true;
 		}
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
 			return false;
 		}
 	}
 
-	bool MathParser::MathParserDetail::setPrefixOperator(const String& name, Fty1 f)
+	bool MathParser::MathParserDetail::setPrefixOperator(const StringView name, Fty1 f)
 	{
 		m_errorMessage.clear();
 
 		try
 		{
 			m_parser.DefineInfixOprt(name.toWstr(), f);
-
 			return true;
 		}
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
 			return false;
 		}
 	}
 
-	bool MathParser::MathParserDetail::setPostfixOperator(const String& name, Fty1 f)
+	bool MathParser::MathParserDetail::setPostfixOperator(const StringView name, Fty1 f)
 	{
 		m_errorMessage.clear();
 
 		try
 		{
 			m_parser.DefinePostfixOprt(name.toWstr(), f);
-
 			return true;
 		}
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
 			return false;
 		}
 	}
 
-	void MathParser::MathParserDetail::removeVariable(const String& name)
+	void MathParser::MathParserDetail::removeVariable(const StringView name)
 	{
 		m_errorMessage.clear();
 
@@ -118,24 +111,18 @@ namespace s3d
 	{
 		m_errorMessage.clear();
 
-		m_parser.SetExpr(mu::string_type());
-
+		m_parser.SetExpr(mu::string_type{});
 		m_parser.ClearConst();
-
 		m_parser.ClearVar();
-
 		m_parser.ClearFun();
-
 		m_parser.ClearInfixOprt();
-
 		m_parser.ClearPostfixOprt();
-
 		m_parser.ClearOprt();
 	}
 
 	String MathParser::MathParserDetail::getExpression() const
 	{
-		return Unicode::FromWString(m_parser.GetExpr());
+		return Unicode::FromWstring(m_parser.GetExpr());
 	}
 
 	HashTable<String, double*> MathParser::MathParserDetail::getUsedVariables() const
@@ -148,7 +135,7 @@ namespace s3d
 
 			for (const auto& pair : m_parser.GetUsedVar())
 			{
-				result.emplace(Unicode::FromWString(pair.first), pair.second);
+				result.emplace(Unicode::FromWstring(pair.first), pair.second);
 			}
 
 			return result;
@@ -156,8 +143,7 @@ namespace s3d
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
-			return HashTable<String, double*>();
+			return{};
 		}
 	}
 
@@ -171,7 +157,7 @@ namespace s3d
 
 			for (const auto& pair : m_parser.GetVar())
 			{
-				result.emplace(Unicode::FromWString(pair.first), pair.second);
+				result.emplace(Unicode::FromWstring(pair.first), pair.second);
 			}
 
 			return result;
@@ -179,8 +165,7 @@ namespace s3d
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
-			return HashTable<String, double*>();
+			return{};
 		}
 	}
 
@@ -194,7 +179,7 @@ namespace s3d
 
 			for (const auto& pair : m_parser.GetConst())
 			{
-				result.emplace(Unicode::FromWString(pair.first), pair.second);
+				result.emplace(Unicode::FromWstring(pair.first), pair.second);
 			}
 
 			return result;
@@ -202,24 +187,23 @@ namespace s3d
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
-			return HashTable<String, double>();
+			return{};
 		}
 	}
 
 	String MathParser::MathParserDetail::validNameCharacters() const
 	{
-		return Unicode::FromWString(m_parser.ValidNameChars());
+		return Unicode::FromWstring(m_parser.ValidNameChars());
 	}
 
 	String MathParser::MathParserDetail::validPrefixCharacters() const
 	{
-		return Unicode::FromWString(m_parser.ValidInfixOprtChars());
+		return Unicode::FromWstring(m_parser.ValidInfixOprtChars());
 	}
 
 	String MathParser::MathParserDetail::validPostfixCharacters() const
 	{
-		return Unicode::FromWString(m_parser.ValidOprtChars());
+		return Unicode::FromWstring(m_parser.ValidOprtChars());
 	}
 
 	Optional<double> MathParser::MathParserDetail::evalOpt() const
@@ -233,7 +217,6 @@ namespace s3d
 		catch (mu::Parser::exception_type& e)
 		{
 			m_errorMessage = e.GetMsg();
-
 			return none;
 		}
 	}
@@ -247,9 +230,7 @@ namespace s3d
 		try
 		{
 			int32 num_results;
-
 			const double* v = m_parser.Eval(num_results);
-
 			result.assign(v, v + num_results);
 		}
 		catch (mu::Parser::exception_type& e)
@@ -279,7 +260,7 @@ namespace s3d
 
 			for (; i < count; ++i)
 			{
-				dst[i] = Math::Constants::NaN;
+				dst[i] = Math::NaN;
 			}
 		}
 		catch (mu::Parser::exception_type& e)
@@ -288,7 +269,7 @@ namespace s3d
 
 			for (size_t i = 0; i < count; ++i)
 			{
-				dst[i] = Math::Constants::NaN;
+				dst[i] = Math::NaN;
 			}
 		}
 	}

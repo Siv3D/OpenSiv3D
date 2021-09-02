@@ -2,29 +2,30 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/Print.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/DirectoryWatcher.hpp>
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Scene.hpp>
-# include <Siv3D/Print.hpp>
 # include "ManagedScriptDetail.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		static bool HasChanged(const FilePath& target, const Array<std::pair<FilePath, FileAction>>& fileChanges)
+		[[nodiscard]]
+		static bool HasChanged(const FilePath& target, const Array<FileChange>& fileChanges)
 		{
-			for (auto[path, action] : fileChanges)
+			for (auto [path, action] : fileChanges)
 			{
 				if ((path == target)
-					&& (action == FileAction::Modified || action == FileAction::Added))
+					&& ((action == FileAction::Modified) || (action == FileAction::Added)))
 				{
 					return true;
 				}
@@ -34,13 +35,10 @@ namespace s3d
 		}
 	}
 
-	ManagedScript::ManagedScriptDetail::ManagedScriptDetail()
-	{
+	ManagedScript::ManagedScriptDetail::ManagedScriptDetail() {}
 
-	}
-
-	ManagedScript::ManagedScriptDetail::ManagedScriptDetail(const FilePath& path)
-		: m_script(path)
+	ManagedScript::ManagedScriptDetail::ManagedScriptDetail(const FilePathView path)
+		: m_script{ path }
 	{
 		m_script.getMessages().each(Print);
 
@@ -50,11 +48,11 @@ namespace s3d
 		m_callback = [
 			&requestReload = m_requestReload,
 			path = fullpath,
-			watcher = isRsource ? DirectoryWatcher() : DirectoryWatcher(FileSystem::ParentPath(fullpath))
+			watcher = (isRsource ? DirectoryWatcher{} : DirectoryWatcher{ FileSystem::ParentPath(fullpath) })
 		]()
 		{
 			requestReload = detail::HasChanged(path, watcher.retrieveChanges());
-			return !requestReload;
+			return (not requestReload);
 		};
 
 		m_script.setSystemUpdateCallback(m_callback);
@@ -79,7 +77,7 @@ namespace s3d
 
 	void ManagedScript::ManagedScriptDetail::run()
 	{
-		if (m_requestReload || !m_callback())
+		if (m_requestReload || (not m_callback()))
 		{
 			ClearPrint();
 			Scene::SetBackground(Palette::DefaultBackground);
@@ -101,7 +99,7 @@ namespace s3d
 
 		if (exception)
 		{
-			Print << U"[script exception] An exception '{}' occurred."_fmt(exception);
+			Print << U"[script exception] " << exception;
 			m_hasException = true;
 		}
 	}

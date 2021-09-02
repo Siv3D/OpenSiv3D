@@ -2,20 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/Array.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/TextInput.hpp>
 
 namespace s3d
 {
-	class ISiv3DTextInput
+	class SIV3D_NOVTABLE ISiv3DTextInput
 	{
 	public:
 
@@ -30,7 +30,7 @@ namespace s3d
 		virtual void pushChar(uint32 ch) = 0;
 
 		virtual const String& getChars() const = 0;
-		
+
 		virtual const String& getEditingText() const = 0;
 
 		virtual void enableIME(bool enabled) = 0;
@@ -38,5 +38,7 @@ namespace s3d
 		virtual const Array<String>& getCandidates() const = 0;
 
 		virtual std::pair<int32, int32> getCursorIndex() const = 0;
+
+		virtual const Array<UnderlineStyle>& getEditingTextStyle() const { static const Array<UnderlineStyle> _empty; return _empty; }
 	};
 }

@@ -1,65 +1,131 @@
-//////////////////////////////////////////////////////
-# define DefineResource(identifier,type,path) identifier type #path
-# define Resource(path) DefineResource(path, FILE, path)
+# include <Siv3D/Windows/Resource.hpp>
 
 //////////////////////////////////////////////////////
 //
-// Siv3D Engine Resources (DO NOT REMOVE)
+//	Siv3D Engine Resources (DO NOT REMOVE)
 //
 //////////////////////////////////////////////////////
 DefineResource(100, ICON, icon.ico)
-Resource(engine/shader/sprite.vs)
-Resource(engine/shader/shape.ps)
-Resource(engine/shader/texture.ps)
-Resource(engine/shader/square_dot.ps)
-Resource(engine/shader/round_dot.ps)
-Resource(engine/shader/sdf.ps)
-Resource(engine/shader/fullscreen_triangle_resolve.vs)
-Resource(engine/shader/fullscreen_triangle_draw.vs)
-Resource(engine/shader/fullscreen_triangle_resolve.ps)
-Resource(engine/shader/fullscreen_triangle_draw.ps)
-Resource(engine/shader/copy.ps)
-Resource(engine/shader/gaussian_blur_9.ps)
+
+//
+//	Shaders
+//
+Resource(engine/shader/d3d11/sprite.vs)
+Resource(engine/shader/d3d11/shape.ps)
+Resource(engine/shader/d3d11/square_dot.ps)
+Resource(engine/shader/d3d11/round_dot.ps)
+Resource(engine/shader/d3d11/texture.ps)
+Resource(engine/shader/d3d11/bitmapfont.ps)
+Resource(engine/shader/d3d11/sdffont.ps)
+Resource(engine/shader/d3d11/sdffont_outline.ps)
+Resource(engine/shader/d3d11/sdffont_shadow.ps)
+Resource(engine/shader/d3d11/sdffont_outlineshadow.ps)
+Resource(engine/shader/d3d11/msdffont.ps)
+Resource(engine/shader/d3d11/msdffont_outline.ps)
+Resource(engine/shader/d3d11/msdffont_shadow.ps)
+Resource(engine/shader/d3d11/msdffont_outlineshadow.ps)
+Resource(engine/shader/d3d11/msdfprint.ps)
+Resource(engine/shader/d3d11/fullscreen_triangle.vs)
+Resource(engine/shader/d3d11/fullscreen_triangle.ps)
+Resource(engine/shader/d3d11/forward3d.vs)
+Resource(engine/shader/d3d11/line3d.vs)
+Resource(engine/shader/d3d11/forward3d.ps)
+Resource(engine/shader/d3d11/line3d.ps)
+Resource(engine/shader/d3d11/copy.ps)
+Resource(engine/shader/d3d11/gaussian_blur_9.ps)
+Resource(engine/shader/d3d11/apply_srgb_curve.ps)
+Resource(engine/shader/d3d11/sky.ps)
+Resource(engine/shader/glsl/sprite.vert)
+Resource(engine/shader/glsl/shape.frag)
+Resource(engine/shader/glsl/square_dot.frag)
+Resource(engine/shader/glsl/round_dot.frag)
+Resource(engine/shader/glsl/texture.frag)
+Resource(engine/shader/glsl/bitmapfont.frag)
+Resource(engine/shader/glsl/sdffont.frag)
+Resource(engine/shader/glsl/sdffont_outline.frag)
+Resource(engine/shader/glsl/sdffont_shadow.frag)
+Resource(engine/shader/glsl/sdffont_outlineshadow.frag)
+Resource(engine/shader/glsl/msdffont.frag)
+Resource(engine/shader/glsl/msdffont_outline.frag)
+Resource(engine/shader/glsl/msdffont_shadow.frag)
+Resource(engine/shader/glsl/msdffont_outlineshadow.frag)
+Resource(engine/shader/glsl/msdfprint.frag)
+Resource(engine/shader/glsl/fullscreen_triangle.vert)
+Resource(engine/shader/glsl/fullscreen_triangle.frag)
+Resource(engine/shader/glsl/forward3d.vert)
+Resource(engine/shader/glsl/line3d.vert)
+Resource(engine/shader/glsl/forward3d.frag)
+Resource(engine/shader/glsl/line3d.frag)
+Resource(engine/shader/glsl/copy.frag)
+Resource(engine/shader/glsl/gaussian_blur_9.frag)
+Resource(engine/shader/glsl/apply_srgb_curve.frag)
+Resource(engine/shader/glsl/sky.frag)
+
+//
+//	Fonts
+//
+Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
+//Resource(engine/font/noto-cjk/NotoSansJP-Regular.otf.zstdcmp)
+
+//
+//	Monochrome Emoji
+//
+Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
+
+//
+//	Box-shadow Textures
+//
 Resource(engine/texture/box-shadow/256.png)
 Resource(engine/texture/box-shadow/128.png)
 Resource(engine/texture/box-shadow/64.png)
 Resource(engine/texture/box-shadow/32.png)
 Resource(engine/texture/box-shadow/16.png)
 Resource(engine/texture/box-shadow/8.png)
-Resource(engine/font/mplus/mplus-1p-medium.ttf.zstdcmp)
-Resource(engine/emoji/noto7_dictionary.dat)
 
 //////////////////////////////////////////////////////
 //
-// Siv3D Engine Optional Resources (Can be removed if not required)
+//	Siv3D Engine Optional Resources (Can be removed if not required)
 //
 //////////////////////////////////////////////////////
+
+//
+//	Fonts
+//
 Resource(engine/font/mplus/mplus-1p-thin.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-light.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-regular.ttf.zstdcmp)
+Resource(engine/font/mplus/mplus-1p-medium.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-bold.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-heavy.ttf.zstdcmp)
 Resource(engine/font/mplus/mplus-1p-black.ttf.zstdcmp)
-Resource(engine/font/noto/NotoColorEmoji.ttf.zstdcmp)
-Resource(engine/font/noto/NotoEmoji-Regular.ttf.zstdcmp)
+
+//
+//	Color Emoji
+//
+Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
+
+//
+//	Icons
+//
 Resource(engine/font/fontawesome/fontawesome-brands.otf.zstdcmp)
 Resource(engine/font/fontawesome/fontawesome-solid.otf.zstdcmp)
-Resource(engine/objdetect/haarcascade/eye.xml.zstdcmp)
-Resource(engine/objdetect/haarcascade/eye_eyeglasses.xml.zstdcmp)
-Resource(engine/objdetect/haarcascade/face_anime.xml.zstdcmp)
-Resource(engine/objdetect/haarcascade/frontal_catface.xml.zstdcmp)
-Resource(engine/objdetect/haarcascade/frontal_face_alt2.xml.zstdcmp)
+Resource(engine/font/materialdesignicons/materialdesignicons-webfont.ttf.zstdcmp)
+
+//
+//	Sound Font
+//
 Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 
 //////////////////////////////////////////////////////
 //
-// Siv3D App Resources (Your application resources here)
+//	Siv3D App Resources (Your application resources here)
 //
 //////////////////////////////////////////////////////
 
 
 
-/* 
+/* examples 
+
 	//
 	// Define your resource path inside `Resource()` macro.
 	// No double quotation marks and white spaces may appear.

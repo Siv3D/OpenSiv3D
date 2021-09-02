@@ -2,38 +2,52 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Graphics2D.hpp"
+# include "Common.hpp"
 # include "Uncopyable.hpp"
+# include "Graphics2D.hpp"
 
 namespace s3d
 {
 	class ScopedCustomShader2D : Uncopyable
 	{
-	private:
-
-		Optional<Optional<PixelShader>> m_oldPS;
-
-		void clear() noexcept;
-
 	public:
 
-		ScopedCustomShader2D() = default;
+		SIV3D_NODISCARD_CXX20
+		ScopedCustomShader2D();
 
-		explicit ScopedCustomShader2D(const Optional<PixelShader>& ps);
+		SIV3D_NODISCARD_CXX20
+		explicit ScopedCustomShader2D(const VertexShader& vs);
 
+		SIV3D_NODISCARD_CXX20
+		explicit ScopedCustomShader2D(const PixelShader& ps);
+
+		SIV3D_NODISCARD_CXX20
+		ScopedCustomShader2D(const VertexShader& vs, const PixelShader& ps);
+
+		SIV3D_NODISCARD_CXX20
+		ScopedCustomShader2D(const PixelShader& ps, const VertexShader& vs);
+
+		SIV3D_NODISCARD_CXX20
 		ScopedCustomShader2D(ScopedCustomShader2D&& other) noexcept;
 
 		~ScopedCustomShader2D();
 
-		ScopedCustomShader2D& operator =(ScopedCustomShader2D&& other) noexcept;
+		//ScopedCustomShader2D& operator =(ScopedCustomShader2D&& other) noexcept;
+
+	private:
+
+		Optional<Optional<VertexShader>> m_oldVS;
+
+		Optional<Optional<PixelShader>> m_oldPS;
+
+		void clear() noexcept;
 	};
 }

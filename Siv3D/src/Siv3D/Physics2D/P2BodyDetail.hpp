@@ -2,63 +2,69 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Physics2D.hpp>
-# include <Box2D/Box2D.h>
+# include <Siv3D/Physics2D/P2Body.hpp>
+# include <Siv3D/PredefinedYesNo.hpp>
+# include "P2Common.hpp"
 
 namespace s3d
 {
 	class P2Body::P2BodyDetail
 	{
-	private:
-
-		P2World m_world;
-
-		Array<std::shared_ptr<P2Shape>> m_shapes;
-
-		b2Body* m_body = nullptr;
-
-		P2BodyID m_id = 0;
-
 	public:
 
 		P2BodyDetail() = default;
 
-		P2BodyDetail(P2World& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);
+		P2BodyDetail(const std::shared_ptr<detail::P2WorldDetail>& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);
 
 		~P2BodyDetail();
 
-		[[nodiscard]] P2BodyID id() const;
+		[[nodiscard]]
+		P2BodyID id() const noexcept;
 
-		void addLine(const Line& line, const P2Material& material, const P2Filter& filter);
+		void addLine(const Line& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
 
-		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
+		void addLineString(const LineString& localPos, CloseRing closeRing, OneSided oneSided, const P2Material& material, const P2Filter& filter);
 
-		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+		void addCircle(const Circle& localPos, const P2Material& material, const P2Filter& filter);
 
-		void addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
+		void addCircleSensor(const Circle& localPos, const P2Filter& filter);
 
-		void addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+		void addRect(const RectF& localPos, const P2Material& material, const P2Filter& filter);
 
-		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
+		void addTriangle(const Triangle& localPos, const P2Material& material, const P2Filter& filter);
+
+		void addQuad(const Quad& localPos, const P2Material& material, const P2Filter& filter);
 
 		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
-		[[nodiscard]] b2Body& getBody();
+		[[nodiscard]]
+		b2Body& getBody() noexcept;
 
-		[[nodiscard]] const b2Body& getBody() const;
+		[[nodiscard]]
+		const b2Body& getBody() const noexcept;
 
-		[[nodiscard]] b2Body* getBodyPtr() const;
+		[[nodiscard]]
+		b2Body* getBodyPtr() const;
 
-		[[nodiscard]] const Array<std::shared_ptr<P2Shape>>& getShapes() const;
+		[[nodiscard]]
+		const Array<std::shared_ptr<P2Shape>>& getShapes() const noexcept;
 
-		void setUserData(P2BodyDetail* data);
+	private:
+
+		std::shared_ptr<detail::P2WorldDetail> m_world;
+
+		P2BodyID m_id = 0;
+
+		b2Body* m_body = nullptr;
+
+		Array<std::shared_ptr<P2Shape>> m_shapes;
 	};
 }

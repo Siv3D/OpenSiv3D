@@ -2,15 +2,24 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <boost/multiprecision/cpp_dec_float.hpp>
+# pragma once
 # include <Siv3D/BigFloat.hpp>
+
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wunused-parameter"
+# endif
+# include <boost/multiprecision/cpp_dec_float.hpp>
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
 
 namespace s3d
 {

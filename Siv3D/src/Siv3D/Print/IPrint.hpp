@@ -2,19 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/Font.hpp>
 
 namespace s3d
 {
-	class ISiv3DPrint
+	class SIV3D_NOVTABLE ISiv3DPrint
 	{
 	public:
 
@@ -24,12 +26,20 @@ namespace s3d
 
 		virtual void init() = 0;
 
-		virtual void add(const String& text) = 0;
+		virtual void write(const String& s) = 0;
+
+		virtual void writeln(const String& s) = 0;
+
+		virtual void put(String&& s, const Vec2& pos, int32 alignment) = 0;
 
 		virtual void draw() = 0;
 
 		virtual void clear() = 0;
 
-		virtual void showUnhandledEditingText(const String& text) = 0;
+		virtual void setFont(const Font& font) = 0;
+
+		virtual const Font& getFont() const = 0;
+
+		virtual void showUnhandledEditingText(StringView text) = 0;
 	};
 }

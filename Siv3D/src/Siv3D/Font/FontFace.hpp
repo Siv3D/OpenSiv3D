@@ -2,43 +2,72 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
-# include <freetype/ft2build.h>
-# include <freetype/ftoutln.h>
-# include FT_FREETYPE_H
-# include FT_SYNTHESIS_H
-# include FT_TRUETYPE_TABLES_H
-# include <harfbuzz/hb.h>
-# include <harfbuzz/hb-ft.h>
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/StringView.hpp>
+# include <Siv3D/Common.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/FontStyle.hpp>
+# include <Siv3D/FontMethod.hpp>
+# include "FontFaceProperty.hpp"
+
+# if SIV3D_PLATFORM(WINDOWS) | SIV3D_PLATFORM(MACOS) | SIV3D_PLATFORM(WEB)
+#	include <ThirdParty-prebuilt/harfbuzz/hb.h>
+#	include <ThirdParty-prebuilt/harfbuzz/hb-ft.h>
+# else
+#	include <harfbuzz/hb.h>
+#	include <harfbuzz/hb-ft.h>
+# endif
 
 namespace s3d
 {
-	struct FontFace
+	struct HBGlyphInfo
 	{
-		FT_Face face = nullptr;
+		const hb_glyph_info_t* info = nullptr;
+		
+		size_t count = 0;
+	};
 
-		hb_font_t* hbFont = nullptr;
+	class FontFace
+	{
+	public:
 
-		hb_buffer_t* buffer = nullptr;
-
-		FontFace();
+		FontFace() = default;
 
 		~FontFace();
 
-		explicit operator bool() const noexcept;
+		bool load(FT_Library library, const void* data, size_t size, size_t faceIndex, int32 pixelSize, FontStyle style, FontMethod method);
 
-		std::pair<const hb_glyph_info_t*, size_t> get(const StringView view);
+		bool load(FT_Library library, FilePathView path, size_t faceIndex, int32 pixelSize, FontStyle style, FontMethod method);
 
-		void destroy();
+		[[nodiscard]]
+		FT_Face getFT_Face() const noexcept;
+
+		void setIndentSize(int32 indentSize) noexcept;
+
+		[[nodiscard]]
+		const FontFaceProperty& getProperty() const noexcept;
+
+		[[nodiscard]]
+		HBGlyphInfo getHBGlyphInfo(StringView s) const;
+
+	private:
+
+		bool init(int32 pixelSize, FontStyle style, FontMethod method);
+
+		void release();
+
+		FT_Face m_face = nullptr;
+
+		hb_font_t* m_hbFont = nullptr;
+
+		hb_buffer_t* m_hbBuffer = nullptr;
+
+		FontFaceProperty m_property;
 	};
 }

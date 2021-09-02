@@ -2,23 +2,30 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <utility>
-# include "Fwd.hpp"
-# include "Array.hpp"
-# include "Rectangle.hpp"
+# include "Common.hpp"
+# include "2DShapes.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	struct RectanglePack
+	{
+		Array<Rect> rects;
+
+		Size size = { 0, 0 };
+	};
+
 	namespace RectanglePacking
 	{
-		[[nodiscard]] std::pair<Array<Rect>, Size> Pack(const Array<Rect>& rects, int32 maxSide);
+		[[nodiscard]]
+		RectanglePack Pack(const Array<Rect>& rects, int32 maxSide, AllowFlip allowFlip = AllowFlip::No);
 	}
 }

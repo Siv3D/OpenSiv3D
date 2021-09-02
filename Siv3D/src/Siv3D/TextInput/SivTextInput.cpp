@@ -2,21 +2,20 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include <Siv3DEngine.hpp>
 # include <Siv3D/TextInput.hpp>
-# include <Siv3D/Char.hpp>
 # include <Siv3D/Scene.hpp>
-# include <Siv3D/Font.hpp>
 # include <Siv3D/Indexed.hpp>
-# include <Siv3D/Logger.hpp>
-# include "ITextInput.hpp"
+# include <Siv3D/DrawableText.hpp>
+# include <Siv3D/UnderlineStyle.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/TextInput/ITextInput.hpp>
 
 namespace s3d
 {
@@ -24,22 +23,22 @@ namespace s3d
 	{
 		String GetRawInput()
 		{
-			return Siv3DEngine::Get<ISiv3DTextInput>()->getChars();
+			return SIV3D_ENGINE(TextInput)->getChars();
 		}
 		
 		size_t UpdateText(String& text, size_t cursorPos, const TextInputMode mode)
 		{
-			const String chars = Siv3DEngine::Get<ISiv3DTextInput>()->getChars();
+			const String chars = SIV3D_ENGINE(TextInput)->getChars();
 			
-			if (chars.empty())
+			if (not chars)
 			{
 				return cursorPos;
 			}
 			
-			const bool allowEnter = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowEnter);
-			const bool allowTab = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowTab);
-			const bool allowBackSpace = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowBackSpace);
-			const bool allowDelete = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowDelete);
+			const bool allowEnter		= !!(mode & TextInputMode::AllowEnter);
+			const bool allowTab			= !!(mode & TextInputMode::AllowTab);
+			const bool allowBackSpace	= !!(mode & TextInputMode::AllowBackSpace);
+			const bool allowDelete		= !!(mode & TextInputMode::AllowDelete);
 
 			if (text.size() < cursorPos)
 			{
@@ -79,7 +78,7 @@ namespace s3d
 						text.erase(text.begin() + cursorPos);
 					}
 				}
-				else if (!IsControl(ch))
+				else if (not IsControl(ch))
 				{
 					text.insert(text.begin() + cursorPos, ch);
 					++cursorPos;
@@ -88,10 +87,15 @@ namespace s3d
 
 			return cursorPos;
 		}
+
+		void UpdateText(String& text, const TextInputMode mode)
+		{
+			[[maybe_unused]] size_t _unused = UpdateText(text, text.length(), mode);
+		}
 		
 		String GetEditingText()
 		{
-			return Siv3DEngine::Get<ISiv3DTextInput>()->getEditingText();
+			return SIV3D_ENGINE(TextInput)->getEditingText();
 		}
 	}
 
@@ -101,17 +105,17 @@ namespace s3d
 	{
 		void DisableIME()
 		{
-			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(false);
+			SIV3D_ENGINE(TextInput)->enableIME(false);
 		}
 
 		const Array<String>& GetCandidates()
 		{
-			return Siv3DEngine::Get<ISiv3DTextInput>()->getCandidates();
+			return SIV3D_ENGINE(TextInput)->getCandidates();
 		}
 
 		std::pair<int32, int32> GetCursorIndex()
 		{
-			return Siv3DEngine::Get<ISiv3DTextInput>()->getCursorIndex();
+			return SIV3D_ENGINE(TextInput)->getCursorIndex();
 		}
 
 		void DrawCandidateWindow(const Font& font,
@@ -137,7 +141,7 @@ namespace s3d
 			}
 
 			const double leftOffset = hasEditingTarget ? font(U"1  ").region().w : 0.0;
-			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, s3d::Scene::Width() - boxWidth - leftOffset - 12.0), basePos.y);
+			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, Scene::Width() - boxWidth - leftOffset - 12.0), basePos.y);
 
 			boxWidth += leftOffset + 5;
 
@@ -147,7 +151,7 @@ namespace s3d
 					.draw(boxColor).drawFrame(1, 0, frameColor);
 			}
 
-			for (auto[i, text] : Indexed(cadidates))
+			for (auto&& [i, text] : Indexed(cadidates))
 			{
 				bool selected = false;
 
@@ -172,6 +176,46 @@ namespace s3d
 					font(text).draw(posLabel, textColor);
 				}
 			}
+		}
+	}
+	
+# elif SIV3D_PLATFORM(LINUX)
+
+	namespace Platform::Linux::TextInput
+	{
+		void EnableIME()
+		{
+			SIV3D_ENGINE(TextInput)->enableIME(true);
+		}
+
+		void DisableIME()
+		{
+			SIV3D_ENGINE(TextInput)->enableIME(false);
+		}
+
+		int32 GetCursorIndex()
+		{
+			return SIV3D_ENGINE(TextInput)->getCursorIndex().first;
+		}
+
+		const Array<UnderlineStyle>& GetEditingTextStyle() 
+		{
+			return SIV3D_ENGINE(TextInput)->getEditingTextStyle();
+		}
+	}
+
+# elif SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web::TextInput
+	{
+		void RequestEnableIME() 
+		{
+			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(true);
+		}
+
+		void RequestDisableIME() 
+		{
+			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(false);
 		}
 	}
 

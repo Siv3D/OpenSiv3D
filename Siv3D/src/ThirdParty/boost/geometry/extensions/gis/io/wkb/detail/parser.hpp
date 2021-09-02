@@ -2,6 +2,10 @@
 
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -14,13 +18,12 @@
 #include <cstddef>
 #include <iterator>
 #include <limits>
+#include <type_traits>
 
 #include <boost/geometry/core/exception.hpp>
 
 #include <boost/concept_check.hpp>
 #include <boost/cstdint.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 
 #include <boost/geometry/core/access.hpp>
@@ -66,7 +69,7 @@ struct value_parser
     {
         // Very basic pre-conditions check on stream of bytes passed in
         BOOST_STATIC_ASSERT((
-            boost::is_integral<typename std::iterator_traits<Iterator>::value_type>::value
+            std::is_integral<typename std::iterator_traits<Iterator>::value_type>::value
         ));
         BOOST_STATIC_ASSERT((sizeof(boost::uint8_t) ==
             sizeof(typename std::iterator_traits<Iterator>::value_type)
@@ -113,6 +116,8 @@ struct byte_order_parser
             if (byte_order_type::unknown > value)
             {
                 order = byte_order_type::enum_t(value);
+            }else{
+                order = byte_order_type::unknown;
             }
             return true;
         }

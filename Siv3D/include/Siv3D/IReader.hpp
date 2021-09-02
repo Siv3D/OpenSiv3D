@@ -2,176 +2,98 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <type_traits>
-# include "Fwd.hpp"
-# include "ByteArrayViewAdapter.hpp"
+# include <memory>
+# include "Common.hpp"
+# include "Concepts.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// IReader インタフェースクラス
-	/// </summary>
+	/// @brief Reader インタフェース
 	class IReader
 	{
 	public:
 
-		/// <summary>
-		/// デストラクタ
-		/// </summary>
+		/// @brief デストラクタ 
 		virtual ~IReader() = default;
 
-		/// <summary>
-		/// Reader が使用可能かを返します。
-		/// </summary>
-		/// <returns>
-		/// Reader が使用可能な場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] virtual bool isOpen() const = 0;
+		/// @brief 読み込み位置を変更しないデータ読み込みをサポートしているかを返します。
+		/// @return 読み込み位置を変更しないデータ読み込みをサポートしている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		virtual bool supportsLookahead() const noexcept = 0;
 
-		/// <summary>
-		/// Reader のサイズを返します。
-		/// </summary>
-		/// <returns>
-		/// Reader のサイズ（バイト）
-		/// </returns>
-		[[nodiscard]] virtual int64 size() const = 0;
+		/// @brief Reader が使用可能かを返します。
+		/// @return Reader が使用可能な場合 true, それ以外の場合は false
+		[[nodiscard]]
+		virtual bool isOpen() const noexcept = 0;
 
-		/// <summary>
-		/// Reader の現在の読み込み位置を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の読み込み位置（バイト）
-		/// </returns>
-		[[nodiscard]] virtual int64 getPos() const = 0;
+		/// @brief Reader のサイズを返します。
+		/// @return Reader のサイズ（バイト）
+		[[nodiscard]]
+		virtual int64 size() const = 0;
 
-		/// <summary>
-		/// Reader の読み込み位置を変更します。
-		/// </summary>
-		/// <param name="pos">
-		/// 新しい読み込み位置（バイト）
-		/// </param>
-		/// <returns>
-		/// 読み込み位置の変更に成功した場合 true, それ以外の場合は false
-		/// </returns>
+		/// @brief Reader の現在の読み込み位置を返します。
+		/// @return 現在の読み込み位置（バイト）
+		[[nodiscard]]
+		virtual int64 getPos() const = 0;
+
+		/// @brief Reader の読み込み位置を変更します。
+		/// @param pos 新しい読み込み位置（バイト）
+		/// @return 読み込み位置の変更に成功した場合 true, それ以外の場合は false
 		virtual bool setPos(int64 pos) = 0;
 
-		/// <summary>
-		/// Reader を読み飛ばし、読み込み位置を変更します。
-		/// </summary>
-		/// <param name="offset">
-		/// 読み飛ばすサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 新しい読み込み位置（バイト）
-		/// </returns>
+		/// @brief Reader を読み飛ばし、読み込み位置を変更します。
+		/// @param offset 読み飛ばすサイズ（バイト）
+		/// @return 新しい読み込み位置（バイト）
 		virtual int64 skip(int64 offset) = 0;
 
-		/// <summary>
-		/// Reader からデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		virtual int64 read(void* buffer, int64 size) = 0;
+		/// @brief Reader からデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		virtual int64 read(void* dst, int64 size) = 0;
 
-		/// <summary>
-		/// Reader からデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="pos">
-		/// 先頭から数えた読み込み開始位置（バイト）
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		virtual int64 read(void* buffer, int64 pos, int64 size) = 0;
+		/// @brief Reader からデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param pos 先頭から数えた読み込み開始位置（バイト）
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		virtual int64 read(void* dst, int64 pos, int64 size) = 0;
 
-		/// <summary>
-		/// Reader からデータを読み込みます。
-		/// </summary>
-		/// <param name="to">
-		/// 読み込み先
-		/// </param>
-		/// <returns>
-		/// 読み込みに成功したら true, それ以外の場合は false
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool read(Type& to)
-		{
-			return read(std::addressof(to), sizeof(Type)) == sizeof(Type);
-		}
+		/// @brief Reader からデータを読み込みます。
+		/// @tparam Type 読み込む値の型
+		/// @param dst 読み込み先
+		/// @return 読み込みに成功した場合 true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool read(TriviallyCopyable& dst);
 
-		/// <summary>
-		/// 読み込み位置を変更しないデータ読み込みをサポートしているかを返します。
-		/// </summary>
-		/// <returns>
-		/// 読み込み位置を変更しないデータ読み込みをサポートしている場合 true, それ以外の場合は false
-		/// </returns>
-		[[nodiscard]] virtual bool supportsLookahead() const = 0;
+		/// @brief Reader から読み込み位置を変更しないでデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		virtual int64 lookahead(void* dst, int64 size) const = 0;
 
-		/// <summary>
-		/// Reader から読み込み位置を変更しないでデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		virtual int64 lookahead(void* buffer, int64 size) const = 0;
+		/// @brief Reader から読み込み位置を変更しないでデータを読み込みます。
+		/// @param dst 読み込み先
+		/// @param pos 先頭から数えた読み込み開始位置（バイト）
+		/// @param size 読み込むサイズ（バイト）
+		/// @return 実際に読み込んだサイズ（バイト）
+		virtual int64 lookahead(void* dst, int64 pos, int64 size) const = 0;
 
-		/// <summary>
-		/// Reader から読み込み位置を変更しないでデータを読み込みます。
-		/// </summary>
-		/// <param name="buffer">
-		/// 読み込み先
-		/// </param>
-		/// <param name="pos">
-		/// 先頭から数えた読み込み開始位置（バイト）
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 実際に読み込んだサイズ（バイト）
-		/// </returns>
-		virtual int64 lookahead(void* buffer, int64 pos, int64 size) const = 0;
-
-		/// <summary>
-		/// 読み込み位置を変更しないで Reader からデータを読み込みます。
-		/// </summary>
-		/// <param name="to">
-		/// 読み込み先
-		/// </param>
-		/// <returns>
-		/// 読み込みに成功したら true, それ以外の場合は false
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
-		bool lookahead(Type& to) const
-		{
-			return lookahead(std::addressof(to), sizeof(Type)) == sizeof(Type);
-		}
+		/// @brief 読み込み位置を変更しないで Reader からデータを読み込みます。
+		/// @tparam Type 読み込む値の型
+		/// @param dst 読み込み先
+		/// @return 読み込みに成功したら true, それ以外の場合は false
+		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		bool lookahead(TriviallyCopyable& dst) const;
 	};
 }
+
+# include "detail/IReader.ipp"

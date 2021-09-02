@@ -2,36 +2,35 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-// s3d::SceneManager is originally created by Takuto Takahashi (HAMSTRO)
+// s3d::SceneManager is originally designed by Takuto Takahashi (OpenSiv3D Project)
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D.hpp>
+# include <memory>
+# include "Common.hpp"
+# include "Uncopyable.hpp"
+# include "Duration.hpp"
+# include "ColorHSV.hpp"
+# include "Optional.hpp"
+# include "HashTable.hpp"
+# include "Stopwatch.hpp"
+# include "Scene.hpp"
+# include "Transformer2D.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// シーン管理
-	/// </summary>
-	/// <remarks>
-	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
-	/// </remarks>
 	template <class State, class Data> class SceneManager;
-	
-	namespace detail
-	{		
-		struct EmptyData{};
-	}
 
-	/// <summary>
-	/// シーン・インタフェース
-	/// </summary>
+	/// @brief シーンのインタフェース
+	/// @tparam State シーンを区別するキーの型
+	/// @tparam Data シーン間で共有するデータの型
 	template <class State, class Data>
 	class IScene : Uncopyable
 	{
@@ -49,13 +48,72 @@ namespace s3d
 
 			SceneManager<State_t, Data_t>* _m;
 
+			SIV3D_NODISCARD_CXX20
 			InitData() = default;
 
-			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager)
-				: state(_state)
-				, _s(data)
-				, _m(manager) {}
+			SIV3D_NODISCARD_CXX20
+			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager);
 		};
+
+	public:
+
+		SIV3D_NODISCARD_CXX20
+		explicit IScene(const InitData& init);
+
+		virtual ~IScene() = default;
+
+		/// @brief フェードイン時の更新処理です。
+		/// @param t フェードインの進度 [0.0, 1.0]
+		virtual void updateFadeIn([[maybe_unused]] double t) {}
+		
+		/// @brief 通常時の更新処理です。
+		virtual void update() {}
+
+		/// @brief フェードアウト時の更新処理です。
+		/// @param t フェードアウトの進度 [0.0, 1.0]
+		virtual void updateFadeOut([[maybe_unused]] double t) {}
+
+		/// @brief 通常時の描画処理です。
+		virtual void draw() const {}
+
+		/// @brief フェードイン時の描画処理です。
+		/// @param t フェードインの進度 [0.0, 1.0]
+		virtual void drawFadeIn(double t) const;
+
+		/// @brief フェードアウト時の描画処理です。
+		/// @param t フェードアウトの進度 [0.0, 1.0]
+		virtual void drawFadeOut(double t) const;
+
+	protected:
+
+		/// @brief 現在のステートのキーを取得します。
+		/// @return 現在のステートのキー
+		[[nodiscard]]
+		const State_t& getState() const;
+
+		/// @brief 共有データへの参照を取得します。
+		/// @return 共有データへの参照
+		template <class DataType = Data, std::enable_if_t<not std::disjunction_v<std::is_array<DataType>, std::is_void<DataType>>>* = nullptr>
+		[[nodiscard]]
+		DataType& getData() const;
+
+		/// @brief シーンの変更をリクエストします。
+		/// @param state 次のシーンのキー
+		/// @param transitionTime フェードイン・アウトの時間
+		/// @param crossFade クロスフェードを有効にするか
+		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
+		bool changeScene(const State_t& state, const Duration& transitionTime = Milliseconds{ 1000 }, CrossFade crossFade = CrossFade::No);
+
+		/// @brief シーンの変更をリクエストします。
+		/// @param state 次のシーンのキー
+		/// @param transitionTimeMillisec フェードイン・アウトの時間（ミリ秒）
+		/// @param crossFade クロスフェードを有効にするか
+		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
+		bool changeScene(const State_t& state, int32 transitionTimeMillisec, CrossFade crossFade = CrossFade::No);
+
+		/// @brief エラーの発生を通知します。
+		/// @remark この関数を呼ぶと、以降のこのシーンを管理するクラスの `SceneManager::update()` が false を返します。
+		void notifyError();
 
 	private:
 
@@ -64,166 +122,91 @@ namespace s3d
 		std::shared_ptr<Data_t> m_data;
 
 		SceneManager<State_t, Data_t>* m_manager;
-
-	public:
-
-		explicit IScene(const InitData& init)
-			: m_state(init.state)
-			, m_data(init._s)
-			, m_manager(init._m) {}
-
-		virtual ~IScene() = default;
-
-		/// <summary>
-		/// フェードイン時の更新
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void updateFadeIn(double) {}
-
-		/// <summary>
-		/// 通常時の更新
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void update() {}
-
-		/// <summary>
-		/// フェードアウト時の更新
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void updateFadeOut(double) {}
-
-		/// <summary>
-		/// 通常時の描画
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void draw() const {}
-
-		/// <summary>
-		/// フェードイン時の描画
-		/// </summary>
-		/// <param name="t">
-		/// フェードインの経過 (0.0 → 1.0)
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void drawFadeIn(double t) const
-		{
-			draw();
-
-			Transformer2D transform(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
-
-			Scene::Rect().draw(ColorF(m_manager->getFadeColor()).setA(1.0 - t));
-		}
-
-		/// <summary>
-		/// フェードイアウト時の描画
-		/// </summary>
-		/// <param name="t">
-		/// フェードアウトの経過 (0.0 → 1.0)
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void drawFadeOut(double t) const
-		{
-			draw();
-
-			Transformer2D transform(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
-
-			Scene::Rect().draw(ColorF(m_manager->getFadeColor()).setA(t));
-		}
-
-	protected:
-
-		[[nodiscard]] const State_t& getState() const
-		{
-			return m_state;
-		}
-
-		/// <summary>
-		/// 共有データへの参照を取得します。
-		/// </summary>
-		/// <returns>
-		/// 共有データへの参照
-		/// </returns>
-		[[nodiscard]] Data_t& getData() const
-		{
-			return *m_data;
-		}
-
-		/// <summary>
-		/// シーンの変更を通知します。
-		/// </summary>
-		/// <param name="state">
-		/// 次のシーンのキー
-		/// </param>
-		/// <param name="transitionTime">
-		/// フェードイン・アウトの時間
-		/// </param>
-		/// <param name="crossFade">
-		/// クロスフェードを有効にするか
-		/// </param>
-		/// <returns>
-		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
-		/// </returns>
-		bool changeScene(const State_t& state, const Duration& transitionTime = MillisecondsF(1000), bool crossFade = false)
-		{
-			return changeScene(state, static_cast<int32>(transitionTime.count() * 1000), crossFade);
-		}
-
-		/// <summary>
-		/// シーンの変更を通知します。
-		/// </summary>
-		/// <param name="state">
-		/// 次のシーンのキー
-		/// </param>
-		/// <param name="transitionTimeMillisec">
-		/// フェードイン・アウトの時間（ミリ秒）
-		/// </param>
-		/// <param name="crossFade">
-		/// クロスフェードを有効にするか
-		/// </param>
-		/// <returns>
-		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
-		/// </returns>
-		bool changeScene(const State_t& state, int32 transitionTimeMillisec, bool crossFade = false)
-		{
-			return m_manager->changeScene(state, transitionTimeMillisec, crossFade);
-		}
-
-		/// <summary>
-		/// エラーの発生を通知します。
-		/// </summary>
-		/// <remarks>
-		/// この関数を呼ぶと、以降の SceneManager::update() / updateAndDraw() が false を返します。
-		/// </remarks>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void notifyError()
-		{
-			return m_manager->notifyError();
-		}
 	};
 
-	/// <summary>
-	/// シーン管理
-	/// </summary>
-	/// <remarks>
-	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
-	/// </remarks>
-	template <class State, class Data = detail::EmptyData>
+	/// @brief シーン遷移管理
+	/// @tparam State シーンを区別するキーの型
+	/// @tparam Data シーン間で共有するデータの型
+	template <class State, class Data = void>
 	class SceneManager
 	{
+	public:
+
+		/// @brief シーンのインタフェース型
+		using Scene = IScene<State, Data>;
+
+		/// @brief シーン管理を初期化します。
+		SIV3D_NODISCARD_CXX20
+		SceneManager();
+
+		/// @brief シーン管理を初期化します。
+		/// @param data 共有データ
+		SIV3D_NODISCARD_CXX20
+		explicit SceneManager(const std::shared_ptr<Data>& data);
+
+		/// @brief シーンを登録します。
+		/// @tparam SceneType シーンの型
+		/// @param state シーンのキー
+		/// @return シーンの登録に成功した場合 true, それ以外の場合は false
+		template <class SceneType>
+		SceneManager& add(const State& state);
+
+		/// @brief 最初のシーンを初期化します。
+		/// @param state 最初のシーン
+		/// @return 初期化に成功した場合 true, それ以外の場合は false
+		bool init(const State& state);
+
+		/// @brief 現在のシーンの更新処理のみを行います。
+		/// @remark 通常はこの関数は使用しません。
+		/// @return シーンの更新処理に成功した場合 true, それ以外の場合は false
+		bool updateScene();
+
+		/// @brief 現在のシーンの描画処理のみを行います。
+		/// @remark 通常はこの関数は使用しません。
+		void drawScene() const;
+
+		/// @brief 現在のシーンの更新処理と描画処理を行います。
+		/// @return シーンの更新処理に成功した場合 true, それ以外の場合は false
+		bool update();
+
+		/// @brief 共有データを取得します。
+		/// @return 共有データへのポインタ
+		[[nodiscard]]
+		std::shared_ptr<Data> get() noexcept;
+
+		/// @brief 共有データを取得します。
+		/// @return 共有データへのポインタ
+		[[nodiscard]]
+		const std::shared_ptr<const Data> get() const noexcept;
+
+		/// @brief シーンを変更します。
+		/// @param state 次のシーンのキー
+		/// @param transitionTime フェードイン・アウトの時間
+		/// @param crossFade ロスフェードを有効にするか
+		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
+		bool changeScene(const State& state, const Duration& transitionTime = Milliseconds{ 1000 }, CrossFade crossFade = CrossFade::No);
+
+		/// @brief シーンを変更します。
+		/// @param state 次のシーンのキー
+		/// @param transitionTimeMillisec フェードイン・アウトの時間（ミリ秒）
+		/// @param crossFade クロスフェードを有効にするか
+		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
+		bool changeScene(const State& state, int32 transitionTimeMillisec, CrossFade crossFade = CrossFade::No);
+
+		/// @brief デフォルトのフェードイン・アウトに使う色を設定します。
+		/// @param color デフォルトのフェードイン・アウトに使う色
+		/// @return *this
+		SceneManager& setFadeColor(const ColorF& color) noexcept;
+
+		/// @brief デフォルトのフェードイン・アウトに使う色を返します。
+		/// @return デフォルトのフェードイン・アウトに使う色
+		[[nodiscard]]
+		const ColorF& getFadeColor() const noexcept;
+
+		/// @brief エラーの発生を通知します。
+		/// @return この関数を呼ぶと、以降のこのクラスの `SceneManager::update()` が false を返します。
+		void notifyError() noexcept;
+
 	private:
 
 		using Scene_t = std::shared_ptr<IScene<State, Data>>;
@@ -246,7 +229,7 @@ namespace s3d
 
 		enum class TransitionState
 		{
-			None,
+			None_,
 
 			FadeIn,
 
@@ -256,7 +239,7 @@ namespace s3d
 
 			FadeInOut,
 
-		} m_transitionState = TransitionState::None;
+		} m_transitionState = TransitionState::None_;
 
 		Stopwatch m_stopwatch;
 
@@ -264,434 +247,34 @@ namespace s3d
 
 		ColorF m_fadeColor = Palette::Black;
 
-		bool m_crossFade = false;
+		CrossFade m_crossFade = CrossFade::No;
 
 		bool m_error = false;
 
-		bool updateSingle()
-		{
-			double elapsed = m_stopwatch.msF();
+		[[nodiscard]]
+		bool updateSingle();
 
-			if (m_transitionState == TransitionState::FadeOut && elapsed >= m_transitionTimeMillisec)
-			{
-				m_current = nullptr;
+		[[nodiscard]]
+		bool updateCross();
 
-				m_current = m_factories[m_nextState]();
-
-				if (hasError())
-				{
-					return false;
-				}
-
-				m_currentState = m_nextState;
-
-				m_transitionState = TransitionState::FadeIn;
-
-				m_stopwatch.restart();
-
-				elapsed = 0.0;
-			}
-
-			if (m_transitionState == TransitionState::FadeIn && elapsed >= m_transitionTimeMillisec)
-			{
-				m_stopwatch.reset();
-
-				m_transitionState = TransitionState::Active;
-			}
-
-			switch (m_transitionState)
-			{
-			case TransitionState::FadeIn:
-				assert(m_transitionTimeMillisec);
-				m_current->updateFadeIn(elapsed / m_transitionTimeMillisec);
-				return !hasError();
-			case TransitionState::Active:
-				m_current->update();
-				return !hasError();
-			case TransitionState::FadeOut:
-				assert(m_transitionTimeMillisec);
-				m_current->updateFadeOut(elapsed / m_transitionTimeMillisec);
-				return !hasError();
-			default:
-				return false;
-			}
-		}
-
-		bool updateCross()
-		{
-			const double elapsed = m_stopwatch.msF();
-
-			if (m_transitionState == TransitionState::FadeInOut)
-			{
-				if (elapsed >= m_transitionTimeMillisec)
-				{
-					m_current = m_next;
-
-					m_next = nullptr;
-
-					m_stopwatch.reset();
-
-					m_transitionState = TransitionState::Active;
-				}
-			}
-
-			if (m_transitionState == TransitionState::Active)
-			{
-				m_current->update();
-
-				return !hasError();
-			}
-			else
-			{
-				assert(m_transitionTimeMillisec);
-
-				const double t = elapsed / m_transitionTimeMillisec;
-
-				m_current->updateFadeOut(t);
-
-				if (hasError())
-				{
-					return false;
-				}
-
-				m_next->updateFadeIn(t);
-
-				return !hasError();
-			}
-		}
-
-		[[nodiscard]] bool hasError() const noexcept
-		{
-			return m_error;
-		}
-
-	public:
-
-		/// <summary>
-		/// シーンのインタフェース
-		/// </summary>
-		using Scene = IScene<State, Data>;
-
-		/// <summary>
-		/// シーン管理を初期化します。
-		/// </summary>
-		/// <param name="option">
-		/// シーン管理のオプション
-		/// </param>
-		SceneManager()
-			: m_data(MakeShared<Data>()) {}
-
-		/// <summary>
-		/// シーン管理を初期化します。
-		/// </summary>
-		/// <param name="data">
-		/// 共有データ
-		/// </param>
-		/// <param name="option">
-		/// シーン管理のオプション
-		/// </param>
-		explicit SceneManager(const std::shared_ptr<Data>& data)
-			: m_data(data) {}
-
-		/// <summary>
-		/// シーンを追加します。
-		/// </summary>
-		/// <param name="state">
-		/// シーンのキー
-		/// </param>
-		/// <returns>
-		/// 追加に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		template <class Scene>
-		SceneManager& add(const State& state)
-		{
-			typename Scene::InitData initData(state, m_data, this);
-			
-			auto factory = [=](){
-				return std::make_shared<Scene>(initData);
-			};
-		
-			auto it = m_factories.find(state);
-			
-			if (it != m_factories.end())
-			{
-				it.value() = factory;
-			}
-			else
-			{
-				m_factories.emplace(state, factory);
-
-				if (!m_first)
-				{
-					m_first = state;
-				}
-			}
-
-			return *this;
-		}
-
-		/// <summary>
-		/// 最初のシーンを初期化します。
-		/// </summary>
-		/// <param name="state">
-		/// 最初のシーン
-		/// </param>
-		/// <returns>
-		/// 初期化に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool init(const State& state)
-		{
-			if (m_current)
-			{
-				return false;
-			}
-
-			auto it = m_factories.find(state);
-
-			if (it == m_factories.end())
-			{
-				return false;
-			}
-
-			m_currentState = state;
-
-			m_current = it->second();
-
-			if (hasError())
-			{
-				return false;
-			}
-
-			m_transitionState = TransitionState::FadeIn;
-
-			m_stopwatch.restart();
-
-			return true;
-		}
-
-		/// <summary>
-		/// シーンを更新します。
-		/// </summary>
-		/// <returns>
-		/// シーンの更新に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool updateScene()
-		{
-			if (hasError())
-			{
-				return false;
-			}
-
-			if (!m_current)
-			{
-				if (!m_first)
-				{
-					return true;
-				}
-				else if (!init(m_first.value()))
-				{
-					return false;
-				}
-			}
-
-			if (m_crossFade)
-			{
-				return updateCross();
-			}
-			else
-			{
-				return updateSingle();
-			}
-		}
-
-		/// <summary>
-		/// シーンを描画します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void drawScene() const
-		{
-			if (!m_current)
-			{
-				return;
-			}
-
-			if (m_transitionState == TransitionState::Active || !m_transitionTimeMillisec)
-			{
-				m_current->draw();
-			}
-
-			const double elapsed = m_stopwatch.msF();
-
-			if (m_transitionState == TransitionState::FadeIn)
-			{
-				m_current->drawFadeIn(elapsed / m_transitionTimeMillisec);
-			}
-			else if (m_transitionState == TransitionState::FadeOut)
-			{
-				m_current->drawFadeOut(elapsed / m_transitionTimeMillisec);
-			}
-			else if (m_transitionState == TransitionState::FadeInOut)
-			{
-				m_current->drawFadeOut(elapsed / m_transitionTimeMillisec);
-
-				if (m_next)
-				{
-					m_next->drawFadeIn(elapsed / m_transitionTimeMillisec);
-				}
-			}
-		}
-
-		/// <summary>
-		/// シーンの更新と描画を行います。
-		/// </summary>
-		/// <returns>
-		/// シーンの更新に成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool update()
-		{
-			if (!updateScene())
-			{
-				return false;
-			}
-
-			drawScene();
-
-			return true;
-		}
-
-		/// <summary>
-		/// 共有データを取得します。
-		/// </summary>
-		/// <returns>
-		/// 共有データへのポインタ
-		/// </returns>
-		[[nodiscard]] std::shared_ptr<Data> get()
-		{
-			return m_data;
-		}
-
-		/// <summary>
-		/// 共有データを取得します。
-		/// </summary>
-		/// <returns>
-		/// 共有データへのポインタ
-		/// </returns>
-		[[nodiscard]] const std::shared_ptr<const Data> get() const
-		{
-			return m_data;
-		}
-
-		/// <summary>
-		/// シーンを変更します。
-		/// </summary>
-		/// <param name="state">
-		/// 次のシーンのキー
-		/// </param>
-		/// <param name="transitionTimeMillisec">
-		/// フェードイン・アウトの時間（ミリ秒）
-		/// </param>
-		/// <param name="crossFade">
-		/// クロスフェードを有効にするか
-		/// </param>
-		/// <returns>
-		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
-		/// </returns>
-		bool changeScene(const State& state, int32 transitionTimeMillisec, bool crossFade)
-		{
-			if (state == m_currentState)
-			{
-				crossFade = false;
-			}
-
-			if (m_factories.find(state) == m_factories.end())
-			{
-				return false;
-			}
-
-			m_nextState = state;
-
-			m_crossFade = crossFade;
-
-			if (crossFade)
-			{
-				m_transitionTimeMillisec = transitionTimeMillisec;
-
-				m_transitionState = TransitionState::FadeInOut;
-
-				m_next = m_factories[m_nextState]();
-
-				if (hasError())
-				{
-					return false;
-				}
-
-				m_currentState = m_nextState;
-
-				m_stopwatch.restart();
-			}
-			else
-			{
-				m_transitionTimeMillisec = (transitionTimeMillisec / 2);
-
-				m_transitionState = TransitionState::FadeOut;
-
-				m_stopwatch.restart();
-			}
-
-			return true;
-		}
-
-		/// <summary>
-		/// フェードイン・アウトのデフォルトの色を設定します。
-		/// </summary>
-		/// <param name="color">
-		/// フェードイン・アウトのデフォルトの色
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		SceneManager& setFadeColor(const ColorF& color)
-		{
-			m_fadeColor = color;
-			return *this;
-		}
-
-		/// <summary>
-		/// フェードイン・アウトのデフォルトの色を取得します。
-		/// </summary>
-		/// <returns>
-		/// フェードイン・アウトのデフォルトの色
-		/// </returns>
-		const ColorF& getFadeColor() const
-		{
-			return m_fadeColor;
-		}
-
-		/// <summary>
-		/// エラーの発生を通知します。
-		/// </summary>
-		/// <remarks>
-		/// この関数を呼ぶと、以降の SceneManager::update() / updateAndDraw() が false を返します。
-		/// </remarks>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void notifyError()
-		{
-			m_error = true;
-		}
+		[[nodiscard]]
+		bool hasError() const noexcept;
 	};
 }
 
-/* example
+# include "detail/SceneManager.ipp"
+
+
+/*
+//
+//	SceneManager example
+//
 
 # include <Siv3D.hpp>
 
 struct GameData
 {
-	Font font = Font(50);
+	Font font = Font{ 50 };
 
 	int32 score = 0;
 };
@@ -701,7 +284,7 @@ using MyApp = SceneManager<String, GameData>;
 struct Title : MyApp::Scene
 {
 	Title(const InitData& init)
-		: IScene(init)
+		: IScene{ init }
 	{
 		Print << getState();
 	}
@@ -716,14 +299,15 @@ struct Title : MyApp::Scene
 
 	void draw() const override
 	{
-		getData().font(U"Title").drawAt(Scene::Center());
+		getData().font(U"Title")
+			.drawAt(Scene::Center());
 	}
 };
 
 struct Game : MyApp::Scene
 {
 	Game(const InitData& init)
-		: IScene(init)
+		: IScene{ init }
 	{
 		Print << getState();
 
@@ -742,16 +326,20 @@ struct Game : MyApp::Scene
 
 	void draw() const override
 	{
-		getData().font(U"Game").drawAt(Scene::Center());
+		const Font& font = getData().font;
 
-		getData().font(getData().score).drawAt(Scene::Center().movedBy(0, 60));
+		font(U"Game")
+			.drawAt(Scene::Center());
+
+		font(getData().score)
+			.drawAt(Scene::Center().movedBy(0, 60));
 	}
 };
 
 struct Result : MyApp::Scene
 {
 	Result(const InitData& init)
-		: IScene(init)
+		: IScene{ init }
 	{
 		Print << getState();
 	}
@@ -766,22 +354,26 @@ struct Result : MyApp::Scene
 
 	void draw() const override
 	{
-		getData().font(U"Result").drawAt(Scene::Center());
+		const Font& font = getData().font;
 
-		getData().font(getData().score).drawAt(Scene::Center().movedBy(0, 60));
+		font(U"Result")
+			.drawAt(Scene::Center());
+
+		font(getData().score)
+			.drawAt(Scene::Center().movedBy(0, 60));
 	}
 };
 
 void Main()
 {
-	Scene::SetBackground(ColorF(0.5, 0.6, 0.7));
+	Scene::SetBackground(ColorF{ 0.5, 0.6, 0.7 });
 
 	MyApp manager;
 	manager
 		.add<Title>(U"Title")
 		.add<Game>(U"Game")
 		.add<Result>(U"Result")
-		.setFadeColor(ColorF(1.0));
+		.setFadeColor(ColorF{ 1.0 });
 
 	while (System::Update())
 	{

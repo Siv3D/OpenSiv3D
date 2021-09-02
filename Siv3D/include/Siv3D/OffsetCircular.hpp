@@ -2,271 +2,164 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <iostream>
-# include "Fwd.hpp"
-# include "NamedParameter.hpp"
+# include "Common.hpp"
 # include "PointVector.hpp"
-# include "MathConstants.hpp"
+# include "FastMath.hpp"
+# include "PredefinedNamedParameter.hpp"
 
 namespace s3d
 {
-	/// <summary>
-	/// 円座標
-	/// </summary>
-	template <int32 Oclock>
+	template <class Float, int32 Oclock = 0>
 	struct OffsetCircularBase
 	{
-	private:
+		using value_type = Float;
+		
+		using position_type = Vector2D<value_type>;
 
-		[[nodiscard]] static constexpr double Clamp(const double theta) noexcept
-		{
-			return theta <= -Math::Constants::Pi ? theta + Math::Constants::TwoPi : theta;
-		}
-        
-		[[nodiscard]] static constexpr double Clock() noexcept
-		{
-			return Oclock * (Math::Constants::TwoPi / 12);
-		}
+		position_type center;
 
-		[[nodiscard]] static constexpr double Offset(const double theta) noexcept
-		{
-			return Clamp(theta - Clock());
-		}
+		/// @brief 半径
+		value_type r;
 
-	public:
+		/// @brief 角度（ラジアン）
+		value_type theta;
 
-		Vec2 center;
-
-		/// <summary>
-		/// 半径
-		/// </summary>
-		double r;
-
-		/// <summary>
-		/// 角度（ラジアン）
-		/// </summary>
-		double theta;
-
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
+		SIV3D_NODISCARD_CXX20
 		OffsetCircularBase() = default;
 
-		constexpr OffsetCircularBase(const Vec2& _center, double _r = 0.0, double _theta = 0.0) noexcept
-			: center(_center)
-			, r(_r)
-			, theta(_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr OffsetCircularBase(const position_type& _center, value_type _r = 0, value_type _theta = 0) noexcept;
 
-		constexpr OffsetCircularBase(const Vec2& _center, Arg::r_<double> _r, Arg::theta_<double> _theta) noexcept
-			: center(_center)
-			, r(*_r)
-			, theta(*_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr OffsetCircularBase(const position_type& _center, Arg::r_<value_type> _r, Arg::theta_<value_type> _theta) noexcept;
 
-		constexpr OffsetCircularBase(const Vec2& _center, Arg::theta_<double> _theta, Arg::r_<double> _r) noexcept
-			: center(_center)
-			, r(*_r)
-			, theta(*_theta) {}
+		SIV3D_NODISCARD_CXX20
+		constexpr OffsetCircularBase(const position_type& _center, Arg::theta_<value_type> _theta, Arg::r_<value_type> _r) noexcept;
 
-		OffsetCircularBase(const Vec2& _center, const Vec2& target) noexcept
-			: center(_center)
+		SIV3D_NODISCARD_CXX20
+		OffsetCircularBase(const position_type& _center, const position_type& target) noexcept;
+
+		[[nodiscard]]
+		constexpr OffsetCircularBase operator +(position_type v) const noexcept;
+
+		[[nodiscard]]
+		constexpr OffsetCircularBase operator -(position_type v) const noexcept;
+
+		constexpr OffsetCircularBase& operator +=(position_type v) noexcept;
+
+		constexpr OffsetCircularBase& operator -=(position_type v) noexcept;
+
+		[[nodiscard]]
+		constexpr OffsetCircularBase movedBy(value_type x, value_type y) const noexcept;
+
+		[[nodiscard]]
+		constexpr OffsetCircularBase movedBy(position_type v) const noexcept;
+
+		constexpr OffsetCircularBase& moveBy(value_type x, value_type y) noexcept;
+
+		constexpr OffsetCircularBase& moveBy(position_type v) noexcept;
+
+		constexpr OffsetCircularBase& setCenter(value_type x, value_type y) noexcept;
+
+		constexpr OffsetCircularBase& setCenter(position_type _center) noexcept;
+
+		OffsetCircularBase& setTarget(value_type x, value_type y) noexcept;
+
+		OffsetCircularBase& setTarget(position_type target) noexcept;
+
+		[[nodiscard]]
+		constexpr OffsetCircularBase rotated(value_type angle) const noexcept;
+
+		constexpr OffsetCircularBase& rotate(value_type angle) noexcept;
+
+		[[nodiscard]]
+		Float2 toFloat2() const noexcept;
+
+		[[nodiscard]]
+		Vec2 toVec2() const noexcept;
+
+		[[nodiscard]]
+		Float2 fastToFloat2() const noexcept;
+
+		[[nodiscard]]
+		Vec2 fastToVec2() const noexcept;
+
+		[[nodiscard]]
+		position_type toPosition() const noexcept;
+
+		[[nodiscard]]
+		operator position_type() const noexcept;
+
+		[[nodiscard]]
+		size_t hash() const noexcept;
+		
+		template <class CharType>
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const OffsetCircularBase& value)
 		{
-			setTarget(target);
+			return output << CharType('(')
+				<< value.center.x << CharType(',') << CharType(' ')
+				<< value.center.y << CharType(',') << CharType(' ')
+				<< value.r << CharType(',') << CharType(' ')
+				<< value.theta << CharType(')');
 		}
 
-		[[nodiscard]] constexpr OffsetCircularBase operator +(const Vec2& v) const noexcept
+		template <class CharType>
+		friend std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, OffsetCircularBase& value)
 		{
-			return movedBy(v);
+			CharType unused;
+			return input >> unused
+				>> value.center.x >> unused
+				>> value.center.y >> unused
+				>> value.r >> unused
+				>> value.theta >> unused;
 		}
 
-		[[nodiscard]] constexpr OffsetCircularBase operator -(const Vec2& v) const noexcept
+		friend void Formatter(FormatData& formatData, const OffsetCircularBase& value)
 		{
-			return movedBy(-v);
+			Formatter(formatData, Vector4D<value_type>(value.center, value.r, value.theta));
 		}
 
-		constexpr OffsetCircularBase& operator +=(const Vec2& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+	private:
 
-		constexpr OffsetCircularBase& operator -=(const Vec2& v) noexcept
-		{
-			return moveBy(-v.x, -v.y);
-		}
+		[[nodiscard]]
+		static constexpr value_type ClampAngle(value_type theta) noexcept;
 
-		constexpr OffsetCircularBase& moveBy(double x, double y) noexcept
-		{
-			center.moveBy(x, y);
+		[[nodiscard]]
+		static constexpr value_type Clock() noexcept;
 
-			return *this;
-		}
-
-		constexpr OffsetCircularBase& moveBy(const Vec2& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
-
-		[[nodiscard]] constexpr OffsetCircularBase movedBy(double x, double y) const noexcept
-		{
-			return OffsetCircularBase(*this).moveBy(x, y);
-		}
-
-		[[nodiscard]] constexpr OffsetCircularBase movedBy(const Vec2& v) const noexcept
-		{
-			return movedBy(v.x, v.y);
-		}
-
-		constexpr OffsetCircularBase& setCenter(double x, double y) noexcept
-		{
-			return setCenter(Vec2(x, y));
-		}
-
-		constexpr OffsetCircularBase& setCenter(const Vec2& _center) noexcept
-		{
-			center = _center;
-
-			return *this;
-		}
-
-		OffsetCircularBase& setTarget(double x, double y) noexcept
-		{
-			return setTarget(Vec2(x, y));
-		}
-
-		OffsetCircularBase& setTarget(const Vec2& target) noexcept
-		{
-			const Vec2 v = target - center;
-
-			r = v.length();
-
-			theta = Offset(std::atan2(v.x, -v.y));
-
-			return *this;
-		}
-
-		[[nodiscard]] constexpr OffsetCircularBase rotated(double angle) const noexcept
-		{
-			return OffsetCircularBase(*this).rotate(angle);
-		}
-
-		constexpr OffsetCircularBase& rotate(double angle) noexcept
-		{
-			theta += angle;
-
-			return *this;
-		}
-
-		[[nodiscard]] Vec2 toVec2() const noexcept
-		{
-			return center.movedBy(std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r);
-		}
-
-		[[nodiscard]] Float2 toFloat2() const noexcept
-		{
-			return{ center.x + std::sin(theta + Clock()) * r, center.y - std::cos(theta + Clock()) * r };
-		}
-
-		[[nodiscard]] operator Vec2() const noexcept
-		{
-			return toVec2();
-		}
+		[[nodiscard]]
+		static constexpr value_type Offset(value_type theta) noexcept;
 	};
 
-	using OffsetCircular  = OffsetCircularBase<0>;
-	using OffsetCircular0 = OffsetCircularBase<0>;
-	using OffsetCircular3 = OffsetCircularBase<3>;
-	using OffsetCircular6 = OffsetCircularBase<6>;
-	using OffsetCircular9 = OffsetCircularBase<9>;
+	using OffsetCircular	= OffsetCircularBase<double, 0>;
+	using OffsetCircular0	= OffsetCircularBase<double, 0>;
+	using OffsetCircular3	= OffsetCircularBase<double, 3>;
+	using OffsetCircular6	= OffsetCircularBase<double, 6>;
+	using OffsetCircular9	= OffsetCircularBase<double, 9>;
+
+	using OffsetCircularF	= OffsetCircularBase<float, 0>;
+	using OffsetCircular0F	= OffsetCircularBase<float, 0>;
+	using OffsetCircular3F	= OffsetCircularBase<float, 3>;
+	using OffsetCircular6F	= OffsetCircularBase<float, 6>;
+	using OffsetCircular9F	= OffsetCircularBase<float, 9>;
 }
 
-//////////////////////////////////////////////////
-//
-//	Format
-//
-//////////////////////////////////////////////////
+# include "detail/OffsetCircular.ipp"
 
-namespace s3d
+template <class Float, s3d::int32 Oclock>
+struct std::hash<s3d::OffsetCircularBase<Float, Oclock>>
 {
-	template <int32 Oclock>
-	inline void Formatter(FormatData& formatData, const OffsetCircularBase<Oclock>& value)
+	[[nodiscard]]
+	size_t operator()(const s3d::OffsetCircularBase<Float, Oclock>& value) const noexcept
 	{
-		Formatter(formatData, Vec4(value.center, value.r, value.theta));
+		return value.hash();
 	}
-
-	template <class CharType, int32 Oclock>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const OffsetCircularBase<Oclock>& value)
-	{
-		return output << CharType('(')
-			<< value.center.x << CharType(',') << CharType(' ')
-			<< value.center.y << CharType(',') << CharType(' ')
-			<< value.r << CharType(',') << CharType(' ')
-			<< value.theta << CharType(')');
-	}
-
-	template <class CharType, int32 Oclock>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, OffsetCircularBase<Oclock>& value)
-	{
-		CharType unused;
-		return input >> unused
-			>> value.center.x >> unused
-			>> value.center.y >> unused
-			>> value.r >> unused
-			>> value.theta >> unused;
-	}
-}
-
-//////////////////////////////////////////////////
-//
-//	Hash
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	template <s3d::int32 Oclock>
-	struct hash<s3d::OffsetCircularBase<Oclock>>
-	{
-		[[nodiscard]] size_t operator ()(const s3d::OffsetCircularBase<Oclock>& value) const noexcept
-		{
-			return s3d::Hash::FNV1a(value);
-		}
-	};
-}
-
-//////////////////////////////////////////////////
-//
-//	fmt
-//
-//////////////////////////////////////////////////
-
-namespace fmt_s3d
-{
-	template <s3d::int32 Oclock>
-	struct formatter<s3d::OffsetCircularBase<Oclock>, s3d::char32>
-	{
-		s3d::String tag;
-
-		template <class ParseContext>
-		auto parse(ParseContext& ctx)
-		{
-			return s3d::detail::GetFmtTag(tag, ctx);
-		}
-
-		template <class Context>
-		auto format(const s3d::OffsetCircularBase<Oclock>& value, Context& ctx)
-		{
-			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
-			);
-
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.x, value.y, value.r, value.theta);
-		}
-	};
-}
+};

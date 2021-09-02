@@ -2,350 +2,427 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
-# include "AssetHandle.hpp"
-# include "Array.hpp"
+# include "Common.hpp"
 # include "String.hpp"
-# include "Color.hpp"
-# include "PointVector.hpp"
-# include "Rectangle.hpp"
-# include "TextureRegion.hpp"
-# include "NamedParameter.hpp"
+# include "AssetHandle.hpp"
+# include "FontStyle.hpp"
+# include "GlyphInfo.hpp"
+# include "GlyphCluster.hpp"
 # include "OutlineGlyph.hpp"
+# include "PolygonGlyph.hpp"
+# include "BitmapGlyph.hpp"
+# include "SDFGlyph.hpp"
+# include "MSDFGlyph.hpp"
+# include "FontMethod.hpp"
+# include "Typeface.hpp"
+# include "TextStyle.hpp"
+# include "Glyph.hpp"
+# include "PixelShader.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
-	enum class Typeface
+	struct DrawableText;
+
+	/// @brief フォント
+	class Font : public AssetHandle<Font>
 	{
-		Thin,
-
-		Light,
-
-		Regular,
-
-		Medium,
-
-		Bold,
-
-		Heavy,
-
-		Black,
-
-		Default = Regular,
-	};
-
-	/// <summary>
-	///	フォントスタイルのフラグ
-	/// </summary>
-	enum class FontStyle : uint32
-	{
-		Default = 0x0,
-
-		Bold = 0x01,
-
-		Italic = 0x02,
-
-		BoldItalic = Bold | Italic,
-
-		Bitmap = 0x04,
-
-		BoldBitmap = Bold | Bitmap,
-
-		ItalicBitmap = Italic | Bitmap,
-
-		BoldItalicBitmap = Bold | Italic | Bitmap,
-	};
-
-	struct Glyph
-	{
-		TextureRegion texture;
-
-		char32 codePoint = U'\0';
-
-		Point offset = Point(0, 0);
-
-		int32 bearingY = 0;
-
-		int32 xAdvance = 0;
-
-		int32 yAdvance = 0;
-
-		int32 index = 0;
-	};
-	
-	class Font
-	{
-	protected:
-
-		struct Tag {};
-
-		using FontHandle = AssetHandle<Tag>;
-
-		std::shared_ptr<FontHandle> m_handle;
-		
-		friend FontHandle::AssetHandle();
-		
-		friend FontHandle::AssetHandle(const IDWrapperType id) noexcept;
-		
-		friend FontHandle::~AssetHandle();
-
 	public:
 
-		using IDType = FontHandle::IDWrapperType;
-
-		static constexpr int32 MaxSize = 256;
-
+		/// @brief デフォルトコンストラクタ
+		SIV3D_NODISCARD_CXX20
 		Font();
 
-		explicit Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
+		/// @brief フォントを作成します。
+		/// @param fontSize フォントの基本サイズ
+		/// @param path ロードするフォントファイルのパス
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 
-		Font(int32 fontSize, const FilePath& path, FontStyle style = FontStyle::Default);
+		/// @brief フォントを作成します。
+		/// @param fontSize フォントの基本サイズ
+		/// @param path ロードするフォントファイルのパス
+		/// @param faceIndex フォントファイルが複数のフォントコレクションを含む場合のインデックス
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 
+		/// @brief フォントを作成します。
+		/// @param fontSize フォントの基本サイズ
+		/// @param typeface フォントの種類
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+
+		/// @brief フォントを作成します。
+		/// @param fontMethod フォントのレンダリング方式
+		/// @param fontSize フォントの基本サイズ
+		/// @param path ロードするフォントファイルのパス
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+
+		/// @brief フォントを作成します。
+		/// @param fontMethod フォントのレンダリング方式
+		/// @param fontSize フォントの基本サイズ
+		/// @param path ロードするフォントファイルのパス
+		/// @param faceIndex フォントファイルが複数のフォントコレクションを含む場合のインデックス
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+
+		/// @brief フォントを作成します。
+		/// @param fontMethod フォントのレンダリング方式
+		/// @param fontSize フォントの基本サイズ
+		/// @param typeface フォントの種類
+		/// @param style フォントのスタイル
+		SIV3D_NODISCARD_CXX20
+		Font(FontMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+
+		/// @brief デストラクタ
 		virtual ~Font();
 
-		void release();
+		/// @brief フォールバッグフォントを追加します。
+		/// @param font フォールバックとして追加するフォント
+		/// @return 追加に成功した場合 true, それ以外の場合は false
+		bool addFallback(const Font& font) const;
 
-		[[nodiscard]] bool isEmpty() const;
+		bool addFallback(Font&& font) const = delete;
 
-		[[nodiscard]] explicit operator bool() const;
+		/// @brief ロードしたフォントのファミリーネームを返します。
+		/// @return ロードしたフォントのファミリーネーム
+		[[nodiscard]]
+		const String& familyName() const;
 
-		[[nodiscard]] IDType id() const;
+		/// @brief ロードしたフォントのスタイルネームを返します。
+		/// @return ロードしたフォントのスタイルネーム
+		[[nodiscard]]
+		const String& styleName() const;
 
-		[[nodiscard]] bool operator ==(const Font& font) const;
+		/// @brief フォントが色情報を持つかを返します。
+		/// @return フォントが色情報を持つ場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool hasColor() const;
 
-		[[nodiscard]] bool operator !=(const Font& font) const;
+		/// @brief フォントのスタイルを返します。
+		/// @return フォントのスタイル
+		[[nodiscard]]
+		FontStyle style() const;
 
-		[[nodiscard]] const String& familyName() const;
+		/// @brief フォントのレンダリング方式を返します。
+		/// @return フォントのレンダリング方式
+		[[nodiscard]]
+		FontMethod method() const;
 
-		[[nodiscard]] const String& styleName() const;
+		/// @brief フォトの基本サイズを返します。
+		/// @return フォントの基本サイズ
+		[[nodiscard]]
+		int32 fontSize() const;
 
-		[[nodiscard]] int32 fontSize() const;
+		/// @brief フォントのアセンダーの高さ（ピクセル）を返します。
+		/// @return フォントのアセンダーの高さ（ピクセル）
+		[[nodiscard]]
+		int32 ascender() const;
 
-		[[nodiscard]] int32 ascent() const;
+		/// @brief フォントのディセンダーの高さ（ピクセル）を返します。
+		/// @return フォントのディセンダーの高さ（ピクセル）
+		[[nodiscard]]
+		int32 descender() const;
 
-		[[nodiscard]] int32 descent() const;
+		/// @brief フォントの高さ（ピクセル）を返します。
+		/// @remark `ascender() + descender()` と一致します。
+		/// @return フォントの高さ（ピクセル）
+		[[nodiscard]]
+		int32 height() const;
 
-		[[nodiscard]] int32 height() const;
+		/// @brief 半角スペースの幅（ピクセル）を返します。
+		/// @return 半角スペースの幅（ピクセル）
+		[[nodiscard]]
+		double spaceWidth() const;
 
-		[[nodiscard]] Glyph getGlyph(char32 codePoint) const;
+		/// @brief インデントに含まれるスペースの数を返します。
+		/// @return インデントに含まれるスペースの数
+		[[nodiscard]]
+		int32 indentSize() const;
 
-		[[nodiscard]] Array<Glyph> getGlyphs(const String& text) const;
+		/// @brief インデントに含まれるスペースの数を設定します。
+		/// @param indentSize インデントに含まれるスペースの数
+		/// @return *this
+		const Font& setIndentSize(int32 indentSize) const;
 
-		[[nodiscard]] Array<Glyph> getVerticalGlyphs(const String& text) const;
+		/// @brief レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白を設定します。 
+		/// @param thickness 
+		/// @remark デフォルト値は 2 です。
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @return *this
+		const Font& setBufferThickness(int32 thickness) const;
 
-		[[nodiscard]] OutlineGlyph getOutlineGlyph(char32 codePoint) const;
+		/// @brief  レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白を返します。
+		/// @return レンダリング方式が SDF, MSDF の場合にキャッシュテクスチャに保存する文字の周囲の余白
+		[[nodiscard]]
+		int32 getBufferThickness() const;
 
-		/// <summary>
-		/// 描画するテキストを作成します。
-		/// </summary>
-		/// <param name="text">
-		/// 文字列
-		/// </param>
-		/// <returns>
-		/// DrawableString
-		/// </returns>
-		[[nodiscard]] DrawableText operator()(const String& text) const;
+		/// @brief 指定した文字のグリフを持つかを返します。
+		/// @param ch 文字
+		/// @return グリフを持つ場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool hasGlyph(char32 ch) const;
 
-		/// <summary>
-		/// 描画するテキストを作成します。
-		/// </summary>
-		/// <param name="text">
-		/// 文字列
-		/// </param>
-		/// <returns>
-		/// DrawableString
-		/// </returns>
-		[[nodiscard]] DrawableText operator()(String&& text) const;
+		/// @brief 指定した文字のグリフを持つかを返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return グリフを持つ場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool hasGlyph(StringView ch) const;
 
-		/// <summary>
-		/// 描画するテキストを作成します。
-		/// </summary>
-		/// <param name="args">
-		/// 文字列に変換するデータ
-		/// </param>
-		/// <returns>
-		/// DrawableString
-		/// </returns>
+		/// @brief フォントが持つグリフの数を返します。
+		/// @return フォントが持つグリフの数。
+		[[nodiscard]]
+		uint32 num_glyphs() const;
+
+		/// @brief 指定した文字の、このフォント内でのグリフインデックスを返します。
+		/// @param ch 文字
+		/// @return このフォント内でのグリフインデックス
+		[[nodiscard]]
+		GlyphIndex getGlyphIndex(char32 ch) const;
+
+		/// @brief 指定した文字の、このフォント内でのグリフインデックスを返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return このフォント内でのグリフインデックス
+		[[nodiscard]]
+		GlyphIndex getGlyphIndex(StringView ch) const;
+
+		/// @brief 文字列に対応するグリフクラスターを返します。
+		/// @param s 文字列
+		/// @param useFallback フォールバックフォントを使用するか
+		/// @return 文字列に対応するグリフクラスター
+		[[nodiscard]]
+		Array<GlyphCluster> getGlyphClusters(StringView s, UseFallback useFallback = UseFallback::Yes) const;
+
+		/// @brief 指定した文字のグリフ情報を返します。
+		/// @param ch 文字
+		/// @return 文字のグリフ情報
+		[[nodiscard]]
+		GlyphInfo getGlyphInfo(char32 ch) const;
+
+		/// @brief 指定した文字のグリフ情報を返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 文字のグリフ情報
+		[[nodiscard]]
+		GlyphInfo getGlyphInfo(StringView ch) const;
+
+		/// @brief 指定した文字のグリフ情報を返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @return 文字のグリフ情報
+		[[nodiscard]]
+		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		/// @brief 指定した文字の輪郭グリフを作成して返します。
+		/// @param ch 文字
+		/// @param closeRing 各輪郭の頂点配列について、末尾の頂点を先頭の頂点と一致させるか
+		/// @return 文字の輪郭グリフ
+		[[nodiscard]]
+		OutlineGlyph renderOutline(char32 ch, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 指定した文字の輪郭グリフを作成して返します。
+		/// @param ch 文字
+		/// @param closeRing 各輪郭の頂点配列について、末尾の頂点を先頭の頂点と一致させるか
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 文字の輪郭グリフ
+		[[nodiscard]]
+		OutlineGlyph renderOutline(StringView ch, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 指定した文字の輪郭グリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @param closeRing 各輪郭の頂点配列について、末尾の頂点を先頭の頂点と一致させるか
+		/// @return 文字の輪郭グリフ
+		[[nodiscard]]
+		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 指定した文字列のすべての文字の輪郭グリフの配列を作成して返します。
+		/// @param s 文字列
+		/// @param closeRing 各輪郭の頂点配列について、末尾の頂点を先頭の頂点と一致させるか
+		/// @return 文字の輪郭グリフの配列
+		[[nodiscard]]
+		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing = CloseRing::No) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param ch 文字
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygon(char32 ch) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygon(StringView ch) const;
+
+		/// @brief 指定した文字のポリゴングリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		PolygonGlyph renderPolygonByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		/// @brief 指定した文字列のすべての文字のポリゴングリフの配列を作成して返します。
+		/// @param s 文字列
+		/// @return 文字のポリゴングリフの配列
+		[[nodiscard]]
+		Array<PolygonGlyph> renderPolygons(StringView s) const;
+
+		/// @brief 指定した文字の Bitmap グリフを作成して返します。
+		/// @param ch 文字
+		/// @remark フォント自身のレンダリング方式に関わらずこの関数を使用できますが、結果を内部にキャッシュすることはしません。
+		/// @return 文字の Bitmap グリフ
+		[[nodiscard]]
+		BitmapGlyph renderBitmap(char32 ch) const;
+
+		/// @brief 指定した文字の Bitmap グリフを作成して返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @remark フォント自身のレンダリング方式に関わらずこの関数を使用できますが、結果を内部にキャッシュすることはしません。
+		/// @return 文字の Bitmap グリフ
+		[[nodiscard]]
+		BitmapGlyph renderBitmap(StringView ch) const;
+
+		/// @brief 指定した文字の Bitmap グリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @remark フォント自身のレンダリング方式に関わらずこの関数を使用できますが、結果を内部にキャッシュすることはしません。
+		/// @return 文字の Bitmap グリフ
+		[[nodiscard]]
+		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex) const;
+
+		/// @brief 指定した文字の SDF グリフを作成して返します。
+		/// @param ch 文字
+		/// @param buffer 文字の周囲の余白
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の SDF グリフ
+		[[nodiscard]]
+		SDFGlyph renderSDF(char32 ch, int32 buffer = 3) const;
+
+		/// @brief 指定した文字の SDF グリフを作成して返します。
+		/// @param ch 文字
+		/// @param buffer 文字の周囲の余白
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の SDF グリフ
+		[[nodiscard]]
+		SDFGlyph renderSDF(StringView ch, int32 buffer = 3) const;
+
+		/// @brief 指定した文字の SDF グリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @param buffer 文字の周囲の余白
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の SDF グリフ
+		[[nodiscard]]
+		SDFGlyph renderSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer = 3) const;
+
+		/// @brief 指定した文字の MSDF グリフを作成して返します。
+		/// @param ch 文字
+		/// @param buffer 文字の周囲の余白
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の MSDF グリフ
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(char32 ch, int32 buffer = 3) const;
+
+		/// @brief 指定した文字の MSDF グリフを作成して返します。
+		/// @param ch 文字
+		/// @param buffer 文字の周囲の余白
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の MSDF グリフ
+		[[nodiscard]]
+		MSDFGlyph renderMSDF(StringView ch, int32 buffer = 3) const;
+
+		/// @brief 指定した文字の MSDF グリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @param buffer 文字の周囲の余白
+		/// @remark 小さい余白は省メモリで描画のオーバーヘッドが少ないですが、文字の輪郭の描画の品質が低下する場合があります。
+		/// @remark ストローク情報を持たないフォントの場合、作成に失敗して空のグリフを返します。
+		/// @return 文字の MSDF グリフ
+		[[nodiscard]]
+		MSDFGlyph renderMSDFByGlyphIndex(GlyphIndex glyphIndex, int32 buffer = 3) const;
+
+		/// @brief 指定した文字列のためのグリフを事前生成します。
+		/// @param chars 文字列
+		/// @remark 新しいグリフをキャッシュするための処理でゲーム中のフレームレートが低下するようなことを防げます。
+		/// @return 事前生成に成功した場合 true, それ以外の場合は false
+		bool preload(StringView chars) const;
+
+		/// @brief フォントの内部でキャッシュされているテクスチャを返します。
+		/// @return フォントの内部でキャッシュされているテクスチャ
+		[[nodiscard]]
+		const Texture& getTexture() const;
+
+		/// @brief 指定した文字の描画用のグリフを返します。
+		/// @param ch 文字
+		/// @return 描画用グリフ
+		[[nodiscard]]
+		Glyph getGlyph(char32 ch) const;
+
+		/// @brief 指定した文字の描画用のグリフを返します。
+		/// @param ch 文字
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 描画用グリフ
+		[[nodiscard]]
+		Glyph getGlyph(StringView ch) const;
+
+		/// @brief 指定した文字列の描画用のグリフ配列を返します。
+		/// @param s 文字列
+		/// @return 指定した文字列の描画用のグリフ配列
+		[[nodiscard]]
+		Array<Glyph> getGlyphs(StringView s) const;
+
+		/// @brief フォントを描画するために必要な DrawableText を、文字列から構築します。
+		/// @param text 文字列
+		/// @return DrawableText
+		[[nodiscard]]
+		DrawableText operator()(const String& text) const;
+
+		/// @brief フォントを描画するために必要な DrawableText を、文字列から構築します。
+		/// @param text 文字列
+		/// @return DrawableText
+		[[nodiscard]]
+		DrawableText operator()(String&& text) const;
+
+		/// @brief フォントを描画するために必要な DrawableText を、一連の引数を文字列に変換することで構築します。
+		/// @tparam ...Args 引数の型
+		/// @param ...args 文字列に変換する値
+		/// @return DrawableText
 		template <class ... Args>
-		[[nodiscard]] inline DrawableText operator()(const Args& ... args) const;
+		[[nodiscard]]
+		DrawableText operator()(const Args& ... args) const;
 
-		[[nodiscard]] const Texture& getTexture() const;
+		void swap(Font& other) noexcept;
+
+		/// @brief テキスト描画用の標準ピクセルシェーダを返します。
+		/// @param method フォントのレンダリング方式
+		/// @param type テキストのスタイル
+		/// @param hasColor カラー情報をもつフォント（カラー絵文字など）であるか
+		/// @return 指定した設定でのテキスト描画用の標準ピクセルシェーダ
+		[[nodiscard]]
+		static const PixelShader& GetPixelShader(FontMethod method, TextStyle::Type type = TextStyle::Type::Default, HasColor hasColor = HasColor::No);
 	};
-
-	class GlyphIterator
-	{
-	private:
-
-		Font m_font;
-
-		String::const_iterator m_iterator;
-
-		int32 m_index = 0;
-
-	public:
-
-		GlyphIterator() = default;
-
-		GlyphIterator(const GlyphIterator&) = default;
-
-		GlyphIterator(const Font& font, String::const_iterator it, int32 index);
-
-		GlyphIterator& operator =(const GlyphIterator&) = default;
-
-		GlyphIterator& operator ++();
-
-		[[nodiscard]] Glyph operator *() const;
-
-		[[nodiscard]] bool operator ==(const GlyphIterator& other) const;
-		
-		[[nodiscard]] bool operator !=(const GlyphIterator& other) const;
-	};
-
-	using FontID = Font::IDType;
-
-	struct DrawableText
-	{
-		Font font;
-
-		String text;
-
-		DrawableText() = default;
-
-		DrawableText(const Font& _font, const String& _text);
-
-		DrawableText(const Font& _font, String&& _text);
-
-		[[nodiscard]] GlyphIterator begin() const;
-
-		[[nodiscard]] GlyphIterator end() const;
-
-		[[nodiscard]] RectF boundingRect(double x, double y) const;
-
-		[[nodiscard]] RectF boundingRect(const Vec2& pos = Vec2(0, 0)) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::topLeft_<Vec2> topLeft) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::topRight_<Vec2> topRight) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::bottomLeft_<Vec2> bottomLeft) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::bottomRight_<Vec2> bottomRight) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::topCenter_<Vec2> topCenter) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::bottomCenter_<Vec2> bottomCenter) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::leftCenter_<Vec2> leftCenter) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::rightCenter_<Vec2> rightCenter) const;
-
-		[[nodiscard]] RectF boundingRect(Arg::center_<Vec2> center) const;
-
-		[[nodiscard]] RectF boundingRectAt(double x, double y) const;
-
-		[[nodiscard]] RectF boundingRectAt(const Vec2& pos = Vec2(0, 0)) const;
-
-		[[nodiscard]] RectF region(double x, double y) const;
-
-		[[nodiscard]] Rect region(const Point& pos = Point(0, 0)) const;
-
-		[[nodiscard]] RectF region(const Vec2& pos) const;
-
-		[[nodiscard]] RectF region(Arg::topLeft_<Vec2> topLeft) const;
-
-		[[nodiscard]] RectF region(Arg::topRight_<Vec2> topRight) const;
-
-		[[nodiscard]] RectF region(Arg::bottomLeft_<Vec2> bottomLeft) const;
-
-		[[nodiscard]] RectF region(Arg::bottomRight_<Vec2> bottomRight) const;
-
-		[[nodiscard]] RectF region(Arg::topCenter_<Vec2> topCenter) const;
-
-		[[nodiscard]] RectF region(Arg::bottomCenter_<Vec2> bottomCenter) const;
-
-		[[nodiscard]] RectF region(Arg::leftCenter_<Vec2> leftCenter) const;
-
-		[[nodiscard]] RectF region(Arg::rightCenter_<Vec2> rightCenter) const;
-
-		[[nodiscard]] RectF region(Arg::center_<Vec2> center) const;
-
-		[[nodiscard]] RectF regionAt(double x, double y) const;
-
-		[[nodiscard]] RectF regionAt(const Vec2& pos = Vec2(0, 0)) const;
-
-		[[nodiscard]] Array<int32> getXAdvances() const;
-
-		RectF draw(double x, double y, const ColorF& color = Palette::White) const;
-
-		RectF draw(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::topRight_<Vec2> topRight, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::topCenter_<Vec2> topCenter, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::rightCenter_<Vec2> rightCenter, const ColorF& color = Palette::White) const;
-
-		RectF draw(Arg::center_<Vec2> center, const ColorF& color = Palette::White) const;
-
-		RectF drawAt(double x, double y, const ColorF& color = Palette::White) const;
-
-		RectF drawAt(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const;
-
-		RectF drawBase(double x, double y, const ColorF& color = Palette::White) const;
-
-		RectF drawBase(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const;
-
-		RectF drawBase(Arg::left_<Vec2> left, const ColorF& color = Palette::White) const;
-
-		RectF drawBase(Arg::right_<Vec2> right, const ColorF& color = Palette::White) const;
-
-		RectF drawBase(Arg::center_<Vec2> center, const ColorF& color = Palette::White) const;
-
-		RectF drawBaseAt(double x, double y, const ColorF& color = Palette::White) const;
-
-		RectF drawBaseAt(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const;
-
-		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
-
-		Rect paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
-
-		Rect paint(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
-
-		RectF paintAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
-
-		RectF paintAt(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
-
-		Rect overwrite(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
-
-		Rect overwrite(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
-
-		RectF overwriteAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
-
-		RectF overwriteAt(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
-	};
-
-	template <class ... Args>
-	inline DrawableText Font::operator()(const Args& ... args) const
-	{
-		return DrawableText(*this, Format(args...));
-	}
 }
+
+template <>
+inline void std::swap(s3d::Font& a, s3d::Font& b) noexcept;
+
+# include "detail/Font.ipp"

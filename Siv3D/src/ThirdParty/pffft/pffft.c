@@ -123,12 +123,12 @@ inline v4sf ld_ps1(const float *p) { v4sf v=vec_lde(0,p); return vec_splat(vec_p
     x3 = vec_mergel(y1, y3);                    \
   }
 #  define VSWAPHL(a,b) vec_perm(a,b, (vector unsigned char)(16,17,18,19,20,21,22,23,8,9,10,11,12,13,14,15))
-#  define VALIGNED(ptr) ((((long)(ptr)) & 0xF) == 0)
+#  define VALIGNED(ptr) ((((long long)(ptr)) & 0xF) == 0)
 
 /*
   SSE1 support macros
 */
-#elif !defined(PFFFT_SIMD_DISABLE) && (defined(__x86_64__) || defined(_M_X64) || defined(i386) || defined(_M_IX86))
+#elif !defined(PFFFT_SIMD_DISABLE) && (defined(__x86_64__) || defined(_M_X64) || defined(__i386__) || defined(i386) || defined(_M_IX86))
 
 #include <xmmintrin.h>
 typedef __m128 v4sf;
@@ -143,7 +143,7 @@ typedef __m128 v4sf;
 #  define UNINTERLEAVE2(in1, in2, out1, out2) { v4sf tmp__ = _mm_shuffle_ps(in1, in2, _MM_SHUFFLE(2,0,2,0)); out2 = _mm_shuffle_ps(in1, in2, _MM_SHUFFLE(3,1,3,1)); out1 = tmp__; }
 #  define VTRANSPOSE4(x0,x1,x2,x3) _MM_TRANSPOSE4_PS(x0,x1,x2,x3)
 #  define VSWAPHL(a,b) _mm_shuffle_ps(b, a, _MM_SHUFFLE(3,2,1,0))
-#  define VALIGNED(ptr) ((((long)(ptr)) & 0xF) == 0)
+#  define VALIGNED(ptr) ((((long long)(ptr)) & 0xF) == 0)
 
 /*
   ARM NEON support macros
@@ -170,7 +170,7 @@ typedef float32x4_t v4sf;
 // marginally faster version
 //#  define VTRANSPOSE4(x0,x1,x2,x3) { asm("vtrn.32 %q0, %q1;\n vtrn.32 %q2,%q3\n vswp %f0,%e2\n vswp %f1,%e3" : "+w"(x0), "+w"(x1), "+w"(x2), "+w"(x3)::); }
 #  define VSWAPHL(a,b) vcombine_f32(vget_low_f32(b), vget_high_f32(a))
-#  define VALIGNED(ptr) ((((long)(ptr)) & 0x3) == 0)
+#  define VALIGNED(ptr) ((((long long)(ptr)) & 0x3) == 0)
 #else
 #  if !defined(PFFFT_SIMD_DISABLE)
 #    warning "building with simd disabled !\n";
@@ -188,7 +188,7 @@ typedef float v4sf;
 #  define VMADD(a,b,c) ((a)*(b)+(c))
 #  define VSUB(a,b) ((a)-(b))
 #  define LD_PS1(p) (p)
-#  define VALIGNED(ptr) ((((long)(ptr)) & 0x3) == 0)
+#  define VALIGNED(ptr) ((((long long)(ptr)) & 0x3) == 0)
 #endif
 
 // shortcuts for complex multiplcations
@@ -246,6 +246,8 @@ void validate_pffft_simd() {
          a2.f[0], a2.f[1], a2.f[2], a2.f[3], a3.f[0], a3.f[1], a3.f[2], a3.f[3]); 
   assertv4(a0, 0, 4, 8, 12); assertv4(a1, 1, 5, 9, 13); assertv4(a2, 2, 6, 10, 14); assertv4(a3, 3, 7, 11, 15);
 }
+#else
+void validate_pffft_simd() {} // allow test_pffft.c to call this function even when simd is not available..
 #endif //!PFFFT_SIMD_DISABLE
 
 /* SSE and co like 16-bytes aligned pointers */

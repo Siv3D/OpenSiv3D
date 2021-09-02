@@ -5,6 +5,10 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
 
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020, Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -16,6 +20,7 @@
 #define BOOST_GEOMETRY_EXTENSIONS_ALGEBRA_GEOMETRIES_VECTOR_HPP
 
 #include <cstddef>
+#include <type_traits>
 
 #include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
@@ -100,7 +105,7 @@ struct coordinate_system<model::vector<CoordinateType, DimensionCount> >
 
 template <typename CoordinateType, std::size_t DimensionCount>
 struct dimension<model::vector<CoordinateType, DimensionCount> >
-    : boost::mpl::int_<DimensionCount>
+    : std::integral_constant<std::size_t, DimensionCount>
 {};
 
 template

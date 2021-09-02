@@ -2,43 +2,80 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Webcam.hpp>
-# include "WebcamDetail.hpp"
+# include <Siv3D/Webcam/WebcamDetail.hpp>
 
 namespace s3d
 {
 	Webcam::Webcam()
-		: pImpl(std::make_shared<WebcamDetail>())
-	{
+		: pImpl{ std::make_shared<WebcamDetail>() } {}
 
+	Webcam::Webcam(const uint32 cameraIndex, const StartImmediately startImmediately)
+		: Webcam{}
+	{
+		if (not pImpl->open(cameraIndex))
+		{
+			return;
+		}
+
+		if (startImmediately)
+		{
+			pImpl->start();
+		}
 	}
 
-	Webcam::Webcam(const size_t index)
-		: pImpl(std::make_shared<WebcamDetail>(index))
+	Webcam::Webcam(const uint32 cameraIndex, const Size& targetResolution, const StartImmediately startImmediately)
+		: Webcam{}
 	{
+		if (not pImpl->open(cameraIndex))
+		{
+			return;
+		}
 
+		pImpl->setResolution(targetResolution);
+
+		if (startImmediately)
+		{
+			pImpl->start();
+		}
 	}
-
+	
 	Webcam::~Webcam()
 	{
-
+		// do nothing
 	}
 
-	bool Webcam::isAvailable() const
+	Optional<Webcam::Permission> Webcam::getPermission() const
 	{
-		return pImpl->isAvailable();
+		// [Siv3D ToDo]
+		return Webcam::Permission::Allowed;
 	}
 
+	bool Webcam::open(const uint32 cameraIndex)
+	{
+		return pImpl->open(cameraIndex);
+	}
+
+	void Webcam::close()
+	{
+		pImpl->close();
+	}
+
+	bool Webcam::isOpen() const
+	{
+		return pImpl->isOpen();
+	}
+	
 	Webcam::operator bool() const
 	{
-		return isAvailable();
+		return isOpen();
 	}
 
 	bool Webcam::start()
@@ -46,19 +83,14 @@ namespace s3d
 		return pImpl->start();
 	}
 
-	void Webcam::stop()
-	{
-		pImpl->stop();
-	}
-
 	bool Webcam::isActive() const
 	{
 		return pImpl->isActive();
 	}
 
-	size_t Webcam::index() const
+	uint32 Webcam::cameraIndex() const
 	{
-		return pImpl->index();
+		return pImpl->cameraIndex();
 	}
 
 	Size Webcam::getResolution() const
@@ -66,14 +98,14 @@ namespace s3d
 		return pImpl->getResolution();
 	}
 
-	bool Webcam::setResolution(const Size& resolution)
-	{
-		return pImpl->setResolution(resolution);
-	}
-	
 	bool Webcam::setResolution(const int32 width, const int32 height)
 	{
-		return setResolution(Size(width, height));
+		return pImpl->setResolution(Size{ width, height });
+	}
+
+	bool Webcam::setResolution(const Size resolution)
+	{
+		return pImpl->setResolution(resolution);
 	}
 
 	bool Webcam::hasNewFrame() const

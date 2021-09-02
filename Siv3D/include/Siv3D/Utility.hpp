@@ -2,370 +2,334 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <initializer_list>
 # include <algorithm>
+# include <type_traits>
+# include "Common.hpp"
+# include "Concepts.hpp"
 # include "PlaceHolder.hpp"
+# include "detail/Utility_detail.ipp"
 
 namespace s3d
 {
-//////////////////////////////////////////////////
-//
-//	Max
-//
-//////////////////////////////////////////////////
-
-	namespace detail
-	{
-		template <class Type>
-		class Max1_impl
-		{
-		private:
-
-			const Type& x;
-
-		public:
-
-			constexpr Max1_impl(const Type& _x) noexcept
-				: x(_x) {}
-
-			[[nodiscard]] constexpr const Type& operator()(const Type& y) const noexcept(noexcept(x < y))
-			{
-				return (x < y) ? y : x;
-			}
-		};
-
-		class Max2_impl
-		{
-		public:
-
-			template <class Type>
-			[[nodiscard]] constexpr const Type& operator()(const Type& x, const Type& y) const noexcept(noexcept(x < y))
-			{
-				return (x < y) ? y : x;
-			}
-		};
-	}
+	//////////////////////////////////////////////////
+	//
+	//	Max
+	//
+	//////////////////////////////////////////////////
 
 	template <class Type>
-	[[nodiscard]] constexpr auto Max(const Type& x, PlaceHolder_t) noexcept
-	{
-		return detail::Max1_impl<Type>(x);
-	}
+	[[nodiscard]]
+	inline constexpr auto Max(const Type& a, PlaceHolder_t) noexcept;
 
 	template <class Type>
-	[[nodiscard]] constexpr auto Max(PlaceHolder_t, const Type& y) noexcept
-	{
-		return detail::Max1_impl<Type>(y);
-	}
+	[[nodiscard]]
+	inline constexpr auto Max(PlaceHolder_t, const Type& b) noexcept;
 
-	[[nodiscard]] constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::Max2_impl();
-	}
+	[[nodiscard]]
+	inline constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept;
 
-	/// <summary>
-	/// 2 つの値のうち大きい方の値を返します。
-	/// Returns the greater of the two.
-	/// </summary>
-	/// <param name="x">
-	/// 比較する値
-	/// A value to compare
-	/// </param>
-	/// <param name="y">
-	/// 比較する値
-	/// Another value to compare
-	/// </param>
-	/// <returns>
-	/// 2 つの値のうち大きい方の値。等しい場合は x
-	/// The greater of x and y. If they are equivalent, returns x
-	/// </returns>
+	/// @brief 2 つの値のうち大きい方の値を返します。 | Returns the greater of the two.
+	/// @tparam Scalar 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち大きい方の値。等しい場合は a | The greater of a and b. If they are equivalent, returns a
+	SIV3D_CONCEPT_SCALAR
+	[[nodiscard]]
+	inline constexpr Scalar Max(Scalar a, Scalar b) noexcept;
+
+	/// @brief 2 つの値のうち大きい方の値を返します。 | Returns the greater of the two.
+	/// @tparam Type 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち大きい方の値。等しい場合は a | The greater of a and b. If they are equivalent, returns a
+# if __cpp_lib_concepts
+	template <class Type> requires (not std::is_scalar_v<Type>)
+# else
+	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline constexpr const Type& Max(const Type& a, const Type& b) noexcept(noexcept(a < b));
+
+	/// @brief 渡された初期化リストの中で最大の値を返します。 | Returns the greatest of the values in initializer list.
+	/// @tparam Type 比較する値の型
+	/// @param ilist 比較する値の初期化リスト | Initializer list with the values to compare 
+	/// @return 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値 | The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
 	template <class Type>
-	[[nodiscard]] inline constexpr const Type& Max(const Type& x, const Type& y) noexcept(noexcept(x < y))
-	{
-		return (x < y) ? y : x;
-	}
+	[[nodiscard]]
+	inline constexpr Type Max(std::initializer_list<Type> ilist);
 
-	/// <summary>
-	/// 渡された初期化リストの中で最大の値を返します。
-	/// Returns the greatest of the values in initializer list.
-	/// </summary>
-	/// <param name="ilist">
-	/// 比較する値の初期化リスト
-	/// Initializer list with the values to compare 
-	/// </param>
-	/// <returns>
-	/// 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値
-	/// The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
-	/// </returns>
-	template <class Type>
-	inline constexpr Type Max(std::initializer_list<Type> ilist)
-	{
-		return *std::max_element(ilist.begin(), ilist.end());
-	}
-
-
-//////////////////////////////////////////////////
-//
-//	Min
-//
-//////////////////////////////////////////////////
-
-	namespace detail
-	{
-		template <class Type>
-		class Min1_impl
-		{
-		private:
-
-			const Type& x;
-
-		public:
-
-			constexpr Min1_impl(const Type& _x) noexcept
-				: x(_x) {}
-
-			[[nodiscard]] constexpr const Type& operator()(const Type& y) const noexcept(noexcept(y < x))
-			{
-				return (y < x) ? y : x;
-			}
-		};
-
-		class Min2_impl
-		{
-		public:
-
-			template <class Type>
-			[[nodiscard]] constexpr const Type& operator()(const Type& x, const Type& y) const noexcept(noexcept(y < x))
-			{
-				return (y < x) ? y : x;
-			}
-		};
-	}
+	//////////////////////////////////////////////////
+	//
+	//	Min
+	//
+	//////////////////////////////////////////////////
 
 	template <class Type>
-	[[nodiscard]] constexpr auto Min(const Type& x, PlaceHolder_t) noexcept
-	{
-		return detail::Min1_impl<Type>(x);
-	}
+	[[nodiscard]]
+	inline constexpr auto Min(const Type& a, PlaceHolder_t) noexcept;
 
 	template <class Type>
-	[[nodiscard]] constexpr auto Min(PlaceHolder_t, const Type& y) noexcept
-	{
-		return detail::Min1_impl<Type>(y);
-	}
+	[[nodiscard]]
+	inline constexpr auto Min(PlaceHolder_t, const Type& b) noexcept;
 
-	[[nodiscard]] constexpr detail::Min2_impl Min(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::Min2_impl();
-	}
+	[[nodiscard]]
+	inline constexpr auto Min(PlaceHolder_t, PlaceHolder_t) noexcept;
 
-	/// <summary>
-	/// 2 つの値のうち小さい方の値を返します。
-	/// Returns the lesser of the two.
-	/// </summary>
-	/// <param name="x">
-	/// 比較する値
-	/// A value to compare
-	/// </param>
-	/// <param name="y">
-	/// 比較する値
-	/// Another value to compare
-	/// </param>
-	/// <returns>
-	/// 2 つの値のうち小さい方の値。等しい場合は x
-	/// The greater of x and y. If they are equivalent, returns x
-	/// </returns>
+	/// @brief 2 つの値のうち小さい方の値を返します。 | Returns the lesser of the two.
+	/// @tparam Scalar 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
+	SIV3D_CONCEPT_SCALAR
+	[[nodiscard]]
+	inline constexpr Scalar Min(Scalar a, Scalar b) noexcept;
+
+	/// @brief 2 つの値のうち小さい方の値を返します。 | Returns the lesser of the two.
+	/// @tparam Type 比較する値の型
+	/// @param a 比較する値 | A value to compare
+	/// @param b 比較する値 | Another value to compare
+	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
+# if __cpp_lib_concepts
+	template <class Type> requires (not std::is_scalar_v<Type>)
+# else
+	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline constexpr const Type& Min(const Type& a, const Type& b) noexcept(noexcept(b < a));
+
+	/// @brief 渡された初期化リストの中で最小の値を返します。 | Returns the least of the values in initializer list.
+	/// @tparam Type 比較する値の型
+	/// @param ilist 比較する値の初期化リスト | Initializer list with the values to compare 
+	/// @return 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値 | The least value in ilist. If several values are equivalent to the least, returns the leftmost one
 	template <class Type>
-	[[nodiscard]] inline constexpr const Type& Min(const Type& x, const Type& y) noexcept(noexcept(y < x))
-	{
-		return (y < x) ? y : x;
-	}
+	[[nodiscard]]
+	inline constexpr Type Min(std::initializer_list<Type> ilist);
 
-	/// <summary>
-	/// 渡された初期化リストの中で最小の値を返します。
-	/// Returns the least of the values in initializer list.
-	/// </summary>
-	/// <param name="ilist">
-	/// 比較する値の初期化リスト
-	/// Initializer list with the values to compare 
-	/// </param>
-	/// <returns>
-	/// 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値
-	/// The least value in ilist. If several values are equivalent to the least, returns the leftmost one
-	/// </returns>
-	template <class Type>
-	inline constexpr Type Min(std::initializer_list<Type> ilist)
-	{
-		return *std::min_element(ilist.begin(), ilist.end());
-	}
-
-
-//////////////////////////////////////////////////
-//
-//	Clamp
-//
-//////////////////////////////////////////////////
-
-	namespace detail
-	{
-		template <class Type>
-		class Clamp_impl
-		{
-		private:
-
-			const Type& min;
-
-			const Type& max;
-
-		public:
-
-			constexpr Clamp_impl(const Type& _min, const Type& _max) noexcept
-				: min(_min)
-				, max(_max) {}
-
-			[[nodiscard]] constexpr const Type& operator()(const Type& x) const noexcept(noexcept(x < min) && noexcept(max < x))
-			{
-				return (x < min) ? min : ((max < x) ? max : x);
-			}
-		};
-	}
+	//////////////////////////////////////////////////
+	//
+	//	Clamp
+	//
+	//////////////////////////////////////////////////
 
 	template <class Type>
-	[[nodiscard]] constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept
-	{
-		return detail::Clamp_impl<Type>(min, max);
-	}
+	[[nodiscard]]
+	constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// 最小値と最大値の範囲にクランプした値を返します。
-	/// Clamps the value to the specified minimum and maximum range
-	/// </summary>
-	/// <param name="x">
-	/// クランプする値
-	/// A value to clamp
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// x をクランプした値
-	/// The clamped value for the x
-	/// </returns>
-	template <class Type>
-	[[nodiscard]] inline constexpr const Type& Clamp(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min) && noexcept(max < x))
-	{
-		return (x < min) ? min : ((max < x) ? max : x);
-	}
+	/// @brief 最小値と最大値の範囲にクランプした値を返します。 | Clamps the value to the specified minimum and maximum range.
+	/// @tparam Scalar 比較する値の型
+	/// @param v クランプする値 | A value to clamp
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return v をクランプした値 | The clamped value for the v
+	SIV3D_CONCEPT_SCALAR
+	[[nodiscard]]
+	inline constexpr Scalar Clamp(Scalar v, Scalar min, Scalar max) noexcept;
 
+	/// @brief 最小値と最大値の範囲にクランプした値を返します。 | Clamps the value to the specified minimum and maximum range.
+	/// @tparam Type 比較する値の型
+	/// @param v クランプする値 | A value to clamp
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return v をクランプした値 | The clamped value for the v
+# if __cpp_lib_concepts
+	template <class Type> requires (not std::is_scalar_v<Type>)
+# else
+	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline constexpr const Type& Clamp(const Type& v, const Type& min, const Type& max) noexcept(noexcept(max < v) && noexcept(v < min));
 
-//////////////////////////////////////////////////
-//
-//	InRange
-//
-//////////////////////////////////////////////////
-
-	namespace detail
-	{
-		template <class Type>
-		class InRange_impl
-		{
-		private:
-
-			const Type& min;
-
-			const Type& max;
-
-		public:
-
-			constexpr InRange_impl(const Type& _min, const Type& _max) noexcept
-				: min(_min)
-				, max(_max) {}
-
-			[[nodiscard]] constexpr bool operator()(const Type& x) const noexcept(noexcept(min <= x) && noexcept(x <= max))
-			{
-				return (min <= x) && (x <= max);
-			}
-		};
-	}
+	//////////////////////////////////////////////////
+	//
+	//	InRange
+	//
+	//////////////////////////////////////////////////
 
 	template <class Type>
-	[[nodiscard]] inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
-	{
-		return detail::InRange_impl<Type>(min, max);
-	}
+	[[nodiscard]]
+	inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// 値が範囲内にあるかを返します。
-	/// Checks if the value is within the specified minimum and maximum range
-	/// </summary>
-	/// <param name="x">
-	/// 調べる値
-	/// A value
-	/// </param>
-	/// <param name="min">
-	/// 範囲の最小値
-	/// The specified minimum range
-	/// </param>
-	/// <param name="max">
-	/// 範囲の最大値
-	/// The specified maximum range
-	/// </param>
-	/// <returns>
-	/// 範囲内にある場合 true, それ以外の場合は false
-	/// True if the value is within the range, false otherwise
-	/// </returns>
+	/// @brief 値が閉区間 [min, max] にあるかを返します。 | Returns true if the value is in the closed interval [min, max].
+	/// @tparam Scalar 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
+	SIV3D_CONCEPT_SCALAR
+	[[nodiscard]]
+	inline constexpr bool InRange(Scalar v, Scalar min, Scalar max) noexcept;
+
+	/// @brief 値が閉区間 [min, max] にあるかを返します。 | Returns true if the value is in the closed interval [min, max].
+	/// @tparam Type 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
+# if __cpp_lib_concepts
+	template <class Type> requires (not std::is_scalar_v<Type>)
+# else
+	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline constexpr bool InRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min));
+
+	//////////////////////////////////////////////////
+	//
+	//	InOpenRange
+	//
+	//////////////////////////////////////////////////
+
 	template <class Type>
-	[[nodiscard]] inline constexpr bool InRange(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min))
-	{
-		return (min <= x) && (x <= max);
-	}
+	[[nodiscard]]
+	inline constexpr auto InOpenRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
-	/// <summary>
-	/// コンテナから条件を満たす要素を削除します。
-	/// </summary>
-	/// <param name="c">
-	/// コンテナ
-	/// </param>
-	/// <param name="pred">
-	/// 条件
-	/// </param>
-	/// <returns>
-	/// なし
-	/// </returns>
+	/// @brief 値が開区間 (min, max) にあるかを返します。 | Returns true if the value is in the open interval (min, max).
+	/// @tparam Scalar 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
+	SIV3D_CONCEPT_SCALAR
+	[[nodiscard]]
+	inline constexpr bool InOpenRange(Scalar v, Scalar min, Scalar max) noexcept;
+
+	/// @brief 値が開区間 (min, max) にあるかを返します。 | Returns true if the value is in the open interval (min, max).
+	/// @tparam Type 比較する値の型
+	/// @param v 比較する値 | A value to compare
+	/// @param min 範囲の最小値 | The specified minimum range
+	/// @param max 範囲の最大値 | The specified maximum range
+	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
+# if __cpp_lib_concepts
+	template <class Type> requires (not std::is_scalar_v<Type>)
+# else
+	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+# endif
+	[[nodiscard]]
+	inline constexpr bool InOpenRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min));
+
+	//////////////////////////////////////////////////
+	//
+	//	Abs
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 絶対値を計算する関数オブジェクトです。
+	inline constexpr auto Abs = detail::Abs_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	AbsDiff
+	//
+	//////////////////////////////////////////////////
+
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(Arithmetic a, PlaceHolder_t) noexcept;
+
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(PlaceHolder_t, Arithmetic b) noexcept;
+
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept;
+	
+	/// @brief 差の絶対値を返します。
+	/// @tparam Arithmetic 値の型
+	/// @param a 1 つ目の値
+	/// @param b 2 つ目の値
+	/// @return 2 つの値の差の絶対値
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(Arithmetic a, Arithmetic b) noexcept;
+
+	//////////////////////////////////////////////////
+	//
+	//	FromEnum
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 列挙型を整数型に変換する関数オブジェクトです。
+	inline constexpr auto FromEnum = detail::FromEnum_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	ToEnum
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 整数を列挙型の値に変換する関数オブジェクトです。
+	/// @tparam Enum 変換先の列挙型
+	SIV3D_CONCEPT_ENUM
+	inline constexpr auto ToEnum = detail::ToEnum_impl<Enum>{};
+
+	//////////////////////////////////////////////////
+	//
+	//	IsOdd
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 数が奇数かを判定する関数オブジェクトです。
+	inline constexpr auto IsOdd = detail::IsOdd_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	IsEven
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 数が偶数かを判定する関数オブジェクトです。
+	inline constexpr auto IsEven = detail::IsEven_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	Identity
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief 渡された値をそのまま返す関数オブジェクトです。
+	inline constexpr auto Identity = detail::Identity_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	Utility
+	//
+	//////////////////////////////////////////////////
+
+	/// @brief コンテナから条件を満たす要素を削除します。
+	/// @tparam Container コンテナの型
+	/// @tparam Pred 条件の型
+	/// @param c コンテナ
+	/// @param pred 条件
 	template <class Container, class Pred>
-	inline void Erase_if(Container& c, Pred pred)
-	{
-		c.erase(std::remove_if(std::begin(c), std::end(c), pred), std::end(c));
-	}
+	inline void Erase_if(Container& c, Pred pred);
 
+	/// @brief コンテナから条件を満たす要素を削除します。
+	/// @tparam Container コンテナの型
+	/// @tparam Pred 条件の型
+	/// @param c コンテナ
+	/// @param pred 条件
 	template <class Container, class Pred>
-	inline void EraseNodes_if(Container& c, Pred pred)
-	{
-		auto first = c.begin();
-		const auto last = c.end();
-		while (first != last)
-		{
-			if (pred(*first))
-			{
-				first = c.erase(first);
-			}
-			else
-			{
-				++first;
-			}
-		}
-	}
+	inline void EraseNodes_if(Container& c, Pred pred);
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpEqual(T lhs, U rhs) noexcept;
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpNotEqual(T lhs, U rhs) noexcept;
+
+	template <class T, class U>
+	[[nodiscard]]
+	inline constexpr bool CmpLess(T lhs, U rhs) noexcept;
 }
+
+# include "detail/Utility.ipp"

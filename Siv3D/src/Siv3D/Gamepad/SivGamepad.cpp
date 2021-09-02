@@ -1,23 +1,23 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Gamepad.hpp>
-# include <Siv3D/Point.hpp>
-# include <Siv3DEngine.hpp>
-# include "IGamepad.hpp"
+# include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/Gamepad/IGamepad.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
+		[[nodiscard]]
 		static constexpr int32 Get8Direction(const double deg)
 		{
 			if (deg <= 22.5)
@@ -40,20 +40,16 @@ namespace s3d
 				return 0;
 		}
 
-		Gamepad_impl::Gamepad_impl(const size_t _userIndex)
-			: userIndex(static_cast<uint32>(_userIndex))
-			, axes(2, 0.0)
-			, povUp(InputDevice::Gamepad, 0x80, static_cast<uint8>(userIndex))
-			, povDown(InputDevice::Gamepad, 0x82, static_cast<uint8>(userIndex))
-			, povLeft(InputDevice::Gamepad, 0x83, static_cast<uint8>(userIndex))
-			, povRight(InputDevice::Gamepad, 0x81, static_cast<uint8>(userIndex))
-		{
-
-		}
+		Gamepad_impl::Gamepad_impl(const size_t _playerIndex)
+			: playerIndex{ static_cast<uint32>(_playerIndex) }
+			, povUp{ InputDeviceType::Gamepad, 0x80, static_cast<uint8>(_playerIndex) }
+			, povDown{ InputDeviceType::Gamepad, 0x82, static_cast<uint8>(_playerIndex) }
+			, povLeft{ InputDeviceType::Gamepad, 0x83, static_cast<uint8>(_playerIndex) }
+			, povRight{ InputDeviceType::Gamepad, 0x81, static_cast<uint8>(_playerIndex) } {}
 
 		bool Gamepad_impl::isConnected() const
 		{
-			return Siv3DEngine::Get<ISiv3DGamepad>()->isConnected(userIndex);
+			return SIV3D_ENGINE(Gamepad)->isConnected(playerIndex);
 		}
 
 		Gamepad_impl::operator bool() const
@@ -63,22 +59,22 @@ namespace s3d
 
 		const GamepadInfo& Gamepad_impl::getInfo() const
 		{
-			return Siv3DEngine::Get<ISiv3DGamepad>()->getInfo(userIndex);
+			return SIV3D_ENGINE(Gamepad)->getInfo(playerIndex);
 		}
 
 		Optional<int32> Gamepad_impl::povD8() const
 		{
-			if (const Optional<int32> povDegree = Siv3DEngine::Get<ISiv3DGamepad>()->povDegree(userIndex))
+			if (const Optional<int32> povDegree = SIV3D_ENGINE(Gamepad)->povDegree(playerIndex))
 			{
-				return detail::Get8Direction(povDegree.value());
+				return detail::Get8Direction(*povDegree);
 			}
 
 			return none;
 		}
 
-		const Gamepad_impl& Gamepad_helper::operator()(const size_t userIndex) const
+		const Gamepad_impl& Gamepad_helper::operator()(const size_t playerIndex) const
 		{
-			return Siv3DEngine::Get<ISiv3DGamepad>()->getInput(userIndex);
+			return SIV3D_ENGINE(Gamepad)->getInput(playerIndex);
 		}
 	}
 }

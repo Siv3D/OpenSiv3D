@@ -1,21 +1,22 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static constexpr StringView bytesUnits[9] =
+		static constexpr StringView BytesUnits[9] =
 		{
 			U"B"_sv,
 			U"KiB"_sv,
@@ -28,7 +29,7 @@ namespace s3d
 			U"YiB"_sv
 		};
 
-		String ThousandsSeparateInt(String&& value, const String& separator)
+		String ThousandsSeparateInt(String&& value, const StringView separator)
 		{
 			String result = std::move(value);
 
@@ -48,7 +49,7 @@ namespace s3d
 			return result;
 		}
 
-		String ThousandsSeparateFloat(String&& value, const String& separator)
+		String ThousandsSeparateFloat(String&& value, const StringView separator)
 		{
 			String result = std::move(value);
 
@@ -79,20 +80,20 @@ namespace s3d
 		{
 			if (s < 10.0)
 			{
-				return ToString(s, 2) + detail::bytesUnits[i];
+				return (ToString(s, 2) + detail::BytesUnits[i]);
 			}
 			else if (s < 100.0)
 			{
-				return ToString(s, 1) + detail::bytesUnits[i];
+				return (ToString(s, 1) + detail::BytesUnits[i]);
 			}
 			else if (s < 1024.0)
 			{
-				return ToString(s, 0) + detail::bytesUnits[i];
+				return (ToString(s, 0) + detail::BytesUnits[i]);
 			}
 
 			s /= 1024.0;
 		}
 
-		return String();
+		return{};
 	}
 }

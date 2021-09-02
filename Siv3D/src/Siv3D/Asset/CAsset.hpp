@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2019 Ryo Suzuki
-//	Copyright (c) 2016-2019 OpenSiv3D Project
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,43 +12,46 @@
 # pragma once
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/String.hpp>
-# include <Siv3D/Asset.hpp>
 # include "IAsset.hpp"
 
 namespace s3d
 {
-	class CAsset : public ISiv3DAsset
+	class CAsset final : public ISiv3DAsset
 	{
-	private:
-
-		std::array<HashTable<String, std::unique_ptr<IAsset>>, 3> m_assetLists;
-	
 	public:
 
 		CAsset();
 
 		~CAsset() override;
 
-		void init() override;
-
 		void update() override;
 
-		bool registerAsset(AssetType assetType, const String& name, std::unique_ptr<IAsset>&& asset) override;
+		bool registerAsset(AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset) override;
 
-		IAsset* getAsset(AssetType assetType, const String& name) override;
+		IAsset* getAsset(AssetType assetType, AssetNameView name) override;
 
-		bool isRegistered(AssetType assetType, const String& name) const override;
+		bool isRegistered(AssetType assetType, AssetNameView name) const override;
 
-		bool preload(AssetType assetType, const String& name) override;
+		bool load(AssetType assetType, AssetNameView name, const String& hint) override;
 
-		void release(AssetType assetType, const String& name) override;
+		void loadAsync(AssetType assetType, AssetNameView name, const String& hint) override;
+
+		void wait(AssetType assetType, AssetNameView name) override;
+
+		bool isReady(AssetType assetType, AssetNameView name) override;
+
+		void release(AssetType assetType, AssetNameView name) override;
 
 		void releaseAll(AssetType assetType) override;
 
-		void unregister(AssetType assetType, const String& name) override;
+		void unregister(AssetType assetType, AssetNameView name) override;
 
 		void unregisterAll(AssetType assetType) override;
 
-		bool isReady(AssetType assetType, const String& name) const override;
+		HashTable<AssetName, AssetInfo> enumerate(AssetType assetType) override;
+
+	private:
+
+		std::array<HashTable<String, std::unique_ptr<IAsset>>, 5> m_assetLists;
 	};
 }
