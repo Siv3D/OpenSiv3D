@@ -407,7 +407,7 @@ public:
     typedef CircularElement<T> type;
     typedef type *ptr_type;
 
-    template<class... Args> CircularElement<T>(Args&&... args):
+    template<class... Args> CircularElement(Args&&... args):
     m_data(std::forward<Args>(args)...) {
 
     }
