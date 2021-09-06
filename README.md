@@ -11,7 +11,7 @@
 | Platform           | Version    | Date       | Requirements                  |
 |:------------------:|:----------:|:----------:|:------------------------------|
 | Windows            | [**0.6.0 beta 5**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.0_b5Installer.exe)  | 2 September 2021 | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**0.6.0 beta 5**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.0_b4_macOS.zip)  | 2 September 2021 | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible graphics card |
+| macOS              | [**0.6.0 beta 5**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.0_b5_macOS.zip)  | 2 September 2021 | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible graphics card |
 | Linux              | [**0.6.0 beta 5***](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | 2 September 2021 | - GCC 9.3.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible graphics card |
 | Web (experimental) | [**0.6.0b0**](https://github.com/nokotan/OpenSiv3D/releases)* | August 2021 | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
