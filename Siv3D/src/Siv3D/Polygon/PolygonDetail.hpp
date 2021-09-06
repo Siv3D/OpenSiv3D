@@ -10,7 +10,26 @@
 //-----------------------------------------------
 
 # pragma once
-# include <boost/geometry/geometries/geometries.hpp>
+# include <Siv3D/Common.hpp>
+
+# ifdef __clang__
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wunused-parameter"
+#	pragma clang diagnostic ignored "-Wdeprecated-copy-with-user-provided-copy"
+# endif
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+# include <boost/geometry.hpp>
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+# ifdef __clang__
+#	pragma clang diagnostic pop
+# endif
+
 # include <boost/geometry/geometries/register/point.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/2DShapes.hpp>

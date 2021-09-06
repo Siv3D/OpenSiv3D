@@ -14,20 +14,6 @@
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
-# include <boost/geometry/strategies/strategies.hpp>
-# include <boost/geometry/algorithms/centroid.hpp>
-# include <boost/geometry/algorithms/convex_hull.hpp>
-# include <boost/geometry/algorithms/simplify.hpp>
-# include <boost/geometry/algorithms/buffer.hpp>
-# include <boost/geometry/algorithms/union.hpp>
-# include <boost/geometry/algorithms/densify.hpp>
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
-
 namespace s3d
 {
 	namespace detail
