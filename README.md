@@ -1,8 +1,8 @@
-<h1>OpenSiv3D <a href="https://github.com/Siv3D/OpenSiv3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4aaa4a"></a> <a href="https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM"><img src="https://img.shields.io/badge/social-Slack-4a154b"></a> <a href="https://twitter.com/search?q=Siv3D%20OR%20OpenSiv3D&src=typed_query&f=live"><img src="https://img.shields.io/badge/social-Twitter-1DA1F2"></a> <a href="https://github.com/sponsors/Reputeless"><img src="https://img.shields.io/badge/funding-GitHub_Sponsors-ea4aaa"></a></h1>
+<h1>Siv3D <a href="https://github.com/Siv3D/OpenSiv3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4aaa4a"></a> <a href="https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM"><img src="https://img.shields.io/badge/social-Slack-4a154b"></a> <a href="https://twitter.com/search?q=Siv3D%20OR%20OpenSiv3D&src=typed_query&f=live"><img src="https://img.shields.io/badge/social-Twitter-1DA1F2"></a> <a href="https://github.com/sponsors/Reputeless"><img src="https://img.shields.io/badge/funding-GitHub_Sponsors-ea4aaa"></a></h1>
 
 <p align="center"><a href="https://siv3d.github.io/"><img src="https://raw.githubusercontent.com/Siv3D/File/master/v6/logo.png" width="480" alt="Siv3D logo"></a></p>
 
-**OpenSiv3D** is a C++20 framework for creative coding.
+**Siv3D** (OpenSiv3D) is a C++20 framework for creative coding.
 
 # v0.6.0 beta 5 (pre-release)
 
@@ -22,7 +22,7 @@
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
 - Documentation (English)
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
-- [Open Source Software used in OpenSiv3D](ThirdParty.md)
+- [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
 

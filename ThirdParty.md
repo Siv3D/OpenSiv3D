@@ -1,5 +1,5 @@
 
-# Open Source Software used in OpenSiv3D
+# Open Source Software used in Siv3D
 
 The license information will be shown by pressing F1 key while running Siv3D application.
 
