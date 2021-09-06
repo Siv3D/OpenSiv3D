@@ -5,13 +5,13 @@ on:
     branches:
     - master
     - v6_master
-    - v6_winmac
+    - v6_develop
     - v6_winmac_develop
   pull_request:
     branches:
     - master
     - v6_master
-    - v6_winmac
+    - v6_develop
     - v6_winmac_develop
 
 jobs:
