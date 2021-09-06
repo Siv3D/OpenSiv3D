@@ -3,16 +3,12 @@ name: C/C++ CI
 on:
   push:
     branches:
-    - master
-    - v6_master
+    - main
     - v6_develop
-    - v6_winmac_develop
   pull_request:
     branches:
-    - master
-    - v6_master
+    - main
     - v6_develop
-    - v6_winmac_develop
 
 jobs:
   Linux:
