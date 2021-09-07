@@ -222,6 +222,7 @@ namespace s3d
 			}
 
 			m_backBuffer = D3D11InternalTexture2D::GetTextureFromSwapChain(m_device, m_swapChain1);
+			clear(D3D11ClearTarget::BackBuffer);
 		}
 
 		updateSceneSize();
