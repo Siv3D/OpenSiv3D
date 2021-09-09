@@ -132,6 +132,7 @@ namespace s3d
 	AudioData::AudioData(SoLoud::Soloud* pSoloud, const FilePathView path, const uint64 loopBegin)
 		: m_pSoloud{ pSoloud }
 		, m_isStreaming{ true }
+		, m_loop{ true }
 	{
 		std::unique_ptr<SoLoud::WavStream> source = std::make_unique<SoLoud::WavStream>();
 
