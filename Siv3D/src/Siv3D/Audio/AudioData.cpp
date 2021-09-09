@@ -59,6 +59,7 @@ namespace s3d
 			if (loop && loop->endPos && (loop->endPos < m_wave.size()))
 			{
 				m_wave.resize(loop->endPos);
+				m_wave.shrink_to_fit();
 			}
 
 			m_wave.deinterleave();
