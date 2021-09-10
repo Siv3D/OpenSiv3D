@@ -684,17 +684,7 @@ add_library(
   ../Siv3D/src/ThirdParty/angelscript/as_builder.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_bytecode.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm64.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_mips.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc_64.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_sh4.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_gcc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_mingw.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_msvc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x86.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_xenon.cpp
+	../Siv3D/src/ThirdParty/angelscript/as_callfunc_wasm32.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_compiler.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_configgroup.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_context.cpp

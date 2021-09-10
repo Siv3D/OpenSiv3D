@@ -391,6 +391,60 @@ mergeInto(LibraryManager.library, {
     siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches" ],
 
     //
+    // AngelScript Support
+    //
+    siv3dCallIndirect: function(funcPtr, funcTypes, retPtr, argsPtr) {
+        let args = [];
+        let funcTypeIndex = funcTypes;
+        let argsPtrIndex = argsPtr;
+
+        const retType = HEAPU8[funcTypeIndex++];
+
+        while (true) {
+            const funcType = HEAPU8[funcTypeIndex++];
+
+            if (funcType === 0) break;
+
+            switch (funcType) {
+                case 105: // 'i':
+                    args.push(HEAP32[argsPtrIndex >> 2]);
+                    argsPtrIndex += 4;
+                    break;
+                case 102: // 'f':
+                    args.push(HEAPF32[argsPtrIndex >> 2]);
+                    argsPtrIndex += 4;
+                    break;
+                case 100: // 'd':
+                    argsPtrIndex += (8 - argsPtrIndex % 8);
+                    args.push(HEAPF64[argsPtrIndex >> 3]);
+                    argsPtrIndex += 8;
+                    break;
+                default:
+                    err("Unrecognized Function Type");
+            }
+        }
+
+        const retValue = wasmTable.get(funcPtr).apply(null, args);
+
+        switch (retType) {
+            case 105: // 'i':
+                HEAP32[retPtr >> 2] = retValue;
+                break;
+            case 102: // 'f':
+                HEAPF32[retPtr >> 2] = retValue;
+                break;
+            case 100: // 'd':
+                HEAPF64[retPtr >> 3] = retValue;
+                break;
+            case 118: // 'v':
+                break;
+            default:
+                err("Unrecognized Function Type");
+        }
+    },
+    siv3dCallIndirect__sig: "viiii",
+
+    //
     // User Action Emulation
     //
     $siv3dHasUserActionTriggered: false,
