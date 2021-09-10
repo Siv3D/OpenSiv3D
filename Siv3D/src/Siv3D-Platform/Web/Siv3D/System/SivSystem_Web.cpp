@@ -45,6 +45,11 @@ namespace s3d
 			detail::siv3dLaunchBrowser(url.toUTF8().c_str());
 			return true;
 		}
+
+		bool ShowInFileManager(const FilePathView path)
+		{
+			return false;
+		}
 	}
 
 	namespace Platform::Web::System

@@ -456,6 +456,42 @@ namespace s3d
 			return detail::init::g_specialFolderPaths[FromEnum(folder)];
 		}
 
+		FilePath TemporaryDirectoryPath()
+		{
+			return (GetFolderPath(SpecialFolder::LocalAppData) + U"Temp/");
+		}
+
+		FilePath RelativePath(const FilePathView _path, const FilePathView _start)
+		{
+			if (_path.isEmpty() || _start.isEmpty())
+			{
+				return FilePath();
+			}
+
+			const FilePath path = FullPath(_path);
+			const FilePath start = FullPath(_start);
+
+			if (not IsDirectory(start))
+			{
+				return path;
+			}
+
+			if (path == start)
+			{
+				return U"./";
+			}
+
+			const fs::path p(path.toUTF8()), base(start.toUTF8());
+			FilePath result = Unicode::Widen(fs::proximate(p, base).string());
+
+			if (IsDirectory(result) && (not result.ends_with(U'/')))
+			{
+				result.push_back(U'/');
+			}
+
+			return result;
+		}
+
 		bool CreateDirectories(const FilePathView path)
 		{
 			if (not path)
