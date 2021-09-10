@@ -46,7 +46,7 @@ namespace s3d
 	TextureAsset::TextureAsset(const AssetNameView name)
 		: Texture{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Texture, name)) } {}
 
-	bool TextureAsset::Register(const AssetName& name, const FilePathView path, const TextureDesc desc)
+	bool TextureAsset::Register(const AssetNameView name, const FilePathView path, const TextureDesc desc)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -58,7 +58,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
+	bool TextureAsset::Register(const AssetNameView name, const FilePathView rgb, const FilePathView alpha, const TextureDesc desc)
 	{
 		if (not detail::CheckFileExists(rgb))
 		{
@@ -75,7 +75,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
+	bool TextureAsset::Register(const AssetNameView name, const Color& rgb, const FilePathView alpha, const TextureDesc desc)
 	{
 		if (not detail::CheckFileExists(alpha))
 		{
@@ -87,21 +87,21 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const TextureDesc desc)
+	bool TextureAsset::Register(const AssetNameView name, const Emoji& emoji, const TextureDesc desc)
 	{
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(emoji, desc);
 
 		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const int32 size, const TextureDesc desc)
+	bool TextureAsset::Register(const AssetNameView name, const Icon& icon, const int32 size, const TextureDesc desc)
 	{
 		std::unique_ptr<TextureAssetData> data = std::make_unique<TextureAssetData>(icon, size, desc);
 
 		return Register(name, std::move(data));
 	}
 
-	bool TextureAsset::Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data)
+	bool TextureAsset::Register(const AssetNameView name, std::unique_ptr<TextureAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Texture, name, std::move(data));
 	}

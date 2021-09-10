@@ -46,7 +46,7 @@ namespace s3d
 	PixelShaderAsset::PixelShaderAsset(const AssetNameView name)
 		: PixelShader{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::PixelShader, name)) } {}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
+	bool PixelShaderAsset::Register(const AssetNameView name, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -58,7 +58,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const s3d::HLSL& hlsl)
+	bool PixelShaderAsset::Register(const AssetNameView name, const s3d::HLSL& hlsl)
 	{
 		if (not detail::CheckFileExists(hlsl.path))
 		{
@@ -70,7 +70,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const s3d::GLSL& glsl)
+	bool PixelShaderAsset::Register(const AssetNameView name, const s3d::GLSL& glsl)
 	{
 		if (not detail::CheckFileExists(glsl.path))
 		{
@@ -82,7 +82,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const s3d::MSL& msl)
+	bool PixelShaderAsset::Register(const AssetNameView name, const s3d::MSL& msl)
 	{
 		if ((msl.path) && (not detail::CheckFileExists(msl.path)))
 		{
@@ -94,7 +94,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const s3d::ESSL& essl)
+	bool PixelShaderAsset::Register(const AssetNameView name, const s3d::ESSL& essl)
 	{
 		if (not detail::CheckFileExists(essl.path))
 		{
@@ -106,14 +106,14 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, const ShaderGroup& shaderGroup)
+	bool PixelShaderAsset::Register(const AssetNameView name, const ShaderGroup& shaderGroup)
 	{
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(shaderGroup);
 
 		return Register(name, std::move(data));
 	}
 
-	bool PixelShaderAsset::Register(const AssetName& name, std::unique_ptr<PixelShaderAssetData>&& data)
+	bool PixelShaderAsset::Register(const AssetNameView name, std::unique_ptr<PixelShaderAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::PixelShader, name, std::move(data));
 	}

@@ -26,7 +26,7 @@ namespace s3d
 
 		void update() override;
 
-		bool registerAsset(AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset) override;
+		bool registerAsset(AssetType assetType, AssetNameView name, std::unique_ptr<IAsset>&& asset) override;
 
 		IAsset* getAsset(AssetType assetType, AssetNameView name) override;
 

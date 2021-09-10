@@ -46,12 +46,12 @@ namespace s3d
 	AudioAsset::AudioAsset(const AssetNameView name)
 		: Audio{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Audio, name)) } {}
 	
-	bool AudioAsset::Register(const AssetName& name, const FilePathView path)
+	bool AudioAsset::Register(const AssetNameView name, const FilePathView path)
 	{
 		return Register(name, path, none);
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Loop loop)
+	bool AudioAsset::Register(const AssetNameView name, const FilePathView path, const Loop loop)
 	{
 		if (loop)
 		{
@@ -63,17 +63,17 @@ namespace s3d
 		}
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
+	bool AudioAsset::Register(const AssetNameView name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
 		return Register(name, path, AudioLoopTiming{ *loopBegin });
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
+	bool AudioAsset::Register(const AssetNameView name, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin, const Arg::loopEnd_<uint64> loopEnd)
 	{
 		return Register(name, path, AudioLoopTiming{ *loopBegin, *loopEnd });
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const FilePathView path, const Optional<AudioLoopTiming>& loop)
+	bool AudioAsset::Register(const AssetNameView name, const FilePathView path, const Optional<AudioLoopTiming>& loop)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -85,12 +85,12 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path)
+	bool AudioAsset::Register(const AssetNameView name, Audio::FileStreaming, const FilePathView path)
 	{
 		return Register(name, Audio::Stream, path, Loop::No);
 	}
 
-	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Loop loop)
+	bool AudioAsset::Register(const AssetNameView name, Audio::FileStreaming, const FilePathView path, const Loop loop)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -111,7 +111,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
+	bool AudioAsset::Register(const AssetNameView name, Audio::FileStreaming, const FilePathView path, const Arg::loopBegin_<uint64> loopBegin)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -123,19 +123,19 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+	bool AudioAsset::Register(const AssetNameView name, const GMInstrument instrument, const uint8 key, const Duration& duration, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		return Register(name, instrument, key, duration, SecondsF{ 1.0 }, velocity, sampleRate);
 	}
 
-	bool AudioAsset::Register(const AssetName& name, const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
+	bool AudioAsset::Register(const AssetNameView name, const GMInstrument instrument, const uint8 key, const Duration& noteOn, const Duration& noteOff, const double velocity, const Arg::sampleRate_<uint32> sampleRate)
 	{
 		std::unique_ptr<AudioAssetData> data = std::make_unique<AudioAssetData>(instrument, key, noteOn, noteOff, velocity, sampleRate);
 
 		return Register(name, std::move(data));
 	}
 
-	bool AudioAsset::Register(const AssetName& name, std::unique_ptr<AudioAssetData>&& data)
+	bool AudioAsset::Register(const AssetNameView name, std::unique_ptr<AudioAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Audio, name, std::move(data));
 	}

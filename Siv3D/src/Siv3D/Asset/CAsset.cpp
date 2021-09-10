@@ -62,7 +62,7 @@ namespace s3d
 		SIV3D_ENGINE(Texture)->updateAsyncTextureLoad(4);
 	}
 
-	bool CAsset::registerAsset(const AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset)
+	bool CAsset::registerAsset(const AssetType assetType, const AssetNameView name, std::unique_ptr<IAsset>&& asset)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
 

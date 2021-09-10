@@ -46,7 +46,7 @@ namespace s3d
 	VertexShaderAsset::VertexShaderAsset(const AssetNameView name)
 		: VertexShader{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::VertexShader, name)) } {}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
+	bool VertexShaderAsset::Register(const AssetNameView name, const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -58,7 +58,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const s3d::HLSL& hlsl)
+	bool VertexShaderAsset::Register(const AssetNameView name, const s3d::HLSL& hlsl)
 	{
 		if (not detail::CheckFileExists(hlsl.path))
 		{
@@ -70,7 +70,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const s3d::GLSL& glsl)
+	bool VertexShaderAsset::Register(const AssetNameView name, const s3d::GLSL& glsl)
 	{
 		if (not detail::CheckFileExists(glsl.path))
 		{
@@ -82,7 +82,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const s3d::MSL& msl)
+	bool VertexShaderAsset::Register(const AssetNameView name, const s3d::MSL& msl)
 	{
 		if ((msl.path) && (not detail::CheckFileExists(msl.path)))
 		{
@@ -94,7 +94,7 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const s3d::ESSL& essl)
+	bool VertexShaderAsset::Register(const AssetNameView name, const s3d::ESSL& essl)
 	{
 		if (not detail::CheckFileExists(essl.path))
 		{
@@ -106,14 +106,14 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, const ShaderGroup& shaderGroup)
+	bool VertexShaderAsset::Register(const AssetNameView name, const ShaderGroup& shaderGroup)
 	{
 		std::unique_ptr<VertexShaderAssetData> data = std::make_unique<VertexShaderAssetData>(shaderGroup);
 
 		return Register(name, std::move(data));
 	}
 
-	bool VertexShaderAsset::Register(const AssetName& name, std::unique_ptr<VertexShaderAssetData>&& data)
+	bool VertexShaderAsset::Register(const AssetNameView name, std::unique_ptr<VertexShaderAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::VertexShader, name, std::move(data));
 	}

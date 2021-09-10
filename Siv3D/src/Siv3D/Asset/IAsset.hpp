@@ -39,7 +39,7 @@ namespace s3d
 
 		virtual void update() = 0;
 
-		virtual bool registerAsset(AssetType assetType, const AssetName& name, std::unique_ptr<IAsset>&& asset) = 0;
+		virtual bool registerAsset(AssetType assetType, AssetNameView name, std::unique_ptr<IAsset>&& asset) = 0;
 
 		virtual IAsset* getAsset(AssetType assetType, AssetNameView name) = 0;
 

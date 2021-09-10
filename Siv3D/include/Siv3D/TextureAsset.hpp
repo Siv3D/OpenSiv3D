@@ -25,17 +25,17 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit TextureAsset(AssetNameView name);
 
-		static bool Register(const AssetName& name, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
+		static bool Register(AssetNameView name, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
+		static bool Register(AssetNameView name, FilePathView rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
+		static bool Register(AssetNameView name, const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
+		static bool Register(AssetNameView name, const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
-		static bool Register(const AssetName& name, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
+		static bool Register(AssetNameView name, const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Unmipped);
 
-		static bool Register(const AssetName& name, std::unique_ptr<TextureAssetData>&& data);
+		static bool Register(AssetNameView name, std::unique_ptr<TextureAssetData>&& data);
 
 
 		static bool Register(const AssetNameAndTags& nameAndTags, FilePathView path, TextureDesc desc = TextureDesc::Unmipped);

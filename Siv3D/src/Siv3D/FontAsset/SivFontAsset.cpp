@@ -46,27 +46,27 @@ namespace s3d
 	FontAsset::FontAsset(const AssetNameView name)
 		: Font{ detail::FromAsset(SIV3D_ENGINE(Asset)->getAsset(AssetType::Font, name)) } {}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const int32 fontSize, const FilePathView path, const FontStyle style)
 	{
 		return Register(name, FontMethod::Bitmap, fontSize, path, 0, style);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
 		return Register(name, FontMethod::Bitmap, fontSize, path, faceIndex, style);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const int32 fontSize, const Typeface typeface, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const int32 fontSize, const Typeface typeface, const FontStyle style)
 	{
 		return Register(name, FontMethod::Bitmap, fontSize, typeface, style);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const FontStyle style)
 	{
 		return Register(name, fontMethod, fontSize, path, 0, style);
 	}
 
-	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const FontMethod fontMethod, const int32 fontSize, const FilePathView path, const size_t faceIndex, const FontStyle style)
 	{
 		if (not detail::CheckFileExists(path))
 		{
@@ -78,14 +78,14 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
-	bool FontAsset::Register(const AssetName& name, const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
+	bool FontAsset::Register(const AssetNameView name, const FontMethod fontMethod, const int32 fontSize, const Typeface typeface, const FontStyle style)
 	{
 		std::unique_ptr<FontAssetData> data = std::make_unique<FontAssetData>(fontMethod, fontSize, typeface, style);
 
 		return Register(name, std::move(data));
 	}
 
-	bool FontAsset::Register(const AssetName& name, std::unique_ptr<FontAssetData>&& data)
+	bool FontAsset::Register(const AssetNameView name, std::unique_ptr<FontAssetData>&& data)
 	{
 		return SIV3D_ENGINE(Asset)->registerAsset(AssetType::Font, name, std::move(data));
 	}

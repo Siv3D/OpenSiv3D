@@ -25,19 +25,19 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit FontAsset(AssetNameView name);
 
-		static bool Register(const AssetName& name, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 
-		static bool Register(const AssetName& name, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 		
-		static bool Register(const AssetName& name, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
 		
-		static bool Register(const AssetName& name, FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, FontMethod fontMethod, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
 		
-		static bool Register(const AssetName& name, FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, FontMethod fontMethod, int32 fontSize, FilePathView path, size_t faceIndex, FontStyle style = FontStyle::Default);
 
-		static bool Register(const AssetName& name, FontMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+		static bool Register(AssetNameView name, FontMethod fontMethod, int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
 	
-		static bool Register(const AssetName& name, std::unique_ptr<FontAssetData>&& data);
+		static bool Register(AssetNameView name, std::unique_ptr<FontAssetData>&& data);
 
 
 		static bool Register(const AssetNameAndTags& nameAndTags, int32 fontSize, FilePathView path, FontStyle style = FontStyle::Default);
