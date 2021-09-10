@@ -229,6 +229,7 @@ namespace s3d
 	void RegisterPianoKey(asIScriptEngine* engine);
 	void RegisterWaveSample(asIScriptEngine* engine);
 	void RegisterWave(asIScriptEngine* engine);
+	void RegisterMixBus(asIScriptEngine* engine);
 	void RegisterAudio(asIScriptEngine* engine);
 	void RegisterGlobalAudio(asIScriptEngine* engine);
 

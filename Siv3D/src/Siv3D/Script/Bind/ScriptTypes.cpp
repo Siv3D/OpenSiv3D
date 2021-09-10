@@ -147,6 +147,7 @@ namespace s3d
 		RegisterEnum(engine, "AudioFormat");
 		RegisterEnum(engine, "GMInstrument");
 		RegisterEnum(engine, "PianoKey");
+		RegisterEnum(engine, "MixBus");
 		RegisterEnum(engine, "CameraControl");
 
 		assert(engine->GetTypeIdByDecl("char32") == static_cast<int32>(ScriptTypeID::Char32));

@@ -1261,6 +1261,9 @@
 //
 //////////////////////////////////////////////////
 
+// ミキシングバス | Mix bus
+# include <Siv3D/MixBus.hpp>
+
 // 音声のグローバル設定 | Global audio setting
 # include <Siv3D/GlobalAudio.hpp>
 

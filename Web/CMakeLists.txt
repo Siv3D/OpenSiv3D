@@ -516,6 +516,7 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMathConstants.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMicrosecClock.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMillisecClock.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptMixBus.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMonitor.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptMouse.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNamedParameter.cpp

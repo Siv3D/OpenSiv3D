@@ -472,6 +472,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Microphone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MicrophoneInfo.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MIDINote.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MixBus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Model.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ModelMeshPart.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ModelObject.hpp" />
@@ -2257,6 +2258,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMathConstants.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMicrosecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMillisecClock.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMixBus.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMonitor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMouse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptNamedParameter.cpp" />

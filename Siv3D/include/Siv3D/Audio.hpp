@@ -17,6 +17,7 @@
 # include "AudioLoopTiming.hpp"
 # include "AssetHandle.hpp"
 # include "PredefinedYesNo.hpp"
+# include "MixBus.hpp"
 
 namespace s3d
 {

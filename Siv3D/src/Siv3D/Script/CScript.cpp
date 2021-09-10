@@ -183,6 +183,7 @@ namespace s3d
 			RegisterPianoKey(m_engine);
 			RegisterWaveSample(m_engine);
 			RegisterWave(m_engine);
+			RegisterMixBus(m_engine);
 			RegisterAudio(m_engine);
 			RegisterGlobalAudio(m_engine);
 
