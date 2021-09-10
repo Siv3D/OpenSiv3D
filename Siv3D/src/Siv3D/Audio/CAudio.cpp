@@ -197,6 +197,11 @@ namespace s3d
 
 	Audio::IDType CAudio::create(Wave&& wave, const Optional<AudioLoopTiming>& loop)
 	{
+		if (not wave)
+		{
+			return Audio::IDType::NullAsset();
+		}
+
 		// Audio を作成
 		auto audio = std::make_unique<AudioData>(m_soloud.get(), std::move(wave), loop);
 
