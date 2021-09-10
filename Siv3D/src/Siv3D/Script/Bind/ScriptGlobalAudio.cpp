@@ -38,7 +38,7 @@ namespace s3d
 		}
 	}
 
-	static CScriptArray* GlobalAudioBusGetSamples(size_t busIndex)
+	static CScriptArray* GlobalAudioBusGetSamples(MixBus busIndex)
 	{
 		asITypeInfo* typeID = asGetActiveContext()->GetEngine()->GetTypeInfoByDecl("Array<float>");
 		const Array<float> samples = GlobalAudio::BusGetSamples(busIndex);
@@ -77,19 +77,19 @@ namespace s3d
 			
 			// ...
 
-			r = engine->RegisterGlobalFunction("Array<float>@ BusGetSamples(size_t busIndex)", asFUNCTION(GlobalAudioBusGetSamples), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Array<float>@ BusGetSamples(MixBus busIndex)", asFUNCTION(GlobalAudioBusGetSamples), asCALL_CDECL); assert(r >= 0);
 
 			// ...
 
-			r = engine->RegisterGlobalFunction("double BusGetVolume(size_t)", asFUNCTION(GlobalAudio::BusGetVolume), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetVolume(size_t, double)", asFUNCTION(GlobalAudio::BusSetVolume), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusFadeVolume(size_t, double, const Duration& in)", asFUNCTION(GlobalAudio::BusFadeVolume), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusClearFilter(size_t, size_t)", asFUNCTION(GlobalAudio::BusClearFilter), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetLowPassFilter), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetHighPassFilter), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetEchoFilter), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetReverbFilter), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void BusSetPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift)", asFUNCTION(GlobalAudio::BusSetPitchShiftFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double BusGetVolume(MixBus)", asFUNCTION(GlobalAudio::BusGetVolume), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetVolume(MixBus, double)", asFUNCTION(GlobalAudio::BusSetVolume), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusFadeVolume(MixBus, double, const Duration& in)", asFUNCTION(GlobalAudio::BusFadeVolume), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusClearFilter(MixBus, size_t)", asFUNCTION(GlobalAudio::BusClearFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetLowPassFilter(MixBus busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetLowPassFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetHighPassFilter(MixBus busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetHighPassFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetEchoFilter(MixBus busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetEchoFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetReverbFilter(MixBus busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0)", asFUNCTION(GlobalAudio::BusSetReverbFilter), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void BusSetPitchShiftFilter(MixBus busIndex, size_t filterIndex, double pitchShift)", asFUNCTION(GlobalAudio::BusSetPitchShiftFilter), asCALL_CDECL); assert(r >= 0);
 			
 			r = engine->RegisterGlobalFunction("bool SupportsPitchShift()", asFUNCTION(GlobalAudio::SupportsPitchShift), asCALL_CDECL); assert(r >= 0);
 		}

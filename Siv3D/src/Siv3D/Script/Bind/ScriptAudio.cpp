@@ -145,9 +145,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void setLoopPoint(uint64) const", asMETHODPR(BindType, setLoopPoint, (uint64) const, void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void setLoopPoint(const Duration& in) const", asMETHODPR(BindType, setLoopPoint, (const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void play(size_t busIndex = 0) const", asMETHODPR(BindType, play, (size_t) const, void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void play(const Duration& in, size_t busIndex = 0) const", asMETHODPR(BindType, play, (const Duration&, size_t) const, void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void play(size_t busIndex, const Duration& in) const", asMETHODPR(BindType, play, (size_t, const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void play(MixBus busIndex = MixBus0) const", asMETHODPR(BindType, play, (MixBus) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void play(const Duration& in, MixBus busIndex = MixBus0) const", asMETHODPR(BindType, play, (const Duration&, MixBus) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void play(MixBus busIndex, const Duration& in) const", asMETHODPR(BindType, play, (MixBus, const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void pause() const", asMETHODPR(BindType, pause, () const, void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pause(const Duration& in) const", asMETHODPR(BindType, pause, (const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);
@@ -155,7 +155,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void stop() const", asMETHODPR(BindType, stop, () const, void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void stop(const Duration& in) const", asMETHODPR(BindType, stop, (const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void playOneShot(size_t busIndex = 0, double volume = 1.0, double pan = 0.0, double speed = 1.0) const", asMETHODPR(BindType, playOneShot, (size_t, double, double, double) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void playOneShot(double volume = 1.0, double pan = 0.0, double speed = 1.0, MixBus busIndex = MixBus0) const", asMETHODPR(BindType, playOneShot, (double, double, double, MixBus) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void playOneShot(MixBus busIndex, double volume = 1.0, double pan = 0.0, double speed = 1.0) const", asMETHODPR(BindType, playOneShot, (MixBus, double, double, double) const, void), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void pauseAllShots() const", asMETHODPR(BindType, pauseAllShots, () const, void), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void pauseAllShots(const Duration& in) const", asMETHODPR(BindType, pauseAllShots, (const Duration&) const, void), asCALL_THISCALL); assert(r >= 0);

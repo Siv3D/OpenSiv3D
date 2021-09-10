@@ -15,6 +15,7 @@
 # include "Array.hpp"
 # include "FFTResult.hpp"
 # include "AudioGroup.hpp"
+# include "MixBus.hpp"
 
 namespace s3d
 {
@@ -62,39 +63,39 @@ namespace s3d
 		void GetFFT(FFTResult& result);
 
 		[[nodiscard]]
-		Array<float> BusGetSamples(size_t busIndex);
+		Array<float> BusGetSamples(MixBus busIndex);
 
 		/// @brief 指定したバスの直近 256 サンプルを取得します。
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param busIndex バスのインデックス
 		/// @param samples 指定したバスの直近 256 サンプルを格納する配列
-		void BusGetSamples(size_t busIndex, Array<float>& samples);
+		void BusGetSamples(MixBus busIndex, Array<float>& samples);
 
 		[[nodiscard]]
-		FFTResult BusGetFFT(size_t busIndex);
+		FFTResult BusGetFFT(MixBus busIndex);
 
 		/// @brief 指定したバスの直近 256 サンプルでの FFT 結果を取得します。
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param busIndex バスのインデックス
 		/// @param result FFT 結果の格納先
-		void BusGetFFT(size_t busIndex, FFTResult& result);
+		void BusGetFFT(MixBus busIndex, FFTResult& result);
 
 		[[nodiscard]]
-		double BusGetVolume(size_t busIndex);
+		double BusGetVolume(MixBus busIndex);
 
-		void BusSetVolume(size_t busIndex, double volume);
+		void BusSetVolume(MixBus busIndex, double volume);
 
-		void BusFadeVolume(size_t busIndex, double volume, const Duration& time);
+		void BusFadeVolume(MixBus busIndex, double volume, const Duration& time);
 
-		void BusClearFilter(size_t busIndex, size_t filterIndex);
+		void BusClearFilter(MixBus busIndex, size_t filterIndex);
 
-		void BusSetLowPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
+		void BusSetLowPassFilter(MixBus busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 
-		void BusSetHighPassFilter(size_t busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
+		void BusSetHighPassFilter(MixBus busIndex, size_t filterIndex, double cutoffFrequency, double resonance, double wet = 1.0);
 
-		void BusSetEchoFilter(size_t busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
+		void BusSetEchoFilter(MixBus busIndex, size_t filterIndex, double delay, double decay, double wet = 1.0);
 
-		void BusSetReverbFilter(size_t busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
+		void BusSetReverbFilter(MixBus busIndex, size_t filterIndex, bool freeze, double roomSize, double damp, double width, double wet = 1.0);
 
-		void BusSetPitchShiftFilter(size_t busIndex, size_t filterIndex, double pitchShift);
+		void BusSetPitchShiftFilter(MixBus busIndex, size_t filterIndex, double pitchShift);
 
 		/// @brief ピッチシフトフィルタが利用できるかを返します。
 		/// @return ピッチシフトフィルタを利用できる場合 true, それ以外の場合は false

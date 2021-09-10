@@ -38,11 +38,11 @@ namespace s3d
 
 		size_t size() const;
 
-		void playAll(size_t busIndex = 0) const;
+		void playAll(MixBus busIndex = MixBus0) const;
 
-		void playAll(const Duration& fadeTime, size_t busIndex) const;
+		void playAll(const Duration& fadeTime, MixBus busIndex) const;
 
-		void playAll(size_t busIndex, const Duration& fadeTime) const;
+		void playAll(MixBus busIndex, const Duration& fadeTime) const;
 
 		void pauseAll() const;
 

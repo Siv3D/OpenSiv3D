@@ -56,29 +56,19 @@ namespace s3d
 		return pImpl->size();
 	}
 
-	void AudioGroup::playAll(const size_t busIndex) const
+	void AudioGroup::playAll(const MixBus busIndex) const
 	{
-		if (Audio::MaxBusCount <= busIndex)
-		{
-			return;
-		}
-
-		return pImpl->playAll(busIndex);
+		return pImpl->playAll(FromEnum(busIndex));
 	}
 
-	void AudioGroup::playAll(const Duration& fadeTime, const size_t busIndex) const
+	void AudioGroup::playAll(const Duration& fadeTime, const MixBus busIndex) const
 	{
 		playAll(busIndex, fadeTime);
 	}
 
-	void AudioGroup::playAll(const size_t busIndex, const Duration& fadeTime) const
+	void AudioGroup::playAll(const MixBus busIndex, const Duration& fadeTime) const
 	{
-		if (Audio::MaxBusCount <= busIndex)
-		{
-			return;
-		}
-
-		return pImpl->playAll(busIndex, fadeTime);
+		return pImpl->playAll(FromEnum(busIndex), fadeTime);
 	}
 
 	void AudioGroup::pauseAll() const

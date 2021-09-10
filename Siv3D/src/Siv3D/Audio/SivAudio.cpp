@@ -222,19 +222,19 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->setLoopPoint(m_handle->id(), Max(loopBegin, SecondsF{ 0.0 }));
 	}
 
-	void Audio::play(const size_t busIndex) const
+	void Audio::play(const MixBus busIndex) const
 	{
-		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex);
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), FromEnum(busIndex));
 	}
 
-	void Audio::play(const Duration& fadeTime, const size_t busIndex) const
+	void Audio::play(const Duration& fadeTime, const MixBus busIndex) const
 	{
 		play(busIndex, fadeTime);
 	}
 
-	void Audio::play(const size_t busIndex, const Duration& fadeTime) const
+	void Audio::play(const MixBus busIndex, const Duration& fadeTime) const
 	{
-		SIV3D_ENGINE(Audio)->play(m_handle->id(), busIndex, fadeTime);
+		SIV3D_ENGINE(Audio)->play(m_handle->id(), FromEnum(busIndex), fadeTime);
 	}
 
 	void Audio::pause() const
@@ -257,9 +257,14 @@ namespace s3d
 		SIV3D_ENGINE(Audio)->stop(m_handle->id(), fadeTime);
 	}
 
-	void Audio::playOneShot(const size_t busIndex, const double volume, const double pan, const double speed) const
+	void Audio::playOneShot(const double volume, const double pan, const double speed, const MixBus busIndex) const
 	{
-		SIV3D_ENGINE(Audio)->playOneShot(m_handle->id(), busIndex, volume, pan, speed);
+		playOneShot(busIndex, volume, pan, speed);
+	}
+
+	void Audio::playOneShot(const MixBus busIndex, const double volume, const double pan, const double speed) const
+	{
+		SIV3D_ENGINE(Audio)->playOneShot(m_handle->id(), FromEnum(busIndex), volume, pan, speed);
 	}
 
 	void Audio::pauseAllShots() const

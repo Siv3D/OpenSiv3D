@@ -288,22 +288,22 @@ namespace s3d
 		void setLoopPoint(const Duration& loopBegin) const;
 
 		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param busIndex バスのインデックス
 		/// @remark オーディオが一時停止中の場合 `busIndex` を無視して再生を再開します。
 		/// @remark すでに再生中の場合は何もしません。
-		void play(size_t busIndex = 0) const;
+		void play(MixBus busIndex = MixBus0) const;
 
 		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
 		/// @param fadeTime フェードイン時間
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param busIndex バスのインデックス
 		/// @remark すでに再生中の場合は何もしません。
-		void play(const Duration& fadeTime, size_t busIndex = 0) const;
+		void play(const Duration& fadeTime, MixBus busIndex = MixBus0) const;
 
 		/// @brief オーディオを指定したバスで再生するか、一時停止中の場合は再生を再開します。
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
+		/// @param busIndex バスのインデックス
 		/// @param fadeTime フェードイン時間
 		/// @remark すでに再生中の場合は何もしません。
-		void play(size_t busIndex, const Duration& fadeTime) const;
+		void play(MixBus busIndex, const Duration& fadeTime) const;
 
 		/// @brief 再生中のオーディオを一時停止します。
 		void pause() const;
@@ -318,13 +318,19 @@ namespace s3d
 		/// @brief 指定した時間をかけて音量をフェードアウトさせたのち停止します。
 		/// @param fadeTime フェードアウト時間
 		void stop(const Duration& fadeTime) const;
-		
+
 		/// @brief オーディオを重複可能にして一度だけ再生します。
-		/// @param busIndex バスのインデックス（`Audio::MaxBusCount` 未満）
 		/// @param volume 音量
 		/// @param pan パン
 		/// @param speed 再生スピード
-		void playOneShot(size_t busIndex = 0, double volume = 1.0, double pan = 0.0, double speed = 1.0) const;
+		void playOneShot(double volume = 1.0, double pan = 0.0, double speed = 1.0, MixBus = MixBus0) const;
+
+		/// @brief オーディオを重複可能にして一度だけ再生します。
+		/// @param busIndex バスのインデックス
+		/// @param volume 音量
+		/// @param pan パン
+		/// @param speed 再生スピード
+		void playOneShot(MixBus busIndex, double volume = 1.0, double pan = 0.0, double speed = 1.0) const;
 
 		/// @brief `playOneShot()` で再生中のすべてのオーディオを一時停止します
 		/// @param fadeTime 
