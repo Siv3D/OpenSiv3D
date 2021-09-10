@@ -667,6 +667,7 @@
 		2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C481E0F24460B5700A5D88D /* cpuinfo_x86.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C481E1024460B5700A5D88D /* cpuid_x86.h */; };
 		2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C481E1124460B5700A5D88D /* cpu_features_macros.h */; };
+		2C483B5726EADB6C002DEE7A /* ScriptMixBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C483B5626EADB6C002DEE7A /* ScriptMixBus.cpp */; };
 		2C48584F24C1FBAE0034F68D /* Siv3DTest_Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584A24C1FBAE0034F68D /* Siv3DTest_Image.cpp */; };
 		2C48585024C1FBAE0034F68D /* Siv3DTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584B24C1FBAE0034F68D /* Siv3DTest.cpp */; };
 		2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584C24C1FBAE0034F68D /* Siv3DTest_TextReader.cpp */; };
@@ -2893,6 +2894,8 @@
 		2C481E0F24460B5700A5D88D /* cpuinfo_x86.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuinfo_x86.c; sourceTree = "<group>"; };
 		2C481E1024460B5700A5D88D /* cpuid_x86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpuid_x86.h; sourceTree = "<group>"; };
 		2C481E1124460B5700A5D88D /* cpu_features_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu_features_macros.h; sourceTree = "<group>"; };
+		2C483B5526EADB4C002DEE7A /* MixBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MixBus.hpp; sourceTree = "<group>"; };
+		2C483B5626EADB6C002DEE7A /* ScriptMixBus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptMixBus.cpp; sourceTree = "<group>"; };
 		2C48584A24C1FBAE0034F68D /* Siv3DTest_Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Image.cpp; sourceTree = "<group>"; };
 		2C48584B24C1FBAE0034F68D /* Siv3DTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest.cpp; sourceTree = "<group>"; };
 		2C48584C24C1FBAE0034F68D /* Siv3DTest_TextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextReader.cpp; sourceTree = "<group>"; };
@@ -10162,6 +10165,7 @@
 				2CAAA75625E7FD0200C014D7 /* MicrosecClock.hpp */,
 				2C5337D72650BB2000CE0F1B /* MIDINote.hpp */,
 				2CAAA77725E7FD0200C014D7 /* MillisecClock.hpp */,
+				2C483B5526EADB4C002DEE7A /* MixBus.hpp */,
 				2C63A9CA26A408F000D13501 /* Model.hpp */,
 				2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */,
 				2C63A9DD26A531F100D13501 /* ModelObject.hpp */,
@@ -10918,6 +10922,7 @@
 				2CD69B5926D2B7AE00879484 /* ScriptMathConstants.cpp */,
 				2CD69B4D26D2B7AE00879484 /* ScriptMicrosecClock.cpp */,
 				2CD69BB926D2B7AE00879484 /* ScriptMillisecClock.cpp */,
+				2C483B5626EADB6C002DEE7A /* ScriptMixBus.cpp */,
 				2CD69B9B26D2B7AE00879484 /* ScriptMonitor.cpp */,
 				2CD69BB126D2B7AE00879484 /* ScriptMouse.cpp */,
 				2CD69B8026D2B7AE00879484 /* ScriptNamedParameter.cpp */,
@@ -13402,6 +13407,7 @@
 				2CDD2FC3265B9E7900E09591 /* SivGlobalAudio.cpp in Sources */,
 				2CD69C0126D2B7AF00879484 /* ScriptTypes.cpp in Sources */,
 				2CD69BE626D2B7AE00879484 /* ScriptColorF.cpp in Sources */,
+				2C483B5726EADB6C002DEE7A /* ScriptMixBus.cpp in Sources */,
 				2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */,
 				2C48BED925CFB8C500A93CE3 /* msdf-error-correction.cpp in Sources */,
 				2C423248242B155E00A16BCA /* xkb_unicode.c in Sources */,
