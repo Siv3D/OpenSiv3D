@@ -765,6 +765,21 @@ namespace s3d
 		m_detail->get().erase(key);
 	}
 
+	void JSON::erase(const size_t index)
+	{
+		if (not m_isValid)
+		{
+			return;
+		}
+
+		if (not isArray())
+		{
+			return;
+		}
+
+		m_detail->get().erase(index);
+	}
+
 	//JSON::iterator JSON::find(const StringView name)
 	//{
 	//	const std::string key = Unicode::ToUTF8(name);

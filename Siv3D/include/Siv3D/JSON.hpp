@@ -384,6 +384,8 @@ namespace s3d
 
 		void erase(StringView name);
 
+		void erase(size_t index);
+
 		// [Siv3D ToDo]
 		// void erase(???); 他のオーバーロード
 
