@@ -163,7 +163,7 @@ namespace s3d
 	{
 		if (const auto opt = getOptString())
 		{
-			return static_cast<Type>(*opt);
+			return ParseOpt<Type>(*opt);
 		}
 
 		return none;
