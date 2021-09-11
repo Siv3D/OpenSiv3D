@@ -63,7 +63,7 @@ vec4 GetDiffuseColor(vec2 uv)
 {
 	vec4 diffuseColor = g_diffuseColor;
 
-	if (g_hasTexture == 1)
+	if (g_hasTexture == 1u)
 	{
 		diffuseColor *= texture(Texture0, uv);
 	}

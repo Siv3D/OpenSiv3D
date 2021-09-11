@@ -63,7 +63,7 @@ vec4 Triplanar(vec3 worldPos, vec3 normal, float uvScale)
 {
 	vec4 diffuseColor = g_diffuseColor;
 
-	if (g_hasTexture == 1)
+	if (g_hasTexture == 1u)
 	{
 		vec3 blend = abs(normal);
 		blend /= (blend.x + blend.y + blend.z);

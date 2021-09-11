@@ -82,7 +82,7 @@ vec4 TerrainTriplanar(vec3 worldPos, vec3 normal, float uvScale)
 {
 	vec4 diffuseColor = g_diffuseColor;
 
-	if (g_hasTexture == 1)
+	if (g_hasTexture == 1u)
 	{
 		normal.y = pow(abs(normal.y), 32.0f); // less grass on slopes
 
