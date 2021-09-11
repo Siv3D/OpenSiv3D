@@ -20,7 +20,7 @@ namespace s3d
 	{
 		std::shared_ptr<tinyxml2::XMLDocument> document;
 
-		const tinyxml2::XMLElement* element;
+		const tinyxml2::XMLElement* element = nullptr;
 
 		XMLElementDetail() = default;
 
@@ -36,6 +36,18 @@ namespace s3d
 
 	XMLElement::XMLElement(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* element)
 		: m_detail{ std::make_unique<XMLElementDetail>(doc, element) } {}
+
+	XMLElement::XMLElement(XMLElement&& other)
+		: m_detail{ std::move(other.m_detail) } {}
+
+	XMLElement::~XMLElement() {}
+
+	XMLElement& XMLElement::operator= (XMLElement&& other)
+	{
+		m_detail = std::move(other.m_detail);
+
+		return *this;
+	}
 
 	bool XMLElement::isNull() const
 	{

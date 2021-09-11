@@ -37,6 +37,13 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		XMLElement(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* element);
 
+		SIV3D_NODISCARD_CXX20
+		XMLElement(XMLElement&& other);
+
+		~XMLElement();
+
+		XMLElement& operator= (XMLElement&& other);
+
 		[[nodiscard]]
 		bool isNull() const;
 
