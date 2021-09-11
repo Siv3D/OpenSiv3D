@@ -55,5 +55,7 @@ namespace s3d
 		virtual void setToggleFullscreenEnabled(bool enabled) = 0;
 
 		virtual bool isToggleFullscreenEnabled() const = 0;
+
+		virtual void show() {};
 	};
 }

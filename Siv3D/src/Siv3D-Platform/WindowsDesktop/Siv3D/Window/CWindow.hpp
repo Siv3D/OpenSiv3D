@@ -94,10 +94,10 @@ namespace s3d
 
 		bool isToggleFullscreenEnabled() const override;
 
+		void show() override;
+
 
 		void setFullscreen(bool fullscreen, size_t monitorIndex, bool skipSceneResize);
-
-		void show();
 
 		void onResize(bool minimized, bool maximized);
 

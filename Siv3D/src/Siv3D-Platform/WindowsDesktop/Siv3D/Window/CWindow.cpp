@@ -499,6 +499,16 @@ namespace s3d
 		return false;
 	}
 
+	void CWindow::show()
+	{
+		LOG_TRACE(U"ShowWindow()");
+		::ShowWindow(m_hWnd, SW_SHOW);
+		::ValidateRect(m_hWnd, 0);
+		::UpdateWindow(m_hWnd);
+		::SetForegroundWindow(m_hWnd);
+		m_showWindowCalled = true;
+	}
+
 	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex, const bool skipSceneResize)
 	{
 		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
@@ -547,16 +557,6 @@ namespace s3d
 				SIV3D_ENGINE(Renderer)->updateSceneSize();
 			}
 		}
-	}
-
-	void CWindow::show()
-	{
-		LOG_TRACE(U"ShowWindow()");
-		::ShowWindow(m_hWnd, SW_SHOW);
-		::ValidateRect(m_hWnd, 0);
-		::UpdateWindow(m_hWnd);
-		::SetForegroundWindow(m_hWnd);
-		m_showWindowCalled = true;
 	}
 
 	void CWindow::onResize(const bool minimized, const bool maximized)

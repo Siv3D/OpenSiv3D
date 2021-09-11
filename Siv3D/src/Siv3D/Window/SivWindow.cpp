@@ -49,6 +49,8 @@ namespace s3d
 
 		void Centering()
 		{
+			SIV3D_ENGINE(Window)->show();
+
 			try
 			{
 				const Monitor currentMonitor = System::GetCurrentMonitor();
