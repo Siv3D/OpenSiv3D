@@ -51,7 +51,7 @@ namespace s3d
 
 	inline INI::operator bool() const noexcept
 	{
-		return m_sections.isEmpty();
+		return (not m_sections.isEmpty());
 	}
 
 	inline const Array<INISection>& INI::sections() const noexcept
