@@ -52,7 +52,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dSetCursorStyle: function(style) {
         const styleText = UTF8ToString(style);
-        Module["canvas"].style.cursor = styleText;
+        Module["canvas"]["style"]["cursor"] = styleText;
     },
     siv3dSetCursorStyle__sig: "vi",
 
@@ -79,7 +79,7 @@ mergeInto(LibraryManager.library, {
     // DragDrop Support
     //
     siv3dRegisterDragEnter: function(ptr) {
-        Module["canvas"].ondragenter = function (e) {
+        Module["canvas"]["ondragenter"] = function (e) {
             e.preventDefault();
 
             const types = e.dataTransfer.types;
@@ -92,7 +92,7 @@ mergeInto(LibraryManager.library, {
     siv3dRegisterDragEnter__sig: "vi",
 
     siv3dRegisterDragUpdate: function(ptr) {
-        Module["canvas"].ondragover = function (e) {
+        Module["canvas"]["ondragover"] = function (e) {
             e.preventDefault();
             {{{ makeDynCall('v', 'ptr') }}}();
         };
@@ -100,7 +100,7 @@ mergeInto(LibraryManager.library, {
     siv3dRegisterDragUpdate__sig: "vi",
 
     siv3dRegisterDragExit: function(ptr) {
-        Module["canvas"].ondragexit = function (e) {
+        Module["canvas"]["ondragexit"] = function (e) {
             e.preventDefault();
             {{{ makeDynCall('v', 'ptr') }}}();
         };
@@ -109,7 +109,7 @@ mergeInto(LibraryManager.library, {
 
     $siv3dDragDropFileReader: null,
     siv3dRegisterDragDrop: function(ptr) {
-        Module["canvas"].ondrop = function (e) {
+        Module["canvas"]["ondrop"] = function (e) {
             e.preventDefault();
 
             const items = e.dataTransfer.items;
