@@ -24,7 +24,7 @@ namespace s3d
 		{
 			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			httpTask.updateResponseStatus("HTTP/1.1 200 Ok");
+			httpTask.updateResponseStatus("HTTP/1.1 200 Ok\n");
 			httpTask.setStatus(HTTPAsyncStatus::Succeeded);
 		}
 
@@ -32,7 +32,7 @@ namespace s3d
 		{
 			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			httpTask.updateResponseStatus(U"HTTP/1.1 {} Unknown"_fmt(statusCode).toUTF8());
+			httpTask.updateResponseStatus(U"HTTP/1.1 {} Unknown\n"_fmt(statusCode).toUTF8());
 			httpTask.setStatus(HTTPAsyncStatus::Failed);
 		}
 
