@@ -198,6 +198,11 @@ namespace s3d
 
 		auto textureManager = static_cast<CTexture_GLES3*>(Siv3DEngine::Get<ISiv3DTexture>());
 
+		if (texture.width() < m_captureResolution.x || texture.height() < m_captureResolution.y)
+		{
+			LOG_WARNING(U"Texture is too small.");
+		}
+
 		{
 			::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_capturedFrameBuffer);
 			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_copyFrameBuffer);
