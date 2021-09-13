@@ -69,6 +69,9 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Mesh/MeshFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Microphone/MicrophoneDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Microphone/SivMicrophone.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
@@ -349,9 +352,9 @@ add_library(
   ../Siv3D/src/Siv3D/MeshData/MeshUtility.cpp
   ../Siv3D/src/Siv3D/MeshData/SivMeshData.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
-  ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
-  ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
-  ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
+  # ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
+  # ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
+  # ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D/MicrosecClock/SivMicrosecClock.cpp
   ../Siv3D/src/Siv3D/MillisecClock/SivMillisecClock.cpp
   ../Siv3D/src/Siv3D/Model/CModel.cpp
