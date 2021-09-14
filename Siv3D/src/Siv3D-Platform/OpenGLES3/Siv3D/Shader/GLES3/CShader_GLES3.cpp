@@ -200,5 +200,8 @@ namespace s3d
 		}
 
 		::glUseProgram(program);
+
+		m_vertexShaders[m_currentVS]->setVSSamplerUniforms();
+		m_pixelShaders[m_currentPS]->setPSSamplerUniforms();
 	}
 }

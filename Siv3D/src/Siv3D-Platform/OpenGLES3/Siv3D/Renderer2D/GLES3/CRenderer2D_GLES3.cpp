@@ -1275,13 +1275,13 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot));
 						::glBindTexture(GL_TEXTURE_2D, 0);
 						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						::glActiveTexture(GL_TEXTURE0 + slot);
+						::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot));
 						::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
 						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}

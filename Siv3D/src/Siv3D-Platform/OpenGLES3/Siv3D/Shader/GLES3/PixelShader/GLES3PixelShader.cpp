@@ -124,6 +124,7 @@ namespace s3d
 		{
 			const String name = Format(U"Texture", slot);
 			const std::string s = name.narrow();
+			const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot);
 			const GLint location = ::glGetUniformLocation(program, s.c_str());
 
 			if (location != -1)

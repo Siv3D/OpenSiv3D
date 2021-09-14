@@ -26,6 +26,7 @@ namespace s3d
 		GLuint m_vertexShader = 0;
 
 		Array<ConstantBufferBinding> m_constantBufferBindings;
+		Array<std::pair<uint32, GLint>> m_textureIndices;
 
 		bool m_initialized = false;
 
@@ -52,5 +53,7 @@ namespace s3d
 		GLuint getShader() const;
 
 		void bindUniformBlocks(GLuint program);
+
+		void setVSSamplerUniforms();
 	};
 }
