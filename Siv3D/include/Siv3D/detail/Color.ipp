@@ -21,19 +21,19 @@ namespace s3d
 		}
 	}
 
-	inline constexpr Color::Color(const uint8 _r, const uint8 _g, const uint8 _b, const uint8 _a) noexcept
+	inline constexpr Color::Color(const value_type _r, const value_type _g, const value_type _b, const value_type _a) noexcept
 		: r{ _r }
 		, g{ _g }
 		, b{ _b }
 		, a{ _a } {}
 
-	inline constexpr Color::Color(const uint8 rgb, const uint8 _a) noexcept
+	inline constexpr Color::Color(const value_type rgb, const value_type _a) noexcept
 		: r{ rgb }
 		, g{ rgb }
 		, b{ rgb }
 		, a{ _a } {}
 
-	inline constexpr Color::Color(const Color rgb, const uint8 _a) noexcept
+	inline constexpr Color::Color(const Color rgb, const value_type _a) noexcept
 		: r{ rgb.r }
 		, g{ rgb.g }
 		, b{ rgb.b }
@@ -45,7 +45,7 @@ namespace s3d
 		, b{ Color::ToUint8(color.b) }
 		, a{ Color::ToUint8(color.a) } {}
 
-	inline constexpr Color::Color(const ColorF& color, const uint8 _a) noexcept
+	inline constexpr Color::Color(const ColorF& color, const value_type _a) noexcept
 		: r{ Color::ToUint8(color.r) }
 		, g{ Color::ToUint8(color.g) }
 		, b{ Color::ToUint8(color.b) }
@@ -56,7 +56,7 @@ namespace s3d
 		*this = hsv.toColor();
 	}
 
-	inline Color::Color(const HSV& hsv, const uint8 _a) noexcept
+	inline Color::Color(const HSV& hsv, const value_type _a) noexcept
 	{
 		*this = hsv.toColor(_a);
 	}

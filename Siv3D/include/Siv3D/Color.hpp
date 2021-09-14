@@ -24,17 +24,19 @@ namespace s3d
 
 	struct Color
 	{
+		using value_type = uint8;
+
 		/// @brief 赤 | Red
-		uint8 r;
+		value_type r;
 
 		/// @brief 緑 | Green
-		uint8 g;
+		value_type g;
 
 		/// @brief 青 | Blue
-		uint8 b;
+		value_type b;
 
 		/// @brief アルファ | Alpha
-		uint8 a;
+		value_type a;
 
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
@@ -45,25 +47,25 @@ namespace s3d
 		Color(const Color&) = default;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(uint8 _r, uint8 _g, uint8 _b, uint8 _a = 255) noexcept;
+		constexpr Color(value_type _r, value_type _g, value_type _b, value_type _a = 255) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		explicit constexpr Color(uint8 rgb, uint8 _a = 255) noexcept;
+		explicit constexpr Color(value_type rgb, value_type _a = 255) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(Color rgb, uint8 _a) noexcept;
+		constexpr Color(Color rgb, value_type _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		constexpr Color(const ColorF& color) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr Color(const ColorF& color, uint8 _a) noexcept;
+		constexpr Color(const ColorF& color, value_type _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		Color(const HSV& hsva) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		Color(const HSV& hsv, uint8 _a) noexcept;
+		Color(const HSV& hsv, value_type _a) noexcept;
 
 		SIV3D_NODISCARD_CXX20
 		explicit constexpr Color(StringView code) noexcept;
@@ -84,68 +86,26 @@ namespace s3d
 		[[nodiscard]]
 		friend constexpr bool operator ==(Color lhs, Color rhs) noexcept
 		{
-		# if __cpp_lib_is_constant_evaluated
-			if (std::is_constant_evaluated()) // MSVC workaround
-			{
-				return (lhs.r == rhs.r)
-					&& (lhs.g == rhs.g)
-					&& (lhs.b == rhs.b)
-					&& (lhs.a == rhs.a);
-			}
-			else
-			{
-			# if __cpp_lib_bit_cast
-				return (std::bit_cast<uint32>(lhs) == std::bit_cast<uint32>(rhs));
-			# else
-				return (lhs.r == rhs.r)
-					&& (lhs.g == rhs.g)
-					&& (lhs.b == rhs.b)
-					&& (lhs.a == rhs.a);
-			# endif
-			}
+		# if __cpp_lib_bit_cast
+			return (std::bit_cast<uint32>(lhs) == std::bit_cast<uint32>(rhs));
 		# else
-			# if __cpp_lib_bit_cast
-				return (std::bit_cast<uint32>(lhs) == std::bit_cast<uint32>(rhs));
-			# else
-				return (lhs.r == rhs.r)
-					&& (lhs.g == rhs.g)
-					&& (lhs.b == rhs.b)
-					&& (lhs.a == rhs.a);
-			# endif
+			return (lhs.r == rhs.r)
+				&& (lhs.g == rhs.g)
+				&& (lhs.b == rhs.b)
+				&& (lhs.a == rhs.a);
 		# endif
 		}
 
 		[[nodiscard]]
 		friend constexpr bool operator !=(Color lhs, Color rhs) noexcept
 		{
-		# if __cpp_lib_is_constant_evaluated
-			if (std::is_constant_evaluated()) // MSVC workaround
-			{
-				return (lhs.r != rhs.r)
-					|| (lhs.g != rhs.g)
-					|| (lhs.b != rhs.b)
-					|| (lhs.a != rhs.a);
-			}
-			else
-			{
-			# if __cpp_lib_bit_cast
-				return (std::bit_cast<uint32>(lhs) != std::bit_cast<uint32>(rhs));
-			# else
-				return (lhs.r != rhs.r)
-					|| (lhs.g != rhs.g)
-					|| (lhs.b != rhs.b)
-					|| (lhs.a != rhs.a);
-			# endif
-			}
+		# if __cpp_lib_bit_cast
+			return (std::bit_cast<uint32>(lhs) != std::bit_cast<uint32>(rhs));
 		# else
-			# if __cpp_lib_bit_cast
-				return (std::bit_cast<uint32>(lhs) != std::bit_cast<uint32>(rhs));
-			# else
-				return (lhs.r != rhs.r)
-					|| (lhs.g != rhs.g)
-					|| (lhs.b != rhs.b)
-					|| (lhs.a != rhs.a);
-			# endif
+			return (lhs.r != rhs.r)
+				|| (lhs.g != rhs.g)
+				|| (lhs.b != rhs.b)
+				|| (lhs.a != rhs.a);
 		# endif
 		}
 
