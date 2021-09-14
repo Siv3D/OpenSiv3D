@@ -94,10 +94,12 @@ mergeInto(LibraryManager.library, {
     siv3dRegisterDragUpdate: function(ptr) {
         Module["canvas"]["ondragover"] = function (e) {
             e.preventDefault();
-            {{{ makeDynCall('v', 'ptr') }}}();
+            const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
+            {{{ makeDynCall('vii', 'ptr') }}}(adusted.x, adusted.y);
         };
     },
     siv3dRegisterDragUpdate__sig: "vi",
+    siv3dRegisterDragUpdate__deps: [ "$siv3dAdjustPoint" ],
 
     siv3dRegisterDragExit: function(ptr) {
         Module["canvas"]["ondragexit"] = function (e) {
@@ -118,7 +120,7 @@ mergeInto(LibraryManager.library, {
                 return;
             }
 
-            if (items[0].kind === 'text') {
+            if (items[0].kind === 'string') {
                 items[0].getAsString(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);
                     {{{ makeDynCall('vi', 'ptr') }}}(strPtr);
@@ -333,6 +335,23 @@ mergeInto(LibraryManager.library, {
     // MultiTouch Support
     //
     $siv3dActiveTouches: [],
+
+    $siv3dAdjustPoint: function (x, y) {
+        const rect = Module["canvas"].getBoundingClientRect();
+        const cw = Module["canvas"].width;
+        const ch = Module["canvas"].height;
+
+        const scrollX = ((typeof window.scrollX !== 'undefined') ? window.scrollX : window.pageXOffset);
+        const scrollY = ((typeof window.scrollY !== 'undefined') ? window.scrollY : window.pageYOffset);
+
+        let adjustedX = x - (scrollX + rect.left);
+        let adjustedY = y - (scrollY + rect.top);
+
+        adjustedX = adjustedX * (cw / rect.width);
+        adjustedY = adjustedY * (ch / rect.height);
+
+        return { x: adjustedX, y: adjustedY };
+    },
     
     $siv3dOnTouchStart: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
@@ -366,29 +385,17 @@ mergeInto(LibraryManager.library, {
     siv3dGetPrimaryTouchPoint: function(pX, pY) {
         if (siv3dActiveTouches.length > 0) {
             const touch = siv3dActiveTouches[0];
-
-            const rect = Module["canvas"].getBoundingClientRect();
-            const cw = Module["canvas"].width;
-            const ch = Module["canvas"].height;
-
-            const scrollX = ((typeof window.scrollX !== 'undefined') ? window.scrollX : window.pageXOffset);
-            const scrollY = ((typeof window.scrollY !== 'undefined') ? window.scrollY : window.pageYOffset);
-
-            let adjustedX = touch.pageX - (scrollX + rect.left);
-            let adjustedY = touch.pageY - (scrollY + rect.top);
-  
-            adjustedX = adjustedX * (cw / rect.width);
-            adjustedY = adjustedY * (ch / rect.height);
+            const adjusted = siv3dAdjustPoint(touch.pageX, touch.pageY);
             
-            setValue(pX, adjustedX, 'double');
-            setValue(pY, adjustedY, 'double');
+            setValue(pX, adjusted.x, 'double');
+            setValue(pY, adjusted.y, 'double');
             return 1;
         } else {
             return 0;
         }
     },
     siv3dGetPrimaryTouchPoint__sig: "iii",
-    siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches" ],
+    siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches", "$siv3dAdjustPoint" ],
 
     //
     // AngelScript Support

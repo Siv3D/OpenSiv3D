@@ -19,7 +19,7 @@
 extern "C"
 {
 	extern void siv3dRegisterDragEnter(void(*callback)(bool));
-	extern void siv3dRegisterDragUpdate(void(*callback)());
+	extern void siv3dRegisterDragUpdate(void(*callback)(int, int));
 	extern void siv3dRegisterDragExit(void(*callback)());
 	extern void siv3dRegisterDragDrop(void(*callback)(const char*));
 
@@ -35,11 +35,11 @@ extern "C"
 		}
 	}
 
-	void s3d_DraggingUpdated()
+	void s3d_DraggingUpdated(int x, int y)
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_updated(Cursor::Pos());
+			pDragDrop->internal_updated(Point{x, y});
 		}
 	}
 
@@ -221,7 +221,6 @@ namespace s3d
 				}
 				else
 				{
-					(*itr).erase(0, 7); // erase "file://"
 					itr++;
 				}
 			}
