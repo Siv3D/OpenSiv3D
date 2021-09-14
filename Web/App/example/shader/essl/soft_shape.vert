@@ -20,10 +20,6 @@
 //
 out vec4 Color;
 out vec2 UV;
-// out gl_PerVertex
-// {
-// 	vec4 gl_Position;
-// };
 
 //
 //	Siv3D Functions
@@ -57,25 +53,25 @@ vec2 Circular(float r, float theta)
 
 void main()
 {
-	Color = vec4(0.2, 0.7, 0.4, 1);
-	UV = vec2(0, 0);
+	Color = vec4(0.2f, 0.7f, 0.4f, 1.0f);
+	UV = vec2(0.0f, 0.0f);
 
 	vec2 pos;
 
 	if (gl_VertexID % 3 == 0)
 	{
-		pos = vec2(640, 360);
+		pos = vec2(640.0f, 360.0f);
 	}
 	else
 	{
-		float angle = radians((gl_VertexID / 3) + ((gl_VertexID % 3) - 1));
-		float r = 200
-			+ cos((angle * 2) + sin(g_t * 1.5)) * 40
-			+ sin((angle * 2) + sin(g_t * 2.0)) * 30
-			+ cos((angle * 3) + sin(g_t * 3.5)) * 20
-			+ sin((angle * 3) + sin(g_t * 4.0)) * 10;
-		pos = vec2(640, 360) + Circular(r, angle);
-		Color.a = (1.0 - r / 360.0);
+		float angle = radians(float((gl_VertexID / 3) + ((gl_VertexID % 3) - 1)));
+		float r = 200.0f
+			+ cos((angle * 2.0f) + sin(g_t * 1.5f)) * 40.0f
+			+ sin((angle * 2.0f) + sin(g_t * 2.0f)) * 30.0f
+			+ cos((angle * 3.0f) + sin(g_t * 3.5f)) * 20.0f
+			+ sin((angle * 3.0f) + sin(g_t * 4.0f)) * 10.0f;
+		pos = vec2(640.0f, 360.0f) + Circular(r, angle);
+		Color.a = (1.0f - r / 360.0f);
 	}
 
 	gl_Position = s3d_Transform2D(pos, g_transform);	

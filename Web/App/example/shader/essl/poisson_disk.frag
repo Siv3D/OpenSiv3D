@@ -79,7 +79,7 @@ void main()
 
 	vec4 accum = texture(Texture0, UV);
 
-	for (uint tap = 0; tap < 12; ++tap)
+	for (uint tap = 0u; tap < 12u; ++tap)
 	{
 		vec2 uv = UV + (poisson[tap] * offsetScale);
 

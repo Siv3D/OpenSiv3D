@@ -70,7 +70,7 @@ void main()
 
 	float n = 0.0f;
 
-	for (uint i = 0; i < 8; ++i)
+	for (uint i = 0u; i < 8u; ++i)
 	{
 		n += texture(Texture0, UV + offsets[i] * g_pixelSize).r;
 	}
