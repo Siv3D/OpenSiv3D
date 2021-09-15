@@ -83,6 +83,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Shader/ShaderFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/CSystem.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/SivSystem_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TCPClient/SivTCPClient.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TCPClient/TCPClientDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextToSpeech/CTextToSpeech.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Texture/TextureFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextInput/CTextInput.cpp
@@ -617,8 +619,8 @@ add_library(
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
   ../Siv3D/src/Siv3D/System/SystemMisc.cpp
-  ../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp
-  ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
+  # ../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp
+  # ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
   ../Siv3D/src/Siv3D/TCPServer/SivTCPServer.cpp
   ../Siv3D/src/Siv3D/TCPServer/TCPServerDetail.cpp
   ../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp
