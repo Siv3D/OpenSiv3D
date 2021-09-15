@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <mutex>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/DragDrop/IDragDrop.hpp>
 
@@ -48,7 +49,9 @@ namespace s3d
 
 		Array<DroppedText> getDroppedText() override;
 
-		Optional<int32> makeDragDrop(const FilePath& path) override;
+		void makeDragDrop(FilePathView path) override;
+
+		void process();
 
 	private:
 
@@ -65,5 +68,13 @@ namespace s3d
 		Point m_dragOverPos = Point::Zero();
 
 		bool m_dragOver = false;
+
+		//////////
+		//
+		std::mutex m_mutex;
+
+		FilePath m_newDragPath;
+		//
+		//////////
 	};
 }

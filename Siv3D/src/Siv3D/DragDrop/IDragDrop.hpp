@@ -43,6 +43,6 @@ namespace s3d
 
 		virtual Array<DroppedText> getDroppedText() = 0;
 
-		virtual Optional<int32> makeDragDrop(const FilePath& path) = 0;
+		virtual void makeDragDrop(FilePathView path) = 0;
 	};
 }

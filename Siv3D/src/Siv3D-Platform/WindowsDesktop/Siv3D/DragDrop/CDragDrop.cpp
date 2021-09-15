@@ -672,8 +672,10 @@ namespace s3d
 
 		void BeginDrop(IDataObject** lpDataObejct, IDropSource** lpDropSource, const FilePath& path)
 		{
-			const std::wstring pathW = (FileSystem::FullPath(path) + U'\0').toWstr();
-			const size_t path_size_bytes = sizeof(wchar_t) * pathW.size();
+			std::wstring pathW = (FileSystem::FullPath(path)).toWstr();
+			pathW.push_back(L'\0');
+			pathW.push_back(L'\0');
+			const size_t path_size_bytes = (sizeof(wchar_t) * pathW.size());
 
 			FORMATETC formatetc;
 			formatetc.cfFormat = CF_HDROP;
@@ -816,9 +818,31 @@ namespace s3d
 		return dropped;
 	}
 
-	Optional<int32> CDragDrop::makeDragDrop(const FilePath& path)
+	void CDragDrop::makeDragDrop(const FilePathView path)
 	{
-		::OleInitialize(nullptr);
+		std::lock_guard lock{ m_mutex };
+
+		m_newDragPath = path;
+	}
+
+	void CDragDrop::process()
+	{
+		FilePath path;
+
+		{
+			std::lock_guard lock{ m_mutex };
+
+			if (m_newDragPath)
+			{
+				path.swap(m_newDragPath);
+			}
+		}
+
+		if (not path)
+		{
+			return;
+		}
+
 		{
 			ComPtr<IDataObject> dataObject;
 			ComPtr<IDropSource> dropSource;
@@ -844,19 +868,14 @@ namespace s3d
 				//{
 				//	Print << U"Link";
 				//}
-
-				::OleUninitialize();
-				return dropEffect;
 			}
 			else if (hr == DRAGDROP_S_CANCEL)
 			{
-				::OleUninitialize();
-				return none;
+				//LOG_ERROR(U"A2");
 			}
 			else
 			{
-				::OleUninitialize();
-				return none;
+				//LOG_ERROR(U"E1");
 			}
 		}
 	}

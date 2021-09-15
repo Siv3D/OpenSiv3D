@@ -69,8 +69,7 @@ namespace s3d
 	{
 		/// @brief 指定したファイルのドラッグを開始します。
 		/// @param path ファイルパス
-		/// @return ドロップのアクションを表す数値
-		Optional<int32> MakeDragDrop(const FilePath& path);
+		void MakeDragDrop(FilePathView path);
 	}
 
 # endif

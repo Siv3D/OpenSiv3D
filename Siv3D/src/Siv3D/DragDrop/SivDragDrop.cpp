@@ -62,9 +62,9 @@ namespace s3d
 
 	namespace Platform::Windows::DragDrop
 	{
-		Optional<int32> MakeDragDrop(const FilePath& path)
+		void MakeDragDrop(const FilePathView path)
 		{
-			return SIV3D_ENGINE(DragDrop)->makeDragDrop(path);
+			SIV3D_ENGINE(DragDrop)->makeDragDrop(path);
 		}
 	}
 

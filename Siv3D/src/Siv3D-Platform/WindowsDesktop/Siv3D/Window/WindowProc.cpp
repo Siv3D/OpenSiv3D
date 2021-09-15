@@ -20,6 +20,7 @@
 # include <Siv3D/Gamepad/CGamepad.hpp>
 # include <Siv3D/System/CSystem.hpp>
 # include <Siv3D/TextInput/CTextInput.hpp>
+# include <Siv3D/DragDrop/CDragDrop.hpp>
 # include "WindowProc.hpp"
 # include "CWindow.hpp"
 # include <Dbt.h>
@@ -34,6 +35,11 @@ namespace s3d
 			{
 				return 0;
 			}
+		}
+
+		if (auto dragDrop = dynamic_cast<CDragDrop*>(SIV3D_ENGINE(DragDrop)))
+		{
+			dragDrop->process();
 		}
 
 		switch (message)

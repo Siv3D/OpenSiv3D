@@ -155,10 +155,9 @@ namespace s3d
 		return dropped;
 	}
 
-	Optional<int32> CDragDrop::makeDragDrop(const FilePath&)
+	void CDragDrop::makeDragDrop(const FilePathView)
 	{
 		// [Siv3D ToDo]
-		return (none);
 	}
 
 	void CDragDrop::internal_entered(const bool isFilePath, const Point& pos)

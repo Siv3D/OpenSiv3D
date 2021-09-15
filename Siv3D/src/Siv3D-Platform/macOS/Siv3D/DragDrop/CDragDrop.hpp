@@ -42,7 +42,7 @@ namespace s3d
 
 		Array<DroppedText> getDroppedText() override;
 
-		Optional<int32> makeDragDrop(const FilePath& path) override;
+		void makeDragDrop(FilePathView path) override;
 		
 		//
 		//	macOS
