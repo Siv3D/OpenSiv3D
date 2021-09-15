@@ -26,6 +26,7 @@
 # pragma comment (lib, "imm32")
 # pragma comment (lib, "mfuuid")
 # pragma comment (lib, "opengl32")
+# pragma comment (lib, "Setupapi")
 # pragma comment (lib, "version")
 # pragma comment (lib, "winmm")
 # pragma comment (lib, "Ws2_32")
