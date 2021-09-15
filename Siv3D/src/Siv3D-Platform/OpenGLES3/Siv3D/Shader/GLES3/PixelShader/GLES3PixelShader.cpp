@@ -122,15 +122,15 @@ namespace s3d
 		// Sampler Uniforms
 		for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
 		{
-			const String name = Format(U"Texture", slot);
-			const std::string s = name.narrow();
 			const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot);
+			const String name = Format(U"Texture", samplerSlot);
+			const std::string s = name.narrow();
 			const GLint location = ::glGetUniformLocation(program, s.c_str());
 
 			if (location != -1)
 			{
 				LOG_TRACE(U"{} location: {}"_fmt(name, location));
-				m_textureIndices.emplace_back(slot, location);
+				m_textureIndices.emplace_back(samplerSlot, location);
 			}
 		}
 	}

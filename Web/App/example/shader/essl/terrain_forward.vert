@@ -17,7 +17,7 @@ precision mediump float;
 //
 //	Textures
 //
-uniform sampler2D Texture0;
+uniform sampler2D Texture8;
 
 //
 //	VSInput
@@ -51,7 +51,7 @@ layout(std140) uniform VSPerObject // slot 2
 //
 void main()
 {
-	float height = texture(Texture0, VertexUV).r;
+	float height = texture(Texture8, VertexUV).r;
 	vec4 pos = vec4(VertexPosition.x, height, VertexPosition.zw);
 	vec4 worldPosition = pos * g_localToWorld;
 

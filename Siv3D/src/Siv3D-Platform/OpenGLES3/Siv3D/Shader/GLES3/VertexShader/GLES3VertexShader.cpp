@@ -122,9 +122,9 @@ namespace s3d
 		// Sampler Uniforms
 		for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
 		{
-			const String name = Format(U"Texture", slot);
-			const std::string s = name.narrow();
 			const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot);
+			const String name = Format(U"Texture", samplerSlot);
+			const std::string s = name.narrow();
 			const GLint location = ::glGetUniformLocation(program, s.c_str());
 
 			if (location != -1)
