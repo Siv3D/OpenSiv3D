@@ -720,7 +720,7 @@ namespace s3d
 		{
 			::glGenTextures(1, &m_depthTexture);
 			::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y, 0,
 				GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
