@@ -42,7 +42,18 @@ namespace s3d
 
         // シェーダのコンパイル
 		{
-			const std::string sourceUTF8 = source.toUTF8();
+			String sourceData { source };
+
+			for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
+			{
+				const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot);
+				const String oldName = Format(U"Texture", slot);
+				const String newName = Format(U"Texture", samplerSlot);
+				
+				sourceData.replace(oldName, newName);
+			}
+
+			const std::string sourceUTF8 = sourceData.toUTF8();
 			const char* pSource = sourceUTF8.c_str();
 
 			::glShaderSource(m_vertexShader, 1, &pSource, NULL);

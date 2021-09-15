@@ -17,7 +17,7 @@ precision mediump float;
 //
 //	Textures
 //
-uniform sampler2D Texture8;
+uniform sampler2D Texture0;
 
 //
 //	VSInput
