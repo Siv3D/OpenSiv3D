@@ -18,20 +18,20 @@
 
 extern "C"
 {
-	extern void siv3dRegisterDragEnter(void(*callback)(bool));
+	extern void siv3dRegisterDragEnter(void(*callback)(bool, int, int));
 	extern void siv3dRegisterDragUpdate(void(*callback)(int, int));
 	extern void siv3dRegisterDragExit(void(*callback)());
-	extern void siv3dRegisterDragDrop(void(*callback)(const char*));
+	extern void siv3dRegisterDragDrop(void(*callback)(const char*, int, int));
 
 	using namespace s3d;
 
 	CDragDrop* pDragDrop = nullptr;
 
-	void s3d_DraggingEntered(bool isFilePath)
+	void s3d_DraggingEntered(bool isFilePath, int x, int y)
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_entered(isFilePath, Cursor::Pos());
+			pDragDrop->internal_entered(isFilePath, Point{x, y});
 		}
 	}
 
@@ -51,11 +51,11 @@ extern "C"
 		}
 	}
 
-	void s3d_ItemDropped(const char* text)
+	void s3d_ItemDropped(const char* text, int x, int y)
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_itemDropped(Unicode::Widen(text), Cursor::Pos());
+			pDragDrop->internal_itemDropped(Unicode::Widen(text), Point{x, y});
 		}
 	}
 }

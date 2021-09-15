@@ -85,7 +85,8 @@ mergeInto(LibraryManager.library, {
             const types = e.dataTransfer.types;
 
             if (types.length > 0) {
-                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0);
+                const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
+                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0, adusted.x, adusted.y);
             }        
         };
     },
@@ -115,6 +116,7 @@ mergeInto(LibraryManager.library, {
             e.preventDefault();
 
             const items = e.dataTransfer.items;
+            const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
 
             if (items.length == 0) {
                 return;
@@ -123,7 +125,7 @@ mergeInto(LibraryManager.library, {
             if (items[0].kind === 'string') {
                 items[0].getAsString(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr);
+                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr, adusted.x, adusted.y);
                     Module["_free"](strPtr);
                 })            
             } else if (items[0].kind === 'file') {
@@ -139,7 +141,7 @@ mergeInto(LibraryManager.library, {
                     FS.writeFile(filePath, new Uint8Array(siv3dDragDropFileReader.result));
 
                     const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr);
+                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr, adusted.x, adusted.y);
 
                     siv3dDragDropFileReader.removeEventListener("load", onLoaded);
                 });
