@@ -16,6 +16,11 @@ namespace s3d
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
 	inline bool Serial::read(TriviallyCopyable& to)
 	{
+		if (available() < sizeof(TriviallyCopyable))
+		{
+			return false;
+		}
+
 		return read(std::addressof(to), sizeof(TriviallyCopyable)) == sizeof(TriviallyCopyable);
 	}
 
