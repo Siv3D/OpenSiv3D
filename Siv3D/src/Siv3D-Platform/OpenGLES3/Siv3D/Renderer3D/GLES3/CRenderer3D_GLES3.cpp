@@ -479,6 +479,8 @@ namespace s3d
 					pShader->setVS(m_standardVS->line3DID);
 					pShader->setPS(m_standardPS->line3DID);
 
+					pShader->usePipeline();
+
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
 					m_psPerFrameConstants._update_if_dirty();
@@ -503,6 +505,8 @@ namespace s3d
 					{
 						pShader->setPS(psID);
 					}
+
+					pShader->usePipeline();
 
 					LOG_COMMAND(U"DrawLine3D[{}] indexCount = {}, startIndexLocation = {}"_fmt(command.index, indexCount, startIndexLocation));
 					break;

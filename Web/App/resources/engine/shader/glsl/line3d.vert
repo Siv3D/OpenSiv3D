@@ -41,7 +41,7 @@ layout(std140) uniform VSPerObject
 //
 void main()
 {
-	vec4 worldPosition = VertexPosition;
+	vec4 worldPosition = VertexPosition * g_localToWorld;
 
 	gl_Position		= worldPosition * g_worldToProjected;
 	WorldPosition	= worldPosition.xyz;
