@@ -22,12 +22,12 @@ namespace s3d
 		// do nothing
 	}
 
-	QRContent QRScanner::scanOne(const Image& image)
+	QRContent QRScanner::scanOne(const Image& image) const
 	{
 		return pImpl->scanOne(image);
 	}
 
-	Array<QRContent> QRScanner::scan(const Image& image)
+	Array<QRContent> QRScanner::scan(const Image& image) const
 	{
 		return pImpl->scan(image);
 	}

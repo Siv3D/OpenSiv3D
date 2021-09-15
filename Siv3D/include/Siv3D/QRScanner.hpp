@@ -30,13 +30,13 @@ namespace s3d
 		/// @param image 画像
 		/// @return スキャン結果
 		[[nodiscard]]
-		QRContent scanOne(const Image& image);
+		QRContent scanOne(const Image& image) const;
 
 		/// @brief 画像中の QR コードを複数検出してスキャンします。
 		/// @param image 画像
 		/// @return スキャン結果の一覧
 		[[nodiscard]]
-		Array<QRContent> scan(const Image& image);
+		Array<QRContent> scan(const Image& image) const;
 
 	private:
 
