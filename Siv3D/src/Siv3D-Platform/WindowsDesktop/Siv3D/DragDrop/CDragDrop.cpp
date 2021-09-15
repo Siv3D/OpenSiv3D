@@ -353,7 +353,7 @@ namespace s3d
 			}
 		}
 
-		HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC *pFormatEtc, IEnumFORMATETC **ppEnumFormatEtc);
+		static HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC *pFormatEtc, IEnumFORMATETC **ppEnumFormatEtc);
 
 		class CEnumFormatEtc : public IEnumFORMATETC
 		{
@@ -470,7 +470,7 @@ namespace s3d
 			}
 		};
 
-		HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC* pFormatEtc, IEnumFORMATETC** ppEnumFormatEtc)
+		static HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC* pFormatEtc, IEnumFORMATETC** ppEnumFormatEtc)
 		{
 			if (nNumFormats == 0 || pFormatEtc == 0 || ppEnumFormatEtc == 0)
 			{
@@ -482,7 +482,7 @@ namespace s3d
 			return (*ppEnumFormatEtc) ? S_OK : E_OUTOFMEMORY;
 		}
 
-		HGLOBAL Copy(HGLOBAL hMem)
+		static HGLOBAL Copy(HGLOBAL hMem)
 		{
 			const size_t size = ::GlobalSize(hMem);
 
@@ -670,7 +670,7 @@ namespace s3d
 			}
 		};
 
-		void BeginDrop(IDataObject** lpDataObejct, IDropSource** lpDropSource, const FilePath& path)
+		static void BeginDrop(IDataObject** lpDataObejct, IDropSource** lpDropSource, const FilePath& path)
 		{
 			std::wstring pathW = (FileSystem::FullPath(path)).toWstr();
 			pathW.push_back(L'\0');
