@@ -163,9 +163,9 @@ mergeInto(LibraryManager.library, {
         const media_source = new MediaSource();
        
         const video = document.createElement("video");
-        video.muted = true;
-        video.autoplay = true;
-        video.playsInline = true;
+        video["muted"] = true;
+        video["autoplay"] = true;
+        video["playsInline"] = true;
 
         media_source.addEventListener('sourceopen', function() {
             const source_buffer = media_source.addSourceBuffer('video/mp4');
@@ -192,9 +192,9 @@ mergeInto(LibraryManager.library, {
         const videoBlob = new Blob([ videoData ], { type: "video/mp4" });
        
         const video = document.createElement("video");
-        video.muted = true;
-        video.autoplay = true;
-        video.playsInline = true;
+        video["muted"] = true;
+        video["autoplay"] = true;
+        video["playsInline"] = true;
 
         video.addEventListener('loadedmetadata', function onLoaded() {
             const idx = GL.getNewId(videoElements);
@@ -220,8 +220,7 @@ mergeInto(LibraryManager.library, {
             stream => {
                 const video = document.createElement("video");
 
-                video.playsInline = true;
-
+                video["playsInline"] = true;
                 video.addEventListener('loadedmetadata', function onLoaded() {
                     const idx = GL.getNewId(videoElements);
 
