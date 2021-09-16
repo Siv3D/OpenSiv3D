@@ -223,11 +223,21 @@ namespace s3d
 
 	double Eval(const StringView expression)
 	{
+		if (not expression)
+		{
+			return Math::NaN;
+		}
+
 		return MathParser{ expression }.eval();
 	}
 
 	Optional<double> EvalOpt(const StringView expression)
 	{
+		if (not expression)
+		{
+			return none;
+		}
+
 		return MathParser{ expression }.evalOpt();
 	}
 }
