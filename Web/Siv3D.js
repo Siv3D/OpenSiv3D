@@ -165,6 +165,7 @@ mergeInto(LibraryManager.library, {
         const video = document.createElement("video");
         video.muted = true;
         video.autoplay = true;
+        video.playsInline = true;
 
         media_source.addEventListener('sourceopen', function() {
             const source_buffer = media_source.addSourceBuffer('video/mp4');
@@ -218,6 +219,8 @@ mergeInto(LibraryManager.library, {
         navigator.mediaDevices.getUserMedia(constraint).then(
             stream => {
                 const video = document.createElement("video");
+
+                video.playsInline = true;
 
                 video.addEventListener('loadedmetadata', function onLoaded() {
                     const idx = GL.getNewId(videoElements);
