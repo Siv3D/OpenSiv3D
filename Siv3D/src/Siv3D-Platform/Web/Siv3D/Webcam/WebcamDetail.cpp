@@ -42,9 +42,6 @@ namespace s3d
 
 		m_abort = false;
 
-		// TODO: カメラのデフォルトの解像度も取得したい
-		m_capture.setResolution(m_captureResolution);
-
 		if (not m_capture.openCamera())
 		{
 			LOG_ERROR(U"cv::VideoCapture::open({}) failed"_fmt(cameraIndex));
@@ -76,9 +73,10 @@ namespace s3d
 		m_thread.join();
 		{
 			m_capture.release();
+
+			m_captureStarted = false;
 			m_cameraIndex = 0;
 			m_newFrameCount = 0;
-			// m_captureResolution.set(0, 0);
 		}
 	}
 
@@ -116,12 +114,6 @@ namespace s3d
 		// キャプチャスレッドを起動
 		{
 			m_thread = PseudoThread{ std::chrono::milliseconds(30), Run, std::ref(*this) };
-
-			for (auto& unpacker : m_frameBufferUnpackers)
-			{
-				unpacker.resize(m_captureResolution);
-			}
-
 			return true;
 		}
 	}
@@ -138,24 +130,18 @@ namespace s3d
 
 	Size Webcam::WebcamDetail::getResolution() const
 	{
-		return m_captureResolution;
+		return m_capture.getResolution();
 	}
 
 	bool Webcam::WebcamDetail::setResolution(const Size& resolution)
 	{
-		// BUGBUG: Web 版では open 前でなければ解像度変更ができない
-		if (m_capture.isOpened())
-		{
-			return false;
-		}
-
 		// start 後は変更できない
 		if (m_thread.joinable())
 		{
 			return false;
 		}
 
-		m_captureResolution = resolution;
+		m_capture.setResolution(resolution);
 
 		return true;
 	}
@@ -167,7 +153,7 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::getFrame(Image& image)
 	{
-		if (not isActive())
+		if (not isOpen())
 		{
 			return false;
 		}
@@ -179,7 +165,8 @@ namespace s3d
 			return false;
 		}
 
-		image.resize(m_captureResolution);
+		auto captureResolution = getResolution();
+		image.resize(captureResolution);
 		{
 			selectedUnpacker.readPixels(image);
 
@@ -191,16 +178,17 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::getFrame(DynamicTexture& texture)
 	{
-		if (not isActive())
+		if (not isOpen())
 		{
 			return false;
 		}
 
 		auto textureManager = static_cast<CTexture_GLES3*>(Siv3DEngine::Get<ISiv3DTexture>());
+		auto captureResolution = getResolution();
 
-		if (texture.width() < m_captureResolution.x || texture.height() < m_captureResolution.y)
+		if (texture.isEmpty()) 
 		{
-			LOG_WARNING(U"Texture is too small.");
+			texture = DynamicTexture{ captureResolution };
 		}
 
 		{
@@ -209,7 +197,7 @@ namespace s3d
 			::glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureManager->getTexture(texture.id()), 0);
 			
 			::glBlitFramebuffer(
-				0, 0, m_captureResolution.x, m_captureResolution.y,
+				0, 0, captureResolution.x, captureResolution.y,
 				0, 0, texture.width(), texture.height(),
 				GL_COLOR_BUFFER_BIT, GL_NEAREST
 			);
@@ -240,6 +228,16 @@ namespace s3d
 			// isOpen != true でなくても start できる代わりに、
 			// ここで open チェック
 			return true;
+		}
+		else if (!webcam.m_captureStarted)
+		{
+			for (auto& unpacker : webcam.m_frameBufferUnpackers)
+			{
+				auto resolution = webcam.getResolution();
+				unpacker.resize(resolution);
+			}
+
+			webcam.m_captureStarted = true;
 		}
 
 		capture.capture();

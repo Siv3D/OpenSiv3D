@@ -17,15 +17,20 @@ namespace s3d
 {
 	namespace detail
 	{
+		using siv3dOpenVideoCallback = void(*)(GLuint elementID, void* userData);
 		using siv3dOpenCameraCallback = void(*)(GLuint elementID, void* userData);
 		using siv3dVideoTimeUpdateCallback = void(*)(void* userData);
 		using siv3dPlayVideoCallback = void(*)(void* userData);
+		using siv3dSetCameraResolutionCallback = void(*)(void* userData);
 
         __attribute__((import_name("siv3dOpenVideo")))
-		extern void siv3dOpenVideo(const char* filepath, siv3dOpenCameraCallback callback, void* callbackArg);
+		extern void siv3dOpenVideo(const char* filepath, siv3dOpenVideoCallback callback, void* callbackArg);
 
 		__attribute__((import_name("siv3dOpenCamera")))
 		extern void siv3dOpenCamera(int width, int height, siv3dOpenCameraCallback callback, void* callbackArg);
+
+        __attribute__((import_name("siv3dSetCameraResolution")))
+		extern void siv3dSetCameraResolution(GLuint elementID, int width, int height, siv3dSetCameraResolutionCallback callback, void* callbackArg);
 
         __attribute__((import_name("siv3dRegisterVideoTimeUpdateCallback")))
         extern void siv3dRegisterVideoTimeUpdateCallback(GLuint elementID, siv3dVideoTimeUpdateCallback callback, void* callbackArg);
@@ -117,7 +122,7 @@ namespace s3d
 
     void WebCameraCapture::release()
     {
-        if (m_videoElementID != 0)
+        if (isOpened())
         {
             // detail::siv3dRegisterVideoTimeUpdateCallback(m_videoElementID, nullptr, nullptr);
             detail::siv3dDestroyVideo(m_videoElementID);
@@ -129,7 +134,14 @@ namespace s3d
 
     void WebCameraCapture::setResolution(const Size& resolution)
     {
-        m_captureResolution = resolution;
+        if (isOpened())
+        {
+            detail::siv3dSetCameraResolution(m_videoElementID, resolution.x, resolution.y, &OnResolutionUpdated, this);
+        }
+        else
+        {
+            m_captureResolution = resolution;
+        }
     }
 
     Size WebCameraCapture::getResolution() const
@@ -197,12 +209,9 @@ namespace s3d
         }
 
         webcam.m_videoElementID = elementID;
-        webcam.m_videoDuration = detail::siv3dQueryVideoDuration(elementID);
+        webcam.m_videoDuration = detail::siv3dQueryVideoDuration(elementID);;
 
-        alignas(8) double playbackFPS;
-
-        detail::siv3dQueryVideoPreference(elementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &playbackFPS);
-        webcam.m_playbackFPS = playbackFPS;
+        OnResolutionUpdated(userData);
 
         webcam.prepareBuffers();
 
@@ -214,6 +223,16 @@ namespace s3d
         }
     } 
 
+    void WebCameraCapture::OnResolutionUpdated(void* userData)
+    {
+        auto& webcam = *static_cast<WebCameraCapture*>(userData);
+
+        alignas(8) double playbackFPS;
+
+        detail::siv3dQueryVideoPreference(webcam.m_videoElementID, &webcam.m_captureResolution.x, &webcam.m_captureResolution.y, &playbackFPS);
+        webcam.m_playbackFPS = playbackFPS;
+    }
+
     void WebCameraCapture::OnUpdated(void* userData)
     {
         auto& webcam = *static_cast<WebCameraCapture*>(userData);
@@ -221,7 +240,7 @@ namespace s3d
         webcam.capture();
         webcam.m_hasNewFrame = true;
 
-        double currentTime =  detail::siv3dQueryVideoPlaybackedTime(webcam.m_videoElementID);
+        double currentTime = detail::siv3dQueryVideoPlaybackedTime(webcam.m_videoElementID);
         webcam.m_lastCapturedFrameTime = currentTime;
     } 
 

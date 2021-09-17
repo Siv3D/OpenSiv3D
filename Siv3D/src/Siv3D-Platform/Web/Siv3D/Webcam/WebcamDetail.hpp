@@ -57,8 +57,6 @@ namespace s3d
 
 		PseudoThread m_thread;
 
-		Size m_captureResolution = Size { 640, 480 };
-
 		GLuint m_copyFrameBuffer = 0;
 
 		Array<FrameBufferUnpacker> m_frameBufferUnpackers;		
@@ -67,6 +65,8 @@ namespace s3d
 
 		//////
 		//
+		bool m_captureStarted = false;
+
 		GLuint m_capturedFrameBuffer = 0;
 
 		int32 m_newFrameCount = 0;
