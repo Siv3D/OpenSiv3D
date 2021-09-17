@@ -24,7 +24,7 @@ namespace s3d
 
 		static constexpr double DefaultVerticalFOV = 30_deg;
 
-		static constexpr double DefaultNearClip = 0.1;
+		static constexpr double DefaultNearClip = 0.2;
 
 		BasicCamera3D() = default;
 
