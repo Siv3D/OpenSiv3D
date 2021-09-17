@@ -14,6 +14,9 @@
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/UserAction.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/Monitor.hpp>
+# include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -23,6 +26,11 @@ namespace s3d
 {
 	namespace detail
 	{
+		__attribute__((import_name("siv3dRequestFullscreen")))
+		extern void siv3dRequestFullscreen();
+		__attribute__((import_name("siv3dExitFullscreen")))
+		extern void siv3dExitFullscreen();
+
 		static void ErrorCallback(const int error, const char* description)
 		{
 			std::cout << U"Error: {}. "_fmt(error) << description << '\n';
@@ -31,7 +39,6 @@ namespace s3d
 
 	CWindow::CWindow()
 	{
-
 	}
 
 	CWindow::~CWindow()
@@ -237,9 +244,30 @@ namespace s3d
 		::glfwSetWindowSizeLimits(m_window, size.x, size.y, GLFW_DONT_CARE, GLFW_DONT_CARE);
 	}
 	
-	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex)
+	void CWindow::setFullscreen(const bool fullscreen, size_t monitorIndex)
 	{
-		// [Siv3D ToDo]
+		LOG_TRACE(U"CWindow::setFullscreen(fullscreen = {}, monitorIndex = {})"_fmt(fullscreen, monitorIndex));
+
+		if (fullscreen == m_state.fullscreen)
+		{
+			return;
+		}
+		
+		if (m_state.fullscreen == false) // 現在ウィンドウモード
+		{
+			detail::siv3dRequestFullscreen();
+		}
+		else
+		{
+			detail::siv3dExitFullscreen();
+		}
+		
+		m_state.fullscreen = fullscreen;
+
+		if (Scene::GetResizeMode() != ResizeMode::Keep)
+		{
+			SIV3D_ENGINE(Renderer)->updateSceneSize();
+		}
 	}
 
 	void CWindow::setToggleFullscreenEnabled(bool) {}

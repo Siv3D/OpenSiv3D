@@ -56,6 +56,22 @@ mergeInto(LibraryManager.library, {
     },
     siv3dSetCursorStyle__sig: "vi",
 
+    siv3dRequestFullscreen: function() {
+        siv3dRegisterUserAction(function () {
+            Browser.requestFullscreen();
+        });
+    },
+    siv3dRequestFullscreen__sig: "v",
+    siv3dRequestFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
+
+    siv3dExitFullscreen: function() {
+        siv3dRegisterUserAction(function () {
+            Browser.exitFullscreen();
+        });
+    },
+    siv3dExitFullscreen__sig: "v",
+    siv3dExitFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
+
     //
     // MessageBox
     //
