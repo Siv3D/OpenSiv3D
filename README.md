@@ -25,6 +25,14 @@
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
+## v0.4.3 (previous version)
+
+| Platform        | Version        | Date       | Requirements                  |
+|:---------------:|:---------------:|:-------------:|:------------------------------|
+| Windows | [**0.4.3**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.4.3)Installer.exe) | 11 April 2020 | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK |
+| macOS           | [**0.4.3**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) | 11 April 2020 | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
+
+
 # Examples (v0.6.0)
 
 ### 1. Hello, Siv3D!
