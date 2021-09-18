@@ -63,17 +63,21 @@ void Main()
 // プロジェクトのフォルダを ユーザ/(ユーザ名)/アプリケーション/ などに移動させると良いです。
 // Web カメラ、マイク使用時の許可ダイアログは消せません。
 //
-// = お役立ちリンク =
+// = お役立ちリンク | Quick Links =
 //
-// OpenSiv3D v0.6 リファレンス
+// OpenSiv3D v0.6.0 リファレンス
 // https://zenn.dev/reputeless/books/siv3d-documentation
 //
-// サポートについて
-// https://siv3d.github.io/ja-jp/support/support/
+// OpenSiv3D v0.6.0 Reference
+// https://zenn.dev/reputeless/books/siv3d-documentation-en
 //
-// Siv3D ユーザコミュニティ Slack への参加
-// https://siv3d.github.io/ja-jp/community/community/
+// Siv3D コミュニティへの参加
+// Slack や Twitter, BBS で気軽に質問や情報交換ができます。
+// https://zenn.dev/reputeless/books/siv3d-documentation/viewer/community
 //
-// 新機能の提案やバグの報告
+// Siv3D User Community
+// https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/community
+//
+// 新機能の提案やバグの報告 | Feedback
 // https://github.com/Siv3D/OpenSiv3D/issues
 //
