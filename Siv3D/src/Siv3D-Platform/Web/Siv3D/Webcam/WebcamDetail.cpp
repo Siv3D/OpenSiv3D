@@ -25,7 +25,7 @@ namespace s3d
 	Webcam::WebcamDetail::WebcamDetail() 
 	{
 		::glGenFramebuffers(1, &m_copyFrameBuffer);
-		m_frameBufferUnpackers.resize(2);
+		m_frames.resize(2);
 	}
 
 	Webcam::WebcamDetail::~WebcamDetail()
@@ -38,7 +38,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"Webcam::WebcamDetail::open(cameraIndex = {})"_fmt(cameraIndex));
 
-		// close();
+		close();
 
 		m_abort = false;
 
@@ -77,6 +77,11 @@ namespace s3d
 			m_captureStarted = false;
 			m_cameraIndex = 0;
 			m_newFrameCount = 0;
+		}
+
+		for (auto& frame : m_frames)
+		{
+			frame.inUse = false;
 		}
 	}
 
@@ -158,9 +163,9 @@ namespace s3d
 			return false;
 		}
 
-		auto& selectedUnpacker = m_frameBufferUnpackers[m_totalFrameCount % 2];
+		auto& selectedUnpacker = m_frames[m_totalFrameCount % 2];
 
-		if (!selectedUnpacker.hasFinishedUnpack())
+		if (!selectedUnpacker.frameBufferUnpacker.hasFinishedUnpack())
 		{
 			return false;
 		}
@@ -168,7 +173,8 @@ namespace s3d
 		auto captureResolution = getResolution();
 		image.resize(captureResolution);
 		{
-			selectedUnpacker.readPixels(image);
+			selectedUnpacker.frameBufferUnpacker.readPixels(image);
+			selectedUnpacker.inUse = false;
 
 			m_newFrameCount = 0;
 		}
@@ -229,26 +235,33 @@ namespace s3d
 			// ここで open チェック
 			return true;
 		}
-		else if (!webcam.m_captureStarted)
+		else if (not webcam.m_captureStarted)
 		{
-			for (auto& unpacker : webcam.m_frameBufferUnpackers)
+			for (auto& frame : webcam.m_frames)
 			{
 				auto resolution = webcam.getResolution();
-				unpacker.resize(resolution);
+				frame.frameBufferUnpacker.resize(resolution);
 			}
 
 			webcam.m_captureStarted = true;
 		}
-
+		
+		auto& selectedFrame = webcam.m_frames[webcam.m_totalFrameCount % 2];
+		
 		capture.capture();
 		auto capturedFrameBuffer = capture.retrieve();
-		auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
-
-		selectedUnpacker.startUnpack(capturedFrameBuffer);
 
 		webcam.m_capturedFrameBuffer = capturedFrameBuffer;
 		webcam.m_newFrameCount++;
 		webcam.m_totalFrameCount++;
+
+		if (not selectedFrame.inUse)
+		{
+			auto& selectedUnpacker = selectedFrame.frameBufferUnpacker;
+			selectedUnpacker.startUnpack(capturedFrameBuffer);
+
+			selectedFrame.inUse = true;
+		}
 
 		return true;
 	}

@@ -59,7 +59,14 @@ namespace s3d
 
 		GLuint m_copyFrameBuffer = 0;
 
-		Array<FrameBufferUnpacker> m_frameBufferUnpackers;		
+		struct MatFrame 
+		{
+			FrameBufferUnpacker frameBufferUnpacker;
+
+			bool inUse = false;
+		};
+
+		Array<MatFrame> m_frames;		
 
 		std::atomic<bool> m_abort = { false };
 
