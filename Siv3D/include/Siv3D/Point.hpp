@@ -303,94 +303,83 @@ namespace s3d
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
-		/// <summary>
-		/// Point{ x, x }
-		/// </summary>
-		
+		/// @brief Point{ x, x } を返します。
+		/// @return Point{ x, x }
 		[[nodiscard]]
 		constexpr Point xx() const noexcept;
 
-		/// <summary>
-		/// Point{ x, y }
-		/// </summary>
+		/// @brief Point{ x, y } を返します。
+		/// @return Point{ x, y }
 		[[nodiscard]]
 		constexpr Point xy() const noexcept;
 
-		/// <summary>
-		/// Point{ y, x }
-		/// </summary>
+		/// @brief Point{ y x } を返します。
+		/// @return Point{ y, x }
 		[[nodiscard]]
 		constexpr Point yx() const noexcept;
 
-		/// <summary>
-		/// Point{ y, y }
-		/// </summary>
+		/// @brief Point{ y, y } を返します。
+		/// @return Point{ y, y }
 		[[nodiscard]]
 		constexpr Point yy() const noexcept;
 
-		/// <summary>
-		/// Point{ x, 0 }
-		/// </summary>
+		/// @brief Point{ x, 0 } を返します。
+		/// @return Point{ x, 0 }
 		[[nodiscard]]
 		constexpr Point x0() const noexcept;
 
-		/// <summary>
-		/// Point{ y, 0 }
-		/// </summary>
+		/// @brief Point{ y, 0 } を返します。
+		/// @return Point{ y, 0 }
 		[[nodiscard]]
 		constexpr Point y0() const noexcept;
 
-		/// <summary>
-		/// Point{ 0, 0 }
-		/// </summary>
+		/// @brief Point{ 0, 0 } を返します。
+		/// @return Point{ 0, 0 }
 		[[nodiscard]]
 		static constexpr Point Zero() noexcept;
 
-		/// <summary>
-		/// Point{ 1, 1 }
-		/// </summary>
+		/// @brief Point{ 1, 1 } を返します。
+		/// @return Point{ 1, 1 }
 		[[nodiscard]]
 		static constexpr Point One() noexcept;
 
-		/// <summary>
-		/// Point{ value, value }
-		/// </summary>
+		/// @brief Point{ value, value } を返します。
+		/// @param value 値
+		/// @return Point{ value, value }
 		[[nodiscard]]
 		static constexpr Point All(value_type value = 1) noexcept;
 
-		/// <summary>
-		/// Point{ 1, 0 }
-		/// </summary>
+		/// @brief Point{ 1, 0 } を返します。
+		/// @return Point{ 1, 0 }
 		[[nodiscard]]
 		static constexpr Point UnitX() noexcept;
 
-		/// <summary>
-		/// Point{ 0, 1 }
-		/// </summary>
+		/// @brief Point{ 0, 1 } を返します。
+		/// @return Point{ 0, 1 }
 		[[nodiscard]]
 		static constexpr Point UnitY() noexcept;
 
-		/// <summary>
-		/// Point{ -length, 0 }
-		/// </summary>
+		/// @brief Point{ -length, 0 } を返します。
+		/// @param length 値
+		/// @return Point{ -length, 0 }
 		[[nodiscard]]
 		static constexpr Point Left(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Point{ length, 0 }
-		/// </summary>
+		/// @brief Point{ length, 0 } を返します。
+		/// @param length 値
+		/// @return Point{ length, 0 }
 		[[nodiscard]]
 		static constexpr Point Right(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Point{ 0, -length }
-		/// </summary>
+		/// @brief Point{ 0, -length } を返します。
+		/// @param length 値
+		/// @return Point{ 0, -length }
 		[[nodiscard]]
 		static constexpr Point Up(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Point{ 0, length }
-		/// </summary>
+		/// @brief Point{ 0, length } を返します。
+		/// @param length 値
+		/// @return Point{ 0, length }
 		[[nodiscard]]
 		static constexpr Point Down(value_type length = 1) noexcept;
 

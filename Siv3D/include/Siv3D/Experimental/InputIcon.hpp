@@ -122,7 +122,6 @@ namespace s3d
 // example
 
 # include <Siv3D.hpp>
-# include <Siv3D/Experimental/InputIcon.hpp>
 
 void Main()
 {

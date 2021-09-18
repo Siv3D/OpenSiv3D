@@ -21,12 +21,10 @@ namespace s3d
 {
 	namespace PRNG
 	{
-		/// <summary>
-		/// SFMT 19937 / Pseudo random number generator
-		/// Result: 64-bit value
-		/// Period: 2^19937-1
-		/// Footprint: 2,512 bytes
-		/// </summary>
+		// SFMT 19937 / Pseudo random number generator
+		// Result: 64-bit value
+		// Period: 2^19937-1
+		// Footprint: 2,512 bytes
 		class SFMT19937_64
 		{
 		public:

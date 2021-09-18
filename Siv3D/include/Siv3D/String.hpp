@@ -823,279 +823,147 @@ namespace s3d
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
 		/// @param newChar 置換後の文字
-		/// @return this
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		String& replace_if(Fty f, const value_type newChar);
 
-		/// <summary>
-		/// 指定した条件を満たす文字を別の文字に置き換えます。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		String replaced_if(Fty f, const value_type newChar) const&;
 
-		/// <summary>
-		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 検索する条件
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列
-		/// </returns>
+		/// @brief 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @param newChar 置換後の文字
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		String replaced_if(Fty f, const value_type newChar)&&;
 
-		/// <summary>
-		/// 文字列を反転します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列を反転します。
+		/// @return *this
 		String& reverse();
 
-		/// <summary>
-		/// 反転した文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 反転した文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String reversed() const&;
 
-		/// <summary>
-		/// 反転した文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 反転した文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String reversed()&&;
 
-		/// <summary>
-		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字への参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>* = nullptr>
 		String& reverse_each(Fty f);
 
-		/// <summary>
-		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
-		/// </summary>
-		/// <param name="f">
-		/// 各文字への参照を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
+		/// @tparam Fty 呼び出す関数の型
+		/// @param f 呼び出す関数
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>* = nullptr>
 		const String& reverse_each(Fty f) const;
 
-		/// <summary>
-		/// 文字列の各文字の位置をシフトさせ、はみ出た文字は反対側に挿入します。
-		/// </summary>
-		/// <param name="count">
-		/// 文字をシフトする数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の各文字の位置をシフトさせ、はみ出た文字は反対側に挿入します。
+		/// @param count 文字をシフトする数
+		/// @return *this
 		String& rotate(std::ptrdiff_t count = 1);
 
-		/// <summary>
-		/// 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
-		/// </summary>
-		/// <param name="count">
-		/// 文字をシフトする数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
+		/// @param count 文字をシフトする数
+		/// @return 新しい文字列	
 		[[nodiscard]]
 		String rotated(std::ptrdiff_t count = 1) const&;
 
-		/// <summary>
-		/// 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
-		/// </summary>
-		/// <param name="count">
-		/// 文字をシフトする数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
+		/// @param count 文字をシフトする数
+		/// @return 新しい文字列	
 		[[nodiscard]]
 		String rotated(std::ptrdiff_t count = 1)&&;
 
-		/// <summary>
-		/// 文字列の右を埋め文字で埋めます。
-		/// </summary>
-		/// <param name="length">
-		/// 文字列の右を埋め文字で埋めた後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。 
-		/// </remarks>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の右を埋め文字で埋めます。
+		/// @param length 文字列の右を埋め文字で埋めた後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、変更は行われません。 
+		/// @return *this
 		String& rpad(size_t length, value_type fillChar = U' ');
 
-		/// <summary>
-		/// 文字列を指定された文字で右詰めした新しい文字列を返します。
-		/// </summary>
-		/// <param name="length">
-		/// 右詰めした後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 右詰め用の埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
-		/// </remarks>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列を指定された文字で右詰めした新しい文字列を返します。
+		/// @param length 右詰めした後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、元の文字列のコピーを返します。
+		/// @return 新しい文字列	
 		[[nodiscard]]
 		String rpadded(size_t length, value_type fillChar = U' ') const&;
 
-		/// <summary>
-		/// 文字列の右を埋め文字で埋めた新しい文字列を返します。
-		/// </summary>
-		/// <param name="length">
-		/// 文字列の右を埋め文字で埋めた後の文字列の長さ
-		/// </param>
-		/// <param name="fillChar">
-		/// 埋め文字
-		/// </param>
-		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
-		/// </remarks>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列を指定された文字で右詰めした新しい文字列を返します。
+		/// @param length 右詰めした後の文字列の長さ
+		/// @param fillChar 埋め文字
+		/// @remark 元の文字列の長さが `length` より大きい場合、元の文字列のコピーを返します。
+		/// @return 新しい文字列	
 		[[nodiscard]]
 		String rpadded(size_t length, value_type fillChar = U' ')&&;
 
-		/// <summary>
-		/// 文字列の末尾にある空白文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の末尾にある空白文字を削除します。
+		/// @return *this
 		String& rtrim();
 
-		/// <summary>
-		/// 文字列の末尾にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の末尾にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String rtrimmed() const&;
 
-		/// <summary>
-		/// 文字列の末尾にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の末尾にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String rtrimmed()&&;
 
-		/// <summary>
-		/// 文字列をランダムに並び替えます。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列をランダムに並び替えます。
+		/// @return *this
 		String& shuffle();
 
-		/// <summary>
-		/// 指定された乱数生成器を使って文字列をランダムに並び替えます。
-		/// </summary>
-		/// <param name="rbg">
-		/// 使用する乱数生成器
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 指定された乱数生成器を使って文字列をランダムに並び替えます。
+		/// @param rbg 使用する乱数生成器
+		/// @return *this
 		SIV3D_CONCEPT_URBG
 		String& shuffle(URBG&& rbg);
 
-		/// <summary>
-		/// ランダムに並び替えた新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief ランダムに並び替えた新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String shuffled() const&;
 
-		/// <summary>
-		/// ランダムに並び替えた新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// ランダムに並び替えられた文字列
-		/// </returns>
+		/// @brief ランダムに並び替えた新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String shuffled()&&;
 
-		/// <summary>
-		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
-		/// </summary>
-		/// <param name="rbg">
-		/// 使用する乱数生成器
-		/// </param>
-		/// <returns>
-		/// ランダムに並び替えられた文字列
-		/// </returns>
+		/// @brief 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
+		/// @param rbg 用する乱数生成器
+		/// @return 新しい文字列
 		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
 		String shuffled(URBG&& rbg) const&;
 
-		/// <summary>
-		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
-		/// </summary>
-		/// <param name="rbg">
-		/// 使用する乱数生成器
-		/// </param>
-		/// <returns>
-		/// ランダムに並び替えられた文字列
-		/// </returns>
+		/// @brief 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
+		/// @param rbg 用する乱数生成器
+		/// @return 新しい文字列
 		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
 		String shuffled(URBG&& rbg)&&;
 
-		/// <summary>
-		/// 指定した区切り文字で文字列を分割します。
-		/// </summary>
-		/// <param name="ch">
-		/// 区切り文字
-		/// </param>
-		/// <returns>
-		/// 分割された文字列
-		/// </returns>
+		/// @brief 指定した区切り文字で文字列を分割します。
+		/// @param ch 区切り文字
+		/// @return 分割された文字列
 		[[nodiscard]]
 		Array<String, std::allocator<String>> split(value_type ch) const;
 
@@ -1105,81 +973,45 @@ namespace s3d
 		[[nodiscard]]
 		Array<String, std::allocator<String>> split_lines() const;
 
-		/// <summary>
-		/// 英字の大文字と小文字を入れ替えます。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 英字の大文字と小文字を入れ替えます。
+		/// @return *this
 		String& swapcase() noexcept;
 
-		/// <summary>
-		/// 英字の大文字と小文字を入れ替えた文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 英字の大文字と小文字を入れ替えた文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String swapcased() const&;
 
-		/// <summary>
-		/// 英字の大文字と小文字を入れ替えた文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 英字の大文字と小文字を入れ替えた文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String swapcased()&&;
 
-		/// <summary>
-		/// 文字列の先頭と末尾にある空白文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列の先頭と末尾にある空白文字を削除します。
+		/// @return *this
 		String& trim();
 
-		/// <summary>
-		/// 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String trimmed() const&;
 
-		/// <summary>
-		/// 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String trimmed()&&;
 
-		/// <summary>
-		/// 英字をすべて大文字にします。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 英字をすべて大文字にします。
+		/// @return *this
 		String& uppercase() noexcept;
 
-		/// <summary>
-		/// 英字をすべて大文字にした文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 英字をすべて大文字にした文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String uppercased() const&;
 
-		/// <summary>
-		/// 英字をすべて大文字にした文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 英字をすべて大文字にした文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String uppercased()&&;
 
@@ -1191,200 +1023,110 @@ namespace s3d
 		[[nodiscard]]
 		String rsorted()&&;
 
-		/// <summary>
-		/// 文字列を辞書順でソートします。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列をソートします。
+		/// @return *this
 		String& sort() noexcept;
 
-		/// <summary>
-		/// 文字列を指定された比較関数でソートします。
-		/// </summary>
-		/// <param name="f">
-		/// 使用する比較関数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列を指定された比較関数でソートします。
+		/// @tparam Fty 使用する比較関数の型
+		/// @param f 使用する比較関数
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		String& sort_by(Fty f);
 
-		/// <summary>
-		/// 文字列を辞書順でソートした新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// ソート済みの文字列
-		/// </returns>
+		/// @brief 文字列をソートした新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String sorted() const&;
 
-		/// <summary>
-		/// 文字列を辞書順でソートした新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// ソート済みの文字列
-		/// </returns>
+		/// @brief 文字列をソートした新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String sorted()&&;
 
-		/// <summary>
-		/// 文字列を指定された比較関数でソートした新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 使用する比較関数
-		/// </param>
-		/// <returns>
-		/// ソート済みの文字列
-		/// </returns>
+		/// @brief 文字列を指定された比較関数でソートした新しい文字列を返します。
+		/// @tparam Fty 使用する比較関数の型
+		/// @param f 使用する比較関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		[[nodiscard]]
 		String sorted_by(Fty f) const&;
 
-		/// <summary>
-		/// 文字列を指定された比較関数でソートした新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 使用する比較関数
-		/// </param>
-		/// <returns>
-		/// ソート済みの文字列
-		/// </returns>
+		/// @brief 文字列を指定された比較関数でソートした新しい文字列を返します。
+		/// @tparam Fty 使用する比較関数の型
+		/// @param f 使用する比較関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>* = nullptr>
 		[[nodiscard]]
 		String sorted_by(Fty f)&&;
 
-		/// <summary>
-		/// 文字列の先頭から指定された文字数分取り出した新しい文字列を返します。
-		/// </summary>
-		/// <param name="n">
-		/// 取り出す文字数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の先頭から指定された文字数分取り出した新しい文字列を返します。
+		/// @param n 取り出す文字数
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String take(size_t n) const;
 
-		/// <summary>
-		/// 文字列の先頭から、指定された条件を満たす連続した文字を取り出した新しい文字列を返します。
-		/// </summary>
-		/// <param name="f">
-		/// 条件を記述した関数
-		/// </param>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列の先頭から、指定された条件を満たす連続した文字を取り出した新しい文字列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 新しい文字列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		String take_while(Fty f) const;
 
-		/// <summary>
-		/// 文字列をソートせずに、重複する文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列をソートせずに、重複する文字を削除します。
+		/// @return *this
 		String& stable_unique();
 
-		/// <summary>
-		/// 文字列をソートせずに、重複する文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列をソートせずに、重複する文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String stable_uniqued() const;
 
-		/// <summary>
-		/// 文字列をソートし、重複する文字を削除します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列をソートし、重複する文字を削除します。
+		/// @return *this
 		String& sort_and_unique();
 
-		/// <summary>
-		/// 文字列をソートし、重複する文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列をソートし、重複する文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String sorted_and_uniqued() const&;
 
-		/// <summary>
-		/// 文字列をソートし、重複する文字を削除した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 文字列をソートし、重複する文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String sorted_and_uniqued()&&;
 
-		/// <summary>
-		/// 同じ文字が連続する場合、その先頭以外を除去します。
-		/// </summary>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 同じ文字が連続する場合、その先頭以外を除去します。
+		/// @return *this
 		String& unique_consecutive();
 
-		/// <summary>
-		/// 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String uniqued_consecutive() const&;
 
-		/// <summary>
-		/// 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
-		/// </summary>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 同じ文字が連続する場合、その先頭以外を除去した新しい文字列を返します。
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String uniqued_consecutive()&&;
 
-		/// <summary>
-		/// 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。
-		/// </summary>
-		/// <param name="indices">
-		/// 現在の文字列における複数のインデックス
-		/// </param>
-		/// <example><code>
-		/// String("abcde").values_at({0, 3, 4}); // => "ade"
-		/// </code></example>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
+		/// @brief 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。
+		/// @param indices インデックス
+		/// @remark `String("abcde").values_at({0, 3, 4}); // "ade"`
+		/// @return 新しい文字列
 		[[nodiscard]]
 		String values_at(std::initializer_list<size_t> indices) const;
 
-		/// <summary>
-		/// 文字列に XML エスケープを行います。
-		/// </summary>
-		/// <remarks>
-		/// &quot;, \, &amp;, &gt;, &lt; をエスケープ文字に置換します
-		/// </remarks>
-		/// <returns>
-		/// *this
-		/// </returns>
+		/// @brief 文字列に XML エスケープを行います。
+		/// @remark &quot;, \, &amp;, &gt;, &lt; などのエスケープを行います
+		/// @return *this
 		String& xml_escape();
 
-		/// <summary>
-		/// XML エスケープした文字列を返します。
-		/// </summary>
-		/// <remarks>
-		/// &quot;, \, &amp;, &gt;, &lt; をエスケープ文字に置換します
-		/// </remarks>
-		/// <returns>
-		/// 新しい文字列
-		/// </returns>
 		[[nodiscard]]
+		/// @brief  XML エスケープした文字列を返します。
+		/// @remark&quot;, \, &amp;, &gt;, &lt; などのエスケープを行います
+		/// @return 新しい文字列
 		String xml_escaped() const;
 
 

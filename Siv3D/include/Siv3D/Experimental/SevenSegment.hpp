@@ -71,7 +71,6 @@ namespace s3d
 /*
 
 # include <Siv3D.hpp>
-# include <Siv3D/Experimental/SevenSegment.hpp>
 
 void Main()
 {

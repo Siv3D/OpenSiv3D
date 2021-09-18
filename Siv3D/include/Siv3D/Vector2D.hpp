@@ -264,150 +264,130 @@ namespace s3d
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, x }
-		/// </summary>
+		/// @brief Vector2D{ x, x } を返します。
+		/// @return Vector2D{ x, x }
 		[[nodiscard]]
 		constexpr Vector2D xx() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, y }
-		/// </summary>
+		/// @brief Vector2D{ x, y } を返します。
+		/// @return Vector2D{ x, y }
 		[[nodiscard]]
 		constexpr Vector2D xy() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, x }
-		/// </summary>
+		/// @brief Vector2D{ y, x } を返します。
+		/// @return Vector2D{ y, x }
 		[[nodiscard]]
 		constexpr Vector2D yx() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, y }
-		/// </summary>
+		/// @brief Vector2D{ y, y } を返します。
+		/// @return Vector2D{ y, y }
 		[[nodiscard]]
 		constexpr Vector2D yy() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ x, 0 }
-		/// </summary>
+		/// @brief Vector2D{ x, 0 } を返します。
+		/// @return Vector2D{ x, 0 }
 		[[nodiscard]]
 		constexpr Vector2D x0() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ y, 0 }
-		/// </summary>
+		/// @brief Vector2D{ y, 0 } を返します。
+		/// @return Vector2D{ y, 0 }
 		[[nodiscard]]
 		constexpr Vector2D y0() const noexcept;
 
 		[[nodiscard]]
 		constexpr Vector3D<Type> xy0() const noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, 0 }
-		/// </summary>
+		/// @brief Vector2D{ 0, 0 } を返します。
+		/// @return Vector2D{ 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D Zero() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 1, 1 }
-		/// </summary>
+		/// @brief Vector2D{ 1, 1 } を返します。
+		/// @return Vector2D{ 1, 1 }
 		[[nodiscard]]
 		static constexpr Vector2D One() noexcept;
 
-		/// <summary>
-		/// Vector2D{ value, value }
-		/// </summary>
+		/// @brief Vector2D{ value, value } を返します。
+		/// @param value 値
+		/// @return Vector2D{ value, value }
 		[[nodiscard]]
 		static constexpr Vector2D All(value_type value = 1) noexcept;
 
-		/// <summary>
-		/// Vector2D{ 1, 0 }
-		/// </summary>
+		/// @brief Vector2D{ 1, 0 } を返します。
+		/// @return Vector2D{ 1, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D UnitX() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, 1 }
-		/// </summary>
+		/// @brief Vector2D{ 0, 1 } を返します。
+		/// @return Vector2D{ 0, 1 }
 		[[nodiscard]]
 		static constexpr Vector2D UnitY() noexcept;
 
-		/// <summary>
-		/// Vector2D{ -length, 0 }
-		/// </summary>
+		/// @brief Vector2D{ -length, 0 } を返します。
+		/// @param length 値
+		/// @return Vector2D{ -length, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D Left(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Vector2D{ length, 0 }
-		/// </summary>
+		/// @brief Vector2D{ length, 0 } を返します。
+		/// @param length 値
+		/// @return Vector2D{ length, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D Right(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, -length }
-		/// </summary>
+		/// @brief Vector2D{ 0, -length } を返します。
+		/// @param length 値
+		/// @return Vector2D{ 0, -length }
 		[[nodiscard]]
 		static constexpr Vector2D Up(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, length }
-		/// </summary>
+		/// @brief Vector2D{ 0, length } を返します。
+		/// @return Vector2D{ 0, length }
 		[[nodiscard]]
 		static constexpr Vector2D Down(value_type length = 1) noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0.5, 0.5 }
-		/// </summary>
+		/// @brief Vector2D{ 0.5, 0.5 } を返します。
+		/// @return Vector2D{ 0.5, 0.5 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorCenter() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, 0 }
-		/// </summary>
+		/// @brief Vector2D{ 0, 0 } を返します。
+		/// @return Vector2D{ 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorTopLeft() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0.5, 0 }
-		/// </summary>
+		/// @brief Vector2D{ 0.5, 0 } を返します。
+		/// @return Vector2D{ 0.5, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorTopCenter() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 1, 0 }
-		/// </summary>
+		/// @brief Vector2D{ 1, 0 } を返します。
+		/// @return Vector2D{ 1, 0 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorTopRight() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 1, 0.5 }
-		/// </summary>
+		/// @brief Vector2D{ 1, 0.5 } を返します。
+		/// @return Vector2D{ 1, 0.5 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorRightCenter() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 1, 1 }
-		/// </summary>
+		/// @brief Vector2D{ 1, 1 } を返します。
+		/// @return Vector2D{ 1, 1 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorBottomRight() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0.5, 1 }
-		/// </summary>
+		/// @brief Vector2D{ 0.5, 1 } を返します。
+		/// @return Vector2D{ 0.5, 1 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorBottomCenter() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, 1 }
-		/// </summary>
+		/// @brief Vector2D{ 0, 1 } を返します。
+		/// @return Vector2D{ 0, 1 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorBottomLeft() noexcept;
 
-		/// <summary>
-		/// Vector2D{ 0, 0.5 }
-		/// </summary>
+		/// @brief Vector2D{ 0, 0.5 } を返します。
+		/// @return Vector2D{ 0, 0.5 }
 		[[nodiscard]]
 		static constexpr Vector2D AnchorLeftCenter() noexcept;
 

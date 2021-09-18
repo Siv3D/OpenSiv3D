@@ -170,7 +170,6 @@ namespace s3d
 // example
 
 # include <Siv3D.hpp>
-# include <Siv3D/Experimental/SaturatedLinework.hpp>
 
 void Main()
 {

@@ -156,16 +156,10 @@ namespace s3d
 
 		static constexpr Predefined BorderAniso = Predefined::BorderAniso;
 
-		/// <summary>
-		/// 2D 描画時のデフォルト
-		/// SamplerState::WrapLinear
-		/// </summary>
+		/// @brief 2D 描画時のデフォルト
 		static constexpr Predefined Default2D = Predefined::Default2D;
 
-		/// <summary>
-		/// 3D 描画時のデフォルト
-		/// SamplerState::WrapAniso
-		/// </summary>
+		/// @brief 3D 描画時のデフォルト
 		static constexpr Predefined Default3D = Predefined::Default3D;
 	};
 	static_assert(sizeof(SamplerState) == sizeof(SamplerState::storage_type));
