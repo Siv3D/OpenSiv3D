@@ -12,9 +12,9 @@
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
-## Download
+## Downloads
 
-### v0.6.0 | stable
+### ✨ v0.6.0 | stable
 *released 18 September 2021*
 
 | Platform           | SDK  | Requirements                  |
@@ -26,7 +26,7 @@
 
 <small>* Some functionality may be missing or limited</small>
 
-### v0.4.3 | previous version
+### 🕰️ v0.4.3 | previous version
 *released 11 April 2020*
 
 | Platform        | SDK | Requirements                  |
