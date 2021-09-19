@@ -25,7 +25,7 @@ namespace s3d
 	Webcam::WebcamDetail::WebcamDetail() 
 	{
 		::glGenFramebuffers(1, &m_copyFrameBuffer);
-		m_frameBufferUnpackers.resize(2);
+		m_frames.resize(2);
 	}
 
 	Webcam::WebcamDetail::~WebcamDetail()
@@ -38,12 +38,9 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"Webcam::WebcamDetail::open(cameraIndex = {})"_fmt(cameraIndex));
 
-		// close();
+		close();
 
 		m_abort = false;
-
-		// TODO: カメラのデフォルトの解像度も取得したい
-		m_capture.setResolution(m_captureResolution);
 
 		if (not m_capture.openCamera())
 		{
@@ -76,9 +73,15 @@ namespace s3d
 		m_thread.join();
 		{
 			m_capture.release();
+
+			m_captureStarted = false;
 			m_cameraIndex = 0;
 			m_newFrameCount = 0;
-			// m_captureResolution.set(0, 0);
+		}
+
+		for (auto& frame : m_frames)
+		{
+			frame.inUse = false;
 		}
 	}
 
@@ -116,12 +119,6 @@ namespace s3d
 		// キャプチャスレッドを起動
 		{
 			m_thread = PseudoThread{ std::chrono::milliseconds(30), Run, std::ref(*this) };
-
-			for (auto& unpacker : m_frameBufferUnpackers)
-			{
-				unpacker.resize(m_captureResolution);
-			}
-
 			return true;
 		}
 	}
@@ -138,24 +135,18 @@ namespace s3d
 
 	Size Webcam::WebcamDetail::getResolution() const
 	{
-		return m_captureResolution;
+		return m_capture.getResolution();
 	}
 
 	bool Webcam::WebcamDetail::setResolution(const Size& resolution)
 	{
-		// BUGBUG: Web 版では open 前でなければ解像度変更ができない
-		if (m_capture.isOpened())
-		{
-			return false;
-		}
-
 		// start 後は変更できない
 		if (m_thread.joinable())
 		{
 			return false;
 		}
 
-		m_captureResolution = resolution;
+		m_capture.setResolution(resolution);
 
 		return true;
 	}
@@ -167,21 +158,23 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::getFrame(Image& image)
 	{
-		if (not isActive())
+		if (not isOpen())
 		{
 			return false;
 		}
 
-		auto& selectedUnpacker = m_frameBufferUnpackers[m_totalFrameCount % 2];
+		auto& selectedUnpacker = m_frames[m_totalFrameCount % 2];
 
-		if (!selectedUnpacker.hasFinishedUnpack())
+		if (!selectedUnpacker.frameBufferUnpacker.hasFinishedUnpack())
 		{
 			return false;
 		}
 
-		image.resize(m_captureResolution);
+		auto captureResolution = getResolution();
+		image.resize(captureResolution);
 		{
-			selectedUnpacker.readPixels(image);
+			selectedUnpacker.frameBufferUnpacker.readPixels(image);
+			selectedUnpacker.inUse = false;
 
 			m_newFrameCount = 0;
 		}
@@ -191,12 +184,18 @@ namespace s3d
 
 	bool Webcam::WebcamDetail::getFrame(DynamicTexture& texture)
 	{
-		if (not isActive())
+		if (not isOpen())
 		{
 			return false;
 		}
 
 		auto textureManager = static_cast<CTexture_GLES3*>(Siv3DEngine::Get<ISiv3DTexture>());
+		auto captureResolution = getResolution();
+
+		if (texture.isEmpty()) 
+		{
+			texture = DynamicTexture{ captureResolution };
+		}
 
 		{
 			::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_capturedFrameBuffer);
@@ -204,7 +203,7 @@ namespace s3d
 			::glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureManager->getTexture(texture.id()), 0);
 			
 			::glBlitFramebuffer(
-				0, 0, m_captureResolution.x, m_captureResolution.y,
+				0, 0, captureResolution.x, captureResolution.y,
 				0, 0, texture.width(), texture.height(),
 				GL_COLOR_BUFFER_BIT, GL_NEAREST
 			);
@@ -236,16 +235,33 @@ namespace s3d
 			// ここで open チェック
 			return true;
 		}
+		else if (not webcam.m_captureStarted)
+		{
+			for (auto& frame : webcam.m_frames)
+			{
+				auto resolution = webcam.getResolution();
+				frame.frameBufferUnpacker.resize(resolution);
+			}
 
+			webcam.m_captureStarted = true;
+		}
+		
+		auto& selectedFrame = webcam.m_frames[webcam.m_totalFrameCount % 2];
+		
 		capture.capture();
 		auto capturedFrameBuffer = capture.retrieve();
-		auto& selectedUnpacker = webcam.m_frameBufferUnpackers[webcam.m_totalFrameCount % 2];
-
-		selectedUnpacker.startUnpack(capturedFrameBuffer);
 
 		webcam.m_capturedFrameBuffer = capturedFrameBuffer;
 		webcam.m_newFrameCount++;
 		webcam.m_totalFrameCount++;
+
+		if (not selectedFrame.inUse)
+		{
+			auto& selectedUnpacker = selectedFrame.frameBufferUnpacker;
+			selectedUnpacker.startUnpack(capturedFrameBuffer);
+
+			selectedFrame.inUse = true;
+		}
 
 		return true;
 	}

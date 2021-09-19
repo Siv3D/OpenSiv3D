@@ -61,6 +61,8 @@ namespace s3d
 
         static void OnOpened(GLuint elementID, void* userData);
 
+        static void OnResolutionUpdated(void* userData);
+
         static void OnUpdated(void* userData);
 
         void prepareBuffers();

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.12)
 
 project(OpenSiv3D_Web CXX C)
 
@@ -69,6 +69,9 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Mesh/MeshFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Microphone/MicrophoneDetail.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Microphone/SivMicrophone.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
@@ -80,6 +83,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Shader/ShaderFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/CSystem.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/SivSystem_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TCPClient/SivTCPClient.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TCPClient/TCPClientDetail.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextToSpeech/CTextToSpeech.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Texture/TextureFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TextInput/CTextInput.cpp
@@ -349,9 +354,9 @@ add_library(
   ../Siv3D/src/Siv3D/MeshData/MeshUtility.cpp
   ../Siv3D/src/Siv3D/MeshData/SivMeshData.cpp
   ../Siv3D/src/Siv3D/MessageBox/SivMessageBox.cpp
-  ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
-  ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
-  ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
+  # ../Siv3D/src/Siv3D/Microphone/MicrophoneDetail.cpp
+  # ../Siv3D/src/Siv3D/Microphone/SivMicrophone.cpp
+  # ../Siv3D/src/Siv3D/MicrophoneInfo/SivMicrophoneInfo.cpp
   ../Siv3D/src/Siv3D/MicrosecClock/SivMicrosecClock.cpp
   ../Siv3D/src/Siv3D/MillisecClock/SivMillisecClock.cpp
   ../Siv3D/src/Siv3D/Model/CModel.cpp
@@ -614,8 +619,8 @@ add_library(
   ../Siv3D/src/Siv3D/System/SystemFactory.cpp
   ../Siv3D/src/Siv3D/System/SystemLog.cpp
   ../Siv3D/src/Siv3D/System/SystemMisc.cpp
-  ../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp
-  ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
+  # ../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp
+  # ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
   ../Siv3D/src/Siv3D/TCPServer/SivTCPServer.cpp
   ../Siv3D/src/Siv3D/TCPServer/TCPServerDetail.cpp
   ../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp
@@ -684,17 +689,7 @@ add_library(
   ../Siv3D/src/ThirdParty/angelscript/as_builder.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_bytecode.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm64.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_mips.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc_64.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_sh4.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_gcc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_mingw.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x64_msvc.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_x86.cpp
-  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_xenon.cpp
+	../Siv3D/src/ThirdParty/angelscript/as_callfunc_wasm32.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_compiler.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_configgroup.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_context.cpp

@@ -376,9 +376,9 @@
 
 // Emscripten compiler toolchain
 // ref: https://emscripten.org/
-#if defined(__EMSCRIPTEN__)
-  #define AS_MAX_PORTABILITY
-#endif
+// #if defined(__EMSCRIPTEN__)
+//   #define AS_MAX_PORTABILITY
+// #endif
 
 
 
@@ -1196,6 +1196,21 @@
 			// Only with GCC 4.1 was the atomic instructions available
 			#define AS_NO_ATOMIC
 		#endif
+	#elif defined(__EMSCRIPTEN__)
+		#define AS_WASM32
+		#define AS_NO_EXCEPTIONS
+
+		#define CDECL_RETURN_SIMPLE_IN_MEMORY
+		#define STDCALL_RETURN_SIMPLE_IN_MEMORY
+		#define THISCALL_RETURN_SIMPLE_IN_MEMORY
+
+		#undef COMPLEX_MASK
+		#define COMPLEX_MASK (asOBJ_APP_CLASS_DESTRUCTOR | asOBJ_APP_CLASS_COPY_CONSTRUCTOR | asOBJ_APP_ARRAY)
+		#undef COMPLEX_RETURN_MASK
+		#define COMPLEX_RETURN_MASK (asOBJ_APP_CLASS_DESTRUCTOR | asOBJ_APP_CLASS_COPY_CONSTRUCTOR | asOBJ_APP_ARRAY)
+
+		#undef AS_NO_THISCALL_FUNCTOR_METHOD
+		#undef GNU_STYLE_VIRTUAL_METHOD
 	#endif
 
 	#define UNREACHABLE_RETURN
@@ -1258,7 +1273,7 @@
 
 // If there are no current support for native calling
 // conventions, then compile with AS_MAX_PORTABILITY
-#if (!defined(AS_X86) && !defined(AS_SH4) && !defined(AS_MIPS) && !defined(AS_PPC) && !defined(AS_PPC_64) && !defined(AS_XENON) && !defined(AS_X64_GCC) && !defined(AS_X64_MSVC) && !defined(AS_ARM) && !defined(AS_ARM64) && !defined(AS_X64_MINGW))
+#if (!defined(AS_X86) && !defined(AS_SH4) && !defined(AS_MIPS) && !defined(AS_PPC) && !defined(AS_PPC_64) && !defined(AS_XENON) && !defined(AS_X64_GCC) && !defined(AS_X64_MSVC) && !defined(AS_ARM) && !defined(AS_ARM64) && !defined(AS_X64_MINGW) && !defined(AS_WASM32))
 	#ifndef AS_MAX_PORTABILITY
 		#define AS_MAX_PORTABILITY
 	#endif

@@ -12,6 +12,7 @@
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/ShaderStage.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include "GLES3VertexShader.hpp"
 
 namespace s3d
@@ -41,7 +42,18 @@ namespace s3d
 
         // シェーダのコンパイル
 		{
-			const std::string sourceUTF8 = source.toUTF8();
+			String sourceData { source };
+
+			for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
+			{
+				const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot);
+				const String oldName = Format(U"Texture", slot);
+				const String newName = Format(U"Texture", samplerSlot);
+				
+				sourceData.replace(oldName, newName);
+			}
+
+			const std::string sourceUTF8 = sourceData.toUTF8();
 			const char* pSource = sourceUTF8.c_str();
 
 			::glShaderSource(m_vertexShader, 1, &pSource, NULL);
@@ -90,6 +102,19 @@ namespace s3d
 		return m_vertexShader;
 	}
 
+	void GLES3VertexShader::setVSSamplerUniforms()
+	{
+		if (not m_textureIndices)
+		{
+			return;
+		}
+
+		for (auto [slot, location] : m_textureIndices)
+		{
+			::glUniform1i(location, slot);
+		}
+	}
+
 	void GLES3VertexShader::bindUniformBlocks(GLuint program)
 	{
 		for (auto[name, index] : m_constantBufferBindings)
@@ -103,6 +128,21 @@ namespace s3d
 			}
 
 			::glUniformBlockBinding(program, blockIndex, index);
+		}
+
+		// Sampler Uniforms
+		for (uint32 slot = 0; slot < SamplerState::MaxSamplerCount; ++slot)
+		{
+			const GLuint samplerSlot = Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot);
+			const String name = Format(U"Texture", samplerSlot);
+			const std::string s = name.narrow();
+			const GLint location = ::glGetUniformLocation(program, s.c_str());
+
+			if (location != -1)
+			{
+				LOG_TRACE(U"{} location: {}"_fmt(name, location));
+				m_textureIndices.emplace_back(samplerSlot, location);
+			}
 		}
 	}
 

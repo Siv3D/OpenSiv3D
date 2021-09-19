@@ -50,6 +50,7 @@
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
+# include <Siv3D/Script/IScript.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
@@ -122,6 +123,7 @@ namespace s3d
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(PrimitiveMesh)->init();
 		SIV3D_ENGINE(Effect)->init();
+		SIV3D_ENGINE(Script)->init();
 
 		detail::siv3dStartUserActionHook();
 		detail::siv3dInitDialog();

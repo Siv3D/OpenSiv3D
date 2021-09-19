@@ -19,7 +19,7 @@ mergeInto(LibraryManager.library, {
         if (!window.keysBuffer) {
             window.keysBuffer = Module._malloc(349 /* GLFW_KEY_LAST + 1 */)
         }
-        Module.HEAPU8.set(window.keys, window.keysBuffer);
+        Module["HEAPU8"].set(window.keys, window.keysBuffer);
         return window.keysBuffer;
     },
     glfwGetKeysSiv3D__sig: "ii",
@@ -52,9 +52,25 @@ mergeInto(LibraryManager.library, {
 
     siv3dSetCursorStyle: function(style) {
         const styleText = UTF8ToString(style);
-        Module["canvas"].style.cursor = styleText;
+        Module["canvas"]["style"]["cursor"] = styleText;
     },
     siv3dSetCursorStyle__sig: "vi",
+
+    siv3dRequestFullscreen: function() {
+        siv3dRegisterUserAction(function () {
+            Browser.requestFullscreen();
+        });
+    },
+    siv3dRequestFullscreen__sig: "v",
+    siv3dRequestFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
+
+    siv3dExitFullscreen: function() {
+        siv3dRegisterUserAction(function () {
+            Browser.exitFullscreen();
+        });
+    },
+    siv3dExitFullscreen__sig: "v",
+    siv3dExitFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
 
     //
     // MessageBox
@@ -79,28 +95,31 @@ mergeInto(LibraryManager.library, {
     // DragDrop Support
     //
     siv3dRegisterDragEnter: function(ptr) {
-        Module["canvas"].ondragenter = function (e) {
+        Module["canvas"]["ondragenter"] = function (e) {
             e.preventDefault();
 
             const types = e.dataTransfer.types;
 
             if (types.length > 0) {
-                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0);
+                const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
+                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0, adusted.x, adusted.y);
             }        
         };
     },
     siv3dRegisterDragEnter__sig: "vi",
 
     siv3dRegisterDragUpdate: function(ptr) {
-        Module["canvas"].ondragover = function (e) {
+        Module["canvas"]["ondragover"] = function (e) {
             e.preventDefault();
-            {{{ makeDynCall('v', 'ptr') }}}();
+            const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
+            {{{ makeDynCall('vii', 'ptr') }}}(adusted.x, adusted.y);
         };
     },
     siv3dRegisterDragUpdate__sig: "vi",
+    siv3dRegisterDragUpdate__deps: [ "$siv3dAdjustPoint" ],
 
     siv3dRegisterDragExit: function(ptr) {
-        Module["canvas"].ondragexit = function (e) {
+        Module["canvas"]["ondragexit"] = function (e) {
             e.preventDefault();
             {{{ makeDynCall('v', 'ptr') }}}();
         };
@@ -109,19 +128,20 @@ mergeInto(LibraryManager.library, {
 
     $siv3dDragDropFileReader: null,
     siv3dRegisterDragDrop: function(ptr) {
-        Module["canvas"].ondrop = function (e) {
+        Module["canvas"]["ondrop"] = function (e) {
             e.preventDefault();
 
             const items = e.dataTransfer.items;
+            const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
 
             if (items.length == 0) {
                 return;
             }
 
-            if (items[0].kind === 'text') {
+            if (items[0].kind === 'string') {
                 items[0].getAsString(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr);
+                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr, adusted.x, adusted.y);
                     Module["_free"](strPtr);
                 })            
             } else if (items[0].kind === 'file') {
@@ -137,7 +157,7 @@ mergeInto(LibraryManager.library, {
                     FS.writeFile(filePath, new Uint8Array(siv3dDragDropFileReader.result));
 
                     const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr);
+                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr, adusted.x, adusted.y);
 
                     siv3dDragDropFileReader.removeEventListener("load", onLoaded);
                 });
@@ -159,8 +179,9 @@ mergeInto(LibraryManager.library, {
         const media_source = new MediaSource();
        
         const video = document.createElement("video");
-        video.muted = true;
-        video.autoplay = true;
+        video["muted"] = true;
+        video["autoplay"] = true;
+        video["playsInline"] = true;
 
         media_source.addEventListener('sourceopen', function() {
             const source_buffer = media_source.addSourceBuffer('video/mp4');
@@ -187,9 +208,9 @@ mergeInto(LibraryManager.library, {
         const videoBlob = new Blob([ videoData ], { type: "video/mp4" });
        
         const video = document.createElement("video");
-        video.muted = true;
-        video.autoplay = true;
-        video.playsInline = true;
+        video["muted"] = true;
+        video["autoplay"] = true;
+        video["playsInline"] = true;
 
         video.addEventListener('loadedmetadata', function onLoaded() {
             const idx = GL.getNewId(videoElements);
@@ -207,7 +228,10 @@ mergeInto(LibraryManager.library, {
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
-            video: { width, height },
+            video: { 
+                width : width > 0 ? width : undefined, 
+                height: height > 0 ? height : undefined 
+            },
             audio: false
         };
 
@@ -215,6 +239,7 @@ mergeInto(LibraryManager.library, {
             stream => {
                 const video = document.createElement("video");
 
+                video["playsInline"] = true;          
                 video.addEventListener('loadedmetadata', function onLoaded() {
                     const idx = GL.getNewId(videoElements);
 
@@ -224,7 +249,7 @@ mergeInto(LibraryManager.library, {
                     if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
                 });
 
-                video.srcObject = stream;                      
+                video.srcObject = stream;
             }
         ).catch(_ => {
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
@@ -232,6 +257,26 @@ mergeInto(LibraryManager.library, {
     },
     siv3dOpenCamera__sig: "viiii",
     siv3dOpenCamera__deps: ["$videoElements"],
+
+    siv3dSetCameraResolution: function(idx, width, height, callback, callbackArg) {
+        /** @type { HTMLVideoElement } */
+        const video = videoElements[idx];
+        /** @type { MediaStreamTrack } */
+        const stream = video.srcObject.getVideoTracks()[0];
+
+        const constraint = {
+            video: { width, height },
+            audio: false
+        };
+
+        stream.applyConstraints(constraint).then(
+            () => {
+                if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+            }
+        );
+    },
+    siv3dSetCameraResolution__sig: "viiiii",
+    siv3dSetCameraResolution__deps: ["$videoElements"],
 
     siv3dQueryCameraAvailability: function () {
         return !!navigator.getUserMedia;
@@ -254,7 +299,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
-        GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, video);
+        GLctx.texSubImage2D(target, level, 0, 0, width, height, format, type, video);
     },
     siv3dCaptureVideoFrame__sig: "viiiiiiiii",
     siv3dCaptureVideoFrame__deps: ["$videoElements"],
@@ -321,7 +366,7 @@ mergeInto(LibraryManager.library, {
 
         const video = videoElements[idx];
         if (!!video.src) {
-            URL.revokeObjectURL(src);
+            URL.revokeObjectURL(video.src);
         }
 
         delete videoElements[idx];
@@ -333,20 +378,37 @@ mergeInto(LibraryManager.library, {
     // MultiTouch Support
     //
     $siv3dActiveTouches: [],
+
+    $siv3dAdjustPoint: function (x, y) {
+        const rect = Module["canvas"].getBoundingClientRect();
+        const cw = Module["canvas"].width;
+        const ch = Module["canvas"].height;
+
+        const scrollX = ((typeof window.scrollX !== 'undefined') ? window.scrollX : window.pageXOffset);
+        const scrollY = ((typeof window.scrollY !== 'undefined') ? window.scrollY : window.pageYOffset);
+
+        let adjustedX = x - (scrollX + rect.left);
+        let adjustedY = y - (scrollY + rect.top);
+
+        adjustedX = adjustedX * (cw / rect.width);
+        adjustedY = adjustedY * (ch / rect.height);
+
+        return { x: adjustedX, y: adjustedY };
+    },
     
     $siv3dOnTouchStart: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.preventDefault();
+        e.preventDefault()
     },
 
     $siv3dOnTouchEnd: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.preventDefault();
+        e.stopPropagation();
     },
 
     $siv3dOnTouchMove: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.preventDefault();
+        e.stopPropagation();
     },
 
     siv3dRegisterTouchCallback: function() {
@@ -366,29 +428,71 @@ mergeInto(LibraryManager.library, {
     siv3dGetPrimaryTouchPoint: function(pX, pY) {
         if (siv3dActiveTouches.length > 0) {
             const touch = siv3dActiveTouches[0];
-
-            const rect = Module["canvas"].getBoundingClientRect();
-            const cw = Module["canvas"].width;
-            const ch = Module["canvas"].height;
-
-            const scrollX = ((typeof window.scrollX !== 'undefined') ? window.scrollX : window.pageXOffset);
-            const scrollY = ((typeof window.scrollY !== 'undefined') ? window.scrollY : window.pageYOffset);
-
-            let adjustedX = touch.pageX - (scrollX + rect.left);
-            let adjustedY = touch.pageY - (scrollY + rect.top);
-  
-            adjustedX = adjustedX * (cw / rect.width);
-            adjustedY = adjustedY * (ch / rect.height);
+            const adjusted = siv3dAdjustPoint(touch.pageX, touch.pageY);
             
-            setValue(pX, adjustedX, 'double');
-            setValue(pY, adjustedY, 'double');
+            setValue(pX, adjusted.x, 'double');
+            setValue(pY, adjusted.y, 'double');
             return 1;
         } else {
             return 0;
         }
     },
     siv3dGetPrimaryTouchPoint__sig: "iii",
-    siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches" ],
+    siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches", "$siv3dAdjustPoint" ],
+
+    //
+    // AngelScript Support
+    //
+    siv3dCallIndirect: function(funcPtr, funcTypes, retPtr, argsPtr) {
+        let args = [];
+        let funcTypeIndex = funcTypes;
+        let argsPtrIndex = argsPtr;
+
+        const retType = HEAPU8[funcTypeIndex++];
+
+        while (true) {
+            const funcType = HEAPU8[funcTypeIndex++];
+
+            if (funcType === 0) break;
+
+            switch (funcType) {
+                case 105: // 'i':
+                    args.push(HEAP32[argsPtrIndex >> 2]);
+                    argsPtrIndex += 4;
+                    break;
+                case 102: // 'f':
+                    args.push(HEAPF32[argsPtrIndex >> 2]);
+                    argsPtrIndex += 4;
+                    break;
+                case 100: // 'd':
+                    argsPtrIndex += (8 - argsPtrIndex % 8);
+                    args.push(HEAPF64[argsPtrIndex >> 3]);
+                    argsPtrIndex += 8;
+                    break;
+                default:
+                    err("Unrecognized Function Type");
+            }
+        }
+
+        const retValue = wasmTable.get(funcPtr).apply(null, args);
+
+        switch (retType) {
+            case 105: // 'i':
+                HEAP32[retPtr >> 2] = retValue;
+                break;
+            case 102: // 'f':
+                HEAPF32[retPtr >> 2] = retValue;
+                break;
+            case 100: // 'd':
+                HEAPF64[retPtr >> 3] = retValue;
+                break;
+            case 118: // 'v':
+                break;
+            default:
+                err("Unrecognized Function Type");
+        }
+    },
+    siv3dCallIndirect__sig: "viiii",
 
     //
     // User Action Emulation
@@ -420,7 +524,7 @@ mergeInto(LibraryManager.library, {
     $siv3dUserActionHookCallBack__deps: [ "$siv3dHasUserActionTriggered", "$siv3dTriggerUserAction" ],
 
     siv3dStartUserActionHook: function() {
-        Module["canvas"].addEventListener('touchstart', siv3dUserActionHookCallBack);
+        Module["canvas"].addEventListener('touchend', siv3dUserActionHookCallBack);
         Module["canvas"].addEventListener('mousedown', siv3dUserActionHookCallBack);
         window.addEventListener('keydown', siv3dUserActionHookCallBack);
     },
@@ -428,7 +532,7 @@ mergeInto(LibraryManager.library, {
     siv3dStartUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dHasUserActionTriggered" ],
 
     siv3dStopUserActionHook: function() {
-        Module["canvas"].removeEventListener('touchstart', siv3dUserActionHookCallBack);
+        Module["canvas"].removeEventListener('touchend', siv3dUserActionHookCallBack);
         Module["canvas"].removeEventListener('mousedown', siv3dUserActionHookCallBack);
         window.removeEventListener('keydown', siv3dUserActionHookCallBack);
     },
