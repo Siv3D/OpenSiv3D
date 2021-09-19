@@ -4,12 +4,12 @@
 
 **Siv3D** (OpenSiv3D) is a C++20 framework for creative coding.
 
-## v0.6.0 | stable
+## v0.6.0 (stable) <small>*released 18 September 2021*</small>
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.0_Installer.exe) \| 115 MB<br>*18 September 2021* | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10 or newer<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.0_macOS.zip) \| 172 MB<br>*18 September 2021* | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
+| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.0_Installer.exe) | - Windows 7 SP1 / 8.1 / Windows 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10 or newer<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.0_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
@@ -23,12 +23,12 @@
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
-## v0.4.3 | previous version
+## v0.4.3 (previous version) <small>*released 11 April 2020*</small>
 
 | Platform        | SDK | Requirements                  |
 |:---------------:|:----------------------------:|:------------------------------|
-| Windows | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.4.3)Installer.exe) \| 83 MB<br>*11 April 2020* | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK |
-| macOS           | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) \| 103 MB<br>*11 April 2020* | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
+| Windows | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.4.3)Installer.exe) | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK |
+| macOS           | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- OpenGL 4.1 compatible graphics card |
 
 
 ## Examples (v0.6.0)
