@@ -299,7 +299,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
-        GLctx.texImage2D(target, level, internalFormat, width, height, border, format, type, video);
+        GLctx.texSubImage2D(target, level, 0, 0, width, height, format, type, video);
     },
     siv3dCaptureVideoFrame__sig: "viiiiiiiii",
     siv3dCaptureVideoFrame__deps: ["$videoElements"],
