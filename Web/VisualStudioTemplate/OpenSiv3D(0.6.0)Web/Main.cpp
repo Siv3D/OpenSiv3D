@@ -1,75 +1,59 @@
-
-# include <Siv3D.hpp> // OpenSiv3D v0.4.3
+# include <Siv3D.hpp>
 
 void Main()
 {
-	// 背景を水色にする
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+    // Set background color to sky blue
+    Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
 
-	// 大きさ 60 のフォントを用意
-	const Font font(60);
+    // Create a new font
+    const Font font{ 60 };
+    
+    // Create a new emoji font
+    const Font emojiFont{ 60, Typeface::ColorEmoji };
+    
+    // Set emojiFont as a fallback
+    font.addFallback(emojiFont);
 
-	// 猫のテクスチャを用意
-	const Texture cat(Emoji(U"🐈"));
+    // Create a texture from an image file
+    const Texture texture{ U"example/windmill.png" };
 
-	// 猫の座標
-	Vec2 catPos(640, 450);
+    // Create a texture from an emoji
+    const Texture emoji{ U"🐈"_emoji };
 
-	Platform::Web::System::SetMainLoop([&]
-	{
+    // Coordinates of the emoji
+    Vec2 emojiPos{ 300, 150 };
+
+    // Print a text
+    Print << U"Push [A] key";
+
+    Platform::Web::System::SetMainLoop([&]()
+    {
         System::Update();
+        
+        // Draw a texture
+        texture.draw(200, 200);
 
-		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+        // Put a text in the middle of the screen
+        font(U"Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
 
-		// 大きさをアニメーションさせて猫を表示する
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+        // Draw a texture with animated size
+        emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(emojiPos);
 
-		// マウスカーソルに追従する半透明の赤い円を描く
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+        // Draw a red transparent circle that follows the mouse cursor
+        Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1, 0, 0, 0.5 });
 
-		// [A] キーが押されたら
-		if (KeyA.down())
-		{
-			// Hello とデバッグ表示する
-			Print << U"Hello!";
-		}
+        // When [A] key is down
+        if (KeyA.down())
+        {
+            // Print a randomly selected text
+            Print << Sample({ U"Hello!", U"こんにちは", U"你好", U"안녕하세요?" });
+        }
 
-		// ボタンが押されたら
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
-		{
-			// 猫の座標を画面内のランダムな位置に移動する
-			catPos = RandomVec2(Scene::Rect());
-		}
-	});
+        // When [Button] is pushed
+        if (SimpleGUI::Button(U"Button", Vec2{ 640, 40 }))
+        {
+            // Move the coordinates to a random position in the screen
+            emojiPos = RandomVec2(Scene::Rect());
+        }
+    });
 }
-
-//
-// = アドバイス =
-// Debug ビルドではプログラムの最適化がオフになります。
-// 実行速度が遅いと感じた場合は Release ビルドを試しましょう。
-// アプリをリリースするときにも、Release ビルドにするのを忘れないように！
-//
-// 思ったように動作しない場合は「デバッグの開始」でプログラムを実行すると、
-// 出力ウィンドウに詳細なログが表示されるので、エラーの原因を見つけやすくなります。
-//
-// = お役立ちリンク =
-//
-// OpenSiv3D リファレンス
-// https://siv3d.github.io/ja-jp/
-//
-// チュートリアル
-// https://siv3d.github.io/ja-jp/tutorial/basic/
-//
-// よくある間違い
-// https://siv3d.github.io/ja-jp/articles/mistakes/
-//
-// サポートについて
-// https://siv3d.github.io/ja-jp/support/support/
-//
-// Siv3D ユーザコミュニティ Slack への参加
-// https://siv3d.github.io/ja-jp/community/community/
-//
-// 新機能の提案やバグの報告
-// https://github.com/Siv3D/OpenSiv3D/issues
-//
