@@ -4,7 +4,17 @@
 
 **Siv3D** (OpenSiv3D) is a C++20 framework for creative coding.
 
-## v0.6.0 | stable
+## Installation Guide & Documentation
+
+- [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
+- [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
+- [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
+- [Open Source Software used in Siv3D](ThirdParty.md)
+- [Architecture](ARCHITECTURE.md)
+
+## Download
+
+### v0.6.0 | stable
 *released 18 September 2021*
 
 | Platform           | SDK  | Requirements                  |
@@ -16,15 +26,7 @@
 
 <small>* Some functionality may be missing or limited</small>
 
-## Installation Guide & Documentation
-
-- [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
-- [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
-- [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
-- [Open Source Software used in Siv3D](ThirdParty.md)
-- [Architecture](ARCHITECTURE.md)
-
-## v0.4.3 | previous version
+### v0.4.3 | previous version
 *released 11 April 2020*
 
 | Platform        | SDK | Requirements                  |
