@@ -406,13 +406,14 @@ namespace s3d
 
 		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			Float4 param = textStyle.param;
 			if (font->getMethod() == FontMethod::SDF)
 			{
-				param.x = (0.25f + param.x * 0.5f);
-				param.y = (0.25f + param.y * 0.5f);
+				Graphics2D::SetSDFParameters(textStyle);
 			}
-			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+			else
+			{
+				Graphics2D::SetMSDFParameters(textStyle);
+			}
 		}
 
 		if (textStyle.type == TextStyle::Type::CustomShader)
@@ -433,13 +434,14 @@ namespace s3d
 
 		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			Float4 param = textStyle.param;
 			if (font->getMethod() == FontMethod::SDF)
 			{
-				param.x = (0.25f + param.x * 0.5f);
-				param.y = (0.25f + param.y * 0.5f);
+				Graphics2D::SetSDFParameters(textStyle);
 			}
-			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+			else
+			{
+				Graphics2D::SetMSDFParameters(textStyle);
+			}
 		}
 
 		if (textStyle.type == TextStyle::Type::CustomShader)
@@ -460,13 +462,14 @@ namespace s3d
 
 		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			Float4 param = textStyle.param;
 			if (font->getMethod() == FontMethod::SDF)
 			{
-				param.x = (0.25f + param.x * 0.5f);
-				param.y = (0.25f + param.y * 0.5f);
+				Graphics2D::SetSDFParameters(textStyle);
 			}
-			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+			else
+			{
+				Graphics2D::SetMSDFParameters(textStyle);
+			}
 		}
 
 		if (textStyle.type == TextStyle::Type::CustomShader)
@@ -487,13 +490,14 @@ namespace s3d
 		
 		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			Float4 param = textStyle.param;
 			if (font->getMethod() == FontMethod::SDF)
 			{
-				param.x = (0.25f + param.x * 0.5f);
-				param.y = (0.25f + param.y * 0.5f);
+				Graphics2D::SetSDFParameters(textStyle);
 			}
-			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+			else
+			{
+				Graphics2D::SetMSDFParameters(textStyle);
+			}
 		}
 
 		if (textStyle.type == TextStyle::Type::CustomShader)
@@ -514,13 +518,14 @@ namespace s3d
 		
 		if (textStyle.type != TextStyle::Type::Default && (not hasColor))
 		{
-			Float4 param = textStyle.param;
 			if (font->getMethod() == FontMethod::SDF)
 			{
-				param.x = (0.25f + param.x * 0.5f);
-				param.y = (0.25f + param.y * 0.5f);
+				Graphics2D::SetSDFParameters(textStyle);
 			}
-			Graphics2D::Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+			else
+			{
+				Graphics2D::SetMSDFParameters(textStyle);
+			}
 		}
 
 		if (textStyle.type == TextStyle::Type::CustomShader)

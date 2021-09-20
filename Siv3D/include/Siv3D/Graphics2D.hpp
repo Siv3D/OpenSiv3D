@@ -25,6 +25,8 @@
 
 namespace s3d
 {
+	struct TextStyle;
+
 	namespace Graphics2D
 	{
 		/// @brief 
@@ -117,6 +119,10 @@ namespace s3d
 		/// @remark 頂点シェーダを使って、各三角形に適切な頂点情報を与える必要があります。
 		/// @param count 描画する三角形の個数
 		void DrawTriangles(uint32 count);
+
+		void SetSDFParameters(const TextStyle& textStyle);
+
+		void SetMSDFParameters(const TextStyle& textStyle);
 
 		template <class Type>
 		inline void SetVSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);

@@ -11,6 +11,7 @@
 
 # include <Siv3D/Graphics2D.hpp>
 # include <Siv3D/Scene.hpp>
+# include <Siv3D/TextStyle.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -133,6 +134,19 @@ namespace s3d
 		void DrawTriangles(const uint32 count)
 		{
 			SIV3D_ENGINE(Renderer2D)->addNullVertices(count * 3);
+		}
+
+		void SetSDFParameters(const TextStyle& textStyle)
+		{
+			Float4 param = textStyle.param;
+			param.x = (0.25f + param.x * 0.5f);
+			param.y = (0.25f + param.y * 0.5f);
+			Internal::SetSDFParameters({ param, textStyle.outlineColor, textStyle.shadowColor });
+		}
+
+		void SetMSDFParameters(const TextStyle& textStyle)
+		{
+			Internal::SetSDFParameters({ textStyle.param, textStyle.outlineColor, textStyle.shadowColor });
 		}
 
 		namespace Internal
