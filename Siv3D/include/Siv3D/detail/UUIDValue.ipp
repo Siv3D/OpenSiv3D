@@ -13,11 +13,11 @@
 
 namespace s3d
 {
-	inline constexpr UUID::UUID(const std::array<value_type, 16>& uuid) noexcept
+	inline constexpr UUIDValue::UUIDValue(const std::array<value_type, 16>& uuid) noexcept
 		: m_data{ uuid } {}
 
 	template <class Iterator>
-	inline UUID::UUID(Iterator first, Iterator last)
+	inline UUIDValue::UUIDValue(Iterator first, Iterator last)
 	{
 		if (std::distance(first, last) == 16)
 		{
@@ -25,7 +25,7 @@ namespace s3d
 		}
 	}
 
-	inline constexpr bool UUID::isNil() const noexcept
+	inline constexpr bool UUIDValue::isNil() const noexcept
 	{
 		for (auto& value : m_data)
 		{
@@ -38,24 +38,24 @@ namespace s3d
 		return true;
 	}
 
-	inline constexpr const std::array<UUID::value_type, 16>& UUID::getData() const noexcept
+	inline constexpr const std::array<UUIDValue::value_type, 16>& UUIDValue::getData() const noexcept
 	{
 		return m_data;
 	}
 
-	inline void UUID::swap(UUID& other)
+	inline void UUIDValue::swap(UUIDValue& other)
 	{
 		m_data.swap(other.m_data);
 	}
 
-	inline size_t UUID::hash() const noexcept
+	inline size_t UUIDValue::hash() const noexcept
 	{
 		return Hash::FNV1a(m_data);
 	}
 }
 
 template <>
-void std::swap(s3d::UUID& a, s3d::UUID& b) noexcept
+void std::swap(s3d::UUIDValue& a, s3d::UUIDValue& b) noexcept
 {
 	a.swap(b);
 }

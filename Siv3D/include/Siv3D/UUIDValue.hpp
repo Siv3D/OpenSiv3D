@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class UUID
+	class UUIDValue
 	{
 	public:
 
@@ -42,17 +42,17 @@ namespace s3d
 		using value_type = uint8;
 
 		SIV3D_NODISCARD_CXX20
-		UUID() = default;
+		UUIDValue() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit UUID(const value_type(&uuid)[16]) noexcept;
+		explicit UUIDValue(const value_type(&uuid)[16]) noexcept;
 
 		SIV3D_NODISCARD_CXX20
-		explicit constexpr UUID(const std::array<value_type, 16>& uuid) noexcept;
+		explicit constexpr UUIDValue(const std::array<value_type, 16>& uuid) noexcept;
 
 		template <class Iterator>
 		SIV3D_NODISCARD_CXX20
-		explicit UUID(Iterator first, Iterator last);
+		explicit UUIDValue(Iterator first, Iterator last);
 
 		[[nodiscard]]
 		constexpr bool isNil() const noexcept;
@@ -72,55 +72,55 @@ namespace s3d
 		[[nodiscard]]
 		constexpr const std::array<value_type, 16>& getData() const noexcept;
 
-		void swap(UUID& other);
+		void swap(UUIDValue& other);
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
 		[[nodiscard]]
-		friend bool operator ==(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator ==(const UUIDValue& lhs, const UUIDValue& rhs) noexcept
 		{
 			return (lhs.m_data == rhs.m_data);
 		}
 
 		[[nodiscard]]
-		friend bool operator !=(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator !=(const UUIDValue& lhs, const UUIDValue& rhs) noexcept
 		{
 			return (lhs.m_data != rhs.m_data);
 		}
 
 		[[nodiscard]]
-		friend bool operator <(const UUID& lhs, const UUID& rhs) noexcept
+		friend bool operator <(const UUIDValue& lhs, const UUIDValue& rhs) noexcept
 		{
 			return (lhs.m_data < rhs.m_data);
 		}
 
 		[[nodiscard]]
-		static UUID Generate();
+		static UUIDValue Generate();
 
 		[[nodiscard]]
-		static UUID GenerateFromRNG(DefaultRNG& rng = GetDefaultRNG());
+		static UUIDValue GenerateFromRNG(DefaultRNG& rng = GetDefaultRNG());
 
 		[[nodiscard]]
-		static UUID GenerateFromName(const UUID& namespaceUUID, const std::string& name);
+		static UUIDValue GenerateFromName(const UUIDValue& namespaceUUIDValue, const std::string& name);
 
 		[[nodiscard]]
-		static UUID GenerateFromName(const UUID& namespaceUUID, const String& name);
+		static UUIDValue GenerateFromName(const UUIDValue& namespaceUUIDValue, const String& name);
 
 		[[nodiscard]]
-		static UUID Nil();
+		static UUIDValue Nil();
 
 		[[nodiscard]]
-		static UUID NamespaceDNS() noexcept;
+		static UUIDValue NamespaceDNS() noexcept;
 
 		[[nodiscard]]
-		static UUID NamespaceURL() noexcept;
+		static UUIDValue NamespaceURL() noexcept;
 
 		[[nodiscard]]
-		static UUID NamespaceOID() noexcept;
+		static UUIDValue NamespaceOID() noexcept;
 
 		[[nodiscard]]
-		static UUID NamespaceX500() noexcept;
+		static UUIDValue NamespaceX500() noexcept;
 
 		[[nodiscard]]
 		static bool IsValid(std::string_view uuid);
@@ -129,18 +129,18 @@ namespace s3d
 		static bool IsValid(StringView uuid);
 
 		[[nodiscard]]
-		static Optional<UUID> Parse(std::string_view uuid);
+		static Optional<UUIDValue> Parse(std::string_view uuid);
 
 		[[nodiscard]]
-		static Optional<UUID> Parse(StringView uuid);
+		static Optional<UUIDValue> Parse(StringView uuid);
 
 		template <class CharType>
-		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const UUID& value)
+		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const UUIDValue& value)
 		{
 			return (output << value.str());
 		}
 
-		friend void Formatter(FormatData& formatData, const UUID& value);
+		friend void Formatter(FormatData& formatData, const UUIDValue& value);
 
 	private:
 
@@ -149,7 +149,7 @@ namespace s3d
 }
 
 template <>
-struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
+struct SIV3D_HIDDEN fmt::formatter<s3d::UUIDValue, s3d::char32>
 {
 	std::u32string tag;
 
@@ -159,7 +159,7 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
 	}
 
 	template <class FormatContext>
-	auto format(const s3d::UUID& value, FormatContext& ctx)
+	auto format(const s3d::UUIDValue& value, FormatContext& ctx)
 	{
 		const s3d::String s = value.str();
 		const basic_string_view<s3d::char32> sv(s.data(), s.size());
@@ -177,16 +177,16 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::UUID, s3d::char32>
 };
 
 template <>
-struct std::hash<s3d::UUID>
+struct std::hash<s3d::UUIDValue>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::UUID& value) const noexcept
+	size_t operator()(const s3d::UUIDValue& value) const noexcept
 	{
 		return value.hash();
 	}
 };
 
 template <>
-inline void std::swap(s3d::UUID& a, s3d::UUID& b) noexcept;
+inline void std::swap(s3d::UUIDValue& a, s3d::UUIDValue& b) noexcept;
 
-# include "detail/UUID.ipp"
+# include "detail/UUIDValue.ipp"

@@ -11,7 +11,7 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Unicode.hpp>
-# include <Siv3D/UUID.hpp>
+# include <Siv3D/UUIDValue.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "IScript.hpp"
@@ -29,7 +29,7 @@ namespace s3d
 	ScriptData::ScriptData(Code, const StringView code, AngelScript::asIScriptEngine* const engine, const ScriptCompileOption compileOption)
 		: m_engine{ engine }
 		, m_module{ std::make_shared<ScriptModule>() }
-		, m_moduleName{ UUID::Generate().to_string() }
+		, m_moduleName{ UUIDValue::Generate().to_string() }
 		, m_compileOption{ compileOption }
 	{
 		m_initialized = true;
@@ -73,7 +73,7 @@ namespace s3d
 	ScriptData::ScriptData(File, const FilePathView path, AngelScript::asIScriptEngine* const engine, const ScriptCompileOption compileOption)
 		: m_engine{ engine }
 		, m_module{ std::make_shared<ScriptModule>() }
-		, m_moduleName{ UUID::Generate().to_string() }
+		, m_moduleName{ UUIDValue::Generate().to_string() }
 		, m_compileOption{ compileOption }
 		, m_fullpath{ FileSystem::FullPath(path) }
 	{
@@ -112,7 +112,7 @@ namespace s3d
 		}
 
 		m_module->module = m_engine->GetModule(m_moduleName.c_str());
-		m_moduleName = UUID::Generate().to_string();
+		m_moduleName = UUIDValue::Generate().to_string();
 		m_module->context = m_engine->CreateContext();
 		m_module->withLineCues = withLineCues;
 

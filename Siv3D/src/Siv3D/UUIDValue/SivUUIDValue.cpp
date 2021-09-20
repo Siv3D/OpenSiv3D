@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/UUID.hpp>
+# include <Siv3D/UUIDValue.hpp>
 
 # define UUID_SYSTEM_GENERATOR
 # include <ThirdParty/stduuid/uuid.h>
@@ -19,13 +19,13 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		static UUID ToUUID(const uuids::uuid& id) noexcept
+		static UUIDValue ToUUIDValue(const uuids::uuid& id) noexcept
 		{
 			std::array<uint8, 16> data;
 
 			std::memcpy(data.data(), id.as_bytes().data(), sizeof(data));
 
-			return UUID{ data };
+			return UUIDValue{ data };
 		}
 
 		template <class CharType>
@@ -41,22 +41,22 @@ namespace s3d
 		}
 	}
 
-	UUID::UUID(const value_type(&uuid)[16]) noexcept
+	UUIDValue::UUIDValue(const value_type(&uuid)[16]) noexcept
 	{
 		std::copy(std::begin(uuid), std::end(uuid), std::begin(m_data));
 	}
 
-	UUID::Variant UUID::variant() const noexcept
+	UUIDValue::Variant UUIDValue::variant() const noexcept
 	{
-		return UUID::Variant{ FromEnum(uuids::uuid{ m_data }.variant()) };
+		return UUIDValue::Variant{ FromEnum(uuids::uuid{ m_data }.variant()) };
 	}
 
-	UUID::Version UUID::version() const noexcept
+	UUIDValue::Version UUIDValue::version() const noexcept
 	{
-		return UUID::Version{ FromEnum(uuids::uuid{ m_data }.version()) };
+		return UUIDValue::Version{ FromEnum(uuids::uuid{ m_data }.version()) };
 	}
 
-	std::string UUID::to_string() const
+	std::string UUIDValue::to_string() const
 	{
 		std::string s(36, '-');
 		detail::ToHex(&s[0], m_data[0]);
@@ -83,7 +83,7 @@ namespace s3d
 		return s;
 	}
 
-	String UUID::str() const
+	String UUIDValue::str() const
 	{
 		String s(36, U'-');
 		detail::ToHex(&s[0], m_data[0]);
@@ -110,74 +110,74 @@ namespace s3d
 		return s;
 	}
 
-	UUID UUID::Generate()
+	UUIDValue UUIDValue::Generate()
 	{
 		const uuids::uuid id = uuids::uuid_system_generator{}();
 
-		return detail::ToUUID(id);
+		return detail::ToUUIDValue(id);
 	}
 
-	UUID UUID::GenerateFromRNG(DefaultRNG& rng)
+	UUIDValue UUIDValue::GenerateFromRNG(DefaultRNG& rng)
 	{
 		const uuids::uuid id = uuids::basic_uuid_random_generator{ rng }();
 
-		return detail::ToUUID(id);
+		return detail::ToUUIDValue(id);
 	}
 
-	UUID UUID::GenerateFromName(const UUID& namespaceUUID, const std::string& name)
+	UUIDValue UUIDValue::GenerateFromName(const UUIDValue& namespaceUUID, const std::string& name)
 	{
 		const uuids::uuid id = uuids::uuid_name_generator{ namespaceUUID.m_data }(name);
 
-		return detail::ToUUID(id);
+		return detail::ToUUIDValue(id);
 	}
 
-	UUID UUID::GenerateFromName(const UUID& namespaceUUID, const String& name)
+	UUIDValue UUIDValue::GenerateFromName(const UUIDValue& namespaceUUID, const String& name)
 	{
 		const uuids::uuid id = uuids::uuid_name_generator{ namespaceUUID.m_data }(name.toUTF8());
 
-		return detail::ToUUID(id);
+		return detail::ToUUIDValue(id);
 	}
 
-	UUID UUID::Nil()
+	UUIDValue UUIDValue::Nil()
 	{
 		return{};
 	}
 
-	UUID UUID::NamespaceDNS() noexcept
+	UUIDValue UUIDValue::NamespaceDNS() noexcept
 	{
-		return detail::ToUUID(uuids::uuid_namespace_dns);
+		return detail::ToUUIDValue(uuids::uuid_namespace_dns);
 	}
 
-	UUID UUID::NamespaceURL() noexcept
+	UUIDValue UUIDValue::NamespaceURL() noexcept
 	{
-		return detail::ToUUID(uuids::uuid_namespace_url);
+		return detail::ToUUIDValue(uuids::uuid_namespace_url);
 	}
 
-	UUID UUID::NamespaceOID() noexcept
+	UUIDValue UUIDValue::NamespaceOID() noexcept
 	{
-		return detail::ToUUID(uuids::uuid_namespace_oid);
+		return detail::ToUUIDValue(uuids::uuid_namespace_oid);
 	}
 
-	UUID UUID::NamespaceX500() noexcept
+	UUIDValue UUIDValue::NamespaceX500() noexcept
 	{
-		return detail::ToUUID(uuids::uuid_namespace_x500);
+		return detail::ToUUIDValue(uuids::uuid_namespace_x500);
 	}
 
-	bool UUID::IsValid(const std::string_view uuid)
+	bool UUIDValue::IsValid(const std::string_view uuid)
 	{
 		return uuids::uuid::is_valid_uuid(std::string(uuid));
 	}
 
-	bool UUID::IsValid(const StringView uuid)
+	bool UUIDValue::IsValid(const StringView uuid)
 	{
 		return uuids::uuid::is_valid_uuid(uuid.toUTF8());
 	}
 
-	Optional<UUID> UUID::Parse(const std::string_view uuid)
+	Optional<UUIDValue> UUIDValue::Parse(const std::string_view uuid)
 	{
 		if (auto result = uuids::uuid::from_string(std::string(uuid)))
 		{
-			return detail::ToUUID(*result);
+			return detail::ToUUIDValue(*result);
 		}
 		else
 		{
@@ -185,11 +185,11 @@ namespace s3d
 		}
 	}
 
-	Optional<UUID> UUID::Parse(const StringView uuid)
+	Optional<UUIDValue> UUIDValue::Parse(const StringView uuid)
 	{
 		if (auto result = uuids::uuid::from_string(uuid.toUTF8()))
 		{
-			return detail::ToUUID(*result);
+			return detail::ToUUIDValue(*result);
 		}
 		else
 		{
@@ -197,7 +197,7 @@ namespace s3d
 		}
 	}
 
-	void Formatter(FormatData& formatData, const UUID& value)
+	void Formatter(FormatData& formatData, const UUIDValue& value)
 	{
 		formatData.string.append(value.str());
 	}

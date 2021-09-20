@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/UUID.hpp>
+# include <Siv3D/UUIDValue.hpp>
 
 namespace s3d
 {
@@ -172,7 +172,7 @@ namespace s3d
 
 			for (;;)
 			{
-				const FilePath path = (directoryPath + UUID::Generate().str() + U".tmp");
+				const FilePath path = (directoryPath + UUIDValue::Generate().str() + U".tmp");
 
 				if (not Exists(path))
 				{
