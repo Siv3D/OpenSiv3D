@@ -131,6 +131,16 @@ namespace s3d
 		[[nodiscard]]
 		bool IsToggleFullscreenEnabled();
 	}
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	namespace Platform::Windows::Window
+	{
+		[[nodiscard]]
+		void* GetHWND();
+	}
+
+# endif
 }
 
 # include "detail/Window.ipp"

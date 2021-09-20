@@ -160,4 +160,16 @@ namespace s3d
 			return SIV3D_ENGINE(Window)->isToggleFullscreenEnabled();
 		}
 	}
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	namespace Platform::Windows::Window
+	{
+		void* GetHWND()
+		{
+			return SIV3D_ENGINE(Window)->getHandle();
+		}
+	}
+
+# endif
 }
