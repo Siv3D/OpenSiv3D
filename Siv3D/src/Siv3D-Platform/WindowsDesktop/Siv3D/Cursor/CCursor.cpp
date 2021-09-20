@@ -152,7 +152,15 @@ namespace s3d
 
 		{
 			POINT screenPos;
-			::GetCursorPos(&screenPos);
+			if (const auto touchPos = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
+			{
+				screenPos.x = touchPos->x;
+				screenPos.y = touchPos->y;
+			}
+			else
+			{
+				::GetCursorPos(&screenPos);
+			}
 			
 			Point lastClientRawPos;
 			{

@@ -232,6 +232,13 @@ namespace s3d
 				throw EngineError(U"CreateWindowExW() failed");
 			}
 
+			if (::GetSystemMetrics(SM_DIGITIZER) & NID_MULTI_INPUT)
+			{
+				LOG_INFO(U"ℹ️ An input digitizer with support for multiple inputs found");
+
+				::RegisterTouchWindow(m_hWnd, TWF_WANTPALM);
+			}
+
 			break;
 		}
 
