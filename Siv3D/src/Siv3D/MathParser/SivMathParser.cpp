@@ -23,6 +23,11 @@ namespace s3d
 	MathParser::MathParser(const StringView expression)
 		: MathParser{}
 	{
+		if (not expression)
+		{
+			return;
+		}
+
 		setExpression(expression);
 	}
 
