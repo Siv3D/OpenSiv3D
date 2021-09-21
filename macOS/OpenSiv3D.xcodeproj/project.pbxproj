@@ -2099,6 +2099,7 @@
 		2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_BinaryReader.cpp; sourceTree = "<group>"; };
 		2C0FF4E724C437020014C96E /* Siv3DTest_BinaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_BinaryWriter.cpp; sourceTree = "<group>"; };
 		2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextWriter.cpp; sourceTree = "<group>"; };
+		2C118E2F26F99C3400582CA0 /* MonitorInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorInfo.hpp; sourceTree = "<group>"; };
 		2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_Metal.hpp; sourceTree = "<group>"; };
 		2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer_Metal.mm; sourceTree = "<group>"; };
 		2C13C6F225B458350054B968 /* SivSubdivision2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSubdivision2D.cpp; sourceTree = "<group>"; };
@@ -10170,6 +10171,7 @@
 				2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */,
 				2C63A9DD26A531F100D13501 /* ModelObject.hpp */,
 				2CAAA83725E7FD0200C014D7 /* Monitor.hpp */,
+				2C118E2F26F99C3400582CA0 /* MonitorInfo.hpp */,
 				2CAAA78825E7FD0200C014D7 /* Mouse.hpp */,
 				2CAAA87E25E7FD0300C014D7 /* MSDFGlyph.hpp */,
 				2C2D5C0E267E465200EF5696 /* MSRenderTexture.hpp */,
