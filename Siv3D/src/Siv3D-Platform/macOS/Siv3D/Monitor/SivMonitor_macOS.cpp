@@ -24,9 +24,9 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumerateMonitors()
+		Array<MonitorInfo> EnumerateMonitors()
 		{
-			Array<Monitor> results;
+			Array<MonitorInfo> results;
 			
 			int32 numMonitors;
 			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
@@ -95,7 +95,7 @@ namespace s3d
 					}
 				}
 
-				const Monitor info =
+				const MonitorInfo info =
 				{
 					.name					= Unicode::Widen(::glfwGetMonitorName(monitor)),
 					.id						= Format(displayID),

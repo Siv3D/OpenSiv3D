@@ -44,7 +44,7 @@ namespace s3d
 			monitorInfo.cbSize = sizeof(monitorInfo);
 			::GetMonitorInfoW(hMonitor, &monitorInfo);
 
-			Monitor* monitor = reinterpret_cast<Monitor*>(userData);
+			MonitorInfo* monitor = reinterpret_cast<MonitorInfo*>(userData);
 
 			if (monitor->displayDeviceName.toWstr() == monitorInfo.szDevice)
 			{
@@ -79,9 +79,9 @@ namespace s3d
 			return true;
 		}
 
-		static Monitor MakeMonitorInfo(const DISPLAY_DEVICEW& displayDevice, const DISPLAY_DEVICEW& monitor)
+		static MonitorInfo MakeMonitorInfo(const DISPLAY_DEVICEW& displayDevice, const DISPLAY_DEVICEW& monitor)
 		{
-			Monitor monitorInfo;
+			MonitorInfo monitorInfo;
 			monitorInfo.name				= Unicode::FromWstring(monitor.DeviceString);
 			monitorInfo.id					= Unicode::FromWstring(monitor.DeviceID);
 			monitorInfo.displayDeviceName	= Unicode::FromWstring(displayDevice.DeviceName);
@@ -126,9 +126,9 @@ namespace s3d
 
 	namespace System
 	{
-		Array<Monitor> EnumerateMonitors()
+		Array<MonitorInfo> EnumerateMonitors()
 		{
-			Array<Monitor> monitors;
+			Array<MonitorInfo> monitors;
 			DISPLAY_DEVICE displayDevice{ .cb = sizeof(DISPLAY_DEVICE) };
 
 			// デスクトップとして割り当てられている仮想ディスプレイを検索

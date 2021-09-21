@@ -109,7 +109,7 @@ namespace s3d
 			::GetWindowRect(hWnd, &storedWindowRect);
 			::SetWindowLongW(hWnd, GWL_STYLE, baseWindowStyle & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
 
-			const Array<Monitor> monitors = System::EnumerateMonitors();
+			const Array<MonitorInfo> monitors = System::EnumerateMonitors();
 
 			if (monitors.size() <= monitorIndex)
 			{
@@ -183,7 +183,7 @@ namespace s3d
 		detail::RegisterWindowClass(m_hInstance, m_windowClassName.c_str());
 
 		// モニタを取得
-		const Array<Monitor> monitors = System::EnumerateMonitors();
+		const Array<MonitorInfo> monitors = System::EnumerateMonitors();
 
 		if (not monitors)
 		{

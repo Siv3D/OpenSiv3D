@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	String Monitor::format() const
+	String MonitorInfo::format() const
 	{
 		String output;
 		output += U"name: " + name + U"\n";
@@ -45,7 +45,7 @@ namespace s3d
 
 	namespace System
 	{
-		Monitor GetCurrentMonitor()
+		MonitorInfo GetCurrentMonitor()
 		{
 			auto monitors = EnumerateMonitors();
 

@@ -843,6 +843,9 @@
 // 画面解像度の定数 | Display resolution constants
 # include <Siv3D/DisplayResolution.hpp>
 
+// モニターの情報 | Monitor information
+# include <Siv3D/MonitorInfo.hpp>
+
 // モニター | Monitor
 # include <Siv3D/Monitor.hpp>
 

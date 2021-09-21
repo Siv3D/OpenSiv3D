@@ -53,7 +53,7 @@ namespace s3d
 
 			try
 			{
-				const Monitor currentMonitor = System::GetCurrentMonitor();
+				const MonitorInfo currentMonitor = System::GetCurrentMonitor();
 				const Rect workArea = System::GetCurrentMonitor().workArea;
 				const Rect windowBounds = SIV3D_ENGINE(Window)->getState().bounds;
 				const Point pos = (workArea.pos + (workArea.size - windowBounds.size) / 2);
