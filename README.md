@@ -8,25 +8,26 @@
 
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
 - [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
+- [Release Notes](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/whats-new)
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 
 ## Downloads
 
-### ✨ v0.6.0 | stable
-*released 18 September 2021*
+### ✨ v0.6.1 | stable
+*released 21 September 2021*
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.0_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10 or newer<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.0_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
+| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.1_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 (64-bit)<br>- Microsoft Visual C++ 2019 16.10 or newer<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.1_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental*) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
 <small>* Some functionality may be missing or limited</small>
 
-### 🕰️ v0.4.3 | previous version
+### 🕰️ v0.4.3 | old version
 *released 11 April 2020*
 
 | Platform        | SDK | Requirements                  |
@@ -35,7 +36,7 @@
 | macOS           | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 
 
-## Examples (v0.6.0)
+## Examples (v0.6.1)
 
 ### 1. Hello, Siv3D!
 

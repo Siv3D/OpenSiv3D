@@ -1,4 +1,4 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.0
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.1
 
 void Main()
 {
@@ -68,10 +68,10 @@ void Main()
 //
 // = お役立ちリンク | Quick Links =
 //
-// OpenSiv3D v0.6.0 リファレンス
+// Siv3D リファレンス
 // https://zenn.dev/reputeless/books/siv3d-documentation
 //
-// OpenSiv3D v0.6.0 Reference
+// Siv3D Reference
 // https://zenn.dev/reputeless/books/siv3d-documentation-en
 //
 // Siv3D コミュニティへの参加
