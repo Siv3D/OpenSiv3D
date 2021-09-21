@@ -229,24 +229,38 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
+		/// @brief 三角形が現在のフレームで左クリックされ始めたかを返します。
+		/// @return 三角形が現在のフレームで左クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftClicked() const noexcept;
 
+		/// @brief 三角形が左クリックされているかを返します。
+		/// @return 三角形が左クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftPressed() const noexcept;
 
+		/// @brief 現在のフレームで三角形への左クリックが離されたかを返します。
+		/// @return 現在のフレームで三角形への左クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftReleased() const noexcept;
 
+		/// @brief 三角形が現在のフレームで右クリックされ始めたかを返します。
+		/// @return 三角形が現在のフレームで右クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightClicked() const noexcept;
 
+		/// @brief 三角形が右クリックされているかを返します。
+		/// @return 三角形が右クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightPressed() const noexcept;
 
+		/// @brief 現在のフレームで三角形への右クリックが離されたかを返します。
+		/// @return 現在のフレームで三角形への右クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightReleased() const noexcept;
 
+		/// @brief 三角形上にマウスカーソルがあるかを返します。
+		/// @return 三角形上にマウスカーソルがある場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 

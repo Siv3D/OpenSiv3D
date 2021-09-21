@@ -111,14 +111,21 @@ namespace s3d
 		[[nodiscard]]
 		FilePath VolumePath(FilePathView path);
 
+		/// @brief 指定したパスが空のディレクトリであるかを返します。
+		/// @param path パス
+		/// @return 空のディレクトリである場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool IsEmptyDirectory(FilePathView path);
 
+		/// @brief 指定したファイルやディレクトリのサイズを返します。
+		/// @param path パス
+		/// @return ファイルやディレクトリのサイズ
 		[[nodiscard]]
 		int64 Size(FilePathView path);
 
 		/// @brief ファイルのサイズを返します。
 		/// @param path ファイルパス
+		/// @remark `FileSystem::Size()` と異なり、ディレクトリのサイズは取得できません。
 		/// @remark ファイルが存在しなかったり、空である場合は 0 を返します。
 		/// @return ファイルのサイズ
 		[[nodiscard]]

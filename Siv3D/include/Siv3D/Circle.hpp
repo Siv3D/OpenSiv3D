@@ -288,9 +288,13 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Line verticalDiameter() const noexcept;
 
+		/// @brief 円の面積を返します。
+		/// @return 円の面積
 		[[nodiscard]]
 		constexpr value_type area() const noexcept;
 
+		/// @brief 円の周の長さを返します。
+		/// @return 円の周の長さ
 		[[nodiscard]]
 		constexpr value_type perimeter() const noexcept;
 
@@ -327,24 +331,38 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
+		/// @brief 円が現在のフレームで左クリックされ始めたかを返します。
+		/// @return 円が現在のフレームで左クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftClicked() const noexcept;
 
+		/// @brief 円が左クリックされているかを返します。
+		/// @return 円が左クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftPressed() const noexcept;
 
+		/// @brief 現在のフレームで円への左クリックが離されたかを返します。
+		/// @return 現在のフレームで円への左クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftReleased() const noexcept;
 
+		/// @brief 円が現在のフレームで右クリックされ始めたかを返します。
+		/// @return 円が現在のフレームで右クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightClicked() const noexcept;
 
+		/// @brief 円が右クリックされているかを返します。
+		/// @return 円が右クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightPressed() const noexcept;
 
+		/// @brief 現在のフレームで円への右クリックが離されたかを返します。
+		/// @return 現在のフレームで円への右クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightReleased() const noexcept;
 
+		/// @brief 円上にマウスカーソルがあるかを返します。
+		/// @return 円上にマウスカーソルがある場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 
@@ -369,14 +387,38 @@ namespace s3d
 		/// @return *this
 		const Circle& draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 円を描きます。
+		/// @param innerColor 円の内側の色
+		/// @param outerColor 円の外側の色
+		/// @return *this
 		const Circle& draw(const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 円の枠を描きます
+		/// @param thickness 枠の太さ
+		/// @param color 枠の色
+		/// @return *this
 		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		/// @brief 円の枠を描きます
+		/// @param thickness 枠の太さ
+		/// @param innerColor 内側部分の枠の色
+		/// @param outerColor 外側部分の枠の色
+		/// @return *this
 		const Circle& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 円の枠を描きます。
+		/// @param innerThickness 基準の円から内側方向への枠の太さ
+		/// @param outerThickness 基準の円から外側方向への枠の太さ
+		/// @param color 枠の色
+		/// @return *this
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
+		/// @brief 円の枠を描きます。
+		/// @param innerThickness 基準の円から内側方向への枠の太さ
+		/// @param outerThickness 基準の円から外側方向への枠の太さ
+		/// @param innerColor 内側部分の枠の色
+		/// @param outerColor 外側部分の枠の色
+		/// @return *this
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 		
 		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;

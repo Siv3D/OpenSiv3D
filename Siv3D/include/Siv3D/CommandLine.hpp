@@ -20,6 +20,7 @@ namespace s3d
 	{
 		/// @brief アプリケーションに渡されたコマンドライン引数の一覧を返します。
 		/// @return コマンドライン引数の一覧
+		[[nodiscard]]
 		const Array<String>& GetCommandLineArgs() noexcept;
 	}
 }

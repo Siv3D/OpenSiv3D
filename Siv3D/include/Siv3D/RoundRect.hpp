@@ -244,24 +244,38 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
+		/// @brief 角丸長方形が現在のフレームで左クリックされ始めたかを返します。
+		/// @return 角丸長方形が現在のフレームで左クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftClicked() const noexcept;
 
+		/// @brief 角丸長方形が左クリックされているかを返します。
+		/// @return 角丸長方形が左クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftPressed() const noexcept;
 
+		/// @brief 現在のフレームで角丸長方形への左クリックが離されたかを返します。
+		/// @return 現在のフレームで角丸長方形への左クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftReleased() const noexcept;
 
+		/// @brief 角丸長方形が現在のフレームで右クリックされ始めたかを返します。
+		/// @return 角丸長方形が現在のフレームで右クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightClicked() const noexcept;
 
+		/// @brief 角丸長方形が右クリックされているかを返します。
+		/// @return 角丸長方形が右クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightPressed() const noexcept;
 
+		/// @brief 現在のフレームで角丸長方形への右クリックが離されたかを返します。
+		/// @return 現在のフレームで角丸長方形への右クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightReleased() const noexcept;
 
+		/// @brief 角丸長方形上にマウスカーソルがあるかを返します。
+		/// @return 角丸長方形上にマウスカーソルがある場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 

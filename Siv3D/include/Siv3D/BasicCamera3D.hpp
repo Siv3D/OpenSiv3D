@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief 3D カメラの基本クラス
 	class alignas(16) BasicCamera3D
 	{
 	public:
@@ -30,6 +31,13 @@ namespace s3d
 
 		BasicCamera3D(const BasicCamera3D&) = default;
 
+		/// @brief 3D カメラを作成します。
+		/// @param sceneSize シーンのサイズ
+		/// @param verticalFOV 縦方向の視野角（ラジアン）
+		/// @param eyePosition 目（カメラ）の位置
+		/// @param focusPosition 注目点
+		/// @param upDirection 上方向ベクトル
+		/// @param nearClip ニア・クリップ（これより近いとカメラに写らない）
 		explicit BasicCamera3D(const Size& sceneSize, double verticalFOV = DefaultVerticalFOV, const Vec3& eyePosition = Vec3{ 0, 4, -4 }, const Vec3& focusPosition = Vec3{ 0, 0, 0 }, const Vec3& upDirection = Vec3{ 0, 1, 0 }, double nearClip = DefaultNearClip) noexcept;
 
 		virtual ~BasicCamera3D() = default;

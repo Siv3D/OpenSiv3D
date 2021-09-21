@@ -21,6 +21,7 @@ namespace s3d
 	struct Mat4x4;
 	struct PhongMaterial;
 
+	/// @brief 円柱
 	struct Cylinder
 	{
 		using position_type = Vec3;
