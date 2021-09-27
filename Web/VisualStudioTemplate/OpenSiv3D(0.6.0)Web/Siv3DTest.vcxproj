@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <Link>
-      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources</PreloadFile>
+      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources;$(SIV3D_0_6_0_WEB)\example@/example</PreloadFile>
       <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
@@ -105,9 +105,9 @@
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s USE_WEBGL2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
-      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources</PreloadFile>
+      <PreloadFile>$(SIV3D_0_6_0_WEB)\resources@/resources;$(SIV3D_0_6_0_WEB)\example@/example</PreloadFile>
       <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <EchoCommandLines>false</EchoCommandLines>
