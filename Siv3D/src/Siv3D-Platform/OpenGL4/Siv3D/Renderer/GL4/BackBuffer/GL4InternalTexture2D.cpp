@@ -16,13 +16,6 @@ namespace s3d
 {
 	GL4InternalTexture2D::~GL4InternalTexture2D()
 	{
-		// [デプステクスチャ] を破棄
-		if (m_depthTexture)
-		{
-			::glDeleteTextures(1, &m_depthTexture);
-			m_depthTexture = 0;
-		}
-
 		// [メインテクスチャ] を破棄
 		if (m_texture)
 		{
@@ -67,61 +60,7 @@ namespace s3d
 			static_cast<float>(color.b),
 			1.0f);
 
-		if (m_hasDepth)
-		{
-			if (auto p = dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)))
-			{
-				p->getDepthStencilState().set(DepthStencilState::Default3D);
-			}
-
-			::glClearDepth(0.0);
-			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		}
-		else
-		{
-			::glClear(GL_COLOR_BUFFER_BIT);
-		}
-	}
-
-	bool GL4InternalTexture2D::hasDepth() const noexcept
-	{
-		return m_hasDepth;
-	}
-
-	void GL4InternalTexture2D::initDepth()
-	{
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-		{
-			if (m_sampleCount == 1)
-			{
-				::glGenTextures(1, &m_depthTexture);
-				::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
-				::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_size.x, m_size.y, 0,
-					GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
-
-				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-				{
-					throw EngineError{ U"GL4InternalTexture2D::initDepth() failed" };
-				}
-			}
-			else
-			{
-				::glGenTextures(1, &m_depthTexture);
-				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture);
-				::glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_sampleCount, GL_DEPTH_COMPONENT32, m_size.x, m_size.y, GL_FALSE);
-				::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, m_depthTexture, 0);
-
-				if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-				{
-					throw EngineError{ U"GL4InternalTexture2D::initDepth() failed" };
-				}
-			}
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-		m_hasDepth = true;
+		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	GLuint GL4InternalTexture2D::getFrameBuffer() const noexcept

@@ -610,7 +610,7 @@ namespace s3d
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneToContext(true);
+						pRenderer->getBackBuffer().bindSceneToContext();
 						
 						::glDisable(GL_FRAMEBUFFER_SRGB);
 
