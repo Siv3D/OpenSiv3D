@@ -33,10 +33,6 @@ namespace s3d
 
 		Array<D3D11Adapter> m_adapters;
 
-		D3D_FEATURE_LEVEL m_WARPFeatureLevel = D3D_FEATURE_LEVEL_10_1;
-		
-		D3D_FEATURE_LEVEL m_referenceFeatureLevel = D3D_FEATURE_LEVEL_10_1;
-
 		D3D11DeviceInfo m_deviceInfo;
 
 	public:

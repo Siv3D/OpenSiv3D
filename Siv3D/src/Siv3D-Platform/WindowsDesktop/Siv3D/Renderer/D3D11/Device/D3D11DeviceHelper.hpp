@@ -68,7 +68,5 @@ namespace s3d::detail
 		const Array<D3D11Adapter>& adapters,
 		EngineOption::D3D11Driver driver,
 		Optional<size_t> requestedAdapterIndex,
-		const uint32 deviceFlags,
-		const D3D_FEATURE_LEVEL WARPFeatureLevel,
-		const D3D_FEATURE_LEVEL ReferenceFeatureLevel);
+		const uint32 deviceFlags);
 }

@@ -549,9 +549,7 @@ namespace s3d::detail
 		const Array<D3D11Adapter>& adapters,
 		EngineOption::D3D11Driver driver,
 		Optional<size_t> requestedAdapterIndex,
-		const uint32 deviceFlags,
-		const D3D_FEATURE_LEVEL WARPFeatureLevel,
-		const D3D_FEATURE_LEVEL ReferenceFeatureLevel)
+		const uint32 deviceFlags)
 	{
 		LOG_SCOPED_TRACE(U"detail::CreateDevice()");
 
@@ -601,8 +599,12 @@ namespace s3d::detail
 
 		if (driver == EngineOption::D3D11Driver::WARP)
 		{
+			// WARP ドライバの feature level を取得
+			const D3D_FEATURE_LEVEL warpFeatureLevel = detail::GetWARPFeatureLevel(pD3D11CreateDevice);
+			LOG_INFO(U"ℹ️ [D3D_DRIVER_TYPE_WARP] supports {}"_fmt(detail::ToString(warpFeatureLevel)));
+
 			if (const auto deviceInfo = CreateDeviceWARP(pD3D11CreateDevice,
-				deviceFlags, WARPFeatureLevel))
+				deviceFlags, warpFeatureLevel))
 			{
 				LOG_INFO(U"✅ D3D11 device created. Driver type: WARP ({0})"_fmt(detail::ToString(deviceInfo->featureLevel)));
 				return deviceInfo;
@@ -611,11 +613,17 @@ namespace s3d::detail
 			LOG_WARNING(U"ℹ️ Failed to create WARP driver. Fallback to the reference driver");
 		}
 
-		if (const auto deviceInfo = CreateDeviceReference(pD3D11CreateDevice,
-			deviceFlags, ReferenceFeatureLevel))
 		{
-			LOG_INFO(U"✅ D3D11 device created. Driver type: Reference ({0})"_fmt(detail::ToString(deviceInfo->featureLevel)));
-			return deviceInfo;
+			// Reference ドライバの feature level を取得
+			const D3D_FEATURE_LEVEL referenceFeatureLevel = detail::GetReferenceFeatureLevel(pD3D11CreateDevice);
+			LOG_INFO(U"ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports {}"_fmt(detail::ToString(referenceFeatureLevel)));
+
+			if (const auto deviceInfo = CreateDeviceReference(pD3D11CreateDevice,
+				deviceFlags, referenceFeatureLevel))
+			{
+				LOG_INFO(U"✅ D3D11 device created. Driver type: Reference ({0})"_fmt(detail::ToString(deviceInfo->featureLevel)));
+				return deviceInfo;
+			}
 		}
 
 		return none;

@@ -61,18 +61,6 @@ namespace s3d
 			LOG_INFO(U"ℹ️ {} adapters available"_fmt(m_adapters.size()));
 		}
 
-		// WARP ドライバの feature level を取得
-		{
-			m_WARPFeatureLevel = detail::GetWARPFeatureLevel(m_pD3D11CreateDevice);
-			LOG_INFO(U"ℹ️ [D3D_DRIVER_TYPE_WARP] supports {}"_fmt(detail::ToString(m_WARPFeatureLevel)));
-		}
-
-		// Reference ドライバの feature level を取得
-		{
-			m_referenceFeatureLevel = detail::GetReferenceFeatureLevel(m_pD3D11CreateDevice);
-			LOG_INFO(U"ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports {}"_fmt(detail::ToString(m_referenceFeatureLevel)));
-		}
-
 		// D3D11 デバイスを作成
 		{
 			Optional<D3D11DeviceInfo> deviceInfo;
@@ -86,8 +74,7 @@ namespace s3d
 				}
 
 				deviceInfo = detail::CreateDevice(m_pD3D11CreateDevice, m_adapters,
-					g_engineOptions.d3d11Driver, unspecified, deviceFlag,
-					m_WARPFeatureLevel, m_referenceFeatureLevel);
+					g_engineOptions.d3d11Driver, unspecified, deviceFlag);
 
 				if (deviceInfo)
 				{
