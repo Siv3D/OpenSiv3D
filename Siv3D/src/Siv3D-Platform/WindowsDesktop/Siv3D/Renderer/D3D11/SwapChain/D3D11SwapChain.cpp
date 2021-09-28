@@ -60,7 +60,7 @@ namespace s3d
 		m_desc.BufferUsage	= DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		m_desc.BufferCount	= 3;
 		m_desc.Scaling		= DXGI_SCALING_STRETCH;
-		m_desc.SwapEffect	= (IsWindows10OrGreater() ? DXGI_SWAP_EFFECT_FLIP_DISCARD : DXGI_SWAP_EFFECT_DISCARD);
+		m_desc.SwapEffect	= (device.getDXGIFactory5() ? DXGI_SWAP_EFFECT_FLIP_DISCARD : DXGI_SWAP_EFFECT_DISCARD);
 		m_desc.AlphaMode	= DXGI_ALPHA_MODE_IGNORE;
 		m_desc.Flags		= 0;
 
