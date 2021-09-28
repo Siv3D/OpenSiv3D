@@ -313,26 +313,14 @@ namespace s3d
 		return m_sceneBuffers.scene;
 	}
 
-	void D3D11BackBuffer::bindSceneToContext(const bool useDpethStencil)
+	void D3D11BackBuffer::bindSceneToContext()
 	{
 		ID3D11RenderTargetView* pRTV[1] =
 		{
 			m_sceneBuffers.scene.getRTV()
 		};
 
-		if (useDpethStencil)
-		{
-			if (not m_sceneBuffers.scene.hasDepthStencil())
-			{
-				m_sceneBuffers.scene.initDepthStencil(m_device);
-			}
-
-			m_context->OMSetRenderTargets(static_cast<UINT>(std::size(pRTV)), std::data(pRTV), m_sceneBuffers.scene.getDSV());
-		}
-		else
-		{
-			m_context->OMSetRenderTargets(static_cast<UINT>(std::size(pRTV)), std::data(pRTV), nullptr);
-		}
+		m_context->OMSetRenderTargets(static_cast<UINT>(std::size(pRTV)), std::data(pRTV), nullptr);
 	}
 
 	void D3D11BackBuffer::bindToContext(ID3D11RenderTargetView* const rtv, ID3D11DepthStencilView* const dsv)

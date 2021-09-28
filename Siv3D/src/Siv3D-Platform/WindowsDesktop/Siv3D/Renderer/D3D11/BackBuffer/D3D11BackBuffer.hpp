@@ -159,7 +159,7 @@ namespace s3d
 		const D3D11InternalTexture2D& getSceneBuffer() const noexcept;
 
 
-		void bindSceneToContext(bool useDpethStencil);
+		void bindSceneToContext();
 
 		void bindToContext(ID3D11RenderTargetView* const rtv, ID3D11DepthStencilView* const dsv);
 	};

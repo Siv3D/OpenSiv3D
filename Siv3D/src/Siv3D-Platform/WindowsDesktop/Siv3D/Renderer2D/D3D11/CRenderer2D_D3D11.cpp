@@ -943,7 +943,7 @@ namespace s3d
 		Mat3x2 transform = Mat3x2::Identity();
 		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
 
-		pRenderer->getBackBuffer().bindSceneToContext(false);
+		pRenderer->getBackBuffer().bindSceneToContext();
 		pRenderer->getDepthStencilState().set(DepthStencilState::Default2D);
 
 		BatchInfo2D batchInfo;
@@ -1143,7 +1143,7 @@ namespace s3d
 					}
 					else // [シーン]
 					{
-						pRenderer->getBackBuffer().bindSceneToContext(false);
+						pRenderer->getBackBuffer().bindSceneToContext();
 						
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
