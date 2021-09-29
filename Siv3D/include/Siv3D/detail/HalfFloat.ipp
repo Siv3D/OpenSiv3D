@@ -164,8 +164,8 @@ namespace s3d
 
 	inline bool HalfFloat::operator ==(const HalfFloat other) const noexcept
 	{
-		if (((m_bits << 1u) == 0)
-			&& ((other.m_bits << 1u) == 0))
+		if ((static_cast<uint16>(m_bits << 1u) == 0)
+			&& (static_cast<uint16>(other.m_bits << 1u) == 0))
 		{
 			return true;
 		}
