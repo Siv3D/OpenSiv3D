@@ -19,6 +19,30 @@
 
 namespace s3d::detail
 {
+	struct AdapterCache
+	{
+		LUID luid = {};
+
+		UINT vendorId = 0;
+
+		UINT deviceId = 0;
+
+		UINT subSysId = 0;
+
+		UINT revision = 0;
+
+		D3D_FEATURE_LEVEL maxLevel = D3D_FEATURE_LEVEL_9_1;
+
+		D3D_FEATURE_LEVEL selectedLevel = D3D_FEATURE_LEVEL_9_1;
+
+		bool d3d11_1_runtimeSupprot = false;
+
+		bool computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = false;
+
+		uint16 _unused = 0;
+	};
+	static_assert(sizeof(AdapterCache) == 36);
+
 	[[nodiscard]]
 	AdapterVendor ToAdapterVendor(uint32 vendorID) noexcept;
 
@@ -33,6 +57,9 @@ namespace s3d::detail
 
 	[[nodiscard]]
 	Array<D3D11Adapter> GetAdapters(IDXGIFactory2* pDXGIFactory2, PFN_D3D11_CREATE_DEVICE pD3D11CreateDevice);
+
+	[[nodiscard]]
+	Array<D3D11Adapter> GetAdaptersFast(IDXGIFactory2* pDXGIFactory2, PFN_D3D11_CREATE_DEVICE pD3D11CreateDevice, const AdapterCache& cache);
 
 	[[nodiscard]]
 	D3D_FEATURE_LEVEL GetWARPFeatureLevel(PFN_D3D11_CREATE_DEVICE pD3D11CreateDevice);
@@ -69,4 +96,9 @@ namespace s3d::detail
 		EngineOption::D3D11Driver driver,
 		Optional<size_t> requestedAdapterIndex,
 		const uint32 deviceFlags);
+
+	void SaveAdapterCache(const AdapterCache& cache);
+
+	[[nodiscard]]
+	Optional<AdapterCache> LoadAdapterCache();
 }

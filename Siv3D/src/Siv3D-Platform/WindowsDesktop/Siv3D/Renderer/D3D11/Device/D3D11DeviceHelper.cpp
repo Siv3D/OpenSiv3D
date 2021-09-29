@@ -13,6 +13,9 @@
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/Unspecified.hpp>
 # include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/CacheDirectory/CacheDirectory.hpp>
 # include "D3D11DeviceHelper.hpp"
 
 namespace s3d::detail
@@ -264,6 +267,104 @@ namespace s3d::detail
 				.adapterDesc				= adapterDesc,
 				.vendor						= ToAdapterVendor(adapter.adapterDesc.VendorId),
 				.d3d11_1_runtimeSupprot		= d3d11_1_runtimeSupprot,
+			};
+
+			LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
+				adapterIndex,
+				detail::ToString(adapter.adapterDesc),
+				(d3d11_1_runtimeSupprot ? 1 : 0)
+			));
+
+			if (!CheckHardwareDevice(adapter, pD3D11CreateDevice, D3D_FEATURE_LEVEL_10_0, unspecified))
+			{
+				LOG_FAIL(U"❌ - getHardwareDevice() failed");
+				continue;
+			}
+
+			adapters.push_back(adapter);
+		}
+
+		return adapters;
+	}
+
+	Array<D3D11Adapter> GetAdaptersFast(IDXGIFactory2* pDXGIFactory2, PFN_D3D11_CREATE_DEVICE pD3D11CreateDevice, const AdapterCache& cache)
+	{
+		LOG_SCOPED_TRACE(U"detail::GetAdaptersFast()");
+
+		Array<D3D11Adapter> adapters;
+
+		for (uint32 adapterIndex = 0; ; ++adapterIndex)
+		{
+			ComPtr<IDXGIAdapter> pAdapter;
+			HRESULT hr = pDXGIFactory2->EnumAdapters(adapterIndex, &pAdapter);
+
+			// リストの最後で DXGIERR_NOT_FOUND が返る
+			if (FAILED(hr))
+			{
+				break;
+			}
+
+			DXGI_ADAPTER_DESC adapterDesc;
+			pAdapter->GetDesc(&adapterDesc);
+
+			// キャッシュされたアダプターと一致したらこれ以上調べない
+			if ((std::memcmp(&adapterDesc.AdapterLuid, &cache.luid, sizeof(LUID)) == 0)
+				&& (adapterDesc.VendorId == cache.vendorId)
+				&& (adapterDesc.DeviceId == cache.deviceId)
+				&& (adapterDesc.SubSysId == cache.subSysId)
+				&& (adapterDesc.Revision == cache.revision))
+			{
+				LOG_INFO(U"ℹ️ Cached adapter info found");
+
+				D3D11Adapter adapter =
+				{
+					.pAdapter		= pAdapter,
+					.adapterIndex	= adapterIndex,
+					.name			= Unicode::FromWstring(adapterDesc.Description),
+					.adapterDesc	= adapterDesc,
+					.vendor			= ToAdapterVendor(adapter.adapterDesc.VendorId),
+					.maxLevel		= cache.maxLevel,
+					.selectedLevel	= cache.selectedLevel,
+					.d3d11_1_runtimeSupprot = cache.d3d11_1_runtimeSupprot,
+					.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = cache.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x
+				};
+
+				LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
+					adapterIndex,
+					detail::ToString(adapter.adapterDesc),
+					(adapter.d3d11_1_runtimeSupprot ? 1 : 0)
+				));
+
+				adapters.push_back(adapter);
+				break;
+			}
+
+			// Direct3D 11.1 ランタイムを使用可能かチェック
+			bool d3d11_1_runtimeSupprot = false;
+			ComPtr<IDXGIAdapter2> pAdapter2;
+			if (hr = pAdapter->QueryInterface(__uuidof(IDXGIAdapter2), &pAdapter2);
+				SUCCEEDED(hr))
+			{
+				DXGI_ADAPTER_DESC2 desc;
+				if (hr = pAdapter2->GetDesc2(&desc);
+					(SUCCEEDED(hr) && (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)))
+				{
+					// Microsoft Basics Display Driver はスキップ
+					LOG_INFO(U"ℹ️ IDXGIAdapter [{}] is Microsoft Basics Display Driver (skipped)"_fmt(adapterIndex));
+					continue;
+				}
+
+				d3d11_1_runtimeSupprot = true;
+			}
+
+			D3D11Adapter adapter =
+			{
+				.pAdapter = pAdapter,
+				.adapterIndex = adapterIndex,
+				.name = Unicode::FromWstring(adapterDesc.Description),
+				.adapterDesc = adapterDesc,
+				.vendor = ToAdapterVendor(adapter.adapterDesc.VendorId),
+				.d3d11_1_runtimeSupprot = d3d11_1_runtimeSupprot,
 			};
 
 			LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
@@ -590,6 +691,26 @@ namespace s3d::detail
 			{
 				LOG_INFO(U"✅ D3D11 device created. Driver type: Hardware ({0}) ({1})"_fmt(
 					adapter.name, detail::ToString(deviceInfo->featureLevel)));
+
+				// 次回実行時のために、選択したアダプターの情報を保存
+				if (driver == EngineOption::D3D11Driver::Hardware)
+				{
+					const AdapterCache cache
+					{
+						.luid = adapter.adapterDesc.AdapterLuid,
+						.vendorId = adapter.adapterDesc.VendorId,
+						.deviceId = adapter.adapterDesc.DeviceId,
+						.subSysId = adapter.adapterDesc.SubSysId,
+						.revision = adapter.adapterDesc.Revision,
+						.maxLevel = adapter.maxLevel,
+						.selectedLevel = adapter.selectedLevel,
+						.d3d11_1_runtimeSupprot = adapter.d3d11_1_runtimeSupprot,
+						.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = adapter.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x,
+					};
+
+					SaveAdapterCache(cache);
+				}
+
 				return deviceInfo;
 			}
 
@@ -624,6 +745,36 @@ namespace s3d::detail
 				LOG_INFO(U"✅ D3D11 device created. Driver type: Reference ({0})"_fmt(detail::ToString(deviceInfo->featureLevel)));
 				return deviceInfo;
 			}
+		}
+
+		return none;
+	}
+
+	void SaveAdapterCache(const AdapterCache& cache)
+	{
+		LOG_SCOPED_TRACE(U"detail::SaveAdapterCache()");
+
+		const FilePath adapterCacheFile = CacheDirectory::Engine() + U"gpu/adapter.cache";
+
+		BinaryWriter{ adapterCacheFile }.write(cache);
+	}
+
+	Optional<AdapterCache> LoadAdapterCache()
+	{
+		LOG_SCOPED_TRACE(U"detail::LoadAdapterCache()");
+
+		const FilePath adapterCacheFile = CacheDirectory::Engine() + U"gpu/adapter.cache";
+
+		BinaryReader reader{ adapterCacheFile };
+
+		if (not reader)
+		{
+			return none;
+		}
+
+		if (AdapterCache cache{}; reader.read(cache))
+		{
+			return cache;
 		}
 
 		return none;

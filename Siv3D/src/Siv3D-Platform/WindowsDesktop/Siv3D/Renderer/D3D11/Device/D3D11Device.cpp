@@ -57,8 +57,22 @@ namespace s3d
 	{
 		// 利用可能なハードウェアアダプタを取得
 		{
-			m_adapters = detail::GetAdapters(m_DXGIFactory2.Get(), m_pD3D11CreateDevice);
-			LOG_INFO(U"ℹ️ {} adapters available"_fmt(m_adapters.size()));
+			Optional<detail::AdapterCache> cache;
+
+			if (g_engineOptions.d3d11Driver == EngineOption::D3D11Driver::Hardware)
+			{
+				cache = detail::LoadAdapterCache();
+			}
+
+			if (cache)
+			{
+				m_adapters = detail::GetAdaptersFast(m_DXGIFactory2.Get(), m_pD3D11CreateDevice, *cache);
+			}
+			else
+			{
+				m_adapters = detail::GetAdapters(m_DXGIFactory2.Get(), m_pD3D11CreateDevice);
+				LOG_INFO(U"ℹ️ {} adapters available"_fmt(m_adapters.size()));
+			}
 		}
 
 		// D3D11 デバイスを作成
