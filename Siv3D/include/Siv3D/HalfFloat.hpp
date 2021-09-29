@@ -13,6 +13,9 @@
 # if  __has_include(<bit>)
 #	include <bit>
 # endif
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "Concepts.hpp"
 
@@ -43,8 +46,13 @@ namespace s3d
 		[[nodiscard]]
 		bool operator ==(const HalfFloat other) const noexcept;
 
+#if __cpp_impl_three_way_comparison
+		[[nodiscard]]
+		auto operator <=>(const HalfFloat other) const noexcept;
+#else
 		[[nodiscard]]
 		bool operator !=(const HalfFloat other) const noexcept;
+#endif
 
 		[[nodiscard]]
 		uint16 getBits() const noexcept;

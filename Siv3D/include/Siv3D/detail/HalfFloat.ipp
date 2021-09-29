@@ -173,10 +173,17 @@ namespace s3d
 		return ((m_bits == other.m_bits) && (not isNaN()));
 	}
 
+#if __cpp_impl_three_way_comparison
+	inline auto HalfFloat::operator <=>(const HalfFloat other) const noexcept
+	{
+		return static_cast<float>(*this) <=> static_cast<float>(other);
+	}
+#else
 	inline bool HalfFloat::operator !=(const HalfFloat other) const noexcept
 	{
 		return !(operator ==(other));
 	}
+#endif
 
 	inline uint16 HalfFloat::getBits() const noexcept
 	{
