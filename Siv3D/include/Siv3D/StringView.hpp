@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include <iosfwd>
 # include <string_view>
 # include <string>
@@ -262,6 +265,13 @@ namespace s3d
 		[[nodiscard]]
 		uint64 hash() const noexcept;
 
+#if __cpp_impl_three_way_comparison
+
+		[[nodiscard]]
+		constexpr std::strong_ordering operator <=> (const StringView& rhs) const noexcept = default;
+
+#else
+
 		[[nodiscard]]
 		friend constexpr bool operator ==(StringView lhs, StringView rhs) noexcept
 		{
@@ -297,6 +307,8 @@ namespace s3d
 		{
 			return (lhs.compare(rhs) >= 0);
 		}
+
+#endif
 
 		friend std::ostream& operator <<(std::ostream& output, const StringView& value);
 
