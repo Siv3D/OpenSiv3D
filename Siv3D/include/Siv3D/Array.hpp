@@ -11,6 +11,9 @@
 
 # pragma once
 # include "Common.hpp"
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include <vector>
 # ifndef SIV3D_NO_CONCURRENT_API
 	# include <future>
@@ -1072,6 +1075,15 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty, size_t>>* = nullptr>
 		[[nodiscard]]
 		static Array IndexedGenerate(size_type size, Fty indexedGenerator);
+
+#if __cpp_impl_three_way_comparison
+
+		[[nodiscard]]
+		auto operator <=>(const Array& rhs) const {
+			return m_container <=> rhs.m_container;
+		};
+
+#endif
 
 	private:
 
