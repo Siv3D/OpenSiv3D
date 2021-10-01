@@ -11,6 +11,9 @@
 
 # pragma once
 # include <array>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include "Common.hpp"
 # include "StringView.hpp"
 # include "Optional.hpp"
@@ -77,6 +80,13 @@ namespace s3d
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
+#if __cpp_impl_three_way_comparison
+
+		[[nodiscard]]
+		std::strong_ordering operator <=>(const UUIDValue& rhs) const noexcept = default;
+
+#else
+
 		[[nodiscard]]
 		friend bool operator ==(const UUIDValue& lhs, const UUIDValue& rhs) noexcept
 		{
@@ -94,6 +104,8 @@ namespace s3d
 		{
 			return (lhs.m_data < rhs.m_data);
 		}
+
+#endif
 
 		[[nodiscard]]
 		static UUIDValue Generate();
