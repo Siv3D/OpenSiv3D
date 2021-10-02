@@ -384,6 +384,20 @@ namespace s3d
 		return new_string;
 	}
 
+	bool operator ==(const String& lhs, const String::value_type* rhs)
+	{
+		return (lhs.str() == rhs);
+	}
+
+#if __cpp_impl_three_way_comparison
+
+	std::strong_ordering operator <=> (const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() <=> rhs;
+	}
+
+#else
+
 	bool operator ==(const String& lhs, const String& rhs) noexcept
 	{
 		return (lhs.m_string == rhs.m_string);
@@ -392,11 +406,6 @@ namespace s3d
 	bool operator ==(const String::value_type* lhs, const String& rhs)
 	{
 		return (lhs == rhs.str());
-	}
-
-	bool operator ==(const String& lhs, const String::value_type* rhs)
-	{
-		return (lhs.str() == rhs);
 	}
 
 	bool operator !=(const String& lhs, const String& rhs) noexcept
@@ -473,6 +482,7 @@ namespace s3d
 	{
 		return (lhs.str() >= rhs);
 	}
+#endif
 
 	String operator +(const String::value_type lhs, const String& rhs)
 	{
