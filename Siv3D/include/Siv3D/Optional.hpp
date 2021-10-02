@@ -146,29 +146,29 @@ namespace s3d
 		}
 	};
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator ==(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator ==(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator !=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator !=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator <(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator <(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator <=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator <=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator >(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator >(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator >=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator >=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
 
 	template <class Type>

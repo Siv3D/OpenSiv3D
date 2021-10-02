@@ -178,40 +178,40 @@ namespace s3d
 		}
 	}
 
-	template <class Type>
-	inline constexpr bool operator ==(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator ==(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		const bool lhs_has_value = lhs.has_value();
 		return lhs_has_value == rhs.has_value() && (!lhs_has_value || (*lhs == *rhs));
 	}
 
-	template <class Type>
-	inline constexpr bool operator !=(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator !=(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		const bool lhs_has_value = lhs.has_value();
 		return lhs_has_value != rhs.has_value() || (lhs_has_value && (*lhs != *rhs));
 	}
 
-	template <class Type>
-	inline constexpr bool operator <(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator <(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		return rhs.has_value() && (!lhs.has_value() || (*lhs < *rhs));
 	}
 
-	template <class Type>
-	inline constexpr bool operator <=(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator <=(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		return !lhs.has_value() || (rhs.has_value() && (*lhs <= *rhs));
 	}
 
-	template <class Type>
-	inline constexpr bool operator >(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator >(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		return lhs.has_value() && (!rhs.has_value() || (*lhs > * rhs));
 	}
 
-	template <class Type>
-	inline constexpr bool operator >=(const Optional<Type>& lhs, const Optional<Type>& rhs)
+	template <class Type1, class Type2>
+	inline constexpr bool operator >=(const Optional<Type1>& lhs, const Optional<Type2>& rhs)
 	{
 		return !rhs.has_value() || (lhs.has_value() && (*lhs >= *rhs));
 	}
