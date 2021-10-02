@@ -561,6 +561,16 @@ namespace s3d
 		return this->pImpl->data.is_zero();
 	}
 
+	bool BigFloat::isNaN() const
+	{
+		return this->pImpl->data.backend().isnan();
+	}
+
+	bool BigFloat::isInf() const
+	{
+		return this->pImpl->data.backend().isinf();
+	}
+
 	int32 BigFloat::sign() const
 	{
 		return this->pImpl->data.sign();

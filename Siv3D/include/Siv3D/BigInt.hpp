@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include <memory>
 # include "Fwd.hpp"
 # include "Concepts.hpp"
@@ -606,6 +609,29 @@ namespace s3d
 			return (a.compare(b) == 0);
 		}
 
+#if __cpp_impl_three_way_comparison
+
+		//////////////////////////////////////////////////
+		//
+		//	<=>
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		friend inline std::strong_ordering operator <=>(const BigInt& a, const BigInt& b)
+		{
+			return (a.compare(b) <=> 0);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		friend inline std::strong_ordering operator <=>(const BigInt& a, const Arithmetic b)
+		{
+			return (a.compare(b) <=> 0);
+		}
+
+#else
+
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
 		friend inline bool operator ==(const Arithmetic a, const BigInt& b)
@@ -742,6 +768,8 @@ namespace s3d
 		{
 			return (b.compare(a) <= 0);
 		}
+
+#endif
 
 		//////////////////////////////////////////////////
 		//
