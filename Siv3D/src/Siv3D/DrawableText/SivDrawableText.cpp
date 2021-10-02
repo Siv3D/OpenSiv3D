@@ -201,7 +201,9 @@ namespace s3d
 
 	RectF DrawableText::region(const double size, const Arg::rightCenter_<Vec2> rightCenter) const
 	{
-		return region(size, rightCenter->movedBy(-region().w, -region().h * 0.5));
+		const RectF textRegion = region();
+
+		return region(size, rightCenter->movedBy(-textRegion.w, -textRegion.h * 0.5));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::bottomRight_<Vec2> bottomRight) const
@@ -211,7 +213,9 @@ namespace s3d
 
 	RectF DrawableText::region(const double size, const Arg::bottomCenter_<Vec2> bottomCenter) const
 	{
-		return region(size, bottomCenter->movedBy(-region().w * 0.5, -region().h));
+		const RectF textRegion = region();
+
+		return region(size, bottomCenter->movedBy(-textRegion.w * 0.5, -textRegion.h));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::bottomLeft_<Vec2> bottomLeft) const
@@ -490,37 +494,41 @@ namespace s3d
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::topCenter_<Vec2> topCenter, const ColorF& color) const
 	{
-		return draw(textStyle, size, topCenter->movedBy(-region().w * 0.5, 0), color);
+		return draw(textStyle, size, topCenter->movedBy(-region(size).w * 0.5, 0), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::topRight_<Vec2> topRight, const ColorF& color) const
 	{
-		return draw(textStyle, size, topRight->movedBy(-region().w, 0), color);
+		return draw(textStyle, size, topRight->movedBy(-region(size).w, 0), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::rightCenter_<Vec2> rightCenter, const ColorF& color) const
 	{
-		return draw(textStyle, size, rightCenter->movedBy(-region().w, -region().h * 0.5), color);
+		const RectF textRegion = region(size);
+
+		return draw(textStyle, size, rightCenter->movedBy(-textRegion.w, -textRegion.h * 0.5), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::bottomRight_<Vec2> bottomRight, const ColorF& color) const
 	{
-		return draw(textStyle, size, bottomRight->movedBy(-region().size), color);
+		return draw(textStyle, size, bottomRight->movedBy(-region(size).size), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color) const
 	{
-		return draw(textStyle, size, bottomCenter->movedBy(-region().w * 0.5, -region().h), color);
+		const RectF textRegion = region(size);
+
+		return draw(textStyle, size, bottomCenter->movedBy(-textRegion.w * 0.5, -textRegion.h), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& color) const
 	{
-		return draw(textStyle, size, bottomLeft->movedBy(0, -region().h), color);
+		return draw(textStyle, size, bottomLeft->movedBy(0, -region(size).h), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::leftCenter_<Vec2> leftCenter, const ColorF& color) const
 	{
-		return draw(textStyle, size, leftCenter->movedBy(0, -region().h * 0.5), color);
+		return draw(textStyle, size, leftCenter->movedBy(0, -region(size).h * 0.5), color);
 	}
 
 	RectF DrawableText::draw(const TextStyle& textStyle, const double size, const Arg::center_<Vec2> center, const ColorF& color) const
@@ -625,12 +633,12 @@ namespace s3d
 
 	RectF DrawableText::drawBase(const TextStyle& textStyle, const double size, const Arg::center_<Vec2> center, const ColorF& color) const
 	{
-		return drawBase(textStyle, size, center->movedBy(-region().w * 0.5, 0), color);
+		return drawBase(textStyle, size, center->movedBy(-region(size).w * 0.5, 0), color);
 	}
 
 	RectF DrawableText::drawBase(const TextStyle& textStyle, const double size, const Arg::right_<Vec2> right, const ColorF& color) const
 	{
-		return drawBase(textStyle, size, right->movedBy(-region().w, 0), color);
+		return drawBase(textStyle, size, right->movedBy(-region(size).w, 0), color);
 	}
 
 	RectF DrawableText::drawAt(const double x, const double y, const ColorF& color) const
