@@ -191,41 +191,41 @@ namespace s3d
 
 	RectF DrawableText::region(const double size, const Arg::topCenter_<Vec2> topCenter) const
 	{
-		return region(size, topCenter->movedBy(-region().w * 0.5, 0));
+		return region(size, topCenter->movedBy(-region(size).w * 0.5, 0));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::topRight_<Vec2> topRight) const
 	{
-		return region(size, topRight->movedBy(-region().w, 0));
+		return region(size, topRight->movedBy(-region(size).w, 0));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::rightCenter_<Vec2> rightCenter) const
 	{
-		const RectF textRegion = region();
+		const RectF textRegion = region(size);
 
 		return region(size, rightCenter->movedBy(-textRegion.w, -textRegion.h * 0.5));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::bottomRight_<Vec2> bottomRight) const
 	{
-		return region(size, bottomRight->movedBy(-region().size));
+		return region(size, bottomRight->movedBy(-region(size).size));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::bottomCenter_<Vec2> bottomCenter) const
 	{
-		const RectF textRegion = region();
+		const RectF textRegion = region(size);
 
 		return region(size, bottomCenter->movedBy(-textRegion.w * 0.5, -textRegion.h));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::bottomLeft_<Vec2> bottomLeft) const
 	{
-		return region(size, bottomLeft->movedBy(0, -region().h));
+		return region(size, bottomLeft->movedBy(0, -region(size).h));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::leftCenter_<Vec2> leftCenter) const
 	{
-		return region(size, leftCenter->movedBy(0, -region().h * 0.5));
+		return region(size, leftCenter->movedBy(0, -region(size).h * 0.5));
 	}
 
 	RectF DrawableText::region(const double size, const Arg::center_<Vec2> center) const
