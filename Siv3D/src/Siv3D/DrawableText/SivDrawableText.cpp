@@ -243,6 +243,21 @@ namespace s3d
 		return regionBase(font.fontSize(), pos);
 	}
 
+	RectF DrawableText::regionBase(const Arg::left_<Vec2> left) const
+	{
+		return regionBase(font.fontSize(), left);
+	}
+
+	RectF DrawableText::regionBase(const Arg::center_<Vec2> center) const
+	{
+		return regionBase(font.fontSize(), center);
+	}
+
+	RectF DrawableText::regionBase(const Arg::right_<Vec2> right) const
+	{
+		return regionBase(font.fontSize(), right);
+	}
+
 	RectF DrawableText::regionBase(const double size, const double x, const double y) const
 	{
 		return regionBase(size, Vec2{ x, y });
@@ -251,6 +266,21 @@ namespace s3d
 	RectF DrawableText::regionBase(const double size, const Vec2 pos) const
 	{
 		return SIV3D_ENGINE(Font)->regionBase(font.id(), text, clusters, pos, size, 1.0);
+	}
+
+	RectF DrawableText::regionBase(const double size, const Arg::left_<Vec2> left) const
+	{
+		return regionBase(size, *left);
+	}
+
+	RectF DrawableText::regionBase(const double size, const Arg::center_<Vec2> center) const
+	{
+		return regionBase(size, center->movedBy(-region(size).w * 0.5, 0));
+	}
+
+	RectF DrawableText::regionBase(const double size, const Arg::right_<Vec2> right) const
+	{
+		return regionBase(size, right->movedBy(-region(size).w, 0));
 	}
 
 	RectF DrawableText::regionAt(const double x, const double y) const
