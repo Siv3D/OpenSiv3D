@@ -59,8 +59,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS2D>();
-			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/wgsl/sprite.vert.wgsl"), { { U"VSConstants2D", 0 } } };
-			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.vert.wgsl"), {} };
+			m_standardVS->sprite				= WGSL{ Resource(U"engine/shader/wgsl/sprite.vert.wgsl"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->fullscreen_triangle	= WGSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.vert.wgsl"), {} };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_WebGPU::m_standardVS initialization failed");
@@ -71,11 +71,11 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_WebGPU:");
 			m_standardPS = std::make_unique<WebGPUStandardPS2D>();
-			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/wgsl/shape.frag.wgsl"), { { U"PSConstants2D", 0 } } };
-			// m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
-			// m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
-			// m_standardPS->texture				= ESSL{ Resource(U"engine/shader/wgsl/texture.frag.wgsl"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.frag.wgsl"), {} };
+			m_standardPS->shape					= WGSL{ Resource(U"engine/shader/wgsl/shape.frag.wgsl"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->square_dot			= WGSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->round_dot				= WGSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
+			// m_standardPS->texture				= WGSL{ Resource(U"engine/shader/wgsl/texture.frag.wgsl"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->fullscreen_triangle	= WGSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.frag.wgsl"), {} };
 			if (not m_standardPS->setup())
 			{
 				// throw EngineError(U"CRenderer2D_WebGPU::m_standardPS initialization failed");

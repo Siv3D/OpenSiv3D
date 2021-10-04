@@ -102,4 +102,14 @@ namespace s3d
 
 		return VertexShader{ path, {}, bindings };
 	}
+
+	VertexShader VertexShader::WGSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		if (System::GetRendererType() != EngineOption::Renderer::WebGPU)
+		{
+			throw Error{ U"WGSL must be used with EngineOption::Renderer::WebGPU" };
+		}
+
+		return VertexShader{ path, {}, bindings };
+	}
 }

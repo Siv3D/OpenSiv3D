@@ -45,6 +45,9 @@ namespace s3d
 		[[nodiscard]]
 		static VertexShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 
+		[[nodiscard]]
+		static VertexShader WGSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
+
 	private:
 
 		SIV3D_NODISCARD_CXX20

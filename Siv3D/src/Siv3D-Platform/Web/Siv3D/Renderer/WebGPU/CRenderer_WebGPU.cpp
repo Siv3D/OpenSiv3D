@@ -52,7 +52,7 @@ namespace s3d
 
 	EngineOption::Renderer CRenderer_WebGPU::getRendererType() const noexcept
 	{
-		return EngineOption::Renderer::OpenGL;
+		return EngineOption::Renderer::WebGPU;
 	}	
 
 	void CRenderer_WebGPU::init()

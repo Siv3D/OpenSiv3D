@@ -180,7 +180,7 @@ namespace s3d
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_WebGPU::createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -188,7 +188,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, size, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -199,7 +199,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Image& image)
+	Texture::IDType CTexture_WebGPU::createRT(const Image& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -208,7 +208,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -219,7 +219,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<float>& image)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<float>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -228,7 +228,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32_Float;
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -239,7 +239,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float2>& image)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float2>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -248,7 +248,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32_Float;
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -259,7 +259,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float4>& image)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float4>& image, const HasDepth hasDepth)
 	{
 		if (not image)
 		{
@@ -268,7 +268,7 @@ namespace s3d
 
 		const TextureDesc desc = TextureDesc::Unmipped;
 		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::Render{}, image, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -279,7 +279,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createMSRT(const Size& size, const TextureFormat& format)
+	Texture::IDType CTexture_WebGPU::createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -287,7 +287,7 @@ namespace s3d
 		}
 
 		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
-		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::MSRender{}, size, format, desc);
+		auto texture = std::make_unique<WebGPUTexture>(WebGPUTexture::MSRender{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
 		{
@@ -316,6 +316,11 @@ namespace s3d
 	TextureFormat CTexture_WebGPU::getFormat(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getFormat();
+	}
+
+	bool CTexture_WebGPU::hasDepth(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->hasDepth();
 	}
 
 	bool CTexture_WebGPU::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)

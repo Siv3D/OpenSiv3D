@@ -35,17 +35,17 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		WebGPUTexture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
-		WebGPUTexture(Render, const Size& size, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Render, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Image& image, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Render, const Image& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		~WebGPUTexture();
 
@@ -66,6 +66,9 @@ namespace s3d
 
 		[[nodiscard]]
 		TextureFormat getFormat() const noexcept;
+
+		[[nodiscard]]
+		bool hasDepth() const noexcept;
 
 		// 動的テクスチャを指定した色で塗りつぶす
 		bool fill(const ColorF& color, bool wait);
@@ -126,6 +129,9 @@ namespace s3d
 		// [resolved フレームバッファ]
 		GLuint m_resolvedFrameBuffer = 0;
 
+		// [デプステクスチャ]
+		GLuint m_depthTexture = 0;
+
 		Size m_size = { 0, 0 };
 
 		TextureFormat m_format = TextureFormat::Unknown;
@@ -134,6 +140,10 @@ namespace s3d
 
 		TextureType m_type = TextureType::Default;
 
+		bool m_hasDepth = false;
+
 		bool m_initialized = false;
+
+		bool initDepthBuffer();
 	};
 }
