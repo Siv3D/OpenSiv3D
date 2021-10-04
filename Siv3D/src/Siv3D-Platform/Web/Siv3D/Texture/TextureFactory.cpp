@@ -24,8 +24,7 @@ namespace s3d
 		}
 		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
 		{
-			// return new CTexture_WebGPU;
-			return new CTexture_Null;
+			return new CTexture_WebGPU;
 		}
 		else
 		{

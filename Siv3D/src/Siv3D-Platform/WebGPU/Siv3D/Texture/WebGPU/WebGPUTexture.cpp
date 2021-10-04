@@ -17,18 +17,49 @@
 
 namespace s3d
 {
-	WebGPUTexture::WebGPUTexture(const Image& image, const TextureDesc desc)
+	WebGPUTexture::WebGPUTexture(wgpu::Device* device, const Image& image, const TextureDesc desc)
 	{
 		const TextureFormat format = 
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), image.width(), image.height(), 0,
-						   format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
+		}
+
+		{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
 		}
 		
 		m_size			= image.size();
@@ -38,26 +69,77 @@ namespace s3d
 		m_initialized	= true;
 	}
 	
-	WebGPUTexture::WebGPUTexture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	WebGPUTexture::WebGPUTexture(wgpu::Device* device, const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
 		const TextureFormat format =
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
 
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), image.width(), image.height(), 0,
-						   format.GLFormat(), format.GLType(), image.data());
-			
-			for (uint32 i = 0; i < mipmaps.size(); ++i)
+			wgpu::TextureDescriptor desc 
 			{
-				const Image& mipmap = mipmaps[i];
-				
-				::glTexImage2D(GL_TEXTURE_2D, (i + 1), format.GLInternalFormat(), mipmap.width(), mipmap.height(), 0,
-							   format.GLFormat(), format.GLType(), mipmap.data());
-			}
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(mipmaps.size()));
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst,
+				.mipLevelCount = mipmaps.size()
+			};
+
+			m_texture = device->CreateTexture(&desc);
+		}
+
+		{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
+		}
+
+		for (uint32 i = 0; i < mipmaps.size(); ++i)
+		{
+			const Image& mipmap = mipmaps[i];
+			
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture,
+				.mipLevel = i
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(mipmap.width()),
+				.height = static_cast<uint32_t>(mipmap.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				mipmap.data(), mipmap.size_bytes(), 
+				&layout, &size);
 		}
 		
 		m_size			= image.size();
@@ -67,7 +149,7 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Dynamic, const Size& size, const void* pData, const uint32, const TextureFormat& format, const TextureDesc desc)
+	WebGPUTexture::WebGPUTexture(Dynamic, wgpu::Device* device, const Size& size, const void* pData, const uint32, const TextureFormat& format, const TextureDesc desc)
 		: m_size{ size }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -75,17 +157,25 @@ namespace s3d
 	{
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), size.x, size.y, 0,
-				format.GLFormat(), format.GLType(), pData);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(size.x),
+					.height = static_cast<uint32_t>(size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Render, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(Render, wgpu::Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ size }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -99,28 +189,24 @@ namespace s3d
 
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), size.x, size.y, 0,
-				format.GLFormat(), format.GLType(), nullptr);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-		}
-
-		// [メインテクスチャ・フレームバッファ] を作成
-		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::TextureDescriptor desc 
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.size = 
+				{
+					.width = static_cast<uint32_t>(size.x),
+					.height = static_cast<uint32_t>(size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -129,7 +215,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Render, const Image& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(Render, wgpu::Device* device, const Image& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -143,29 +229,49 @@ namespace s3d
 		}
 
 		// [メインテクスチャ] を作成
+		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), image.width(), image.height(), 0,
-				format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
-		// [メインテクスチャ・フレームバッファ] を作成
 		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::ImageCopyTexture copyOperationDesc
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -174,7 +280,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Render, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(Render, wgpu::Device* device, const Grid<float>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -187,30 +293,49 @@ namespace s3d
 		}
 
 		// [メインテクスチャ] を作成
+		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
-				static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
-				format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
-		// [メインテクスチャ・フレームバッファ] を作成
 		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::ImageCopyTexture copyOperationDesc
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -219,7 +344,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Render, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(Render, wgpu::Device* device, const Grid<Float2>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -233,29 +358,47 @@ namespace s3d
 
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
-				static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
-				format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
-		// [メインテクスチャ・フレームバッファ] を作成
 		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::ImageCopyTexture copyOperationDesc
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -264,7 +407,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(Render, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(Render, wgpu::Device* device, const Grid<Float4>& image, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ image.size() }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -278,29 +421,47 @@ namespace s3d
 
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(),
-				static_cast<GLint>(image.width()), static_cast<GLint>(image.height()), 0,
-				format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(image.width()),
+					.height = static_cast<uint32_t>(image.height()),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
-		// [メインテクスチャ・フレームバッファ] を作成
 		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::ImageCopyTexture copyOperationDesc
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(image.width()),
+				.height = static_cast<uint32_t>(image.height()),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				image.data(), image.size_bytes(), 
+				&layout, &size);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -309,7 +470,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	WebGPUTexture::WebGPUTexture(MSRender, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
+	WebGPUTexture::WebGPUTexture(MSRender, wgpu::Device* device, const Size& size, const TextureFormat& format, const TextureDesc desc, const HasDepth hasDepth)
 		: m_size{ size }
 		, m_format{ format }
 		, m_textureDesc{ desc }
@@ -321,51 +482,43 @@ namespace s3d
 			return;
 		}
 
-		// [マルチサンプル・テクスチャ] を作成
-		{
-			::glGenRenderbuffers(1, &m_multiSampledTexture);
-			::glBindRenderbuffer(GL_RENDERBUFFER, m_multiSampledTexture);
-			::glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, format.GLInternalFormat(), size.x, size.y);
-			//::glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAX_LEVEL, 0);
-		}
-
-		// [フレームバッファ] を作成
-		{
-			::glGenFramebuffers(1, &m_frameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_multiSampledTexture);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			{
-				LOG_FAIL(U"TextureFormat `{}` is not supported in MSRenderTexture"_fmt(format.name()));
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		}
-
 		// [メインテクスチャ] を作成
 		{
-			::glGenTextures(1, &m_texture);
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), size.x, size.y, 0,
-				format.GLFormat(), format.GLType(), nullptr);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			wgpu::TextureDescriptor desc 
+			{
+				.size = 
+				{
+					.width = static_cast<uint32_t>(size.x),
+					.height = static_cast<uint32_t>(size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst,
+				.sampleCount = 4
+			};
+
+			m_multiSampledTexture = device->CreateTexture(&desc);
 		}
 
-		// [resolved フレームバッファ] を作成
 		{
-			::glGenFramebuffers(1, &m_resolvedFrameBuffer);
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_resolvedFrameBuffer);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::TextureDescriptor desc 
 			{
-				return;
-			}
-			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.size = 
+				{
+					.width = static_cast<uint32_t>(size.x),
+					.height = static_cast<uint32_t>(size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 
 		if (hasDepth)
 		{
-			if (not initDepthBuffer())
+			if (not initDepthBuffer(device))
 			{
 				return;
 			}
@@ -379,44 +532,22 @@ namespace s3d
 		// [デプステクスチャ] を破棄
 		if (m_depthTexture)
 		{
-			if (m_type == TextureType::MSRender)
-			{
-				::glDeleteRenderbuffers(1, &m_depthTexture);
-			}
-			else
-			{
-				::glDeleteTextures(1, &m_depthTexture);
-			}
-
-			m_depthTexture = 0;
-		}
-
-		// [resolved フレームバッファ] を破棄
-		if (m_resolvedFrameBuffer)
-		{
-			::glDeleteFramebuffers(1, &m_resolvedFrameBuffer);
-			m_resolvedFrameBuffer = 0;
+			m_depthTexture.Release();
+			m_depthTexture = nullptr;
 		}
 
 		// [マルチサンプルテクスチャ] を破棄
 		if (m_multiSampledTexture)
 		{
-			::glDeleteRenderbuffers(1, &m_multiSampledTexture);
-			m_multiSampledTexture = 0;
-		}
-
-		// [フレームバッファ] を破棄
-		if (m_frameBuffer)
-		{
-			::glDeleteFramebuffers(1, &m_frameBuffer);
-			m_frameBuffer = 0;
+			m_multiSampledTexture.Release();
+			m_multiSampledTexture = nullptr;
 		}
 
 		// [メインテクスチャ] を破棄
 		if (m_texture)
 		{
-			::glDeleteTextures(1, &m_texture);
-			m_texture = 0;
+			m_texture.Release();
+			m_texture = nullptr;
 		}
 	}
 
@@ -425,14 +556,9 @@ namespace s3d
 		return m_initialized;
 	}
 
-	GLuint WebGPUTexture::getTexture() const noexcept
+	wgpu::Texture WebGPUTexture::getTexture() const noexcept
 	{
 		return m_texture;
-	}
-
-	GLuint WebGPUTexture::getFrameBuffer() const noexcept
-	{
-		return m_frameBuffer;
 	}
 
 	Size WebGPUTexture::getSize() const noexcept
@@ -455,7 +581,7 @@ namespace s3d
 		return m_hasDepth;
 	}
 
-	bool WebGPUTexture::fill(const ColorF& color, bool)
+	bool WebGPUTexture::fill(wgpu::Device* device, const ColorF& color, bool)
 	{
 		if (m_type != TextureType::Dynamic)
 		{
@@ -469,14 +595,33 @@ namespace s3d
 			return false;
 		}
 
-		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture
+			};
 
-		::glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), data.data());
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(m_size.x),
+				.height = static_cast<uint32_t>(m_size.y),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				data.data(), data.size_bytes(), 
+				&layout, &size);
+		}
 
 		return true;
 	}
 
-	bool WebGPUTexture::fillRegion(const ColorF& color, const Rect& rect)
+	bool WebGPUTexture::fillRegion(wgpu::Device* device, const ColorF& color, const Rect& rect)
 	{
 		if (m_type != TextureType::Dynamic)
 		{
@@ -491,14 +636,38 @@ namespace s3d
 
 		const Array<Byte> data = GenerateInitialColorBuffer(rect.size, color, m_format);
 
-		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture,
+				.origin = 
+				{
+					.x = static_cast<uint32_t>(rect.x),
+					.y = static_cast<uint32_t>(rect.y),
+				}
+			};
 
-		::glTexSubImage2D(GL_TEXTURE_2D, 0, rect.x, rect.y, rect.w, rect.h, m_format.GLFormat(), m_format.GLType(), data.data());
+			wgpu::TextureDataLayout layout 
+			{
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(rect.w),
+				.height = static_cast<uint32_t>(rect.h),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				data.data(), data.size_bytes(), 
+				&layout, &size);
+		}
 
 		return true;
 	}
 
-	bool WebGPUTexture::fill(const void* src, [[maybe_unused]] const uint32 stride, [[maybe_unused]] const bool wait)
+	bool WebGPUTexture::fill(wgpu::Device* device, const void* src, [[maybe_unused]] const uint32 stride, [[maybe_unused]] const bool wait)
 	{
 		if (m_type != TextureType::Dynamic)
 		{
@@ -508,9 +677,29 @@ namespace s3d
 		if ((m_format == TextureFormat::R8G8B8A8_Unorm)
 			|| (m_format == TextureFormat::R8G8B8A8_Unorm_SRGB))
 		{
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture
+			};
 
-			::glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, src);
+			wgpu::TextureDataLayout layout 
+			{
+				.bytesPerRow = stride
+			};
+
+			wgpu::Extent3D size
+			{
+				.width = static_cast<uint32_t>(m_size.x),
+				.height = static_cast<uint32_t>(m_size.y),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				src, m_size.x * m_size.y * m_format.pixelSize(), 
+				&layout, &size);
+		}
 		
 			return true;
 		}
@@ -521,7 +710,7 @@ namespace s3d
 		}
 	}
 
-	bool WebGPUTexture::fillRegion(const void* src, const uint32 stride, const Rect& rect, [[maybe_unused]] const bool wait)
+	bool WebGPUTexture::fillRegion(wgpu::Device* device, const void* src, const uint32 stride, const Rect& rect, [[maybe_unused]] const bool wait)
 	{
 		if (m_type != TextureType::Dynamic)
 		{
@@ -550,9 +739,33 @@ namespace s3d
 				}
 			}
 
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			{
+				wgpu::ImageCopyTexture copyOperationDesc
+				{
+					.texture = m_texture,
+					.origin = 
+					{
+						.x = static_cast<uint32_t>(rect.x),
+						.y = static_cast<uint32_t>(rect.y),
+					}
+				};
 
-			::glTexSubImage2D(GL_TEXTURE_2D, 0, rect.x, rect.y, rect.w, rect.h, GL_RGBA, GL_UNSIGNED_BYTE, newData.data());
+				wgpu::TextureDataLayout layout 
+				{
+				};
+
+				wgpu::Extent3D size
+				{
+					.width = static_cast<uint32_t>(rect.w),
+					.height = static_cast<uint32_t>(rect.h),
+					.depthOrArrayLayers = 1
+				};
+
+				device->GetQueue().WriteTexture(
+					&copyOperationDesc, 
+					newData.data(), newData.size_bytes(), 
+					&layout, &size);
+			}
 		
 			return true;
 		}
@@ -571,30 +784,30 @@ namespace s3d
 			return;
 		}
 
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
 
-		Float4 clearColor = color.toFloat4();
+		// Float4 clearColor = color.toFloat4();
 
-		::glClearColor(
-			clearColor.x,
-			clearColor.y,
-			clearColor.z,
-			clearColor.w);
+		// ::glClearColor(
+		// 	clearColor.x,
+		// 	clearColor.y,
+		// 	clearColor.z,
+		// 	clearColor.w);
 
-		if (m_hasDepth)
-		{
-			if (auto p = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)))
-			{
-				p->getDepthStencilState().set(DepthStencilState::Default3D);
-			}
+		// if (m_hasDepth)
+		// {
+		// 	if (auto p = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)))
+		// 	{
+		// 		p->getDepthStencilState().set(DepthStencilState::Default3D);
+		// 	}
 
-			::glClearDepth(0.0);
-			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		}
-		else
-		{
-			::glClear(GL_COLOR_BUFFER_BIT);
-		}
+		// 	::glClearDepth(0.0);
+		// 	::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// }
+		// else
+		// {
+		// 	::glClear(GL_COLOR_BUFFER_BIT);
+		// }
 
 		//::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -616,11 +829,11 @@ namespace s3d
 
 		image.resize(m_size);
 
-		::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
-		{
-			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
+		// {
+		// 	::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		// }
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void WebGPUTexture::readRT(Grid<float>& image)
@@ -639,11 +852,11 @@ namespace s3d
 
 		image.resize(m_size);
 
-		::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
-		{
-			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
+		// {
+		// 	::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		// }
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void WebGPUTexture::readRT(Grid<Float2>& image)
@@ -662,11 +875,11 @@ namespace s3d
 
 		image.resize(m_size);
 
-		::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
-		{
-			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
+		// {
+		// 	::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		// }
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void WebGPUTexture::readRT(Grid<Float4>& image)
@@ -685,11 +898,11 @@ namespace s3d
 
 		image.resize(m_size);
 
-		::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
-		{
-			::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, ((m_type == TextureType::MSRender) ? m_resolvedFrameBuffer : m_frameBuffer));
+		// {
+		// 	::glReadPixels(0, 0, m_size.x, m_size.y, m_format.GLFormat(), m_format.GLType(), image.data());
+		// }
+		// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void WebGPUTexture::resolveMSRT()
@@ -699,53 +912,55 @@ namespace s3d
 			return;
 		}
 
-		::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer);
-		::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_resolvedFrameBuffer);
-		::glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+		// ::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer);
+		// ::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_resolvedFrameBuffer);
+		// ::glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
-		::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		// ::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 	}
 
-	bool WebGPUTexture::initDepthBuffer()
+	bool WebGPUTexture::initDepthBuffer(wgpu::Device* device)
 	{
 		assert(not m_hasDepth);
 		assert(not m_depthTexture);
 		assert((m_type == TextureType::Render) || (m_type == TextureType::MSRender));
 
 		// [デプステクスチャ] を作成
-		::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
-
 		if (m_type == TextureType::Render)
 		{
-			::glGenTextures(1, &m_depthTexture);
-			::glBindTexture(GL_TEXTURE_2D, m_depthTexture);
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y, 0,
-				GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-			::glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
-
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::TextureDescriptor desc 
 			{
-				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
-				return false;
-			}
+				.size = 
+				{
+					.width = static_cast<uint32_t>(m_size.x),
+					.height = static_cast<uint32_t>(m_size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = wgpu::TextureFormat::Depth32Float,
+				.usage = wgpu::TextureUsage::RenderAttachment
+			};
+
+			m_texture = device->CreateTexture(&desc);
 		}
 		else
 		{
-			::glGenRenderbuffers(1, &m_depthTexture);
-			::glBindRenderbuffer(GL_RENDERBUFFER, m_depthTexture);
-			::glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT32F, m_size.x, m_size.y);
-			::glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthTexture);
-		
-			if (::glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			wgpu::TextureDescriptor desc 
 			{
-				LOG_FAIL(U"glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE");
-				return false;
-			}
-		}
-		::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				.size = 
+				{
+					.width = static_cast<uint32_t>(m_size.x),
+					.height = static_cast<uint32_t>(m_size.y),
+					.depthOrArrayLayers = 1
+				},
+				.format = wgpu::TextureFormat::Depth32Float,
+				.usage = wgpu::TextureUsage::RenderAttachment,
+				.sampleCount = 4
+			};
 
+			m_texture = device->CreateTexture(&desc);
+		}
+		
 		m_hasDepth = true;
 
 		return true;

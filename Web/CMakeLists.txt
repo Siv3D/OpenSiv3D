@@ -142,9 +142,9 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
 
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUInternalTexture2D.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPURenderer2DCommand.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPUVertex2DBatch.cpp
@@ -152,6 +152,8 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/PixelShader/WebGPUPixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/VertexShader/WebGPUVertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/ShaderPipeline/WebGPUShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/CTexture_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/WebGPUTexture.cpp
 
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp

@@ -16,6 +16,8 @@
 # include <Siv3D/TextureDesc.hpp>
 # include <Siv3D/Image.hpp>
 
+# include <webgpu/webgpu_cpp.h>
+
 namespace s3d
 {
 	class WebGPUTexture
@@ -27,25 +29,25 @@ namespace s3d
 		struct MSRender {};
 
 		SIV3D_NODISCARD_CXX20
-		WebGPUTexture(const Image& image, TextureDesc desc);
+		WebGPUTexture(wgpu::Device* device, const Image& image, TextureDesc desc);
 
 		SIV3D_NODISCARD_CXX20
-		WebGPUTexture(const Image& image, const Array<Image>& mips, TextureDesc desc);
+		WebGPUTexture(wgpu::Device* device, const Image& image, const Array<Image>& mips, TextureDesc desc);
 
 		SIV3D_NODISCARD_CXX20
-		WebGPUTexture(Dynamic, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
+		WebGPUTexture(Dynamic, wgpu::Device* device, const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc);
 
-		WebGPUTexture(Render, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(Render, wgpu::Device* device, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Image& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(Render, wgpu::Device* device, const Image& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<float>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(Render, wgpu::Device* device, const Grid<float>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(Render, wgpu::Device* device, const Grid<Float2>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(Render, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(Render, wgpu::Device* device, const Grid<Float4>& image, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
-		WebGPUTexture(MSRender, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
+		WebGPUTexture(MSRender, wgpu::Device* device, const Size& size, const TextureFormat& format, TextureDesc desc, HasDepth hasDepth);
 
 		~WebGPUTexture();
 
@@ -53,10 +55,7 @@ namespace s3d
 		bool isInitialized() const noexcept;
 
 		[[nodiscard]]
-		GLuint getTexture() const noexcept;
-
-		[[nodiscard]]
-		GLuint getFrameBuffer() const noexcept;
+		wgpu::Texture getTexture() const noexcept;
 
 		[[nodiscard]]
 		Size getSize() const noexcept;
@@ -71,13 +70,13 @@ namespace s3d
 		bool hasDepth() const noexcept;
 
 		// 動的テクスチャを指定した色で塗りつぶす
-		bool fill(const ColorF& color, bool wait);
+		bool fill(wgpu::Device* device, const ColorF& color, bool wait);
 
-		bool fillRegion(const ColorF& color, const Rect& rect);
+		bool fillRegion(wgpu::Device* device, const ColorF& color, const Rect& rect);
 
-		bool fill(const void* src, uint32 stride, bool wait);
+		bool fill(wgpu::Device* device, const void* src, uint32 stride, bool wait);
 
-		bool fillRegion(const void* src, uint32 stride, const Rect& rect, bool wait);
+		bool fillRegion(wgpu::Device* device, const void* src, uint32 stride, const Rect& rect, bool wait);
 
 		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(const ColorF& color);
@@ -118,19 +117,13 @@ namespace s3d
 		};
 
 		// [メインテクスチャ]
-		GLuint m_texture = 0;
+		wgpu::Texture m_texture = nullptr;
 
 		// [マルチサンプル・テクスチャ]
-		GLuint m_multiSampledTexture = 0;
-
-		// [フレームバッファ]
-		GLuint m_frameBuffer = 0;
-
-		// [resolved フレームバッファ]
-		GLuint m_resolvedFrameBuffer = 0;
+		wgpu::Texture m_multiSampledTexture = nullptr;
 
 		// [デプステクスチャ]
-		GLuint m_depthTexture = 0;
+		wgpu::Texture m_depthTexture = nullptr;
 
 		Size m_size = { 0, 0 };
 
@@ -144,6 +137,6 @@ namespace s3d
 
 		bool m_initialized = false;
 
-		bool initDepthBuffer();
+		bool initDepthBuffer(wgpu::Device* device);
 	};
 }

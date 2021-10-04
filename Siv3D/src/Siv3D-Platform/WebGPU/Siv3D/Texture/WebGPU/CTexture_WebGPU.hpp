@@ -13,6 +13,8 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
+# include <webgpu/webgpu_cpp.h>
+
 # include "WebGPUTexture.hpp"
 
 namespace s3d
@@ -82,12 +84,10 @@ namespace s3d
 		void resolveMSRT(Texture::IDType handleID) override;
 
 		//
-		// OpenGL
+		// WebGPU
 		//
 
-		GLuint getTexture(Texture::IDType handleID);
-
-		GLuint getFrameBuffer(Texture::IDType handleID);
+		wgpu::Texture getTexture(Texture::IDType handleID);
 
 	private:
 
@@ -116,6 +116,8 @@ namespace s3d
 		Array<Request> m_requests;
 		//
 		/////////////////////////////////
+
+		wgpu::Device* m_device;
 
 		[[nodiscard]]
 		bool isMainThread() const noexcept;
