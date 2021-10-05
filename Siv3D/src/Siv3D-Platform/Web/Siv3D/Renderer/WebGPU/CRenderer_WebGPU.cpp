@@ -94,7 +94,7 @@ namespace s3d
 		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device);
 		// m_blendState		= std::make_unique<GLES3BlendState>();
 		// m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
-		// m_samplerState		= std::make_unique<GLES3SamplerState>();
+		m_samplerState		= std::make_unique<WebGPUSamplerState>();
 		
 		// pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
 		// pTexture->init();
@@ -294,7 +294,7 @@ namespace s3d
 		return *m_rasterizerState;
 	}
 
-	GLES3SamplerState& CRenderer_WebGPU::getSamplerState() noexcept
+	WebGPUSamplerState& CRenderer_WebGPU::getSamplerState() noexcept
 	{
 		return *m_samplerState;
 	}

@@ -17,7 +17,7 @@
 # include <Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.hpp>
 # include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
 # include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
-# include <Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.hpp>
+# include <Siv3D/Renderer/WebGPU/SamplerState/WebGPUSamplerState.hpp>
 # include <Siv3D/Texture/WebGPU/CTexture_WebGPU.hpp>
 
 # include <webgpu/webgpu_cpp.h>
@@ -38,7 +38,7 @@ namespace s3d
 
 		std::unique_ptr<GLES3RasterizerState> m_rasterizerState;
 		
-		std::unique_ptr<GLES3SamplerState> m_samplerState;
+		std::unique_ptr<WebGPUSamplerState> m_samplerState;
 
 		bool m_vSyncEnabled = true;
 
@@ -109,7 +109,7 @@ namespace s3d
 
 		GLES3RasterizerState& getRasterizerState() noexcept;
 
-		GLES3SamplerState& getSamplerState() noexcept;
+		WebGPUSamplerState& getSamplerState() noexcept;
 
 		wgpu::Device* getDevice();
 	};

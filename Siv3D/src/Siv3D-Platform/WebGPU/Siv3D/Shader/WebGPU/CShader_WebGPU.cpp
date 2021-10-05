@@ -198,7 +198,7 @@ namespace s3d
 		return m_pixelShaders[handleID]->getShaderModule();
 	}
 
-	void CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass)
+	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass)
 	{
 		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, RasterizerState::Default2D, {});
 
@@ -213,28 +213,13 @@ namespace s3d
 
 		pass.SetPipeline(pipeline);
 		pass.SetBindGroup(0, m_uniform);
+
+		return pipeline;
 	}
 
-	void CShader_WebGPU::usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass)
+	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandardVertexLayout(m_currentVS, m_currentPS, RasterizerState::Default2D);
-
-		// wgpu::BindGroupEntry uniformEntries[]
-		// {
-		// 	{
-		// 		.binding = 0,
-		// 	},
-		// 	{
-		// 		.binding = 1,
-		// 	}
-		// };
-
-		// wgpu::BindGroupDescriptor uniformDesc
-		// {
-		// 	.layout = pipeline.GetBindGroupLayout(0),
-		// 	.entries = uniformEntries,
-		// 	.entryCount = 2
-		// };
 
 		wgpu::BindGroupEntry constantsEntries[]
 		{
@@ -257,12 +242,12 @@ namespace s3d
 			.entryCount = 2
 		};
 
-		// auto m_uniform = m_device->CreateBindGroup(&uniformDesc);
 		auto m_constantsUniform = m_device->CreateBindGroup(&constantsDesc);
 
 		pass.SetPipeline(pipeline);
-		// pass.SetBindGroup(0, m_uniform);
 		pass.SetBindGroup(0, m_constantsUniform);
+
+		return pipeline;
 	}
 
 	void CShader_WebGPU::setUniform(const Array<wgpu::BindGroupEntry>& uniforms)

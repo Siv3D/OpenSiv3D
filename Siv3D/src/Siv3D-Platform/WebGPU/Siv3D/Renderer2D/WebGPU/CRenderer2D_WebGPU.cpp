@@ -979,7 +979,8 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
-					pShader->usePipelineWithStandardVertexLayout(pass);
+					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass);
+					pRenderer->getSamplerState().bindSamplers(m_device, pipeline, pass);
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
@@ -1058,7 +1059,7 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::VSSamplerState0);
 					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
-					// pRenderer->getSamplerState().setVS(slot, samplerState);
+					pRenderer->getSamplerState().setVS(m_device, slot, samplerState);
 					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
@@ -1073,7 +1074,7 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::PSSamplerState0);
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
-					// pRenderer->getSamplerState().setPS(slot, samplerState);
+					pRenderer->getSamplerState().setPS(m_device, slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}

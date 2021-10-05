@@ -11,10 +11,10 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Optional.hpp>
+# include <webgpu/webgpu_cpp.h>
 
 namespace s3d
 {
@@ -22,25 +22,24 @@ namespace s3d
 	{
 	private:
 
-		struct SamplerState_GL
+		struct SamplerState_WebGPU
 		{
-			SamplerState_GL()
+			SamplerState_WebGPU()
 			{
-				::glGenSamplers(1, &m_sampler);
 			}
 
-			~SamplerState_GL()
+			~SamplerState_WebGPU()
 			{
 				if (m_sampler)
 				{
-					::glDeleteSamplers(1, &m_sampler);
+					m_sampler.Release();
 				}
 			}
 
-			GLuint m_sampler = 0;
+			wgpu::Sampler m_sampler = nullptr;
 		};
 
-		using SamplerStateList = HashTable<SamplerState, std::unique_ptr<SamplerState_GL>>;
+		using SamplerStateList = HashTable<SamplerState, std::unique_ptr<SamplerState_WebGPU>>;
 
 		SamplerStateList m_states;
 
@@ -48,18 +47,20 @@ namespace s3d
 
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
 
-		SamplerStateList::iterator create(const SamplerState& state);
+		SamplerStateList::iterator create(wgpu::Device* device, const SamplerState& state);
 
 	public:
 
 		WebGPUSamplerState();
 
-		void setVS(uint32 slot, const SamplerState& state);
+		void setVS(wgpu::Device* device, uint32 slot, const SamplerState& state);
 
-		void setVS(uint32 slot, None_t);
+		void setVS(wgpu::Device* device, uint32 slot, None_t);
 
-		void setPS(uint32 slot, const SamplerState& state);
+		void setPS(wgpu::Device* device, uint32 slot, const SamplerState& state);
 
-		void setPS(uint32 slot, None_t);
+		void setPS(wgpu::Device* device, uint32 slot, None_t);
+
+		void bindSamplers(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass);
 	};
 }

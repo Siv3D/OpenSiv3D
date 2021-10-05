@@ -15,17 +15,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		static constexpr GLint minmipTable[4] =
-		{
-			GL_NEAREST_MIPMAP_NEAREST,
-			GL_NEAREST_MIPMAP_LINEAR,
-			GL_LINEAR_MIPMAP_NEAREST,
-			GL_LINEAR_MIPMAP_LINEAR
-		};
-	}
-
 	static const SamplerState NullSamplerState(TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
@@ -42,7 +31,7 @@ namespace s3d
 		m_currentPSStates.fill(NullSamplerState);
 	}
 
-	void WebGPUSamplerState::setVS(const uint32 slot, const SamplerState& state)
+	void WebGPUSamplerState::setVS(wgpu::Device* device, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -55,7 +44,7 @@ namespace s3d
 
 		if (it == m_states.end())
 		{
-			it = create(state);
+			it = create(device, state);
 
 			if (it == m_states.end())
 			{
@@ -63,21 +52,17 @@ namespace s3d
 			}
 		}
 
-		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot), it->second->m_sampler);
-
 		m_currentVSStates[slot] = state;
 	}
 
-	void WebGPUSamplerState::setVS(const uint32 slot, None_t)
+	void WebGPUSamplerState::setVS(wgpu::Device* device, const uint32 slot, None_t)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
-
-		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot), 0);
 
 		m_currentVSStates[slot] = NullSamplerState;
 	}
 
-	void WebGPUSamplerState::setPS(const uint32 slot, const SamplerState& state)
+	void WebGPUSamplerState::setPS(wgpu::Device* device, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -90,7 +75,7 @@ namespace s3d
 
 		if (it == m_states.end())
 		{
-			it = create(state);
+			it = create(device, state);
 
 			if (it == m_states.end())
 			{
@@ -98,40 +83,93 @@ namespace s3d
 			}
 		}
 
-		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot), it->second->m_sampler);
-
 		m_currentPSStates[slot] = state;
 	}
 
-	void WebGPUSamplerState::setPS(const uint32 slot, None_t)
+	void WebGPUSamplerState::setPS(wgpu::Device* device, const uint32 slot, None_t)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
-
-		::glBindSampler(Shader::Internal::MakeSamplerSlot(ShaderStage::Pixel, slot), 0);
 
 		m_currentPSStates[slot] = NullSamplerState;
 	}
 
-	WebGPUSamplerState::SamplerStateList::iterator WebGPUSamplerState::create(const SamplerState& state)
+	void WebGPUSamplerState::bindSamplers(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass)
 	{
-		std::unique_ptr<SamplerState_GL> samplerState = std::make_unique<SamplerState_GL>();
+		{
+			Array<wgpu::BindGroupEntry> vsSamplerBindings{};
 
-		const GLuint sampler = samplerState->m_sampler;
-		static const GLfloat border[] = { state.borderColor.x, state.borderColor.y, state.borderColor.z, state.borderColor.w };
-		static const GLuint wraps[] = { GL_REPEAT, GL_MIRRORED_REPEAT, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER };
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+			{
+				const auto& state = m_currentVSStates[i];
 
-		::glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER,
-			detail::minmipTable[(static_cast<int32>(state.min) << 1) | (static_cast<int32>(state.mip))]);
-		::glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, (state.mag == TextureFilter::Linear) ? GL_LINEAR : GL_NEAREST);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_S, wraps[static_cast<int32>(state.addressU)]);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, wraps[static_cast<int32>(state.addressV)]);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_R, wraps[static_cast<int32>(state.addressW)]);
-		::glSamplerParameterf(sampler, GL_TEXTURE_LOD_BIAS, state.lodBias);
-		::glSamplerParameteri(sampler, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-		::glSamplerParameterf(sampler, GL_TEXTURE_MAX_ANISOTROPY_EXT, state.maxAnisotropy);
-		::glSamplerParameterfv(sampler, GL_TEXTURE_BORDER_COLOR, border);
-		::glSamplerParameterf(sampler, GL_TEXTURE_MIN_LOD, -1000.0f);
-		::glSamplerParameterf(sampler, GL_TEXTURE_MAX_LOD, 1000.0f);
+				if (auto it = m_states.find(state); it != m_states.end())
+				{
+					vsSamplerBindings << wgpu::BindGroupEntry
+					{
+						.binding = i,
+						.sampler = it->second->m_sampler
+					};
+				}
+			}
+
+			wgpu::BindGroupDescriptor constantsDesc
+			{
+				.layout = pipeline.GetBindGroupLayout(0),
+				.entries = vsSamplerBindings.data(),
+				.entryCount = vsSamplerBindings.size()
+			};
+
+			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
+			pass.SetBindGroup(2, m_constantsUniform);
+		}
+
+		{
+			Array<wgpu::BindGroupEntry> psSamplerBindings{};
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+			{
+				const auto& state = m_currentPSStates[i];
+
+				if (auto it = m_states.find(state); it != m_states.end())
+				{
+					psSamplerBindings << wgpu::BindGroupEntry
+					{
+						.binding = i,
+						.sampler = it->second->m_sampler
+					};
+				}
+			}
+
+			wgpu::BindGroupDescriptor constantsDesc
+			{
+				.layout = pipeline.GetBindGroupLayout(0),
+				.entries = psSamplerBindings.data(),
+				.entryCount = psSamplerBindings.size()
+			};
+
+			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
+			pass.SetBindGroup(4, m_constantsUniform);
+		}
+	}
+
+	WebGPUSamplerState::SamplerStateList::iterator WebGPUSamplerState::create(wgpu::Device* device, const SamplerState& state)
+	{
+		std::unique_ptr<SamplerState_WebGPU> samplerState = std::make_unique<SamplerState_WebGPU>();
+
+		wgpu::SamplerDescriptor desc 
+		{
+			.minFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.min)),
+			.magFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.mag)),
+			.mipmapFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.mip)),
+			.addressModeU = ToEnum<wgpu::AddressMode>(FromEnum(state.addressU)),
+			.addressModeV = ToEnum<wgpu::AddressMode>(FromEnum(state.addressV)),
+			.addressModeW = ToEnum<wgpu::AddressMode>(FromEnum(state.addressW)),
+			.maxAnisotropy = state.maxAnisotropy,
+			.lodMinClamp = 0.0f,
+			.lodMaxClamp = 1000.0f,
+		};
+
+		samplerState->m_sampler = device->CreateSampler(&desc);
 
 		if (m_states.size() >= 1024)
 		{
