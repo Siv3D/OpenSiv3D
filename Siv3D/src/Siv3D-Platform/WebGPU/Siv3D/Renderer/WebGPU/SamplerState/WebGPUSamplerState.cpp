@@ -97,6 +97,7 @@ namespace s3d
 	{
 		{
 			Array<wgpu::BindGroupEntry> vsSamplerBindings{};
+			Array<wgpu::BindGroupLayoutEntry> vsSamplerBindingsLayout{};
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
 			{
@@ -109,12 +110,30 @@ namespace s3d
 						.binding = i,
 						.sampler = it->second->m_sampler
 					};
+
+					vsSamplerBindingsLayout << wgpu::BindGroupLayoutEntry
+					{
+						.binding = i,
+						.visibility = wgpu::ShaderStage::Vertex,
+						.sampler = wgpu::SamplerBindingLayout 
+						{
+							.type = wgpu::SamplerBindingType::Filtering
+						}
+					};
 				}
 			}
 
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = vsSamplerBindingsLayout.data(),
+				.entryCount = vsSamplerBindingsLayout.size(),
+			};
+
+			auto uniformLayout = device->CreateBindGroupLayout(&layoutDesc);
+
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = pipeline.GetBindGroupLayout(0),
+				.layout = uniformLayout,
 				.entries = vsSamplerBindings.data(),
 				.entryCount = vsSamplerBindings.size()
 			};
@@ -125,6 +144,7 @@ namespace s3d
 
 		{
 			Array<wgpu::BindGroupEntry> psSamplerBindings{};
+			Array<wgpu::BindGroupLayoutEntry> psSamplerBindingsLayout{};
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
 			{
@@ -137,18 +157,36 @@ namespace s3d
 						.binding = i,
 						.sampler = it->second->m_sampler
 					};
+
+					psSamplerBindingsLayout << wgpu::BindGroupLayoutEntry
+					{
+						.binding = i,
+						.visibility = wgpu::ShaderStage::Fragment,
+						.sampler = wgpu::SamplerBindingLayout 
+						{
+							.type = wgpu::SamplerBindingType::Filtering
+						}
+					};
 				}
 			}
 
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = psSamplerBindingsLayout.data(),
+				.entryCount = psSamplerBindingsLayout.size(),
+			};
+
+			auto uniformLayout = device->CreateBindGroupLayout(&layoutDesc);
+
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = pipeline.GetBindGroupLayout(0),
+				.layout = uniformLayout,
 				.entries = psSamplerBindings.data(),
 				.entryCount = psSamplerBindings.size()
 			};
 
 			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(4, m_constantsUniform);
+			pass.SetBindGroup(3, m_constantsUniform);
 		}
 	}
 
