@@ -11,6 +11,9 @@
 
 # pragma once
 # include <cassert>
+# if  __has_include(<compare>)
+#	include <compare>
+# endif
 # include <memory>
 # include <optional>
 # include "Common.hpp"
@@ -146,34 +149,47 @@ namespace s3d
 		}
 	};
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator ==(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator ==(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator !=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator !=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator <(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator <(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator <=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator <=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator >(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator >(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-	template <class Type>
+	template <class Type1, class Type2>
 	[[nodiscard]]
-	inline constexpr bool operator >=(const Optional<Type>& lhs, const Optional<Type>& rhs);
+	inline constexpr bool operator >=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts
+	template <class Type1, std::three_way_comparable_with<Type1> Type2>
+	[[nodiscard]]
+	inline constexpr std::compare_three_way_result_t<Type1, Type2> operator <=> (const Optional<Type1>& lhs, const Optional<Type2>& rhs);
+#endif
 
 	template <class Type>
 	[[nodiscard]]
 	inline constexpr bool operator ==(const Optional<Type>& opt, None_t) noexcept;
+
+#if __cpp_impl_three_way_comparison
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr std::strong_ordering operator <=> (const Optional<Type>& opt, None_t) noexcept;
+
+#else
 
 	template <class Type>
 	[[nodiscard]]
@@ -218,6 +234,8 @@ namespace s3d
 	template <class Type>
 	[[nodiscard]]
 	inline constexpr bool operator >=(None_t, const Optional<Type>& opt) noexcept;
+
+#endif
 
 
 	template <class Type, class U>
@@ -267,6 +285,21 @@ namespace s3d
 	template <class Type, class U>
 	[[nodiscard]]
 	inline constexpr bool operator >=(const U& value, const Optional<Type>& opt);
+
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts
+	namespace detail {
+		template <class T, template <class...> class Tmp>
+		inline constexpr bool is_specialization_v = false;
+
+		template <template <class...> class Tmp, class... Args>
+		inline constexpr bool is_specialization_v<Tmp<Args...>, Tmp> = true;
+	}
+
+	template <class Type, class U>
+	requires (!detail::is_specialization_v<U, Optional>) && std::three_way_comparable_with<Type, U>
+	[[nodiscard]]
+	inline constexpr std::compare_three_way_result_t<Type, U> operator <=> (const Optional<Type>& opt, const U& value);
+#endif
 
 	template <class Type>
 	[[nodiscard]]
