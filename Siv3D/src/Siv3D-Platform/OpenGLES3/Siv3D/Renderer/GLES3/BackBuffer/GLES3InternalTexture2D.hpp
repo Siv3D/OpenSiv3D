@@ -27,9 +27,6 @@ namespace s3d
 		// [メインテクスチャ]
 		GLuint m_texture = 0;
 
-		// [デプステクスチャ]
-		GLuint m_depthTexture = 0;
-
 		Size m_size = Size{ 0, 0 };
 
 		uint32 m_sampleCount = 1;
@@ -52,11 +49,6 @@ namespace s3d
 		const Size& size() const noexcept;
 
 		void clear(ColorF color);
-
-		[[nodiscard]]
-		bool hasDepth() const noexcept;
-
-		void initDepth();
 
 		[[nodiscard]]
 		GLuint getFrameBuffer() const noexcept;
