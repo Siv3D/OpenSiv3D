@@ -121,6 +121,12 @@
     <Filter Include="Resource Files\resources\engine\texture\box-shadow">
       <UniqueIdentifier>{aeb4dbf4-f1ba-402b-9249-c3056a02598d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Template Files">
+      <UniqueIdentifier>{3DC55764-A3B8-4D7E-AA91-C3C467637996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Template Files\Embeddable">
+      <UniqueIdentifier>{1155355D-3484-407F-BCE3-BC5EB094E4DD}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Content Include="example\csv\config.csv">
@@ -605,6 +611,14 @@
     <Media Include="example\test.mp3">
       <Filter>Resource Files\example</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\Embeddable\web-player.html">
+      <Filter>Template Files\Embeddable</Filter>
+    </None>
+    <None Include="Templates\Embeddable\web-player.js">
+      <Filter>Template Files\Embeddable</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

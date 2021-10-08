@@ -176,6 +176,8 @@
       <ProjectItem ReplaceParameters="false" TargetFileName="32.png">resources\engine\texture\box-shadow\32.png</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="64.png">resources\engine\texture\box-shadow\64.png</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="8.png">resources\engine\texture\box-shadow\8.png</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="web-player.html">Templates\Embeddable\web-player.html</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="web-player.js">Templates\Embeddable\web-player.js</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
