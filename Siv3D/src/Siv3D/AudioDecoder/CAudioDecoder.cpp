@@ -53,7 +53,8 @@ namespace s3d
 		m_decoders.push_back(std::make_unique<MP3Decoder>());
 		m_decoders.push_back(std::make_unique<AACDecoder>());
 	# elif SIV3D_PLATFORM(WEB)
-
+		m_decoders.push_back(std::make_unique<MP3Decoder>());
+		m_decoders.push_back(std::make_unique<AACDecoder>());
 	# endif
 	}
 

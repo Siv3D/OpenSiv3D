@@ -563,13 +563,13 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dWriteSaveFileBuffer", "$siv3dFlushSaveFileBuffer", "$siv3dSaveFileBuffer", "$siv3dDownloadLink", "$TTY", "$FS" ],
 
     siv3dOpenDialog: function(filterStr) {
-        Asyncify.handleSleep(function (wakeUp) {
+        return Asyncify.handleSleep(function (wakeUp) {
             siv3dInputElement.accept = UTF8ToString(filterStr);
             siv3dInputElement.oninput = function(e) {
                 const files = e.target.files;
 
                 if (files.length < 1) {
-                    wakeUp(null);
+                    wakeUp(0);
                     return;
                 }
 
@@ -594,7 +594,7 @@ mergeInto(LibraryManager.library, {
         })
     },
     siv3dOpenDialog__sig: "ii",
-    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "$Asyncify" ],
 
     siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
         siv3dInputElement.accept = UTF8ToString(filterStr);
@@ -672,7 +672,7 @@ mergeInto(LibraryManager.library, {
     //
     // Audio Support
     //
-    siv3dDecodeAudioFromFile: function(filePath, callback, arg) {
+    siv3dDecodeAudioFromFileAsync: function(filePath, callback, arg) {
         const path = UTF8ToString(filePath, 1024);
         const fileBytes = FS.readFile(path);
 
@@ -708,8 +708,8 @@ mergeInto(LibraryManager.library, {
 
         Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
     },
-    siv3dDecodeAudioFromFile__sig: "vii",
-    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS" ],
+    siv3dDecodeAudioFromFileAsync__sig: "viii",
+    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS" ],
 
     //
     // Clipboard
@@ -724,7 +724,24 @@ mergeInto(LibraryManager.library, {
     siv3dSetClipboardText__sig: "vi",
     siv3dSetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
 
-    siv3dGetClipboardText: function(callback, promise) {
+    siv3dGetClipboardText: function() {
+        return Asyncify.handleSleep(function (wakeUp) {
+            siv3dRegisterUserAction(function () {
+                navigator.clipboard.readText()
+                .then(str => {
+                    const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
+                    wakeUp(strPtr);
+                })
+                .catch(_ => {
+                    wakeUp(0);
+                })
+            }); 
+        });
+    },
+    siv3dGetClipboardText__sig: "iv",
+    siv3dGetClipboardText__deps: [ "$siv3dRegisterUserAction", "$Asyncify" ],
+
+    siv3dGetClipboardTextAsync: function(callback, promise) {
         siv3dRegisterUserAction(function () {
             navigator.clipboard.readText()
             .then(str => {
@@ -738,8 +755,8 @@ mergeInto(LibraryManager.library, {
         });
         
     },
-    siv3dGetClipboardText__sig: "vii",
-    siv3dGetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
+    siv3dGetClipboardTextAsync__sig: "vii",
+    siv3dGetClipboardTextAsync__deps: [ "$siv3dRegisterUserAction" ],
 
     //
     // TextInput
@@ -1016,14 +1033,65 @@ mergeInto(LibraryManager.library, {
 #if ASYNCIFY
     siv3dRequestAnimationFrame: function() {
         Asyncify.handleSleep(function(wakeUp) {
-            requestAnimationFrame(wakeUp);
+            requestAnimationFrame(function() {
+                wakeUp();
+            });
         });
     },
     siv3dRequestAnimationFrame__sig: "v", 
-    siv3dRequestAnimationFrame__deps: [ "$Asyncify" ], 
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify" ],
+
+    siv3dDecodeAudioFromFile: function(filePath, arg) {
+        Asyncify.handleSleep(function(wakeUp) {
+            const path = UTF8ToString(filePath, 1024);
+            const fileBytes = FS.readFile(path);
+
+            const onSuccess = function(decoded) {
+                const leftDataBuffer = Module["_malloc"](decoded.length * 4);
+                HEAPF32.set(decoded.getChannelData(0), leftDataBuffer>>2);
+
+                let rightDataBuffer;
+                
+                if (decoded.numberOfChannels >= 2) {
+                    rightDataBuffer = Module["_malloc"](decoded.length * 4);
+                    HEAPF32.set(decoded.getChannelData(1), rightDataBuffer>>2);
+                } else {
+                    rightDataBuffer = leftDataBuffer;
+                }
+
+                HEAP32[(arg>>2)+0] = leftDataBuffer;
+                HEAP32[(arg>>2)+1] = rightDataBuffer;
+                HEAPU32[(arg>>2)+2] = decoded.sampleRate;
+                HEAPU32[(arg>>2)+3] = decoded.length;
+
+                wakeUp();
+            };
+
+            const onFailure = function() {
+                HEAP32[(arg>>2)+0] = 0;
+                HEAP32[(arg>>2)+1] = 0;
+                HEAPU32[(arg>>2)+2] = 0;
+                HEAPU32[(arg>>2)+3] = 0;
+
+                wakeUp();
+            }
+
+            Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure); 
+        });
+    },
+    siv3dDecodeAudioFromFile__sig: "vii",
+    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS", "$Asyncify" ],
 #else
     siv3dRequestAnimationFrame: function() {
     },
-    siv3dRequestAnimationFrame__sig: "v"
+    siv3dRequestAnimationFrame__sig: "v",
+
+    siv3dDecodeAudioFromFile: function(_, arg) {
+        HEAP32[(arg>>2)+0] = 0;
+        HEAP32[(arg>>2)+1] = 0;
+        HEAPU32[(arg>>2)+2] = 0;
+        HEAPU32[(arg>>2)+3] = 0;
+    },
+    siv3dDecodeAudioFromFile__sig: "vii",
 #endif
 })
