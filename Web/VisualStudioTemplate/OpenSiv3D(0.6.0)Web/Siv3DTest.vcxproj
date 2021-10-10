@@ -260,10 +260,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <Link>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
-      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1
+  -s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
+  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
+  -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <EchoCommandLines>false</EchoCommandLines>
@@ -288,10 +288,10 @@
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions>-s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
+     <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1
+  -s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
+  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
+  -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
       <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
