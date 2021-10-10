@@ -975,4 +975,21 @@ mergeInto(LibraryManager.library, {
     },
     siv3dLaunchBrowser__sig: "vi",
     siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
+
+    //
+    // Asyncify Support
+    //
+#if ASYNCIFY
+    siv3dRequestAnimationFrame: function() {
+        Asyncify.handleSleep(function(wakeUp) {
+            requestAnimationFrame(wakeUp);
+        });
+    },
+    siv3dRequestAnimationFrame__sig: "v", 
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify" ], 
+#else
+    siv3dRequestAnimationFrame: function() {
+    },
+    siv3dRequestAnimationFrame__sig: "v"
+#endif
 })
