@@ -1,11 +1,11 @@
 [Setup]
 AppName=OpenSiv3D(0.6.0) for Web
-AppVersion=0.6.0b2
+AppVersion=0.6.0b4
 WizardStyle=modern
 SetupIconFile=..\..\WindowsDesktop\App\icon.ico
 OutputBaseFilename=OpenSiv3D(0.6.0)Web
 DefaultDirName={autopf}\OpenSiv3D(0.6.0)Web
-VersionInfoVersion=0.6.0.2
+VersionInfoVersion=0.6.0.4
 VersionInfoDescription=OpenSiv3D (0.6.0) for Web Installer
 Compression=lzma2
 SolidCompression=yes
