@@ -562,7 +562,41 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__sig: "v",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dWriteSaveFileBuffer", "$siv3dFlushSaveFileBuffer", "$siv3dSaveFileBuffer", "$siv3dDownloadLink", "$TTY", "$FS" ],
 
-    siv3dOpenDialog: function(filterStr, callback, futurePtr) {
+    siv3dOpenDialog: function(filterStr) {
+        Asyncify.handleSleep(function (wakeUp) {
+            siv3dInputElement.accept = UTF8ToString(filterStr);
+            siv3dInputElement.oninput = function(e) {
+                const files = e.target.files;
+
+                if (files.length < 1) {
+                    wakeUp(null);
+                    return;
+                }
+
+                const file = files[0];
+                const filePath = `/tmp/${file.name}`;
+
+                siv3dDialogFileReader.addEventListener("load", function onLoaded() {
+                    FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
+
+                    const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
+                    wakeUp(namePtr);
+
+                    siv3dDialogFileReader.removeEventListener("load", onLoaded);
+                });
+
+                siv3dDialogFileReader.readAsArrayBuffer(file);         
+            };
+
+            siv3dRegisterUserAction(function() {
+                siv3dInputElement.click();
+            });
+        })
+    },
+    siv3dOpenDialog__sig: "ii",
+    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+
+    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
         siv3dInputElement.accept = UTF8ToString(filterStr);
         siv3dInputElement.oninput = function(e) {
             const files = e.target.files;
@@ -591,8 +625,8 @@ mergeInto(LibraryManager.library, {
             siv3dInputElement.click();
         });
     },
-    siv3dOpenDialog__sig: "vii",
-    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+    siv3dOpenDialogAsync__sig: "vii",
+    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
 
     $siv3dSaveFileBuffer: null, 
     $siv3dSaveFileBufferWritePos: 0,
