@@ -1817,30 +1817,6 @@
 
 # endif
 
-# if SIV3D_PLATFORM(WEB)
-
-	# define SIV3D_MAINLOOP_BEGIN	s3d::Platform::Web::System::SetMainLoop([&] { s3d::System::Update();
-	# define SIV3D_MAINLOOP_END		});
-
-# else
-
-	# define SIV3D_MAINLOOP_BEGIN	while (s3d::System::Update())
-	# define SIV3D_MAINLOOP_END		
-
-# endif
-/*
-# include <Siv3D.hpp>
-
-void Main()
-{
-	SIV3D_MAINLOOP_BEGIN
-	{
-
-	}
-	SIV3D_MAINLOOP_END
-}
-*/
-
 //////////////////////////////////////////////////
 //
 //	名前空間 | Name Space
