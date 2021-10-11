@@ -13,10 +13,14 @@
 # if  __has_include(<compare>)
 #	include <compare>
 # endif
+# include <functional>
 # include <string>
+# include <unordered_set>
 # include "Common.hpp"
 # include "StringView.hpp"
 # include "Utility.hpp"
+# include "Random.hpp"
+# include "Char.hpp"
 # include "Shuffle.hpp"
 
 namespace s3d

@@ -10,10 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <unordered_set>
-# include <functional>
-# include "../Random.hpp"
-# include "../Char.hpp"
 
 namespace s3d
 {
@@ -1469,17 +1465,6 @@ namespace s3d
 	{
 		// [Siv3D ToDo: 最適化]
 		return *this = stable_uniqued();
-	}
-
-	inline String String::stable_uniqued() const
-	{
-		String result;
-
-		detail::StableUniqueHelper<value_type> pred;
-
-		std::copy_if(m_string.begin(), m_string.end(), std::back_inserter(result), std::ref(pred));
-
-		return result;
 	}
 
 	inline String& String::sort_and_unique()

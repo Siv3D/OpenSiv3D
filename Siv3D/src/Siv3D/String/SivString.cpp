@@ -326,6 +326,17 @@ namespace s3d
 		return result;
 	}
 
+	String String::stable_uniqued() const
+	{
+		String result;
+
+		detail::StableUniqueHelper<value_type> pred;
+
+		std::copy_if(m_string.begin(), m_string.end(), std::back_inserter(result), std::ref(pred));
+
+		return result;
+	}
+
 	String String::values_at(std::initializer_list<size_t> indices) const
 	{
 		String new_array;

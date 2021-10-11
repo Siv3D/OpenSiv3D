@@ -775,11 +775,6 @@ namespace s3d
 		return *this;
 	}
 
-	inline RectF LineString::computeBoundingRect() const noexcept
-	{
-		return Geometry2D::BoundingRect(*this);
-	}
-
 	template <class Shape2DType>
 	inline constexpr bool LineString::intersects(const Shape2DType& other) const
 	{

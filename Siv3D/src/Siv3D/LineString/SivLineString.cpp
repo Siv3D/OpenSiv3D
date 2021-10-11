@@ -204,6 +204,11 @@ namespace s3d
 		return{ v.y, -v.x };
 	}
 
+	RectF LineString::computeBoundingRect() const noexcept
+	{
+		return Geometry2D::BoundingRect(*this);
+	}
+
 	LineString LineString::catmullRom(const int32 interpolation) const
 	{
 		return detail::CatmullRom(*this, interpolation, CloseRing::No);
