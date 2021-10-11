@@ -124,7 +124,7 @@ namespace s3d
 	{
 		if (theta <= -Math::Pi)
 		{
-			return (theta + Math::TwoPi);
+			return (theta + Math::TwoPi_v<Float>);
 		}
 		else
 		{
@@ -135,7 +135,7 @@ namespace s3d
 	template <class Float, int32 Oclock>
 	inline constexpr Float CircularBase<Float, Oclock>::Clock() noexcept
 	{
-		return (Oclock * (Math::TwoPi / 12));
+		return (Oclock * (Math::TwoPi_v<Float> / 12));
 	}
 
 	template <class Float, int32 Oclock>
