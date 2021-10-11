@@ -102,6 +102,7 @@ if (${CMAKE_EXE_LINKER_FLAGS} MATCHES "-pthread")
 else ()
 
   target_link_libraries(Siv3DTest PRIVATE
+    # ${PROJECT_SOURCE_DIR}/../build/libSiv3DScript.a
     ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_objdetect.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_photo.a
