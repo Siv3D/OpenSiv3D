@@ -20,6 +20,7 @@ Name: "ja"; MessagesFile: "compiler:Languages\Japanese.isl"
 [Files]
 Source: "..\..\Siv3D\include\*"; DestDir: "{app}\include"; Flags: recursesubdirs
 Source: "..\Build\libSiv3D.a"; DestDir: "{app}\lib"
+Source: "..\Build\libSiv3DScript.a"; DestDir: "{app}\lib"
 Source: "..\Siv3D.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.pre.js"; DestDir: "{app}\lib"
 Source: "..\..\Siv3D\lib\Web\wasm\*"; DestDir: "{app}\lib"; Flags: recursesubdirs

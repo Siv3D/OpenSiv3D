@@ -52,12 +52,12 @@ jobs:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: ''
-            output-file: 'libSiv3D.a'
+            output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
           - name: wasm-simd
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: '-msimd128 -msse4.2'
-            output-file: 'libSiv3D.a'
+            output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
     container: 
       image: ${{ matrix.config.container }}

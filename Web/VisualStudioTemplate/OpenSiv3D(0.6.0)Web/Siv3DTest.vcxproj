@@ -265,7 +265,7 @@
   -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
   -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
-      <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
+      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <EchoCommandLines>false</EchoCommandLines>
       <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
       <PreJsFile>$(SIV3D_0_6_0_WEB)\lib\Siv3D.pre.js;</PreJsFile>
@@ -292,7 +292,7 @@
   -s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
   -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
   -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
+      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
       <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
       <PreJsFile>$(SIV3D_0_6_0_WEB)\lib\Siv3D.pre.js;</PreJsFile>
