@@ -74,7 +74,7 @@ namespace s3d
 			m_standardPS->shape					= WGSL{ Resource(U"engine/shader/wgsl/shape.frag.wgsl"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->square_dot			= WGSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
 			// m_standardPS->round_dot				= WGSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
-			// m_standardPS->texture				= WGSL{ Resource(U"engine/shader/wgsl/texture.frag.wgsl"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->texture				= WGSL{ Resource(U"engine/shader/wgsl/texture.frag.wgsl"), { { U"PSConstants2D", 0 } } };
 			m_standardPS->fullscreen_triangle	= WGSL{ Resource(U"engine/shader/wgsl/fullscreen_triangle.frag.wgsl"), {} };
 			if (not m_standardPS->setup())
 			{
@@ -100,38 +100,30 @@ namespace s3d
 		};
 
 		// シャドウ画像を作成
-		// {
-		// 	const Image boxShadowImage{ Resource(U"engine/texture/box-shadow/256.png") };
+		{
+			const Image boxShadowImage{ Resource(U"engine/texture/box-shadow/256.png") };
 
-		// 	const Array<Image> boxShadowImageMips =
-		// 	{
-		// 		Image{ Resource(U"engine/texture/box-shadow/128.png") },
-		// 		Image{ Resource(U"engine/texture/box-shadow/64.png") },
-		// 		Image{ Resource(U"engine/texture/box-shadow/32.png") },
-		// 		Image{ Resource(U"engine/texture/box-shadow/16.png") },
-		// 		Image{ Resource(U"engine/texture/box-shadow/8.png") },
-		// 	};
+			const Array<Image> boxShadowImageMips =
+			{
+				Image{ Resource(U"engine/texture/box-shadow/128.png") },
+				Image{ Resource(U"engine/texture/box-shadow/64.png") },
+				Image{ Resource(U"engine/texture/box-shadow/32.png") },
+				Image{ Resource(U"engine/texture/box-shadow/16.png") },
+				Image{ Resource(U"engine/texture/box-shadow/8.png") },
+			};
 
-		// 	m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
+			m_boxShadowTexture = std::make_unique<Texture>(boxShadowImage, boxShadowImageMips);
 
-		// 	if (m_boxShadowTexture->isEmpty())
-		// 	{
-		// 		throw EngineError(U"Failed to create a box-shadow texture");
-		// 	}
-		// }
+			if (m_boxShadowTexture->isEmpty())
+			{
+				throw EngineError(U"Failed to create a box-shadow texture");
+			}
+		}
 
-		// full screen triangle
-		// {
-		// 	::glGenVertexArrays(1, &m_vertexArray);
-		// 	::glBindVertexArray(m_vertexArray);
-
-		// 	::glGenSamplers(1, &m_sampler);
-		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		// 	::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		// }
-
-		// CheckOpenGLError();
+		{
+			Image emptyImage{ Size(1, 1), Palette::Yellow };
+			m_emptyTexture = std::make_unique<Texture>(emptyImage);
+		}
 	}
 
 	void CRenderer2D_WebGPU::update()
@@ -980,7 +972,7 @@ namespace s3d
 					m_psConstants2D._update_if_dirty();
 
 					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass);
-					pRenderer->getSamplerState().bindSamplers(m_device, pipeline, pass);
+					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
@@ -1059,7 +1051,7 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::VSSamplerState0);
 					const auto& samplerState = m_commandManager.getVSSamplerState(slot, command.index);
-					pRenderer->getSamplerState().setVS(m_device, slot, samplerState);
+					pRenderer->getSamplerState().setVSSampler(m_device, slot, samplerState);
 					LOG_COMMAND(U"VSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
@@ -1074,7 +1066,7 @@ namespace s3d
 				{
 					const uint32 slot = FromEnum(command.type) - FromEnum(WebGPURenderer2DCommandType::PSSamplerState0);
 					const auto& samplerState = m_commandManager.getPSSamplerState(slot, command.index);
-					pRenderer->getSamplerState().setPS(m_device, slot, samplerState);
+					pRenderer->getSamplerState().setPSSampler(m_device, slot, samplerState);
 					LOG_COMMAND(U"PSSamplerState{}[{}] "_fmt(slot, command.index));
 					break;
 				}
@@ -1229,14 +1221,12 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						// ::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
-						// ::glBindTexture(GL_TEXTURE_2D, 0);
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						// ::glActiveTexture(GL_TEXTURE0 + Shader::Internal::MakeSamplerSlot(ShaderStage::Vertex, slot));
-						// ::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -1256,15 +1246,13 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						// ::glActiveTexture(GL_TEXTURE0 + slot);
-						// ::glBindTexture(GL_TEXTURE_2D, 0);
-						LOG_COMMAND(U"PSTexture{}[{}]: null"_fmt(slot, command.index));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
+						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						// ::glActiveTexture(GL_TEXTURE0 + slot);
-						// ::glBindTexture(GL_TEXTURE_2D, pTexture->getTexture(textureID));
-						LOG_COMMAND(U"PSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(textureID));
+						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
 					break;

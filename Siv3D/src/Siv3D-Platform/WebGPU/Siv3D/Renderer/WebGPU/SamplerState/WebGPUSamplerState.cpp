@@ -31,7 +31,7 @@ namespace s3d
 		m_currentPSStates.fill(NullSamplerState);
 	}
 
-	void WebGPUSamplerState::setVS(wgpu::Device* device, const uint32 slot, const SamplerState& state)
+	void WebGPUSamplerState::setVSSampler(wgpu::Device* device, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -55,14 +55,14 @@ namespace s3d
 		m_currentVSStates[slot] = state;
 	}
 
-	void WebGPUSamplerState::setVS(wgpu::Device* device, const uint32 slot, None_t)
+	void WebGPUSamplerState::setVSSampler(wgpu::Device* device, const uint32 slot, None_t)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
 		m_currentVSStates[slot] = NullSamplerState;
 	}
 
-	void WebGPUSamplerState::setPS(wgpu::Device* device, const uint32 slot, const SamplerState& state)
+	void WebGPUSamplerState::setPSSampler(wgpu::Device* device, const uint32 slot, const SamplerState& state)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -86,56 +86,72 @@ namespace s3d
 		m_currentPSStates[slot] = state;
 	}
 
-	void WebGPUSamplerState::setPS(wgpu::Device* device, const uint32 slot, None_t)
+	void WebGPUSamplerState::setPSSampler(wgpu::Device* device, const uint32 slot, None_t)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
 		m_currentPSStates[slot] = NullSamplerState;
 	}
 
-	void WebGPUSamplerState::bindSamplers(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass)
+	void WebGPUSamplerState::setVSTexture(const uint32 slot, wgpu::Texture texture)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		m_currentVSTextures[slot] = texture;
+	}
+
+	void WebGPUSamplerState::setVSTexture(const uint32 slot, None_t)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		m_currentVSTextures[slot] = nullptr;
+	}
+
+	void WebGPUSamplerState::setPSTexture(const uint32 slot, wgpu::Texture texture)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		m_currentPSTextures[slot] = texture;
+	}
+
+	void WebGPUSamplerState::setPSTexture(const uint32 slot, None_t)
+	{
+		assert(slot < SamplerState::MaxSamplerCount);
+
+		m_currentPSTextures[slot] = nullptr;
+	}
+
+	void WebGPUSamplerState::bind(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass)
 	{
 		{
-			Array<wgpu::BindGroupEntry> vsSamplerBindings{};
-			Array<wgpu::BindGroupLayoutEntry> vsSamplerBindingsLayout{};
+			Array<wgpu::BindGroupEntry> vsBindings{};
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
 			{
 				const auto& state = m_currentVSStates[i];
+				const auto texture = m_currentVSTextures[i];
 
-				if (auto it = m_states.find(state); it != m_states.end())
+				if (auto it = m_states.find(state); it != m_states.end() && texture)
 				{
-					vsSamplerBindings << wgpu::BindGroupEntry
+					vsBindings << wgpu::BindGroupEntry
 					{
-						.binding = i,
+						.binding = 2 * i,
 						.sampler = it->second->m_sampler
 					};
 
-					vsSamplerBindingsLayout << wgpu::BindGroupLayoutEntry
+					vsBindings << wgpu::BindGroupEntry
 					{
-						.binding = i,
-						.visibility = wgpu::ShaderStage::Vertex,
-						.sampler = wgpu::SamplerBindingLayout 
-						{
-							.type = wgpu::SamplerBindingType::Filtering
-						}
+						.binding = 2 * i + 1,
+						.textureView = texture.CreateView()
 					};
 				}
 			}
 
-			wgpu::BindGroupLayoutDescriptor layoutDesc
-			{
-				.entries = vsSamplerBindingsLayout.data(),
-				.entryCount = vsSamplerBindingsLayout.size(),
-			};
-
-			auto uniformLayout = device->CreateBindGroupLayout(&layoutDesc);
-
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = uniformLayout,
-				.entries = vsSamplerBindings.data(),
-				.entryCount = vsSamplerBindings.size()
+				.layout = pipeline.GetBindGroupLayout(2),
+				.entries = vsBindings.data(),
+				.entryCount = vsBindings.size()
 			};
 
 			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
@@ -143,50 +159,38 @@ namespace s3d
 		}
 
 		{
-			Array<wgpu::BindGroupEntry> psSamplerBindings{};
-			Array<wgpu::BindGroupLayoutEntry> psSamplerBindingsLayout{};
+			Array<wgpu::BindGroupEntry> psBindings{};
 
 			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
 			{
 				const auto& state = m_currentPSStates[i];
+				const auto texture = m_currentPSTextures[i];
 
-				if (auto it = m_states.find(state); it != m_states.end())
+				if (auto it = m_states.find(state); it != m_states.end() && texture)
 				{
-					psSamplerBindings << wgpu::BindGroupEntry
+					psBindings << wgpu::BindGroupEntry
 					{
-						.binding = i,
+						.binding = 2 * i,
 						.sampler = it->second->m_sampler
 					};
 
-					psSamplerBindingsLayout << wgpu::BindGroupLayoutEntry
+					psBindings << wgpu::BindGroupEntry
 					{
-						.binding = i,
-						.visibility = wgpu::ShaderStage::Fragment,
-						.sampler = wgpu::SamplerBindingLayout 
-						{
-							.type = wgpu::SamplerBindingType::Filtering
-						}
+						.binding = 2 * i + 1,
+						.textureView = texture.CreateView()
 					};
 				}
 			}
 
-			wgpu::BindGroupLayoutDescriptor layoutDesc
-			{
-				.entries = psSamplerBindingsLayout.data(),
-				.entryCount = psSamplerBindingsLayout.size(),
-			};
-
-			auto uniformLayout = device->CreateBindGroupLayout(&layoutDesc);
-
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = uniformLayout,
-				.entries = psSamplerBindings.data(),
-				.entryCount = psSamplerBindings.size()
+				.layout = pipeline.GetBindGroupLayout(1),
+				.entries = psBindings.data(),
+				.entryCount = psBindings.size()
 			};
 
 			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(3, m_constantsUniform);
+			pass.SetBindGroup(1, m_constantsUniform);
 		}
 	}
 

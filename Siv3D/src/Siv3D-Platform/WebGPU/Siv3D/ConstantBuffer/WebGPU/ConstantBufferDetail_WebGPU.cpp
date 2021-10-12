@@ -22,10 +22,6 @@ namespace s3d
 
 	ConstantBufferDetail_WebGPU::~ConstantBufferDetail_WebGPU()
 	{
-		if (m_uniformBuffer)
-		{
-			m_uniformBuffer.Release();
-		}
 	}
 
 	bool ConstantBufferDetail_WebGPU::init() const

@@ -10,12 +10,6 @@
 //-----------------------------------------------
 
 //
-//	Textures
-//
-[[group(1), binding(0)]] var Sampler: sampler;
-[[group(1), binding(1)]] var Texture: texture_2d<f32>;
-
-//
 //	Constant Buffer
 //
 [[block]] struct PSConstants2DStruct
@@ -31,10 +25,17 @@
 var<uniform> PSConstants2D : PSConstants2DStruct;
 
 //
+//	Textures
+//
+[[group(1), binding(0)]] var Sampler: sampler;
+[[group(1), binding(1)]] var Texture: texture_2d<f32>;
+
+//
 //	Functions
 //
 [[stage(fragment)]]
 fn main(
+	[[builtin(position)]] Position : vec4<f32>,
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 

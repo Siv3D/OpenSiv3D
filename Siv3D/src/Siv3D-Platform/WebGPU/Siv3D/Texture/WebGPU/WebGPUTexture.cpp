@@ -47,6 +47,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.stride(),
+				.rowsPerImage = static_cast<uint32>(image.height())
 			};
 
 			wgpu::Extent3D size
@@ -100,6 +102,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.stride(),
+				.rowsPerImage = static_cast<uint32>(image.height())
 			};
 
 			wgpu::Extent3D size
@@ -127,6 +131,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = mipmap.stride(),
+				.rowsPerImage = static_cast<uint32>(mipmap.height())
 			};
 
 			wgpu::Extent3D size
@@ -254,6 +260,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.stride(),
+				.rowsPerImage = static_cast<uint32>(image.height())
 			};
 
 			wgpu::Extent3D size
@@ -318,6 +326,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.width() * sizeof(float),
+				.rowsPerImage = image.height()
 			};
 
 			wgpu::Extent3D size
@@ -381,6 +391,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.width() * sizeof(Float2),
+				.rowsPerImage = image.height()
 			};
 
 			wgpu::Extent3D size
@@ -444,6 +456,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = image.width() * sizeof(Float4),
+				.rowsPerImage = image.height()
 			};
 
 			wgpu::Extent3D size
@@ -529,26 +543,6 @@ namespace s3d
 
 	WebGPUTexture::~WebGPUTexture()
 	{
-		// [デプステクスチャ] を破棄
-		if (m_depthTexture)
-		{
-			m_depthTexture.Release();
-			m_depthTexture = nullptr;
-		}
-
-		// [マルチサンプルテクスチャ] を破棄
-		if (m_multiSampledTexture)
-		{
-			m_multiSampledTexture.Release();
-			m_multiSampledTexture = nullptr;
-		}
-
-		// [メインテクスチャ] を破棄
-		if (m_texture)
-		{
-			m_texture.Release();
-			m_texture = nullptr;
-		}
 	}
 
 	bool WebGPUTexture::isInitialized() const noexcept
@@ -649,6 +643,8 @@ namespace s3d
 
 			wgpu::TextureDataLayout layout 
 			{
+				.bytesPerRow = static_cast<uint32>(rect.w) * m_format.pixelSize(),
+				.rowsPerImage = static_cast<uint32>(rect.h)
 			};
 
 			wgpu::Extent3D size
@@ -678,28 +674,29 @@ namespace s3d
 			|| (m_format == TextureFormat::R8G8B8A8_Unorm_SRGB))
 		{
 			{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
+				wgpu::ImageCopyTexture copyOperationDesc
+				{
+					.texture = m_texture
+				};
 
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = stride
-			};
+				wgpu::TextureDataLayout layout 
+				{
+					.bytesPerRow = static_cast<uint32_t>(m_size.x) * m_format.pixelSize(),
+					.rowsPerImage = static_cast<uint32_t>(m_size.y)
+				};
 
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(m_size.x),
-				.height = static_cast<uint32_t>(m_size.y),
-				.depthOrArrayLayers = 1
-			};
+				wgpu::Extent3D size
+				{
+					.width = static_cast<uint32_t>(m_size.x),
+					.height = static_cast<uint32_t>(m_size.y),
+					.depthOrArrayLayers = 1
+				};
 
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				src, m_size.x * m_size.y * m_format.pixelSize(), 
-				&layout, &size);
-		}
+				device->GetQueue().WriteTexture(
+					&copyOperationDesc, 
+					src, m_size.x * m_size.y * m_format.pixelSize(), 
+					&layout, &size);
+			}
 		
 			return true;
 		}
@@ -752,6 +749,8 @@ namespace s3d
 
 				wgpu::TextureDataLayout layout 
 				{
+					.bytesPerRow = static_cast<uint32>(rect.w) * m_format.pixelSize(),
+					.rowsPerImage = static_cast<uint32>(rect.h)
 				};
 
 				wgpu::Extent3D size

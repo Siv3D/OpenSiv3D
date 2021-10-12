@@ -41,6 +41,10 @@ namespace s3d
 
 		WebGPUVertexAttribute m_standardVertexAttributes;
 
+		Array<wgpu::BindGroupLayout> m_standardBindgroupLayout;
+
+		wgpu::PipelineLayout m_standardPipelineLayout;
+
 		wgpu::Device m_device = nullptr;
 
 		CShader_WebGPU* pShader = nullptr;
@@ -53,7 +57,7 @@ namespace s3d
 
 		void init(const wgpu::Device& device);
 
-		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute);
+		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout = nullptr);
 
 		wgpu::RenderPipeline getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState);
 	};

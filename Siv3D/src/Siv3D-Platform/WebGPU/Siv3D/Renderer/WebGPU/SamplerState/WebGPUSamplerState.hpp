@@ -47,20 +47,32 @@ namespace s3d
 
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
 
+		std::array<wgpu::Texture, SamplerState::MaxSamplerCount> m_currentVSTextures;
+
+		std::array<wgpu::Texture, SamplerState::MaxSamplerCount> m_currentPSTextures;
+
 		SamplerStateList::iterator create(wgpu::Device* device, const SamplerState& state);
 
 	public:
 
 		WebGPUSamplerState();
 
-		void setVS(wgpu::Device* device, uint32 slot, const SamplerState& state);
+		void setVSSampler(wgpu::Device* device, uint32 slot, const SamplerState& state);
 
-		void setVS(wgpu::Device* device, uint32 slot, None_t);
+		void setVSSampler(wgpu::Device* device, uint32 slot, None_t);
 
-		void setPS(wgpu::Device* device, uint32 slot, const SamplerState& state);
+		void setPSSampler(wgpu::Device* device, uint32 slot, const SamplerState& state);
 
-		void setPS(wgpu::Device* device, uint32 slot, None_t);
+		void setPSSampler(wgpu::Device* device, uint32 slot, None_t);
 
-		void bindSamplers(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass);
+		void setVSTexture(uint32 slot, wgpu::Texture texture);
+
+		void setVSTexture(uint32 slot, None_t);
+
+		void setPSTexture(uint32 slot, wgpu::Texture texture);
+
+		void setPSTexture(uint32 slot, None_t);
+
+		void bind(wgpu::Device* device, const wgpu::RenderPipeline& pipeline, const wgpu::RenderPassEncoder& pass);
 	};
 }

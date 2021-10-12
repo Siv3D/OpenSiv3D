@@ -40,15 +40,6 @@ namespace s3d
 
 	WebGPUVertex2DBatch::~WebGPUVertex2DBatch()
 	{
-		if (m_indexBuffer)
-		{
-			m_indexBuffer.Release();
-		}
-
-		if (m_vertexBuffer)
-		{
-			m_vertexBuffer.Release();
-		}
 	}
 
 	bool WebGPUVertex2DBatch::init(const wgpu::Device& device)

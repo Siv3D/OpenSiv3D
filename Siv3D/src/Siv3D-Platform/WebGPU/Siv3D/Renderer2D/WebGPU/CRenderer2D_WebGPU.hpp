@@ -102,16 +102,9 @@ namespace s3d
 		Optional<PixelShader> m_currentCustomPS;
 
 		std::unique_ptr<Texture> m_boxShadowTexture;
+		std::unique_ptr<Texture> m_emptyTexture;
 
 		uint32 m_drawCount 			= 0;
-
-		//////////////////////////////////////////////////
-		//
-		//	full screen triangle
-		//
-		//////////////////////////////////////////////////
-		GLuint m_vertexArray		= 0;
-		GLuint m_sampler			= 0;
 
 		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
 		Array<Float2> m_buffer;

@@ -57,9 +57,90 @@ namespace s3d
 
             .stride = 32
         };
+
+        {
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 0,
+				.visibility = wgpu::ShaderStage::Vertex,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 1,
+				.visibility = wgpu::ShaderStage::Fragment,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
+			m_standardBindgroupLayout << uniformLayout;
+		}
+
+		for (auto shaderStage : { wgpu::ShaderStage::Fragment, wgpu::ShaderStage::Vertex })
+		{
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+			{
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = 2 * i,
+					.visibility = shaderStage,
+					.sampler = wgpu::SamplerBindingLayout 
+					{
+						.type = wgpu::SamplerBindingType::Filtering
+					}
+				};
+			
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = 2 * i + 1,
+					.visibility = shaderStage,
+					.texture = wgpu::TextureBindingLayout 
+					{
+						.sampleType = wgpu::TextureSampleType::Float,
+						.viewDimension = wgpu::TextureViewDimension::e2D
+					}
+				};
+			}
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
+			m_standardBindgroupLayout << uniformLayout;
+		}
+
+		{
+			wgpu::PipelineLayoutDescriptor desc
+			{
+				.bindGroupLayoutCount = m_standardBindgroupLayout.size(),
+				.bindGroupLayouts = m_standardBindgroupLayout.data()
+			};
+
+			m_standardPipelineLayout = device.CreatePipelineLayout(&desc);
+		}
     }
 
-    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute)
+    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
     {
         const KeyType key { vertexShader, pixelShader, rasterizerState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
 
@@ -107,6 +188,11 @@ namespace s3d
             .cullMode = ToEnum<wgpu::CullMode>(FromEnum(rasterizerState.cullMode) - 1),
         };
 
+        if (pipelineLayout != nullptr)
+        {
+            desc.layout = *pipelineLayout;
+        }
+
         auto pipeline = m_device.CreateRenderPipeline2(&desc);
 
         return m_pipelines.emplace(key, pipeline).first->second;
@@ -114,6 +200,6 @@ namespace s3d
 
 	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, m_standardVertexAttributes);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, m_standardVertexAttributes, &m_standardPipelineLayout);
     }
 }

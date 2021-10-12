@@ -96,8 +96,8 @@ namespace s3d
 		// m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
 		m_samplerState		= std::make_unique<WebGPUSamplerState>();
 		
-		// pTexture = dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
-		// pTexture->init();
+		pTexture = dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
+		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
 
@@ -175,8 +175,6 @@ namespace s3d
 		}
 
 		auto commands = commamdEncoder.Finish();
-		commamdEncoder.Release();
-			
 		m_queue.Submit(1, &commands);
 	}
 
