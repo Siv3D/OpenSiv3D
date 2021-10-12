@@ -179,11 +179,20 @@ jobs:
       matrix:
         config:
           - name: wasm
+            app-name: wasm
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: ''
+            cmake-additional-flags: ''
           - name: wasm-simd
+            app-name: wasm-simd
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: '-msimd128 -msse4.2'
+            cmake-additional-flags: ''
+          - name: wasm
+            app-name: wasm-wgpu
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+            cmake-additional-flags: '-DSIV3D_WEBGPU_BACKEND=On'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -216,7 +225,7 @@ jobs:
           cache-name: cache-siv3d-app
         with:
           path: Web/App
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
+          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
 
       - name: Create & Build Siv3d App
         if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
@@ -224,13 +233,14 @@ jobs:
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
-            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            ${{ matrix.config.cmake-additional-flags }} ..
           cmake --build .
 
       - name: Save Bundles
         uses: actions/upload-artifact@v2
         with:
-          name: Siv3DTest-${{ matrix.config.name }}
+          name: Siv3DTest-${{ matrix.config.app-name }}
           path: Web/App/Siv3DTest.*
 
   build-installer:
@@ -373,6 +383,12 @@ jobs:
         with:
           name: Siv3DTest-wasm-simd
           path: Dest/v6-wasm-simd-app
+          
+      - name: Place Siv3D Apps (wasm-webgpu)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm-wgpu
+          path: Dest/v6-wasm-wgpu-app
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
