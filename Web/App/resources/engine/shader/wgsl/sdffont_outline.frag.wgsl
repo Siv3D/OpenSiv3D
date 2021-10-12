@@ -39,6 +39,19 @@ fn main(
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
-{
-	return (textureSample(Texture0, Sampler0, UV) * Color + PSConstants2D.colorAdd);
+	var d: f32 = textureSample(Texture0, Sampler0, UV).a;
+
+	var od: f32 = (d - PSConstants2D.sdfParam.y);
+	var outlineAlpha: f32 = clamp(od / fwidth(od) + 0.5, 0.0, 1.0);
+
+	var td: f32 = (d - PSConstants2D.sdfParam.x);
+	var textAlpha: f32 = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+
+	var baseAlpha: f32 = (outlineAlpha - textAlpha);
+
+	var color: vec4<f32>;
+	color.rgb = mix(PSConstants2D.sdfOutlineColor.rgb, Color.rgb, textAlpha);
+	color.a = baseAlpha * PSConstants2D.sdfOutlineColor.a + textAlpha * Color.a;
+
+	return (color + PSConstants2D.colorAdd);
 }

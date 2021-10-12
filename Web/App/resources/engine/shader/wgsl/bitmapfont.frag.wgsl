@@ -40,5 +40,9 @@ fn main(
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
 {
-	return (textureSample(Texture0, Sampler0, UV) * Color + PSConstants2D.colorAdd);
+	var textAlpha: f32 = textureSample(Texture0, Sampler0, UV).a;
+
+	var color: vec4<f32> = vec4<f32>(Color.rgb, Color.a * textAlpha);
+
+	return (color + PSConstants2D.colorAdd);
 }

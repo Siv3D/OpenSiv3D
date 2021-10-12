@@ -39,6 +39,29 @@ fn main(
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
-{
-	return (textureSample(Texture0, Sampler0, UV) * Color + PSConstants2D.colorAdd);
+	var d: f32 = textureSample(Texture0, Sampler0, UV).a;
+
+	var td: f32 = (d - 0.5);
+	var textAlpha: f32 = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
+
+	var size: vec2<f32> = vac2<f32>(textureDimensions(Texture0, 0));
+	var shadowOffset: vec2<f32> = (PSConstants2D.sdfParam.zw / size);
+	var d2: f32 = textureSample(Texture0, Sampler0, UV - shadowOffset).a;
+
+	var sd: f32 = (d2 - 0.5);
+	var shadowAlpha: f32 = clamp(sd / fwidth(sd) + 0.5, 0.0, 1.0);
+	var sBase: f32 = shadowAlpha * (1.0 - textColor.a);
+
+	var color: vec4<f32>;
+	if (textColor.a == 0.0)
+	{
+		color.rgb = PSConstants2D.sdfShadowColor.rgb;
+	}
+	else
+	{
+		color.rgb = mix(textColor.rgb, PSConstants2D.sdfShadowColor.rgb, sBase);
+	}
+	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + (textAlpha * textColor.a);
+
+	return (color + PSConstants2D.colorAdd);
 }

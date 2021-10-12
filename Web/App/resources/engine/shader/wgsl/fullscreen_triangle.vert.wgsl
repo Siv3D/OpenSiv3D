@@ -11,7 +11,7 @@
 
 struct VertexOutput
 {
-	[[builtin(position)]] Position : vec4<f32>;
+	[[builtin(position)]] Position: vec4<f32>;
    	[[location(0)]] UV: vec2<f32>;
 };
 
@@ -20,10 +20,10 @@ fn main(
    [[builtin(vertex_index)]] VertexIndex: u32,
 ) -> VertexOutput
 {
-	var output : VertexOutput;
+	var output: VertexOutput;
 
-	var x : f32 = -1.0 + f32((VertexIndex & 1u) << 2u);
-	var y : f32 = -1.0 + f32((VertexIndex & 2u) << 1u);
+	var x: f32 = -1.0 + f32((VertexIndex & 1u) << 2u);
+	var y: f32 = -1.0 + f32((VertexIndex & 2u) << 1u);
 
 	output.Position = vec4<f32>(x, y, 0.0, 1.0);
 	output.UV = vec2<f32>(

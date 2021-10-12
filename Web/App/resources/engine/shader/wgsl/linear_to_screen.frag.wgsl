@@ -10,21 +10,6 @@
 //-----------------------------------------------
 
 //
-//	Constant Buffer
-//
-[[block]] struct PSConstants2DStruct
-{
-	colorAdd: vec4<f32>;
-	sdfParam: vec4<f32>;
-	sdfOutlineColor: vec4<f32>;
-	sdfShadowColor: vec4<f32>;
-	unused: vec4<f32>;
-};
-
-[[group(0), binding(1)]]
-var<uniform> PSConstants2D: PSConstants2DStruct;
-
-//
 //	Textures
 //
 [[group(1), binding(0)]] var Sampler0: sampler;
@@ -33,6 +18,11 @@ var<uniform> PSConstants2D: PSConstants2DStruct;
 //
 //	Functions
 //
+fn Gamma(color: vec3<f32>, g: f32) -> vec3<f32>
+{
+	return pow(color, vec3<f32>(g));
+}
+
 [[stage(fragment)]]
 fn main(
 	[[builtin(position)]] Position: vec4<f32>,
@@ -40,5 +30,7 @@ fn main(
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
 {
-	return (textureSample(Texture0, Sampler0, UV) * Color + PSConstants2D.colorAdd);
+	var texColor: vec3<f32> = textureSample(Texture0, Sampler0, UV).rgb;
+
+	return vec4<f32>(Gamma(abs(texColor), (1.0f / 2.2f)), 1.0f);
 }

@@ -14,11 +14,11 @@
 //
 [[block]] struct PSConstants2DStruct
 {
-	colorAdd : vec4<f32>;
-	sdfParam : vec4<f32>;
-	sdfOutlineColor : vec4<f32>;
-	sdfShadowColor : vec4<f32>;
-	unused : vec4<f32>;
+	colorAdd: vec4<f32>;
+	sdfParam: vec4<f32>;
+	sdfOutlineColor: vec4<f32>;
+	sdfShadowColor: vec4<f32>;
+	unused: vec4<f32>;
 };
 
 [[group(0), binding(1)]]
@@ -29,20 +29,20 @@ var<uniform> PSConstants2D : PSConstants2DStruct;
 //
 [[stage(fragment)]]
 fn main(
-	[[builtin(position)]] Position : vec4<f32>,
+	[[builtin(position)]] Position: vec4<f32>,
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
 {
-	var t : f32 = modf(UV.x, 2.0);
-	var tex : vec2<f32> = UV;
+	var t: f32 = UV.x % 2.0;
+	var tex: vec2<f32> = UV;
 	tex.x = abs(1.0 - t) * 2.0;
 	var color : vec4<f32> = Color;
 
-	var dist : f32 = dot(tex, tex) * 0.5;
-	var delta : f32 = fwidth(dist);
-	var alpha : f32 = smoothStep(0.5 - delta, 0.5, dist);
-	color.a *= 1.0 - alpha;
+	var dist: f32 = dot(tex, tex) * 0.5;
+	var delta: f32 = fwidth(dist);
+	var alpha: f32 = smoothStep(0.5 - delta, 0.5, dist);
+	color.a = color.a * (1.0 - alpha);
 
-	return (color + g_colorAdd);
+	return (color + PSConstants2D.colorAdd);
 }
