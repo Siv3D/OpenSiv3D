@@ -205,7 +205,7 @@ namespace s3d
 				m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 			}
 
-			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(Vertex2D::IndexType) * indexSize);
+			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(Vertex2D::IndexType) * ((indexSize & 0xFFFFFFFE) + 2));
 
 			// void* const pDst = m_indexBuffer.GetMappedRange(sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize);
 			// {
