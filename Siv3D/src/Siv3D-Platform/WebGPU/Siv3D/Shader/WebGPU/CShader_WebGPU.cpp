@@ -77,13 +77,13 @@ namespace s3d
 
 		// エンジン PS をロード
 		{
-			// m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/copy.frag"), {} };
-			// m_enginePSs << GLSL{ Resource(U"engine/shader/glsl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/gaussian_blur_9.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
 
-			// if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
-			// {
-			// 	throw EngineError{ U"CShader_WebGPU::m_enginePSs initialization failed" };
-			// }
+			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_WebGPU::m_enginePSs initialization failed" };
+			}
 		}
 
 		m_pipeline.init(*m_device);
