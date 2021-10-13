@@ -17,8 +17,7 @@ namespace s3d
 {
 	ISiv3DFont* ISiv3DFont::Create()
 	{
-		if (g_engineOptions.renderer == EngineOption::Renderer::Headless || 
-			g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CFont_Headless;
 		}
