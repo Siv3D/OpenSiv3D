@@ -47,6 +47,7 @@ fn main(
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
+{
 	var size: vec2<f32> = vec2<f32>(textureDimensions(Texture0, 0));
 	var pxRange: f32 = 4.0;
 	var msdfUnit: vec2<f32> = (pxRange / size);
@@ -63,5 +64,5 @@ fn main(
 	var sd: f32 = (d2 - 0.5);
 	var shadowAlpha: f32 = sqrt(clamp(sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0));
 
-	return vec4(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
+	return vec4<f32>(textAlpha, textAlpha, textAlpha, max(textAlpha, shadowAlpha));
 }

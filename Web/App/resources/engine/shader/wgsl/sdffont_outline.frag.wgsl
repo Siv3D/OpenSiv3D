@@ -38,7 +38,8 @@ fn main(
 	[[builtin(position)]] Position: vec4<f32>,
 	[[location(0)]] Color: vec4<f32>,
 	[[location(1)]] UV: vec2<f32>
-) -> [[location(0)]] vec4<f32> 
+) -> [[location(0)]] vec4<f32>
+{
 	var d: f32 = textureSample(Texture0, Sampler0, UV).a;
 
 	var od: f32 = (d - PSConstants2D.sdfParam.y);
