@@ -88,7 +88,7 @@ namespace s3d
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
 				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst,
-				.mipLevelCount = mipmaps.size()
+				.mipLevelCount = 1 + mipmaps.size()
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -126,7 +126,7 @@ namespace s3d
 			wgpu::ImageCopyTexture copyOperationDesc
 			{
 				.texture = m_texture,
-				.mipLevel = i
+				.mipLevel = i + 1
 			};
 
 			wgpu::TextureDataLayout layout 
