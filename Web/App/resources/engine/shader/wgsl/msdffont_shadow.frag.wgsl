@@ -64,18 +64,18 @@ fn main(
 
 	var sd: f32 = (d2 - 0.5);
 	var shadowAlpha: f32 = clamp(sd * dot(msdfUnit, 0.5 / fwidth(UV)) + 0.5, 0.0, 1.0);
-	var sBase: f32 = shadowAlpha * (1.0 - textColor.a);
+	var sBase: f32 = shadowAlpha * (1.0 - textAlpha);
 
 	var color: vec4<f32>;
-	if (textColor.a == 0.0)
+	if (textAlpha == 0.0)
 	{
-		color.rgb = PSConstants2D.sdfShadowColor.rgb;
+		color = vec4<f32>(PSConstants2D.sdfShadowColor.rgb, 1.0);
 	}
 	else
 	{
-		color.rgb = mix(textColor.rgb, PSConstants2D.sdfShadowColor.rgb, sBase);
+		color = vec4<f32>(mix(Color.rgb, PSConstants2D.sdfShadowColor.rgb, sBase), 1.0);
 	}
-	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + textAlpha * textColor.a;
+	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + textAlpha * Color.a;
 
 	return (color + PSConstants2D.colorAdd);
 }

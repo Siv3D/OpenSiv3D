@@ -63,9 +63,11 @@ fn main(
 
 	var baseAlpha: f32 = (outlineAlpha - textAlpha);
 
-	var color: vec4<f32>;
-	color.rgb = mix(PSConstants2D.sdfOutlineColor.rgb, Color.rgb, textAlpha);
-	color.a = baseAlpha * PSConstants2D.sdfOutlineColor.a + textAlpha * Color.a;
+	var color: vec4<f32> = vec4<f32>
+	(
+		mix(PSConstants2D.sdfOutlineColor.rgb, Color.rgb, textAlpha),
+	    baseAlpha * PSConstants2D.sdfOutlineColor.a + textAlpha * Color.a
+	);
 
 	return (color + PSConstants2D.colorAdd);
 }

@@ -63,10 +63,11 @@ fn main(
 
 	var baseAlpha: f32 = (outlineAlpha - textAlpha);
 
-	vec4 textColor;
-	textColor.rgb = mix(PSConstants2D.sdfOutlineColor.rgb, Color.rgb, textAlpha);
-	textColor.a = baseAlpha * PSConstants2D.sdfOutlineColor.a + textAlpha * Color.a;
-
+	var textColor: vec4<f32> = vec4<f32>
+	(
+		mix(PSConstants2D.sdfOutlineColor.rgb, Color.rgb, textAlpha),
+		baseAlpha * PSConstants2D.sdfOutlineColor.a + textAlpha * Color.a
+	);
 
 	var shadowOffset: vec2<f32> = (PSConstants2D.sdfParam.zw / size);
 	var s2: vec3<f32> = textureSample(Texture0, Sampler0, UV - shadowOffset).rgb;
@@ -79,11 +80,11 @@ fn main(
 	var color: vec4<f32>;
 	if (textColor.a == 0.0)
 	{
-		color.rgb = PSConstants2D.sdfShadowColor.rgb;
+		color = vec4<f32>(PSConstants2D.sdfShadowColor.rgb, 1.0);
 	}
 	else
 	{
-		color.rgb = mix(textColor.rgb, PSConstants2D.sdfShadowColor.rgb, sBase);
+		color = vec4<f32>(mix(textColor.rgb, PSConstants2D.sdfShadowColor.rgb, sBase), 1.0);
 	}
 	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + textColor.a;
 

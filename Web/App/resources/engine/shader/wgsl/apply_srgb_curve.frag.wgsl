@@ -43,14 +43,26 @@
 //	THE SOFTWARE.
 fn ApplySRGBCurve_Fast(x: f32) -> f32
 {
-	if x < 0.0031308f { 12.92f * x }
-	else { 1.13005f * sqrt(x - 0.00228f) - 0.13448f * x + 0.005719f }
+	if (x < 0.0031308f) 
+	{ 
+		return 12.92f * x;
+	}
+	else
+	{ 
+		return 1.13005f * sqrt(x - 0.00228f) - 0.13448f * x + 0.005719f;
+	}
 }
 
 fn ApplySRGBCurve(x: f32) -> f32
 {
-	if x < 0.0031308f { 12.92f * x }
-	else { 1.055f * pow(x, 1.0f / 2.4f) - 0.055f }
+	if (x < 0.0031308f)
+	{ 
+		return 12.92f * x;
+	}
+	else 
+	{ 
+		return 1.055f * pow(x, 1.0f / 2.4f) - 0.055f;
+	}
 }
 
 fn ApplySRGBCurve0(color: vec3<f32>) -> vec3<f32>

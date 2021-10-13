@@ -45,24 +45,24 @@ fn main(
 	var td: f32 = (d - 0.5);
 	var textAlpha: f32 = clamp(td / fwidth(td) + 0.5, 0.0, 1.0);
 
-	var size: vec2<f32> = vac2<f32>(textureDimensions(Texture0, 0));
+	var size: vec2<f32> = vec2<f32>(textureDimensions(Texture0, 0));
 	var shadowOffset: vec2<f32> = (PSConstants2D.sdfParam.zw / size);
 	var d2: f32 = textureSample(Texture0, Sampler0, UV - shadowOffset).a;
 
 	var sd: f32 = (d2 - 0.5);
 	var shadowAlpha: f32 = clamp(sd / fwidth(sd) + 0.5, 0.0, 1.0);
-	var sBase: f32 = shadowAlpha * (1.0 - textColor.a);
+	var sBase: f32 = shadowAlpha * (1.0 - textAlpha);
 
 	var color: vec4<f32>;
-	if (textColor.a == 0.0)
+	if (textAlpha == 0.0)
 	{
-		color.rgb = PSConstants2D.sdfShadowColor.rgb;
+		color = vec4<f32>(PSConstants2D.sdfShadowColor.rgb, 1.0);
 	}
 	else
 	{
-		color.rgb = mix(textColor.rgb, PSConstants2D.sdfShadowColor.rgb, sBase);
+		color = vec4<f32>(mix(Color.rgb, PSConstants2D.sdfShadowColor.rgb, sBase), 1.0);
 	}
-	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + (textAlpha * textColor.a);
+	color.a = (sBase * PSConstants2D.sdfShadowColor.a) + (textAlpha * Color.a);
 
 	return (color + PSConstants2D.colorAdd);
 }
