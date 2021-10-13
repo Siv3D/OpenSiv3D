@@ -17,6 +17,36 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr wgpu::BlendFactor BlendFactorTable[20] =
+		{
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Zero,
+			wgpu::BlendFactor::One,
+			wgpu::BlendFactor::Src,
+			wgpu::BlendFactor::OneMinusSrc,
+
+			wgpu::BlendFactor::SrcAlpha,
+			wgpu::BlendFactor::OneMinusSrcAlpha,
+			wgpu::BlendFactor::DstAlpha,
+			wgpu::BlendFactor::OneMinusDstAlpha,
+			wgpu::BlendFactor::Dst,
+
+			wgpu::BlendFactor::OneMinusDst,
+			wgpu::BlendFactor::SrcAlphaSaturated,
+			wgpu::BlendFactor::Zero, // None
+			wgpu::BlendFactor::Zero, // None
+			wgpu::BlendFactor::Zero, // Invalid Value
+
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Constant,
+			wgpu::BlendFactor::OneMinusConstant,
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Zero, // Invalid Value
+		};
+	}
+
     WebGPUShaderPipeline::WebGPUShaderPipeline()
     {
     }
@@ -140,9 +170,9 @@ namespace s3d
 		}
     }
 
-    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
+    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
     {
-        const KeyType key { vertexShader, pixelShader, rasterizerState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
+        const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
 
         auto it = m_pipelines.find(key);
 		
@@ -168,9 +198,26 @@ namespace s3d
             .buffers = &vertexLayout
 		};
 
+		wgpu::BlendState wgpuBlendState
+		{
+			.color =
+			{
+				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.op) - 1),
+				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.src)],
+				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dst)],
+			},
+			.alpha =
+			{
+				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.opAlpha) - 1),
+				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.srcAlpha)],
+				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dstAlpha)],
+			}
+		};
+
 		wgpu::ColorTargetState colorTargetState
 		{
-			.format = wgpu::TextureFormat::BGRA8Unorm
+			.format = wgpu::TextureFormat::BGRA8Unorm,
+			.blend = &wgpuBlendState
 		};
 
 		wgpu::FragmentState fragmentState
@@ -198,8 +245,8 @@ namespace s3d
         return m_pipelines.emplace(key, pipeline).first->second;
     }
 
-	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState)
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, m_standardVertexAttributes, &m_standardPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standardVertexAttributes, &m_standardPipelineLayout);
     }
 }

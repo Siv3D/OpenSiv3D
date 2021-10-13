@@ -35,7 +35,7 @@ namespace s3d
 
 		using WebGPUVertexAttributeHash = size_t;
 
-		using KeyType = std::tuple<VertexShader::IDType, PixelShader::IDType, RasterizerState, WebGPUVertexAttributeHash>;
+		using KeyType = std::tuple<VertexShader::IDType, PixelShader::IDType, RasterizerState, BlendState, WebGPUVertexAttributeHash>;
 		
 		HashTable<KeyType, wgpu::RenderPipeline> m_pipelines;
 
@@ -57,9 +57,9 @@ namespace s3d
 
 		void init(const wgpu::Device& device);
 
-		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout = nullptr);
+		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout = nullptr);
 
-		wgpu::RenderPipeline getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState);
+		wgpu::RenderPipeline getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState);
 	};
 }
 

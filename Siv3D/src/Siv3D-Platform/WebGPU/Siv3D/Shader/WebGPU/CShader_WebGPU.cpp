@@ -198,9 +198,9 @@ namespace s3d
 		return m_pixelShaders[handleID]->getShaderModule();
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass)
+	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState)
 	{
-		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, RasterizerState::Default2D, {});
+		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, {});
 
 		wgpu::BindGroupDescriptor uniformDesc
 		{
@@ -217,9 +217,9 @@ namespace s3d
 		return pipeline;
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass)
+	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState)
 	{
-		auto pipeline = m_pipeline.getPipelineWithStandardVertexLayout(m_currentVS, m_currentPS, RasterizerState::Default2D);
+		auto pipeline = m_pipeline.getPipelineWithStandardVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState);
 
 		wgpu::BindGroupEntry constantsEntries[]
 		{

@@ -938,6 +938,9 @@ namespace s3d
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 		pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
+		BlendState currentBlendState = BlendState::Default2D;
+		RasterizerState currentRasterizerState = RasterizerState::Default2D;
+
 		BatchInfo2D batchInfo;
 
 		LOG_COMMAND(U"----");
@@ -971,7 +974,7 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
-					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass);
+					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass, currentRasterizerState, currentBlendState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
@@ -1029,14 +1032,14 @@ namespace s3d
 			case WebGPURenderer2DCommandType::BlendState:
 				{
 					const auto& blendState = m_commandManager.getBlendState(command.index);
-					// pRenderer->getBlendState().set(blendState);
+					currentBlendState = blendState;
 					LOG_COMMAND(U"BlendState[{}]"_fmt(command.index));
 					break;
 				}
 			case WebGPURenderer2DCommandType::RasterizerState:
 				{
 					const auto& rasterizerState = m_commandManager.getRasterizerState(command.index);
-					// pRenderer->getRasterizerState().set(rasterizerState);
+					currentRasterizerState = rasterizerState;
 					LOG_COMMAND(U"RasterizerState[{}]"_fmt(command.index));
 					break;
 				}
@@ -1287,7 +1290,7 @@ namespace s3d
 
 		// draw fullscreen-triangle
 		{
-			pShader->usePipeline(pass);
+			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D);
 			{
 				pass.Draw(3);
 

@@ -67,9 +67,9 @@ namespace s3d
 
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass);
+		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
 
-		wgpu::RenderPipeline usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass);
+		wgpu::RenderPipeline usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
 
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 
