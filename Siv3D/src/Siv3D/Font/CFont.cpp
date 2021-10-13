@@ -93,22 +93,22 @@ namespace s3d
 			// SDF Font (Outline)
 			m_shader->shaders[3]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outline.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/sdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/sdffont_outline.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// SDF Font (Shadow)
 			m_shader->shaders[4]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_shadow.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/sdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/sdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/sdffont_shadow.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// SDF Font (Outline + Shadow)
 			m_shader->shaders[5]	= HLSL{ Resource(U"engine/shader/d3d11/sdffont_outlineshadow.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/sdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/sdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/sdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/sdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/sdffont_outlineshadow.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// MSDF Font
@@ -121,22 +121,22 @@ namespace s3d
 			// MSDF Font (Outline)
 			m_shader->shaders[7]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outline.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/msdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/msdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont_outline.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/msdffont_outline.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// MSDF Font (Shadow)
 			m_shader->shaders[8]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_shadow.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/msdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/msdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont_shadow.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/msdffont_shadow.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			// MSDF Font (Outline + Shadow)
 			m_shader->shaders[9]	= HLSL{ Resource(U"engine/shader/d3d11/msdffont_outlineshadow.ps") }
 									| GLSL{ Resource(U"engine/shader/glsl/msdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
-									| ESSL{ Resource(U"engine/shader/glsl/msdffont.frag"), { { U"PSConstants2D", 0 } } }
-									| WGSL{ Resource(U"engine/shader/wgsl/msdffont.frag.wgsl"), { { U"PSConstants2D", 0 } } }
+									| ESSL{ Resource(U"engine/shader/glsl/msdffont_outlineshadow.frag"), { { U"PSConstants2D", 0 } } }
+									| WGSL{ Resource(U"engine/shader/wgsl/msdffont_outlineshadow.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 									| MSL{ U"PS_Shape" }; // [Siv3D Todo]
 
 			for (const auto& shader : m_shader->shaders)
