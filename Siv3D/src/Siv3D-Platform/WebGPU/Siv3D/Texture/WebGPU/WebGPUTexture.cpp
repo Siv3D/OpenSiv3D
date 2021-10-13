@@ -178,6 +178,31 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
+		{
+			wgpu::ImageCopyTexture copyOperationDesc
+			{
+				.texture = m_texture
+			};
+
+			wgpu::TextureDataLayout layout 
+			{
+				.bytesPerRow = static_cast<uint32_t>(size.x * format.pixelSize()),
+				.rowsPerImage =  static_cast<uint32_t>(size.y)
+			};
+
+			wgpu::Extent3D textureSize
+			{
+				.width =  static_cast<uint32_t>(size.x),
+				.height =  static_cast<uint32_t>(size.y),
+				.depthOrArrayLayers = 1
+			};
+
+			device->GetQueue().WriteTexture(
+				&copyOperationDesc, 
+				pData, static_cast<uint32_t>(size.x * size.y * format.pixelSize()), 
+				&layout, &textureSize);
+		}
+
 		m_initialized = true;
 	}
 
