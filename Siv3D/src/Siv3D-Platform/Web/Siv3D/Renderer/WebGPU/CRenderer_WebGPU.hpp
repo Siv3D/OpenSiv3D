@@ -15,8 +15,6 @@
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.hpp>
-# include <Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.hpp>
-# include <Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.hpp>
 # include <Siv3D/Renderer/WebGPU/SamplerState/WebGPUSamplerState.hpp>
 # include <Siv3D/Texture/WebGPU/CTexture_WebGPU.hpp>
 
@@ -33,10 +31,6 @@ namespace s3d
 		GLFWwindow* m_window = nullptr;
 
 		std::unique_ptr<WebGPUBackBuffer> m_backBuffer;
-
-		std::unique_ptr<GLES3BlendState> m_blendState;
-
-		std::unique_ptr<GLES3RasterizerState> m_rasterizerState;
 		
 		std::unique_ptr<WebGPUSamplerState> m_samplerState;
 
@@ -101,13 +95,9 @@ namespace s3d
 		void updateSceneSize() override;
 
 		//
-		// GLES3
+		// WebGPU
 		//
 		WebGPUBackBuffer& getBackBuffer() noexcept;
-
-		GLES3BlendState& getBlendState() noexcept;
-
-		GLES3RasterizerState& getRasterizerState() noexcept;
 
 		WebGPUSamplerState& getSamplerState() noexcept;
 

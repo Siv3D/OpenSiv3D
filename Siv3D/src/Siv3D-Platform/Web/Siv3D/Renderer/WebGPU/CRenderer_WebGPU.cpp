@@ -92,8 +92,6 @@ namespace s3d
 		m_queue = m_device.GetQueue();
 
 		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device);
-		// m_blendState		= std::make_unique<GLES3BlendState>();
-		// m_rasterizerState	= std::make_unique<GLES3RasterizerState>();
 		m_samplerState		= std::make_unique<WebGPUSamplerState>();
 		
 		pTexture = dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
@@ -280,16 +278,6 @@ namespace s3d
 	WebGPUBackBuffer& CRenderer_WebGPU::getBackBuffer() noexcept
 	{
 		return *m_backBuffer;
-	}
-
-	GLES3BlendState& CRenderer_WebGPU::getBlendState() noexcept
-	{
-		return *m_blendState;
-	}
-
-	GLES3RasterizerState& CRenderer_WebGPU::getRasterizerState() noexcept
-	{
-		return *m_rasterizerState;
 	}
 
 	WebGPUSamplerState& CRenderer_WebGPU::getSamplerState() noexcept
