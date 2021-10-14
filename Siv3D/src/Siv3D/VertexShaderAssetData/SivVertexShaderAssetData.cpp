@@ -41,6 +41,11 @@ namespace s3d
 		, path{ essl.path }
 		, bindings{ essl.bindings } {}
 
+	VertexShaderAssetData::VertexShaderAssetData(const WGSL& wgsl, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ wgsl.path }
+		, bindings{ wgsl.bindings } {}
+
 	VertexShaderAssetData::VertexShaderAssetData(const ShaderGroup& shaderGroup, const Array<AssetTag>& tags)
 		: IAsset{ tags }
 	{
@@ -132,6 +137,10 @@ namespace s3d
 		else if (renderer == EngineOption::Renderer::WebGL2)
 		{
 			asset.vs = ESSL{ asset.path, asset.bindings };
+		}
+		else if (renderer == EngineOption::Renderer::WebGPU)
+		{
+			asset.vs = WGSL{ asset.path, asset.bindings };
 		}
 
 		if (not asset.vs)

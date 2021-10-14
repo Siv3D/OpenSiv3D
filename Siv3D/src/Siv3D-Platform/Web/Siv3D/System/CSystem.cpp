@@ -124,7 +124,7 @@ namespace s3d
 		SIV3D_ENGINE(Font)->init();
 		SIV3D_ENGINE(GUI)->init();
 		SIV3D_ENGINE(Print)->init();
-		SIV3D_ENGINE(PrimitiveMesh)->init();
+		// SIV3D_ENGINE(PrimitiveMesh)->init();
 		SIV3D_ENGINE(Effect)->init();
 		SIV3D_ENGINE(Script)->init();
 

@@ -1,0 +1,79 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# include "WebGPUInternalTexture2D.hpp"
+
+namespace s3d
+{
+	WebGPUInternalTexture2D::~WebGPUInternalTexture2D()
+	{
+		if (m_texture)
+		{
+			m_texture.Release();
+		}
+	}
+
+	bool WebGPUInternalTexture2D::isEmpty() const noexcept
+	{
+		return m_size.isZero();
+	}
+
+	WebGPUInternalTexture2D::operator bool() const noexcept
+	{
+		return (not isEmpty());
+	}
+
+	const Size& WebGPUInternalTexture2D::size() const noexcept
+	{
+		return m_size;
+	}
+
+	wgpu::TextureView WebGPUInternalTexture2D::getTextureView() const noexcept
+	{
+		return m_texture.CreateView();
+	}
+
+	std::unique_ptr<WebGPUInternalTexture2D> WebGPUInternalTexture2D::CreateRenderTargetTexture2D(const wgpu::Device& device, Size size, const uint32 sampleCount)
+	{
+		assert(sampleCount != 0);
+
+		auto p = std::make_unique<WebGPUInternalTexture2D>();
+
+		wgpu::Texture texture = nullptr;
+		
+		wgpu::TextureDescriptor desc
+		{
+			.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled,
+			.dimension = wgpu::TextureDimension::e2D,
+			.size = 
+			{
+				.width = static_cast<uint32_t>(size.x),
+				.height = static_cast<uint32_t>(size.y),
+				.depthOrArrayLayers = 1
+			},
+			.format = wgpu::TextureFormat::BGRA8Unorm,
+			.mipLevelCount = 1,
+			.sampleCount = 1 // sampleCount
+		};
+
+		texture = device.CreateTexture(&desc);
+
+		if (not texture)
+		{
+			return nullptr;
+		}
+
+		p->m_texture		= texture;
+		p->m_size			= size;
+
+		return p;
+	}
+}

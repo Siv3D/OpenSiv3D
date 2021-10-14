@@ -106,6 +106,18 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
+	bool PixelShaderAsset::Register(const AssetNameView name, const s3d::WGSL& wgsl)
+	{
+		if (not detail::CheckFileExists(wgsl.path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(wgsl);
+
+		return Register(name, std::move(data));
+	}
+
 	bool PixelShaderAsset::Register(const AssetNameView name, const ShaderGroup& shaderGroup)
 	{
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(shaderGroup);
@@ -175,6 +187,18 @@ namespace s3d
 		}
 
 		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(essl, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
+	}
+
+	bool PixelShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::WGSL& wgsl)
+	{
+		if (not detail::CheckFileExists(wgsl.path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<PixelShaderAssetData> data = std::make_unique<PixelShaderAssetData>(wgsl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
 	}

@@ -12,6 +12,7 @@
 # include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Shader/Null/CShader_Null.hpp>
 # include <Siv3D/Shader/GLES3/CShader_GLES3.hpp>
+# include <Siv3D/Shader/WebGPU/CShader_WebGPU.hpp>
 
 namespace s3d
 {
@@ -20,6 +21,10 @@ namespace s3d
 		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CShader_Null;
+		}
+		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
+		{
+			return new CShader_WebGPU;
 		}
 		else if (g_engineOptions.renderer == EngineOption::Renderer::PlatformDefault
 			|| g_engineOptions.renderer == EngineOption::Renderer::WebGL2)
