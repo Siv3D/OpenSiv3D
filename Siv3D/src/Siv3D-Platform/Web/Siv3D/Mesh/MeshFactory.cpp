@@ -17,7 +17,8 @@ namespace s3d
 {
 	ISiv3DMesh* ISiv3DMesh::Create()
 	{
-		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
+		if (g_engineOptions.renderer == EngineOption::Renderer::Headless
+			|| g_engineOptions.renderer == EngineOption::Renderer::WebGPU)
 		{
 			return new CMesh_Null;
 		}
