@@ -1027,6 +1027,25 @@ mergeInto(LibraryManager.library, {
     siv3dLaunchBrowser__sig: "vi",
     siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
 
+    siv3dWebGPUConfigureSwapchain: function(deviceId, swapChainId, descriptor) {
+        var device = WebGPU["mgrDevice"].get(deviceId);
+        var swapChain = WebGPU["mgrSwapChain"].get(swapChainId);
+        var width = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.width, 'i32', false, true) }}};
+        var height = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.height, 'i32', false, true) }}};
+
+        var desc = {
+            "device": device,
+            "format": WebGPU.TextureFormat[
+                {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.format, 'i32', false, true) }}}],
+            "usage": {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.usage, 'i32', false, true) }}},
+            "size": { width, height }
+        };
+
+        swapChain["configure"](desc);
+    },
+    siv3dWebGPUConfigureSwapchain__sig: "viii",
+    siv3dWebGPUConfigureSwapchain__deps: [ "$WebGPU" ], 
+
     //
     // Asyncify Support
     //

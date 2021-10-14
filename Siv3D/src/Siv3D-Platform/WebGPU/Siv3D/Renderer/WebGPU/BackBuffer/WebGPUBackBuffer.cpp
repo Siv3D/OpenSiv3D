@@ -19,8 +19,14 @@
 
 namespace s3d
 {
-	WebGPUBackBuffer::WebGPUBackBuffer(const wgpu::Device& device)
-		: m_device(device)
+	namespace detail
+	{
+		__attribute__((import_name("siv3dWebGPUConfigureSwapchain")))
+		extern void siv3dWebGPUConfigureSwapchain(WGPUDevice device, WGPUSwapChain swapChain, WGPUSwapChainDescriptor const * descripter);
+	}
+
+	WebGPUBackBuffer::WebGPUBackBuffer(const wgpu::Device& device, const wgpu::SwapChain& swapChain)
+		: m_device(device), m_swapChain(swapChain)
 	{
 		LOG_SCOPED_TRACE(U"WebGPUBackBuffer::WebGPUBackBuffer()");
 
@@ -203,6 +209,18 @@ namespace s3d
 
 		m_backBufferSize = backBufferSize;
 
+		{
+			WGPUSwapChainDescriptor desc
+			{
+				.format = WGPUTextureFormat_BGRA8Unorm,
+				.usage = WGPUTextureUsage_OutputAttachment,
+				.width = static_cast<uint32>(m_backBufferSize.x),
+				.height = static_cast<uint32>(m_backBufferSize.y),
+			};
+
+			detail::siv3dWebGPUConfigureSwapchain(m_device.Get(), m_swapChain.Get(), &desc);
+		}
+		
 		updateSceneSize();
 	}
 

@@ -91,7 +91,7 @@ namespace s3d
 
 		m_queue = m_device.GetQueue();
 
-		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device);
+		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device, m_swapChain);
 		m_samplerState		= std::make_unique<WebGPUSamplerState>();
 		
 		pTexture = dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));

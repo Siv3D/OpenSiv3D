@@ -70,13 +70,15 @@ namespace s3d
 
 		wgpu::Device m_device;
 
+		wgpu::SwapChain m_swapChain;
+
 		wgpu::Sampler m_sampler;
 
 		Array<wgpu::BindGroupEntry> m_uniforms;
 
 	public:
 
-		WebGPUBackBuffer(const wgpu::Device& device);
+		WebGPUBackBuffer(const wgpu::Device& device, const wgpu::SwapChain& swapChain);
 
 		~WebGPUBackBuffer();
 
