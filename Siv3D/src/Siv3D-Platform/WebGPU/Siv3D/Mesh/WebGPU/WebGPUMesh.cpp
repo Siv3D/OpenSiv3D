@@ -74,7 +74,7 @@ namespace s3d
 			};
 
 			m_vertexBuffer = device.CreateBuffer(&vertexBufferDescripter);
-			device.GetQueue().WriteBuffer(m_indexBuffer, 0, vertices.data(), vertexBufferDescripter.size);
+			device.GetQueue().WriteBuffer(m_vertexBuffer, 0, vertices.data(), vertexBufferDescripter.size);
 		}
 	
 		m_initialized = true;
@@ -122,7 +122,7 @@ namespace s3d
 			return false;
 		}
 		
-		device.GetQueue().WriteBuffer(m_indexBuffer, 0, meshData.vertices.data(), meshData.vertices.size_bytes());		
+		device.GetQueue().WriteBuffer(m_vertexBuffer, 0, meshData.vertices.data(), meshData.vertices.size_bytes());		
 		device.GetQueue().WriteBuffer(m_indexBuffer, 0, meshData.indices.data(), meshData.indices.size_bytes());
 		
 		m_boundingSphere = meshData.computeBoundingSphere();
@@ -149,7 +149,7 @@ namespace s3d
 			return false;
 		}
 
-		device.GetQueue().WriteBuffer(m_indexBuffer, (sizeof(Vertex3D) * offset), vertices, (sizeof(Vertex3D) * count));
+		device.GetQueue().WriteBuffer(m_vertexBuffer, (sizeof(Vertex3D) * offset), vertices, (sizeof(Vertex3D) * count));
 
 		m_boundingSphere = Geometry3D::MergeBoundingSpheres(m_boundingSphere, Geometry3D::BoundingSphere(vertices, count));
 		m_boundingBox = Geometry3D::MergeBoundingBoxes(m_boundingBox, Geometry3D::BoundingBox(vertices, count));

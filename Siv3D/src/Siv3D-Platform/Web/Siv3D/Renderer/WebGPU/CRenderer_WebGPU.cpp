@@ -18,7 +18,9 @@
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/Shader/IShader.hpp>
+# include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.hpp>
+# include <Siv3D/Renderer3D/WebGPU/CRenderer3D_WebGPU.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 # include <emscripten/html5_webgpu.h>
@@ -60,6 +62,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CRenderer_WebGPU::init()");
 		
 		pRenderer2D = dynamic_cast<CRenderer2D_WebGPU*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = dynamic_cast<CRenderer3D_WebGPU*>(SIV3D_ENGINE(Renderer3D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		m_device = wgpu::Device { ::emscripten_webgpu_get_device() };
@@ -98,6 +101,7 @@ namespace s3d
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();
+		SIV3D_ENGINE(Mesh)->init();
 
 		clear();
 	}
@@ -136,6 +140,7 @@ namespace s3d
 		{
 			auto pass = m_backBuffer->begin(commamdEncoder);
 
+			pRenderer3D->flush(pass);
 			pRenderer2D->flush(pass);
 
 			pass.EndPass();

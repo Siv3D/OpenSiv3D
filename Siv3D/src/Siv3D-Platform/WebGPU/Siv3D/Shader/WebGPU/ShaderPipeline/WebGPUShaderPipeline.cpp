@@ -65,7 +65,7 @@ namespace s3d
 
         pShader = dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
 
-        m_standardVertexAttributes = WebGPUVertexAttribute
+        m_standard2DVertexAttributes =
         {
             .attributes = {
                 {
@@ -87,6 +87,37 @@ namespace s3d
 
             .stride = 32
         };
+
+		m_standard3DVertexAttributes =
+        {
+            .attributes = {
+                {
+                    .format = wgpu::VertexFormat::Float32x3,
+                    .offset = 0,
+                    .shaderLocation = 0
+                },
+                {
+                    .format = wgpu::VertexFormat::Float32x3,
+                    .offset = 12,
+                    .shaderLocation = 1
+                },
+                {
+                    .format = wgpu::VertexFormat::Float32x2,
+                    .offset = 24,
+                    .shaderLocation = 2
+                }
+            },
+
+            .stride = 32
+        };
+
+		initializeStandard2DPipeline(device);
+		initializeStandard3DPipeline(device);
+    }
+
+	void WebGPUShaderPipeline::initializeStandard2DPipeline(const wgpu::Device& device)
+	{
+		Array<wgpu::BindGroupLayout> standard2DBindgroupLayout;
 
         {
 			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
@@ -118,7 +149,7 @@ namespace s3d
 			};
 
 			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			m_standardBindgroupLayout << uniformLayout;
+			standard2DBindgroupLayout << uniformLayout;
 		}
 
 		for (auto shaderStage : { wgpu::ShaderStage::Fragment, wgpu::ShaderStage::Vertex })
@@ -156,19 +187,135 @@ namespace s3d
 			};
 
 			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			m_standardBindgroupLayout << uniformLayout;
+			standard2DBindgroupLayout << uniformLayout;
 		}
 
 		{
 			wgpu::PipelineLayoutDescriptor desc
 			{
-				.bindGroupLayoutCount = m_standardBindgroupLayout.size(),
-				.bindGroupLayouts = m_standardBindgroupLayout.data()
+				.bindGroupLayoutCount = standard2DBindgroupLayout.size(),
+				.bindGroupLayouts = standard2DBindgroupLayout.data()
 			};
 
-			m_standardPipelineLayout = device.CreatePipelineLayout(&desc);
+			m_standard2DPipelineLayout = device.CreatePipelineLayout(&desc);
 		}
-    }
+	}
+
+	void WebGPUShaderPipeline::initializeStandard3DPipeline(const wgpu::Device& device)
+	{
+		Array<wgpu::BindGroupLayout> standard3DBindgroupLayout;
+
+        {
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 0,
+				.visibility = wgpu::ShaderStage::Vertex,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 1,
+				.visibility = wgpu::ShaderStage::Vertex,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 2,
+				.visibility = wgpu::ShaderStage::Fragment,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 3,
+				.visibility = wgpu::ShaderStage::Fragment,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			bindingLayout << wgpu::BindGroupLayoutEntry
+			{
+				.binding = 4,
+				.visibility = wgpu::ShaderStage::Fragment,
+				.buffer = wgpu::BufferBindingLayout
+				{
+					.type = wgpu::BufferBindingType::Uniform
+				}
+			};
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
+			standard3DBindgroupLayout << uniformLayout;
+		}
+
+		for (auto shaderStage : { wgpu::ShaderStage::Fragment, wgpu::ShaderStage::Vertex })
+		{
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+			{
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = 2 * i,
+					.visibility = shaderStage,
+					.sampler = wgpu::SamplerBindingLayout 
+					{
+						.type = wgpu::SamplerBindingType::Filtering
+					}
+				};
+			
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = 2 * i + 1,
+					.visibility = shaderStage,
+					.texture = wgpu::TextureBindingLayout 
+					{
+						.sampleType = wgpu::TextureSampleType::Float,
+						.viewDimension = wgpu::TextureViewDimension::e2D
+					}
+				};
+			}
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
+			standard3DBindgroupLayout << uniformLayout;
+		}
+
+		{
+			wgpu::PipelineLayoutDescriptor desc
+			{
+				.bindGroupLayoutCount = standard3DBindgroupLayout.size(),
+				.bindGroupLayouts = standard3DBindgroupLayout.data()
+			};
+
+			m_standard3DPipelineLayout = device.CreatePipelineLayout(&desc);
+		}
+	}
 
     wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
     {
@@ -245,8 +392,13 @@ namespace s3d
         return m_pipelines.emplace(key, pipeline).first->second;
     }
 
-	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standardVertexAttributes, &m_standardPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
+    }
+
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
+    {
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
     }
 }

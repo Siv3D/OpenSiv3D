@@ -17,6 +17,8 @@
 # include <Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.hpp>
 # include <Siv3D/Renderer/WebGPU/SamplerState/WebGPUSamplerState.hpp>
 # include <Siv3D/Texture/WebGPU/CTexture_WebGPU.hpp>
+# include <Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.hpp>
+# include <Siv3D/Renderer3D/WebGPU/CRenderer3D_WebGPU.hpp>
 
 # include <webgpu/webgpu_cpp.h>
 
@@ -27,6 +29,7 @@ namespace s3d
 	private:
 		
 		CRenderer2D_WebGPU* pRenderer2D = nullptr;
+		CRenderer3D_WebGPU* pRenderer3D = nullptr;
 		CTexture_WebGPU* pTexture = nullptr;
 		GLFWwindow* m_window = nullptr;
 

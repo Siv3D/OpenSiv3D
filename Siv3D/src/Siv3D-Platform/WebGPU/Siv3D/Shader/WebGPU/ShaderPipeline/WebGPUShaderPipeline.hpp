@@ -39,15 +39,21 @@ namespace s3d
 		
 		HashTable<KeyType, wgpu::RenderPipeline> m_pipelines;
 
-		WebGPUVertexAttribute m_standardVertexAttributes;
+		WebGPUVertexAttribute m_standard2DVertexAttributes;
 
-		Array<wgpu::BindGroupLayout> m_standardBindgroupLayout;
+		wgpu::PipelineLayout m_standard2DPipelineLayout;
 
-		wgpu::PipelineLayout m_standardPipelineLayout;
+		WebGPUVertexAttribute m_standard3DVertexAttributes;
+
+		wgpu::PipelineLayout m_standard3DPipelineLayout;
 
 		wgpu::Device m_device = nullptr;
 
 		CShader_WebGPU* pShader = nullptr;
+
+		void initializeStandard2DPipeline(const wgpu::Device& device);
+
+		void initializeStandard3DPipeline(const wgpu::Device& device);
 
 	public:
 		
@@ -59,7 +65,9 @@ namespace s3d
 
 		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout = nullptr);
 
-		wgpu::RenderPipeline getPipelineWithStandardVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState);
+		wgpu::RenderPipeline getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState);
+
+		wgpu::RenderPipeline getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState);
 	};
 }
 

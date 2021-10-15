@@ -31,7 +31,7 @@ namespace s3d
 
 	void CMesh_WebGPU::init()
 	{
-		LOG_SCOPED_TRACE(U"CMesh_D3D11::init()");
+		LOG_SCOPED_TRACE(U"CMesh_WebGPU::init()");
 
 		{
 			m_device = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer))->getDevice();

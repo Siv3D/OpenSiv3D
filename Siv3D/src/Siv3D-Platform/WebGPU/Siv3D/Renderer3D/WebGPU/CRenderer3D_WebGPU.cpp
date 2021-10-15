@@ -55,8 +55,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS3D>();
-			m_standardVS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
-			m_standardVS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.vert.wgsl"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.vert.wgsl"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
 
 			if (not m_standardVS->setup())
 			{
@@ -68,8 +68,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_WebGPU:");
 			m_standardPS = std::make_unique<WebGPUStandardPS3D>();
-			m_standardPS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
-			m_standardPS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.frag"), {} };
+			m_standardPS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.frag.wgsl"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.frag.wgsl"), {} };
 
 			if (not m_standardPS->setup())
 			{
@@ -426,11 +426,11 @@ namespace s3d
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
 
-		pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
-		pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
-		pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
-		pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
-		pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
+		pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
+		pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
+		pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
+		pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
+		pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
 
 		BatchInfoLine3D batchInfoLine3D;
 		VertexShader::IDType vsID = m_standardVS->forwardID;
@@ -461,7 +461,7 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::Draw:
 				{
-					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					const WebGPUDraw3DCommand& draw = m_commandManager.getDraw(command.index);
@@ -492,7 +492,7 @@ namespace s3d
 				{
 					m_line3DBatch.setBuffers(pass);
 
-					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					m_vsPerViewConstants._update_if_dirty();

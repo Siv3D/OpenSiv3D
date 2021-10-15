@@ -69,7 +69,9 @@ namespace s3d
 
 		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
 
-		wgpu::RenderPipeline usePipelineWithStandardVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
+		wgpu::RenderPipeline usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
+		
+		wgpu::RenderPipeline usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
 
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 
@@ -94,9 +96,7 @@ namespace s3d
 
 		wgpu::RenderPipeline m_currentPipeline;
 
-		wgpu::Buffer m_currentVSConstants;
-
-		wgpu::Buffer m_currentPSConstants;
+		std::array<wgpu::BindGroupEntry, 5> m_currentShaderConstants;
 
 		Array<wgpu::BindGroupEntry> m_currentUniforms;
 

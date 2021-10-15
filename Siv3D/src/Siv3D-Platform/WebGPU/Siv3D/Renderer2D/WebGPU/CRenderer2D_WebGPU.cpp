@@ -936,7 +936,7 @@ namespace s3d
 		m_vsConstants2D->colorMul = Float4(1, 1, 1, 1);
 
 		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
-		pShader->setConstantBufferPS(0, m_psConstants2D.base());
+		pShader->setConstantBufferPS(1, m_psConstants2D.base());
 
 		BlendState currentBlendState = BlendState::Default2D;
 		RasterizerState currentRasterizerState = RasterizerState::Default2D;
@@ -974,7 +974,7 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
-					auto pipeline = pShader->usePipelineWithStandardVertexLayout(pass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(pass, currentRasterizerState, currentBlendState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
