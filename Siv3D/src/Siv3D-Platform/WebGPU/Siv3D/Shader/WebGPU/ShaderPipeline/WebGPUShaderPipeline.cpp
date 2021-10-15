@@ -45,6 +45,19 @@ namespace s3d
 			wgpu::BlendFactor::Zero, // Invalid Value
 			wgpu::BlendFactor::Zero, // Invalid Value
 		};
+		
+		static constexpr wgpu::CompareFunction CompareFunctionTable[9] = 
+		{
+			wgpu::CompareFunction::Undefined,
+			wgpu::CompareFunction::Never,
+			wgpu::CompareFunction::Less,
+			wgpu::CompareFunction::Equal,
+			wgpu::CompareFunction::LessEqual,
+			wgpu::CompareFunction::Greater,
+			wgpu::CompareFunction::NotEqual,
+			wgpu::CompareFunction::GreaterEqual,
+			wgpu::CompareFunction::Always
+		};
 	}
 
     WebGPUShaderPipeline::WebGPUShaderPipeline()
@@ -317,9 +330,9 @@ namespace s3d
 		}
 	}
 
-    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
+    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
     {
-        const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
+        const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, depthStencilState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
 
         auto it = m_pipelines.find(key);
 		
@@ -361,6 +374,13 @@ namespace s3d
 			}
 		};
 
+		wgpu::DepthStencilState wgpuDepthStencilState
+		{
+			.format = wgpu::TextureFormat::Depth32Float,
+			.depthWriteEnabled = depthStencilState.depthWriteEnable,
+			.depthCompare = detail::CompareFunctionTable[FromEnum(depthStencilState.depthFunc)]
+		};
+
 		wgpu::ColorTargetState colorTargetState
 		{
 			.format = wgpu::TextureFormat::BGRA8Unorm,
@@ -382,6 +402,8 @@ namespace s3d
             .cullMode = ToEnum<wgpu::CullMode>(FromEnum(rasterizerState.cullMode) - 1),
         };
 
+		desc.depthStencil = &wgpuDepthStencilState;
+
         if (pipelineLayout != nullptr)
         {
             desc.layout = *pipelineLayout;
@@ -394,11 +416,11 @@ namespace s3d
 
 	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, DepthStencilState::Default2D, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
     }
 
-	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, depthStencilState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
     }
 }

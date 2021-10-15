@@ -424,7 +424,7 @@ namespace s3d
 		pShader->setPS(PixelShader::IDType::NullAsset());
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
-		::glViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y);
+		pass.SetViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
 		pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
 		pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
@@ -436,8 +436,9 @@ namespace s3d
 		VertexShader::IDType vsID = m_standardVS->forwardID;
 		PixelShader::IDType psID = m_standardPS->forwardID;
 
-		BlendState currentBlendState = BlendState::Default2D;
-		RasterizerState currentRasterizerState = RasterizerState::Default2D;
+		BlendState currentBlendState = BlendState::Default3D;
+		RasterizerState currentRasterizerState = RasterizerState::Default3D;
+		DepthStencilState currentDepthStencilState = DepthStencilState::Default3D;
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -461,7 +462,7 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::Draw:
 				{
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					const WebGPUDraw3DCommand& draw = m_commandManager.getDraw(command.index);
@@ -492,7 +493,7 @@ namespace s3d
 				{
 					m_line3DBatch.setBuffers(pass);
 
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
 
 					m_vsPerViewConstants._update_if_dirty();
@@ -540,7 +541,7 @@ namespace s3d
 			case WebGPURenderer3DCommandType::DepthStencilState:
 				{
 					const auto& depthStencilState = m_commandManager.getDepthStencilState(command.index);
-					// pRenderer->getDepthStencilState().set(depthStencilState);
+					currentDepthStencilState = depthStencilState;
 					LOG_COMMAND(U"DepthStencilState[{}]"_fmt(command.index));
 					break;
 				}
@@ -577,7 +578,12 @@ namespace s3d
 			case WebGPURenderer3DCommandType::ScissorRect:
 				{
 					const auto& scissorRect = m_commandManager.getScissorRect(command.index);
-					::glScissor(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+
+					if (scissorRect.hasArea())
+					{
+						pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+					}
+
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
 					break;
 				}
@@ -598,7 +604,7 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
-					::glViewport(rect.x, rect.y, rect.w, rect.h);
+					pass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
 						rect.x, rect.y, rect.w, rect.h));
@@ -813,7 +819,5 @@ namespace s3d
 				}
 			}
 		}
-
-		::glBindVertexArray(0);
 	}
 }

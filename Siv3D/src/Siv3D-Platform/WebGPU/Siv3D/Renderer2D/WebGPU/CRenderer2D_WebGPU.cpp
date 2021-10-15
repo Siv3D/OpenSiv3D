@@ -1285,7 +1285,7 @@ namespace s3d
 
 		// draw fullscreen-triangle
 		{
-			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D);
+			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D, DepthStencilState::Default2D);
 			{
 				pass.Draw(3);
 

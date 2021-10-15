@@ -208,9 +208,9 @@ namespace s3d
 		return m_pixelShaders[handleID]->getShaderModule();
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState)
+	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState)
 	{
-		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, {});
+		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, depthStencilState, {});
 
 		wgpu::BindGroupDescriptor uniformDesc
 		{
@@ -246,9 +246,9 @@ namespace s3d
 		return pipeline;
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState)
+	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState)
 	{
-		auto pipeline = m_pipeline.getPipelineWithStandard3DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState);
+		auto pipeline = m_pipeline.getPipelineWithStandard3DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, depthStencilState);
 
 		wgpu::BindGroupDescriptor constantsDesc
 		{
