@@ -1001,15 +1001,10 @@ namespace s3d
 
 					// draw null vertex buffer
 					{
-						// ::glBindVertexArray(m_vertexArray);
-						// {
-						// 	::glBindBuffer(GL_ARRAY_BUFFER, 0);
-						// 	::glDrawArrays(GL_TRIANGLES, 0, draw);
+						pass.Draw(draw);
 
-						// 	++m_stat.drawCalls;
-						// 	m_stat.triangleCount += (draw / 3);
-						// }
-						// ::glBindVertexArray(0);
+						++m_stat.drawCalls;
+						m_stat.triangleCount += (draw / 3);
 
 						// batch.setBuffers(pass);
 					}
