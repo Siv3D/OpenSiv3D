@@ -38,7 +38,7 @@ fn s3d_Transform2D(pos: vec2<f32>, t0: vec4<f32>, t1: vec4<f32>) -> vec4<f32>
 };
 
 [[group(0), binding(0)]]
-var<uniform> VSConstants2D : VSConstants2DStruct;
+var<uniform> VSConstants2D: VSConstants2DStruct;
 
 //
 //	Functions
