@@ -402,7 +402,7 @@ namespace s3d
             .cullMode = ToEnum<wgpu::CullMode>(FromEnum(rasterizerState.cullMode) - 1),
         };
 
-		desc.depthStencil = &wgpuDepthStencilState;
+		// desc.depthStencil = &wgpuDepthStencilState;
 
         if (pipelineLayout != nullptr)
         {

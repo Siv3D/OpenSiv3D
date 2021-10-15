@@ -39,31 +39,21 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
+		// 256バイト境界に合わせる必要がある
+		// https://www.w3.org/TR/webgpu/#gpu-image-copy-buffer
+		if (image.width() % 64 == 0)
 		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.stride(),
-				.rowsPerImage = static_cast<uint32>(image.height())
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
+			copyToTexture(device, image.size(), 0, image.data(), image.stride());
 		}
-		
+		else
+		{
+			auto requiredWidth = static_cast<uint32>(((image.width() / 64) + 1) * 64);
+			Image copiedImage{requiredWidth, static_cast<uint32>(image.height())};
+			image.overwrite(copiedImage, Point{ 0, 0 });
+			
+			copyToTexture(device, image.size(), 0, copiedImage.data(), copiedImage.stride());
+		}
+
 		m_size			= image.size();
 		m_format		= format;
 		m_textureDesc	= desc;
@@ -94,58 +84,34 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
+		if (image.width() % 64 == 0)
 		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
+			copyToTexture(device, image.size(), 0, image.data(), image.stride());
+		}
+		else
+		{
+			auto requiredWidth = static_cast<uint32>(((image.width() / 64) + 1) * 64);
+			Image copiedImage{requiredWidth, static_cast<uint32>(image.height())};
+			image.overwrite(copiedImage, Point{ 0, 0 });
 
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.stride(),
-				.rowsPerImage = static_cast<uint32>(image.height())
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
+			copyToTexture(device, image.size(), 0, copiedImage.data(), copiedImage.stride());
 		}
 
 		for (uint32 i = 0; i < mipmaps.size(); ++i)
 		{
 			const Image& mipmap = mipmaps[i];
-			
-			wgpu::ImageCopyTexture copyOperationDesc
+			if (mipmap.width() % 64 == 0)
 			{
-				.texture = m_texture,
-				.mipLevel = i + 1
-			};
-
-			wgpu::TextureDataLayout layout 
+				copyToTexture(device, mipmap.size(), i + 1, mipmap.data(), image.stride());
+			}
+			else
 			{
-				.bytesPerRow = mipmap.stride(),
-				.rowsPerImage = static_cast<uint32>(mipmap.height())
-			};
+				auto requiredWidth = static_cast<uint32>(((mipmap.width() / 64) + 1) * 64);
+				Image copiedImage{requiredWidth, static_cast<uint32>(mipmap.height())};
+				mipmap.overwrite(copiedImage, Point{ 0, 0 });
 
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(mipmap.width()),
-				.height = static_cast<uint32_t>(mipmap.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				mipmap.data(), mipmap.size_bytes(), 
-				&layout, &size);
+				copyToTexture(device, mipmap.size(), i + 1, copiedImage.data(), copiedImage.stride());
+			}
 		}
 		
 		m_size			= image.size();
@@ -178,30 +144,7 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
-		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = static_cast<uint32_t>(size.x * format.pixelSize()),
-				.rowsPerImage =  static_cast<uint32_t>(size.y)
-			};
-
-			wgpu::Extent3D textureSize
-			{
-				.width =  static_cast<uint32_t>(size.x),
-				.height =  static_cast<uint32_t>(size.y),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				pData, static_cast<uint32_t>(size.x * size.y * format.pixelSize()), 
-				&layout, &textureSize);
-		}
+		copyToTexture(device, size, 0, pData, size.x * format.pixelSize());
 
 		m_initialized = true;
 	}
@@ -277,29 +220,17 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
+		if (image.width() % 64 == 0)
 		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
+			copyToTexture(device, image.size(), 0, image.data(), image.stride());
+		}
+		else
+		{
+			auto requiredWidth = static_cast<uint32>(((image.width() / 64) + 1) * 64);
+			Image copiedImage{requiredWidth, static_cast<uint32>(image.height())};
+			image.overwrite(copiedImage, Point{ 0, 0 });
 
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.stride(),
-				.rowsPerImage = static_cast<uint32>(image.height())
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
+			copyToTexture(device, image.size(), 9, copiedImage.data(), copiedImage.stride());
 		}
 
 		if (hasDepth)
@@ -343,30 +274,7 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
-		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.width() * sizeof(float),
-				.rowsPerImage = image.height()
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
-		}
+		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(float));
 
 		if (hasDepth)
 		{
@@ -408,30 +316,7 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
-		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.width() * sizeof(Float2),
-				.rowsPerImage = image.height()
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
-		}
+		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(Float2));
 
 		if (hasDepth)
 		{
@@ -473,30 +358,7 @@ namespace s3d
 			m_texture = device->CreateTexture(&desc);
 		}
 
-		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-				.bytesPerRow = image.width() * sizeof(Float4),
-				.rowsPerImage = image.height()
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(image.width()),
-				.height = static_cast<uint32_t>(image.height()),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				image.data(), image.size_bytes(), 
-				&layout, &size);
-		}
+		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(Float4));
 
 		if (hasDepth)
 		{
@@ -614,28 +476,7 @@ namespace s3d
 			return false;
 		}
 
-		{
-			wgpu::ImageCopyTexture copyOperationDesc
-			{
-				.texture = m_texture
-			};
-
-			wgpu::TextureDataLayout layout 
-			{
-			};
-
-			wgpu::Extent3D size
-			{
-				.width = static_cast<uint32_t>(m_size.x),
-				.height = static_cast<uint32_t>(m_size.y),
-				.depthOrArrayLayers = 1
-			};
-
-			device->GetQueue().WriteTexture(
-				&copyOperationDesc, 
-				data.data(), data.size_bytes(), 
-				&layout, &size);
-		}
+		copyToTexture(device, m_size, 0, data.data(), m_size.x * m_format.pixelSize());			
 
 		return true;
 	}
@@ -698,31 +539,7 @@ namespace s3d
 		if ((m_format == TextureFormat::R8G8B8A8_Unorm)
 			|| (m_format == TextureFormat::R8G8B8A8_Unorm_SRGB))
 		{
-			{
-				wgpu::ImageCopyTexture copyOperationDesc
-				{
-					.texture = m_texture
-				};
-
-				wgpu::TextureDataLayout layout 
-				{
-					.bytesPerRow = static_cast<uint32_t>(m_size.x) * m_format.pixelSize(),
-					.rowsPerImage = static_cast<uint32_t>(m_size.y)
-				};
-
-				wgpu::Extent3D size
-				{
-					.width = static_cast<uint32_t>(m_size.x),
-					.height = static_cast<uint32_t>(m_size.y),
-					.depthOrArrayLayers = 1
-				};
-
-				device->GetQueue().WriteTexture(
-					&copyOperationDesc, 
-					src, m_size.x * m_size.y * m_format.pixelSize(), 
-					&layout, &size);
-			}
-		
+			copyToTexture(device, m_size, 0, src, m_size.x * m_format.pixelSize());	
 			return true;
 		}
 		else
@@ -988,5 +805,52 @@ namespace s3d
 		m_hasDepth = true;
 
 		return true;
+	}
+
+	void WebGPUTexture::copyToTexture(wgpu::Device* device, Size dstTextureSize, uint32 mipLevel, const void* src, uint32 stride)
+	{
+		wgpu::BufferDescriptor bufferDesc
+		{
+			.size = static_cast<uint32>(stride * dstTextureSize.y),
+			.usage = wgpu::BufferUsage::MapWrite | wgpu::BufferUsage::CopySrc,
+			.mappedAtCreation = true
+		};
+
+		auto buffer = device->CreateBuffer(&bufferDesc);
+
+		void* pDest = buffer.GetMappedRange();
+		{
+			::memcpy(pDest, src, bufferDesc.size);
+		}
+		buffer.Unmap();
+
+		wgpu::ImageCopyBuffer copyOperationSrc
+		{
+			.buffer = buffer,
+			.layout =
+			{
+				.bytesPerRow = stride,
+				.rowsPerImage = static_cast<uint32>(dstTextureSize.y)
+			}
+		};
+
+		wgpu::ImageCopyTexture copyOperationDst
+		{
+			.texture = m_texture,
+			.mipLevel = mipLevel
+		};	
+
+		wgpu::Extent3D copySize
+		{
+			.width = static_cast<uint32_t>(dstTextureSize.x),
+			.height = static_cast<uint32_t>(dstTextureSize.y),
+			.depthOrArrayLayers = 1
+		};
+
+		auto commandEncoder = device->CreateCommandEncoder();
+		commandEncoder.CopyBufferToTexture(&copyOperationSrc, &copyOperationDst, &copySize);
+
+		auto commands = commandEncoder.Finish();
+		device->GetQueue().Submit(1, &commands);
 	}
 }

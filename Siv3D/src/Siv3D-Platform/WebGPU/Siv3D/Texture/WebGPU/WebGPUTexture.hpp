@@ -116,6 +116,8 @@ namespace s3d
 			MSRender,
 		};
 
+		void copyToTexture(wgpu::Device* device, Size dstTextureSize, uint32 mipLevel, const void* src, uint32 stride);
+
 		// [メインテクスチャ]
 		wgpu::Texture m_texture = nullptr;
 
