@@ -1775,6 +1775,7 @@
 		2CF2AF8F25543A7F00E81D12 /* SivMonitor_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2AF8E25543A7F00E81D12 /* SivMonitor_macOS.cpp */; };
 		2CF3784426AD03FB009D5D56 /* SivSky.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3784326AD03FB009D5D56 /* SivSky.cpp */; };
 		2CF6C2BC26A6B9E90039467F /* SivDebugCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */; };
+		2CF7C128271A80D80031E8EB /* SivCamera2DParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7C127271A80D70031E8EB /* SivCamera2DParameters.cpp */; };
 		2CF962F025A7F953006F55C9 /* SivRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */; };
 		2CF962F325A7F95F006F55C9 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */; };
 		2CF962F625A7F987006F55C9 /* SivSpline2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F525A7F987006F55C9 /* SivSpline2D.cpp */; };
@@ -4587,6 +4588,7 @@
 		2CF3784326AD03FB009D5D56 /* SivSky.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSky.cpp; sourceTree = "<group>"; };
 		2CF6C2B926A6B9CD0039467F /* DebugCamera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DebugCamera3D.hpp; sourceTree = "<group>"; };
 		2CF6C2BB26A6B9E90039467F /* SivDebugCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDebugCamera3D.cpp; sourceTree = "<group>"; };
+		2CF7C127271A80D70031E8EB /* SivCamera2DParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCamera2DParameters.cpp; sourceTree = "<group>"; };
 		2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
 		2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2CF962F525A7F987006F55C9 /* SivSpline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSpline2D.cpp; sourceTree = "<group>"; };
@@ -6445,6 +6447,7 @@
 				2C47B2BD24DD9789008D83BE /* Byte */,
 				2C3477F925DA94C100071EEF /* CacheDirectory */,
 				2C13C8D225B8FAC30054B968 /* Camera2D */,
+				2CF7C126271A80D70031E8EB /* Camera2DParameters */,
 				2C4AEF53262C44F800D36CFC /* CascadeClassifier */,
 				2CE8D13A2616100D00C75FBB /* ChildProcess */,
 				2C53C33325613B6A0072831A /* Circle */,
@@ -11403,6 +11406,14 @@
 			path = DebugCamera3D;
 			sourceTree = "<group>";
 		};
+		2CF7C126271A80D70031E8EB /* Camera2DParameters */ = {
+			isa = PBXGroup;
+			children = (
+				2CF7C127271A80D70031E8EB /* SivCamera2DParameters.cpp */,
+			);
+			path = Camera2DParameters;
+			sourceTree = "<group>";
+		};
 		2CF962EE25A7F953006F55C9 /* RoundRect */ = {
 			isa = PBXGroup;
 			children = (
@@ -12520,6 +12531,7 @@
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
 				2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */,
 				2C9566DD2645626000539B85 /* mz_compat.c in Sources */,
+				2CF7C128271A80D80031E8EB /* SivCamera2DParameters.cpp in Sources */,
 				2CEC7DD825FA527700704B99 /* JPEGDecoder.cpp in Sources */,
 				2CD69C3026D2B7AF00879484 /* ScriptFloat4.cpp in Sources */,
 				2C8CA3A42615863C00BABD2D /* WebPEncoder.cpp in Sources */,
