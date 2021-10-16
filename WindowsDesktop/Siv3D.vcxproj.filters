@@ -1543,6 +1543,9 @@
     <Filter Include="src\Siv3D\Script\Bind">
       <UniqueIdentifier>{7ccb4b30-8184-4f0c-bab8-f804f00742f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Camera2DParameters">
+      <UniqueIdentifier>{f356a71d-f584-48e8-bdad-29a2713cfd1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9820,6 +9823,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptMixBus.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Camera2DParameters\SivCamera2DParameters.cpp">
+      <Filter>src\Siv3D\Camera2DParameters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

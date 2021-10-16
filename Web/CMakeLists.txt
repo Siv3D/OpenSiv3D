@@ -192,6 +192,7 @@ add_library(
   ../Siv3D/src/Siv3D/Buffer2D/SivBuffer2D.cpp
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
+  ../Siv3D/src/Siv3D/Camera2DParameters/SivCamera2DParameters.cpp
   ../Siv3D/src/Siv3D/Camera2D/SivCamera2D.cpp
   ../Siv3D/src/Siv3D/CascadeClassifier/CascadeClassifierDetail.cpp
   ../Siv3D/src/Siv3D/CascadeClassifier/SivCascadeClassifier.cpp
