@@ -913,7 +913,7 @@ namespace s3d
 	{
 	}
 
-	void CRenderer2D_WebGPU::flush(const wgpu::RenderPassEncoder& pass)
+	void CRenderer2D_WebGPU::flush(const wgpu::CommandEncoder& encoder)
 	{
 		WebGPUVertex2DBatch& batch = m_batches[m_drawCount % 2];
 
@@ -927,19 +927,18 @@ namespace s3d
 
 		m_commandManager.flush();
 
-		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
-		pass.SetViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
-
-		Mat3x2 transform = Mat3x2::Identity();
-		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
-
 		m_vsConstants2D->colorMul = Float4(1, 1, 1, 1);
-
-		pShader->setConstantBufferVS(0, m_vsConstants2D.base());
-		pShader->setConstantBufferPS(1, m_psConstants2D.base());
 
 		BlendState currentBlendState = BlendState::Default2D;
 		RasterizerState currentRasterizerState = RasterizerState::Default2D;
+
+		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+
+		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
+
+		Mat3x2 transform = Mat3x2::Identity();
+		Mat3x2 screenMat = Mat3x2::Screen(currentRenderTargetSize);
 
 		BatchInfo2D batchInfo;
 
@@ -956,8 +955,7 @@ namespace s3d
 				}
 			case WebGPURenderer2DCommandType::SetBuffers:
 				{
-					batch.setBuffers(pass);
-
+					//
 					LOG_COMMAND(U"SetBuffers[{}]"_fmt(command.index));
 					break;
 				}
@@ -974,15 +972,20 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
-					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(pass, currentRasterizerState, currentBlendState);
-					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
+					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
+					pShader->setConstantBufferPS(1, m_psConstants2D.base());
+
+					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState);
+					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
+
+					batch.setBuffers(currentRenderingPass);			
 
 					const WebGPUDrawCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfo.startIndexLocation;
 					const uint32 baseVertexLocation = batchInfo.baseVertexLocation;
 
-					pass.DrawIndexed(indexCount, 1, startIndexLocation, baseVertexLocation);
+					currentRenderingPass.DrawIndexed(indexCount, 1, startIndexLocation, baseVertexLocation);
 
 					batchInfo.startIndexLocation += indexCount;
 
@@ -997,17 +1000,22 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
+					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
+					pShader->setConstantBufferPS(1, m_psConstants2D.base());
+
 					const uint32 draw = m_commandManager.getNullDraw(command.index);
 
 					// draw null vertex buffer
 					{
-						pass.Draw(draw);
+						currentRenderingPass.Draw(draw);
 
 						++m_stat.drawCalls;
 						m_stat.triangleCount += (draw / 3);
 
 						// batch.setBuffers(pass);
 					}
+
+					currentRenderingPass.EndPass();
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
 					break;
@@ -1074,7 +1082,7 @@ namespace s3d
 
 					if (scissorRect.hasArea())
 					{
-						pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+						currentRenderingPass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
 					}
 
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
@@ -1097,7 +1105,7 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
-					pass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
+					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
 					const Mat3x2 matrix = (transform * screenMat);
@@ -1128,18 +1136,17 @@ namespace s3d
 				{
 					const auto& rt = m_commandManager.getRT(command.index);
 					
+					currentRenderingPass.EndPass();
+
 					if (rt) // [カスタム RenderTexture]
 					{
-						// const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						// pRenderer->getBackBuffer().bindFrameBuffer(frameBuffer);
-						
-						// LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+						currentRenderingPass = pTexture->begin(rt->id(), encoder);
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
-						// pRenderer->getBackBuffer().bindSceneBuffer();
-						
-						// LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
+						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
 					break;
@@ -1257,6 +1264,8 @@ namespace s3d
 				}
 			}
 		}
+
+		currentRenderingPass.EndPass();
 
 		++m_drawCount;
 	}

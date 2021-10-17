@@ -89,6 +89,8 @@ namespace s3d
 
 		wgpu::Texture getTexture(Texture::IDType handleID);
 
+		wgpu::RenderPassEncoder begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder);
+
 	private:
 
 		// Texture の管理

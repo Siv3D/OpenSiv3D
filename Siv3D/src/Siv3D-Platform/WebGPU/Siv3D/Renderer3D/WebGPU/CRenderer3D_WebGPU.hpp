@@ -158,7 +158,7 @@ namespace s3d
 
 		void flush() override;
 
-		void flush(const wgpu::RenderPassEncoder& pass);
+		void flush(const wgpu::CommandEncoder& encoder);
 
 	private:
 

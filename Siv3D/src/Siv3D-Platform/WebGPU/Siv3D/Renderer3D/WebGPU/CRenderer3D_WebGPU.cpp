@@ -403,7 +403,7 @@ namespace s3d
 	{
 	}
 
-	void CRenderer3D_WebGPU::flush(const wgpu::RenderPassEncoder& pass)
+	void CRenderer3D_WebGPU::flush(const wgpu::CommandEncoder& encoder)
 	{
 		ScopeGuard cleanUp = [this]()
 		{
@@ -423,15 +423,6 @@ namespace s3d
 		pShader->setVS(VertexShader::IDType::NullAsset());
 		pShader->setPS(PixelShader::IDType::NullAsset());
 
-		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
-		pass.SetViewport(0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
-
-		pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
-		pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
-		pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
-		pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
-		pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
-
 		BatchInfoLine3D batchInfoLine3D;
 		VertexShader::IDType vsID = m_standardVS->forwardID;
 		PixelShader::IDType psID = m_standardPS->forwardID;
@@ -439,6 +430,12 @@ namespace s3d
 		BlendState currentBlendState = BlendState::Default3D;
 		RasterizerState currentRasterizerState = RasterizerState::Default3D;
 		DepthStencilState currentDepthStencilState = DepthStencilState::Default3D;
+
+		auto currentMesh = Mesh::IDType::InvalidValue();
+		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+
+		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -462,8 +459,22 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::Draw:
 				{
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState, currentDepthStencilState);
-					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
+					m_vsPerViewConstants._update_if_dirty();
+					m_vsPerObjectConstants._update_if_dirty();
+					m_psPerFrameConstants._update_if_dirty();
+					m_psPerViewConstants._update_if_dirty();
+					m_psPerMaterialConstants._update_if_dirty();
+
+					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
+					pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
+					pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
+
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentDepthStencilState);
+					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
+
+					pMesh->bindMeshToContext(currentRenderingPass, currentMesh);
 
 					const WebGPUDraw3DCommand& draw = m_commandManager.getDraw(command.index);
 					const uint32 indexCount = draw.indexCount;
@@ -473,13 +484,7 @@ namespace s3d
 					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
 					m_psPerMaterialConstants->material = material;
 
-					m_vsPerViewConstants._update_if_dirty();
-					m_vsPerObjectConstants._update_if_dirty();
-					m_psPerFrameConstants._update_if_dirty();
-					m_psPerViewConstants._update_if_dirty();
-					m_psPerMaterialConstants._update_if_dirty();
-
-					pass.DrawIndexed(indexCount, 1, startIndexLocation);
+					currentRenderingPass.DrawIndexed(indexCount, 1, startIndexLocation);
 	
 					instanceIndex += instanceCount;
 
@@ -491,23 +496,29 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::DrawLine3D:
 				{
-					m_line3DBatch.setBuffers(pass);
-
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(pass, currentRasterizerState, currentBlendState, currentDepthStencilState);
-					pRenderer->getSamplerState().bind(m_device, pipeline, pass);
-
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
 					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
+					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
+					pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
+					pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
+
+					m_line3DBatch.setBuffers(currentRenderingPass);
+
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentDepthStencilState);
+					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
+
 					const WebGPUDrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = batchInfoLine3D.startIndexLocation;
 					const uint32 baseVertexLocation = batchInfoLine3D.baseVertexLocation;
 				
-					pass.DrawIndexed(indexCount, 1, startIndexLocation, baseVertexLocation);
+					currentRenderingPass.DrawIndexed(indexCount, 1, startIndexLocation, baseVertexLocation);
 
 					batchInfoLine3D.startIndexLocation += indexCount;
 
@@ -581,7 +592,7 @@ namespace s3d
 
 					if (scissorRect.hasArea())
 					{
-						pass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
+						currentRenderingPass.SetScissorRect(scissorRect.x, scissorRect.y, scissorRect.w, scissorRect.h);
 					}
 
 					LOG_COMMAND(U"ScissorRect[{}] {}"_fmt(command.index, scissorRect));
@@ -604,7 +615,7 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
-					pass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
+					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
 						rect.x, rect.y, rect.w, rect.h));
@@ -614,29 +625,16 @@ namespace s3d
 				{
 					const auto& rt = m_commandManager.getRT(command.index);
 					
+					currentRenderingPass.EndPass();
+					
 					if (rt) // [カスタム RenderTexture]
 					{
-						// const GLuint frameBuffer = pTexture->getFrameBuffer(rt->id());
-						// const bool isSRGB = pTexture->getFormat(rt->id()).isSRGB();
-						// pRenderer->getBackBuffer().bindToScene(frameBuffer);
-						
-						// if (isSRGB)
-						// {
-						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
-						// }
-						// else
-						// {
-						// 	::glEnable(GL_FRAMEBUFFER_SRGB);
-						// }
-
+						currentRenderingPass = pTexture->begin(rt->id(), encoder);
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
-						// pRenderer->getBackBuffer().bindSceneToContext();
-						
-						// ::glDisable(GL_FRAMEBUFFER_SRGB);
-
+						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
@@ -688,7 +686,7 @@ namespace s3d
 			case WebGPURenderer3DCommandType::CameraTransform:
 				{
 					const Mat4x4& cameraTransform = m_commandManager.getCameraTransform(command.index);
-					m_vsPerViewConstants->worldToProjected = (cameraTransform * Mat4x4::Scale(Float3{ 1.0f, -1.0f, 1.0f })).transposed();
+					m_vsPerViewConstants->worldToProjected = cameraTransform.transposed();
 
 					LOG_COMMAND(U"CameraTransform[{}] {}"_fmt(command.index, cameraTransform));
 					break;
@@ -787,7 +785,7 @@ namespace s3d
 					}
 					else
 					{
-						pMesh->bindMeshToContext(pass, meshID);
+						currentMesh = meshID;
 						LOG_COMMAND(U"SetMesh[{}]: {}"_fmt(command.index, meshID.value()));
 					}
 
@@ -819,5 +817,7 @@ namespace s3d
 				}
 			}
 		}
+
+		currentRenderingPass.EndPass();
 	}
 }

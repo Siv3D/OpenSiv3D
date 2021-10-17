@@ -134,16 +134,15 @@ namespace s3d
 
 	void CRenderer_WebGPU::flush()
 	{
-		auto commamdEncoder = m_device.CreateCommandEncoder();
+		auto commandEncoder = m_device.CreateCommandEncoder();
 
 		// Scene に 2D 描画
 		{
-			auto pass = m_backBuffer->begin(commamdEncoder);
-
-			pRenderer3D->flush(pass);
-			pRenderer2D->flush(pass);
-
+			auto pass = m_backBuffer->clear(commandEncoder);
 			pass.EndPass();
+
+			pRenderer3D->flush(commandEncoder);
+			pRenderer2D->flush(commandEncoder);
 		}
 
 		// ウィンドウに Scene を描画
@@ -170,15 +169,17 @@ namespace s3d
 				.colorAttachments = &colorAttachment
 			};
 
-			auto pass = commamdEncoder.BeginRenderPass(&descripter);
+			auto pass = commandEncoder.BeginRenderPass(&descripter);
 			{
 				m_backBuffer->updateFromSceneBuffer(pass);
 			}
 			pass.EndPass();
 		}
 
-		auto commands = commamdEncoder.Finish();
-		m_queue.Submit(1, &commands);
+		m_commandBuffers << commandEncoder.Finish();
+
+		m_queue.Submit(m_commandBuffers.size(), m_commandBuffers.data());
+		m_commandBuffers.clear();
 	}
 
 	bool CRenderer_WebGPU::present()
@@ -293,5 +294,10 @@ namespace s3d
 	wgpu::Device* CRenderer_WebGPU::getDevice()
 	{
 		return &m_device;
+	}
+
+	void CRenderer_WebGPU::pushCommands(wgpu::CommandBuffer commands)
+	{
+		m_commandBuffers << commands;
 	}
 }

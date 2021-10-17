@@ -382,6 +382,24 @@ namespace s3d
 		return m_textures[handleID]->getTexture();
 	}
 
+	wgpu::RenderPassEncoder CTexture_WebGPU::begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder)
+	{
+		wgpu::RenderPassColorAttachment colorAttachment
+		{
+			.view = getTexture(handleID).CreateView(),
+			.loadOp = wgpu::LoadOp::Load,
+			.storeOp = wgpu::StoreOp::Store,
+		};
+
+		wgpu::RenderPassDescriptor descripter
+		{
+			.colorAttachmentCount = 1,
+			.colorAttachments = &colorAttachment
+		};
+
+		return encoder.BeginRenderPass(&descripter);
+	}
+
 	bool CTexture_WebGPU::isMainThread() const noexcept
 	{
 		return (std::this_thread::get_id() == m_mainThreadID);
