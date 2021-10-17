@@ -24,7 +24,7 @@ namespace s3d
 			m_bufferSize = (m_bufferSize & ~0xFF) + 0x100;
 		}
 
-		m_allocatedBufferSize = m_bufferSize * 128;
+		m_allocatedBufferSize = 16 * 1024; // 16KB
 	}
 
 	ConstantBufferDetail_WebGPU::~ConstantBufferDetail_WebGPU()
@@ -61,13 +61,14 @@ namespace s3d
 
 		assert(size <= m_bufferSize);
 
-		m_device.GetQueue().WriteBuffer(m_uniformBuffer, m_bufferOffset, data, size);
+		m_device.GetQueue().WriteBuffer(m_uniformBuffer, m_bufferOffsetWritePos, data, size);
 
-		m_bufferOffset += m_bufferSize;
+		m_bufferOffset = m_bufferOffsetWritePos;
+		m_bufferOffsetWritePos += m_bufferSize;
 
-		if (m_bufferOffset >= m_allocatedBufferSize)
+		if (m_bufferOffsetWritePos >= m_allocatedBufferSize)
 		{
-			m_bufferOffset = 0;
+			m_bufferOffsetWritePos = 0;
 		}
 
 		return true;

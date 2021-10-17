@@ -28,6 +28,8 @@ namespace s3d
 
 		size_t m_bufferOffset = 0;
 
+		size_t m_bufferOffsetWritePos = 0;
+
 		size_t m_allocatedBufferSize = 0;
 
 		mutable wgpu::Buffer m_uniformBuffer = nullptr;
