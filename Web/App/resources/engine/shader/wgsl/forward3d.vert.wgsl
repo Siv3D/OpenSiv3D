@@ -44,18 +44,18 @@ var<uniform> VSPerObject: VSPerObjectStruct;
 //
 [[stage(vertex)]]
 fn main(
-	[[location(0)]] VertexPosition: vec4<f32>,
+	[[location(0)]] VertexPosition: vec3<f32>,
 	[[location(1)]] VertexNormal: vec3<f32>,
 	[[location(2)]] VertexUV: vec2<f32>,
 ) -> VertexOutput
 {
 	var output: VertexOutput;
-	var worldPosition: vec4<f32> = VertexPosition * VSPerObject.localToWorld;
+	var worldPosition: vec4<f32> = vec4<f32>(VertexPosition, 1.0) * VSPerObject.localToWorld;
 
 	output.Position			= worldPosition * VSPerView.worldToProjected;
 	output.WorldPosition	= worldPosition.xyz;
 	output.UV				= VertexUV;
-	output.Normal			= (vec4<f32>(VertexNormal, 0.0) * VSPerObject.localToWorld).xyz;
+	output.Normal			= (vec4<f32>(VertexNormal, 1.0) * VSPerObject.localToWorld).xyz;
 
 	return output;
 }

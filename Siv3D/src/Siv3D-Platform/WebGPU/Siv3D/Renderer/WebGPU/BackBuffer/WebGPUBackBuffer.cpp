@@ -68,7 +68,7 @@ namespace s3d
 		// do nothing
 	}
 
-	wgpu::RenderPassEncoder WebGPUBackBuffer::begin(const wgpu::CommandEncoder& encoder)
+	wgpu::RenderPassEncoder WebGPUBackBuffer::clear(const wgpu::CommandEncoder& encoder)
 	{
 		wgpu::RenderPassColorAttachment colorAttachment
 		{
@@ -91,6 +91,29 @@ namespace s3d
 		};
 
 		return encoder.BeginRenderPass(&descripter);
+	}
+
+	wgpu::RenderPassEncoder WebGPUBackBuffer::begin(const wgpu::CommandEncoder& encoder)
+	{
+		wgpu::RenderPassColorAttachment colorAttachment
+		{
+			.view = m_sceneBuffers.scene->getTextureView(),
+			.loadOp = wgpu::LoadOp::Load,
+			.storeOp = wgpu::StoreOp::Store,
+		};
+
+		wgpu::RenderPassDescriptor descripter
+		{
+			.colorAttachmentCount = 1,
+			.colorAttachments = &colorAttachment
+		};
+
+		return encoder.BeginRenderPass(&descripter);
+	}
+
+	wgpu::TextureView WebGPUBackBuffer::getTextureView() const
+	{
+		return m_sceneBuffers.scene->getTextureView();
 	}
 
 	void WebGPUBackBuffer::updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass)

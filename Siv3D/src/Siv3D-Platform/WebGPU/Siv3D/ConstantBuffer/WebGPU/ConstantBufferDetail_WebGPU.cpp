@@ -16,8 +16,15 @@
 namespace s3d
 {
 	ConstantBufferDetail_WebGPU::ConstantBufferDetail_WebGPU(const size_t size)
-		: m_bufferSize(size)
 	{
+		m_bufferSize = size;
+
+		if ((m_bufferSize & 0xFF) != 0)
+		{
+			m_bufferSize = (m_bufferSize & ~0xFF) + 0x100;
+		}
+
+		m_allocatedBufferSize = m_bufferSize * 128;
 	}
 
 	ConstantBufferDetail_WebGPU::~ConstantBufferDetail_WebGPU()
@@ -26,8 +33,7 @@ namespace s3d
 
 	bool ConstantBufferDetail_WebGPU::init() const
 	{
-		CRenderer_WebGPU* const pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
-
+		auto pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
 		m_device = *pRenderer->getDevice();
 
 		if (not m_device)
@@ -37,8 +43,8 @@ namespace s3d
 
 		wgpu::BufferDescriptor desc
 		{
-			.size = m_bufferSize,
-			.usage = wgpu::BufferUsage::CopyDst | wgpu::BufferUsage::Uniform
+			.size = m_allocatedBufferSize,
+			.usage = wgpu::BufferUsage::Uniform | wgpu::BufferUsage::CopyDst
 		};
 
 		m_uniformBuffer = m_device.CreateBuffer(&desc);
@@ -55,7 +61,14 @@ namespace s3d
 
 		assert(size <= m_bufferSize);
 
-		m_device.GetQueue().WriteBuffer(m_uniformBuffer, 0, data, size);
+		m_device.GetQueue().WriteBuffer(m_uniformBuffer, m_bufferOffset, data, size);
+
+		m_bufferOffset += m_bufferSize;
+
+		if (m_bufferOffset >= m_allocatedBufferSize)
+		{
+			m_bufferOffset = 0;
+		}
 
 		return true;
 	}
@@ -68,5 +81,20 @@ namespace s3d
 		}
 
 		return m_uniformBuffer;
+	}
+
+	wgpu::BindGroupEntry ConstantBufferDetail_WebGPU::getBindGroupEntry() const
+	{
+		if (not m_uniformBuffer)
+		{
+			init();
+		}
+
+		return wgpu::BindGroupEntry
+		{
+			.buffer = m_uniformBuffer,
+			.size = m_bufferSize,
+			.offset = m_bufferOffset
+		};
 	}
 }

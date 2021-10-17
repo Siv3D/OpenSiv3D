@@ -26,6 +26,10 @@ namespace s3d
 
 		size_t m_bufferSize = 0;
 
+		size_t m_bufferOffset = 0;
+
+		size_t m_allocatedBufferSize = 0;
+
 		mutable wgpu::Buffer m_uniformBuffer = nullptr;
 
 		bool init() const;
@@ -39,5 +43,7 @@ namespace s3d
 		bool update(const void* data, size_t size) override;
 
 		wgpu::Buffer getHandle() const;
+
+		wgpu::BindGroupEntry getBindGroupEntry() const;
 	};
 }

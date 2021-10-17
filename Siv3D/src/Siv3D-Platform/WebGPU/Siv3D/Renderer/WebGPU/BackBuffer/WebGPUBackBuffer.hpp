@@ -82,7 +82,11 @@ namespace s3d
 
 		~WebGPUBackBuffer();
 
+		wgpu::RenderPassEncoder clear(const wgpu::CommandEncoder& encoder);
+
 		wgpu::RenderPassEncoder begin(const wgpu::CommandEncoder& encoder);
+
+		wgpu::TextureView getTextureView() const;
 
 		void updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass);
 

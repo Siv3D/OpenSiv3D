@@ -175,22 +175,20 @@ namespace s3d
 
 	void CShader_WebGPU::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		m_currentShaderConstants[slot] = wgpu::BindGroupEntry
-		{
-			.binding = slot,
-			.buffer = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getHandle(),
-			.size = static_cast<uint64>(-1)
-		};
+		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
+
+		entry.binding = slot;
+
+		m_currentShaderConstants[slot] = entry;
 	}
 
 	void CShader_WebGPU::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		m_currentShaderConstants[slot] = wgpu::BindGroupEntry
-		{
-			.binding = slot,
-			.buffer = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getHandle(),
-			.size = static_cast<uint64>(-1)
-		};
+		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
+
+		entry.binding = slot;
+
+		m_currentShaderConstants[slot] = entry;
 	}
 
 	const PixelShader& CShader_WebGPU::getEnginePS(const EnginePS ps) const
