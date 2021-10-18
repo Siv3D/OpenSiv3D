@@ -15,6 +15,17 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr wgpu::AddressMode AddressModeTable[4]
+		{
+			wgpu::AddressMode::Repeat,
+			wgpu::AddressMode::MirrorRepeat,
+			wgpu::AddressMode::ClampToEdge,
+			wgpu::AddressMode::ClampToEdge
+		};
+	}
+
 	static const SamplerState NullSamplerState(TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
@@ -203,9 +214,9 @@ namespace s3d
 			.minFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.min)),
 			.magFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.mag)),
 			.mipmapFilter = ToEnum<wgpu::FilterMode>(FromEnum(state.mip)),
-			.addressModeU = ToEnum<wgpu::AddressMode>(FromEnum(state.addressU)),
-			.addressModeV = ToEnum<wgpu::AddressMode>(FromEnum(state.addressV)),
-			.addressModeW = ToEnum<wgpu::AddressMode>(FromEnum(state.addressW)),
+			.addressModeU = detail::AddressModeTable[FromEnum(state.addressU)],
+			.addressModeV = detail::AddressModeTable[FromEnum(state.addressV)],
+			.addressModeW = detail::AddressModeTable[FromEnum(state.addressW)],
 			.maxAnisotropy = state.maxAnisotropy,
 			.lodMinClamp = 0.0f,
 			.lodMaxClamp = 1000.0f,

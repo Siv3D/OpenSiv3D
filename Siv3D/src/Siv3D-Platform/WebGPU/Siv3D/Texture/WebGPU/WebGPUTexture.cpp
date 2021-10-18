@@ -33,7 +33,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -102,7 +102,7 @@ namespace s3d
 			const Image& mipmap = mipmaps[i];
 			if (mipmap.width() % 64 == 0)
 			{
-				copyToTexture(device, mipmap.size(), i + 1, mipmap.data(), image.stride());
+				copyToTexture(device, mipmap.size(), i + 1, mipmap.data(), mipmap.stride());
 			}
 			else
 			{
@@ -138,7 +138,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -214,7 +214,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -230,7 +230,7 @@ namespace s3d
 			Image copiedImage{requiredWidth, static_cast<uint32>(image.height())};
 			image.overwrite(copiedImage, Point{ 0, 0 });
 
-			copyToTexture(device, image.size(), 9, copiedImage.data(), copiedImage.stride());
+			copyToTexture(device, image.size(), 0, copiedImage.data(), copiedImage.stride());
 		}
 
 		if (hasDepth)
@@ -268,7 +268,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -310,7 +310,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -352,7 +352,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -394,7 +394,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst,
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc,
 				.sampleCount = 4
 			};
 
@@ -411,7 +411,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -812,17 +812,12 @@ namespace s3d
 		wgpu::BufferDescriptor bufferDesc
 		{
 			.size = static_cast<uint32>(stride * dstTextureSize.y),
-			.usage = wgpu::BufferUsage::MapWrite | wgpu::BufferUsage::CopySrc,
-			.mappedAtCreation = true
+			.usage = wgpu::BufferUsage::CopyDst | wgpu::BufferUsage::CopySrc
 		};
 
 		auto buffer = device->CreateBuffer(&bufferDesc);
 
-		void* pDest = buffer.GetMappedRange();
-		{
-			::memcpy(pDest, src, bufferDesc.size);
-		}
-		buffer.Unmap();
+		device->GetQueue().WriteBuffer(buffer, 0, src, bufferDesc.size);
 
 		wgpu::ImageCopyBuffer copyOperationSrc
 		{
