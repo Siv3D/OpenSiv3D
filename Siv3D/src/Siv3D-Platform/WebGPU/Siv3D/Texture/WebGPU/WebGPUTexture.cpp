@@ -746,19 +746,37 @@ namespace s3d
 		// ::glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void WebGPUTexture::resolveMSRT()
+	void WebGPUTexture::resolveMSRT(wgpu::Device* device)
 	{
 		if (m_type != TextureType::MSRender)
 		{
 			return;
 		}
 
-		// ::glBindFramebuffer(GL_READ_FRAMEBUFFER, m_frameBuffer);
-		// ::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_resolvedFrameBuffer);
-		// ::glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+		wgpu::ImageCopyTexture copyOperationSrc
+		{
+			.texture = m_multiSampledTexture,
+			.mipLevel = 0,
+		};	
 
-		// ::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		// ::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+		wgpu::ImageCopyTexture copyOperationDst
+		{
+			.texture = m_texture,
+			.mipLevel = 0
+		};	
+
+		wgpu::Extent3D copySize
+		{
+			.width = static_cast<uint32_t>(m_size.x),
+			.height = static_cast<uint32_t>(m_size.y),
+			.depthOrArrayLayers = 1
+		};
+
+		auto encoder = device->CreateCommandEncoder();
+		encoder.CopyTextureToTexture(&copyOperationSrc, &copyOperationDst, &copySize);
+
+		auto commands = encoder.Finish();
+		device->GetQueue().Submit(1, &commands);
 	}
 
 	bool WebGPUTexture::initDepthBuffer(wgpu::Device* device)

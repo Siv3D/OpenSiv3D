@@ -374,7 +374,7 @@ namespace s3d
 
 	void CTexture_WebGPU::resolveMSRT(const Texture::IDType handleID)
 	{
-		m_textures[handleID]->resolveMSRT();
+		m_textures[handleID]->resolveMSRT(m_device);
 	}
 
 	wgpu::Texture CTexture_WebGPU::getTexture(const Texture::IDType handleID)

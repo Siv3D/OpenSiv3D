@@ -93,7 +93,7 @@ namespace s3d
 		// レンダーテクスチャの内容を Grid にコピーする
 		void readRT(Grid<Float4>& image);
 
-		void resolveMSRT();
+		void resolveMSRT(wgpu::Device* device);
 
 	private:
 
