@@ -459,6 +459,9 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::Draw:
 				{
+					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
+					m_psPerMaterialConstants->material = material;
+
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
 					m_psPerFrameConstants._update_if_dirty();
@@ -480,9 +483,6 @@ namespace s3d
 					const uint32 indexCount = draw.indexCount;
 					const uint32 startIndexLocation = draw.startIndex;
 					const uint32 instanceCount = draw.instanceCount;
-
-					const PhongMaterialInternal& material = m_commandManager.getDrawPhongMaterial(instanceIndex);
-					m_psPerMaterialConstants->material = material;
 
 					currentRenderingPass.DrawIndexed(indexCount, 1, startIndexLocation);
 	

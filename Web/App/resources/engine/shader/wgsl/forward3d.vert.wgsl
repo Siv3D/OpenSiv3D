@@ -55,7 +55,7 @@ fn main(
 	output.Position			= worldPosition * VSPerView.worldToProjected;
 	output.WorldPosition	= worldPosition.xyz;
 	output.UV				= VertexUV;
-	output.Normal			= (vec4<f32>(VertexNormal, 1.0) * VSPerObject.localToWorld).xyz;
+	output.Normal			= (vec4<f32>(VertexNormal, 0.0) * VSPerObject.localToWorld).xyz;
 
 	return output;
 }

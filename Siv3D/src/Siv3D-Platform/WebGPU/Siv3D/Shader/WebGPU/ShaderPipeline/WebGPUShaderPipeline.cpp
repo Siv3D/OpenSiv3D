@@ -400,6 +400,7 @@ namespace s3d
         desc.primitive = wgpu::PrimitiveState
         {
             .cullMode = ToEnum<wgpu::CullMode>(FromEnum(rasterizerState.cullMode) - 1),
+			.frontFace = wgpu::FrontFace::CW
         };
 
 		// desc.depthStencil = &wgpuDepthStencilState;
