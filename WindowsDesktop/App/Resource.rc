@@ -66,6 +66,7 @@ Resource(engine/shader/glsl/sky.frag)
 //
 Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
 //Resource(engine/font/noto-cjk/NotoSansJP-Regular.otf.zstdcmp)
+//Resource(engine/font/min/siv3d-min.woff)
 
 //
 //	Monochrome Emoji
