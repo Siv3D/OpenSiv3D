@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -435,6 +435,7 @@ namespace s3d
 
 		auto currentMesh = Mesh::IDType::InvalidValue();
 		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+		auto currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
@@ -476,7 +477,7 @@ namespace s3d
 					pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
 					pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
 
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentDepthStencilState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
 					pMesh->bindMeshToContext(currentRenderingPass, currentMesh);
@@ -512,7 +513,7 @@ namespace s3d
 
 					m_line3DBatch.setBuffers(currentRenderingPass);
 
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentDepthStencilState);
+					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
 					const WebGPUDrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
@@ -632,11 +633,13 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						currentRenderingPass = pTexture->begin(rt->id(), encoder);
+						currentRenderTargetState = pTexture->getRenderTargetState(rt->id());
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
 						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+						currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 

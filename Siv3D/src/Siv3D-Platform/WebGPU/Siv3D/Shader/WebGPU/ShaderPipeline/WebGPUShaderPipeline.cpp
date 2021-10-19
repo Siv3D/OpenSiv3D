@@ -330,9 +330,9 @@ namespace s3d
 		}
 	}
 
-    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
+    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
     {
-        const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, depthStencilState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
+        const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, depthStencilState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
 
         auto it = m_pipelines.find(key);
 		
@@ -350,7 +350,7 @@ namespace s3d
             .attributes = attribute.attributes.data()
         };
 
-        desc.vertex = wgpu::VertexState
+        desc.vertex =
 		{
 			.module = pShader->getShaderModuleVS(vertexShader),
 			.entryPoint = "main",
@@ -374,16 +374,9 @@ namespace s3d
 			}
 		};
 
-		wgpu::DepthStencilState wgpuDepthStencilState
-		{
-			.format = wgpu::TextureFormat::Depth32Float,
-			.depthWriteEnabled = depthStencilState.depthWriteEnable,
-			.depthCompare = detail::CompareFunctionTable[FromEnum(depthStencilState.depthFunc)]
-		};
-
 		wgpu::ColorTargetState colorTargetState
 		{
-			.format = wgpu::TextureFormat::BGRA8Unorm,
+			.format = ToEnum<wgpu::TextureFormat>(renderTargetState.renderTargetFormat),
 			.blend = &wgpuBlendState
 		};
 
@@ -403,8 +396,23 @@ namespace s3d
 			.frontFace = wgpu::FrontFace::CW
         };
 
-		// desc.depthStencil = &wgpuDepthStencilState;
+		wgpu::DepthStencilState wgpuDepthStencilState
+		{
+			.format = wgpu::TextureFormat::Depth32Float,
+			.depthWriteEnabled = depthStencilState.depthWriteEnable,
+			.depthCompare = detail::CompareFunctionTable[FromEnum(depthStencilState.depthFunc)]
+		};
 
+		if (renderTargetState.hasDepth)
+		{
+			desc.depthStencil = &wgpuDepthStencilState;
+		}
+
+		desc.multisample =
+		{
+			.count = renderTargetState.sampleCount
+		};
+		
         if (pipelineLayout != nullptr)
         {
             desc.layout = *pipelineLayout;
@@ -415,13 +423,13 @@ namespace s3d
         return m_pipelines.emplace(key, pipeline).first->second;
     }
 
-	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState)
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, DepthStencilState::Default2D, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, DepthStencilState::Default2D, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
     }
 
-	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState)
+	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, depthStencilState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, depthStencilState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
     }
 }

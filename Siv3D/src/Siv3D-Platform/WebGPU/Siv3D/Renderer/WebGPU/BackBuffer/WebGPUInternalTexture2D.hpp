@@ -15,6 +15,8 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/ColorHSV.hpp>
 
+# include <Siv3D/Texture/WebGPU/WebGPURenderTargetState.hpp>
+
 # include <webgpu/webgpu_cpp.h>
 
 namespace s3d
@@ -44,6 +46,9 @@ namespace s3d
 
 		[[nodiscard]]
 		wgpu::TextureView getTextureView() const noexcept;
+
+		[[nodiscard]]
+		WebGPURenderTargetState getRenderTargetState() const noexcept;
 
 		[[nodiscard]]
 		static std::unique_ptr<WebGPUInternalTexture2D> CreateRenderTargetTexture2D(const wgpu::Device& device, Size size, uint32 sampleCount = 1);

@@ -17,6 +17,7 @@
 # include <Siv3D/ShaderStage.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
+# include <Siv3D/Texture/WebGPU/WebGPURenderTargetState.hpp>
 # include "VertexShader/WebGPUVertexShader.hpp"
 # include "PixelShader/WebGPUPixelShader.hpp"
 # include "ShaderPipeline/WebGPUShaderPipeline.hpp"
@@ -67,11 +68,11 @@ namespace s3d
 
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState);
+		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
 
-		wgpu::RenderPipeline usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState);
+		wgpu::RenderPipeline usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState);
 		
-		wgpu::RenderPipeline usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, DepthStencilState depthStencilState);
+		wgpu::RenderPipeline usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
 
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 

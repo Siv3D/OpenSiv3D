@@ -15,6 +15,7 @@
 # include <Siv3D/TextureFormat.hpp>
 # include <Siv3D/TextureDesc.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Texture/WebGPU/WebGPURenderTargetState.hpp>
 
 # include <webgpu/webgpu_cpp.h>
 
@@ -58,6 +59,12 @@ namespace s3d
 		wgpu::Texture getTexture() const noexcept;
 
 		[[nodiscard]]
+		wgpu::RenderPassEncoder begin(const wgpu::CommandEncoder& encoder);
+
+		[[nodiscard]]
+		WebGPURenderTargetState getRenderTargetState() const;
+
+		[[nodiscard]]
 		Size getSize() const noexcept;
 
 		[[nodiscard]]
@@ -79,7 +86,7 @@ namespace s3d
 		bool fillRegion(wgpu::Device* device, const void* src, uint32 stride, const Rect& rect, bool wait);
 
 		// レンダーテクスチャを指定した色でクリアする
-		void clearRT(const ColorF& color);
+		void clearRT(wgpu::Device* device, const ColorF& color);
 
 		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(Image& image);

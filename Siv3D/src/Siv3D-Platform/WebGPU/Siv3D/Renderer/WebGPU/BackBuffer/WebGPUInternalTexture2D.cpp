@@ -41,6 +41,16 @@ namespace s3d
 		return m_texture.CreateView();
 	}
 
+	WebGPURenderTargetState WebGPUInternalTexture2D::getRenderTargetState() const noexcept
+	{
+		return WebGPURenderTargetState
+		{
+			.renderTargetFormat = FromEnum(wgpu::TextureFormat::RGBA8Unorm),
+			.hasDepth = false,
+			.sampleCount = 1
+		};
+	}
+
 	std::unique_ptr<WebGPUInternalTexture2D> WebGPUInternalTexture2D::CreateRenderTargetTexture2D(const wgpu::Device& device, Size size, const uint32 sampleCount)
 	{
 		assert(sampleCount != 0);
@@ -59,7 +69,7 @@ namespace s3d
 				.height = static_cast<uint32_t>(size.y),
 				.depthOrArrayLayers = 1
 			},
-			.format = wgpu::TextureFormat::BGRA8Unorm,
+			.format = wgpu::TextureFormat::RGBA8Unorm,
 			.mipLevelCount = 1,
 			.sampleCount = 1 // sampleCount
 		};

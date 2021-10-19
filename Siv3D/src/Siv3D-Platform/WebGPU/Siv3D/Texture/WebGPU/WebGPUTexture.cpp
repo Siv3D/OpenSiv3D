@@ -411,7 +411,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -440,6 +440,70 @@ namespace s3d
 	wgpu::Texture WebGPUTexture::getTexture() const noexcept
 	{
 		return m_texture;
+	}
+
+	wgpu::RenderPassEncoder WebGPUTexture::begin(const wgpu::CommandEncoder& encoder)
+	{
+		wgpu::RenderPassColorAttachment colorAttachment
+		{
+			.loadOp = wgpu::LoadOp::Load,
+			.storeOp = wgpu::StoreOp::Store,
+		};
+
+		if (m_type == TextureType::MSRender)
+		{
+			colorAttachment.view = m_multiSampledTexture.CreateView();
+			colorAttachment.resolveTarget = m_texture.CreateView();
+		}
+		else
+		{
+			colorAttachment.view = m_texture.CreateView();
+		}
+
+		wgpu::RenderPassDescriptor descripter
+		{
+			.colorAttachmentCount = 1,
+			.colorAttachments = &colorAttachment,
+		};
+
+		if (m_hasDepth)
+		{
+			wgpu::RenderPassDepthStencilAttachment depthStencil
+			{
+				.view = m_depthTexture.CreateView()
+			};
+
+			descripter.depthStencilAttachment = &depthStencil;
+
+			return encoder.BeginRenderPass(&descripter);
+		}
+		else
+		{
+			return encoder.BeginRenderPass(&descripter);
+		}		
+	}
+
+	WebGPURenderTargetState WebGPUTexture::getRenderTargetState() const
+	{
+		if (m_type == TextureType::MSRender)
+		{
+			return WebGPURenderTargetState
+			{
+				.hasDepth = m_hasDepth,
+				.renderTargetFormat = static_cast<uint8>(m_format.WGPUFormat()),
+				.sampleCount = 4
+			};
+		}
+		else
+		{
+			return WebGPURenderTargetState
+			{
+				.hasDepth = m_hasDepth,
+				.renderTargetFormat = static_cast<uint8>(m_format.WGPUFormat()),
+				.sampleCount = 1
+			};
+		}
+
 	}
 
 	Size WebGPUTexture::getSize() const noexcept
@@ -617,7 +681,7 @@ namespace s3d
 		}
 	}
 
-	void WebGPUTexture::clearRT(const ColorF& color)
+	void WebGPUTexture::clearRT(wgpu::Device* device, const ColorF& color)
 	{
 		if ((m_type != TextureType::Render)
 			&& (m_type != TextureType::MSRender))
@@ -625,32 +689,57 @@ namespace s3d
 			return;
 		}
 
-		// ::glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
+		auto encoder = device->CreateCommandEncoder();
 
-		// Float4 clearColor = color.toFloat4();
+		{
+			wgpu::RenderPassColorAttachment colorAttachment
+			{
+				.loadOp = wgpu::LoadOp::Clear,
+				.storeOp = wgpu::StoreOp::Store,
+				.clearColor =
+				{
+					.r = color.r,
+					.g = color.g,
+					.b = color.b,
+					.a = color.a,
+				}
+			};
 
-		// ::glClearColor(
-		// 	clearColor.x,
-		// 	clearColor.y,
-		// 	clearColor.z,
-		// 	clearColor.w);
+			if (m_type == TextureType::MSRender)
+			{
+				colorAttachment.view = m_multiSampledTexture.CreateView();
+			}
+			else
+			{
+				colorAttachment.view = m_texture.CreateView();
+			}
 
-		// if (m_hasDepth)
-		// {
-		// 	if (auto p = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)))
-		// 	{
-		// 		p->getDepthStencilState().set(DepthStencilState::Default3D);
-		// 	}
+			wgpu::RenderPassDescriptor descripter
+			{
+				.colorAttachmentCount = 1,
+				.colorAttachments = &colorAttachment
+			};
 
-		// 	::glClearDepth(0.0);
-		// 	::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// }
-		// else
-		// {
-		// 	::glClear(GL_COLOR_BUFFER_BIT);
-		// }
+			if (m_hasDepth)
+			{
+				wgpu::RenderPassDepthStencilAttachment depthAttachment
+				{
+					.view = m_depthTexture.CreateView(),
+					.clearDepth = 0.0f
+				};
 
-		//::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				descripter.depthStencilAttachment = &depthAttachment;
+
+				encoder.BeginRenderPass(&descripter).EndPass();
+			}
+			else
+			{
+				encoder.BeginRenderPass(&descripter).EndPass();
+			}
+		}
+
+		auto commands = encoder.Finish();
+		device->GetQueue().Submit(1, &commands);
 	}
 
 	void WebGPUTexture::readRT(Image& image)
@@ -748,35 +837,7 @@ namespace s3d
 
 	void WebGPUTexture::resolveMSRT(wgpu::Device* device)
 	{
-		if (m_type != TextureType::MSRender)
-		{
-			return;
-		}
-
-		wgpu::ImageCopyTexture copyOperationSrc
-		{
-			.texture = m_multiSampledTexture,
-			.mipLevel = 0,
-		};	
-
-		wgpu::ImageCopyTexture copyOperationDst
-		{
-			.texture = m_texture,
-			.mipLevel = 0
-		};	
-
-		wgpu::Extent3D copySize
-		{
-			.width = static_cast<uint32_t>(m_size.x),
-			.height = static_cast<uint32_t>(m_size.y),
-			.depthOrArrayLayers = 1
-		};
-
-		auto encoder = device->CreateCommandEncoder();
-		encoder.CopyTextureToTexture(&copyOperationSrc, &copyOperationDst, &copySize);
-
-		auto commands = encoder.Finish();
-		device->GetQueue().Submit(1, &commands);
+		// do nothing
 	}
 
 	bool WebGPUTexture::initDepthBuffer(wgpu::Device* device)
@@ -800,7 +861,7 @@ namespace s3d
 				.usage = wgpu::TextureUsage::RenderAttachment
 			};
 
-			m_texture = device->CreateTexture(&desc);
+			m_depthTexture = device->CreateTexture(&desc);
 		}
 		else
 		{
@@ -817,7 +878,7 @@ namespace s3d
 				.sampleCount = 4
 			};
 
-			m_texture = device->CreateTexture(&desc);
+			m_depthTexture = device->CreateTexture(&desc);
 		}
 		
 		m_hasDepth = true;

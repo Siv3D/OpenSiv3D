@@ -14,7 +14,6 @@
 # include <Siv3D/System.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
-# include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 
 namespace s3d
 {
@@ -32,7 +31,7 @@ namespace s3d
 
 	void CTexture_WebGPU::init()
 	{
-		auto pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		auto pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
 		m_device = pRenderer->getDevice();
 
 		// null Texture を管理に登録
@@ -349,7 +348,7 @@ namespace s3d
 
 	void CTexture_WebGPU::clearRT(const Texture::IDType handleID, const ColorF& color)
 	{
-		m_textures[handleID]->clearRT(color);
+		m_textures[handleID]->clearRT(m_device, color);
 	}
 
 	void CTexture_WebGPU::readRT(const Texture::IDType handleID, Image& image)
@@ -384,20 +383,12 @@ namespace s3d
 
 	wgpu::RenderPassEncoder CTexture_WebGPU::begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder)
 	{
-		wgpu::RenderPassColorAttachment colorAttachment
-		{
-			.view = getTexture(handleID).CreateView(),
-			.loadOp = wgpu::LoadOp::Load,
-			.storeOp = wgpu::StoreOp::Store,
-		};
+		return m_textures[handleID]->begin(encoder);
+	}
 
-		wgpu::RenderPassDescriptor descripter
-		{
-			.colorAttachmentCount = 1,
-			.colorAttachments = &colorAttachment
-		};
-
-		return encoder.BeginRenderPass(&descripter);
+	WebGPURenderTargetState CTexture_WebGPU::getRenderTargetState(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getRenderTargetState();
 	}
 
 	bool CTexture_WebGPU::isMainThread() const noexcept

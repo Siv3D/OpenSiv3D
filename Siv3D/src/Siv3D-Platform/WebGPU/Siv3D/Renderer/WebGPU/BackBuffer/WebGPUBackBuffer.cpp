@@ -116,6 +116,11 @@ namespace s3d
 		return m_sceneBuffers.scene->getTextureView();
 	}
 
+	WebGPURenderTargetState WebGPUBackBuffer::getRenderTargetState() const
+	{
+		return m_sceneBuffers.scene->getRenderTargetState();
+	}
+
 	void WebGPUBackBuffer::updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass)
 	{
 		pShader->setUniform(m_uniforms);

@@ -13,8 +13,10 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
+# include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 # include <webgpu/webgpu_cpp.h>
 
+# include "WebGPURenderTargetState.hpp"
 # include "WebGPUTexture.hpp"
 
 namespace s3d
@@ -90,6 +92,8 @@ namespace s3d
 		wgpu::Texture getTexture(Texture::IDType handleID);
 
 		wgpu::RenderPassEncoder begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder);
+
+		WebGPURenderTargetState getRenderTargetState(Texture::IDType handleID);
 
 	private:
 

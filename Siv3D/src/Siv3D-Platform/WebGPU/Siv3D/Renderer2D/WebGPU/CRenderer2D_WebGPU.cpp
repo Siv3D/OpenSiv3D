@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -20,6 +20,7 @@
 # include <Siv3D/Renderer/WebGPU/CRenderer_WebGPU.hpp>
 # include <Siv3D/Shader/WebGPU/CShader_WebGPU.hpp>
 # include <Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.hpp>
+# include <Siv3D/Texture/WebGPU/WebGPURenderTargetState.hpp>
 
 /*/
 #	define LOG_COMMAND(...) LOG_TRACE(__VA_ARGS__)
@@ -935,6 +936,7 @@ namespace s3d
 		RasterizerState currentRasterizerState = RasterizerState::Default2D;
 
 		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+		auto currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 
 		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
@@ -977,7 +979,7 @@ namespace s3d
 					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 					pShader->setConstantBufferPS(1, m_psConstants2D.base());
 
-					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState);
+					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
 					batch.setBuffers(currentRenderingPass);			
@@ -1143,11 +1145,13 @@ namespace s3d
 					if (rt) // [カスタム RenderTexture]
 					{
 						currentRenderingPass = pTexture->begin(rt->id(), encoder);
+						currentRenderTargetState = pTexture->getRenderTargetState(rt->id());
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
 						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
+						currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
@@ -1296,7 +1300,14 @@ namespace s3d
 
 		// draw fullscreen-triangle
 		{
-			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D, DepthStencilState::Default2D);
+			WebGPURenderTargetState renderTargetState
+			{
+				.renderTargetFormat = FromEnum(wgpu::TextureFormat::BGRA8Unorm),
+				.hasDepth = false,
+				.sampleCount = 1
+			};
+
+			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D, renderTargetState, DepthStencilState::Default2D);
 			{
 				pass.Draw(3);
 

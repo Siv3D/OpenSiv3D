@@ -88,6 +88,8 @@ namespace s3d
 
 		wgpu::TextureView getTextureView() const;
 
+		WebGPURenderTargetState getRenderTargetState() const;
+
 		void updateFromSceneBuffer(const wgpu::RenderPassEncoder& pass);
 
 		void capture();
