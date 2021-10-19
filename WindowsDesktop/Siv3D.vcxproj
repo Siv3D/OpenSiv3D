@@ -42,6 +42,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Glyph.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InfinitePlane.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ListBoxState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mesh.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Model.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
@@ -451,6 +452,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Line3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineStyle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ListBoxState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LuaScript.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x3.hpp" />

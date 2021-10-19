@@ -61,6 +61,10 @@ namespace s3d
 		constexpr int32 RadioButtonPadding	= 8;
 		constexpr int32 TextBoxHeight		= 36;
 		constexpr Size ColorPickerSize{ 160, 116 };
+		constexpr int32 ListBoxFrameThickness = 1;
+		constexpr int32 ScrollBarWidth = 18;
+		constexpr ColorF ListBoxSelectedColor{ 0.2, 0.4, 0.8 };
+		constexpr ColorF ListBoxSelectedDisabledColor{ 0.75, 0.85, 1.0 };
 
 		[[nodiscard]]
 		inline constexpr ColorF GetTextColor(bool enabled) noexcept
@@ -1106,6 +1110,220 @@ namespace s3d
 			}
 
 			return (previousHSV.toColorF() != hsv.toColorF());
+		}
+
+		RectF ListBoxRegion(const Vec2& pos, const double width, const double height)
+		{
+			const Font& font = SimpleGUI::GetFont();
+			const RectF rect{ pos, Max(width, 40.0), Max<double>(height, font.height() + (ListBoxFrameThickness * 2)) };
+			return rect;
+		}
+
+		RectF ListBoxRegionAt(const Vec2& center, const double width, const double height)
+		{
+			const Font& font = SimpleGUI::GetFont();
+			const RectF rect{ Arg::center(center), Max(width, 40.0), Max<double>(height, font.height() + (ListBoxFrameThickness * 2)) };
+			return rect;
+		}
+
+		bool ListBox(ListBoxState& state, const Vec2& pos, const double width, const double height, const bool enabled)
+		{
+			const Font& font = SimpleGUI::GetFont();
+			const RectF rect{ pos, Max(width, 40.0), Max<double>(height, font.height() + (ListBoxFrameThickness * 2)) };
+			return ListBoxAt(state, rect.center(), width, height, enabled);
+		}
+
+		bool ListBoxAt(ListBoxState& state, const Vec2& center, const double width, const double height, const bool enabled)
+		{
+			const Optional<size_t> oldState = state.selectedItemIndex;
+
+			const Font& font = SimpleGUI::GetFont();
+			const int32 maxLines = (static_cast<int32>(height) - (ListBoxFrameThickness * 2)) / font.height();
+			const bool hasScrollBar = (maxLines < state.items.size());
+			const RectF rect{ Arg::center(center), Max(width, 40.0), Max<double>(height, font.height() + (ListBoxFrameThickness * 2)) };
+			const Vec2 pos = rect.pos;
+
+			const int32 fontHeight = font.height();
+			const int32 lines = Min(static_cast<int32>(state.items.size()), maxLines);
+			const int32 itemWidth = static_cast<int32>(rect.w - (ListBoxFrameThickness * 2) - (hasScrollBar ? ScrollBarWidth : 0));
+
+			if (state.items.isEmpty())
+			{
+				state.selectedItemIndex.reset();
+			}
+			else if (state.items.size() < state.selectedItemIndex)
+			{
+				state.selectedItemIndex = (state.items.size() - 1);
+			}
+
+			// update
+			{
+				if (enabled)
+				{
+					for (int32 i = 0; i < lines; ++i)
+					{
+						const size_t itemIndex = (state.scroll + i);
+						const RectF itemRect(pos.x + ListBoxFrameThickness, pos.y + ListBoxFrameThickness + (fontHeight * i), itemWidth, fontHeight);
+
+						if (itemRect.leftClicked())
+						{
+							state.selectedItemIndex = itemIndex;
+						}
+					}
+				}
+
+				if (hasScrollBar)
+				{
+					const RectF scrollBarArea(pos.x + rect.w - (ListBoxFrameThickness + ScrollBarWidth), pos.y + ListBoxFrameThickness, ScrollBarWidth, rect.h - (ListBoxFrameThickness * 2));
+					const RectF upButton(scrollBarArea.pos, ScrollBarWidth, ScrollBarWidth);
+					const RectF downButton(scrollBarArea.x, scrollBarArea.y + scrollBarArea.h - ScrollBarWidth, ScrollBarWidth, ScrollBarWidth);
+
+					if (upButton.leftClicked())
+					{
+						state.scroll = Max(state.scroll - 1, 0);
+					}
+
+					if (downButton.leftClicked())
+					{
+						state.scroll = Min(state.scroll + 1, static_cast<int32>(state.items.size()) - maxLines);
+					}
+
+					const RectF innerScrollBarArea = scrollBarArea.stretched(0, -ScrollBarWidth);
+					const int32 scrollBarHeight = static_cast<int32>(innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
+					const int32 scrollBarOffset = static_cast<int32>((innerScrollBarArea.h - scrollBarHeight) * (static_cast<double>(state.scroll) / (state.items.size() - maxLines)));
+					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, scrollBarOffset), innerScrollBarArea.w, scrollBarHeight);
+
+					if (state.scrollBarGrabbed && MouseL.up())
+					{
+						state.scrollBarGrabbed.reset();
+					}
+
+					if ((rect.mouseOver() && Mouse::Wheel()) || state.scrollBarGrabbed)
+					{
+						if (rect.mouseOver() && Mouse::Wheel())
+						{
+							state.wheel += Mouse::Wheel();
+						}
+
+						if (state.scrollBarGrabbed)
+						{
+							const double ih = static_cast<double>(innerScrollBarArea.h) / state.items.size();
+							state.wheel = state.scrollBarGrabbed->second + ((Cursor::Pos().y - state.scrollBarGrabbed->first) / ih);
+						}
+
+						const double maxWheel = static_cast<int32>(state.items.size()) - maxLines;
+						state.wheel = Clamp(state.wheel, 0.0, maxWheel);
+						state.scroll = static_cast<int32>(state.wheel);
+					}
+					else
+					{
+						state.wheel = state.scroll;
+					}
+
+					if (scrollBar.leftClicked())
+					{
+						state.scrollBarGrabbed = std::pair{ Cursor::Pos().y, state.wheel };
+					}
+				}
+				else
+				{
+					state.scrollBarGrabbed.reset();
+					state.scroll = 0;
+					state.wheel = 0.0;
+				}
+			}
+
+			// draw
+			{
+				constexpr int32 PaddingLeft = 8;
+				constexpr int32 PaddingRight = 8;
+
+				rect
+					.draw()
+					.drawFrame(1, 0, ColorF{ 0.5 });
+
+				const int32 textMaxWidth = itemWidth - (PaddingLeft + PaddingRight);
+				const ColorF textColor = GetTextColor(enabled);
+
+				for (int32 i = 0; i < lines; ++i)
+				{
+					const size_t itemIndex = (state.scroll + i);
+					const bool selected = (itemIndex == state.selectedItemIndex);
+					const RectF itemRect(pos.x + ListBoxFrameThickness, pos.y + ListBoxFrameThickness + (fontHeight * i), itemWidth, fontHeight);
+					const RectF textRect(itemRect.pos.movedBy(PaddingLeft, 0), textMaxWidth, itemRect.h);
+					const String& text = state.items[itemIndex];
+
+					if (selected)
+					{
+						const ColorF selectedItemBackgroundColor = 
+							enabled ? ListBoxSelectedColor : ListBoxSelectedDisabledColor;
+
+						itemRect
+							.stretched(-1, 0, 0, -1)
+							.draw(selectedItemBackgroundColor);
+
+						font(text).draw(textRect, ColorF{ 1.0 });
+					}
+					else
+					{
+						font(text).draw(textRect, textColor);
+					}
+				}
+
+				if (hasScrollBar)
+				{
+					const RectF scrollBarArea(pos.x + rect.w - (ListBoxFrameThickness + ScrollBarWidth), pos.y + ListBoxFrameThickness, ScrollBarWidth, rect.h - (ListBoxFrameThickness * 2));
+					const RectF upButton(scrollBarArea.pos, ScrollBarWidth, ScrollBarWidth);
+					const RectF downButton(scrollBarArea.x, scrollBarArea.y + scrollBarArea.h - ScrollBarWidth, ScrollBarWidth, ScrollBarWidth);
+
+					scrollBarArea.draw(ColorF(0.85));
+
+					{
+						const bool pressed = ((not state.scrollBarGrabbed) && upButton.leftPressed());
+						const Vec2 c = upButton.center();
+
+						if (pressed)
+						{
+							upButton
+								.stretched(-1)
+								.draw(ColorF{ 0.33 });
+						}
+
+						Triangle{ c.movedBy(0, -ScrollBarWidth * 0.15),
+							c.movedBy(ScrollBarWidth * 0.25, ScrollBarWidth * 0.15),
+							c.movedBy(-ScrollBarWidth * 0.25, ScrollBarWidth * 0.15) }
+						.draw(pressed ? ColorF{ 0.85 } : ColorF{ 0.33 });
+					}
+
+					{
+						const bool pressed = ((not state.scrollBarGrabbed) && downButton.leftPressed());
+						const Vec2 c = downButton.center();
+
+						if (pressed)
+						{
+							downButton
+								.stretched(-1)
+								.draw(ColorF{ 0.33 });
+						}
+
+						Triangle{ c.movedBy(0, ScrollBarWidth * 0.15),
+							c.movedBy(-ScrollBarWidth * 0.25, -ScrollBarWidth * 0.15),
+							c.movedBy(ScrollBarWidth * 0.25, -ScrollBarWidth * 0.15) }
+						.draw(pressed ? ColorF{ 0.85 } : ColorF{ 0.33 });
+					}
+
+					const RectF innerScrollBarArea = scrollBarArea.stretched(0, -ScrollBarWidth);
+					const int32 scrollBarHeight = static_cast<int32>(innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
+					const int32 scrollBarOffset = static_cast<int32>((innerScrollBarArea.h - scrollBarHeight) * (static_cast<double>(state.scroll) / (state.items.size() - maxLines)));
+					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, scrollBarOffset), innerScrollBarArea.w, scrollBarHeight);
+
+					scrollBar
+						.stretched(-1, 0)
+						.draw(state.scrollBarGrabbed ? ColorF{ 0.33 } : ColorF{ 0.67 });
+				}
+			}
+
+			return (oldState != state.selectedItemIndex);
 		}
 	}
 }

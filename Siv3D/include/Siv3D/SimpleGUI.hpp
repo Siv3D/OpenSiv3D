@@ -15,6 +15,7 @@
 # include "2DShapes.hpp"
 # include "Unspecified.hpp"
 # include "TextEditState.hpp"
+# include "ListBoxState.hpp"
 
 namespace s3d
 {
@@ -178,5 +179,15 @@ namespace s3d
 		bool ColorPicker(HSV& hsv, const Vec2& pos, bool enabled = true);
 
 		bool ColorPickerAt(HSV& hsv, const Vec2& center, bool enabled = true);
+
+		[[nodiscard]]
+		RectF ListBoxRegion(const Vec2& pos, double width = 160.0, double height = 156.0);
+		
+		[[nodiscard]]
+		RectF ListBoxRegionAt(const Vec2& center, double width = 160.0, double height = 156.0);
+		
+		bool ListBox(ListBoxState& state, const Vec2& pos, double width = 160.0, double height = 156.0, bool enabled = true);
+		
+		bool ListBoxAt(ListBoxState& state, const Vec2& center, double width = 160.0, double height = 156.0, bool enabled = true);
 	}
 }
