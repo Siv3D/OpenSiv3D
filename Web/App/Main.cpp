@@ -14,7 +14,11 @@ void Main()
 
 # else
 
+# if defined(SIV3D_WEBGPU_BACKEND)
+SIV3D_SET(EngineOption::Renderer::WebGPU)
+# else
 SIV3D_SET(EngineOption::Renderer::WebGL2)
+# endif
 
 void Main()
 {
@@ -23,10 +27,8 @@ void Main()
 	Window::SetStyle(WindowStyle::Sizable);
 	Window::Resize(1280, 720);
 
-	Platform::Web::System::SetMainLoop([&]() 
+	while (System::Update())
 	{
-		System::Update();
-
 		for (auto i : step(20))
 		{
 			Rect{ Point{ 100, 100 } *i, 100 }.draw();
@@ -39,7 +41,7 @@ void Main()
 		}
 
 		Rect{ Cursor::Pos(), 40 }.draw(Palette::Orange);
-	});
+	}
 }
 
 # endif

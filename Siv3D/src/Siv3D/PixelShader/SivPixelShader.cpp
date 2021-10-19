@@ -102,4 +102,14 @@ namespace s3d
 
 		return PixelShader{ path, {}, bindings };
 	}
+
+	PixelShader PixelShader::WGSL(const FilePathView path, const Array<ConstantBufferBinding>& bindings)
+	{
+		if (System::GetRendererType() != EngineOption::Renderer::WebGPU)
+		{
+			throw Error{ U"WGSL must be used with EngineOption::Renderer::WebGPU" };
+		}
+
+		return PixelShader{ path, {}, bindings };
+	}
 }

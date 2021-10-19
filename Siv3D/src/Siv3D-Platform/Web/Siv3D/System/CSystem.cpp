@@ -67,6 +67,9 @@ namespace s3d
 
 		__attribute__((import_name("siv3dInitDialog")))
 		extern void siv3dInitDialog();
+
+		__attribute__((import_name("siv3dRequestAnimationFrame")))
+		extern void siv3dRequestAnimationFrame();
 	}
 
 	CSystem::CSystem()
@@ -148,6 +151,8 @@ namespace s3d
 		SIV3D_ENGINE(Profiler)->endFrame();
 		SIV3D_ENGINE(Renderer)->present();
 		SIV3D_ENGINE(ScreenCapture)->update();
+
+		detail::siv3dRequestAnimationFrame();
 		
 		//
 		// previous frame

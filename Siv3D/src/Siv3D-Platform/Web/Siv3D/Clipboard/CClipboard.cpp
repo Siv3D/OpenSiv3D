@@ -22,10 +22,13 @@ namespace s3d
 		__attribute__((import_name("siv3dSetClipboardText")))
 		extern void siv3dSetClipboardText(const char* text);
 
-		using siv3dGetClipboardTextCallBack = void(*)(char* text, void* promise);
-
 		__attribute__((import_name("siv3dGetClipboardText")))
-		extern void siv3dGetClipboardText(siv3dGetClipboardTextCallBack, void*);
+		extern char* siv3dGetClipboardText();
+
+		using siv3dGetClipboardTextAsyncCallBack = void(*)(char* text, void* promise);
+
+		__attribute__((import_name("siv3dGetClipboardTextAsync")))
+		extern void siv3dGetClipboardTextAsync(siv3dGetClipboardTextAsyncCallBack, void*);
 	}
 
 	CClipboard::CClipboard() {}
@@ -50,7 +53,11 @@ namespace s3d
 	{
 		text.clear();
 
-		// [Siv3D ToDo]
+		if (auto rawClipBoardText = detail::siv3dGetClipboardText(); rawClipBoardText != nullptr)
+		{
+			text = Unicode::FromUTF8(rawClipBoardText);
+			delete rawClipBoardText;
+		}
 		
 		return (not text.isEmpty());
 	}
@@ -122,7 +129,7 @@ namespace s3d
 			auto p = new std::promise<s3d::String>();
 			auto result_future = p->get_future();
 
-			s3d::detail::siv3dGetClipboardText(&detail::OnGetClipboardText, p);
+			s3d::detail::siv3dGetClipboardTextAsync(&detail::OnGetClipboardText, p);
 			
 			return result_future;
 		}

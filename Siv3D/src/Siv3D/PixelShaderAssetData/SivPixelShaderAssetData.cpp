@@ -41,6 +41,11 @@ namespace s3d
 		, path{ essl.path }
 		, bindings{ essl.bindings } {}
 
+	PixelShaderAssetData::PixelShaderAssetData(const WGSL& wgsl, const Array<AssetTag>& tags)
+		: IAsset{ tags }
+		, path{ wgsl.path }
+		, bindings{ wgsl.bindings } {}
+
 	PixelShaderAssetData::PixelShaderAssetData(const ShaderGroup& shaderGroup, const Array<AssetTag>& tags)
 		: IAsset{ tags }
 	{
@@ -132,6 +137,10 @@ namespace s3d
 		else if (renderer == EngineOption::Renderer::WebGL2)
 		{
 			asset.ps = ESSL{ asset.path, asset.bindings };
+		}
+		else if (renderer == EngineOption::Renderer::WebGPU)
+		{
+			asset.ps = WGSL{ asset.path, asset.bindings };
 		}
 
 		if (not asset.ps)

@@ -78,11 +78,11 @@ namespace s3d
 			{
 				m_DefaultLanguage = item.languageCode;
 				
-				LOG_INFO(U"LanguageCode: {} - Default"_fmt(item.languageCode));
+				LOG_TRACE(U"LanguageCode: {} - Default"_fmt(item.languageCode));
 			}
 			else
 			{
-				LOG_INFO(U"LanguageCode: {}"_fmt(item.languageCode));
+				LOG_TRACE(U"LanguageCode: {}"_fmt(item.languageCode));
 			}
 		}
 

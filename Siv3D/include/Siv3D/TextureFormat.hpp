@@ -47,6 +47,9 @@ namespace s3d
 		[[nodiscard]]
 		int32 GLType() const noexcept;
 
+		[[nodiscard]]
+		int32 WGPUFormat() const noexcept;
+
 		// 1 ピクセル当たりのサイズ
 		[[nodiscard]]
 		uint32 pixelSize() const noexcept;

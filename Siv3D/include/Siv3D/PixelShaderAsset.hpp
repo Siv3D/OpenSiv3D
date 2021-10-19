@@ -35,6 +35,8 @@ namespace s3d
 
 		static bool Register(AssetNameView name, const s3d::ESSL& essl);
 
+		static bool Register(AssetNameView name, const s3d::WGSL& wgsl);
+
 		static bool Register(AssetNameView name, const ShaderGroup& shaderGroup);
 
 		static bool Register(AssetNameView name, std::unique_ptr<PixelShaderAssetData>&& data);
@@ -49,6 +51,8 @@ namespace s3d
 		static bool Register(const AssetNameAndTags& nameAndTags, const s3d::MSL& msl);
 
 		static bool Register(const AssetNameAndTags& nameAndTags, const s3d::ESSL& essl);
+
+		static bool Register(const AssetNameAndTags& nameAndTags, const s3d::WGSL& wgsl);
 
 		static bool Register(const AssetNameAndTags& nameAndTags, const ShaderGroup& shaderGroup);
 

@@ -1,0 +1,76 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2021 Ryo Suzuki
+//	Copyright (c) 2016-2021 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3D/ShaderStage.hpp>
+# include <Siv3D/SamplerState.hpp>
+# include "WebGPUPixelShader.hpp"
+
+namespace s3d
+{
+	WebGPUPixelShader::WebGPUPixelShader(Null)
+	{
+		m_initialized = true;
+	}
+
+	WebGPUPixelShader::~WebGPUPixelShader()
+	{
+		if (m_pixelShader)
+		{
+			m_pixelShader.Release();
+			m_pixelShader = nullptr;
+		}
+	}
+
+	WebGPUPixelShader::WebGPUPixelShader(const wgpu::Device& device, const StringView source, const Array<ConstantBufferBinding>& bindings)
+	{
+		 // シェーダのコンパイル
+		{
+			const std::string sourceUTF8 = source.toUTF8();
+			const char* pSource = sourceUTF8.c_str();
+
+			wgpu::ShaderModuleWGSLDescriptor wgslDesc;
+			{
+				wgslDesc.source = pSource;
+			};
+
+			wgpu::ShaderModuleDescriptor desc
+			{
+				.nextInChain = &wgslDesc
+			};
+
+			m_pixelShader = device.CreateShaderModule(&desc);
+
+			// ログメッセージ
+			if (not m_pixelShader)
+			{
+				LOG_FAIL(U"❌ Vertex shader compilation failed");
+			}	
+		}
+		
+		m_initialized = static_cast<bool>(m_pixelShader);
+	}
+
+	bool WebGPUPixelShader::isInitialized() const noexcept
+	{
+		return m_initialized;
+	}
+
+	const Blob& WebGPUPixelShader::getBinary() const noexcept
+	{
+		return m_binary;
+	}
+
+	wgpu::ShaderModule WebGPUPixelShader::getShaderModule() const
+	{
+		return m_pixelShader;
+	}
+}
