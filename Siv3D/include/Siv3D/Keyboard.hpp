@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "InputGroups.hpp"
+# include "KeyEvent.hpp"
 
 namespace s3d
 {
@@ -23,6 +24,16 @@ namespace s3d
 		[[nodiscard]]
 		const Array<Input>& GetAllInputs() noexcept;
 	}	
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	namespace Platform::Windows::Keyboard
+	{
+		[[nodiscard]]
+		Array<KeyEvent> GetEvents();
+	}
+
+# endif
 	
 	/// @brief Ctrl + break キー
 	inline constexpr Input KeyCancel{ InputDeviceType::Keyboard, 0x03 };

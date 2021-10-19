@@ -18,18 +18,6 @@ namespace s3d
 {
 	class CKeyboard final : public ISiv3DKeyboard
 	{
-	private:
-
-		HWND m_hWnd = nullptr;
-
-		bool m_inputAttached = false;
-
-		std::array<String, InputState::KeyCount> m_names;
-
-		std::array<InputState, InputState::KeyCount> m_states;
-
-		Array<Input> m_allInputs;
-
 	public:
 
 		CKeyboard();
@@ -51,5 +39,31 @@ namespace s3d
 		const String& name(uint32 index) const override;
 
 		const Array<Input>& getAllInput() const noexcept override;
+
+		Array<KeyEvent> getEvents() const noexcept override;
+
+		void onKeyEvent(uint8 code, bool down, bool up);
+
+	private:
+
+		HWND m_hWnd = nullptr;
+
+		bool m_inputAttached = false;
+
+		std::array<String, InputState::KeyCount> m_names;
+
+		std::array<InputState, InputState::KeyCount> m_states;
+
+		Array<Input> m_allInputs;
+
+		//////
+		//
+		std::mutex m_eventMutex;
+
+		uint32 m_eventIndex = 0;
+
+		Array<KeyEvent> m_events;
+		//
+		//////
 	};
 }

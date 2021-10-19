@@ -22,4 +22,16 @@ namespace s3d
 			return SIV3D_ENGINE(Keyboard)->getAllInput();
 		}
 	}
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	namespace Platform::Windows::Keyboard
+	{
+		Array<KeyEvent> GetEvents()
+		{
+			return SIV3D_ENGINE(Keyboard)->getEvents();
+		}
+	}
+
+# endif
 }

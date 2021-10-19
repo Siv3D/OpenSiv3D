@@ -49,5 +49,7 @@ namespace s3d
 		const String& name(uint32 index) const override;
 
 		const Array<Input>& getAllInput() const noexcept override;
+
+		Array<KeyEvent> getEvents() const noexcept override;
 	};
 }

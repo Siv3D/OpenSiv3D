@@ -17,6 +17,7 @@
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/Cursor/CCursor.hpp>
 # include <Siv3D/Mouse/CMouse.hpp>
+# include <Siv3D/Keyboard/CKeyboard.hpp>
 # include <Siv3D/Gamepad/CGamepad.hpp>
 # include <Siv3D/System/CSystem.hpp>
 # include <Siv3D/TextInput/CTextInput.hpp>
@@ -85,6 +86,19 @@ namespace s3d
 		case WM_KEYDOWN:
 			{
 				LOG_VERBOSE(U"WM_KEYDOWN");
+
+				const bool repeatFlag = ((HIWORD(lParam) & KF_REPEAT) == KF_REPEAT);
+
+				if (not repeatFlag)
+				{
+					dynamic_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), true, false);
+				}
+
+				break;
+			}
+		case WM_KEYUP:
+			{
+				dynamic_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), false, true);
 
 				break;
 			}

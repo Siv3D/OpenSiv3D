@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/InputGroups.hpp>
+# include <Siv3D/KeyEvent.hpp>
 
 namespace s3d
 {
@@ -39,5 +40,7 @@ namespace s3d
 		virtual const String& name(uint32 index) const = 0;
 
 		virtual const Array<Input>& getAllInput() const noexcept = 0;
+
+		virtual Array<KeyEvent> getEvents() const noexcept = 0;
 	};
 }

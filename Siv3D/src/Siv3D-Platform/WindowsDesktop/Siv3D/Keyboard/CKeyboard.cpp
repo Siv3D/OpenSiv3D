@@ -102,6 +102,15 @@ namespace s3d
 		}
 
 		{
+			std::lock_guard lock{ m_eventMutex };
+
+			if (100 < m_events.size())
+			{
+				m_events.erase(m_events.begin(), m_events.begin() + (m_events.size() - 100));
+			}
+		}
+
+		{
 			m_allInputs.clear();
 
 			if (uint8 buf[256] = {};
@@ -187,5 +196,17 @@ namespace s3d
 	const Array<Input>& CKeyboard::getAllInput() const noexcept
 	{
 		return m_allInputs;
+	}
+
+	Array<KeyEvent> CKeyboard::getEvents() const noexcept
+	{
+		return m_events;
+	}
+
+	void CKeyboard::onKeyEvent(const uint8 code, const bool down, const bool up)
+	{
+		std::lock_guard lock{ m_eventMutex };
+
+		m_events.emplace_back(Time::GetMillisec(), ++m_eventIndex, code, down, up);
 	}
 }

@@ -317,4 +317,10 @@ namespace s3d
 	{
 		return m_allInputs;
 	}
+
+	Array<KeyEvent> CKeyboard::getEvents() const noexcept
+	{
+		static const Array<KeyEvent> _empty;
+		return _empty;
+	}
 }
