@@ -115,6 +115,14 @@ namespace s3d
 	void CRenderer_WebGPU::clear()
 	{
 		// m_backBuffer->clear(GLES3ClearTarget::BackBuffer | GLES3ClearTarget::Scene);
+
+		m_renderingCommandEncoder = m_device.CreateCommandEncoder();
+
+		// Scene に 2D 描画
+		{
+			auto pass = m_backBuffer->clear(m_renderingCommandEncoder);
+			pass.EndPass();
+		}
 		
 		const auto& windowState = SIV3D_ENGINE(Window)->getState();
 
@@ -134,15 +142,13 @@ namespace s3d
 
 	void CRenderer_WebGPU::flush()
 	{
-		auto commandEncoder = m_device.CreateCommandEncoder();
-
 		// Scene に 2D 描画
 		{
-			auto pass = m_backBuffer->clear(commandEncoder);
+			auto pass = m_backBuffer->begin(m_renderingCommandEncoder);
 			pass.EndPass();
 
-			pRenderer3D->flush(commandEncoder);
-			pRenderer2D->flush(commandEncoder);
+			pRenderer3D->flush(m_renderingCommandEncoder);
+			pRenderer2D->flush(m_renderingCommandEncoder);
 		}
 
 		// ウィンドウに Scene を描画
@@ -169,14 +175,14 @@ namespace s3d
 				.colorAttachments = &colorAttachment
 			};
 
-			auto pass = commandEncoder.BeginRenderPass(&descripter);
+			auto pass = m_renderingCommandEncoder.BeginRenderPass(&descripter);
 			{
 				m_backBuffer->updateFromSceneBuffer(pass);
 			}
 			pass.EndPass();
 		}
 
-		m_commandBuffers << commandEncoder.Finish();
+		m_commandBuffers << m_renderingCommandEncoder.Finish();
 
 		m_queue.Submit(m_commandBuffers.size(), m_commandBuffers.data());
 		m_commandBuffers.clear();
@@ -294,6 +300,11 @@ namespace s3d
 	wgpu::Device* CRenderer_WebGPU::getDevice()
 	{
 		return &m_device;
+	}
+
+	wgpu::CommandEncoder* CRenderer_WebGPU::getCommandEncoder()
+	{
+		return &m_renderingCommandEncoder;
 	}
 
 	void CRenderer_WebGPU::pushCommands(wgpu::CommandBuffer commands)

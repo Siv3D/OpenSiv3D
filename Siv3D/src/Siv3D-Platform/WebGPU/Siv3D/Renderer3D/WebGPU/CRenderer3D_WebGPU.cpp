@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -401,6 +401,8 @@ namespace s3d
 
 	void CRenderer3D_WebGPU::flush()
 	{
+		auto encoder = *pRenderer->getCommandEncoder();
+		flush(encoder);
 	}
 
 	void CRenderer3D_WebGPU::flush(const wgpu::CommandEncoder& encoder)

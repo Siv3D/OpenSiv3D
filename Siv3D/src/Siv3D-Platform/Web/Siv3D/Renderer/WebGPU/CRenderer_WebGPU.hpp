@@ -47,6 +47,8 @@ namespace s3d
 
 		wgpu::Queue m_queue;
 
+		wgpu::CommandEncoder m_renderingCommandEncoder;
+
 		Array<wgpu::CommandBuffer> m_commandBuffers;
 
 	public:
@@ -107,6 +109,8 @@ namespace s3d
 		WebGPUSamplerState& getSamplerState() noexcept;
 
 		wgpu::Device* getDevice();
+
+		wgpu::CommandEncoder* getCommandEncoder();
 
 		void pushCommands(wgpu::CommandBuffer commands);
 	};
