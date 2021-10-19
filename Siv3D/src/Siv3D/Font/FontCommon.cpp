@@ -26,10 +26,13 @@ namespace s3d
 			StringView path;
 
 			bool required = false;
+
+			bool compressed = true;
 		};
 
-		static constexpr std::array<EngineFontResource, 14> EngineFontResources =
+		static constexpr std::array<EngineFontResource, 15> EngineFontResources =
 		{ {
+			{ U"min/siv3d-min.woff"_sv, true, false },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, false },
 			{ U"noto-cjk/NotoSansJP-Regular.otf"_sv, false },
 			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, true },
@@ -56,7 +59,7 @@ namespace s3d
 
 			LOG_INFO(U"fontCacheDirectory: " + fontCacheDirectory);
 
-			for (auto&&[name, required] : EngineFontResources)
+			for (auto&&[name, required, compressed] : EngineFontResources)
 			{
 				const FilePath cachedFontPath = (fontCacheDirectory + name);
 				const bool existsInCache = FileSystem::Exists(cachedFontPath);
@@ -68,7 +71,7 @@ namespace s3d
 					continue;
 				}
 
-				const FilePath fontResourcePath = Resource(U"engine/font/" + name + U".zstdcmp");
+				const FilePath fontResourcePath = Resource(U"engine/font/" + name + (compressed ? U".zstdcmp" : U""));
 				const bool existsInResource = FileSystem::Exists(fontResourcePath);
 
 				if (not existsInResource)
@@ -84,11 +87,14 @@ namespace s3d
 				}
 
 				// フォントファイルの展開に失敗したらエラー
-				if (not Compression::DecompressFileToFile(fontResourcePath, cachedFontPath))
+				if (compressed)
 				{
-					LOG_ERROR(U"✖ Engine font `{0}` decompression failed"_fmt(name));
-					FileSystem::Remove(cachedFontPath);
-					return false;
+					if (not Compression::DecompressFileToFile(fontResourcePath, cachedFontPath))
+					{
+						LOG_ERROR(U"✖ Engine font `{0}` decompression failed"_fmt(name));
+						FileSystem::Remove(cachedFontPath);
+						return false;
+					}
 				}
 			}
 
@@ -97,12 +103,12 @@ namespace s3d
 
 		static const std::array<Array<TypefaceInfo>, 17> EngineTypefaceList =
 		{ {
-			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
-			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
-			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 2 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
-			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 3 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
-			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 4 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
-			{{ U"noto-emoji/NotoEmoji-Regular.ttf", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 1 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 2 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 3 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
+			{{ U"noto-cjk/NotoSansCJK-Regular.ttc", 4 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
+			{{ U"noto-emoji/NotoEmoji-Regular.ttf", 0 }, { U"noto-cjk/NotoSansJP-Regular.otf", 0 }, { U"engine/font/min/siv3d-min.woff", 0, true }},
 			{{ U"noto-emoji/NotoColorEmoji.ttf", 0 }},
 			{{ U"mplus/mplus-1p-thin.ttf", 0 }},
 			{{ U"mplus/mplus-1p-light.ttf", 0}},
@@ -126,7 +132,14 @@ namespace s3d
 			{
 				info = font;
 
-				info.path.insert(0, fontCacheDirectory);
+				if (info.inResource)
+				{
+					info.path = Resource(info.path);
+				}
+				else
+				{
+					info.path.insert(0, fontCacheDirectory);
+				}
 
 				if (FileSystem::Exists(info.path))
 				{

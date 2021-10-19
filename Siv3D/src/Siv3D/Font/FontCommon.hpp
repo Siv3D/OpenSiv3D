@@ -53,6 +53,8 @@ namespace s3d
 			String path;
 
 			size_t faceIndex = 0;
+
+			bool inResource = false;
 		};
 
 		[[nodiscard]]
