@@ -4591,6 +4591,7 @@
 		2CF7C127271A80D70031E8EB /* SivCamera2DParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCamera2DParameters.cpp; sourceTree = "<group>"; };
 		2CF7C129271E9CB40031E8EB /* ListBoxState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListBoxState.hpp; sourceTree = "<group>"; };
 		2CF7C12A271E9CD10031E8EB /* ListBoxState.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListBoxState.ipp; sourceTree = "<group>"; };
+		2CF7C12B271ED6610031E8EB /* KeyEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyEvent.hpp; sourceTree = "<group>"; };
 		2CF962EF25A7F953006F55C9 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
 		2CF962F225A7F95F006F55C9 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2CF962F525A7F987006F55C9 /* SivSpline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSpline2D.cpp; sourceTree = "<group>"; };
@@ -10130,6 +10131,7 @@
 				2CAAA89D25E7FD0300C014D7 /* KahanSummation.hpp */,
 				2CAAA71B25E7FD0200C014D7 /* KDTree.hpp */,
 				2CAAA70125E7FD0200C014D7 /* Keyboard.hpp */,
+				2CF7C12B271ED6610031E8EB /* KeyEvent.hpp */,
 				2C631E862685D02300166A8E /* KlattTTS.hpp */,
 				2C631E872685D02300166A8E /* KlattTTSParameters.hpp */,
 				2C4AEF65262C4E1000D36CFC /* LanguageCode.hpp */,
