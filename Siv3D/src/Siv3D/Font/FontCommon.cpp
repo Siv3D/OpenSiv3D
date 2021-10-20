@@ -35,7 +35,7 @@ namespace s3d
 			{ U"min/siv3d-min.woff"_sv, true, false },
 			{ U"noto-cjk/NotoSansCJK-Regular.ttc"_sv, false },
 			{ U"noto-cjk/NotoSansJP-Regular.otf"_sv, false },
-			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, true },
+			{ U"noto-emoji/NotoEmoji-Regular.ttf"_sv, false },
 			{ U"noto-emoji/NotoColorEmoji.ttf"_sv, false },
 			{ U"mplus/mplus-1p-thin.ttf"_sv, false },
 			{ U"mplus/mplus-1p-light.ttf"_sv, false },
@@ -148,6 +148,11 @@ namespace s3d
 			}
 
 			return info;
+		}
+
+		bool IsAvailable(const Typeface typeface)
+		{
+			return FileSystem::Exists(GetTypefaceInfo(typeface).path);
 		}
 
 		std::unique_ptr<EmojiData> CreateDefaultEmoji(const FT_Library library)

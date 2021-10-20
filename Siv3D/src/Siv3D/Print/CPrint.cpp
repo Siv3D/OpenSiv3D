@@ -60,9 +60,14 @@ namespace s3d
 
 		m_font = std::make_unique<PrintFont>();
 		m_font->textFont = Font{ FontMethod::MSDF, 18, Typeface::CJK_Regular_JP };
-		m_font->emojiFont = Font{ FontMethod::MSDF, 18, Typeface::MonochromeEmoji };
 		m_font->textFont.setBufferThickness(2);
-		m_font->textFont.addFallback(m_font->emojiFont);
+		
+		if (Font::IsAvailable(Typeface::MonochromeEmoji))
+		{
+			m_font->emojiFont = Font{ FontMethod::MSDF, 18, Typeface::MonochromeEmoji };
+			m_font->textFont.addFallback(m_font->emojiFont);
+		}
+
 		m_font->ps = HLSL{ Resource(U"engine/shader/d3d11/msdfprint.ps") }
 					| GLSL{ Resource(U"engine/shader/glsl/msdfprint.frag"), { { U"PSConstants2D", 0 } } }
 					| ESSL{ Resource(U"engine/shader/glsl/msdfprint.frag"), { { U"PSConstants2D", 0 } } }

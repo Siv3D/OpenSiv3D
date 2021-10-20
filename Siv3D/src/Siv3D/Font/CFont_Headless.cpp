@@ -519,4 +519,9 @@ namespace s3d
 	{
 		return *m_emptyPixelShader;
 	}
+
+	bool CFont_Headless::isAvailable(const Typeface typeface) const
+	{
+		return detail::IsAvailable(typeface);
+	}
 }

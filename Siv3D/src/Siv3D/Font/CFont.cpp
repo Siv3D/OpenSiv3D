@@ -707,4 +707,9 @@ namespace s3d
 	{
 		return m_shader->getFontShader(method, type, hasColor);
 	}
+
+	bool CFont::isAvailable(const Typeface typeface) const
+	{
+		return detail::IsAvailable(typeface);
+	}
 }

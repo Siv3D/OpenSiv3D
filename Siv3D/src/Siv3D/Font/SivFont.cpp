@@ -333,4 +333,9 @@ namespace s3d
 	{
 		return SIV3D_ENGINE(Font)->getFontShader(method, type, hasColor);
 	}
+
+	bool Font::IsAvailable(const Typeface typeface)
+	{
+		return SIV3D_ENGINE(Font)->isAvailable(typeface);
+	}
 }

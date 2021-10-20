@@ -419,6 +419,9 @@ namespace s3d
 		/// @return 指定した設定でのテキスト描画用の標準ピクセルシェーダ
 		[[nodiscard]]
 		static const PixelShader& GetPixelShader(FontMethod method, TextStyle::Type type = TextStyle::Type::Default, HasColor hasColor = HasColor::No);
+
+		[[nodiscard]]
+		static bool IsAvailable(Typeface typeface);
 	};
 }
 

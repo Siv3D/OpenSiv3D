@@ -61,6 +61,9 @@ namespace s3d
 		TypefaceInfo GetTypefaceInfo(Typeface typeface);
 
 		[[nodiscard]]
+		bool IsAvailable(Typeface typeface);
+
+		[[nodiscard]]
 		std::unique_ptr<EmojiData> CreateDefaultEmoji(FT_Library library);
 
 		[[nodiscard]]

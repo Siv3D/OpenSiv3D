@@ -67,11 +67,6 @@ Resource(engine/shader/glsl/sky.frag)
 Resource(engine/font/min/siv3d-min.woff)
 
 //
-//	Monochrome Emoji
-//
-Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
-
-//
 //	Box-shadow Textures
 //
 Resource(engine/texture/box-shadow/256.png)
@@ -101,9 +96,10 @@ Resource(engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp)
 //Resource(engine/font/noto-cjk/NotoSansJP-Regular.otf.zstdcmp)
 
 //
-//	Color Emoji
+//	Emoji Fonts
 //
 Resource(engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp)
+Resource(engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp)
 
 //
 //	Icons

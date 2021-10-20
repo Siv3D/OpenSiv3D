@@ -156,6 +156,8 @@ namespace s3d
 
 		const PixelShader& getFontShader(FontMethod method, TextStyle::Type type, HasColor hasColor) const override;
 
+		bool isAvailable(Typeface typeface) const override;
+
 	private:
 
 		FT_Library m_freeType = nullptr;
