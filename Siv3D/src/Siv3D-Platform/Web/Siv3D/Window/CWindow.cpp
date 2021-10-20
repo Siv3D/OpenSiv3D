@@ -11,6 +11,7 @@
 
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/UserAction.hpp>
@@ -59,14 +60,24 @@ namespace s3d
 			throw EngineError(U"glfwInit() failed");
 		}
 		
-		// OpenGL ES 3.0
-		::glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-		::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-		::glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		::glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, SIV3D_BUILD(DEBUG) ? GLFW_TRUE : GLFW_FALSE);
-		
-		::glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		const bool useWebGPU =  (g_engineOptions.renderer == EngineOption::Renderer::WebGPU);
+
+		if (useWebGPU)
+		{
+			// WebGPU
+			::glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+		}
+		else
+		{
+			// OpenGL ES 3.0
+			::glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			::glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+			::glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+			::glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			::glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, SIV3D_BUILD(DEBUG) ? GLFW_TRUE : GLFW_FALSE);
+			
+			::glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		}
 	
 		// ウィンドウを作成
 		{

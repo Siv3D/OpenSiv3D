@@ -23,20 +23,60 @@ namespace s3d
 	{
 		namespace detail
 		{
+			String TransformFileFilters(const Array<FileFilter>& filters) 
+			{
+				return filters
+					.map([](const FileFilter& f) 
+					{
+						return f.patterns
+							.map([](const String& p) 
+							{
+								return p.count(U'/') == 1 ? p : U"." + p;
+							})
+							.join(U",", U"", U"");
+					})
+					.join(U",", U"", U"");
+			}
+
+			__attribute__((import_name("siv3dOpenDialog")))
+			char* siv3dOpenDialogImpl(const char*);
+
 			__attribute__((import_name("siv3dSaveDialog")))
 			extern void siv3dSaveDialog(const char* fileName);
 		}
 
 		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
 		{
-			// [Siv3D ToDo]
-			return (none);
+			const auto filter = detail::TransformFileFilters(filters);
+			auto rawFilePath = detail::siv3dOpenDialogImpl(filter.narrow().c_str());
+
+			if (rawFilePath == nullptr)
+			{
+				return (none);
+			}
+			else
+			{
+				auto filePath = Unicode::FromUTF8(rawFilePath);
+				delete rawFilePath;
+				return (filePath);
+			}	
 		}
 
 		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
 		{
-			// [Siv3D ToDo]
-			return{};
+			const auto filter = detail::TransformFileFilters(filters);
+			auto rawFilePath = detail::siv3dOpenDialogImpl(filter.narrow().c_str());
+
+			if (rawFilePath == nullptr)
+			{
+				return {};
+			}
+			else
+			{
+				auto filePath = Unicode::FromUTF8(rawFilePath);
+				delete rawFilePath;
+				return { filePath };
+			}
 		}
 
 		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
@@ -58,26 +98,11 @@ namespace s3d
 	{
 		namespace detail
 		{
-			String TransformFileFilters(const Array<FileFilter>& filters) 
-			{
-				return filters
-					.map([](const FileFilter& f) 
-					{
-						return f.patterns
-							.map([](const String& p) 
-							{
-								return p.count(U'/') == 1 ? p : U"." + p;
-							})
-							.join(U",", U"", U"");
-					})
-					.join(U",", U"", U"");
-			}
-
 			template <class T>
 			using siv3dOpenDialogCallback = void (*)(char*, std::promise<T>*);
 
 			template <class T>
-			__attribute__((import_name("siv3dOpenDialog")))
+			__attribute__((import_name("siv3dOpenDialogAsync")))
 			void siv3dOpenDialogImpl(const char*, siv3dOpenDialogCallback<T>, std::promise<T>*);
 
 			template <class T>
@@ -150,9 +175,9 @@ namespace s3d
 			}
 
 			template <class T>
-			std::future<T> siv3dOpenDialog(const Array<FileFilter>& filters, siv3dOpenDialogCallback<T> callback = &OnOpenFileDialogClosed<T>)
+			std::future<T> siv3dOpenDialogAsync(const Array<FileFilter>& filters, siv3dOpenDialogCallback<T> callback = &OnOpenFileDialogClosed<T>)
 			{
-				const auto filter = TransformFileFilters(filters);
+				const auto filter = s3d::Dialog::detail::TransformFileFilters(filters);
 
 				auto result = new std::promise<T>();
 				auto result_future = result->get_future();
@@ -165,34 +190,34 @@ namespace s3d
 
 		AsyncTask<Optional<FilePath>> OpenFile(const Array<FileFilter>& filters, FilePathView defaultPath, StringView)
 		{
-			return detail::siv3dOpenDialog<Optional<FilePath>>(filters);
+			return detail::siv3dOpenDialogAsync<Optional<FilePath>>(filters);
 		}
 
 
 
 		AsyncTask<Image> OpenImage(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Image>({ FileFilter::AllImageFiles() });
+			return detail::siv3dOpenDialogAsync<Image>({ FileFilter::AllImageFiles() });
 		}
 
 		AsyncTask<Texture> OpenTexture(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Texture>({ FileFilter::AllImageFiles() });
+			return detail::siv3dOpenDialogAsync<Texture>({ FileFilter::AllImageFiles() });
 		}
 
 		AsyncTask<Texture> OpenTexture(const TextureDesc desc, FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Texture>({ FileFilter::AllImageFiles() });
+			return detail::siv3dOpenDialogAsync<Texture>({ FileFilter::AllImageFiles() });
 		}
 
 		AsyncTask<Wave> OpenWave(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Wave>({ FileFilter::AllAudioFiles() }, &detail::OnOpenWaveDialogClosed);
+			return detail::siv3dOpenDialogAsync<Wave>({ FileFilter::AllAudioFiles() }, &detail::OnOpenWaveDialogClosed);
 		}
 
 		AsyncTask<Audio> OpenAudio(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialog<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
+			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
 		}
 	}
 }

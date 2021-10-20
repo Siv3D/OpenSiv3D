@@ -23,6 +23,7 @@ namespace s3d
 	struct GLSL;
 	struct MSL;
 	struct ESSL;
+	struct WGSL;
 
 	/// @brief HLSL ファイル
 	struct HLSL
@@ -45,6 +46,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const WGSL& wgsl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -71,6 +75,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const WGSL& wgsl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -102,6 +109,9 @@ namespace s3d
 		ShaderGroup operator |(const ESSL& essl) const;
 
 		[[nodiscard]]
+		ShaderGroup operator |(const WGSL& wgsl) const;
+
+		[[nodiscard]]
 		operator VertexShader() const;
 
 		[[nodiscard]]
@@ -128,6 +138,38 @@ namespace s3d
 		ShaderGroup operator |(const MSL& msl) const;
 
 		[[nodiscard]]
+		ShaderGroup operator |(const WGSL& wgsl) const;
+
+		[[nodiscard]]
+		operator VertexShader() const;
+
+		[[nodiscard]]
+		operator PixelShader() const;
+	};
+
+	/// @brief WebGPU Shading Language ファイル
+	struct WGSL
+	{
+		FilePath path;
+
+		Array<ConstantBufferBinding> bindings;
+
+		SIV3D_NODISCARD_CXX20
+		WGSL(FilePath _path, Array<ConstantBufferBinding> _bindings);
+
+		[[nodiscard]]
+		ShaderGroup operator |(const HLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const GLSL& hlsl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const MSL& msl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
 		operator VertexShader() const;
 
 		[[nodiscard]]
@@ -142,7 +184,7 @@ namespace s3d
 		ShaderGroup() = default;
 
 		SIV3D_NODISCARD_CXX20
-		ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl, const Optional<ESSL>& essl);
+		ShaderGroup(const Optional<HLSL>& hlsl, const Optional<GLSL>& glsl, const Optional<MSL>& msl, const Optional<ESSL>& essl, const Optional<WGSL>& wgsl);
 
 		[[nodiscard]]
 		ShaderGroup operator |(const HLSL& hlsl) const;
@@ -155,6 +197,9 @@ namespace s3d
 
 		[[nodiscard]]
 		ShaderGroup operator |(const ESSL& essl) const;
+
+		[[nodiscard]]
+		ShaderGroup operator |(const WGSL& wgsl) const;
 
 		[[nodiscard]]
 		operator VertexShader() const;
@@ -171,6 +216,7 @@ namespace s3d
 		Optional<GLSL> m_glsl;
 		Optional<MSL>  m_msl;
 		Optional<ESSL> m_essl;
+		Optional<WGSL> m_wgsl;
 	};
 }
 

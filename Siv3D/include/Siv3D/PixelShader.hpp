@@ -44,6 +44,9 @@ namespace s3d
 
 		[[nodiscard]]
 		static PixelShader ESSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
+
+		[[nodiscard]]
+		static PixelShader WGSL(FilePathView path, const Array<ConstantBufferBinding>& bindings);
 	
 	private:
 

@@ -79,10 +79,17 @@ namespace s3d
 		{
 			m_soloud = std::make_unique<SoLoud::Soloud>();
 
+		# if SIV3D_PLATFORM(WEB)
+			if (SoLoud::SO_NO_ERROR != m_soloud->init(SoLoud::Soloud::CLIP_ROUNDOFF, SoLoud::Soloud::AUTO, SoLoud::Soloud::AUTO, 4096))
+			{
+				throw EngineError{ U"Failed to initialize audio engine" };
+			}
+		# else
 			if (SoLoud::SO_NO_ERROR != m_soloud->init())
 			{
 				throw EngineError{ U"Failed to initialize audio engine" };
 			}
+		# endif
 
 			LOG_INFO(U"🎧 Audio backend: {0} (channel count: {1}, sample rate: {2}, buffer size: {3})"_fmt(
 				Unicode::Widen(m_soloud->getBackendString()),

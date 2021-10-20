@@ -26,10 +26,8 @@ void Main()
     // Print a text
     Print << U"Push [A] key";
 
-    Platform::Web::System::SetMainLoop([&]()
-    {
-        System::Update();
-        
+    while (System::Update())
+    { 
         // Draw a texture
         texture.draw(200, 200);
 
@@ -55,5 +53,5 @@ void Main()
             // Move the coordinates to a random position in the screen
             emojiPos = RandomVec2(Scene::Rect());
         }
-    });
+    }
 }

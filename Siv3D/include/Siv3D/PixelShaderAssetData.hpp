@@ -51,6 +51,9 @@ namespace s3d
 		explicit PixelShaderAssetData(const ESSL& essl, const Array<AssetTag>& tags = {});
 
 		SIV3D_NODISCARD_CXX20
+		explicit PixelShaderAssetData(const WGSL& wgsl, const Array<AssetTag>& tags = {});
+
+		SIV3D_NODISCARD_CXX20
 		explicit PixelShaderAssetData(const ShaderGroup& shaderGroup, const Array<AssetTag>& tags = {});
 
 		bool load(const String& hint) override;

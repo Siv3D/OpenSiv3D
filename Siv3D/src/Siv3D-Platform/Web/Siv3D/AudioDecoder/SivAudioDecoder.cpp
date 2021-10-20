@@ -17,9 +17,9 @@ namespace s3d::Platform::Web::AudioDecoder
 {
     namespace detail
     {
-        using DecodeAudioCallBack = void(*)(struct DecodedAudioData*);
+        using DecodeAudioCallBack = void(*)(struct AsyncDecodedAudioData*);
 
-        struct DecodedAudioData
+        struct AsyncDecodedAudioData
         {
             float* leftChannelData;
             float* rightChannelData;
@@ -27,15 +27,15 @@ namespace s3d::Platform::Web::AudioDecoder
             std::size_t dataLength;
             std::promise<Wave> audioPromise;
 
-            DecodedAudioData(std::promise<Wave>&& p) : 
+            AsyncDecodedAudioData(std::promise<Wave>&& p) : 
                 audioPromise(std::move(p))
             {}
         };
 
-        __attribute__((import_name("siv3dDecodeAudioFromFile")))
-        void siv3dDecodeAudioFromFile(const char* filePath, DecodeAudioCallBack callback, DecodedAudioData* arg);
+        __attribute__((import_name("siv3dDecodeAudioFromFileAsync")))
+        void siv3dDecodeAudioFromFileAsync(const char* filePath, DecodeAudioCallBack callback, AsyncDecodedAudioData* arg);
 
-        void OnDecodeAudioFromFile(DecodedAudioData* data)
+        void OnDecodeAudioFromFile(AsyncDecodedAudioData* data)
         {
             if (data->dataLength > 0)
             {
@@ -73,8 +73,8 @@ namespace s3d::Platform::Web::AudioDecoder
         }
         else
         {
-            auto data = new detail::DecodedAudioData(std::move(promise));
-            siv3dDecodeAudioFromFile(path.toUTF8().c_str(), detail::OnDecodeAudioFromFile, data);
+            auto data = new detail::AsyncDecodedAudioData(std::move(promise));
+            siv3dDecodeAudioFromFileAsync(path.toUTF8().c_str(), detail::OnDecodeAudioFromFile, data);
 
             LOG_TRACE(U"DecodeAudioFromFile: falling back to Browser-Supported Decoding");
         }

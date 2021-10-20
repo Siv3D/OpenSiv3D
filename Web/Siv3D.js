@@ -17,7 +17,8 @@ mergeInto(LibraryManager.library, {
         const window = GLFW.WindowFromId(windowid);
         if (!window) return 0;
         if (!window.keysBuffer) {
-            window.keysBuffer = Module._malloc(349 /* GLFW_KEY_LAST + 1 */)
+            window.keysBuffer = Module["_malloc"](349 /* GLFW_KEY_LAST + 1 */)
+            Module["HEAPU8"].fill(0, window.keysBuffer, window.keysBuffer + 348);
         }
         Module["HEAPU8"].set(window.keys, window.keysBuffer);
         return window.keysBuffer;
@@ -561,7 +562,41 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__sig: "v",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dWriteSaveFileBuffer", "$siv3dFlushSaveFileBuffer", "$siv3dSaveFileBuffer", "$siv3dDownloadLink", "$TTY", "$FS" ],
 
-    siv3dOpenDialog: function(filterStr, callback, futurePtr) {
+    siv3dOpenDialog: function(filterStr) {
+        return Asyncify.handleSleep(function (wakeUp) {
+            siv3dInputElement.accept = UTF8ToString(filterStr);
+            siv3dInputElement.oninput = function(e) {
+                const files = e.target.files;
+
+                if (files.length < 1) {
+                    wakeUp(0);
+                    return;
+                }
+
+                const file = files[0];
+                const filePath = `/tmp/${file.name}`;
+
+                siv3dDialogFileReader.addEventListener("load", function onLoaded() {
+                    FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
+
+                    const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
+                    wakeUp(namePtr);
+
+                    siv3dDialogFileReader.removeEventListener("load", onLoaded);
+                });
+
+                siv3dDialogFileReader.readAsArrayBuffer(file);         
+            };
+
+            siv3dRegisterUserAction(function() {
+                siv3dInputElement.click();
+            });
+        })
+    },
+    siv3dOpenDialog__sig: "ii",
+    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "$Asyncify" ],
+
+    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
         siv3dInputElement.accept = UTF8ToString(filterStr);
         siv3dInputElement.oninput = function(e) {
             const files = e.target.files;
@@ -590,8 +625,8 @@ mergeInto(LibraryManager.library, {
             siv3dInputElement.click();
         });
     },
-    siv3dOpenDialog__sig: "vii",
-    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+    siv3dOpenDialogAsync__sig: "vii",
+    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
 
     $siv3dSaveFileBuffer: null, 
     $siv3dSaveFileBufferWritePos: 0,
@@ -637,7 +672,7 @@ mergeInto(LibraryManager.library, {
     //
     // Audio Support
     //
-    siv3dDecodeAudioFromFile: function(filePath, callback, arg) {
+    siv3dDecodeAudioFromFileAsync: function(filePath, callback, arg) {
         const path = UTF8ToString(filePath, 1024);
         const fileBytes = FS.readFile(path);
 
@@ -673,8 +708,8 @@ mergeInto(LibraryManager.library, {
 
         Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
     },
-    siv3dDecodeAudioFromFile__sig: "vii",
-    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS" ],
+    siv3dDecodeAudioFromFileAsync__sig: "viii",
+    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS" ],
 
     //
     // Clipboard
@@ -689,7 +724,24 @@ mergeInto(LibraryManager.library, {
     siv3dSetClipboardText__sig: "vi",
     siv3dSetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
 
-    siv3dGetClipboardText: function(callback, promise) {
+    siv3dGetClipboardText: function() {
+        return Asyncify.handleSleep(function (wakeUp) {
+            siv3dRegisterUserAction(function () {
+                navigator.clipboard.readText()
+                .then(str => {
+                    const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
+                    wakeUp(strPtr);
+                })
+                .catch(_ => {
+                    wakeUp(0);
+                })
+            }); 
+        });
+    },
+    siv3dGetClipboardText__sig: "iv",
+    siv3dGetClipboardText__deps: [ "$siv3dRegisterUserAction", "$Asyncify" ],
+
+    siv3dGetClipboardTextAsync: function(callback, promise) {
         siv3dRegisterUserAction(function () {
             navigator.clipboard.readText()
             .then(str => {
@@ -703,8 +755,8 @@ mergeInto(LibraryManager.library, {
         });
         
     },
-    siv3dGetClipboardText__sig: "vii",
-    siv3dGetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
+    siv3dGetClipboardTextAsync__sig: "vii",
+    siv3dGetClipboardTextAsync__deps: [ "$siv3dRegisterUserAction" ],
 
     //
     // TextInput
@@ -974,4 +1026,91 @@ mergeInto(LibraryManager.library, {
     },
     siv3dLaunchBrowser__sig: "vi",
     siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
+
+    siv3dWebGPUConfigureSwapchain: function(deviceId, swapChainId, descriptor) {
+        var device = WebGPU["mgrDevice"].get(deviceId);
+        var swapChain = WebGPU["mgrSwapChain"].get(swapChainId);
+        var width = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.width, 'i32', false, true) }}};
+        var height = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.height, 'i32', false, true) }}};
+
+        var desc = {
+            "device": device,
+            "format": WebGPU.TextureFormat[
+                {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.format, 'i32', false, true) }}}],
+            "usage": {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.usage, 'i32', false, true) }}},
+            "size": { width, height }
+        };
+
+        swapChain["configure"](desc);
+    },
+    siv3dWebGPUConfigureSwapchain__sig: "viii",
+    siv3dWebGPUConfigureSwapchain__deps: [ "$WebGPU" ], 
+
+    //
+    // Asyncify Support
+    //
+#if ASYNCIFY
+    siv3dRequestAnimationFrame: function() {
+        Asyncify.handleSleep(function(wakeUp) {
+            requestAnimationFrame(function() {
+                wakeUp();
+            });
+        });
+    },
+    siv3dRequestAnimationFrame__sig: "v", 
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify" ],
+
+    siv3dDecodeAudioFromFile: function(filePath, arg) {
+        Asyncify.handleSleep(function(wakeUp) {
+            const path = UTF8ToString(filePath, 1024);
+            const fileBytes = FS.readFile(path);
+
+            const onSuccess = function(decoded) {
+                const leftDataBuffer = Module["_malloc"](decoded.length * 4);
+                HEAPF32.set(decoded.getChannelData(0), leftDataBuffer>>2);
+
+                let rightDataBuffer;
+                
+                if (decoded.numberOfChannels >= 2) {
+                    rightDataBuffer = Module["_malloc"](decoded.length * 4);
+                    HEAPF32.set(decoded.getChannelData(1), rightDataBuffer>>2);
+                } else {
+                    rightDataBuffer = leftDataBuffer;
+                }
+
+                HEAP32[(arg>>2)+0] = leftDataBuffer;
+                HEAP32[(arg>>2)+1] = rightDataBuffer;
+                HEAPU32[(arg>>2)+2] = decoded.sampleRate;
+                HEAPU32[(arg>>2)+3] = decoded.length;
+
+                wakeUp();
+            };
+
+            const onFailure = function() {
+                HEAP32[(arg>>2)+0] = 0;
+                HEAP32[(arg>>2)+1] = 0;
+                HEAPU32[(arg>>2)+2] = 0;
+                HEAPU32[(arg>>2)+3] = 0;
+
+                wakeUp();
+            }
+
+            Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure); 
+        });
+    },
+    siv3dDecodeAudioFromFile__sig: "vii",
+    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS", "$Asyncify" ],
+#else
+    siv3dRequestAnimationFrame: function() {
+    },
+    siv3dRequestAnimationFrame__sig: "v",
+
+    siv3dDecodeAudioFromFile: function(_, arg) {
+        HEAP32[(arg>>2)+0] = 0;
+        HEAP32[(arg>>2)+1] = 0;
+        HEAPU32[(arg>>2)+2] = 0;
+        HEAPU32[(arg>>2)+3] = 0;
+    },
+    siv3dDecodeAudioFromFile__sig: "vii",
+#endif
 })

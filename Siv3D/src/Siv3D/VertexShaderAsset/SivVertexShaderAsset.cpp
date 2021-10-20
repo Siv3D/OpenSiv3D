@@ -106,6 +106,18 @@ namespace s3d
 		return Register(name, std::move(data));
 	}
 
+	bool VertexShaderAsset::Register(const AssetNameView name, const s3d::WGSL& wgsl)
+	{
+		if (not detail::CheckFileExists(wgsl.path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<VertexShaderAssetData> data = std::make_unique<VertexShaderAssetData>(wgsl);
+
+		return Register(name, std::move(data));
+	}
+
 	bool VertexShaderAsset::Register(const AssetNameView name, const ShaderGroup& shaderGroup)
 	{
 		std::unique_ptr<VertexShaderAssetData> data = std::make_unique<VertexShaderAssetData>(shaderGroup);
@@ -175,6 +187,18 @@ namespace s3d
 		}
 
 		std::unique_ptr<VertexShaderAssetData> data = std::make_unique<VertexShaderAssetData>(essl, nameAndTags.tags);
+
+		return Register(nameAndTags.name, std::move(data));
+	}
+
+	bool VertexShaderAsset::Register(const AssetNameAndTags& nameAndTags, const s3d::WGSL& wgsl)
+	{
+		if (not detail::CheckFileExists(wgsl.path))
+		{
+			return false;
+		}
+
+		std::unique_ptr<VertexShaderAssetData> data = std::make_unique<VertexShaderAssetData>(wgsl, nameAndTags.tags);
 
 		return Register(nameAndTags.name, std::move(data));
 	}

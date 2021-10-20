@@ -26,8 +26,8 @@ if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
 endif ()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_GLFW=3 -s USE_SDL=2")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_FREETYPE=1 -s USE_HARFBUZZ=1 -s USE_OGG=1 -s USE_LIBPNG=1  -s USE_VORBIS=1")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s USE_SDL=2 --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_OGG=1 -s USE_LIBPNG=1  -s USE_VORBIS=1")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/../Siv3D.pre.js")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
 
@@ -36,11 +36,22 @@ if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
 endif()
 
+if (SIV3D_WEBGPU_BACKEND)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSIV3D_WEBGPU_BACKEND")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSIV3D_WEBGPU_BACKEND")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_WEBGPU=1 --post-js \"${CMAKE_SOURCE_DIR}/../Siv3D.post.js\"")
+else()
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2")
+endif()
+
 if (SIV3D_RUN_TEST_ON_NODE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSIV3D_ENABLE_TEST=1")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lnodefs.js --pre-js \"${CMAKE_SOURCE_DIR}/../../Test/Siv3DTest.js\"")
 else()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file \"${CMAKE_SOURCE_DIR}/resources@/resources\" --preload-file \"${CMAKE_SOURCE_DIR}/example@/example\"")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]\"")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]\"")
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
@@ -99,6 +110,7 @@ if (${CMAKE_EXE_LINKER_FLAGS} MATCHES "-pthread")
 else ()
 
   target_link_libraries(Siv3DTest PRIVATE
+    # ${PROJECT_SOURCE_DIR}/../build/libSiv3DScript.a
     ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_objdetect.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opencv/libopencv_photo.a
