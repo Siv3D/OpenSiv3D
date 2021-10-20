@@ -34,7 +34,7 @@ namespace s3d
 
 		static void ErrorCallback(const int error, const char* description)
 		{
-			std::cout << U"Error: {}. "_fmt(error) << description << '\n';
+			std::cerr << U"Error: {}. "_fmt(error) << description << '\n';
 		}
 	}
 

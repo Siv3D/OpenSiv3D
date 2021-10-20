@@ -25,7 +25,7 @@ namespace s3d::detail::init
 int main(int argc, char* argv[])
 {
 	using namespace s3d;
-	std::cout << "OpenSiv3D for macOS\n";
+	std::clog << "OpenSiv3D for macOS\n";
 	
 	detail::init::InitCommandLines(argc, argv);
 
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	}
 	catch (const Error& error)
 	{
-		std::cout << error << '\n';
+		std::cerr << error << '\n';
 		return -1;
 	}
 

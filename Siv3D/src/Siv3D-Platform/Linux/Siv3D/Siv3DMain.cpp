@@ -26,7 +26,7 @@ namespace s3d::detail::init
 int main(int argc, char* argv[])
 {
 	using namespace s3d;
-	std::cout << "OpenSiv3D for Linux\n";
+	std::clog << "OpenSiv3D for Linux\n";
 
 	detail::init::InitCommandLines(argc, argv);
 	detail::init::InitModulePath(argv[0]);
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 	}
 	catch (const Error& error)
 	{
-		std::cout << error << '\n';
+		std::cerr << error << '\n';
 		return -1;
 	}
 

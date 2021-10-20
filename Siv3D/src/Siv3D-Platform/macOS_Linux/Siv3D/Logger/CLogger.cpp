@@ -55,7 +55,7 @@ namespace s3d
 
 		std::lock_guard lock{ m_mutex };
 		{
-			std::cout << output << std::endl;
+			std::clog << output << std::endl;
 		}
 	}
 

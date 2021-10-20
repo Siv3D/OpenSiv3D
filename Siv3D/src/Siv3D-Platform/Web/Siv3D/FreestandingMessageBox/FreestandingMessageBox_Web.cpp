@@ -19,7 +19,7 @@ namespace s3d
 		static void ShowFreestandingMessageBox(const StringView text)
 		{
 			// [Siv3D ToDo]
-			std::cout << text << '\n';
+			std::cerr << text << '\n';
 		}
 	}
 
