@@ -84,7 +84,7 @@ namespace s3d
 			{
 				throw EngineError{ U"Failed to initialize audio engine" };
 			}
-		# elif
+		# else
 			if (SoLoud::SO_NO_ERROR != m_soloud->init())
 			{
 				throw EngineError{ U"Failed to initialize audio engine" };
