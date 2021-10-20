@@ -2,7 +2,7 @@
 
 <p align="center"><a href="https://siv3d.github.io/"><img src="https://raw.githubusercontent.com/Siv3D/File/master/v6/logo.png" width="480" alt="Siv3D logo"></a></p>
 
-**Siv3D** (OpenSiv3D) is a C++20 framework for creative coding.
+**Siv3D** (OpenSiv3D) is a C++20 framework for **creative coding** (2D/3D games, media art, visualizers, simulators). Siv3D applications run on **Windows, macOS, Linux, and the Web**.
 
 ## Installation Guide & Documentation
 
