@@ -1567,6 +1567,8 @@
 # include <Siv3D/GlyphCluster.hpp>
 # include <Siv3D/OutlineGlyph.hpp>
 # include <Siv3D/BitmapGlyph.hpp>
+# include <Siv3D/PolygonGlyph.hpp>
+# include <Siv3D/MeshGlyph.hpp>
 # include <Siv3D/SDFGlyph.hpp>
 # include <Siv3D/MSDFGlyph.hpp>
 

@@ -15,11 +15,69 @@
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/MeshData.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "FontFaceProperty.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static constexpr Float3 FromFloat2(const Float2& pos) noexcept
+		{
+			return{ pos.x, -pos.y, 0.0f };
+		}
+
+		[[nodiscard]]
+		static MeshData FromPolygons(const MultiPolygon& polygons)
+		{
+			Array<Vertex3D> vertices;
+			Array<TriangleIndex32> indices;
+
+			Vertex3D v;
+			v.normal = Float3{ 0.0f, 0.0f, -1.0f };
+			v.tex = Float2{ 0.0f,0.0f };
+
+			uint32 indexOffset = 0;
+
+			for (const auto& polygon : polygons)
+			{
+				for (const auto& point : polygon.vertices())
+				{
+					v.pos = FromFloat2(point);
+					vertices << v;
+				}
+
+				for (const auto& t : polygon.indices())
+				{
+					indices.emplace_back((indexOffset + t.i0), (indexOffset + t.i1), (indexOffset + t.i2));
+				}
+
+				indexOffset = static_cast<uint32>(vertices.size());
+			}
+
+			return{ std::move(vertices), std::move(indices) };
+		}
+
+		[[nodiscard]]
+		static MeshGlyph ToMeshGlyph(const PolygonGlyph& polygonGlyph, const double size, const Font& font)
+		{
+			const double scale = (size / font.fontSize());
+			const double offsetX = (polygonGlyph.polygons.computeBoundingRect().w + polygonGlyph.getBase().x);
+			const MultiPolygon polygons = polygonGlyph.polygons.movedBy(polygonGlyph.getBase()).scaled(scale);
+
+			return
+			{
+				.mesh = Mesh{ FromPolygons(polygons) },
+				.glyphIndex = polygonGlyph.glyphIndex,
+				.xAdvance = (polygonGlyph.xAdvance * scale),
+				.yAdvance = (polygonGlyph.yAdvance * scale),
+				.xOffset = (offsetX * 0.5 * scale),
+			};
+		}
+	}
+
 	template <>
 	AssetIDWrapper<AssetHandle<Font>>::AssetIDWrapper()
 	{
@@ -239,9 +297,37 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->renderPolygonByGlyphIndex(m_handle->id(), glyphIndex);
 	}
 
-	Array<PolygonGlyph> Font::renderPolygons(StringView s) const
+	Array<PolygonGlyph> Font::renderPolygons(const StringView s) const
 	{
 		return SIV3D_ENGINE(Font)->renderPolygons(m_handle->id(), s);
+	}
+
+	MeshGlyph Font::createMesh(const char32 ch, const double size) const
+	{
+		const PolygonGlyph polygonGlyph = SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), StringView(&ch, 1));
+	
+		return detail::ToMeshGlyph(polygonGlyph, size, *this);
+	}
+
+	MeshGlyph Font::createMesh(const StringView ch, const double size) const
+	{
+		const PolygonGlyph polygonGlyph = SIV3D_ENGINE(Font)->renderPolygon(m_handle->id(), ch);
+
+		return detail::ToMeshGlyph(polygonGlyph, size, *this);
+	}
+
+	MeshGlyph Font::createMeshByGlyphIndex(const GlyphIndex glyphIndex, const double size) const
+	{
+		const PolygonGlyph polygonGlyph = SIV3D_ENGINE(Font)->renderPolygonByGlyphIndex(m_handle->id(), glyphIndex);
+
+		return detail::ToMeshGlyph(polygonGlyph, size, *this);
+	}
+
+	Array<MeshGlyph> Font::createMeshes(const StringView s, const double size) const
+	{
+		const Array<PolygonGlyph> polygonGlyphs = SIV3D_ENGINE(Font)->renderPolygons(m_handle->id(), s);
+
+		return polygonGlyphs.map([size, this](const PolygonGlyph& polygonGlyph) { return detail::ToMeshGlyph(polygonGlyph, size, *this); });
 	}
 
 	BitmapGlyph Font::renderBitmap(const char32 ch) const

@@ -469,6 +469,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryViewReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MeshData.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\MeshGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxResult.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MessageBoxStyle.hpp" />

@@ -18,6 +18,7 @@
 # include "GlyphCluster.hpp"
 # include "OutlineGlyph.hpp"
 # include "PolygonGlyph.hpp"
+# include "MeshGlyph.hpp"
 # include "BitmapGlyph.hpp"
 # include "SDFGlyph.hpp"
 # include "MSDFGlyph.hpp"
@@ -281,6 +282,35 @@ namespace s3d
 		/// @return 文字のポリゴングリフの配列
 		[[nodiscard]]
 		Array<PolygonGlyph> renderPolygons(StringView s) const;
+
+		/// @brief 指定した文字のメッシュグリフを作成して返します。
+		/// @param ch 文字
+		/// @param size フォントのサイズ
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		MeshGlyph createMesh(char32 ch, double size = 1.0) const;
+
+		/// @brief 指定した文字のメッシュグリフを作成して返します。
+		/// @param ch 文字
+		/// @param size フォントのサイズ
+		/// @remark char32 型の要素 1 つでは表現できない文字のための関数です。
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		MeshGlyph createMesh(StringView ch, double size = 1.0) const;
+
+		/// @brief 指定した文字のメッシュグリフを作成して返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @param size フォントのサイズ
+		/// @return 文字のポリゴングリフ
+		[[nodiscard]]
+		MeshGlyph createMeshByGlyphIndex(GlyphIndex glyphIndex, double size = 1.0) const;
+
+		/// @brief 指定した文字列のすべての文字のメッシュグリフの配列を作成して返します。
+		/// @param s 文字列
+		/// @param size フォントのサイズ
+		/// @return 文字のポリゴングリフの配列		
+		[[nodiscard]]
+		Array<MeshGlyph> createMeshes(StringView s, double size = 1.0) const;
 
 		/// @brief 指定した文字の Bitmap グリフを作成して返します。
 		/// @param ch 文字
