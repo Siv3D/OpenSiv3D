@@ -109,7 +109,6 @@ namespace s3d
 		SIV3D_ENGINE(Print)->init();
 		SIV3D_ENGINE(PrimitiveMesh)->init();
 		SIV3D_ENGINE(Effect)->init();
-		SIV3D_ENGINE(Script)->init();
 	}
 
 	bool CSystem::update()

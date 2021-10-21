@@ -87,8 +87,6 @@ namespace s3d
 
 		try
 		{
-			SIV3D_ENGINE(Script)->init();
-
 			LOG_TRACE(U"Main() ---");
 
 			Main();

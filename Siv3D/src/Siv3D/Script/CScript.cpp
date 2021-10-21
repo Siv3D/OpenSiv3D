@@ -61,6 +61,11 @@ namespace s3d
 
 	void CScript::init()
 	{
+		if (m_initialized)
+		{
+			return;
+		}
+
 		LOG_SCOPED_TRACE(U"CScript::init()");
 
 		if (m_engine = AngelScript::asCreateScriptEngine(ANGELSCRIPT_VERSION); 
@@ -223,12 +228,12 @@ namespace s3d
 			m_scripts.setNullData(std::move(nullScript));
 		}
 
-		m_shutDown = false;
+		m_initialized = true;
 	}
 
 	void CScript::shutdown()
 	{
-		if (m_shutDown)
+		if (not m_initialized)
 		{
 			return;
 		}
@@ -239,11 +244,16 @@ namespace s3d
 
 		m_engine->ShutDownAndRelease();
 
-		m_shutDown = true;
+		m_initialized = false;
 	}
 
 	Script::IDType CScript::createFromCode(const StringView code, const ScriptCompileOption compileOption)
 	{
+		if (not m_initialized)
+		{
+			init();
+		}
+
 		if (not code)
 		{
 			return Script::IDType::NullAsset();
@@ -267,6 +277,11 @@ namespace s3d
 
 	Script::IDType CScript::createFromFile(const FilePathView path, const ScriptCompileOption compileOption)
 	{
+		if (not m_initialized)
+		{
+			init();
+		}
+
 		if (not path)
 		{
 			return Script::IDType::NullAsset();
@@ -290,41 +305,57 @@ namespace s3d
 
 	void CScript::release(const Script::IDType handleID)
 	{
+		assert(m_initialized);
+
 		m_scripts.erase(handleID);
 	}
 
 	bool CScript::compiled(const Script::IDType handleID)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->compileSucceeded();
 	}
 
 	bool CScript::reload(const Script::IDType handleID, const ScriptCompileOption compileOption)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->reload(compileOption, handleID.value());
 	}
 	
 	const std::shared_ptr<ScriptModule>& CScript::getModule(const Script::IDType handleID)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->getModule();
 	}
 	
 	AngelScript::asIScriptFunction* CScript::getFunction(const Script::IDType handleID, const StringView decl)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->getFunction(decl);
 	}
 
 	Array<String> CScript::getFunctionDeclarations(const Script::IDType handleID, const IncludeParamNames includeParamNames)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->getFunctionDeclarations(includeParamNames);
 	}
 
 	const FilePath& CScript::path(const Script::IDType handleID)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->path();
 	}
 
 	Array<String> CScript::retrieveMessages_internal()
 	{
+		assert(m_initialized);
+
 		Array<String> messages = std::move(m_messages);
 
 		m_messages.clear();
@@ -334,21 +365,32 @@ namespace s3d
 
 	const Array<String>& CScript::getMessages(const Script::IDType handleID)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->getMessages();
 	}
 
 	void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool(void)>& callback)
 	{
+		assert(m_initialized);
+
 		return m_scripts[handleID]->setSystemUpdateCallback(callback);
 	}
 
 	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
 	{
+		assert(m_initialized);
+
 		return m_scripts[Script::IDType(static_cast<Script::IDType>(scriptID))]->getSystemUpdateCallback();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()
 	{
+		if (not m_initialized)
+		{
+			init();
+		}
+
 		return m_engine;
 	}
 }

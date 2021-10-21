@@ -63,7 +63,7 @@ namespace s3d
 
 		AssetHandleManager<Script::IDType, ScriptData> m_scripts{ U"Script" };
 
-		bool m_shutDown = true;
+		bool m_initialized = false;
 
 		Array<String> m_messages;
 	};

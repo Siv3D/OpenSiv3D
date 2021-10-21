@@ -42,7 +42,10 @@ namespace s3d
 		}
 	}
 
-	Script::Script() {}
+	Script::Script()
+	{
+		SIV3D_ENGINE(Script)->init();
+	}
 
 	Script::Script(const FilePathView path, const ScriptCompileOption compileOption)
 		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Script)->createFromFile(path, compileOption)) }
