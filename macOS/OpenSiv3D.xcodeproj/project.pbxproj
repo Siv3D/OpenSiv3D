@@ -3525,6 +3525,7 @@
 		2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelMeshPart.hpp; sourceTree = "<group>"; };
 		2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
 		2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		2C64C40D272154A200711233 /* MeshGlyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshGlyph.hpp; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
 		2C65277C26561B7D003427EB /* RtAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtAudio.h; sourceTree = "<group>"; };
@@ -10166,6 +10167,7 @@
 				2C5043FF2651364800E36D08 /* MemoryWriter.hpp */,
 				2C631E912687046500166A8E /* Mesh.hpp */,
 				2C768DCA268E28E000A02CF5 /* MeshData.hpp */,
+				2C64C40D272154A200711233 /* MeshGlyph.hpp */,
 				2CE94FA52652484400440C6C /* MessageBox.hpp */,
 				2C80460E2653FDE000CE7C3E /* MessageBoxResult.hpp */,
 				2C80460F2653FDE000CE7C3E /* MessageBoxStyle.hpp */,
