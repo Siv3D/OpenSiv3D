@@ -13,12 +13,15 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "Array.hpp"
-# include "Font.hpp"
+# include "PointVector.hpp"
+# include "ColorHSV.hpp"
 # include "UnderlineStyle.hpp"
 # include "TextInputMode.hpp"
 
 namespace s3d
 {
+	class Font;
+
 	namespace TextInput
 	{
 		[[nodiscard]]
