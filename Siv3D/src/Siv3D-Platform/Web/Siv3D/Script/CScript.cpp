@@ -31,19 +31,19 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CScript::init()");
 
-        m_shutDown = false;
+        m_initialized = true;
 	}
 
 	__attribute__((weak)) void CScript::shutdown()
 	{
-		if (m_shutDown)
+		if (not m_initialized)
 		{
 			return;
 		}
 
 		LOG_SCOPED_TRACE(U"CScript::shutdown()");
 
-		m_shutDown = true;
+		m_initialized = false;
 	}
 
 	__attribute__((weak)) Script::IDType CScript::createFromCode(const StringView code, const ScriptCompileOption compileOption)
