@@ -51,7 +51,7 @@ namespace s3d
 
 				for (const auto& t : polygon.indices())
 				{
-					indices.emplace_back((indexOffset + t.i0), (indexOffset + t.i1), (indexOffset + t.i2));
+					indices.push_back(TriangleIndex32{ (indexOffset + t.i0), (indexOffset + t.i1), (indexOffset + t.i2) });
 				}
 
 				indexOffset = static_cast<uint32>(vertices.size());
