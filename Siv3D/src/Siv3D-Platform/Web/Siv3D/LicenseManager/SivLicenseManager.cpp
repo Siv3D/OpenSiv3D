@@ -52,7 +52,7 @@ namespace s3d
 
 		void ShowInBrowser()
 		{
-			const String& licenseUrl = U"siv3d.jp/web/license/" SIV3D_SHORT_VERSION_STRING U"/license.html";
+			const String& licenseUrl = U"https://siv3d.jp/web/license/" SIV3D_SHORT_VERSION_STRING U"/license.html";
 			System::LaunchBrowser(licenseUrl);
 		}
 	}
