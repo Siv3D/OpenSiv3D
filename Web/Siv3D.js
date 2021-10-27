@@ -514,7 +514,7 @@ mergeInto(LibraryManager.library, {
     $siv3dRegisterUserAction: function(func) {
         siv3dPendingUserActions.push(func);
     },
-    $siv3dRegisterUserAction__deps: [ "$siv3dPendingUserActions" ],
+    $siv3dRegisterUserAction__deps: [ "$siv3dPendingUserActions", "$autoResumeAudioContext", "$dynCall" ],
 
     $siv3dUserActionHookCallBack: function() {
         if (!siv3dHasUserActionTriggered) {
