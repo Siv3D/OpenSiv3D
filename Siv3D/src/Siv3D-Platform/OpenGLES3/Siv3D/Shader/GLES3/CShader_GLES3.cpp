@@ -171,13 +171,13 @@ namespace s3d
 	void CShader_GLES3::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, static_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
 	void CShader_GLES3::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, static_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
 	const PixelShader& CShader_GLES3::getEnginePS(const EnginePS ps) const

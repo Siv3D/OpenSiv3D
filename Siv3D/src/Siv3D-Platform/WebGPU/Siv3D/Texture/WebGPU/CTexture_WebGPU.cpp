@@ -31,7 +31,7 @@ namespace s3d
 
 	void CTexture_WebGPU::init()
 	{
-		auto pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		auto pRenderer = static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
 		m_device = pRenderer->getDevice();
 
 		// null Texture を管理に登録

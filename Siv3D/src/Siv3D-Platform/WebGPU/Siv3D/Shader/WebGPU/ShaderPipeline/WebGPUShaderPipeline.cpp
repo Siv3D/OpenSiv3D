@@ -76,7 +76,7 @@ namespace s3d
     {
         m_device = device;
 
-        pShader = dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
+        pShader = static_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
 
         m_standard2DVertexAttributes =
         {

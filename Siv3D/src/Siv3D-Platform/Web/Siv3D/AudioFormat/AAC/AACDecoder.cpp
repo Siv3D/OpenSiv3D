@@ -52,12 +52,10 @@ namespace s3d
 
 	Wave AACDecoder::decode(const FilePathView path) const
 	{
-		if (auto p = dynamic_cast<CAudioCodec*>(SIV3D_ENGINE(AudioCodec)))
+		auto p = static_cast<CAudioCodec*>(SIV3D_ENGINE(AudioCodec));
 		{
 			return p->decode(path, AudioFormat::AAC);
 		}
-		
-		return{};
 	}
 
 	Wave AACDecoder::decode(IReader& reader, const FilePathView path) const

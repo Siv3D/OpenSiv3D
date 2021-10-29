@@ -50,9 +50,9 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_WebGPU::init()");
 
-		pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-		pShader		= dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader)); assert(pShader);
-		pTexture	= dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+		pRenderer	= static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
+		pShader		= static_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
+		pTexture	= static_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
 
 		m_device = pRenderer->getDevice();
 
@@ -1208,7 +1208,7 @@ namespace s3d
 					
 					if (cb.num_vectors)
 					{
-						const ConstantBufferDetail_WebGPU* cbd = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb.cbBase._detail());
+						const ConstantBufferDetail_WebGPU* cbd = static_cast<const ConstantBufferDetail_WebGPU*>(cb.cbBase._detail());
 						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
 						// ::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));

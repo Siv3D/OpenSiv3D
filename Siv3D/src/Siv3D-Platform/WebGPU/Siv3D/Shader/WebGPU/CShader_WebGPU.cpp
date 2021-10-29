@@ -44,7 +44,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_WebGPU::init()");
 
-		auto pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		auto pRenderer	= static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
 		m_device = pRenderer->getDevice();
 
 		// null VS を管理に登録
@@ -175,7 +175,7 @@ namespace s3d
 
 	void CShader_WebGPU::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
+		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
 
 		entry.binding = slot;
 
@@ -184,7 +184,7 @@ namespace s3d
 
 	void CShader_WebGPU::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
+		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
 
 		entry.binding = slot;
 
