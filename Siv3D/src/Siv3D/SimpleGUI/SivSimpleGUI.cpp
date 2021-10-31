@@ -1139,7 +1139,7 @@ namespace s3d
 
 			const Font& font = SimpleGUI::GetFont();
 			const int32 maxLines = (static_cast<int32>(height) - (ListBoxFrameThickness * 2)) / font.height();
-			const bool hasScrollBar = (maxLines < state.items.size());
+			const bool hasScrollBar = (maxLines < static_cast<int32>(state.items.size()));
 			const RectF rect{ Arg::center(center), Max(width, 40.0), Max<double>(height, font.height() + (ListBoxFrameThickness * 2)) };
 			const Vec2 pos = rect.pos;
 
