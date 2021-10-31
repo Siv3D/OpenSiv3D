@@ -697,6 +697,7 @@ add_library(
   ../Siv3D/src/ThirdParty/lunasvg/property.cpp
   ../Siv3D/src/ThirdParty/lunasvg/stopelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/styledelement.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/styleelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/svgelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/symbolelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/useelement.cpp
