@@ -43,9 +43,9 @@ namespace s3d
 		//	CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 		//	OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-		inline uint16 FloatToHalf(const float value) noexcept
+		SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline uint16 FloatToHalf(const float value) noexcept
 		{
-			uint32 result;
+			uint32 result = 0;
 
 		# if __cpp_lib_bit_cast
 			uint32 iValue = std::bit_cast<uint32>(value);
@@ -92,7 +92,7 @@ namespace s3d
 			return static_cast<uint16>(result | sign);
 		}
 
-		inline float HalfToFloat(const uint16 value) noexcept
+		SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline float HalfToFloat(const uint16 value) noexcept
 		{
 			uint32 mantissa = static_cast<uint32>(value & 0x03FF);
 
@@ -139,30 +139,30 @@ namespace s3d
 		///////////////////////////////////////////////////////////////
 	}
 
-	inline HalfFloat::HalfFloat(const float value) noexcept
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline HalfFloat::HalfFloat(const float value) noexcept
 		: m_bits(detail::FloatToHalf(value)) {}
 
 	SIV3D_CONCEPT_ARITHMETIC_
-	inline HalfFloat::HalfFloat(const Arithmetic value) noexcept
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline HalfFloat::HalfFloat(const Arithmetic value) noexcept
 		: HalfFloat(static_cast<float>(value)) {}
 
-	inline HalfFloat& HalfFloat::operator =(const float value) noexcept
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline HalfFloat& HalfFloat::operator =(const float value) noexcept
 	{
 		return (*this = HalfFloat(value));
 	}
 
 	SIV3D_CONCEPT_ARITHMETIC_
-	inline HalfFloat& HalfFloat::operator =(const Arithmetic value)
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline HalfFloat& HalfFloat::operator =(const Arithmetic value)
 	{
 		return (*this = HalfFloat(value));
 	}
 
-	inline HalfFloat::operator float() const noexcept
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline HalfFloat::operator float() const noexcept
 	{
 		return detail::HalfToFloat(m_bits);
 	}
 
-	inline bool HalfFloat::operator ==(const HalfFloat other) const noexcept
+	constexpr inline bool HalfFloat::operator ==(const HalfFloat other) const noexcept
 	{
 		if ((static_cast<uint16>(m_bits << 1u) == 0)
 			&& (static_cast<uint16>(other.m_bits << 1u) == 0))
@@ -174,38 +174,38 @@ namespace s3d
 	}
 
 #if __cpp_impl_three_way_comparison
-	inline auto HalfFloat::operator <=>(const HalfFloat other) const noexcept
+	SIV3D_CONSTEXPR_IF_BITCAST_AVAILABLE inline auto HalfFloat::operator <=>(const HalfFloat other) const noexcept
 	{
 		return static_cast<float>(*this) <=> static_cast<float>(other);
 	}
 #else
-	inline bool HalfFloat::operator !=(const HalfFloat other) const noexcept
+	constexpr inline bool HalfFloat::operator !=(const HalfFloat other) const noexcept
 	{
 		return !(operator ==(other));
 	}
 #endif
 
-	inline uint16 HalfFloat::getBits() const noexcept
+	constexpr inline uint16 HalfFloat::getBits() const noexcept
 	{
 		return m_bits;
 	}
 
-	inline void HalfFloat::setBits(const uint16 bits) noexcept
+	constexpr inline void HalfFloat::setBits(const uint16 bits) noexcept
 	{
 		m_bits = bits;
 	}
 
-	inline bool HalfFloat::isNaN() const noexcept
+	constexpr inline bool HalfFloat::isNaN() const noexcept
 	{
 		return ((m_bits & 0x7FFFU) == 0x7FFFU);
 	}
 
-	inline bool HalfFloat::isInfinity() const noexcept
+	constexpr inline bool HalfFloat::isInfinity() const noexcept
 	{
 		return ((m_bits & 0x7FFFU) == 0x7C00U);
 	}
 
-	inline int32 HalfFloat::getSign() const noexcept
+	constexpr inline int32 HalfFloat::getSign() const noexcept
 	{
 		return ((m_bits & 0x8000U) ? -1 : 1);
 	}
