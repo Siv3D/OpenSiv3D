@@ -1558,12 +1558,12 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\document.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\element.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\lunasvg.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.h" />
@@ -1572,6 +1572,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\property.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\styleelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.h" />
@@ -2603,12 +2604,12 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\document.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\element.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\lunasvg.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.cpp" />
@@ -2616,6 +2617,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\property.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\styleelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.cpp" />

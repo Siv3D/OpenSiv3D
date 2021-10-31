@@ -5,7 +5,7 @@
 #include "gelement.h"
 #include "svgelement.h"
 
-using namespace lunasvg;
+namespace lunasvg {
 
 UseElement::UseElement()
     : GraphicsElement(ElementId::Use)
@@ -15,45 +15,30 @@ UseElement::UseElement()
 Length UseElement::x() const
 {
     auto& value = get(PropertyId::X);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length UseElement::y() const
 {
     auto& value = get(PropertyId::Y);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length UseElement::width() const
 {
     auto& value = get(PropertyId::Width);
-    if(value.empty())
-        return Length{100, LengthUnits::Percent};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::HundredPercent);
 }
 
 Length UseElement::height() const
 {
     auto& value = get(PropertyId::Height);
-    if(value.empty())
-        return Length{100, LengthUnits::Percent};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::HundredPercent);
 }
 
 std::string UseElement::href() const
 {
     auto& value = get(PropertyId::Href);
-    if(value.empty())
-        return std::string{};
-
     return Parser::parseHref(value);
 }
 
@@ -62,8 +47,8 @@ void UseElement::transferWidthAndHeight(Element* element) const
     auto& width = get(PropertyId::Width);
     auto& height = get(PropertyId::Height);
 
-    element->set(PropertyId::Width, width);
-    element->set(PropertyId::Height, height);
+    element->set(PropertyId::Width, width, 0x0);
+    element->set(PropertyId::Height, height, 0x0);
 }
 
 void UseElement::layout(LayoutContext* context, LayoutContainer* current) const
@@ -72,9 +57,10 @@ void UseElement::layout(LayoutContext* context, LayoutContainer* current) const
         return;
 
     auto ref = context->getElementById(href());
-    if(ref == nullptr)
+    if(ref == nullptr || context->hasReference(ref) || (current->id == LayoutId::ClipPath && !ref->isGeometry()))
         return;
 
+    LayoutBreaker layoutBreaker(context, ref);
     auto group = std::make_unique<GElement>();
     group->parent = parent;
     group->properties = properties;
@@ -83,14 +69,13 @@ void UseElement::layout(LayoutContext* context, LayoutContainer* current) const
     auto _x = lengthContext.valueForLength(x(), LengthMode::Width);
     auto _y = lengthContext.valueForLength(y(), LengthMode::Height);
 
-    std::string transform;
-    transform += get(PropertyId::Transform);
+    auto transform = get(PropertyId::Transform);
     transform += "translate(";
     transform += std::to_string(_x);
     transform += ' ';
     transform += std::to_string(_y);
     transform += ')';
-    group->set(PropertyId::Transform, transform);
+    group->set(PropertyId::Transform, transform, 0x10);
 
     if(ref->id == ElementId::Svg || ref->id == ElementId::Symbol)
     {
@@ -110,3 +95,5 @@ std::unique_ptr<Node> UseElement::clone() const
 {
     return cloneElement<UseElement>();
 }
+
+} // namespace lunasvg

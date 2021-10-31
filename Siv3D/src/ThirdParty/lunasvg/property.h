@@ -19,6 +19,12 @@ enum class Visibility
     Hidden
 };
 
+enum class Overflow
+{
+    Visible,
+    Hidden
+};
+
 enum class LineCap
 {
     Butt,
@@ -86,7 +92,7 @@ class Paint
 public:
     Paint() = default;
     Paint(const Color& color);
-    Paint(const std::string& ref);
+    Paint(const std::string& ref, const Color& color);
 
     const Color& color() const { return m_color; }
     const std::string& ref() const { return m_ref; }
@@ -116,7 +122,17 @@ public:
     Rect() = default;
     Rect(double x, double y, double w, double h);
 
-    bool empty() const { return x == 0.0 && y == 0.0 && w == 0.0 && h == 0.0; }
+    Rect operator&(const Rect& rect) const;
+    Rect operator|(const Rect& rect) const;
+
+    Rect& intersect(const Rect& rect);
+    Rect& unite(const Rect& rect);
+
+    bool empty() const { return w <= 0.0 || h <= 0.0; }
+    bool valid() const { return w >= 0.0 && h >= 0.0; }
+
+    static const Rect Empty;
+    static const Rect Invalid;
 
 public:
     double x{0};
@@ -147,6 +163,7 @@ public:
     Transform& invert();
 
     void map(double x, double y, double* _x, double* _y) const;
+    Point map(double x, double y) const;
     Point map(const Point& point) const;
     Rect map(const Rect& rect) const;
 
@@ -255,6 +272,15 @@ public:
     bool isZero() const { return m_value == 0.0; }
     bool isRelative() const { return m_units == LengthUnits::Percent || m_units == LengthUnits::Em || m_units == LengthUnits::Ex; }
 
+    static const Length Unknown;
+    static const Length Zero;
+    static const Length One;
+    static const Length ThreePercent;
+    static const Length HundredPercent;
+    static const Length FiftyPercent;
+    static const Length OneTwentyPercent;
+    static const Length MinusTenPercent;
+
 private:
     double m_value{0};
     LengthUnits m_units{LengthUnits::Px};
@@ -301,7 +327,8 @@ public:
     PreserveAspectRatio() = default;
     PreserveAspectRatio(Align align, MeetOrSlice scale);
 
-    Transform getMatrix(const Rect& viewPort, const Rect& viewBox) const;
+    Transform getMatrix(double width, double height, const Rect& viewBox) const;
+    Rect getClip(double width, double height, const Rect& viewBox) const;
 
     Align align() const { return m_align; }
     MeetOrSlice scale() const { return m_scale; }

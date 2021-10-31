@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-using namespace lunasvg;
+namespace lunasvg {
 
 GeometryElement::GeometryElement(ElementId id)
     : GraphicsElement(id)
@@ -17,107 +17,20 @@ void GeometryElement::layout(LayoutContext* context, LayoutContainer* current) c
         return;
 
     auto path = this->path();
-    auto box = path.box();
-    if(path.empty() || box.empty())
+    if(path.empty())
         return;
 
     auto shape = std::make_unique<LayoutShape>();
     shape->path = std::move(path);
-    shape->box = box;
     shape->transform = transform();
     shape->fillData = context->fillData(this);
     shape->strokeData = context->strokeData(this);
+    shape->markerData = context->markerData(this, shape->path);
     shape->visibility = visibility();
     shape->clipRule = clip_rule();
     shape->masker = context->getMasker(mask());
     shape->clipper = context->getClipper(clip_path());
-    layoutMarkers(context, shape.get());
     current->addChild(std::move(shape));
-}
-
-static const double pi = 3.14159265358979323846;
-
-void GeometryElement::layoutMarkers(LayoutContext* context, LayoutShape* shape) const
-{
-    auto markerStart = context->getMarker(marker_start());
-    auto markerMid = context->getMarker(marker_mid());
-    auto markerEnd = context->getMarker(marker_end());
-
-    if(markerStart == nullptr && markerMid == nullptr && markerEnd == nullptr)
-        return;
-
-    PathIterator it(shape->path);
-    Point origin;
-    Point startPoint;
-    Point inslopePoints[2];
-    Point outslopePoints[2];
-
-    int index = 0;
-    std::array<Point, 3> points;
-    while(!it.isDone())
-    {
-        switch(it.currentSegment(points)) {
-        case PathCommand::MoveTo:
-            startPoint = points[0];
-            inslopePoints[0] = origin;
-            inslopePoints[1] = points[0];
-            origin = points[0];
-            break;
-        case PathCommand::LineTo:
-            inslopePoints[0] = origin;
-            inslopePoints[1] = points[0];
-            origin = points[0];
-            break;
-        case PathCommand::CubicTo:
-            inslopePoints[0] = points[1];
-            inslopePoints[1] = points[2];
-            origin = points[2];
-            break;
-        case PathCommand::Close:
-            inslopePoints[0] = origin;
-            inslopePoints[1] = points[0];
-            origin = startPoint;
-            startPoint = Point{};
-            break;
-        }
-
-        index += 1;
-        it.next();
-
-        if(!it.isDone() && (markerStart || markerMid))
-        {
-            it.currentSegment(points);
-            outslopePoints[0] = origin;
-            outslopePoints[1] = points[0];
-
-            if(index == 1 && markerStart)
-            {
-                Point slope{outslopePoints[1].x - outslopePoints[0].x, outslopePoints[1].y - outslopePoints[0].y};
-                auto angle = 180.0 * std::atan2(slope.y, slope.x) / pi;
-
-                shape->markers.emplace_back(markerStart, origin, angle);
-            }
-
-            if(index > 1 && markerMid)
-            {
-                Point inslope{inslopePoints[1].x - inslopePoints[0].x, inslopePoints[1].y - inslopePoints[0].y};
-                Point outslope{outslopePoints[1].x - outslopePoints[0].x, outslopePoints[1].y - outslopePoints[0].y};
-                auto inangle = 180.0 * std::atan2(inslope.y, inslope.x) / pi;
-                auto outangle = 180.0 * std::atan2(outslope.y, outslope.x) / pi;
-                auto angle = (inangle + outangle) * 0.5;
-
-                shape->markers.emplace_back(markerMid, origin, angle);
-            }
-        }
-
-        if(it.isDone() && markerEnd)
-        {
-            Point slope{inslopePoints[1].x - inslopePoints[0].x, inslopePoints[1].y - inslopePoints[0].y};
-            auto angle = 180.0 * std::atan2(slope.y, slope.x) / pi;
-
-            shape->markers.emplace_back(markerEnd, origin, angle);
-        }
-    }
 }
 
 PathElement::PathElement()
@@ -128,9 +41,6 @@ PathElement::PathElement()
 Path PathElement::d() const
 {
     auto& value = get(PropertyId::D);
-    if(value.empty())
-        return Path{};
-
     return Parser::parsePath(value);
 }
 
@@ -152,9 +62,6 @@ PolyElement::PolyElement(ElementId id)
 PointList PolyElement::points() const
 {
     auto& value = get(PropertyId::Points);
-    if(value.empty())
-        return PointList{};
-
     return Parser::parsePointList(value);
 }
 
@@ -215,28 +122,19 @@ CircleElement::CircleElement()
 Length CircleElement::cx() const
 {
     auto& value = get(PropertyId::Cx);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length CircleElement::cy() const
 {
     auto& value = get(PropertyId::Cy);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length CircleElement::r() const
 {
     auto& value = get(PropertyId::R);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Path CircleElement::path() const
@@ -268,37 +166,25 @@ EllipseElement::EllipseElement()
 Length EllipseElement::cx() const
 {
     auto& value = get(PropertyId::Cx);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length EllipseElement::cy() const
 {
     auto& value = get(PropertyId::Cy);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length EllipseElement::rx() const
 {
     auto& value = get(PropertyId::Rx);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Length EllipseElement::ry() const
 {
     auto& value = get(PropertyId::Ry);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Path EllipseElement::path() const
@@ -332,37 +218,25 @@ LineElement::LineElement()
 Length LineElement::x1() const
 {
     auto& value = get(PropertyId::X1);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length LineElement::y1() const
 {
     auto& value = get(PropertyId::Y1);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length LineElement::x2() const
 {
     auto& value = get(PropertyId::X2);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length LineElement::y2() const
 {
     auto& value = get(PropertyId::Y2);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Path LineElement::path() const
@@ -392,55 +266,37 @@ RectElement::RectElement()
 Length RectElement::x() const
 {
     auto& value = get(PropertyId::X);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length RectElement::y() const
 {
     auto& value = get(PropertyId::Y);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length RectElement::rx() const
 {
     auto& value = get(PropertyId::Rx);
-    if(value.empty())
-        return Length{0, LengthUnits::Unknown};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Unknown);
 }
 
 Length RectElement::ry() const
 {
     auto& value = get(PropertyId::Ry);
-    if(value.empty())
-        return Length{0, LengthUnits::Unknown};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Unknown);
 }
 
 Length RectElement::width() const
 {
     auto& value = get(PropertyId::Width);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Length RectElement::height() const
 {
     auto& value = get(PropertyId::Height);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Path RectElement::path() const
@@ -474,3 +330,5 @@ std::unique_ptr<Node> RectElement::clone() const
 {
     return cloneElement<RectElement>();
 }
+
+} // namespace lunasvg

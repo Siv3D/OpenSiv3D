@@ -12,8 +12,8 @@ class GeometryElement : public GraphicsElement
 public:
     GeometryElement(ElementId id);
 
+    bool isGeometry() const { return true; }
     virtual void layout(LayoutContext* context, LayoutContainer* current) const;
-    virtual void layoutMarkers(LayoutContext* context, LayoutShape* shape) const;
     virtual Path path() const = 0;
 };
 
@@ -23,7 +23,6 @@ public:
     PathElement();
 
     Path d() const;
-
     Path path() const;
 
     std::unique_ptr<Node> clone() const;

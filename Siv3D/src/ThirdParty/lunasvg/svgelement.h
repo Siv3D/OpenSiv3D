@@ -6,7 +6,7 @@
 namespace lunasvg {
 
 class ParseDocument;
-class LayoutRoot;
+class LayoutSymbol;
 
 class SVGElement : public GraphicsElement
 {
@@ -20,8 +20,7 @@ public:
 
     Rect viewBox() const;
     PreserveAspectRatio preserveAspectRatio() const;
-    Rect viewPort() const;
-    std::unique_ptr<LayoutRoot> layoutDocument(const ParseDocument* document) const;
+    std::unique_ptr<LayoutSymbol> layoutDocument(const ParseDocument* document) const;
 
     void layout(LayoutContext* context, LayoutContainer* current) const;
     std::unique_ptr<Node> clone() const;

@@ -13,24 +13,31 @@
 #include "svgelement.h"
 #include "symbolelement.h"
 #include "useelement.h"
+#include "styleelement.h"
 
-using namespace lunasvg;
+namespace lunasvg {
 
-Length Parser::parseLength(const std::string& string, LengthNegativeValuesMode mode)
+Length Parser::parseLength(const std::string& string, LengthNegativeValuesMode mode, const Length& defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
     double value;
     LengthUnits units;
     if(!parseLength(ptr, end, value, units, mode))
-        return Length{0, LengthUnits::Unknown};
+        return defaultValue;
 
     return Length{value, units};
 }
 
 LengthList Parser::parseLengthList(const std::string& string, LengthNegativeValuesMode mode)
 {
+    if(string.empty())
+        return LengthList{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -49,34 +56,43 @@ LengthList Parser::parseLengthList(const std::string& string, LengthNegativeValu
     return values;
 }
 
-double Parser::parseNumber(const std::string &string)
+double Parser::parseNumber(const std::string& string, double defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
     double value;
     if(!Utils::parseNumber(ptr, end, value))
-        return 0.0;
+        return defaultValue;
 
     return value;
 }
 
-double Parser::parseNumberPercentage(const std::string& string)
+double Parser::parseNumberPercentage(const std::string& string, double defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
     double value;
     if(!Utils::parseNumber(ptr, end, value))
-        return 0.0;
+        return defaultValue;
 
-    if(Utils::skipDesc(ptr, end, "%"))
+    if(Utils::skipDesc(ptr, end, '%'))
         value /= 100.0;
     return value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value;
 }
 
 PointList Parser::parsePointList(const std::string& string)
 {
+    if(string.empty())
+        return PointList{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -99,6 +115,9 @@ PointList Parser::parsePointList(const std::string& string)
 
 Transform Parser::parseTransform(const std::string& string)
 {
+    if(string.empty())
+        return Transform{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -340,16 +359,15 @@ Path Parser::parsePath(const std::string& string)
 
 std::string Parser::parseUrl(const std::string& string)
 {
+    if(string.empty())
+        return std::string{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
-    if(!Utils::skipDesc(ptr, end, "url("))
+    if(!Utils::skipDesc(ptr, end, "url(#"))
         return std::string{};
 
-    if(ptr >= end || *ptr != '#')
-        return std::string{};
-
-    ++ptr;
     std::string value;
     if(!Utils::readUntil(ptr, end, ')', value))
         return std::string{};
@@ -359,7 +377,7 @@ std::string Parser::parseUrl(const std::string& string)
 
 std::string Parser::parseHref(const std::string& string)
 {
-    if(string.size() > 1 && string[0] == '#')
+    if(string.size() > 1 && string.front() == '#')
         return string.substr(1);
 
     return std::string{};
@@ -367,6 +385,9 @@ std::string Parser::parseHref(const std::string& string)
 
 Rect Parser::parseViewBox(const std::string& string)
 {
+    if(string.empty())
+        return Rect::Invalid;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -381,16 +402,19 @@ Rect Parser::parseViewBox(const std::string& string)
             || !Utils::parseNumber(ptr, end, w)
             || !Utils::skipWsComma(ptr, end)
             || !Utils::parseNumber(ptr, end, h))
-        return Rect{};
+        return Rect::Invalid;
 
     if(w < 0.0 || h < 0.0)
-        return Rect{};
+        return Rect::Invalid;
 
     return Rect{x, y, w, h};
 }
 
 PreserveAspectRatio Parser::parsePreserveAspectRatio(const std::string& string)
 {
+    if(string.empty())
+        return PreserveAspectRatio{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -432,6 +456,9 @@ static const double pi = 3.14159265358979323846;
 
 Angle Parser::parseAngle(const std::string& string)
 {
+    if(string.empty())
+        return Angle{};
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
@@ -452,6 +479,9 @@ Angle Parser::parseAngle(const std::string& string)
 
 MarkerUnits Parser::parseMarkerUnits(const std::string& string)
 {
+    if(string.empty())
+        return MarkerUnits::StrokeWidth;
+
     if(string.compare("userSpaceOnUse") == 0)
         return MarkerUnits::UserSpaceOnUse;
     return MarkerUnits::StrokeWidth;
@@ -459,6 +489,9 @@ MarkerUnits Parser::parseMarkerUnits(const std::string& string)
 
 SpreadMethod Parser::parseSpreadMethod(const std::string& string)
 {
+    if(string.empty())
+        return SpreadMethod::Pad;
+
     if(string.compare("repeat") == 0)
         return SpreadMethod::Repeat;
     if(string.compare("reflect") == 0)
@@ -466,11 +499,16 @@ SpreadMethod Parser::parseSpreadMethod(const std::string& string)
     return SpreadMethod::Pad;
 }
 
-Units Parser::parseUnits(const std::string& string)
+Units Parser::parseUnits(const std::string& string, Units defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     if(string.compare("userSpaceOnUse") == 0)
         return Units::UserSpaceOnUse;
-    return Units::ObjectBoundingBox;
+    if(string.compare("objectBoundingBox") == 0)
+        return Units::ObjectBoundingBox;
+    return defaultValue;
 }
 
 static const std::map<std::string, unsigned int> colormap = {
@@ -624,21 +662,24 @@ static const std::map<std::string, unsigned int> colormap = {
     {"yellowgreen", 0x9ACD32}
 };
 
-Color Parser::parseColor(const std::string& string, const StyledElement* element)
+Color Parser::parseColor(const std::string& string, const StyledElement* element, const Color& defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
-    if(Utils::skipDesc(ptr, end, "#"))
+    if(Utils::skipDesc(ptr, end, '#'))
     {
         auto start = ptr;
         unsigned int value;
         if(!Utils::parseInteger(ptr, end, value, 16))
-            return Color::Black;
+            return defaultValue;
 
         auto n = ptr - start;
         if(n != 3 && n != 6)
-            return Color::Black;
+            return defaultValue;
 
         if(n == 3)
         {
@@ -663,8 +704,8 @@ Color Parser::parseColor(const std::string& string, const StyledElement* element
             || !Utils::skipWsComma(ptr, end)
             || !parseColorComponent(ptr, end, b)
             || !Utils::skipWs(ptr, end)
-            || !Utils::skipDesc(ptr, end, ")"))
-            return Color::Black;
+            || !Utils::skipDesc(ptr, end, ')'))
+            return defaultValue;
 
         return Color{r / 255.0, g / 255.0, b / 255.0};
     }
@@ -677,7 +718,7 @@ Color Parser::parseColor(const std::string& string, const StyledElement* element
 
     auto it = colormap.find(string);
     if(it == colormap.end())
-        return Color::Black;
+        return defaultValue;
 
     auto value = it->second;
     auto r = (value&0xff0000)>>16;
@@ -687,27 +728,35 @@ Color Parser::parseColor(const std::string& string, const StyledElement* element
     return Color{r / 255.0, g / 255.0, b / 255.0};
 }
 
-Paint Parser::parsePaint(const std::string& string, const StyledElement* element)
+Paint Parser::parsePaint(const std::string& string, const StyledElement* element, const Color& defaultValue)
 {
+    if(string.empty())
+        return defaultValue;
+
     auto ptr = string.data();
     auto end = ptr + string.size();
 
-    if(!Utils::skipDesc(ptr, end, "url("))
-        return parseColor(string, element);
+    if(!Utils::skipDesc(ptr, end, "url(#"))
+        return parseColor(string, element, defaultValue);
 
-    if(ptr >= end || *ptr != '#')
-        return Color::Black;
+    std::string ref;
+    if(!Utils::readUntil(ptr, end, ')', ref))
+        return defaultValue;
 
     ++ptr;
-    std::string value;
-    if(!Utils::readUntil(ptr, end, ')', value))
-        return Color::Black;
+    Utils::skipWs(ptr, end);
 
-    return value;
+    std::string fallback{ptr, end};
+    if(fallback.empty())
+        return Paint{ref, Color::Transparent};
+    return Paint{ref, parseColor(fallback, element, defaultValue)};
 }
 
 WindRule Parser::parseWindRule(const std::string& string)
 {
+    if(string.empty())
+        return WindRule::NonZero;
+
     if(string.compare("evenodd") == 0)
         return WindRule::EvenOdd;
     return WindRule::NonZero;
@@ -715,6 +764,9 @@ WindRule Parser::parseWindRule(const std::string& string)
 
 LineCap Parser::parseLineCap(const std::string& string)
 {
+    if(string.empty())
+        return LineCap::Butt;
+
     if(string.compare("round") == 0)
         return LineCap::Round;
     if(string.compare("square") == 0)
@@ -724,6 +776,9 @@ LineCap Parser::parseLineCap(const std::string& string)
 
 LineJoin Parser::parseLineJoin(const std::string& string)
 {
+    if(string.empty())
+        return LineJoin::Miter;
+
     if(string.compare("bevel") == 0)
         return LineJoin::Bevel;
     if(string.compare("round") == 0)
@@ -733,6 +788,9 @@ LineJoin Parser::parseLineJoin(const std::string& string)
 
 Display Parser::parseDisplay(const std::string& string)
 {
+    if(string.empty())
+        return Display::Inline;
+
     if(string.compare("none") == 0)
         return Display::None;
     return Display::Inline;
@@ -740,9 +798,24 @@ Display Parser::parseDisplay(const std::string& string)
 
 Visibility Parser::parseVisibility(const std::string& string)
 {
+    if(string.empty())
+        return Visibility::Visible;
+
     if(string.compare("visible") == 0)
         return Visibility::Visible;
     return Visibility::Hidden;
+}
+
+Overflow Parser::parseOverflow(const std::string& string, Overflow defaultValue)
+{
+    if(string.empty())
+        return defaultValue;
+
+    if(string.compare("visible") == 0)
+        return Overflow::Visible;
+    if(string.compare("hidden") == 0)
+        return Overflow::Hidden;
+    return defaultValue;
 }
 
 bool Parser::parseLength(const char*& ptr, const char* end, double& value, LengthUnits& units, LengthNegativeValuesMode mode)
@@ -753,26 +826,60 @@ bool Parser::parseLength(const char*& ptr, const char* end, double& value, Lengt
     if(mode == ForbidNegativeLengths && value < 0.0)
         return false;
 
-    if(Utils::skipDesc(ptr, end, "%"))
+    char c[2] = {0, 0};
+    if(ptr + 0 < end) c[0] = ptr[0];
+    if(ptr + 1 < end) c[1] = ptr[1];
+
+    switch(c[0]) {
+    case '%':
         units = LengthUnits::Percent;
-    else if(Utils::skipDesc(ptr, end, "px"))
-        units = LengthUnits::Px;
-    else if(Utils::skipDesc(ptr, end, "pt"))
-        units = LengthUnits::Pt;
-    else if(Utils::skipDesc(ptr, end, "pc"))
-        units = LengthUnits::Pc;
-    else if(Utils::skipDesc(ptr, end, "in"))
-        units = LengthUnits::In;
-    else if(Utils::skipDesc(ptr, end, "cm"))
-        units = LengthUnits::Cm;
-    else if(Utils::skipDesc(ptr, end, "mm"))
-        units = LengthUnits::Mm;
-    else if(Utils::skipDesc(ptr, end, "ex"))
-        units = LengthUnits::Ex;
-    else if(Utils::skipDesc(ptr, end, "em"))
-        units = LengthUnits::Em;
-    else
+        ptr += 1;
+        break;
+    case 'p':
+        if(c[1] == 'x')
+            units = LengthUnits::Px;
+        else if(c[1] == 'c')
+            units = LengthUnits::Pc;
+        else if(ptr[1] == 't')
+            units = LengthUnits::Pt;
+        else
+            return false;
+        ptr += 2;
+        break;
+    case 'i':
+        if(c[1] == 'n')
+            units = LengthUnits::In;
+        else
+            return false;
+        ptr += 2;
+        break;
+    case 'c':
+        if(c[1] == 'm')
+            units = LengthUnits::Cm;
+        else
+            return false;
+        ptr += 2;
+        break;
+    case 'm':
+        if(c[1] == 'm')
+            units = LengthUnits::Mm;
+        else
+            return false;
+        ptr += 2;
+        break;
+    case 'e':
+        if(c[1] == 'm')
+            units = LengthUnits::Em;
+        else if(c[1] == 'x')
+            units = LengthUnits::Ex;
+        else
+            return false;
+        ptr += 2;
+        break;
+    default:
         units = LengthUnits::Number;
+        break;
+    }
 
     return true;
 }
@@ -808,11 +915,11 @@ bool Parser::parseColorComponent(const char*& ptr, const char* end, double& valu
     if(!Utils::parseNumber(ptr, end, value))
         return false;
 
-    if(Utils::skipDesc(ptr, end, "%"))
-        value *= 2.56;
+    if(Utils::skipDesc(ptr, end, '%'))
+        value *= 2.55;
 
     value = (value < 0.0) ? 0.0 : (value > 255.0) ? 255.0 : std::round(value);
-    return 1;
+    return true;
 }
 
 bool Parser::parseTransform(const char*& ptr, const char* end, TransformType& type, double* values, int& count)
@@ -900,6 +1007,7 @@ static const std::map<std::string, ElementId> elementmap = {
     {"radialGradient", ElementId::RadialGradient},
     {"rect", ElementId::Rect},
     {"stop", ElementId::Stop},
+    {"style", ElementId::Style},
     {"solidColor", ElementId::SolidColor},
     {"svg", ElementId::Svg},
     {"symbol", ElementId::Symbol},
@@ -907,6 +1015,7 @@ static const std::map<std::string, ElementId> elementmap = {
 };
 
 static const std::map<std::string, PropertyId> propertymap = {
+    {"class", PropertyId::Class},
     {"clipPathUnits", PropertyId::ClipPathUnits},
     {"cx", PropertyId::Cx},
     {"cy", PropertyId::Cy},
@@ -961,6 +1070,7 @@ static const std::map<std::string, PropertyId> csspropertymap = {
     {"marker-start", PropertyId::Marker_Start},
     {"mask", PropertyId::Mask},
     {"opacity", PropertyId::Opacity},
+    {"overflow", PropertyId::Overflow},
     {"solid-color", PropertyId::Solid_Color},
     {"solid-opacity", PropertyId::Solid_Opacity},
     {"stop-color", PropertyId::Stop_Color},
@@ -1001,6 +1111,495 @@ static inline PropertyId propertyId(const std::string& name)
         return cssPropertyId(name);
 
     return it->second;
+}
+
+#define IS_STARTNAMECHAR(c) (IS_ALPHA(c) ||  (c) == '_' || (c) == ':')
+#define IS_NAMECHAR(c) (IS_STARTNAMECHAR(c) || IS_NUM(c) || (c) == '-' || (c) == '.')
+static inline bool readIdentifier(const char*& ptr, const char* end, std::string& value)
+{
+    if(ptr >= end || !IS_STARTNAMECHAR(*ptr))
+        return false;
+
+    auto start = ptr;
+    ++ptr;
+    while(ptr < end && IS_NAMECHAR(*ptr))
+        ++ptr;
+
+    value.assign(start, ptr);
+    return true;
+}
+
+#define IS_CSS_STARTNAMECHAR(c) (IS_ALPHA(c) || (c) == '_')
+#define IS_CSS_NAMECHAR(c) (IS_CSS_STARTNAMECHAR(c) || IS_NUM(c) || (c) == '-')
+static inline bool readCSSIdentifier(const char*& ptr, const char* end, std::string& value)
+{
+    if(ptr >= end || !IS_CSS_STARTNAMECHAR(*ptr))
+        return false;
+
+    auto start = ptr;
+    ++ptr;
+    while(ptr < end && IS_CSS_NAMECHAR(*ptr))
+        ++ptr;
+
+    value.assign(start, ptr);
+    return true;
+}
+
+bool CSSParser::parseMore(const std::string& value)
+{
+    auto ptr = value.data();
+    auto end = ptr + value.size();
+
+    while(ptr < end)
+    {
+        Utils::skipWs(ptr, end);
+        if(Utils::skipDesc(ptr, end, '@'))
+        {
+            if(!parseAtRule(ptr, end))
+                return false;
+            continue;
+        }
+
+        Rule rule;
+        if(!parseRule(ptr, end, rule))
+            return false;
+        m_rules.push_back(rule);
+    }
+
+    return true;
+}
+
+bool CSSParser::parseAtRule(const char*& ptr, const char* end) const
+{
+    int depth = 0;
+    while(ptr < end)
+    {
+        auto ch = *ptr;
+        ++ptr;
+        if(ch == ';' && depth == 0)
+            break;
+        if(ch == '{') ++depth;
+        else if(ch == '}' && depth > 0)
+        {
+            if(depth == 1)
+                break;
+            --depth;
+        }
+    }
+
+    return true;
+}
+
+bool CSSParser::parseRule(const char*& ptr, const char* end, Rule& rule) const
+{
+    if(!parseSelectors(ptr, end, rule.selectors))
+        return false;
+
+    if(!parseDeclarations(ptr, end, rule.declarations))
+        return false;
+
+    return true;
+}
+
+bool CSSParser::parseSelectors(const char*& ptr, const char* end, SelectorList& selectors) const
+{
+    Selector selector;
+    if(!parseSelector(ptr, end, selector))
+        return false;
+    selectors.push_back(selector);
+
+    while(Utils::skipDesc(ptr, end, ','))
+    {
+        Utils::skipWs(ptr, end);
+        Selector selector;
+        if(!parseSelector(ptr, end, selector))
+            return false;
+        selectors.push_back(selector);
+    }
+
+    return true;
+}
+
+bool CSSParser::parseDeclarations(const char*& ptr, const char* end, PropertyList& declarations) const
+{
+    if(!Utils::skipDesc(ptr, end, '{'))
+        return false;
+
+    std::string name;
+    std::string value;
+    Utils::skipWs(ptr, end);
+    do {
+        if(!readCSSIdentifier(ptr, end, name))
+            return false;
+        Utils::skipWs(ptr, end);
+        if(!Utils::skipDesc(ptr, end, ':'))
+            return false;
+        Utils::skipWs(ptr, end);
+        auto start = ptr;
+        while(ptr < end && !(*ptr == '!' || *ptr == ';' || *ptr == '}'))
+            ++ptr;
+        value.assign(start, Utils::rtrim(start, ptr));
+        int specificity = 0x10;
+        if(Utils::skipDesc(ptr, end, '!'))
+        {
+            if(!Utils::skipDesc(ptr, end, "important"))
+                return false;
+            specificity = 0x1000;
+        }
+
+        auto id = cssPropertyId(name);
+        if(id != PropertyId::Unknown)
+            declarations.set(id, value, specificity);
+        Utils::skipWsDelimiter(ptr, end, ';');
+    } while(ptr < end && *ptr != '}');
+
+    return Utils::skipDesc(ptr, end, '}');
+}
+
+#define IS_SELECTOR_STARTNAMECHAR(c) (IS_CSS_STARTNAMECHAR(c) || (c) == '*' || (c) == '#' || (c) == '.' || (c) == '[' || (c) == ':')
+bool CSSParser::parseSelector(const char*& ptr, const char* end, Selector& selector) const
+{
+    do {
+        SimpleSelector simpleSelector;
+        if(!parseSimpleSelector(ptr, end, simpleSelector))
+            return false;
+
+        selector.specificity += (simpleSelector.id == ElementId::Star) ? 0x0 : 0x1;
+        for(auto& attributeSelector : simpleSelector.attributeSelectors)
+            selector.specificity += (attributeSelector.id == PropertyId::Id) ? 0x10000 : 0x100;
+
+        selector.simpleSelectors.push_back(simpleSelector);
+        Utils::skipWs(ptr, end);
+    } while(ptr < end && IS_SELECTOR_STARTNAMECHAR(*ptr));
+
+    return true;
+}
+
+bool CSSParser::parseSimpleSelector(const char*& ptr, const char* end, SimpleSelector& simpleSelector) const
+{
+    std::string name;
+    if(Utils::skipDesc(ptr, end, '*'))
+        simpleSelector.id = ElementId::Star;
+    else if(readCSSIdentifier(ptr, end, name))
+        simpleSelector.id = elementId(name);
+
+    while(ptr < end)
+    {
+        if(Utils::skipDesc(ptr, end, '#'))
+        {
+            AttributeSelector a;
+            a.id = PropertyId::Id;
+            a.matchType = AttributeSelector::MatchType::Equal;
+            if(!readCSSIdentifier(ptr, end, a.value))
+                return false;
+            simpleSelector.attributeSelectors.push_back(a);
+            continue;
+        }
+
+        if(Utils::skipDesc(ptr, end, '.'))
+        {
+            AttributeSelector a;
+            a.id = PropertyId::Class;
+            a.matchType = AttributeSelector::MatchType::Includes;
+            if(!readCSSIdentifier(ptr, end, a.value))
+                return false;
+            simpleSelector.attributeSelectors.push_back(a);
+            continue;
+        }
+
+        if(Utils::skipDesc(ptr, end, '['))
+        {
+            Utils::skipWs(ptr, end);
+            if(!readCSSIdentifier(ptr, end, name))
+                return false;
+            AttributeSelector a;
+            a.id = propertyId(name);
+            if(Utils::skipDesc(ptr, end, '='))
+                a.matchType = AttributeSelector::MatchType::Equal;
+            else if(Utils::skipDesc(ptr, end, "~="))
+                a.matchType = AttributeSelector::MatchType::Includes;
+            else if(Utils::skipDesc(ptr, end, "|="))
+                a.matchType = AttributeSelector::MatchType::DashMatch;
+            else if(Utils::skipDesc(ptr, end, "^="))
+                a.matchType = AttributeSelector::MatchType::StartsWith;
+            else if(Utils::skipDesc(ptr, end, "$="))
+                a.matchType = AttributeSelector::MatchType::EndsWith;
+            else if(Utils::skipDesc(ptr, end, "*="))
+                a.matchType = AttributeSelector::MatchType::Contains;
+            if(a.matchType != AttributeSelector::MatchType::None)
+            {
+                Utils::skipWs(ptr, end);
+                if(!readCSSIdentifier(ptr, end, a.value))
+                {
+                    if(ptr >= end || !(*ptr == '\"' || *ptr == '\''))
+                        return false;
+
+                    auto quote = *ptr;
+                    ++ptr;
+                    if(!Utils::readUntil(ptr, end, quote, a.value))
+                        return false;
+                    ++ptr;
+                }
+            }
+
+            Utils::skipWs(ptr, end);
+            if(!Utils::skipDesc(ptr, end, ']'))
+                return false;
+            simpleSelector.attributeSelectors.push_back(a);
+            continue;
+        }
+
+        if(Utils::skipDesc(ptr, end, ':'))
+        {
+            if(!readCSSIdentifier(ptr, end, name))
+                return false;
+            PseudoClass pseudo;
+            if(name.compare("empty") == 0)
+                pseudo.type = PseudoClass::Type::Empty;
+            else if(name.compare("root") == 0)
+                pseudo.type = PseudoClass::Type::Root;
+            else if(name.compare("not") == 0)
+                pseudo.type = PseudoClass::Type::Not;
+            else if(name.compare("first-child") == 0)
+                pseudo.type = PseudoClass::Type::FirstChild;
+            else if(name.compare("last-child") == 0)
+                pseudo.type = PseudoClass::Type::LastChild;
+            else if(name.compare("only-child") == 0)
+                pseudo.type = PseudoClass::Type::OnlyChild;
+            else if(name.compare("first-of-type") == 0)
+                pseudo.type = PseudoClass::Type::FirstOfType;
+            else if(name.compare("last-of-type") == 0)
+                pseudo.type = PseudoClass::Type::LastOfType;
+            else if(name.compare("only-of-type") == 0)
+                pseudo.type = PseudoClass::Type::OnlyOfType;
+            if(pseudo.type == PseudoClass::Type::Not)
+            {
+                if(!Utils::skipDesc(ptr, end, '('))
+                    return false;
+
+                Utils::skipWs(ptr, end);
+                if(!parseSelectors(ptr, end, pseudo.notSelectors))
+                    return false;
+
+                Utils::skipWs(ptr, end);
+                if(!Utils::skipDesc(ptr, end, ')'))
+                    return false;
+            }
+
+            simpleSelector.pseudoClasses.push_back(pseudo);
+            continue;
+        }
+
+        break;
+    }
+
+    Utils::skipWs(ptr, end);
+    if(Utils::skipDesc(ptr, end, '>'))
+        simpleSelector.combinator = SimpleSelector::Combinator::Child;
+    else if(Utils::skipDesc(ptr, end, '+'))
+        simpleSelector.combinator = SimpleSelector::Combinator::DirectAdjacent;
+    else if(Utils::skipDesc(ptr, end, '~'))
+        simpleSelector.combinator = SimpleSelector::Combinator::InDirectAdjacent;
+
+    return true;
+}
+
+RuleMatchContext::RuleMatchContext(const std::vector<Rule>& rules)
+{
+    for(auto& rule : rules)
+        for(auto& selector : rule.selectors)
+             m_selectors.emplace(selector.specificity, std::make_pair(&selector, &rule.declarations));
+}
+
+std::vector<const PropertyList*> RuleMatchContext::match(const Element* element) const
+{
+    std::vector<const PropertyList*> declarations;
+    auto it = m_selectors.begin();
+    auto end = m_selectors.end();
+    for(;it != end;++it)
+    {
+        auto& value = it->second;
+        if(!selectorMatch(std::get<0>(value), element))
+            continue;
+        declarations.push_back(std::get<1>(value));
+    }
+
+    return declarations;
+}
+
+bool RuleMatchContext::selectorMatch(const Selector* selector, const Element* element) const
+{
+    if(selector->simpleSelectors.empty())
+        return false;
+
+    if(selector->simpleSelectors.size() == 1)
+        return simpleSelectorMatch(selector->simpleSelectors.front(), element);
+
+    auto it = selector->simpleSelectors.rbegin();
+    auto end = selector->simpleSelectors.rend();
+    if(!simpleSelectorMatch(*it, element))
+        return false;
+    ++it;
+
+    while(it != end)
+    {
+        switch(it->combinator) {
+        case SimpleSelector::Combinator::Child:
+        case SimpleSelector::Combinator::Descendant:
+            element = element->parent;
+            break;
+        case SimpleSelector::Combinator::DirectAdjacent:
+        case SimpleSelector::Combinator::InDirectAdjacent:
+            element = element->previousSibling();
+            break;
+        }
+
+        if(element == nullptr)
+            return false;
+
+        auto match = simpleSelectorMatch(*it, element);
+        if(!match && (it->combinator != SimpleSelector::Combinator::Descendant && it->combinator != SimpleSelector::Combinator::InDirectAdjacent))
+            return false;
+
+        if(match || (it->combinator != SimpleSelector::Combinator::Descendant && it->combinator != SimpleSelector::Combinator::InDirectAdjacent))
+            ++it;
+    }
+
+    return true;
+}
+
+bool RuleMatchContext::simpleSelectorMatch(const SimpleSelector& selector, const Element* element) const
+{
+    if(selector.id != ElementId::Star && selector.id != element->id)
+        return false;
+
+    for(auto& attributeSelector : selector.attributeSelectors)
+        if(!attributeSelectorMatch(attributeSelector, element))
+            return false;
+
+    for(auto& pseudoClass : selector.pseudoClasses)
+        if(!pseudoClassMatch(pseudoClass, element))
+            return false;
+
+    return true;
+}
+
+bool RuleMatchContext::attributeSelectorMatch(const AttributeSelector& selector, const Element* element) const
+{
+    auto& value = element->get(selector.id);
+    if(value.empty())
+        return false;
+
+    if(selector.matchType == AttributeSelector::MatchType::None)
+        return true;
+
+    if(selector.matchType == AttributeSelector::MatchType::Equal)
+        return selector.value == value;
+
+    if(selector.matchType == AttributeSelector::MatchType::Includes)
+    {
+        auto ptr = value.data();
+        auto end = ptr + value.size();
+        while(ptr < end)
+        {
+            auto start = ptr;
+            while(ptr < end && !IS_WS(*ptr))
+                ++ptr;
+
+            if(selector.value == std::string(start, ptr))
+                return true;
+            Utils::skipWs(ptr, end);
+        }
+
+        return false;
+    }
+
+    auto starts_with = [](const std::string& string, const std::string& prefix) {
+        if(prefix.empty() || prefix.size() > string.size())
+            return false;
+
+        return string.compare(0, prefix.size(), prefix) == 0;
+    };
+
+    auto ends_with = [](const std::string& string, const std::string& suffix) {
+        if(suffix.empty() || suffix.size() > string.size())
+            return false;
+
+        return string.compare(string.size() - suffix.size(), suffix.size(), suffix) == 0;
+    };
+
+    if(selector.matchType == AttributeSelector::MatchType::DashMatch)
+    {
+        if(selector.value == value)
+            return true;
+
+        return starts_with(value, selector.value + '-');
+    }
+
+    if(selector.matchType == AttributeSelector::MatchType::StartsWith)
+        return starts_with(value, selector.value);
+
+    if(selector.matchType == AttributeSelector::MatchType::EndsWith)
+        return ends_with(value, selector.value);
+
+    if(selector.matchType == AttributeSelector::MatchType::Contains)
+        return value.find(selector.value) != std::string::npos;
+
+    return false;
+}
+
+bool RuleMatchContext::pseudoClassMatch(const PseudoClass& pseudo, const Element* element) const
+{
+    if(pseudo.type == PseudoClass::Type::Empty)
+        return element->children.empty();
+
+    if(pseudo.type == PseudoClass::Type::Root)
+        return element->parent == nullptr;
+
+    if(pseudo.type == PseudoClass::Type::Not)
+    {
+        for(auto& selector : pseudo.notSelectors)
+            if(selectorMatch(&selector, element))
+                return false;
+        return true;
+    }
+
+    if(pseudo.type == PseudoClass::Type::FirstChild)
+        return !element->previousSibling();
+
+    if(pseudo.type == PseudoClass::Type::LastChild)
+        return !element->nextSibling();
+
+    if(pseudo.type == PseudoClass::Type::OnlyChild)
+        return !(element->previousSibling() || element->nextSibling());
+
+    if(pseudo.type == PseudoClass::Type::FirstOfType)
+    {
+        auto sibling = element->previousSibling();
+        while(sibling)
+        {
+            if(sibling->id == element->id)
+                return false;
+            sibling = element->previousSibling();
+        }
+
+        return true;
+    }
+
+    if(pseudo.type == PseudoClass::Type::LastOfType)
+    {
+        auto sibling = element->nextSibling();
+        while(sibling)
+        {
+            if(sibling->id == element->id)
+                return false;
+            sibling = element->nextSibling();
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 static inline std::unique_ptr<Element> createElement(ElementId id)
@@ -1046,6 +1645,8 @@ static inline std::unique_ptr<Element> createElement(ElementId id)
         return std::make_unique<SolidColorElement>();
     case ElementId::Marker:
         return std::make_unique<MarkerElement>();
+    case ElementId::Style:
+        return std::make_unique<StyleElement>();
     default:
         break;
     }
@@ -1053,24 +1654,88 @@ static inline std::unique_ptr<Element> createElement(ElementId id)
     return nullptr;
 }
 
-#define IS_STARTNAMECHAR(c) (IS_ALPHA(c) ||  c == '_' || c == ':')
-#define IS_NAMECHAR(c) (IS_STARTNAMECHAR(c) || IS_NUM(c) || c == '-' || c == '.')
-static inline bool readTagName(const char*& ptr, const char* end, std::string& name)
+static inline bool decodeText(const char* ptr, const char* end, std::string& value)
 {
-    if(ptr >= end || !IS_STARTNAMECHAR(*ptr))
-        return false;
-
-    auto start = ptr;
-    ++ptr;
-    while(ptr < end && IS_NAMECHAR(*ptr))
+    value.clear();
+    while(ptr < end)
+    {
+        auto ch = *ptr;
         ++ptr;
+        if(ch != '&')
+        {
+            value.push_back(ch);
+            continue;
+        }
 
-    name.assign(start, ptr);
-    return ptr < end;
+        if(Utils::skipDesc(ptr, end, '#'))
+        {
+            int base = 10;
+            if(Utils::skipDesc(ptr, end, 'x'))
+                base = 16;
+
+            unsigned int cp;
+            if(!Utils::parseInteger(ptr, end, cp, base))
+                return false;
+
+            char c[5] = {0, 0, 0, 0, 0};
+            if(cp < 0x80)
+            {
+                c[1] = 0;
+                c[0] = cp;
+            }
+            else if(cp < 0x800)
+            {
+                c[2] = 0;
+                c[1] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[0] = cp | 0xC0;
+            }
+            else if(cp < 0x10000)
+            {
+                c[3] = 0;
+                c[2] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[1] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[0] = cp | 0xE0;
+            }
+            else if(cp < 0x200000)
+            {
+                c[4] = 0;
+                c[3] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[2] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[1] = (cp & 0x3F) | 0x80;
+                cp >>= 6;
+                c[0] = cp | 0xF0;
+            }
+
+            value.append(c);
+        }
+        else
+        {
+            if(Utils::skipDesc(ptr, end, "amp"))
+                value.push_back('&');
+            else if(Utils::skipDesc(ptr, end, "lt"))
+                value.push_back('<');
+            else if(Utils::skipDesc(ptr, end, "gt"))
+                value.push_back('>');
+            else if(Utils::skipDesc(ptr, end, "quot"))
+                value.push_back('\"');
+            else if(Utils::skipDesc(ptr, end, "apos"))
+                value.push_back('\'');
+            else
+                return false;
+        }
+
+        if(!Utils::skipDesc(ptr, end, ';'))
+            return false;
+    }
+
+    return true;
 }
 
-#define IS_CSS_STARTNAMECHAR(c) (IS_ALPHA(c) || c == '_')
-#define IS_CSS_NAMECHAR(c) (IS_CSS_STARTNAMECHAR(c) || IS_NUM(c) || c == '-')
 static inline void parseStyle(const std::string& string, Element* element)
 {
     auto ptr = string.data();
@@ -1079,25 +1744,19 @@ static inline void parseStyle(const std::string& string, Element* element)
     std::string name;
     std::string value;
     Utils::skipWs(ptr, end);
-    while(ptr < end && IS_CSS_STARTNAMECHAR(*ptr))
+    while(ptr < end && readCSSIdentifier(ptr, end, name))
     {
-        auto start = ptr;
-        ++ptr;
-        while(ptr < end && IS_CSS_NAMECHAR(*ptr))
-            ++ptr;
-        name.assign(start, ptr);
         Utils::skipWs(ptr, end);
-        if(ptr >= end || *ptr != ':')
+        if(!Utils::skipDesc(ptr, end, ':'))
             return;
-        ++ptr;
         Utils::skipWs(ptr, end);
-        start = ptr;
+        auto start = ptr;
         while(ptr < end && *ptr != ';')
             ++ptr;
         value.assign(start, Utils::rtrim(start, ptr));
         auto id = cssPropertyId(name);
         if(id != PropertyId::Unknown)
-            element->set(id, value);
+            element->set(id, value, 0x100);
         Utils::skipWsDelimiter(ptr, end, ';');
     }
 }
@@ -1115,23 +1774,50 @@ bool ParseDocument::parse(const char* data, std::size_t size)
     auto ptr = data;
     auto end = ptr + size;
 
+    CSSParser cssparser;
     Element* current = nullptr;
     std::string name;
     std::string value;
     int ignoring = 0;
+
+    auto remove_comments = [](std::string& value) {
+        auto start = value.find("/*");
+        while(start != std::string::npos) {
+            auto end = value.find("*/", start + 2);
+            value.erase(start, end - start + 2);
+            start = value.find("/*");
+        }
+    };
+
+    auto handle_text = [&](const char* start, const char* end, bool in_cdata) {
+        if(ignoring > 0 || current == nullptr || current->id != ElementId::Style)
+            return;
+
+        if(in_cdata)
+            value.assign(start, end);
+        else
+            decodeText(start, end, value);
+
+        remove_comments(value);
+        cssparser.parseMore(value);
+    };
+
     while(ptr < end)
     {
+        auto start = ptr;
         if(!Utils::skipUntil(ptr, end, '<'))
             break;
 
-        ++ptr;
+        handle_text(start, ptr, false);
+        ptr += 1;
+
         if(ptr < end && *ptr == '/')
         {
             if(current == nullptr && ignoring == 0)
                 return false;
 
             ++ptr;
-            if(!readTagName(ptr, end, name))
+            if(!readIdentifier(ptr, end, name))
                 return false;
 
             if(ptr >= end || *ptr != '>')
@@ -1149,7 +1835,7 @@ bool ParseDocument::parse(const char* data, std::size_t size)
         if(ptr < end && *ptr == '?')
         {
             ++ptr;
-            if(!readTagName(ptr, end, name))
+            if(!readIdentifier(ptr, end, name))
                 return false;
 
             if(!Utils::skipUntil(ptr, end, "?>"))
@@ -1164,18 +1850,22 @@ bool ParseDocument::parse(const char* data, std::size_t size)
             ++ptr;
             if(Utils::skipDesc(ptr, end, "--"))
             {
+                start = ptr;
                 if(!Utils::skipUntil(ptr, end, "-->"))
                     return false;
 
+                handle_text(start, ptr, false);
                 ptr += 3;
                 continue;
             }
 
             if(Utils::skipDesc(ptr, end, "[CDATA["))
             {
+                start = ptr;
                 if(!Utils::skipUntil(ptr, end, "]]>"))
                     return false;
 
+                handle_text(start, ptr, true);
                 ptr += 3;
                 continue;
             }
@@ -1211,7 +1901,7 @@ bool ParseDocument::parse(const char* data, std::size_t size)
             return false;
         }
 
-        if(!readTagName(ptr, end, name))
+        if(!readIdentifier(ptr, end, name))
             return false;
 
         auto id = ignoring == 0 ? elementId(name) : ElementId::Unknown;
@@ -1241,38 +1931,42 @@ bool ParseDocument::parse(const char* data, std::size_t size)
         }
 
         Utils::skipWs(ptr, end);
-        while(ptr < end && IS_STARTNAMECHAR(*ptr))
+        while(ptr < end && readIdentifier(ptr, end, name))
         {
-            auto start = ptr;
-            ++ptr;
-            while(ptr < end && IS_NAMECHAR(*ptr))
-                ++ptr;
-
-            name.assign(start, ptr);
             Utils::skipWs(ptr, end);
             if(ptr >= end || *ptr != '=')
                 return false;
             ++ptr;
 
             Utils::skipWs(ptr, end);
-            if(ptr >= end || (*ptr != '"' && *ptr != '\''))
+            if(ptr >= end || !(*ptr == '\"' || *ptr == '\''))
                 return false;
 
             auto quote = *ptr;
             ++ptr;
             Utils::skipWs(ptr, end);
-            if(!Utils::readUntil(ptr, end, quote, value))
+            start = ptr;
+            while(ptr < end && *ptr != quote)
+                ++ptr;
+
+            if(ptr >= end || *ptr != quote)
                 return false;
 
             auto id = element ? propertyId(name) : PropertyId::Unknown;
             if(id != PropertyId::Unknown)
             {
+                decodeText(start, Utils::rtrim(start, ptr), value);
                 if(id == PropertyId::Style)
+                {
+                    remove_comments(value);
                     parseStyle(value, element);
-                else if(id == PropertyId::Id)
-                    m_idCache.emplace(value, element);
+                }
                 else
-                    element->set(id, value);
+                {
+                    if(id == PropertyId::Id)
+                        m_idCache.emplace(value, element);
+                    element->set(id, value, 0x1);
+                }
             }
 
             ++ptr;
@@ -1304,7 +1998,26 @@ bool ParseDocument::parse(const char* data, std::size_t size)
         return false;
     }
 
-    return m_rootElement && ptr == end && ignoring == 0;
+    if(!m_rootElement || ptr < end || ignoring > 0)
+        return false;
+
+    const auto& rules = cssparser.rules();
+    if(!rules.empty())
+    {
+        RuleMatchContext context(rules);
+        m_rootElement->transverse([&context](Node* node) {
+            if(node->isText())
+                return false;
+
+            auto element = static_cast<Element*>(node);
+            auto declarations = context.match(element);
+            for(auto& declaration : declarations)
+                element->properties.add(*declaration);
+            return false;
+        });
+    }
+
+    return true;
 }
 
 Element* ParseDocument::getElementById(const std::string& id) const
@@ -1316,7 +2029,9 @@ Element* ParseDocument::getElementById(const std::string& id) const
     return it->second;
 }
 
-std::unique_ptr<LayoutRoot> ParseDocument::layout() const
+std::unique_ptr<LayoutSymbol> ParseDocument::layout() const
 {
     return m_rootElement->layoutDocument(this);
 }
+
+} // namespace lunasvg

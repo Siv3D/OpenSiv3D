@@ -1,4 +1,4 @@
-#include "document.h"
+#include "lunasvg.h"
 #include "layoutcontext.h"
 #include "parser.h"
 
@@ -77,16 +77,6 @@ std::uint32_t Bitmap::stride() const
 bool Bitmap::valid() const
 {
     return !!m_impl;
-}
-
-Box::Box(double x, double y, double w, double h)
-    : x(x), y(y), w(w), h(h)
-{
-}
-
-Matrix::Matrix(double a, double b, double c, double d, double e, double f)
-    : a(a), b(b), c(c), d(d), e(e), f(f)
-{
 }
 
 std::unique_ptr<Document> Document::loadFromFile(const std::string& filename)
@@ -184,16 +174,8 @@ Matrix Document::matrix() const
 
 Box Document::box() const
 {
-    RenderState state;
-    state.mode = RenderMode::Bounding;
-    root->render(state);
-
-    Box box;
-    box.x = state.box.x;
-    box.y = state.box.y;
-    box.w = state.box.w;
-    box.h = state.box.h;
-    return box;
+    auto box = root->map(root->strokeBoundingBox());
+    return Box{box.x, box.y, box.w, box.h};
 }
 
 double Document::width() const
@@ -206,16 +188,17 @@ double Document::height() const
     return root->height;
 }
 
-void Document::render(Bitmap bitmap, std::uint32_t bgColor) const
+void Document::render(Bitmap bitmap, const Matrix& matrix, std::uint32_t backgroundColor) const
 {
-    RenderState state;
+    RenderState state(nullptr, RenderMode::Display);
     state.canvas = Canvas::create(bitmap.data(), bitmap.width(), bitmap.height(), bitmap.stride());
-    state.canvas->clear(bgColor);
+    state.transform = Transform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f);
+    state.canvas->clear(backgroundColor);
     root->render(state);
     state.canvas->rgba();
 }
 
-Bitmap Document::renderToBitmap(std::uint32_t width, std::uint32_t height, std::uint32_t bgColor) const
+Bitmap Document::renderToBitmap(std::uint32_t width, std::uint32_t height, std::uint32_t backgroundColor) const
 {
     if(root->width == 0.0 || root->height == 0.0)
         return Bitmap{};
@@ -235,12 +218,8 @@ Bitmap Document::renderToBitmap(std::uint32_t width, std::uint32_t height, std::
     }
 
     Bitmap bitmap{width, height};
-    RenderState state;
-    state.matrix.scale(width / root->width, height / root->height);
-    state.canvas = Canvas::create(bitmap.data(), bitmap.width(), bitmap.height(), bitmap.stride());
-    state.canvas->clear(bgColor);
-    root->render(state);
-    state.canvas->rgba();
+    Matrix matrix{width / root->width, 0, 0, height / root->height, 0, 0};
+    render(bitmap, matrix, backgroundColor);
     return bitmap;
 }
 

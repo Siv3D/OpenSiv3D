@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <list>
-#include <map>
 
 #include "property.h"
 
@@ -12,6 +11,7 @@ namespace lunasvg {
 enum class ElementId
 {
     Unknown = 0,
+    Star,
     Circle,
     ClipPath,
     Defs,
@@ -29,6 +29,7 @@ enum class ElementId
     Rect,
     SolidColor,
     Stop,
+    Style,
     Svg,
     Symbol,
     Use
@@ -37,6 +38,7 @@ enum class ElementId
 enum class PropertyId
 {
     Unknown = 0,
+    Class,
     Clip_Path,
     Clip_Rule,
     ClipPathUnits,
@@ -67,6 +69,7 @@ enum class PropertyId
     Offset,
     Opacity,
     Orient,
+    Overflow,
     PatternContentUnits,
     PatternTransform,
     PatternUnits,
@@ -103,6 +106,27 @@ enum class PropertyId
     Y2
 };
 
+struct Property
+{
+    PropertyId id;
+    std::string value;
+    int specificity;
+};
+
+class PropertyList
+{
+public:
+    PropertyList() = default;
+
+    void set(PropertyId id, const std::string& value, int specificity);
+    Property* get(PropertyId id) const;
+    void add(const Property& property);
+    void add(const PropertyList& properties);
+
+private:
+    std::vector<Property> m_properties;
+};
+
 class LayoutContext;
 class LayoutContainer;
 class Element;
@@ -114,6 +138,8 @@ public:
     virtual ~Node() = default;
 
     virtual bool isText() const { return false; }
+    virtual bool isPaint() const { return false; }
+    virtual bool isGeometry() const { return false; }
     virtual void layout(LayoutContext*, LayoutContainer*) const;
     virtual std::unique_ptr<Node> clone() const = 0;
 
@@ -134,21 +160,42 @@ public:
 };
 
 using NodeList = std::list<std::unique_ptr<Node>>;
-using PropertyMap = std::map<PropertyId, std::string>;
 
 class Element : public Node
 {
 public:
     Element(ElementId id);
 
-    void set(PropertyId id, const std::string& value);
+    void set(PropertyId id, const std::string& value, int specificity);
     const std::string& get(PropertyId id) const;
     const std::string& find(PropertyId id) const;
     bool has(PropertyId id) const;
 
+    Element* previousSibling() const;
+    Element* nextSibling() const;
     Node* addChild(std::unique_ptr<Node> child);
-    Rect nearestViewBox() const;
     void layoutChildren(LayoutContext* context, LayoutContainer* current) const;
+    Rect currentViewport() const;
+
+    template<typename T>
+    void transverse(T callback)
+    {
+        if(callback(this))
+            return;
+
+        for(auto& child : children)
+        {
+            if(child->isText())
+            {
+                if(callback(child.get()))
+                    return;
+                continue;
+            }
+
+            auto element = static_cast<Element*>(child.get());
+            element->transverse(callback);
+        }
+    }
 
     template<typename T>
     std::unique_ptr<T> cloneElement() const
@@ -163,7 +210,7 @@ public:
 public:
     ElementId id;
     NodeList children;
-    PropertyMap properties;
+    PropertyList properties;
 };
 
 } // namespace lunasvg

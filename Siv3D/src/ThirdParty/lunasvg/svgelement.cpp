@@ -2,7 +2,7 @@
 #include "parser.h"
 #include "layoutcontext.h"
 
-using namespace lunasvg;
+namespace lunasvg {
 
 SVGElement::SVGElement()
     : GraphicsElement(ElementId::Svg)
@@ -12,68 +12,40 @@ SVGElement::SVGElement()
 Length SVGElement::x() const
 {
     auto& value = get(PropertyId::X);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length SVGElement::y() const
 {
     auto& value = get(PropertyId::Y);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length SVGElement::width() const
 {
     auto& value = get(PropertyId::Width);
-    if(value.empty())
-        return Length{100, LengthUnits::Percent};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::HundredPercent);
 }
 
 Length SVGElement::height() const
 {
     auto& value = get(PropertyId::Height);
-    if(value.empty())
-        return Length{100, LengthUnits::Percent};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::HundredPercent);
 }
 
 Rect SVGElement::viewBox() const
 {
     auto& value = get(PropertyId::ViewBox);
-    if(value.empty())
-        return Rect{};
-
     return Parser::parseViewBox(value);
 }
 
 PreserveAspectRatio SVGElement::preserveAspectRatio() const
 {
     auto& value = get(PropertyId::PreserveAspectRatio);
-    if(value.empty())
-        return PreserveAspectRatio{};
-
     return Parser::parsePreserveAspectRatio(value);
 }
 
-Rect SVGElement::viewPort() const
-{
-    LengthContext lengthContext(this);
-    auto _x = lengthContext.valueForLength(x(), LengthMode::Width);
-    auto _y = lengthContext.valueForLength(y(), LengthMode::Height);
-    auto _w = lengthContext.valueForLength(width(), LengthMode::Width);
-    auto _h = lengthContext.valueForLength(height(), LengthMode::Height);
-    return Rect{_x, _y, _w, _h};
-}
-
-std::unique_ptr<LayoutRoot> SVGElement::layoutDocument(const ParseDocument* document) const
+std::unique_ptr<LayoutSymbol> SVGElement::layoutDocument(const ParseDocument* document) const
 {
     if(isDisplayNone())
         return nullptr;
@@ -83,42 +55,28 @@ std::unique_ptr<LayoutRoot> SVGElement::layoutDocument(const ParseDocument* docu
     if(w.isZero() || h.isZero())
         return nullptr;
 
-    auto root = std::make_unique<LayoutRoot>();
-    root->transform = transform();
-    root->opacity = opacity();
-
-    LayoutContext context{document, root.get()};
-    root->masker = context.getMasker(mask());
-    root->clipper = context.getClipper(clip_path());
-    layoutChildren(&context, root.get());
-
-    auto x = this->x();
-    auto y = this->y(); 
+    LengthContext lengthContext(this);
+    auto _x = lengthContext.valueForLength(x(), LengthMode::Width);
+    auto _y = lengthContext.valueForLength(y(), LengthMode::Height);
+    auto _w = lengthContext.valueForLength(w, LengthMode::Width);
+    auto _h = lengthContext.valueForLength(h, LengthMode::Height);
 
     auto viewBox = this->viewBox();
     auto preserveAspectRatio = this->preserveAspectRatio();
-    if(viewBox.empty())
-    {
-        RenderState state;
-        state.mode = RenderMode::Bounding;
-        root->render(state);
+    auto viewTranslation = Transform::translated(_x, _y);
+    auto viewTransform = preserveAspectRatio.getMatrix(_w, _h, viewBox);
 
-        viewBox.x = state.box.x;
-        viewBox.y = state.box.y;
-        viewBox.w = state.box.w;
-        viewBox.h = state.box.h;
-    }
+    auto root = std::make_unique<LayoutSymbol>();
+    root->width = _w;
+    root->height = _h;
+    root->transform = (viewTransform * viewTranslation) * transform();
+    root->clip = isOverflowHidden() ? preserveAspectRatio.getClip(_w, _h, viewBox) : Rect::Invalid;
+    root->opacity = opacity();
 
-    Rect viewPort;
-    viewPort.x = x.value(viewBox.w);
-    viewPort.y = y.value(viewBox.h);
-    viewPort.w = w.value(viewBox.w);
-    viewPort.h = h.value(viewBox.h);
-
-    root->viewTransform = preserveAspectRatio.getMatrix(viewPort, viewBox);
-    root->width = viewPort.w;
-    root->height = viewPort.h;
-
+    LayoutContext context(document, root.get());
+    root->masker = context.getMasker(mask());
+    root->clipper = context.getClipper(clip_path());
+    layoutChildren(&context, root.get());
     return root;
 }
 
@@ -132,19 +90,32 @@ void SVGElement::layout(LayoutContext* context, LayoutContainer* current) const
     if(w.isZero() || h.isZero())
         return;
 
-    auto preserveAspectRatio = this->preserveAspectRatio();
-    auto viewTransform = preserveAspectRatio.getMatrix(viewPort(), viewBox());
+    LengthContext lengthContext(this);
+    auto _x = lengthContext.valueForLength(x(), LengthMode::Width);
+    auto _y = lengthContext.valueForLength(y(), LengthMode::Height);
+    auto _w = lengthContext.valueForLength(w, LengthMode::Width);
+    auto _h = lengthContext.valueForLength(h, LengthMode::Height);
 
-    auto group = std::make_unique<LayoutGroup>();
-    group->transform = viewTransform * transform();
-    group->opacity = opacity();
-    group->masker = context->getMasker(mask());
-    group->clipper = context->getClipper(clip_path());
-    layoutChildren(context, group.get());
-    current->addChild(std::move(group));
+    auto viewBox = this->viewBox();
+    auto preserveAspectRatio = this->preserveAspectRatio();
+    auto viewTranslation = Transform::translated(_x, _y);
+    auto viewTransform = preserveAspectRatio.getMatrix(_w, _h, viewBox);
+
+    auto symbol = std::make_unique<LayoutSymbol>();
+    symbol->width = _w;
+    symbol->height = _h;
+    symbol->transform = (viewTransform * viewTranslation) * transform();
+    symbol->clip = isOverflowHidden() ? preserveAspectRatio.getClip(_w, _h, viewBox) : Rect::Invalid;
+    symbol->opacity = opacity();
+    symbol->masker = context->getMasker(mask());
+    symbol->clipper = context->getClipper(clip_path());
+    layoutChildren(context, symbol.get());
+    current->addChildIfNotEmpty(std::move(symbol));
 }
 
 std::unique_ptr<Node> SVGElement::clone() const
 {
     return cloneElement<SVGElement>();
 }
+
+} // namespace lunasvg

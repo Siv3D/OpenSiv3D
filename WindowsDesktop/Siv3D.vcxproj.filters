@@ -4689,66 +4689,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\GeoJSON.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\document.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\element.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\parser.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\parserutils.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\property.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.h">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ZIPReader.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -6825,6 +6765,69 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MeshGlyph.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\parser.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\parserutils.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\property.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\styleelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\element.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\lunasvg\lunasvg.h">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8492,63 +8495,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\absl\random\gaussian_distribution.cc">
       <Filter>src\ThirdParty\absl\random</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\document.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\element.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\parser.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\property.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.cpp">
-      <Filter>src\ThirdParty\lunasvg</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ZIPReader\ZIPReaderDetail.cpp">
       <Filter>src\Siv3D\ZIPReader</Filter>
     </ClCompile>
@@ -9838,6 +9784,66 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Camera2DParameters\SivCamera2DParameters.cpp">
       <Filter>src\Siv3D\Camera2DParameters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\maskelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\paintelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\parser.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\property.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\stopelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\styledelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\styleelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\svgelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\symbolelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\useelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\canvas.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\clippathelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\defselement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\element.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\gelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\geometryelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\graphicselement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\layoutcontext.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\lunasvg.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.cpp">
+      <Filter>src\ThirdParty\lunasvg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

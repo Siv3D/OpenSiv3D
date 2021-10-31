@@ -3,15 +3,15 @@
 
 #include <cmath>
 
-using namespace lunasvg;
+namespace lunasvg {
 
-const Color Color::Black = {0, 0, 0, 1};
-const Color Color::White = {1, 1, 1, 1};
-const Color Color::Red = {1, 0, 0, 1};
-const Color Color::Green = {0, 1, 0, 1};
-const Color Color::Blue = {0, 0, 1, 1};
-const Color Color::Yellow = {1, 1, 0, 1};
-const Color Color::Transparent = {0, 0, 0, 0};
+const Color Color::Black{0, 0, 0, 1};
+const Color Color::White{1, 1, 1, 1};
+const Color Color::Red{1, 0, 0, 1};
+const Color Color::Green{0, 1, 0, 1};
+const Color Color::Blue{0, 0, 1, 1};
+const Color Color::Yellow{1, 1, 0, 1};
+const Color Color::Transparent{0, 0, 0, 0};
 
 Color::Color(double r, double g, double b, double a)
     : r(r), g(g), b(b), a(a)
@@ -23,8 +23,8 @@ Paint::Paint(const Color& color)
 {
 }
 
-Paint::Paint(const std::string& ref)
-    : m_ref(ref)
+Paint::Paint(const std::string& ref, const Color& color)
+    : m_ref(ref), m_color(color)
 {
 }
 
@@ -33,9 +33,56 @@ Point::Point(double x, double y)
 {
 }
 
+const Rect Rect::Empty{0, 0, 0, 0};
+const Rect Rect::Invalid{0, 0, -1, -1};
+
 Rect::Rect(double x, double y, double w, double h)
     : x(x), y(y), w(w), h(h)
 {
+}
+
+Rect Rect::operator&(const Rect& rect) const
+{
+    if(!rect.valid())
+        return *this;
+
+    if(!valid())
+        return rect;
+
+    auto l = std::max(x, rect.x);
+    auto t = std::max(y, rect.y);
+    auto r = std::min(x + w, rect.x + rect.w);
+    auto b = std::min(y + h, rect.y + rect.h);
+
+    return Rect{l, t, r-l, b-t};
+}
+
+Rect Rect::operator|(const Rect& rect) const
+{
+    if(!rect.valid())
+        return *this;
+
+    if(!valid())
+        return rect;
+
+    auto l = std::min(x, rect.x);
+    auto t = std::min(y, rect.y);
+    auto r = std::max(x + w, rect.x + rect.w);
+    auto b = std::max(y + h, rect.y + rect.h);
+
+    return Rect{l, t, r-l, b-t};
+}
+
+Rect& Rect::intersect(const Rect& rect)
+{
+    *this = *this & rect;
+    return *this;
+}
+
+Rect& Rect::unite(const Rect& rect)
+{
+    *this = *this | rect;
+    return *this;
 }
 
 Transform::Transform(double m00, double m10, double m01, double m11, double m02, double m12)
@@ -144,25 +191,31 @@ void Transform::map(double x, double y, double* _x, double* _y) const
     *_y = x * m10 + y * m11 + m12;
 }
 
+Point Transform::map(double x, double y) const
+{
+    map(x, y, &x, &y);
+    return Point{x, y};
+}
+
 Point Transform::map(const Point& point) const
 {
-    Point p;
-    map(point.x, point.y, &p.x, &p.y);
-    return p;
+    return map(point.x, point.y);
 }
 
 Rect Transform::map(const Rect& rect) const
 {
-    auto left = rect.x;
-    auto top = rect.y;
-    auto right = rect.x + rect.w;
-    auto bottom = rect.y + rect.h;
+    if(!rect.valid())
+        return Rect::Invalid;
 
-    Point p[4];
-    p[0] = map(Point{left, top});
-    p[1] = map(Point{right, top});
-    p[2] = map(Point{right, bottom});
-    p[3] = map(Point{left, bottom});
+    auto x1 = rect.x;
+    auto y1 = rect.y;
+    auto x2 = rect.x + rect.w;
+    auto y2 = rect.y + rect.h;
+
+    const Point p[] = {
+        map(x1, y1), map(x2, y1),
+        map(x2, y2), map(x1, y2)
+    };
 
     auto l = p[0].x;
     auto t = p[0].y;
@@ -475,6 +528,15 @@ void PathIterator::next()
     m_index += 1;
 }
 
+const Length Length::Unknown{0, LengthUnits::Unknown};
+const Length Length::Zero{0, LengthUnits::Number};
+const Length Length::One{1, LengthUnits::Number};
+const Length Length::ThreePercent{3, LengthUnits::Percent};
+const Length Length::HundredPercent{100, LengthUnits::Percent};
+const Length Length::FiftyPercent{50, LengthUnits::Percent};
+const Length Length::OneTwentyPercent{120, LengthUnits::Percent};
+const Length Length::MinusTenPercent{-10, LengthUnits::Percent};
+
 Length::Length(double value)
     : m_value(value)
 {
@@ -518,9 +580,9 @@ double Length::value(const Element* element, LengthMode mode) const
 {
     if(m_units == LengthUnits::Percent)
     {
-        auto viewBox = element->nearestViewBox();
-        auto w = viewBox.w;
-        auto h = viewBox.h;
+        auto viewport = element->currentViewport();
+        auto w = viewport.w;
+        auto h = viewport.h;
         auto max = (mode == LengthMode::Width) ? w : (mode == LengthMode::Height) ? h : std::sqrt(w*w+h*h) / sqrt2;
         return m_value * max / 100.0;
     }
@@ -550,40 +612,37 @@ PreserveAspectRatio::PreserveAspectRatio(Align align, MeetOrSlice scale)
 {
 }
 
-Transform PreserveAspectRatio::getMatrix(const Rect& viewPort, const Rect& viewBox) const
+Transform PreserveAspectRatio::getMatrix(double width, double height, const Rect& viewBox) const
 {
-    auto matrix = Transform::translated(viewPort.x, viewPort.y);
-    if(viewBox.w == 0.0 || viewBox.h == 0.0)
-        return matrix;
+    if(viewBox.empty())
+        return Transform{};
 
-    auto scaleX = viewPort.w  / viewBox.w;
-    auto scaleY = viewPort.h  / viewBox.h;
-    if(scaleX == 0.0 || scaleY == 0.0)
-        return matrix;
-
-    auto transX = -viewBox.x;
-    auto transY = -viewBox.y;
+    auto xscale = width / viewBox.w;
+    auto yscale = height / viewBox.h;
     if(m_align == Align::None)
     {
-        matrix.scale(scaleX, scaleY);
-        matrix.translate(transX, transY);
-        return matrix;
+        auto xoffset = -viewBox.x * xscale;
+        auto yoffset = -viewBox.y * yscale;
+        return Transform{xscale, 0, 0, yscale, xoffset, yoffset};
     }
 
-    auto scale = (m_scale == MeetOrSlice::Meet) ? std::min(scaleX, scaleY) : std::max(scaleX, scaleY);
-    auto viewW = viewPort.w / scale;
-    auto viewH = viewPort.h / scale;
+    auto scale = (m_scale == MeetOrSlice::Meet) ? std::min(xscale, yscale) : std::max(xscale, yscale);
+    auto viewWidth = viewBox.w * scale;
+    auto viewHeight = viewBox.h * scale;
+
+    auto xoffset = -viewBox.x * scale;
+    auto yoffset = -viewBox.y * scale;
 
     switch(m_align) {
     case Align::xMidYMin:
     case Align::xMidYMid:
     case Align::xMidYMax:
-        transX -= (viewBox.w - viewW) * 0.5;
+        xoffset += (width - viewWidth) * 0.5;
         break;
     case Align::xMaxYMin:
     case Align::xMaxYMid:
     case Align::xMaxYMax:
-        transX -= (viewBox.w - viewW);
+        xoffset += (width - viewWidth);
         break;
     default:
         break;
@@ -593,20 +652,26 @@ Transform PreserveAspectRatio::getMatrix(const Rect& viewPort, const Rect& viewB
     case Align::xMinYMid:
     case Align::xMidYMid:
     case Align::xMaxYMid:
-        transY -= (viewBox.h - viewH) * 0.5;
+        yoffset += (height - viewHeight) * 0.5;
         break;
     case Align::xMinYMax:
     case Align::xMidYMax:
     case Align::xMaxYMax:
-        transY -= (viewBox.h - viewH);
+        yoffset += (height - viewHeight);
         break;
     default:
         break;
     }
 
-    matrix.scale(scale, scale);
-    matrix.translate(transX, transY);
-    return matrix;
+    return Transform{scale, 0, 0, scale, xoffset, yoffset};
+}
+
+Rect PreserveAspectRatio::getClip(double width, double height, const Rect& viewBox) const
+{
+    if(viewBox.empty())
+        return Rect{0, 0, width, height};
+
+    return viewBox;
 }
 
 Angle::Angle(MarkerOrient type)
@@ -618,3 +683,5 @@ Angle::Angle(double value, MarkerOrient type)
     : m_value(value), m_type(type)
 {
 }
+
+} // namespace lunasvg

@@ -5,7 +5,7 @@
 
 #include <set>
 
-using namespace lunasvg;
+namespace lunasvg {
 
 PaintElement::PaintElement(ElementId id)
     : StyledElement(id)
@@ -20,36 +20,24 @@ GradientElement::GradientElement(ElementId id)
 Transform GradientElement::gradientTransform() const
 {
     auto& value = get(PropertyId::GradientTransform);
-    if(value.empty())
-        return Transform{};
-
     return Parser::parseTransform(value);
 }
 
 SpreadMethod GradientElement::spreadMethod() const
 {
     auto& value = get(PropertyId::SpreadMethod);
-    if(value.empty())
-        return SpreadMethod::Pad;
-
     return Parser::parseSpreadMethod(value);
 }
 
 Units GradientElement::gradientUnits() const
 {
     auto& value = get(PropertyId::GradientUnits);
-    if(value.empty())
-        return Units::ObjectBoundingBox;
-
-    return Parser::parseUnits(value);
+    return Parser::parseUnits(value, Units::ObjectBoundingBox);
 }
 
 std::string GradientElement::href() const
 {
     auto& value = get(PropertyId::Href);
-    if(value.empty())
-        return std::string{};
-
     return Parser::parseHref(value);
 }
 
@@ -59,11 +47,13 @@ GradientStops GradientElement::buildGradientStops() const
     double prevOffset = 0.0;
     for(auto& child : children)
     {
+        if(child->isText())
+            continue;
         auto element = static_cast<Element*>(child.get());
-        if(child->isText() || element->id != ElementId::Stop)
+        if(element->id != ElementId::Stop)
             continue;
         auto stop = static_cast<StopElement*>(element);
-        auto offset = std::min(std::max(prevOffset, stop->offset()), 1.0);
+        auto offset = std::max(prevOffset, stop->offset());
         prevOffset = offset;
         gradientStops.emplace_back(offset, stop->stopColorWithOpacity());
     }
@@ -79,40 +69,28 @@ LinearGradientElement::LinearGradientElement()
 Length LinearGradientElement::x1() const
 {
     auto& value = get(PropertyId::X1);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length LinearGradientElement::y1() const
 {
     auto& value = get(PropertyId::Y1);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length LinearGradientElement::x2() const
 {
     auto& value = get(PropertyId::X2);
-    if(value.empty())
-        return Length{100, LengthUnits::Percent};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::HundredPercent);
 }
 
 Length LinearGradientElement::y2() const
 {
     auto& value = get(PropertyId::Y2);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
-std::unique_ptr<LayoutPaint> LinearGradientElement::getPainter(LayoutContext* context) const
+std::unique_ptr<LayoutObject> LinearGradientElement::getPainter(LayoutContext* context) const
 {
     LinearGradientAttributes attributes;
     std::set<const GradientElement*> processedGradients;
@@ -164,7 +142,7 @@ std::unique_ptr<LayoutPaint> LinearGradientElement::getPainter(LayoutContext* co
     if((x1 == x2 && y1 == y2) || stops.size() == 1)
     {
         auto solid = std::make_unique<LayoutSolidColor>();
-        solid->color = stops.back().second;
+        solid->color = std::get<1>(stops.back());
         return std::move(solid);
     }
 
@@ -173,12 +151,10 @@ std::unique_ptr<LayoutPaint> LinearGradientElement::getPainter(LayoutContext* co
     gradient->spreadMethod = attributes.spreadMethod();
     gradient->units = attributes.gradientUnits();
     gradient->stops = attributes.gradientStops();
-
     gradient->x1 = x1;
     gradient->y1 = y1;
     gradient->x2 = x2;
     gradient->y2 = y2;
-
     return std::move(gradient);
 }
 
@@ -195,49 +171,34 @@ RadialGradientElement::RadialGradientElement()
 Length RadialGradientElement::cx() const
 {
     auto& value = get(PropertyId::Cx);
-    if(value.empty())
-        return Length{50, LengthUnits::Percent};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::FiftyPercent);
 }
 
 Length RadialGradientElement::cy() const
 {
     auto& value = get(PropertyId::Cy);
-    if(value.empty())
-        return Length{50, LengthUnits::Percent};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::FiftyPercent);
 }
 
 Length RadialGradientElement::r() const
 {
     auto& value = get(PropertyId::R);
-    if(value.empty())
-        return Length{50, LengthUnits::Percent};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::FiftyPercent);
 }
 
 Length RadialGradientElement::fx() const
 {
     auto& value = get(PropertyId::Fx);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length RadialGradientElement::fy() const
 {
     auto& value = get(PropertyId::Fy);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
-std::unique_ptr<LayoutPaint> RadialGradientElement::getPainter(LayoutContext *context) const
+std::unique_ptr<LayoutObject> RadialGradientElement::getPainter(LayoutContext* context) const
 {
     RadialGradientAttributes attributes;
     std::set<const GradientElement*> processedGradients;
@@ -292,7 +253,7 @@ std::unique_ptr<LayoutPaint> RadialGradientElement::getPainter(LayoutContext *co
     if(r.isZero() || stops.size() == 1)
     {
         auto solid = std::make_unique<LayoutSolidColor>();
-        solid->color = stops.back().second;
+        solid->color = std::get<1>(stops.back());
         return std::move(solid);
     }
 
@@ -308,7 +269,6 @@ std::unique_ptr<LayoutPaint> RadialGradientElement::getPainter(LayoutContext *co
     gradient->r = lengthContext.valueForLength(attributes.r(), LengthMode::Both);
     gradient->fx = lengthContext.valueForLength(attributes.fx(), LengthMode::Width);
     gradient->fy = lengthContext.valueForLength(attributes.fy(), LengthMode::Height);
-
     return std::move(gradient);
 }
 
@@ -325,95 +285,68 @@ PatternElement::PatternElement()
 Length PatternElement::x() const
 {
     auto& value = get(PropertyId::X);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length PatternElement::y() const
 {
     auto& value = get(PropertyId::Y);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, AllowNegativeLengths);
+    return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length PatternElement::width() const
 {
     auto& value = get(PropertyId::Width);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Length PatternElement::height() const
 {
     auto& value = get(PropertyId::Height);
-    if(value.empty())
-        return Length{};
-
-    return Parser::parseLength(value, ForbidNegativeLengths);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Zero);
 }
 
 Transform PatternElement::patternTransform() const
 {
     auto& value = get(PropertyId::PatternTransform);
-    if(value.empty())
-        return Transform{};
-
     return Parser::parseTransform(value);
 }
 
 Units PatternElement::patternUnits() const
 {
     auto& value = get(PropertyId::PatternUnits);
-    if(value.empty())
-        return Units::ObjectBoundingBox;
-
-    return Parser::parseUnits(value);
+    return Parser::parseUnits(value, Units::ObjectBoundingBox);
 }
 
 Units PatternElement::patternContentUnits() const
 {
     auto& value = get(PropertyId::PatternContentUnits);
-    if(value.empty())
-        return Units::UserSpaceOnUse;
-
-    return Parser::parseUnits(value);
+    return Parser::parseUnits(value, Units::UserSpaceOnUse);
 }
 
 Rect PatternElement::viewBox() const
 {
     auto& value = get(PropertyId::ViewBox);
-    if(value.empty())
-        return Rect{};
-
     return Parser::parseViewBox(value);
 }
 
 PreserveAspectRatio PatternElement::preserveAspectRatio() const
 {
     auto& value = get(PropertyId::PreserveAspectRatio);
-    if(value.empty())
-        return PreserveAspectRatio{};
-
     return Parser::parsePreserveAspectRatio(value);
 }
 
 std::string PatternElement::href() const
 {
     auto& value = get(PropertyId::Href);
-    if(value.empty())
-        return std::string{};
-
     return Parser::parseHref(value);
 }
 
-std::unique_ptr<LayoutPaint> PatternElement::getPainter(LayoutContext* context) const
+std::unique_ptr<LayoutObject> PatternElement::getPainter(LayoutContext* context) const
 {
+    if(context->hasReference(this))
+        return nullptr;
+
     PatternAttributes attributes;
     std::set<const PatternElement*> processedPatterns;
     const PatternElement* current = this;
@@ -457,6 +390,7 @@ std::unique_ptr<LayoutPaint> PatternElement::getPainter(LayoutContext* context) 
     if(element == nullptr || width.isZero() || height.isZero())
         return nullptr;
 
+    LayoutBreaker layoutBreaker(context, this);
     auto pattern = std::make_unique<LayoutPattern>();
     pattern->transform = attributes.patternTransform();
     pattern->units = attributes.patternUnits();
@@ -470,7 +404,6 @@ std::unique_ptr<LayoutPaint> PatternElement::getPainter(LayoutContext* context) 
     pattern->width = lengthContext.valueForLength(attributes.width(), LengthMode::Width);
     pattern->height = lengthContext.valueForLength(attributes.height(), LengthMode::Height);
     element->layoutChildren(context, pattern.get());
-
     return std::move(pattern);
 }
 
@@ -484,7 +417,7 @@ SolidColorElement::SolidColorElement()
 {
 }
 
-std::unique_ptr<LayoutPaint> SolidColorElement::getPainter(LayoutContext*) const
+std::unique_ptr<LayoutObject> SolidColorElement::getPainter(LayoutContext*) const
 {
     auto solid = std::make_unique<LayoutSolidColor>();
     solid->color = solid_color();
@@ -496,3 +429,5 @@ std::unique_ptr<Node> SolidColorElement::clone() const
 {
     return cloneElement<SolidColorElement>();
 }
+
+} // namespace lunasvg

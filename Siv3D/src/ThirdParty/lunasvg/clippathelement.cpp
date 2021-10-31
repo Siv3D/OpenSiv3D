@@ -2,7 +2,7 @@
 #include "parser.h"
 #include "layoutcontext.h"
 
-using namespace lunasvg;
+namespace lunasvg {
 
 ClipPathElement::ClipPathElement()
     : GraphicsElement(ElementId::ClipPath)
@@ -12,14 +12,15 @@ ClipPathElement::ClipPathElement()
 Units ClipPathElement::clipPathUnits() const
 {
     auto& value = get(PropertyId::ClipPathUnits);
-    if(value.empty())
-        return Units::UserSpaceOnUse;
-
-    return Parser::parseUnits(value);
+    return Parser::parseUnits(value, Units::UserSpaceOnUse);
 }
 
 std::unique_ptr<LayoutClipPath> ClipPathElement::getClipper(LayoutContext* context) const
 {
+    if(context->hasReference(this))
+        return nullptr;
+
+    LayoutBreaker layoutBreaker(context, this);
     auto clipper = std::make_unique<LayoutClipPath>();
     clipper->units = clipPathUnits();
     clipper->transform = transform();
@@ -32,3 +33,5 @@ std::unique_ptr<Node> ClipPathElement::clone() const
 {
     return cloneElement<ClipPathElement>();
 }
+
+} // namespace lunasvg

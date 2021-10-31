@@ -863,12 +863,12 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/lunasvg/canvas.cpp
   ../Siv3D/src/ThirdParty/lunasvg/clippathelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/defselement.cpp
-  ../Siv3D/src/ThirdParty/lunasvg/document.cpp
   ../Siv3D/src/ThirdParty/lunasvg/element.cpp
   ../Siv3D/src/ThirdParty/lunasvg/gelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/geometryelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/graphicselement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/layoutcontext.cpp
+  ../Siv3D/src/ThirdParty/lunasvg/lunasvg.cpp
   ../Siv3D/src/ThirdParty/lunasvg/markerelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/maskelement.cpp
   ../Siv3D/src/ThirdParty/lunasvg/paintelement.cpp
