@@ -76,7 +76,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_D3D11::init()");
 
-		pRenderer	= dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
+		pRenderer	= static_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
 		m_device	= pRenderer->getDevice();
 		m_context	= pRenderer->getContext();
 
@@ -354,7 +354,7 @@ namespace s3d
 	{
 		assert(slot < D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT);
 
-		const auto pCB = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb._detail());
+		const auto pCB = static_cast<const ConstantBufferDetail_D3D11*>(cb._detail());
 
 		m_context->VSSetConstantBuffers(slot, 1, pCB->getBufferPtr());
 	}
@@ -363,7 +363,7 @@ namespace s3d
 	{
 		assert(slot < D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT);
 		
-		const auto pCB = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb._detail());
+		const auto pCB = static_cast<const ConstantBufferDetail_D3D11*>(cb._detail());
 
 		m_context->PSSetConstantBuffers(slot, 1, pCB->getBufferPtr());
 	}

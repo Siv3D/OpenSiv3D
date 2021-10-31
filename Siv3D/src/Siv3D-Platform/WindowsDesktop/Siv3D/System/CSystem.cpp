@@ -96,7 +96,7 @@ namespace s3d
 			SIV3D_ENGINE(Renderer)->init();
 			threadRenderer = Async([]()
 				{
-					try { dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer))->init2(); }
+					try { static_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer))->init2(); }
 					catch (const EngineError&) { return false; }
 					return true;
 				});

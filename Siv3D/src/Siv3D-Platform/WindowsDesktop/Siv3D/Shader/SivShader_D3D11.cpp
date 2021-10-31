@@ -19,7 +19,7 @@ namespace s3d
 		bool IsHLSLCompilerAvailable() noexcept
 		{
 			// CShader_D3D11 を取得
-			CShader_D3D11* const pShader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::Get<ISiv3DShader>());
+			CShader_D3D11* const pShader = static_cast<CShader_D3D11*>(Siv3DEngine::Get<ISiv3DShader>());
 
 			if (not pShader) // 取得に失敗
 			{
@@ -32,7 +32,7 @@ namespace s3d
 		bool CompileHLSLToFile(const FilePathView hlslFilePath, const FilePathView toFilePath, const ShaderStage stage, const StringView entryPoint, const HLSLCompileOption flags)
 		{
 			// CShader_D3D11 を取得
-			CShader_D3D11* const pShader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::Get<ISiv3DShader>());
+			CShader_D3D11* const pShader = static_cast<CShader_D3D11*>(Siv3DEngine::Get<ISiv3DShader>());
 
 			if (not pShader) // 取得に失敗
 			{

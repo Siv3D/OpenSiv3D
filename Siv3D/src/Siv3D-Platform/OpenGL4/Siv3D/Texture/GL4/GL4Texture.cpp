@@ -584,10 +584,8 @@ namespace s3d
 
 		if (m_hasDepth)
 		{
-			if (auto p = dynamic_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer)))
-			{
-				p->getDepthStencilState().set(DepthStencilState::Default3D);
-			}
+			auto p = static_cast<CRenderer_GL4*>(SIV3D_ENGINE(Renderer));
+			p->getDepthStencilState().set(DepthStencilState::Default3D);
 
 			::glClearDepth(0.0);
 			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

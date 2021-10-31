@@ -67,7 +67,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"MetalBackBuffer::MetalBackBuffer()");
 		
-		pRenderer = dynamic_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer));
+		pRenderer = static_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer));
 		m_device = pRenderer->getDevice();
 		
 		m_sceneSize = Window::GetState().virtualSize;
@@ -227,7 +227,7 @@ namespace s3d
 
 		m_backBufferSize = backBufferSize;
 		
-		dynamic_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer))->changeFrameBufferSize(m_backBufferSize);
+		static_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer))->changeFrameBufferSize(m_backBufferSize);
 
 		updateSceneSize();
 	}

@@ -59,8 +59,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_GL4::init()");
 		
-		pRenderer2D = dynamic_cast<CRenderer2D_GL4*>(SIV3D_ENGINE(Renderer2D));
-		pRenderer3D = dynamic_cast<CRenderer3D_GL4*>(SIV3D_ENGINE(Renderer3D));
+		pRenderer2D = static_cast<CRenderer2D_GL4*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = static_cast<CRenderer3D_GL4*>(SIV3D_ENGINE(Renderer3D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		::glfwMakeContextCurrent(m_window);
@@ -111,7 +111,7 @@ namespace s3d
 		m_depthStencilState = std::make_unique<GL4DepthStencilState>();
 		m_samplerState		= std::make_unique<GL4SamplerState>();
 		
-		pTexture = dynamic_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture));
+		pTexture = static_cast<CTexture_GL4*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();

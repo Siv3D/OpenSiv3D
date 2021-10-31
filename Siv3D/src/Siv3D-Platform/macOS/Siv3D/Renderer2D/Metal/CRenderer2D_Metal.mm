@@ -62,8 +62,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_Metal::init()");
 		
-		pRenderer = dynamic_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer));
-		pShader = dynamic_cast<CShader_Metal*>(SIV3D_ENGINE(Shader));
+		pRenderer = static_cast<CRenderer_Metal*>(SIV3D_ENGINE(Renderer));
+		pShader = static_cast<CShader_Metal*>(SIV3D_ENGINE(Shader));
 		m_device = pRenderer->getDevice();
 		m_commandQueue = pRenderer->getCommandQueue();
 		m_swapchain = pRenderer->getSwapchain();
@@ -1065,7 +1065,7 @@ namespace s3d
 
 								if (cb.num_vectors)
 								{
-									//const ConstantBufferDetail_Metal* cbd = dynamic_cast<const ConstantBufferDetail_Metal*>(cb.cbBase._detail());
+									//const ConstantBufferDetail_Metal* cbd = static_cast<const ConstantBufferDetail_Metal*>(cb.cbBase._detail());
 
 									if (cb.stage == ShaderStage::Vertex)
 									{

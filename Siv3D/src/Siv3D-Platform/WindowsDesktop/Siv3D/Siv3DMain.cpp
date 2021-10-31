@@ -237,7 +237,7 @@ namespace s3d
 
 		try
 		{
-			dynamic_cast<CSystem*>(SIV3D_ENGINE(System))->init2();
+			static_cast<CSystem*>(SIV3D_ENGINE(System))->init2();
 		}
 		catch (const Error& error)
 		{

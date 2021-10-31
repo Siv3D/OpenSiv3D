@@ -81,7 +81,7 @@ namespace s3d
 			m_clientPosBuffer.emplace_back(Time::GetMicrosec(), lastClientPos);
 		
 			POINT screenPos;
-			if (const auto touchPos = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
+			if (const auto touchPos = static_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
 			{
 				screenPos.x = touchPos->x;
 				screenPos.y = touchPos->y;
@@ -152,7 +152,7 @@ namespace s3d
 
 		{
 			POINT screenPos;
-			if (const auto touchPos = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
+			if (const auto touchPos = static_cast<CMouse*>(SIV3D_ENGINE(Mouse))->getPrimaryTouchPos())
 			{
 				screenPos.x = touchPos->x;
 				screenPos.y = touchPos->y;

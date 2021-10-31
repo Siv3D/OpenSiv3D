@@ -32,7 +32,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CMesh_D3D11::init()");
 
-		pRenderer	= dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
+		pRenderer	= static_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
 		m_device	= pRenderer->getDevice();
 		m_context	= pRenderer->getContext();
 

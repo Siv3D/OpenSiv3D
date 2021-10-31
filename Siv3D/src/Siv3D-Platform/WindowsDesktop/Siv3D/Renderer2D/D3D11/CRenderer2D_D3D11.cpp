@@ -46,9 +46,9 @@ namespace s3d
 		
 		// 各種ポインタを保存
 		{
-			pRenderer	= dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-			pShader		= dynamic_cast<CShader_D3D11*>(SIV3D_ENGINE(Shader)); assert(pShader);
-			pTexture	= dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+			pRenderer	= static_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
+			pShader		= static_cast<CShader_D3D11*>(SIV3D_ENGINE(Shader));
+			pTexture	= static_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture));
 			m_device	= pRenderer->getDevice(); assert(m_device);
 			m_context	= pRenderer->getContext(); assert(m_context);
 		}
@@ -1201,7 +1201,7 @@ namespace s3d
 
 					if (cb.num_vectors)
 					{
-						const ConstantBufferDetail_D3D11* cbd = dynamic_cast<const ConstantBufferDetail_D3D11*>(cb.cbBase._detail());
+						const ConstantBufferDetail_D3D11* cbd = static_cast<const ConstantBufferDetail_D3D11*>(cb.cbBase._detail());
 
 						if (cb.stage == ShaderStage::Vertex)
 						{

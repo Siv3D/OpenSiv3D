@@ -57,7 +57,7 @@ namespace s3d
 
 	bool ConstantBufferDetail_D3D11::ConstantBufferDetail_D3D11::init() const
 	{
-		CRenderer_D3D11* const pRenderer = dynamic_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
+		CRenderer_D3D11* const pRenderer = static_cast<CRenderer_D3D11*>(SIV3D_ENGINE(Renderer));
 
 		ID3D11Device* device = pRenderer->getDevice();
 

@@ -25,7 +25,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"D3D11BackBuffer::D3D11BackBuffer()");
 
-		pRenderer2D = dynamic_cast<CRenderer2D_D3D11*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer2D		= static_cast<CRenderer2D_D3D11*>(SIV3D_ENGINE(Renderer2D));
 
 		m_backBuffer	= D3D11InternalTexture2D::GetTextureFromSwapChain(m_device, m_swapChain1);
 

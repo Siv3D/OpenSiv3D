@@ -20,7 +20,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"GL4BackBuffer::GL4BackBuffer()");
 
-		pRenderer2D = dynamic_cast<CRenderer2D_GL4*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer2D = static_cast<CRenderer2D_GL4*>(SIV3D_ENGINE(Renderer2D));
 
 		m_sceneSize = Window::GetState().virtualSize;
 

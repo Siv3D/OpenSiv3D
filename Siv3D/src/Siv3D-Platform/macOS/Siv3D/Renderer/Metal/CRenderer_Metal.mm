@@ -43,7 +43,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_Metal::init()");
 		
-		pRenderer2D = dynamic_cast<CRenderer2D_Metal*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer2D = static_cast<CRenderer2D_Metal*>(SIV3D_ENGINE(Renderer2D));
 		
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 
@@ -69,7 +69,7 @@ namespace s3d
 		m_backBuffer		= std::make_unique<MetalBackBuffer>();
 		m_samplerState		= std::make_unique<MetalSamplerState>(m_device);
 		
-		pTexture = dynamic_cast<CTexture_Metal*>(SIV3D_ENGINE(Texture));
+		pTexture = static_cast<CTexture_Metal*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();

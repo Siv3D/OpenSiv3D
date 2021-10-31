@@ -43,8 +43,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_D3D11::init()");
 
-		pRenderer2D = dynamic_cast<CRenderer2D_D3D11*>(SIV3D_ENGINE(Renderer2D));
-		pRenderer3D = dynamic_cast<CRenderer3D_D3D11*>(SIV3D_ENGINE(Renderer3D));
+		pRenderer2D = static_cast<CRenderer2D_D3D11*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = static_cast<CRenderer3D_D3D11*>(SIV3D_ENGINE(Renderer3D));
 		
 		m_device = std::make_unique<D3D11Device>();
 	}
@@ -65,7 +65,7 @@ namespace s3d
 		m_samplerState		= std::make_unique<D3D11SamplerState>(*m_device);
 		m_screenCapture		= std::make_unique<D3D11ScreenCapture>(*m_device);
 
-		pTexture = dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture));
+		pTexture = static_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();

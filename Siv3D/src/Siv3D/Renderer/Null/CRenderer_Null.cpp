@@ -41,8 +41,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_Null::init()");
 
-		pTexture = dynamic_cast<CTexture_Null*>(SIV3D_ENGINE(Texture));
-		pRenderer2D = dynamic_cast<CRenderer2D_Null*>(SIV3D_ENGINE(Renderer2D));
+		pTexture = static_cast<CTexture_Null*>(SIV3D_ENGINE(Texture));
+		pRenderer2D = static_cast<CRenderer2D_Null*>(SIV3D_ENGINE(Renderer2D));
 
 		SIV3D_ENGINE(Shader)->init();
 		SIV3D_ENGINE(Mesh)->init();

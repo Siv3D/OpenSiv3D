@@ -30,7 +30,7 @@ namespace s3d
 {
 	LRESULT CALLBACK WindowProc(const HWND hWnd, const UINT message, const WPARAM wParam, LPARAM lParam)
 	{
-		if (auto textinput = dynamic_cast<CTextInput*>(SIV3D_ENGINE(TextInput)))
+		if (auto textinput = static_cast<CTextInput*>(SIV3D_ENGINE(TextInput)))
 		{
 			if (textinput->process(message, wParam, &lParam))
 			{
@@ -38,7 +38,7 @@ namespace s3d
 			}
 		}
 
-		if (auto dragDrop = dynamic_cast<CDragDrop*>(SIV3D_ENGINE(DragDrop)))
+		if (auto dragDrop = static_cast<CDragDrop*>(SIV3D_ENGINE(DragDrop)))
 		{
 			dragDrop->process();
 		}
@@ -57,7 +57,7 @@ namespace s3d
 			{
 				LOG_VERBOSE(U"WM_SETFOCUS");
 
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(true);
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(true);
 				
 				break;
 			}
@@ -65,7 +65,7 @@ namespace s3d
 			{
 				if ((wParam == VK_RETURN) && (lParam & (1 << 29))) // Alt + Enter
 				{
-					dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->requestToggleFullscreen();
+					static_cast<CWindow*>(SIV3D_ENGINE(Window))->requestToggleFullscreen();
 					return 0;
 				}
 
@@ -79,7 +79,7 @@ namespace s3d
 			{
 				LOG_VERBOSE(U"WM_KILLFOCUS");
 
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(false);
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onFocus(false);
 
 				break;
 			}
@@ -91,14 +91,14 @@ namespace s3d
 
 				if (not repeatFlag)
 				{
-					dynamic_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), true, false);
+					static_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), true, false);
 				}
 
 				break;
 			}
 		case WM_KEYUP:
 			{
-				dynamic_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), false, true);
+				static_cast<CKeyboard*>(SIV3D_ENGINE(Keyboard))->onKeyEvent(static_cast<uint8>(wParam), false, true);
 
 				break;
 			}
@@ -130,7 +130,7 @@ namespace s3d
 				const RECT rect = *reinterpret_cast<const RECT*>(lParam);
 				const Point pos(rect.left, rect.top);
 				
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onDPIChange(newDPI, pos);
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onDPIChange(newDPI, pos);
 
 				return true;
 			}
@@ -138,7 +138,7 @@ namespace s3d
 			{
 				LOG_TRACE(U"WM_SIZE");
 
-				auto pCWindow = dynamic_cast<CWindow*>(SIV3D_ENGINE(Window));
+				auto pCWindow = static_cast<CWindow*>(SIV3D_ENGINE(Window));
 				pCWindow->onBoundsUpdate();
 
 				const bool minimized = (wParam == SIZE_MINIMIZED);
@@ -155,7 +155,7 @@ namespace s3d
 			{
 				LOG_VERBOSE(U"WM_MOVE");
 
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onBoundsUpdate();
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onBoundsUpdate();
 
 				return 0;
 			}
@@ -202,7 +202,7 @@ namespace s3d
 				{
 					LOG_TRACE(U"WM_DEVICECHANGE (DBT_DEVICEARRIVAL)");
 
-					if (CSystem* system = dynamic_cast<CSystem*>(SIV3D_ENGINE(System)))
+					if (CSystem* system = static_cast<CSystem*>(SIV3D_ENGINE(System)))
 					{
 						system->onDeviceChange();
 					}
@@ -211,14 +211,14 @@ namespace s3d
 
 					if (dbh && (dbh->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
 					{
-						dynamic_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickConnection();
+						static_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickConnection();
 					}
 				}
 				else if (wParam == DBT_DEVICEREMOVECOMPLETE)
 				{
 					LOG_TRACE(U"WM_DEVICECHANGE (DBT_DEVICEREMOVECOMPLETE)");
 
-					if (CSystem* system = dynamic_cast<CSystem*>(SIV3D_ENGINE(System)))
+					if (CSystem* system = static_cast<CSystem*>(SIV3D_ENGINE(System)))
 					{
 						system->onDeviceChange();
 					}
@@ -227,7 +227,7 @@ namespace s3d
 
 					if (dbh && (dbh->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
 					{
-						dynamic_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickDisconnection();
+						static_cast<CGamepad*>(SIV3D_ENGINE(Gamepad))->detectJoystickDisconnection();
 					}
 				}
 
@@ -242,27 +242,27 @@ namespace s3d
 				//LOG_VERBOSE(U"WM_GETMINMAXINFO");
 
 				LPMINMAXINFO pMinMaxInfo = reinterpret_cast<LPMINMAXINFO>(lParam);
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onMinMaxInfo(pMinMaxInfo);
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onMinMaxInfo(pMinMaxInfo);
 
 				break;
 			}
 		case WM_ENTERSIZEMOVE:
 			{
 				LOG_TRACE(U"WM_ENTERSIZEMOVE");
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onEnterSizeMove();
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onEnterSizeMove();
 
 				break;
 			}
 		case WM_EXITSIZEMOVE:
 			{
 				LOG_TRACE(U"WM_EXITSIZEMOVE");
-				dynamic_cast<CWindow*>(SIV3D_ENGINE(Window))->onExitSizeMove();
+				static_cast<CWindow*>(SIV3D_ENGINE(Window))->onExitSizeMove();
 
 				break;
 			}
 		case WM_MOUSEMOVE:
 			{
-				if (auto p = dynamic_cast<CCursor*>(SIV3D_ENGINE(Cursor)))
+				if (auto p = static_cast<CCursor*>(SIV3D_ENGINE(Cursor)))
 				{
 					p->handleMessage(message, wParam, lParam);
 				}
@@ -274,8 +274,7 @@ namespace s3d
 				if (const uint32 hitTest = (lParam & 0xFFFF);
 					(hitTest == HTCLIENT))
 				{
-
-					if (auto p = dynamic_cast<CCursor*>(SIV3D_ENGINE(Cursor)))
+					if (auto p = static_cast<CCursor*>(SIV3D_ENGINE(Cursor)))
 					{
 						p->onSetCursor();
 					}
@@ -305,7 +304,7 @@ namespace s3d
 						static_cast<uint32>(touchInputs.size()), touchInputs.data(),
 						sizeof(TOUCHINPUT)))
 					{
-						if (auto pMouse = dynamic_cast<CMouse*>(SIV3D_ENGINE(Mouse)))
+						if (auto pMouse = static_cast<CMouse*>(SIV3D_ENGINE(Mouse)))
 						{
 							pMouse->onTouchInput(touchInputs);
 						}

@@ -194,13 +194,13 @@ namespace s3d
 	void CShader_GL4::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 vsUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Vertex, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, vsUniformBlockBinding, static_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
 	}
 
 	void CShader_GL4::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		const uint32 psUniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(ShaderStage::Pixel, slot);
-		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, dynamic_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
+		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, static_cast<const ConstantBufferDetail_GL4*>(cb._detail())->getHandle());
 	}
 
 	const PixelShader& CShader_GL4::getEnginePS(const EnginePS ps) const
