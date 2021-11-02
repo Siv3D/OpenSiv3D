@@ -437,7 +437,7 @@ namespace s3d
 		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
 		auto currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 
-		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
 		LOG_COMMAND(U"----");
@@ -634,15 +634,18 @@ namespace s3d
 					{
 						currentRenderingPass = pTexture->begin(rt->id(), encoder);
 						currentRenderTargetState = pTexture->getRenderTargetState(rt->id());
+						currentRenderTargetSize = pTexture->getSize(rt->id());
+
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
 						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
 						currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
+						currentRenderTargetSize = pRenderer->getBackBuffer().getSceneBufferSize();
+
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
-
 					break;
 				}
 			case WebGPURenderer3DCommandType::InputLayout:
