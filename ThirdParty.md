@@ -57,7 +57,7 @@ Name | Version
 [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 
 [nlohmann/json](https://github.com/nlohmann/json) | v3.9.1
 [Noto CJK](https://github.com/googlefonts/noto-cjk) | v20201206
-[Noto Emoji](https://github.com/googlefonts/noto-emoji) | v2.028
+[Noto Emoji](https://github.com/googlefonts/noto-emoji) | v2.034
 [Obfuscate](https://github.com/adamyaxley/Obfuscate) | 
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
