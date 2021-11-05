@@ -26,6 +26,16 @@ namespace s3d
 		return (x * Math::Pi);
 	}
 
+	static float MathTauF(float x) noexcept
+	{
+		return (x * Math::TauF);
+	}
+
+	static double MathTau(double x) noexcept
+	{
+		return (x * Math::Tau);
+	}
+
 	static float MathDegF(float x) noexcept
 	{
 		return (x * (Math::PiF / 180));
@@ -56,6 +66,9 @@ namespace s3d
 	
 			r = engine->RegisterGlobalProperty("const float TwoPiF", (void*)&Math::Constants::TwoPiF); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const double TwoPi", (void*)&Math::Constants::TwoPi); assert(r >= 0);
+
+			r = engine->RegisterGlobalProperty("const float TauF", (void*)&Math::Constants::TauF); assert(r >= 0);
+			r = engine->RegisterGlobalProperty("const double Tau", (void*)&Math::Constants::Tau); assert(r >= 0);
 
 			r = engine->RegisterGlobalProperty("const float InvTwoPiF", (void*)&Math::Constants::InvTwoPiF); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const double InvTwoPi", (void*)&Math::Constants::InvTwoPi); assert(r >= 0);
@@ -91,6 +104,9 @@ namespace s3d
 		
 		r = engine->RegisterGlobalFunction("double _pi(double)", asFUNCTION(MathPi), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double _piF(double)", asFUNCTION(MathPiF), asCALL_CDECL); assert(r >= 0);
+
+		r = engine->RegisterGlobalFunction("double _tau(double)", asFUNCTION(MathTau), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("double _tauF(double)", asFUNCTION(MathTauF), asCALL_CDECL); assert(r >= 0);
 
 		r = engine->RegisterGlobalFunction("double _deg(double)", asFUNCTION(MathDeg), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double _degF(double)", asFUNCTION(MathDegF), asCALL_CDECL); assert(r >= 0);
