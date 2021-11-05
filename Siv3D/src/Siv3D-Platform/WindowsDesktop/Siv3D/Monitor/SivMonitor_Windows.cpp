@@ -122,6 +122,78 @@ namespace s3d
 
 			return true;
 		}
+
+		static bool GetFriendlyName(Array<MonitorInfo>& monitors)
+		{
+			UINT32 nPaths, nModes;
+
+			if (::GetDisplayConfigBufferSizes(QDC_ONLY_ACTIVE_PATHS, &nPaths, &nModes) != ERROR_SUCCESS)
+			{
+				return false;
+			}
+
+			Array<DISPLAYCONFIG_PATH_INFO> displayPaths(nPaths);
+			Array<DISPLAYCONFIG_MODE_INFO> displayModes(nModes);
+
+			if (::QueryDisplayConfig(QDC_ONLY_ACTIVE_PATHS, &nPaths, displayPaths.data(), &nModes, displayModes.data(), nullptr) != ERROR_SUCCESS)
+			{
+				return false;
+			}
+
+			for (const auto& mode : displayModes)
+			{
+				if (mode.infoType != DISPLAYCONFIG_MODE_INFO_TYPE_TARGET)
+				{
+					continue;
+				}
+
+				const DISPLAYCONFIG_DEVICE_INFO_HEADER deviceHeader
+				{
+					.type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME,
+					.size = sizeof(DISPLAYCONFIG_TARGET_DEVICE_NAME),
+					.adapterId = mode.adapterId,
+					.id = mode.id,
+				};
+
+				DISPLAYCONFIG_TARGET_DEVICE_NAME deviceName
+				{
+					.header = deviceHeader
+				};
+
+				if (::DisplayConfigGetDeviceInfo(&deviceName.header) != ERROR_SUCCESS)
+				{
+					continue;
+				}
+
+				{
+					String friendlyName = Unicode::FromWstring(deviceName.monitorFriendlyDeviceName);
+
+					if ((deviceName.outputTechnology == DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL)
+						|| (deviceName.outputTechnology == DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EMBEDDED)
+						|| (deviceName.outputTechnology == DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EMBEDDED))
+					{
+						friendlyName += U"(Internal Display)";
+					}
+
+					const String id = Unicode::FromWstring(deviceName.monitorDevicePath);
+
+					for (auto& monitor : monitors)
+					{
+						if (monitor.id == id)
+						{
+							if (friendlyName)
+							{
+								monitor.name = std::move(friendlyName);
+							}
+
+							break;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
 	}
 
 	namespace System
@@ -139,7 +211,7 @@ namespace s3d
 					DISPLAY_DEVICE monitor{ .cb = sizeof(DISPLAY_DEVICE) };
 
 					// デスクトップとして使われているモニターの一覧を取得
-					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, 0); ++monitorIndex)
+					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, EDD_GET_DEVICE_INTERFACE_NAME); ++monitorIndex)
 					{
 						if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) &&
 							not(monitor.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER))
@@ -156,6 +228,8 @@ namespace s3d
 				ZeroMemory(&displayDevice, sizeof(displayDevice));
 				displayDevice.cb = sizeof(displayDevice);
 			}
+
+			detail::GetFriendlyName(monitors);
 
 			return monitors;
 		}
