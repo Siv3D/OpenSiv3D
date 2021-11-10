@@ -15,13 +15,13 @@
 
 ## Downloads
 
-### ✨ v0.6.2 | stable
-*released 29 September 2021*
+### ✨ v0.6.3 | stable
+*released 12 November 2021*
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.2_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.10 or newer<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.2_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
+| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11 or 2022 17.0<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental*) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
@@ -36,7 +36,7 @@
 | macOS           | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 
 
-## Examples (v0.6.2)
+## Examples (v0.6.3)
 
 ### 1. Hello, Siv3D!
 
