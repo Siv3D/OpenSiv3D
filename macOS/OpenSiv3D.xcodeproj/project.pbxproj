@@ -1453,6 +1453,14 @@
 		2CB18EE726B5A68700862C28 /* as_scriptobject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E9426B5A68700862C28 /* as_scriptobject.h */; };
 		2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB18E9526B5A68700862C28 /* as_callfunc_sh4.cpp */; };
 		2CB18EE926B5A68700862C28 /* as_texts.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E9626B5A68700862C28 /* as_texts.h */; };
+		2CB1B9BB273BB1A9008FBF78 /* SivScopedColorAdd2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9B8273BB1A9008FBF78 /* SivScopedColorAdd2D.cpp */; };
+		2CB1B9BC273BB1A9008FBF78 /* SivScopedColorMul2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9BA273BB1A9008FBF78 /* SivScopedColorMul2D.cpp */; };
+		2CB1B9C9273BB1B9008FBF78 /* SivScopedRenderTarget2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9BE273BB1B9008FBF78 /* SivScopedRenderTarget2D.cpp */; };
+		2CB1B9CA273BB1BA008FBF78 /* SivScopedRenderTarget3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9C0273BB1B9008FBF78 /* SivScopedRenderTarget3D.cpp */; };
+		2CB1B9CB273BB1BA008FBF78 /* SivScopedRenderStates2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9C2273BB1B9008FBF78 /* SivScopedRenderStates2D.cpp */; };
+		2CB1B9CC273BB1BA008FBF78 /* SivScopedRenderStates3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9C4273BB1B9008FBF78 /* SivScopedRenderStates3D.cpp */; };
+		2CB1B9CD273BB1BA008FBF78 /* SivScopedViewport2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9C6273BB1B9008FBF78 /* SivScopedViewport2D.cpp */; };
+		2CB1B9CE273BB1BA008FBF78 /* SivScopedViewport3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1B9C8273BB1B9008FBF78 /* SivScopedViewport3D.cpp */; };
 		2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749EC261F52C200D31274 /* XInputFactory.cpp */; };
 		2CB749F5261F52E200D31274 /* IXInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB749EF261F52E200D31274 /* IXInput.hpp */; };
 		2CB749F6261F52E200D31274 /* XInputState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB749F0261F52E200D31274 /* XInputState.hpp */; };
@@ -1877,7 +1885,6 @@
 		2C063D472661426000368BEE /* FormatBool.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FormatBool.ipp; sourceTree = "<group>"; };
 		2C063D492661426000368BEE /* Distribution.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Distribution.ipp; sourceTree = "<group>"; };
 		2C063D4A2661426000368BEE /* Memory.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.ipp; sourceTree = "<group>"; };
-		2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorAdd2D.ipp; sourceTree = "<group>"; };
 		2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiscreteDistribution.ipp; sourceTree = "<group>"; };
 		2C063D4D2661426000368BEE /* IAudioDecoder.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioDecoder.ipp; sourceTree = "<group>"; };
 		2C063D4E2661426000368BEE /* ConstantBuffer.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConstantBuffer.ipp; sourceTree = "<group>"; };
@@ -1909,7 +1916,6 @@
 		2C063D682661426000368BEE /* IImageDecoder.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IImageDecoder.ipp; sourceTree = "<group>"; };
 		2C063D692661426000368BEE /* MemoryViewReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemoryViewReader.ipp; sourceTree = "<group>"; };
 		2C063D6A2661426000368BEE /* SVG.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SVG.ipp; sourceTree = "<group>"; };
-		2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport2D.ipp; sourceTree = "<group>"; };
 		2C063D6C2661426000368BEE /* Resource.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Resource.ipp; sourceTree = "<group>"; };
 		2C063D6D2661426000368BEE /* Date.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Date.ipp; sourceTree = "<group>"; };
 		2C063D6E2661426000368BEE /* ImageEncoder.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageEncoder.ipp; sourceTree = "<group>"; };
@@ -1921,7 +1927,6 @@
 		2C063D742661426000368BEE /* Shuffle.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shuffle.ipp; sourceTree = "<group>"; };
 		2C063D752661426000368BEE /* Error.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.ipp; sourceTree = "<group>"; };
 		2C063D762661426000368BEE /* Window.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.ipp; sourceTree = "<group>"; };
-		2C063D782661426000368BEE /* OBB.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OBB.ipp; sourceTree = "<group>"; };
 		2C063D792661426000368BEE /* Random.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Random.ipp; sourceTree = "<group>"; };
 		2C063D7A2661426000368BEE /* Math.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.ipp; sourceTree = "<group>"; };
 		2C063D7B2661426000368BEE /* MatchResults.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatchResults.ipp; sourceTree = "<group>"; };
@@ -1974,7 +1979,6 @@
 		2C063DAD2661426000368BEE /* XMLReader.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XMLReader.ipp; sourceTree = "<group>"; };
 		2C063DAE2661426000368BEE /* InfiniteList.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InfiniteList.ipp; sourceTree = "<group>"; };
 		2C063DAF2661426000368BEE /* Interpolation.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Interpolation.ipp; sourceTree = "<group>"; };
-		2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates2D.ipp; sourceTree = "<group>"; };
 		2C063DB12661426000368BEE /* Vector3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vector3D.ipp; sourceTree = "<group>"; };
 		2C063DB22661426000368BEE /* Serialization.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Serialization.ipp; sourceTree = "<group>"; };
 		2C063DB32661426000368BEE /* LineStyle.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LineStyle.ipp; sourceTree = "<group>"; };
@@ -2032,7 +2036,6 @@
 		2C063DE72661426000368BEE /* QRContent.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QRContent.ipp; sourceTree = "<group>"; };
 		2C063DE82661426000368BEE /* DateTime.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DateTime.ipp; sourceTree = "<group>"; };
 		2C063DE92661426000368BEE /* Cursor.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cursor.ipp; sourceTree = "<group>"; };
-		2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedColorMul2D.ipp; sourceTree = "<group>"; };
 		2C063DEB2661426000368BEE /* HashSet.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HashSet.ipp; sourceTree = "<group>"; };
 		2C063DEC2661426000368BEE /* Functor.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Functor.ipp; sourceTree = "<group>"; };
 		2C063DED2661426000368BEE /* Mat4x4.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Mat4x4.ipp; sourceTree = "<group>"; };
@@ -3602,11 +3605,8 @@
 		2C6EEB092688EC95002E220A /* ScopedRenderTarget3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget3D.hpp; sourceTree = "<group>"; };
 		2C6EEB0A2688EC95002E220A /* ScopedCustomShader3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedCustomShader3D.hpp; sourceTree = "<group>"; };
 		2C6EEB0B2688EC95002E220A /* ScopedViewport3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport3D.hpp; sourceTree = "<group>"; };
-		2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedViewport3D.ipp; sourceTree = "<group>"; };
-		2C6EEB0D2688ECB0002E220A /* ScopedRenderTarget3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget3D.ipp; sourceTree = "<group>"; };
 		2C6EEB0F2688ECD0002E220A /* SivScopedCustomShader3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedCustomShader3D.cpp; sourceTree = "<group>"; };
 		2C7091A2267F083100A8F68C /* ScopedRenderTarget2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.hpp; sourceTree = "<group>"; };
-		2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderTarget2D.ipp; sourceTree = "<group>"; };
 		2C7091A5267F133C00A8F68C /* SivGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics.cpp; sourceTree = "<group>"; };
 		2C7091A7267F47EA00A8F68C /* EngineOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineOptions.hpp; sourceTree = "<group>"; };
 		2C7091A9267F480700A8F68C /* SivEngineOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEngineOptions.cpp; sourceTree = "<group>"; };
@@ -3615,7 +3615,6 @@
 		2C74C043267A466D0031C9E0 /* Obfuscation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Obfuscation.hpp; sourceTree = "<group>"; };
 		2C74CCDF264955AC00EA2875 /* AudioLoopTiming.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AudioLoopTiming.hpp; sourceTree = "<group>"; };
 		2C768DAE268C4C6800A02CF5 /* ScopedRenderStates3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates3D.hpp; sourceTree = "<group>"; };
-		2C768DAF268C4C8000A02CF5 /* ScopedRenderStates3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScopedRenderStates3D.ipp; sourceTree = "<group>"; };
 		2C768DB1268C4CA300A02CF5 /* PrimitiveMeshFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrimitiveMeshFactory.cpp; sourceTree = "<group>"; };
 		2C768DB2268C4CA300A02CF5 /* CPrimitiveMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPrimitiveMesh.cpp; sourceTree = "<group>"; };
 		2C768DB3268C4CA300A02CF5 /* IPrimitiveMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IPrimitiveMesh.hpp; sourceTree = "<group>"; };
@@ -4207,6 +4206,14 @@
 		2CB18E9426B5A68700862C28 /* as_scriptobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_scriptobject.h; sourceTree = "<group>"; };
 		2CB18E9526B5A68700862C28 /* as_callfunc_sh4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_sh4.cpp; sourceTree = "<group>"; };
 		2CB18E9626B5A68700862C28 /* as_texts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_texts.h; sourceTree = "<group>"; };
+		2CB1B9B8273BB1A9008FBF78 /* SivScopedColorAdd2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedColorAdd2D.cpp; sourceTree = "<group>"; };
+		2CB1B9BA273BB1A9008FBF78 /* SivScopedColorMul2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedColorMul2D.cpp; sourceTree = "<group>"; };
+		2CB1B9BE273BB1B9008FBF78 /* SivScopedRenderTarget2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderTarget2D.cpp; sourceTree = "<group>"; };
+		2CB1B9C0273BB1B9008FBF78 /* SivScopedRenderTarget3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderTarget3D.cpp; sourceTree = "<group>"; };
+		2CB1B9C2273BB1B9008FBF78 /* SivScopedRenderStates2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderStates2D.cpp; sourceTree = "<group>"; };
+		2CB1B9C4273BB1B9008FBF78 /* SivScopedRenderStates3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedRenderStates3D.cpp; sourceTree = "<group>"; };
+		2CB1B9C6273BB1B9008FBF78 /* SivScopedViewport2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedViewport2D.cpp; sourceTree = "<group>"; };
+		2CB1B9C8273BB1B9008FBF78 /* SivScopedViewport3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScopedViewport3D.cpp; sourceTree = "<group>"; };
 		2CB749E7261F524000D31274 /* XInput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XInput.hpp; sourceTree = "<group>"; };
 		2CB749E8261F524D00D31274 /* DeadZone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DeadZone.hpp; sourceTree = "<group>"; };
 		2CB749EA261F52A400D31274 /* XInputVibration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XInputVibration.hpp; sourceTree = "<group>"; };
@@ -4890,7 +4897,6 @@
 				2C063E042661426000368BEE /* MultiPolygon.ipp */,
 				2C063D992661426000368BEE /* Noise.ipp */,
 				2C063E002661426000368BEE /* Number.ipp */,
-				2C063D782661426000368BEE /* OBB.ipp */,
 				2C063DC72661426000368BEE /* OffsetCircular.ipp */,
 				2C063D952661426000368BEE /* OpenCV_Bridge.ipp */,
 				2C063D852661426000368BEE /* Optional.ipp */,
@@ -4927,14 +4933,6 @@
 				2C063D8D2661426000368BEE /* SamplerState.ipp */,
 				2C063D5F2661426000368BEE /* Scene.ipp */,
 				2C063DC92661426000368BEE /* SceneManager.ipp */,
-				2C063D4B2661426000368BEE /* ScopedColorAdd2D.ipp */,
-				2C063DEA2661426000368BEE /* ScopedColorMul2D.ipp */,
-				2C063DB02661426000368BEE /* ScopedRenderStates2D.ipp */,
-				2C768DAF268C4C8000A02CF5 /* ScopedRenderStates3D.ipp */,
-				2C7091A3267F084500A8F68C /* ScopedRenderTarget2D.ipp */,
-				2C6EEB0D2688ECB0002E220A /* ScopedRenderTarget3D.ipp */,
-				2C063D6B2661426000368BEE /* ScopedViewport2D.ipp */,
-				2C6EEB0C2688ECB0002E220A /* ScopedViewport3D.ipp */,
 				2C063D5B2661426000368BEE /* ScopeGuard.ipp */,
 				2C619FFF26C955C200429B27 /* Script.ipp */,
 				2C61A01026C96E9900429B27 /* ScriptFunction.ipp */,
@@ -6607,8 +6605,16 @@
 				2CF962EE25A7F953006F55C9 /* RoundRect */,
 				2C4AEF7C263582E700D36CFC /* Say */,
 				2C47B2D424DD9789008D83BE /* Scene */,
+				2CB1B9B7273BB1A9008FBF78 /* ScopedColorAdd2D */,
+				2CB1B9B9273BB1A9008FBF78 /* ScopedColorMul2D */,
 				2C60F91A2667DBCB00FFAA68 /* ScopedCustomShader2D */,
 				2C6EEB0E2688ECD0002E220A /* ScopedCustomShader3D */,
+				2CB1B9C1273BB1B9008FBF78 /* ScopedRenderStates2D */,
+				2CB1B9C3273BB1B9008FBF78 /* ScopedRenderStates3D */,
+				2CB1B9BD273BB1B9008FBF78 /* ScopedRenderTarget2D */,
+				2CB1B9BF273BB1B9008FBF78 /* ScopedRenderTarget3D */,
+				2CB1B9C5273BB1B9008FBF78 /* ScopedViewport2D */,
+				2CB1B9C7273BB1B9008FBF78 /* ScopedViewport3D */,
 				2C4A286425EA60EB00FEACE4 /* ScreenCapture */,
 				2C36F844267F93F700691B1C /* Script */,
 				2C91F43A26CA2C2B002E067F /* ScriptFunction */,
@@ -10514,6 +10520,70 @@
 			path = angelscript;
 			sourceTree = "<group>";
 		};
+		2CB1B9B7273BB1A9008FBF78 /* ScopedColorAdd2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9B8273BB1A9008FBF78 /* SivScopedColorAdd2D.cpp */,
+			);
+			path = ScopedColorAdd2D;
+			sourceTree = "<group>";
+		};
+		2CB1B9B9273BB1A9008FBF78 /* ScopedColorMul2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9BA273BB1A9008FBF78 /* SivScopedColorMul2D.cpp */,
+			);
+			path = ScopedColorMul2D;
+			sourceTree = "<group>";
+		};
+		2CB1B9BD273BB1B9008FBF78 /* ScopedRenderTarget2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9BE273BB1B9008FBF78 /* SivScopedRenderTarget2D.cpp */,
+			);
+			path = ScopedRenderTarget2D;
+			sourceTree = "<group>";
+		};
+		2CB1B9BF273BB1B9008FBF78 /* ScopedRenderTarget3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9C0273BB1B9008FBF78 /* SivScopedRenderTarget3D.cpp */,
+			);
+			path = ScopedRenderTarget3D;
+			sourceTree = "<group>";
+		};
+		2CB1B9C1273BB1B9008FBF78 /* ScopedRenderStates2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9C2273BB1B9008FBF78 /* SivScopedRenderStates2D.cpp */,
+			);
+			path = ScopedRenderStates2D;
+			sourceTree = "<group>";
+		};
+		2CB1B9C3273BB1B9008FBF78 /* ScopedRenderStates3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9C4273BB1B9008FBF78 /* SivScopedRenderStates3D.cpp */,
+			);
+			path = ScopedRenderStates3D;
+			sourceTree = "<group>";
+		};
+		2CB1B9C5273BB1B9008FBF78 /* ScopedViewport2D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9C6273BB1B9008FBF78 /* SivScopedViewport2D.cpp */,
+			);
+			path = ScopedViewport2D;
+			sourceTree = "<group>";
+		};
+		2CB1B9C7273BB1B9008FBF78 /* ScopedViewport3D */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1B9C8273BB1B9008FBF78 /* SivScopedViewport3D.cpp */,
+			);
+			path = ScopedViewport3D;
+			sourceTree = "<group>";
+		};
 		2CB749EB261F52C200D31274 /* XInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -12543,6 +12613,7 @@
 				2CFABB14272E3ACB00939278 /* styledelement.cpp in Sources */,
 				2C2AA38026009C74003F3EBC /* b2_rope.cpp in Sources */,
 				2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */,
+				2CB1B9CB273BB1BA008FBF78 /* SivScopedRenderStates2D.cpp in Sources */,
 				2C636E912657F7D300AF029F /* soloud_bassboostfilter.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
 				2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */,
@@ -12880,6 +12951,7 @@
 				2CC584602646DC5800C33E9F /* AudioDecoderFactory.cpp in Sources */,
 				2C5337A3264F5AA200CE0F1B /* cover.c in Sources */,
 				2C636EB12657F7D300AF029F /* resonator.cpp in Sources */,
+				2CB1B9BC273BB1A9008FBF78 /* SivScopedColorMul2D.cpp in Sources */,
 				2CD69BFA26D2B7AF00879484 /* ScriptNamedParameter.cpp in Sources */,
 				2CD69BD526D2B7AE00879484 /* ScriptOffsetCircular.cpp in Sources */,
 				2CDD4F3B260A3F7100A51D68 /* P2Triangle.cpp in Sources */,
@@ -12937,6 +13009,7 @@
 				2C36F84F267F9EB700691B1C /* SivNetwork.cpp in Sources */,
 				2C47B33624DD9789008D83BE /* SivFormatInt.cpp in Sources */,
 				2C48BF8825D41C0D00A93CE3 /* FontData.cpp in Sources */,
+				2CB1B9C9273BB1B9008FBF78 /* SivScopedRenderTarget2D.cpp in Sources */,
 				2CD69C1926D2B7AF00879484 /* ScriptFloat2.cpp in Sources */,
 				2CEC7DD625FA527700704B99 /* PNGDecoder.cpp in Sources */,
 				2C439F7B241DCEA9001154C2 /* string-to-double.cc in Sources */,
@@ -13083,6 +13156,7 @@
 				2CD69BC526D2B7AE00879484 /* ScriptLineString.cpp in Sources */,
 				2C2AA36B26009C74003F3EBC /* b2_gear_joint.cpp in Sources */,
 				2C2AA35E26009C74003F3EBC /* b2_contact.cpp in Sources */,
+				2CB1B9BB273BB1A9008FBF78 /* SivScopedColorAdd2D.cpp in Sources */,
 				2C794B8B25C5A5BF00034D81 /* SivTexturedCircle.cpp in Sources */,
 				2CD69C0926D2B7AF00879484 /* ScriptTextureDesc.cpp in Sources */,
 				2C834D94248805D4006208B8 /* iso8859_15.c in Sources */,
@@ -13094,6 +13168,7 @@
 				2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */,
 				2C53C33825613B740072831A /* SivEllipse.cpp in Sources */,
 				2CEC7DC525FA4DD900704B99 /* exif.cpp in Sources */,
+				2CB1B9CE273BB1BA008FBF78 /* SivScopedViewport3D.cpp in Sources */,
 				2C62196526750F3A0088B175 /* SivUUIDValue.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
@@ -13122,6 +13197,7 @@
 				2CF21D1E249FAA8F00C864C9 /* CSystem.cpp in Sources */,
 				2C48BEFC25CFB8C500A93CE3 /* save-bmp.cpp in Sources */,
 				2C47B37024DD9789008D83BE /* ImageDecoderFactory.cpp in Sources */,
+				2CB1B9CC273BB1BA008FBF78 /* SivScopedRenderStates3D.cpp in Sources */,
 				2C47B6F724EAC8D9008D83BE /* GL4Vertex2DBatch.cpp in Sources */,
 				2C48BEEA25CFB8C500A93CE3 /* SignedDistance.cpp in Sources */,
 				2C13C9CD25BD29FC0054B968 /* lbaselib.c in Sources */,
@@ -13266,6 +13342,7 @@
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2CD69BD026D2B7AE00879484 /* ScriptVec2.cpp in Sources */,
 				2C53379C264F5AA200CE0F1B /* zstd_compress_literals.c in Sources */,
+				2CB1B9CA273BB1BA008FBF78 /* SivScopedRenderTarget3D.cpp in Sources */,
 				2C47B32A24DD9789008D83BE /* SivUnicodeConverter.cpp in Sources */,
 				2C66844A2685050B00F7089A /* SivPolygonEmitter2D.cpp in Sources */,
 				2CEC7DE325FA5DE300704B99 /* TGADecoder.cpp in Sources */,
@@ -13522,6 +13599,7 @@
 				2CFB7DE1262B0F0A00169B97 /* SivPowerStatus.mm in Sources */,
 				2C47B36424DD9789008D83BE /* CScene.cpp in Sources */,
 				2CDD4F3A260A3F7100A51D68 /* P2WheelJoint.cpp in Sources */,
+				2CB1B9CD273BB1BA008FBF78 /* SivScopedViewport2D.cpp in Sources */,
 				2C13C8C725B8FA9D0054B968 /* DetourNavMeshQuery.cpp in Sources */,
 				2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */,
 				2C834D9A248805D4006208B8 /* regexec.c in Sources */,
