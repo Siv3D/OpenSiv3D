@@ -18,12 +18,6 @@ namespace s3d
 {
 	class CGUI final : public ISiv3DGUI
 	{
-	private:
-
-		std::unique_ptr<Font> m_defaultFont;
-
-		std::unique_ptr<Texture> m_colorPickerTexture;
-
 	public:
 
 		CGUI();
@@ -35,5 +29,13 @@ namespace s3d
 		const Font& getDefaultFont() const noexcept override;
 
 		const Texture& getColorPickerTexture() override;
+
+	private:
+
+		std::unique_ptr<Font> m_defaultFont;
+
+		Array<Font> m_iconFonts;
+
+		std::unique_ptr<Texture> m_colorPickerTexture;
 	};
 }

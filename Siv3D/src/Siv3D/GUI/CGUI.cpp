@@ -29,6 +29,21 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CGUI::init()");
 
 		m_defaultFont = std::make_unique<Font>(FontMethod::MSDF, 20, Typeface::CJK_Regular_JP);
+
+		if (Font::IsAvailable(Typeface::Icon_Awesome_Solid))
+		{
+			m_iconFonts.emplace_back(FontMethod::MSDF, 20, Typeface::Icon_Awesome_Solid);
+		}
+
+		if (Font::IsAvailable(Typeface::Icon_MaterialDesign))
+		{
+			m_iconFonts.emplace_back(FontMethod::MSDF, 20, Typeface::Icon_MaterialDesign);
+		}
+
+		for (const auto& iconFont : m_iconFonts)
+		{
+			m_defaultFont->addFallback(iconFont);
+		}
 	}
 
 	const Font& CGUI::getDefaultFont() const noexcept
