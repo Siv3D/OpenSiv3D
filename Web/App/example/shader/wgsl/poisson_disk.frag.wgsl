@@ -5,8 +5,8 @@
 //
 //	Textures
 //
-[[group(1), binding(0)]] var Sampler0: sampler;
-[[group(1), binding(1)]] var Texture0: texture_2d<f32>;
+[[group(2), binding(0)]] var Sampler0: sampler;
+[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
 
 //
 //	Constant Buffer
@@ -20,7 +20,7 @@
 	unused: vec4<f32>;
 };
 
-[[group(0), binding(1)]]
+[[group(1), binding(0)]]
 var<uniform> PSConstants2D: PSConstants2DStruct;
 
 // PS_1
@@ -30,7 +30,7 @@ var<uniform> PSConstants2D: PSConstants2DStruct;
 	diskRadius: f32;
 };
 
-[[group(0), binding(2)]]
+[[group(1), binding(1)]]
 var<uniform> PoissonDisk: PoissonDiskStruct;
 // [C++]
 //struct PoissonDisk

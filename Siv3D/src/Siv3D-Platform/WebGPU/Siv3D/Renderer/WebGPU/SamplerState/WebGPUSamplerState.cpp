@@ -166,7 +166,7 @@ namespace s3d
 			};
 
 			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(2, m_constantsUniform);
+			pass.SetBindGroup(3, m_constantsUniform);
 		}
 
 		{
@@ -201,7 +201,7 @@ namespace s3d
 			};
 
 			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(1, m_constantsUniform);
+			pass.SetBindGroup(2, m_constantsUniform);
 		}
 	}
 

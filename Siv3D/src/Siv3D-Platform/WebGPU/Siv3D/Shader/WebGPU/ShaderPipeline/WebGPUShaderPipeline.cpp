@@ -80,7 +80,8 @@ namespace s3d
 
         m_standard2DVertexAttributes =
         {
-            .attributes = {
+            .attributes = 
+			{
                 {
                     .format = wgpu::VertexFormat::Float32x2,
                     .offset = 0,
@@ -103,7 +104,8 @@ namespace s3d
 
 		m_standard3DVertexAttributes =
         {
-            .attributes = {
+            .attributes = 
+			{
                 {
                     .format = wgpu::VertexFormat::Float32x3,
                     .offset = 0,
@@ -124,47 +126,28 @@ namespace s3d
             .stride = 32
         };
 
-		initializeStandard2DPipeline(device);
-		initializeStandard3DPipeline(device);
+		m_standard3DLineVertexAttributes =
+		{
+			.attributes =
+			{
+				{
+                    .format = wgpu::VertexFormat::Float32x4,
+                    .offset = 0,
+                    .shaderLocation = 0
+                },
+				{
+                    .format = wgpu::VertexFormat::Float32x4,
+                    .offset = 16,
+                    .shaderLocation = 1
+                }
+			}
+		};
+
+		initializeSamplerBindingGroup(device);
     }
 
-	void WebGPUShaderPipeline::initializeStandard2DPipeline(const wgpu::Device& device)
+	void WebGPUShaderPipeline::initializeSamplerBindingGroup(const wgpu::Device& device)
 	{
-		Array<wgpu::BindGroupLayout> standard2DBindgroupLayout;
-
-        {
-			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 0,
-				.visibility = wgpu::ShaderStage::Vertex,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 1,
-				.visibility = wgpu::ShaderStage::Fragment,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			wgpu::BindGroupLayoutDescriptor layoutDesc
-			{
-				.entries = bindingLayout.data(),
-				.entryCount = bindingLayout.size(),
-			};
-
-			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			standard2DBindgroupLayout << uniformLayout;
-		}
-
 		for (auto shaderStage : { wgpu::ShaderStage::Fragment, wgpu::ShaderStage::Vertex })
 		{
 			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
@@ -200,137 +183,11 @@ namespace s3d
 			};
 
 			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			standard2DBindgroupLayout << uniformLayout;
-		}
-
-		{
-			wgpu::PipelineLayoutDescriptor desc
-			{
-				.bindGroupLayoutCount = standard2DBindgroupLayout.size(),
-				.bindGroupLayouts = standard2DBindgroupLayout.data()
-			};
-
-			m_standard2DPipelineLayout = device.CreatePipelineLayout(&desc);
+			m_standardSamplerBindingGroup << uniformLayout;
 		}
 	}
 
-	void WebGPUShaderPipeline::initializeStandard3DPipeline(const wgpu::Device& device)
-	{
-		Array<wgpu::BindGroupLayout> standard3DBindgroupLayout;
-
-        {
-			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 0,
-				.visibility = wgpu::ShaderStage::Vertex,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 1,
-				.visibility = wgpu::ShaderStage::Vertex,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 2,
-				.visibility = wgpu::ShaderStage::Fragment,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 3,
-				.visibility = wgpu::ShaderStage::Fragment,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			bindingLayout << wgpu::BindGroupLayoutEntry
-			{
-				.binding = 4,
-				.visibility = wgpu::ShaderStage::Fragment,
-				.buffer = wgpu::BufferBindingLayout
-				{
-					.type = wgpu::BufferBindingType::Uniform
-				}
-			};
-
-			wgpu::BindGroupLayoutDescriptor layoutDesc
-			{
-				.entries = bindingLayout.data(),
-				.entryCount = bindingLayout.size(),
-			};
-
-			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			standard3DBindgroupLayout << uniformLayout;
-		}
-
-		for (auto shaderStage : { wgpu::ShaderStage::Fragment, wgpu::ShaderStage::Vertex })
-		{
-			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
-
-			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
-			{
-				bindingLayout << wgpu::BindGroupLayoutEntry
-				{
-					.binding = 2 * i,
-					.visibility = shaderStage,
-					.sampler = wgpu::SamplerBindingLayout 
-					{
-						.type = wgpu::SamplerBindingType::Filtering
-					}
-				};
-			
-				bindingLayout << wgpu::BindGroupLayoutEntry
-				{
-					.binding = 2 * i + 1,
-					.visibility = shaderStage,
-					.texture = wgpu::TextureBindingLayout 
-					{
-						.sampleType = wgpu::TextureSampleType::Float,
-						.viewDimension = wgpu::TextureViewDimension::e2D
-					}
-				};
-			}
-
-			wgpu::BindGroupLayoutDescriptor layoutDesc
-			{
-				.entries = bindingLayout.data(),
-				.entryCount = bindingLayout.size(),
-			};
-
-			auto uniformLayout = device.CreateBindGroupLayout(&layoutDesc);
-			standard3DBindgroupLayout << uniformLayout;
-		}
-
-		{
-			wgpu::PipelineLayoutDescriptor desc
-			{
-				.bindGroupLayoutCount = standard3DBindgroupLayout.size(),
-				.bindGroupLayouts = standard3DBindgroupLayout.data()
-			};
-
-			m_standard3DPipelineLayout = device.CreatePipelineLayout(&desc);
-		}
-	}
-
-    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout)
+    wgpu::RenderPipeline WebGPUShaderPipeline::getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute)
     {
         const KeyType key { vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, depthStencilState, std::hash<s3d::WebGPUVertexAttribute>()(attribute) };
 
@@ -412,24 +269,35 @@ namespace s3d
 		{
 			.count = renderTargetState.sampleCount
 		};
+
+		{
+			Array<wgpu::BindGroupLayout> bindGroup;
+
+			bindGroup << pShader->getBindingGroupVS(vertexShader);
+			bindGroup << pShader->getBindingGroupPS(pixelShader);
+
+			bindGroup.append(m_standardSamplerBindingGroup);
+
+			wgpu::PipelineLayoutDescriptor pipelineLayoutDesc
+			{
+				.bindGroupLayouts = bindGroup.data(),
+				.bindGroupLayoutCount = bindGroup.size()
+			};
+
+			desc.layout = m_device.CreatePipelineLayout(&pipelineLayoutDesc);
+		}
 		
-        if (pipelineLayout != nullptr)
-        {
-            desc.layout = *pipelineLayout;
-        }
-
         auto pipeline = m_device.CreateRenderPipeline2(&desc);
-
         return m_pipelines.emplace(key, pipeline).first->second;
     }
 
 	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, DepthStencilState::Default2D, m_standard2DVertexAttributes, &m_standard2DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, DepthStencilState::Default2D, m_standard2DVertexAttributes);
     }
 
 	wgpu::RenderPipeline WebGPUShaderPipeline::getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
     {
-        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, depthStencilState, m_standard3DVertexAttributes, &m_standard3DPipelineLayout);
+        return getPipeline(vertexShader, pixelShader, rasterizerState, blendState, renderTargetState, depthStencilState, m_standard3DVertexAttributes);
     }
 }

@@ -55,6 +55,31 @@ namespace s3d
 				LOG_FAIL(U"❌ Vertex shader compilation failed");
 			}	
 		}
+
+		{
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			for (const auto& binding : bindings)
+			{
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = binding.index,
+					.visibility = wgpu::ShaderStage::Fragment,
+					.buffer =
+					{
+						.type = wgpu::BufferBindingType::Uniform
+					}
+				};
+			}
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			m_uniformBindingLayout = device.CreateBindGroupLayout(&layoutDesc);
+		}
 		
 		m_initialized = static_cast<bool>(m_pixelShader);
 	}
@@ -72,5 +97,10 @@ namespace s3d
 	wgpu::ShaderModule WebGPUPixelShader::getShaderModule() const
 	{
 		return m_pixelShader;
+	}
+
+	wgpu::BindGroupLayout WebGPUPixelShader::getBindingGroup() const
+	{
+		return m_uniformBindingLayout;
 	}
 }

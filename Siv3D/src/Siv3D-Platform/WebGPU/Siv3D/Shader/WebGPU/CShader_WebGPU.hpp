@@ -66,9 +66,13 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
 
+		void resetConstantBufferVS();
+
+		void resetConstantBufferPS();
+
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
+		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute);
 
 		wgpu::RenderPipeline usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState);
 		
@@ -79,6 +83,10 @@ namespace s3d
 		wgpu::ShaderModule getShaderModuleVS(VertexShader::IDType handleID);
 
 		wgpu::ShaderModule getShaderModulePS(PixelShader::IDType handleID);
+
+		wgpu::BindGroupLayout getBindingGroupVS(VertexShader::IDType handleID);
+
+		wgpu::BindGroupLayout getBindingGroupPS(PixelShader::IDType handleID);
 
 	private:
 
@@ -97,7 +105,9 @@ namespace s3d
 
 		wgpu::RenderPipeline m_currentPipeline;
 
-		std::array<wgpu::BindGroupEntry, 5> m_currentShaderConstants;
+		Array<wgpu::BindGroupEntry> m_currentVSConstants;
+
+		Array<wgpu::BindGroupEntry> m_currentPSConstants;
 
 		Array<wgpu::BindGroupEntry> m_currentUniforms;
 

@@ -14,7 +14,7 @@
 	unused: vec4<f32>;
 };
 
-[[group(0), binding(1)]]
+[[group(1), binding(0)]]
 var<uniform> PSConstants2D: PSConstants2DStruct;
 
 //

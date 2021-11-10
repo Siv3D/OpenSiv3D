@@ -79,6 +79,7 @@ namespace s3d
 		{
 			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {} };
 			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/gaussian_blur_9.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/apply_srgb_curve.frag.wgsl"), {} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{
@@ -179,7 +180,7 @@ namespace s3d
 
 		entry.binding = slot;
 
-		m_currentShaderConstants[slot] = entry;
+		m_currentVSConstants << entry;
 	}
 
 	void CShader_WebGPU::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
@@ -188,7 +189,17 @@ namespace s3d
 
 		entry.binding = slot;
 
-		m_currentShaderConstants[slot] = entry;
+		m_currentPSConstants << entry;
+	}
+
+	void CShader_WebGPU::resetConstantBufferVS()
+	{
+		m_currentVSConstants.clear();
+	}
+
+	void CShader_WebGPU::resetConstantBufferPS()
+	{
+		m_currentPSConstants.clear();
 	}
 
 	const PixelShader& CShader_WebGPU::getEnginePS(const EnginePS ps) const
@@ -206,9 +217,19 @@ namespace s3d
 		return m_pixelShaders[handleID]->getShaderModule();
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
+	wgpu::BindGroupLayout CShader_WebGPU::getBindingGroupVS(VertexShader::IDType handleID)
 	{
-		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState, {});
+		return m_vertexShaders[handleID]->getBindingGroup();
+	}
+
+	wgpu::BindGroupLayout CShader_WebGPU::getBindingGroupPS(PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getBindingGroup();
+	}
+
+	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute)
+	{
+		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState, attribute);
 
 		wgpu::BindGroupDescriptor uniformDesc
 		{
@@ -229,17 +250,27 @@ namespace s3d
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard2DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState);
 
-		wgpu::BindGroupDescriptor constantsDesc
+		wgpu::BindGroupDescriptor constantsDescVS
 		{
 			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentShaderConstants.data(),
-			.entryCount = 2
+			.entries = m_currentVSConstants.data(),
+			.entryCount = m_currentVSConstants.size()
 		};
 
-		auto m_constantsUniform = m_device->CreateBindGroup(&constantsDesc);
+		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
+
+		wgpu::BindGroupDescriptor constantsDescPS
+		{
+			.layout = pipeline.GetBindGroupLayout(0),
+			.entries = m_currentPSConstants.data(),
+			.entryCount = m_currentPSConstants.size()
+		};
+
+		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
 
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniform);
+		pass.SetBindGroup(0, m_constantsUniformVS);
+		pass.SetBindGroup(1, m_constantsUniformPS);
 
 		return pipeline;
 	}
@@ -248,17 +279,27 @@ namespace s3d
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard3DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
 
-		wgpu::BindGroupDescriptor constantsDesc
+		wgpu::BindGroupDescriptor constantsDescVS
 		{
 			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentShaderConstants.data(),
-			.entryCount = 5
+			.entries = m_currentVSConstants.data(),
+			.entryCount = m_currentVSConstants.size()
 		};
 
-		auto m_constantsUniform = m_device->CreateBindGroup(&constantsDesc);
+		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
+
+		wgpu::BindGroupDescriptor constantsDescPS
+		{
+			.layout = pipeline.GetBindGroupLayout(0),
+			.entries = m_currentPSConstants.data(),
+			.entryCount = m_currentPSConstants.size()
+		};
+
+		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
 
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniform);
+		pass.SetBindGroup(0, m_constantsUniformVS);
+		pass.SetBindGroup(1, m_constantsUniformPS);
 
 		return pipeline;
 	}

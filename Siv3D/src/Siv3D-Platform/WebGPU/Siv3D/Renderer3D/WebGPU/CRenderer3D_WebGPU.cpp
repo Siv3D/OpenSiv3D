@@ -471,12 +471,6 @@ namespace s3d
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
-					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
-					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
-					pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
-					pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
-					pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
-
 					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
@@ -504,12 +498,6 @@ namespace s3d
 					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
-
-					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
-					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
-					pShader->setConstantBufferPS(2, m_psPerFrameConstants.base());
-					pShader->setConstantBufferPS(3, m_psPerViewConstants.base());
-					pShader->setConstantBufferPS(4, m_psPerMaterialConstants.base());
 
 					m_line3DBatch.setBuffers(currentRenderingPass);
 
@@ -661,6 +649,10 @@ namespace s3d
 				{
 					vsID = m_commandManager.getVS(command.index);
 
+					pShader->resetConstantBufferVS();
+					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
 						;// [Siv3D ToDo] set null
@@ -677,6 +669,11 @@ namespace s3d
 			case WebGPURenderer3DCommandType::SetPS:
 				{
 					psID = m_commandManager.getPS(command.index);
+
+					pShader->resetConstantBufferPS();
+					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
+					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
+					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{
@@ -721,10 +718,16 @@ namespace s3d
 					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
 					
 					if (cb.num_vectors)
-					{
-						const ConstantBufferDetail_WebGPU* cbd = static_cast<const ConstantBufferDetail_WebGPU*>(cb.cbBase._detail());
-						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
-						// ::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
+					{	
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							pShader->setConstantBufferVS(cb.slot, cb.cbBase);
+						}
+						else
+						{
+							pShader->setConstantBufferPS(cb.slot, cb.cbBase);
+						}
+
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
 					}
 					

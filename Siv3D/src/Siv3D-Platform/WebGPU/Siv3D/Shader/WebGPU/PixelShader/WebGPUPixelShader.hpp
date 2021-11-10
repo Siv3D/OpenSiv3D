@@ -28,7 +28,8 @@ namespace s3d
 		wgpu::ShaderModule m_pixelShader = nullptr;
 
 		Array<ConstantBufferBinding> m_constantBufferBindings;
-		Array<std::pair<uint32, GLint>> m_textureIndices;
+
+		wgpu::BindGroupLayout m_uniformBindingLayout;
 
 		bool m_initialized = false;
 
@@ -53,5 +54,7 @@ namespace s3d
 		const Blob& getBinary() const noexcept;
 
 		wgpu::ShaderModule getShaderModule() const;
+
+		wgpu::BindGroupLayout getBindingGroup() const;
 	};
 }

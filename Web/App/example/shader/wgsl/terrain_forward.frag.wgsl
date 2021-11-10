@@ -5,14 +5,14 @@
 //
 //	Textures
 //
-[[group(1), binding(0)]] var Sampler0: sampler;
-[[group(1), binding(1)]] var Texture0: texture_2d<f32>;
+[[group(2), binding(0)]] var Sampler0: sampler;
+[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
 
-[[group(1), binding(2)]] var Sampler1: sampler;
-[[group(1), binding(3)]] var Texture1: texture_2d<f32>;
+[[group(2), binding(2)]] var Sampler1: sampler;
+[[group(2), binding(3)]] var Texture1: texture_2d<f32>;
 
-[[group(1), binding(4)]] var Sampler2: sampler;
-[[group(1), binding(5)]] var Texture2: texture_2d<f32>;
+[[group(2), binding(4)]] var Sampler2: sampler;
+[[group(2), binding(5)]] var Texture2: texture_2d<f32>;
 
 //
 //	Constant Buffer
@@ -24,7 +24,7 @@
 	sunDirection: vec3<f32>;
 };
 
-[[group(0), binding(2)]]
+[[group(1), binding(0)]]
 var<uniform> PSPerFrame: PSPerFrameStruct;
 
 [[block]] struct PSPerViewStruct
@@ -32,7 +32,7 @@ var<uniform> PSPerFrame: PSPerFrameStruct;
 	eyePosition: vec3<f32>;
 };
 
-[[group(0), binding(3)]]
+[[group(1), binding(1)]]
 var<uniform> PSPerView: PSPerViewStruct;
 
 [[block]] struct PSPerMaterialStruct
@@ -45,7 +45,7 @@ var<uniform> PSPerView: PSPerViewStruct;
 	emissionColor: vec3<f32>;
 };
 
-[[group(0), binding(4)]]
+[[group(1), binding(3)]]
 var<uniform> PSPerMaterial: PSPerMaterialStruct;
 
 //
