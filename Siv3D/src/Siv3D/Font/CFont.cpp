@@ -593,115 +593,27 @@ namespace s3d
 
 	bool CFont::hasIcon(const Icon::Type iconType, const char32 codePoint)
 	{
-		if (iconType == Icon::Type::Awesome)
-		{
-			return m_defaultIcons[0]->hasGlyph(codePoint)
-				|| m_defaultIcons[1]->hasGlyph(codePoint);
-		}
-		else
-		{
-			return m_defaultIcons[2]->hasGlyph(codePoint);
-		}
+		return detail::HasIcon(m_defaultIcons, iconType, codePoint);
 	}
 
 	GlyphIndex CFont::getIconGlyphIndex(const Icon::Type iconType, const char32 codePoint)
 	{
-		if (iconType == Icon::Type::Awesome)
-		{
-			GlyphIndex glyphIndex = m_defaultIcons[0]->getGlyphIndex(codePoint);
-
-			if (glyphIndex == 0)
-			{
-				glyphIndex = m_defaultIcons[1]->getGlyphIndex(codePoint);
-			}
-
-			return glyphIndex;
-		}
-		else
-		{
-			return m_defaultIcons[2]->getGlyphIndex(codePoint);
-		}
+		return detail::GetIconGlyphIndex(m_defaultIcons, iconType, codePoint);
 	}
 
 	Image CFont::renderIconBitmap(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize)
 	{
-		if (iconType == Icon::Type::Awesome)
-		{
-			for (size_t i = 0; i < 2; ++i)
-			{
-				auto& iconData = m_defaultIcons[i];
-
-				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-				{
-					return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
-				}
-			}
-		}
-		else
-		{
-			auto& iconData = m_defaultIcons[2];
-
-			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-			{
-				return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
-			}
-		}
-
-		return{};
+		return detail::RenderIconBitmap(m_defaultIcons, iconType, codePoint, fontPixelSize);
 	}
 
 	Image CFont::renderIconSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
 	{
-		if (iconType == Icon::Type::Awesome)
-		{
-			for (size_t i = 0; i < 2; ++i)
-			{
-				auto& iconData = m_defaultIcons[i];
-
-				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-				{
-					return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
-				}
-			}
-		}
-		else
-		{
-			auto& iconData = m_defaultIcons[2];
-
-			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-			{
-				return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
-			}
-		}
-
-		return{};
+		return detail::RenderIconSDF(m_defaultIcons, iconType, codePoint, fontPixelSize, buffer);
 	}
 
 	Image CFont::renderIconMSDF(const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
 	{
-		if (iconType == Icon::Type::Awesome)
-		{
-			for (size_t i = 0; i < 2; ++i)
-			{
-				auto& iconData = m_defaultIcons[i];
-
-				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-				{
-					return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
-				}
-			}
-		}
-		else
-		{
-			auto& iconData = m_defaultIcons[2];
-
-			if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-			{
-				return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
-			}
-		}
-
-		return{};
+		return detail::RenderIconMSDF(m_defaultIcons, iconType, codePoint, fontPixelSize, buffer);
 	}
 
 	const PixelShader& CFont::getFontShader(const FontMethod method, const TextStyle::Type type, const HasColor hasColor) const

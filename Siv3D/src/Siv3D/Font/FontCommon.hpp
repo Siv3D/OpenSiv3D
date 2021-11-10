@@ -69,4 +69,22 @@ namespace s3d
 		[[nodiscard]]
 		std::unique_ptr<IconData> CreateDefaultIcon(FT_Library library, Typeface typeface);
 	}
+
+	namespace detail
+	{
+		[[nodiscard]]
+		bool HasIcon(const Array<std::unique_ptr<IconData>>& defaultIcons, Icon::Type iconType, char32 codePoint);
+
+		[[nodiscard]]
+		GlyphIndex GetIconGlyphIndex(const Array<std::unique_ptr<IconData>>& defaultIcons, Icon::Type iconType, char32 codePoint);
+
+		[[nodiscard]]
+		Image RenderIconBitmap(const Array<std::unique_ptr<IconData>>& defaultIcons, Icon::Type iconType, char32 codePoint, int32 fontPixelSize);
+
+		[[nodiscard]]
+		Image RenderIconSDF(const Array<std::unique_ptr<IconData>>& defaultIcons, Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer);
+
+		[[nodiscard]]
+		Image RenderIconMSDF(const Array<std::unique_ptr<IconData>>& defaultIcons, Icon::Type iconType, char32 codePoint, int32 fontPixelSize, int32 buffer);
+	}
 }
