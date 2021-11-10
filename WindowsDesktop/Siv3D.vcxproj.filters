@@ -1546,6 +1546,30 @@
     <Filter Include="src\Siv3D\Camera2DParameters">
       <UniqueIdentifier>{f356a71d-f584-48e8-bdad-29a2713cfd1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ScopedColorAdd2D">
+      <UniqueIdentifier>{6c0ca518-3c5f-49d5-a6f5-b34b3f850d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedColorMul2D">
+      <UniqueIdentifier>{d3e38f9e-dcdc-4093-86a2-53a0ecaa0eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedRenderStates2D">
+      <UniqueIdentifier>{f8e21122-050d-475c-a235-6e2cf91d1f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedRenderStates3D">
+      <UniqueIdentifier>{e6e531af-64e1-426e-817d-1d7ca4374739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedRenderTarget2D">
+      <UniqueIdentifier>{59a0868d-a11e-495b-acb3-8c843992bc12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedRenderTarget3D">
+      <UniqueIdentifier>{8c48d194-4bb8-485c-86ba-2a0d843dfb92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedViewport2D">
+      <UniqueIdentifier>{48a3c64d-d291-4603-b471-28c749160701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ScopedViewport3D">
+      <UniqueIdentifier>{b5bd6309-08af-4d08-bde5-0497b277c275}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5937,18 +5961,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SceneManager.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorAdd2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedColorMul2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopeGuard.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -6279,9 +6291,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget2D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget2D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp">
       <Filter>src\Siv3D\Script</Filter>
     </ClInclude>
@@ -6450,23 +6459,14 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderTarget3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderTarget3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedCustomShader3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedViewport3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedViewport3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ScopedRenderStates3D.hpp">
       <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopedRenderStates3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\PrimitiveMesh\CPrimitiveMesh.hpp">
       <Filter>src\Siv3D\PrimitiveMesh</Filter>
@@ -9844,6 +9844,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\lunasvg\markerelement.cpp">
       <Filter>src\ThirdParty\lunasvg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedColorAdd2D\SivScopedColorAdd2D.cpp">
+      <Filter>src\Siv3D\ScopedColorAdd2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedColorMul2D\SivScopedColorMul2D.cpp">
+      <Filter>src\Siv3D\ScopedColorMul2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderStates2D\SivScopedRenderStates2D.cpp">
+      <Filter>src\Siv3D\ScopedRenderStates2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderStates3D\SivScopedRenderStates3D.cpp">
+      <Filter>src\Siv3D\ScopedRenderStates3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderTarget2D\SivScopedRenderTarget2D.cpp">
+      <Filter>src\Siv3D\ScopedRenderTarget2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedRenderTarget3D\SivScopedRenderTarget3D.cpp">
+      <Filter>src\Siv3D\ScopedRenderTarget3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedViewport2D\SivScopedViewport2D.cpp">
+      <Filter>src\Siv3D\ScopedViewport2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScopedViewport3D\SivScopedViewport3D.cpp">
+      <Filter>src\Siv3D\ScopedViewport3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

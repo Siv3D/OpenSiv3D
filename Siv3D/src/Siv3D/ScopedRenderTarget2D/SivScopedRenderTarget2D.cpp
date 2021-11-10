@@ -9,11 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/ScopedRenderTarget2D.hpp>
+# include <Siv3D/Scene.hpp>
+# include <Siv3D/Graphics2D.hpp>
 
 namespace s3d
 {
-	inline ScopedRenderTarget2D::ScopedRenderTarget2D(const Optional<RenderTexture>& rt)
+	ScopedRenderTarget2D::ScopedRenderTarget2D(const Optional<RenderTexture>& rt)
 		: m_oldRenderTarget{ Graphics2D::GetRenderTarget() }
 		, m_oldViewport{ Graphics2D::GetViewport() }
 	{
@@ -21,7 +23,7 @@ namespace s3d
 		Graphics2D::Internal::SetViewport(rt ? Rect{ rt->size() } : Scene::Rect());
 	}
 
-	inline ScopedRenderTarget2D::ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept
+	ScopedRenderTarget2D::ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept
 	{
 		m_oldRenderTarget = std::move(other.m_oldRenderTarget);
 		m_oldViewport = std::move(other.m_oldViewport);
@@ -29,13 +31,13 @@ namespace s3d
 		other.clear();
 	}
 
-	inline ScopedRenderTarget2D::~ScopedRenderTarget2D()
+	ScopedRenderTarget2D::~ScopedRenderTarget2D()
 	{
 		m_oldRenderTarget.then(Graphics2D::Internal::SetRenderTarget);
 		m_oldViewport.then(Graphics2D::Internal::SetViewport);
 	}
 
-	inline void ScopedRenderTarget2D::clear() noexcept
+	void ScopedRenderTarget2D::clear() noexcept
 	{
 		m_oldRenderTarget.reset();
 		m_oldViewport.reset();

@@ -12,7 +12,8 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
-# include "Graphics2D.hpp"
+# include "Optional.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -58,5 +59,3 @@ namespace s3d
 		void clear() noexcept;
 	};
 }
-
-# include "detail/ScopedViewport2D.ipp"

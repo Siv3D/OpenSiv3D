@@ -13,6 +13,7 @@
 # include <Siv3D/ShaderCommon.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/Scene.hpp>
+# include <Siv3D/Graphics2D.hpp>
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/ScopedRenderStates2D.hpp>
 # include <Siv3D/ScopedCustomShader2D.hpp>

@@ -434,8 +434,16 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Scene/FrameTimer.cpp
   ../Siv3D/src/Siv3D/Scene/SceneFactory.cpp
   ../Siv3D/src/Siv3D/Scene/SivScene.cpp
+  ../Siv3D/src/Siv3D/ScopedColorAdd2D/SivScopedColorAdd2D.cpp
+  ../Siv3D/src/Siv3D/ScopedColorMul2D/SivScopedColorMul2D.cpp
   ../Siv3D/src/Siv3D/ScopedCustomShader2D/SivScopedCustomShader2D.cpp
   ../Siv3D/src/Siv3D/ScopedCustomShader3D/SivScopedCustomShader3D.cpp
+  ../Siv3D/src/Siv3D/ScopedRenderStates2D/SivScopedRenderStates2D.cpp
+  ../Siv3D/src/Siv3D/ScopedRenderStates3D/SivScopedRenderStates3D.cpp
+  ../Siv3D/src/Siv3D/ScopedRenderTarget2D/SivScopedRenderTarget2D.cpp
+  ../Siv3D/src/Siv3D/ScopedRenderTarget3D/SivScopedRenderTarget3D.cpp
+  ../Siv3D/src/Siv3D/ScopedViewport2D/SivScopedViewport2D.cpp
+  ../Siv3D/src/Siv3D/ScopedViewport3D/SivScopedViewport3D.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp
   ../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp

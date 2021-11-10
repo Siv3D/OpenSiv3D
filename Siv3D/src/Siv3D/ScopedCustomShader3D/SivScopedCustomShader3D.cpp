@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/ScopedCustomShader3D.hpp>
+# include <Siv3D/Graphics3D.hpp>
 
 namespace s3d
 {

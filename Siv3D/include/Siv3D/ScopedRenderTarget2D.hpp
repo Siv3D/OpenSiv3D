@@ -12,9 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
+# include "Optional.hpp"
+# include "RenderTexture.hpp"
 # include "2DShapes.hpp"
-# include "Graphics2D.hpp"
-# include "Scene.hpp"
 
 namespace s3d
 {
@@ -44,5 +44,3 @@ namespace s3d
 		void clear() noexcept;
 	};
 }
-
-# include "detail/ScopedRenderTarget2D.ipp"

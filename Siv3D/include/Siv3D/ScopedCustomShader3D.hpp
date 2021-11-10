@@ -12,7 +12,9 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
-# include "Graphics3D.hpp"
+# include "Optional.hpp"
+# include "VertexShader.hpp"
+# include "PixelShader.hpp"
 
 namespace s3d
 {

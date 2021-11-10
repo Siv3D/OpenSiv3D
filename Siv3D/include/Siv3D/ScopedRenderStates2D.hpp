@@ -12,7 +12,12 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
-# include "Graphics2D.hpp"
+# include "Optional.hpp"
+# include "Array.hpp"
+# include "BlendState.hpp"
+# include "RasterizerState.hpp"
+# include "SamplerState.hpp"
+# include "ShaderStage.hpp"
 
 namespace s3d
 {
@@ -172,5 +177,3 @@ namespace s3d
 		void clear() noexcept;
 	};
 }
-
-# include "detail/ScopedRenderStates2D.ipp"

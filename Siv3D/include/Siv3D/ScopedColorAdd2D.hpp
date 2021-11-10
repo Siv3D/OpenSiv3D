@@ -12,7 +12,8 @@
 # pragma once
 # include "Common.hpp"
 # include "Uncopyable.hpp"
-# include "Graphics2D.hpp"
+# include "Optional.hpp"
+# include "ColorHSV.hpp"
 
 namespace s3d
 {
@@ -46,5 +47,3 @@ namespace s3d
 		void clear() noexcept;
 	};
 }
-
-# include "detail/ScopedColorAdd2D.ipp"
