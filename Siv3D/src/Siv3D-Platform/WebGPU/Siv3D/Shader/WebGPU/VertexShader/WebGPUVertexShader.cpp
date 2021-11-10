@@ -65,7 +65,7 @@ namespace s3d
 				bindingLayout << wgpu::BindGroupLayoutEntry
 				{
 					.binding = binding.index,
-					.visibility = wgpu::ShaderStage::Fragment,
+					.visibility = wgpu::ShaderStage::Vertex,
 					.buffer =
 					{
 						.type = wgpu::BufferBindingType::Uniform

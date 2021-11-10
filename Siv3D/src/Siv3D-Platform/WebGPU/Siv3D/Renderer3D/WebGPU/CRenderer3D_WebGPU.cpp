@@ -471,6 +471,12 @@ namespace s3d
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
+					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
+					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
+					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
+
 					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
@@ -499,9 +505,15 @@ namespace s3d
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
+					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
+					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
+					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
+
 					m_line3DBatch.setBuffers(currentRenderingPass);
 
-					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
+					auto pipeline = pShader->usePipelineWithStandard3DLineVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
 					const WebGPUDrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
@@ -650,8 +662,6 @@ namespace s3d
 					vsID = m_commandManager.getVS(command.index);
 
 					pShader->resetConstantBufferVS();
-					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
-					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
 
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
@@ -671,9 +681,6 @@ namespace s3d
 					psID = m_commandManager.getPS(command.index);
 
 					pShader->resetConstantBufferPS();
-					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
-					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
-					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{

@@ -1304,11 +1304,11 @@ namespace s3d
 
 		// render states
 		{
-			pShader->setVS(m_standardVS->fullscreen_triangle.id());
-			pShader->setPS(m_standardPS->fullscreen_triangle.id());
-
 			pShader->resetConstantBufferVS();
 			pShader->resetConstantBufferPS();
+
+			pShader->setVS(m_standardVS->fullscreen_triangle.id());
+			pShader->setPS(m_standardPS->fullscreen_triangle.id());		
 		}
 
 		// draw fullscreen-triangle

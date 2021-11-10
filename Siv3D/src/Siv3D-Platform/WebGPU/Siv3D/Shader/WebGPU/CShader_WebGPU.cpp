@@ -177,19 +177,47 @@ namespace s3d
 	void CShader_WebGPU::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
-
 		entry.binding = slot;
 
-		m_currentVSConstants << entry;
+		auto iter = std::find_if(
+			m_currentVSConstants.begin(), m_currentVSConstants.end(),
+			[=](const wgpu::BindGroupEntry& v) -> bool
+			{ 
+				return v.binding == slot;
+			}
+		);
+
+		if (iter != m_currentVSConstants.end())
+		{
+			*iter = entry;
+		}
+		else
+		{
+			m_currentVSConstants << entry;
+		}
 	}
 
 	void CShader_WebGPU::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
 		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
-
 		entry.binding = slot;
 
-		m_currentPSConstants << entry;
+		auto iter = std::find_if(
+			m_currentPSConstants.begin(), m_currentPSConstants.end(),
+			[=](const wgpu::BindGroupEntry& v) -> bool
+			{ 
+				return v.binding == slot;
+			}
+		);
+
+		if (iter != m_currentPSConstants.end())
+		{
+			*iter = entry;
+		}
+		else
+		{
+			m_currentPSConstants << entry;
+		}
 	}
 
 	void CShader_WebGPU::resetConstantBufferVS()
@@ -261,7 +289,7 @@ namespace s3d
 
 		wgpu::BindGroupDescriptor constantsDescPS
 		{
-			.layout = pipeline.GetBindGroupLayout(0),
+			.layout = pipeline.GetBindGroupLayout(1),
 			.entries = m_currentPSConstants.data(),
 			.entryCount = m_currentPSConstants.size()
 		};
@@ -290,7 +318,36 @@ namespace s3d
 
 		wgpu::BindGroupDescriptor constantsDescPS
 		{
+			.layout = pipeline.GetBindGroupLayout(1),
+			.entries = m_currentPSConstants.data(),
+			.entryCount = m_currentPSConstants.size()
+		};
+
+		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
+
+		pass.SetPipeline(pipeline);
+		pass.SetBindGroup(0, m_constantsUniformVS);
+		pass.SetBindGroup(1, m_constantsUniformPS);
+
+		return pipeline;
+	}
+
+	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DLineVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
+	{
+		auto pipeline = m_pipeline.getPipelineWithStandard3DLineVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
+
+		wgpu::BindGroupDescriptor constantsDescVS
+		{
 			.layout = pipeline.GetBindGroupLayout(0),
+			.entries = m_currentVSConstants.data(),
+			.entryCount = m_currentVSConstants.size()
+		};
+
+		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
+
+		wgpu::BindGroupDescriptor constantsDescPS
+		{
+			.layout = pipeline.GetBindGroupLayout(1),
 			.entries = m_currentPSConstants.data(),
 			.entryCount = m_currentPSConstants.size()
 		};

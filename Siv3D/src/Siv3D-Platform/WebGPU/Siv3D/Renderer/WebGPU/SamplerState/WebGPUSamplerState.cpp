@@ -160,7 +160,7 @@ namespace s3d
 
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = pipeline.GetBindGroupLayout(2),
+				.layout = pipeline.GetBindGroupLayout(3),
 				.entries = vsBindings.data(),
 				.entryCount = vsBindings.size()
 			};
@@ -195,7 +195,7 @@ namespace s3d
 
 			wgpu::BindGroupDescriptor constantsDesc
 			{
-				.layout = pipeline.GetBindGroupLayout(1),
+				.layout = pipeline.GetBindGroupLayout(2),
 				.entries = psBindings.data(),
 				.entryCount = psBindings.size()
 			};

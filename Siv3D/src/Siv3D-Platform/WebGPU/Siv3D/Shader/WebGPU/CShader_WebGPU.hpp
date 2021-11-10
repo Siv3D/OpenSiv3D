@@ -78,6 +78,8 @@ namespace s3d
 		
 		wgpu::RenderPipeline usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
 
+		wgpu::RenderPipeline usePipelineWithStandard3DLineVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
+
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 
 		wgpu::ShaderModule getShaderModuleVS(VertexShader::IDType handleID);

@@ -48,7 +48,7 @@ var<uniform> PSPerMaterial: PSPerMaterialStruct;
 	fogCoefficient: f32;
 };
 
-[[group(0), binding(5)]]
+[[group(1), binding(4)]]
 var<uniform> PSFog: PSFogStruct;
 
 // [C++]
