@@ -205,7 +205,23 @@ namespace s3d
 			}
 		}
 
-		Image RenderIconBitmap(const Array<std::unique_ptr<IconData>>& defaultIcons, const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize)
+		static Image RanderIcon(const FontMethod method, const GlyphIndex glyphIndex, const int32 fontPixelSize, int32 buffer, IconData& iconData)
+		{
+			if (method == FontMethod::Bitmap)
+			{
+				return iconData.renderBitmap(glyphIndex, fontPixelSize).image;
+			}
+			else if (method == FontMethod::SDF)
+			{
+				return iconData.renderSDF(glyphIndex, fontPixelSize, buffer).image;
+			}
+			else
+			{
+				return iconData.renderMSDF(glyphIndex, fontPixelSize, buffer).image;
+			}
+		}
+
+		static Image RenderIcon(const FontMethod method, const Array<std::unique_ptr<IconData>>& defaultIcons, const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
 		{
 			if (iconType == Icon::Type::Awesome)
 			{
@@ -215,7 +231,7 @@ namespace s3d
 
 					if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
 					{
-						return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
+						return RanderIcon(method, glyphIndex, fontPixelSize, buffer, *iconData);
 					}
 				}
 			}
@@ -225,65 +241,26 @@ namespace s3d
 
 				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
 				{
-					return iconData->renderBitmap(glyphIndex, fontPixelSize).image;
+					return RanderIcon(method, glyphIndex, fontPixelSize, buffer, *iconData);
 				}
 			}
 
 			return{};
+		}
+
+		Image RenderIconBitmap(const Array<std::unique_ptr<IconData>>& defaultIcons, const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize)
+		{
+			return RenderIcon(FontMethod::Bitmap, defaultIcons, iconType, codePoint, fontPixelSize, 0);
 		}
 
 		Image RenderIconSDF(const Array<std::unique_ptr<IconData>>& defaultIcons, const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
 		{
-			if (iconType == Icon::Type::Awesome)
-			{
-				for (size_t i = 0; i < 2; ++i)
-				{
-					auto& iconData = defaultIcons[i];
-
-					if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-					{
-						return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
-					}
-				}
-			}
-			else
-			{
-				auto& iconData = defaultIcons[2];
-
-				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-				{
-					return iconData->renderSDF(glyphIndex, fontPixelSize, buffer).image;
-				}
-			}
-
-			return{};
+			return RenderIcon(FontMethod::SDF, defaultIcons, iconType, codePoint, fontPixelSize, buffer);
 		}
 
 		Image RenderIconMSDF(const Array<std::unique_ptr<IconData>>& defaultIcons, const Icon::Type iconType, const char32 codePoint, const int32 fontPixelSize, const int32 buffer)
 		{
-			if (iconType == Icon::Type::Awesome)
-			{
-				for (size_t i = 0; i < 2; ++i)
-				{
-					auto& iconData = defaultIcons[i];
-
-					if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-					{
-						return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
-					}
-				}
-			}
-			else
-			{
-				auto& iconData = defaultIcons[2];
-
-				if (GlyphIndex glyphIndex = iconData->getGlyphIndex(codePoint))
-				{
-					return iconData->renderMSDF(glyphIndex, fontPixelSize, buffer).image;
-				}
-			}
-
-			return{};
+			return RenderIcon(FontMethod::MSDF, defaultIcons, iconType, codePoint, fontPixelSize, buffer);
 		}
 	}
 }
