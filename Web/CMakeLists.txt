@@ -592,14 +592,14 @@ set(SIV3D_SOURCES
 
 if (${SIV3D_ENABLE_SHARED_LIB})
 
-# include(cmake/BuildThirdParty.cmake)
+include(cmake/BuildThirdParty.cmake)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
 set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
 
-endif()
+else()
 
 set(SIV3D_SOURCES
   ${SIV3D_SOURCES}
@@ -974,6 +974,8 @@ set(SIV3D_SOURCES
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
 )
+
+endif()
 
 add_library(
   OpenSiv3D_Web STATIC
