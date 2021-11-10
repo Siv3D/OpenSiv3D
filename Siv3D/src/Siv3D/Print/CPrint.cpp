@@ -71,7 +71,7 @@ namespace s3d
 
 		m_font->ps = HLSL{ Resource(U"engine/shader/d3d11/msdfprint.ps") }
 					| GLSL{ Resource(U"engine/shader/glsl/msdfprint.frag"), { { U"PSConstants2D", 0 } } }
-					| ESSL{ Resource(U"engine/shader/glsl/msdfprint.frag"), { { U"PSConstants2D", 0 } } }
+					| ESSL{ Resource(U"engine/shader/essl/msdfprint.frag"), { { U"PSConstants2D", 0 } } }
 					| WGSL{ Resource(U"engine/shader/wgsl/msdfprint.frag.wgsl"), { { U"PSConstants2D", 0 } } }
 					| MSL{ U"PS_Shape" }; 
 	}
