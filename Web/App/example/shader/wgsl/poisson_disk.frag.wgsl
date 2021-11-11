@@ -68,12 +68,18 @@ fn main(
 
 	var accum: vec4<f32> = textureSample(Texture0, Sampler0, UV);
 
-	for (var tap: u32 = 0u; tap < 12u; tap = tap + 1)
-	{
-		var uv: vec2<f32> = UV + (poisson[tap] * offsetScale);
-
-		accum += textureSample(Texture0, Sampler0, uv);
-	}
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[0] * offsetScale));
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[1] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[2] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[3] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[4] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[5] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[6] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[7] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[8] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[9] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[10] * offsetScale));	
+	accum = accum + textureSample(Texture0, Sampler0, UV + (poisson[11] * offsetScale));
 
 	accum = accum / 13.0;
 

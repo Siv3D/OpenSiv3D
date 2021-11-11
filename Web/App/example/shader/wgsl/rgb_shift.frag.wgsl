@@ -33,9 +33,9 @@ fn main(
 	[[location(1)]] UV: vec2<f32>
 ) -> [[location(0)]] vec4<f32> 
 {
-	var ra: vec4<f32> = textureSample(Texture0, Sampler0, UV + vec2<f32>(-0.02, 0.0)).ra;
-	var ga: vec4<f32> = textureSample(Texture0, Sampler0, UV).ga;
-	var ba: vec4<f32> = textureSample(Texture0, Sampler0, UV + vec2<f32>(+0.02, 0.0)).ba;
+	var ra: vec2<f32> = textureSample(Texture0, Sampler0, UV + vec2<f32>(-0.02, 0.0)).ra;
+	var ga: vec2<f32> = textureSample(Texture0, Sampler0, UV).ga;
+	var ba: vec2<f32> = textureSample(Texture0, Sampler0, UV + vec2<f32>( 0.02, 0.0)).ba;
 
 	var a: f32 = (ra.y + ga.y + ba.y) / 3.0;
 	var texColor: vec4<f32> = vec4<f32>(ra.x, ga.x, ba.x, a);	

@@ -77,9 +77,9 @@ namespace s3d
 
 		// エンジン PS をロード
 		{
-			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/gaussian_blur_9.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
-			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/apply_srgb_curve.frag.wgsl"), {} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/apply_srgb_curve.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{

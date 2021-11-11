@@ -49,6 +49,7 @@ fn Circular(r: f32, theta: f32) -> vec2<f32>
 	return vec2<f32>(sin(theta), -cos(theta)) * r;
 }
 
+[[stage(vertex)]]
 fn main(
 	[[builtin(vertex_index)]] VertexIndex: u32,
 	[[location(0)]] VertexPosition: vec2<f32>,
@@ -57,19 +58,20 @@ fn main(
 ) -> VertexOutput
 {
 	var output: VertexOutput;
+	let PI: f32 = 3.14159265;
 
 	output.Color = vec4<f32>(0.2, 0.7, 0.4, 1.0);
 	output.UV = vec2<f32>(0.0, 0.0);
 
 	var pos: vec2<f32>;
 
-	if (VertexIndex % 3 == 0)
+	if (VertexIndex % 3u == 0u)
 	{
 		pos = vec2<f32>(640.0, 360.0);
 	}
 	else
 	{
-		var angle: f32 = radians(f32((VertexIndex / 3) + ((VertexIndex % 3) - 1)));
+		var angle: f32 = PI * (f32((VertexIndex / 3u) + ((VertexIndex % 3u) - 1u))) / 180.0;
 		var r: f32 = 200.0
 			+ cos((angle * 2.0) + sin(SoftShape.t * 1.5)) * 40.0
 			+ sin((angle * 2.0) + sin(SoftShape.t * 2.0)) * 30.0
@@ -79,7 +81,7 @@ fn main(
 		output.Color.a = (1.0 - r / 360.0);
 	}
 
-	output.Position = s3d_Transform2D(pos, VSConstants2D.transform);
+	output.Position = s3d_Transform2D(pos, VSConstants2D.transform0, VSConstants2D.transform1);
 
 	return output;	
 }

@@ -35,7 +35,7 @@ fn main(
 {
 	var texColor: vec4<f32> = textureSample(Texture0, Sampler0, UV);
 
-	texColor.rgb = vec3(dot(texColor.rgb, vec3(0.299, 0.587, 0.114)));
+	texColor = vec4<f32>(vec3<f32>(dot(texColor.rgb, vec3<f32>(0.299, 0.587, 0.114))), texColor.a);
 
 	return (texColor * Color) + PSConstants2D.colorAdd;
 }

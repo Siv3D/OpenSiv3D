@@ -49,8 +49,6 @@ fn main(
 	{
 		return vec4<f32>(ApplySRGBCurve_Fast(abs(texColor)) * 0.25, 1.0);
 	}
-	else
-	{
-		return vec4<f32>(0.0, 0.0, 0.0, 1.0);
-	}
+	
+	return vec4<f32>(0.0, 0.0, 0.0, 1.0);
 }

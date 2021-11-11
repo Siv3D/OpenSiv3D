@@ -26,7 +26,7 @@ var<uniform> PSConstants2D: PSConstants2DStruct;
 // PS_1
 [[block]] struct GameOfLifeStruct
 {
-	vec2  pixelSize;
+	pixelSize: vec2<f32>;
 };
 
 [[group(1), binding(1)]]
@@ -38,14 +38,14 @@ var<uniform> GameOfLife: GameOfLifeStruct;
 //};
 
 let offsets: array<vec2<f32>, 8> = array<vec2<f32>, 8>(
-       vec2<f32>(-1, -1),
-       vec2<f32>(0, -1),
-       vec2<f32>(1, -1),
-       vec2<f32>(-1, 0),
-       vec2<f32>(1, 0),
-       vec2<f32>(-1, 1),
-       vec2<f32>(0, 1),
-       vec2<f32>(1, 1)
+       vec2<f32>(-1.0, -1.0),
+       vec2<f32>(0.0, -1.0),
+       vec2<f32>(1.0, -1.0),
+       vec2<f32>(-1.0, 0.0),
+       vec2<f32>(1.0, 0.0),
+       vec2<f32>(-1.0, 1.0),
+       vec2<f32>(0.0, 1.0),
+       vec2<f32>(1.0, 1.0)
 );
 		
 //
@@ -61,18 +61,20 @@ fn main(
 	var c: f32 = textureSample(Texture0, Sampler0, UV).r;
 
 	var n: f32 = 0.0;
-
-	for (var i: u32 = 0u; i < 8u; i = i + 1)
-	{
-		n = n + textureSample(Texture0, Sampler0, UV + offsets[i] * GameOfLife.pixelSize).r;
-	}
-
+	
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[0] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[1] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[2] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[3] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[4] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[5] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[6] * GameOfLife.pixelSize).r;
+	n = n + textureSample(Texture0, Sampler0, UV + offsets[7] * GameOfLife.pixelSize).r;
+	
 	if((c == 0.0 && n == 3.0) || (c == 1.0 && (n == 2.0 || n == 3.0)))
 	{
 		return vec4<f32>(1.0, 1.0, 1.0, 1.0);
 	}
-	else
-	{
-		return vec4<f32>(0.0, 0.0, 0.0, 1.0);
-	}
+	
+	return vec4<f32>(0.0, 0.0, 0.0, 1.0);
 }

@@ -40,7 +40,7 @@ fn main(
 	
 	var texColor1: vec4<f32> = textureSample(Texture1, Sampler1, UV);
 	
-	texColor0.rgb = (texColor0.rgb * 0.5 + texColor1.rgb * 0.5);
+	texColor0 = vec4<f32>(texColor0.rgb * 0.5 + texColor1.rgb * 0.5, texColor0.a);
 
 	return (texColor0 * Color) + PSConstants2D.colorAdd;
 }

@@ -47,17 +47,17 @@ var<uniform> PSPerMaterial: PSPerMaterialStruct;
 //
 fn Triplanar(worldPos: vec3<f32>, normal: vec3<f32>, uvScale: f32) -> vec4<f32>
 {
-	vec4 diffuseColor = PSPerMaterial.diffuseColor;
+	var diffuseColor: vec4<f32> = PSPerMaterial.diffuseColor;
 
 	if (PSPerMaterial.hasTexture == 1u)
 	{
 		var blend: vec3<f32> = abs(normal);
 		blend = blend / (blend.x + blend.y + blend.z);
 		
-		worldPos = worldPos * uvScale;
-		var c0: vec4<f32> = textureSample(Texture0, Sampler0, worldPos.yz);
-		var c1: vec4<f32> = textureSample(Texture0, Sampler0, worldPos.xz);
-		var c2: vec4<f32> = textureSample(Texture0, Sampler0, worldPos.xy);
+		let worldPosScaled: vec3<f32> = worldPos * uvScale;
+		let c0: vec4<f32> = textureSample(Texture0, Sampler0, worldPosScaled.yz);
+		let c1: vec4<f32> = textureSample(Texture0, Sampler0, worldPosScaled.xz);
+		let c2: vec4<f32> = textureSample(Texture0, Sampler0, worldPosScaled.xy);
 
 		diffuseColor = diffuseColor * (c0 * blend.x + c1 * blend.y + c2 * blend.z);
 	}

@@ -115,7 +115,7 @@ fn main(
 	// Exponential Fog
 	var surfaceColor: vec4<f32> = vec4<f32>(diffuseReflection + specularReflection + PSPerMaterial.emissionColor, diffuseColor.a);
 	var fogFactor: f32 = exp(-PSFog.fogCoefficient * distance(PSPerView.eyePosition, WorldPosition));
-	surfaceColor.rgb = mix(PSFog.fogColor, surfaceColor.rgb, fogFactor);
+	surfaceColor = vec4<f32>(mix(PSFog.fogColor, surfaceColor.rgb, fogFactor), surfaceColor.a);
 
 	return surfaceColor;
 }
