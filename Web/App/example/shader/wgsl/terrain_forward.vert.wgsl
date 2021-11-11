@@ -5,8 +5,7 @@
 //
 //	Textures
 //
-[[group(2, binding(0)]] var Sampler0: sampler;
-[[group(2, binding(1)]] var Texture0: texture_2d<f32>;
+[[group(3), binding(1)]] var Texture0: texture_2d<f32>;
 
 //
 //	VSOutput
@@ -48,8 +47,8 @@ fn main(
 ) -> VertexOutput
 {
 	var output: VertexOutput;
-	var height: f32 = texture(Texture0, Sampler0, VertexUV).r;
-	var pos: vec4<f32> = vec4<f32>(VertexPosition.x, height, VertexPosition.zw);
+	var height: f32 = textureLoad(Texture0, vec2<i32>(vec2<f32>(textureDimensions(Texture0)) * VertexUV), 0).r;
+	var pos: vec4<f32> = vec4<f32>(VertexPosition.x, height, VertexPosition.z, 1.0);
 	var worldPosition: vec4<f32> = pos * VSPerObject.localToWorld;
 
 	output.Position			= worldPosition * VSPerView.worldToProjected;

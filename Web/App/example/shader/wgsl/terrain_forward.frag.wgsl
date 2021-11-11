@@ -75,16 +75,16 @@ fn TerrainTriplanar(worldPos: vec3<f32>, normal: vec3<f32>, uvScale: f32) -> vec
 
 	if (PSPerMaterial.hasTexture == 1u)
 	{
-		normal.y = pow(abs(normal.y), 32.0); // less grass on slopes
+		let powedNormal = vec3<f32>(normal.x, pow(abs(normal.y), 32.0), normal.x); // less grass on slopes
 
-		var blend: vec3<f32> = abs(normal);
+		var blend: vec3<f32> = abs(powedNormal);
 		blend = blend / (blend.x + blend.y + blend.z);
 
-		worldPos = worldPos * uvScale;
+		let scaledSorldPos = worldPos * uvScale;
 
-		var c0: vec4<f32> = textureSample(Texture2, Sampler2, worldPos.yz);
-		var c1: vec4<f32> = textureSample(Texture0, Sampler0, worldPos.xz);
-		var c2: vec4<f32> = textureSample(Texture2, Sampler2, worldPos.xy);
+		var c0: vec4<f32> = textureSample(Texture2, Sampler2, scaledSorldPos.yz);
+		var c1: vec4<f32> = textureSample(Texture0, Sampler0, scaledSorldPos.xz);
+		var c2: vec4<f32> = textureSample(Texture2, Sampler2, scaledSorldPos.xy);
 
 		diffuseColor = diffuseColor * (c0 * blend.x + c1 * blend.y + c2 * blend.z);
 	}
@@ -107,7 +107,7 @@ fn main(
 
 	var n: vec3<f32> = FetchNormal(UV);
 	var l: vec3<f32> = lightDirection;
-	var diffuseColor: vec4<f32> = TerrainTriplanar(WorldPosition, n, 0.5f);
+	var diffuseColor: vec4<f32> = TerrainTriplanar(WorldPosition, n, 0.5);
 	var ambientColor: vec3<f32> = (PSPerMaterial.amibientColor * PSPerFrame.gloablAmbientColor);
 
 	// Diffuse

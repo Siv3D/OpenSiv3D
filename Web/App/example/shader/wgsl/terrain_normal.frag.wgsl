@@ -41,7 +41,7 @@ fn main(
 	var w: f32 = textureSample(Texture0, Sampler0, UV + vec2<f32>(-offset.x, 0.0)).r;
 	var e: f32 = textureSample(Texture0, Sampler0, UV + vec2<f32>( offset.x, 0.0)).r;
 
-	var normal: vec3<f32> = normalize(vec3(w - e, 2.0, s - n));
+	var normal: vec3<f32> = normalize(vec3<f32>(w - e, 2.0, s - n));
 
 	return normal.xz;
 }
