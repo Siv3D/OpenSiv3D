@@ -39,6 +39,26 @@ namespace s3d
 			return SecondsF{ m_hand.visible_time / (1'000'000.0) };
 		}
 
+		inline double Hand::pinchDistance() const noexcept
+		{
+			return m_hand.pinch_distance;
+		}
+
+		inline double Hand::grabAngle() const noexcept
+		{
+			return m_hand.grab_angle;
+		}
+
+		inline double Hand::pinchStrength() const noexcept
+		{
+			return m_hand.pinch_strength;
+		}
+
+		inline double Hand::grabStrength() const noexcept
+		{
+			return m_hand.grab_strength;
+		}
+
 		inline Vec3 Hand::palmPosition() const noexcept
 		{
 			return toVec3(m_hand.palm.position);
@@ -69,17 +89,17 @@ namespace s3d
 			return toVec3(m_hand.palm.direction);
 		}
 
-		inline Quaternion Hand::palmQuaternion() const noexcept
-		{
-			return ToQuaternion(m_hand.palm.orientation);
-		}
+		//inline Quaternion Hand::palmQuaternion() const noexcept
+		//{
+		//	return toQuaternion(m_hand.palm.orientation);
+		//}
 
 		inline Bone Hand::fingerBone(const size_t fingerIndex, const size_t boneIndex) const noexcept
 		{
 			assert(fingerIndex < 5);
 			assert(boneIndex < 4);
 			const auto& bone = m_hand.digits[fingerIndex].bones[boneIndex];
-			return{ toVec3(bone.prev_joint), toVec3(bone.next_joint), bone.width, ToQuaternion(bone.rotation) };
+			return{ toVec3(bone.prev_joint), toVec3(bone.next_joint), bone.width };
 		}
 
 		inline bool Hand::isExtended(const size_t fingerIndex) const noexcept
@@ -103,10 +123,10 @@ namespace s3d
 			return m_hand.arm.width;
 		}
 
-		inline Quaternion Hand::armQuaternion() const noexcept
-		{
-			return ToQuaternion(m_hand.arm.rotation);
-		}
+		//inline Quaternion Hand::armQuaternion() const noexcept
+		//{
+		//	return toQuaternion(m_hand.arm.rotation);
+		//}
 
 		inline Vec3 Hand::toVec3(const LEAP_VECTOR& v) const noexcept
 		{
@@ -120,8 +140,14 @@ namespace s3d
 			}
 			else
 			{
-				return{ v.x, -v.z, -v.y };
+				return{ -v.x, -v.y, -v.z };
 			}
+		}
+
+		inline Quaternion Hand::toQuaternion(const LEAP_QUATERNION& q) noexcept
+		{
+			// [Siv3D ToDo]
+			return{ q.x, q.y, q.z, q.w };
 		}
 
 		class Connection::ConnectionDetail
@@ -146,22 +172,19 @@ namespace s3d
 
 				m_trackingMode = trackingMode;
 
-				m_task = Async(OnUpdate, std::ref(*this));
-
-				System::Sleep(2s);
+				m_thread = std::jthread{ OnUpdate, this };
 
 				m_initialized = true;
 			}
 
 			~ConnectionDetail()
 			{
-				m_abort = true;
+				if (m_thread.joinable())
+				{
+					m_thread.request_stop();
 
-				m_task.get();
-
-				LeapCloseConnection(m_connection);
-
-				LeapDestroyConnection(m_connection);
+					m_thread.join();
+				}
 			}
 
 			bool isOpen() const noexcept
@@ -202,29 +225,31 @@ namespace s3d
 
 		private:
 
-			static void OnUpdate(ConnectionDetail& self)
+			static void OnUpdate(std::stop_token stop_token, ConnectionDetail* self)
 			{
 				for (;;)
 				{
-					if (self.m_abort)
+					if (stop_token.stop_requested())
 					{
+						LeapCloseConnection(self->m_connection);
+						LeapDestroyConnection(self->m_connection);
 						return;
 					}
 
 					LEAP_CONNECTION_MESSAGE message;
 
-					if (eLeapRS result = LeapPollConnection(self.m_connection, 100, &message);
+					if (eLeapRS result = LeapPollConnection(self->m_connection, 100, &message);
 						result == eLeapRS_Success)
 					{
 						switch (message.type)
 						{
 						case eLeapEventType_Connection:
-							LeapSetTrackingMode(self.m_connection, static_cast<eLeapTrackingMode>(self.m_trackingMode.load()));
-							self.m_trackingModeChanged = true;
-							self.m_connected = true;
+							LeapSetTrackingMode(self->m_connection, static_cast<eLeapTrackingMode>(self->m_trackingMode.load()));
+							self->m_trackingModeChanged = true;
+							self->m_connected = true;
 							break;
 						case eLeapEventType_ConnectionLost:
-							self.m_connected = false;
+							self->m_connected = false;
 							break;
 						case eLeapEventType_Device:
 							break;
@@ -233,7 +258,7 @@ namespace s3d
 						case eLeapEventType_DeviceFailure:
 							break;
 						case eLeapEventType_Tracking:
-							self.handleTrackingEvent(message.tracking_event);
+							self->handleTrackingEvent(message.tracking_event);
 							break;
 						case eLeapEventType_ImageComplete:
 							break;
@@ -256,18 +281,18 @@ namespace s3d
 						case eLeapEventType_HeadPose:
 							break;
 						case eLeapEventType_TrackingMode:
-							self.m_deviceTrackingMode = static_cast<TrackingMode>(message.tracking_mode_event->current_tracking_mode);
-							self.m_trackingModeChanged = false;
+							self->m_deviceTrackingMode = static_cast<TrackingMode>(message.tracking_mode_event->current_tracking_mode);
+							self->m_trackingModeChanged = false;
 							break;
 						default:
 							break;
 						}
 					}
 
-					if (self.m_connected && (not self.m_trackingModeChanged) && self.m_deviceTrackingMode != self.m_trackingMode)
+					if (self->m_connected && (not self->m_trackingModeChanged) && self->m_deviceTrackingMode != self->m_trackingMode)
 					{
-						LeapSetTrackingMode(self.m_connection, static_cast<eLeapTrackingMode>(self.m_trackingMode.load()));
-						self.m_trackingModeChanged = true;
+						LeapSetTrackingMode(self->m_connection, static_cast<eLeapTrackingMode>(self->m_trackingMode.load()));
+						self->m_trackingModeChanged = true;
 					}
 				}
 			}
@@ -295,9 +320,7 @@ namespace s3d
 
 			std::atomic<bool> m_trackingModeChanged{ false };
 
-			AsyncTask<void> m_task;
-
-			std::atomic<bool> m_abort{ false };
+			std::jthread m_thread;
 
 			Array<Hand> m_currentHands;
 

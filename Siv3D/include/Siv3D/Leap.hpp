@@ -48,9 +48,6 @@ namespace s3d
 
 			/// @brief 幅（ミリメートル）
 			double width;
-
-			/// @brief 回転
-			Quaternion rotation;
 		};
 
 		/// @brief 手の情報
@@ -77,6 +74,18 @@ namespace s3d
 			Duration trackedDuration() const noexcept;
 
 			[[nodiscard]]
+			double pinchDistance() const noexcept;
+
+			[[nodiscard]]
+			double grabAngle() const noexcept;
+
+			[[nodiscard]]
+			double pinchStrength() const noexcept;
+
+			[[nodiscard]]
+			double grabStrength() const noexcept;
+
+			[[nodiscard]]
 			Vec3 palmPosition() const noexcept;
 
 			[[nodiscard]]
@@ -94,8 +103,8 @@ namespace s3d
 			[[nodiscard]]
 			Vec3 palmDirection() const noexcept;
 
-			[[nodiscard]]
-			Quaternion palmQuaternion() const noexcept;
+			//[[nodiscard]]
+			//Quaternion palmQuaternion() const noexcept;
 
 			[[nodiscard]]
 			Bone fingerBone(size_t fingerIndex, size_t boneIndex) const noexcept;
@@ -112,8 +121,8 @@ namespace s3d
 			[[nodiscard]]
 			double armWidth() const noexcept;
 
-			[[nodiscard]]
-			Quaternion armQuaternion() const noexcept;
+			//[[nodiscard]]
+			//Quaternion armQuaternion() const noexcept;
 
 		private:
 
@@ -121,10 +130,7 @@ namespace s3d
 			Vec3 toVec3(const LEAP_VECTOR& v) const noexcept;
 
 			[[nodiscard]]
-			static Quaternion ToQuaternion(const LEAP_QUATERNION& q) noexcept
-			{
-				return{ q.x, q.y, q.z, q.w };
-			}
+			Quaternion toQuaternion(const LEAP_QUATERNION& q) noexcept;
 
 			LEAP_HAND m_hand;
 
