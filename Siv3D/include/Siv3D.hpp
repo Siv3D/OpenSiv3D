@@ -1325,6 +1325,9 @@
 // ペンタブレット | Digitizer
 # include <Siv3D/Pentablet.hpp>
 
+// Leap デバイス | Leap Device
+# include <Siv3D/Leap.hpp>
+
 //////////////////////////////////////////////////
 //
 //	Web カメラ | Webcam
