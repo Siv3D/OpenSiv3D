@@ -348,8 +348,8 @@ namespace s3d
 		wgpu::BindGroupDescriptor constantsDescPS
 		{
 			.layout = pipeline.GetBindGroupLayout(1),
-			.entries = m_currentPSConstants.data(),
-			.entryCount = m_currentPSConstants.size()
+			.entries = nullptr,
+			.entryCount = 0
 		};
 
 		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);

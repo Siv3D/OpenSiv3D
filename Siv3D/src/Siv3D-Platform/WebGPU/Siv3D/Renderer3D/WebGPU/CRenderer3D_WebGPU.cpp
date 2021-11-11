@@ -499,6 +499,12 @@ namespace s3d
 				}
 			case WebGPURenderer3DCommandType::DrawLine3D:
 				{
+					pShader->setVS(m_standardVS->line3DID);
+					pShader->setPS(m_standardPS->line3DID);
+
+					pShader->resetConstantBufferVS();
+					pShader->resetConstantBufferPS();
+
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
 					m_psPerFrameConstants._update_if_dirty();
@@ -511,10 +517,10 @@ namespace s3d
 					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
 					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
 
-					m_line3DBatch.setBuffers(currentRenderingPass);
-
 					auto pipeline = pShader->usePipelineWithStandard3DLineVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
+
+					m_line3DBatch.setBuffers(currentRenderingPass);
 
 					const WebGPUDrawLine3DCommand& draw = m_commandManager.getDrawLine3D(command.index);
 					const uint32 indexCount = draw.indexCount;

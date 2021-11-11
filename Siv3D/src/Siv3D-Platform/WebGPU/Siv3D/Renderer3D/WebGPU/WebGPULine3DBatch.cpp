@@ -139,7 +139,7 @@ namespace s3d
 		// ::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
 		pass.SetVertexBuffer(0, m_vertexBuffer);
-		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16);
+		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32);
 	}
 
 	BatchInfoLine3D WebGPULine3DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)
@@ -200,7 +200,7 @@ namespace s3d
 				m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 			}
 
-			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(VertexLine3D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(VertexLine3D::IndexType) * ((indexSize & 0xFFFFFFFE) + 2));
+			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(VertexLine3D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(VertexLine3D::IndexType) * indexSize);
 
 			batchInfo.indexCount = indexSize;
 			batchInfo.startIndexLocation = m_indexBufferWritePos;
