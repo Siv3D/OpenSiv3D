@@ -44,7 +44,7 @@ namespace s3d
 		{
 			wgpu::BufferDescriptor indexBufferDescripter
 			{
-				.size = sizeof(VertexLine3D::IndexType) * InitialIndexArraySize,
+				.size = sizeof(VertexLine3D::IndexType) * IndexBufferSize,
 				.usage = wgpu::BufferUsage::Index | wgpu::BufferUsage::CopyDst
 			};
 
@@ -54,7 +54,7 @@ namespace s3d
 		{
 			wgpu::BufferDescriptor vertexBufferDescripter
 			{
-				.size = sizeof(VertexLine3D) * InitialVertexArraySize,
+				.size = sizeof(VertexLine3D) * VertexBufferSize,
 				.usage = wgpu::BufferUsage::Vertex | wgpu::BufferUsage::CopyDst
 			};
 
