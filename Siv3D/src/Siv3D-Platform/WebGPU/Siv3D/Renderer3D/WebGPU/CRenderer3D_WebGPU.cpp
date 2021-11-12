@@ -624,6 +624,9 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
+					rect.w = Min(rect.w, currentRenderTargetSize.x);
+					rect.h = Min(rect.h, currentRenderTargetSize.y);
+
 					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,

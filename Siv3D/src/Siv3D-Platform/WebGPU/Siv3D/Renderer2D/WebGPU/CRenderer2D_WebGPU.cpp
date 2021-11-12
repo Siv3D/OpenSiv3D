@@ -976,6 +976,9 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
+					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
+					pShader->setConstantBufferPS(0, m_psConstants2D.base());
+
 					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
 
@@ -1001,6 +1004,11 @@ namespace s3d
 					m_vsConstants2D._update_if_dirty();
 					m_psConstants2D._update_if_dirty();
 
+					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
+					pShader->setConstantBufferPS(0, m_psConstants2D.base());
+
+					auto pipeline = pShader->usePipeline(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, DepthStencilState::Default2D, {});
+
 					const uint32 draw = m_commandManager.getNullDraw(command.index);
 
 					// draw null vertex buffer
@@ -1012,8 +1020,6 @@ namespace s3d
 
 						// batch.setBuffers(pass);
 					}
-
-					currentRenderingPass.EndPass();
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
 					break;
@@ -1103,6 +1109,9 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
+					rect.w = Min(rect.w, currentRenderTargetSize.x);
+					rect.h = Min(rect.h, currentRenderTargetSize.y);
+
 					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
@@ -1160,7 +1169,6 @@ namespace s3d
 					const auto& vsID = m_commandManager.getVS(command.index);
 
 					pShader->resetConstantBufferVS();
-					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
 
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
@@ -1180,7 +1188,6 @@ namespace s3d
 					const auto& psID = m_commandManager.getPS(command.index);
 
 					pShader->resetConstantBufferPS();
-					pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{
