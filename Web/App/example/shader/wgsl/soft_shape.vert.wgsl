@@ -51,10 +51,7 @@ fn Circular(r: f32, theta: f32) -> vec2<f32>
 
 [[stage(vertex)]]
 fn main(
-	[[builtin(vertex_index)]] VertexIndex: u32,
-	[[location(0)]] VertexPosition: vec2<f32>,
-	[[location(1)]] VertexUV: vec2<f32>,
-	[[location(2)]] VertexColor: vec4<f32>,
+	[[builtin(vertex_index)]] VertexIndex: u32
 ) -> VertexOutput
 {
 	var output: VertexOutput;
