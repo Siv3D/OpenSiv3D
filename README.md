@@ -119,6 +119,11 @@
 - (日本語) [開発を始める（SDK のインストール）](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup)
 
 
+## Tutorial
+
+- [Tutorial 01 - 42](https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/tutorial-basic)
+
+
 ## Documentation
 
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
@@ -270,6 +275,8 @@ void Main()
 ```
 
 ### 3. Hello, 3D world! 
+
+> [Web Demo](https://siv3d.jp/web/sample/basic3d/basic3d.html)
 
 ![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-3d.png)
 
