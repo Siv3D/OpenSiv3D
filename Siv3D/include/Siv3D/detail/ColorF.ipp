@@ -270,7 +270,7 @@ namespace s3d
 				a + (other.a - a) * f };
 	}
 
-	inline ColorF ColorF::gamma(double gamma) const noexcept
+	inline ColorF ColorF::gamma(const double gamma) const noexcept
 	{
 		if (gamma <= 0.0)
 		{
