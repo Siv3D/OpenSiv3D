@@ -503,7 +503,7 @@ namespace s3d
 
 	bool CWindow::isToggleFullscreenEnabled() const
 	{
-		return false;
+		return m_toggleFullscreenEnabled;
 	}
 
 	void CWindow::show()
