@@ -6396,9 +6396,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\KlatTTS.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\KlattTTSParameters.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>

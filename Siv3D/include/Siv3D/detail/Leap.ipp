@@ -64,10 +64,10 @@ namespace s3d
 			return toVec3(m_hand.palm.position);
 		}
 
-		inline Vec3 Hand::stabilizedPalmPosition() const noexcept
-		{
-			return toVec3(m_hand.palm.stabilized_position);
-		}
+		//inline Vec3 Hand::stabilizedPalmPosition() const noexcept
+		//{
+		//	return toVec3(m_hand.palm.stabilized_position);
+		//}
 
 		inline Vec3 Hand::palmVelocity() const noexcept
 		{

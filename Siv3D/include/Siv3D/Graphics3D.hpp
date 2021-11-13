@@ -48,13 +48,15 @@ namespace s3d
 		[[nodiscard]]
 		RasterizerState GetRasterizerState();
 
+		/// @brief 現在適用されているデプス・ステンシルステートを返します。
+		/// @return 現在適用されているデプス・ステンシルステート
 		[[nodiscard]]
 		DepthStencilState GetDepthStencilState();
 
-		/// @brief 
-		/// @param shaderStage 
-		/// @param slot 
-		/// @return 
+		/// @brief 現在適用されているサンプラーステートを返します。
+		/// @param shaderStage シェーダステージ
+		/// @param slot テクスチャスロット
+		/// @return 現在適用されているサンプラーステート
 		[[nodiscard]]
 		SamplerState GetSamplerState(ShaderStage shaderStage = ShaderStage::Pixel, uint32 slot = 0);
 
@@ -63,19 +65,23 @@ namespace s3d
 		/// @remark シザー矩形は RasterizerState で scissorEnable を true にすることで有効になります。
 		void SetScissorRect(const Rect& rect);
 
+		/// @brief 現在設定されているシザー矩形を返します。
+		/// @return 現在設定されているシザー矩形
 		[[nodiscard]]
 		Rect GetScissorRect();
 
+		/// @brief 現在適用されているビューポートを返します。
+		/// @return 現在適用されているビューポート。シーンと一致する場合は none
 		[[nodiscard]]
 		Optional<Rect> GetViewport();
 
-		/// @brief 
-		/// @return 
+		/// @brief 現在適用されている頂点シェーダを返します。
+		/// @return 現在適用されている頂点シェーダ。デフォルトの場合は none
 		[[nodiscard]]
 		Optional<VertexShader> GetCustomVertexShader();
 
-		/// @brief 
-		/// @return 
+		/// @brief 現在適用されているピクセルシェーダを返します。
+		/// @return 現在適用されているピクセルシェーダ。デフォルトの場合は none
 		[[nodiscard]]
 		Optional<PixelShader> GetCustomPixelShader();
 
@@ -92,9 +98,13 @@ namespace s3d
 		[[nodiscard]]
 		const Mat4x4& GetLocalTransform();
 
+		/// @brief 現在のレンダーターゲットになっているレンダーテクスチャを返します。
+		/// @return 現在のレンダーターゲットになっているレンダーテクスチャ。デフォルトのシーンの場合 none
 		[[nodiscard]]
 		Optional<RenderTexture> GetRenderTarget();
-		
+
+		/// @brief 現在のレンダーターゲットのサイズ（ピクセル）を返します
+		/// @return 現在のレンダーターゲットのサイズ（ピクセル）	
 		[[nodiscard]]
 		Size GetRenderTargetSize();
 
@@ -108,30 +118,53 @@ namespace s3d
 		/// @param texture アタッチするテクスチャ。none の場合テクスチャのアタッチを解除します。
 		void SetPSTexture(uint32 slot, const Optional<Texture>& texture);
 
+		/// @brief グローバル環境光の色を設定します。
+		/// @param color グローバル環境光の色
 		void SetGlobalAmbientColor(const ColorF& color);
 
 		[[nodiscard]]
 		ColorF GetGlobalAmbientColor();
 
+		/// @brief メイン平行光源への方向を設定します。
+		/// @param direction メイン平行光源への方向
 		void SetSunDirection(const Vec3& direction);
 
 		[[nodiscard]]
 		Vec3 GetSunDirection();
 
+		/// @brief メイン平行光源の色を設定します。
+		/// @param color メイン平行光源の色
 		void SetSunColor(const ColorF& color);
 
 		[[nodiscard]]
 		ColorF GetSunColor();
 
 		/// @brief 現在までの 3D 描画を実行します。
+		/// @remark `MSRenderTexture` のリゾルブ前に必要です。
 		void Flush();
 
+		/// @brief 頂点シェーダの定数バッファを設定します。
+		/// @tparam Type 定数バッファの構造体
+		/// @param slot スロット
+		/// @param buffer 定数バッファ
+		/// @remark 予約されているスロットは使用できません。詳しくはドキュメントを読んでください。
 		template <class Type>
 		inline void SetVSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
 
+		/// @brief ピクセルシェーダの定数バッファを設定します。
+		/// @tparam Type 定数バッファの構造体
+		/// @param slot スロット
+		/// @param buffer 定数バッファ
+		/// @remark 予約されているスロットは使用できません。詳しくはドキュメントを読んでください。
 		template <class Type>
 		inline void SetPSConstantBuffer(uint32 slot, const ConstantBuffer<Type>& buffer);
 
+		/// @brief 定数バッファを設定します。
+		/// @tparam Type 定数バッファの構造体
+		/// @param stage シェーダステージ
+		/// @param slot スロット
+		/// @param buffer 定数バッファ
+		/// @remark 予約されているスロットは使用できません。詳しくはドキュメントを読んでください
 		template <class Type>
 		inline void SetConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBuffer<Type>& buffer);
 	}

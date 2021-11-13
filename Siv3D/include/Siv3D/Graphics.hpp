@@ -18,8 +18,13 @@ namespace s3d
 	{
 		inline constexpr uint32 DefaultSampleCount = 4;
 
+		/// @brief VSync の有効無効を設定します。
+		/// @param enabled VSync を有効にする場合 true, 無効にする場合 false
+		/// @remark デフォルトでは有効です。
 		void SetVSyncEnabled(bool enabled);
 
+		/// @brief VSync が有効であるかを返します。
+		/// @return VSync が有効である場合 true, 無効である場合 false
 		[[nodiscard]]
 		bool IsVSyncEnabled();
 	}

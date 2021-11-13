@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief アイコン
 	struct Icon
 	{
 		enum class Type : uint8
@@ -24,8 +25,10 @@ namespace s3d
 			MaterialDesign,
 		};
 
+		/// @brief アイコンパッケージの種類
 		Type type = Type::Awesome;
 
+		/// @brief アイコンのコードポイント
 		uint32 code = 0;
 
 		SIV3D_NODISCARD_CXX20

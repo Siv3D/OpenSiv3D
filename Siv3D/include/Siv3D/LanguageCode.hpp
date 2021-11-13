@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	/// @brief 言語コード
 	enum class LanguageCode : int32
 	{
 		ArabicSA = 0x401,		// ar_SA

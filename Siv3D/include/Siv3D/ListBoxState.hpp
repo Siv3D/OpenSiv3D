@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief リストボックスの状態
 	struct ListBoxState
 	{
 		Array<String> items;

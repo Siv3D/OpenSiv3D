@@ -124,10 +124,19 @@ namespace s3d
 		/// @param size 設定するサイズ（ピクセル）
 		void SetMinimumFrameBufferSize(Size size);
 
+		/// @brief ウィンドウモードとフルスクリーンモードを切り替えます。
+		/// @param fullscreen フルスクリーンモードにする場合 true, ウィンドウモードにする場合 false
+		/// @param monitorIndex 表示するモニタのインデックス
 		void SetFullscreen(bool fullscreen, size_t monitorIndex = System::GetCurrentMonitorIndex());
 
+		/// @brief Windows 版において、Alt + Enter キーによるウィンドウモードとフルスクリーンモードの切り替えを有効にするかを設定します。
+		/// @param enabled Alt + Enter キーによるウィンドウモードとフルスクリーンモードの切り替えを有効にする場合は true, 無効にする場合は false
+		/// @remark Windows 版ではデフォルトで有効、それ以外のプラットフォームでは常に無効です。
 		void SetToggleFullscreenEnabled(bool enabled);
 
+		/// @brief Alt + Enter キーによるウィンドウモードとフルスクリーンモードの切り替えが有効であるかを返します。
+		/// @return Alt + Enter キーによるウィンドウモードとフルスクリーンモードの切り替えが有効である場合 true, それ以外の場合は false
+		/// @remark Windows 版以外では常に false を返します。
 		[[nodiscard]]
 		bool IsToggleFullscreenEnabled();
 	}
@@ -136,6 +145,9 @@ namespace s3d
 
 	namespace Platform::Windows::Window
 	{
+		/// @brief ウィンドウハンドルを返します。
+		/// @return ウィンドウハンドル
+		/// @remark この関数の戻り値を HWND にキャストして使用します。
 		[[nodiscard]]
 		void* GetHWND();
 	}

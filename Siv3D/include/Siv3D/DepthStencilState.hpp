@@ -36,7 +36,7 @@ namespace s3d
 		Always			= 8
 	};
 
-	/// @brief ラスタライザーステート
+	/// @brief デプス・ステンシルステート
 	struct DepthStencilState
 	{
 	private:

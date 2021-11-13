@@ -679,7 +679,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleAnimation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleHTTP.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\KlatTTS.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sky.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
