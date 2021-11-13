@@ -2,7 +2,7 @@
 
 <p align="center"><a href="https://siv3d.github.io/"><img src="https://raw.githubusercontent.com/Siv3D/File/master/v6/logo.png" width="480" alt="Siv3D logo"></a></p>
 
-**Siv3D** (OpenSiv3D) is a C++20 framework for **creative coding** (2D/3D games, media art, visualizers, simulators). Siv3D applications run on **Windows, macOS, Linux, and the Web**.
+**Siv3D** (OpenSiv3D) is a C++20 framework for **creative coding** (2D/3D games, media art, visualizers, and simulators). Siv3D applications run on **Windows, macOS, Linux, and the Web**.
 
 
 ## Main Features
@@ -77,7 +77,7 @@
   - CSV / INI / JSON writer classes
 - **Others**
   - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box)
-  - 2D physics
+  - Integrated 2D physics engine (Box2D)
   - Advanced array / 2D array classes (`Array`, `Grid`)
   - Kd-tree
   - Asynchronous asset file streaming
@@ -107,11 +107,11 @@
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
 | Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11 or 2022 17.0<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU**<br>- OpenGL 4.1 compatible hardware |
+| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU*<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
-| Web (experimental*) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
+| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
 
-<small>* Some functionality may be missing or limited</small><br><small>** M1 will be supported in the future releases</small>
+<small>* M1 will be supported in the future releases</small><br><small>** Some functionality may be missing or limited</small>
 
 ## How to Install
 
@@ -127,6 +127,10 @@
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
+
+## Community
+
+- [Siv3D User Community Slack](https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM)
 
 
 ## Examples (v0.6.3)
@@ -196,6 +200,8 @@ void Main()
 ```
 
 ### 2. Breakout
+
+> [Web Demo](https://siv3d.jp/web/sample/breakout/breakout.html)
 
 ![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/breakout.gif)
 
