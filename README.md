@@ -4,7 +4,122 @@
 
 **Siv3D** (OpenSiv3D) is a C++20 framework for **creative coding** (2D/3D games, media art, visualizers, simulators). Siv3D applications run on **Windows, macOS, Linux, and the Web**.
 
-## Installation Guide & Documentation
+
+## Main Features
+
+- **Graphics:**
+  - Advanced 2D graphics
+  - Basic 3D graphics (Wavefront OBJ, primitive shapes)
+  - Custom vertex / pixel shaders (HLSL, GLSL)
+  - Text rendering (Bitmap, SDF, MSDF)
+  - PNG, JPEG, BMP, SVG, GIF, Animated GIF, TGA, PPM, WebP, TIFF
+  - Unicode 14.0 emojis and 7,000+ icons
+  - Image processing
+  - Video rendering
+- **Audio** 
+  - WAVE, MP3, AAC, OggVorbis, Opus, MIDI, WMA*, FLAC*, AIFF*
+  - Adjustable volume, pan, play speed and pitch
+  - File streaming (WAVE, MP3, OggVorbis)
+  - Fade in and fade out
+  - Looping
+  - Mixing busses
+  - Filters (LPF, HPF, echo, reverb)
+  - FFT
+  - SoundFont rendering
+  - Text to speech*
+- **Input**
+  - Mouse
+  - Keyboard
+  - Gamepad
+  - Webcam
+  - Microphone
+  - Joy-Con / Pro Controller
+  - XInput*
+  - Digital drawing tablet*
+  - Leap Motion*
+- **Window**
+  - Fullscreen mode
+  - High DPI support
+  - Window styles (sizable, borderless)
+  - File dialog
+  - Drag & drop
+  - Message box
+  - Toast notification*
+- **Network and communication**
+  - HTTP client
+  - TCP communication
+  - Serial communication
+  - Interprocess communication (pipe)
+- **Math**
+  - Vector and matrix classes (`Point`, `Float2`, `Vec2`, `Float3`, `Vec3`, `Float4`, `Vec4`, `Mat3x2`, `Mat3x3`, `Mat4x4`, `SIMD_Float4`, `Quaternion`)
+  - 2D shape classes (`Line`, `Circle`, `Ellipse`, `Rect`, `RectF`, `Triangle`, `Quad`, `RoundRect`, `Polygon`, `MultiPolygon`, `LineString`, `Spline2D`, `Bezier2`, `Bezier3`)
+  - 3D shape classes (`Plane`, `InfinitePlane`, `Sphere`, `Box`, `OrientedBox`, `Ray`, `Line3D`, `Triangle3D`, `ViewFrustum`, `Disc`, `Cylinder`, `Cone`)
+  - Color classes (`Color`, `ColorF`, `HSV`)
+  - Polar / cylindrical / spherical coordinates system
+  - 2D / 3D shape intersection
+  - 2D / 3D geometry processing
+  - Rectangle packing
+  - Planar subdivisions
+  - Linear and gamma color space
+  - Pseudo random number generators
+  - Interpolation, easing, and smoothing
+  - Perlin noise
+  - Math parser
+  - Navigation mesh
+  - Extended arithmetic types (`HalfFloat`, `int128`, `uint128`, `BigInt`, `BigFloat`)
+- **String and Text Processing**
+  - Advanced String class (`String`, `StringView`)
+  - Unicode conversion
+  - Regular expression
+  - `{fmt}` style text formatting
+  - Text reader / writer classes
+  - CSV / INI / JSON / XML / TOML reader classes
+  - CSV / INI / JSON writer classes
+- **Others**
+  - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box)
+  - 2D physics
+  - Advanced array / 2D array classes (`Array`, `Grid`)
+  - Kd-tree
+  - Asynchronous asset file streaming
+  - Data compression (zlib, Zstandard)
+  - Transitions between scenes
+  - File system
+  - Directory watcher
+  - QR code reader / writer
+  - GeoJSON
+  - Date and time
+  - Stopwatch and timer
+  - Logging
+  - Serialization
+  - UUID
+  - Child process
+  - Clipboard
+  - Power status
+  - Scripting (AngelScript)
+
+<small>* Some features are limited to specific platforms</small>
+
+## Downloads
+
+### ✨ v0.6.3 | stable
+*released 14 November 2021*
+
+| Platform           | SDK  | Requirements                  |
+|:------------------:|:----------:|:------------------------------|
+| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11 or 2022 17.0<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU**<br>- OpenGL 4.1 compatible hardware |
+| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
+| Web (experimental*) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
+
+<small>* Some functionality may be missing or limited</small><br><small>** M1 will be supported in the future releases</small>
+
+## How to Install
+
+- [Getting Started (Installing the Siv3D SDK)](https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/setup)
+- (日本語) [開発を始める（SDK のインストール）](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup)
+
+
+## Documentation
 
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
 - [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
@@ -12,28 +127,6 @@
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
-
-## Downloads
-
-### ✨ v0.6.3 | stable
-*released 12 November 2021*
-
-| Platform           | SDK  | Requirements                  |
-|:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11 or 2022 17.0<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
-| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
-| Web (experimental*) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | - Emscripten 2.0.22 or newer<br>- Browser with WebAssembly and WebGL2 support |
-
-<small>* Some functionality may be missing or limited</small>
-
-### 🕰️ v0.4.3 | old version
-*released 11 April 2020*
-
-| Platform        | SDK | Requirements                  |
-|:---------------:|:----------------------------:|:------------------------------|
-| Windows | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.4.3)Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.4<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS           | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.3_macOS.zip) | - macOS Mojave v10.14 or newer<br>- Xcode 11.3 or newer<br>- Intel CPU<br>- OpenGL 4.1 compatible hardware |
 
 
 ## Examples (v0.6.3)
@@ -237,3 +330,9 @@ void Main()
 	}
 }
 ```
+
+## Supporting the Project
+
+If you would like to support the project financially, visit my GitHub Sponsors page. Your support will accelerate the development of this exciting framework.
+
+💗 https://github.com/sponsors/Reputeless
