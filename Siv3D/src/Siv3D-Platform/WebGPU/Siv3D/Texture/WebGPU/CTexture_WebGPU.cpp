@@ -381,6 +381,11 @@ namespace s3d
 		return m_textures[handleID]->getTexture();
 	}
 
+	wgpu::TextureView CTexture_WebGPU::getTextureView(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getTextureView();
+	}
+
 	wgpu::RenderPassEncoder CTexture_WebGPU::begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder)
 	{
 		return m_textures[handleID]->begin(encoder);

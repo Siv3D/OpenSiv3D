@@ -765,12 +765,12 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTextureView(m_emptyTexture->id()));
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(textureID));
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTextureView(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -790,12 +790,12 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTextureView(m_emptyTexture->id()));
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(textureID));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTextureView(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 

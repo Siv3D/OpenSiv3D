@@ -37,6 +37,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		// 256バイト境界に合わせる必要がある
@@ -82,6 +83,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		if (image.width() % 64 == 0)
@@ -142,6 +144,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		copyToTexture(device, size, 0, pData, size.x * format.pixelSize());
@@ -176,6 +179,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		if (hasDepth)
@@ -218,6 +222,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		if (image.width() % 64 == 0)
@@ -272,6 +277,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(float));
@@ -314,6 +320,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(Float2));
@@ -356,6 +363,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		copyToTexture(device, image.size(), 0, image.data(), image.width() * sizeof(Float4));
@@ -399,6 +407,7 @@ namespace s3d
 			};
 
 			m_multiSampledTexture = device->CreateTexture(&desc);
+			m_multiSampledTextureView = m_multiSampledTexture.CreateView();
 		}
 
 		{
@@ -415,6 +424,7 @@ namespace s3d
 			};
 
 			m_texture = device->CreateTexture(&desc);
+			m_textureView = m_texture.CreateView();
 		}
 
 		if (hasDepth)
@@ -442,6 +452,11 @@ namespace s3d
 		return m_texture;
 	}
 
+	wgpu::TextureView WebGPUTexture::getTextureView() const noexcept
+	{
+		return m_textureView;
+	}
+
 	wgpu::RenderPassEncoder WebGPUTexture::begin(const wgpu::CommandEncoder& encoder)
 	{
 		wgpu::RenderPassColorAttachment colorAttachment
@@ -452,12 +467,12 @@ namespace s3d
 
 		if (m_type == TextureType::MSRender)
 		{
-			colorAttachment.view = m_multiSampledTexture.CreateView();
-			colorAttachment.resolveTarget = m_texture.CreateView();
+			colorAttachment.view = m_multiSampledTextureView;
+			colorAttachment.resolveTarget = m_textureView;
 		}
 		else
 		{
-			colorAttachment.view = m_texture.CreateView();
+			colorAttachment.view = m_textureView;
 		}
 
 		wgpu::RenderPassDescriptor descripter
@@ -470,7 +485,7 @@ namespace s3d
 		{
 			wgpu::RenderPassDepthStencilAttachment depthStencil
 			{
-				.view = m_depthTexture.CreateView()
+				.view = m_depthTextureView
 			};
 
 			descripter.depthStencilAttachment = &depthStencil;
@@ -707,11 +722,11 @@ namespace s3d
 
 			if (m_type == TextureType::MSRender)
 			{
-				colorAttachment.view = m_multiSampledTexture.CreateView();
+				colorAttachment.view = m_multiSampledTextureView;
 			}
 			else
 			{
-				colorAttachment.view = m_texture.CreateView();
+				colorAttachment.view = m_textureView;
 			}
 
 			wgpu::RenderPassDescriptor descripter
@@ -724,7 +739,7 @@ namespace s3d
 			{
 				wgpu::RenderPassDepthStencilAttachment depthAttachment
 				{
-					.view = m_depthTexture.CreateView(),
+					.view = m_depthTextureView,
 					.clearDepth = 0.0f
 				};
 
@@ -862,6 +877,7 @@ namespace s3d
 			};
 
 			m_depthTexture = device->CreateTexture(&desc);
+			m_depthTextureView = m_depthTexture.CreateView();
 		}
 		else
 		{
@@ -879,6 +895,7 @@ namespace s3d
 			};
 
 			m_depthTexture = device->CreateTexture(&desc);
+			m_depthTextureView = m_depthTexture.CreateView();
 		}
 		
 		m_hasDepth = true;
