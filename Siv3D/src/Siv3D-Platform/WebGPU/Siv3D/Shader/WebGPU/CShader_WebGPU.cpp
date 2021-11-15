@@ -88,6 +88,7 @@ namespace s3d
 		}
 
 		m_pipeline.init(*m_device);
+		m_bindGroups.init(*m_device);
 	}
 
 	VertexShader::IDType CShader_WebGPU::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
@@ -258,18 +259,9 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute)
 	{
 		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState, attribute);
-
-		wgpu::BindGroupDescriptor uniformDesc
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentUniforms.data(),
-			.entryCount = m_currentUniforms.size()
-		};
-
-		auto m_uniform = m_device->CreateBindGroup(&uniformDesc);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_uniform);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentUniforms);
 
 		return pipeline;
 	}
@@ -277,28 +269,10 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard2DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState);
-
-		wgpu::BindGroupDescriptor constantsDescVS
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentVSConstants.data(),
-			.entryCount = m_currentVSConstants.size()
-		};
-
-		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
-
-		wgpu::BindGroupDescriptor constantsDescPS
-		{
-			.layout = pipeline.GetBindGroupLayout(1),
-			.entries = m_currentPSConstants.data(),
-			.entryCount = m_currentPSConstants.size()
-		};
-
-		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniformVS);
-		pass.SetBindGroup(1, m_constantsUniformPS);
+		
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, m_currentPSConstants);
 
 		return pipeline;
 	}
@@ -306,28 +280,10 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard3DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
-
-		wgpu::BindGroupDescriptor constantsDescVS
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentVSConstants.data(),
-			.entryCount = m_currentVSConstants.size()
-		};
-
-		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
-
-		wgpu::BindGroupDescriptor constantsDescPS
-		{
-			.layout = pipeline.GetBindGroupLayout(1),
-			.entries = m_currentPSConstants.data(),
-			.entryCount = m_currentPSConstants.size()
-		};
-
-		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniformVS);
-		pass.SetBindGroup(1, m_constantsUniformPS);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, m_currentPSConstants);
 
 		return pipeline;
 	}
@@ -335,28 +291,10 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DLineVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard3DLineVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
-
-		wgpu::BindGroupDescriptor constantsDescVS
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentVSConstants.data(),
-			.entryCount = m_currentVSConstants.size()
-		};
-
-		auto m_constantsUniformVS = m_device->CreateBindGroup(&constantsDescVS);
-
-		wgpu::BindGroupDescriptor constantsDescPS
-		{
-			.layout = pipeline.GetBindGroupLayout(1),
-			.entries = nullptr,
-			.entryCount = 0
-		};
-
-		auto m_constantsUniformPS = m_device->CreateBindGroup(&constantsDescPS);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniformVS);
-		pass.SetBindGroup(1, m_constantsUniformPS);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, {});
 
 		return pipeline;
 	}

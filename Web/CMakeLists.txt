@@ -162,6 +162,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/PixelShader/WebGPUPixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/VertexShader/WebGPUVertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/ShaderPipeline/WebGPUShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/UniformState/WebGPUUniformState.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/CTexture_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/WebGPUTexture.cpp
 

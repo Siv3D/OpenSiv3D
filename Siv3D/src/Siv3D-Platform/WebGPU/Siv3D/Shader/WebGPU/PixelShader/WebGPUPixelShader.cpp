@@ -67,7 +67,8 @@ namespace s3d
 					.visibility = wgpu::ShaderStage::Fragment,
 					.buffer =
 					{
-						.type = wgpu::BufferBindingType::Uniform
+						.type = wgpu::BufferBindingType::Uniform,
+						.hasDynamicOffset = true
 					}
 				};
 			}

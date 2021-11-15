@@ -11,7 +11,6 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/Shader.hpp>
 # include <Siv3D/ShaderStage.hpp>
@@ -21,6 +20,7 @@
 # include "VertexShader/WebGPUVertexShader.hpp"
 # include "PixelShader/WebGPUPixelShader.hpp"
 # include "ShaderPipeline/WebGPUShaderPipeline.hpp"
+# include "UniformState/WebGPUUniformState.hpp"
 
 # include <webgpu/webgpu_cpp.h>
 
@@ -115,6 +115,8 @@ namespace s3d
 
 		// シェーダプログラム (VS と PS のペア) の管理
 		WebGPUShaderPipeline m_pipeline;
+
+		WebGPUUniformState m_bindGroups;
 
 		wgpu::Device* m_device;
 	};
