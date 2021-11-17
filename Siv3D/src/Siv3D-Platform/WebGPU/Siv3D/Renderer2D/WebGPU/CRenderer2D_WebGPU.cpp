@@ -1219,6 +1219,8 @@ namespace s3d
 					
 					if (cb.num_vectors)
 					{	
+						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+
 						if (cb.stage == ShaderStage::Vertex)
 						{
 							pShader->setConstantBufferVS(cb.slot, cb.cbBase);
@@ -1226,9 +1228,7 @@ namespace s3d
 						else
 						{
 							pShader->setConstantBufferPS(cb.slot, cb.cbBase);
-						}
-
-						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+						}	
 					}
 					
 					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
