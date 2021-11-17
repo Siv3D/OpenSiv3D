@@ -23,7 +23,18 @@ namespace s3d
 
             for (const auto& value : values)
             {
-                s3d::Hash::Combine(hashed, std::hash<decltype(value.buffer.Get())>{}(value.buffer.Get()));
+                if (const auto& buffer = value.buffer; buffer != nullptr)
+                {
+                    s3d::Hash::Combine(hashed, std::hash<decltype(buffer.Get())>{}(buffer.Get()));
+                }
+                else if (const auto& sampler = value.sampler; sampler != nullptr)
+				{
+                	s3d::Hash::Combine(hashed, std::hash<decltype(sampler.Get())>{}(sampler.Get()));
+				}
+				else if (const auto& texture = value.textureView; texture != nullptr)
+				{
+                	s3d::Hash::Combine(hashed, std::hash<decltype(texture.Get())>{}(texture.Get()));
+				}
             }
 
             return hashed;
@@ -65,7 +76,10 @@ namespace s3d
         {
             Array<uint32> bufferOffsets = {};
 
-            for (const auto& entry : binding)
+            for (const auto& entry : binding.sorted_by(
+                [](const wgpu::BindGroupEntry& lhs, const wgpu::BindGroupEntry& rhs) {
+                    return lhs.binding < rhs.binding;
+                }))
             {
                 if (entry.buffer != nullptr)
                 {
