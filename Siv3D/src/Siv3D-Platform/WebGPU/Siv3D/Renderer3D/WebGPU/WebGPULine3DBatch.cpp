@@ -138,8 +138,8 @@ namespace s3d
 		// ::glBindVertexArray(m_vao);
 		// ::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-		pass.SetVertexBuffer(0, m_vertexBuffer);
-		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32);
+		pass.SetVertexBuffer(0, m_vertexBuffer, 0, sizeof(VertexLine3D) * VertexBufferSize);
+		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32, 0, sizeof(VertexLine3D::IndexType) * IndexBufferSize);
 	}
 
 	BatchInfoLine3D WebGPULine3DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)

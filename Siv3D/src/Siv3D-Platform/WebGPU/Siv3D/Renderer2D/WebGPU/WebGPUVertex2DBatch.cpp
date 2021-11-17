@@ -137,8 +137,8 @@ namespace s3d
 		// pass.SetVertexBuffer(0, m_vertexBuffer, sizeof(Vertex2D) * m_vertexBufferWritePos);
 		// pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos);
 
-		pass.SetVertexBuffer(0, m_vertexBuffer);
-		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16);
+		pass.SetVertexBuffer(0, m_vertexBuffer, 0, sizeof(Vertex2D) * VertexBufferSize);
+		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, 0, sizeof(Vertex2D::IndexType) * IndexBufferSize);
 	}
 
 	BatchInfo2D WebGPUVertex2DBatch::updateBuffers(const wgpu::Device& device, const size_t batchIndex)
