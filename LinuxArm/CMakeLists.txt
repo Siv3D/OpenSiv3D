@@ -414,7 +414,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Quad/SivQuad.cpp
   ../Siv3D/src/Siv3D/Quaternion/SivQuaternion.cpp
   ../Siv3D/src/Siv3D/Random/SivRandom.cpp
-  ../Siv3D/src/Siv3D/Ray/SivRay.cpp
+  #../Siv3D/src/Siv3D/Ray/SivRay.cpp  # gcc9のバグを踏む
   ../Siv3D/src/Siv3D/RDTSCClock/SivRDTSCClock.cpp
   ../Siv3D/src/Siv3D/Rect/SivRect.cpp
   ../Siv3D/src/Siv3D/RectanglePacking/SivRectanglePacking.cpp
@@ -595,7 +595,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontDetail.cpp
   ../Siv3D/src/Siv3D/SoundFont/SoundFontFactory.cpp
-  ../Siv3D/src/Siv3D/Sphere/SivSphere.cpp
+  #../Siv3D/src/Siv3D/Sphere/SivSphere.cpp  # gcc9のバグを踏む
   ../Siv3D/src/Siv3D/Spline2D/SivSpline2D.cpp
   ../Siv3D/src/Siv3D/String/SivString.cpp
   ../Siv3D/src/Siv3D/String/Levenshtein.cpp
