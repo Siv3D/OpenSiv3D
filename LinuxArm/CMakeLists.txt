@@ -656,7 +656,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/VideoWriter/VideoWriterDetail.cpp
   ../Siv3D/src/Siv3D/VideoTexture/SivVideoTexture.cpp
   ../Siv3D/src/Siv3D/VideoTexture/VideoTextureDetail.cpp
-  ../Siv3D/src/Siv3D/ViewFrustum/SivViewFrustum.cpp
+  #../Siv3D/src/Siv3D/ViewFrustum/SivViewFrustum.cpp  # gcc9のバグを踏む
   ../Siv3D/src/Siv3D/Wave/SivWave.cpp
   ../Siv3D/src/Siv3D/Webcam/SivWebcam.cpp
   ../Siv3D/src/Siv3D/Webcam/WebcamDetail.cpp
@@ -764,7 +764,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/cpu_features/stack_line_reader.c
   ../Siv3D/src/ThirdParty/cpu_features/string_view.c
 
-  ../Siv3D/src/ThirdParty/DirectXMath/DirectXCollision.cpp
+  #../Siv3D/src/ThirdParty/DirectXMath/DirectXCollision.cpp # gcc9のバグを踏む
 
   ../Siv3D/src/ThirdParty/double-conversion/bignum-dtoa.cc
   ../Siv3D/src/ThirdParty/double-conversion/bignum.cc
