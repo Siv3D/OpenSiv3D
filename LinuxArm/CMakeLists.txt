@@ -759,7 +759,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/box2d/dynamics/b2_world_callbacks.cpp
   ../Siv3D/src/ThirdParty/box2d/rope/b2_rope.cpp
 
-  ../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
+  #../Siv3D/src/ThirdParty/cpu_features/cpuinfo_x86.c
   ../Siv3D/src/ThirdParty/cpu_features/filesystem.c
   ../Siv3D/src/ThirdParty/cpu_features/stack_line_reader.c
   ../Siv3D/src/ThirdParty/cpu_features/string_view.c
@@ -814,8 +814,8 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/infoware/src/cpu/vendor_model_name/vendor_model_name_darwin.cpp
   ../Siv3D/src/ThirdParty/infoware/src/cpu/vendor_model_name/vendor_model_name_non_windows_non_darwin.cpp
   ../Siv3D/src/ThirdParty/infoware/src/cpu/vendor_model_name/vendor_model_name_windows.cpp
-  ../Siv3D/src/ThirdParty/infoware/src/detail/cpuid_non_windows.cpp
-  ../Siv3D/src/ThirdParty/infoware/src/detail/cpuid_windows.cpp
+  #../Siv3D/src/ThirdParty/infoware/src/detail/cpuid_non_windows.cpp
+  #../Siv3D/src/ThirdParty/infoware/src/detail/cpuid_windows.cpp
   ../Siv3D/src/ThirdParty/infoware/src/detail/scope.cpp
   ../Siv3D/src/ThirdParty/infoware/src/detail/sysctl_darwin.cpp
   ../Siv3D/src/ThirdParty/infoware/src/detail/sysctl_non_darwin.cpp
