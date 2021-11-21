@@ -5,11 +5,12 @@
 //	- 通常のアプリケーション開発時には除去してください
 //
 # include <Siv3D.hpp> // OpenSiv3D v0.6.3
-//SIV3D_SET(EngineOption::Renderer::Headless) // Non-graphical mode
-//void Main() { }
+SIV3D_SET(EngineOption::Renderer::Headless) // Non-graphical mode
+void Main() { }
 //
 /////////////////
 
+/*
 # include <Siv3D.hpp> // OpenSiv3D v0.6.3
 
 void Main()
@@ -89,3 +90,4 @@ void Main()
 // https://github.com/Siv3D/OpenSiv3D/issues
 //
 
+*/
