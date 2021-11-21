@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(OpenSiv3D_LinuxArm CXX C)
+project(OpenSiv3D_LinuxArm CXX C ASM)
 find_package(PkgConfig)
 find_package(Boost 1.71.0 REQUIRED)
 pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED alsa libavcodec libavformat libavutil libcurl freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng soundtouch libswresample libtiff-4 libturbojpeg uuid vorbis libwebp x11 xft zlib)
@@ -679,6 +679,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm64.cpp
+  ../Siv3D/src/ThirdParty/angelscript/as_callfunc_arm64_gcc.S
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc_mips.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc.cpp
   ../Siv3D/src/ThirdParty/angelscript/as_callfunc_ppc_64.cpp
