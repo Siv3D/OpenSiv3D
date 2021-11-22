@@ -19,7 +19,7 @@ namespace s3d
 
 	inline TextEditState::TextEditState(String&& defaultText) noexcept
 		: text{ std::move(defaultText) }
-		, cursorPos{ defaultText.size() } {}
+		, cursorPos{ text.size() } {}
 
 	inline void TextEditState::clear() noexcept
 	{
