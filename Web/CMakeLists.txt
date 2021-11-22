@@ -67,6 +67,9 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/DragDrop/CDragDrop.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FileSystem/SivFileSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/FreestandingMessageBox/FreestandingMessageBox_Web.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/LicenseManager/CLicenseManager.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/LicenseManager/LicenseManagerFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/LicenseManager/SivLicenseManager.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/MessageBox/SivMessageBox_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Mesh/MeshFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Microphone/MicrophoneDetail.cpp
@@ -159,6 +162,7 @@ add_library(
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/PixelShader/WebGPUPixelShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/VertexShader/WebGPUVertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/ShaderPipeline/WebGPUShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/UniformState/WebGPUUniformState.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/CTexture_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/WebGPUTexture.cpp
 
@@ -352,9 +356,9 @@ add_library(
   ../Siv3D/src/Siv3D/Keyboard/KeyboardFactory.cpp
   ../Siv3D/src/Siv3D/Keyboard/SivKeyboard.cpp
   ../Siv3D/src/Siv3D/KlattTTS/SivKlattTTS.cpp
-  ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
-  ../Siv3D/src/Siv3D/LicenseManager/LicenseManagerFactory.cpp
-  ../Siv3D/src/Siv3D/LicenseManager/SivLicenseManager.cpp
+  # ../Siv3D/src/Siv3D/LicenseManager/CLicenseManager.cpp
+  # ../Siv3D/src/Siv3D/LicenseManager/LicenseManagerFactory.cpp
+  # ../Siv3D/src/Siv3D/LicenseManager/SivLicenseManager.cpp
   ../Siv3D/src/Siv3D/Line/SivLine.cpp
   ../Siv3D/src/Siv3D/Line3D/SivLine3D.cpp
   ../Siv3D/src/Siv3D/LineString/SivLineString.cpp

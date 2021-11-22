@@ -50,9 +50,9 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_WebGPU::init()");
 
-		pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-		pShader		= dynamic_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader)); assert(pShader);
-		pTexture	= dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+		pRenderer	= static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
+		pShader		= static_cast<CShader_WebGPU*>(SIV3D_ENGINE(Shader));
+		pTexture	= static_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
 
 		m_device = pRenderer->getDevice();
 
@@ -938,7 +938,7 @@ namespace s3d
 		auto currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
 		auto currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 
-		const Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
 		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
 
 		Mat3x2 transform = Mat3x2::Identity();
@@ -977,7 +977,7 @@ namespace s3d
 					m_psConstants2D._update_if_dirty();
 
 					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
-					pShader->setConstantBufferPS(1, m_psConstants2D.base());
+					pShader->setConstantBufferPS(0, m_psConstants2D.base());
 
 					auto pipeline = pShader->usePipelineWithStandard2DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
@@ -1005,7 +1005,9 @@ namespace s3d
 					m_psConstants2D._update_if_dirty();
 
 					pShader->setConstantBufferVS(0, m_vsConstants2D.base());
-					pShader->setConstantBufferPS(1, m_psConstants2D.base());
+					pShader->setConstantBufferPS(0, m_psConstants2D.base());
+
+					auto pipeline = pShader->usePipeline(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, DepthStencilState::Default2D, {});
 
 					const uint32 draw = m_commandManager.getNullDraw(command.index);
 
@@ -1018,8 +1020,6 @@ namespace s3d
 
 						// batch.setBuffers(pass);
 					}
-
-					currentRenderingPass.EndPass();
 
 					LOG_COMMAND(U"DrawNull[{}] count = {}"_fmt(command.index, draw));
 					break;
@@ -1109,6 +1109,9 @@ namespace s3d
 						rect.h = currentRenderTargetSize.y;
 					}
 
+					rect.w = Min(rect.w, currentRenderTargetSize.x);
+					rect.h = Min(rect.h, currentRenderTargetSize.y);
+
 					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					screenMat = Mat3x2::Screen(rect.w, rect.h);
@@ -1146,12 +1149,16 @@ namespace s3d
 					{
 						currentRenderingPass = pTexture->begin(rt->id(), encoder);
 						currentRenderTargetState = pTexture->getRenderTargetState(rt->id());
+						currentRenderTargetSize = pTexture->getSize(rt->id());
+
 						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
 						currentRenderingPass = pRenderer->getBackBuffer().begin(encoder);
 						currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
+						currentRenderTargetSize = pRenderer->getBackBuffer().getSceneBufferSize();
+
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
 
@@ -1160,6 +1167,8 @@ namespace s3d
 			case WebGPURenderer2DCommandType::SetVS:
 				{
 					const auto& vsID = m_commandManager.getVS(command.index);
+
+					pShader->resetConstantBufferVS();
 
 					if (vsID == VertexShader::IDType::InvalidValue())
 					{
@@ -1177,6 +1186,8 @@ namespace s3d
 			case WebGPURenderer2DCommandType::SetPS:
 				{
 					const auto& psID = m_commandManager.getPS(command.index);
+
+					pShader->resetConstantBufferPS();
 
 					if (psID == PixelShader::IDType::InvalidValue())
 					{
@@ -1207,11 +1218,17 @@ namespace s3d
 					const __m128* p = m_commandManager.getConstantBufferPtr(cb.offset);
 					
 					if (cb.num_vectors)
-					{
-						const ConstantBufferDetail_WebGPU* cbd = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb.cbBase._detail());
-						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
-						// ::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
+					{	
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));
+
+						if (cb.stage == ShaderStage::Vertex)
+						{
+							pShader->setConstantBufferVS(cb.slot, cb.cbBase);
+						}
+						else
+						{
+							pShader->setConstantBufferPS(cb.slot, cb.cbBase);
+						}	
 					}
 					
 					LOG_COMMAND(U"SetConstantBuffer[{}] (stage = {}, slot = {}, offset = {}, num_vectors = {})"_fmt(
@@ -1232,12 +1249,12 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTextureView(m_emptyTexture->id()));
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTexture(textureID));
+						pRenderer->getSamplerState().setVSTexture(slot, pTexture->getTextureView(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -1257,12 +1274,12 @@ namespace s3d
 
 					if (textureID.isInvalid())
 					{
-						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(m_emptyTexture->id()));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTextureView(m_emptyTexture->id()));
 						LOG_COMMAND(U"VSTexture{}[{}]: null"_fmt(slot, command.index));
 					}
 					else
 					{
-						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTexture(textureID));
+						pRenderer->getSamplerState().setPSTexture(slot, pTexture->getTextureView(textureID));
 						LOG_COMMAND(U"VSTexture{}[{}]: {}"_fmt(slot, command.index, textureID.value()));
 					}
 
@@ -1294,8 +1311,11 @@ namespace s3d
 
 		// render states
 		{
+			pShader->resetConstantBufferVS();
+			pShader->resetConstantBufferPS();
+
 			pShader->setVS(m_standardVS->fullscreen_triangle.id());
-			pShader->setPS(m_standardPS->fullscreen_triangle.id());
+			pShader->setPS(m_standardPS->fullscreen_triangle.id());		
 		}
 
 		// draw fullscreen-triangle
@@ -1307,7 +1327,7 @@ namespace s3d
 				.sampleCount = 1
 			};
 
-			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D, renderTargetState, DepthStencilState::Default2D);
+			pShader->usePipeline(pass, RasterizerState::Default2D, BlendState::Default2D, renderTargetState, DepthStencilState::Default2D, {});
 			{
 				pass.Draw(3);
 

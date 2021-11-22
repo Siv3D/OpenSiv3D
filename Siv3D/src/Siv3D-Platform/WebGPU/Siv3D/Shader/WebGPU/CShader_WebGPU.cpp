@@ -44,7 +44,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CShader_WebGPU::init()");
 
-		auto pRenderer	= dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		auto pRenderer	= static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
 		m_device = pRenderer->getDevice();
 
 		// null VS を管理に登録
@@ -77,8 +77,9 @@ namespace s3d
 
 		// エンジン PS をロード
 		{
-			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/copy.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/gaussian_blur_9.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << WGSL{ Resource(U"engine/shader/wgsl/apply_srgb_curve.frag.wgsl"), {{ U"PSConstants2D", 0 }} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{
@@ -87,6 +88,7 @@ namespace s3d
 		}
 
 		m_pipeline.init(*m_device);
+		m_bindGroups.init(*m_device);
 	}
 
 	VertexShader::IDType CShader_WebGPU::createVSFromFile(const FilePathView path, const StringView entryPoint, const Array<ConstantBufferBinding>& bindings)
@@ -175,20 +177,58 @@ namespace s3d
 
 	void CShader_WebGPU::setConstantBufferVS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
-
+		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
 		entry.binding = slot;
 
-		m_currentShaderConstants[slot] = entry;
+		auto iter = std::find_if(
+			m_currentVSConstants.begin(), m_currentVSConstants.end(),
+			[=](const wgpu::BindGroupEntry& v) -> bool
+			{ 
+				return v.binding == slot;
+			}
+		);
+
+		if (iter != m_currentVSConstants.end())
+		{
+			*iter = entry;
+		}
+		else
+		{
+			m_currentVSConstants << entry;
+		}
 	}
 
 	void CShader_WebGPU::setConstantBufferPS(const uint32 slot, const ConstantBufferBase& cb)
 	{
-		auto entry = dynamic_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
-
+		auto entry = static_cast<const ConstantBufferDetail_WebGPU*>(cb._detail())->getBindGroupEntry();
 		entry.binding = slot;
 
-		m_currentShaderConstants[slot] = entry;
+		auto iter = std::find_if(
+			m_currentPSConstants.begin(), m_currentPSConstants.end(),
+			[=](const wgpu::BindGroupEntry& v) -> bool
+			{ 
+				return v.binding == slot;
+			}
+		);
+
+		if (iter != m_currentPSConstants.end())
+		{
+			*iter = entry;
+		}
+		else
+		{
+			m_currentPSConstants << entry;
+		}
+	}
+
+	void CShader_WebGPU::resetConstantBufferVS()
+	{
+		m_currentVSConstants.clear();
+	}
+
+	void CShader_WebGPU::resetConstantBufferPS()
+	{
+		m_currentPSConstants.clear();
 	}
 
 	const PixelShader& CShader_WebGPU::getEnginePS(const EnginePS ps) const
@@ -206,21 +246,22 @@ namespace s3d
 		return m_pixelShaders[handleID]->getShaderModule();
 	}
 
-	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
+	wgpu::BindGroupLayout CShader_WebGPU::getBindingGroupVS(VertexShader::IDType handleID)
 	{
-		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState, {});
+		return m_vertexShaders[handleID]->getBindingGroup();
+	}
 
-		wgpu::BindGroupDescriptor uniformDesc
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentUniforms.data(),
-			.entryCount = m_currentUniforms.size()
-		};
+	wgpu::BindGroupLayout CShader_WebGPU::getBindingGroupPS(PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getBindingGroup();
+	}
 
-		auto m_uniform = m_device->CreateBindGroup(&uniformDesc);
-
+	wgpu::RenderPipeline CShader_WebGPU::usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute)
+	{
+		auto pipeline = m_pipeline.getPipeline(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState, attribute);
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_uniform);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentUniforms);
 
 		return pipeline;
 	}
@@ -228,18 +269,10 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard2DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState);
-
-		wgpu::BindGroupDescriptor constantsDesc
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentShaderConstants.data(),
-			.entryCount = 2
-		};
-
-		auto m_constantsUniform = m_device->CreateBindGroup(&constantsDesc);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniform);
+		
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, m_currentPSConstants);
 
 		return pipeline;
 	}
@@ -247,18 +280,21 @@ namespace s3d
 	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
 	{
 		auto pipeline = m_pipeline.getPipelineWithStandard3DVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
-
-		wgpu::BindGroupDescriptor constantsDesc
-		{
-			.layout = pipeline.GetBindGroupLayout(0),
-			.entries = m_currentShaderConstants.data(),
-			.entryCount = 5
-		};
-
-		auto m_constantsUniform = m_device->CreateBindGroup(&constantsDesc);
-
 		pass.SetPipeline(pipeline);
-		pass.SetBindGroup(0, m_constantsUniform);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, m_currentPSConstants);
+
+		return pipeline;
+	}
+
+	wgpu::RenderPipeline CShader_WebGPU::usePipelineWithStandard3DLineVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState)
+	{
+		auto pipeline = m_pipeline.getPipelineWithStandard3DLineVertexLayout(m_currentVS, m_currentPS, rasterizerState, blendState, renderTargetState, depthStencilState);
+		pass.SetPipeline(pipeline);
+
+		m_bindGroups.bindUniformBindGroup(pass, 0, pipeline, m_currentVSConstants);
+		m_bindGroups.bindUniformBindGroup(pass, 1, pipeline, {});
 
 		return pipeline;
 	}

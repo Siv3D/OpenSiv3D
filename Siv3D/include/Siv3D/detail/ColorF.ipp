@@ -262,7 +262,7 @@ namespace s3d
 		return Max({ r, g, b ,a });
 	}
 
-	inline constexpr ColorF ColorF::lerp(const ColorF& other, double f) const noexcept
+	inline constexpr ColorF ColorF::lerp(const ColorF& other, const double f) const noexcept
 	{
 		return{ r + (other.r - r) * f,
 				g + (other.g - g) * f,
@@ -270,7 +270,7 @@ namespace s3d
 				a + (other.a - a) * f };
 	}
 
-	inline ColorF ColorF::gamma(double gamma) const noexcept
+	inline ColorF ColorF::gamma(const double gamma) const noexcept
 	{
 		if (gamma <= 0.0)
 		{

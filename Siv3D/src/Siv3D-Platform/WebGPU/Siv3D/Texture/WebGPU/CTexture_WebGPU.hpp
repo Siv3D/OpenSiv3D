@@ -91,6 +91,8 @@ namespace s3d
 
 		wgpu::Texture getTexture(Texture::IDType handleID);
 
+		wgpu::TextureView getTextureView(Texture::IDType handleID);
+
 		wgpu::RenderPassEncoder begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder);
 
 		WebGPURenderTargetState getRenderTargetState(Texture::IDType handleID);

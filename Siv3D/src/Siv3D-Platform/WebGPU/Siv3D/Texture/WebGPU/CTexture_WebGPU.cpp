@@ -31,7 +31,7 @@ namespace s3d
 
 	void CTexture_WebGPU::init()
 	{
-		auto pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
+		auto pRenderer = static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
 		m_device = pRenderer->getDevice();
 
 		// null Texture を管理に登録
@@ -379,6 +379,11 @@ namespace s3d
 	wgpu::Texture CTexture_WebGPU::getTexture(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getTexture();
+	}
+
+	wgpu::TextureView CTexture_WebGPU::getTextureView(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getTextureView();
 	}
 
 	wgpu::RenderPassEncoder CTexture_WebGPU::begin(Texture::IDType handleID, const wgpu::CommandEncoder& encoder)

@@ -24,6 +24,25 @@ namespace s3d
 			wgpu::AddressMode::ClampToEdge,
 			wgpu::AddressMode::ClampToEdge
 		};
+
+		static size_t calculateHash(ShaderStage stage, const s3d::Array<wgpu::BindGroupEntry>& values)
+        {
+            size_t hashed = std::hash<uint8>{}(FromEnum(stage));
+
+            for (const auto& value : values)
+            {
+				if (const auto& sampler = value.sampler; sampler != nullptr)
+				{
+                	s3d::Hash::Combine(hashed, std::hash<decltype(sampler.Get())>{}(sampler.Get()));
+				}
+				else if (const auto& texture = value.textureView; texture != nullptr)
+				{
+                	s3d::Hash::Combine(hashed, std::hash<decltype(texture.Get())>{}(texture.Get()));
+				}
+            }
+
+            return hashed;
+        }
 	}
 
 	static const SamplerState NullSamplerState(TextureAddressMode::Repeat,
@@ -104,7 +123,7 @@ namespace s3d
 		m_currentPSStates[slot] = NullSamplerState;
 	}
 
-	void WebGPUSamplerState::setVSTexture(const uint32 slot, wgpu::Texture texture)
+	void WebGPUSamplerState::setVSTexture(const uint32 slot, wgpu::TextureView texture)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -118,7 +137,7 @@ namespace s3d
 		m_currentVSTextures[slot] = nullptr;
 	}
 
-	void WebGPUSamplerState::setPSTexture(const uint32 slot, wgpu::Texture texture)
+	void WebGPUSamplerState::setPSTexture(const uint32 slot, wgpu::TextureView texture)
 	{
 		assert(slot < SamplerState::MaxSamplerCount);
 
@@ -153,20 +172,27 @@ namespace s3d
 					vsBindings << wgpu::BindGroupEntry
 					{
 						.binding = 2 * i + 1,
-						.textureView = texture.CreateView()
+						.textureView = texture
 					};
 				}
 			}
 
-			wgpu::BindGroupDescriptor constantsDesc
-			{
-				.layout = pipeline.GetBindGroupLayout(2),
-				.entries = vsBindings.data(),
-				.entryCount = vsBindings.size()
-			};
+			auto hashed = detail::calculateHash(ShaderStage::Vertex, vsBindings);
 
-			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(2, m_constantsUniform);
+			if (m_bindGroups.find(hashed) == m_bindGroups.end())
+			{
+				wgpu::BindGroupDescriptor constantsDesc
+				{
+					.layout = pipeline.GetBindGroupLayout(3),
+					.entries = vsBindings.data(),
+					.entryCount = vsBindings.size()
+				};
+
+				auto constantsUniform = device->CreateBindGroup(&constantsDesc);
+				m_bindGroups.emplace(hashed, constantsUniform);
+			}
+
+			pass.SetBindGroup(3, m_bindGroups.find(hashed)->second);
 		}
 
 		{
@@ -188,20 +214,27 @@ namespace s3d
 					psBindings << wgpu::BindGroupEntry
 					{
 						.binding = 2 * i + 1,
-						.textureView = texture.CreateView()
+						.textureView = texture
 					};
 				}
 			}
 
-			wgpu::BindGroupDescriptor constantsDesc
-			{
-				.layout = pipeline.GetBindGroupLayout(1),
-				.entries = psBindings.data(),
-				.entryCount = psBindings.size()
-			};
+			auto hashed = detail::calculateHash(ShaderStage::Pixel, psBindings);
 
-			auto m_constantsUniform = device->CreateBindGroup(&constantsDesc);
-			pass.SetBindGroup(1, m_constantsUniform);
+			if (m_bindGroups.find(hashed) == m_bindGroups.end())
+			{
+				wgpu::BindGroupDescriptor constantsDesc
+				{
+					.layout = pipeline.GetBindGroupLayout(2),
+					.entries = psBindings.data(),
+					.entryCount = psBindings.size()
+				};
+
+				auto constantsUniform = device->CreateBindGroup(&constantsDesc);
+				m_bindGroups.emplace(hashed, constantsUniform);
+			}
+
+			pass.SetBindGroup(2, m_bindGroups.find(hashed)->second);
 		}
 	}
 

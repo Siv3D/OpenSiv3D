@@ -86,7 +86,7 @@ namespace s3d
 			
 			if (!m_window)
 			{
-				throw EngineError(U"glfwCreateWindow() failed");
+				throw EngineError(U"glfwCreateWindow() failed. Your browser seems not to support WebGL 2.0, please enable WebGL 2.0.");
 			}
 		}
 		
