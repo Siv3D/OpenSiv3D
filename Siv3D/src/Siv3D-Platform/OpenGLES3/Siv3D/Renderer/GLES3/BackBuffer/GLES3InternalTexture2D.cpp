@@ -69,7 +69,7 @@ namespace s3d
 
 		if (m_hasDepth)
 		{
-			if (auto p = dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer)))
+			auto p = static_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer));
 			{
 				p->getDepthStencilState().set(DepthStencilState::Default3D);
 			}

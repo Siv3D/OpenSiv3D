@@ -11,7 +11,6 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
-# include <Siv3D/Common/OpenGL.hpp>
 # include <Siv3D/Blob.hpp>
 # include <Siv3D/Shader.hpp>
 # include <Siv3D/ShaderStage.hpp>
@@ -21,6 +20,7 @@
 # include "VertexShader/WebGPUVertexShader.hpp"
 # include "PixelShader/WebGPUPixelShader.hpp"
 # include "ShaderPipeline/WebGPUShaderPipeline.hpp"
+# include "UniformState/WebGPUUniformState.hpp"
 
 # include <webgpu/webgpu_cpp.h>
 
@@ -66,19 +66,29 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
 
+		void resetConstantBufferVS();
+
+		void resetConstantBufferPS();
+
 		const PixelShader& getEnginePS(EnginePS ps) const override;
 
-		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
+		wgpu::RenderPipeline usePipeline(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute);
 
 		wgpu::RenderPipeline usePipelineWithStandard2DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState);
 		
 		wgpu::RenderPipeline usePipelineWithStandard3DVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
+
+		wgpu::RenderPipeline usePipelineWithStandard3DLineVertexLayout(const wgpu::RenderPassEncoder& pass, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
 
 		void setUniform(const Array<wgpu::BindGroupEntry>& uniforms);
 
 		wgpu::ShaderModule getShaderModuleVS(VertexShader::IDType handleID);
 
 		wgpu::ShaderModule getShaderModulePS(PixelShader::IDType handleID);
+
+		wgpu::BindGroupLayout getBindingGroupVS(VertexShader::IDType handleID);
+
+		wgpu::BindGroupLayout getBindingGroupPS(PixelShader::IDType handleID);
 
 	private:
 
@@ -97,12 +107,16 @@ namespace s3d
 
 		wgpu::RenderPipeline m_currentPipeline;
 
-		std::array<wgpu::BindGroupEntry, 5> m_currentShaderConstants;
+		Array<wgpu::BindGroupEntry> m_currentVSConstants;
+
+		Array<wgpu::BindGroupEntry> m_currentPSConstants;
 
 		Array<wgpu::BindGroupEntry> m_currentUniforms;
 
 		// シェーダプログラム (VS と PS のペア) の管理
 		WebGPUShaderPipeline m_pipeline;
+
+		WebGPUUniformState m_bindGroups;
 
 		wgpu::Device* m_device;
 	};

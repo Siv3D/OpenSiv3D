@@ -1,13 +1,6 @@
-//-----------------------------------------------
-//
-//	This file is part of the Siv3D Engine.
-//
-//	Copyright (c) 2008-2021 Ryo Suzuki
-//	Copyright (c) 2016-2021 OpenSiv3D Project
-//
+//	Copyright (c) 2008-2021 Ryo Suzuki.
+//	Copyright (c) 2016-2021 OpenSiv3D Project.
 //	Licensed under the MIT License.
-//
-//-----------------------------------------------
 
 //
 //	Constant Buffer
@@ -21,14 +14,14 @@
 	unused: vec4<f32>;
 };
 
-[[group(0), binding(1)]]
+[[group(1), binding(0)]]
 var<uniform> PSConstants2D: PSConstants2DStruct;
 
 //
 //	Textures
 //
-[[group(1), binding(0)]] var Sampler0: sampler;
-[[group(1), binding(1)]] var Texture0: texture_2d<f32>;
+[[group(2), binding(0)]] var Sampler0: sampler;
+[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
 
 //
 //	Functions

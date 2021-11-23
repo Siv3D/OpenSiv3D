@@ -43,19 +43,17 @@ namespace s3d
 
 		WebGPUVertexAttribute m_standard2DVertexAttributes;
 
-		wgpu::PipelineLayout m_standard2DPipelineLayout;
-
 		WebGPUVertexAttribute m_standard3DVertexAttributes;
 
-		wgpu::PipelineLayout m_standard3DPipelineLayout;
+		WebGPUVertexAttribute m_standard3DLineVertexAttributes;
+
+		Array<wgpu::BindGroupLayout> m_standardSamplerBindingGroup;
 
 		wgpu::Device m_device = nullptr;
 
 		CShader_WebGPU* pShader = nullptr;
 
-		void initializeStandard2DPipeline(const wgpu::Device& device);
-
-		void initializeStandard3DPipeline(const wgpu::Device& device);
+		void initializeSamplerBindingGroup(const wgpu::Device& device);
 
 	public:
 		
@@ -65,11 +63,13 @@ namespace s3d
 
 		void init(const wgpu::Device& device);
 
-		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, const wgpu::PipelineLayout* pipelineLayout = nullptr);
+		wgpu::RenderPipeline getPipeline(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState, const WebGPUVertexAttribute& attribute, wgpu::PrimitiveTopology topology = wgpu::PrimitiveTopology::TriangleList, bool overridePipelineLayout = false);
 
 		wgpu::RenderPipeline getPipelineWithStandard2DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState);
 
 		wgpu::RenderPipeline getPipelineWithStandard3DVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
+
+		wgpu::RenderPipeline getPipelineWithStandard3DLineVertexLayout(VertexShader::IDType vertexShader, PixelShader::IDType pixelShader, RasterizerState rasterizerState, BlendState blendState, WebGPURenderTargetState renderTargetState, DepthStencilState depthStencilState);
 	};
 }
 

@@ -514,7 +514,7 @@ mergeInto(LibraryManager.library, {
     $siv3dRegisterUserAction: function(func) {
         siv3dPendingUserActions.push(func);
     },
-    $siv3dRegisterUserAction__deps: [ "$siv3dPendingUserActions" ],
+    $siv3dRegisterUserAction__deps: [ "$siv3dPendingUserActions", "$autoResumeAudioContext", "$dynCall" ],
 
     $siv3dUserActionHookCallBack: function() {
         if (!siv3dHasUserActionTriggered) {
@@ -1026,6 +1026,27 @@ mergeInto(LibraryManager.library, {
     },
     siv3dLaunchBrowser__sig: "vi",
     siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
+
+    siv3dGetURLParameters: function() {
+        const params = new URL(document.location).searchParams.entries();
+        const paramStrs = [];
+        
+        for (const param of params)
+        {
+            paramStrs.push(...param);
+        }
+
+        const dataPos = (Module["_malloc"](4 * (paramStrs.length + 1))) / 4;
+        HEAPU32.fill(0, dataPos, dataPos + paramStrs.length + 1);
+
+        for (let i = 0; i < paramStrs.length; i++)
+        {
+            HEAP32[dataPos + i] = allocate(intArrayFromString(paramStrs[i]), ALLOC_NORMAL);
+        }
+
+        return dataPos * 4; // dataPos * sizeof(uint32_t)
+    },
+    siv3dGetURLParameters__sig: "iv",
 
     siv3dWebGPUConfigureSwapchain: function(deviceId, swapChainId, descriptor) {
         var device = WebGPU["mgrDevice"].get(deviceId);

@@ -25,8 +25,8 @@ if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_XM_NO_INTRINSICS_")
 endif ()
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s USE_SDL=2 --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-export-dynamic -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_OGG=1 -s USE_LIBPNG=1  -s USE_VORBIS=1")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/../Siv3D.pre.js")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js")
@@ -71,19 +71,27 @@ endif()
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
-add_executable(Siv3DTest
-  Main.cpp
-  ../../Test/Siv3DTest.cpp
-  ../../Test/Siv3DTest_Array.cpp
-  ../../Test/Siv3DTest_BinaryReader.cpp
-  ../../Test/Siv3DTest_BinaryWriter.cpp
-#  ../../Test/Siv3DTest_FileSystem.cpp
-  ../../Test/Siv3DTest_Image.cpp
-  ../../Test/Siv3DTest_Resource.cpp
-  ../../Test/Siv3DTest_TextEncoding.cpp
-  ../../Test/Siv3DTest_TextReader.cpp
-  ../../Test/Siv3DTest_TextWriter.cpp
+
+if (SIV3D_RUN_TEST_ON_NODE)
+  add_executable(Siv3DTest
+    Main.cpp
+    ../../Test/Siv3DTest.cpp
+    ../../Test/Siv3DTest_Array.cpp
+    ../../Test/Siv3DTest_BinaryReader.cpp
+    ../../Test/Siv3DTest_BinaryWriter.cpp
+  #  ../../Test/Siv3DTest_FileSystem.cpp
+    ../../Test/Siv3DTest_Image.cpp
+    ../../Test/Siv3DTest_Resource.cpp
+    ../../Test/Siv3DTest_TextEncoding.cpp
+    ../../Test/Siv3DTest_TextReader.cpp
+    ../../Test/Siv3DTest_TextWriter.cpp
+    )
+else ()
+  add_executable(Siv3DTest
+    Main.cpp
   )
+endif()
+
 target_include_directories(Siv3DTest PRIVATE
   "../../Siv3D/include"
   "../../Siv3D/include/ThirdParty"
@@ -124,6 +132,8 @@ else ()
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopusfile.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopus.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/tiff/libtiff.a
+
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/SDL2/libSDL2.a
     )
 
 endif ()

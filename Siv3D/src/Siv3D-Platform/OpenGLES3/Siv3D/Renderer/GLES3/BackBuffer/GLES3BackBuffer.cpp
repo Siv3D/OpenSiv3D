@@ -20,7 +20,7 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"GLES3BackBuffer::GLES3BackBuffer()");
 
-		pRenderer2D = dynamic_cast<CRenderer2D_GLES3*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer2D = static_cast<CRenderer2D_GLES3*>(SIV3D_ENGINE(Renderer2D));
 
 		m_sceneSize = Window::GetState().virtualSize;
 
