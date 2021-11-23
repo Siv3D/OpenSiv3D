@@ -19,6 +19,9 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
+# To fix link error related to BLAS and LAPACK
+add_link_options(-Wl,-rpath-link=${CMAKE_SYSROOT}/usr/lib/aarch64-linux-gnu/blas -Wl,-rpath-link=${CMAKE_SYSROOT}/usr/lib/aarch64-linux-gnu/lapack)
+
 # pkg-configがaarch64用のライブラリを検索するように設定
 # 参考：https://stackoverflow.com/questions/9221236/pkg-config-fails-to-find-package-under-sysroot-directory
 set(ENV{PKG_CONFIG_DIR} "")
