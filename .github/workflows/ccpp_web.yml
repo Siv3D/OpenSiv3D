@@ -73,7 +73,7 @@ jobs:
         id: cache_siv3d_library
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-library
+          cache-name: cache-siv3d-library-1
         with:
           path: Web/build
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
@@ -110,6 +110,7 @@ jobs:
           cp Web/build/${{ matrix.config.output-file }} Package/lib
           cp Web/Siv3D.js Package/lib
           cp Web/Siv3D.pre.js Package/lib
+          cp Web/Siv3D.post.js Package/lib
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
