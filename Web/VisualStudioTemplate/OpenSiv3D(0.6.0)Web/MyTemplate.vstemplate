@@ -96,47 +96,6 @@
       <ProjectItem ReplaceParameters="false" TargetFileName="terrain_forward.frag">example/shader/essl/terrain_forward.frag</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="terrain_forward.vert">example/shader/essl/terrain_forward.vert</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="terrain_normal.frag">example/shader/essl/terrain_normal.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default2D.vert">example/shader/glsl/default2D.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default2d_shape.frag">example/shader/glsl/default2d_shape.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default2d_texture.frag">example/shader/glsl/default2d_texture.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default3d_forward.frag">example/shader/glsl/default3d_forward.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default3d_forward.vert">example/shader/glsl/default3d_forward.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="extract_bright_linear.frag">example/shader/glsl/extract_bright_linear.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward_fog.frag">example/shader/glsl/forward_fog.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward_triplanar.frag">example/shader/glsl/forward_triplanar.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="game_of_life.frag">example/shader/glsl/game_of_life.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="grayscale.frag">example/shader/glsl/grayscale.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="homography.frag">example/shader/glsl/homography.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="homography.vert">example/shader/glsl/homography.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="multi_texture_blend.frag">example/shader/glsl/multi_texture_blend.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="multi_texture_mask.frag">example/shader/glsl/multi_texture_mask.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="poisson_disk.frag">example/shader/glsl/poisson_disk.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="posterize.frag">example/shader/glsl/posterize.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="rgb_shift.frag">example/shader/glsl/rgb_shift.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="rgb_to_bgr.frag">example/shader/glsl/rgb_to_bgr.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="soft_shape.vert">example/shader/glsl/soft_shape.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="swirl.frag">example/shader/glsl/swirl.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="terrain_forward.frag">example/shader/glsl/terrain_forward.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="terrain_forward.vert">example/shader/glsl/terrain_forward.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="terrain_normal.frag">example/shader/glsl/terrain_normal.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default2d.hlsl">example/shader/hlsl/default2d.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="default3d_forward.hlsl">example/shader/hlsl/default3d_forward.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="extract_bright_linear.hlsl">example/shader/hlsl/extract_bright_linear.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward_fog.hlsl">example/shader/hlsl/forward_fog.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward_triplanar.hlsl">example/shader/hlsl/forward_triplanar.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="game_of_life.hlsl">example/shader/hlsl/game_of_life.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="grayscale.hlsl">example/shader/hlsl/grayscale.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="homography.hlsl">example/shader/hlsl/homography.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="multi_texture_blend.hlsl">example/shader/hlsl/multi_texture_blend.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="multi_texture_mask.hlsl">example/shader/hlsl/multi_texture_mask.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="poisson_disk.hlsl">example/shader/hlsl/poisson_disk.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="posterize.hlsl">example/shader/hlsl/posterize.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="rgb_shift.hlsl">example/shader/hlsl/rgb_shift.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="rgb_to_bgr.hlsl">example/shader/hlsl/rgb_to_bgr.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="soft_shape.hlsl">example/shader/hlsl/soft_shape.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="swirl.hlsl">example/shader/hlsl/swirl.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="terrain_forward.hlsl">example/shader/hlsl/terrain_forward.hlsl</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="terrain_normal.hlsl">example/shader/hlsl/terrain_normal.hlsl</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="default2d.vert.wgsl">example/shader/wgsl/default2d.vert.wgsl</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="default2d_shape.frag.wgsl">example/shader/wgsl/default2d_shape.frag.wgsl</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="default2d_texture.frag.wgsl">example/shader/wgsl/default2d_texture.frag.wgsl</ProjectItem>
@@ -234,32 +193,6 @@
       <ProjectItem ReplaceParameters="false" TargetFileName="sprite.vert">resources/engine/shader/essl/sprite.vert</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="square_dot.frag">resources/engine/shader/essl/square_dot.frag</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="texture.frag">resources/engine/shader/essl/texture.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="apply_srgb_curve.frag">resources/engine/shader/glsl/apply_srgb_curve.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="bitmapfont.frag">resources/engine/shader/glsl/bitmapfont.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="copy.frag">resources/engine/shader/glsl/copy.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward3d.frag">resources/engine/shader/glsl/forward3d.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="forward3d.vert">resources/engine/shader/glsl/forward3d.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="fullscreen_triangle.frag">resources/engine/shader/glsl/fullscreen_triangle.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="fullscreen_triangle.vert">resources/engine/shader/glsl/fullscreen_triangle.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="gaussian_blur_9.frag">resources/engine/shader/glsl/gaussian_blur_9.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="line3d.frag">resources/engine/shader/glsl/line3d.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="line3d.vert">resources/engine/shader/glsl/line3d.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="linear_to_screen.frag">resources/engine/shader/glsl/linear_to_screen.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="msdffont.frag">resources/engine/shader/glsl/msdffont.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="msdffont_outline.frag">resources/engine/shader/glsl/msdffont_outline.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="msdffont_outlineshadow.frag">resources/engine/shader/glsl/msdffont_outlineshadow.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="msdffont_shadow.frag">resources/engine/shader/glsl/msdffont_shadow.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="msdfprint.frag">resources/engine/shader/glsl/msdfprint.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="round_dot.frag">resources/engine/shader/glsl/round_dot.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sdffont.frag">resources/engine/shader/glsl/sdffont.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sdffont_outline.frag">resources/engine/shader/glsl/sdffont_outline.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sdffont_outlineshadow.frag">resources/engine/shader/glsl/sdffont_outlineshadow.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sdffont_shadow.frag">resources/engine/shader/glsl/sdffont_shadow.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="shape.frag">resources/engine/shader/glsl/shape.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sky.frag">resources/engine/shader/glsl/sky.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="sprite.vert">resources/engine/shader/glsl/sprite.vert</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="square_dot.frag">resources/engine/shader/glsl/square_dot.frag</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="texture.frag">resources/engine/shader/glsl/texture.frag</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="apply_srgb_curve.frag.wgsl">resources/engine/shader/wgsl/apply_srgb_curve.frag.wgsl</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="bitmapfont.frag.wgsl">resources/engine/shader/wgsl/bitmapfont.frag.wgsl</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="copy.frag.wgsl">resources/engine/shader/wgsl/copy.frag.wgsl</ProjectItem>
