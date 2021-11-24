@@ -129,175 +129,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="example\csv\config.csv">
-      <Filter>Resource Files\example\csv</Filter>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="example\geojson\countries.geojson">
-      <Filter>Resource Files\example\geojson</Filter>
-    </None>
-    <None Include="example\font\DotGothic16\README.md">
-      <Filter>Resource Files\example\font\DotGothic16</Filter>
-    </None>
-    <None Include="example\font\DotGothic16\README-JP.md">
-      <Filter>Resource Files\example\font\DotGothic16</Filter>
-    </None>
-    <None Include="example\font\RocknRoll\README.md">
-      <Filter>Resource Files\example\font\RocknRoll</Filter>
-    </None>
-    <None Include="example\font\RocknRoll\README-JP.md">
-      <Filter>Resource Files\example\font\RocknRoll</Filter>
-    </None>
-    <None Include="example\ini\config.ini">
-      <Filter>Resource Files\example\ini</Filter>
-    </None>
-    <None Include="example\json\config.json">
-      <Filter>Resource Files\example\json</Filter>
-    </None>
-    <None Include="example\json\empty.json">
-      <Filter>Resource Files\example\json</Filter>
-    </None>
-    <None Include="example\json\invalid-blank.json">
-      <Filter>Resource Files\example\json</Filter>
-    </None>
-    <None Include="example\json\invalid-syntax.json">
-      <Filter>Resource Files\example\json</Filter>
-    </None>
-    <None Include="example\json\test.json">
-      <Filter>Resource Files\example\json</Filter>
-    </None>
-    <None Include="example\midi\test.mid">
-      <Filter>Resource Files\example\midi</Filter>
-    </None>
-    <None Include="example\obj\pine.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\siv3d-kun.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\tree.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\blacksmith.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\crystal1.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\crystal2.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\crystal3.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\mill.mtl">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\script\breakout.as">
-      <Filter>Resource Files\example\script</Filter>
-    </None>
-    <None Include="example\script\hello.as">
-      <Filter>Resource Files\example\script</Filter>
-    </None>
-    <None Include="example\script\paint.as">
-      <Filter>Resource Files\example\script</Filter>
-    </None>
-    <None Include="example\script\piano.as">
-      <Filter>Resource Files\example\script</Filter>
-    </None>
-    <None Include="example\script\test.as">
-      <Filter>Resource Files\example\script</Filter>
-    </None>
-    <None Include="example\shader\essl\game_of_life.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\grayscale.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\homography.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\homography.vert">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\multi_texture_blend.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\multi_texture_mask.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\poisson_disk.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\posterize.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\rgb_shift.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\rgb_to_bgr.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\soft_shape.vert">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\swirl.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\terrain_forward.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\terrain_forward.vert">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\terrain_normal.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\default2d.vert">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\default2d_shape.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\default2d_texture.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\default3d_forward.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\default3d_forward.vert">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\extract_bright_linear.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\forward_fog.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\shader\essl\forward_triplanar.frag">
-      <Filter>Resource Files\example\shader\essl</Filter>
-    </None>
-    <None Include="example\svg\cat.svg">
-      <Filter>Resource Files\example\svg</Filter>
-    </None>
-    <None Include="example\svg\turtle.svg">
-      <Filter>Resource Files\example\svg</Filter>
-    </None>
-    <None Include="example\toml\config.toml">
-      <Filter>Resource Files\example\toml</Filter>
-    </None>
-    <None Include="example\toml\test.toml">
-      <Filter>Resource Files\example\toml</Filter>
-    </None>
-    <None Include="example\zip\zip_test.zip">
-      <Filter>Resource Files\example\zip</Filter>
+    <None Include="resources\engine\font\fontawesome\LICENSE.txt">
+      <Filter>Resource Files\resources\engine\font\fontawesome</Filter>
     </None>
     <None Include="resources\engine\font\fontawesome\fontawesome-brands.otf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\fontawasome</Filter>
+      <Filter>Resource Files\resources\engine\font\fontawesome</Filter>
     </None>
     <None Include="resources\engine\font\fontawesome\fontawesome-solid.otf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\fontawasome</Filter>
+      <Filter>Resource Files\resources\engine\font\fontawesome</Filter>
+    </None>
+    <None Include="resources\engine\font\materialdesignicons\LICENSE">
+      <Filter>Resource Files\resources\engine\font\materialdesignicons</Filter>
     </None>
     <None Include="resources\engine\font\materialdesignicons\license.md">
       <Filter>Resource Files\resources\engine\font\materialdesignicons</Filter>
@@ -305,17 +147,11 @@
     <None Include="resources\engine\font\materialdesignicons\materialdesignicons-webfont.ttf.zstdcmp">
       <Filter>Resource Files\resources\engine\font\materialdesignicons</Filter>
     </None>
-    <None Include="resources\engine\font\mplus\mplus-1p-light.ttf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    <None Include="resources\engine\font\min\LICENSE">
+      <Filter>Resource Files\resources\engine\font\min</Filter>
     </None>
-    <None Include="resources\engine\font\mplus\mplus-1p-medium.ttf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\mplus</Filter>
-    </None>
-    <None Include="resources\engine\font\mplus\mplus-1p-regular.ttf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\mplus</Filter>
-    </None>
-    <None Include="resources\engine\font\mplus\mplus-1p-thin.ttf.zstdcmp">
-      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    <None Include="resources\engine\font\min\siv3d-min.woff">
+      <Filter>Resource Files\resources\engine\font\min</Filter>
     </None>
     <None Include="resources\engine\font\mplus\LICENSE_E">
       <Filter>Resource Files\resources\engine\font\mplus</Filter>
@@ -327,6 +163,18 @@
       <Filter>Resource Files\resources\engine\font\mplus</Filter>
     </None>
     <None Include="resources\engine\font\mplus\mplus-1p-heavy.ttf.zstdcmp">
+      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    </None>
+    <None Include="resources\engine\font\mplus\mplus-1p-light.ttf.zstdcmp">
+      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    </None>
+    <None Include="resources\engine\font\mplus\mplus-1p-medium.ttf.zstdcmp">
+      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    </None>
+    <None Include="resources\engine\font\mplus\mplus-1p-regular.ttf.zstdcmp">
+      <Filter>Resource Files\resources\engine\font\mplus</Filter>
+    </None>
+    <None Include="resources\engine\font\mplus\mplus-1p-thin.ttf.zstdcmp">
       <Filter>Resource Files\resources\engine\font\mplus</Filter>
     </None>
     <None Include="resources\engine\font\noto-cjk\LICENSE">
@@ -346,6 +194,93 @@
     </None>
     <None Include="resources\engine\font\noto-emoji\NotoEmoji-Regular.ttf.zstdcmp">
       <Filter>Resource Files\resources\engine\font\noto-emoji</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\apply_srgb_curve.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\bitmapfont.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\copy.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\forward3d.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\forward3d.vert">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\fullscreen_triangle.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\fullscreen_triangle.vert">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\gaussian_blur_9.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\line3d.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\line3d.vert">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\msdffont.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\msdffont_outline.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\msdffont_outlineshadow.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\msdffont_shadow.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\msdfprint.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\round_dot.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sdffont.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sdffont_outline.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sdffont_outlineshadow.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sdffont_shadow.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\shape.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sky.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\sprite.vert">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\square_dot.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\essl\texture.frag">
+      <Filter>Resource Files\resources\engine\shader\essl</Filter>
+    </None>
+    <None Include="resources\engine\shader\glsl\apply_srgb_curve.frag">
+      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\glsl\bitmapfont.frag">
+      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\glsl\copy.frag">
+      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\glsl\forward3d.frag">
+      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
     </None>
     <None Include="resources\engine\shader\glsl\forward3d.vert">
       <Filter>Resource Files\resources\engine\shader\glsl</Filter>
@@ -413,204 +348,609 @@
     <None Include="resources\engine\shader\glsl\texture.frag">
       <Filter>Resource Files\resources\engine\shader\glsl</Filter>
     </None>
-    <None Include="resources\engine\shader\glsl\apply_srgb_curve.frag">
-      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    <None Include="resources\engine\shader\wgsl\apply_srgb_curve.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
     </None>
-    <None Include="resources\engine\shader\glsl\bitmapfont.frag">
-      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    <None Include="resources\engine\shader\wgsl\bitmapfont.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
     </None>
-    <None Include="resources\engine\shader\glsl\copy.frag">
-      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    <None Include="resources\engine\shader\wgsl\copy.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
     </None>
-    <None Include="resources\engine\shader\glsl\forward3d.frag">
-      <Filter>Resource Files\resources\engine\shader\glsl</Filter>
+    <None Include="resources\engine\shader\wgsl\forward3d.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\forward3d.vert.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\fullscreen_triangle.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\fullscreen_triangle.vert.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\gaussian_blur_9.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\line3d.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\line3d.vert.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\linear_to_screen.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\msdffont.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\msdffont_outline.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\msdffont_outlineshadow.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\msdffont_shadow.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\msdfprint.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\round_dot.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sdffont.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sdffont_outline.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sdffont_outlineshadow.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sdffont_shadow.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\shape.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sky.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\sprite.vert.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\square_dot.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\shader\wgsl\texture.frag.wgsl">
+      <Filter>Resource Files\resources\engine\shader\wgsl</Filter>
+    </None>
+    <None Include="resources\engine\soundfont\GMGSx.sf2.txt">
+      <Filter>Resource Files\resources\engine\soundfont</Filter>
     </None>
     <None Include="resources\engine\soundfont\GMGSx.sf2.zstdcmp">
       <Filter>Resource Files\resources\engine\soundfont</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="example\font\DotGothic16\DotGothic16-Regular.ttf">
-      <Filter>Resource Files\example\font\DotGothic16</Filter>
-    </Font>
-    <Font Include="example\font\RocknRoll\RocknRollOne-Regular.ttf">
-      <Filter>Resource Files\example\font\RocknRoll</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="example\font\DotGothic16\OFL.txt">
-      <Filter>Resource Files\example\font\DotGothic16</Filter>
-    </Text>
-    <Text Include="example\font\RocknRoll\OFL.txt">
-      <Filter>Resource Files\example\font\RocknRoll</Filter>
-    </Text>
-    <Text Include="example\midi\test.txt">
-      <Filter>Resource Files\example\midi</Filter>
-    </Text>
-    <Text Include="example\obj\credit.txt">
-      <Filter>Resource Files\example\obj</Filter>
-    </Text>
-    <Text Include="example\spritesheet\siv3d-kun-16.txt">
-      <Filter>Resource Files\example\spritesheet</Filter>
-    </Text>
-    <Text Include="example\svg\README.txt">
-      <Filter>Resource Files\example\svg</Filter>
-    </Text>
-    <Text Include="example\texture\credit.txt">
-      <Filter>Resource Files\example\texture</Filter>
-    </Text>
-    <Text Include="example\txt\en.txt">
-      <Filter>Resource Files\example\txt</Filter>
-    </Text>
-    <Text Include="example\txt\jp.txt">
-      <Filter>Resource Files\example\txt</Filter>
-    </Text>
-    <Text Include="example\txt\kr.txt">
-      <Filter>Resource Files\example\txt</Filter>
-    </Text>
-    <Text Include="example\txt\sc.txt">
-      <Filter>Resource Files\example\txt</Filter>
-    </Text>
-    <Text Include="example\video\river.txt">
-      <Filter>Resource Files\example\video</Filter>
-    </Text>
-    <Text Include="example\LICENSE.txt">
+    <None Include="resources\engine\texture\box-shadow\128.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="resources\engine\texture\box-shadow\16.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="resources\engine\texture\box-shadow\256.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="resources\engine\texture\box-shadow\32.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="resources\engine\texture\box-shadow\64.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="resources\engine\texture\box-shadow\8.png">
+      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
+    </None>
+    <None Include="example\LICENSE.txt">
       <Filter>Resource Files\example</Filter>
-    </Text>
-    <Text Include="resources\engine\font\fontawesome\LICENSE.txt">
-      <Filter>Resource Files\resources\engine\font\fontawasome</Filter>
-    </Text>
-    <Text Include="resources\engine\soundfont\GMGSx.sf2.txt">
-      <Filter>Resource Files\resources\engine\soundfont</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="example\gif\test.gif">
+    </None>
+    <None Include="example\bay.jpg">
+      <Filter>Resource Files\example</Filter>
+    </None>
+    <None Include="example\csv\config.csv">
+      <Filter>Resource Files\example\csv</Filter>
+    </None>
+    <None Include="example\font\DotGothic16\DotGothic16-Regular.ttf">
+      <Filter>Resource Files\example\font\DotGothic16</Filter>
+    </None>
+    <None Include="example\font\DotGothic16\OFL.txt">
+      <Filter>Resource Files\example\font\DotGothic16</Filter>
+    </None>
+    <None Include="example\font\DotGothic16\README-JP.md">
+      <Filter>Resource Files\example\font\DotGothic16</Filter>
+    </None>
+    <None Include="example\font\DotGothic16\README.md">
+      <Filter>Resource Files\example\font\DotGothic16</Filter>
+    </None>
+    <None Include="example\font\RocknRoll\OFL.txt">
+      <Filter>Resource Files\example\font\RocknRoll</Filter>
+    </None>
+    <None Include="example\font\RocknRoll\README-JP.md">
+      <Filter>Resource Files\example\font\RocknRoll</Filter>
+    </None>
+    <None Include="example\font\RocknRoll\README.md">
+      <Filter>Resource Files\example\font\RocknRoll</Filter>
+    </None>
+    <None Include="example\font\RocknRoll\RocknRollOne-Regular.ttf">
+      <Filter>Resource Files\example\font\RocknRoll</Filter>
+    </None>
+    <None Include="example\geojson\countries.geojson">
+      <Filter>Resource Files\example\geojson</Filter>
+    </None>
+    <None Include="example\gif\test.gif">
       <Filter>Resource Files\example\gif</Filter>
-    </Image>
-    <Image Include="example\obj\pine_leaves_red.png">
-      <Filter>Resource Files\example\obj</Filter>
-    </Image>
-    <Image Include="example\obj\siv3d-kun.png">
-      <Filter>Resource Files\example\obj</Filter>
-    </Image>
-    <Image Include="example\obj\siv3d-kun-eye.png">
-      <Filter>Resource Files\example\obj</Filter>
-    </Image>
-    <Image Include="example\obj\bark.jpg">
-      <Filter>Resource Files\example\obj</Filter>
-    </Image>
-    <Image Include="example\obj\leaves.png">
-      <Filter>Resource Files\example\obj</Filter>
-    </Image>
-    <Image Include="example\spritesheet\siv3d-kun-16.png">
-      <Filter>Resource Files\example\spritesheet</Filter>
-    </Image>
-    <Image Include="example\texture\earth.jpg">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\texture\grass.jpg">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\texture\ground.jpg">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\texture\rock.jpg">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\texture\uv.png">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\texture\wood.jpg">
-      <Filter>Resource Files\example\texture</Filter>
-    </Image>
-    <Image Include="example\bay.jpg">
-      <Filter>Resource Files\example</Filter>
-    </Image>
-    <Image Include="example\particle.png">
-      <Filter>Resource Files\example</Filter>
-    </Image>
-    <Image Include="example\siv3d-kun.png">
-      <Filter>Resource Files\example</Filter>
-    </Image>
-    <Image Include="example\windmill.png">
-      <Filter>Resource Files\example</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\8.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\16.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\32.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\64.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\128.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-    <Image Include="resources\engine\texture\box-shadow\256.png">
-      <Filter>Resource Files\resources\engine\texture\box-shadow</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="example\obj\pine.obj">
+    </None>
+    <None Include="example\ini\config.ini">
+      <Filter>Resource Files\example\ini</Filter>
+    </None>
+    <None Include="example\json\config.json">
+      <Filter>Resource Files\example\json</Filter>
+    </None>
+    <None Include="example\json\empty.json">
+      <Filter>Resource Files\example\json</Filter>
+    </None>
+    <None Include="example\json\invalid-blank.json">
+      <Filter>Resource Files\example\json</Filter>
+    </None>
+    <None Include="example\json\invalid-syntax.json">
+      <Filter>Resource Files\example\json</Filter>
+    </None>
+    <None Include="example\json\test.json">
+      <Filter>Resource Files\example\json</Filter>
+    </None>
+    <None Include="example\midi\test.mid">
+      <Filter>Resource Files\example\midi</Filter>
+    </None>
+    <None Include="example\midi\test.txt">
+      <Filter>Resource Files\example\midi</Filter>
+    </None>
+    <None Include="example\obj\bark.jpg">
       <Filter>Resource Files\example\obj</Filter>
     </None>
-    <None Include="example\obj\siv3d-kun.obj">
-      <Filter>Resource Files\example\obj</Filter>
-    </None>
-    <None Include="example\obj\tree.obj">
+    <None Include="example\obj\blacksmith.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
     <None Include="example\obj\blacksmith.obj">
       <Filter>Resource Files\example\obj</Filter>
     </None>
+    <None Include="example\obj\credit.txt">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\crystal1.mtl">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
     <None Include="example\obj\crystal1.obj">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\crystal2.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
     <None Include="example\obj\crystal2.obj">
       <Filter>Resource Files\example\obj</Filter>
     </None>
+    <None Include="example\obj\crystal3.mtl">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
     <None Include="example\obj\crystal3.obj">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\leaves.png">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\mill.mtl">
       <Filter>Resource Files\example\obj</Filter>
     </None>
     <None Include="example\obj\mill.obj">
       <Filter>Resource Files\example\obj</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="example\objdetect\haarcascade\eye.xml">
+    <None Include="example\obj\pine.mtl">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\pine.obj">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\pine_leaves_red.png">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\siv3d-kun-eye.png">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\siv3d-kun.mtl">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\siv3d-kun.obj">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\siv3d-kun.png">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\tree.mtl">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\obj\tree.obj">
+      <Filter>Resource Files\example\obj</Filter>
+    </None>
+    <None Include="example\objdetect\haarcascade\eye.xml">
       <Filter>Resource Files\example\objdetect\haarcascade</Filter>
-    </Xml>
-    <Xml Include="example\objdetect\haarcascade\face_anime.xml">
+    </None>
+    <None Include="example\objdetect\haarcascade\face_anime.xml">
       <Filter>Resource Files\example\objdetect\haarcascade</Filter>
-    </Xml>
-    <Xml Include="example\objdetect\haarcascade\frontal_catface.xml">
+    </None>
+    <None Include="example\objdetect\haarcascade\frontal_catface.xml">
       <Filter>Resource Files\example\objdetect\haarcascade</Filter>
-    </Xml>
-    <Xml Include="example\objdetect\haarcascade\frontal_face_alt2.xml">
+    </None>
+    <None Include="example\objdetect\haarcascade\frontal_face_alt2.xml">
       <Filter>Resource Files\example\objdetect\haarcascade</Filter>
-    </Xml>
-    <Xml Include="example\xml\config.xml">
-      <Filter>Resource Files\example\xml</Filter>
-    </Xml>
-    <Xml Include="example\xml\test.xml">
-      <Filter>Resource Files\example\xml</Filter>
-    </Xml>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="example\video\river.mp4">
+    </None>
+    <None Include="example\particle.png">
+      <Filter>Resource Files\example</Filter>
+    </None>
+    <None Include="example\script\breakout.as">
+      <Filter>Resource Files\example\script</Filter>
+    </None>
+    <None Include="example\script\hello.as">
+      <Filter>Resource Files\example\script</Filter>
+    </None>
+    <None Include="example\script\paint.as">
+      <Filter>Resource Files\example\script</Filter>
+    </None>
+    <None Include="example\script\piano.as">
+      <Filter>Resource Files\example\script</Filter>
+    </None>
+    <None Include="example\script\test.as">
+      <Filter>Resource Files\example\script</Filter>
+    </None>
+    <None Include="example\shader\essl\default2d.vert">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\default2d_shape.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\default2d_texture.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\default3d_forward.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\default3d_forward.vert">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\extract_bright_linear.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\forward_fog.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\forward_triplanar.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\game_of_life.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\grayscale.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\homography.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\homography.vert">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\multi_texture_blend.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\multi_texture_mask.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\poisson_disk.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\posterize.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\rgb_shift.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\rgb_to_bgr.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\soft_shape.vert">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\swirl.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\terrain_forward.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\terrain_forward.vert">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\essl\terrain_normal.frag">
+      <Filter>Resource Files\example\shader\essl</Filter>
+    </None>
+    <None Include="example\shader\glsl\default2D.vert">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\default2d_shape.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\default2d_texture.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\default3d_forward.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\default3d_forward.vert">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\extract_bright_linear.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\forward_fog.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\forward_triplanar.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\game_of_life.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\grayscale.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\homography.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\homography.vert">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\multi_texture_blend.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\multi_texture_mask.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\poisson_disk.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\posterize.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\rgb_shift.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\rgb_to_bgr.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\soft_shape.vert">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\swirl.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\terrain_forward.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\terrain_forward.vert">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\glsl\terrain_normal.frag">
+      <Filter>Resource Files\example\shader\glsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\default2d.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\default3d_forward.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\extract_bright_linear.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\forward_fog.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\forward_triplanar.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\game_of_life.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\grayscale.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\homography.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\multi_texture_blend.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\multi_texture_mask.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\poisson_disk.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\posterize.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\rgb_shift.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\rgb_to_bgr.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\soft_shape.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\swirl.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\terrain_forward.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\hlsl\terrain_normal.hlsl">
+      <Filter>Resource Files\example\shader\hlsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\default2d.vert.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\default2d_shape.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\default2d_texture.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\default3d_forward.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\default3d_forward.vert.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\extract_bright_linear.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\forward_fog.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\forward_triplanar.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\game_of_life.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\grayscale.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\homography.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\homography.vert.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\multi_texture_blend.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\multi_texture_mask.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\poisson_disk.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\posterize.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\rgb_shift.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\rgb_to_bgr.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\soft_shape.vert.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\swirl.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\terrain_forward.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\terrain_forward.vert.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shader\wgsl\terrain_normal.frag.wgsl">
+      <Filter>Resource Files\example\shader\wgsl</Filter>
+    </None>
+    <None Include="example\shot.mp3">
+      <Filter>Resource Files\example</Filter>
+    </None>
+    <None Include="example\siv3d-kun.png">
+      <Filter>Resource Files\example</Filter>
+    </None>
+    <None Include="example\spritesheet\siv3d-kun-16.png">
+      <Filter>Resource Files\example\spritesheet</Filter>
+    </None>
+    <None Include="example\spritesheet\siv3d-kun-16.txt">
+      <Filter>Resource Files\example\spritesheet</Filter>
+    </None>
+    <None Include="example\svg\README.txt">
+      <Filter>Resource Files\example\svg</Filter>
+    </None>
+    <None Include="example\svg\cat.svg">
+      <Filter>Resource Files\example\svg</Filter>
+    </None>
+    <None Include="example\svg\turtle.svg">
+      <Filter>Resource Files\example\svg</Filter>
+    </None>
+    <None Include="example\test.mp3">
+      <Filter>Resource Files\example</Filter>
+    </None>
+    <None Include="example\texture\credit.txt">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\earth.jpg">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\grass.jpg">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\ground.jpg">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\rock.jpg">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\uv.png">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\texture\wood.jpg">
+      <Filter>Resource Files\example\texture</Filter>
+    </None>
+    <None Include="example\toml\config.toml">
+      <Filter>Resource Files\example\toml</Filter>
+    </None>
+    <None Include="example\toml\test.toml">
+      <Filter>Resource Files\example\toml</Filter>
+    </None>
+    <None Include="example\txt\en.txt">
+      <Filter>Resource Files\example\txt</Filter>
+    </None>
+    <None Include="example\txt\jp.txt">
+      <Filter>Resource Files\example\txt</Filter>
+    </None>
+    <None Include="example\txt\kr.txt">
+      <Filter>Resource Files\example\txt</Filter>
+    </None>
+    <None Include="example\txt\sc.txt">
+      <Filter>Resource Files\example\txt</Filter>
+    </None>
+    <None Include="example\video\river.mp4">
       <Filter>Resource Files\example\video</Filter>
-    </Media>
-    <Media Include="example\shot.mp3">
+    </None>
+    <None Include="example\video\river.txt">
+      <Filter>Resource Files\example\video</Filter>
+    </None>
+    <None Include="example\windmill.png">
       <Filter>Resource Files\example</Filter>
-    </Media>
-    <Media Include="example\test.mp3">
-      <Filter>Resource Files\example</Filter>
-    </Media>
+    </None>
+    <None Include="example\xml\config.xml">
+      <Filter>Resource Files\example\xml</Filter>
+    </None>
+    <None Include="example\xml\test.xml">
+      <Filter>Resource Files\example\xml</Filter>
+    </None>
+    <None Include="example\zip\zip_test.zip">
+      <Filter>Resource Files\example\zip</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Templates\Embeddable\web-player.html">
