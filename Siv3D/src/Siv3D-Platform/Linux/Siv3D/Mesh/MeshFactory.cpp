@@ -12,6 +12,7 @@
 # include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/Mesh/Null/CMesh_Null.hpp>
 # include <Siv3D/Mesh/GL4/CMesh_GL4.hpp>
+# include <Siv3D/Mesh/GLES3/CMesh_GLES3.hpp>
 
 namespace s3d
 {
@@ -20,6 +21,10 @@ namespace s3d
 		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new CMesh_Null;
+		}
+		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGL2)
+		{
+			return new CMesh_GLES3;
 		}
 		else
 		{

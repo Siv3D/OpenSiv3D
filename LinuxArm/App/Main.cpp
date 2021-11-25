@@ -13,6 +13,12 @@ void Main() { }
 /*
 # include <Siv3D.hpp> // OpenSiv3D v0.6.3
 
+# if defined(SIV3D_GLES3_BACKEND)
+SIV3D_SET(EngineOption::Renderer::WebGL2)
+# else
+SIV3D_SET(EngineOption::Renderer::OpenGL)
+# endif
+
 void Main()
 {
 	// 背景の色を設定 | Set background color
