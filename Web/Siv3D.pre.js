@@ -18,4 +18,4 @@ Original Error: ${e}`
             window.alert(e)
         }
     }
-})()
+})();

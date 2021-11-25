@@ -58,5 +58,5 @@
     }
 
     addRunDependency(dependencyName);
-})()
+})();
     
