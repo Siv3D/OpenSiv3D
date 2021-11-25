@@ -23,6 +23,7 @@ Source: "..\Build\libSiv3D.a"; DestDir: "{app}\lib"
 Source: "..\Build\libSiv3DScript.a"; DestDir: "{app}\lib"
 Source: "..\Siv3D.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.pre.js"; DestDir: "{app}\lib"
+Source: "..\Siv3D.post.js"; DestDir: "{app}\lib"
 Source: "..\..\Siv3D\lib\Web\wasm\*"; DestDir: "{app}\lib"; Flags: recursesubdirs
 Source: "..\App\resources\*"; DestDir: "{app}\resources"; Flags: recursesubdirs
 Source: "..\App\example\*"; DestDir: "{app}\example"; Flags: recursesubdirs
