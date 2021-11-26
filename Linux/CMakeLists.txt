@@ -61,6 +61,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Monitor/SivMonitor_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/GL4/CRenderer_GL4.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/RendererFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer2D/Renderer2DFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer3D/Renderer3DFactory.cpp
@@ -117,6 +118,28 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Shader/GL4/VertexShader/GL4VertexShader.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Texture/GL4/CTexture_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGL4/Siv3D/Texture/GL4/GL4Texture.cpp
+
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Mesh/GLES3/CMesh_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Mesh/GLES3/GLES3Mesh.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BackBuffer/GLES3BackBuffer.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BackBuffer/GLES3InternalTexture2D.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/BlendState/GLES3BlendState.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/DepthStencilState/GLES3DepthStencilState.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/RasterizerState/GLES3RasterizerState.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer/GLES3/SamplerState/GLES3SamplerState.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/CRenderer2D_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Renderer2DCommand.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer2D/GLES3/GLES3Vertex2DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/CRenderer3D_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/GLES3Line3DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Renderer3D/GLES3/GLES3Renderer3DCommand.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/CShader_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/PixelShader/GLES3PixelShader.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/VertexShader/GLES3VertexShader.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/ShaderPipeline/GLES3ShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
 
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
@@ -1125,6 +1148,7 @@ target_include_directories(Siv3D PUBLIC
   ../Siv3D/src/Siv3D-Platform/Linux
   ../Siv3D/src/Siv3D-Platform/macOS_Linux
   ../Siv3D/src/Siv3D-Platform/OpenGL4
+  ../Siv3D/src/Siv3D-Platform/OpenGLES3
   ../Siv3D/src/ThirdParty
   ../Siv3D/src/ThirdParty/asio
   ../Siv3D/src/ThirdParty/freetype
