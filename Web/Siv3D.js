@@ -152,7 +152,7 @@ mergeInto(LibraryManager.library, {
                     siv3dDragDropFileReader = new FileReader();
                 }
 
-                const filePath = `/tmp/${file.name}`;
+                const filePath = "/tmp/" + file.name;
 
                 siv3dDragDropFileReader.addEventListener("load", function onLoaded() {
                     FS.writeFile(filePath, new Uint8Array(siv3dDragDropFileReader.result));
@@ -237,7 +237,7 @@ mergeInto(LibraryManager.library, {
         };
 
         navigator.mediaDevices.getUserMedia(constraint).then(
-            stream => {
+            function(stream) {
                 const video = document.createElement("video");
 
                 video["playsInline"] = true;          
@@ -252,7 +252,7 @@ mergeInto(LibraryManager.library, {
 
                 video.srcObject = stream;
             }
-        ).catch(_ => {
+        ).catch(function(_) {
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
         })
     },
@@ -271,7 +271,7 @@ mergeInto(LibraryManager.library, {
         };
 
         stream.applyConstraints(constraint).then(
-            () => {
+            function () {
                 if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
             }
         );
@@ -346,10 +346,11 @@ mergeInto(LibraryManager.library, {
     siv3dPlayVideo: function(idx) {
         const video = videoElements[idx];
         
-        video.play().catch(() =>
-            siv3dRegisterUserAction(function() {
-                video.play();
-            })
+        video.play().catch(function () {
+                siv3dRegisterUserAction(function() {
+                    video.play();
+                })
+            }
         );
     },
     siv3dPlayVideo__sig: "vi",
@@ -502,8 +503,8 @@ mergeInto(LibraryManager.library, {
     $siv3dPendingUserActions: [],
 
     $siv3dTriggerUserAction: function() {
-        for (let action of siv3dPendingUserActions) {
-            action();
+        for (var i = 0; i < siv3dPendingUserActions.length; i++) {
+            (siv3dPendingUserActions[i])();
         }
 
         siv3dPendingUserActions.splice(0);
@@ -574,7 +575,7 @@ mergeInto(LibraryManager.library, {
                 }
 
                 const file = files[0];
-                const filePath = `/tmp/${file.name}`;
+                const filePath = "/tmp/" + file.name;
 
                 siv3dDialogFileReader.addEventListener("load", function onLoaded() {
                     FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
@@ -607,7 +608,7 @@ mergeInto(LibraryManager.library, {
             }
 
             const file = files[0];
-            const filePath = `/tmp/${file.name}`;
+            const filePath = "/tmp/" + file.name;
 
             siv3dDialogFileReader.addEventListener("load", function onLoaded() {
                 FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
@@ -728,11 +729,11 @@ mergeInto(LibraryManager.library, {
         return Asyncify.handleSleep(function (wakeUp) {
             siv3dRegisterUserAction(function () {
                 navigator.clipboard.readText()
-                .then(str => {
+                .then(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
                     wakeUp(strPtr);
                 })
-                .catch(_ => {
+                .catch(function(_) {
                     wakeUp(0);
                 })
             }); 
@@ -744,12 +745,12 @@ mergeInto(LibraryManager.library, {
     siv3dGetClipboardTextAsync: function(callback, promise) {
         siv3dRegisterUserAction(function () {
             navigator.clipboard.readText()
-            .then(str => {
+            .then(function(str) {
                 const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
                 {{{ makeDynCall('vii', 'callback') }}}(strPtr, promise);
                 Module["_free"](strPtr);
             })
-            .catch(e => {
+            .catch(function (e) {
                 {{{ makeDynCall('vii', 'callback') }}}(0, promise);
             })
         });
@@ -794,7 +795,7 @@ mergeInto(LibraryManager.library, {
         siv3dTextInputElement.addEventListener('input', function (e) {
             if (e.inputType == "insertText") {
                 if (e.data) {
-                    for (let i = 0; i < e.data.length; i++) {
+                    for (var i = 0; i < e.data.length; i++) {
                         const codePoint = e.data.charCodeAt(i);
                         {{{ makeDynCall('vi', 'callback') }}}(codePoint);
                     }
@@ -802,7 +803,7 @@ mergeInto(LibraryManager.library, {
             }    
         });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
-            for (let i = 0; i < e.data.length; i++) {
+            for (var i = 0; i < e.data.length; i++) {
                 const codePoint = e.data.charCodeAt(i);
                 {{{ makeDynCall('vi', 'callback') }}}(codePoint);
             }
@@ -873,7 +874,7 @@ mergeInto(LibraryManager.library, {
         const bodyText = UTF8ToString(body);
         let actions = [];
 
-        for (let i = 0; i < actionsNum; i++) {
+        for (var i = 0; i < actionsNum; i++) {
             const textPtr = getValue(actionTexts + i * 4, "i32");
             const actionText = UTF8ToString(textPtr);
 
@@ -957,7 +958,7 @@ mergeInto(LibraryManager.library, {
         setValue(returnPtr, voices.length, "i32");
         setValue(returnPtr + 4, listBufferPtr, "i32");
 
-        for(let i = 0; i < voices.length; i++) {
+        for(var i = 0; i < voices.length; i++) {
             const languageCode = LanguageNameToLanguageCodeList[voices[i].lang];
              
             setValue(listBufferPtr + 0, languageCode, "i32");
@@ -1039,7 +1040,7 @@ mergeInto(LibraryManager.library, {
         const dataPos = (Module["_malloc"](4 * (paramStrs.length + 1))) / 4;
         HEAPU32.fill(0, dataPos, dataPos + paramStrs.length + 1);
 
-        for (let i = 0; i < paramStrs.length; i++)
+        for (var i = 0; i < paramStrs.length; i++)
         {
             HEAP32[dataPos + i] = allocate(intArrayFromString(paramStrs[i]), ALLOC_NORMAL);
         }

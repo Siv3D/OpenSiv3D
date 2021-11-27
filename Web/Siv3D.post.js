@@ -1,6 +1,8 @@
 (function () {
     const dependencyName = "WebGPU";
 
+    addRunDependency(dependencyName);
+
     (async function() {
         try {
             const adapter = await navigator.gpu.requestAdapter();
@@ -56,7 +58,4 @@
             }
         })
     }
-
-    addRunDependency(dependencyName);
 })();
-    
