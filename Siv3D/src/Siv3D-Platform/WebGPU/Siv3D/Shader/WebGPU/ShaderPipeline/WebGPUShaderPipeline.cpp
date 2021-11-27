@@ -154,7 +154,10 @@ namespace s3d
 		{
 			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
 
-			for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+			// for (uint32 i = 0; i < SamplerState::MaxSamplerCount; i++)
+
+			const uint32 maxSamplerCount = shaderStage == wgpu::ShaderStage::Vertex ? 2 : 4;
+			for (uint32 i = 0; i < maxSamplerCount; i++)
 			{
 				bindingLayout << wgpu::BindGroupLayoutEntry
 				{

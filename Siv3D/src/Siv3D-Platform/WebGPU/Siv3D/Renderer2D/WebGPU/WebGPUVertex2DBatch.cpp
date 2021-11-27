@@ -128,16 +128,16 @@ namespace s3d
 		m_vertexArrayWritePos = 0;
 		m_indexArrayWritePos = 0;
 
-		m_vertexBufferWritePos = 0;
-		m_indexBufferWritePos = 0;
+		// m_vertexBufferWritePos = 0;
+		// m_indexBufferWritePos = 0;
 	}
 
 	void WebGPUVertex2DBatch::setBuffers(const wgpu::RenderPassEncoder& pass)
 	{
-		// pass.SetVertexBuffer(0, m_vertexBuffer, sizeof(Vertex2D) * m_vertexBufferWritePos);
-		// pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos);
+		// pass.SetVertexBuffer(0, m_vertexBuffer, sizeof(Vertex2D) * m_vertexBufferWritePos, sizeof(Vertex2D) * (VertexBufferSize - m_vertexBufferWritePos));
+		// pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * (IndexBufferSize - m_indexBufferWritePos));
 
-		pass.SetVertexBuffer(0, m_vertexBuffer, 0, sizeof(Vertex2D) * VertexBufferSize);
+		pass.SetVertexBuffer(0, m_vertexBuffer, static_cast<uint64>(sizeof(Vertex2D) * VertexBufferSize) << 32);
 		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint16, 0, sizeof(Vertex2D::IndexType) * IndexBufferSize);
 	}
 
