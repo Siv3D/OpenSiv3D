@@ -227,14 +227,18 @@ namespace s3d
 				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.op) - 1),
 				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.src)],
 				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dst)],
-			},
-			.alpha =
+			},	
+		};
+
+		if (renderTargetState.hasAlpha)
+		{
+			wgpuBlendState.alpha =
 			{
 				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.opAlpha) - 1),
 				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.srcAlpha)],
 				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dstAlpha)],
-			}
-		};
+			};
+		}
 
 		wgpu::ColorTargetState colorTargetState
 		{

@@ -27,6 +27,8 @@ namespace s3d
 
         bool hasDepth : 1 = false;
 
+        bool hasAlpha : 1 = true;
+
         [[nodiscard]]
 		storage_type asValue() const noexcept;
 

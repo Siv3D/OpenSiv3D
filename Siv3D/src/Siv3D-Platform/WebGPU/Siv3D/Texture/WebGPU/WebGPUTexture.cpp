@@ -505,6 +505,7 @@ namespace s3d
 			return WebGPURenderTargetState
 			{
 				.hasDepth = m_hasDepth,
+				.hasAlpha = m_format.num_channels() == 4,
 				.renderTargetFormat = static_cast<uint8>(m_format.WGPUFormat()),
 				.sampleCount = 4
 			};
@@ -514,6 +515,7 @@ namespace s3d
 			return WebGPURenderTargetState
 			{
 				.hasDepth = m_hasDepth,
+				.hasAlpha = m_format.num_channels() == 4,
 				.renderTargetFormat = static_cast<uint8>(m_format.WGPUFormat()),
 				.sampleCount = 1
 			};
