@@ -216,7 +216,7 @@ namespace s3d
 		{
 			.module = pShader->getShaderModuleVS(vertexShader),
 			.entryPoint = "main",
-            .bufferCount = 1,
+            .bufferCount = vertexLayout.attributeCount > 0 ? 1u : 0u,
             .buffers = &vertexLayout
 		};
 
