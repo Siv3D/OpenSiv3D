@@ -55,8 +55,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS3D>();
-			m_standardVS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.vert.wgsl"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
-			m_standardVS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.vert.wgsl"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.vert.wgsl"), { { U"VSPerView", 0 }, { U"VSPerObject", 1 } } };
+			m_standardVS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.vert.wgsl"), { { U"VSPerView", 0 }, { U"VSPerObject", 1 } } };
 
 			if (not m_standardVS->setup())
 			{
@@ -68,7 +68,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_WebGPU:");
 			m_standardPS = std::make_unique<WebGPUStandardPS3D>();
-			m_standardPS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.frag.wgsl"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.frag.wgsl"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 2 } } };
 			m_standardPS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.frag.wgsl"), {} };
 
 			if (not m_standardPS->setup())
@@ -471,11 +471,11 @@ namespace s3d
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
-					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
-					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
 					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
 					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
-					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
+					pShader->setConstantBufferPS(2, m_psPerMaterialConstants.base());
 
 					auto pipeline = pShader->usePipelineWithStandard3DVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);
@@ -511,11 +511,11 @@ namespace s3d
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
-					pShader->setConstantBufferVS(1, m_vsPerViewConstants.base());
-					pShader->setConstantBufferVS(2, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
+					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
 					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
 					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
-					pShader->setConstantBufferPS(3, m_psPerMaterialConstants.base());
+					pShader->setConstantBufferPS(2, m_psPerMaterialConstants.base());
 
 					auto pipeline = pShader->usePipelineWithStandard3DLineVertexLayout(currentRenderingPass, currentRasterizerState, currentBlendState, currentRenderTargetState, currentDepthStencilState);
 					pRenderer->getSamplerState().bind(m_device, pipeline, currentRenderingPass);

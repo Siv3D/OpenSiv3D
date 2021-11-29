@@ -74,7 +74,7 @@ var<uniform> PSPerView: PSPerViewStruct;
 	starSaturation: f32;
 };
 
-[[group(1), binding(4)]]
+[[group(1), binding(3)]]
 var<uniform> PSSky: PSSkyStruct;
 
 //
