@@ -438,7 +438,7 @@ namespace s3d
 		auto currentRenderTargetState = pRenderer->getBackBuffer().getRenderTargetState();
 
 		Size currentRenderTargetSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
-		currentRenderingPass.SetViewport(0.0f, 0.0f, currentRenderTargetSize.x, currentRenderTargetSize.y, 0.0f, 1.0f);
+		Rect currentViewportRect{ 0, 0, currentRenderTargetSize.x, currentRenderTargetSize.y };
 
 		LOG_COMMAND(U"----");
 		uint32 instanceIndex = 0;
@@ -627,6 +627,7 @@ namespace s3d
 					rect.w = Min(rect.w, currentRenderTargetSize.x);
 					rect.h = Min(rect.h, currentRenderTargetSize.y);
 
+					currentViewportRect = rect;
 					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 
 					LOG_COMMAND(U"Viewport[{}] (x = {}, y = {}, w = {}, h = {})"_fmt(command.index,
@@ -655,6 +656,13 @@ namespace s3d
 
 						LOG_COMMAND(U"SetRT[{}] (default scene)"_fmt(command.index));
 					}
+
+					Rect rect{ currentViewportRect };
+
+					rect.w = Min(rect.w, currentRenderTargetSize.x);
+					rect.h = Min(rect.h, currentRenderTargetSize.y);
+
+					currentRenderingPass.SetViewport(rect.x, rect.y, rect.w, rect.h, 0.0f, 1.0f);
 					break;
 				}
 			case WebGPURenderer3DCommandType::InputLayout:
