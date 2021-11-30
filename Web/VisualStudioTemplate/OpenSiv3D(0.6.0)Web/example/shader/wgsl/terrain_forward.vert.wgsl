@@ -25,7 +25,7 @@ struct VertexOutput
 	worldToProjected: mat4x4<f32>;
 };
 
-[[group(0), binding(1)]]
+[[group(0), binding(0)]]
 var<uniform> VSPerView: VSPerViewStruct;
 
 [[block]] struct VSPerObjectStruct
@@ -33,7 +33,7 @@ var<uniform> VSPerView: VSPerViewStruct;
 	localToWorld: mat4x4<f32>;
 };
 
-[[group(0), binding(2)]]
+[[group(0), binding(1)]]
 var<uniform> VSPerObject: VSPerObjectStruct;
 
 //
