@@ -190,6 +190,7 @@ namespace s3d
 		// IB
 		if (const uint32 indexSize = currentBatch.indexPos)
 		{
+			const uint32 alignedIndexSize = (indexSize & 0xFFFFFFFE) + 2;
 			const Vertex2D::IndexType* pSrc = &m_indexArray[indexArrayReadPos];
 
 			if (IndexBufferSize < (m_indexBufferWritePos + indexSize))
@@ -205,7 +206,7 @@ namespace s3d
 				m_indexBuffer = device.CreateBuffer(&indexBufferDescripter);
 			}
 
-			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(Vertex2D::IndexType) * ((indexSize & 0xFFFFFFFE) + 2));
+			device.GetQueue().WriteBuffer(m_indexBuffer, sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, pSrc, sizeof(Vertex2D::IndexType) * alignedIndexSize);
 
 			// void* const pDst = m_indexBuffer.GetMappedRange(sizeof(Vertex2D::IndexType) * m_indexBufferWritePos, sizeof(Vertex2D::IndexType) * indexSize);
 			// {
@@ -215,7 +216,7 @@ namespace s3d
 
 			batchInfo.indexCount = indexSize;
 			batchInfo.startIndexLocation = m_indexBufferWritePos;
-			m_indexBufferWritePos += indexSize;
+			m_indexBufferWritePos += alignedIndexSize;
 		}
 
 		return batchInfo;
