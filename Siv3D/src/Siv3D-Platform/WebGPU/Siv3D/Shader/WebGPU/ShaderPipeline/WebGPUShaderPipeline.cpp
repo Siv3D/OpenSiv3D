@@ -45,6 +45,33 @@ namespace s3d
 			wgpu::BlendFactor::Zero, // Invalid Value
 			wgpu::BlendFactor::Zero, // Invalid Value
 		};
+
+		static constexpr wgpu::BlendFactor BlendFactorTableWithoutAlpha[20] =
+		{
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Zero,
+			wgpu::BlendFactor::One,
+			wgpu::BlendFactor::Src,
+			wgpu::BlendFactor::OneMinusSrc,
+
+			wgpu::BlendFactor::One,
+			wgpu::BlendFactor::Zero,
+			wgpu::BlendFactor::One,
+			wgpu::BlendFactor::Zero,
+			wgpu::BlendFactor::Dst,
+
+			wgpu::BlendFactor::OneMinusDst,
+			wgpu::BlendFactor::SrcAlphaSaturated,
+			wgpu::BlendFactor::Zero, // None
+			wgpu::BlendFactor::Zero, // None
+			wgpu::BlendFactor::Zero, // Invalid Value
+
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Constant,
+			wgpu::BlendFactor::OneMinusConstant,
+			wgpu::BlendFactor::Zero, // Invalid Value
+			wgpu::BlendFactor::Zero, // Invalid Value
+		};
 		
 		static constexpr wgpu::CompareFunction CompareFunctionTable[9] = 
 		{
@@ -220,24 +247,40 @@ namespace s3d
             .buffers = &vertexLayout
 		};
 
-		wgpu::BlendState wgpuBlendState
-		{
-			.color =
-			{
-				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.op) - 1),
-				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.src)],
-				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dst)],
-			},	
-		};
+		wgpu::BlendState wgpuBlendState;
 
-		if (renderTargetState.hasAlpha)
+		if (blendState.enable)
 		{
-			wgpuBlendState.alpha =
+			if (renderTargetState.hasAlpha)
 			{
-				.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.opAlpha) - 1),
-				.srcFactor = detail::BlendFactorTable[FromEnum(blendState.srcAlpha)],
-				.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dstAlpha)],
-			};
+				wgpuBlendState = wgpu::BlendState
+				{
+					.color =
+					{
+						.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.op) - 1),
+						.srcFactor = detail::BlendFactorTable[FromEnum(blendState.src)],
+						.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dst)],
+					},
+					.alpha =
+					{
+						.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.opAlpha) - 1),
+						.srcFactor = detail::BlendFactorTable[FromEnum(blendState.srcAlpha)],
+						.dstFactor = detail::BlendFactorTable[FromEnum(blendState.dstAlpha)],
+					}
+				};
+			}
+			else
+			{
+				wgpuBlendState = wgpu::BlendState
+				{
+					.color =
+					{
+						.operation = ToEnum<wgpu::BlendOperation>(FromEnum(blendState.op) - 1),
+						.srcFactor = detail::BlendFactorTableWithoutAlpha[FromEnum(blendState.src)],
+						.dstFactor = detail::BlendFactorTableWithoutAlpha[FromEnum(blendState.dst)],
+					}
+				};
+			}
 		}
 
 		wgpu::ColorTargetState colorTargetState
