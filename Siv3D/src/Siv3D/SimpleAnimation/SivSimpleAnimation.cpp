@@ -115,7 +115,7 @@ namespace s3d
 			return false;
 		}
 
-		return (m_stopwatch.sF() <= m_animationDurationSec);
+		return (m_animationDurationSec <= m_stopwatch.sF());
 	}
 
 	size_t SimpleAnimation::loopCount() const
