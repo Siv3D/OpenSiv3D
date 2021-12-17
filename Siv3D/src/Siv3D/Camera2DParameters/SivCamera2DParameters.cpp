@@ -47,7 +47,11 @@ namespace s3d
 
 		if (cameraControl & CameraControl::Wheel)
 		{
+        	    # if defined(SIV3D_PLATFORM_WINDOWS)
 			params.wheelScaleFactor = 1.125;
+	            # elif defined(SIV3D_PLATFORM_MACOS)
+        	    	params.wheelScaleFactor = 1.075;
+	            # endif
 		}
 		
 		return params;
