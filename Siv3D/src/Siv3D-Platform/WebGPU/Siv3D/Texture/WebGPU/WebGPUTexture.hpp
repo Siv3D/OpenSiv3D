@@ -59,6 +59,9 @@ namespace s3d
 		wgpu::Texture getTexture() const noexcept;
 
 		[[nodiscard]]
+		wgpu::TextureView getTextureView() const noexcept;
+
+		[[nodiscard]]
 		wgpu::RenderPassEncoder begin(const wgpu::CommandEncoder& encoder);
 
 		[[nodiscard]]
@@ -128,11 +131,17 @@ namespace s3d
 		// [メインテクスチャ]
 		wgpu::Texture m_texture = nullptr;
 
+		wgpu::TextureView m_textureView = nullptr;
+
 		// [マルチサンプル・テクスチャ]
 		wgpu::Texture m_multiSampledTexture = nullptr;
 
+		wgpu::TextureView m_multiSampledTextureView = nullptr;
+
 		// [デプステクスチャ]
 		wgpu::Texture m_depthTexture = nullptr;
+
+		wgpu::TextureView m_depthTextureView = nullptr;
 
 		Size m_size = { 0, 0 };
 

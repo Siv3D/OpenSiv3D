@@ -1,13 +1,6 @@
-//-----------------------------------------------
-//
-//	This file is part of the Siv3D Engine.
-//
-//	Copyright (c) 2008-2021 Ryo Suzuki
-//	Copyright (c) 2016-2021 OpenSiv3D Project
-//
+//	Copyright (c) 2008-2021 Ryo Suzuki.
+//	Copyright (c) 2016-2021 OpenSiv3D Project.
 //	Licensed under the MIT License.
-//
-//-----------------------------------------------
 
 //
 //	VSOutput
@@ -27,7 +20,7 @@ struct VertexOutput
 	worldToProjected: mat4x4<f32>;
 };
 
-[[group(0), binding(0)]]
+[[group(0), binding(1)]]
 var<uniform> VSPerView: VSPerViewStruct;
 
 [[block]] struct VSPerObjectStruct
@@ -35,7 +28,7 @@ var<uniform> VSPerView: VSPerViewStruct;
 	localToWorld: mat4x4<f32>;
 };
 
-[[group(0), binding(1)]]
+[[group(0), binding(2)]]
 var<uniform> VSPerObject: VSPerObjectStruct;
 
 //

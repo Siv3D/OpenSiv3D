@@ -29,6 +29,8 @@ namespace s3d
 
 		Array<ConstantBufferBinding> m_constantBufferBindings;
 
+		wgpu::BindGroupLayout m_uniformBindingLayout;
+
 		bool m_initialized = false;
 
 		void setUniformBlockBinding(const StringView name, GLuint index);
@@ -52,5 +54,7 @@ namespace s3d
 		const Blob& getBinary() const noexcept;
 
 		wgpu::ShaderModule getShaderModule() const;
+
+		wgpu::BindGroupLayout getBindingGroup() const;
 	};
 }

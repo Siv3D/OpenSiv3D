@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Duration.hpp"
 # include "EngineOptions.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
@@ -72,6 +73,11 @@ namespace s3d
 		/// @brief ゲームループごとに呼ばれる関数を登録します
 		[[noreturn]] 
 		void SetMainLoop(std::function<void()> mainLoop);
+
+		/// @brief 現在のページのクエリ文字列を取得します
+		/// @return 現在のページのクエリ文字列
+		[[nodiscard]]
+		HashTable<String, String> GetURLParameters();
 	}
 
 # endif

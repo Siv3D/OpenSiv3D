@@ -43,18 +43,18 @@ namespace s3d
 		
 		// 各種ポインタを保存
 		{
-			pRenderer	= dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-			pShader		= dynamic_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader)); assert(pShader);
-			pTexture	= dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture)); assert(pTexture);
-			pMesh		= dynamic_cast<CMesh_GLES3*>(SIV3D_ENGINE(Mesh)); assert(pMesh);
+			pRenderer	= static_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer));
+			pShader		= static_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader));
+			pTexture	= static_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
+			pMesh		= static_cast<CMesh_GLES3*>(SIV3D_ENGINE(Mesh));
 		}
 
 		// 標準 VS をロード
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS3D>();
-			m_standardVS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
-			m_standardVS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->forward = ESSL{ Resource(U"engine/shader/essl/forward3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
+			m_standardVS->line3D = ESSL{ Resource(U"engine/shader/essl/line3d.vert"), { { U"VSPerView", 1 }, { U"VSPerObject", 2 } } };
 
 			if (not m_standardVS->setup())
 			{
@@ -66,8 +66,8 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer3D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS3D>();
-			m_standardPS->forward = ESSL{ Resource(U"engine/shader/glsl/forward3d.frag"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
-			m_standardPS->line3D = ESSL{ Resource(U"engine/shader/glsl/line3d.frag"), {} };
+			m_standardPS->forward = ESSL{ Resource(U"engine/shader/essl/forward3d.frag"), { { U"PSPerFrame", 0 }, { U"PSPerView", 1 }, { U"PSPerMaterial", 3 } } };
+			m_standardPS->line3D = ESSL{ Resource(U"engine/shader/essl/line3d.frag"), {} };
 
 			if (not m_standardPS->setup())
 			{
@@ -700,7 +700,7 @@ namespace s3d
 					
 					if (cb.num_vectors)
 					{
-						const ConstantBufferDetail_GLES3* cbd = dynamic_cast<const ConstantBufferDetail_GLES3*>(cb.cbBase._detail());
+						const ConstantBufferDetail_GLES3* cbd = static_cast<const ConstantBufferDetail_GLES3*>(cb.cbBase._detail());
 						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
 						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));

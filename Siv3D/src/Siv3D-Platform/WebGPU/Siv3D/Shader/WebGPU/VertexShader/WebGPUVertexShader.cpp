@@ -29,7 +29,7 @@ namespace s3d
 		}
 	}
 
-	WebGPUVertexShader::WebGPUVertexShader(const wgpu::Device& device, const StringView source, const Array<ConstantBufferBinding>&)
+	WebGPUVertexShader::WebGPUVertexShader(const wgpu::Device& device, const StringView source, const Array<ConstantBufferBinding>& bindings)
 	{
 		// 頂点シェーダプログラムを作成
 
@@ -56,6 +56,32 @@ namespace s3d
 				LOG_FAIL(U"❌ Vertex shader compilation failed");
 			}	
 		}
+
+		{
+			Array<wgpu::BindGroupLayoutEntry> bindingLayout{};
+
+			for (const auto& binding : bindings)
+			{
+				bindingLayout << wgpu::BindGroupLayoutEntry
+				{
+					.binding = binding.index,
+					.visibility = wgpu::ShaderStage::Vertex,
+					.buffer =
+					{
+						.type = wgpu::BufferBindingType::Uniform,
+						.hasDynamicOffset = true
+					}
+				};
+			}
+
+			wgpu::BindGroupLayoutDescriptor layoutDesc
+			{
+				.entries = bindingLayout.data(),
+				.entryCount = bindingLayout.size(),
+			};
+
+			m_uniformBindingLayout = device.CreateBindGroupLayout(&layoutDesc);
+		}
 		
 		m_initialized = static_cast<bool>(m_vertexShader);
 	}
@@ -73,5 +99,10 @@ namespace s3d
 	wgpu::ShaderModule WebGPUVertexShader::getShaderModule() const
 	{
 		return m_vertexShader;
+	}
+
+	wgpu::BindGroupLayout WebGPUVertexShader::getBindingGroup() const
+	{
+		return m_uniformBindingLayout;
 	}
 }

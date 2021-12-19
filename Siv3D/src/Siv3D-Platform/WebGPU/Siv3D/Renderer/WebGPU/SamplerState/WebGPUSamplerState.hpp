@@ -47,9 +47,11 @@ namespace s3d
 
 		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
 
-		std::array<wgpu::Texture, SamplerState::MaxSamplerCount> m_currentVSTextures;
+		std::array<wgpu::TextureView, SamplerState::MaxSamplerCount> m_currentVSTextures;
 
-		std::array<wgpu::Texture, SamplerState::MaxSamplerCount> m_currentPSTextures;
+		std::array<wgpu::TextureView, SamplerState::MaxSamplerCount> m_currentPSTextures;
+
+		HashTable<size_t, wgpu::BindGroup> m_bindGroups;
 
 		SamplerStateList::iterator create(wgpu::Device* device, const SamplerState& state);
 
@@ -65,11 +67,11 @@ namespace s3d
 
 		void setPSSampler(wgpu::Device* device, uint32 slot, None_t);
 
-		void setVSTexture(uint32 slot, wgpu::Texture texture);
+		void setVSTexture(uint32 slot, wgpu::TextureView texture);
 
 		void setVSTexture(uint32 slot, None_t);
 
-		void setPSTexture(uint32 slot, wgpu::Texture texture);
+		void setPSTexture(uint32 slot, wgpu::TextureView texture);
 
 		void setPSTexture(uint32 slot, None_t);
 

@@ -61,8 +61,8 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer_WebGPU::init()");
 		
-		pRenderer2D = dynamic_cast<CRenderer2D_WebGPU*>(SIV3D_ENGINE(Renderer2D));
-		pRenderer3D = dynamic_cast<CRenderer3D_WebGPU*>(SIV3D_ENGINE(Renderer3D));
+		pRenderer2D = static_cast<CRenderer2D_WebGPU*>(SIV3D_ENGINE(Renderer2D));
+		pRenderer3D = static_cast<CRenderer3D_WebGPU*>(SIV3D_ENGINE(Renderer3D));
 		m_window = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
 		
 		m_device = wgpu::Device { ::emscripten_webgpu_get_device() };
@@ -97,7 +97,7 @@ namespace s3d
 		m_backBuffer		= std::make_unique<WebGPUBackBuffer>(m_device, m_swapChain);
 		m_samplerState		= std::make_unique<WebGPUSamplerState>();
 		
-		pTexture = dynamic_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
+		pTexture = static_cast<CTexture_WebGPU*>(SIV3D_ENGINE(Texture));
 		pTexture->init();
 
 		SIV3D_ENGINE(Shader)->init();

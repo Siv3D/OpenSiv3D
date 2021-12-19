@@ -34,7 +34,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CMesh_WebGPU::init()");
 
 		{
-			m_device = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer))->getDevice();
+			m_device = static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer))->getDevice();
 		}
 
 		// null Mesh を管理に登録

@@ -1,19 +1,12 @@
-//-----------------------------------------------
-//
-//	This file is part of the Siv3D Engine.
-//
-//	Copyright (c) 2008-2021 Ryo Suzuki
-//	Copyright (c) 2016-2021 OpenSiv3D Project
-//
+//	Copyright (c) 2008-2021 Ryo Suzuki.
+//	Copyright (c) 2016-2021 OpenSiv3D Project.
 //	Licensed under the MIT License.
-//
-//-----------------------------------------------
 
 //
 //	Textures
 //
-[[group(1), binding(0)]] var Sampler0: sampler;
-[[group(1), binding(1)]] var Texture0: texture_2d<f32>;
+[[group(2), binding(0)]] var Sampler0: sampler;
+[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
 
 //
 //	Functions
@@ -41,33 +34,30 @@
 //	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
+
 fn ApplySRGBCurve_Fast(x: f32) -> f32
 {
-	if (x < 0.0031308f) 
+	if (x < 0.0031308) 
 	{ 
-		return 12.92f * x;
+		return 12.92 * x;
 	}
-	else
-	{ 
-		return 1.13005f * sqrt(x - 0.00228f) - 0.13448f * x + 0.005719f;
-	}
+	
+	return 1.13005 * sqrt(x - 0.00228) - 0.13448 * x + 0.005719;
 }
 
 fn ApplySRGBCurve(x: f32) -> f32
 {
-	if (x < 0.0031308f)
+	if (x < 0.0031308)
 	{ 
-		return 12.92f * x;
+		return 12.92 * x;
 	}
-	else 
-	{ 
-		return 1.055f * pow(x, 1.0f / 2.4f) - 0.055f;
-	}
+	
+	return 1.055 * pow(x, 1.0 / 2.4) - 0.055;
 }
 
 fn ApplySRGBCurve0(color: vec3<f32>) -> vec3<f32>
 {
-	return pow(color, vec3<f32>(1.0f / 2.2f));
+	return pow(color, vec3<f32>(1.0 / 2.2));
 }
 
 fn ApplySRGBCurve1(color: vec3<f32>) -> vec3<f32>
@@ -98,5 +88,5 @@ fn main(
 {
 	var texColor: vec3<f32> = textureSample(Texture0, Sampler0, UV).rgb;
 
-	return vec4<f32>(ApplySRGBCurve2(texColor), 1.0f);
+	return vec4<f32>(ApplySRGBCurve2(texColor), 1.0);
 }

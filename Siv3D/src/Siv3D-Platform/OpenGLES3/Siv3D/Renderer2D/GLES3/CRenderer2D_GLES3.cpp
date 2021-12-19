@@ -63,16 +63,16 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CRenderer2D_GLES3::init()");
 
-		pRenderer	= dynamic_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer)); assert(pRenderer);
-		pShader		= dynamic_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader)); assert(pShader);
-		pTexture	= dynamic_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture)); assert(pTexture);
+		pRenderer	= static_cast<CRenderer_GLES3*>(SIV3D_ENGINE(Renderer));
+		pShader		= static_cast<CShader_GLES3*>(SIV3D_ENGINE(Shader));
+		pTexture	= static_cast<CTexture_GLES3*>(SIV3D_ENGINE(Texture));
 
 		// 標準 VS をロード
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer2D_GLES3:");
 			m_standardVS = std::make_unique<GLES3StandardVS2D>();
-			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/glsl/sprite.vert"), { { U"VSConstants2D", 0 } } };
-			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.vert"), {} };
+			m_standardVS->sprite				= ESSL{ Resource(U"engine/shader/essl/sprite.vert"), { { U"VSConstants2D", 0 } } };
+			m_standardVS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/essl/fullscreen_triangle.vert"), {} };
 			if (not m_standardVS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardVS initialization failed");
@@ -83,11 +83,11 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading pixel shaders for CRenderer2D_GLES3:");
 			m_standardPS = std::make_unique<GLES3StandardPS2D>();
-			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/glsl/shape.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/glsl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/glsl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->texture				= ESSL{ Resource(U"engine/shader/glsl/texture.frag"), { { U"PSConstants2D", 0 } } };
-			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/glsl/fullscreen_triangle.frag"), {} };
+			m_standardPS->shape					= ESSL{ Resource(U"engine/shader/essl/shape.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->square_dot			= ESSL{ Resource(U"engine/shader/essl/square_dot.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->round_dot				= ESSL{ Resource(U"engine/shader/essl/round_dot.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->texture				= ESSL{ Resource(U"engine/shader/essl/texture.frag"), { { U"PSConstants2D", 0 } } };
+			m_standardPS->fullscreen_triangle	= ESSL{ Resource(U"engine/shader/essl/fullscreen_triangle.frag"), {} };
 			if (not m_standardPS->setup())
 			{
 				throw EngineError(U"CRenderer2D_GLES3::m_standardPS initialization failed");
@@ -1224,7 +1224,7 @@ namespace s3d
 					
 					if (cb.num_vectors)
 					{
-						const ConstantBufferDetail_GLES3* cbd = dynamic_cast<const ConstantBufferDetail_GLES3*>(cb.cbBase._detail());
+						const ConstantBufferDetail_GLES3* cbd = static_cast<const ConstantBufferDetail_GLES3*>(cb.cbBase._detail());
 						const uint32 uniformBlockBinding = Shader::Internal::MakeUniformBlockBinding(cb.stage, cb.slot);
 						::glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockBinding, cbd->getHandle());
 						cb.cbBase._internal_update(p, (cb.num_vectors * 16));

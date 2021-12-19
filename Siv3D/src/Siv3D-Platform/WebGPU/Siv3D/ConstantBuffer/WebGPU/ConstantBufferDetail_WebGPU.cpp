@@ -33,7 +33,7 @@ namespace s3d
 
 	bool ConstantBufferDetail_WebGPU::init() const
 	{
-		auto pRenderer = dynamic_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
+		auto pRenderer = static_cast<CRenderer_WebGPU*>(SIV3D_ENGINE(Renderer));
 		m_device = *pRenderer->getDevice();
 
 		if (not m_device)
