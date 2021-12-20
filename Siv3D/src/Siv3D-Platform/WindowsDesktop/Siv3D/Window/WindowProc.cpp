@@ -233,7 +233,7 @@ namespace s3d
 
 				break;
 			}
-        case WM_ERASEBKGND:
+		case WM_ERASEBKGND:
 			{
 				return true;
 			}
