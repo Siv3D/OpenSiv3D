@@ -75,7 +75,7 @@
   - Text reader / writer classes
   - CSV / INI / JSON / XML / TOML reader classes
   - CSV / INI / JSON writer classes
-- **Others**
+- **Misc**
   - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box)
   - Integrated 2D physics engine (Box2D)
   - Advanced array / 2D array classes (`Array`, `Grid`)
