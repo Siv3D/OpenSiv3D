@@ -588,7 +588,7 @@ namespace s3d
 				p->getDepthStencilState().set(DepthStencilState::Default3D);
 			}
 
-			::glClearDepth(0.0);
+			::glClearDepthf(0.0f);
 			::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 		else
