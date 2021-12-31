@@ -314,7 +314,7 @@ namespace s3d
 
 	inline constexpr RectF Circle::boundingRect() const noexcept
 	{
-		return{ Arg::center(center), r };
+		return{ Arg::center(center), r * 2 };
 	}
 
 	inline Circle::position_type Circle::getPointByAngle(const double angle) const noexcept
