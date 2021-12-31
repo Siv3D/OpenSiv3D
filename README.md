@@ -7,7 +7,7 @@
 
 ## Main Features
 
-- **Graphics:**
+- **Graphics**
   - Advanced 2D graphics
   - Basic 3D graphics (Wavefront OBJ, primitive shapes)
   - Custom vertex / pixel shaders (HLSL, GLSL)

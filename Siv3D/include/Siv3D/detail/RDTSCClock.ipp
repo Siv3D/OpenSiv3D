@@ -13,8 +13,8 @@
 
 # if !(defined(_M_X64) || defined(__x86_64__) || SIV3D_PLATFORM(WEB))
 
-	// Use std::chrono instead of RDTSC on environments neither x86_64 nor Web
-	#include <chrono>
+// Use std::chrono instead of RDTSC on environments neither x86_64 nor Web
+# include <chrono>
 
 # endif
 
@@ -23,6 +23,7 @@ namespace s3d
 	namespace Platform
 	{
 	# if defined(_M_X64) || defined(__x86_64__)
+	
 		# if SIV3D_PLATFORM(WINDOWS)
 
 			inline uint64 Rdtsc() noexcept
@@ -52,7 +53,7 @@ namespace s3d
 			// workaround
 			return static_cast<uint64>(emscripten_get_now() * 1e+6);
 		}
-	
+
 	# else
 
 		inline uint64 Rdtsc() noexcept
@@ -63,7 +64,6 @@ namespace s3d
 		}
 
 	# endif
-		
 	}
 
 	inline uint64 RDTSCClock::cycles() const noexcept
