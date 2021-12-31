@@ -12,6 +12,7 @@
 # include <Siv3D/EngineOptions.hpp>
 # include <Siv3D/ConstantBuffer/Null/ConstantBufferDetail_Null.hpp>
 # include <Siv3D/ConstantBuffer/GL4/ConstantBufferDetail_GL4.hpp>
+# include <Siv3D/ConstantBuffer/GLES3/ConstantBufferDetail_GLES3.hpp>
 
 namespace s3d
 {
@@ -20,6 +21,10 @@ namespace s3d
 		if (g_engineOptions.renderer == EngineOption::Renderer::Headless)
 		{
 			return new ConstantBufferDetail_Null(size);
+		}
+		else if (g_engineOptions.renderer == EngineOption::Renderer::WebGL2)
+		{
+			return new ConstantBufferDetail_GLES3(size);
 		}
 		else if (g_engineOptions.renderer == EngineOption::Renderer::PlatformDefault
 			|| g_engineOptions.renderer == EngineOption::Renderer::OpenGL)
