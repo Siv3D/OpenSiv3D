@@ -29,6 +29,7 @@ Source: "..\App\resources\*"; DestDir: "{app}\resources"; Flags: recursesubdirs
 Source: "..\App\example\*"; DestDir: "{app}\example"; Flags: recursesubdirs
 Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.3)Web.zip"; DestDir: "{userdocs}\Documents\Visual Studio 2017\Templates\ProjectTemplates"
 Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.3)Web.zip"; DestDir: "{userdocs}\Documents\Visual Studio 2019\Templates\ProjectTemplates"
+Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.3)Web.zip"; DestDir: "{userdocs}\Documents\Visual Studio 2022\Templates\ProjectTemplates"
 
 [Registry]
 Root: HKCU; Subkey: "Environment"; ValueType:string; ValueName: "SIV3D_0_6_0_WEB"; \
