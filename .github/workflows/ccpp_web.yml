@@ -378,7 +378,7 @@ jobs:
 
   deploy-gh-pages:
     needs: build-app
-    if: ${{ github.event_name == 'push' && !needs.build-app.outputs.cache-hit }}
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     steps:
