@@ -413,6 +413,9 @@ jobs:
           name: OpenSiv3D-Bundles-wasm-side-module
           path: .
 
+      - name: Restore Siv3D library (wasm-side-module)
+        run: tar -xvf OpenSiv3D.tgz   
+
       - name: Place Siv3D library (wasm-side-module)
         run: |
           cp Package/lib/Siv3D.wasm Dest/lib/v6
