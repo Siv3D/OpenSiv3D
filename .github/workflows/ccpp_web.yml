@@ -116,10 +116,10 @@ jobs:
           cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }}/* Package/lib
           cp -r Web/App/resources Package
           cp -r Web/App/example Package
-          cp Web/build/${{ matrix.config.output-file }} Package/lib
           cp Web/Siv3D.js Package/lib
           cp Web/Siv3D.pre.js Package/lib
           cp Web/Siv3D.post.js Package/lib
+          cp Web/build/${{ matrix.config.output-file }} Package/lib
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
