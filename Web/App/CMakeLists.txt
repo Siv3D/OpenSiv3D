@@ -54,8 +54,15 @@ if (SIV3D_RUN_TEST_ON_NODE)
 else()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file \"${CMAKE_SOURCE_DIR}/resources@/resources\" --preload-file \"${CMAKE_SOURCE_DIR}/example@/example\"")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]\"")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'main', 'Main()', 'InitSiv3D', 's3d::CSystem::init()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]\"")
+    
+    if (SIV3D_BUILD_WITH_SHARED_MAIN)
+      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ '_ZN3s3d6System6UpdateEv' ]\"")
+      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'Main()' ]\"")
+    else ()
+      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]\"")
+      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'main', 'Main()', 'InitSiv3D', 's3d::CSystem::init()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]\"")
+    endif ()
+
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
@@ -64,6 +71,11 @@ if (SIV3D_ENABLE_SHARED_LIB)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s MAIN_MODULE=2")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MAIN_MODULE=2")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s MAIN_MODULE=2")
+
+elseif (SIV3D_BUILD_WITH_SHARED_MAIN)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
+set(CMAKE_EXECUTABLE_SUFFIX ".wasm")
 
 endif()
 
@@ -186,7 +198,7 @@ elseif (SIV3D_ENABLE_SHARED_LIB)
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-shared/SDL2/
   )
 
-else ()
+elseif (NOT SIV3D_BUILD_WITH_SHARED_MAIN)
 
   target_link_libraries(Siv3DTest PRIVATE
     # ${PROJECT_SOURCE_DIR}/../build/libSiv3DScript.a

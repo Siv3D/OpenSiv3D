@@ -590,7 +590,31 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D/Zlib/SivZlib.cpp
 )
 
-if (${SIV3D_ENABLE_SHARED_LIB})
+if (SIV3D_BUILD_SHARED_MAIN)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MAIN_MODULE=1 -DZSTD_TRACE=0")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s MAIN_MODULE=1 -DZSTD_TRACE=0")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 --js-library ${CMAKE_SOURCE_DIR}/Siv3D.js")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_OGG=1 -s USE_LIBPNG=1  -s USE_VORBIS=1")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/Siv3D.pre.js")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --js-library ${CMAKE_SOURCE_DIR}/Siv3D.js")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_WEBGPU=1 --post-js \"${CMAKE_SOURCE_DIR}/Siv3D.post.js\"")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s MAIN_MODULE=1 -s DECLARE_ASM_MODULE_EXPORTS=0 -s EXPORTED_FUNCTIONS='[\"_main\"]'")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file \"${CMAKE_SOURCE_DIR}/App/resources@/resources\"")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText', '_Z4Mainv' ]\"")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'main', 'InitSiv3D', 's3d::CSystem::init()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]\"")
+
+set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+endif()
+
+if (SIV3D_ENABLE_SHARED_LIB)
 
 include(cmake/BuildThirdParty.cmake)
 
@@ -701,7 +725,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/ThirdParty/lua/ltable.c
   ../Siv3D/src/ThirdParty/lua/ltablib.c
   ../Siv3D/src/ThirdParty/lua/ltm.c
-  ../Siv3D/src/ThirdParty/lua/lua.c
+  # ../Siv3D/src/ThirdParty/lua/lua.c
   ../Siv3D/src/ThirdParty/lua/lundump.c
   ../Siv3D/src/ThirdParty/lua/lutf8lib.c
   ../Siv3D/src/ThirdParty/lua/lvm.c
@@ -977,10 +1001,38 @@ set(SIV3D_SOURCES
 
 endif()
 
+if(SIV3D_BUILD_SHARED_MAIN)
+
+add_executable(
+  OpenSiv3D_Web
+  ${SIV3D_SOURCES}
+)
+
+target_link_libraries(OpenSiv3D_Web PRIVATE
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_objdetect.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_photo.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_imgproc.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_core.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/harfbuzz/libharfbuzz.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/freetype/libfreetype.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/turbojpeg/libturbojpeg.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/giflib/libgif.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/webp/libwebp.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopusfile.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopus.a
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/tiff/libtiff.a
+
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/SDL2/libSDL2.a
+)
+
+else()
+
 add_library(
   OpenSiv3D_Web STATIC
   ${SIV3D_SOURCES}
 )
+
+endif()
 
 set_target_properties(OpenSiv3D_Web 
   PROPERTIES 
