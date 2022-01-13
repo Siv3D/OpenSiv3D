@@ -333,7 +333,7 @@ template <>
 struct std::hash<s3d::Triangle>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Triangle& value) const noexcept
+	size_t operator ()(const s3d::Triangle& value) const noexcept
 	{
 		return value.hash();
 	}

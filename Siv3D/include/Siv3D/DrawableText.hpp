@@ -366,7 +366,7 @@ namespace s3d
 	};
 
 	template <class ... Args>
-	inline DrawableText Font::operator()(const Args& ... args) const
+	inline DrawableText Font::operator ()(const Args& ... args) const
 	{
 		return DrawableText(*this, Format(args...));
 	}

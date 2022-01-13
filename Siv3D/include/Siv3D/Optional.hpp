@@ -176,7 +176,7 @@ namespace s3d
 #if __cpp_impl_three_way_comparison && __cpp_lib_concepts
 	template <class Type1, std::three_way_comparable_with<Type1> Type2>
 	[[nodiscard]]
-	inline constexpr std::compare_three_way_result_t<Type1, Type2> operator <=> (const Optional<Type1>& lhs, const Optional<Type2>& rhs);
+	inline constexpr std::compare_three_way_result_t<Type1, Type2> operator <=>(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 #endif
 
 	template <class Type>
@@ -187,7 +187,7 @@ namespace s3d
 
 	template <class Type>
 	[[nodiscard]]
-	inline constexpr std::strong_ordering operator <=> (const Optional<Type>& opt, None_t) noexcept;
+	inline constexpr std::strong_ordering operator <=>(const Optional<Type>& opt, None_t) noexcept;
 
 #else
 
@@ -298,7 +298,7 @@ namespace s3d
 	template <class Type, class U>
 	requires (!detail::is_specialization_v<U, Optional>) && std::three_way_comparable_with<Type, U>
 	[[nodiscard]]
-	inline constexpr std::compare_three_way_result_t<Type, U> operator <=> (const Optional<Type>& opt, const U& value);
+	inline constexpr std::compare_three_way_result_t<Type, U> operator <=>(const Optional<Type>& opt, const U& value);
 #endif
 
 	template <class Type>
@@ -358,7 +358,7 @@ template <class Type>
 struct std::hash<s3d::Optional<Type>>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Optional<Type>& value) const noexcept
+	size_t operator ()(const s3d::Optional<Type>& value) const noexcept
 	{
 		if (value)
 		{

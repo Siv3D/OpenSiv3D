@@ -151,7 +151,7 @@ template <class Float>
 struct std::hash<s3d::SphericalBase<Float>>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::SphericalBase<Float>& value) const noexcept
+	size_t operator ()(const s3d::SphericalBase<Float>& value) const noexcept
 	{
 		return value.hash();
 	}

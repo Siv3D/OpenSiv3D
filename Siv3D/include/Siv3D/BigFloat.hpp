@@ -838,7 +838,7 @@ template <>
 struct std::hash<s3d::BigFloat>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::BigFloat& value) const noexcept
+	size_t operator ()(const s3d::BigFloat& value) const noexcept
 	{
 		return value.hash();
 	}

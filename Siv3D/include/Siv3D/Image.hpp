@@ -207,20 +207,20 @@ namespace s3d
 		/// @remark image[y][x] で指定したピクセルにアクセスします。
 		/// @return 指定した行の先頭ポインタ
 		[[nodiscard]]
-		Color* operator[](size_t y);
+		Color* operator [](size_t y);
 
 		[[nodiscard]]
-		Color& operator[](Point pos);
+		Color& operator [](Point pos);
 
 		/// @brief 指定した行の先頭ポインタを返します。
 		/// @param y 位置（行）
 		/// @remark image[y][x] で指定したピクセルにアクセスします。
 		/// @return 指定した行の先頭ポインタ
 		[[nodiscard]]
-		const Color* operator[](size_t y) const;
+		const Color* operator [](size_t y) const;
 
 		[[nodiscard]]
-		const Color& operator[](Point pos) const;
+		const Color& operator [](Point pos) const;
 
 		/// @brief 画像データの先頭のポインタを返します。
 		/// @return 画像データの先頭のポインタ

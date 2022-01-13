@@ -58,7 +58,7 @@ namespace s3d
 			static constexpr size_t MaxPlayerCount = 16;
 
 			[[nodiscard]]
-			const Gamepad_impl& operator()(size_t userIndex) const;
+			const Gamepad_impl& operator ()(size_t userIndex) const;
 		};
 	}
 

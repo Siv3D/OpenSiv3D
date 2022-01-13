@@ -118,7 +118,7 @@ namespace s3d
 
 		DateTime& operator -=(const Days& days) noexcept;
 
-		DateTime& operator -= (const Milliseconds & _milliseconds) noexcept;
+		DateTime& operator -=(const Milliseconds & _milliseconds) noexcept;
 
 		[[nodiscard]]
 		friend constexpr Duration operator -(const DateTime& to, const DateTime& from) noexcept
@@ -261,7 +261,7 @@ template <>
 struct std::hash<s3d::DateTime>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::DateTime& value) const noexcept
+	size_t operator ()(const s3d::DateTime& value) const noexcept
 	{
 		return value.hash();
 	}

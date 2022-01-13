@@ -103,7 +103,7 @@ template <>
 struct std::hash<s3d::MD5Value>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::MD5Value& value) const noexcept
+	size_t operator ()(const s3d::MD5Value& value) const noexcept
 	{
 		return value.hash();
 	}

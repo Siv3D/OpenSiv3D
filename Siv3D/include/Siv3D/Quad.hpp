@@ -307,7 +307,7 @@ template <>
 struct std::hash<s3d::Quad>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Quad& value) const noexcept
+	size_t operator ()(const s3d::Quad& value) const noexcept
 	{
 		return value.hash();
 	}

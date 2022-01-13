@@ -42,7 +42,7 @@ namespace s3d
 
 		/// @brief 乱数を生成します。
 		/// @return 生成された乱数
-		result_type operator()();
+		result_type operator ()();
 
 		/// @brief 疑似乱数生成エンジンで使うための乱数シード列を作成します。
 		/// @return 乱数シード列

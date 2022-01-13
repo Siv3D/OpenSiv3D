@@ -86,7 +86,7 @@ template <>
 struct std::hash<s3d::HalfFloat>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::HalfFloat& value) const noexcept
+	size_t operator ()(const s3d::HalfFloat& value) const noexcept
 	{
 		return std::hash<s3d::uint16>()(value.getBits());
 	}

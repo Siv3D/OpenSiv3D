@@ -43,7 +43,7 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
-		Ret operator()(Args... args) const;
+		Ret operator ()(Args... args) const;
 
 		Ret tryCall(Args... args, String& exception) const;
 

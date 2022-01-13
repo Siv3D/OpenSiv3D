@@ -52,9 +52,9 @@ namespace s3d
 
 		JSONIterator& operator =(const JSONIterator& rhs);
 
-		JSONIterator& operator++();
+		JSONIterator& operator ++();
 
-		JSONIterator operator++(int);
+		JSONIterator operator ++(int);
 
 		[[nodiscard]]
 		JSONIterator operator +(size_t index) const;
@@ -94,9 +94,9 @@ namespace s3d
 
 		JSONConstIterator& operator =(const JSONConstIterator& rhs);
 
-		JSONConstIterator& operator++();
+		JSONConstIterator& operator ++();
 
-		JSONConstIterator operator++(int);
+		JSONConstIterator operator ++(int);
 
 		[[nodiscard]]
 		JSONConstIterator operator +(size_t index) const;
@@ -136,9 +136,9 @@ namespace s3d
 
 		JSONIterationProxy& operator =(const JSONIterationProxy& rhs);
 
-		JSONIterationProxy& operator++();
+		JSONIterationProxy& operator ++();
 
-		JSONIterationProxy operator++(int);
+		JSONIterationProxy operator ++(int);
 
 		[[nodiscard]]
 		JSONIterationProxy operator +(size_t index) const;

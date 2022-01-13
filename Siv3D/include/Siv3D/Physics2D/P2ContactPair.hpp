@@ -56,7 +56,7 @@ template <>
 struct std::hash<s3d::P2ContactPair>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::P2ContactPair& value) const noexcept
+	size_t operator ()(const s3d::P2ContactPair& value) const noexcept
 	{
 		return s3d::Hash::FNV1a(value);
 	}

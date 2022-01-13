@@ -254,13 +254,13 @@ namespace s3d
 		value_type at(size_t offset) &&;
 
 		[[nodiscard]]
-		value_type& operator[](size_t offset) & noexcept;
+		value_type& operator [](size_t offset) & noexcept;
 
 		[[nodiscard]]
-		const value_type& operator[](size_t offset) const& noexcept;
+		const value_type& operator [](size_t offset) const& noexcept;
 
 		[[nodiscard]]
-		value_type operator[](size_t offset) && noexcept;
+		value_type operator [](size_t offset) && noexcept;
 
 		void push_front(value_type ch);
 
@@ -1140,11 +1140,11 @@ namespace s3d
 
 #if __cpp_impl_three_way_comparison
 
-		bool operator == (const String& rhs) const noexcept = default;
+		bool operator ==(const String& rhs) const noexcept = default;
 
-		std::strong_ordering operator <=> (const String & rhs) const noexcept = default;
+		std::strong_ordering operator <=>(const String & rhs) const noexcept = default;
 
-		friend std::strong_ordering operator <=> (const String & lhs, const value_type * rhs);
+		friend std::strong_ordering operator <=>(const String & lhs, const value_type * rhs);
 
 #else
 
@@ -1273,7 +1273,7 @@ template <>
 struct std::hash<s3d::String>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::String& value) const noexcept
+	size_t operator ()(const s3d::String& value) const noexcept
 	{
 		return value.hash();
 	}

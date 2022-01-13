@@ -193,7 +193,7 @@ template <>
 struct std::hash<s3d::RasterizerState>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::RasterizerState& value) const noexcept
+	size_t operator ()(const s3d::RasterizerState& value) const noexcept
 	{
 		return hash<s3d::RasterizerState::storage_type>()(value.asValue());
 	}

@@ -87,7 +87,7 @@ template <>
 struct std::hash<s3d::Byte>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Byte& value) const noexcept
+	size_t operator ()(const s3d::Byte& value) const noexcept
 	{
 		return hash<s3d::uint8>()(static_cast<s3d::uint8>(value));
 	}

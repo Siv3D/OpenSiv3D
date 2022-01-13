@@ -832,7 +832,7 @@ template <>
 struct std::hash<s3d::Rect>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Rect& value) const noexcept
+	size_t operator ()(const s3d::Rect& value) const noexcept
 	{
 		return value.hash();
 	}

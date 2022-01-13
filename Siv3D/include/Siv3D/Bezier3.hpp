@@ -168,7 +168,7 @@ template <>
 struct std::hash<s3d::Bezier3>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Bezier3& value) const noexcept
+	size_t operator ()(const s3d::Bezier3& value) const noexcept
 	{
 		return value.hash();
 	}

@@ -108,7 +108,7 @@ namespace s3d
 
 		template <class... Args>
 		[[nodiscard]]
-		constexpr NamedParameter<Tag, std::tuple<std::decay_t<Args >...>> operator() (Args&&... args) const
+		constexpr NamedParameter<Tag, std::tuple<std::decay_t<Args >...>> operator ()(Args&&... args) const
 		{
 			return NamedParameter<Tag, std::tuple<std::decay_t<Args >...>>(std::make_tuple(std::forward<Args>(args)...));
 		}
@@ -122,7 +122,7 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]]
-		constexpr NamedParameter<Tag, Type&> operator()(std::reference_wrapper<Type> value) const
+		constexpr NamedParameter<Tag, Type&> operator ()(std::reference_wrapper<Type> value) const
 		{
 			return NamedParameter<Tag, Type&>(value.get());
 		}

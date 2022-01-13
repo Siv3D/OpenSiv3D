@@ -288,7 +288,7 @@ template <>
 struct std::hash<s3d::Line>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Line& value) const noexcept
+	size_t operator ()(const s3d::Line& value) const noexcept
 	{
 		return value.hash();
 	}

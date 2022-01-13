@@ -216,7 +216,7 @@ template <>
 struct std::hash<s3d::Mat3x2>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Mat3x2& value) const noexcept
+	size_t operator ()(const s3d::Mat3x2& value) const noexcept
 	{
 		return value.hash();
 	}

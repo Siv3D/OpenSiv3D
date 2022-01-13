@@ -182,7 +182,7 @@ template <>
 struct std::hash<s3d::Mat3x3>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Mat3x3& value) const noexcept
+	size_t operator ()(const s3d::Mat3x3& value) const noexcept
 	{
 		return value.hash();
 	}

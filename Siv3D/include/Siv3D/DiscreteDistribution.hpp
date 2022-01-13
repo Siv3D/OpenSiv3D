@@ -56,7 +56,7 @@ namespace s3d
 		Array<double> probabilities() const;
 
 		template <class URBG>
-		result_type operator()(URBG& rbg);
+		result_type operator ()(URBG& rbg);
 
 		[[nodiscard]]
 		size_t min() const;

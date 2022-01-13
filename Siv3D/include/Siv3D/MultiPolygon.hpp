@@ -113,13 +113,13 @@ namespace s3d
 		value_type at(size_t index)&&;
 
 		[[nodiscard]]
-		value_type& operator[](size_t index) & noexcept;
+		value_type& operator [](size_t index) & noexcept;
 
 		[[nodiscard]]
-		const value_type& operator[](size_t index) const& noexcept;
+		const value_type& operator [](size_t index) const& noexcept;
 
 		[[nodiscard]]
-		value_type operator[](size_t index) && noexcept;
+		value_type operator [](size_t index) && noexcept;
 
 		void push_front(const value_type& value);
 

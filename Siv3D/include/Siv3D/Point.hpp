@@ -442,7 +442,7 @@ template <>
 struct std::hash<s3d::Point>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Point& value) const noexcept
+	size_t operator ()(const s3d::Point& value) const noexcept
 	{
 		return value.hash();
 	}

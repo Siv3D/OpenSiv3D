@@ -42,7 +42,7 @@ namespace s3d
 
 		~XMLElement();
 
-		XMLElement& operator= (XMLElement&& other);
+		XMLElement& operator =(XMLElement&& other);
 
 		[[nodiscard]]
 		bool isNull() const;

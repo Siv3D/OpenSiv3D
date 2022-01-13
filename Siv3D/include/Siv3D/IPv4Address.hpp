@@ -124,7 +124,7 @@ template <>
 struct std::hash<s3d::IPv4Address>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::IPv4Address& value) const noexcept
+	size_t operator ()(const s3d::IPv4Address& value) const noexcept
 	{
 		return value.hash();
 	}

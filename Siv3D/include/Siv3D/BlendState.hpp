@@ -221,7 +221,7 @@ template <>
 struct std::hash<s3d::BlendState>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::BlendState& value) const noexcept
+	size_t operator ()(const s3d::BlendState& value) const noexcept
 	{
 		return hash<s3d::BlendState::storage_type>()(value.asValue());
 	}

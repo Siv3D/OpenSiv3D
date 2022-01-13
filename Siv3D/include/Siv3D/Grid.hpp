@@ -129,19 +129,19 @@ namespace s3d
 		value_type at(Point pos)&&;
 
 		[[nodiscard]]
-		value_type* operator[](size_t index);
+		value_type* operator [](size_t index);
 
 		[[nodiscard]]
-		const value_type* operator[](size_t index) const;
+		const value_type* operator [](size_t index) const;
 
 		[[nodiscard]]
-		value_type& operator[](Point pos)&;
+		value_type& operator [](Point pos)&;
 
 		[[nodiscard]]
-		const value_type& operator[](Point pos) const&;
+		const value_type& operator [](Point pos) const&;
 
 		[[nodiscard]]
-		value_type operator[](Point pos)&&;
+		value_type operator [](Point pos)&&;
 
 		[[nodiscard]]
 		bool inBounds(int64 y, int64 x) const noexcept;

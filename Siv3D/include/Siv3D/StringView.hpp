@@ -89,7 +89,7 @@ namespace s3d
 		constexpr const_reverse_iterator crend() const noexcept;
 
 		[[nodiscard]]
-		constexpr const_reference operator[](size_type index) const noexcept;
+		constexpr const_reference operator [](size_type index) const noexcept;
 
 		[[nodiscard]]
 		constexpr const_reference at(size_type index) const;
@@ -268,7 +268,7 @@ namespace s3d
 #if __cpp_impl_three_way_comparison
 
 		[[nodiscard]]
-		constexpr std::strong_ordering operator <=> (const StringView& rhs) const noexcept = default;
+		constexpr std::strong_ordering operator <=>(const StringView& rhs) const noexcept = default;
 
 #else
 
@@ -344,7 +344,7 @@ template <>
 struct std::hash<s3d::StringView>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::StringView& value) const noexcept
+	size_t operator ()(const s3d::StringView& value) const noexcept
 	{
 		return value.hash();
 	}

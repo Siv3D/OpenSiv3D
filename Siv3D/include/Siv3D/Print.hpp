@@ -52,11 +52,11 @@ namespace s3d
 
 			void writeln(const String& s) const;
 
-			void operator()(const char32_t* s) const;
+			void operator ()(const char32_t* s) const;
 
-			void operator()(StringView s) const;
+			void operator ()(StringView s) const;
 
-			void operator()(const String& s) const;
+			void operator ()(const String& s) const;
 
 		# if __cpp_lib_concepts
 
@@ -81,14 +81,14 @@ namespace s3d
 			void writeln(const Args&... args) const = delete;
 
 			template <Concept::Formattable... Args>
-			void operator()(const Args&... args) const
+			void operator ()(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}
 
 			// Format できない値が Print() に渡されたときに発生するエラーです
 			template <class... Args>
-			void operator()(const Args&... args) const = delete;
+			void operator ()(const Args&... args) const = delete;
 
 		# else
 
@@ -105,7 +105,7 @@ namespace s3d
 			}
 
 			template <class... Args>
-			void operator()(const Args&... args) const
+			void operator ()(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}

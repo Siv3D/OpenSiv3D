@@ -175,7 +175,7 @@ template <>
 struct std::hash<s3d::SamplerState>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::SamplerState& value) const noexcept
+	size_t operator ()(const s3d::SamplerState& value) const noexcept
 	{
 		return s3d::Hash::FNV1a(&value, sizeof(value));
 	}

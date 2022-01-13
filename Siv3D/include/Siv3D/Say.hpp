@@ -39,28 +39,28 @@ namespace s3d
 
 		struct Say_impl
 		{
-			void operator()(const char32_t* s) const;
+			void operator ()(const char32_t* s) const;
 
-			void operator()(StringView s) const;
+			void operator ()(StringView s) const;
 
-			void operator()(const String& s) const;
+			void operator ()(const String& s) const;
 
 		# if __cpp_lib_concepts
 
 			template <Concept::Formattable... Args>
-			void operator()(const Args&... args) const
+			void operator ()(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}
 
 			// Format できない値が Say() に渡されたときに発生するエラーです
 			template <class... Args>
-			void operator()(const Args&... args) const = delete;
+			void operator ()(const Args&... args) const = delete;
 
 		# else
 
 			template <class... Args>
-			void operator()(const Args&... args) const
+			void operator ()(const Args&... args) const
 			{
 				return write(Format(args..., U'\n'));
 			}

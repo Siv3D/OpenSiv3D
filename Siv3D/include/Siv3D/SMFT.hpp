@@ -64,7 +64,7 @@ namespace s3d
 
 			/// @brief 乱数を生成します。 | Generates a pseudo-random value.
 			/// @return 生成された乱数 | A generated pseudo-random value
-			result_type operator()() noexcept;
+			result_type operator ()() noexcept;
 
 			[[nodiscard]]
 			/// @brief [0, 1) の範囲の乱数を生成します。 | Generates a pseudo-random value in [0, 1)

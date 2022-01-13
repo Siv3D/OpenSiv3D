@@ -287,7 +287,7 @@ template <>
 struct std::hash<s3d::Date>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Date& value) const noexcept
+	size_t operator ()(const s3d::Date& value) const noexcept
 	{
 		return value.hash();
 	}

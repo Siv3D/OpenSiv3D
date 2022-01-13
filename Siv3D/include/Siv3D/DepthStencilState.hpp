@@ -111,7 +111,7 @@ template <>
 struct std::hash<s3d::DepthStencilState>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::DepthStencilState& value) const noexcept
+	size_t operator ()(const s3d::DepthStencilState& value) const noexcept
 	{
 		return hash<s3d::DepthStencilState::storage_type>()(value.asValue());
 	}

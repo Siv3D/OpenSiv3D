@@ -163,7 +163,7 @@ template <class Float, s3d::int32 Oclock>
 struct std::hash<s3d::CircularBase<Float, Oclock>>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::CircularBase<Float, Oclock>& value) const noexcept
+	size_t operator ()(const s3d::CircularBase<Float, Oclock>& value) const noexcept
 	{
 		return value.hash();
 	}

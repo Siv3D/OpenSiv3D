@@ -79,7 +79,7 @@ namespace s3d
 	template <class Type>
 	struct AlignedDeleter
 	{
-		void operator()(Type* p);
+		void operator ()(Type* p);
 	};
 
 	/// @brief 明示的なアライメントの指定が必要な型であるかを判定します。

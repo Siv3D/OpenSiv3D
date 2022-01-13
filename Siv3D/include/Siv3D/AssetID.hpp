@@ -107,7 +107,7 @@ template <class AssetTag>
 struct std::hash<s3d::AssetID<AssetTag>>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::AssetID<AssetTag>& value) const noexcept
+	size_t operator ()(const s3d::AssetID<AssetTag>& value) const noexcept
 	{
 		return std::hash<typename s3d::AssetID<AssetTag>::value_type>{}(value.value());
 	}

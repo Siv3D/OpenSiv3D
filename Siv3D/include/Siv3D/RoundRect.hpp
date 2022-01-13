@@ -358,7 +358,7 @@ template <>
 struct std::hash<s3d::RoundRect>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::RoundRect& value) const noexcept
+	size_t operator ()(const s3d::RoundRect& value) const noexcept
 	{
 		return value.hash();
 	}

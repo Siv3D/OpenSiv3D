@@ -80,10 +80,10 @@ namespace s3d
 		bool createFromFile(FilePathView path);
 
 		[[nodiscard]]
-		const Byte& operator[](const size_t index) const;
+		const Byte& operator [](const size_t index) const;
 
 		[[nodiscard]]
-		Byte& operator[](const size_t index);
+		Byte& operator [](const size_t index);
 
 		[[nodiscard]]
 		const Byte* data() const noexcept;

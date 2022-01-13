@@ -424,13 +424,13 @@ namespace s3d
 		/// @param text 文字列
 		/// @return DrawableText
 		[[nodiscard]]
-		DrawableText operator()(const String& text) const;
+		DrawableText operator ()(const String& text) const;
 
 		/// @brief フォントを描画するために必要な DrawableText を、文字列から構築します。
 		/// @param text 文字列
 		/// @return DrawableText
 		[[nodiscard]]
-		DrawableText operator()(String&& text) const;
+		DrawableText operator ()(String&& text) const;
 
 		/// @brief フォントを描画するために必要な DrawableText を、一連の引数を文字列に変換することで構築します。
 		/// @tparam ...Args 引数の型
@@ -438,7 +438,7 @@ namespace s3d
 		/// @return DrawableText
 		template <class ... Args>
 		[[nodiscard]]
-		DrawableText operator()(const Args& ... args) const;
+		DrawableText operator ()(const Args& ... args) const;
 
 		void swap(Font& other) noexcept;
 

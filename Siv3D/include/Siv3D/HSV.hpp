@@ -224,7 +224,7 @@ template <>
 struct std::hash<s3d::HSV>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::HSV& value) const noexcept
+	size_t operator ()(const s3d::HSV& value) const noexcept
 	{
 		return value.hash();
 	}

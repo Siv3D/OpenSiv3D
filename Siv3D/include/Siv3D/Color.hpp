@@ -280,7 +280,7 @@ template <>
 struct std::hash<s3d::Color>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Color& value) const noexcept
+	size_t operator ()(const s3d::Color& value) const noexcept
 	{
 		return value.hash();
 	}

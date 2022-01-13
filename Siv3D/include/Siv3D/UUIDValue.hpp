@@ -192,7 +192,7 @@ template <>
 struct std::hash<s3d::UUIDValue>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::UUIDValue& value) const noexcept
+	size_t operator ()(const s3d::UUIDValue& value) const noexcept
 	{
 		return value.hash();
 	}

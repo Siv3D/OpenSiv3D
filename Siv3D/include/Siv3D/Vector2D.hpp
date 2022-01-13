@@ -451,7 +451,7 @@ template <class Type>
 struct std::hash<s3d::Vector2D<Type>>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Vector2D<Type>& value) const noexcept
+	size_t operator ()(const s3d::Vector2D<Type>& value) const noexcept
 	{
 		return value.hash();
 	}

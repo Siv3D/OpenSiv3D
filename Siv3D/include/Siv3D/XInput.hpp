@@ -146,7 +146,7 @@ namespace s3d
 			static constexpr size_t MaxPlayerCount = 4;
 
 			[[nodiscard]]
-			const XInput_impl& operator()(size_t playerIndex) const;
+			const XInput_impl& operator ()(size_t playerIndex) const;
 		};
 	}
 

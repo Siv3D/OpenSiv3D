@@ -494,7 +494,7 @@ template <>
 struct std::hash<s3d::Circle>
 {
 	[[nodiscard]]
-	size_t operator()(const s3d::Circle& value) const noexcept
+	size_t operator ()(const s3d::Circle& value) const noexcept
 	{
 		return value.hash();
 	}
