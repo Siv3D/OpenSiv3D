@@ -380,6 +380,8 @@ namespace s3d
 
 		const JSON access(StringView jsonPointer) const;
 
+		void push_back(const JSON& value);
+
 		void clear() const;
 
 		void erase(StringView name);

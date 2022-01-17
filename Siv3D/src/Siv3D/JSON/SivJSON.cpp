@@ -750,6 +750,11 @@ namespace s3d
 		throw Error{ U"JSON::access(): Invalid JSON type" };
 	}
 
+	void JSON::push_back(const JSON& value)
+	{
+		m_detail->get().push_back(value.m_detail->get());
+	}
+
 	void JSON::clear() const
 	{
 		if (not m_isValid)
