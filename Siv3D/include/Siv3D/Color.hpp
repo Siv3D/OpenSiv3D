@@ -222,10 +222,10 @@ namespace s3d
 					cols[3] = 255;
 				}
 
-				value.r = cols[0];
-				value.g = cols[1];
-				value.b = cols[2];
-				value.a = cols[3];
+				value.r = static_cast<uint8>(cols[0]);
+				value.g = static_cast<uint8>(cols[1]);
+				value.b = static_cast<uint8>(cols[2]);
+				value.a = static_cast<uint8>(cols[3]);
 			}
 
 			return input;
