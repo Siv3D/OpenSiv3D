@@ -402,9 +402,16 @@ namespace s3d
 			return *this;
 		}
 
-		for (const auto& element : array)
+		if (array)
 		{
-			m_detail->get().push_back(element.m_detail->get());
+			for (const auto& element : array)
+			{
+				m_detail->get().push_back(element.m_detail->get());
+			}
+		}
+		else
+		{
+			m_detail->get() = nlohmann::json::array();
 		}
 
 		return *this;
