@@ -23,6 +23,7 @@
 # endif
 
 #ifdef _WIN32
+
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -34,10 +35,10 @@
 #include <objbase.h>
 #endif
 
-#include <windows.h>
-#include <intrin.h>       
+#ifdef UUID_TIME_GENERATOR
 #include <iphlpapi.h> 
 #pragma comment(lib, "IPHLPAPI.lib")
+#endif
 
 #elif defined(__linux__) || defined(__unix__)
 
@@ -69,11 +70,11 @@ namespace uuids
       constexpr inline unsigned char hex2char(TChar const ch)
       {
          if (ch >= static_cast<TChar>('0') && ch <= static_cast<TChar>('9'))
-            return ch - static_cast<TChar>('0');
+            return static_cast<unsigned char>(ch - static_cast<TChar>('0'));
          if (ch >= static_cast<TChar>('a') && ch <= static_cast<TChar>('f'))
-            return 10 + ch - static_cast<TChar>('a');
+            return static_cast<unsigned char>(10 + ch - static_cast<TChar>('a'));
          if (ch >= static_cast<TChar>('A') && ch <= static_cast<TChar>('F'))
-            return 10 + ch - static_cast<TChar>('A');
+            return static_cast<unsigned char>(10 + ch - static_cast<TChar>('A'));
          return 0;
       }
 
@@ -87,9 +88,19 @@ namespace uuids
       }
 
       template <typename TChar>
-      constexpr inline unsigned char hexpair2char(TChar const a, TChar const b)
+      constexpr std::basic_string_view<TChar> to_string_view(TChar const * str)
       {
-         return (hex2char(a) << 4) | hex2char(b);
+         if (str) return str;
+         return {};
+      }
+
+      template <typename StringType>
+      constexpr std::basic_string_view<
+         typename StringType::value_type,
+         typename StringType::traits_type>
+      to_string_view(StringType const & str)
+      {
+         return str;
       }
 
       class sha1
@@ -181,30 +192,30 @@ namespace uuids
             digest32_t d32;
             get_digest(d32);
             size_t di = 0;
-            digest[di++] = (uint8_t)(d32[0] >> 24);
-            digest[di++] = (uint8_t)(d32[0] >> 16);
-            digest[di++] = (uint8_t)(d32[0] >>  8);
-            digest[di++] = (uint8_t)(d32[0] >>  0);
+            digest[di++] = static_cast<uint8_t>(d32[0] >> 24);
+            digest[di++] = static_cast<uint8_t>(d32[0] >> 16);
+            digest[di++] = static_cast<uint8_t>(d32[0] >> 8);
+            digest[di++] = static_cast<uint8_t>(d32[0] >> 0);
 
-            digest[di++] = (uint8_t)(d32[1] >> 24);
-            digest[di++] = (uint8_t)(d32[1] >> 16);
-            digest[di++] = (uint8_t)(d32[1] >>  8);
-            digest[di++] = (uint8_t)(d32[1] >>  0);
+            digest[di++] = static_cast<uint8_t>(d32[1] >> 24);
+            digest[di++] = static_cast<uint8_t>(d32[1] >> 16);
+            digest[di++] = static_cast<uint8_t>(d32[1] >> 8);
+            digest[di++] = static_cast<uint8_t>(d32[1] >> 0);
 
-            digest[di++] = (uint8_t)(d32[2] >> 24);
-            digest[di++] = (uint8_t)(d32[2] >> 16);
-            digest[di++] = (uint8_t)(d32[2] >>  8);
-            digest[di++] = (uint8_t)(d32[2] >>  0);
+            digest[di++] = static_cast<uint8_t>(d32[2] >> 24);
+            digest[di++] = static_cast<uint8_t>(d32[2] >> 16);
+            digest[di++] = static_cast<uint8_t>(d32[2] >> 8);
+            digest[di++] = static_cast<uint8_t>(d32[2] >> 0);
 
-            digest[di++] = (uint8_t)(d32[3] >> 24);
-            digest[di++] = (uint8_t)(d32[3] >> 16);
-            digest[di++] = (uint8_t)(d32[3] >>  8);
-            digest[di++] = (uint8_t)(d32[3] >>  0);
+            digest[di++] = static_cast<uint8_t>(d32[3] >> 24);
+            digest[di++] = static_cast<uint8_t>(d32[3] >> 16);
+            digest[di++] = static_cast<uint8_t>(d32[3] >> 8);
+            digest[di++] = static_cast<uint8_t>(d32[3] >> 0);
 
-            digest[di++] = (uint8_t)(d32[4] >> 24);
-            digest[di++] = (uint8_t)(d32[4] >> 16);
-            digest[di++] = (uint8_t)(d32[4] >>  8);
-            digest[di++] = (uint8_t)(d32[4] >>  0);
+            digest[di++] = static_cast<uint8_t>(d32[4] >> 24);
+            digest[di++] = static_cast<uint8_t>(d32[4] >> 16);
+            digest[di++] = static_cast<uint8_t>(d32[4] >> 8);
+            digest[di++] = static_cast<uint8_t>(d32[4] >> 0);
 
             return digest;
          }
@@ -214,10 +225,10 @@ namespace uuids
          {
             uint32_t w[80];
             for (size_t i = 0; i < 16; i++) {
-               w[i] = (m_block[i * 4 + 0] << 24);
-               w[i] |= (m_block[i * 4 + 1] << 16);
-               w[i] |= (m_block[i * 4 + 2] << 8);
-               w[i] |= (m_block[i * 4 + 3]);
+               w[i] = static_cast<uint32_t>(m_block[i * 4 + 0] << 24);
+               w[i] |= static_cast<uint32_t>(m_block[i * 4 + 1] << 16);
+               w[i] |= static_cast<uint32_t>(m_block[i * 4 + 2] << 8);
+               w[i] |= static_cast<uint32_t>(m_block[i * 4 + 3]);
             }
             for (size_t i = 16; i < 80; i++) {
                w[i] = left_rotate((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
@@ -272,9 +283,17 @@ namespace uuids
          size_t m_byteCount;
       };
 
-      static std::mt19937 clock_gen(std::random_device{}());
-      static std::uniform_int_distribution<short> clock_dis{ -32768, 32767 };
-      static std::atomic_short clock_sequence = clock_dis(clock_gen);
+      template <typename CharT>
+      inline constexpr CharT empty_guid[37] = "00000000-0000-0000-0000-000000000000";
+
+      template <>
+      inline constexpr wchar_t empty_guid<wchar_t>[37] = L"00000000-0000-0000-0000-000000000000";
+
+      template <typename CharT>
+      inline constexpr CharT guid_encoder[17] = "0123456789abcdef";
+
+      template <>
+      inline constexpr wchar_t guid_encoder<wchar_t>[17] = L"0123456789abcdef";
    }
 
    // --------------------------------------------------------------------------------------------------------------------------
@@ -353,17 +372,14 @@ namespace uuids
    public:
       using value_type = uint8_t;
 
-      constexpr uuid() noexcept : data({}) {};
+      constexpr uuid() noexcept = default;
 
       uuid(value_type(&arr)[16]) noexcept
       {
          std::copy(std::cbegin(arr), std::cend(arr), std::begin(data));
       }
 
-      uuid(std::array<value_type, 16> const & arr) noexcept
-      {
-         std::copy(std::cbegin(arr), std::cend(arr), std::begin(data));
-      }
+      constexpr uuid(std::array<value_type, 16> const & arr) noexcept : data{arr} {}
 
       explicit uuid(span<value_type, 16> bytes)
       {
@@ -421,29 +437,25 @@ namespace uuids
          return span<std::byte const, 16>(reinterpret_cast<std::byte const*>(data.data()), 16);
       }
 
-      template<class CharT = char>
-      static bool is_valid_uuid(CharT const * str) noexcept
+      template <typename StringType>
+      constexpr static bool is_valid_uuid(StringType const & in_str) noexcept
       {
+         auto str = detail::to_string_view(in_str);
          bool firstDigit = true;
-         int hasBraces = 0;
+         size_t hasBraces = 0;
          size_t index = 0;
-         size_t size = 0;
-         if constexpr(std::is_same_v<CharT, char>)
-            size = strlen(str);
-         else
-            size = wcslen(str);
 
-         if (str == nullptr || size == 0) 
+         if (str.empty())
             return false;
 
-         if (str[0] == static_cast<CharT>('{'))
+         if (str.front() == '{')
             hasBraces = 1;
-         if (hasBraces && str[size - 1] != static_cast<CharT>('}'))
+         if (hasBraces && str.back() != '}')
             return false;
 
-         for (size_t i = hasBraces; i < size - hasBraces; ++i)
+         for (size_t i = hasBraces; i < str.size() - hasBraces; ++i)
          {
-            if (str[i] == static_cast<CharT>('-')) continue;
+            if (str[i] == '-') continue;
 
             if (index >= 16 || !detail::is_hex(str[i]))
             {
@@ -469,39 +481,26 @@ namespace uuids
          return true;
       }
 
-      template<class CharT = char,
-         class Traits = std::char_traits<CharT>,
-         class Allocator = std::allocator<CharT>>
-      static bool is_valid_uuid(std::basic_string<CharT, Traits, Allocator> const & str) noexcept
+      template <typename StringType>
+      constexpr static std::optional<uuid> from_string(StringType const & in_str) noexcept
       {
-         return is_valid_uuid(str.c_str());
-      }
-
-      template<class CharT = char>
-      static std::optional<uuid> from_string(CharT const * str) noexcept
-      {
-         CharT digit = 0;
+         auto str = detail::to_string_view(in_str);
          bool firstDigit = true;
-         int hasBraces = 0;
+         size_t hasBraces = 0;
          size_t index = 0;
-         size_t size = 0;
-         if constexpr(std::is_same_v<CharT, char>)
-            size = strlen(str);
-         else
-            size = wcslen(str);
 
          std::array<uint8_t, 16> data{ { 0 } };
 
-         if (str == nullptr || size == 0) return {};
+         if (str.empty()) return {};
 
-         if (str[0] == static_cast<CharT>('{'))
+         if (str.front() == '{')
             hasBraces = 1;
-         if (hasBraces && str[size - 1] != static_cast<CharT>('}'))
+         if (hasBraces && str.back() != '}')
             return {};
 
-         for (size_t i = hasBraces; i < size - hasBraces; ++i)
+         for (size_t i = hasBraces; i < str.size() - hasBraces; ++i)
          {
-            if (str[i] == static_cast<CharT>('-')) continue;
+            if (str[i] == '-') continue;
 
             if (index >= 16 || !detail::is_hex(str[i]))
             {
@@ -510,12 +509,13 @@ namespace uuids
 
             if (firstDigit)
             {
-               digit = str[i];
+               data[index] = static_cast<uint8_t>(detail::hex2char(str[i]) << 4);
                firstDigit = false;
             }
             else
             {
-               data[index++] = detail::hexpair2char(digit, str[i]);
+               data[index] = static_cast<uint8_t>(data[index] | detail::hex2char(str[i]));
+			   index++;
                firstDigit = true;
             }
          }
@@ -525,15 +525,7 @@ namespace uuids
             return {};
          }
 
-         return uuid{ std::cbegin(data), std::cend(data) };
-      }
-
-      template<class CharT = char, 
-               class Traits = std::char_traits<CharT>,
-               class Allocator = std::allocator<CharT>>
-      static std::optional<uuid> from_string(std::basic_string<CharT, Traits, Allocator> const & str) noexcept
-      {
-         return from_string(str.c_str());
+         return uuid{ data };
       }
 
    private:
@@ -544,6 +536,11 @@ namespace uuids
 
       template <class Elem, class Traits>
       friend std::basic_ostream<Elem, Traits> & operator<<(std::basic_ostream<Elem, Traits> &s, uuid const & id);  
+
+      template<class CharT, class Traits, class Allocator>
+      friend std::basic_string<CharT, Traits, Allocator> to_string(uuid const& id);
+
+      friend std::hash<uuid>;
    };
 
    // --------------------------------------------------------------------------------------------------------------------------
@@ -565,49 +562,32 @@ namespace uuids
       return lhs.data < rhs.data;
    }
 
-   template <class Elem, class Traits>
-   std::basic_ostream<Elem, Traits> & operator<<(std::basic_ostream<Elem, Traits> &s, uuid const & id)
-   {
-      // save current flags
-      std::ios_base::fmtflags f(s.flags());
-      
-      // manipulate stream as needed
-      s << std::hex << std::setfill(static_cast<Elem>('0'))
-         << std::setw(2) << (int)id.data[0]
-         << std::setw(2) << (int)id.data[1]
-         << std::setw(2) << (int)id.data[2]
-         << std::setw(2) << (int)id.data[3]
-         << '-'
-         << std::setw(2) << (int)id.data[4]
-         << std::setw(2) << (int)id.data[5]
-         << '-'
-         << std::setw(2) << (int)id.data[6]
-         << std::setw(2) << (int)id.data[7]
-         << '-'
-         << std::setw(2) << (int)id.data[8]
-         << std::setw(2) << (int)id.data[9]
-         << '-'
-         << std::setw(2) << (int)id.data[10]
-         << std::setw(2) << (int)id.data[11]
-         << std::setw(2) << (int)id.data[12]
-         << std::setw(2) << (int)id.data[13]
-         << std::setw(2) << (int)id.data[14]
-         << std::setw(2) << (int)id.data[15];
-
-      // restore original flags
-      s.flags(f);
-      
-      return s;
-   }
-
    template<class CharT = char,
             class Traits = std::char_traits<CharT>,
             class Allocator = std::allocator<CharT>>
    inline std::basic_string<CharT, Traits, Allocator> to_string(uuid const & id)
    {
-      std::basic_stringstream<CharT, Traits, Allocator> sstr;
-      sstr << id;
-      return sstr.str();
+      std::basic_string<CharT, Traits, Allocator> uustr{detail::empty_guid<CharT>};
+
+      for (size_t i = 0, index = 0; i < 36; ++i)
+      {
+         if (i == 8 || i == 13 || i == 18 || i == 23)
+         {
+            continue;
+         }
+         uustr[i] = detail::guid_encoder<CharT>[id.data[index] >> 4 & 0x0f];
+         uustr[++i] = detail::guid_encoder<CharT>[id.data[index] & 0x0f];
+         index++;
+      }
+
+      return uustr;
+   }
+
+   template <class Elem, class Traits>
+   std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& s, uuid const& id)
+   {
+       s << to_string(id);
+       return s;
    }
 
    inline void swap(uuids::uuid & lhs, uuids::uuid & rhs) noexcept
@@ -646,14 +626,19 @@ namespace uuids
 #ifdef _WIN32
 
          GUID newId;
-         ::CoCreateGuid(&newId);
+         HRESULT hr = ::CoCreateGuid(&newId);
+
+         if (FAILED(hr))
+         {
+            throw std::system_error(hr, std::system_category(), "CoCreateGuid failed");
+         }
 
          std::array<uint8_t, 16> bytes =
          { {
-               (unsigned char)((newId.Data1 >> 24) & 0xFF),
-               (unsigned char)((newId.Data1 >> 16) & 0xFF),
-               (unsigned char)((newId.Data1 >> 8) & 0xFF),
-               (unsigned char)((newId.Data1) & 0xFF),
+               static_cast<unsigned char>((newId.Data1 >> 24) & 0xFF),
+               static_cast<unsigned char>((newId.Data1 >> 16) & 0xFF),
+               static_cast<unsigned char>((newId.Data1 >> 8) & 0xFF),
+               static_cast<unsigned char>((newId.Data1) & 0xFF),
 
                (unsigned char)((newId.Data2 >> 8) & 0xFF),
                (unsigned char)((newId.Data2) & 0xFF),
@@ -774,27 +759,11 @@ namespace uuids
          : nsuuid(namespace_uuid)
       {}
 
-      template<class CharT = char>
-      uuid operator()(CharT const * name)
-      {
-         size_t size = 0;
-         if constexpr (std::is_same_v<CharT, char>)
-            size = strlen(name);
-         else
-            size = wcslen(name);
-
-         reset();
-         process_characters(name, size);
-         return make_uuid();
-      }
-
-      template<class CharT = char,
-         class Traits = std::char_traits<CharT>,
-         class Allocator = std::allocator<CharT>>
-      uuid operator()(std::basic_string<CharT, Traits, Allocator> const & name)
+      template <typename StringType>
+      uuid operator()(StringType const & name)
       {
          reset();
-         process_characters(name.data(), name.size());
+         process_characters(detail::to_string_view(name));
          return make_uuid();
       }
 
@@ -807,24 +776,20 @@ namespace uuids
          std::copy(std::cbegin(nsbytes), std::cend(nsbytes), bytes);
          hasher.process_bytes(bytes, 16);
       }
-      
-      template <typename char_type,
-                typename = std::enable_if_t<std::is_integral<char_type>::value>>
-      void process_characters(char_type const * const characters, size_t const count)
-      {
-         for (size_t i = 0; i < count; i++) 
-         {
-            uint32_t c = characters[i];
-            hasher.process_byte(static_cast<unsigned char>((c >> 0) & 0xFF));
-            hasher.process_byte(static_cast<unsigned char>((c >> 8) & 0xFF));
-            hasher.process_byte(static_cast<unsigned char>((c >> 16) & 0xFF));
-            hasher.process_byte(static_cast<unsigned char>((c >> 24) & 0xFF));
-         }
-      }
 
-      void process_characters(const char * const characters, size_t const count)
+      template <typename CharT, typename Traits>
+      void process_characters(std::basic_string_view<CharT, Traits> const str)
       {
-         hasher.process_bytes(characters, count);
+         for (uint32_t c : str)
+         {
+            hasher.process_byte(static_cast<uint8_t>(c & 0xFF));
+            if constexpr (!std::is_same_v<CharT, char>)
+            {
+               hasher.process_byte(static_cast<uint8_t>((c >> 8) & 0xFF));
+               hasher.process_byte(static_cast<uint8_t>((c >> 16) & 0xFF));
+               hasher.process_byte(static_cast<uint8_t>((c >> 24) & 0xFF));
+            }
+         }
       }
 
       uuid make_uuid()
@@ -848,6 +813,7 @@ namespace uuids
       detail::sha1 hasher;
    };
 
+#ifdef UUID_TIME_GENERATOR
    // !!! DO NOT USE THIS IN PRODUCTION
    // this implementation is unreliable for good uuids
    class uuid_time_generator
@@ -887,11 +853,15 @@ namespace uuids
          return ns / 100;
       }
 
-   public:
-      uuid_time_generator()
+      static unsigned short get_clock_sequence()
       {
+         static std::mt19937 clock_gen(std::random_device{}());
+         static std::uniform_int_distribution<unsigned short> clock_dis;
+         static std::atomic_ushort clock_sequence = clock_dis(clock_gen);
+         return clock_sequence++;
       }
 
+   public:
       uuid operator()()
       {
          if (get_mac_address())
@@ -900,25 +870,22 @@ namespace uuids
 
             auto tm = get_time_intervals();
 
-            short clock_seq = detail::clock_sequence++;
-
-            clock_seq &= 0x3FFF;
+            auto clock_seq = get_clock_sequence();
 
             auto ptm = reinterpret_cast<uuids::uuid::value_type*>(&tm);
-            ptm[0] &= 0x0F;
 
             memcpy(&data[0], ptm + 4, 4);
             memcpy(&data[4], ptm + 2, 2);
             memcpy(&data[6], ptm, 2);
 
-            memcpy(&data[8], reinterpret_cast<uuids::uuid::value_type*>(&clock_seq), 2);
+            memcpy(&data[8], &clock_seq, 2);
 
             // variant must be 0b10xxxxxx
             data[8] &= 0xBF;
             data[8] |= 0x80;
 
             // version must be 0b0001xxxx
-            data[6] &= 0x5F;
+            data[6] &= 0x1F;
             data[6] |= 0x10;
 
             memcpy(&data[10], &device_address.value()[0], 6);
@@ -929,6 +896,7 @@ namespace uuids
          return {};
       }
    };
+#endif
 }
 
 namespace std
@@ -941,8 +909,39 @@ namespace std
 
       result_type operator()(argument_type const &uuid) const
       {
+#ifdef UUID_HASH_STRING_BASED
          std::hash<std::string> hasher;
          return static_cast<result_type>(hasher(uuids::to_string(uuid)));
+#else
+         uint64_t l = 
+            static_cast<uint64_t>(uuid.data[0]) << 56 | 
+            static_cast<uint64_t>(uuid.data[1]) << 48 | 
+            static_cast<uint64_t>(uuid.data[2]) << 40 | 
+            static_cast<uint64_t>(uuid.data[3]) << 32 | 
+            static_cast<uint64_t>(uuid.data[4]) << 24 | 
+            static_cast<uint64_t>(uuid.data[5]) << 16 | 
+            static_cast<uint64_t>(uuid.data[6]) <<  8 | 
+            static_cast<uint64_t>(uuid.data[7]);
+         uint64_t h = 
+            static_cast<uint64_t>(uuid.data[8])  << 56 | 
+            static_cast<uint64_t>(uuid.data[9])  << 48 | 
+            static_cast<uint64_t>(uuid.data[10]) << 40 | 
+            static_cast<uint64_t>(uuid.data[11]) << 32 | 
+            static_cast<uint64_t>(uuid.data[12]) << 24 | 
+            static_cast<uint64_t>(uuid.data[13]) << 16 | 
+            static_cast<uint64_t>(uuid.data[14]) <<  8 | 
+            static_cast<uint64_t>(uuid.data[15]);
+
+         if (sizeof(result_type) > 4)
+         {
+            return result_type(l ^ h);
+         }
+         else
+         {
+            uint64_t hash64 = l ^ h;
+            return result_type(uint32_t(hash64 >> 32) ^ uint32_t(hash64));
+         }
+#endif
       }
    };
 }

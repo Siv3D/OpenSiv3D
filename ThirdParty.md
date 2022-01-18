@@ -82,7 +82,7 @@ Name | Version
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [Star Nest](https://www.shadertoy.com/view/XlfGRj) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
-[stduuid](https://github.com/mariusbancila/stduuid) | 
+[stduuid](https://github.com/mariusbancila/stduuid) | v1.2.1
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) | 
