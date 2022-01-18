@@ -93,4 +93,4 @@ Name | Version
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
 [xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
 [zlib](https://www.zlib.net/) | 1.2.11
-[Zstandard](https://github.com/facebook/zstd) | v1.5.0
+[Zstandard](https://github.com/facebook/zstd) | v1.5.1

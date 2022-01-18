@@ -1738,11 +1738,13 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\huf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\mem.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\pool.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\portability_macros.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\threading.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_deps.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_trace.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\clevels.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\hist.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_internal.h" />
@@ -2816,6 +2818,7 @@
     <None Include="..\Siv3D\src\ThirdParty\gsl\span" />
     <None Include="..\Siv3D\src\ThirdParty\gsl\string_span" />
     <None Include="..\Siv3D\src\ThirdParty\soloud\src\audiosource\speech\Elements.def" />
+    <None Include="..\Siv3D\src\ThirdParty\zstd\decompress\huf_decompress_amd64.S" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

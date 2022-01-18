@@ -1132,6 +1132,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/zstd/compress/zstd_ldm.c
   ../Siv3D/src/ThirdParty/zstd/compress/zstd_opt.c
   ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress_amd64.S
   ../Siv3D/src/ThirdParty/zstd/decompress/zstd_ddict.c
   ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress.c
   ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress_block.c
