@@ -13,6 +13,7 @@ set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
+set_property(SOURCE ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress_amd64.S PROPERTY LANGUAGE C)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
