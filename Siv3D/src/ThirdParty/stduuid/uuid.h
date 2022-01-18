@@ -364,6 +364,13 @@ namespace uuids
       name_based_sha1 = 5   // The name-based version specified in RFS 4122 with SHA1 hashing
    };
 
+   // Forward declare uuid & to_string so that we can declare to_string as a friend later.
+   class uuid;
+   template <class CharT = char,
+             class Traits = std::char_traits<CharT>,
+             class Allocator = std::allocator<CharT>>
+   std::basic_string<CharT, Traits, Allocator> to_string(uuid const &id);
+
    // --------------------------------------------------------------------------------------------------------------------------
    // uuid class
    // --------------------------------------------------------------------------------------------------------------------------
@@ -562,9 +569,9 @@ namespace uuids
       return lhs.data < rhs.data;
    }
 
-   template<class CharT = char,
-            class Traits = std::char_traits<CharT>,
-            class Allocator = std::allocator<CharT>>
+   template <class CharT,
+             class Traits,
+             class Allocator>
    inline std::basic_string<CharT, Traits, Allocator> to_string(uuid const & id)
    {
       std::basic_string<CharT, Traits, Allocator> uustr{detail::empty_guid<CharT>};
@@ -932,7 +939,7 @@ namespace std
             static_cast<uint64_t>(uuid.data[14]) <<  8 | 
             static_cast<uint64_t>(uuid.data[15]);
 
-         if (sizeof(result_type) > 4)
+         if constexpr (sizeof(result_type) > 4)
          {
             return result_type(l ^ h);
          }
