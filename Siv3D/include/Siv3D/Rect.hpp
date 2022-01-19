@@ -580,6 +580,26 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Line left() const noexcept;
 
+		/// @brief 長方形の上辺のy座標を value_type として返します。
+		/// @return 長方形の上辺のy座標
+		[[nodiscard]]
+		constexpr value_type topY() const noexcept;
+
+		/// @brief 長方形の右辺のx座標を value_type として返します。
+		/// @return 長方形の右辺のx座標
+		[[nodiscard]]
+		constexpr value_type rightX() const noexcept;
+
+		/// @brief 長方形の下辺のy座標を value_type として返します。
+		/// @return 長方形の下辺のy座標
+		[[nodiscard]]
+		constexpr value_type bottomY() const noexcept;
+
+		/// @brief 長方形の左辺のx座標を value_type として返します。
+		/// @return 長方形の左辺のx座標
+		[[nodiscard]]
+		constexpr value_type leftX() const noexcept;
+
 		[[nodiscard]]
 		constexpr position_type point(size_t index) const;
 

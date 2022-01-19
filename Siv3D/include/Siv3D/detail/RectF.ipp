@@ -1,4 +1,5 @@
-﻿//-----------------------------------------------
+﻿#include "..\RectF.hpp"
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -695,6 +696,26 @@ namespace s3d
 	inline constexpr Line RectF::left() const noexcept
 	{
 		return{ bl(), tl() };
+	}
+
+	inline constexpr RectF::value_type RectF::topY() const noexcept
+	{
+		return y;
+	}
+
+	inline constexpr RectF::value_type RectF::rightX() const noexcept
+	{
+		return (x + w);
+	}
+
+	inline constexpr RectF::value_type RectF::bottomY() const noexcept
+	{
+		return (y + h);
+	}
+
+	inline constexpr RectF::value_type RectF::leftX() const noexcept
+	{
+		return x;
 	}
 
 	inline constexpr RectF::position_type RectF::point(const size_t index) const
