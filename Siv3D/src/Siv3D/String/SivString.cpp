@@ -402,9 +402,9 @@ namespace s3d
 
 #if __cpp_impl_three_way_comparison
 
-	std::strong_ordering operator <=> (const String& lhs, const String::value_type* rhs)
+	std::strong_ordering operator <=>(const String& lhs, const String::value_type* rhs)
 	{
-		return lhs.str() <=> rhs;
+		return (lhs.str() <=> rhs);
 	}
 
 #else

@@ -805,6 +805,23 @@ namespace s3d
 		/// @return *this
 		String& replace(const StringView oldStr, const StringView newStr);
 
+		String& replace(size_type pos, size_type count, const String& s);
+
+		String& replace(size_type pos, size_type count, const value_type* s);
+
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& replace(size_type pos, size_type count, const StringViewIsh& s);
+
+		String& replace(const_iterator first, const_iterator last, const String& s);
+
+		String& replace(const_iterator first, const_iterator last, const value_type* s);
+
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& replace(const_iterator first, const_iterator last, const StringViewIsh& s);
+
+		template <class Iterator>
+		String& replace(const_iterator first, const_iterator last, Iterator first2, Iterator last2);
+
 		/// @brief 指定した文字を置換した新しい文字列を返します。
 		/// @param oldChar 置換対象の文字
 		/// @param newChar 置換後の文字
@@ -1142,9 +1159,9 @@ namespace s3d
 
 		bool operator ==(const String& rhs) const noexcept = default;
 
-		std::strong_ordering operator <=>(const String & rhs) const noexcept = default;
+		std::strong_ordering operator <=>(const String& rhs) const noexcept = default;
 
-		friend std::strong_ordering operator <=>(const String & lhs, const value_type * rhs);
+		friend std::strong_ordering operator <=>(const String& lhs, const value_type* rhs);
 
 #else
 

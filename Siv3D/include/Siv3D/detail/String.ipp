@@ -1123,6 +1123,58 @@ namespace s3d
 		return *this = replaced(oldStr, newStr);
 	}
 
+	inline String& String::replace(const size_type pos, const size_type count, const String& s)
+	{
+		m_string.replace(pos, count, s.m_string);
+
+		return *this;
+	}
+
+	inline String& String::replace(const size_type pos, const size_type count, const value_type* s)
+	{
+		m_string.replace(pos, count, s);
+
+		return *this;
+	}
+
+	template <class StringViewIsh, class>
+	inline String& String::replace(const size_type pos, const size_type count, const StringViewIsh& s)
+	{
+		m_string.replace(pos, count, s);
+
+		return *this;
+	}
+
+	inline String& String::replace(const_iterator first, const_iterator last, const String& s)
+	{
+		m_string.replace(first, last, s.m_string);
+
+		return *this;
+	}
+
+	inline String& String::replace(const_iterator first, const_iterator last, const value_type* s)
+	{
+		m_string.replace(first, last, s);
+
+		return *this;
+	}
+
+	template <class StringViewIsh, class>
+	inline String& String::replace(const_iterator first, const_iterator last, const StringViewIsh& s)
+	{
+		m_string.replace(first, last, s);
+
+		return *this;
+	}
+
+	template <class Iterator>
+	inline String& String::replace(const_iterator first, const_iterator last, Iterator first2, Iterator last2)
+	{
+		m_string.replace(first, last, first2, last2);
+
+		return *this;
+	}
+
 	inline String String::replaced(const value_type oldChar, const value_type newChar) const&
 	{
 		return String(*this).replace(oldChar, newChar);
