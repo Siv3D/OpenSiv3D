@@ -137,6 +137,8 @@ if (${CMAKE_EXE_LINKER_FLAGS} MATCHES "-pthread")
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opus/libopusfile.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/opus/libopus.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/tiff/libtiff.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/png/libpng.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm-mt-simd/zlib/libz.a
     )
 
 elseif (SIV3D_ENABLE_SHARED_LIB)
@@ -215,6 +217,8 @@ elseif (NOT SIV3D_BUILD_WITH_SHARED_MAIN)
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopusfile.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/opus/libopus.a
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/tiff/libtiff.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/png/libpng.a
+    ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/zlib/libz.a
 
     ${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Web/wasm/SDL2/libSDL2.a
     )
