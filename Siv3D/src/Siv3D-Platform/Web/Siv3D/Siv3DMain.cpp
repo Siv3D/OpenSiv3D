@@ -47,7 +47,7 @@ extern "C" int InitSiv3D()
 int main(int argc, char* argv[])
 {
 	using namespace s3d;
-	std::clog << "OpenSiv3D for Web\n";
+	std::cout << "OpenSiv3D for Web\n";
 
 	detail::init::InitCommandLines(argc, argv);
 	detail::init::InitModulePath("/a.out");

@@ -52,13 +52,21 @@ jobs:
           - name: wasm
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: ''
+            cmake-additional-flags: ''
             output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
           - name: wasm-simd
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: '-msimd128 -msse4.2'
+            cmake-additional-flags: ''
             output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
+          - name: wasm-side-module
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+            cmake-additional-flags: '-DSIV3D_BUILD_SHARED_MAIN=1'
+            output-file: 'Siv3D*'
+            external-lib-folder-name: wasm-side-module
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -73,7 +81,7 @@ jobs:
         id: cache_siv3d_library
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-library
+          cache-name: cache-siv3d-library-1
         with:
           path: Web/build
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
@@ -96,6 +104,7 @@ jobs:
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            ${{ matrix.config.cmake-additional-flags }} \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --parallel 4
@@ -107,9 +116,10 @@ jobs:
           cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }}/* Package/lib
           cp -r Web/App/resources Package
           cp -r Web/App/example Package
-          cp Web/build/${{ matrix.config.output-file }} Package/lib
           cp Web/Siv3D.js Package/lib
           cp Web/Siv3D.pre.js Package/lib
+          cp Web/Siv3D.post.js Package/lib
+          cp Web/build/${{ matrix.config.output-file }} Package/lib
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
@@ -193,6 +203,11 @@ jobs:
             container: 'emscripten/emsdk:2.0.22'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_WEBGPU_BACKEND=On'
+          - name: wasm-side-module
+            app-name: wasm-side-module
+            container: 'emscripten/emsdk:2.0.22'
+            cmake-cflags: ''
+            cmake-additional-flags: '-DSIV3D_BUILD_WITH_SHARED_MAIN=On'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -271,10 +286,10 @@ jobs:
           cp -r Package/lib/* Web/Build
           
       - name: Compress Project Template
-        working-directory: Web/VisualStudioTemplate/OpenSiv3D(0.6.0)Web
+        working-directory: Web/VisualStudioTemplate/OpenSiv3D(0.6.3)Web
         run: |
-          7z a -tzip "OpenSiv3D(0.6.0)Web.zip" .
-          cp "OpenSiv3D(0.6.0)Web.zip" ..
+          7z a -tzip "OpenSiv3D(0.6.3)Web.zip" .
+          cp "OpenSiv3D(0.6.3)Web.zip" ..
           
       - name: Create Installer
         working-directory: Web/WindowsInstaller
@@ -356,14 +371,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
-          asset_path: OpenSiv3D(0.6.0)Web.exe
+          asset_path: OpenSiv3D(0.6.3)Web.exe
           asset_name: OpenSiv3D-Installer-${{ matrix.config.name }}.exe
           asset_content_type: application/octet-stream
 
 
   deploy-gh-pages:
     needs: build-app
-    if: ${{ github.event_name == 'push' && !needs.build-app.outputs.cache-hit }}
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -371,6 +386,8 @@ jobs:
         run: |
           mkdir -p Dest/v6-wasm-app
           mkdir -p Dest/v6-wasm-simd-app
+          mkdir -p Dest/v6-wasm-side-module-app
+          mkdir -p Dest/lib/v6
 
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
@@ -389,6 +406,27 @@ jobs:
         with:
           name: Siv3DTest-wasm-wgpu
           path: Dest/v6-wasm-wgpu-app
+
+      - name: Restore Bundles (wasm-side-module)
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-wasm-side-module
+          path: .
+
+      - name: Restore Siv3D library (wasm-side-module)
+        run: tar -xvf OpenSiv3D.tgz   
+
+      - name: Place Siv3D library (wasm-side-module)
+        run: |
+          cp Package/lib/Siv3D.wasm Dest/lib/v6
+          cp Package/lib/Siv3D.js Dest/lib/v6
+          cp Package/lib/Siv3D.data Dest/lib/v6
+
+      - name: Place Siv3D Apps (wasm-side-module)
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DTest-wasm-side-module
+          path: Dest/v6-wasm-side-module-app
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

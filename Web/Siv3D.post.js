@@ -1,6 +1,8 @@
 (function () {
     const dependencyName = "WebGPU";
 
+    addRunDependency(dependencyName);
+
     (async function() {
         try {
             const adapter = await navigator.gpu.requestAdapter();
@@ -26,6 +28,11 @@
                                     }
                 
                                     const context = target[prop](contextName);
+
+                                    if (contextName == "webgpu" && !Module["preinitializedWebGPUDevice"]) {
+                                        window.alert("WebGPU is not enabled!");
+                                        throw new Error("WebGPU is not enabled!");
+                                    }
                 
                                     return new Proxy(context, {
                                         get(target, prop, receiver) {
@@ -56,7 +63,4 @@
             }
         })
     }
-
-    addRunDependency(dependencyName);
-})()
-    
+})();

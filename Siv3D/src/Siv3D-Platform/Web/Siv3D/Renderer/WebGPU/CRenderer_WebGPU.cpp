@@ -144,9 +144,6 @@ namespace s3d
 	{
 		// Scene に 2D 描画
 		{
-			auto pass = m_backBuffer->begin(m_renderingCommandEncoder);
-			pass.EndPass();
-
 			pRenderer3D->flush(m_renderingCommandEncoder);
 			pRenderer2D->flush(m_renderingCommandEncoder);
 		}

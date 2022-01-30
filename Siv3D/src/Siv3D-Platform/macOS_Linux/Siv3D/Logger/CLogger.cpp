@@ -55,7 +55,11 @@ namespace s3d
 
 		std::lock_guard lock{ m_mutex };
 		{
+		# if SIV3D_PLATFORM(WEB)
+			std::cout << output << std::endl;
+		# else
 			std::clog << output << std::endl;
+		# endif
 		}
 	}
 
