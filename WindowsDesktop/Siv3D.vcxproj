@@ -392,6 +392,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IAddon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioDecoder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IAudioEncoder.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IAudioStream.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IEmitter2D.hpp" />
@@ -1067,6 +1068,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioResourceHolder.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\CAudio.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\DynamicAudioSource.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Audio\SoundTouchFunctions.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\BigFloatDetail.hpp" />
@@ -1916,6 +1918,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\CAudio.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\DynamicAudioSource.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BasicCamera3D\SivBasicCamera3D.cpp" />

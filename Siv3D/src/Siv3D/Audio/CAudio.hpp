@@ -39,6 +39,8 @@ namespace s3d
 
 		Audio::IDType createStreamingLoop(FilePathView path, uint64 loopBegin) override;
 
+		Audio::IDType createDynamic(const std::shared_ptr<IAudioStream>& pAudioStream) override;
+
 		void release(Audio::IDType handleID) override;
 
 		bool isStreaming(Audio::IDType handleID) override;

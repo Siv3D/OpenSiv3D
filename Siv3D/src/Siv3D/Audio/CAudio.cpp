@@ -282,6 +282,22 @@ namespace s3d
 		return m_audios.add(std::move(audio), info);
 	}
 
+	Audio::IDType CAudio::createDynamic(const std::shared_ptr<IAudioStream>& pAudioStream)
+	{
+		// Audio を作成
+		auto audio = std::make_unique<AudioData>(AudioData::Dynamic{}, m_soloud.get(), pAudioStream);
+
+		if (not audio->isInitialized()) // もし作成に失敗していたら
+		{
+			return Audio::IDType::NullAsset();
+		}
+
+		const String info = detail::ToInfo(audio);
+
+		// Audio を管理に登録
+		return m_audios.add(std::move(audio), info);
+	}
+
 	void CAudio::release(const Audio::IDType handleID)
 	{
 		m_audios.erase(handleID);

@@ -144,6 +144,12 @@ namespace s3d
 	Audio::Audio(IReader&& reader, const AudioFormat format)
 		: Audio{ Wave{ std::move(reader), format } } {}
 
+	Audio::Audio(const std::shared_ptr<IAudioStream>& pAudioStream)
+		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Audio)->createDynamic(pAudioStream)) }
+	{
+		SIV3D_ENGINE(AssetMonitor)->created();
+	}
+
 	Audio::~Audio() {}
 
 	bool Audio::isStreaming() const

@@ -19,6 +19,7 @@
 # include <ThirdParty/soloud/include/soloud_wav.h>
 # include <ThirdParty/soloud/include/soloud_wavstream.h>
 # include <ThirdParty/soloud/include/soloud_speech.h>
+# include "DynamicAudioSource.hpp"
 
 namespace s3d
 {
@@ -176,6 +177,19 @@ namespace s3d
 		m_audioSource->setLoopPoint(static_cast<float>(static_cast<double>(loopBegin) / m_sampleRate));
 
 		m_initialized	= true;
+	}
+
+	AudioData::AudioData(Dynamic, SoLoud::Soloud* pSoloud, const std::shared_ptr<IAudioStream>& pAudioStream)
+		: m_pSoloud{ pSoloud }
+		, m_isStreaming{ true }
+	{
+		std::unique_ptr<DynamicAudioSource> source = std::make_unique<DynamicAudioSource>(pAudioStream);
+
+		m_sampleRate = Wave::DefaultSampleRate;
+		m_lengthSample = (Wave::DefaultSampleRate * 1); // [Siv3D ToDo] この値は 0 にする？
+		m_audioSource = std::move(source);
+
+		m_initialized = true;
 	}
 
 	AudioData::AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, const StringView text, const KlattTTSParameters& param)

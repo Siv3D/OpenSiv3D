@@ -186,6 +186,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D/Audio/AudioData.cpp
   ../Siv3D/src/Siv3D/Audio/AudioFactory.cpp
   ../Siv3D/src/Siv3D/Audio/CAudio.cpp
+  ../Siv3D/src/Siv3D/Audio/DynamicAudioSource.cpp
   ../Siv3D/src/Siv3D/Audio/SivAudio.cpp
   ../Siv3D/src/Siv3D/AudioAsset/SivAudioAsset.cpp
   ../Siv3D/src/Siv3D/AudioAssetData/SivAudioAssetData.cpp

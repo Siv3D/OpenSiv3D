@@ -1270,6 +1270,9 @@
 // 音声のグローバル設定 | Global audio setting
 # include <Siv3D/GlobalAudio.hpp>
 
+// オーディオストリームのインタフェース | Audio stream interface
+# include <Siv3D/IAudioStream.hpp>
+
 // 音声 | Audio
 # include <Siv3D/Audio.hpp>
 

@@ -18,6 +18,7 @@
 # include "AssetHandle.hpp"
 # include "PredefinedYesNo.hpp"
 # include "MixBus.hpp"
+# include "IAudioStream.hpp"
 
 namespace s3d
 {
@@ -220,6 +221,9 @@ namespace s3d
 		/// @param format 
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
+
+		SIV3D_NODISCARD_CXX20
+		explicit Audio(const std::shared_ptr<IAudioStream>& pAudioStream);
 
 		/// @brief デストラクタ
 		virtual ~Audio();
