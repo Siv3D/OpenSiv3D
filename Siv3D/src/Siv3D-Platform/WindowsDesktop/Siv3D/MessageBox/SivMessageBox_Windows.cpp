@@ -13,6 +13,8 @@
 # include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Windows/Windows.hpp>
+# include <Siv3D/Window/IWindow.hpp>
+# include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
 {
@@ -38,7 +40,8 @@ namespace s3d
 
 			const int32 result = Async([=]()
 				{
-					return ::MessageBoxW(nullptr, text.toWstr().c_str(), title.toWstr().c_str(), flag);
+					const HWND hWnd = static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle());
+					return ::MessageBoxW(hWnd, text.toWstr().c_str(), title.toWstr().c_str(), flag);
 				}).get();
 
 			switch (result)
