@@ -48,7 +48,7 @@ Name | Version
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.3.0
 [M+ Fonts](https://mplus-fonts.osdn.jp/) | 063a
-[Material Design Icons](https://github.com/Templarian/MaterialDesign) | v6.1.95
+[Material Design Icons](https://github.com/Templarian/MaterialDesign) | v6.5.95
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
