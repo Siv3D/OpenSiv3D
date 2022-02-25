@@ -48,12 +48,12 @@ namespace s3d
 
 	static bool WindowResizeActual(Point size, bool centering)
 	{
-		return Window::Resize(size, Centering{ centering });
+		return Window::ResizeActual(size, Centering{ centering });
 	}
 
 	static bool WindowResizeActual2(int32 w, int32 h, bool centering)
 	{
-		return Window::Resize(w, h, Centering{ centering });
+		return Window::ResizeActual(w, h, Centering{ centering });
 	}
 
 	void RegisterWindow(asIScriptEngine* engine)
