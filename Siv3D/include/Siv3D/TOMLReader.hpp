@@ -331,7 +331,7 @@ namespace s3d
 
 	protected:
 
-		std::shared_ptr<detail::TOMLValueDetail> m_detail = nullptr;
+		std::shared_ptr<detail::TOMLValueDetail> m_detail;
 
 		template <class Type, std::enable_if_t<std::is_integral_v<Type> && !std::is_same_v<bool, std::decay_t<Type>>>* = nullptr>
 		Optional<Type> getOpt_() const;
