@@ -1181,7 +1181,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.)-"
 {
 UR"-(nlohmann/json)-",
 
-UR"-(Copyright (c) 2013-2021 Niels Lohmann)-",
+UR"-(Copyright (c) 2013-2022 Niels Lohmann)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
