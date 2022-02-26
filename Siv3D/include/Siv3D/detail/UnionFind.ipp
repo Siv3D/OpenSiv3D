@@ -42,7 +42,7 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline UnionFind<IndexType>::index_type UnionFind<IndexType>::find(index_type i) noexcept
+	inline typename UnionFind<IndexType>::index_type UnionFind<IndexType>::find(index_type i) noexcept
 	{
 		assert(i < size());
 

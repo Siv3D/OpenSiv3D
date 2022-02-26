@@ -4342,6 +4342,8 @@
 		2CD06C1A27A85BFE009149D2 /* IAudioStream.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioStream.hpp; sourceTree = "<group>"; };
 		2CD06C1B27A85C22009149D2 /* DynamicAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicAudioSource.cpp; sourceTree = "<group>"; };
 		2CD06C1C27A85C23009149D2 /* DynamicAudioSource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DynamicAudioSource.hpp; sourceTree = "<group>"; };
+		2CD1277527CA2EA800FDD989 /* UnionFind.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UnionFind.hpp; sourceTree = "<group>"; };
+		2CD1277627CA2EC100FDD989 /* UnionFind.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UnionFind.ipp; sourceTree = "<group>"; };
 		2CD69B4826D2B7AE00879484 /* ScriptBind.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptBind.hpp; sourceTree = "<group>"; };
 		2CD69B4926D2B7AE00879484 /* ScriptTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTime.cpp; sourceTree = "<group>"; };
 		2CD69B4A26D2B7AE00879484 /* ScriptPianoKey.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptPianoKey.cpp; sourceTree = "<group>"; };
@@ -4987,6 +4989,7 @@
 				2C063D862661426000368BEE /* TriangleIndex.ipp */,
 				2C063DFE2661426000368BEE /* Unicode.ipp */,
 				2C063D5D2661426000368BEE /* UnicodeConverter.ipp */,
+				2CD1277627CA2EC100FDD989 /* UnionFind.ipp */,
 				2C063D562661426000368BEE /* Utility_detail.ipp */,
 				2C063DF12661426000368BEE /* Utility.ipp */,
 				2C5CD8C72675E43E004E290F /* UUIDValue.ipp */,
@@ -10345,6 +10348,7 @@
 				2C63119826D15568005290E0 /* UnderlineStyle.hpp */,
 				2CAAA71325E7FD0200C014D7 /* Unicode.hpp */,
 				2CAAA89425E7FD0300C014D7 /* UnicodeConverter.hpp */,
+				2CD1277527CA2EA800FDD989 /* UnionFind.hpp */,
 				2CAAA86B25E7FD0300C014D7 /* UniqueResource.hpp */,
 				2CAAA73525E7FD0200C014D7 /* Unspecified.hpp */,
 				2C5C0F0D266DFF06009C430B /* URL.hpp */,
