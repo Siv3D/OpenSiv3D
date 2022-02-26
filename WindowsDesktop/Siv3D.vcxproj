@@ -57,6 +57,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer3D.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\UnionFind.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Disc.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DynamicMesh.hpp" />
@@ -741,6 +742,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\UnderlineStyle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UnicodeConverter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\UnionFind.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\UniqueResource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Unspecified.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\URL.hpp" />

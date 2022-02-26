@@ -171,6 +171,9 @@
 // kd 木 | kd-tree
 # include <Siv3D/KDTree.hpp>
 
+// UnionFind | union–find
+# include <Siv3D/UnionFind.hpp>
+
 //////////////////////////////////////////////////
 //
 //	並列・並行処理 | Parallel and Concurrent
