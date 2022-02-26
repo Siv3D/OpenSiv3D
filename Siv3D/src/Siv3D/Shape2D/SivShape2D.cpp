@@ -343,17 +343,35 @@ namespace s3d
 		{
 			TriangleIndex* pDst = indices.data();
 
-			for (Vertex2D::IndexType i = 0; i < steps; ++i)
+			if (upStairs)
 			{
-				pDst->i0 = 0;
-				pDst->i1 = 2 * i + 1;
-				pDst->i2 = 2 * i + 2;
-				++pDst;
+				for (Vertex2D::IndexType i = 0; i < steps; ++i)
+				{
+					pDst->i0 = 0;
+					pDst->i1 = 2 * i + 1;
+					pDst->i2 = 2 * i + 2;
+					++pDst;
 
-				pDst->i0 = 0;
-				pDst->i1 = 2 * i + 2;
-				pDst->i2 = 2 * i + 3;
-				++pDst;
+					pDst->i0 = 0;
+					pDst->i1 = 2 * i + 2;
+					pDst->i2 = 2 * i + 3;
+					++pDst;
+				}
+			}
+			else
+			{
+				for (Vertex2D::IndexType i = 0; i < steps; ++i)
+				{
+					pDst->i0 = 0;
+					pDst->i1 = 2 * i + 2;
+					pDst->i2 = 2 * i + 1;
+					++pDst;
+
+					pDst->i0 = 0;
+					pDst->i1 = 2 * i + 3;
+					pDst->i2 = 2 * i + 2;
+					++pDst;
+				}
 			}
 		}
 
