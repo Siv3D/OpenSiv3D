@@ -16,7 +16,7 @@ namespace s3d
 	template <class IndexType>
 	inline UnionFind<IndexType>::UnionFind(const size_t n)
 		: m_parents(n)
-		, m_sizes(n, 1)
+		, m_sizes(n, 1u)
 	{
 		assert(n <= MaxSize);
 
@@ -42,7 +42,7 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline UnionFind<IndexType>::index_type UnionFind<IndexType>::find(const index_type i) noexcept
+	inline UnionFind<IndexType>::index_type UnionFind<IndexType>::find(index_type i) noexcept
 	{
 		assert(i < size());
 
@@ -62,7 +62,7 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline bool UnionFind<IndexType>::merge(const index_type i, const index_type k) noexcept
+	inline bool UnionFind<IndexType>::merge(index_type i, index_type k) noexcept
 	{
 		i = find(i);
 		k = find(k);
@@ -90,5 +90,13 @@ namespace s3d
 		assert(i < size());
 
 		return m_sizes[find(i)];
+	}
+
+	template <class IndexType>
+	inline void UnionFind<IndexType>::reset() noexcept
+	{
+		std::iota(m_parents.begin(), m_parents.end(), static_cast<index_type>(0));
+
+		std::fill(m_sizes.begin(), m_sizes.end(), 1u);
 	}
 }

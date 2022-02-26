@@ -50,6 +50,8 @@ namespace s3d
 		[[nodiscard]]
 		size_t size(index_type i) noexcept;
 
+		void reset() noexcept;
+
 	private:
 
 		Array<index_type> m_parents;
