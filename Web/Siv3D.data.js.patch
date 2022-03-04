@@ -1,0 +1,67 @@
+--- Siv3D.data.js	2021-08-05 12:33:53.990000000 +0900
++++ Siv3D.data.patched.js	2021-08-05 12:33:24.588000000 +0900
+@@ -27,51 +27,10 @@
+       var PACKAGE_UUID = metadata['package_uuid'];
+     
+       function fetchRemotePackage(packageName, packageSize, callback, errback) {
+-        var xhr = new XMLHttpRequest();
+-        xhr.open('GET', packageName, true);
+-        xhr.responseType = 'arraybuffer';
+-        xhr.onprogress = function(event) {
+-          var url = packageName;
+-          var size = packageSize;
+-          if (event.total) size = event.total;
+-          if (event.loaded) {
+-            if (!xhr.addedTotal) {
+-              xhr.addedTotal = true;
+-              if (!Module.dataFileDownloads) Module.dataFileDownloads = {};
+-              Module.dataFileDownloads[url] = {
+-                loaded: event.loaded,
+-                total: size
+-              };
+-            } else {
+-              Module.dataFileDownloads[url].loaded = event.loaded;
+-            }
+-            var total = 0;
+-            var loaded = 0;
+-            var num = 0;
+-            for (var download in Module.dataFileDownloads) {
+-            var data = Module.dataFileDownloads[download];
+-              total += data.total;
+-              loaded += data.loaded;
+-              num++;
+-            }
+-            total = Math.ceil(total * Module.expectedDataFileDownloads/num);
+-            if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
+-          } else if (!Module.dataFileDownloads) {
+-            if (Module['setStatus']) Module['setStatus']('Downloading data...');
+-          }
+-        };
+-        xhr.onerror = function(event) {
+-          throw new Error("NetworkError for: " + packageName);
+-        }
+-        xhr.onload = function(event) {
+-          if (xhr.status == 200 || xhr.status == 304 || xhr.status == 206 || (xhr.status == 0 && xhr.response)) { // file URLs can return 0
+-            var packageData = xhr.response;
+-            callback(packageData);
+-          } else {
+-            throw new Error(xhr.statusText + " : " + xhr.responseURL);
+-          }
+-        };
+-        xhr.send(null);
++        fetch(packageName)
++          .then(response=>response.arrayBuffer())
++          .then(buffer=>callback(buffer))
++          .catch(e=>{throw new Error("NetworkError for: "+packageName+" "+e);})
+       };
+ 
+       function handleError(error) {
+@@ -150,7 +109,6 @@
+         
+       function processPackageData(arrayBuffer) {
+         assert(arrayBuffer, 'Loading data file failed.');
+-        assert(arrayBuffer instanceof ArrayBuffer, 'bad input to processPackageData');
+         var byteArray = new Uint8Array(arrayBuffer);
+         var curr;
+   
+\ No newline at end of file
