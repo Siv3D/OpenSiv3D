@@ -100,7 +100,7 @@ jobs:
           embuilder.py build ogg vorbis libpng
   
       - name: Build project
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && !contains(matrix.config.name, 'side-module') }}
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && contains(matrix.config.name, 'side-module') }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
@@ -112,7 +112,7 @@ jobs:
           cmake --build . --target OpenSiv3D_Web --parallel 4 
 
       - name: Build project
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && contains(matrix.config.name, 'side-module') }}
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && !contains(matrix.config.name, 'side-module') }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
