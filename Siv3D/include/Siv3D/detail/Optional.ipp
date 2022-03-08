@@ -223,7 +223,7 @@ namespace s3d
 		return !opt.has_value();
 	}
 
-#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS)
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS) && !SIV3D_PLATFORM(WEB)
 	template <class Type1, std::three_way_comparable_with<Type1> Type2>
 	inline constexpr std::compare_three_way_result_t<Type1, Type2> operator <=> (const Optional<Type1>& lhs, const Optional<Type2>& rhs) {
 		if (lhs && rhs) {
@@ -383,7 +383,7 @@ namespace s3d
 		return opt ? value >= *opt : true;
 	}
 
-#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS)
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS) && !SIV3D_PLATFORM(WEB)
 	template <class Type, class U>
 		requires (!detail::is_specialization_v<U, Optional>) && std::three_way_comparable_with<Type, U>
 	inline constexpr std::compare_three_way_result_t<Type, U> operator <=> (const Optional<Type>& opt, const U& value) {

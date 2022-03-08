@@ -173,7 +173,7 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr bool operator >=(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
 
-#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS)
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS) && !SIV3D_PLATFORM(WEB)
 	template <class Type1, std::three_way_comparable_with<Type1> Type2>
 	[[nodiscard]]
 	inline constexpr std::compare_three_way_result_t<Type1, Type2> operator <=>(const Optional<Type1>& lhs, const Optional<Type2>& rhs);
@@ -286,7 +286,7 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr bool operator >=(const U& value, const Optional<Type>& opt);
 
-#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS)
+#if __cpp_impl_three_way_comparison && __cpp_lib_concepts && !SIV3D_PLATFORM(MACOS) && !SIV3D_PLATFORM(WEB)
 	namespace detail {
 		template <class T, template <class...> class Tmp>
 		inline constexpr bool is_specialization_v = false;
