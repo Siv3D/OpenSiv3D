@@ -83,7 +83,7 @@ namespace s3d
 
         wgpu::SwapChainDescriptor swapChainDescripter
         {
-            .usage = wgpu::TextureUsage::OutputAttachment,
+            .usage = wgpu::TextureUsage::RenderAttachment,
             .presentMode = wgpu::PresentMode::Fifo,
             .width = static_cast<uint32_t>(frameBufferSize.x),
             .height = static_cast<uint32_t>(frameBufferSize.y),
@@ -121,7 +121,7 @@ namespace s3d
 		// Scene に 2D 描画
 		{
 			auto pass = m_backBuffer->clear(m_renderingCommandEncoder);
-			pass.EndPass();
+			pass.End();
 		}
 		
 		const auto& windowState = SIV3D_ENGINE(Window)->getState();
@@ -155,7 +155,7 @@ namespace s3d
 			wgpu::RenderPassColorAttachment colorAttachment
 			{
 				.view = backBufferView,
-				.loadOp = wgpu::LoadOp::Clear,
+				.loadOp = wgpu::LoadOp::Undefined,
 				.storeOp = wgpu::StoreOp::Store,
 				.clearColor = 
 				{
@@ -176,7 +176,7 @@ namespace s3d
 			{
 				m_backBuffer->updateFromSceneBuffer(pass);
 			}
-			pass.EndPass();
+			pass.End();
 		}
 
 		m_commandBuffers << m_renderingCommandEncoder.Finish();

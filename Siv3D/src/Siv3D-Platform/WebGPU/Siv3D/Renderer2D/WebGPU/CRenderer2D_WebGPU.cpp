@@ -1144,7 +1144,7 @@ namespace s3d
 				{
 					const auto& rt = m_commandManager.getRT(command.index);
 					
-					currentRenderingPass.EndPass();
+					currentRenderingPass.End();
 
 					if (rt) // [カスタム RenderTexture]
 					{
@@ -1295,7 +1295,7 @@ namespace s3d
 			}
 		}
 
-		currentRenderingPass.EndPass();
+		currentRenderingPass.End();
 
 		++m_drawCount;
 	}
