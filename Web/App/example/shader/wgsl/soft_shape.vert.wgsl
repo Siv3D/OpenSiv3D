@@ -7,9 +7,9 @@
 //
 struct VertexOutput
 {
-	[[builtin(position)]] Position: vec4<f32>;
-   	[[location(0)]] Color: vec4<f32>;
-   	[[location(1)]] UV: vec2<f32>;
+	@builtin(position) Position: vec4<f32>;
+   	@location(0) Color: vec4<f32>;
+   	@location(1) UV: vec2<f32>;
 };
 
 //
@@ -23,22 +23,22 @@ fn s3d_Transform2D(pos: vec2<f32>, t0: vec4<f32>, t1: vec4<f32>) -> vec4<f32>
 //
 //	Constant Buffer
 //
-[[block]] struct VSConstants2DStruct
+struct VSConstants2DStruct
 {
 	transform0: vec4<f32>;
 	transform1: vec4<f32>;
     colorMul: vec4<f32>;
 };
 
-[[group(0), binding(0)]]
+@group(0) @binding(0)
 var<uniform> VSConstants2D: VSConstants2DStruct;
 
-[[block]] struct SoftShapeStruct
+struct SoftShapeStruct
 {
 	t: f32;
 };
 
-[[group(0), binding(1)]]
+@group(0) @binding(1)
 var<uniform> SoftShape: SoftShapeStruct;
 
 //
@@ -49,9 +49,9 @@ fn Circular(r: f32, theta: f32) -> vec2<f32>
 	return vec2<f32>(sin(theta), -cos(theta)) * r;
 }
 
-[[stage(vertex)]]
+@stage(vertex)
 fn main(
-	[[builtin(vertex_index)]] VertexIndex: u32
+	@builtin(vertex_index) VertexIndex: u32
 ) -> VertexOutput
 {
 	var output: VertexOutput;

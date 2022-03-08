@@ -5,31 +5,31 @@
 //
 //	Textures
 //
-[[group(2), binding(0)]] var Sampler0: sampler;
-[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
+@group(2) @binding(0) var Sampler0: sampler;
+@group(2) @binding(1) var Texture0: texture_2d<f32>;
 
 //
 //	Constant Buffer
 //
-[[block]] struct PSPerFrameStruct
+struct PSPerFrameStruct
 {
 	gloablAmbientColor: vec3<f32>;
 	sunColor: vec3<f32>;
 	sunDirection: vec3<f32>;
 };
 
-[[group(1), binding(0)]]
+@group(1) @binding(0)
 var<uniform> PSPerFrame: PSPerFrameStruct;
 
-[[block]] struct PSPerViewStruct
+struct PSPerViewStruct
 {
 	eyePosition: vec3<f32>;
 };
 
-[[group(1), binding(1)]]
+@group(1) @binding(1)
 var<uniform> PSPerView: PSPerViewStruct;
 
-[[block]] struct PSPerMaterialStruct
+struct PSPerMaterialStruct
 {
 	amibientColor: vec3<f32>;
 	hasTexture: u32;
@@ -39,7 +39,7 @@ var<uniform> PSPerView: PSPerViewStruct;
 	emissionColor: vec3<f32>;
 };
 
-[[group(1), binding(2)]]
+@group(1) @binding(2)
 var<uniform> PSPerMaterial: PSPerMaterialStruct;
 
 //
@@ -72,13 +72,13 @@ fn CalculateSpecularReflection(n: vec3<f32>, h: vec3<f32>, shininess: f32, nl: f
 //
 //	Functions
 //
-[[stage(fragment)]]
+@stage(fragment)
 fn main(
-	[[builtin(position)]] Position: vec4<f32>,
-	[[location(0)]] WorldPosition: vec3<f32>,
-	[[location(1)]] UV: vec2<f32>,
-	[[location(2)]] Normal: vec3<f32>
-) -> [[location(0)]] vec4<f32>
+	@builtin(position) Position: vec4<f32>,
+	@location(0) WorldPosition: vec3<f32>,
+	@location(1) UV: vec2<f32>,
+	@location(2) Normal: vec3<f32>
+) -> @location(0) vec4<f32>
 {
 	var lightColor: vec3<f32>		= PSPerFrame.sunColor;
 	var lightDirection: vec3<f32>	= PSPerFrame.sunDirection;

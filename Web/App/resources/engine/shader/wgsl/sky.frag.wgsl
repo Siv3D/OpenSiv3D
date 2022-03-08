@@ -31,25 +31,25 @@
 //
 //	Constant Buffer
 //
-[[block]] struct PSPerFrameStruct
+struct PSPerFrameStruct
 {
 	gloablAmbientColor: vec3<f32>;
 	sunColor: vec3<f32>;
 	sunDirection: vec3<f32>;
 };
 
-[[group(1), binding(0)]]
+@group(1) @binding(0)
 var<uniform> PSPerFrame: PSPerFrameStruct;
 
-[[block]] struct PSPerViewStruct
+struct PSPerViewStruct
 {
 	eyePosition: vec3<f32>;
 };
 
-[[group(1), binding(1)]]
+@group(1) @binding(1)
 var<uniform> PSPerView: PSPerViewStruct;
 
-[[block]] struct PSSkyStruct
+struct PSSkyStruct
 {
 	zenithColor: vec3<f32>;
 	fogHeightSky: f32;
@@ -74,7 +74,7 @@ var<uniform> PSPerView: PSPerViewStruct;
 	starSaturation: f32;
 };
 
-[[group(1), binding(3)]]
+@group(1) @binding(3)
 var<uniform> PSSky: PSSkyStruct;
 
 //
@@ -245,7 +245,7 @@ fn CalculateClouds(sky: vec3<f32>, V: vec3<f32>, cloudsLightingEnabled: bool, da
 	{
 		return sky * pow(clamp(1.0 - clouds, 0.0, 1.0), 16.0); // only sun and clouds. Boost clouds to have nicer sun shafts occlusion
 	}
-	elseif (cloudsLightingEnabled)
+	else if (cloudsLightingEnabled)
 	{
 		var cloudLighting: vec3<f32> = (dot(-V, PSPerFrame.sunDirection) * 0.5 + 0.5) * PSPerFrame.sunColor * (1.0 - PSSky.cloudiness);
 		return mix(min(sky, vec3<f32>(1.0)), PSSky.cloudColor + cloudLighting, clouds); // sky and clouds on top
@@ -361,13 +361,13 @@ fn GetDynamicSkyColor(V: vec3<f32>, sun_enabled: bool, clouds_enabled: bool, dar
 	return sky;
 }
 
-[[stage(fragment)]]
+@stage(fragment)
 fn main(
-	[[builtin(position)]] Position: vec4<f32>,
-	[[location(0)]] WorldPosition: vec3<f32>,
-	[[location(1)]] UV: vec2<f32>,
-	[[location(2)]] Normal: vec3<f32>
-) -> [[location(0)]] vec4<f32>
+	@builtin(position) Position: vec4<f32>,
+	@location(0) WorldPosition: vec3<f32>,
+	@location(1) UV: vec2<f32>,
+	@location(2) Normal: vec3<f32>
+) -> @location(0) vec4<f32>
 {
 	var dir: vec3<f32> = normalize(WorldPosition - PSPerView.eyePosition);
 

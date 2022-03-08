@@ -7,9 +7,9 @@
 //
 struct VertexOutput
 {
-	[[builtin(position)]] Position: vec4<f32>;
-   	[[location(0)]] Color: vec4<f32>;
-   	[[location(1)]] UV: vec2<f32>;
+	@builtin(position) Position: vec4<f32>;
+   	@location(0) Color: vec4<f32>;
+   	@location(1) UV: vec2<f32>;
 };
 
 //
@@ -23,22 +23,22 @@ fn s3d_Transform2D(pos: vec2<f32>, t0: vec4<f32>, t1: vec4<f32>) -> vec4<f32>
 //
 //	Constant Buffer
 //
-[[block]] struct VSConstants2DStruct
+struct VSConstants2DStruct
 {
 	transform0: vec4<f32>;
 	transform1: vec4<f32>;
     colorMul: vec4<f32>;
 };
 
-[[group(0), binding(0)]]
+@group(0) @binding(0)
 var<uniform> VSConstants2D: VSConstants2DStruct;
 
-[[block]] struct VSHomographyStruct
+struct VSHomographyStruct
 {
 	homography: mat3x3<f32>;
 };
 
-[[group(0), binding(1)]]
+@group(0) @binding(1)
 var<uniform> VSHomography: VSHomographyStruct;
 
 //
@@ -55,11 +55,11 @@ fn Transform(pos: vec3<f32>, mat: mat3x3<f32>) -> vec2<f32>
 //
 //	Functions
 //
-[[stage(vertex)]]
+@stage(vertex)
 fn main(
-	[[location(0)]] VertexPosition: vec2<f32>,
-	[[location(1)]] VertexUV: vec2<f32>,
-	[[location(2)]] VertexColor: vec4<f32>,
+	@location(0) VertexPosition: vec2<f32>,
+	@location(1) VertexUV: vec2<f32>,
+	@location(2) VertexColor: vec4<f32>,
 ) -> VertexOutput
 {
 	var pos: vec2<f32> = Transform(VertexPosition, VSHomography.homography);

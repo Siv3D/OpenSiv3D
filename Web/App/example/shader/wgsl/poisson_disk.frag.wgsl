@@ -5,13 +5,13 @@
 //
 //	Textures
 //
-[[group(2), binding(0)]] var Sampler0: sampler;
-[[group(2), binding(1)]] var Texture0: texture_2d<f32>;
+@group(2) @binding(0) var Sampler0: sampler;
+@group(2) @binding(1) var Texture0: texture_2d<f32>;
 
 //
 //	Constant Buffer
 //
-[[block]] struct PSConstants2DStruct
+struct PSConstants2DStruct
 {
 	colorAdd: vec4<f32>;
 	sdfParam: vec4<f32>;
@@ -20,17 +20,17 @@
 	unused: vec4<f32>;
 };
 
-[[group(1), binding(0)]]
+@group(1) @binding(0)
 var<uniform> PSConstants2D: PSConstants2DStruct;
 
 // PS_1
-[[block]] struct PoissonDiskStruct
+struct PoissonDiskStruct
 {
 	pixelSize: vec2<f32>;
 	diskRadius: f32;
 };
 
-[[group(1), binding(1)]]
+@group(1) @binding(1)
 var<uniform> PoissonDisk: PoissonDiskStruct;
 // [C++]
 //struct PoissonDisk
@@ -57,12 +57,12 @@ let poisson: array<vec2<f32>, 12> = array<vec2<f32>, 12>(
 //
 //	Functions
 //
-[[stage(fragment)]]
+@stage(fragment)
 fn main(
-	[[builtin(position)]] Position: vec4<f32>,
-	[[location(0)]] Color: vec4<f32>,
-	[[location(1)]] UV: vec2<f32>
-) -> [[location(0)]] vec4<f32>
+	@builtin(position) Position: vec4<f32>,
+	@location(0) Color: vec4<f32>,
+	@location(1) UV: vec2<f32>
+) -> @location(0) vec4<f32>
 {
 	var offsetScale: vec2<f32> = PoissonDisk.pixelSize * PoissonDisk.diskRadius;
 

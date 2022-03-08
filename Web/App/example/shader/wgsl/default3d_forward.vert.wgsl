@@ -7,39 +7,39 @@
 //
 struct VertexOutput
 {
-	[[builtin(position)]] Position: vec4<f32>;
-	[[location(0)]] WorldPosition: vec3<f32>;
-   	[[location(1)]] UV: vec2<f32>;
-   	[[location(2)]] Normal: vec3<f32>;
+	@builtin(position) Position: vec4<f32>;
+	@location(0) WorldPosition: vec3<f32>;
+   	@location(1) UV: vec2<f32>;
+   	@location(2) Normal: vec3<f32>;
 };
 
 //
 //	Constant Buffer
 //
-[[block]] struct VSPerViewStruct
+struct VSPerViewStruct
 {
 	worldToProjected: mat4x4<f32>;
 };
 
-[[group(0), binding(0)]]
+@group(0) @binding(0)
 var<uniform> VSPerView: VSPerViewStruct;
 
-[[block]] struct VSPerObjectStruct
+struct VSPerObjectStruct
 {
 	localToWorld: mat4x4<f32>;
 };
 
-[[group(0), binding(1)]]
+@group(0) @binding(1)
 var<uniform> VSPerObject: VSPerObjectStruct;
 
 //
 //	Functions
 //
-[[stage(vertex)]]
+@stage(vertex)
 fn main(
-	[[location(0)]] VertexPosition: vec3<f32>,
-	[[location(1)]] VertexNormal: vec3<f32>,
-	[[location(2)]] VertexUV: vec2<f32>,
+	@location(0) VertexPosition: vec3<f32>,
+	@location(1) VertexNormal: vec3<f32>,
+	@location(2) VertexUV: vec2<f32>,
 ) -> VertexOutput
 {
 	var output: VertexOutput;
