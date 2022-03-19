@@ -122,6 +122,8 @@ namespace s3d
 			templ.addAction(action.toWstr());
 		}
 
+		templ.setAudioOption(item.audio ? WinToastLib::WinToastTemplate::AudioOption::Default : WinToastLib::WinToastTemplate::AudioOption::Silent);
+
 		WinToast::WinToastError error = WinToast::NoError;
 		const ToastNotificationID id = WinToast::instance()->showToast(templ, std::make_unique<ToastHandler>(m_indexCount), &error);
 		if (id != -1)

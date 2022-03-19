@@ -30,5 +30,9 @@ namespace s3d
 
 		/// @brief ユーザの選択肢
 		Array<String> actions;
+
+		/// @brief 効果音を利用できる場合, 効果音を再生するか
+		/// @remark Windows 版でのみ有効です
+		bool audio = true;
 	};
 }
