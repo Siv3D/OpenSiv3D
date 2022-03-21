@@ -473,16 +473,13 @@ jobs:
           username:  ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
       
-      - name: Create Destination Folders
-        run: mkdir -p Dest/v6-wasm-app
-      - name: Place Siv3D Apps (wasm)
-        uses: actions/download-artifact@v2
-        with:
-          name: Siv3DTest-wasm
-          path: Dest/v6-wasm-app
-      
       - name: Checkout the repository
         uses: actions/checkout@v2
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-wasm
+          path: .
 
       - name: Install dependencies
         working-directory: Web/CI
