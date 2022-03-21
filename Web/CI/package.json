@@ -4,7 +4,7 @@
   "description": "OpenSiv3D for Web On-Device Test",
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/*.spec.js"
+    "test": "mocha test/**/*.spec.js"
   },
   "keywords": [],
   "author": "",
