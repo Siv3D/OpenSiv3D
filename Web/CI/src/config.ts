@@ -1,4 +1,6 @@
 export const projectCapability = {
+    'build': process.env.BROWSERSTACK_BUILD_NAME,
+    'project': process.env.BROWSERSTACK_PROJECT_NAME,
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
     'seleniumVersion': 4,
