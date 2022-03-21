@@ -463,6 +463,8 @@ jobs:
     needs: [ deploy-gh-pages, e2e-test-prerequisites ]
     if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
     runs-on: ubuntu-latest
+    container: 
+      image: 'emscripten/emsdk:2.0.22'
 
     steps:
       - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
