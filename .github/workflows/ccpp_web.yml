@@ -479,12 +479,15 @@ jobs:
           name: Siv3DTest-wasm
           path: Dest/v6-wasm-app
       
-      - name: 'Checkout the repository'
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: 'Building web application to be tested'
+      - name: Install dependencies
         working-directory: Web/CI
         run: npm install
+      - name: Building web application to be tested
+        working-directory: Web/CI
+        run: npm run build
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         working-directory: Web/CI
         run: npm test  # See sample test script above
