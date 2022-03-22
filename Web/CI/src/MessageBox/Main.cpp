@@ -3,9 +3,9 @@
 
 static MessageBoxResult result;
 
-MessageBoxResult GetResult()
+uint32 GetResult()
 {
-    return result;
+    return FromEnum(result);
 }
 
 static void WaitForFrames(uint32 frames)
@@ -23,13 +23,13 @@ void Main()
 	WaitForFrames(60);
 	result = System::MessageBoxOK(U"Normal MessageBox");
 
-	WaitForFrames(60);  
+	WaitForFrames(300);  
 	result = System::MessageBoxOKCancel(U"OK or Cancel MessageBox");
 
-	WaitForFrames(60);
+	WaitForFrames(300);
 	result = System::MessageBoxOKCancel(U"OK or Cancel MessageBox");
 
-	WaitForFrames(60);
+	WaitForFrames(1000);
 }
 
 EMSCRIPTEN_BINDINGS(Bindings) {
