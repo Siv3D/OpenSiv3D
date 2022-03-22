@@ -46,13 +46,13 @@ namespace s3d
 
 			std::shared_ptr<Data_t> _s;
 
-			SceneManager<State_t, Data_t>* _m;
+			SceneManager<State_t, Data_t>*& _m;
 
 			SIV3D_NODISCARD_CXX20
 			InitData() = default;
 
 			SIV3D_NODISCARD_CXX20
-			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager);
+			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>*& manager);
 		};
 
 	public:
@@ -121,7 +121,7 @@ namespace s3d
 
 		std::shared_ptr<Data_t> m_data;
 
-		SceneManager<State_t, Data_t>* m_manager;
+		SceneManager<State_t, Data_t>*& m_manager;
 	};
 
 	/// @brief シーン遷移管理
@@ -139,10 +139,20 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		SceneManager();
 
+		SIV3D_NODISCARD_CXX20
+		SceneManager(const SceneManager&) = delete;
+
+		SIV3D_NODISCARD_CXX20
+		SceneManager(SceneManager&& other) noexcept;
+
 		/// @brief シーン管理を初期化します。
 		/// @param data 共有データ
 		SIV3D_NODISCARD_CXX20
 		explicit SceneManager(const std::shared_ptr<Data>& data);
+
+		SceneManager& operator =(const SceneManager&) = delete;
+
+		SceneManager& operator =(SceneManager&& other) noexcept;
 
 		/// @brief シーンを登録します。
 		/// @tparam SceneType シーンの型
@@ -212,6 +222,8 @@ namespace s3d
 		using Scene_t = std::shared_ptr<IScene<State, Data>>;
 
 		using FactoryFunction_t = std::function<Scene_t()>;
+
+		std::unique_ptr<SceneManager*> m_sceneManagerPtr;
 
 		HashTable<State, FactoryFunction_t> m_factories;
 

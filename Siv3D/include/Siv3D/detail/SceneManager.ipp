@@ -14,7 +14,7 @@
 namespace s3d
 {
 	template <class State, class Data>
-	inline IScene<State, Data>::InitData::InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager)
+	inline IScene<State, Data>::InitData::InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>*& manager)
 		: state{ _state }
 		, _s{ data }
 		, _m{ manager } {}
@@ -79,6 +79,7 @@ namespace s3d
 
 	template <class State, class Data>
 	inline SceneManager<State, Data>::SceneManager()
+		: m_sceneManagerPtr{ std::make_unique<SceneManager*>(this) }
 	{
 		if constexpr (not std::is_void_v<Data>)
 		{
@@ -87,14 +88,56 @@ namespace s3d
 	}
 
 	template <class State, class Data>
+	inline SceneManager<State, Data>::SceneManager(SceneManager&& other) noexcept
+		: m_sceneManagerPtr{ std::move(other.m_sceneManagerPtr) }
+		, m_factories{ std::move(other.m_factories) }
+		, m_data{ std::move(other.m_data) }
+		, m_current{ std::move(other.m_current) }
+		, m_next{ std::move(other.m_next) }
+		, m_currentState{ std::move(other.m_currentState) }
+		, m_nextState{ std::move(other.m_nextState) }
+		, m_first{ std::move(other.m_first) }
+		, m_transitionState{ std::move(other.m_transitionState) }
+		, m_stopwatch{ std::move(other.m_stopwatch) }
+		, m_transitionTimeMillisec{ std::move(other.m_transitionTimeMillisec) }
+		, m_fadeColor{ std::move(other.m_fadeColor) }
+		, m_crossFade{ std::move(other.m_crossFade) }
+		, m_error{ std::move(other.m_error) }
+	{
+		*m_sceneManagerPtr = this;
+	}
+
+	template <class State, class Data>
 	inline SceneManager<State, Data>::SceneManager(const std::shared_ptr<Data>& data)
-		: m_data{ data } {}
+		: m_sceneManagerPtr{ std::make_unique<SceneManager*>(this) }
+		, m_data{ data } {}
+
+	template <class State, class Data>
+	inline SceneManager<State, Data>& SceneManager<State, Data>::operator =(SceneManager&& other) noexcept
+	{
+		m_sceneManagerPtr			= std::move(other.m_sceneManagerPtr);
+		m_factories					= std::move(other.m_factories);
+		m_data						= std::move(other.m_data);
+		m_current					= std::move(other.m_current);
+		m_next						= std::move(other.m_next);
+		m_currentState				= std::move(other.m_currentState);
+		m_nextState					= std::move(other.m_nextState);
+		m_first						= std::move(other.m_first);
+		m_transitionState			= std::move(other.m_transitionState);
+		m_stopwatch					= std::move(other.m_stopwatch);
+		m_transitionTimeMillisec	= std::move(other.m_transitionTimeMillisec);
+		m_fadeColor					= std::move(other.m_fadeColor);
+		m_crossFade					= std::move(other.m_crossFade);
+		m_error						= std::move(other.m_error);
+		*m_sceneManagerPtr			= this;
+		return *this;
+	}
 
 	template <class State, class Data>
 	template <class SceneType>
 	inline SceneManager<State, Data>& SceneManager<State, Data>::add(const State& state)
 	{
-		typename SceneType::InitData initData{ state, m_data, this };
+		typename SceneType::InitData initData{ state, m_data, *m_sceneManagerPtr };
 
 		auto factory = [=]() {
 			return std::make_shared<SceneType>(initData);
