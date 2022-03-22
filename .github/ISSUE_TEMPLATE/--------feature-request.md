@@ -2,7 +2,7 @@
 name: 機能の提案 | Feature Request
 about: 追加する機能の提案 | Suggest an idea for this project
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---

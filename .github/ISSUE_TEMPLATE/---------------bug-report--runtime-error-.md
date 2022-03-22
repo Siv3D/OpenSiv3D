@@ -2,7 +2,7 @@
 name: バグ報告(実行時エラー) | Bug report (Runtime Error)
 about: 改良のための報告 | Create a report to help us improve
 title: "[実行時エラー]"
-labels: bug
+labels: runtime error
 assignees: ''
 
 ---
