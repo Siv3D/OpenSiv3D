@@ -139,7 +139,7 @@ export class Siv3DApp {
 
     async waitForReady(driver: ThenableWebDriver) {
         const statusElement = await driver.findElement(By.id("status"));
-        await driver.wait(until.elementTextIs(statusElement, ""))
+        await driver.wait(until.elementTextIs(statusElement, ""), 30 * 1000)
 
         this.canvasRectangle = await this.canvasElement.getRect();
     }
