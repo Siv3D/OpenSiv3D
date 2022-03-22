@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd src/MessageBox
+cd src/TextInput
 
-emcmake cmake .. -DSIV3D_SOURCE=MessageBox/Main.cpp
+emcmake cmake .. -DSIV3D_SOURCE=TextInput/Main.cpp
 make -j4
