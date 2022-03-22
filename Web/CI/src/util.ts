@@ -58,16 +58,22 @@ export function buildTestCase(caps: Capability, name: string, testCase: (this: C
         
         testCase.call(this, driver).then(
             async function() {
-                await reportAsPassed(driver)
-                await driver.quit();
-                done();
+                try {
+                    await reportAsPassed(driver)
+                } finally {
+                    await driver.quit();
+                    done();
+                } 
             },
             async function(e) {
-                if (e instanceof Error) {
-                    await reportAsFailed(driver, e.message);
+                try {
+                    if (e instanceof Error) {
+                        await reportAsFailed(driver, e.message);
+                    }
+                } finally {
+                    await driver.quit();
+                    done(e);
                 }
-                await driver.quit();
-                done(e);
             }
         );
     };
