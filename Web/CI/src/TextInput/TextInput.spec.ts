@@ -3,7 +3,7 @@ import test from "mocha";
 import parallel, { limit } from "mocha.parallel";
 import { use, expect } from "chai";
 import { chaiImage } from "chai-image";
-import { buildTestCase, Siv3DApp, sleep } from "../util";
+import { buildTestCase, Siv3DApp, sleep, spawnAsync } from "../util";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { deviceCapabilities, generateCapability, notSupportedDeviceCapabilities } from "../config";
 import { ChildProcessWithoutNullStreams, spawn, spawnSync } from "child_process";
@@ -25,7 +25,7 @@ parallel("Browserstack Tests", function() {
         const browserStackLocal = new Local();;
 
         test.before(async function() {
-            spawnSync("./src/TextInput/Build.sh");
+            await spawnAsync("./src/TextInput/Build.sh", []);
 
             await new Promise<Error | undefined>(resolve => {
                 browserStackLocal.start({

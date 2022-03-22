@@ -3,6 +3,7 @@ import sharp from "sharp";
 import https from "https";
 import { Capability } from "./config";
 import { Context, Done } from "mocha";
+import { ChildProcessWithoutNullStreams, spawn, spawnSync } from "child_process";
 
 /**
  * 
@@ -10,6 +11,24 @@ import { Context, Done } from "mocha";
  */
 export function sleep(milliSeconds: number) {
     return new Promise(resolve => setTimeout(resolve, milliSeconds));
+}
+
+export function spawnAsync(command: string, args: string[]) {
+    return new Promise<void>((resolve, reject) => {
+        const process = spawn(command, args);
+
+        process.stdout.on('data', chunk => {
+            console.log(Buffer.from(chunk).toString());
+        });
+    
+        process.stderr.on('data', chunk => {
+            console.error(Buffer.from(chunk).toString());
+        });
+
+        process.on('close', code => {
+            code ? reject() : resolve();
+        });
+    });
 }
 
 export async function reportAsPassed(driver: ThenableWebDriver) {
