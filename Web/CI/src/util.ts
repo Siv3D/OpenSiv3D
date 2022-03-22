@@ -110,19 +110,19 @@ export class Siv3DApp {
         }
     }
 
-    static async init(driver: ThenableWebDriver, testedPage: string, expectedScreenSize?: ISize) {
-        
+    static async open(driver: ThenableWebDriver, testedPage: string, expectedScreenSize?: ISize) {   
         await driver.get(testedPage);
-
         await driver.wait(until.elementLocated(By.id("status")), 30 * 1000);
 
+        const canvas = await driver.findElement(By.css("canvas"));
+        return new Siv3DApp(canvas, { x: 0, y: 0, width: 320, height: 240 }, expectedScreenSize);
+    }
+
+    async waitForReady(driver: ThenableWebDriver) {
         const statusElement = await driver.findElement(By.id("status"));
         await driver.wait(until.elementTextIs(statusElement, ""))
 
-        const canvas = await driver.findElement(By.css("canvas"));
-        const canvasRect = await canvas.getRect();
-
-        return new Siv3DApp(canvas, canvasRect, expectedScreenSize);
+        this.canvasRectangle = await this.canvasElement.getRect();
     }
 
     async mouseClick(actions: Actions, point: IPoint) {

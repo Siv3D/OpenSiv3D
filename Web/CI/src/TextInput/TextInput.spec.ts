@@ -46,7 +46,7 @@ parallel("Browserstack Tests", function() {
             });
         })
 
-        test.it(`Supported Device on ${capability.friendlyBrowserName}`, 
+        test.it(`TextInput on ${capability.friendlyBrowserName}`, 
             buildTestCase(capability, "Siv3DTest", async function (driver: ThenableWebDriver) {     
                 this.timeout(timeout);
 
@@ -61,17 +61,18 @@ parallel("Browserstack Tests", function() {
                 let app: Siv3DApp;
                 
                 if (capability.os === "iOS") {
-                    app = await Siv3DApp.init(
+                    app = await Siv3DApp.open(
                         driver,
                         "http://bs-local.com:8080/src/TextInput/Siv3DTest.html",
                         { width: 800, height: 600 });
                 } else {
-                    app = await Siv3DApp.init(
+                    app = await Siv3DApp.open(
                         driver,
                         "http://127.0.0.1:8080/src/TextInput/Siv3DTest.html",
                         { width: 800, height: 600 });
                 }
 
+                await app.waitForReady(driver);
                 await sleep(1000);
     
                 await FocusToTextInput();
@@ -104,12 +105,12 @@ parallel("Browserstack Tests", function() {
                 let app: Siv3DApp;
 
                 if (capability.os === "iOS") {
-                    app = await Siv3DApp.init(
+                    app = await Siv3DApp.open(
                         driver,
                         "http://bs-local.com:8080/src/TextInput/Siv3DTest.html",
                         { width: 800, height: 600 });
                 } else {
-                    app = await Siv3DApp.init(
+                    app = await Siv3DApp.open(
                         driver,
                         "http://127.0.0.1:8080/src/TextInput/Siv3DTest.html",
                         { width: 800, height: 600 });
