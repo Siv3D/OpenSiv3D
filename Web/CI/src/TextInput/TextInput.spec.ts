@@ -47,7 +47,7 @@ parallel("Browserstack Tests", function() {
         })
 
         test.it(`TextInput on ${capability.friendlyBrowserName}`, 
-            buildTestCase(capability, "Siv3DTest", async function (driver: ThenableWebDriver) {     
+            buildTestCase(capability, "TextInput", async function (driver: ThenableWebDriver) {     
                 this.timeout(timeout);
 
                 async function FocusToTextInput() {
