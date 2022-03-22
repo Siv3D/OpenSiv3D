@@ -9,7 +9,7 @@ import { deviceCapabilities, generateCapability, notSupportedDeviceCapabilities 
 import { ChildProcessWithoutNullStreams, spawn, spawnSync } from "child_process";
 import { Local } from "browserstack-local";
 
-limit(3);
+limit(5);
 use(chaiImage);
 
 const timeout = 2 * 60 * 1000;

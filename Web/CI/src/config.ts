@@ -37,12 +37,12 @@ export const deviceCapabilities: DeciceCapability[] = [
         'browserName' : 'Chrome',
         'browser_version' : '98'
     },
-    {
-        'os' : 'Windows',
-        'os_version' : '10',
-        'browserName' : 'Edge',
-        'browser_version' : '98'
-    },
+    // {
+    //     'os' : 'Windows',
+    //     'os_version' : '10',
+    //     'browserName' : 'Edge',
+    //     'browser_version' : '98'
+    // },
     {
         'os' : 'OS X',
         'os_version' : 'Monterey',
@@ -50,12 +50,24 @@ export const deviceCapabilities: DeciceCapability[] = [
         'browser_version' : '15'
     },
     {
-        'os' : 'android',
-        "real_mobile" : "true",
-        'device' : 'Google Pixel',
-        'os_version' : '8.0',
-        'browserName' : 'Chrome'
+        'os' : 'OS X',
+        'os_version' : 'Monterey',
+        'browserName' : 'Chrome',
+        'browser_version' : '98'
     },
+    {
+        'os' : 'OS X',
+        'os_version' : 'Monterey',
+        'browserName' : 'FireFox',
+        'browser_version' : '97'
+    },
+    // {
+    //     'os' : 'android',
+    //     "real_mobile" : "true",
+    //     'device' : 'Google Pixel',
+    //     'os_version' : '8.0',
+    //     'browserName' : 'Chrome'
+    // },
     {
         'os' : 'android',
         "real_mobile" : "true",
@@ -66,10 +78,17 @@ export const deviceCapabilities: DeciceCapability[] = [
     {
         'os' : 'android',
         "real_mobile" : "true",
-        'device' : 'Samsung Galaxy S9 Plus',
-        'os_version' : '8.0',
-        'browserName' : 'Chrome'
+        'device' : 'Google Pixel 6',
+        'os_version' : '12.0',
+        'browserName' : 'FireFox'
     },
+    // {
+    //     'os' : 'android',
+    //     "real_mobile" : "true",
+    //     'device' : 'Samsung Galaxy S9 Plus',
+    //     'os_version' : '8.0',
+    //     'browserName' : 'Chrome'
+    // },
     {
         'os' : 'android',
         "real_mobile" : "true",
@@ -87,17 +106,24 @@ export const deviceCapabilities: DeciceCapability[] = [
     {
         'os' : 'iOS',
         "real_mobile" : "true",
-        'device' : 'iPhone XS',
+        'device' : 'iPhone 11',
         'os_version' : '15',
-        'browserName' : 'Safari'
+        'browserName' : 'Chrome'
     },
-    {
-        'os' : 'iOS',
-        "real_mobile" : "true",
-        'device' : 'iPad 9th',
-        'os_version' : '15',
-        'browserName' : 'Safari'
-    },
+    // {
+    //     'os' : 'iOS',
+    //     "real_mobile" : "true",
+    //     'device' : 'iPhone XS',
+    //     'os_version' : '15',
+    //     'browserName' : 'Safari'
+    // },
+    // {
+    //     'os' : 'iOS',
+    //     "real_mobile" : "true",
+    //     'device' : 'iPad 9th',
+    //     'os_version' : '15',
+    //     'browserName' : 'Safari'
+    // },
 ];
 
 export const notSupportedDeviceCapabilities: DeciceCapability[] = [
