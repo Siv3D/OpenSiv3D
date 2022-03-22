@@ -8,20 +8,28 @@ MessageBoxResult GetResult()
     return result;
 }
 
+static void WaitForFrames(uint32 frames)
+{
+	for (auto _ : step(frames)) 
+	{
+		System::Update();
+	}
+}
+
 void Main()
 {
 	Scene::SetResizeMode(ResizeMode::Keep);
-	
-	System::Update();
+
+	WaitForFrames(60);
 	result = System::MessageBoxOK(U"Normal MessageBox");
-    
-	System::Update();
+
+	WaitForFrames(60);  
 	result = System::MessageBoxOKCancel(U"OK or Cancel MessageBox");
 
-	System::Update();
+	WaitForFrames(60);
 	result = System::MessageBoxOKCancel(U"OK or Cancel MessageBox");
 
-	System::Update();
+	WaitForFrames(60);
 }
 
 EMSCRIPTEN_BINDINGS(Bindings) {
