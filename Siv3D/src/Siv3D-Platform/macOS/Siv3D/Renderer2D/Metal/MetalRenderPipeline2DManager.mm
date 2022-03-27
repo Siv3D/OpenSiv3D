@@ -86,7 +86,7 @@ namespace s3d
 
 	void MetalRenderPipeline2DManager::add(const VertexShader::IDType vsID, const PixelShader::IDType psID, const MTLPixelFormat pixelFormat, const uint32 sampleCount, const BlendState& blendState)
 	{
-		const KeyType key{ vsID, psID, pixelFormat, sampleCount };
+		const KeyType key{ vsID, psID, pixelFormat, sampleCount, blendState };
 
 		if (m_pipelineStates.contains(key))
 		{
@@ -124,7 +124,7 @@ namespace s3d
 
 	id<MTLRenderPipelineState> MetalRenderPipeline2DManager::get(const VertexShader::IDType vsID, const PixelShader::IDType psID, const MTLPixelFormat pixelFormat, const uint32 sampleCount, const BlendState& blendState)
 	{
-		const KeyType key{ vsID, psID, pixelFormat, sampleCount };
+		const KeyType key{ vsID, psID, pixelFormat, sampleCount, blendState };
 		
 		auto it = m_pipelineStates.find(key);
 		
