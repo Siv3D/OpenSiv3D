@@ -1140,6 +1140,7 @@
 		2C63A9DC26A4091F00D13501 /* ModelData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9D526A4091F00D13501 /* ModelData.cpp */; };
 		2C63A9E226A5320E00D13501 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */; };
 		2C63A9E326A5320E00D13501 /* tiny_obj_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */; };
+		2C640BC527F08B9C00C25B31 /* SivRectanglePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C640BC427F08B9C00C25B31 /* SivRectanglePacking.cpp */; };
 		2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C65277B26561B7D003427EB /* RtAudio.cpp */; };
 		2C65277E26561B7D003427EB /* RtAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C65277C26561B7D003427EB /* RtAudio.h */; };
 		2C652780265621DF003427EB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C65277F265621DF003427EB /* CoreAudio.framework */; };
@@ -3538,6 +3539,7 @@
 		2C63A9DE26A531F100D13501 /* ModelMeshPart.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ModelMeshPart.hpp; sourceTree = "<group>"; };
 		2C63A9E026A5320E00D13501 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
 		2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		2C640BC427F08B9C00C25B31 /* SivRectanglePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRectanglePacking.cpp; sourceTree = "<group>"; };
 		2C64C40D272154A200711233 /* MeshGlyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshGlyph.hpp; sourceTree = "<group>"; };
 		2C65277526561B26003427EB /* MicrophoneInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneInfo.hpp; sourceTree = "<group>"; };
 		2C65277B26561B7D003427EB /* RtAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtAudio.cpp; sourceTree = "<group>"; };
@@ -6714,6 +6716,7 @@
 				2C5DA71B267793BC002C9E0A /* Ray */,
 				2C60F9232667F0F500FFAA68 /* RDTSCClock */,
 				2C13C8DD25B9141D0054B968 /* Rect */,
+				2C640BC327F08B9B00C25B31 /* RectanglePacking */,
 				2C6684472685050B00F7089A /* RectEmitter2D */,
 				2C13C8DF25B9141D0054B968 /* RectF */,
 				2C47B25D24DD9789008D83BE /* RegExp */,
@@ -9042,6 +9045,14 @@
 				2C63A9E126A5320E00D13501 /* tiny_obj_loader.h */,
 			);
 			path = tinyobjloader;
+			sourceTree = "<group>";
+		};
+		2C640BC327F08B9B00C25B31 /* RectanglePacking */ = {
+			isa = PBXGroup;
+			children = (
+				2C640BC427F08B9C00C25B31 /* SivRectanglePacking.cpp */,
+			);
+			path = RectanglePacking;
 			sourceTree = "<group>";
 		};
 		2C65277A26561B7D003427EB /* rtaudio */ = {
@@ -13421,6 +13432,7 @@
 				2C47B30524DD9789008D83BE /* CRenderer_Null.cpp in Sources */,
 				2C2AA36F26009C74003F3EBC /* b2_motor_joint.cpp in Sources */,
 				2C834D97248805D4006208B8 /* unicode_fold3_key.c in Sources */,
+				2C640BC527F08B9C00C25B31 /* SivRectanglePacking.cpp in Sources */,
 				2C439F79241DCEA9001154C2 /* bignum.cc in Sources */,
 				2C47B31C24DD9789008D83BE /* SivHash.cpp in Sources */,
 				2C28E9482796816C0004E07D /* zstdmt_compress.c in Sources */,
