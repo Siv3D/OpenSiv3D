@@ -171,8 +171,8 @@
 // kd 木 | kd-tree
 # include <Siv3D/KDTree.hpp>
 
-// UnionFind | union–find
-# include <Siv3D/UnionFind.hpp>
+// Disjoint-set (Union-find) | Disjoint-set (Union–find)
+# include <Siv3D/DisjointSet.hpp>
 
 //////////////////////////////////////////////////
 //

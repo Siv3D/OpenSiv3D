@@ -16,7 +16,7 @@
 namespace s3d
 {
 	template <class IndexType>
-	class UnionFind
+	class DisjointSet
 	{
 	public:
 
@@ -25,10 +25,10 @@ namespace s3d
 		static constexpr size_t MaxSize = (static_cast<size_t>(std::numeric_limits<index_type>::max()) + 1);
 
 		SIV3D_NODISCARD_CXX20
-		UnionFind() = default;
+		DisjointSet() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit UnionFind(size_t n);
+		explicit DisjointSet(size_t n);
 
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
@@ -50,6 +50,9 @@ namespace s3d
 		[[nodiscard]]
 		size_t size(index_type i) noexcept;
 
+		[[nodiscard]]
+		size_t countSets() const noexcept;
+
 		void reset() noexcept;
 
 	private:
@@ -60,4 +63,4 @@ namespace s3d
 	};
 }
 
-# include "detail/UnionFind.ipp"
+# include "detail/DisjointSet.ipp"

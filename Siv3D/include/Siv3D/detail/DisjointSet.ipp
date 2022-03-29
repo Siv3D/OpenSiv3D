@@ -14,7 +14,7 @@
 namespace s3d
 {
 	template <class IndexType>
-	inline UnionFind<IndexType>::UnionFind(const size_t n)
+	inline DisjointSet<IndexType>::DisjointSet(const size_t n)
 		: m_parents(n)
 		, m_sizes(n, 1u)
 	{
@@ -24,25 +24,25 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline UnionFind<IndexType>::operator bool() const noexcept
+	inline DisjointSet<IndexType>::operator bool() const noexcept
 	{
 		return isEmpty();
 	}
 
 	template <class IndexType>
-	inline bool UnionFind<IndexType>::isEmpty() const noexcept
+	inline bool DisjointSet<IndexType>::isEmpty() const noexcept
 	{
 		return m_parents.empty();
 	}
 
 	template <class IndexType>
-	inline size_t UnionFind<IndexType>::size() const noexcept
+	inline size_t DisjointSet<IndexType>::size() const noexcept
 	{
 		return m_parents.size();
 	}
 
 	template <class IndexType>
-	inline typename UnionFind<IndexType>::index_type UnionFind<IndexType>::find(index_type i) noexcept
+	inline typename DisjointSet<IndexType>::index_type DisjointSet<IndexType>::find(index_type i) noexcept
 	{
 		assert(i < size());
 
@@ -56,13 +56,13 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline bool UnionFind<IndexType>::connected(const index_type i, const index_type k) noexcept
+	inline bool DisjointSet<IndexType>::connected(const index_type i, const index_type k) noexcept
 	{
 		return (find(i) == find(k));
 	}
 
 	template <class IndexType>
-	inline bool UnionFind<IndexType>::merge(index_type i, index_type k) noexcept
+	inline bool DisjointSet<IndexType>::merge(index_type i, index_type k) noexcept
 	{
 		i = find(i);
 		k = find(k);
@@ -85,7 +85,7 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline size_t UnionFind<IndexType>::size(const index_type i) noexcept
+	inline size_t DisjointSet<IndexType>::size(const index_type i) noexcept
 	{
 		assert(i < size());
 
@@ -93,7 +93,25 @@ namespace s3d
 	}
 
 	template <class IndexType>
-	inline void UnionFind<IndexType>::reset() noexcept
+	inline size_t DisjointSet<IndexType>::countSets() const noexcept
+	{
+		size_t count = 0;
+
+		const size_t size = m_parents.size();
+
+		for (size_t i = 0; i < size; ++i)
+		{
+			if (static_cast<index_type>(i) == m_parents[i])
+			{
+				++count;
+			}
+		}
+
+		return count;
+	}
+
+	template <class IndexType>
+	inline void DisjointSet<IndexType>::reset() noexcept
 	{
 		std::iota(m_parents.begin(), m_parents.end(), static_cast<index_type>(0));
 
