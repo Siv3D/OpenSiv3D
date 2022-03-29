@@ -4332,6 +4332,8 @@
 		2CC5849D2648FE2A00C33E9F /* opus_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_defines.h; sourceTree = "<group>"; };
 		2CC5849E2648FE2A00C33E9F /* opus_projection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_projection.h; sourceTree = "<group>"; };
 		2CC584A62649027F00C33E9F /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopus.a; path = ../Siv3D/lib/macOS/opus/libopus.a; sourceTree = "<group>"; };
+		2CC6A9A327F3629C00CC76BA /* DisjointSet.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisjointSet.ipp; sourceTree = "<group>"; };
+		2CC6A9A427F362B400CC76BA /* DisjointSet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisjointSet.hpp; sourceTree = "<group>"; };
 		2CC7D4A425F8D85500289963 /* GrabCut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GrabCut.hpp; sourceTree = "<group>"; };
 		2CC7D4A625F8D86A00289963 /* GrabCutDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GrabCutDetail.hpp; sourceTree = "<group>"; };
 		2CC7D4A725F8D86A00289963 /* SivGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGrabCut.cpp; sourceTree = "<group>"; };
@@ -4344,8 +4346,6 @@
 		2CD06C1A27A85BFE009149D2 /* IAudioStream.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IAudioStream.hpp; sourceTree = "<group>"; };
 		2CD06C1B27A85C22009149D2 /* DynamicAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicAudioSource.cpp; sourceTree = "<group>"; };
 		2CD06C1C27A85C23009149D2 /* DynamicAudioSource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DynamicAudioSource.hpp; sourceTree = "<group>"; };
-		2CD1277527CA2EA800FDD989 /* UnionFind.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UnionFind.hpp; sourceTree = "<group>"; };
-		2CD1277627CA2EC100FDD989 /* UnionFind.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UnionFind.ipp; sourceTree = "<group>"; };
 		2CD69B4826D2B7AE00879484 /* ScriptBind.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptBind.hpp; sourceTree = "<group>"; };
 		2CD69B4926D2B7AE00879484 /* ScriptTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptTime.cpp; sourceTree = "<group>"; };
 		2CD69B4A26D2B7AE00879484 /* ScriptPianoKey.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptPianoKey.cpp; sourceTree = "<group>"; };
@@ -4823,6 +4823,7 @@
 				2C631EA5268781B400166A8E /* DepthStencilState.ipp */,
 				2C5C46D026B24B87005E8C85 /* Disc.ipp */,
 				2C063D4C2661426000368BEE /* DiscreteDistribution.ipp */,
+				2CC6A9A327F3629C00CC76BA /* DisjointSet.ipp */,
 				2C063D492661426000368BEE /* Distribution.ipp */,
 				2C063D5A2661426000368BEE /* Duration.ipp */,
 				2C63A9BF26A02B6600D13501 /* DynamicMesh.ipp */,
@@ -4991,7 +4992,6 @@
 				2C063D862661426000368BEE /* TriangleIndex.ipp */,
 				2C063DFE2661426000368BEE /* Unicode.ipp */,
 				2C063D5D2661426000368BEE /* UnicodeConverter.ipp */,
-				2CD1277627CA2EC100FDD989 /* UnionFind.ipp */,
 				2C063D562661426000368BEE /* Utility_detail.ipp */,
 				2C063DF12661426000368BEE /* Utility.ipp */,
 				2C5CD8C72675E43E004E290F /* UUIDValue.ipp */,
@@ -10005,6 +10005,7 @@
 				2CAAA6FF25E7FD0200C014D7 /* DirectoryWatcher.hpp */,
 				2C695D80268F57AC00970FB3 /* Disc.hpp */,
 				2CAAA87625E7FD0300C014D7 /* DiscreteDistribution.hpp */,
+				2CC6A9A427F362B400CC76BA /* DisjointSet.hpp */,
 				2CAAA70A25E7FD0200C014D7 /* DisplayResolution.hpp */,
 				2CAAA87825E7FD0300C014D7 /* Distribution.hpp */,
 				2CAAA71725E7FD0200C014D7 /* DLL.hpp */,
@@ -10359,7 +10360,6 @@
 				2C63119826D15568005290E0 /* UnderlineStyle.hpp */,
 				2CAAA71325E7FD0200C014D7 /* Unicode.hpp */,
 				2CAAA89425E7FD0300C014D7 /* UnicodeConverter.hpp */,
-				2CD1277527CA2EA800FDD989 /* UnionFind.hpp */,
 				2CAAA86B25E7FD0300C014D7 /* UniqueResource.hpp */,
 				2CAAA73525E7FD0200C014D7 /* Unspecified.hpp */,
 				2C5C0F0D266DFF06009C430B /* URL.hpp */,
