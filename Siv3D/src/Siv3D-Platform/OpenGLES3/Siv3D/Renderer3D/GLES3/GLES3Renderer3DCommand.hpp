@@ -215,7 +215,18 @@ namespace s3d
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
 		Array<Float3> m_eyePositions				= { Float3{ 0.0f, 0.0f, 0.0f } };
 		Array<Mat4x4> m_localTransforms				= { Mat4x4::Identity() };
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic push
+#	pragma GCC diagnostic ignored "-Wignored-attributes"
+# endif
+
 		Array<__m128> m_constants;
+
+# ifdef __GNUC__
+#	pragma GCC diagnostic pop
+# endif
+
 		Array<GLES3ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_psTextures;
