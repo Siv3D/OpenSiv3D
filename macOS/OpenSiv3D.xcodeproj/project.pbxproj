@@ -3196,7 +3196,6 @@
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
-		2C531EA624BA0CEA00378977 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../Siv3D/lib/macOS/zlib/libz.a; sourceTree = "<group>"; };
 		2C53371D264D648300CE0F1B /* Camera2DParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera2DParameters.hpp; sourceTree = "<group>"; };
 		2C53371E264D648400CE0F1B /* CameraControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraControl.hpp; sourceTree = "<group>"; };
 		2C533721264D64BA00CE0F1B /* IAudioCodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IAudioCodec.hpp; sourceTree = "<group>"; };
@@ -5526,7 +5525,6 @@
 				2C4A288F25F4F7D600FEACE4 /* libzlib.a */,
 				2C796EB025CA41DA0003B7EC /* libharfbuzz.a */,
 				2C43C8D425C8464400D6D613 /* libfreetype.a */,
-				2C531EA624BA0CEA00378977 /* libz.a */,
 				2C531EA424BA0CA000378977 /* libpng16.a */,
 				2C47E59824AF3C7B0060E8A7 /* libboost_filesystem.a */,
 			);
@@ -13992,7 +13990,7 @@
 					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
 					"../Siv3D/src/ThirdParty-prebuilt",
-					../Dependencies/boost_1_73_0,
+					../Dependencies/boost_1_74_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -14067,7 +14065,7 @@
 					../Siv3D/src/ThirdParty/asio,
 					../Siv3D/src/ThirdParty/freetype,
 					"../Siv3D/src/ThirdParty-prebuilt",
-					../Dependencies/boost_1_73_0,
+					../Dependencies/boost_1_74_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
