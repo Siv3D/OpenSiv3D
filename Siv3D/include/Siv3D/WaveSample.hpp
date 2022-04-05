@@ -35,6 +35,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr WaveSampleS16(int16 _left, int16 _right) noexcept;
 
+		constexpr WaveSampleS16& operator =(const WaveSampleS16& sample) = default;
+
 		constexpr WaveSampleS16& set(int16 mono) noexcept;
 
 		constexpr WaveSampleS16& set(int16 _left, int16 _right) noexcept;
