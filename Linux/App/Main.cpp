@@ -10,7 +10,7 @@ void Main()
 	Console << U"\n----------------";
 	Console << U"Hello, Siv3D!";
 	Console << U"You are running a non-graphical program.";
-	Console << U"You can code a graphical program in Linux/App/Main.cp";
+	Console << U"You can code a graphical program in Linux/App/Main.cpp";
 	Console << U"----------------\n";
 }
 //
