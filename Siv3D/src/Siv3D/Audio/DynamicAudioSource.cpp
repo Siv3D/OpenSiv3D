@@ -46,7 +46,7 @@ namespace s3d
 		//SoLoud::result seek(SoLoud::time aSeconds, float* mScratch, unsigned int mScratchSize) override;
 		
 		// Rewind stream. Base implementation returns NOT_IMPLEMENTED, meaning it can't rewind.
-		SoLoud::result rewind()
+		SoLoud::result rewind() override
 		{
 			mParent->m_pAudioStream->rewind();
 
