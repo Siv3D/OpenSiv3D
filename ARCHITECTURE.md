@@ -19,8 +19,8 @@ Contains dependent libraries used to build an OpenSiv3D application.
 ### `Dependencies/`
 A directory to place extra dependent library used to build `OpenSiv3D library`.
 
-- `Dependencies/boost_1_73_0/`
-    - Place `boost` folder which is a part of [Boost 1.73.0](https://www.boost.org/users/history/version_1_73_0.html)
+- `Dependencies/boost_1_74_0/`
+    - Place `boost` folder which is a part of [Boost 1.74.0](https://www.boost.org/users/history/version_1_74_0.html)
     - This directory is referenced when building `OpenSiv3D library` on Visual Studio or Xcode.
 
 ### `Test/`
