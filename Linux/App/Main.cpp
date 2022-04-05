@@ -1,18 +1,28 @@
 
 /////////////////
 //
-//	Test code for CI
-//	- 通常のアプリケーション開発時には除去してください
+//	Example non-graphical program
 //
 # include <Siv3D.hpp> // OpenSiv3D v0.6.3
-SIV3D_SET(EngineOption::Renderer::Headless) // Non-graphical mode
-void Main() { }
+SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
+void Main()
+{
+	Console << U"\n----------------";
+	Console << U"Hello, Siv3D!";
+	Console << U"You are running a non-graphical program.";
+	Console << U"You can code a graphical program in Linux/App/Main.cp";
+	Console << U"----------------\n";
+}
 //
 /////////////////
 
-/*
-# include <Siv3D.hpp> // OpenSiv3D v0.6.3
 
+/*
+/////////////////
+//
+//	Example graphical program
+//
+# include <Siv3D.hpp> // OpenSiv3D v0.6.3
 void Main()
 {
 	// 背景の色を設定 | Set background color
@@ -69,6 +79,11 @@ void Main()
 		}
 	}
 }
+//
+/////////////////
+*/
+
+
 
 //
 // = お役立ちリンク | Quick Links =
@@ -89,5 +104,3 @@ void Main()
 // 新機能の提案やバグの報告 | Feedback
 // https://github.com/Siv3D/OpenSiv3D/issues
 //
-
-*/

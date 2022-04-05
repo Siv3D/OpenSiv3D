@@ -9,7 +9,7 @@ Name | Version
 [AngelCode Scripting Library](https://www.angelcode.com/angelscript/) | 2.35.1 WIP
 [asio](https://think-async.com/Asio/) | 1.18.2
 [Anti-Grain Geometry](http://agg.sourceforge.net/antigrain.com/index.html) | 2.4
-[Boost](https://www.boost.org/) | 1.73.0
+[Boost](https://www.boost.org/) | 1.74.0
 [Box2D](https://github.com/erincatto/box2d) | 2.4.1
 [Catch2](https://github.com/catchorg/Catch2) | v2.13.6
 [cereal](https://github.com/USCiLab/cereal) | 
