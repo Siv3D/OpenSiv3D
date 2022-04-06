@@ -678,8 +678,6 @@
 		2C47B37824DD9789008D83BE /* SivConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F324DD9789008D83BE /* SivConsole.cpp */; };
 		2C47B37924DD9789008D83BE /* SivINI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F524DD9789008D83BE /* SivINI.cpp */; };
 		2C47B37A24DD9789008D83BE /* SivInt128.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B2F724DD9789008D83BE /* SivInt128.cpp */; };
-		2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B46E24DD97E3008D83BE /* QrCode.hpp */; };
-		2C47B47124DD97E4008D83BE /* QrCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B46F24DD97E3008D83BE /* QrCode.cpp */; };
 		2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47324DD97F1008D83BE /* muParserCallback.h */; };
 		2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47424DD97F1008D83BE /* muParserTokenReader.h */; };
 		2C47B48B24DD97F2008D83BE /* muParserTokenReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B47524DD97F1008D83BE /* muParserTokenReader.cpp */; };
@@ -1169,6 +1167,8 @@
 		2C695D7F268F579700970FB3 /* MeshUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D7D268F579600970FB3 /* MeshUtility.cpp */; };
 		2C695D86268F57C900970FB3 /* SivDisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D83268F57C900970FB3 /* SivDisc.cpp */; };
 		2C695D87268F57C900970FB3 /* SivCylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C695D85268F57C900970FB3 /* SivCylinder.cpp */; };
+		2C6BFB1827FDD61E005DFD4D /* qrcodegen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6BFB1627FDD61E005DFD4D /* qrcodegen.hpp */; };
+		2C6BFB1927FDD61E005DFD4D /* qrcodegen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BFB1727FDD61E005DFD4D /* qrcodegen.cpp */; };
 		2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */; };
 		2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */; };
 		2C6C781F268895BB00B3C44A /* Renderer3DCommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781E268895BB00B3C44A /* Renderer3DCommon.hpp */; };
@@ -2917,8 +2917,6 @@
 		2C47B2F324DD9789008D83BE /* SivConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivConsole.cpp; sourceTree = "<group>"; };
 		2C47B2F524DD9789008D83BE /* SivINI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivINI.cpp; sourceTree = "<group>"; };
 		2C47B2F724DD9789008D83BE /* SivInt128.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivInt128.cpp; sourceTree = "<group>"; };
-		2C47B46E24DD97E3008D83BE /* QrCode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QrCode.hpp; sourceTree = "<group>"; };
-		2C47B46F24DD97E3008D83BE /* QrCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QrCode.cpp; sourceTree = "<group>"; };
 		2C47B47324DD97F1008D83BE /* muParserCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserCallback.h; sourceTree = "<group>"; };
 		2C47B47424DD97F1008D83BE /* muParserTokenReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserTokenReader.h; sourceTree = "<group>"; };
 		2C47B47524DD97F1008D83BE /* muParserTokenReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserTokenReader.cpp; sourceTree = "<group>"; };
@@ -3597,6 +3595,8 @@
 		2C695D81268F57AC00970FB3 /* Cylinder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cylinder.hpp; sourceTree = "<group>"; };
 		2C695D83268F57C900970FB3 /* SivDisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDisc.cpp; sourceTree = "<group>"; };
 		2C695D85268F57C900970FB3 /* SivCylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCylinder.cpp; sourceTree = "<group>"; };
+		2C6BFB1627FDD61E005DFD4D /* qrcodegen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qrcodegen.hpp; sourceTree = "<group>"; };
+		2C6BFB1727FDD61E005DFD4D /* qrcodegen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qrcodegen.cpp; sourceTree = "<group>"; };
 		2C6C78192688957700B3C44A /* Graphics3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics3D.ipp; sourceTree = "<group>"; };
 		2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer3DCommand.hpp; sourceTree = "<group>"; };
 		2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer3DCommand.cpp; sourceTree = "<group>"; };
@@ -7355,8 +7355,8 @@
 		2C47B46D24DD97E3008D83BE /* qr-code-generator-library */ = {
 			isa = PBXGroup;
 			children = (
-				2C47B46E24DD97E3008D83BE /* QrCode.hpp */,
-				2C47B46F24DD97E3008D83BE /* QrCode.cpp */,
+				2C6BFB1727FDD61E005DFD4D /* qrcodegen.cpp */,
+				2C6BFB1627FDD61E005DFD4D /* qrcodegen.hpp */,
 			);
 			path = "qr-code-generator-library";
 			sourceTree = "<group>";
@@ -11920,7 +11920,6 @@
 				2C47B33A24DD9789008D83BE /* ISystem.hpp in Headers */,
 				2CB18EA526B5A68700862C28 /* as_scriptcode.h in Headers */,
 				2C98D0E025158AC000904E67 /* FrameCounter.hpp in Headers */,
-				2C47B47024DD97E4008D83BE /* QrCode.hpp in Headers */,
 				2CD06C1E27A85C23009149D2 /* DynamicAudioSource.hpp in Headers */,
 				2C43C86A25C837F000D6D613 /* ftsizes.h in Headers */,
 				2C2AA35126009C74003F3EBC /* b2_joint.h in Headers */,
@@ -12318,6 +12317,7 @@
 				2CB18ED126B5A68700862C28 /* as_atomic.h in Headers */,
 				2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */,
 				2C43C8AE25C837F100D6D613 /* ftcache.h in Headers */,
+				2C6BFB1827FDD61E005DFD4D /* qrcodegen.hpp in Headers */,
 				2CAAA8BC25E7FD6F00C014D7 /* TextureCommon.hpp in Headers */,
 				2C636E4E2657F7D300AF029F /* soloud_thread.h in Headers */,
 				2C636E482657F7D300AF029F /* soloud_noise.h in Headers */,
@@ -13148,7 +13148,6 @@
 				2CDD4F43260A3F7100A51D68 /* P2Line.cpp in Sources */,
 				2CB18EAB26B5A68700862C28 /* as_tokenizer.cpp in Sources */,
 				2CD06C1D27A85C23009149D2 /* DynamicAudioSource.cpp in Sources */,
-				2C47B47124DD97E4008D83BE /* QrCode.cpp in Sources */,
 				2C13C9BA25BD29FC0054B968 /* ltable.c in Sources */,
 				2C47B5B424E7670A008D83BE /* SivTexture.cpp in Sources */,
 				2C4A485E2636543200BDCBA2 /* SivTOMLReader.cpp in Sources */,
@@ -13195,6 +13194,7 @@
 				2C62196526750F3A0088B175 /* SivUUIDValue.cpp in Sources */,
 				2C47B32F24DD9789008D83BE /* CRenderer2D_Null.cpp in Sources */,
 				2C60AE73248158A500277281 /* frequency_non_windows_non_darwin.cpp in Sources */,
+				2C6BFB1927FDD61E005DFD4D /* qrcodegen.cpp in Sources */,
 				2CB18EC926B5A68700862C28 /* as_builder.cpp in Sources */,
 				2C47B5B124E7670A008D83BE /* CTexture_Null.cpp in Sources */,
 				2C6390FF2539BB690030F18E /* CShader_Metal.mm in Sources */,
