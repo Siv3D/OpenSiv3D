@@ -1,86 +1,119 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.3
+﻿# include <Siv3D.hpp>
+
+struct Unit
+{
+	Circle circle;
+
+	ColorF color;
+
+	void draw() const
+	{
+		circle.draw(color);
+	}
+};
+
+// Unit を KDTree で扱えるようにするためのアダプタ
+struct UnitAdapter : KDTreeAdapter<Array<Unit>, Vec2>
+{
+	static const element_type* GetPointer(const point_type& point)
+	{
+		return point.getPointer();
+	}
+
+	static element_type GetElement(const dataset_type& dataset, size_t index, size_t dim)
+	{
+		return dataset[index].circle.center.elem(dim);
+	}
+};
 
 void Main()
 {
-	// 背景の色を設定 | Set background color
-	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+	// 4000 個の Unit を生成
+	Array<Unit> units;
+	for (size_t i = 0; i < 4000; ++i)
+	{
+		const Unit unit
+		{
+			.circle = Circle{ RandomVec2(Circle{100}), 0.25 },
+			.color = RandomColorF(),
+		};
 
-	// 通常のフォントを作成 | Create a new font
-	const Font font{ 60 };
+		units << unit;
+	}
 
-	// 絵文字用フォントを作成 | Create a new emoji font
-	const Font emojiFont{ 60, Typeface::ColorEmoji };
+	// kd-tree を構築
+	KDTree<UnitAdapter> kdTree{ units };
 
-	// `font` が絵文字用フォントも使えるようにする | Set emojiFont as a fallback
-	font.addFallback(emojiFont);
+	// 探索の種類（ラジオボタンのインデックス）
+	size_t searchTypeIndex = 0;
 
-	// 画像ファイルからテクスチャを作成 | Create a texture from an image file
-	const Texture texture{ U"example/windmill.png" };
+	// radius search する際の探索距離
+	double searchDistance = 4.0;
 
-	// 絵文字からテクスチャを作成 | Create a texture from an emoji
-	const Texture emoji{ U"🐈"_emoji };
-
-	// 絵文字を描画する座標 | Coordinates of the emoji
-	Vec2 emojiPos{ 300, 150 };
-
-	// テキストを画面にデバッグ出力 | Print a text
-	Print << U"Push [A] key";
+	// 2D カメラ
+	Camera2D camera{ Vec2{ 0, 0 }, 24.0 };
 
 	while (System::Update())
 	{
-		// テクスチャを描く | Draw a texture
-		texture.draw(200, 200);
+		// 2D カメラの更新
+		camera.update();
 
-		// テキストを画面の中心に描く | Put a text in the middle of the screen
-		font(U"Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
-
-		// サイズをアニメーションさせて絵文字を描く | Draw a texture with animated size
-		emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(emojiPos);
-
-		// マウスカーソルに追随する半透明な円を描く | Draw a red transparent circle that follows the mouse cursor
-		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1, 0, 0, 0.5 });
-
-		// もし [A] キーが押されたら | When [A] key is down
-		if (KeyA.down())
+		// 画面内のユニットだけ処理するための基準の長方形
+		const RectF viewRect = camera.getRegion();
+		const RectF viewRectScaled = viewRect.scaledAt(viewRect.center(), 1.2);
 		{
-			// 選択肢からランダムに選ばれたメッセージをデバッグ表示 | Print a randomly selected text
-			Print << Sample({ U"Hello!", U"こんにちは", U"你好", U"안녕하세요?" });
+			const auto transformer = camera.createTransformer();
+
+			const Vec2 cursorPos = Cursor::PosF();
+
+			if (searchTypeIndex == 0) // radius search
+			{
+				Circle{ cursorPos, searchDistance }.draw(ColorF{ 1.0, 0.2 });
+
+				// searchDistance 以内の距離にある Unit のインデックスを取得
+				for (auto index : kdTree.radiusSearch(cursorPos, searchDistance))
+				{
+					Line{ cursorPos, units[index].circle.center }.draw(0.1);
+				}
+			}
+			else // k-NN search
+			{
+				const size_t k = ((searchTypeIndex == 1) ? 1 : 5);
+
+				// 最も近い k 個の Unit のインデックスを取得
+				for (auto index : kdTree.knnSearch(k, cursorPos))
+				{
+					Line{ cursorPos, units[index].circle.center }.draw(0.1);
+				}
+			}
+
+			// ユニットを描画
+			for (const auto& unit : units)
+			{
+				// 描画負荷削減のため、画面内 (viewRectScaled) に無ければスキップ
+				if (not unit.circle.center.intersects(viewRectScaled))
+				{
+					continue;
+				}
+
+				unit.draw();
+			}
 		}
 
-		// もし [Button] が押されたら | When [Button] is pushed
-		if (SimpleGUI::Button(U"Button", Vec2{ 640, 40 }))
+		SimpleGUI::RadioButtons(searchTypeIndex, { U"radius", U"k-NN (k=1)", U"k-NN (k=5)" }, Vec2{ 20, 20 });
+		SimpleGUI::Slider(U"searchDistance", searchDistance, 0.0, 20.0, Vec2{ 180, 20 }, 160, 120, (searchTypeIndex == 0));
+		if (SimpleGUI::Button(U"Move units", Vec2{ 180, 60 }))
 		{
-			// 画面内のランダムな場所に座標を移動
-			// Move the coordinates to a random position in the screen
-			emojiPos = RandomVec2(Scene::Rect());
+			// Unit をランダムに移動
+			for (auto& unit : units)
+			{
+				unit.circle.moveBy(RandomVec2(0.5));
+			}
+
+			// Unit の座標が更新されたので kd-tree を再構築
+			kdTree.rebuildIndex();
 		}
+
+		camera.draw(Palette::Orange);
 	}
 }
-
-//
-// = アドバイス =
-// Debug ビルドではプログラムの最適化がオフになります。
-// 実行速度が遅いと感じた場合は Release ビルドを試しましょう。
-// アプリをリリースするときにも、Release ビルドにするのを忘れないように！
-//
-// 思ったように動作しない場合は「デバッグの開始」でプログラムを実行すると、
-// 出力ウィンドウに詳細なログが表示されるので、エラーの原因を見つけやすくなります。
-//
-// = お役立ちリンク | Quick Links =
-//
-// Siv3D リファレンス
-// https://zenn.dev/reputeless/books/siv3d-documentation
-//
-// Siv3D Reference
-// https://zenn.dev/reputeless/books/siv3d-documentation-en
-//
-// Siv3D コミュニティへの参加
-// Slack や Twitter, BBS で気軽に質問や情報交換ができます。
-// https://zenn.dev/reputeless/books/siv3d-documentation/viewer/community
-//
-// Siv3D User Community
-// https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/community
-//
-// 新機能の提案やバグの報告 | Feedback
-// https://github.com/Siv3D/OpenSiv3D/issues
-//
