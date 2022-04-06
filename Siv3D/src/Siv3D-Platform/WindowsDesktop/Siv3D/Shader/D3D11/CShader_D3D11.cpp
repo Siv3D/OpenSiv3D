@@ -415,7 +415,7 @@ namespace s3d
 	Blob CShader_D3D11::compileHLSLFromFile(const FilePathView path, const ShaderStage stage, const StringView entryPoint, const Platform::Windows::HLSLCompileOption flags) const
 	{
 		LOG_TRACE(U"CShader_D3D11::compileHLSLFromFile(path = {}, stage = {}, entryPoint = {}, flags = {:#X})"_fmt(
-			path, Unicode::Widen(detail::StageToTarget(stage)), entryPoint, flags));
+			path, Unicode::Widen(detail::StageToTarget(stage)), entryPoint, FromEnum(flags)));
 
 		TextReader reader{ path };
 
@@ -432,7 +432,7 @@ namespace s3d
 	Blob CShader_D3D11::compileHLSLFromSource(const StringView source, const ShaderStage stage, const StringView entryPoint, const Platform::Windows::HLSLCompileOption flags) const
 	{
 		LOG_TRACE(U"CShader_D3D11::compileHLSLFromSource(stage = {}, entryPoint = {}, flags = {:#X})"_fmt(
-			Unicode::Widen(detail::StageToTarget(stage)), entryPoint, flags));
+			Unicode::Widen(detail::StageToTarget(stage)), entryPoint, FromEnum(flags)));
 
 		if (not source)
 		{
