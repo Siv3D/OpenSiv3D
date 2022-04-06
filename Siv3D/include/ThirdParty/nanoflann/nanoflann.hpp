@@ -720,8 +720,8 @@ class PooledAllocator
     /* Minimum number of bytes requested at a time from	the system.  Must be
      * multiple of WORDSIZE. */
 
-    using Offset    = uint32_t;
-    using Size      = uint32_t;
+    using Offset    = size_t;
+    using Size      = size_t;
     using Dimension = int32_t;
 
     Size  remaining; /* Number of bytes left in current block of storage. */

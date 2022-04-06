@@ -176,7 +176,7 @@ TEST_CASE("HashTable")
 
 	SECTION("Lookup")
 	{
-		HashTable<String, int32, phmap::container_internal::hash_default_hash<String>, phmap::container_internal::hash_default_eq<String>> table;
+		HashTable<String, int32, phmap::priv::hash_default_hash<String>, phmap::priv::hash_default_eq<String>> table;
 		for (auto c : Range(U'A', U'Z'))
 		{
 			table.emplace(String(8, c), c);
