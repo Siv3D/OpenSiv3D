@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -152,7 +152,7 @@ namespace mu
 		static T Avg(const T *a_afArg, int a_iArgc)
 		{
 			if (!a_iArgc)
-				throw ParserError(_T("too few arguments for function sum."));
+				throw ParserError(_T("too few arguments for function avg."));
 
 			T fRes = 0;
 			for (int i = 0; i < a_iArgc; ++i) fRes += a_afArg[i];
@@ -174,7 +174,7 @@ namespace mu
 		static T Max(const T *a_afArg, int a_iArgc)
 		{
 			if (!a_iArgc)
-				throw ParserError(_T("too few arguments for function min."));
+				throw ParserError(_T("too few arguments for function max."));
 
 			T fRes = a_afArg[0];
 			for (int i = 0; i < a_iArgc; ++i) fRes = std::max(fRes, a_afArg[i]);

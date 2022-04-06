@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -38,6 +38,11 @@
 #include "muParserError.h"
 #include "muParserToken.h"
 #include "muParserTemplateMagic.h"
+
+#if defined(_MSC_VER)
+	#pragma warning(push)
+	#pragma warning(disable : 26812) 
+#endif
 
 
 namespace mu
@@ -366,16 +371,16 @@ namespace mu
 		\param a_iArgc Number of arguments, negative numbers indicate multiarg functions.
 		\param a_pFun Pointer to function callback.
 	*/
-	void ParserByteCode::AddFun(generic_fun_type a_pFun, int a_iArgc)
+	void ParserByteCode::AddFun(generic_callable_type a_pFun, int a_iArgc, bool isFunctionOptimizable)
 	{
 		std::size_t sz = m_vRPN.size();
 		bool optimize = false;
 
 		// only optimize functions with fixed number of more than a single arguments
-		if (m_bEnableOptimizer && a_iArgc > 0)
+		if (isFunctionOptimizable && m_bEnableOptimizer && a_iArgc > 0)
 		{
 			// <ibg 2020-06-10/> Unary Plus is a no-op
-			if ((void*)a_pFun == (void*)&MathImpl<value_type>::UnaryPlus)
+			if (a_pFun == generic_callable_type{(erased_fun_type)&MathImpl<value_type>::UnaryPlus, nullptr})
 				return;
 
 			optimize = true;
@@ -395,16 +400,16 @@ namespace mu
 			value_type val = 0;
 			switch (a_iArgc)
 			{
-			case 1:  val = (*reinterpret_cast<fun_type1>(a_pFun))(m_vRPN[sz - 1].Val.data2);   break;
-			case 2:  val = (*reinterpret_cast<fun_type2>(a_pFun))(m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 3:  val = (*reinterpret_cast<fun_type3>(a_pFun))(m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 4:  val = (*reinterpret_cast<fun_type4>(a_pFun))(m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 5:  val = (*reinterpret_cast<fun_type5>(a_pFun))(m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 6:  val = (*reinterpret_cast<fun_type6>(a_pFun))(m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 7:  val = (*reinterpret_cast<fun_type7>(a_pFun))(m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 8:  val = (*reinterpret_cast<fun_type8>(a_pFun))(m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 9:  val = (*reinterpret_cast<fun_type9>(a_pFun))(m_vRPN[sz - 9].Val.data2, m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
-			case 10: val = (*reinterpret_cast<fun_type10>(a_pFun))(m_vRPN[sz - 10].Val.data2, m_vRPN[sz - 9].Val.data2, m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 1:  val = a_pFun.call_fun<1>(m_vRPN[sz - 1].Val.data2); break;
+			case 2:  val = a_pFun.call_fun<2>(m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 3:  val = a_pFun.call_fun<3>(m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 4:  val = a_pFun.call_fun<4>(m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 5:  val = a_pFun.call_fun<5>(m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 6:  val = a_pFun.call_fun<6>(m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 7:  val = a_pFun.call_fun<7>(m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 8:  val = a_pFun.call_fun<8>(m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 9:  val = a_pFun.call_fun<9>(m_vRPN[sz - 9].Val.data2, m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
+			case 10: val = a_pFun.call_fun<10>(m_vRPN[sz - 10].Val.data2, m_vRPN[sz - 9].Val.data2, m_vRPN[sz - 8].Val.data2, m_vRPN[sz - 7].Val.data2, m_vRPN[sz - 6].Val.data2, m_vRPN[sz - 5].Val.data2, m_vRPN[sz - 4].Val.data2, m_vRPN[sz - 3].Val.data2, m_vRPN[sz - 2].Val.data2, m_vRPN[sz - 1].Val.data2); break;
 			default:
 				// For now functions with unlimited number of arguments are not optimized
 				throw ParserError(ecINTERNAL_ERROR);
@@ -425,7 +430,7 @@ namespace mu
 			SToken tok;
 			tok.Cmd = cmFUNC;
 			tok.Fun.argc = a_iArgc;
-			tok.Fun.ptr = a_pFun;
+			tok.Fun.cb = a_pFun;
 			m_vRPN.push_back(tok);
 		}
 
@@ -440,7 +445,7 @@ namespace mu
 		\param a_iArgc Number of arguments, negative numbers indicate multiarg functions.
 		\param a_pFun Pointer to function callback.
 	*/
-	void ParserByteCode::AddBulkFun(generic_fun_type a_pFun, int a_iArgc)
+	void ParserByteCode::AddBulkFun(generic_callable_type a_pFun, int a_iArgc)
 	{
 		m_iStackPos = m_iStackPos - a_iArgc + 1;
 		m_iMaxStackSize = std::max(m_iMaxStackSize, (size_t)m_iStackPos);
@@ -448,7 +453,7 @@ namespace mu
 		SToken tok;
 		tok.Cmd = cmFUNC_BULK;
 		tok.Fun.argc = a_iArgc;
-		tok.Fun.ptr = a_pFun;
+		tok.Fun.cb = a_pFun;
 		m_vRPN.push_back(tok);
 	}
 
@@ -460,7 +465,7 @@ namespace mu
 		followed by a cmSTRFUNC code, the function pointer and an index into the
 		string buffer maintained by the parser.
 	*/
-	void ParserByteCode::AddStrFun(generic_fun_type a_pFun, int a_iArgc, int a_iIdx)
+	void ParserByteCode::AddStrFun(generic_callable_type a_pFun, int a_iArgc, int a_iIdx)
 	{
 		m_iStackPos = m_iStackPos - a_iArgc + 1;
 
@@ -468,7 +473,7 @@ namespace mu
 		tok.Cmd = cmFUNC_STR;
 		tok.Fun.argc = a_iArgc;
 		tok.Fun.idx = a_iIdx;
-		tok.Fun.ptr = a_pFun;
+		tok.Fun.cb = a_pFun;
 		m_vRPN.push_back(tok);
 
 		m_iMaxStackSize = std::max(m_iMaxStackSize, (size_t)m_iStackPos);
@@ -582,7 +587,8 @@ namespace mu
 
 			case cmFUNC:  mu::console() << _T("CALL\t");
 				mu::console() << _T("[ARG:") << std::dec << m_vRPN[i].Fun.argc << _T("]");
-				mu::console() << _T("[ADDR: 0x") << std::hex << reinterpret_cast<void*>(m_vRPN[i].Fun.ptr) << _T("]");
+				mu::console() << _T("[ADDR: 0x") << std::hex << reinterpret_cast<void*>(m_vRPN[i].Fun.cb._pRawFun) << _T("]");
+				mu::console() << _T("[USERDATA: 0x") << std::hex << reinterpret_cast<void*>(m_vRPN[i].Fun.cb._pUserData) << _T("]");
 				mu::console() << _T("\n");
 				break;
 
@@ -590,7 +596,9 @@ namespace mu
 				mu::console() << _T("CALL STRFUNC\t");
 				mu::console() << _T("[ARG:") << std::dec << m_vRPN[i].Fun.argc << _T("]");
 				mu::console() << _T("[IDX:") << std::dec << m_vRPN[i].Fun.idx << _T("]");
-				mu::console() << _T("[ADDR: 0x") << reinterpret_cast<void*>(m_vRPN[i].Fun.ptr) << _T("]\n");
+				mu::console() << _T("[ADDR: 0x") << std::hex << reinterpret_cast<void*>(m_vRPN[i].Fun.cb._pRawFun) << _T("]");
+				mu::console() << _T("[USERDATA: 0x") << std::hex << reinterpret_cast<void*>(m_vRPN[i].Fun.cb._pUserData) << _T("]");
+				mu::console() << _T("\n");
 				break;
 
 			case cmLT:    mu::console() << _T("LT\n");  break;
@@ -630,3 +638,7 @@ namespace mu
 		mu::console() << _T("END") << std::endl;
 	}
 } // namespace mu
+
+#if defined(_MSC_VER)
+	#pragma warning(pop)
+#endif

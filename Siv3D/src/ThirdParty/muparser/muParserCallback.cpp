@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2022 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -40,6 +40,17 @@
 
 namespace mu
 {
+	static constexpr int CALLBACK_INTERNAL_VAR_ARGS         = 1 << 14;
+	static constexpr int CALLBACK_INTERNAL_FIXED_ARGS_MASK  = 0xf;
+	static constexpr int CALLBACK_INTERNAL_WITH_USER_DATA	= 1 << 13;
+
+	struct CbWithUserData
+	{
+		void*	pFun;
+		void* 	pUserData;
+	};
+
+
 	ParserCallback::ParserCallback(fun_type0 a_pFun, bool a_bAllowOpti)
 		:m_pFun((void*)a_pFun)
 		, m_iArgc(0)
@@ -61,6 +72,10 @@ namespace mu
 		, m_bAllowOpti(a_bAllowOpti)
 	{}
 
+
+	ParserCallback::ParserCallback(fun_type1 a_pFun, bool a_bAllowOpti)
+		: ParserCallback(a_pFun, a_bAllowOpti, -1, cmFUNC)
+	{}
 
 	
 	/** \brief Constructor for constructing function callbacks taking two arguments.
@@ -178,6 +193,127 @@ namespace mu
 	ParserCallback::ParserCallback(fun_type10 a_pFun, bool a_bAllowOpti)
 		:m_pFun((void*)a_pFun)
 		, m_iArgc(10)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type0 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(0 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type1 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(1 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type2 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(2 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type3 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(3 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type4 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(4 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type5 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(5 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type6 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(6 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type7 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(7 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type8 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(8 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type9 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(9 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(fun_userdata_type10 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(10 | CALLBACK_INTERNAL_WITH_USER_DATA)
 		, m_iPri(-1)
 		, m_eOprtAsct(oaNONE)
 		, m_iCode(cmFUNC)
@@ -310,9 +446,141 @@ namespace mu
 	{}
 
 
+	ParserCallback::ParserCallback(bulkfun_userdata_type0 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(0 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type1 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(1 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type2 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(2 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type3 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(3 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type4 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(4 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type5 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(5 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type6 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(6 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type7 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(7 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type8 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(8 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type9 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(9 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(bulkfun_userdata_type10 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(10 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_BULK)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
 	ParserCallback::ParserCallback(multfun_type a_pFun, bool a_bAllowOpti)
 		:m_pFun((void*)a_pFun)
-		, m_iArgc(-1)
+		, m_iArgc(CALLBACK_INTERNAL_VAR_ARGS)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC)
+		, m_iType(tpDBL)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(multfun_userdata_type a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(CALLBACK_INTERNAL_VAR_ARGS | CALLBACK_INTERNAL_WITH_USER_DATA)
 		, m_iPri(-1)
 		, m_eOprtAsct(oaNONE)
 		, m_iCode(cmFUNC)
@@ -375,6 +643,81 @@ namespace mu
 		, m_bAllowOpti(a_bAllowOpti)
 	{}
 
+	ParserCallback::ParserCallback(strfun_type6 a_pFun, bool a_bAllowOpti)
+		:m_pFun((void*)a_pFun)
+		, m_iArgc(5)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type1 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(0 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type2 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(1 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type3 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(2 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type4 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(3 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type5 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{reinterpret_cast<void*>(a_pFun), a_pUserData})
+		, m_iArgc(4 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
+
+
+	ParserCallback::ParserCallback(strfun_userdata_type6 a_pFun, void* a_pUserData, bool a_bAllowOpti)
+		:m_pFun(new CbWithUserData{ reinterpret_cast<void*>(a_pFun), a_pUserData })
+		, m_iArgc(5 | CALLBACK_INTERNAL_WITH_USER_DATA)
+		, m_iPri(-1)
+		, m_eOprtAsct(oaNONE)
+		, m_iCode(cmFUNC_STR)
+		, m_iType(tpSTR)
+		, m_bAllowOpti(a_bAllowOpti)
+	{}
 
 	/** \brief Default constructor.
 		\throw nothrow
@@ -394,8 +737,43 @@ namespace mu
 		\throw nothrow
 	*/
 	ParserCallback::ParserCallback(const ParserCallback& ref)
+		:ParserCallback()
 	{
-		m_pFun = ref.m_pFun;
+		Assign(ref);
+	}
+
+	ParserCallback & ParserCallback::operator=(const ParserCallback & ref)
+	{
+		Assign(ref);
+		return *this;
+	}
+
+
+	ParserCallback::~ParserCallback()
+	{
+		if (m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA)
+			delete reinterpret_cast<CbWithUserData*>(m_pFun);
+	}
+
+
+	/** \brief Copy callback from argument.
+
+		\throw nothrow
+	*/
+	void ParserCallback::Assign(const ParserCallback& ref)
+	{
+		if (this == &ref)
+			return;
+
+		if (m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA) {
+			delete reinterpret_cast<CbWithUserData*>(m_pFun);
+			m_pFun = nullptr;
+		}
+
+		if (ref.m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA)
+			m_pFun = new CbWithUserData(*reinterpret_cast<CbWithUserData*>(ref.m_pFun));
+		else
+			m_pFun = ref.m_pFun;
 		m_iArgc = ref.m_iArgc;
 		m_bAllowOpti = ref.m_bAllowOpti;
 		m_iCode = ref.m_iCode;
@@ -404,20 +782,6 @@ namespace mu
 		m_eOprtAsct = ref.m_eOprtAsct;
 	}
 
-  ParserCallback & ParserCallback::operator=(const ParserCallback & ref)
-  {
-    if (this != &ref)
-    {
-      m_pFun = ref.m_pFun;
-      m_iArgc = ref.m_iArgc;
-      m_bAllowOpti = ref.m_bAllowOpti;
-      m_iCode = ref.m_iCode;
-      m_iType = ref.m_iType;
-      m_iPri = ref.m_iPri;
-      m_eOprtAsct = ref.m_eOprtAsct;
-    }
-    return *this;
-  }
 
 	/** \brief Clone this instance and return a pointer to the new instance. */
 	ParserCallback* ParserCallback::Clone() const
@@ -443,11 +807,40 @@ namespace mu
 		argument number to the right type.
 
 		\throw nothrow
-		\return #pFun
 	*/
 	void* ParserCallback::GetAddr() const
 	{
-		return m_pFun;
+		if (m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA)
+			return reinterpret_cast<CbWithUserData*>(m_pFun)->pFun;
+		else
+			return m_pFun;
+	}
+
+
+	/** \brief Get the user data if present, else nullptr
+
+		\throw nothrow
+	*/
+	void* ParserCallback::GetUserData() const
+	{
+		if (m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA)
+			return reinterpret_cast<CbWithUserData*>(m_pFun)->pUserData;
+		else
+			return nullptr;
+	}
+
+
+	/** \brief Check that the callback looks valid
+		\throw nothrow
+
+		Check that the function pointer is not null,
+		and if there are user data that they are not null.
+	*/
+	bool ParserCallback::IsValid() const
+	{
+		return GetAddr() != nullptr
+			&& !((m_iArgc & CALLBACK_INTERNAL_WITH_USER_DATA)
+			     && GetUserData() == nullptr);
 	}
 
 
@@ -486,10 +879,13 @@ namespace mu
 	}
 
 
-	/** \brief Returns the number of function Arguments. */
+	/** \brief Returns the number of numeric function Arguments.
+
+	   This number is negative for functions with variable number of arguments.
+	*/
 	int ParserCallback::GetArgc() const
 	{
-		return m_iArgc;
+		return (m_iArgc & CALLBACK_INTERNAL_VAR_ARGS) ? -1 : (m_iArgc & CALLBACK_INTERNAL_FIXED_ARGS_MASK);
 	}
 } // namespace mu
 

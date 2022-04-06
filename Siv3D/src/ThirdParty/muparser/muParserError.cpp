@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -31,7 +31,7 @@
 
 #if defined(_MSC_VER)
 	#pragma warning(push)
-	#pragma warning(disable : 26812) // What the fuck is the point of this warning?
+	#pragma warning(disable : 26812) // MSVC wants to force me te use enum classes or bother me with pointless warnings
 #endif
 
 namespace mu

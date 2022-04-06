@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -31,9 +31,15 @@
 
 #include <string>
 #include <cstdlib>
+#include <cstdint>
 #include <numeric> // for accumulate
 #include "muParser.h"
 #include "muParserInt.h"
+
+#if defined(_MSC_VER)
+	#pragma warning(push)
+	#pragma warning(disable : 4251)  // ...needs to have dll-interface to be used by clients of class ...
+#endif
 
 /** \file
 	\brief This file contains the parser test class.
@@ -165,6 +171,13 @@ namespace mu
 				return val + v2 + v3 + v4 + v5;
 			}
 
+			static value_type StrFun6(const char_type* v1, value_type v2, value_type v3, value_type v4, value_type v5, value_type v6)
+			{
+				int val(0);
+				stringstream_type(v1) >> val;
+				return val + v2 + v3 + v4 + v5 + v6;
+			}
+
 			static value_type StrToFloat(const char_type* a_szMsg)
 			{
 				value_type val(0);
@@ -173,12 +186,63 @@ namespace mu
 			}
 
 			// postfix operator callback
-			static value_type Mega(value_type a_fVal) { return a_fVal * (value_type)1e6; }
-			static value_type Micro(value_type a_fVal) { return a_fVal * (value_type)1e-6; }
-			static value_type Milli(value_type a_fVal) { return a_fVal / (value_type)1e3; }
+			static value_type Mega(value_type a_fVal) 
+			{
+				return a_fVal * (value_type)1e6; 
+			}
+			
+			static value_type Micro(value_type a_fVal)
+			{
+				return a_fVal * (value_type)1e-6; 
+			}
+
+			static value_type Milli(value_type a_fVal) 
+			{
+				return a_fVal / (value_type)1e3; 
+			}
 
 			// Custom value recognition
 			static int IsHexVal(const char_type* a_szExpr, int* a_iPos, value_type* a_fVal);
+
+			// With user data
+			static value_type FunUd0(void* data) 
+			{
+				return reinterpret_cast<std::intptr_t>(data); 
+			}
+
+			static value_type FunUd1(void* data, value_type v) 
+			{
+				return reinterpret_cast<std::intptr_t>(data) + v; 
+			}
+			
+			static value_type FunUd2(void* data, value_type v1, value_type v2) 
+			{
+				return reinterpret_cast<std::intptr_t>(data) + v1 + v2; 
+			}
+
+			static value_type FunUd10(void* data, value_type v1, value_type v2, value_type v3, value_type v4, value_type v5, value_type v6, value_type v7, value_type v8, value_type v9, value_type v10)
+			{
+				return reinterpret_cast<std::intptr_t>(data) + v1 + v2 + v3 + v4 + v5 + v6 + v7 + v8 + v9 + v10;
+			}
+
+			static value_type StrFunUd3(void* data, const char_type* v1, value_type v2, value_type v3)
+			{
+				int val(0);
+				stringstream_type(v1) >> val;
+				return reinterpret_cast<std::intptr_t>(data) + val + v2 + v3;
+			}
+
+			static value_type SumUd(void* data, const value_type* a_afArg, int a_iArgc)
+			{
+				if (!a_iArgc)
+					throw mu::Parser::exception_type(_T("too few arguments for function sum."));
+
+				value_type fRes = 0;
+				for (int i = 0; i < a_iArgc; ++i) 
+					fRes += a_afArg[i];
+
+				return reinterpret_cast<std::intptr_t>(data) + fRes;
+			}
 
 			int TestNames();
 			int TestSyntax();
@@ -194,6 +258,7 @@ namespace mu
 			int TestIfThenElse();
 			int TestBulkMode();
 			int TestOssFuzzTestCases();
+			int TestOptimizer();
 
 			void Abort() const;
 
@@ -221,6 +286,11 @@ namespace mu
 		};
 	} // namespace Test
 } // namespace mu
+
+
+#if defined(_MSC_VER)
+	#pragma warning(pop)
+#endif
 
 #endif
 

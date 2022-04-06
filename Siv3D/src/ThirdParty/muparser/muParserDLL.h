@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -65,6 +65,18 @@ extern "C"
 	typedef muFloat_t(*muFun8_t)(muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 	typedef muFloat_t(*muFun9_t)(muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 	typedef muFloat_t(*muFun10_t)(muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	// with user data (not null)
+	typedef muFloat_t(*muFunUserData0_t)(void*);
+	typedef muFloat_t(*muFunUserData1_t)(void*, muFloat_t);
+	typedef muFloat_t(*muFunUserData2_t)(void*, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData3_t)(void*, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData4_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData5_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData6_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData7_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData8_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData9_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muFunUserData10_t)(void*, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 
 	// Function prototypes for bulkmode functions
 	typedef muFloat_t(*muBulkFun0_t)(int, int);
@@ -78,11 +90,33 @@ extern "C"
 	typedef muFloat_t(*muBulkFun8_t)(int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 	typedef muFloat_t(*muBulkFun9_t)(int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 	typedef muFloat_t(*muBulkFun10_t)(int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	// with user data (not null)
+	typedef muFloat_t(*muBulkFunUserData0_t)(void*, int, int);
+	typedef muFloat_t(*muBulkFunUserData1_t)(void*, int, int, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData2_t)(void*, int, int, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData3_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData4_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData5_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData6_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData7_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData8_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData9_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muBulkFunUserData10_t)(void*, int, int, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 
 	typedef muFloat_t(*muMultFun_t)(const muFloat_t*, muInt_t);
+	typedef muFloat_t(*muMultFunUserData_t)(void*, const muFloat_t*, muInt_t); // with user data (not null)
+
 	typedef muFloat_t(*muStrFun1_t)(const muChar_t*);
 	typedef muFloat_t(*muStrFun2_t)(const muChar_t*, muFloat_t);
 	typedef muFloat_t(*muStrFun3_t)(const muChar_t*, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muStrFun4_t)(const muChar_t*, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muStrFun5_t)(const muChar_t*, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
+	// with user data (not null)
+	typedef muFloat_t(*muStrFunUserData1_t)(void*, const muChar_t*);
+	typedef muFloat_t(*muStrFunUserData2_t)(void*, const muChar_t*, muFloat_t);
+	typedef muFloat_t(*muStrFunUserData3_t)(void*, const muChar_t*, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muStrFunUserData4_t)(void*, const muChar_t*, muFloat_t, muFloat_t, muFloat_t);
+	typedef muFloat_t(*muStrFunUserData5_t)(void*, const muChar_t*, muFloat_t, muFloat_t, muFloat_t, muFloat_t);
 
 	// Functions for parser management
 	typedef void (*muErrorHandler_t)(muParserHandle_t a_hParser);           // [optional] callback to an error handler
@@ -129,6 +163,18 @@ extern "C"
 	API_EXPORT(void) mupDefineFun8(muParserHandle_t a_hParser, const muChar_t* a_szName, muFun8_t a_pFun, muBool_t a_bOptimize);
 	API_EXPORT(void) mupDefineFun9(muParserHandle_t a_hParser, const muChar_t* a_szName, muFun9_t a_pFun, muBool_t a_bOptimize);
 	API_EXPORT(void) mupDefineFun10(muParserHandle_t a_hParser, const muChar_t* a_szName, muFun10_t a_pFun, muBool_t a_bOptimize);
+	// with user data (not null)
+	API_EXPORT(void) mupDefineFunUserData0(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData0_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData1(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData1_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData2(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData2_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData3(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData3_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData4(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData4_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData5(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData5_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData6(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData6_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData7(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData7_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData8(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData8_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData9(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData9_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
+	API_EXPORT(void) mupDefineFunUserData10(muParserHandle_t a_hParser, const muChar_t* a_szName, muFunUserData10_t a_pFun, void* a_pUserData, muBool_t a_bOptimize);
 
 	// Defining bulkmode functions
 	API_EXPORT(void) mupDefineBulkFun0(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFun0_t a_pFun);
@@ -142,15 +188,41 @@ extern "C"
 	API_EXPORT(void) mupDefineBulkFun8(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFun8_t a_pFun);
 	API_EXPORT(void) mupDefineBulkFun9(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFun9_t a_pFun);
 	API_EXPORT(void) mupDefineBulkFun10(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFun10_t a_pFun);
+	// with user data (not null)
+	API_EXPORT(void) mupDefineBulkFunUserData0(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData0_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData1(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData1_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData2(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData2_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData3(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData3_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData4(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData4_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData5(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData5_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData6(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData6_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData7(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData7_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData8(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData8_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData9(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData9_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineBulkFunUserData10(muParserHandle_t a_hParser, const muChar_t* a_szName, muBulkFunUserData10_t a_pFun, void* a_pUserData);
 
 	// string functions
 	API_EXPORT(void) mupDefineStrFun1(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFun1_t a_pFun);
 	API_EXPORT(void) mupDefineStrFun2(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFun2_t a_pFun);
 	API_EXPORT(void) mupDefineStrFun3(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFun3_t a_pFun);
+	API_EXPORT(void) mupDefineStrFun4(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFun4_t a_pFun);
+	API_EXPORT(void) mupDefineStrFun5(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFun5_t a_pFun);
+	// with user data (not null)
+	API_EXPORT(void) mupDefineStrFunUserData1(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFunUserData1_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineStrFunUserData2(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFunUserData2_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineStrFunUserData3(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFunUserData3_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineStrFunUserData4(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFunUserData4_t a_pFun, void* a_pUserData);
+	API_EXPORT(void) mupDefineStrFunUserData5(muParserHandle_t a_hParser, const muChar_t* a_szName, muStrFunUserData5_t a_pFun, void* a_pUserData);
 
 	API_EXPORT(void) mupDefineMultFun(muParserHandle_t a_hParser,
 		const muChar_t* a_szName,
 		muMultFun_t a_pFun,
+		muBool_t a_bOptimize);
+	// with user data (not null)
+	API_EXPORT(void) mupDefineMultFunUserData(muParserHandle_t a_hParser,
+		const muChar_t* a_szName,
+		muMultFunUserData_t a_pFun,
+		void* a_pUserData,
 		muBool_t a_bOptimize);
 
 	API_EXPORT(void) mupDefineOprt(muParserHandle_t a_hParser,

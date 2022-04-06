@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2022 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -53,7 +53,8 @@ namespace mu
 	{
 	public:
 		ParserCallback(fun_type0  a_pFun, bool a_bAllowOpti);
-		ParserCallback(fun_type1  a_pFun, bool a_bAllowOpti, int a_iPrec = -1, ECmdCode a_iCode = cmFUNC);
+		ParserCallback(fun_type1  a_pFun, bool a_bAllowOpti, int a_iPrec, ECmdCode a_iCode);
+		ParserCallback(fun_type1  a_pFun, bool a_bAllowOpti);
 		ParserCallback(fun_type2  a_pFun, bool a_bAllowOpti, int a_iPrec, EOprtAssociativity a_eAssociativity);
 		ParserCallback(fun_type2  a_pFun, bool a_bAllowOpti);
 		ParserCallback(fun_type3  a_pFun, bool a_bAllowOpti);
@@ -78,19 +79,59 @@ namespace mu
 		ParserCallback(bulkfun_type10 a_pFun, bool a_bAllowOpti);
 
 		ParserCallback(multfun_type a_pFun, bool a_bAllowOpti);
+
 		ParserCallback(strfun_type1 a_pFun, bool a_bAllowOpti);
 		ParserCallback(strfun_type2 a_pFun, bool a_bAllowOpti);
 		ParserCallback(strfun_type3 a_pFun, bool a_bAllowOpti);
 		ParserCallback(strfun_type4 a_pFun, bool a_bAllowOpti);
 		ParserCallback(strfun_type5 a_pFun, bool a_bAllowOpti);
+		ParserCallback(strfun_type6 a_pFun, bool a_bAllowOpti);
+
+		// note: a_pUserData shall not be nullptr
+		ParserCallback(fun_userdata_type0  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type1  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type2  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type3  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type4  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type5  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type6  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type7  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type8  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type9  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(fun_userdata_type10 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+
+		ParserCallback(bulkfun_userdata_type0  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type1  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type2  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type3  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type4  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type5  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type6  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type7  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type8  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type9  a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(bulkfun_userdata_type10 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+
+		ParserCallback(multfun_userdata_type a_pFun, void* a_pUserData, bool a_bAllowOpti);
+
+		ParserCallback(strfun_userdata_type1 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(strfun_userdata_type2 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(strfun_userdata_type3 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(strfun_userdata_type4 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(strfun_userdata_type5 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+		ParserCallback(strfun_userdata_type6 a_pFun, void* a_pUserData, bool a_bAllowOpti);
+
 		ParserCallback();
 		ParserCallback(const ParserCallback& a_Fun);
-    ParserCallback & operator=(const ParserCallback& a_Fun);
+		ParserCallback & operator=(const ParserCallback& a_Fun);
+		~ParserCallback();
 
 		ParserCallback* Clone() const;
 
 		bool  IsOptimizable() const;
+		bool  IsValid() const;
 		void* GetAddr() const;
+		void* GetUserData() const;
 		ECmdCode  GetCode() const;
 		ETypeCode GetType() const;
 		int GetPri()  const;
@@ -98,14 +139,11 @@ namespace mu
 		int GetArgc() const;
 
 	private:
-		void* m_pFun;                   ///< Pointer to the callback function, casted to void
+		void Assign(const ParserCallback& ref);
 
-		/** \brief Number of numeric function arguments
+		void* m_pFun;                   ///< Pointer to the callback function or internal data, casted to void
 
-			This number is negative for functions with variable number of arguments. in this cases
-			they represent the actual number of arguments found.
-		*/
-		int   m_iArgc;
+		int   m_iArgc;                  ///< Internal representation of number of numeric function arguments
 		int   m_iPri;                   ///< Valid only for binary and infix operators; Operator precedence.
 		EOprtAssociativity m_eOprtAsct; ///< Operator associativity; Valid only for binary operators 
 		ECmdCode  m_iCode;

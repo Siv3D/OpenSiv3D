@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -50,25 +50,25 @@ namespace mu
 
 		union
 		{
-			struct //SValData
+			struct // SValData
 			{
 				value_type* ptr;
 				value_type  data;
 				value_type  data2;
 			} Val;
 
-			struct //SFunData
+			struct // SFunData
 			{
-				// Note: generic_fun_type is merely a placeholder. The real type could be 
-				//       anything between gun_type1 and fun_type9. I can't use a void
-				//       pointer due to constraints in the ANSI standard which allows
-				//       data pointers and function pointers to differ in size.
-				generic_fun_type ptr;
+				// Note: the type is erased in generic_callable_type and the signature of the
+				//       function to call is tracked elsewhere in regard with the number of
+				//       parameters (args) and the general kind of function (Cmd: cmFUNC,
+				//       cmFUNC_STR, or cmFUNC_BULK)
+				generic_callable_type cb;
 				int   argc;
 				int   idx;
 			} Fun;
 
-			struct //SOprtData
+			struct // SOprtData
 			{
 				value_type* ptr;
 				int offset;
@@ -119,9 +119,9 @@ namespace mu
 		void AddOp(ECmdCode a_Oprt);
 		void AddIfElse(ECmdCode a_Oprt);
 		void AddAssignOp(value_type* a_pVar);
-		void AddFun(generic_fun_type a_pFun, int a_iArgc);
-		void AddBulkFun(generic_fun_type a_pFun, int a_iArgc);
-		void AddStrFun(generic_fun_type a_pFun, int a_iArgc, int a_iIdx);
+		void AddFun(generic_callable_type a_pFun, int a_iArgc, bool isOptimizable);
+		void AddBulkFun(generic_callable_type a_pFun, int a_iArgc);
+		void AddStrFun(generic_callable_type a_pFun, int a_iArgc, int a_iIdx);
 
 		void EnableOptimizer(bool bStat);
 

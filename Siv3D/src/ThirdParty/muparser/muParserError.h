@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -36,6 +36,12 @@
 #include <memory>
 
 #include "muParserDef.h"
+
+#if defined(_MSC_VER)
+	#pragma warning(push)
+	#pragma warning(disable : 4251)  // ...needs to have dll-interface to be used by clients of class ...
+#endif
+
 
 /** \file
 	\brief This file defines the error class used by the parser.
@@ -101,8 +107,11 @@ namespace mu
 		EErrorCodes m_iErrc;      ///< Error code
 		const ParserErrorMsg& m_ErrMsg;
 	};
-
 } // namespace mu
+
+#if defined(_MSC_VER)
+	#pragma warning(pop)
+#endif
 
 #endif
 

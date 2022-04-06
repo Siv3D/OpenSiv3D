@@ -5,7 +5,7 @@
    |  Y Y  \  |  /  |_> > __ \|  | \/\___ \\  ___/|  | \/
    |__|_|  /____/|   __(____  /__|  /____  >\___  >__|
 		 \/      |__|       \/           \/     \/
-   Copyright (C) 2004 - 2020 Ingo Berg
+   Copyright (C) 2004 - 2021 Ingo Berg
 
 	Redistribution and use in source and binary forms, with or without modification, are permitted
 	provided that the following conditions are met:
@@ -264,12 +264,19 @@ namespace mu
 	{
 		MUP_ASSERT(m_pParser != nullptr);
 
-		const char_type* szFormula = m_strFormula.c_str();
+		const char_type* szExpr = m_strFormula.c_str();
 		token_type tok;
 
 		// Ignore all non printable characters when reading the expression
-		while (szFormula[m_iPos] > 0 && szFormula[m_iPos] <= 0x20)
+		while (szExpr[m_iPos] > 0 && szExpr[m_iPos] <= 0x20)
+		{
+			// 14-31 are control characters. I donÄt want to have to deal with such strings at all!
+			// (see https://en.cppreference.com/w/cpp/string/byte/isprint)
+			if (szExpr[m_iPos] >= 14 && szExpr[m_iPos] <= 31)
+				Error(ecINVALID_CHARACTERS_FOUND, m_iPos);
+
 			++m_iPos;
+		}
 
 		// Check for end of formula
 		if (IsEOF(tok))
@@ -371,7 +378,7 @@ namespace mu
 		if (a_iPos != iEnd)
 			a_sTok = string_type(m_strFormula.begin() + a_iPos, m_strFormula.begin() + iEnd);
 
-		return iEnd;
+		return static_cast<int>(iEnd);
 	}
 
 
@@ -393,13 +400,13 @@ namespace mu
 		if (a_iPos != iEnd)
 		{
 			a_sTok = string_type(m_strFormula.begin() + a_iPos, m_strFormula.begin() + iEnd);
-			return iEnd;
+			return static_cast<int>(iEnd);
 		}
 		else
 		{
 			// There is still the chance of having to deal with an operator consisting exclusively
 			// of alphabetic characters.
-			return ExtractToken(L"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", a_sTok, (std::size_t)a_iPos);
+			return ExtractToken(_T("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), a_sTok, (std::size_t)a_iPos);
 		}
 	}
 
@@ -436,9 +443,6 @@ namespace mu
 				case cmDIV:
 				case cmPOW:
 				case cmASSIGN:
-					//if (len!=sTok.length())
-					//  continue;
-
 					// The assignment operator need special treatment
 					if (i == cmASSIGN && m_iSynFlags & noASSIGN)
 						Error(ecUNEXPECTED_OPERATOR, m_iPos, pOprtDef[i]);
