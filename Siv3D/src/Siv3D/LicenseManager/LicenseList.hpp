@@ -268,7 +268,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.)-"
 {
 UR"-(DirectXMath)-",
 
-UR"-(Copyright (c) 2011-2021 Microsoft Corp)-",
+UR"-(Copyright (c) 2011-2022 Microsoft Corp)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 software and associated documentation files (the "Software"), to deal in the Software 
@@ -1072,6 +1072,17 @@ SOFTWARE.)-"
 },
 
 {
+UR"-(Material Design)-",
+
+UR"-()-",
+
+UR"-(All web and desktop fonts are distributed under the Apache 2.0 license. Web
+and desktop fonts contain some icons that are redistributed under the Apache
+2.0 license. All other icons are either redistributed under their respective
+licenses or are distributed under the Apache 2.0 license.)-"
+},
+
+{
 UR"-(miniutf)-",
 
 UR"-(Copyright (c) 2013 Dropbox, Inc.)-",
@@ -1200,6 +1211,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.)-"
+},
+
+{
+UR"-(Noto Emoji)-",
+
+UR"-()-",
+
+UR"-(Noto Emoji is licensed under the SIL Open Font License, Version 1.1.)-"
 },
 
 {
