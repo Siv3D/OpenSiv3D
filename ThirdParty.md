@@ -71,7 +71,7 @@ Name | Version
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
 [RtAudio](https://github.com/thestk/rtaudio) | 
-[scope-guard](https://github.com/offa/scope-guard) | v0.3.7
+[scope-guard](https://github.com/offa/scope-guard) | v0.3.9
 [sdf-glyph-foundry](https://github.com/mapbox/sdf-glyph-foundry) | 
 [Serial Communication Library](https://github.com/wjwwood/serial) | 
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2

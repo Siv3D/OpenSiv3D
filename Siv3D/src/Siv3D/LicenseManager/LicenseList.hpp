@@ -1545,7 +1545,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.)-"
 {
 UR"-(scope-guard)-",
 
-UR"-(Copyright (c) 2017-2020 offa)-",
+UR"-(Copyright (c) 2017-2021 offa)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

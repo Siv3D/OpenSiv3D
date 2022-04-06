@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (c) 2017-2020 offa
+// Copyright (c) 2017-2021 offa
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -213,7 +213,7 @@ namespace sr
     {
         unique_resource<std::decay_t<R>, std::decay_t<D>> ur{std::forward<R>(r), std::forward<D>(d)};
 
-        if( bool(r == invalid) == true )
+        if( bool(r == invalid) )
         {
             ur.release();
         }
