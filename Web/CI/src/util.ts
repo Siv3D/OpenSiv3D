@@ -31,6 +31,14 @@ export function spawnAsync(command: string, args: string[]) {
     });
 }
 
+export function getUrl(cap: Capability, path: string): string {
+    if (cap.os === "iOS") {
+        return "http://bs-local.com:8080/" + path;
+    } else {
+        return "http://localhost:8080/" + path;
+    }
+}
+
 export async function reportAsPassed(driver: ThenableWebDriver) {
     await driver.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test Case Passed"}}');
 }
@@ -165,6 +173,16 @@ export class Siv3DApp {
                 .pause(30)
                 .keyUp(key)
                 .perform();
+    }
+
+    async sendKeys(actions: Actions, keys: string) {
+        for (const key of keys) {
+            actions.keyDown(key)
+                .pause(30)
+                .keyUp(key);
+        }
+
+        await actions.perform();
     }
 
     async screenShot() {

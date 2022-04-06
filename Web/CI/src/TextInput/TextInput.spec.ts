@@ -3,7 +3,7 @@ import test from "mocha";
 import parallel, { limit } from "mocha.parallel";
 import { use, expect } from "chai";
 import { chaiImage } from "chai-image";
-import { buildTestCase, Siv3DApp, sleep, spawnAsync } from "../util";
+import { buildTestCase, getUrl, Siv3DApp, sleep, spawnAsync } from "../util";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { deviceCapabilities, generateCapability, notSupportedDeviceCapabilities } from "../config";
 import { ChildProcessWithoutNullStreams, spawn, spawnSync } from "child_process";
@@ -14,7 +14,7 @@ use(chaiImage);
 
 const timeout = 2 * 60 * 1000;
 
-parallel("Browserstack Tests", function() {
+parallel("TextInput Tests", function() {
     this.timeout(timeout);
 
     deviceCapabilities.forEach(function (cap) {
@@ -58,19 +58,10 @@ parallel("Browserstack Tests", function() {
                     return await driver.executeScript("return Module.GetText()") as string;
                 }
 
-                let app: Siv3DApp;
-                
-                if (capability.os === "iOS") {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://bs-local.com:8080/src/TextInput/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                } else {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://127.0.0.1:8080/src/TextInput/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                }
+                const app: Siv3DApp = await Siv3DApp.open(
+                    driver,
+                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
+                    { width: 800, height: 600 });
 
                 await app.waitForReady(driver);
                 await sleep(1000);
@@ -78,7 +69,7 @@ parallel("Browserstack Tests", function() {
                 await FocusToTextInput();
                 await sleep(1000);
 
-                await driver.actions().sendKeys("Siv3D" + Key.ENTER).perform();
+                await app.sendKeys(driver.actions(), "Siv3D" + Key.ENTER);
                 await sleep(3000);
 
                 expect(await GetInputText(), "Characters should be inputted").to.equal("Siv3D");
@@ -86,10 +77,18 @@ parallel("Browserstack Tests", function() {
                 await FocusToTextInput();
                 await sleep(1000);
 
-                await driver.actions().sendKeys(Key.BACK_SPACE + Key.ENTER).perform();
+                await app.sendKeys(driver.actions(), Key.ARROW_LEFT + "2" + Key.ARROW_RIGHT + "K");
                 await sleep(3000);
 
-                expect(await GetInputText(), "Characters should be deleted.").to.equal("Siv3");
+                expect(await GetInputText(), "Characters should be inputted").to.equal("Siv32DK");
+
+                await FocusToTextInput();
+                await sleep(1000);
+
+                await app.sendKeys(driver.actions(), Key.BACK_SPACE + Key.ENTER);
+                await sleep(3000);
+
+                expect(await GetInputText(), "Characters should be deleted.").to.equal("Siv32D");
             })
         );
     });
@@ -102,21 +101,12 @@ parallel("Browserstack Tests", function() {
             buildTestCase(capability, "Not Supported Browser", async function (driver: ThenableWebDriver) {     
                 this.timeout(timeout);
 
-                let app: Siv3DApp;
-
-                if (capability.os === "iOS") {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://bs-local.com:8080/src/TextInput/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                } else {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://127.0.0.1:8080/src/TextInput/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                }
+                await Siv3DApp.open(
+                    driver,
+                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
+                    { width: 800, height: 600 });
                 
-                await driver.wait(until.alertIsPresent());
+                await driver.wait(until.alertIsPresent(), 30 * 1000);
                 const alert = await driver.switchTo().alert();
                 const alertText = await alert.getText();
 
