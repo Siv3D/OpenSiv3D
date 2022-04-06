@@ -18,7 +18,7 @@ Name | Version
 [cpptoml](https://github.com/skystrife/cpptoml) | v0.1.1
 [cpu_features](https://github.com/google/cpu_features) | v0.6.0
 [DirectXTK](https://github.com/microsoft/DirectXTK) | April 6, 2021
-[DirectXMath](https://github.com/microsoft/DirectXMath) | January 2021
+[DirectXMath](https://github.com/microsoft/DirectXMath) | January 2022
 [DirectX Mesh Geometry Library](https://github.com/microsoft/DirectXMesh) | June 9, 2021
 [double-conversion](https://github.com/google/double-conversion) | v3.1.5
 [Earcut](https://github.com/mapbox/earcut.hpp) | 2.2.2
