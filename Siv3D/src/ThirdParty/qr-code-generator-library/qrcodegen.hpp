@@ -133,6 +133,13 @@ class QrSegment final {
 	/*---- Public static helper functions ----*/
 	
 	/* 
+	 * Tests whether the given string can be encoded as a segment in numeric mode.
+	 * A string is encodable iff each character is in the range 0 to 9.
+	 */
+	public: static bool isNumeric(const char *text);
+	
+	
+	/* 
 	 * Tests whether the given string can be encoded as a segment in alphanumeric mode.
 	 * A string is encodable iff each character is in the following set: 0 to 9, A to Z
 	 * (uppercase only), space, dollar, percent, asterisk, plus, hyphen, period, slash, colon.
@@ -140,18 +147,11 @@ class QrSegment final {
 	public: static bool isAlphanumeric(const char *text);
 	
 	
-	/* 
-	 * Tests whether the given string can be encoded as a segment in numeric mode.
-	 * A string is encodable iff each character is in the range 0 to 9.
-	 */
-	public: static bool isNumeric(const char *text);
-	
-	
 	
 	/*---- Instance fields ----*/
 	
 	/* The mode indicator of this segment. Accessed through getMode(). */
-	private: Mode mode;
+	private: const Mode *mode;
 	
 	/* The length of this segment's unencoded data. Measured in characters for
 	 * numeric/alphanumeric/kanji mode, bytes for byte mode, and 0 for ECI mode.
@@ -170,7 +170,7 @@ class QrSegment final {
 	 * The character count (numCh) must agree with the mode and the bit buffer length,
 	 * but the constraint isn't checked. The given bit buffer is copied and stored.
 	 */
-	public: QrSegment(Mode md, int numCh, const std::vector<bool> &dt);
+	public: QrSegment(const Mode &md, int numCh, const std::vector<bool> &dt);
 	
 	
 	/* 
@@ -178,7 +178,7 @@ class QrSegment final {
 	 * The character count (numCh) must agree with the mode and the bit buffer length,
 	 * but the constraint isn't checked. The given bit buffer is moved and stored.
 	 */
-	public: QrSegment(Mode md, int numCh, std::vector<bool> &&dt);
+	public: QrSegment(const Mode &md, int numCh, std::vector<bool> &&dt);
 	
 	
 	/*---- Methods ----*/
@@ -186,7 +186,7 @@ class QrSegment final {
 	/* 
 	 * Returns the mode field of this segment.
 	 */
-	public: Mode getMode() const;
+	public: const Mode &getMode() const;
 	
 	
 	/* 
@@ -220,7 +220,7 @@ class QrSegment final {
 /* 
  * A QR Code symbol, which is a type of two-dimension barcode.
  * Invented by Denso Wave and described in the ISO/IEC 18004 standard.
- * Instances of this class represent an immutable square grid of black and white cells.
+ * Instances of this class represent an immutable square grid of dark and light cells.
  * The class provides static factory functions to create a QR Code from text or binary data.
  * The class covers the QR Code Model 2 specification, supporting all versions (sizes)
  * from 1 to 40, all 4 error correction levels, and 4 character encoding modes.
@@ -314,7 +314,7 @@ class QrCode final {
 	
 	// Private grids of modules/pixels, with dimensions of size*size:
 	
-	// The modules of this QR Code (false = white, true = black).
+	// The modules of this QR Code (false = light, true = dark).
 	// Immutable after constructor finishes. Accessed through getModule().
 	private: std::vector<std::vector<bool> > modules;
 	
@@ -363,17 +363,10 @@ class QrCode final {
 	
 	/* 
 	 * Returns the color of the module (pixel) at the given coordinates, which is false
-	 * for white or true for black. The top left corner has the coordinates (x=0, y=0).
-	 * If the given coordinates are out of bounds, then false (white) is returned.
+	 * for light or true for dark. The top left corner has the coordinates (x=0, y=0).
+	 * If the given coordinates are out of bounds, then false (light) is returned.
 	 */
 	public: bool getModule(int x, int y) const;
-	
-	
-	/* 
-	 * Returns a string of SVG code for an image depicting this QR Code, with the given number
-	 * of border modules. The string always uses Unix newlines (\n), regardless of the platform.
-	 */
-	public: std::string toSvgString(int border) const;
 	
 	
 	
@@ -405,7 +398,7 @@ class QrCode final {
 	
 	// Sets the color of a module and marks it as a function module.
 	// Only used by the constructor. Coordinates must be in bounds.
-	private: void setFunctionModule(int x, int y, bool isBlack);
+	private: void setFunctionModule(int x, int y, bool isDark);
 	
 	
 	// Returns the color of the module at the given coordinates, which must be in range.
@@ -472,7 +465,7 @@ class QrCode final {
 	private: static std::uint8_t reedSolomonMultiply(std::uint8_t x, std::uint8_t y);
 	
 	
-	// Can only be called immediately after a white run is added, and
+	// Can only be called immediately after a light run is added, and
 	// returns either 0, 1, or 2. A helper function for getPenaltyScore().
 	private: int finderPenaltyCountPatterns(const std::array<int,7> &runHistory) const;
 	

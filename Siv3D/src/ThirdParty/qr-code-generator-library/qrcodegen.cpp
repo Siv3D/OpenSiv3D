@@ -29,7 +29,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <utility>
-#include "QrCode.hpp"
+#include "qrcodegen.hpp"
 
 using std::int8_t;
 using std::uint8_t;
@@ -156,8 +156,8 @@ QrSegment QrSegment::makeEci(long assignVal) {
 }
 
 
-QrSegment::QrSegment(Mode md, int numCh, const std::vector<bool> &dt) :
-		mode(md),
+QrSegment::QrSegment(const Mode &md, int numCh, const std::vector<bool> &dt) :
+		mode(&md),
 		numChars(numCh),
 		data(dt) {
 	if (numCh < 0)
@@ -165,8 +165,8 @@ QrSegment::QrSegment(Mode md, int numCh, const std::vector<bool> &dt) :
 }
 
 
-QrSegment::QrSegment(Mode md, int numCh, std::vector<bool> &&dt) :
-		mode(md),
+QrSegment::QrSegment(const Mode &md, int numCh, std::vector<bool> &&dt) :
+		mode(&md),
 		numChars(numCh),
 		data(std::move(dt)) {
 	if (numCh < 0)
@@ -177,7 +177,7 @@ QrSegment::QrSegment(Mode md, int numCh, std::vector<bool> &&dt) :
 int QrSegment::getTotalBits(const vector<QrSegment> &segs, int version) {
 	int result = 0;
 	for (const QrSegment &seg : segs) {
-		int ccbits = seg.mode.numCharCountBits(version);
+		int ccbits = seg.mode->numCharCountBits(version);
 		if (seg.numChars >= (1L << ccbits))
 			return -1;  // The segment's length doesn't fit the field's bit width
 		if (4 + ccbits > INT_MAX - result)
@@ -191,15 +191,6 @@ int QrSegment::getTotalBits(const vector<QrSegment> &segs, int version) {
 }
 
 
-bool QrSegment::isAlphanumeric(const char *text) {
-	for (; *text != '\0'; text++) {
-		if (std::strchr(ALPHANUMERIC_CHARSET, *text) == nullptr)
-			return false;
-	}
-	return true;
-}
-
-
 bool QrSegment::isNumeric(const char *text) {
 	for (; *text != '\0'; text++) {
 		char c = *text;
@@ -210,8 +201,17 @@ bool QrSegment::isNumeric(const char *text) {
 }
 
 
-QrSegment::Mode QrSegment::getMode() const {
-	return mode;
+bool QrSegment::isAlphanumeric(const char *text) {
+	for (; *text != '\0'; text++) {
+		if (std::strchr(ALPHANUMERIC_CHARSET, *text) == nullptr)
+			return false;
+	}
+	return true;
+}
+
+
+const QrSegment::Mode &QrSegment::getMode() const {
+	return *mode;
 }
 
 
@@ -279,7 +279,7 @@ QrCode QrCode::encodeSegments(const vector<QrSegment> &segs, Ecc ecl,
 		throw std::logic_error("Assertion error");
 	
 	// Increase the error correction level while the data still fits in the current version number
-	for (Ecc newEcl : vector<Ecc>{Ecc::MEDIUM, Ecc::QUARTILE, Ecc::HIGH}) {  // From low to high
+	for (Ecc newEcl : {Ecc::MEDIUM, Ecc::QUARTILE, Ecc::HIGH}) {  // From low to high
 		if (boostEcl && dataUsedBits <= getNumDataCodewords(version, newEcl) * 8)
 			ecl = newEcl;
 	}
@@ -310,7 +310,7 @@ QrCode QrCode::encodeSegments(const vector<QrSegment> &segs, Ecc ecl,
 	// Pack bits into bytes in big endian
 	vector<uint8_t> dataCodewords(bb.size() / 8);
 	for (size_t i = 0; i < bb.size(); i++)
-		dataCodewords[i >> 3] |= (bb.at(i) ? 1 : 0) << (7 - (i & 7));
+		dataCodewords.at(i >> 3) |= (bb.at(i) ? 1 : 0) << (7 - (i & 7));
 	
 	// Create the QR Code object
 	return QrCode(version, ecl, dataCodewords, mask);
@@ -327,7 +327,7 @@ QrCode::QrCode(int ver, Ecc ecl, const vector<uint8_t> &dataCodewords, int msk) 
 		throw std::domain_error("Mask value out of range");
 	size = ver * 4 + 17;
 	size_t sz = static_cast<size_t>(size);
-	modules    = vector<vector<bool> >(sz, vector<bool>(sz));  // Initially all white
+	modules    = vector<vector<bool> >(sz, vector<bool>(sz));  // Initially all light
 	isFunction = vector<vector<bool> >(sz, vector<bool>(sz));
 	
 	// Compute ECC, draw modules
@@ -351,7 +351,7 @@ QrCode::QrCode(int ver, Ecc ecl, const vector<uint8_t> &dataCodewords, int msk) 
 	}
 	if (msk < 0 || msk > 7)
 		throw std::logic_error("Assertion error");
-	this->mask = msk;
+	mask = msk;
 	applyMask(msk);  // Apply the final choice of mask
 	drawFormatBits(msk);  // Overwrite old format bits
 	
@@ -382,34 +382,6 @@ int QrCode::getMask() const {
 
 bool QrCode::getModule(int x, int y) const {
 	return 0 <= x && x < size && 0 <= y && y < size && module(x, y);
-}
-
-
-std::string QrCode::toSvgString(int border) const {
-	if (border < 0)
-		throw std::domain_error("Border must be non-negative");
-	if (border > INT_MAX / 2 || border * 2 > INT_MAX - size)
-		throw std::overflow_error("Border too large");
-	
-	std::ostringstream sb;
-	sb << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	sb << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
-	sb << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewBox=\"0 0 ";
-	sb << (size + border * 2) << " " << (size + border * 2) << "\" stroke=\"none\">\n";
-	sb << "\t<rect width=\"100%\" height=\"100%\" fill=\"#FFFFFF\"/>\n";
-	sb << "\t<path d=\"";
-	for (int y = 0; y < size; y++) {
-		for (int x = 0; x < size; x++) {
-			if (getModule(x, y)) {
-				if (x != 0 || y != 0)
-					sb << " ";
-				sb << "M" << (x + border) << "," << (y + border) << "h1v1h-1z";
-			}
-		}
-	}
-	sb << "\" fill=\"#000000\"/>\n";
-	sb << "</svg>\n";
-	return sb.str();
 }
 
 
@@ -466,7 +438,7 @@ void QrCode::drawFormatBits(int msk) {
 		setFunctionModule(size - 1 - i, 8, getBit(bits, i));
 	for (int i = 8; i < 15; i++)
 		setFunctionModule(8, size - 15 + i, getBit(bits, i));
-	setFunctionModule(8, size - 8, true);  // Always black
+	setFunctionModule(8, size - 8, true);  // Always dark
 }
 
 
@@ -513,10 +485,10 @@ void QrCode::drawAlignmentPattern(int x, int y) {
 }
 
 
-void QrCode::setFunctionModule(int x, int y, bool isBlack) {
+void QrCode::setFunctionModule(int x, int y, bool isDark) {
 	size_t ux = static_cast<size_t>(x);
 	size_t uy = static_cast<size_t>(y);
-	modules   .at(uy).at(ux) = isBlack;
+	modules   .at(uy).at(ux) = isDark;
 	isFunction.at(uy).at(ux) = true;
 }
 
@@ -584,7 +556,7 @@ void QrCode::drawCodewords(const vector<uint8_t> &data) {
 					i++;
 				}
 				// If this QR Code has any remainder bits (0 to 7), they were assigned as
-				// 0/false/white by the constructor and are left unchanged by this method
+				// 0/false/light by the constructor and are left unchanged by this method
 			}
 		}
 	}
@@ -676,17 +648,17 @@ long QrCode::getPenaltyScore() const {
 		}
 	}
 	
-	// Balance of black and white modules
-	int black = 0;
+	// Balance of dark and light modules
+	int dark = 0;
 	for (const vector<bool> &row : modules) {
 		for (bool color : row) {
 			if (color)
-				black++;
+				dark++;
 		}
 	}
-	int total = size * size;  // Note that size is odd, so black/total != 1/2
-	// Compute the smallest integer k >= 0 such that (45-5k)% <= black/total <= (55+5k)%
-	int k = static_cast<int>((std::abs(black * 20L - total * 10L) + total - 1) / total) - 1;
+	int total = size * size;  // Note that size is odd, so dark/total != 1/2
+	// Compute the smallest integer k >= 0 such that (45-5k)% <= dark/total <= (55+5k)%
+	int k = static_cast<int>((std::abs(dark * 20L - total * 10L) + total - 1) / total) - 1;
 	result += k * PENALTY_N4;
 	return result;
 }
@@ -698,7 +670,7 @@ vector<int> QrCode::getAlignmentPatternPositions() const {
 	else {
 		int numAlign = version / 7 + 2;
 		int step = (version == 32) ? 26 :
-			(version*4 + numAlign*2 + 1) / (numAlign*2 - 2) * 2;
+			(version * 4 + numAlign * 2 + 1) / (numAlign * 2 - 2) * 2;
 		vector<int> result;
 		for (int i = 0, pos = size - 7; i < numAlign - 1; i++, pos -= step)
 			result.insert(result.begin(), pos);
@@ -793,11 +765,11 @@ int QrCode::finderPenaltyCountPatterns(const std::array<int,7> &runHistory) cons
 
 
 int QrCode::finderPenaltyTerminateAndCount(bool currentRunColor, int currentRunLength, std::array<int,7> &runHistory) const {
-	if (currentRunColor) {  // Terminate black run
+	if (currentRunColor) {  // Terminate dark run
 		finderPenaltyAddHistory(currentRunLength, runHistory);
 		currentRunLength = 0;
 	}
-	currentRunLength += size;  // Add white border to final run
+	currentRunLength += size;  // Add light border to final run
 	finderPenaltyAddHistory(currentRunLength, runHistory);
 	return finderPenaltyCountPatterns(runHistory);
 }
@@ -805,7 +777,7 @@ int QrCode::finderPenaltyTerminateAndCount(bool currentRunColor, int currentRunL
 
 void QrCode::finderPenaltyAddHistory(int currentRunLength, std::array<int,7> &runHistory) const {
 	if (runHistory.at(0) == 0)
-		currentRunLength += size;  // Add white border to initial run
+		currentRunLength += size;  // Add light border to initial run
 	std::copy_backward(runHistory.cbegin(), runHistory.cend() - 1, runHistory.end());
 	runHistory.at(0) = currentRunLength;
 }

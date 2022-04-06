@@ -1643,7 +1643,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_types.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\qrcodegen.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\quirc\quirc_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RecastDetour\DetourAlloc.h" />
@@ -2683,7 +2683,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_math.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_raster.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\sw_ft_stroker.c" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\qrcodegen.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\decode.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\identify.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\quirc\quirc.c" />

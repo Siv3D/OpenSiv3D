@@ -14,7 +14,7 @@
 # include <Siv3D/Image.hpp>
 # include <Siv3D/StringView.hpp>
 # include <Siv3D/TextWriter.hpp>
-# include <ThirdParty/qr-code-generator-library/QrCode.hpp>
+# include <ThirdParty/qr-code-generator-library/qrcodegen.hpp>
 
 namespace s3d
 {

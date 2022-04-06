@@ -66,7 +66,7 @@ Name | Version
 [par_shapes](https://github.com/prideout/par/blob/master/par_shapes.h) | 
 [pffft](https://bitbucket.org/jpommier/pffft/src/master/) | 
 [plutovg](https://github.com/sammycage/plutovg) | 
-[qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.6.0
+[qr-code-generator-library](https://github.com/nayuki/QR-Code-generator) | v1.7.0
 [Quirc](https://github.com/dlbeer/quirc) | 
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
@@ -82,7 +82,7 @@ Name | Version
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 
 [Star Nest](https://www.shadertoy.com/view/XlfGRj) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
-[stduuid](https://github.com/mariusbancila/stduuid) | v1.2.1
+[stduuid](https://github.com/mariusbancila/stduuid) | v1.2.2
 [The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.2
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) | 

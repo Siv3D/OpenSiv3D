@@ -2352,9 +2352,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.hpp">
-      <Filter>src\ThirdParty\qr-code-generator-library</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\QRErrorCorrection.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -6849,6 +6846,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DisjointSet.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\qrcodegen.hpp">
+      <Filter>src\ThirdParty\qr-code-generator-library</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -7321,9 +7321,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp">
       <Filter>src\Siv3D\LicenseManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\QrCode.cpp">
-      <Filter>src\ThirdParty\qr-code-generator-library</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp">
       <Filter>src\Siv3D\QR</Filter>
@@ -9892,6 +9889,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\DynamicAudioSource.cpp">
       <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\qrcodegen.cpp">
+      <Filter>src\ThirdParty\qr-code-generator-library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

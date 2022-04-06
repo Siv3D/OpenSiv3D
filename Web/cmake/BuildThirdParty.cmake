@@ -328,7 +328,7 @@ target_sources(plutovg
 
 set(SIV3D_SOURCES
     ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+    ../Siv3D/src/ThirdParty/qr-code-generator-library/qrcodegen.cpp
 )
 
 

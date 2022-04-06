@@ -861,7 +861,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_raster.c
   ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 
-  ../Siv3D/src/ThirdParty/qr-code-generator-library/QrCode.cpp
+  ../Siv3D/src/ThirdParty/qr-code-generator-library/qrcodegen.cpp
 
   ../Siv3D/src/ThirdParty/quirc/decode.c
   ../Siv3D/src/ThirdParty/quirc/identify.c
