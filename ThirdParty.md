@@ -91,6 +91,6 @@ Name | Version
 [Wicked Engine](https://github.com/turanszkij/WickedEngine) | 0.56.34
 [WinToast](https://github.com/mohabouje/WinToast) | 
 [Xoshiro-cpp](https://github.com/Reputeless/Xoshiro-cpp) | v1.1
-[xxHash](https://github.com/Cyan4973/xxHash) | v0.8.0
+[xxHash](https://github.com/Cyan4973/xxHash) | v0.8.1
 [zlib](https://www.zlib.net/) | 1.2.11
 [Zstandard](https://github.com/facebook/zstd) | v1.5.1
