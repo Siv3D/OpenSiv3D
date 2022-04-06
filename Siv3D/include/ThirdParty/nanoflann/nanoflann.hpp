@@ -355,7 +355,7 @@ struct Metric
  */
 template <
     class T, class DataSource, typename _DistanceType = T,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 struct L1_Adaptor
 {
     using ElementType  = T;
@@ -415,7 +415,7 @@ struct L1_Adaptor
  */
 template <
     class T, class DataSource, typename _DistanceType = T,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 struct L2_Adaptor
 {
     using ElementType  = T;
@@ -480,7 +480,7 @@ struct L2_Adaptor
  */
 template <
     class T, class DataSource, typename _DistanceType = T,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 struct L2_Simple_Adaptor
 {
     using ElementType  = T;
@@ -525,7 +525,7 @@ struct L2_Simple_Adaptor
  */
 template <
     class T, class DataSource, typename _DistanceType = T,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 struct SO2_Adaptor
 {
     using ElementType  = T;
@@ -570,7 +570,7 @@ struct SO2_Adaptor
  */
 template <
     class T, class DataSource, typename _DistanceType = T,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 struct SO3_Adaptor
 {
     using ElementType  = T;
@@ -600,7 +600,7 @@ struct SO3_Adaptor
 /** Metaprogramming helper traits class for the L1 (Manhattan) metric */
 struct metric_L1 : public Metric
 {
-    template <class T, class DataSource, typename AccessorType = uint32_t>
+    template <class T, class DataSource, typename AccessorType = size_t>
     struct traits
     {
         using distance_t = L1_Adaptor<T, DataSource, T, AccessorType>;
@@ -609,7 +609,7 @@ struct metric_L1 : public Metric
 /** Metaprogramming helper traits class for the L2 (Euclidean) metric */
 struct metric_L2 : public Metric
 {
-    template <class T, class DataSource, typename AccessorType = uint32_t>
+    template <class T, class DataSource, typename AccessorType = size_t>
     struct traits
     {
         using distance_t = L2_Adaptor<T, DataSource, T, AccessorType>;
@@ -618,7 +618,7 @@ struct metric_L2 : public Metric
 /** Metaprogramming helper traits class for the L2_simple (Euclidean) metric */
 struct metric_L2_Simple : public Metric
 {
-    template <class T, class DataSource, typename AccessorType = uint32_t>
+    template <class T, class DataSource, typename AccessorType = size_t>
     struct traits
     {
         using distance_t = L2_Simple_Adaptor<T, DataSource, T, AccessorType>;
@@ -627,7 +627,7 @@ struct metric_L2_Simple : public Metric
 /** Metaprogramming helper traits class for the SO3_InnerProdQuat metric */
 struct metric_SO2 : public Metric
 {
-    template <class T, class DataSource, typename AccessorType = uint32_t>
+    template <class T, class DataSource, typename AccessorType = size_t>
     struct traits
     {
         using distance_t = SO2_Adaptor<T, DataSource, T, AccessorType>;
@@ -636,7 +636,7 @@ struct metric_SO2 : public Metric
 /** Metaprogramming helper traits class for the SO3_InnerProdQuat metric */
 struct metric_SO3 : public Metric
 {
-    template <class T, class DataSource, typename AccessorType = uint32_t>
+    template <class T, class DataSource, typename AccessorType = size_t>
     struct traits
     {
         using distance_t = SO3_Adaptor<T, DataSource, T, AccessorType>;
@@ -866,7 +866,7 @@ struct array_or_vector_selector<-1, T>
 
 template <
     class Derived, typename Distance, class DatasetAdaptor, int32_t DIM = -1,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 class KDTreeBaseClass
 {
    public:
@@ -1273,7 +1273,7 @@ class KDTreeBaseClass
  */
 template <
     typename Distance, class DatasetAdaptor, int32_t DIM = -1,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 class KDTreeSingleIndexAdaptor
     : public KDTreeBaseClass<
           KDTreeSingleIndexAdaptor<Distance, DatasetAdaptor, DIM, AccessorType>,
@@ -1350,7 +1350,7 @@ class KDTreeSingleIndexAdaptor
         BaseClassRef::m_size                = dataset.kdtree_get_point_count();
         BaseClassRef::m_size_at_index_build = BaseClassRef::m_size;
         BaseClassRef::dim                   = dimensionality;
-        if (DIM > 0) BaseClassRef::dim = DIM;
+        if constexpr (DIM > 0) BaseClassRef::dim = DIM;
         BaseClassRef::m_leaf_max_size = params.leaf_max_size;
 
         buildIndex();
@@ -1677,7 +1677,7 @@ class KDTreeSingleIndexAdaptor
  */
 template <
     typename Distance, class DatasetAdaptor, int32_t DIM = -1,
-    typename AccessorType = uint32_t>
+    typename AccessorType = size_t>
 class KDTreeSingleIndexDynamicAdaptor_
     : public KDTreeBaseClass<
           KDTreeSingleIndexDynamicAdaptor_<

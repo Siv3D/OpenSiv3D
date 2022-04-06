@@ -99,7 +99,7 @@ namespace s3d
 
 		adapter_type m_adapter;
 
-		nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<element_type, adapter_type>, adapter_type, Dimensions> m_index;
+		nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<element_type, adapter_type, double>, adapter_type, Dimensions, size_t> m_index;
 	};
 
 	template <class Dataset, class PointType, class ElementType = typename PointType::value_type, int32 Dim = PointType::Dimension>
