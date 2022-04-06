@@ -197,7 +197,7 @@ namespace s3d
 
 		if (result != ::CURLE_OK)
 		{
-			LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(result));
+			LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(FromEnum(result)));
 
 			if (result == ::CURLE_ABORTED_BY_CALLBACK)
 			{
