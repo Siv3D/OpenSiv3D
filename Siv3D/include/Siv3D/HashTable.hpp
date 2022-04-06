@@ -30,9 +30,9 @@ namespace s3d
 	/// @tparam Eq キーの比較関数の型
 	/// @tparam Alloc アロケータの型
 	template <class Key, class Value,
-		class Hash	= std::conditional_t<std::is_same_v<Key, String>, StringHash, phmap::container_internal::hash_default_hash<Key>>,
-		class Eq	= std::conditional_t<std::is_same_v<Key, String>, StringCompare, phmap::container_internal::hash_default_eq<Key>>,
-		class Alloc = phmap::container_internal::Allocator<phmap::container_internal::Pair<const Key, Value>>>
+		class Hash	= std::conditional_t<std::is_same_v<Key, String>, StringHash, phmap::priv::hash_default_hash<Key>>,
+		class Eq	= std::conditional_t<std::is_same_v<Key, String>, StringCompare, phmap::priv::hash_default_eq<Key>>,
+		class Alloc = phmap::priv::Allocator<phmap::priv::Pair<const Key, Value>>>
 	using HashTable = phmap::flat_hash_map<Key, Value, Hash, Eq, Alloc>;
 
 	template <class Key, class Value>

@@ -33,6 +33,13 @@
 #include <tuple>
 #include "phmap_bits.h"
 
+// ---------------------------------------------------------------
+// Absl forward declaration requires global scope.
+// ---------------------------------------------------------------
+#if defined(PHMAP_USE_ABSL_HASH) && !defined(phmap_fwd_decl_h_guard_) && !defined(ABSL_HASH_HASH_H_)
+    namespace absl { template <class T> struct Hash; };
+#endif
+
 namespace phmap
 {
 
@@ -132,9 +139,8 @@ public:
 };
 
 #if defined(PHMAP_USE_ABSL_HASH) && !defined(phmap_fwd_decl_h_guard_)
-    namespace absl { template <class T> struct Hash; };
-    template <class T> using Hash = absl::Hash<T>;
-#else
+    template <class T> using Hash = ::absl::Hash<T>;
+#elif !defined(PHMAP_USE_ABSL_HASH)
 // ---------------------------------------------------------------
 //               phmap::Hash
 // ---------------------------------------------------------------
@@ -203,12 +209,14 @@ struct Hash<unsigned char> : public phmap_unary_function<unsigned char, size_t>
     { return static_cast<size_t>(val); }
 };
 
+#ifdef PHMAP_HAS_NATIVE_WCHAR_T
 template <>
 struct Hash<wchar_t> : public phmap_unary_function<wchar_t, size_t>
 {
     inline size_t operator()(wchar_t val) const noexcept
     { return static_cast<size_t>(val); }
 };
+#endif
 
 template <>
 struct Hash<int16_t> : public phmap_unary_function<int16_t, size_t>

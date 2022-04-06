@@ -329,10 +329,10 @@ template <typename T>
 using underlying_type_t = typename std::underlying_type<T>::type;
 
 template< class F, class... ArgTypes>
-#if __cplusplus >= 201703L
-using invoke_result_t = typename std::invoke_result_t<F, ArgTypes...>;
+#if PHMAP_HAVE_CC17 && defined(__cpp_lib_result_of_sfinae)
+    using invoke_result_t = typename std::invoke_result_t<F, ArgTypes...>;
 #else
-using invoke_result_t = typename std::result_of<F(ArgTypes...)>::type;
+    using invoke_result_t = typename std::result_of<F(ArgTypes...)>::type;
 #endif
 
 namespace type_traits_internal {
@@ -417,7 +417,7 @@ inline void AssertHashEnabled
 //          hash_policy_traits
 // -----------------------------------------------------------------------------
 namespace phmap {
-namespace container_internal {
+namespace priv {
 
 // Defines how slots are initialized/destroyed/moved.
 template <class Policy, class = void>
@@ -581,7 +581,7 @@ private:
     }
 };
 
-}  // namespace container_internal
+}  // namespace priv
 }  // namespace phmap
 
 // -----------------------------------------------------------------------------
@@ -1303,7 +1303,7 @@ constexpr bool HasRebindAlloc(...) {
 }
 
 template <typename T, typename U>
-constexpr bool HasRebindAlloc(typename T::template rebind<U>::other*) {
+constexpr bool HasRebindAlloc(typename std::allocator_traits<T>::template rebind_alloc<U>*) {
   return true;
 }
 
@@ -1527,7 +1527,7 @@ private:
     template <typename A, typename... Args>
     static auto construct_impl(int, A& a,  // NOLINT(runtime/references)
                                Args&&... args)
-        -> decltype(a.construct(std::forward<Args>(args)...)) {
+        -> decltype(std::allocator_traits<A>::construct(a, std::forward<Args>(args)...)) {
         std::allocator_traits<A>::construct(a, std::forward<Args>(args)...);
     }
 
@@ -1538,7 +1538,7 @@ private:
 
     template <typename A, typename T>
     static auto destroy_impl(int, A& a,  // NOLINT(runtime/references)
-                             T* p) -> decltype(a.destroy(p)) {
+                             T* p) -> decltype(std::allocator_traits<A>::destroy(a, p)) {
         std::allocator_traits<A>::destroy(a, p);
     }
     template <typename T>
@@ -2710,7 +2710,7 @@ struct hash<phmap::optional<T> >
 //          common.h
 // -----------------------------------------------------------------------------
 namespace phmap {
-namespace container_internal {
+namespace priv {
 
 template <class, class = void>
 struct IsTransparent : std::false_type {};
@@ -2831,7 +2831,7 @@ template <typename Policy, typename PolicyTraits, typename Alloc,
           typename = void>
 class node_handle : public node_handle_base<PolicyTraits, Alloc> 
 {
-    using Base = typename node_handle::node_handle_base;
+    using Base = node_handle_base<PolicyTraits, Alloc>;
 
 public:
     using value_type = typename PolicyTraits::value_type;
@@ -2855,7 +2855,7 @@ class node_handle<Policy, PolicyTraits, Alloc,
                   phmap::void_t<typename Policy::mapped_type>>
     : public node_handle_base<PolicyTraits, Alloc> 
 {
-    using Base = typename node_handle::node_handle_base;
+    using Base = node_handle_base<PolicyTraits, Alloc>;
 
 public:
     using key_type = typename Policy::key_type;
@@ -2920,7 +2920,7 @@ struct InsertReturnType
     NodeType node;
 };
 
-}  // namespace container_internal
+}  // namespace priv
 }  // namespace phmap
 
 
@@ -3142,8 +3142,8 @@ public:
     static const size_type npos = ~(size_type(0));
 
     constexpr Span() noexcept : Span(nullptr, 0) {}
-    constexpr Span(pointer array, size_type length) noexcept
-        : ptr_(array), len_(length) {}
+    constexpr Span(pointer array, size_type lgth) noexcept
+        : ptr_(array), len_(lgth) {}
 
     // Implicit conversion constructors
     template <size_t N>
@@ -3690,7 +3690,7 @@ constexpr Span<const T> MakeConstSpan(const T (&array)[N]) noexcept {
 #endif
 
 namespace phmap {
-namespace container_internal {
+namespace priv {
 
 // A type wrapper that instructs `Layout` to use the specific alignment for the
 // array. `Layout<..., Aligned<T, N>, ...>` has exactly the same API
@@ -4161,7 +4161,7 @@ public:
         : internal_layout::LayoutType<sizeof...(Ts), Ts...>(sizes...) {}
 };
 
-}  // namespace container_internal
+}  // namespace priv
 }  // namespace phmap
 
 // ---------------------------------------------------------------------------
@@ -4177,7 +4177,7 @@ public:
 #endif  // _MSC_VER
 
 namespace phmap {
-namespace container_internal {
+namespace priv {
 
 template <typename... Ts>
 class CompressedTuple;
@@ -4277,7 +4277,7 @@ struct PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC
 // To access the members, use member .get<N>() function.
 //
 // Eg:
-//   phmap::container_internal::CompressedTuple<int, T1, T2, T3> value(7, t1, t2,
+//   phmap::priv::CompressedTuple<int, T1, T2, T3> value(7, t1, t2,
 //                                                                    t3);
 //   assert(value.get<0>() == 7);
 //   T1& t1 = value.get<1>();
@@ -4329,12 +4329,12 @@ public:
 template <>
 class PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC CompressedTuple<> {};
 
-}  // namespace container_internal
+}  // namespace priv
 }  // namespace phmap
 
 
 namespace phmap {
-namespace container_internal {
+namespace priv {
 
 #ifdef _MSC_VER
     #pragma warning(push)  
@@ -4420,7 +4420,7 @@ inline void SanitizerUnpoisonObject(const T* object) {
     SanitizerUnpoisonMemoryRegion(object, sizeof(T));
 }
 
-}  // namespace container_internal
+}  // namespace priv
 }  // namespace phmap
 
 
@@ -4534,7 +4534,7 @@ inline T& ts_unchecked_read(T& v) PHMAP_NO_THREAD_SAFETY_ANALYSIS {
 
 }  // namespace thread_safety_analysis
 
-namespace container_internal {
+namespace priv {
 
 namespace memory_internal {
 
@@ -4747,7 +4747,7 @@ public:
     }
 };
 
-}  // namespace container_internal
+}  // namespace priv
 }  // phmap
 
 
@@ -5137,6 +5137,8 @@ public:
     };
 #endif
 
+#endif // BOOST_THREAD_SHARED_MUTEX_HPP
+
 // --------------------------------------------------------------------------
 //         std::shared_mutex support (read and write lock support)
 // --------------------------------------------------------------------------
@@ -5156,9 +5158,7 @@ public:
         using UniqueLocks     = typename Base::WriteLocks;
         using UpgradeToUnique = typename Base::DoNothing;  // we already have unique ownership
     };
-#endif
-
-#endif // PHMAP_HAS_BOOST_THREAD_MUTEXES
+#endif // PHMAP_HAVE_SHARED_MUTEX
 
 
 }  // phmap

@@ -21,9 +21,9 @@
 namespace s3d
 {
 	template <class Type,
-		class Hash	= std::conditional_t<std::is_same_v<Type, String>, StringHash, phmap::container_internal::hash_default_hash<Type>>,
-		class Eq	= std::conditional_t<std::is_same_v<Type, String>, StringCompare, phmap::container_internal::hash_default_eq<Type>>,
-		class Alloc	= phmap::container_internal::Allocator<Type>>
+		class Hash	= std::conditional_t<std::is_same_v<Type, String>, StringHash, phmap::priv::hash_default_hash<Type>>,
+		class Eq	= std::conditional_t<std::is_same_v<Type, String>, StringCompare, phmap::priv::hash_default_eq<Type>>,
+		class Alloc	= phmap::priv::Allocator<Type>>
 	using HashSet = phmap::flat_hash_set<Type, Hash, Eq, Alloc>;
 
 	template <class Type>
