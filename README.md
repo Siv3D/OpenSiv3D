@@ -349,3 +349,9 @@ void Main()
 If you would like to support the project financially, visit my GitHub Sponsors page. Your support will accelerate the development of this exciting framework.
 
 💗 https://github.com/sponsors/Reputeless
+
+### Platinum Sponsor
+| <a href="https://github.com/Kyle873" target="_blank"><img src="https://avatars.githubusercontent.com/u/1127511?v=4" width="120" alt="Kyle873"></a> | 
+|:--:| 
+| Kyle Belanger |
+
