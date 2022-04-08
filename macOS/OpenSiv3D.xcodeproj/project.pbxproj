@@ -681,9 +681,7 @@
 		2C47B48924DD97F2008D83BE /* muParserCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47324DD97F1008D83BE /* muParserCallback.h */; };
 		2C47B48A24DD97F2008D83BE /* muParserTokenReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47424DD97F1008D83BE /* muParserTokenReader.h */; };
 		2C47B48B24DD97F2008D83BE /* muParserTokenReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B47524DD97F1008D83BE /* muParserTokenReader.cpp */; };
-		2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B47624DD97F1008D83BE /* muParserTest.cpp */; };
 		2C47B48D24DD97F2008D83BE /* muParserTemplateMagic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47724DD97F1008D83BE /* muParserTemplateMagic.h */; };
-		2C47B48E24DD97F2008D83BE /* muParserDLL.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47824DD97F1008D83BE /* muParserDLL.h */; };
 		2C47B48F24DD97F2008D83BE /* muParserInt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47924DD97F1008D83BE /* muParserInt.h */; };
 		2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B47A24DD97F1008D83BE /* muParserBase.cpp */; };
 		2C47B49124DD97F2008D83BE /* muParserToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47B24DD97F1008D83BE /* muParserToken.h */; };
@@ -691,13 +689,11 @@
 		2C47B49324DD97F2008D83BE /* muParserBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47D24DD97F1008D83BE /* muParserBase.h */; };
 		2C47B49424DD97F2008D83BE /* muParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47E24DD97F1008D83BE /* muParser.h */; };
 		2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B47F24DD97F1008D83BE /* muParserBytecode.h */; };
-		2C47B49624DD97F2008D83BE /* muParserDLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48024DD97F1008D83BE /* muParserDLL.cpp */; };
 		2C47B49724DD97F2008D83BE /* muParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48124DD97F1008D83BE /* muParser.cpp */; };
 		2C47B49824DD97F2008D83BE /* muParserError.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B48224DD97F1008D83BE /* muParserError.h */; };
 		2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B48324DD97F1008D83BE /* muParserDef.h */; };
 		2C47B49A24DD97F2008D83BE /* muParserCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48424DD97F1008D83BE /* muParserCallback.cpp */; };
 		2C47B49B24DD97F2008D83BE /* muParserBytecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48524DD97F1008D83BE /* muParserBytecode.cpp */; };
-		2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C47B48624DD97F1008D83BE /* muParserTest.h */; };
 		2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48724DD97F1008D83BE /* muParserError.cpp */; };
 		2C47B49E24DD97F2008D83BE /* muParserInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B48824DD97F1008D83BE /* muParserInt.cpp */; };
 		2C47B4A524E16B90008D83BE /* SivPrimeNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C47B4A424E16B8F008D83BE /* SivPrimeNumber.cpp */; };
@@ -2920,9 +2916,7 @@
 		2C47B47324DD97F1008D83BE /* muParserCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserCallback.h; sourceTree = "<group>"; };
 		2C47B47424DD97F1008D83BE /* muParserTokenReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserTokenReader.h; sourceTree = "<group>"; };
 		2C47B47524DD97F1008D83BE /* muParserTokenReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserTokenReader.cpp; sourceTree = "<group>"; };
-		2C47B47624DD97F1008D83BE /* muParserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserTest.cpp; sourceTree = "<group>"; };
 		2C47B47724DD97F1008D83BE /* muParserTemplateMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserTemplateMagic.h; sourceTree = "<group>"; };
-		2C47B47824DD97F1008D83BE /* muParserDLL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserDLL.h; sourceTree = "<group>"; };
 		2C47B47924DD97F1008D83BE /* muParserInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserInt.h; sourceTree = "<group>"; };
 		2C47B47A24DD97F1008D83BE /* muParserBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserBase.cpp; sourceTree = "<group>"; };
 		2C47B47B24DD97F1008D83BE /* muParserToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserToken.h; sourceTree = "<group>"; };
@@ -2930,13 +2924,11 @@
 		2C47B47D24DD97F1008D83BE /* muParserBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserBase.h; sourceTree = "<group>"; };
 		2C47B47E24DD97F1008D83BE /* muParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParser.h; sourceTree = "<group>"; };
 		2C47B47F24DD97F1008D83BE /* muParserBytecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserBytecode.h; sourceTree = "<group>"; };
-		2C47B48024DD97F1008D83BE /* muParserDLL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserDLL.cpp; sourceTree = "<group>"; };
 		2C47B48124DD97F1008D83BE /* muParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParser.cpp; sourceTree = "<group>"; };
 		2C47B48224DD97F1008D83BE /* muParserError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserError.h; sourceTree = "<group>"; };
 		2C47B48324DD97F1008D83BE /* muParserDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserDef.h; sourceTree = "<group>"; };
 		2C47B48424DD97F1008D83BE /* muParserCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserCallback.cpp; sourceTree = "<group>"; };
 		2C47B48524DD97F1008D83BE /* muParserBytecode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserBytecode.cpp; sourceTree = "<group>"; };
-		2C47B48624DD97F1008D83BE /* muParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = muParserTest.h; sourceTree = "<group>"; };
 		2C47B48724DD97F1008D83BE /* muParserError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserError.cpp; sourceTree = "<group>"; };
 		2C47B48824DD97F1008D83BE /* muParserInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserInt.cpp; sourceTree = "<group>"; };
 		2C47B4A424E16B8F008D83BE /* SivPrimeNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPrimeNumber.cpp; sourceTree = "<group>"; };
@@ -7367,9 +7359,7 @@
 				2C47B47324DD97F1008D83BE /* muParserCallback.h */,
 				2C47B47424DD97F1008D83BE /* muParserTokenReader.h */,
 				2C47B47524DD97F1008D83BE /* muParserTokenReader.cpp */,
-				2C47B47624DD97F1008D83BE /* muParserTest.cpp */,
 				2C47B47724DD97F1008D83BE /* muParserTemplateMagic.h */,
-				2C47B47824DD97F1008D83BE /* muParserDLL.h */,
 				2C47B47924DD97F1008D83BE /* muParserInt.h */,
 				2C47B47A24DD97F1008D83BE /* muParserBase.cpp */,
 				2C47B47B24DD97F1008D83BE /* muParserToken.h */,
@@ -7377,13 +7367,11 @@
 				2C47B47D24DD97F1008D83BE /* muParserBase.h */,
 				2C47B47E24DD97F1008D83BE /* muParser.h */,
 				2C47B47F24DD97F1008D83BE /* muParserBytecode.h */,
-				2C47B48024DD97F1008D83BE /* muParserDLL.cpp */,
 				2C47B48124DD97F1008D83BE /* muParser.cpp */,
 				2C47B48224DD97F1008D83BE /* muParserError.h */,
 				2C47B48324DD97F1008D83BE /* muParserDef.h */,
 				2C47B48424DD97F1008D83BE /* muParserCallback.cpp */,
 				2C47B48524DD97F1008D83BE /* muParserBytecode.cpp */,
-				2C47B48624DD97F1008D83BE /* muParserTest.h */,
 				2C47B48724DD97F1008D83BE /* muParserError.cpp */,
 				2C47B48824DD97F1008D83BE /* muParserInt.cpp */,
 			);
@@ -11868,7 +11856,6 @@
 				2C48BF0925CFB8C500A93CE3 /* msdfgen.h in Headers */,
 				2C48BEDA25CFB8C500A93CE3 /* edge-segments.h in Headers */,
 				2C43C8B025C837F100D6D613 /* freetype.h in Headers */,
-				2C47B48E24DD97F2008D83BE /* muParserDLL.h in Headers */,
 				2C43C88125C837F000D6D613 /* ftdebug.h in Headers */,
 				2C43C87325C837F000D6D613 /* ftoption.h in Headers */,
 				2CB18EA226B5A68700862C28 /* as_bytecode.h in Headers */,
@@ -12356,7 +12343,6 @@
 				2C28E95D2796816C0004E07D /* zdict.h in Headers */,
 				2C43C88625C837F000D6D613 /* autohint.h in Headers */,
 				2C34781025DA95A100071EEF /* CPrint.hpp in Headers */,
-				2C47B49C24DD97F2008D83BE /* muParserTest.h in Headers */,
 				2C636EAE2657F7D300AF029F /* tts.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
@@ -13273,7 +13259,6 @@
 				2C13C9B625BD29FC0054B968 /* lctype.c in Sources */,
 				2C47B33C24DD9789008D83BE /* SystemLog.cpp in Sources */,
 				2CFB7DDB262B06E400169B97 /* SivDialog_macOS.mm in Sources */,
-				2C47B49624DD97F2008D83BE /* muParserDLL.cpp in Sources */,
 				2C47B32024DD9789008D83BE /* CCursor_Null.cpp in Sources */,
 				2CB18EA926B5A68700862C28 /* as_callfunc_mips.cpp in Sources */,
 				2CFABB2A272E3ACB00939278 /* parser.cpp in Sources */,
@@ -13343,7 +13328,6 @@
 				2CD69C0C26D2B7AF00879484 /* ScriptScopedViewport2D.cpp in Sources */,
 				2CB18ECD26B5A68700862C28 /* as_scriptcode.cpp in Sources */,
 				2C5DD43A265979F100282CE2 /* AudioData.cpp in Sources */,
-				2C47B48C24DD97F2008D83BE /* muParserTest.cpp in Sources */,
 				2CD69BD626D2B7AE00879484 /* ScriptTextInput.cpp in Sources */,
 				2C636EB02657F7D300AF029F /* tts.cpp in Sources */,
 				2CFF581425F79CC200B660AD /* SivMat3x3.cpp in Sources */,
