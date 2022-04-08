@@ -117,12 +117,17 @@ namespace s3d
 			Shader::GaussianBlurV(internalBuffer, to);
 		}
 
-		void LinearToScreen(const TextureRegion& src, const Vec2& pos)
+		void LinearToScreen(const TextureRegion& src, const TextureFilter textureFilter, const RectF& dst)
 		{
-			LinearToScreen(src, RectF{ pos, src.size });
+			LinearToScreen(src, dst, textureFilter);
 		}
 
-		void LinearToScreen(const TextureRegion& src, const RectF& dst)
+		void LinearToScreen(const TextureRegion& src, const Vec2& pos, const TextureFilter textureFilter)
+		{
+			LinearToScreen(src, RectF{ pos, src.size }, textureFilter);
+		}
+
+		void LinearToScreen(const TextureRegion& src, const RectF& dst, const TextureFilter textureFilter)
 		{
 			const Vec2 pos = dst.pos;
 			const Vec2 scale = (dst.size / src.size);
@@ -137,7 +142,8 @@ namespace s3d
 			}
 			else
 			{
-				const ScopedRenderStates2D rs{ bs, SamplerState::ClampLinear, RasterizerState::Default2D };
+				const SamplerState samplerState = ((textureFilter == TextureFilter::Nearest) ? SamplerState::ClampNearest : SamplerState::ClampLinear);
+				const ScopedRenderStates2D rs{ bs, samplerState, RasterizerState::Default2D };
 				src.scaled(scale).draw(pos);
 			}
 			
