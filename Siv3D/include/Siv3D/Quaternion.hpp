@@ -18,6 +18,7 @@ namespace s3d
 {
 	struct Mat4x4;
 
+	/// @brief クォータニオン
 	struct alignas(16) Quaternion
 	{
 		SIMD_Float4 value = { 0.0f, 0.0f, 0.0f, 1.0f };

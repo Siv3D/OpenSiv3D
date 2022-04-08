@@ -58,6 +58,9 @@ namespace s3d
 		/// @return オープンに成功した場合 true, それ以外の場合は false
 		bool LaunchBrowser(FilePathView url);
 
+		/// @brief ファイルパスをファイルマネージャー上で表示します。
+		/// @param path ファイルパス
+		/// @return ファイルマネージャー上での表示に成功した場合 true, それ以外の場合は false
 		bool ShowInFileManager(FilePathView path);
 
 		/// @brief レンダラーの設定を返します。

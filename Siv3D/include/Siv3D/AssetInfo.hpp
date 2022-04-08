@@ -31,10 +31,13 @@ namespace s3d
 		Array<AssetTag> tags;
 	};
 
+	/// @brief アセットの状態
 	struct AssetInfo
 	{
+		/// @brief アセットのロード状況
 		AssetState state;
 
+		/// @brief タグ
 		Array<AssetTag> tags;
 	};
 }

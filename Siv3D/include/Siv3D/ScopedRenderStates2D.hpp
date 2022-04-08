@@ -21,6 +21,8 @@
 
 namespace s3d
 {
+	/// @brief 2D 描画レンダーステート設定スコープオブジェクト
+	/// @remark このオブジェクトが存在するスコープでは、2D 描画に、指定したレンダーステートが適用されます。
 	class ScopedRenderStates2D : Uncopyable
 	{
 	public:

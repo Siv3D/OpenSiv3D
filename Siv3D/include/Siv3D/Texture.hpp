@@ -40,6 +40,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
 
+		/// @brief 画像ファイルからテクスチャを作成します。
+		/// @param path ファイルパス
+		/// @param desc テクスチャの設定
 		SIV3D_NODISCARD_CXX20
 		explicit Texture(FilePathView path, TextureDesc desc = TextureDesc::Unmipped);
 
@@ -52,29 +55,49 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Texture(const Color& rgb, FilePathView alpha, TextureDesc desc = TextureDesc::Unmipped);
 
+		/// @brief 絵文字からテクスチャを作成します。
+		/// @param emoji 絵文字
+		/// @remark テクスチャのサイズは `Emoji::ImageSize` です。
+		/// @param desc テクスチャの設定
 		SIV3D_NODISCARD_CXX20
 		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Mipped);
 
+		/// @brief アイコンからテクスチャを作成します。
+		/// @param icon アイコン
+		/// @param size アイコンのサイズ
+		/// @param desc テクスチャの設定
 		SIV3D_NODISCARD_CXX20
 		explicit Texture(const Icon& icon, int32 size, TextureDesc desc = TextureDesc::Mipped);
 
 		virtual ~Texture();
 
+		/// @brief テクスチャの幅（ピクセル）を返します。
+		/// @return  テクスチャの幅（ピクセル）
 		[[nodiscard]]
 		int32 width() const;
 
+		/// @brief テクスチャの高さ（ピクセル）を返します。
+		/// @return  テクスチャの高さ（ピクセル）
 		[[nodiscard]]
 		int32 height() const;
 
+		/// @brief テクスチャの幅と高さ（ピクセル）を返します。
+		/// @return  テクスチャの幅と高さ（ピクセル）
 		[[nodiscard]]
 		Size size() const;
 
+		/// @brief テクスチャの設定を返します。
+		/// @return テクスチャの設定
 		[[nodiscard]]
 		TextureDesc getDesc() const;
 
+		/// @brief テクスチャのフォーマットを返します。
+		/// @return テクスチャのフォーマット
 		[[nodiscard]]
 		TextureFormat getFormat() const;
 
+		/// @brief ミップマッピングが有効化されているかを返します。
+		/// @return ミップマッピングが有効化されている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isMipped() const;
 
@@ -84,6 +107,8 @@ namespace s3d
 		[[nodiscard]]
 		bool isSDF() const;
 
+		/// @brief デプスバッファを持っているかを返します。
+		/// @return デプスバッファを持っている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasDepth() const;
 

@@ -101,6 +101,12 @@ namespace s3d
 
 		void newLine();
 
+		/// @brief CSV データをファイルに保存します。
+		/// @param path ファイルパス
+		/// @param separator 要素のセパレータ
+		/// @param quote クオーテーション記号
+		/// @param escape エスケープ記号
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(FilePathView path, char32 separator = U',', char32 quote = U'\"', char32 escape = U'\\') const;
 
 	private:

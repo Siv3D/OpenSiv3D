@@ -31,16 +31,28 @@ namespace s3d
 			[[nodiscard]]
 			bool IsAvailable();
 
+			/// @brief トースト通知を発行します。
+			/// @param item 発行するトースト通知
+			/// @return 発行したトースト通知の ID
 			ToastNotificationID Show(const ToastNotificationItem& item);
 
+			/// @brief トースト通知の状態を取得します。
+			/// @param id トースト通知の ID
+			/// @return トースト通知の状態
 			[[nodiscard]]
 			ToastNotificationState GetState(ToastNotificationID id);
 
+			/// @brief トースト通知の結果を取得します。
+			/// @param id トースト通知の ID
+			/// @return ユーザが選んだ選択のインデックス。選択されていない場合は none
 			[[nodiscard]]
 			Optional<size_t> GetAction(ToastNotificationID id);
 
+			/// @brief 指定したトースト通知を非表示にします。
+			/// @param id トースト通知の ID
 			void Hide(ToastNotificationID id);
 
+			/// @brief すべてのトースト通知を削除します。
 			void Clear();
 		}
 	}

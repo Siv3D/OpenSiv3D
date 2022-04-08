@@ -32,22 +32,22 @@ namespace s3d
 	[[nodiscard]]
 	String FormatDataSize(int64 bytes);
 
-	/// @brief 
-	/// @tparam Int 
-	/// @param value 
-	/// @param separator 
-	/// @return 
+	/// @brief 桁区切り記号を含めて、数値を文字列に変換した結果を返します。
+	/// @tparam Int 整数型
+	/// @param value 数値
+	/// @param separator 桁区切り記号
+	/// @return 変換した結果
 	SIV3D_CONCEPT_INTEGRAL
 	[[nodiscard]]
 	inline String ThousandsSeparate(Int value, StringView separator = U","_sv);
 
-	/// @brief 
-	/// @tparam Float
-	/// @param value 
-	/// @param decimalPlace 
-	/// @param fixed 
-	/// @param separator 
-	/// @return 
+	/// @brief 桁区切り記号を含めて、数値を文字列に変換した結果を返します。
+	/// @tparam Float 浮動小数点数型
+	/// @param value 数値
+	/// @param decimalPlace 小数点数以下の桁数
+	/// @param fixed 小数点数以下の桁数を固定する場合は `Fixed::Yes`, それ以外の場合は `Fixed::No`
+	/// @param separator 桁区切り記号
+	/// @return 変換した結果
 	SIV3D_CONCEPT_FLOATING_POINT_
 	[[nodiscard]]
 	inline String ThousandsSeparate(Float value, int32 decimalPlace = 3, Fixed fixed = Fixed::No, StringView separator = U","_sv);

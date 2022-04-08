@@ -19,6 +19,9 @@ namespace s3d
 	template <class Type>
 	struct ScriptFunction;
 
+	/// @brief スクリプト関数
+	/// @tparam Ret 戻り値の型
+	/// @tparam ...Args 引数の型
 	template <class Ret, class... Args>
 	struct ScriptFunction<Ret(Args...)>
 	{
@@ -40,13 +43,25 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		ScriptFunction(const std::shared_ptr<ScriptModule>& module, AngelScript::asIScriptFunction* function);
 
+		/// @brief スクリプト関数が空でないかを返します。
+		/// @return スクリプト関数が空でない場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		/// @brief スクリプト関数を呼び出します。
+		/// @param ...args 引数
+		/// @return スクリプト関数の戻り値
 		Ret operator ()(Args... args) const;
 
+		/// @brief スクリプト関数を呼び出します。
+		/// @param ...args 引数
+		/// @param exception スクリプト例外が発生した場合の例外の内容の格納先への参照
+		/// @return スクリプト関数の戻り値
 		Ret tryCall(Args... args, String& exception) const;
 
+		/// @brief 関数宣言を返します。
+		/// @param includeParamNames パラメータ名を含む場合 `IncludeParamNames::Yes`, それ以外の場合は `IncludeParamNames::No`
+		/// @return 関数宣言。失敗した場合は空の文字列
 		[[nodiscard]]
 		String getDeclaration(IncludeParamNames includeParamNames = IncludeParamNames::Yes) const;
 

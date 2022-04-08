@@ -61,6 +61,8 @@ namespace s3d
 		[[nodiscard]]
 		double posSec() const noexcept;
 
+		/// @brief 動画の長さ（秒）を返します。
+		/// @return 動画の長さ（秒）
 		[[nodiscard]]
 		double lengthSec() const;
 
@@ -75,12 +77,18 @@ namespace s3d
 		[[nodiscard]]
 		const VideoReader& getVideoReader() const noexcept;
 
+		/// @brief 動画の幅（ピクセル）を返します。
+		/// @return 動画の幅（ピクセル）
 		[[nodiscard]]
 		int32 width() const;
 
+		/// @brief 動画の高さ（ピクセル）を返します。
+		/// @return 動画の高さ（ピクセル）
 		[[nodiscard]]
 		int32 height() const;
 
+		/// @brief 動画の幅と高さ（ピクセル）を返します。
+		/// @return 動画の幅と高さ（ピクセル）
 		[[nodiscard]]
 		Size size() const;
 

@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief マルチサンプル（アンチエイリアス付き）レンダーテクスチャ
 	class MSRenderTexture : public RenderTexture
 	{
 	public:
@@ -40,9 +41,12 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
 
-		// レンダリングされたマルチサンプルテクスチャを通常のテクスチャに resolve し、描画可能にする
+		/// @brief レンダリングされたマルチサンプルテクスチャを通常のテクスチャに resolve し、描画可能な状態にします。
 		void resolve() const;
 
+		/// @brief テクスチャを指定した色で塗りつぶします。デプスを持つ場合、デプスもクリアします。
+		/// @param color 塗りつぶしの色
+		/// @return *this
 		const MSRenderTexture& clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート

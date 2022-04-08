@@ -14,20 +14,28 @@
 
 namespace s3d
 {
+	/// @brief トースト通知の状態
 	enum class ToastNotificationState : uint8
 	{
+		/// @brief 無効
 		None_,
-
+		
+		/// @brief 表示されている
 		Shown,
 
+		/// @brief ユーザによってアクティベートされた
 		Activated,
 
+		/// @brief ユーザによってキャンセルされた
 		UserCanceled,
 
+		/// @brief アプリケーションによって非表示にされた
 		ApplicationHidden,
 
+		/// @brief タイムアウトした
 		TimedOut,
 
+		/// @brief エラーが発生した
 		Error,
 	};
 }

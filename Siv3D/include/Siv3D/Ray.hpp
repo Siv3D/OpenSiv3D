@@ -51,19 +51,35 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Ray(Float3 _origin, X ndx, Y ndy, Z ndz) noexcept;
 
+		/// @brief レイの始点を返します。
+		/// @return レイの始点
 		[[nodiscard]]
 		Float3 SIV3D_VECTOR_CALL getOrigin() const noexcept;
 
+		/// @brief レイの始点を設定します。
+		/// @param _origin 新しいレイの始点
+		/// @return *this
 		Ray& SIV3D_VECTOR_CALL setOrigin(Float3 _origin) noexcept;
 
+		/// @brief レイの方向（正規化ベクトル）を返します。
+		/// @return レイの方向（正規化ベクトル）
 		[[nodiscard]]
 		Float3 SIV3D_VECTOR_CALL getDirection() const noexcept;
 
+		/// @brief レイの方向（正規化ベクトル）を設定します。
+		/// @param _direction 新しいレイの方向（正規化ベクトル）
+		/// @return *this
 		Ray& SIV3D_VECTOR_CALL setDirection(Float3 _direction) noexcept;
-		
+
+		/// @brief 始点からの距離を指定して、レイ上の点の座標を計算します。
+		/// @param distance 始点からの距離
+		/// @return レイ上の点の座標
 		[[nodiscard]]
 		Float3 SIV3D_VECTOR_CALL point_at(float distance) const noexcept;
 
+		/// @brief 始点からの距離を指定して、レイ上の点の座標を計算します。
+		/// @param distance 始点からの距離
+		/// @return レイ上の点の座標
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
 		Vec3 SIV3D_VECTOR_CALL point_at(Arithmetic distance) const noexcept;

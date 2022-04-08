@@ -127,6 +127,8 @@ namespace s3d
 			{
 				if (IsResourcePath(path))
 				{
+					baseFullPath.clear();
+
 					return{};
 				}
 			}

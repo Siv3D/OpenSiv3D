@@ -15,18 +15,26 @@
 
 namespace s3d
 {
+	/// @brief Disjoint Set Union (Union-Find)
+	/// @tparam IndexType インデックスの型
 	template <class IndexType>
 	class DisjointSet
 	{
 	public:
 
+		/// @brief インデックスの型
 		using index_type = IndexType;
 
+		/// @brief 現在のインデックスの型で保持可能な最大の要素数
+		/// @remark 例えば、インデックス型が uint8 の場合は 256 個です。
 		static constexpr size_t MaxSize = (static_cast<size_t>(std::numeric_limits<index_type>::max()) + 1);
 
+		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		DisjointSet() = default;
 
+		/// @brief 要素数を指定して Union-Find を作成します。
+		/// @param n 要素数
 		SIV3D_NODISCARD_CXX20
 		explicit DisjointSet(size_t n);
 

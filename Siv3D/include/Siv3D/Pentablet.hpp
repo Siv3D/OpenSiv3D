@@ -29,6 +29,8 @@ namespace s3d
 		[[nodiscard]]
 		bool SupportsTangentPressure();
 
+		/// @brief 接続されているペンタブレットが角度情報の取得に対応しているかを調べます。
+		/// @return 角度情報の取得に対応している場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool SupportsOrientation();
 

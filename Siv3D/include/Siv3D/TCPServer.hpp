@@ -20,6 +20,7 @@ namespace s3d
 {
 	using TCPSessionID = uint64;
 
+	/// @brief TCP サーバ
 	class TCPServer
 	{
 	public:

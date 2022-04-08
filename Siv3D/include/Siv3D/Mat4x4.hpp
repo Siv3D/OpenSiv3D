@@ -18,6 +18,7 @@
 
 namespace s3d
 {
+	/// @brief 4x4 行列クラス
 	struct alignas(16) Mat4x4
 	{
 		DirectX::XMMATRIX value;

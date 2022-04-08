@@ -15,6 +15,7 @@
 
 namespace s3d
 {
+	/// @brief レンダーテクスチャ
 	class RenderTexture : public Texture
 	{
 	public:
@@ -54,6 +55,9 @@ namespace s3d
 
 		virtual ~RenderTexture();
 
+		/// @brief テクスチャを指定した色で塗りつぶします。デプスを持つ場合、デプスもクリアします。
+		/// @param color 塗りつぶしの色
+		/// @return *this
 		const RenderTexture& clear(const ColorF& color) const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート

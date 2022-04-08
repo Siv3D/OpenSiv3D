@@ -20,14 +20,19 @@ namespace s3d
 	/// @brief リストボックスの状態
 	struct ListBoxState
 	{
+		/// @brief アイテム
 		Array<String> items;
 
+		/// @brief 選択されているアイテムのインデックス
 		Optional<size_t> selectedItemIndex;
 
+		/// @brief スクロールバーの状態
 		Optional<std::pair<int32, double>> scrollBarGrabbed;
 
+		/// @brief スクロール数
 		int32 scroll = 0;
 
+		/// @brief ホイールの状態
 		double wheel = 0.0;
 
 		SIV3D_NODISCARD_CXX20

@@ -262,27 +262,51 @@ namespace s3d
 		[[nodiscard]]
 		value_type operator [](size_t offset) && noexcept;
 
+		/// @brief 先頭に文字を追加します。
+		/// @param ch 追加する文字
 		void push_front(value_type ch);
 
+		/// @brief 末尾に文字を追加します。
+		/// @param ch 追加する文字
 		void push_back(value_type ch);
 
+		/// @brief 先頭の文字を削除します。
 		void pop_front();
 
+		/// @brief 先頭の n 文字を削除します。
+		/// @remark n が現在の文字数より大きい場合は空の文字列にします。
+		/// @param n 削除する文字数
 		void pop_front_N(size_t n);
 
+		/// @brief 末尾の文字を削除します。
 		void pop_back() noexcept;
 
+		/// @brief 末尾の n 文字を削除します。
+		/// @remark n が現在の文字数より大きい場合は空の文字列にします。
+		/// @param n 削除する文字数
 		void pop_back_N(size_t n) noexcept;
 
+		/// @brief 先頭の文字への参照を返します。
+		/// @remark 空の文字列に対しては使えません。
+		/// @return 先頭の文字への参照
 		[[nodiscard]]
 		value_type& front() noexcept;
 
+		/// @brief 先頭の文字への参照を返します。
+		/// @remark 空の文字列に対しては使えません。
+		/// @return 先頭の文字への参照
 		[[nodiscard]]
 		const value_type& front() const noexcept;
 
+		/// @brief 末尾の文字への参照を返します。
+		/// @remark 空の文字列に対しては使えません。
+		/// @return 末尾の文字への参照
 		[[nodiscard]]
 		value_type& back() noexcept;
 
+		/// @brief 末尾の文字への参照を返します。
+		/// @remark 空の文字列に対しては使えません。
+		/// @return 末尾の文字への参照
 		[[nodiscard]]
 		const value_type& back() const noexcept;
 
@@ -301,21 +325,36 @@ namespace s3d
 		[[nodiscard]]
 		const string_type& str() const noexcept;
 
+		/// @brief 文字列の長さ（要素数）を返します。
+		/// @return 文字列の長さ（要素数）
 		[[nodiscard]]
 		size_t length() const noexcept;
 
+		/// @brief 文字列の長さ（要素数）を返します。
+		/// @remark `.length()` と同じです。
+		/// @return 文字列の長さ（要素数）
 		[[nodiscard]]
 		size_t size() const noexcept;
 
+		/// @brief 文字列のデータサイズ（バイト）を返します。
+		/// @remark `sizeof(value_type) * length()` です。
+		/// @return 文字列のデータサイズ（バイト）
 		[[nodiscard]]
 		size_t size_bytes() const noexcept;
 
+		/// @brief 文字列が空であるかを返します。
+		/// @return 文字列が空である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool empty() const noexcept;
 
+		/// @brief 文字列が空であるかを返します。
+		/// @remark `empty()` と同じです。
+		/// @return 文字列が空である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
+		/// @brief 文字列が空でないかを返します。
+		/// @return 文字列が空でない場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
@@ -357,24 +396,20 @@ namespace s3d
 		[[nodiscard]]
 		bool ends_with(StringView s) const;
 
-		/// @brief 
-		/// @param offset 
-		/// @param count 
-		/// @return 
+		/// @brief 部分文字列を取得します。
+		/// @param offset 開始インデックス
+		/// @param count 取得する文字数。末尾までの場合 npos
+		/// @return 部分文字列
 		[[nodiscard]]
 		String substr(size_t offset = 0, size_t count = npos) const;
 
-		/// @brief 
-		/// @param offset 
-		/// @param count 
-		/// @return 
+		/// @brief 部分文字列へのビューを取得します。
+		/// @param offset 開始インデックス
+		/// @param count 取得する文字数。末尾までの場合 npos
+		/// @return 部分文字列へのビュー
 		[[nodiscard]]
 		StringView substrView(size_t offset = 0, size_t count = npos) const&;
 
-		/// @brief 
-		/// @param offset 
-		/// @param count 
-		/// @return 
 		[[nodiscard]]
 		StringView substrView(size_t offset = 0, size_t count = npos)&& = delete;
 

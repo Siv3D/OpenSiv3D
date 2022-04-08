@@ -16,10 +16,13 @@
 
 namespace s3d
 {
+	/// @brief 3D モデルを構成するモデルのパーツ
 	struct ModelMeshPart
 	{
+		/// @brief メッシュ
 		Mesh mesh;
 
+		/// @brief 親となる 3D モデルにおける、マテリアルインデックス
 		Optional<size_t> materialID;
 	};
 }

@@ -83,5 +83,6 @@ namespace s3d
 		};
 	}
 
+	/// @brief テキスト読み上げを行うオブジェクトです。`<<` で値を送ります。
 	inline constexpr auto Say = detail::Say_impl{};
 }

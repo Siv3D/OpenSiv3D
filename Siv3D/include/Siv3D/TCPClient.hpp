@@ -19,6 +19,7 @@ namespace s3d
 {
 	class IPv4Address;
 
+	/// @brief TCP クライアント
 	class TCPClient
 	{
 	public:

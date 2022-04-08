@@ -18,19 +18,27 @@
 
 namespace s3d
 {
+	/// @brief 2D 描画レンダーターゲット設定スコープオブジェクト
+	/// @remark このオブジェクトが存在するスコープでは、2D 描画のレンダーターゲットとして、デフォルトのシーンではなく指定したレンダーテクスチャが使用されます。
 	class ScopedRenderTarget2D : Uncopyable
 	{
 	public:
 
+		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		ScopedRenderTarget2D() = default;
 
+		/// @brief 2D 描画レンダーターゲット設定スコープオブジェクトを作成します。
+		/// @param rt レンダーターゲットとして使用するテクスチャ。none の場合はデフォルトのシーンを使用
 		SIV3D_NODISCARD_CXX20
 		explicit ScopedRenderTarget2D(const Optional<RenderTexture>& rt);
 
+		/// @brief ムーブコンストラクタ
+		/// @param other 別の 2D 描画レンダーターゲット設定スコープオブジェクト
 		SIV3D_NODISCARD_CXX20
 		ScopedRenderTarget2D(ScopedRenderTarget2D&& other) noexcept;
 
+		/// @brief デストラクタ
 		~ScopedRenderTarget2D();
 
 		//ScopedRenderTarget2D& operator =(ScopedRenderTarget2D && other) noexcept;

@@ -24,44 +24,95 @@ namespace s3d
 {
 	namespace Dialog
 	{
+		/// @brief オープンファイルダイアログを表示し、選択されたファイルを返します。
+		/// @param filters ダイアログに表示するファイルの拡張子のフィルタ
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 選択されたファイルのパス。選択されなかった場合は none
 		[[nodiscard]]
 		Optional<FilePath> OpenFile(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief オープンファイルダイアログを表示し、選択されたファイルを返します。複数選択することもできます。
+		/// @param filters ダイアログに表示するファイルの拡張子のフィルタ
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 選択されたファイルパスの一覧。選択されなかった場合は空の配列
 		[[nodiscard]]
 		Array<FilePath> OpenFiles(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief セーブファイルダイアログを表示し、選択されたファイルパスを返します。
+		/// @param filters ダイアログに表示するファイルの拡張子のフィルタ
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @remark この関数はファイルの保存は行いません。戻り値をファイル保存系の関数と組み合わせて使ってください。
+		/// @return 選択されたファイルパス。選択されなかった場合は none
 		[[nodiscard]]
 		Optional<FilePath> SaveFile(const Array<FileFilter>& filters = {}, FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief フォルダ選択ダイアログを表示し、選択されたフォルダを返します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 選択されたフォルダのパス。選択されなかった場合は none
 		[[nodiscard]]
 		Optional<FilePath> SelectFolder(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief イアログから画像ファイルを選択し、Image を作成します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 作成した Image. ファイルが選択されなかった場合は空の Image
 		[[nodiscard]]
 		Image OpenImage(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief ダイアログから画像ファイルを選択し、Texture を作成します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 作成したテクスチャ。ファイルが選択されなかった場合は空のテクスチャ
 		[[nodiscard]]
 		Texture OpenTexture(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief ダイアログから画像ファイルを選択し、Texture を作成します。
+		/// @param desc テクスチャの設定
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 作成したテクスチャ。ファイルが選択されなかった場合は空のテクスチャ
 		[[nodiscard]]
 		Texture OpenTexture(TextureDesc desc, FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief ダイアログから音声ファイルを選択し、Wave を作成します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 作成した音声。ファイルが選択されなかった場合は空の Wave
 		[[nodiscard]]
 		Wave OpenWave(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief ダイアログから音声ファイルを選択し、Audio を作成します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
 		[[nodiscard]]
 		Audio OpenAudio(FilePathView defaultPath = U"", StringView title = U"");
 
 		/// @brief ダイアログから音声ファイルを選択し、ストリーミング再生する Audio を作成します。
 		/// @param f `Audio::Stream`
-		/// @param defaultPath ダイアログのデフォルトディレクトリ
-		/// @param title ダイアログのタイトル
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
 		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
 		[[nodiscard]]
 		Audio OpenAudio(Audio::FileStreaming f, FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief セーブファイルダイアログから、画像を保存するパスを取得します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @remark この関数は画像ファイルの保存は行いません。`Image::save()` と組み合わせて使ってください。
+		/// @return 画像ファイルを保存するパス。選択されなかった場合は none
 		[[nodiscard]]
 		Optional<FilePath> SaveImage(FilePathView defaultPath = U"", StringView title = U"");
 
+		/// @brief セーブファイルダイアログから、音声を保存するパスを取得します。
+		/// @param defaultPath ダイアログで表示するデフォルトディレクトリ。空の場合は OS のデフォルト
+		/// @param title ダイアログのタイトル。空の場合は OS のデフォルト
+		/// @remark この関数は音声ファイルの保存は行いません。`Wave::save()` と組み合わせて使ってください。
+		/// @return 音声ファイルを保存するパス。選択されなかった場合は none
 		[[nodiscard]]
 		Optional<FilePath> SaveWave(FilePathView defaultPath = U"", StringView title = U"");
 	}

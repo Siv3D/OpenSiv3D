@@ -176,9 +176,13 @@ namespace s3d
 		[[nodiscard]]
 		size_t size_bytes() const noexcept;
 
+		/// @brief 画像が空であるかを返します。
+		/// @return 画像が空である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
+		/// @brief 画像が空でないかを返します。
+		/// @return 画像が空でない場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
@@ -209,6 +213,9 @@ namespace s3d
 		[[nodiscard]]
 		Color* operator [](size_t y);
 
+		/// @brief 指定した位置のピクセルの参照を返します。
+		/// @param pos 位置
+		/// @return 指定した位置のピクセルの参照
 		[[nodiscard]]
 		Color& operator [](Point pos);
 
@@ -219,6 +226,9 @@ namespace s3d
 		[[nodiscard]]
 		const Color* operator [](size_t y) const;
 
+		/// @brief 指定した位置のピクセルの参照を返します。
+		/// @param pos 位置
+		/// @return 指定した位置のピクセルの参照
 		[[nodiscard]]
 		const Color& operator [](Point pos) const;
 
@@ -334,6 +344,8 @@ namespace s3d
 		template <class Fty>
 		const Image& forEach(Fty f) const;
 
+		/// @brief 画像の R 成分と B 成分を入れ替えます。
+		/// @return *this
 		Image& RGBAtoBGRA();
 
 		bool applyAlphaFromRChannel(FilePathView alpha);
@@ -369,16 +381,22 @@ namespace s3d
 		[[nodiscard]]
 		Blob encodeWebP(Lossless lossless = Lossless::No, double quality = WebPEncoder::DefaultQuality, WebPMethod method = WebPMethod::Default) const;
 
+		/// @brief 画像の色を反転します。
+		/// @return *this
 		Image& negate();
 
 		[[nodiscard]]
 		Image negated() const;
 
+		/// @brief 画像をグレイスケール画像に変換します。
+		/// @return *this
 		Image& grayscale();
 
 		[[nodiscard]]
 		Image grayscaled() const;
 
+		/// @brief 画像をセピア画像に変換します。
+		/// @return *this
 		Image& sepia();
 
 		[[nodiscard]]
@@ -394,26 +412,36 @@ namespace s3d
 		[[nodiscard]]
 		Image brightened(int32 level) const;
 
+		/// @brief 画像を左右反転します。
+		/// @return *this
 		Image& mirror();
 
 		[[nodiscard]]
 		Image mirrored() const;
 
+		/// @brief 画像を上下反転します。
+		/// @return *this
 		Image& flip();
 
 		[[nodiscard]]
 		Image flipped() const;
 
+		/// @brief 画像を時計回りに 90° 回転します。
+		/// @return *this
 		Image& rotate90();
 
 		[[nodiscard]]
 		Image rotated90() const;
 
+		/// @brief 画像を時計回りに 180° 回転します。
+		/// @return *this
 		Image& rotate180();
 
 		[[nodiscard]]
 		Image rotated180() const;
 
+		/// @brief 画像を時計回りに 270° 回転します。
+		/// @return *this
 		Image& rotate270();
 
 		[[nodiscard]]

@@ -45,131 +45,131 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(Wave&& wave);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loop 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loop ループする場合は `Loop::Yes`, それ以外の場合は `Loop::No`
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, const Loop loop);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（サンプル）
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
-		/// @param loopEnd 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（サンプル）
+		/// @param loopEnd ループの終端位置（サンプル）
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（秒）
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
-		/// @param loopEnd 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（秒）
+		/// @param loopEnd ループの終端位置（秒）
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loop 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loop ループ情報
 		SIV3D_NODISCARD_CXX20
 		Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop);
 
-		/// @brief 
-		/// @param wave 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(const Wave& wave);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loop 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loop ループする場合は `Loop::Yes`, それ以外の場合は `Loop::No`
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, const Loop loop);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（サンプル）
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（サンプル）
 		/// @param loopEnd 
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（秒）
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loopBegin 
-		/// @param loopEnd 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loopBegin ループの開始位置（秒）
+		/// @param loopEnd ループの終端位置（秒）
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		/// @brief 
-		/// @param wave 
-		/// @param loop 
+		/// @brief Wave からオーディオを作成します。
+		/// @param wave Wave
+		/// @param loop ループ情報
 		SIV3D_NODISCARD_CXX20
 		Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop);
 
-		/// @brief 
-		/// @param path 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
+		/// @param path ファイルパス
 		SIV3D_NODISCARD_CXX20
 		explicit Audio(FilePathView path);
 
-		/// @brief 
-		/// @param path 
-		/// @param loop 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
+		/// @param path ファイルパス
+		/// @param loop ループする場合は `Loop::Yes`, それ以外の場合は `Loop::No`
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, const Loop loop);
 
-		/// @brief 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
 		/// @param path 
 		/// @param loopBegin 
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
-		/// @brief 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
 		/// @param path 
 		/// @param loopBegin 
 		/// @param loopEnd 
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		/// @brief 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
 		/// @param path 
 		/// @param loopBegin 
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, Arg::loopBegin_<Duration> loopBegin);
 
-		/// @brief 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
 		/// @param path 
 		/// @param loopBegin 
 		/// @param loopEnd 
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		/// @brief 
+		/// @brief オーディオファイルをロードしてオーディオを作成します。
 		/// @param path 
 		/// @param loop 
 		SIV3D_NODISCARD_CXX20
 		Audio(FilePathView path, const Optional<AudioLoopTiming>& loop);
 
-		/// @brief 
+		/// @brief オーディオファイルからストリーミング形式でロードするオーディオを作成します。
 		/// @param  
 		/// @param path 
 		/// @remark ストリーミング再生は WAVE, OggVorbis, FLAC, MP3 のみサポート。
@@ -177,7 +177,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path);
 
-		/// @brief 
+		/// @brief オーディオファイルからストリーミング形式でロードするオーディオを作成します。
 		/// @param  
 		/// @param path 
 		/// @param loop 
@@ -186,7 +186,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Loop loop);
 
-		/// @brief 
+		/// @brief オーディオファイルからストリーミング形式でロードするオーディオを作成します。
 		/// @param  
 		/// @param path 
 		/// @param loopBegin 
@@ -195,28 +195,26 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Audio(FileStreaming, FilePathView path, Arg::loopBegin_<uint64> loopBegin);
 
-		/// @brief 
-		/// @param instrument 
-		/// @param key 
-		/// @param duration 
-		/// @param velocity 
-		/// @param sampleRate 
-		/// @return 
+		/// @brief 楽器の音のオーディオを作成します。
+		/// @param instrument 楽器
+		/// @param key 音階
+		/// @param duration ノートオンの時間
+		/// @param velocity ベロシティ
+		/// @param sampleRate サンプルレート (Hz)
 		SIV3D_NODISCARD_CXX20
 		Audio(GMInstrument instrument, uint8 key, const Duration& duration, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
-		/// @brief 
-		/// @param instrument 
-		/// @param key 
-		/// @param noteOn 
-		/// @param noteOff 
-		/// @param velocity 
-		/// @param sampleRate 
-		/// @return 
+		/// @brief 楽器の音のオーディオを作成します。
+		/// @param instrument 楽器
+		/// @param key 音階
+		/// @param noteOn ノートオンの時間
+		/// @param noteOff ノートオフの時間
+		/// @param velocity ベロシティ
+		/// @param sampleRate サンプルレート (Hz)
 		SIV3D_NODISCARD_CXX20
 		Audio(GMInstrument instrument, uint8 key, const Duration& noteOn, const Duration& noteOff, double velocity = 1.0, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
-		/// @brief 
+		/// @brief IReader からオーディオを作成します。
 		/// @param reader 
 		/// @param format 
 		SIV3D_NODISCARD_CXX20

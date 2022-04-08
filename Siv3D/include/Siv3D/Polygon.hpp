@@ -68,15 +68,23 @@ namespace s3d
 
 		Polygon& operator =(Polygon&& polygon) noexcept;
 
+		/// @brief 多角形が空であるかを返します。
+		/// @return  多角形が空である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
+		/// @brief 多角形が空ではないかを返します。
+		/// @return 多角形が空でない場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		/// @brief 多角形が穴を持っているかを返します。
+		/// @return 穴を持つ場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasHoles() const noexcept;
 
+		/// @brief 多角形が持つ穴の個数を返します。
+		/// @return 多角形が持つ穴の個数
 		[[nodiscard]]
 		size_t num_holes() const noexcept;
 
@@ -94,17 +102,35 @@ namespace s3d
 		[[nodiscard]]
 		const Array<TriangleIndex>& indices() const noexcept ;
 
+		/// @brief 多角形のバウンディングボックスを返します。
+		/// @remark バウンディングボックスは計算済みであるため、この関数のコストは小さいです。
+		/// @return 多角形のバウンディングボックス
 		[[nodiscard]]
 		const RectF& boundingRect() const noexcept;
 
+		/// @brief 多角形の三角形分割での三角形の個数を返します。
+		/// @remark 三角形分割は計算済みであるため、この関数のコストは小さいです。
+		/// @return 三角形の個数
 		[[nodiscard]]
 		size_t num_triangles() const noexcept;
 
+		/// @brief 多角形の三角形分割での、個々の三角形を返します。
+		/// @param index 三角形のインデックス。0 以上 `(num_triangles() - 1)` 以下
+		/// @return 三角形
 		[[nodiscard]]
 		Triangle triangle(size_t index) const;
 
+		/// @brief 多角形に穴を追加します。
+		/// @param hole 穴を構成する頂点配列
+		/// @param skipValidation 不適切な頂点配列のチェックを行う場合 `SkipValidation::Yes`, それ以外の場合は `SkipValidation::No`
+		/// @remark 入力チェックを行う場合、不適切な頂点配列を渡すと、多角形は空になります。
+		/// @return *this
 		Polygon& addHole(Array<Vec2> hole, SkipValidation skipValidation = SkipValidation::No);
 
+		/// @brief 多角形に穴を追加します。
+		/// @param holes 穴を構成する頂点配列の配列（複数の穴）
+		/// @param skipValidation 不適切な頂点配列のチェックを行う場合 `SkipValidation::Yes`, それ以外の場合は `SkipValidation::No`
+		/// @return 入力チェックを行う場合、不適切な頂点配列を渡すと、多角形は空になります。
 		Polygon& addHoles(Array<Array<Vec2>> holes, SkipValidation skipValidation = SkipValidation::No);
 
 		[[nodiscard]]
@@ -167,35 +193,65 @@ namespace s3d
 
 		Polygon& scaleAt(Vec2 pos, Vec2 s);
 
+		/// @brief 多角形の面積を返します。
+		/// @return 多角形の面積
 		[[nodiscard]]
 		double area() const noexcept;
 
+		/// @brief 多角形の、穴を含めた輪郭の長さを返します。
+		/// @return 多角形の、穴を含めた輪郭の長さ
 		[[nodiscard]]
 		double perimeter() const noexcept;
 
+		/// @brief 多角形の重心の座標を返します。
+		/// @return 多角形の重心の座標
 		[[nodiscard]]
 		Vec2 centroid() const;
 
+		/// @brief 多角形の凸包を計算して返します。
+		/// @return 多角形の凸包
 		[[nodiscard]]
 		Polygon computeConvexHull() const;
 
+		/// @brief 多角形を太らせた、新しい多角形を返します。
+		/// @param distance 太らせる距離。負の場合は細らせます。
+		/// @return 新しい多角形
 		[[nodiscard]]
 		Polygon calculateBuffer(double distance) const;
 
+		/// @brief 多角形を丸く太らせた、新しい多角形を返します。
+		/// @param distance 太らせる距離。負の場合は細らせます。
+		/// @return 新しい多角形
 		[[nodiscard]]
 		Polygon calculateRoundBuffer(double distance) const;
 
+		/// @brief 多角形を単純化した、新しい多角形を返します。
+		/// @param maxDistance 単純化に使う距離。大きいほど単純化されます。
+		/// @return 新しい多角形
 		[[nodiscard]]
 		Polygon simplified(double maxDistance = 2.0) const;
 
+		/// @brief 多角形の外周を LineString で返します。
+		/// @param closeRing 始点と終点を一致させる場合は `CloseRing::Yes`, それ以外の場合は `CloseRing::No`
+		/// @return 多角形の外周
 		[[nodiscard]]
 		LineString outline(CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 多角形の外周の一部を LineString で返します。
+		/// @param distanceFromOrigin 取得の開始位置（Polygon 外周の最初の頂点からの距離）
+		/// @param length 取得する LineString の長さ
+		/// @return 取得した多角形の外周の一部
 		[[nodiscard]]
 		LineString outline(double distanceFromOrigin, double length) const;
 
+		/// @brief 多角形に新しい領域を追加します。新しい領域は既存の多角形と接続していなければなりません。
+		/// @param other 新しい領域
+		/// @return 新しい領域の追加に成功した場合 true, それ以外の場合は false
 		bool append(const RectF& other);
 
+		/// @brief 多角形に新しい領域を追加します。新しい領域は既存の多角形と接続していなければなりません。
+		/// @param other 新しい領域
+		/// @return 新しい領域の追加に成功した場合 true, それ以外の場合は false
 		bool append(const Polygon& other);
 
 		template <class Shape2DType>
@@ -222,24 +278,38 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const Shape2DType& other) const;
 
+		/// @brief 多角形が現在のフレームで左クリックされ始めたかを返します。
+		/// @return 多角形が現在のフレームで左クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftClicked() const noexcept;
 
+		/// @brief 多角形が左クリックされているかを返します。
+		/// @return 多角形が左クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftPressed() const noexcept;
 
+		/// @brief 現在のフレームで多角形への左クリックが離されたかを返します。
+		/// @return 現在のフレームで多角形への左クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool leftReleased() const noexcept;
 
+		/// @brief 多角形が現在のフレームで右クリックされ始めたかを返します。
+		/// @return 多角形が現在のフレームで右クリックされ始めた場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightClicked() const noexcept;
 
+		/// @brief 多角形が右クリックされているかを返します。
+		/// @return 多角形が右クリックされている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightPressed() const noexcept;
 
+		/// @brief 現在のフレームで多角形への右クリックが離されたかを返します。
+		/// @return 現在のフレームで多角形への右クリックが離された場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool rightReleased() const noexcept;
 
+		/// @brief 多角形上にマウスカーソルがあるかを返します。
+		/// @return 多角形上にマウスカーソルがある場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool mouseOver() const noexcept;
 

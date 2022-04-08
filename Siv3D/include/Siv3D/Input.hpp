@@ -38,6 +38,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Input(InputDeviceType deviceType, uint8 code, uint8 playerIndex = 0) noexcept;
 
+		/// @brief デバイスの種類を返します。
+		/// @return デバイスの種類
 		[[nodiscard]]
 		constexpr InputDeviceType deviceType() const noexcept;
 

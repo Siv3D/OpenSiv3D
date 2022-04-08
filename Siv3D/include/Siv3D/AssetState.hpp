@@ -14,14 +14,19 @@
 
 namespace s3d
 {
+	/// @brief アセットのロード状況
 	enum class AssetState : uint8
 	{
+		/// @brief ロードを開始していない
 		Uninitialized,
 
+		/// @brief 非同期ロード中
 		AsyncLoading,
 
+		/// @brief ロード済み
 		Loaded,
 
+		/// @brief ロードに失敗
 		Failed,
 	};
 }

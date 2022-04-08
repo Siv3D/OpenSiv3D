@@ -20,83 +20,92 @@ namespace s3d
 	[[nodiscard]]
 	Int ParseInt(StringView s, Arg::radix_<uint32> radix = 0);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	int8 ParseInt<int8>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	uint8 ParseInt<uint8>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	int16 ParseInt<int16>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>	
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	uint16 ParseInt<uint16>(StringView s, Arg::radix_<uint32> radix);
 	
-
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	int32 ParseInt<int32>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>	
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	uint32 ParseInt<uint32>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>	
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	long ParseInt<long>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	unsigned long ParseInt<unsigned long>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	long long ParseInt<long long>(StringView s, Arg::radix_<uint32> radix);
 
-	/// <exception cref="ParseError">
-	/// パースエラーが発生したときに例外が投げられます。
-	/// Thrown when a parsing error occurs
-	/// </exception>
+	/// @brief 文字列をパースして整数を返します。
+	/// @param s 文字列
+	/// @param radix 基数
+	/// @throw ParseError パースに失敗した場合
+	/// @return パースした結果
 	template <>
 	[[nodiscard]]
 	unsigned long long ParseInt<unsigned long long>(StringView s, Arg::radix_<uint32> radix);
