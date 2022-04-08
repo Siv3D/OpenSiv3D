@@ -235,10 +235,8 @@ target_sources(muparser
         ../Siv3D/src/ThirdParty/muparser/muParserBase.cpp
         ../Siv3D/src/ThirdParty/muparser/muParserBytecode.cpp
         ../Siv3D/src/ThirdParty/muparser/muParserCallback.cpp
-        ../Siv3D/src/ThirdParty/muparser/muParserDLL.cpp
         ../Siv3D/src/ThirdParty/muparser/muParserError.cpp
         ../Siv3D/src/ThirdParty/muparser/muParserInt.cpp
-        ../Siv3D/src/ThirdParty/muparser/muParserTest.cpp
         ../Siv3D/src/ThirdParty/muparser/muParserTokenReader.cpp
 )
 
