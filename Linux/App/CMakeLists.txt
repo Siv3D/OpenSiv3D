@@ -70,7 +70,8 @@ target_link_libraries(Siv3DTest PRIVATE
   -lgdk-3
   -lgtk-3
   -lharfbuzz
-	-logg
+  -lm
+  -logg
   -lopencv_core
   -lopencv_imgcodecs
   -lopencv_imgproc
@@ -86,9 +87,9 @@ target_link_libraries(Siv3DTest PRIVATE
   -ltiff
   -lturbojpeg
   -luuid
-	-lvorbis
-	-lvorbisenc
-	-lvorbisfile
+  -lvorbis
+  -lvorbisenc
+  -lvorbisfile
   -lwebp
   -lX11
   -lXft
