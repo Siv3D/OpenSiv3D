@@ -6,7 +6,7 @@ The license information will be shown by pressing F1 key while running Siv3D app
 Name | Version
 --- | ---
 [Abseil](https://github.com/abseil/abseil-cpp) | 20200923.2
-[AngelCode Scripting Library](https://www.angelcode.com/angelscript/) | 2.35.1 WIP
+[AngelCode Scripting Library](https://www.angelcode.com/angelscript/) | 2.35.1
 [asio](https://think-async.com/Asio/) | 1.18.2
 [Anti-Grain Geometry](http://agg.sourceforge.net/antigrain.com/index.html) | 2.4
 [Boost](https://www.boost.org/) | 1.74.0
