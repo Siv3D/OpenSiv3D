@@ -70,7 +70,7 @@ namespace s3d
 
 		/// @brief スクリプト内での `System::Update()` で呼び出す関数を登録します。
 		/// @param callback 登録する関数
-		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+		void setSystemUpdateCallback(const std::function<bool()>& callback);
 
 		/// @brief コンパイル時に出力されたメッセージ一覧を返します。
 		/// @return コンパイル時に出力されたメッセージ一覧

@@ -31,6 +31,8 @@ namespace s3d
 		[[nodiscard]]
 		bool compiled() const;
 
+		void setTriggerToReload(const std::function<bool()>& trigger);
+
 		void run();
 
 		[[nodiscard]]
@@ -41,6 +43,8 @@ namespace s3d
 	private:
 
 		Script m_script;
+
+		std::function<bool()> m_triggerToReload;
 
 		std::function<bool()> m_callback;
 

@@ -42,6 +42,10 @@ namespace s3d
 		[[nodiscard]]
 		bool compiled() const;
 
+		/// @brief スクリプトのリロードを発生させるイベントを設定します。
+		/// @param trigger スクリプトのリロードを発生させるイベント。この関数が true を返すとスクリプトをリロードする
+		void setTriggerToReload(const std::function<bool()>& trigger);
+
 		/// @brief スクリプトコードを実行します。
 		void run() const;
 

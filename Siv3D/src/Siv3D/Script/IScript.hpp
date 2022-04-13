@@ -51,9 +51,9 @@ namespace s3d
 
 		virtual const Array<String>& getMessages(Script::IDType handleID) = 0;
 
-		virtual void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool(void)>& callback) = 0;
+		virtual void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool()>& callback) = 0;
 
-		virtual const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
+		virtual const std::function<bool()>& getSystemUpdateCallback(uint64 scriptID) = 0;
 
 		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};

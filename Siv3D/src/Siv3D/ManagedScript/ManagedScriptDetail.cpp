@@ -47,11 +47,18 @@ namespace s3d
 
 		m_callback = [
 			&requestReload = m_requestReload,
+			&trigegrToReload = m_triggerToReload,
 			path = fullpath,
 			watcher = (isRsource ? DirectoryWatcher{} : DirectoryWatcher{ FileSystem::ParentPath(fullpath) })
 		]()
 		{
 			requestReload = detail::HasChanged(path, watcher.retrieveChanges());
+
+			if (trigegrToReload)
+			{
+				requestReload |= trigegrToReload();
+			}
+
 			return (not requestReload);
 		};
 
@@ -73,6 +80,11 @@ namespace s3d
 	bool ManagedScript::ManagedScriptDetail::compiled() const
 	{
 		return static_cast<bool>(m_main);
+	}
+
+	void ManagedScript::ManagedScriptDetail::setTriggerToReload(const std::function<bool()>& trigger)
+	{
+		m_triggerToReload = trigger;
 	}
 
 	void ManagedScript::ManagedScriptDetail::run()

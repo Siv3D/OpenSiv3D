@@ -258,12 +258,12 @@ namespace s3d
 		return declarations;
 	}
 
-	void ScriptData::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	void ScriptData::setSystemUpdateCallback(const std::function<bool()>& callback)
 	{
 		m_systemUpdateCallback = callback;
 	}
 
-	const std::function<bool(void)>& ScriptData::getSystemUpdateCallback() const
+	const std::function<bool()>& ScriptData::getSystemUpdateCallback() const
 	{
 		return m_systemUpdateCallback;
 	}

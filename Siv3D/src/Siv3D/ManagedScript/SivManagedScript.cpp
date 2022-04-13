@@ -37,6 +37,11 @@ namespace s3d
 		return pImpl->compiled();
 	}
 
+	void ManagedScript::setTriggerToReload(const std::function<bool(void)>& trigger)
+	{
+		pImpl->setTriggerToReload(trigger);
+	}
+
 	void ManagedScript::run() const
 	{
 		return pImpl->run();

@@ -370,14 +370,14 @@ namespace s3d
 		return m_scripts[handleID]->getMessages();
 	}
 
-	void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool(void)>& callback)
+	void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool()>& callback)
 	{
 		assert(m_initialized);
 
 		return m_scripts[handleID]->setSystemUpdateCallback(callback);
 	}
 
-	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	const std::function<bool()>& CScript::getSystemUpdateCallback(const uint64 scriptID)
 	{
 		assert(m_initialized);
 

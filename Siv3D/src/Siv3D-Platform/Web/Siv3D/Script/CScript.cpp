@@ -101,11 +101,11 @@ namespace s3d
 		return m_scripts[handleID]->getMessages();
 	}
 
-	__attribute__((weak)) void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool(void)>& callback)
+	__attribute__((weak)) void CScript::setSystemUpdateCallback(const Script::IDType handleID, const std::function<bool()>& callback)
 	{
 	}
 
-	__attribute__((weak)) const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	__attribute__((weak)) const std::function<bool()>& CScript::getSystemUpdateCallback(const uint64 scriptID)
 	{
 		return m_scripts[Script::IDType(static_cast<Script::IDType>(scriptID))]->getSystemUpdateCallback();
 	}

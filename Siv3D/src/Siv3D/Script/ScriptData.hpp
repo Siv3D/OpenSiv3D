@@ -59,9 +59,9 @@ namespace s3d
 		[[nodiscard]]
 		Array<String> getFunctionDeclarations(IncludeParamNames includeParamNames) const;
 
-		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+		void setSystemUpdateCallback(const std::function<bool()>& callback);
 
-		const std::function<bool(void)>& getSystemUpdateCallback() const;
+		const std::function<bool()>& getSystemUpdateCallback() const;
 
 	private:
 
@@ -73,7 +73,7 @@ namespace s3d
 
 		HashTable<String, AngelScript::asIScriptFunction*> m_functions;
 
-		std::function<bool(void)> m_systemUpdateCallback;
+		std::function<bool()> m_systemUpdateCallback;
 
 		Array<String> m_messages;
 

@@ -71,7 +71,7 @@ namespace s3d
 		return SIV3D_ENGINE(Script)->reload(m_handle->id(), compileOption);
 	}
 
-	void Script::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	void Script::setSystemUpdateCallback(const std::function<bool()>& callback)
 	{
 		SIV3D_ENGINE(Script)->setSystemUpdateCallback(m_handle->id(), callback);
 	}
