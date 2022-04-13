@@ -33,6 +33,8 @@ namespace s3d
 
 		void setTriggerToReload(const std::function<bool()>& trigger);
 
+		const Array<FilePath>& getIncludedFiles() const noexcept;
+
 		void run();
 
 		[[nodiscard]]

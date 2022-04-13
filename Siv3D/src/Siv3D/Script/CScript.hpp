@@ -49,6 +49,8 @@ namespace s3d
 
 		Array<String> retrieveMessages_internal() override;
 
+		const Array<FilePath>& getIncludedFiles(Script::IDType handleID) override;
+
 		const Array<String>& getMessages(Script::IDType handleID) override;
 
 		void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool()>& callback) override;

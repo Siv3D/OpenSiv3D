@@ -87,6 +87,11 @@ namespace s3d
 		m_triggerToReload = trigger;
 	}
 
+	const Array<FilePath>& ManagedScript::ManagedScriptDetail::getIncludedFiles() const noexcept
+	{
+		return m_script.getIncludedFiles();
+	}
+
 	void ManagedScript::ManagedScriptDetail::run()
 	{
 		if (m_requestReload || (not m_callback()))

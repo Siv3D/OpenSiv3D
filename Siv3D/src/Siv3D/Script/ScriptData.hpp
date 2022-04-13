@@ -54,6 +54,9 @@ namespace s3d
 		const FilePath& path() const noexcept;
 
 		[[nodiscard]]
+		const Array<FilePath>& getIncludedFiles() const noexcept;
+
+		[[nodiscard]]
 		const Array<String>& getMessages() const noexcept;
 
 		[[nodiscard]]
@@ -80,6 +83,8 @@ namespace s3d
 		ScriptCompileOption m_compileOption = ScriptCompileOption::Default;
 
 		FilePath m_fullpath;
+
+		Array<FilePath> m_includedFiles;
 
 		bool m_complieSucceeded = false;
 

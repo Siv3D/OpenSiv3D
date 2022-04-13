@@ -19,6 +19,22 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static Array<FilePath> ConvertIncludedFiles(const std::vector<std::string>& includedFiles)
+		{
+			Array<FilePath> paths(includedFiles.size());
+
+			for (size_t i = 0; i < includedFiles.size(); ++i)
+			{
+				paths[i] = Unicode::FromUTF8(includedFiles[i]);
+			}
+
+			return paths.stable_uniqued();
+		}
+	}
+
 	ScriptData::ScriptData(Null, AngelScript::asIScriptEngine* const engine)
 		: m_engine{ engine }
 		, m_module{ std::make_shared<ScriptModule>() }
@@ -48,13 +64,17 @@ namespace s3d
 		}
 
 		const std::string codeUTF8 = code.toUTF8();
+		std::vector<std::string> includedFiles;
 
-		if (r = builder.AddSectionFromMemory("", codeUTF8.c_str(), static_cast<uint32>(codeUTF8.length()), 0); 
+		if (r = builder.AddSectionFromMemory(includedFiles, "", codeUTF8.c_str(), static_cast<uint32>(codeUTF8.length()), 0);
 			(r < 0))
 		{
+			m_includedFiles.clear();
 			m_messages = SIV3D_ENGINE(Script)->retrieveMessages_internal();
 			return;
 		}
+
+		m_includedFiles = detail::ConvertIncludedFiles(includedFiles);
 
 		if (r = builder.BuildModule();
 			(r < 0))
@@ -97,12 +117,17 @@ namespace s3d
 			return;
 		}
 
-		if (r = builder.AddSectionFromFile(m_fullpath); 
+		std::vector<std::string> includedFiles;
+
+		if (r = builder.AddSectionFromFile(m_fullpath, includedFiles);
 			(r < 0))
 		{
+			m_includedFiles.clear();
 			m_messages = SIV3D_ENGINE(Script)->retrieveMessages_internal();
 			return;
 		}
+
+		m_includedFiles = detail::ConvertIncludedFiles(includedFiles);
 
 		if (r = builder.BuildModule(); 
 			(r < 0))
@@ -161,12 +186,17 @@ namespace s3d
 			return false;
 		}
 
-		if (r = builder.AddSectionFromFile(m_fullpath);
+		std::vector<std::string> includedFiles;
+
+		if (r = builder.AddSectionFromFile(m_fullpath, includedFiles);
 			(r < 0))
 		{
+			m_includedFiles.clear();
 			m_messages = SIV3D_ENGINE(Script)->retrieveMessages_internal();
 			return false;
 		}
+
+		m_includedFiles = detail::ConvertIncludedFiles(includedFiles);
 
 		if (r = builder.BuildModule();
 			(r < 0))
@@ -231,6 +261,11 @@ namespace s3d
 	const FilePath& ScriptData::path() const noexcept
 	{
 		return m_fullpath;
+	}
+
+	const Array<FilePath>& ScriptData::getIncludedFiles() const noexcept
+	{
+		return m_includedFiles;
 	}
 
 	const Array<String>& ScriptData::getMessages() const noexcept

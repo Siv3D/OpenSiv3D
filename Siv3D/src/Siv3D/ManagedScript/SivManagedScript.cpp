@@ -42,6 +42,11 @@ namespace s3d
 		pImpl->setTriggerToReload(trigger);
 	}
 
+	const Array<FilePath>& ManagedScript::getIncludedFiles() const noexcept
+	{
+		return pImpl->getIncludedFiles();
+	}
+
 	void ManagedScript::run() const
 	{
 		return pImpl->run();

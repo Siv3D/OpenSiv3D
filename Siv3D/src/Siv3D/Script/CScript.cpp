@@ -363,6 +363,13 @@ namespace s3d
 		return messages;
 	}
 
+	const Array<FilePath>& CScript::getIncludedFiles(const Script::IDType handleID)
+	{
+		assert(m_initialized);
+
+		return m_scripts[handleID]->getIncludedFiles();
+	}
+
 	const Array<String>& CScript::getMessages(const Script::IDType handleID)
 	{
 		assert(m_initialized);

@@ -49,6 +49,8 @@ namespace s3d
 
 		virtual Array<String> retrieveMessages_internal() = 0;
 
+		virtual const Array<FilePath>& getIncludedFiles(Script::IDType handleID) = 0;
+
 		virtual const Array<String>& getMessages(Script::IDType handleID) = 0;
 
 		virtual void setSystemUpdateCallback(Script::IDType handleID, const std::function<bool()>& callback) = 0;

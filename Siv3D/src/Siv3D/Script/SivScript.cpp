@@ -81,6 +81,11 @@ namespace s3d
 		return SIV3D_ENGINE(Script)->getFunctionDeclarations(m_handle->id(), includeParamNames);
 	}
 
+	const Array<FilePath>& Script::getIncludedFiles() const noexcept
+	{
+		return SIV3D_ENGINE(Script)->getIncludedFiles(m_handle->id());
+	}
+
 	const Array<String>& Script::getMessages() const
 	{
 		return SIV3D_ENGINE(Script)->getMessages(m_handle->id());

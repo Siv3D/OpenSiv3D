@@ -95,7 +95,7 @@ string CScriptBuilder::GetSectionName(unsigned int idx) const
 // Returns 1 if the section was included
 // Returns 0 if the section was not included because it had already been included before
 // Returns <0 if there was an error
-int CScriptBuilder::AddSectionFromFile(const char *filename)
+int CScriptBuilder::AddSectionFromFile(const char *filename, std::vector<std::string>& includedFiles)
 {
 	// The file name stored in the set should be the fully resolved name because
 	// it is possible to name the same file in multiple ways using relative paths.
@@ -103,7 +103,7 @@ int CScriptBuilder::AddSectionFromFile(const char *filename)
 
 	if( IncludeIfNotAlreadyIncluded(fullpath.c_str()) )
 	{
-		int r = LoadScriptSection(fullpath.c_str());
+		int r = LoadScriptSection(fullpath.c_str(), includedFiles);
 		if( r < 0 )
 			return r;
 		else
@@ -113,11 +113,11 @@ int CScriptBuilder::AddSectionFromFile(const char *filename)
 	return 0;
 }
 
-int CScriptBuilder::AddSectionFromFile(const s3d::FilePath& path)
+int CScriptBuilder::AddSectionFromFile(const s3d::FilePath& path, std::vector<std::string>& includedFiles)
 {
 	if (IncludeIfNotAlreadyIncluded(path.narrow().c_str()))
 	{
-		int r = LoadScriptSection(path);
+		int r = LoadScriptSection(path, includedFiles);
 		if (r < 0)
 			return r;
 		else
@@ -130,11 +130,11 @@ int CScriptBuilder::AddSectionFromFile(const s3d::FilePath& path)
 // Returns 1 if the section was included
 // Returns 0 if the section was not included because it had already been included before
 // Returns <0 if there was an error
-int CScriptBuilder::AddSectionFromMemory(const char *sectionName, const char *scriptCode, unsigned int scriptLength, int lineOffset)
+int CScriptBuilder::AddSectionFromMemory(std::vector<std::string>& includedFiles, const char *sectionName, const char *scriptCode, unsigned int scriptLength, int lineOffset)
 {
 	if( IncludeIfNotAlreadyIncluded(sectionName) )
 	{
-		int r = ProcessScriptSection(scriptCode, scriptLength, sectionName, lineOffset);
+		int r = ProcessScriptSection(scriptCode, scriptLength, sectionName, lineOffset, includedFiles);
 		if( r < 0 )
 			return r;
 		else
@@ -188,7 +188,7 @@ bool CScriptBuilder::IncludeIfNotAlreadyIncluded(const char *filename)
 	return true;
 }
 
-int CScriptBuilder::LoadScriptSection(const char *filename)
+int CScriptBuilder::LoadScriptSection(const char *filename, std::vector<std::string>& includedFiles)
 {
 	// Open the script file
 	string scriptFile = filename;
@@ -237,10 +237,10 @@ int CScriptBuilder::LoadScriptSection(const char *filename)
 	}
 
 	// Process the script section even if it is zero length so that the name is registered
-	return ProcessScriptSection(code.c_str(), (unsigned int)(code.length()), filename, 0);
+	return ProcessScriptSection(code.c_str(), (unsigned int)(code.length()), filename, 0, includedFiles);
 }
 
-int CScriptBuilder::LoadScriptSection(const s3d::FilePath& path)
+int CScriptBuilder::LoadScriptSection(const s3d::FilePath& path, std::vector<std::string>& includedFiles)
 {
 	s3d::BinaryReader reader(path);
 
@@ -264,10 +264,10 @@ int CScriptBuilder::LoadScriptSection(const s3d::FilePath& path)
 	}
 
 	// Process the script section even if it is zero length so that the name is registered
-	return ProcessScriptSection(code.c_str(), (unsigned int)(code.length()), path.narrow().c_str(), 0);
+	return ProcessScriptSection(code.c_str(), (unsigned int)(code.length()), path.narrow().c_str(), 0, includedFiles);
 }
 
-int CScriptBuilder::ProcessScriptSection(const char *script, unsigned int length, const char *sectionname, int lineOffset)
+int CScriptBuilder::ProcessScriptSection(const char *script, unsigned int length, const char *sectionname, int lineOffset, std::vector<std::string>& includedFiles)
 {
 	vector<string> includes;
 
@@ -603,8 +603,10 @@ int CScriptBuilder::ProcessScriptSection(const char *script, unsigned int length
 					includes[n] = path + includes[n];
 				}
 
+				includedFiles.push_back(includes[n]);
+
 				// Include the script section
-				int r = AddSectionFromFile(includes[n].c_str());
+				int r = AddSectionFromFile(includes[n].c_str(), includedFiles);
 				if( r < 0 )
 					return r;
 			}

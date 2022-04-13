@@ -12,7 +12,8 @@
 # pragma once
 # include <memory>
 # include "Common.hpp"
-# include "StringView.hpp"
+# include "Array.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
@@ -45,6 +46,10 @@ namespace s3d
 		/// @brief スクリプトのリロードを発生させるイベントを設定します。
 		/// @param trigger スクリプトのリロードを発生させるイベント。この関数が true を返すとスクリプトをリロードする
 		void setTriggerToReload(const std::function<bool()>& trigger);
+
+		/// @brief インクルードされているファイル一覧を返します。
+		/// @return  インクルードされているファイル一覧
+		const Array<FilePath>& getIncludedFiles() const noexcept;
 
 		/// @brief スクリプトコードを実行します。
 		void run() const;

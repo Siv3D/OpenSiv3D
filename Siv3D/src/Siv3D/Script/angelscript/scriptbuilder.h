@@ -66,15 +66,15 @@ public:
 	// Returns  1 if the file was included
 	//          0 if the file had already been included before
 	//         <0 on error
-	int AddSectionFromFile(const char *filename);
+	int AddSectionFromFile(const char *filename, std::vector<std::string>& includedFiles);
 
-	int AddSectionFromFile(const s3d::FilePath& path);
+	int AddSectionFromFile(const s3d::FilePath& path, std::vector<std::string>& includedFiles);
 
 	// Load a script section from memory
 	// Returns  1 if the section was included
 	//          0 if a section with the same name had already been included before
 	//         <0 on error
-	int AddSectionFromMemory(const char *sectionName,
+	int AddSectionFromMemory(std::vector<std::string>& includedFiles, const char *sectionName,
 							 const char *scriptCode,
 							 unsigned int scriptLength = 0,
 							 int lineOffset = 0);
@@ -121,9 +121,9 @@ public:
 protected:
 	void ClearAll();
 	int  Build();
-	int  ProcessScriptSection(const char *script, unsigned int length, const char *sectionname, int lineOffset);
-	int  LoadScriptSection(const char *filename);
-	int  LoadScriptSection(const s3d::FilePath& path);
+	int  ProcessScriptSection(const char *script, unsigned int length, const char *sectionname, int lineOffset, std::vector<std::string>& includedFiles);
+	int  LoadScriptSection(const char *filename, std::vector<std::string>& includedFiles);
+	int  LoadScriptSection(const s3d::FilePath& path, std::vector<std::string>& includedFiles);
 	bool IncludeIfNotAlreadyIncluded(const char *filename);
 
 	int  SkipStatement(int pos);

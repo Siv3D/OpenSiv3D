@@ -72,6 +72,10 @@ namespace s3d
 		/// @param callback 登録する関数
 		void setSystemUpdateCallback(const std::function<bool()>& callback);
 
+		/// @brief インクルードされているファイル一覧を返します。
+		/// @return  インクルードされているファイル一覧
+		const Array<FilePath>& getIncludedFiles() const noexcept;
+
 		/// @brief コンパイル時に出力されたメッセージ一覧を返します。
 		/// @return コンパイル時に出力されたメッセージ一覧
 		const Array<String>& getMessages() const;
