@@ -46,7 +46,7 @@ Name | Version
 [libvorbis](https://xiph.org/downloads/) | 1.3.7
 [libwebp](https://developers.google.com/speed/webp) | 1.2.0
 [Lua](https://www.lua.org/) | 5.4.2
-[lunasvg](https://github.com/sammycage/lunasvg) | v2.3.0
+[lunasvg](https://github.com/sammycage/lunasvg) | v2.3.1
 [M+ Fonts](https://mplus-fonts.osdn.jp/) | 063a
 [Material Design Icons](https://github.com/Templarian/MaterialDesign) | v6.5.95
 [miniutf](https://github.com/dropbox/miniutf) | 
