@@ -1570,6 +1570,9 @@
     <Filter Include="src\Siv3D\ScopedViewport3D">
       <UniqueIdentifier>{b5bd6309-08af-4d08-bde5-0497b277c275}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\par_octasphere">
+      <UniqueIdentifier>{91088f8e-d30c-496a-a777-9d5990071d3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6842,6 +6845,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\qr-code-generator-library\qrcodegen.hpp">
       <Filter>src\ThirdParty\qr-code-generator-library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\par_octasphere\par_octasphere.h">
+      <Filter>src\ThirdParty\par_octasphere</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

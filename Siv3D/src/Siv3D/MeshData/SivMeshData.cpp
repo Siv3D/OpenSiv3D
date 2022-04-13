@@ -12,6 +12,7 @@
 # include <Siv3D/Common.hpp>
 # define PAR_SHAPES_IMPLEMENTATION
 # define PAR_SHAPES_T uint32_t
+# define PAR_OCTASPHERE_IMPLEMENTATION
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4018)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
@@ -23,6 +24,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4456)
 #	pragma GCC diagnostic ignored "-Wsign-compare"
 # endif
 # include <ThirdParty/par_shapes/par_shapes.h>
+# include <ThirdParty/par_octasphere/par_octasphere.h>
 # ifdef __GNUC__
 #	pragma GCC diagnostic pop
 # endif
@@ -792,6 +794,74 @@ namespace s3d
 
 		ScopeGuard guard = [mesh]() { par_shapes_free_mesh(mesh); };
 		return{ detail::ToVertices(*mesh, center), detail::ToIndices(*mesh) };
+	}
+
+	MeshData MeshData::RoundedBox(const double r, const Float3 size, const uint32 quality)
+	{
+        const par_octasphere_config config = {
+            .corner_radius		= static_cast<float>(r),
+            .width				= size.x,
+            .height				= size.y,
+            .depth				= size.z,
+			.num_subdivisions	= static_cast<int>(quality),
+        };
+
+		uint32 numIndices = 0;
+		uint32 numVertices = 0;
+		par_octasphere_get_counts(&config, &numIndices, &numVertices);
+
+		if ((numIndices == 0) || (numVertices == 0))
+		{
+			return{};
+		}
+
+		Array<Float3> positions(numVertices);
+		Array<Float3> normals(numVertices);
+		Array<Float2> texcoords(numVertices);
+		Array<uint16> indices(numIndices);
+
+		par_octasphere_mesh mesh = {
+			.positions	= static_cast<float*>(static_cast<void*>(positions.data())),
+			.normals	= static_cast<float*>(static_cast<void*>(normals.data())),
+			.texcoords	= static_cast<float*>(static_cast<void*>(texcoords.data())),
+			.indices	= indices.data(),
+		};
+		
+		par_octasphere_populate(&config, &mesh);
+
+		MeshData meshData{ numVertices, (numIndices / 3) };
+		{
+			Vertex3D* pDst = meshData.vertices.data();
+			const Float3* pSrcPositions = positions.data();
+			const Float3* pSrcNormal = normals.data();
+			const Float2* pSrcTexcoords = texcoords.data();
+
+			for (uint32 i = 0; i < numVertices; ++i)
+			{
+				pDst->pos.set(pSrcPositions->x, pSrcPositions->y, -pSrcPositions->z);
+				pDst->normal.set(pSrcNormal->x, pSrcNormal->y, -pSrcNormal->z);
+				pDst->tex = *pSrcTexcoords++;
+
+				++pSrcPositions;
+				++pSrcNormal;
+				++pDst;
+			}
+		}
+
+		{
+			TriangleIndex32* pDst = meshData.indices.data();
+			const uint16* pSrc = indices.data();
+
+			for (uint32 i = 0; i < (numIndices / 3); ++i)
+			{
+				pDst->i0 = *pSrc++;
+				pDst->i2 = *pSrc++;
+				pDst->i1 = *pSrc++;
+				++pDst;
+			}
+		}
+
+		return meshData;
 	}
 
 	MeshData MeshData::Disc(const double r, const uint32 quality)

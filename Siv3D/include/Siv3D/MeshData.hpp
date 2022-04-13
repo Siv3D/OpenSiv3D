@@ -109,6 +109,9 @@ namespace s3d
 		static MeshData SubdividedSphere(Float3 center, double r, uint32 subdivisions = 2);
 
 		[[nodiscard]]
+		static MeshData RoundedBox(double r, Float3 size, uint32 quality = 3);
+
+		[[nodiscard]]
 		static MeshData Disc(double r, uint32 quality = 24);
 
 		[[nodiscard]]
