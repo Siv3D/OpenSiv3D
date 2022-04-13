@@ -1377,6 +1377,7 @@
 		2CAAA8C625E7FDCC00C014D7 /* EmojiData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8C225E7FDCC00C014D7 /* EmojiData.cpp */; };
 		2CAAA8C725E7FDCC00C014D7 /* IconData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAA8C325E7FDCC00C014D7 /* IconData.hpp */; };
 		2CAAA8CA25E7FDE900C014D7 /* SivIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAA8C925E7FDE900C014D7 /* SivIcon.cpp */; };
+		2CB03B232807034B00398535 /* par_octasphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB03B222807034B00398535 /* par_octasphere.h */; };
 		2CB18E9726B5A68700862C28 /* as_scriptnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB18E4426B5A68700862C28 /* as_scriptnode.cpp */; };
 		2CB18E9826B5A68700862C28 /* as_scriptnode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E4526B5A68700862C28 /* as_scriptnode.h */; };
 		2CB18E9926B5A68700862C28 /* as_generic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E4626B5A68700862C28 /* as_generic.h */; };
@@ -4129,6 +4130,7 @@
 		2CAAA8C225E7FDCC00C014D7 /* EmojiData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiData.cpp; sourceTree = "<group>"; };
 		2CAAA8C325E7FDCC00C014D7 /* IconData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IconData.hpp; sourceTree = "<group>"; };
 		2CAAA8C925E7FDE900C014D7 /* SivIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivIcon.cpp; sourceTree = "<group>"; };
+		2CB03B222807034B00398535 /* par_octasphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_octasphere.h; sourceTree = "<group>"; };
 		2CB18E4026B5A65500862C28 /* Script.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Script.hpp; sourceTree = "<group>"; };
 		2CB18E4226B5A66D00862C28 /* angelscript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = angelscript.h; sourceTree = "<group>"; };
 		2CB18E4426B5A68700862C28 /* as_scriptnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_scriptnode.cpp; sourceTree = "<group>"; };
@@ -6180,6 +6182,7 @@
 				2C47B47224DD97F1008D83BE /* muparser */,
 				2C794AA825C3DE2700034D81 /* nlohmann */,
 				2C834D4E248805D4006208B8 /* Oniguruma */,
+				2CB03B212807034B00398535 /* par_octasphere */,
 				2C695D50268EDDB400970FB3 /* par_shapes */,
 				2C636D892657A0BF00AF029F /* pffft */,
 				2C0A4D522566A855002A4B5E /* plutovg */,
@@ -10447,6 +10450,14 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		2CB03B212807034B00398535 /* par_octasphere */ = {
+			isa = PBXGroup;
+			children = (
+				2CB03B222807034B00398535 /* par_octasphere.h */,
+			);
+			path = par_octasphere;
+			sourceTree = "<group>";
+		};
 		2CB18E4126B5A66D00862C28 /* angelscript */ = {
 			isa = PBXGroup;
 			children = (
@@ -12345,6 +12356,7 @@
 				2C34781025DA95A100071EEF /* CPrint.hpp in Headers */,
 				2C636EAE2657F7D300AF029F /* tts.h in Headers */,
 				2C43C88425C837F000D6D613 /* pshints.h in Headers */,
+				2CB03B232807034B00398535 /* par_octasphere.h in Headers */,
 				2C13C8B925B8FA9D0054B968 /* DetourCommon.h in Headers */,
 				2C13C9D825BD29FC0054B968 /* lundump.h in Headers */,
 				2C43C8A425C837F100D6D613 /* svttglyf.h in Headers */,
