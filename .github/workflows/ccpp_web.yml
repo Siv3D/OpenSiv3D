@@ -22,20 +22,20 @@ jobs:
         env:
           cache-name: cache-boost-headers
         with:
-          path: Dependencies/boost_1_73_0/boost
+          path: Dependencies/boost_1_74_0/boost
           key: ${{ env.cache-name }}
 
       - name: Download boost
         if: ${{ !steps.cache_boost.outputs.cache-hit }}
         working-directory: Dependencies
         run: |
-          git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-1.73.0
-          rm -r boost_1_73_0
-          mv boost boost_1_73_0
+          git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-1.74.0
+          rm -r boost_1_74_0
+          mv boost boost_1_74_0
 
       - name: Place boost
         if: ${{ !steps.cache_boost.outputs.cache-hit }}
-        working-directory: Dependencies/boost_1_73_0
+        working-directory: Dependencies/boost_1_74_0
         run: |
           ./bootstrap.sh
           ./b2 headers
@@ -92,7 +92,7 @@ jobs:
         env:
           cache-name: cache-boost-headers
         with:
-          path: Dependencies/boost_1_73_0/boost
+          path: Dependencies/boost_1_74_0/boost
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports

@@ -1070,7 +1070,7 @@ include_directories(
   ../Siv3D/src/ThirdParty/freetype
   ../Siv3D/src/ThirdParty/soloud/include
   ../Siv3D/src/ThirdParty-prebuilt
-  ../Dependencies/boost_1_73_0
+  ../Dependencies/boost_1_74_0
   ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
   )
 
@@ -1261,6 +1261,6 @@ target_include_directories(
   ../Siv3D/src/ThirdParty/freetype
   ../Siv3D/src/ThirdParty/soloud/include
   ../Siv3D/src/ThirdParty-prebuilt
-  ../Dependencies/boost_1_73_0
+  ../Dependencies/boost_1_74_0
   ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
   )
