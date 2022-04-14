@@ -21,11 +21,11 @@ jobs:
         config:
           - runs-on: ubuntu-20.04
             install-compiler-command:
-            cmake-env-vars:
+            cmake-additional-flags:
             boost-package: libboost1.71-dev
           - runs-on: ubuntu-20.04
             install-compiler-command: sudo apt install clang-11
-            cmake-env-vars: CC=/usr/bin/clang CXX=/usr/bin/clang++
+            cmake-additional-flags: -DCMAKE_CXX_COMPILER=clang-11 -DCMAKE_C_COMPILER=clang-11
             boost-package: libboost1.71-dev
 
     runs-on: ${{ matrix.config.runs-on }}
@@ -68,7 +68,7 @@ jobs:
       working-directory: Linux
       run: |
         mkdir build && cd build
-        ${{ matrix.config.cmake-env-vars }} cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+        cmake ${{ matrix.config.cmake-additional-flags }} -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 
     - name: Build Siv3D
       working-directory: Linux
@@ -79,7 +79,7 @@ jobs:
       working-directory: Linux/App
       run: |
         mkdir build && cd build
-        ${{ matrix.config.cmake-env-vars }} cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+        cmake ${{ matrix.config.cmake-additional-flags }} -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 
     - name: Build Siv3DTest
       working-directory: Linux/App
@@ -90,5 +90,5 @@ jobs:
       working-directory: Linux/App
       run: |
         cd build
-        ${{ matrix.config.cmake-env-vars }} cmake -DBUILD_TESTING:BOOL=ON .
+        cmake ${{ matrix.config.cmake-additional-flags }} -DBUILD_TESTING:BOOL=ON .
         ctest --output-on-failure --verbose
