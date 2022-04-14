@@ -23,7 +23,7 @@ jobs:
             cmake-env-vars:
             boost-package: libboost1.71-dev
           - runs-on: ubuntu-20.04
-            install-compiler-command: sudo apt install clang-11-dev
+            install-compiler-command: sudo apt install clang-11
             cmake-env-vars: CC=/usr/bin/clang CXX=/usr/bin/clang++
             boost-package: libboost1.71-dev
 
