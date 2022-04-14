@@ -5,15 +5,28 @@ on:
     branches:
     - main
     - v6_develop
+    - v6_linux_*
   pull_request:
     branches:
     - main
     - v6_develop
+    - v6_linux_*
 
 jobs:
   Linux:
 
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        - runs-on: ubuntu-20.04
+          install-compiler-command:
+          cmake-env-vars:
+          boost-package: libboost1.71-dev
+        - runs-on: ubuntu-20.04
+          install-compiler-command: sudo apt install clang-11-dev
+          cmake-env-vars: CC=/usr/bin/clang CXX=/usr/bin/clang++
+          boost-package: libboost1.71-dev
+
+    runs-on: ${{ matrix.runs-on }}
     if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
 
     steps:
@@ -23,12 +36,13 @@ jobs:
       run: |
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt update
+        ${{ matrix.install-compiler-command }}
         sudo apt install ninja-build
         sudo apt install libasound2-dev
         sudo apt install libavcodec-dev
         sudo apt install libavformat-dev
         sudo apt install libavutil-dev
-        sudo apt install libboost-dev
+        sudo apt install ${{ matrix.boost-package }}
         sudo apt install libcurl4-openssl-dev
         sudo apt install libgtk-3-dev
         sudo apt install libgif-dev
@@ -52,7 +66,7 @@ jobs:
       working-directory: Linux
       run: |
         mkdir build && cd build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+        ${{ matrix.cmake-env-vars }} cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 
     - name: Build Siv3D
       working-directory: Linux
@@ -63,7 +77,7 @@ jobs:
       working-directory: Linux/App
       run: |
         mkdir build && cd build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+        ${{ matrix.cmake-env-vars }} cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 
     - name: Build Siv3DTest
       working-directory: Linux/App
@@ -74,5 +88,5 @@ jobs:
       working-directory: Linux/App
       run: |
         cd build
-        cmake -DBUILD_TESTING:BOOL=ON .
+        ${{ matrix.cmake-env-vars }} cmake -DBUILD_TESTING:BOOL=ON .
         ctest --output-on-failure --verbose
