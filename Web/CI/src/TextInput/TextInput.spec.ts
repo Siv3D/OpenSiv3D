@@ -77,7 +77,7 @@ parallel("TextInput Tests", function() {
                 await FocusToTextInput();
                 await sleep(1000);
 
-                await app.sendKeys(driver.actions(), Key.ARROW_LEFT + "2" + Key.ARROW_RIGHT + "K");
+                await app.sendKeys(driver.actions(), Key.ARROW_LEFT + "2" + Key.ARROW_RIGHT + "K" + Key.ENTER);
                 await sleep(3000);
 
                 expect(await GetInputText(), "Characters should be inputted").to.equal("Siv32DK");
