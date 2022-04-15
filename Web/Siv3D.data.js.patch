@@ -1,9 +1,19 @@
---- Siv3D.data.js	2021-08-05 12:33:53.990000000 +0900
-+++ Siv3D.data.patched.js	2021-08-05 12:33:24.588000000 +0900
-@@ -27,51 +27,10 @@
+--- Siv3D.data.js.orig	2022-04-15 23:49:47.513884200 +0900
++++ Siv3D.data.js	2022-04-15 23:50:26.123884200 +0900
+@@ -29,61 +29,10 @@
        var PACKAGE_UUID = metadata['package_uuid'];
-     
+ 
        function fetchRemotePackage(packageName, packageSize, callback, errback) {
+-        if (typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string') {
+-          require('fs').readFile(packageName, function(err, contents) {
+-            if (err) {
+-              errback(err);
+-            } else {
+-              callback(contents.buffer);
+-            }
+-          });
+-          return;
+-        }
 -        var xhr = new XMLHttpRequest();
 -        xhr.open('GET', packageName, true);
 -        xhr.responseType = 'arraybuffer';
@@ -56,12 +66,3 @@
        };
  
        function handleError(error) {
-@@ -150,7 +109,6 @@
-         
-       function processPackageData(arrayBuffer) {
-         assert(arrayBuffer, 'Loading data file failed.');
--        assert(arrayBuffer instanceof ArrayBuffer, 'bad input to processPackageData');
-         var byteArray = new Uint8Array(arrayBuffer);
-         var curr;
-   
-\ No newline at end of file
