@@ -419,20 +419,20 @@ jobs:
           name: Siv3DTest-wasm-wgpu
           path: Dest/v6-wasm-wgpu-app
 
-      - name: Restore Bundles (wasm-side-module)
-        uses: actions/download-artifact@v2
-        with:
-          name: OpenSiv3D-Bundles-wasm-side-module
-          path: .
+      # - name: Restore Bundles (wasm-side-module)
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: OpenSiv3D-Bundles-wasm-side-module
+      #     path: .
 
-      - name: Restore Siv3D library (wasm-side-module)
-        run: tar -xvf OpenSiv3D.tgz   
+      # - name: Restore Siv3D library (wasm-side-module)
+      #   run: tar -xvf OpenSiv3D.tgz   
 
-      - name: Place Siv3D library (wasm-side-module)
-        run: |
-          cp Package/lib/Siv3D.wasm Dest/lib/v6
-          cp Package/lib/Siv3D.js Dest/lib/v6
-          cp Package/lib/Siv3D.data Dest/lib/v6
+      # - name: Place Siv3D library (wasm-side-module)
+      #   run: |
+      #     cp Package/lib/Siv3D.wasm Dest/lib/v6
+      #     cp Package/lib/Siv3D.js Dest/lib/v6
+      #     cp Package/lib/Siv3D.data Dest/lib/v6
 
       - name: Place Siv3D Apps (wasm-side-module)
         uses: actions/download-artifact@v2
