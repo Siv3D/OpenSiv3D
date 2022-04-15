@@ -50,19 +50,19 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: ''
             output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
           - name: wasm-simd
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-msimd128 -msse4.2'
             cmake-additional-flags: ''
             output-file: 'libSiv3D*.a'
             external-lib-folder-name: wasm
           - name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_BUILD_SHARED_MAIN=1'
             output-file: 'Siv3D*'
@@ -147,10 +147,10 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
           # - name: wasm-simd
-          #  container: 'emscripten/emsdk:3.1.5'
+          #  container: 'emscripten/emsdk:3.1.8'
           #  cmake-cflags: '-msimd128 -msse4.2'
     container: 
       image: ${{ matrix.config.container }}
@@ -202,22 +202,22 @@ jobs:
         config:
           - name: wasm
             app-name: wasm
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: ''
           - name: wasm-simd
             app-name: wasm-simd
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-msimd128 -msse4.2'
             cmake-additional-flags: ''
           - name: wasm
             app-name: wasm-wgpu
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_WEBGPU_BACKEND=On'
           - name: wasm-side-module
             app-name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.5'
+            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_BUILD_WITH_SHARED_MAIN=On'
     container: 
@@ -464,7 +464,7 @@ jobs:
     if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
     runs-on: ubuntu-latest
     container: 
-      image: 'emscripten/emsdk:2.0.22'
+      image: 'emscripten/emsdk:3.1.8'
 
     steps:
       - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
