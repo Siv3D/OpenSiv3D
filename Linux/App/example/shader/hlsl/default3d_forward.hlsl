@@ -52,6 +52,11 @@ cbuffer VSPerObject : register(b2)
 	row_major float4x4 g_localToWorld;
 }
 
+cbuffer VSPerMaterial : register(b3)
+{
+	float4 g_uvTransform;
+}
+
 cbuffer PSPerFrame : register(b0)
 {
 	float3 g_gloablAmbientColor;
@@ -85,7 +90,7 @@ s3d::PSInput VS(s3d::VSInput input)
 
 	result.position			= mul(worldPosition, g_worldToProjected);
 	result.worldPosition	= worldPosition.xyz;
-	result.uv				= input.uv;
+	result.uv				= (input.uv * g_uvTransform.xy + g_uvTransform.zw);
 	result.normal			= mul(input.normal, (float3x3)g_localToWorld);
 	return result;
 }

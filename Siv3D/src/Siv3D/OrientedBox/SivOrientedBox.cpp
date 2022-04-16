@@ -151,6 +151,14 @@ namespace s3d
 		return *this;
 	}
 
+	const OrientedBox& OrientedBox::draw(const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation).translated(center), textureRegion, color);
+
+		return *this;
+	}
+
 	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
@@ -167,10 +175,26 @@ namespace s3d
 		return *this;
 	}
 
+	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation * rotation).translated(center), textureRegion, color);
+
+		return *this;
+	}
+
 	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
 			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), color);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), textureRegion, color);
 
 		return *this;
 	}
@@ -200,6 +224,14 @@ namespace s3d
 		return *this;
 	}
 
+	const OrientedBox& OrientedBox::draw(const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation).translated(center), textureRegion, material);
+
+		return *this;
+	}
+
 	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const PhongMaterial& material) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
@@ -216,6 +248,14 @@ namespace s3d
 		return *this;
 	}
 
+	const OrientedBox& OrientedBox::draw(const Quaternion& rotation, const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw(Mat4x4::Scale(size).rotated(orientation * rotation).translated(center), textureRegion, material);
+
+		return *this;
+	}
+
 	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const PhongMaterial& material) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
@@ -228,6 +268,14 @@ namespace s3d
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
 			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), texture, material);
+
+		return *this;
+	}
+
+	const OrientedBox& OrientedBox::draw(const Mat4x4& mat, const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::Box1)
+			.draw((Mat4x4::Scale(size).rotated(orientation).translated(center) * mat), textureRegion, material);
 
 		return *this;
 	}

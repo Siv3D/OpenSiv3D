@@ -31,6 +31,11 @@ layout(std140) uniform VSPerObject
 	mat4x4 g_localToWorld;
 };
 
+layout(std140) uniform VSPerMaterial
+{
+	vec4 g_uvTransform;
+};
+
 //
 //	Functions
 //
@@ -40,6 +45,6 @@ void main()
 
 	gl_Position		= worldPosition * g_worldToProjected;
 	WorldPosition	= worldPosition.xyz;
-	UV				= VertexUV;
+	UV				= (VertexUV * g_uvTransform.xy + g_uvTransform.zw);
 	Normal			= VertexNormal * mat3x3(g_localToWorld);
 }

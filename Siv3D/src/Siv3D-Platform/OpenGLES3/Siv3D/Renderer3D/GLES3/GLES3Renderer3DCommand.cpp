@@ -75,6 +75,7 @@ namespace s3d
 			m_cameraTransforms = { m_cameraTransforms.back() };
 			m_eyePositions = { m_eyePositions.back() };
 			m_localTransforms = { m_localTransforms.back() };
+			m_uvTransforms = { Float4{ 1.0f, 1.0f, 0.0f, 0.0f } };
 			m_globalAmbientColors	= { m_globalAmbientColors.back() };
 			m_sunDirections			= { m_sunDirections.back() };
 			m_sunColors				= { m_sunColors.back() };
@@ -149,6 +150,9 @@ namespace s3d
 
 			m_commands.emplace_back(GLES3Renderer3DCommandType::LocalTransform, 0);
 			m_currentLocalTransform = m_localTransforms.back();
+
+			m_commands.emplace_back(GLES3Renderer3DCommandType::UVTransform, 0);
+			m_currentUVTransform = m_uvTransforms.back();
 
 			{
 				for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -313,6 +317,12 @@ namespace s3d
 		{
 			m_commands.emplace_back(GLES3Renderer3DCommandType::LocalTransform, static_cast<uint32>(m_localTransforms.size()));
 			m_localTransforms.push_back(m_currentLocalTransform);
+		}
+
+		if (m_changes.has(GLES3Renderer3DCommandType::UVTransform))
+		{
+			m_commands.emplace_back(GLES3Renderer3DCommandType::UVTransform, static_cast<uint32>(m_uvTransforms.size()));
+			m_uvTransforms.push_back(m_currentUVTransform);
 		}
 
 		for (uint32 i = 0; i < SamplerState::MaxSamplerCount; ++i)
@@ -1042,6 +1052,44 @@ namespace s3d
 	const Mat4x4& GLES3Renderer3DCommandManager::getLocalTransform(uint32 index) const
 	{
 		return m_localTransforms[index];
+	}
+
+	void GLES3Renderer3DCommandManager::pushUVTransform(const Float4& state)
+	{
+		constexpr auto command = GLES3Renderer3DCommandType::UVTransform;
+		auto& current = m_currentUVTransform;
+		auto& buffer = m_uvTransforms;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float4& GLES3Renderer3DCommandManager::getCurrentUVTransform() const
+	{
+		return m_currentUVTransform;
+	}
+
+	const Float4& GLES3Renderer3DCommandManager::getUVTransform(const uint32 index) const
+	{
+		return m_uvTransforms[index];
 	}
 
 	void GLES3Renderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)

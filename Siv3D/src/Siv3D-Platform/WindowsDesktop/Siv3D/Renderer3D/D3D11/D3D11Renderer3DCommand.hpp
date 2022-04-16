@@ -98,6 +98,8 @@ namespace s3d
 
 		LocalTransform,
 
+		UVTransform,
+
 		SetConstantBuffer,
 
 		VSTexture0,
@@ -209,6 +211,7 @@ namespace s3d
 		Array<Mat4x4> m_cameraTransforms			= { Mat4x4::Identity() };
 		Array<Float3> m_eyePositions				= { Float3{ 0.0f, 0.0f, 0.0f } };
 		Array<Mat4x4> m_localTransforms				= { Mat4x4::Identity() };
+		Array<Float4> m_uvTransforms				= { Float4{ 1.0f, 1.0f, 0.0f, 0.0f } };
 		Array<__m128> m_constants;
 		Array<D3D11ConstantBuffer3DCommand> m_constantBufferCommands;
 		std::array<Array<Texture::IDType>, SamplerState::MaxSamplerCount> m_vsTextures;
@@ -235,6 +238,7 @@ namespace s3d
 		Mat4x4 m_currentCameraTransform				= m_cameraTransforms.back();
 		Float3 m_currentEyePosition					= m_eyePositions.back();
 		Mat4x4 m_currentLocalTransform				= m_localTransforms.back();
+		Float4 m_currentUVTransform					= m_uvTransforms.back();
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentVSTextures;
 		std::array<Texture::IDType, SamplerState::MaxSamplerCount> m_currentPSTextures;
 		D3D11InputLayout3D m_currentInputLayout		= m_inputLayouts.back();
@@ -328,6 +332,10 @@ namespace s3d
 		void pushLocalTransform(const Mat4x4& state);
 		const Mat4x4& getCurrentLocalTransform() const;
 		const Mat4x4& getLocalTransform(uint32 index) const;
+
+		void pushUVTransform(const Float4& state);
+		const Float4& getCurrentUVTransform() const;
+		const Float4& getUVTransform(uint32 index) const;
 
 		void pushConstantBuffer(ShaderStage stage, uint32 slot, const ConstantBufferBase& buffer, const float* data, uint32 num_vectors);
 		D3D11ConstantBuffer3DCommand& getConstantBuffer(uint32 index);

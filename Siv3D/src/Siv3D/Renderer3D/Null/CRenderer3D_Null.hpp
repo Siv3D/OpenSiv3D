@@ -30,6 +30,8 @@ namespace s3d
 
 		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const PhongMaterial& material) override;
 
+		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const TextureRegion& textureRegion, const PhongMaterial& material) override;
+
 		void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) override;
 
 

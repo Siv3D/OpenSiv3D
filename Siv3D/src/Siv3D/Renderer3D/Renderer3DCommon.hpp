@@ -28,6 +28,11 @@ namespace s3d
 		Mat4x4 localToWorld = Mat4x4::Identity();
 	};
 
+	struct VSPerMaterialConstants3D // (VS slot-3)
+	{
+		Float4 uvTransform = Float4{ 1.0f, 1.0f, 0.0f, 0.0f };
+	};
+
 	struct PSPerFrameConstants3D // (PS slot-0)
 	{
 		Float4 gloablAmbientColor = Float4{ Graphics3D::DefaultGlobalAmbientColor.rgb(), 0.0f };

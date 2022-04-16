@@ -18,6 +18,7 @@
 namespace s3d
 {
 	class Texture;
+	struct TextureRegion;
 	struct Quaternion;
 	struct Mat4x4;
 	struct Triangle3D;
@@ -274,26 +275,38 @@ namespace s3d
 		
 		const Box& draw(const Texture& texture, const ColorF& color = Palette::White) const;
 
+		const Box& draw(const TextureRegion& textureRegion, const ColorF& color = Palette::White) const;
+
 		const Box& draw(const Quaternion& rotation, const ColorF& color = Palette::White) const;
 
 		const Box& draw(const Quaternion& rotation, const Texture& texture, const ColorF& color = Palette::White) const;
 
+		const Box& draw(const Quaternion& rotation, const TextureRegion& textureRegion, const ColorF& color = Palette::White) const;
+
 		const Box& draw(const Mat4x4& mat, const ColorF& color = Palette::White) const;
 
 		const Box& draw(const Mat4x4& mat, const Texture& texture, const ColorF& color = Palette::White) const;
+
+		const Box& draw(const Mat4x4& mat, const TextureRegion& textureRegion, const ColorF& color = Palette::White) const;
 
 
 		const Box& draw(const PhongMaterial& material) const;
 
 		const Box& draw(const Texture& texture, const PhongMaterial& material) const;
 
+		const Box& draw(const TextureRegion& textureRegion, const PhongMaterial& material) const;
+
 		const Box& draw(const Quaternion& rotation, const PhongMaterial& material) const;
 
 		const Box& draw(const Quaternion& rotation, const Texture& texture, const PhongMaterial& material) const;
 
+		const Box& draw(const Quaternion& rotation, const TextureRegion& textureRegion, const PhongMaterial& material) const;
+
 		const Box& draw(const Mat4x4& mat, const PhongMaterial& material) const;
 
 		const Box& draw(const Mat4x4& mat, const Texture& texture, const PhongMaterial& material) const;
+
+		const Box& draw(const Mat4x4& mat, const TextureRegion& textureRegion, const PhongMaterial& material) const;
 
 
 

@@ -36,6 +36,8 @@ namespace s3d
 
 	void CRenderer3D_Null::addTexturedMesh(uint32, uint32, const Mesh&, const Texture&, const PhongMaterial&) {}
 
+	void CRenderer3D_Null::addTexturedMesh(uint32, uint32, const Mesh&, const TextureRegion&, const PhongMaterial&) {}
+
 	void CRenderer3D_Null::addLine3D(const Float3&, const Float3&, const Float4(&)[2]) {}
 
 	BlendState CRenderer3D_Null::getBlendState() const

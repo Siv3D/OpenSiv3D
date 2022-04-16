@@ -40,6 +40,14 @@ namespace s3d
 		return *this;
 	}
 
+	const Plane& Plane::draw(const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), textureRegion, color);
+
+		return *this;
+	}
+
 	const Plane& Plane::draw(const Quaternion& rotation, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
@@ -56,6 +64,14 @@ namespace s3d
 		return *this;
 	}
 
+	const Plane& Plane::draw(const Quaternion& rotation, const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), textureRegion, color);
+
+		return *this;
+	}
+
 	const Plane& Plane::draw(const Mat4x4& mat, const ColorF& color) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
@@ -68,6 +84,14 @@ namespace s3d
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), texture, color);
+
+		return *this;
+	}
+
+	const Plane& Plane::draw(const Mat4x4& mat, const TextureRegion& textureRegion, const ColorF& color) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), textureRegion, color);
 
 		return *this;
 	}
@@ -89,6 +113,14 @@ namespace s3d
 		return *this;
 	}
 
+	const Plane& Plane::draw(const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center), textureRegion, material);
+
+		return *this;
+	}
+
 	const Plane& Plane::draw(const Quaternion& rotation, const PhongMaterial& material) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
@@ -105,6 +137,14 @@ namespace s3d
 		return *this;
 	}
 
+	const Plane& Plane::draw(const Quaternion& rotation, const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw(Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).rotated(rotation).translated(center), textureRegion, material);
+
+		return *this;
+	}
+
 	const Plane& Plane::draw(const Mat4x4& mat, const PhongMaterial& material) const
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
@@ -117,6 +157,14 @@ namespace s3d
 	{
 		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
 			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), texture, material);
+
+		return *this;
+	}
+
+	const Plane& Plane::draw(const Mat4x4& mat, const TextureRegion& textureRegion, const PhongMaterial& material) const
+	{
+		SIV3D_ENGINE(PrimitiveMesh)->getMesh(PrimitiveMeshType::TwoSidedPlane)
+			.draw((Mat4x4::Scale(Float3{ size.x, 1.0f, size.y }).translated(center) * mat), textureRegion, material);
 
 		return *this;
 	}
