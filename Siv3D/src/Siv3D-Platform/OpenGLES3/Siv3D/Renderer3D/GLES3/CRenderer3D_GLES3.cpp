@@ -141,7 +141,7 @@ namespace s3d
 			m_commandManager.pushStandardPS(m_standardPS->forwardID);
 		}
 
-		m_commandManager.pushInputLayout(GL4InputLayout3D::Mesh);
+		m_commandManager.pushInputLayout(GLES3InputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
 
 		Float4 uvTransform;
