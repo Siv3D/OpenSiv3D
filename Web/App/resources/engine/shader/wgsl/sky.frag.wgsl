@@ -150,7 +150,7 @@ fn CustomAtmosphericScattering(V: vec3<f32>, sunDirection: vec3<f32>, sunColor: 
 	totalColor = mix(totalColor * skyAbsorption, totalColor, sunScatter); // when sun goes below horizon, absorb sky color
 	if (sunDisc)
 	{
-		var sun: vec3<f32> = smoothStep(0.03, 0.026, sunAmount) * sunColor * 50.0 * skyAbsorption; // sun disc
+		var sun: vec3<f32> = smoothstep(0.03, 0.026, sunAmount) * sunColor * 50.0 * skyAbsorption; // sun disc
 		totalColor = totalColor + sun;
 		totalColor = totalColor + mie;
 	}

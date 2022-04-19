@@ -34,7 +34,7 @@ fn main(
 
 	var dist: f32 = dot(tex, tex) * 0.5;
 	var delta: f32 = fwidth(dist);
-	var alpha: f32 = smoothStep(0.5 - delta, 0.5, dist);
+	var alpha: f32 = smoothstep(0.5 - delta, 0.5, dist);
 	color.a = color.a * (1.0 - alpha);
 
 	return (color + PSConstants2D.colorAdd);
