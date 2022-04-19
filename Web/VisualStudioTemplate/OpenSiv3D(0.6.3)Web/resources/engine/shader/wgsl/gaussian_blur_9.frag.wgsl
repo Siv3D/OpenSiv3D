@@ -7,12 +7,12 @@
 //
 struct PSConstants2DStruct
 {
-	colorAdd: vec4<f32>;
-	sdfParam: vec4<f32>;
-	sdfOutlineColor: vec4<f32>;
-	sdfShadowColor: vec4<f32>;
-	pixelSize: vec2<f32>;
-	direction: vec2<f32>;
+	colorAdd: vec4<f32>,
+	sdfParam: vec4<f32>,
+	sdfOutlineColor: vec4<f32>,
+	sdfShadowColor: vec4<f32>,
+	pixelSize: vec2<f32>,
+	direction: vec2<f32>,
 };
 
 @group(1) @binding(0)

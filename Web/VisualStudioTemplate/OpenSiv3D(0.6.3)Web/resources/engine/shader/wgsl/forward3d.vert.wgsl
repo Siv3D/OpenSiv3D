@@ -7,10 +7,10 @@
 //
 struct VertexOutput
 {
-	@builtin(position) Position: vec4<f32>;
-	@location(0) WorldPosition: vec3<f32>;
-   	@location(1) UV: vec2<f32>;
-   	@location(2) Normal: vec3<f32>;
+	@builtin(position) Position: vec4<f32>,
+	@location(0) WorldPosition: vec3<f32>,
+   	@location(1) UV: vec2<f32>,
+   	@location(2) Normal: vec3<f32>,
 };
 
 //
@@ -18,7 +18,7 @@ struct VertexOutput
 //
 struct VSPerViewStruct
 {
-	worldToProjected: mat4x4<f32>;
+	worldToProjected: mat4x4<f32>,
 };
 
 @group(0) @binding(0)
@@ -26,11 +26,19 @@ var<uniform> VSPerView: VSPerViewStruct;
 
 struct VSPerObjectStruct
 {
-	localToWorld: mat4x4<f32>;
+	localToWorld: mat4x4<f32>,
 };
 
 @group(0) @binding(1)
 var<uniform> VSPerObject: VSPerObjectStruct;
+
+struct VSPerMaterialStruct
+{
+	uvTransform: vec4<f32>,
+};
+
+@group(0) @binding(2)
+var<uniform> VSPerMaterial: VSPerMaterialStruct;
 
 //
 //	Functions
@@ -47,7 +55,7 @@ fn main(
 
 	output.Position			= worldPosition * VSPerView.worldToProjected;
 	output.WorldPosition	= worldPosition.xyz;
-	output.UV				= VertexUV;
+	output.UV				= VertexUV * VSPerMaterial.uvTransform.xy + VSPerMaterial.uvTransform.zw;
 	output.Normal			= (vec4<f32>(VertexNormal, 0.0) * VSPerObject.localToWorld).xyz;
 
 	return output;

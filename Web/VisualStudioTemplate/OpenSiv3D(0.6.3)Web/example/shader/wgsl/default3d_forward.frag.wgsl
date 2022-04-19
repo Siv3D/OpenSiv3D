@@ -13,9 +13,9 @@
 //
 struct PSPerFrameStruct
 {
-	gloablAmbientColor: vec3<f32>;
-	sunColor: vec3<f32>;
-	sunDirection: vec3<f32>;
+	gloablAmbientColor: vec3<f32>,
+	sunColor: vec3<f32>,
+	sunDirection: vec3<f32>,
 };
 
 @group(1) @binding(0)
@@ -23,7 +23,7 @@ var<uniform> PSPerFrame: PSPerFrameStruct;
 
 struct PSPerViewStruct
 {
-	eyePosition: vec3<f32>;
+	eyePosition: vec3<f32>,
 };
 
 @group(1) @binding(1)
@@ -31,12 +31,12 @@ var<uniform> PSPerView: PSPerViewStruct;
 
 struct PSPerMaterialStruct
 {
-	amibientColor: vec3<f32>;
-	hasTexture: u32;
-	diffuseColor: vec4<f32>;
-	specularColor: vec3<f32>;
-	shininess: f32;
-	emissionColor: vec3<f32>;
+	amibientColor: vec3<f32>,
+	hasTexture: u32,
+	diffuseColor: vec4<f32>,
+	specularColor: vec3<f32>,
+	shininess: f32,
+	emissionColor: vec3<f32>,
 };
 
 @group(1) @binding(2)

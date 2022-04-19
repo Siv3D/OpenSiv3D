@@ -7,9 +7,9 @@
 //
 struct VertexOutput
 {
-	@builtin(position) Position: vec4<f32>;
-   	@location(0) Color: vec4<f32>;
-   	@location(1) UV: vec2<f32>;
+	@builtin(position) Position: vec4<f32>,
+   	@location(0) Color: vec4<f32>,
+   	@location(1) UV: vec2<f32>,
 };
 
 //
@@ -25,9 +25,9 @@ fn s3d_Transform2D(pos: vec2<f32>, t0: vec4<f32>, t1: vec4<f32>) -> vec4<f32>
 //
 struct VSConstants2DStruct
 {
-	transform0: vec4<f32>;
-	transform1: vec4<f32>;
-    colorMul: vec4<f32>;
+	transform0: vec4<f32>,
+	transform1: vec4<f32>,
+    colorMul: vec4<f32>,
 };
 
 @group(0) @binding(0)

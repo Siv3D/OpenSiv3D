@@ -33,9 +33,9 @@
 //
 struct PSPerFrameStruct
 {
-	gloablAmbientColor: vec3<f32>;
-	sunColor: vec3<f32>;
-	sunDirection: vec3<f32>;
+	gloablAmbientColor: vec3<f32>,
+	sunColor: vec3<f32>,
+	sunDirection: vec3<f32>,
 };
 
 @group(1) @binding(0)
@@ -43,7 +43,7 @@ var<uniform> PSPerFrame: PSPerFrameStruct;
 
 struct PSPerViewStruct
 {
-	eyePosition: vec3<f32>;
+	eyePosition: vec3<f32>,
 };
 
 @group(1) @binding(1)
@@ -51,27 +51,27 @@ var<uniform> PSPerView: PSPerViewStruct;
 
 struct PSSkyStruct
 {
-	zenithColor: vec3<f32>;
-	fogHeightSky: f32;
+	zenithColor: vec3<f32>,
+	fogHeightSky: f32,
 
-	horizonColor: vec3<f32>;
-	cloudiness: f32;
+	horizonColor: vec3<f32>,
+	cloudiness: f32,
 
-	cloudUVTransform: vec3<f32>; // cos(theta), -sin(thita), sin(theta)
-	cloudScale: f32;
+	cloudUVTransform: vec3<f32>, // cos(theta), -sin(thita), sin(theta)
+	cloudScale: f32,
 
-	cloudTime: f32;
-	cloudPlaneHeight: f32;
-	starBrightness: f32;
-	option: u32;
+	cloudTime: f32,
+	cloudPlaneHeight: f32,
+	starBrightness: f32,
+	option: u32,
 
-	cloudColor: vec3<f32>;
-	skyExposure: f32;
+	cloudColor: vec3<f32>,
+	skyExposure: f32,
 
-	starsRotation: mat3x3<f32>;
+	starsRotation: mat3x3<f32>,
 
-	starOffset: vec3<f32>;
-	starSaturation: f32;
+	starOffset: vec3<f32>,
+	starSaturation: f32,
 };
 
 @group(1) @binding(3)

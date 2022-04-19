@@ -7,9 +7,9 @@
 //
 struct VertexOutput
 {
-	@builtin(position) Position: vec4<f32>;
-	@location(0) WorldPosition: vec3<f32>;
-	@location(1) Color: vec4<f32>;
+	@builtin(position) Position: vec4<f32>,
+	@location(0) WorldPosition: vec3<f32>,
+	@location(1) Color: vec4<f32>,
 };
 
 //
@@ -17,7 +17,7 @@ struct VertexOutput
 //
 struct VSPerViewStruct
 {
-	worldToProjected: mat4x4<f32>;
+	worldToProjected: mat4x4<f32>,
 };
 
 @group(0) @binding(0)
@@ -25,7 +25,7 @@ var<uniform> VSPerView: VSPerViewStruct;
 
 struct VSPerObjectStruct
 {
-	localToWorld: mat4x4<f32>;
+	localToWorld: mat4x4<f32>,
 };
 
 @group(0) @binding(1)
