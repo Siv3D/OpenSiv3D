@@ -80,6 +80,8 @@ namespace s3d
 
 		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const Texture& texture, const PhongMaterial& material) override;
 
+		void addTexturedMesh(uint32 startIndex, uint32 indexCount, const Mesh& mesh, const TextureRegion& textureRegion, const PhongMaterial& material) override;
+
 		void addLine3D(const Float3& begin, const Float3& end, const Float4(&colors)[2]) override;
 
 
@@ -174,6 +176,7 @@ namespace s3d
 
 		ConstantBuffer<VSPerViewConstants3D> m_vsPerViewConstants;
 		ConstantBuffer<VSPerObjectConstants3D> m_vsPerObjectConstants;
+		ConstantBuffer<VSPerMaterialConstants3D> m_vsPerMaterialConstants;
 		ConstantBuffer<PSPerFrameConstants3D> m_psPerFrameConstants;
 		ConstantBuffer<PSPerViewConstants3D> m_psPerViewConstants;
 		ConstantBuffer<PSPerMaterialConstants3D> m_psPerMaterialConstants;

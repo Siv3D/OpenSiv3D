@@ -55,7 +55,7 @@ namespace s3d
 		{
 			LOG_INFO(U"📦 Loading vertex shaders for CRenderer3D_WebGPU:");
 			m_standardVS = std::make_unique<WebGPUStandardVS3D>();
-			m_standardVS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.vert.wgsl"), { { U"VSPerView", 0 }, { U"VSPerObject", 1 } } };
+			m_standardVS->forward = WGSL{ Resource(U"engine/shader/wgsl/forward3d.vert.wgsl"), { { U"VSPerView", 0 }, { U"VSPerObject", 1 }, { U"VSPerMaterial", 2 } } };
 			m_standardVS->line3D = WGSL{ Resource(U"engine/shader/wgsl/line3d.vert.wgsl"), { { U"VSPerView", 0 }, { U"VSPerObject", 1 } } };
 
 			if (not m_standardVS->setup())
@@ -107,6 +107,7 @@ namespace s3d
 
 		m_commandManager.pushInputLayout(WebGPUInputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
+		m_commandManager.pushUVTransform(Float4{ 1.0f, 1.0f, 0.0f, 0.0f });
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
@@ -127,7 +128,36 @@ namespace s3d
 
 		m_commandManager.pushInputLayout(WebGPUInputLayout3D::Mesh);
 		m_commandManager.pushMesh(mesh);
+		m_commandManager.pushUVTransform(Float4{ 1.0f, 1.0f, 0.0f, 0.0f });
 		m_commandManager.pushPSTexture(0, texture);
+
+		const PhongMaterialInternal phong{ material };
+		const uint32 instanceCount = 1;
+		m_commandManager.pushDraw(startIndex, indexCount, phong, instanceCount);
+	}
+
+	void CRenderer3D_WebGPU::addTexturedMesh(const uint32 startIndex, const uint32 indexCount, const Mesh& mesh, const TextureRegion& textureRegion, const PhongMaterial& material)
+	{
+		if (not m_currentCustomVS)
+		{
+			m_commandManager.pushStandardVS(m_standardVS->forwardID);
+		}
+
+		if (not m_currentCustomPS)
+		{
+			m_commandManager.pushStandardPS(m_standardPS->forwardID);
+		}
+
+		m_commandManager.pushInputLayout(WebGPUInputLayout3D::Mesh);
+		m_commandManager.pushMesh(mesh);
+
+		Float4 uvTransform;
+		uvTransform.x = (textureRegion.uvRect.right - textureRegion.uvRect.left);
+		uvTransform.y = (textureRegion.uvRect.bottom - textureRegion.uvRect.top);
+		uvTransform.z = textureRegion.uvRect.left;
+		uvTransform.w = textureRegion.uvRect.top;
+		m_commandManager.pushUVTransform(uvTransform);
+		m_commandManager.pushPSTexture(0, textureRegion.texture);
 
 		const PhongMaterialInternal phong{ material };
 		const uint32 instanceCount = 1;
@@ -467,12 +497,14 @@ namespace s3d
 
 					m_vsPerViewConstants._update_if_dirty();
 					m_vsPerObjectConstants._update_if_dirty();
+					m_vsPerMaterialConstants._update_if_dirty();
 					m_psPerFrameConstants._update_if_dirty();
 					m_psPerViewConstants._update_if_dirty();
 					m_psPerMaterialConstants._update_if_dirty();
 
 					pShader->setConstantBufferVS(0, m_vsPerViewConstants.base());
 					pShader->setConstantBufferVS(1, m_vsPerObjectConstants.base());
+					pShader->setConstantBufferVS(2, m_vsPerMaterialConstants.base());
 					pShader->setConstantBufferPS(0, m_psPerFrameConstants.base());
 					pShader->setConstantBufferPS(1, m_psPerViewConstants.base());
 					pShader->setConstantBufferPS(2, m_psPerMaterialConstants.base());
@@ -734,6 +766,14 @@ namespace s3d
 					m_vsPerObjectConstants->localToWorld = localTransform.transposed();
 
 					LOG_COMMAND(U"LocalTransform[{}] {}"_fmt(command.index, localTransform));
+					break;
+				}
+			case WebGPURenderer3DCommandType::UVTransform:
+				{
+					const Float4& uvTransform = m_commandManager.getUVTransform(command.index);
+					m_vsPerMaterialConstants->uvTransform = uvTransform;
+
+					LOG_COMMAND(U"UVTransform[{}] {}"_fmt(command.index, uvTransform));
 					break;
 				}
 			case WebGPURenderer3DCommandType::SetConstantBuffer:

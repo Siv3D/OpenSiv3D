@@ -32,6 +32,14 @@ struct VSPerObjectStruct
 @group(0) @binding(1)
 var<uniform> VSPerObject: VSPerObjectStruct;
 
+struct VSPerMaterialStruct
+{
+	uvTransform: vec4<f32>,
+};
+
+@group(0) @binding(2)
+var<uniform> VSPerMaterial: VSPerMaterialStruct;
+
 //
 //	Functions
 //
@@ -47,7 +55,7 @@ fn main(
 
 	output.Position			= worldPosition * VSPerView.worldToProjected;
 	output.WorldPosition	= worldPosition.xyz;
-	output.UV				= VertexUV;
+	output.UV				= VertexUV * VSPerMaterial.uvTransform.xy + VSPerMaterial.uvTransform.zw;
 	output.Normal			= (vec4<f32>(VertexNormal, 0.0) * VSPerObject.localToWorld).xyz;
 
 	return output;
