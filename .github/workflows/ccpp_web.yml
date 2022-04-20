@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Boost
-        uses: .github/actions/download-boost
+        uses: ./.github/actions/download-boost
         with:
           version: '1.74.0'
           destination: Dependencies/boost_1_74_0
