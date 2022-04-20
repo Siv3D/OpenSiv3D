@@ -23,12 +23,15 @@ runs:
     - name: Download boost
       if: ${{ !steps.cache_boost.outputs.cache-hit }}
       working-directory: Dependencies
+      shell: bash
       run: |
         rm -r ${{ inputs.destination }}
         git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-${{ inputs.version }} ${{ inputs.destination }}
+
     - name: Place boost
       if: ${{ !steps.cache_boost.outputs.cache-hit }}
       working-directory: ${{ inputs.destination }}
+      shell: bash
       run: |
         ./bootstrap.sh
         ./b2 headers
