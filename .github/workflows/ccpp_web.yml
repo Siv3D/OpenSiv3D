@@ -9,40 +9,16 @@ on:
 
 jobs:
   pre-build:
-    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache boost
-        id: cache_boost
-        uses: actions/cache@v1
-        env:
-          cache-name: cache-boost-headers
+      - name: Install Boost
+        uses: .github/actions/download-boost
         with:
-          path: Dependencies/boost_1_74_0/boost
-          key: ${{ env.cache-name }}
-
-      - name: Download boost
-        if: ${{ !steps.cache_boost.outputs.cache-hit }}
-        working-directory: Dependencies
-        run: |
-          git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-1.74.0
-          rm -r boost_1_74_0
-          mv boost boost_1_74_0
-
-      - name: Place boost
-        if: ${{ !steps.cache_boost.outputs.cache-hit }}
-        working-directory: Dependencies/boost_1_74_0
-        run: |
-          ./bootstrap.sh
-          ./b2 headers
-          mkdir boost_tmp
-          cp -L -r boost boost_tmp
-          rm -r boost
-          mv boost_tmp/boost boost
+          version: '1.74.0'
+          destination: Dependencies/boost_1_74_0
 
   build:
     needs: pre-build

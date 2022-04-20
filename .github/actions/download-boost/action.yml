@@ -1,0 +1,38 @@
+name: Download Build Prerequisites
+
+inputs:
+  version:
+    description: boost version
+    required: true
+  destination:
+    description: installed path
+    default: '.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache boost
+      id: cache_boost
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-boost-headers
+      with:
+        path: ${{ inputs.destination }}
+        key: ${{ env.cache-name }}
+
+    - name: Download boost
+      if: ${{ !steps.cache_boost.outputs.cache-hit }}
+      working-directory: Dependencies
+      run: |
+        rm -r ${{ inputs.destination }}
+        git clone --recursive https://github.com/boostorg/boost.git --depth 1 --branch boost-${{ inputs.version }} ${{ inputs.destination }}
+    - name: Place boost
+      if: ${{ !steps.cache_boost.outputs.cache-hit }}
+      working-directory: ${{ inputs.destination }}
+      run: |
+        ./bootstrap.sh
+        ./b2 headers
+        mkdir boost_tmp
+        cp -L -r boost boost_tmp
+        rm -r boost
+        mv boost_tmp/boost boost
