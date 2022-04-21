@@ -341,7 +341,7 @@ namespace SoLoud
 
 	result WavStreamInstance::seek(double aSeconds, float* mScratch, unsigned int mScratchSize)
 	{
-		if (mCodec.mOgg)
+		if (mParent->mFiletype == WAVSTREAM_OGG)
 		{
 			int pos = (int)floor(mBaseSamplerate * aSeconds);
 			stb_vorbis_seek(mCodec.mOgg, pos);
