@@ -82,6 +82,7 @@ namespace SoLoud
 
 	WavStreamInstance::WavStreamInstance(WavStream *aParent)
 	{
+		mOggFrameSize = 0;
 		mParent = aParent;
 		mOffset = 0;
 		mCodec.mOgg = 0;
@@ -157,7 +158,7 @@ namespace SoLoud
 			if (mParent->mFiletype == WAVSTREAM_MP3)
 			{
 				mCodec.mMp3 = new drmp3;
-				if (!drmp3_init(mCodec.mMp3, drmp3_read_func, drmp3_seek_func, (void*)mFile, NULL, NULL))
+				if (!drmp3_init(mCodec.mMp3, drmp3_read_func, drmp3_seek_func, (void*)mFile, NULL))
 				{
 					delete mCodec.mMp3;
 					mCodec.mMp3 = 0;
@@ -239,6 +240,7 @@ namespace SoLoud
 	unsigned int WavStreamInstance::getAudio(float *aBuffer, unsigned int aSamplesToRead, unsigned int aBufferSize)
 	{			
 		unsigned int offset = 0;
+		float tmp[512 * MAX_CHANNELS];
 		if (mFile == NULL)
 			return 0;
 		switch (mParent->mFiletype)
@@ -249,7 +251,6 @@ namespace SoLoud
 
 				for (i = 0; i < aSamplesToRead; i += 512)
 				{
-					float tmp[512 * MAX_CHANNELS];
 					unsigned int blockSize = (aSamplesToRead - i) > 512 ? 512 : aSamplesToRead - i;
 					offset += (unsigned int)drflac_read_pcm_frames_f32(mCodec.mFlac, blockSize, tmp);
 
@@ -271,7 +272,6 @@ namespace SoLoud
 
 				for (i = 0; i < aSamplesToRead; i += 512)
 				{
-					float tmp[512 * MAX_CHANNELS];
 					unsigned int blockSize = (aSamplesToRead - i) > 512 ? 512 : aSamplesToRead - i;
 					offset += (unsigned int)drmp3_read_pcm_frames_f32(mCodec.mMp3, blockSize, tmp);
 
@@ -320,7 +320,6 @@ namespace SoLoud
 
 				for (i = 0; i < aSamplesToRead; i += 512)
 				{
-					float tmp[512 * MAX_CHANNELS];
 					unsigned int blockSize = (aSamplesToRead - i) > 512 ? 512 : aSamplesToRead - i;
 					offset += (unsigned int)drwav_read_pcm_frames_f32(mCodec.mWav, blockSize, tmp);
 
@@ -338,6 +337,25 @@ namespace SoLoud
 			break;
 		}
 		return aSamplesToRead;
+	}
+
+	result WavStreamInstance::seek(double aSeconds, float* mScratch, unsigned int mScratchSize)
+	{
+		if (mCodec.mOgg)
+		{
+			int pos = (int)floor(mBaseSamplerate * aSeconds);
+			stb_vorbis_seek(mCodec.mOgg, pos);
+			// Since the position that we just sought to might not be *exactly*
+			// the position we asked for, we're re-calculating the position just
+			// for the sake of correctness.
+			mOffset = stb_vorbis_get_sample_offset(mCodec.mOgg);
+			double newPosition = float(mOffset / mBaseSamplerate);
+			mStreamPosition = newPosition;
+			return 0;
+		}
+		else {
+			return AudioSourceInstance::seek(aSeconds, mScratch, mScratchSize);
+		}
 	}
 
 	result WavStreamInstance::rewind()
@@ -473,7 +491,7 @@ namespace SoLoud
 	{
 		fp->seek(0);
 		drmp3 decoder;
-		if (!drmp3_init(&decoder, drmp3_read_func, drmp3_seek_func, (void*)fp, NULL, NULL))
+		if (!drmp3_init(&decoder, drmp3_read_func, drmp3_seek_func, (void*)fp, NULL))
 			return FILE_LOAD_FAILED;
 
 
