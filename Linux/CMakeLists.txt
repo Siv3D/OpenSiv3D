@@ -539,6 +539,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNone_t.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptNumber.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOffsetCircular.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptOpenMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPalette.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPeriodic.cpp
@@ -567,8 +568,10 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptStopwatch.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptSystem.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextEditState.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextEncoding.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextInputMode.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextReader.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextStyle.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextToSpeech.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTexture.cpp
@@ -579,6 +582,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextureFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTexturePixelFormat.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTextureRegion.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptTextWriter.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptThreading.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTime.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptTimer.cpp

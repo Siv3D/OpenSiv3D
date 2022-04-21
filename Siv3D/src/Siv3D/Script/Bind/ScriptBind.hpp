@@ -57,6 +57,11 @@ namespace s3d
 		MillisecClock,
 		MicrosecClock,
 		RDTSCClock,
+
+		TextReader,
+		TextWriterBuffer,
+		TextWriter,
+
 		Color,
 		ColorF,
 		HSV,
@@ -146,6 +151,11 @@ namespace s3d
 	void RegisterMillisecClock(asIScriptEngine* engine);
 	void RegisterMicrosecClock(asIScriptEngine* engine);
 	void RegisterRDTSCClock(asIScriptEngine* engine);
+
+	void RegisterTextEncoding(asIScriptEngine* engine);
+	void RegisterOpenMode(asIScriptEngine* engine);
+	void RegisterTextReader(asIScriptEngine* engine);
+	void RegisterTextWriter(asIScriptEngine* engine);
 
 	void RegisterSpecialFolder(asIScriptEngine* engine);
 	void RegisterCopyOption(asIScriptEngine* engine);

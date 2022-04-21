@@ -374,6 +374,29 @@ void RegisterStdString_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("String", "bool empty() const", asFUNCTION(StringIsEmpty), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	r = engine->RegisterObjectMethod("String", "bool isEmpty() const", asFUNCTION(StringIsEmpty), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
+	// operatpr <<
+	r = engine->RegisterObjectMethod("String", "String& opShl(uint ch)", asMETHODPR(String, operator <<, (char32), String&), asCALL_THISCALL); assert(r >= 0);
+	// push_front
+	r = engine->RegisterObjectMethod("String", "void push_front(uint ch)", asMETHODPR(String, push_front, (char32), void), asCALL_THISCALL); assert(r >= 0);
+	// push_back
+	r = engine->RegisterObjectMethod("String", "void push_back(uint ch)", asMETHODPR(String, push_back, (char32), void), asCALL_THISCALL); assert(r >= 0);
+	// pop_front
+	r = engine->RegisterObjectMethod("String", "void pop_front()", asMETHODPR(String, pop_front, (), void), asCALL_THISCALL); assert(r >= 0);
+	// pop_front_N
+	r = engine->RegisterObjectMethod("String", "void pop_front_N(size_t)", asMETHODPR(String, pop_front_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+	// pop_back
+	r = engine->RegisterObjectMethod("String", "void pop_back()", asMETHODPR(String, pop_back, (), void), asCALL_THISCALL); assert(r >= 0);
+	// pop_back_N
+	r = engine->RegisterObjectMethod("String", "void pop_back_N(size_t)", asMETHODPR(String, pop_back_N, (size_t), void), asCALL_THISCALL); assert(r >= 0);
+
+	// front()
+	r = engine->RegisterObjectMethod("String", "char32& front()", asMETHODPR(String, front, (), char32&), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("String", "const char32& front() const", asMETHODPR(String, front, () const, const char32&), asCALL_THISCALL); assert(r >= 0);
+
+	// back()
+	r = engine->RegisterObjectMethod("String", "char32& back()", asMETHODPR(String, back, (), char32&), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("String", "const char32& back() const", asMETHODPR(String, back, () const, const char32&), asCALL_THISCALL); assert(r >= 0);
+
 	// substr()
 	r = engine->RegisterObjectMethod("String", "String substr(uint start = 0, int count = -1) const", asFUNCTION(StringSubString), asCALL_CDECL_OBJLAST); assert( r >= 0 );
 

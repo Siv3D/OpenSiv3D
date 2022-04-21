@@ -109,6 +109,11 @@ namespace s3d
 			RegisterMicrosecClock(m_engine);
 			RegisterRDTSCClock(m_engine);
 
+			RegisterTextEncoding(m_engine);
+			RegisterOpenMode(m_engine);
+			RegisterTextReader(m_engine);
+			RegisterTextWriter(m_engine);
+
 			RegisterSpecialFolder(m_engine);
 			RegisterCopyOption(m_engine);
 			RegisterFileSystem(m_engine);

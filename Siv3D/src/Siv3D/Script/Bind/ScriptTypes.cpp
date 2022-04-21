@@ -61,6 +61,10 @@ namespace s3d
 		RegisterType(engine, "MicrosecClock", sizeof(MicrosecClock), asOBJ_VALUE | asGetTypeTraits<MicrosecClock>());
 		RegisterType(engine, "RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>());
 
+		RegisterType(engine, "TextReader", sizeof(TextReader), asOBJ_VALUE | asGetTypeTraits<TextReader>());
+		RegisterType(engine, "TextWriterBuffer", 0, asOBJ_REF);
+		RegisterType(engine, "TextWriter", sizeof(TextWriter), asOBJ_VALUE | asGetTypeTraits<TextWriter>());
+
 		RegisterType(engine, "Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "HSV", sizeof(HSV), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
@@ -127,6 +131,8 @@ namespace s3d
 		RegisterType(engine, "TextEditState", sizeof(TextEditState), asOBJ_VALUE | asGetTypeTraits<TextEditState>());
 
 
+		RegisterEnum(engine, "TextEncoding");
+		RegisterEnum(engine, "OpenMode");
 		RegisterEnum(engine, "SpecialFolder");
 		RegisterEnum(engine, "CopyOption");
 		RegisterEnum(engine, "WindowStyle");
@@ -163,6 +169,9 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("MillisecClock") == static_cast<int32>(ScriptTypeID::MillisecClock));
 		assert(engine->GetTypeIdByDecl("MicrosecClock") == static_cast<int32>(ScriptTypeID::MicrosecClock));
 		assert(engine->GetTypeIdByDecl("RDTSCClock") == static_cast<int32>(ScriptTypeID::RDTSCClock));
+		assert(engine->GetTypeIdByDecl("TextReader") == static_cast<int32>(ScriptTypeID::TextReader));
+		assert(engine->GetTypeIdByDecl("TextWriterBuffer") == static_cast<int32>(ScriptTypeID::TextWriterBuffer));
+		assert(engine->GetTypeIdByDecl("TextWriter") == static_cast<int32>(ScriptTypeID::TextWriter));
 		assert(engine->GetTypeIdByDecl("Color") == static_cast<int32>(ScriptTypeID::Color));
 		assert(engine->GetTypeIdByDecl("ColorF") == static_cast<int32>(ScriptTypeID::ColorF));
 		assert(engine->GetTypeIdByDecl("HSV") == static_cast<int32>(ScriptTypeID::HSV));
