@@ -11,7 +11,7 @@
     RtAudio WWW site: http://www.music.mcgill.ca/~gary/rtaudio/
 
     RtAudio: realtime audio i/o C++ classes
-    Copyright (c) 2001-2019 Gary P. Scavone
+    Copyright (c) 2001-2021 Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -46,7 +46,7 @@
 #ifndef __RTAUDIO_H
 #define __RTAUDIO_H
 
-#define RTAUDIO_VERSION "5.1.0"
+#define RTAUDIO_VERSION "5.2.0"
 
 #if defined _WIN32 || defined __CYGWIN__
   #if defined(RTAUDIO_EXPORT)
@@ -226,12 +226,12 @@ class RTAUDIO_DLL_PUBLIC RtAudioError : public std::runtime_error
     UNSPECIFIED,       /*!< The default, unspecified error type. */
     NO_DEVICES_FOUND,  /*!< No devices found on system. */
     INVALID_DEVICE,    /*!< An invalid device ID was specified. */
-    MEMORY_ERROR,      /*!< An error occured during memory allocation. */
+    MEMORY_ERROR,      /*!< An error occurred during memory allocation. */
     INVALID_PARAMETER, /*!< An invalid parameter was specified to a function. */
     INVALID_USE,       /*!< The function was called incorrectly. */
-    DRIVER_ERROR,      /*!< A system driver error occured. */
-    SYSTEM_ERROR,      /*!< A system error occured. */
-    THREAD_ERROR       /*!< A thread error occured. */
+    DRIVER_ERROR,      /*!< A system driver error occurred. */
+    SYSTEM_ERROR,      /*!< A system error occurred. */
+    THREAD_ERROR       /*!< A thread error occurred. */
   };
 
   //! The constructor.
@@ -309,7 +309,7 @@ class RTAUDIO_DLL_PUBLIC RtAudio
     RtAudioFormat nativeFormats{};  /*!< Bit mask of supported data formats. */
   };
 
-  //! The structure for specifying input or ouput stream parameters.
+  //! The structure for specifying input or output stream parameters.
   struct StreamParameters {
     unsigned int deviceId{};     /*!< Device index (0 to getDeviceCount() - 1). */
     unsigned int nChannels{};    /*!< Number of channels. */
@@ -514,7 +514,7 @@ class RTAUDIO_DLL_PUBLIC RtAudio
            lowest allowable value is used.  The actual value used is
            returned via the structure argument.  The parameter is API dependent.
     \param errorCallback A client-defined function that will be invoked
-           when an error has occured.
+           when an error has occurred.
   */
   void openStream( RtAudio::StreamParameters *outputParameters,
                    RtAudio::StreamParameters *inputParameters,
@@ -603,7 +603,7 @@ class RTAUDIO_DLL_PUBLIC RtAudio
 };
 
 // Operating system dependent thread functionality.
-#if defined(__WINDOWS_DS__) || defined(__WINDOWS_ASIO__) || defined(__WINDOWS_WASAPI__)
+#if defined(_WIN32) || defined(__CYGWIN__)
 
   #ifndef NOMINMAX
     #define NOMINMAX
@@ -615,18 +615,22 @@ class RTAUDIO_DLL_PUBLIC RtAudio
   typedef uintptr_t ThreadHandle;
   typedef CRITICAL_SECTION StreamMutex;
 
-#elif defined(__LINUX_ALSA__) || defined(__LINUX_PULSE__) || defined(__UNIX_JACK__) || defined(__LINUX_OSS__) || defined(__MACOSX_CORE__)
+#else
+
   // Using pthread library for various flavors of unix.
   #include <pthread.h>
 
   typedef pthread_t ThreadHandle;
   typedef pthread_mutex_t StreamMutex;
 
-#else // Setup for "dummy" behavior
+#endif
+
+// Setup for "dummy" behavior if no apis specified.
+#if !(defined(__WINDOWS_DS__) || defined(__WINDOWS_ASIO__) || defined(__WINDOWS_WASAPI__) \
+      || defined(__LINUX_ALSA__) || defined(__LINUX_PULSE__) || defined(__UNIX_JACK__) \
+      || defined(__LINUX_OSS__) || defined(__MACOSX_CORE__))
 
   #define __RTAUDIO_DUMMY__
-  typedef int ThreadHandle;
-  typedef int StreamMutex;
 
 #endif
 
@@ -669,9 +673,9 @@ class S24 {
   S24() {}
 
   S24& operator = ( const int& i ) {
-    c3[0] = (i & 0x000000ff);
-    c3[1] = (i & 0x0000ff00) >> 8;
-    c3[2] = (i & 0x00ff0000) >> 16;
+    c3[0] = (unsigned char)(i & 0x000000ff);
+    c3[1] = (unsigned char)((i & 0x0000ff00) >> 8);
+    c3[2] = (unsigned char)((i & 0x00ff0000) >> 16);
     return *this;
   }
 
@@ -891,7 +895,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent( AudioDeviceID deviceId,
                       const AudioBufferList *inBufferList,
                       const AudioBufferList *outBufferList );
@@ -926,7 +930,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent( unsigned long nframes );
 
   private:
@@ -951,6 +955,8 @@ public:
   ~RtApiAsio();
   RtAudio::Api getCurrentApi( void ) override { return RtAudio::WINDOWS_ASIO; }
   unsigned int getDeviceCount( void ) override;
+  unsigned int getDefaultOutputDevice( void ) override;
+  unsigned int getDefaultInputDevice( void ) override;
   RtAudio::DeviceInfo getDeviceInfo( unsigned int device ) override;
   void closeStream( void ) override;
   void startStream( void ) override;
@@ -960,7 +966,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent( long bufferIndex );
 
   private:
@@ -997,7 +1003,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent( void );
 
   private:
@@ -1027,8 +1033,6 @@ public:
   RtAudio::Api getCurrentApi( void ) override { return RtAudio::WINDOWS_WASAPI; }
   unsigned int getDeviceCount( void ) override;
   RtAudio::DeviceInfo getDeviceInfo( unsigned int device ) override;
-  unsigned int getDefaultOutputDevice( void ) override;
-  unsigned int getDefaultInputDevice( void ) override;
   void closeStream( void ) override;
   void startStream( void ) override;
   void stopStream( void ) override;
@@ -1070,7 +1074,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent( void );
 
   private:
@@ -1102,7 +1106,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent( void );
 
   private:
@@ -1135,7 +1139,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent( void );
 
   private:

@@ -1539,7 +1539,7 @@ SOFTWARE.)-"
 {
 UR"-(RtAudio)-",
 
-UR"-(Copyright (c) 2001-2019 Gary P. Scavone)-",
+UR"-(Copyright (c) 2001-2021 Gary P. Scavone)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation files

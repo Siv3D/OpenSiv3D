@@ -71,7 +71,7 @@ Name | Version
 [Quirc](https://github.com/dlbeer/quirc) | 
 [Recast & Detour](https://github.com/recastnavigation/recastnavigation) | 
 [rectpack2D](https://github.com/TeamHypersomnia/rectpack2D) | 
-[RtAudio](https://github.com/thestk/rtaudio) | 
+[RtAudio](https://github.com/thestk/rtaudio) | 5.2.0
 [scope-guard](https://github.com/offa/scope-guard) | v0.3.9
 [sdf-glyph-foundry](https://github.com/mapbox/sdf-glyph-foundry) | 
 [Serial Communication Library](https://github.com/wjwwood/serial) | 
