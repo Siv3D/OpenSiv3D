@@ -16,40 +16,71 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	static std::string GetTypeName(int32 typeID)
+	namespace detail
 	{
-		const asIScriptContext* context = asGetActiveContext();
-		const asIScriptEngine* engine = context->GetEngine();
-		const asITypeInfo* ti = engine->GetTypeInfoById(typeID);
-
-		if (const uint32 subTypeCount = ti->GetSubTypeCount())
+		[[nodiscard]]
+		static const asITypeInfo* GetTypeInfo(const int32 typeID)
 		{
-			std::string name(ti->GetName());
-			name.push_back('<');
-			//bool isFirst = true;
-
-			//for (size_t i = 0; i < subTypeCount; ++i)
-			//{
-			//	std::string subTypeName = GetTypeName(ti->GetSubTypeId(i));
-
-			//	if (isFirst)
-			//	{
-			//		name += subTypeName;
-			//		isFirst = false;
-			//	}
-			//	else
-			//	{
-			//		name += ", ";
-			//		name += subTypeName;
-			//	}
-			//}
-
-			name.push_back('>');
-			return name;
+			const asIScriptContext* context = asGetActiveContext();
+			const asIScriptEngine* engine = context->GetEngine();
+			return engine->GetTypeInfoById(typeID);
 		}
-		else
+
+		[[nodiscard]]
+		static String GetTypeName(const asITypeInfo* ti)
 		{
-			return ti->GetName();
+			if (const uint32 subTypeCount = ti->GetSubTypeCount())
+			{
+				String name = Unicode::WidenAscii(ti->GetName());
+				name.push_back(U'<');
+				//bool isFirst = true;
+
+				//for (size_t i = 0; i < subTypeCount; ++i)
+				//{
+				//	std::string subTypeName = GetTypeName(ti->GetSubTypeId(i));
+
+				//	if (isFirst)
+				//	{
+				//		name += subTypeName;
+				//		isFirst = false;
+				//	}
+				//	else
+				//	{
+				//		name += ", ";
+				//		name += subTypeName;
+				//	}
+				//}
+
+				name.push_back(U'>');
+				return name;
+			}
+			else
+			{
+				return Unicode::WidenAscii(ti->GetName());
+			}
+		}
+
+		[[nodiscard]]
+		static bool IsEnum(const asITypeInfo* ti)
+		{
+			return static_cast<bool>(ti->GetFlags() & asOBJ_ENUM);
+		}
+
+		[[nodiscard]]
+		static String GetEnumValue(const asITypeInfo* ti, int32 value)
+		{
+			for (int n = ti->GetEnumValueCount(); (n-- > 0); )
+			{
+				int enumValue;
+				const char* enumName = ti->GetEnumValueByIndex(n, &enumValue);
+
+				if (enumValue == value)
+				{
+					return Unicode::WidenAscii(enumName);
+				}
+			}
+
+			return{};
 		}
 	}
 
@@ -203,7 +234,17 @@ namespace s3d
 				break;
 			default:
 			{
-				Formatter(formatData, Format(U"[", Unicode::WidenAscii(GetTypeName(static_cast<int32>(typeID))), U" value (Format not implemented)]"));
+				const asITypeInfo* ti = detail::GetTypeInfo(FromEnum(typeID));
+				const String typeName = detail::GetTypeName(ti);
+
+				if (detail::IsEnum(ti))
+				{
+					Formatter(formatData, (typeName + U"::" + detail::GetEnumValue(ti, *static_cast<const int32*>(ref))));
+				}
+				else
+				{
+					Formatter(formatData, (U"[" + typeName + U" value (Format not implemented)]"));
+				}
 			}
 			break;
 			}
