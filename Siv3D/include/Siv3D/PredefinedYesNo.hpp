@@ -112,4 +112,7 @@ namespace s3d
 
 	/// @brief パラメータの名前を含む
 	using IncludeParamNames = YesNo<struct IncludeParamNames_tag>;
+
+	/// @brief 詳細を出力する
+	using Verbose = YesNo<struct Verbose_tag>;
 }
