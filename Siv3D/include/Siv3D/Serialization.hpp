@@ -95,6 +95,9 @@ namespace s3d
 		[[nodiscard]]
 		std::shared_ptr<Reader> operator ->();
 
+		[[nodiscard]]
+		std::shared_ptr<const Reader> operator ->() const;
+
 	private:
 
 		std::shared_ptr<IReader> m_reader;
@@ -107,6 +110,7 @@ CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::BinaryReader>)
 CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::MemoryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::MemoryReader>)
+CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::MemoryViewReader>)
 
 CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::BinaryReader>, s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::MemoryReader>, s3d::Serializer<s3d::MemoryWriter>)

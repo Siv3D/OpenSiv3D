@@ -77,6 +77,12 @@ namespace s3d
 		return std::dynamic_pointer_cast<Reader>(m_reader);
 	}
 
+	template <class Reader>
+	inline std::shared_ptr<const Reader> Deserializer<Reader>::operator ->() const
+	{
+		return std::dynamic_pointer_cast<const Reader>(m_reader);
+	}
+
 	//////////////////////////////////////////////////////
 	//
 	//	arithmetic types
