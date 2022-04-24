@@ -42,6 +42,12 @@ namespace s3d
 		return std::dynamic_pointer_cast<Writer>(m_writer);
 	}
 
+	template <class Writer>
+	inline std::shared_ptr<const Writer> Serializer<Writer>::operator ->() const
+	{
+		return std::dynamic_pointer_cast<const Writer>(m_writer);
+	}
+
 	template <class Reader>
 	template <class ...Args>
 	inline Deserializer<Reader>::Deserializer(Args&& ... args)

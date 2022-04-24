@@ -70,6 +70,9 @@ namespace s3d
 		[[nodiscard]]
 		std::shared_ptr<Writer> operator ->();
 
+		[[nodiscard]]
+		std::shared_ptr<const Writer> operator ->() const;
+
 	private:
 
 		std::shared_ptr<IWriter> m_writer;
