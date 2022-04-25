@@ -369,7 +369,7 @@ namespace s3d
 		// 2. 処理
 		{
 			const cv::Rect roi = OpenCV_Bridge::ToCVRect(region);
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(imageRef);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(imageRef);
 			cv::Mat srcROI = matSrc(roi);
 
 			cv::blur(srcROI, srcROI, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
@@ -401,7 +401,7 @@ namespace s3d
 		// 2. 処理
 		{
 			const cv::Rect roi = OpenCV_Bridge::ToCVRect(region);
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(imageRef);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(imageRef);
 			cv::Mat srcROI = matSrc(roi);
 
 			cv::medianBlur(srcROI, srcROI, apertureSize);
@@ -434,7 +434,7 @@ namespace s3d
 		// 2. 処理
 		{
 			const cv::Rect roi = OpenCV_Bridge::ToCVRect(region);
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(imageRef);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(imageRef);
 			cv::Mat srcROI = matSrc(roi);
 
 			cv::GaussianBlur(srcROI, srcROI, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
@@ -466,7 +466,7 @@ namespace s3d
 		// 2. 処理
 		{
 			const cv::Rect roi = OpenCV_Bridge::ToCVRect(region);
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(imageRef);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(imageRef);
 			cv::Mat srcROI = matSrc(roi);
 
 			cv::dilate(srcROI, srcROI, cv::Mat(), cv::Point(-1, -1), iterations);
@@ -493,7 +493,7 @@ namespace s3d
 		// 2. 処理
 		{
 			const cv::Rect roi = OpenCV_Bridge::ToCVRect(region);
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(imageRef);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(imageRef);
 			cv::Mat srcROI = matSrc(roi);
 
 			cv::erode(srcROI, srcROI, cv::Mat(), cv::Point(-1, -1), iterations);

@@ -54,7 +54,7 @@ namespace s3d
 		inline cv::Rect ToCVRect(const Rect& rect);
 
 		[[nodiscard]]
-		inline cv::Mat_<cv::Vec4b> GetMatView(Image& image);
+		inline cv::Mat GetMatView(Image& image);
 
 		[[nodiscard]]
 		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept;

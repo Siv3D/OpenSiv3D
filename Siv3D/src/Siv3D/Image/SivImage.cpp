@@ -1662,7 +1662,7 @@ namespace s3d
 
 		// 2. 処理
 		{
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
 			cv::blur(matSrc, matSrc, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
 		}
 
@@ -1692,8 +1692,8 @@ namespace s3d
 		// 2. 処理
 		{
 			Image image{ m_width, m_height };
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::blur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
 			return image;
@@ -1722,7 +1722,7 @@ namespace s3d
 
 		// 2. 処理
 		{
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
 			cv::medianBlur(matSrc, matSrc, apertureSize);
 		}
 
@@ -1752,8 +1752,8 @@ namespace s3d
 		// 2. 処理
 		{
 			Image image{ m_width, m_height };
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::medianBlur(matSrc, matDst, apertureSize);
 			return image;
@@ -1782,7 +1782,7 @@ namespace s3d
 
 		// 2. 処理
 		{
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
 			cv::GaussianBlur(matSrc, matSrc, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
 		}
 
@@ -1812,8 +1812,8 @@ namespace s3d
 		// 2. 処理
 		{
 			Image image{ m_width, m_height };
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, OpenCV_Bridge::ConvertBorderType(borderType));
 			return image;
@@ -1880,7 +1880,7 @@ namespace s3d
 
 		// 2. 処理
 		{
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
 			cv::dilate(matSrc, matSrc, cv::Mat(), cv::Point(-1, -1), iterations);
 		}
 
@@ -1905,8 +1905,8 @@ namespace s3d
 		// 2. 処理
 		{
 			Image image{ m_width, m_height };
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::dilate(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
 			return image;
@@ -1930,7 +1930,7 @@ namespace s3d
 
 		// 2. 処理
 		{
-			cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
 			cv::erode(matSrc, matSrc, cv::Mat(), cv::Point(-1, -1), iterations);
 		}
 
@@ -1955,8 +1955,8 @@ namespace s3d
 		// 2. 処理
 		{
 			Image image{ m_width, m_height };
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::erode(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
 			return image;
@@ -2076,8 +2076,8 @@ namespace s3d
 			}
 
 			Image tmp(targetWidth, targetHeight);
-			const cv::Mat_<cv::Vec4b> matSrc = OpenCV_Bridge::GetMatView(*this);
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(tmp);
+			const cv::Mat matSrc = OpenCV_Bridge::GetMatView(*this);
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(tmp);
 			
 			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
 			swap(tmp);
@@ -2127,8 +2127,8 @@ namespace s3d
 			}
 
 			Image image(targetWidth, targetHeight);
-			const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
-			cv::Mat_<cv::Vec4b> matDst = OpenCV_Bridge::GetMatView(image);
+			const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
+			cv::Mat matDst = OpenCV_Bridge::GetMatView(image);
 
 			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
 			return image;
@@ -2335,7 +2335,7 @@ namespace s3d
 		const Size dstSize = Math::Ceil(boundingRect.size).asPoint();
 
 		const cv::Matx23f transform{ m._11, m._21, m._31, m._12, m._22, m._32 };
-		const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+		const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
 		cv::Mat_<cv::Vec4b> matDst;
 
 		const ColorF bg{ background };
@@ -2378,7 +2378,7 @@ namespace s3d
 		};
 
 		const cv::Mat transform = cv::getPerspectiveTransform(from, to);
-		const cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+		const cv::Mat matSrc(cv::Size(m_width, m_height), CV_8UC4, const_cast<uint8*>(dataAsUint8()), stride());
 		cv::Mat_<cv::Vec4b> matDst;
 
 		const ColorF bg{ background };

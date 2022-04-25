@@ -706,7 +706,7 @@ namespace s3d
 			return *this;
 		}
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 		cv::line(mat,
 			{ static_cast<int32>(begin.x), static_cast<int32>(begin.y) },
 			{ static_cast<int32>(end.x), static_cast<int32>(end.y) },
@@ -1380,7 +1380,7 @@ namespace s3d
 			cv::Point(static_cast<int32>(p2.x), static_cast<int32>(p2.y)),
 		};
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 		cv::fillConvexPoly(mat, pts, 3, cv::Scalar(color.r, color.g, color.b, color.a), (antialiased ? cv::LINE_AA : cv::LINE_8));
 
 		return *this;
@@ -1422,7 +1422,7 @@ namespace s3d
 			cv::Point(static_cast<int32>(p3.x), static_cast<int32>(p3.y)),
 		};
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 		cv::fillConvexPoly(mat, pts, 4, cv::Scalar(color.r, color.g, color.b, color.a), antialiased ? cv::LINE_AA : cv::LINE_8);
 
 		return *this;
@@ -1462,7 +1462,7 @@ namespace s3d
 			++holeIndex;
 		}
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 
 		Array<const Point*> ppts;
 		{
@@ -1537,7 +1537,7 @@ namespace s3d
 			++holeIndex;
 		}
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 
 		Array<const Point*> ppts;
 		{
@@ -1607,7 +1607,7 @@ namespace s3d
 			++holeIndex;
 		}
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 
 		Array<const cv::Point*> ppts;
 		{
@@ -1675,7 +1675,7 @@ namespace s3d
 			++holeIndex;
 		}
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 
 		Array<const cv::Point*> ppts;
 		{
@@ -1762,7 +1762,7 @@ namespace s3d
 		const cv::Point* ptr = points.data();
 		const cv::Point** pptr = &ptr;
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 		cv::polylines(mat, pptr, &n, 1, false, cv::Scalar(color.r, color.g, color.b, color.a), thickness, (antialiased ? cv::LINE_AA : cv::LINE_8));
 
 		return *this;
@@ -1786,7 +1786,7 @@ namespace s3d
 		const cv::Point* ptr = points.data();
 		const cv::Point** pptr = &ptr;
 
-		cv::Mat_<cv::Vec4b> mat = OpenCV_Bridge::GetMatView(dst);
+		cv::Mat mat = OpenCV_Bridge::GetMatView(dst);
 		cv::polylines(mat, pptr, &n, 1, true, cv::Scalar(color.r, color.g, color.b, color.a), thickness, (antialiased ? cv::LINE_AA : cv::LINE_8));
 
 		return *this;
