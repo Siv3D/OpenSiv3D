@@ -24,6 +24,9 @@ function build() {
         freetype)
             ./emlib.sh build freetype
             cp lib/libfreetype.a ../../../Siv3D/lib/Web/wasm/freetype/;;
+        harfbuzz)
+            ./emlib.sh build harfbuzz
+            cp lib/libharfbuzz.a ../../../Siv3D/lib/Web/wasm/harfbuzz/;;
         giflib)
             ./emlib.sh build giflib
             cp lib/libgif.a     ../../../Siv3D/lib/Web/wasm/giflib/;;
@@ -37,15 +40,15 @@ function build() {
             ./emlib.sh build giflib
             cp lib/libgif.a     ../../../Siv3D/lib/Web/wasm/giflib/;;
         opus)
-            ./emlib.sh build opus opusfile
+            ./emlib.sh build ogg opus opusfile
             cp lib/libopus.a        ../../../Siv3D/lib/Web/wasm/opus/
             cp lib/libopusfile.a    ../../../Siv3D/lib/Web/wasm/opus/;;
         tiff)
-            ./emlib.sh build tiff
+            ./emlib.sh build libtiff
             cp lib/libtiff.a    ../../../Siv3D/lib/Web/wasm/tiff/;;
         turbojpeg)
             ./emlib.sh build turbojpeg
-            cp lib/turbojpeg.a  ../../../Siv3D/lib/Web/wasm/turbojpeg/;;
+            cp lib/libturbojpeg.a  ../../../Siv3D/lib/Web/wasm/turbojpeg/;;
         webp)
             ./emlib.sh build webp
             cp lib/libwebp.a    ../../../Siv3D/lib/Web/wasm/webp/;;
@@ -60,15 +63,16 @@ function build() {
 
 function build_all() {
     local libs=(
-        "zlib"
-        "png"
-        "freetype"
-        "giflib"
-        "opencv"
-        "opus"
-        "tiff"
+        # "zlib"
+        # "png"
+        # "freetype"
+        # "harfbuzz"
+        # "giflib"
+        # "opencv"
+        # "opus"
+        # "tiff"
         "turbojpeg"
-        "webp"
+        # "webp"
     )
 
     for elem in ${libs[@]}; do
