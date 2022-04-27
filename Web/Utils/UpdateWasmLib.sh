@@ -13,72 +13,104 @@ function init() {
 }
 
 function build() {
-    while [ "${1}" != "" ]; do
-    case "${1}" in
+    local targetOption="${1}"
+    local libraryNameToBeBuilt="${2}"
+    local libraryBuildOption=
+
+    case "${targetOption}" in
+        wasm)
+            libraryBuildOption="";;
+        wasm-simd)
+            libraryBuildOption="--simd";;
+        wasm-mt)
+            libraryBuildOption="--threads";;
+        wasm-mt-simd)
+            libraryBuildOption="--simd --threads";;
+        wasm-shared)
+            libraryBuildOption="--shared";;
+        wasm-side-module)
+            libraryBuildOption="--side-module";;
+    esac
+
+    function emlib_build() {
+        ./emlib.sh build ${libraryBuildOption} --build-dir-name "build-${targetOption}" $@
+    }
+
+    case "${libraryNameToBeBuilt}" in
         zlib)
-            ./emlib.sh build zlib
-            cp lib/libz.a       ../../../Siv3D/lib/Web/wasm/zlib/;;
+            emlib_build zlib
+            cp lib/libz.a       ../../../Siv3D/lib/Web/${targetOption}/zlib/;;
         png)
-            ./emlib.sh build libpng
-            cp lib/libpng.a     ../../../Siv3D/lib/Web/wasm/png/;;
+            emlib_build libpng
+            cp lib/libpng.a     ../../../Siv3D/lib/Web/${targetOption}/png/;;
         freetype)
-            ./emlib.sh build freetype
-            cp lib/libfreetype.a ../../../Siv3D/lib/Web/wasm/freetype/;;
+            emlib_build freetype
+            cp lib/libfreetype.a ../../../Siv3D/lib/Web/${targetOption}/freetype/;;
         harfbuzz)
-            ./emlib.sh build harfbuzz
-            cp lib/libharfbuzz.a ../../../Siv3D/lib/Web/wasm/harfbuzz/;;
+            emlib_build harfbuzz
+            cp lib/libharfbuzz.a ../../../Siv3D/lib/Web/${targetOption}/harfbuzz/;;
         giflib)
-            ./emlib.sh build giflib
-            cp lib/libgif.a     ../../../Siv3D/lib/Web/wasm/giflib/;;
+            emlib_build giflib
+            cp lib/libgif.a     ../../../Siv3D/lib/Web/${targetOption}/giflib/;;
         opencv)
-            ./emlib.sh build opencv
-            cp lib/libopencv_core.a         ../../../Siv3D/lib/Web/wasm/opencv/
-            cp lib/libopencv_imgproc.a      ../../../Siv3D/lib/Web/wasm/opencv/
-            cp lib/libopencv_objdetect.a    ../../../Siv3D/lib/Web/wasm/opencv/
-            cp lib/libopencv_photo.a        ../../../Siv3D/lib/Web/wasm/opencv/;;
+            emlib_build opencv
+            cp lib/libopencv_core.a         ../../../Siv3D/lib/Web/${targetOption}/opencv/
+            cp lib/libopencv_imgproc.a      ../../../Siv3D/lib/Web/${targetOption}/opencv/
+            cp lib/libopencv_objdetect.a    ../../../Siv3D/lib/Web/${targetOption}/opencv/
+            cp lib/libopencv_photo.a        ../../../Siv3D/lib/Web/${targetOption}/opencv/;;
         giflib)
-            ./emlib.sh build giflib
-            cp lib/libgif.a     ../../../Siv3D/lib/Web/wasm/giflib/;;
+            emlib_build giflib
+            cp lib/libgif.a     ../../../Siv3D/lib/Web/${targetOption}/giflib/;;
         opus)
-            ./emlib.sh build ogg opus opusfile
-            cp lib/libopus.a        ../../../Siv3D/lib/Web/wasm/opus/
-            cp lib/libopusfile.a    ../../../Siv3D/lib/Web/wasm/opus/;;
+            emlib_build ogg opus opusfile
+            cp lib/libopus.a        ../../../Siv3D/lib/Web/${targetOption}/opus/
+            cp lib/libopusfile.a    ../../../Siv3D/lib/Web/${targetOption}/opus/;;
         tiff)
-            ./emlib.sh build libtiff
-            cp lib/libtiff.a    ../../../Siv3D/lib/Web/wasm/tiff/;;
+            emlib_build libtiff
+            cp lib/libtiff.a    ../../../Siv3D/lib/Web/${targetOption}/tiff/;;
         turbojpeg)
-            ./emlib.sh build turbojpeg
-            cp lib/libturbojpeg.a  ../../../Siv3D/lib/Web/wasm/turbojpeg/;;
+            emlib_build turbojpeg
+            cp lib/libturbojpeg.a  ../../../Siv3D/lib/Web/${targetOption}/turbojpeg/;;
         webp)
-            ./emlib.sh build webp
-            cp lib/libwebp.a    ../../../Siv3D/lib/Web/wasm/webp/;;
+            emlib_build webp
+            cp lib/libwebp.a    ../../../Siv3D/lib/Web/${targetOption}/webp/;;
         SDL2)
             echo "Now Preparing... Skip.";;
         *)
             echo "Not recognized library name: ${1}... Skip.";;
     esac
-    shift 1
-    done
 }
 
-function build_all() {
+function main() {
+    init
+
     local libs=(
-        # "zlib"
-        # "png"
-        # "freetype"
-        # "harfbuzz"
-        # "giflib"
-        # "opencv"
-        # "opus"
-        # "tiff"
+        "zlib"
+        "png"
+        "freetype"
+        "harfbuzz"
+        "giflib"
+        "opencv"
+        "opus"
+        "tiff"
         "turbojpeg"
-        # "webp"
+        "webp"
     )
 
-    for elem in ${libs[@]}; do
-        build $elem
+    local targets=(
+        "wasm"
+        "wasm-simd"
+        "wasm-mt"
+        "wasm-mt-simd"
+        "wasm-shared"
+        "wasm-side-module"
+    )
+
+    for target in ${targets[@]}; do
+        for elem in ${libs[@]}; do
+            build $target $elem
+        done
     done
 }
 
-init
-build_all
+main
