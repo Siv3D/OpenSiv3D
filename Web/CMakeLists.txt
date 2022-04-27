@@ -616,7 +616,7 @@ endif()
 
 if (SIV3D_ENABLE_SHARED_LIB)
 
-include(cmake/BuildThirdParty.cmake)
+include(CMake/BuildThirdParty.cmake)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
