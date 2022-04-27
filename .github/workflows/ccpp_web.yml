@@ -274,10 +274,10 @@ jobs:
           cp -r Package/lib/* Web/Build
           
       - name: Compress Project Template
-        working-directory: Web/VisualStudioTemplate/OpenSiv3D(0.6.3)Web
+        working-directory: Web/VisualStudioTemplate/Files
         run: |
-          7z a -tzip "OpenSiv3D(0.6.3)Web.zip" .
-          cp "OpenSiv3D(0.6.3)Web.zip" ..
+          7z a -tzip "OpenSiv3D(0.6.4)Web.zip" .
+          cp "OpenSiv3D(0.6.4)Web.zip" ..
           
       - name: Create Installer
         working-directory: Web/WindowsInstaller
@@ -359,7 +359,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
-          asset_path: OpenSiv3D(0.6.3)Web.exe
+          asset_path: OpenSiv3D(0.6.4)Web.exe
           asset_name: OpenSiv3D-Installer-${{ matrix.config.name }}.exe
           asset_content_type: application/octet-stream
 

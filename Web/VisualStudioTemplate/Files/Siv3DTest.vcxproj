@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
-    <IncludePath>$(SIV3D_0_6_0_WEB)\include;$(SIV3D_0_6_0_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_0_WEB)\lib\freetype;$(SIV3D_0_6_0_WEB)\lib\giflib;$(SIV3D_0_6_0_WEB)\lib\harfbuzz;$(SIV3D_0_6_0_WEB)\lib\opencv;$(SIV3D_0_6_0_WEB)\lib\turbojpeg;$(SIV3D_0_6_0_WEB)\lib\webp;$(SIV3D_0_6_0_WEB)\lib\opus;$(SIV3D_0_6_0_WEB)\lib\tiff;$(SIV3D_0_6_0_WEB)\lib</LibraryPath>
+    <IncludePath>$(SIV3D_0_6_4_WEB)\include;$(SIV3D_0_6_4_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_4_WEB)\lib\freetype;$(SIV3D_0_6_4_WEB)\lib\giflib;$(SIV3D_0_6_4_WEB)\lib\harfbuzz;$(SIV3D_0_6_4_WEB)\lib\opencv;$(SIV3D_0_6_4_WEB)\lib\turbojpeg;$(SIV3D_0_6_4_WEB)\lib\webp;$(SIV3D_0_6_4_WEB)\lib\opus;$(SIV3D_0_6_4_WEB)\lib\tiff;$(SIV3D_0_6_4_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
-    <IncludePath>$(SIV3D_0_6_0_WEB)\include;$(SIV3D_0_6_0_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_0_WEB)\lib\freetype;$(SIV3D_0_6_0_WEB)\lib\giflib;$(SIV3D_0_6_0_WEB)\lib\harfbuzz;$(SIV3D_0_6_0_WEB)\lib\opencv;$(SIV3D_0_6_0_WEB)\lib\turbojpeg;$(SIV3D_0_6_0_WEB)\lib\webp;$(SIV3D_0_6_0_WEB)\lib\opus;$(SIV3D_0_6_0_WEB)\lib\tiff;$(SIV3D_0_6_0_WEB)\lib</LibraryPath>
+    <IncludePath>$(SIV3D_0_6_4_WEB)\include;$(SIV3D_0_6_4_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_4_WEB)\lib\freetype;$(SIV3D_0_6_4_WEB)\lib\giflib;$(SIV3D_0_6_4_WEB)\lib\harfbuzz;$(SIV3D_0_6_4_WEB)\lib\opencv;$(SIV3D_0_6_4_WEB)\lib\turbojpeg;$(SIV3D_0_6_4_WEB)\lib\webp;$(SIV3D_0_6_4_WEB)\lib\opus;$(SIV3D_0_6_4_WEB)\lib\tiff;$(SIV3D_0_6_4_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -306,9 +306,9 @@
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <EchoCommandLines>false</EchoCommandLines>
-      <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
-      <PreJsFile>$(SIV3D_0_6_0_WEB)\lib\Siv3D.pre.js;</PreJsFile>
-      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_0_WEB)\lib\Siv3D.post.js;</PostJsFile>
+      <JsLibrary>$(SIV3D_0_6_4_WEB)\lib\Siv3D.js;</JsLibrary>
+      <PreJsFile>$(SIV3D_0_6_4_WEB)\lib\Siv3D.pre.js;</PreJsFile>
+      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_4_WEB)\lib\Siv3D.post.js;</PostJsFile>
       <HtmlShellFile>$(ProjectDir)\Templates\Embeddable\web-player.html</HtmlShellFile>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <EmRun>true</EmRun>
@@ -333,9 +333,9 @@
   -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
-      <JsLibrary>$(SIV3D_0_6_0_WEB)\lib\Siv3D.js;</JsLibrary>
-      <PreJsFile>$(SIV3D_0_6_0_WEB)\lib\Siv3D.pre.js;</PreJsFile>
-      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_0_WEB)\lib\Siv3D.post.js;</PostJsFile>
+      <JsLibrary>$(SIV3D_0_6_4_WEB)\lib\Siv3D.js;</JsLibrary>
+      <PreJsFile>$(SIV3D_0_6_4_WEB)\lib\Siv3D.pre.js;</PreJsFile>
+      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_4_WEB)\lib\Siv3D.post.js;</PostJsFile>
       <HtmlShellFile>$(ProjectDir)\Templates\Embeddable\web-player.html</HtmlShellFile>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <EchoCommandLines>false</EchoCommandLines>
