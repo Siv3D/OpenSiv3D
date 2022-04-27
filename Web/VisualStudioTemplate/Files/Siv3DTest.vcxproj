@@ -344,6 +344,11 @@
       <IncludedAssetTargets></IncludedAssetTargets>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(DesignTimeBuild)'=='true' and '$(Platform)'=='Emscripten'">
+    <ClCompile>
+      <AdditionalOptions>-D_XM_NO_INTRINSICS_ -DSIMDE_NO_VECTOR -DFMT_USE_NONTYPE_TEMPLATE_PARAMETERS=0</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
