@@ -1,15 +1,15 @@
-# add_library(absl SHARED)
+add_library(absl)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
-    ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
-    ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
+target_sources(absl
+    PRIVATE
+        ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
+        ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
+        ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
 )
 
 
 
-add_library(box2d SHARED)
+add_library(box2d)
 
 target_sources(box2d
     PRIVATE
@@ -62,7 +62,7 @@ target_sources(box2d
 
 
 
-add_library(cpu_features SHARED)
+add_library(cpu_features)
 
 target_sources(cpu_features
     PRIVATE
@@ -74,7 +74,7 @@ target_sources(cpu_features
 
 
 
-add_library(double_conversion SHARED)
+add_library(double_conversion)
 
 target_sources(double_conversion
     PRIVATE
@@ -90,25 +90,25 @@ target_sources(double_conversion
 
 
 
-# add_library(easyexif SHARED)
+add_library(easyexif)
 
-set(SIV3D_SOURCES 
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/easyexif/exif.cpp
+target_sources(absl
+    PRIVATE
+        ../Siv3D/src/ThirdParty/easyexif/exif.cpp
 )
 
 
 
-# add_library(fmt SHARED)
+add_library(fmt)
 
-set(SIV3D_SOURCES 
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/fmt/format.cc
+target_sources(absl
+    PRIVATE
+        ../Siv3D/src/ThirdParty/fmt/format.cc
 )
 
 
 
-add_library(lua SHARED)
+add_library(lua)
 
 target_sources(lua
     PRIVATE
@@ -149,7 +149,7 @@ target_sources(lua
 
 
 
-add_library(lunasvg SHARED)
+add_library(lunasvg)
 
 target_sources(lunasvg
     PRIVATE
@@ -176,7 +176,7 @@ target_sources(lunasvg
 
 
 
-add_library(minizip SHARED)
+add_library(minizip)
 
 target_sources(minizip
     PRIVATE
@@ -199,35 +199,35 @@ target_sources(minizip
 
 
 
-add_library(msdfgen SHARED)
+add_library(msdfgen)
 
 target_sources(msdfgen
     PRIVATE
-    ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/edge-coloring.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/edge-segments.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/edge-selectors.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/EdgeHolder.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/equation-solver.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/msdf-edge-artifact-patcher.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/msdf-error-correction.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/msdfgen.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/rasterization.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/render-sdf.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/save-bmp.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/save-tiff.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/Scanline.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/sdf-error-estimation.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/shape-description.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
-    ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp    
+        ../Siv3D/src/ThirdParty/msdfgen/core/contour-combiners.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/Contour.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/edge-coloring.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/edge-segments.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/edge-selectors.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/EdgeHolder.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/equation-solver.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/msdf-edge-artifact-patcher.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/msdf-error-correction.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/msdfgen.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/rasterization.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/render-sdf.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/save-bmp.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/save-tiff.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/Scanline.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/sdf-error-estimation.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/shape-description.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
+        ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp    
 )
 
 
 
-add_library(muparser SHARED)
+add_library(muparser)
 
 target_sources(muparser
     PRIVATE
@@ -242,7 +242,7 @@ target_sources(muparser
 
 
 
-add_library(Oniguruma SHARED)
+add_library(Oniguruma)
 
 target_sources(Oniguruma
     PRIVATE
@@ -298,16 +298,16 @@ target_sources(Oniguruma
 
 
 
-# add_library(pffft SHARED)
+add_library(pffft)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
+target_sources(pffft
+    PRIVATE
     ../Siv3D/src/ThirdParty/pffft/pffft.c
 )
 
 
 
-add_library(plutovg SHARED)
+add_library(plutovg)
 
 target_sources(plutovg
     PRIVATE
@@ -322,16 +322,16 @@ target_sources(plutovg
         ../Siv3D/src/ThirdParty/plutovg/sw_ft_stroker.c
 )
 
-# add_library(qr SHARED)
+add_library(qr)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/qr-code-generator-library/qrcodegen.cpp
+target_sources(qr
+    PRIVATE
+        ../Siv3D/src/ThirdParty/qr-code-generator-library/qrcodegen.cpp
 )
 
 
 
-add_library(quirc SHARED)
+add_library(quirc)
 
 target_sources(quirc
     PRIVATE
@@ -343,7 +343,7 @@ target_sources(quirc
 
 
 
-add_library(RecastDetour SHARED)
+add_library(RecastDetour)
 
 target_sources(RecastDetour
     PRIVATE
@@ -369,149 +369,149 @@ target_sources(RecastDetour
 
 
 
-# add_library(rtaudio SHARED)
+add_library(rtaudio)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
+target_sources(rtaudio
+    PRIVATE
     ../Siv3D/src/ThirdParty/rtaudio/RtAudio.cpp
 )
 
 
 
-# add_library(serial SHARED)
+add_library(serial)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/serial/impl/list_ports/list_ports_linux.cc
-    ../Siv3D/src/ThirdParty/serial/impl/unix.cc
-    ../Siv3D/src/ThirdParty/serial/serial.cc
+target_sources(serial
+    PRIVATE
+        ../Siv3D/src/ThirdParty/serial/impl/list_ports/list_ports_linux.cc
+        ../Siv3D/src/ThirdParty/serial/impl/unix.cc
+        ../Siv3D/src/ThirdParty/serial/serial.cc
 )
 
 
 
-add_library(soloud SHARED)
+add_library(soloud)
 
 target_sources(soloud
     PRIVATE
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/monotone/soloud_monotone.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/noise/soloud_noise.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/sfxr/soloud_sfxr.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/darray.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/klatt.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/resonator.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/soloud_speech.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/tts.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/sid.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/soloud_tedsid.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/ted.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/vic/soloud_vic.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/vizsn/soloud_vizsn.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/dr_impl.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wav.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wavstream.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/stb_vorbis.c
-    ../Siv3D/src/ThirdParty/soloud/src/backend/alsa/soloud_alsa.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/coreaudio/soloud_coreaudio.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/jack/soloud_jack.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/miniaudio/soloud_miniaudio.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/nosound/soloud_nosound.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/null/soloud_null.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal_dll.c
-    ../Siv3D/src/ThirdParty/soloud/src/backend/opensles/soloud_opensles.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/oss/soloud_oss.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio_dll.c
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1_dll.c
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
-    ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_audiosource.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_bus.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_3d.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_basicops.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_faderops.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_filterops.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_getters.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_setters.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voicegroup.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voiceops.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fader.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft_lut.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_file.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_filter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_misc.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_queue.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/core/soloud_thread.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_biquadresonantfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_dcremovalfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_echofilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_eqfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_fftfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_flangerfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_freeverbfilter.cpp
-    ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_lofifilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/monotone/soloud_monotone.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/noise/soloud_noise.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/sfxr/soloud_sfxr.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/darray.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/klatt.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/resonator.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/soloud_speech.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/speech/tts.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/sid.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/soloud_tedsid.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/tedsid/ted.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/vic/soloud_vic.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/vizsn/soloud_vizsn.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/dr_impl.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wav.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/soloud_wavstream.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/audiosource/wav/stb_vorbis.c
+        ../Siv3D/src/ThirdParty/soloud/src/backend/alsa/soloud_alsa.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/coreaudio/soloud_coreaudio.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/jack/soloud_jack.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/miniaudio/soloud_miniaudio.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/nosound/soloud_nosound.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/null/soloud_null.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/openal/soloud_openal_dll.c
+        ../Siv3D/src/ThirdParty/soloud/src/backend/opensles/soloud_opensles.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/oss/soloud_oss.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/portaudio/soloud_portaudio_dll.c
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl1_dll.c
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
+        ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_audiosource.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_bus.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_3d.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_basicops.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_faderops.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_filterops.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_getters.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_setters.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voicegroup.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_core_voiceops.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fader.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_fft_lut.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_file.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_filter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_misc.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_queue.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/core/soloud_thread.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_biquadresonantfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_dcremovalfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_echofilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_eqfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_fftfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_flangerfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_freeverbfilter.cpp
+        ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_lofifilter.cpp
 )
 
 
 
-# add_library(SplineLib SHARED)
+add_library(SplineLib)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
+target_sources(SplineLib
+    PRIVATE
     ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 )
 
 
 
-# add_library(tinyxml SHARED)
+add_library(tinyxml)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp
+target_sources(tinyxml
+    PRIVATE
+        ../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp
 )
 
 
 
-# add_library(zstd SHARED)
+add_library(zstd)
 
-set(SIV3D_SOURCES
-    ${SIV3D_SOURCES}
-    ../Siv3D/src/ThirdParty/zstd/common/debug.c
-    ../Siv3D/src/ThirdParty/zstd/common/entropy_common.c
-    ../Siv3D/src/ThirdParty/zstd/common/error_private.c
-    ../Siv3D/src/ThirdParty/zstd/common/fse_decompress.c
-    ../Siv3D/src/ThirdParty/zstd/common/pool.c
-    ../Siv3D/src/ThirdParty/zstd/common/threading.c
-    ../Siv3D/src/ThirdParty/zstd/common/xxhash.c
-    ../Siv3D/src/ThirdParty/zstd/common/zstd_common.c
-    ../Siv3D/src/ThirdParty/zstd/compress/fse_compress.c
-    ../Siv3D/src/ThirdParty/zstd/compress/hist.c
-    ../Siv3D/src/ThirdParty/zstd/compress/huf_compress.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstdmt_compress.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_literals.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_sequences.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_superblock.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_double_fast.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_fast.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_lazy.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_ldm.c
-    ../Siv3D/src/ThirdParty/zstd/compress/zstd_opt.c
-    ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress.c
-    ../Siv3D/src/ThirdParty/zstd/decompress/zstd_ddict.c
-    ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress.c
-    ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress_block.c
-    ../Siv3D/src/ThirdParty/zstd/dictBuilder/cover.c
-    ../Siv3D/src/ThirdParty/zstd/dictBuilder/divsufsort.c
-    ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
-    ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
+target_sources(zstd
+    PRIVATE
+        ../Siv3D/src/ThirdParty/zstd/common/debug.c
+        ../Siv3D/src/ThirdParty/zstd/common/entropy_common.c
+        ../Siv3D/src/ThirdParty/zstd/common/error_private.c
+        ../Siv3D/src/ThirdParty/zstd/common/fse_decompress.c
+        ../Siv3D/src/ThirdParty/zstd/common/pool.c
+        ../Siv3D/src/ThirdParty/zstd/common/threading.c
+        ../Siv3D/src/ThirdParty/zstd/common/xxhash.c
+        ../Siv3D/src/ThirdParty/zstd/common/zstd_common.c
+        ../Siv3D/src/ThirdParty/zstd/compress/fse_compress.c
+        ../Siv3D/src/ThirdParty/zstd/compress/hist.c
+        ../Siv3D/src/ThirdParty/zstd/compress/huf_compress.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstdmt_compress.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_literals.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_sequences.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_compress_superblock.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_double_fast.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_fast.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_lazy.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_ldm.c
+        ../Siv3D/src/ThirdParty/zstd/compress/zstd_opt.c
+        ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress.c
+        ../Siv3D/src/ThirdParty/zstd/decompress/zstd_ddict.c
+        ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress.c
+        ../Siv3D/src/ThirdParty/zstd/decompress/zstd_decompress_block.c
+        ../Siv3D/src/ThirdParty/zstd/dictBuilder/cover.c
+        ../Siv3D/src/ThirdParty/zstd/dictBuilder/divsufsort.c
+        ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
+        ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
 )
