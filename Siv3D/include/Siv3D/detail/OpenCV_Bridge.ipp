@@ -20,9 +20,9 @@ namespace s3d
 			return{ rect.x, rect.y, rect.w, rect.h };
 		}
 
-		inline cv::Mat_<cv::Vec4b> GetMatView(Image& image)
+		inline cv::Mat GetMatView(Image& image)
 		{
-			return{ image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride() };
+			return{ cv::Size{ image.width(), image.height() }, CV_8UC4, image.dataAsUint8(), image.stride() };
 		}
 
 		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept
