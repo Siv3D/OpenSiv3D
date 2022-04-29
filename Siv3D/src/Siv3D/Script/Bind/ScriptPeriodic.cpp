@@ -36,6 +36,22 @@ namespace s3d
 			
 			r = engine->RegisterGlobalFunction("double Jump0_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Jump0_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double Jump0_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Jump0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+
+			r = engine->RegisterGlobalFunction("double Sine1_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Sine1_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Sine1_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Sine1_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("double Square1_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Square1_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Square1_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Square1_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("double Triangle1_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Triangle1_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Triangle1_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Triangle1_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("double Sawtooth1_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Sawtooth1_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Sawtooth1_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Sawtooth1_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("double Jump1_1(const Duration& in, double = Scene::Time())", asFUNCTIONPR(Periodic::Jump1_1, (const Duration&, double), double), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("double Jump1_1(double, double = Scene::Time())", asFUNCTIONPR(Periodic::Jump1_1, (double, double), double), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
