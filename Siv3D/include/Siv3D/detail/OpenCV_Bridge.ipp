@@ -22,7 +22,7 @@ namespace s3d
 
 		inline cv::Mat GetMatView(Image& image)
 		{
-			return{ cv::Size{ image.width(), image.height() }, CV_8UC4, const_cast<uint8*>(image.dataAsUint8()), image.stride() };
+			return{ cv::Size{ image.width(), image.height() }, CV_8UC4, image.dataAsUint8(), image.stride() };
 		}
 
 		inline constexpr int32 ConvertBorderType(const BorderType borderType) noexcept
