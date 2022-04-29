@@ -61,7 +61,7 @@ namespace s3d
 
 	void RegisterGlobalAudio(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("GlobalAudio"); assert(r >= 0);
 		{

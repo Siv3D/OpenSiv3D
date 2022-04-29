@@ -65,7 +65,7 @@ namespace s3d
 
 	void RegisterDuration(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		{
 			constexpr char TypeName[] = "Duration";
 			r = engine->RegisterObjectProperty(TypeName, "double _rep", 0); assert(r >= 0);

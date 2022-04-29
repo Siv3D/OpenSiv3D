@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterCursorStyle(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "CursorStyle";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Arrow", static_cast<uint32>(CursorStyle::Arrow)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "IBeam", static_cast<uint32>(CursorStyle::IBeam)); assert(r >= 0);

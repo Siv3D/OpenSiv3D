@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterFontMethod(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "FontMethod";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Bitmap", static_cast<int32>(FontMethod::Bitmap)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "SDF", static_cast<int32>(FontMethod::SDF)); assert(r >= 0);

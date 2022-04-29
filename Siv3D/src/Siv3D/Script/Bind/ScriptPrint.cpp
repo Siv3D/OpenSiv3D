@@ -98,7 +98,7 @@ namespace s3d
 		const char PrintBufferTypeName[] = "PrintBuffer";
 		const char PrintTypeName[] = "Print_impl";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_FACTORY, "PrintBuffer@ f()", asFUNCTIONPR(PrintBufferWrapper::Create, (), PrintBufferWrapper*), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(PrintBufferWrapper, AddRef), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(PrintBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(PrintBufferWrapper, Release), asCALL_THISCALL); assert(r >= 0);

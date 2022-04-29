@@ -69,7 +69,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Line";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "Vec2 begin", asOFFSET(ShapeType, begin)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "Vec2 end", asOFFSET(ShapeType, end)); assert(r >= 0);
 

@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterImageFormat(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		{
 			constexpr char TypeName[] = "ImageFormat";
 			r = engine->RegisterEnumValue(TypeName, "Unknown", static_cast<int32>(ImageFormat::Unknown)); assert(r >= 0);

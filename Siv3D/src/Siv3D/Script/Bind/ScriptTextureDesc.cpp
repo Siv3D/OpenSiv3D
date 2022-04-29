@@ -18,10 +18,10 @@ namespace s3d
 
 	void RegisterTextureDesc(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "TextureDesc";
+		[[maybe_unused]] int32 r = 0;
 
 		{
+			constexpr char TypeName[] = "TextureDesc";
 			r = engine->RegisterEnumValue(TypeName, "Unmipped", static_cast<int32>(TextureDesc::Unmipped)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "UnmippedSRGB", static_cast<int32>(TextureDesc::UnmippedSRGB)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "Mipped", static_cast<int32>(TextureDesc::Mipped)); assert(r >= 0);

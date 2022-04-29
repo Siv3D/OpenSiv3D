@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterEasing(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->RegisterGlobalFunction("double EaseInLinear(double)", asFUNCTION(EaseInLinear), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double EaseInSine(double)", asFUNCTION(EaseInSine), asCALL_CDECL); assert(r >= 0);

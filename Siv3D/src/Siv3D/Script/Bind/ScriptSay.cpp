@@ -98,7 +98,7 @@ namespace s3d
 		const char SayBufferTypeName[] = "SayBuffer";
 		const char SayTypeName[] = "Say_impl";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_FACTORY, "SayBuffer@ f()", asFUNCTIONPR(SayBufferWrapper::Create, (), SayBufferWrapper*), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(SayBufferWrapper, AddRef), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(SayBufferTypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(SayBufferWrapper, Release), asCALL_THISCALL); assert(r >= 0);

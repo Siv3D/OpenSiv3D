@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterCameraControl(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char EnumName[] = "CameraControl";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(EnumName, "None_", static_cast<uint32>(CameraControl::None_)); assert(r >= 0);
 			r = engine->RegisterEnumValue(EnumName, "WASDKeys", static_cast<uint32>(CameraControl::WASDKeys)); assert(r >= 0);

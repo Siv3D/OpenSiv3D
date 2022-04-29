@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterAudioFormat(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		{
 			constexpr char TypeName[] = "AudioFormat";
 			r = engine->RegisterEnumValue(TypeName, "Unknown", static_cast<int32>(AudioFormat::Unknown)); assert(r >= 0);

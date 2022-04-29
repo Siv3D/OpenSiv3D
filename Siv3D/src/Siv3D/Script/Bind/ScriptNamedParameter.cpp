@@ -77,7 +77,7 @@ namespace s3d
 		static constexpr ArgPos argPos;
 		static constexpr ArgSampleRate argSampleRate;
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Arg"); assert(r >= 0);
 		{

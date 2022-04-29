@@ -64,7 +64,7 @@ namespace s3d
 
 	void RegisterInterpolation(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->SetDefaultNamespace("Math"); assert(r >= 0);
 		{
 			r = engine->RegisterGlobalFunction("double Lerp(double, double, double)", asFUNCTION(DoubleLerp), asCALL_CDECL); assert(r >= 0);

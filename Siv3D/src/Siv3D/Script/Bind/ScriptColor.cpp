@@ -77,7 +77,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Color";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "uint8 r", 0); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "uint8 g", 1); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "uint8 b", 2); assert(r >= 0);

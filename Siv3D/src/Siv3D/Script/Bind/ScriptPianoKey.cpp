@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterPianoKey(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		{
 			constexpr char EnumName[] = "PianoKey";
 			r = engine->RegisterEnumValue(EnumName, "C_1", PianoKey::C_1); assert(r >= 0);

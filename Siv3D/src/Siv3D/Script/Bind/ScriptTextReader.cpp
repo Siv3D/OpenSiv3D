@@ -105,34 +105,35 @@ namespace s3d
 
 	void RegisterTextReader(asIScriptEngine* engine)
 	{
-		constexpr char TypeName[] = "TextReader";
+		[[maybe_unused]] int32 r = 0;
 
-		int32 r = 0;
+		{
+			constexpr char TypeName[] = "TextReader";
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextReader& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, TextEncoding)", asFUNCTION(ConstructFE), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, None_t = unspecified)", asFUNCTION(ConstructFN), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextReader& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, TextEncoding)", asFUNCTION(ConstructFE), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, None_t = unspecified)", asFUNCTION(ConstructFN), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, TextEncoding)", asFUNCTION(OpenFE), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, None_t = unspecified)", asFUNCTION(OpenFN), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, TextEncoding)", asFUNCTION(OpenFE), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, None_t = unspecified)", asFUNCTION(OpenFN), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "Optional<char32> readChar()", asFUNCTION(ReadChar), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "Optional<String> readLine()", asFUNCTION(ReadLine), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			//r = engine->RegisterObjectMethod(TypeName, "Array<String> readLines()", asFUNCTION(ReadLines), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "String readAll()", asMETHODPR(BindType, readAll, (), String), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Optional<char32> readChar()", asFUNCTION(ReadChar), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Optional<String> readLine()", asFUNCTION(ReadLine), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "Array<String> readLines()", asFUNCTION(ReadLines), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String readAll()", asMETHODPR(BindType, readAll, (), String), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool readChar(char32& out)", asMETHODPR(BindType, readChar, (char32&), bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool readLine(String& out)", asMETHODPR(BindType, readLine, (String&), bool), asCALL_THISCALL); assert(r >= 0);
+			//r = engine->RegisterObjectMethod(TypeName, "bool readLines(Array<String>& in)", asMETHODPR(BindType, readLines, (Array<String>&), bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool readAll(String& out)", asMETHODPR(BindType, readAll, (String&), bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool readChar(char32& out)", asMETHODPR(BindType, readChar, (char32&), bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool readLine(String& out)", asMETHODPR(BindType, readLine, (String&), bool), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "bool readLines(Array<String>& in)", asMETHODPR(BindType, readLines, (Array<String>&), bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool readAll(String& out)", asMETHODPR(BindType, readAll, (String&), bool), asCALL_THISCALL); assert(r >= 0);
-
-		r = engine->RegisterObjectMethod(TypeName, "TextEncoding encoding() const", asFUNCTION(GetTextEncoding), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String path() const", asFUNCTION(GetPath), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "TextEncoding encoding() const", asFUNCTION(GetTextEncoding), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "String path() const", asFUNCTION(GetPath), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		}
 	}
 }

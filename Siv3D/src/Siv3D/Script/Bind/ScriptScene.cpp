@@ -30,7 +30,7 @@ namespace s3d
 
 	void RegisterScene(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Scene"); assert(r >= 0);
 		{

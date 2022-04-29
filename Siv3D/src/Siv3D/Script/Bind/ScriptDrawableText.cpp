@@ -42,7 +42,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "DrawableText";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "Font font", asOFFSET(BindType, font)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "String text", asOFFSET(BindType, text)); assert(r >= 0);
 

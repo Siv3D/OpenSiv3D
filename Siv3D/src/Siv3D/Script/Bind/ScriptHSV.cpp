@@ -72,7 +72,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "HSV";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "double h", asOFFSET(HSV, h)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "double s", asOFFSET(HSV, s)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "double v", asOFFSET(HSV, v)); assert(r >= 0);

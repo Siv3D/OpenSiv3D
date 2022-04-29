@@ -27,7 +27,7 @@ namespace s3d
 		static const uint8 NoneDummy = 0;
 		const char TypeName[] = "None_t";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(Construct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterGlobalProperty("const None_t none", (void*)&NoneDummy); assert(r >= 0);

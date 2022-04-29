@@ -18,10 +18,10 @@ namespace s3d
 
 	void RegisterTexturePixelFormat(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "TexturePixelFormat";
+		[[maybe_unused]] int32 r = 0;
 
 		{
+			constexpr char TypeName[] = "TexturePixelFormat";
 			r = engine->RegisterEnumValue(TypeName, "Unknown", static_cast<int32>(TexturePixelFormat::Unknown)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "R8G8B8A8_Unorm", static_cast<int32>(TexturePixelFormat::R8G8B8A8_Unorm)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "R8G8B8A8_Unorm_SRGB", static_cast<int32>(TexturePixelFormat::R8G8B8A8_Unorm_SRGB)); assert(r >= 0);

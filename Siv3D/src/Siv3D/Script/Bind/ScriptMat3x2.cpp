@@ -37,7 +37,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Mat3x2";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "float _11", asOFFSET(BindType, _11)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "float _12", asOFFSET(BindType, _12)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "float _21", asOFFSET(BindType, _21)); assert(r >= 0);

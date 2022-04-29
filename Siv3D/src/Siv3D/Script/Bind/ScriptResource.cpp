@@ -23,7 +23,7 @@ namespace s3d
 
 	void RegisterResource(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterGlobalFunction("String Resource(const String& in)", asFUNCTION(ScriptResource), asCALL_CDECL); assert(r >= 0);
 	}
 }

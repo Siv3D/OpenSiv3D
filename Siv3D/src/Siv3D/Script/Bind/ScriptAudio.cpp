@@ -100,10 +100,10 @@ namespace s3d
 
 	void RegisterAudio(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		static const uint8 AudioFileStreamingPlaceholder = 0;
 		constexpr char TypeName[] = "Audio";
 
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectBehaviour("AudioFileStreaming", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(ConstructAF), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);

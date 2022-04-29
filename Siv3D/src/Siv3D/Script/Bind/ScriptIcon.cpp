@@ -57,7 +57,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Icon";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "uint8 type", asOFFSET(BindType, type)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "uint32 code", asOFFSET(BindType, code)); assert(r >= 0);
 

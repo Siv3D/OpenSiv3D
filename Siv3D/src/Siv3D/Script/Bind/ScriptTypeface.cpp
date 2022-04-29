@@ -18,10 +18,10 @@ namespace s3d
 
 	void RegisterTypeface(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "Typeface";
+		[[maybe_unused]] int32 r = 0;
 
 		{
+			constexpr char TypeName[] = "Typeface";
 			r = engine->RegisterEnumValue(TypeName, "CJK_Regular_JP", static_cast<int32>(Typeface::CJK_Regular_JP)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "CJK_Regular_KR", static_cast<int32>(Typeface::CJK_Regular_KR)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "CJK_Regular_SC", static_cast<int32>(Typeface::CJK_Regular_SC)); assert(r >= 0);

@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterGraphics(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Graphics"); assert(r >= 0);
 		{

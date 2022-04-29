@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterSpecialFolder(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "SpecialFolder";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Desktop", static_cast<uint32>(SpecialFolder::Desktop)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "Documents", static_cast<uint32>(SpecialFolder::Documents)); assert(r >= 0);

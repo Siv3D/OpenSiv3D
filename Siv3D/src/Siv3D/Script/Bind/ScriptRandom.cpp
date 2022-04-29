@@ -24,7 +24,7 @@ namespace s3d
 
 	void RegisterRandom(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->RegisterGlobalFunction("void Reseed(uint64)", asFUNCTIONPR(Reseed, (uint64), void), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double Random()", asFUNCTIONPR(Random, (), double), asCALL_CDECL); assert(r >= 0);

@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterCopyOption(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "CopyOption";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Default", static_cast<uint32>(CopyOption::Default)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "SkipExisting", static_cast<uint32>(CopyOption::SkipExisting)); assert(r >= 0);

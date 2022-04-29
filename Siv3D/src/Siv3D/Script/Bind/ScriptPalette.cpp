@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterPalette(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Palette"); assert(r >= 0);
 		{

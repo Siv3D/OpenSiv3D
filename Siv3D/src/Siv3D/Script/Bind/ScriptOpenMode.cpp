@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterOpenMode(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "OpenMode";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Trunc", static_cast<uint32>(OpenMode::Trunc)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "Append", static_cast<uint32>(OpenMode::Append)); assert(r >= 0);

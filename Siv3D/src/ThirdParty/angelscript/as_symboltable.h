@@ -141,7 +141,7 @@ public:
 
 private:
 	// Don't allow assignment
-	asCSymbolTable<T>& operator=(const asCSymbolTable<T> &other) { return *this; }
+	asCSymbolTable<T>& operator=(const asCSymbolTable<T> &) { return *this; }
 
 	friend class asCSymbolTableIterator<T, T>;
 	friend class asCSymbolTableIterator<T, const T>;

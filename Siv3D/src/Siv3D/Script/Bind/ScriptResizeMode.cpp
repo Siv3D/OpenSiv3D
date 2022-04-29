@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterResizeMode(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "ResizeMode";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Actual", static_cast<uint32>(ResizeMode::Actual)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "Virtual", static_cast<uint32>(ResizeMode::Virtual)); assert(r >= 0);

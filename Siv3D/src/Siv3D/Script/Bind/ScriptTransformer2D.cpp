@@ -74,28 +74,31 @@ namespace s3d
 
 	void RegisterTransformer2D(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "Transformer2D";
-
-		r = engine->SetDefaultNamespace("Transformer2D"); assert(r >= 0);
-		{
-			r = engine->RegisterEnum("Target"); assert(r >= 0);
-
-			r = engine->RegisterEnumValue("Target", "PushLocal", static_cast<int32>(Transformer2D::Target::PushLocal)); assert(r >= 0);
-			r = engine->RegisterEnumValue("Target", "PushCamera", static_cast<int32>(Transformer2D::Target::PushCamera)); assert(r >= 0);
-			r = engine->RegisterEnumValue("Target", "SetLocal", static_cast<int32>(Transformer2D::Target::SetLocal)); assert(r >= 0);
-			r = engine->RegisterEnumValue("Target", "SetCamera", static_cast<int32>(Transformer2D::Target::SetCamera)); assert(r >= 0);
-		}
-		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+		[[maybe_unused]] int32 r = 0;
 
 		{
-			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f()", asFUNCTIONPR(Transformer2DRef::Create, (), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, Transformer2D::Target)", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, bool transformCursor = TransformCursor::No, Transformer2D::Target target = Transformer2D::Target::PushLocal) explicit", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, bool, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, const Mat3x2& in, Transformer2D::Target target = Transformer2D::Target::PushLocal)", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, const Mat3x2&, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(Transformer2DRef, Release), asCALL_THISCALL); assert(r >= 0);
+			constexpr char TypeName[] = "Transformer2D";
 
-			r = engine->RegisterObjectMethod("Camera2D", "Transformer2D@ createTransformer() const", asFUNCTION(Camera2DCreateTransformer), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->SetDefaultNamespace(TypeName); assert(r >= 0);
+			{
+				r = engine->RegisterEnum("Target"); assert(r >= 0);
+
+				r = engine->RegisterEnumValue("Target", "PushLocal", static_cast<int32>(Transformer2D::Target::PushLocal)); assert(r >= 0);
+				r = engine->RegisterEnumValue("Target", "PushCamera", static_cast<int32>(Transformer2D::Target::PushCamera)); assert(r >= 0);
+				r = engine->RegisterEnumValue("Target", "SetLocal", static_cast<int32>(Transformer2D::Target::SetLocal)); assert(r >= 0);
+				r = engine->RegisterEnumValue("Target", "SetCamera", static_cast<int32>(Transformer2D::Target::SetCamera)); assert(r >= 0);
+			}
+			r = engine->SetDefaultNamespace(""); assert(r >= 0);
+
+			{
+				r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f()", asFUNCTIONPR(Transformer2DRef::Create, (), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
+				r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, Transformer2D::Target)", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
+				r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, bool transformCursor = TransformCursor::No, Transformer2D::Target target = Transformer2D::Target::PushLocal) explicit", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, bool, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
+				r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Transformer2D@ f(const Mat3x2& in, const Mat3x2& in, Transformer2D::Target target = Transformer2D::Target::PushLocal)", asFUNCTIONPR(Transformer2DRef::Create, (const Mat3x2&, const Mat3x2&, int32), Transformer2DRef*), asCALL_CDECL); assert(r >= 0);
+				r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(Transformer2DRef, Release), asCALL_THISCALL); assert(r >= 0);
+
+				r = engine->RegisterObjectMethod("Camera2D", "Transformer2D@ createTransformer() const", asFUNCTION(Camera2DCreateTransformer), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			}
 		}
 	}
 }

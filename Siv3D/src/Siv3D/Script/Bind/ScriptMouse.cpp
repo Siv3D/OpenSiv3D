@@ -41,7 +41,7 @@ namespace s3d
 
 	void RegisterMouse(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->RegisterGlobalProperty("const Input MouseL", (void*)&MouseL); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Input MouseR", (void*)&MouseR); assert(r >= 0);

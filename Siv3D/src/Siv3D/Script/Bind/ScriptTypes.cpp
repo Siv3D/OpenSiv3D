@@ -19,19 +19,19 @@ namespace s3d
 
 	static void RegisterType(asIScriptEngine* const engine, const char* name, const int byteSize, const asDWORD flags)
 	{
-		const int32 r = engine->RegisterObjectType(name, byteSize, flags);
+		[[maybe_unused]] const int32 r = engine->RegisterObjectType(name, byteSize, flags);
 		assert(0 <= r);
 	}
 
 	static void RegisterEnum(asIScriptEngine* const engine, const char* name)
 	{
-		const int32 r = engine->RegisterEnum(name); assert(r >= 0);
+		[[maybe_unused]] const int32 r = engine->RegisterEnum(name);
 		assert(0 <= r);
 	}
 
 	void RegisterTypes(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Arg"); assert(r >= 0);
 		{

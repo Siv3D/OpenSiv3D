@@ -18,10 +18,10 @@ namespace s3d
 
 	void RegisterTextInputMode(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "TextInputMode";
+		[[maybe_unused]] int32 r = 0;
 
 		{
+			constexpr char TypeName[] = "TextInputMode";
 			r = engine->RegisterEnumValue(TypeName, "DenyControl", static_cast<uint32>(TextInputMode::DenyControl)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "AllowEnter", static_cast<uint32>(TextInputMode::AllowEnter)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "AllowTab", static_cast<uint32>(TextInputMode::AllowTab)); assert(r >= 0);

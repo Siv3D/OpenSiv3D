@@ -69,7 +69,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Point";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "int32 x", asOFFSET(Point, x)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "int32 y", asOFFSET(Point, y)); assert(r >= 0);
 

@@ -44,10 +44,9 @@ namespace s3d
 
 	void RegisterTextEditState(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-
 		constexpr char TypeName[] = "TextEditState";
 
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "String text", asOFFSET(BindType, text)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "size_t cursorPos", asOFFSET(BindType, cursorPos)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "bool active", asOFFSET(BindType, active)); assert(r >= 0);

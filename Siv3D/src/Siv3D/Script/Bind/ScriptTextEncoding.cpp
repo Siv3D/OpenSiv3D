@@ -28,10 +28,9 @@ namespace s3d
 
 	void RegisterTextEncoding(asIScriptEngine* engine)
 	{
-		int32 r = 0;
-		constexpr char TypeName[] = "TextEncoding";
-
+		[[maybe_unused]] int32 r = 0;
 		{
+			constexpr char TypeName[] = "TextEncoding";
 			r = engine->RegisterEnumValue(TypeName, "Unknown", static_cast<uint32>(TextEncoding::Unknown)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "UTF8_NO_BOM", static_cast<uint32>(TextEncoding::UTF8_NO_BOM)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "UTF8_WITH_BOM", static_cast<uint32>(TextEncoding::UTF8_WITH_BOM)); assert(r >= 0);

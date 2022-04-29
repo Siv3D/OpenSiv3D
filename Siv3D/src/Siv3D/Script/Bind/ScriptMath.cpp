@@ -24,7 +24,7 @@ namespace s3d
 
 	void RegisterMath(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Math"); assert(r >= 0);
 		{

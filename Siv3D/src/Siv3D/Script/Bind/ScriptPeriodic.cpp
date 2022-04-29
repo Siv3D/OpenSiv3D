@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterPeriodic(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Periodic"); assert(r >= 0);
 		{		

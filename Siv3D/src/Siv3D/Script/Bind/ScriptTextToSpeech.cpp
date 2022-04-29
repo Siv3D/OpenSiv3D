@@ -23,7 +23,8 @@ namespace s3d
 
 	void RegisterTextToSpeech(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
+
 		r = engine->SetDefaultNamespace("TextToSpeech"); assert(r >= 0);
 		{
 			engine->RegisterGlobalFunction("bool HasLanguage(LanguageCode)", asFUNCTION(TextToSpeech::HasLanguage), asCALL_CDECL); assert(r >= 0);

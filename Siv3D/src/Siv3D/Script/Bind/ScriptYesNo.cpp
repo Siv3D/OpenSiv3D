@@ -23,7 +23,7 @@ namespace s3d
 
 	static void RegisterYesNo(asIScriptEngine* engine, const char* name)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace(name); assert(r >= 0);
 		{

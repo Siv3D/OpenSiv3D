@@ -153,7 +153,8 @@ namespace s3d
 
 	void RegisterTextWriter(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
+
 		{
 			const char BufferTypeName[] = "TextWriterBuffer";
 			r = engine->RegisterObjectBehaviour(BufferTypeName, asBEHAVE_FACTORY, "TextWriterBuffer@ f()", asFUNCTIONPR(TextWriterBufferWrapper::Create, (), TextWriterBufferWrapper*), asCALL_CDECL); assert(r >= 0);
@@ -163,31 +164,33 @@ namespace s3d
 			r = engine->RegisterObjectMethod(BufferTypeName, "TextWriterBuffer& opShl(const ?&in)", asMETHODPR(TextWriterBufferWrapper, write_T1, (const void*, int), TextWriterBufferWrapper*), asCALL_THISCALL); assert(r >= 0);
 		}
 
-		constexpr char TypeName[] = "TextWriter";
+		{
+			constexpr char TypeName[] = "TextWriter";
 
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextWriter& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, TextEncoding)", asFUNCTION(ConstructFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM)", asFUNCTION(ConstructFOT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextWriter& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, TextEncoding)", asFUNCTION(ConstructFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM)", asFUNCTION(ConstructFOT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, TextEncoding)", asFUNCTION(OpenFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM)", asFUNCTION(OpenFOT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void clear() const", asMETHODPR(BindType, clear, (), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, TextEncoding)", asFUNCTION(OpenFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM)", asFUNCTION(OpenFOT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void clear() const", asMETHODPR(BindType, clear, (), void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void write(uint32)", asMETHODPR(BindType, write, (char32), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void write(const String&)", asMETHODPR(BindType, write, (const String&), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void write(uint32)", asMETHODPR(BindType, write, (char32), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void write(const String&)", asMETHODPR(BindType, write, (const String&), void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void writeln(uint32)", asMETHODPR(BindType, writeln, (char32), void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void writeln(const String&)", asMETHODPR(BindType, writeln, (const String&), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void writeln(uint32)", asMETHODPR(BindType, writeln, (char32), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void writeln(const String&)", asMETHODPR(BindType, writeln, (const String&), void), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "TextWriterBuffer@ opShl(const String&in text) const", asFUNCTION(TextWriterShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "TextWriterBuffer@ opShl(const ?&in) const", asFUNCTION(TextWriterShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "TextWriterBuffer@ opShl(const String&in text) const", asFUNCTION(TextWriterShl), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "TextWriterBuffer@ opShl(const ?&in) const", asFUNCTION(TextWriterShl_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "TextEncoding encoding() const", asFUNCTION(GetTextEncoding), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "String path() const", asFUNCTION(GetPath), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "TextEncoding encoding() const", asFUNCTION(GetTextEncoding), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "String path() const", asFUNCTION(GetPath), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		}
 	}
 }

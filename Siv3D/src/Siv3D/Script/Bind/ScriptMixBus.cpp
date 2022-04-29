@@ -18,9 +18,9 @@ namespace s3d
 
 	void RegisterMixBus(asIScriptEngine* engine)
 	{
-		int32 r = 0;
 		constexpr char TypeName[] = "MixBus";
 
+		[[maybe_unused]] int32 r = 0;
 		{
 			r = engine->RegisterEnumValue(TypeName, "Index0", static_cast<int32>(MixBus::Index0)); assert(r >= 0);
 			r = engine->RegisterEnumValue(TypeName, "Index1", static_cast<int32>(MixBus::Index1)); assert(r >= 0);

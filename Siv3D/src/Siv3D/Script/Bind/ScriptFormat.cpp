@@ -398,7 +398,7 @@ namespace s3d
 
 	void RegisterFormat(asIScriptEngine* engine)
 	{
-		int r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterGlobalFunction("String Format()", asFUNCTION(Fotmat_V), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const String& in)", asFUNCTION(Format_S), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in)", asFUNCTION(Format_T1), asCALL_CDECL); assert(r >= 0);

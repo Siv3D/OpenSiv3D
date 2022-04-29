@@ -515,7 +515,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Optional<T>";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_TEMPLATE_CALLBACK, "bool f(int32& in, bool& out)", asFUNCTION(ScriptOptionalTemplateCallback), asCALL_CDECL); assert(r >= 0);
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32& in)", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);

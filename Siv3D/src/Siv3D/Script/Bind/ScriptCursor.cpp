@@ -28,7 +28,7 @@ namespace s3d
 
 	void RegisterCursor(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->SetDefaultNamespace("Cursor"); assert(r >= 0);
 		{

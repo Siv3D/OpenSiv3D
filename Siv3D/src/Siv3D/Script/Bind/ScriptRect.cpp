@@ -92,7 +92,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Rect";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "int32 x", asOFFSET(ShapeType, x)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "int32 y", asOFFSET(ShapeType, y)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "int32 w", asOFFSET(ShapeType, w)); assert(r >= 0);

@@ -82,7 +82,7 @@ namespace s3d
 	{
 		constexpr char TypeName[] = "Float4";
 
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "float x", asOFFSET(Float4, x)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "float y", asOFFSET(Float4, y)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "float z", asOFFSET(Float4, z)); assert(r >= 0);

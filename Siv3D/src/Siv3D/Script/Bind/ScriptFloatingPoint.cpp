@@ -18,7 +18,7 @@ namespace s3d
 
 	void RegisterFloatingPoint(asIScriptEngine* engine)
 	{
-		int32 r = 0;
+		[[maybe_unused]] int32 r = 0;
 
 		r = engine->RegisterGlobalFunction("uint32 AsUint32(float)", asFUNCTIONPR(AsUint32, (float), uint32), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("uint64 AsUint64(double)", asFUNCTIONPR(AsUint64, (double), uint64), asCALL_CDECL); assert(r >= 0);
