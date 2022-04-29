@@ -47,7 +47,13 @@ if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_XM_NO_INTRINSICS_")
 endif ()
 
-if (BUILD_SHARED_LIBS)
+if (${SIV3D_BUILD_SHARED_MAIN})
+  set(ExcludeSiv3DSharedMain OFF)
+else ()
+  set(ExcludeSiv3DSharedMain ON)
+endif ()
+
+if (${BUILD_SHARED_LIBS})
   include(CMake/BuildThirdParty.cmake)
 
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
@@ -55,6 +61,13 @@ if (BUILD_SHARED_LIBS)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
+endif()
+
+if (${SIV3D_BUILD_SHARED_MAIN})
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s MAIN_MODULE=1")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MAIN_MODULE=1")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s MAIN_MODULE=1")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s MAIN_MODULE=1")
 endif()
 
 
@@ -1211,15 +1224,9 @@ add_executable(Siv3DSharedMain
   Empty.cpp
 )
 
-if (NOT ${SIV3D_BUILD_SHARED_MAIN})
-  set(BuildSiv3DSharedMain ON)
-else ()
-  set(BuildSiv3DSharedMain OFF)
-endif ()
-
 set_target_properties(Siv3DSharedMain 
   PROPERTIES
-    EXCLUDE_FROM_ALL ${BuildSiv3DSharedMain}
+    EXCLUDE_FROM_ALL ${ExcludeSiv3DSharedMain}
 )
 
 target_compile_options(Siv3DSharedMain PRIVATE
@@ -1338,5 +1345,5 @@ set (Siv3DSharedMainLinkerOption
 string (REPLACE ";" " " Siv3DSharedMainLinkerOption "${Siv3DSharedMainLinkerOption}")
 
 target_link_options(Siv3DSharedMain PRIVATE
-  ${Siv3DSharedMainLinkerOption}
+  "SHELL:${Siv3DSharedMainLinkerOption}"
 )
