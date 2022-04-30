@@ -85,7 +85,7 @@ jobs:
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --target Siv3DAppData
           patch Siv3D.data.js < ../Siv3D.data.js.patch
-          cmake --build . --target OpenSiv3D_Web --parallel 4 
+          cmake --build . --target Siv3DSharedMain --parallel 4 
 
       - name: Build project
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && !contains(matrix.config.name, 'side-module') }}
