@@ -804,6 +804,8 @@ namespace s3d
             .height				= size.y,
             .depth				= size.z,
 			.num_subdivisions	= static_cast<int>(quality),
+			.uv_mode			= PAR_OCTASPHERE_UV_LATLONG,
+			.normals_mode		= PAR_OCTASPHERE_NORMALS_SMOOTH,
         };
 
 		uint32 numIndices = 0;

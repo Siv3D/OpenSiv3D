@@ -226,6 +226,7 @@ asQWORD CallSystemFunctionNative(asCContext *context, asCScriptFunction *descr, 
 		case ICC_THISCALL_OBJLAST:
 		case ICC_VIRTUAL_THISCALL_OBJLAST:
 			param_post = 2;
+			[[fallthrough]];
 #endif
 		case ICC_THISCALL:
 		case ICC_VIRTUAL_THISCALL:
@@ -242,6 +243,7 @@ asQWORD CallSystemFunctionNative(asCContext *context, asCScriptFunction *descr, 
 		case ICC_THISCALL_OBJLAST_RETURNINMEM:
 		case ICC_VIRTUAL_THISCALL_OBJLAST_RETURNINMEM:
 			param_post = 2;
+			[[fallthrough]];
 #endif
 		case ICC_THISCALL_RETURNINMEM:
 		case ICC_VIRTUAL_THISCALL_RETURNINMEM:
