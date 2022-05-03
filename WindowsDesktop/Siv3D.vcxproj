@@ -2282,6 +2282,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOpenMode.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptOptional.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPalette.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptParse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPeriodic.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPianoKey.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptPoint.cpp" />

@@ -139,6 +139,7 @@ namespace s3d
 	void RegisterOptional(asIScriptEngine* engine);
 	void RegisterNumber(asIScriptEngine* engine);
 	void RegisterFloatingPoint(asIScriptEngine* engine);
+	void RegisterParse(asIScriptEngine* engine);
 
 	void RegisterDuration(asIScriptEngine* engine);
 	void RegisterDate(asIScriptEngine* engine);

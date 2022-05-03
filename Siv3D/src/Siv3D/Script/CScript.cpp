@@ -96,6 +96,7 @@ namespace s3d
 			RegisterOptional(m_engine);
 			RegisterNumber(m_engine);
 			RegisterFloatingPoint(m_engine);
+			RegisterParse(m_engine);
 
 			RegisterDuration(m_engine);
 			RegisterDate(m_engine);

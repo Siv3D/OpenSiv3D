@@ -542,6 +542,7 @@ add_library(Siv3D STATIC
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOpenMode.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptOptional.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPalette.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptParse.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPeriodic.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPianoKey.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptPoint.cpp
