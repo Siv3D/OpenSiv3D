@@ -906,6 +906,7 @@
 		2C53C34925613BB00072831A /* PolygonDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C53C34425613BAF0072831A /* PolygonDetail.cpp */; };
 		2C53C34C25613BD40072831A /* earcut.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C53C34B25613BCC0072831A /* earcut.hpp */; };
 		2C5AC674282122E1007B427D /* ScriptParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AC673282122E1007B427D /* ScriptParse.cpp */; };
+		2C5AC676282185A1007B427D /* ScriptINI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5AC675282185A1007B427D /* ScriptINI.cpp */; };
 		2C5C0F12266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5C0F0F266DFF2A009C430B /* AsyncHTTPTaskDetail.hpp */; };
 		2C5C0F13266DFF2A009C430B /* SivAsyncHTTPTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F10266DFF2A009C430B /* SivAsyncHTTPTask.cpp */; };
 		2C5C0F14266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C0F11266DFF2A009C430B /* AsyncHTTPTaskDetail.cpp */; };
@@ -3236,6 +3237,7 @@
 		2C53C34425613BAF0072831A /* PolygonDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonDetail.cpp; sourceTree = "<group>"; };
 		2C53C34B25613BCC0072831A /* earcut.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = earcut.hpp; sourceTree = "<group>"; };
 		2C5AC673282122E1007B427D /* ScriptParse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptParse.cpp; sourceTree = "<group>"; };
+		2C5AC675282185A1007B427D /* ScriptINI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptINI.cpp; sourceTree = "<group>"; };
 		2C5C0F07266DFEE5009C430B /* AsyncHTTPTask.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsyncHTTPTask.hpp; sourceTree = "<group>"; };
 		2C5C0F08266DFEF2009C430B /* HTTPResponse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPResponse.hpp; sourceTree = "<group>"; };
 		2C5C0F09266DFEF2009C430B /* HTTPAsyncStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HTTPAsyncStatus.hpp; sourceTree = "<group>"; };
@@ -10989,6 +10991,7 @@
 				2CD69B6226D2B7AE00879484 /* ScriptIcon.cpp */,
 				2CD69B8D26D2B7AE00879484 /* ScriptImage.cpp */,
 				2CD69BA226D2B7AE00879484 /* ScriptImageFormat.cpp */,
+				2C5AC675282185A1007B427D /* ScriptINI.cpp */,
 				2CD69B8826D2B7AE00879484 /* ScriptInput.cpp */,
 				2CD69B6326D2B7AE00879484 /* ScriptInterpolation.cpp */,
 				2CD69B5226D2B7AE00879484 /* ScriptKeyboard.cpp */,
@@ -12923,6 +12926,7 @@
 				2C4A287925EB468600FEACE4 /* CGUI.cpp in Sources */,
 				2C5AC674282122E1007B427D /* ScriptParse.cpp in Sources */,
 				2C636D8626577BFE00AF029F /* MicrophoneDetail.cpp in Sources */,
+				2C5AC676282185A1007B427D /* ScriptINI.cpp in Sources */,
 				2C47B32C24DD9789008D83BE /* SivQR.cpp in Sources */,
 				2C636E972657F7D300AF029F /* soloud_flangerfilter.cpp in Sources */,
 				2CD69BD726D2B7AE00879484 /* ScriptDateTime.cpp in Sources */,
