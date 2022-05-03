@@ -64,6 +64,7 @@ namespace s3d
 		RegisterType(engine, "TextReader", sizeof(TextReader), asOBJ_VALUE | asGetTypeTraits<TextReader>());
 		RegisterType(engine, "TextWriterBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "TextWriter", sizeof(TextWriter), asOBJ_VALUE | asGetTypeTraits<TextWriter>());
+		RegisterType(engine, "INI", sizeof(INI), asOBJ_VALUE | asGetTypeTraits<INI>());
 
 		RegisterType(engine, "Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C);
 		RegisterType(engine, "ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C);
@@ -172,6 +173,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("TextReader") == static_cast<int32>(ScriptTypeID::TextReader));
 		assert(engine->GetTypeIdByDecl("TextWriterBuffer") == static_cast<int32>(ScriptTypeID::TextWriterBuffer));
 		assert(engine->GetTypeIdByDecl("TextWriter") == static_cast<int32>(ScriptTypeID::TextWriter));
+		assert(engine->GetTypeIdByDecl("INI") == static_cast<int32>(ScriptTypeID::INI));
 		assert(engine->GetTypeIdByDecl("Color") == static_cast<int32>(ScriptTypeID::Color));
 		assert(engine->GetTypeIdByDecl("ColorF") == static_cast<int32>(ScriptTypeID::ColorF));
 		assert(engine->GetTypeIdByDecl("HSV") == static_cast<int32>(ScriptTypeID::HSV));

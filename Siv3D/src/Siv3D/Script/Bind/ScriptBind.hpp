@@ -61,6 +61,7 @@ namespace s3d
 		TextReader,
 		TextWriterBuffer,
 		TextWriter,
+		INI,
 
 		Color,
 		ColorF,
@@ -157,6 +158,7 @@ namespace s3d
 	void RegisterOpenMode(asIScriptEngine* engine);
 	void RegisterTextReader(asIScriptEngine* engine);
 	void RegisterTextWriter(asIScriptEngine* engine);
+	void RegisterINI(asIScriptEngine* engine);
 
 	void RegisterSpecialFolder(asIScriptEngine* engine);
 	void RegisterCopyOption(asIScriptEngine* engine);

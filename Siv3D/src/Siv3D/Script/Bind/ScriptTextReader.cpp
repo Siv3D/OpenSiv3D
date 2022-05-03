@@ -56,10 +56,6 @@ namespace s3d
 		return self.open(path, unspecified);
 	}
 
-	static bool ConvToBool(const TextReader& self)
-	{
-		return static_cast<bool>(self);
-	}
 
 	static CScriptOptional ReadChar(TextReader& self)
 	{
@@ -120,7 +116,7 @@ namespace s3d
 			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, None_t = unspecified)", asFUNCTION(OpenFN), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
-			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHODPR(BindType, operator bool, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 			r = engine->RegisterObjectMethod(TypeName, "Optional<char32> readChar()", asFUNCTION(ReadChar), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "Optional<String> readLine()", asFUNCTION(ReadLine), asCALL_CDECL_OBJLAST); assert(r >= 0);

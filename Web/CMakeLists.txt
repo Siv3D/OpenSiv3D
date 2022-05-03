@@ -1105,6 +1105,7 @@ add_library(
   ../Siv3D/src/Siv3D/Script/Bind/ScriptIcon.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptImage.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptImageFormat.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptINI.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInterpolation.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp

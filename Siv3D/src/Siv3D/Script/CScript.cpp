@@ -114,6 +114,7 @@ namespace s3d
 			RegisterOpenMode(m_engine);
 			RegisterTextReader(m_engine);
 			RegisterTextWriter(m_engine);
+			RegisterINI(m_engine);
 
 			RegisterSpecialFolder(m_engine);
 			RegisterCopyOption(m_engine);

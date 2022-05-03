@@ -57,11 +57,6 @@ namespace s3d
 	}
 
 
-	static bool ConvToBool(const TextWriter& self)
-	{
-		return static_cast<bool>(self);
-	}
-
 
 	static int32 GetTextEncoding(const TextWriter& self)
 	{
@@ -177,7 +172,7 @@ namespace s3d
 			r = engine->RegisterObjectMethod(TypeName, "bool open(const String& in, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::UTF8_WITH_BOM)", asFUNCTION(OpenFOT), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "void close() const", asMETHODPR(BindType, close, (), void), asCALL_THISCALL); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "bool isOpen() const", asMETHODPR(BindType, isOpen, () const, bool), asCALL_THISCALL); assert(r >= 0);
-			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHODPR(BindType, operator bool, () const, bool), asCALL_THISCALL); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "void clear() const", asMETHODPR(BindType, clear, (), void), asCALL_THISCALL); assert(r >= 0);
 
 			r = engine->RegisterObjectMethod(TypeName, "void write(uint32)", asMETHODPR(BindType, write, (char32), void), asCALL_THISCALL); assert(r >= 0);

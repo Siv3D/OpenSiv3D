@@ -69,9 +69,9 @@ namespace s3d
 		return hasValue(SectionView{}, name);
 	}
 
-	inline const String& INI::getGlobalValue(const NameView name)
+	inline const String& INI::getGlobalValue(const NameView name) const
 	{
-		return getValue(SectionView(), name);
+		return getValue(SectionView{}, name);
 	}
 
 	inline const INI::Value& INI::operator [](const Section_Dot_NameView section_dot_name) const
