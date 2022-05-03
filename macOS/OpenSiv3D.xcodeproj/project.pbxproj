@@ -1077,16 +1077,13 @@
 		2C636E7B2657F7D300AF029F /* soloud_miniaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636DDB2657F7D300AF029F /* soloud_miniaudio.cpp */; };
 		2C636E892657F7D300AF029F /* soloud_nosound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636DF32657F7D300AF029F /* soloud_nosound.cpp */; };
 		2C636E902657F7D300AF029F /* soloud_eqfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E002657F7D300AF029F /* soloud_eqfilter.cpp */; };
-		2C636E912657F7D300AF029F /* soloud_bassboostfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E012657F7D300AF029F /* soloud_bassboostfilter.cpp */; };
 		2C636E922657F7D300AF029F /* soloud_echofilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E022657F7D300AF029F /* soloud_echofilter.cpp */; };
 		2C636E932657F7D300AF029F /* soloud_fftfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E032657F7D300AF029F /* soloud_fftfilter.cpp */; };
-		2C636E942657F7D300AF029F /* soloud_robotizefilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E042657F7D300AF029F /* soloud_robotizefilter.cpp */; };
 		2C636E952657F7D300AF029F /* soloud_dcremovalfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E052657F7D300AF029F /* soloud_dcremovalfilter.cpp */; };
 		2C636E962657F7D300AF029F /* soloud_lofifilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E062657F7D300AF029F /* soloud_lofifilter.cpp */; };
 		2C636E972657F7D300AF029F /* soloud_flangerfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E072657F7D300AF029F /* soloud_flangerfilter.cpp */; };
 		2C636E982657F7D300AF029F /* soloud_freeverbfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E082657F7D300AF029F /* soloud_freeverbfilter.cpp */; };
 		2C636E992657F7D300AF029F /* soloud_biquadresonantfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E092657F7D300AF029F /* soloud_biquadresonantfilter.cpp */; };
-		2C636E9A2657F7D300AF029F /* soloud_waveshaperfilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E0A2657F7D300AF029F /* soloud_waveshaperfilter.cpp */; };
 		2C636E9B2657F7D300AF029F /* soloud_vic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E0D2657F7D300AF029F /* soloud_vic.cpp */; };
 		2C636E9C2657F7D300AF029F /* dr_mp3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C636E0F2657F7D300AF029F /* dr_mp3.h */; };
 		2C636E9D2657F7D300AF029F /* stb_vorbis.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C636E102657F7D300AF029F /* stb_vorbis.c */; };
@@ -3467,16 +3464,13 @@
 		2C636DDB2657F7D300AF029F /* soloud_miniaudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_miniaudio.cpp; sourceTree = "<group>"; };
 		2C636DF32657F7D300AF029F /* soloud_nosound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_nosound.cpp; sourceTree = "<group>"; };
 		2C636E002657F7D300AF029F /* soloud_eqfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_eqfilter.cpp; sourceTree = "<group>"; };
-		2C636E012657F7D300AF029F /* soloud_bassboostfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_bassboostfilter.cpp; sourceTree = "<group>"; };
 		2C636E022657F7D300AF029F /* soloud_echofilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_echofilter.cpp; sourceTree = "<group>"; };
 		2C636E032657F7D300AF029F /* soloud_fftfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_fftfilter.cpp; sourceTree = "<group>"; };
-		2C636E042657F7D300AF029F /* soloud_robotizefilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_robotizefilter.cpp; sourceTree = "<group>"; };
 		2C636E052657F7D300AF029F /* soloud_dcremovalfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_dcremovalfilter.cpp; sourceTree = "<group>"; };
 		2C636E062657F7D300AF029F /* soloud_lofifilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_lofifilter.cpp; sourceTree = "<group>"; };
 		2C636E072657F7D300AF029F /* soloud_flangerfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_flangerfilter.cpp; sourceTree = "<group>"; };
 		2C636E082657F7D300AF029F /* soloud_freeverbfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_freeverbfilter.cpp; sourceTree = "<group>"; };
 		2C636E092657F7D300AF029F /* soloud_biquadresonantfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_biquadresonantfilter.cpp; sourceTree = "<group>"; };
-		2C636E0A2657F7D300AF029F /* soloud_waveshaperfilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_waveshaperfilter.cpp; sourceTree = "<group>"; };
 		2C636E0D2657F7D300AF029F /* soloud_vic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_vic.cpp; sourceTree = "<group>"; };
 		2C636E0F2657F7D300AF029F /* dr_mp3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dr_mp3.h; sourceTree = "<group>"; };
 		2C636E102657F7D300AF029F /* stb_vorbis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_vorbis.c; sourceTree = "<group>"; };
@@ -8828,7 +8822,6 @@
 		2C636DFF2657F7D300AF029F /* filter */ = {
 			isa = PBXGroup;
 			children = (
-				2C636E012657F7D300AF029F /* soloud_bassboostfilter.cpp */,
 				2C636E092657F7D300AF029F /* soloud_biquadresonantfilter.cpp */,
 				2C636E052657F7D300AF029F /* soloud_dcremovalfilter.cpp */,
 				2C636E022657F7D300AF029F /* soloud_echofilter.cpp */,
@@ -8837,8 +8830,6 @@
 				2C636E072657F7D300AF029F /* soloud_flangerfilter.cpp */,
 				2C636E082657F7D300AF029F /* soloud_freeverbfilter.cpp */,
 				2C636E062657F7D300AF029F /* soloud_lofifilter.cpp */,
-				2C636E042657F7D300AF029F /* soloud_robotizefilter.cpp */,
-				2C636E0A2657F7D300AF029F /* soloud_waveshaperfilter.cpp */,
 			);
 			path = filter;
 			sourceTree = "<group>";
@@ -12663,7 +12654,6 @@
 				2C2AA38026009C74003F3EBC /* b2_rope.cpp in Sources */,
 				2CBB4C3025FB47D2007BEAB4 /* VideoWriterDetail.cpp in Sources */,
 				2CB1B9CB273BB1BA008FBF78 /* SivScopedRenderStates2D.cpp in Sources */,
-				2C636E912657F7D300AF029F /* soloud_bassboostfilter.cpp in Sources */,
 				2C834DA7248805D4006208B8 /* euc_jp_prop.c in Sources */,
 				2C4A287F25EB469A00FEACE4 /* SivSimpleGUI.cpp in Sources */,
 				2C9566DD2645626000539B85 /* mz_compat.c in Sources */,
@@ -12895,7 +12885,6 @@
 				2C423258242B19ED00A16BCA /* posix_thread.c in Sources */,
 				2C768DCD268E28F800A02CF5 /* SivMeshData.cpp in Sources */,
 				2CFF581C25F7C02500B660AD /* SivVideoReader.cpp in Sources */,
-				2C636E942657F7D300AF029F /* soloud_robotizefilter.cpp in Sources */,
 				2CD69C2526D2B7AF00879484 /* ScriptDuration.cpp in Sources */,
 				2C47B32E24DD9789008D83BE /* SivImage.cpp in Sources */,
 				2C8CA3A62615863C00BABD2D /* PPMDecoder.cpp in Sources */,
@@ -13500,7 +13489,6 @@
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
 				2C5043BF2650EE7B00E36D08 /* MIDIDecoder.cpp in Sources */,
 				2CFABB15272E3ACB00939278 /* gelement.cpp in Sources */,
-				2C636E9A2657F7D300AF029F /* soloud_waveshaperfilter.cpp in Sources */,
 				2CD69BE026D2B7AE00879484 /* ScriptFloatingPoint.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */,
