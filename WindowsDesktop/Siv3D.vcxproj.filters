@@ -8825,9 +8825,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_thread.cpp">
       <Filter>src\ThirdParty\soloud\src\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_bassboostfilter.cpp">
-      <Filter>src\ThirdParty\soloud\src\filter</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_biquadresonantfilter.cpp">
       <Filter>src\ThirdParty\soloud\src\filter</Filter>
     </ClCompile>
@@ -8850,12 +8847,6 @@
       <Filter>src\ThirdParty\soloud\src\filter</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_lofifilter.cpp">
-      <Filter>src\ThirdParty\soloud\src\filter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_robotizefilter.cpp">
-      <Filter>src\ThirdParty\soloud\src\filter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp">
       <Filter>src\ThirdParty\soloud\src\filter</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp">

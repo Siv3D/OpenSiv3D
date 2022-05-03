@@ -2751,7 +2751,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_misc.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_queue.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\core\soloud_thread.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_bassboostfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_biquadresonantfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_dcremovalfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_echofilter.cpp" />
@@ -2760,8 +2759,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_flangerfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_freeverbfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_lofifilter.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_robotizefilter.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\soloud\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\SplineLib\Splines.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyobjloader\tiny_obj_loader.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />

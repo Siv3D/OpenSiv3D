@@ -110,9 +110,9 @@ namespace s3d
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 			r = engine->RegisterObjectMethod(TypeName, "bool load(const String& in)", asFUNCTION(Load), asCALL_CDECL_OBJLAST); assert(r >= 0);
-			r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(INI, clear), asCALL_THISCALL); assert(r >= 0);
-			r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(INI, isEmpty), asCALL_THISCALL); assert(r >= 0);
-			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHOD(INI, operator bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(INI, clear, (), void), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHODPR(INI, isEmpty, () const, bool), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHODPR(INI, operator bool, () const, bool), asCALL_THISCALL); assert(r >= 0);
 
 			r = engine->RegisterObjectMethod(TypeName, "bool hasSection(const String& in) const", asFUNCTION(HasSection), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectMethod(TypeName, "bool hasValue(const String& in, const String& in) const", asFUNCTION(HasValue), asCALL_CDECL_OBJLAST); assert(r >= 0);

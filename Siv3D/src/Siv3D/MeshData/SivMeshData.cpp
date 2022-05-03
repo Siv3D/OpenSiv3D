@@ -821,10 +821,12 @@ namespace s3d
 		Array<uint16> indices(numIndices);
 
 		par_octasphere_mesh mesh = {
-			.positions	= static_cast<float*>(static_cast<void*>(positions.data())),
-			.normals	= static_cast<float*>(static_cast<void*>(normals.data())),
-			.texcoords	= static_cast<float*>(static_cast<void*>(texcoords.data())),
-			.indices	= indices.data(),
+			.positions		= static_cast<float*>(static_cast<void*>(positions.data())),
+			.normals		= static_cast<float*>(static_cast<void*>(normals.data())),
+			.texcoords		= static_cast<float*>(static_cast<void*>(texcoords.data())),
+			.indices		= indices.data(),
+			.num_indices	= 0,
+			.num_vertices	= 0,
 		};
 		
 		par_octasphere_populate(&config, &mesh);

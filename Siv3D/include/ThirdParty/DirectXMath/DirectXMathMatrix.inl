@@ -1158,7 +1158,7 @@ inline bool XM_CALLCONV XMMatrixDecompose
 
     if (pfScales[b] < XM3_DECOMP_EPSILON)
     {
-        size_t aa, bb, cc;
+        [[maybe_unused]] size_t aa, bb, cc;
         float fAbsX, fAbsY, fAbsZ;
 
         fAbsX = fabsf(XMVectorGetX(ppvBasis[a][0]));

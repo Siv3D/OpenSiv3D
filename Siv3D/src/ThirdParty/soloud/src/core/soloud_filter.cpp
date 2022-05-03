@@ -22,35 +22,53 @@ freely, subject to the following restrictions:
    distribution.
 */
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	Copyright (c) 2008-2022 Ryo Suzuki
+//	Copyright (c) 2016-2022 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
 #include "soloud.h"
 
 namespace SoLoud
 {
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
 
 	int Filter::getParamCount()
 	{
 		return 1; // there's always WET
 	}
 
-	const char* Filter::getParamName(unsigned int aParamIndex)
+	const char* Filter::getParamName([[maybe_unused]] unsigned int aParamIndex)
 	{
 		return "Wet";
 	}
 
-	unsigned int Filter::getParamType(unsigned int aParamIndex)
+	unsigned int Filter::getParamType([[maybe_unused]] unsigned int aParamIndex)
 	{
 		return Filter::FLOAT_PARAM;
 	}
 	
-	float Filter::getParamMax(unsigned int aParamIndex)
+	float Filter::getParamMax([[maybe_unused]] unsigned int aParamIndex)
 	{
 		return 1;
 	}
 
-	float Filter::getParamMin(unsigned int aParamIndex)
+	float Filter::getParamMin([[maybe_unused]] unsigned int aParamIndex)
 	{
 		return 0;
 	}
+
+	//
+	//-----------------------------------------------
 
 	Filter::Filter()
 	{

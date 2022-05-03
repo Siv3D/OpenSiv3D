@@ -175,10 +175,10 @@ namespace SoLoud
 	
 	result Queue::setParams(float aSamplerate, unsigned int aChannels)
 	{
-	    if (aChannels < 1 || aChannels > MAX_CHANNELS)
-	        return INVALID_PARAMETER;
+		if (aChannels < 1 || aChannels > MAX_CHANNELS)
+			return INVALID_PARAMETER;
 		mChannels = aChannels;
 		mBaseSamplerate = aSamplerate;
-	    return SO_NO_ERROR;
+		return SO_NO_ERROR;
 	}
 };

@@ -1098,7 +1098,6 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud_misc.cpp
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud_queue.cpp
   ../Siv3D/src/ThirdParty/soloud/src/core/soloud_thread.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_bassboostfilter.cpp
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_biquadresonantfilter.cpp
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_dcremovalfilter.cpp
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_echofilter.cpp
@@ -1107,8 +1106,6 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_flangerfilter.cpp
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_freeverbfilter.cpp
   ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_lofifilter.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_robotizefilter.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/filter/soloud_waveshaperfilter.cpp
 
   ../Siv3D/src/ThirdParty/SplineLib/Splines.cpp
 

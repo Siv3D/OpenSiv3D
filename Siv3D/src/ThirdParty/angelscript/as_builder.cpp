@@ -259,7 +259,7 @@ void asCBuilder::EvaluateTemplateInstances(asUINT startIdx, bool keepSilent)
 	// Set the new temporary message stream
 	asCOutputBuffer outBuffer;
 	if( keepSilent )
-		engine->SetMessageCallback(asMETHOD(asCOutputBuffer, Callback), &outBuffer, asCALL_THISCALL);
+		engine->SetMessageCallback(asMETHODPR(asCOutputBuffer, Callback, (asSMessageInfo*), void), &outBuffer, asCALL_THISCALL);
 
 	// Evaluate each of the template instances that have been created since the start of the build
 	// TODO: This is not exactly correct, since another thread may have created template instances in parallel
@@ -2520,7 +2520,7 @@ void asCBuilder::CompileGlobalVariables()
 
 	// Set the new temporary message stream
 	asCOutputBuffer outBuffer;
-	engine->SetMessageCallback(asMETHOD(asCOutputBuffer, Callback), &outBuffer, asCALL_THISCALL);
+	engine->SetMessageCallback(asMETHODPR(asCOutputBuffer, Callback, (asSMessageInfo*), void), &outBuffer, asCALL_THISCALL);
 
 	asCOutputBuffer finalOutput;
 	asCScriptFunction *initFunc = 0;
