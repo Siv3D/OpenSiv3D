@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Web CXX C)
 
 option(BUILD_SHARED_LIBS "Build 3rd party libraries as shared libraries (lib*.wasm)." OFF)
-option(SIV3D_BUILD_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -DWITH_SDL2_STATIC -DWITH_NOSOUND")
@@ -36,38 +35,31 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
 endif()
 
-if (NOT ${CMAKE_C_FLAGS} MATCHES "-msimd128")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XM_NO_INTRINSICS_")
+if (${CMAKE_C_FLAGS} MATCHES "-msimd128" OR ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
+  set(Siv3DEnableSIMD On)
+else()
+  add_compile_options ("-D_XM_NO_INTRINSICS_")
 endif ()
 
-if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_XM_NO_INTRINSICS_")
+if (${CMAKE_C_FLAGS} MATCHES "-pthread" OR ${CMAKE_CXX_FLAGS} MATCHES "-pthread")
+  set(Siv3DEnablePThread On)
 endif ()
 
-if (${SIV3D_BUILD_SHARED_MAIN})
-  set(ExcludeSiv3DSharedMain OFF)
-else ()
-  set(ExcludeSiv3DSharedMain ON)
-endif ()
-
-if (${BUILD_SHARED_LIBS})
+if (BUILD_SHARED_LIBS)
   include(CMake/BuildThirdParty.cmake)
+endif()
+
+if (BUILD_SHARED_LIBS OR ${CMAKE_C_FLAGS} MATCHES "-fPIC" OR ${CMAKE_CXX_FLAGS} MATCHES "-fPIC")
+  set(Siv3DEnablePICBuild On)
 
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
-endif()
-
-if (${SIV3D_BUILD_SHARED_MAIN})
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s MAIN_MODULE=1")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MAIN_MODULE=1")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s MAIN_MODULE=1")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s MAIN_MODULE=1")
 endif()
 
 
@@ -1170,8 +1162,10 @@ set_target_properties(OpenSiv3D
 
 target_include_directories(OpenSiv3D
   PUBLIC
-    ../Siv3D/include
-    ../Siv3D/include/ThirdParty
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Siv3D/include>
+    $<INSTALL_INTERFACE:include/Siv3D> 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Siv3D/include/ThirdParty>
+    $<INSTALL_INTERFACE:include/Siv3D/ThirdParty> 
   PRIVATE
     ../Siv3D/src
     ../Siv3D/src/Siv3D-Platform/Web
@@ -1218,132 +1212,70 @@ target_include_directories(
     ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
 )
 
+include(GNUInstallDirs)
 
+if (BUILD_SHARED_LIBS)
+  set(Siv3DLibraryConfig "wasm-shared")
+  set(Siv3DLibraryPostfix ".wasm.a")
+elseif (Siv3DEnablePICBuild)
+  set(Siv3DLibraryConfig "wasm-side-module")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnablePThread AND Siv3DEnableSIMD)
+  set(Siv3DLibraryConfig "wasm-mt-simd")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnablePThread)
+  set(Siv3DLibraryConfig "wasm-mt")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnableSIMD)
+  set(Siv3DLibraryConfig "wasm-simd")
+  set(Siv3DLibraryPostfix ".a")
+else()
+  set(Siv3DLibraryConfig "wasm")
+  set(Siv3DLibraryPostfix ".a")
+endif()
 
-add_executable(Siv3DSharedMain 
-  Empty.cpp
+target_link_libraries(OpenSiv3D
+  PUBLIC
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_photo${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_imgproc${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_core${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/harfbuzz/libharfbuzz${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/freetype/libfreetype${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/turbojpeg/libturbojpeg${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/giflib/libgif${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/webp/libwebp${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opus/libopusfile${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opus/libopus${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/tiff/libtiff${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/png/libpng${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/zlib/libz${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/SDL2/libSDL2${Siv3DLibraryPostfix}
 )
 
-set_target_properties(Siv3DSharedMain 
-  PROPERTIES
-    EXCLUDE_FROM_ALL ${ExcludeSiv3DSharedMain}
+install(TARGETS OpenSiv3D
+  EXPORT OpenSiv3DExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
-target_compile_options(Siv3DSharedMain PRIVATE
-  "-sMAIN_MODULE=1"
-  "-DZSTD_TRACE=0"
+install(EXPORT OpenSiv3DExport
+  FILE OpenSiv3DConfig.cmake
+  DESTINATION share/cmake/OpenSiv3D/
 )
 
-set(Siv3DSharedMainLinkerOption
-  "-s ERROR_ON_UNDEFINED_SYMBOLS=0"
-  "-Wl,--allow-undefined"
-  "-s ALLOW_MEMORY_GROWTH=1"
-
-  "-s USE_GLFW=3"
-  "-s USE_WEBGPU=1"
-  "-s FULL_ES3"
-  "-s MIN_WEBGL_VERSION=2"
-  "-s MAX_WEBGL_VERSION=2"
-
-  "-s USE_OGG=1"
-  "-s USE_LIBPNG=1"
-  "-s USE_VORBIS=1"
-
-  "--js-library ${CMAKE_SOURCE_DIR}/Siv3D.js"
-  "--pre-js ${CMAKE_SOURCE_DIR}/Siv3D.pre.js"
-  "--js-library ${CMAKE_SOURCE_DIR}/Siv3D.js"
-  "--post-js \"${CMAKE_SOURCE_DIR}/Siv3D.post.js\""
-
-  "-s MAIN_MODULE=1"
-  "-s DECLARE_ASM_MODULE_EXPORTS=0"
-  "-s EXPORTED_FUNCTIONS='[\"_main\"]'"
-
-  "--pre-js 'Siv3D.data.js'"
-  "-s FORCE_FILESYSTEM=1"
-
-  # "-s ASYNCIFY=1"
-  # "-s ASYNCIFY_IGNORE_INDIRECT=1"
+install(TARGETS OpenSiv3DScript
+  EXPORT OpenSiv3DScriptExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
-set(ASYNCIFY_IMPORTS
-  "siv3dRequestAnimationFrame"
-  "siv3dOpenDialog"
-  "siv3dDecodeAudioFromFile"
-  "siv3dGetClipboardText"
-  "_Z4Mainv"
+install(EXPORT OpenSiv3DScriptExport
+  FILE OpenSiv3DScriptConfig.cmake
+  DESTINATION share/cmake/OpenSiv3DScript/
 )
 
-set(ASYNCIFY_ADD
-  "main"
-  "InitSiv3D"
-  "s3d::CSystem::init()"
-  "s3d::System::Update()"
-  "s3d::AACDecoder::decode(*) const"
-  "s3d::MP3Decoder::decode(*) const"
-  "s3d::CAudioDecoder::decode(*)"
-  "s3d::AudioDecoder::Decode(*)"
-  "s3d::Wave::Wave(*)"
-  "s3d::Audio::Audio(*)"
-  "s3d::Clipboard::GetText(*)"
-  "s3d::CClipboard::getText(*)"
-)
-
-set_target_properties(Siv3DSharedMain 
-  PROPERTIES
-    SUFFIX ".html"
-)
-
-target_link_libraries(Siv3DSharedMain PRIVATE
-  OpenSiv3D
-
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_objdetect.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_photo.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_imgproc.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_core.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/harfbuzz/libharfbuzz.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/freetype/libfreetype.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/turbojpeg/libturbojpeg.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/giflib/libgif.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/webp/libwebp.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopusfile.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopus.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/tiff/libtiff.a
-
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/SDL2/libSDL2.a
-)
-
-add_custom_command(
-  OUTPUT Siv3D.data Siv3D.data.js
-  COMMAND python3 
-  ARGS
-    $ENV{EMSDK}/upstream/emscripten/tools/file_packager.py
-    Siv3D.data
-    --js-output=Siv3D.data.js
-    --preload \"${CMAKE_SOURCE_DIR}/App/resources@/resources\"
-    --from-emcc
-)
-
-add_custom_target(
-  Siv3DAppData
-  DEPENDS Siv3D.data Siv3D.data.js
-)
-
-add_dependencies(Siv3DSharedMain
-  Siv3DAppData
-)
-
-list (TRANSFORM ASYNCIFY_IMPORTS REPLACE ".+" "'\\0'")
-list (TRANSFORM ASYNCIFY_ADD REPLACE ".+" "'\\0'")
-string (REPLACE ";" "," ASYNCIFY_IMPORTS "${ASYNCIFY_IMPORTS}")
-string (REPLACE ";" "," ASYNCIFY_ADD "${ASYNCIFY_ADD}")
-
-set (Siv3DSharedMainLinkerOption
-  ${Siv3DSharedMainLinkerOption}
-  # "-s ASYNCIFY_IMPORTS=\"[${ASYNCIFY_IMPORTS}]\""
-  # "-s ASYNCIFY_ADD=\"[${ASYNCIFY_ADD}]\""
-)
-string (REPLACE ";" " " Siv3DSharedMainLinkerOption "${Siv3DSharedMainLinkerOption}")
-
-target_link_options(Siv3DSharedMain PRIVATE
-  "SHELL:${Siv3DSharedMainLinkerOption}"
-)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/../Siv3D/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Siv3D)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/ DESTINATION ${CMAKE_INSTALL_LIBDIR}/Siv3D)

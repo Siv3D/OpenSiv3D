@@ -1,23 +1,7 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.6
-# include <emscripten.h>
-
-# ifdef SIV3D_ENABLE_TEST
-
-SIV3D_SET(EngineOption::Renderer::Headless)
-
-void Siv3DTest();
-
-void Main()
-{
-	Siv3DTest();
-}
-
-# else
 
 # if defined(SIV3D_WEBGPU_BACKEND)
 SIV3D_SET(EngineOption::Renderer::WebGPU)
-# else
-SIV3D_SET(EngineOption::Renderer::WebGL2)
 # endif
 
 void Main()
@@ -78,5 +62,3 @@ void Main()
 		}
 	}
 }
-
-# endif
