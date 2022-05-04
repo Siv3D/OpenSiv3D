@@ -35,6 +35,8 @@ namespace s3d
 
 		~NavMeshDetail();
 
+		bool isValid() const noexcept;
+
 		bool build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
 
 		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);

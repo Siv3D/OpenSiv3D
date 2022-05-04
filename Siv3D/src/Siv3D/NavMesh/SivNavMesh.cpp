@@ -20,9 +20,55 @@ namespace s3d
 
 	}
 
+	NavMesh::NavMesh(const Polygon& polygon, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(polygon, config);
+	}
+
+	NavMesh::NavMesh(const Polygon& polygon, const Array<uint8>& areaIDs, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(polygon, areaIDs, config);
+	}
+
+	NavMesh::NavMesh(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(vertices, indices, config);
+	}
+
+	NavMesh::NavMesh(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(vertices, indices, areaIDs, config);
+	}
+
+	NavMesh::NavMesh(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(vertices, indices, config);
+	}
+
+	NavMesh::NavMesh(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config)
+		: NavMesh{}
+	{
+		build(vertices, indices, areaIDs, config);
+	}
+
 	NavMesh::~NavMesh()
 	{
 
+	}
+
+	bool NavMesh::isValid() const noexcept
+	{
+		return pImpl->isValid();
+	}
+
+	NavMesh::operator bool() const noexcept
+	{
+		return isValid();
 	}
 
 	bool NavMesh::build(const Polygon& polygon, const NavMeshConfig& config)

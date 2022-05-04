@@ -118,6 +118,11 @@ namespace s3d
 		release();
 	}
 
+	bool NavMesh::NavMeshDetail::isValid() const noexcept
+	{
+		return m_built;
+	}
+
 	bool NavMesh::NavMeshDetail::build(const Array<Float2>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config)
 	{
 		release();
