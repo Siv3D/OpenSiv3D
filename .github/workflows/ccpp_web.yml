@@ -123,8 +123,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: .
+          path: Web
       - name: Restore Siv3D library
+        working-directory: Web
         run: tar -xvf OpenSiv3D.tgz
 
       - name: Cache OpenSiv3D Test Build result
@@ -193,10 +194,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: .
+          path: Web
       - name: Restore Siv3D library
-        run: |
-          tar -xvf OpenSiv3D.tgz
+        working-directory: Web
+        run: tar -xvf OpenSiv3D.tgz
 
       - name: Cache OpenSiv3D App Build result
         id: cache_siv3d_app
