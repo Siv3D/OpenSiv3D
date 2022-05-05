@@ -142,7 +142,7 @@ jobs:
         working-directory: Web/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --target Siv3DTest
@@ -213,7 +213,7 @@ jobs:
         working-directory: Web/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
             ${{ matrix.config.cmake-additional-flags }} ..
