@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: OpenSiv3D.*
+          path: Web/OpenSiv3D.*
 
   test:
     needs: build
