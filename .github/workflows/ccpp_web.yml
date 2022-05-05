@@ -78,9 +78,9 @@ jobs:
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
             ${{ matrix.config.cmake-additional-flags }} \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
-            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
-            -DCMAKE_INSTALL_PREFIX=../Package ..
-          cmake --install . --parallel 4
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
+          cmake --build . --parallel 4
+          cmake --install . --prefix=../Package
 
       - name: Bundle output
         working-directory: Web/
