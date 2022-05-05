@@ -54,9 +54,9 @@ jobs:
         id: cache_siv3d_library
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-library-1
+          cache-name: cache-siv3d-library
         with:
-          path: Web/build
+          path: Web/Package
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
 
       - name: Cache boost
@@ -69,10 +69,12 @@ jobs:
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         run: |
           embuilder.py build ogg vorbis libpng
 
       - name: Build project
+        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
