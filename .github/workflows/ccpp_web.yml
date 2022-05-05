@@ -28,21 +28,18 @@ jobs:
           - name: wasm
             container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
-            cmake-additional-flags: ''
-            output-file: 'libSiv3D*.a'
-            external-lib-folder-name: wasm
+          - name: wasm-mt
+            container: 'emscripten/emsdk:3.1.8'
+            cmake-cflags: '-pthread'
           - name: wasm-simd
             container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-msimd128 -msse4.2'
-            cmake-additional-flags: ''
-            output-file: 'libSiv3D*.a'
-            external-lib-folder-name: wasm
+          - name: wasm-mt-simd
+            container: 'emscripten/emsdk:3.1.8'
+            cmake-cflags: '-pthread -msimd128 -msse4.2'
           - name: wasm-side-module
             container: 'emscripten/emsdk:3.1.8'
-            cmake-cflags: ''
-            cmake-additional-flags: '-DSIV3D_BUILD_SHARED_MAIN=1'
-            output-file: 'Siv3D*'
-            external-lib-folder-name: wasm-side-module
+            cmake-cflags: '-fPIC'
     container: 
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
@@ -74,40 +71,22 @@ jobs:
       - name: Prebuild emscripten ports
         run: |
           embuilder.py build ogg vorbis libpng
-  
-      - name: Build project
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && contains(matrix.config.name, 'side-module') }}
-        working-directory: Web/build
-        run: |
-          emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            ${{ matrix.config.cmake-additional-flags }} \
-            -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
-            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
-          cmake --build . --target Siv3DAppData
-          patch Siv3D.data.js < ../Siv3D.data.js.patch
-          cmake --build . --target Siv3DSharedMain --parallel 4 
 
       - name: Build project
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit && !contains(matrix.config.name, 'side-module') }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
             ${{ matrix.config.cmake-additional-flags }} \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
-            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
-          cmake --build . --parallel 4
+            -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
+            -DCMAKE_INSTALL_PREFIX=../Package ..
+          cmake --install . --parallel 4
 
       - name: Bundle output
+        working-directory: Web/
         run: |
-          mkdir -p Package/lib
-          cp -r Siv3D/include Package
-          cp -r Siv3D/lib/Web/${{ matrix.config.external-lib-folder-name }}/* Package/lib
-          cp -r Web/App/resources Package
-          cp -r Web/App/example Package
-          cp Web/Siv3D.js Package/lib
-          cp Web/Siv3D.pre.js Package/lib
-          cp Web/Siv3D.post.js Package/lib
-          cp Web/build/${{ matrix.config.output-file }} Package/lib
+          cp -r resources Package
+          cp -r example Package   
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
@@ -144,10 +123,7 @@ jobs:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: .
       - name: Restore Siv3D library
-        run: |
-          tar -xvf OpenSiv3D.tgz
-          mkdir Web/build
-          cp -r Package/lib/* Web/build
+        run: tar -xvf OpenSiv3D.tgz
 
       - name: Cache OpenSiv3D Test Build result
         id: cache_siv3d_test
@@ -162,10 +138,11 @@ jobs:
         if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
-          emcmake cmake -DCMAKE_BUILD_TYPE=Debug -DSIV3D_RUN_TEST_ON_NODE=On \
+          emcmake cmake -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_PREFIX_PATH=../../Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
-          cmake --build .
+          cmake --build . --target Siv3DTest
 
       - name: Test project
         working-directory: Web/App
@@ -218,8 +195,6 @@ jobs:
       - name: Restore Siv3D library
         run: |
           tar -xvf OpenSiv3D.tgz
-          mkdir Web/build
-          cp -r Package/lib/* Web/build
 
       - name: Cache OpenSiv3D App Build result
         id: cache_siv3d_app
@@ -228,13 +203,14 @@ jobs:
           cache-name: cache-siv3d-app
         with:
           path: Web/App
-          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*') }}
+          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ 'Web/Package/**/*.*', 'Web/App/**/*.*') }}
 
       - name: Create & Build Siv3d App
         if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH=../../Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
             ${{ matrix.config.cmake-additional-flags }} ..
@@ -243,8 +219,8 @@ jobs:
       - name: Save Bundles
         uses: actions/upload-artifact@v2
         with:
-          name: Siv3DTest-${{ matrix.config.app-name }}
-          path: Web/App/Siv3DTest.*
+          name: Siv3DApp-${{ matrix.config.app-name }}
+          path: Web/App/Siv3DApp.*
 
   build-installer:
     needs: build
@@ -380,19 +356,19 @@ jobs:
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
         with:
-          name: Siv3DTest-wasm
+          name: Siv3DApp-wasm
           path: Dest/v6-wasm-app
 
       - name: Place Siv3D Apps (wasm-simd)
         uses: actions/download-artifact@v2
         with:
-          name: Siv3DTest-wasm-simd
+          name: Siv3DApp-wasm-simd
           path: Dest/v6-wasm-simd-app
           
       - name: Place Siv3D Apps (wasm-webgpu)
         uses: actions/download-artifact@v2
         with:
-          name: Siv3DTest-wasm-wgpu
+          name: Siv3DApp-wasm-wgpu
           path: Dest/v6-wasm-wgpu-app
 
       # - name: Restore Bundles (wasm-side-module)
@@ -413,7 +389,7 @@ jobs:
       - name: Place Siv3D Apps (wasm-side-module)
         uses: actions/download-artifact@v2
         with:
-          name: Siv3DTest-wasm-side-module
+          name: Siv3DApp-wasm-side-module
           path: Dest/v6-wasm-side-module-app
 
       - name: Deploy

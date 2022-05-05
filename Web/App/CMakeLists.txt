@@ -3,12 +3,14 @@ cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Web_App CXX C)
 
 option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
-option(SIV3D_BUILD_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
+option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
 option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
 
 
-set(CMAKE_PREFIX_PATH ${EMSCRIPTEN_SYSROOT})
+if (NOT CMAKE_PREFIX_PATH)
+  set(CMAKE_PREFIX_PATH ${EMSCRIPTEN_SYSROOT})
+endif ()
 
 find_package(OpenSiv3D REQUIRED)
 find_package(OpenSiv3DScript)
@@ -67,9 +69,8 @@ set(Siv3DLinkerFlags
   -s USE_GLFW=3
   -s USE_OGG=1
   -s USE_VORBIS=1
-  --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js
-  --pre-js ${CMAKE_SOURCE_DIR}/../Siv3D.pre.js
-  --js-library ${CMAKE_SOURCE_DIR}/../Siv3D.js
+  --js-library ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.js
+  --pre-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.pre.js
 )
 
 string(REPLACE ";" " " Siv3DLinkerFlags "${Siv3DLinkerFlags}")
@@ -79,7 +80,7 @@ if (SIV3D_WEBGPU_BACKEND)
   add_compile_options("-DSIV3D_WEBGPU_BACKEND")
   add_link_options(
     "SHELL:-s USE_WEBGPU=1"
-    "SHELL:--post-js \"${CMAKE_SOURCE_DIR}/../Siv3D.post.js\""
+    "SHELL:--post-js \"${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.post.js\""
   )
 else()
   add_link_options(
@@ -210,7 +211,7 @@ add_executable(Siv3DSharedMain
   Empty.cpp
 )
 
-if (SIV3D_BUILD_SHARED_MAIN)
+if (SIV3D_BUILD_WITH_SHARED_MAIN)
   set_target_properties(Siv3DSharedMain 
     PROPERTIES
       EXCLUDE_FROM_ALL On
