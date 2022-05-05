@@ -203,7 +203,7 @@ jobs:
           cache-name: cache-siv3d-app
         with:
           path: Web/App
-          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ 'Web/Package/**/*.*', 'Web/App/**/*.*') }}
+          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*') }}
 
       - name: Create & Build Siv3d App
         if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
