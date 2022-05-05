@@ -85,8 +85,8 @@ jobs:
       - name: Bundle output
         working-directory: Web/
         run: |
-          cp -r resources Package
-          cp -r example Package   
+          cp -r App/resources Package
+          cp -r App/example Package   
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
