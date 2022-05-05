@@ -80,7 +80,7 @@ jobs:
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --parallel 4
-          cmake --install . --prefix=../Package
+          cmake --install . --prefix ../Package
 
       - name: Bundle output
         working-directory: Web/
