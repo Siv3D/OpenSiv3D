@@ -1151,7 +1151,7 @@ namespace s3d
 			{
 				state.selectedItemIndex.reset();
 			}
-			else if (state.items.size() < state.selectedItemIndex)
+			else if (state.items.size() <= state.selectedItemIndex)
 			{
 				state.selectedItemIndex = (state.items.size() - 1);
 			}
@@ -1187,6 +1187,8 @@ namespace s3d
 					{
 						state.scroll = Min(state.scroll + 1, static_cast<int32>(state.items.size()) - maxLines);
 					}
+
+					state.scroll = Min(state.scroll, static_cast<int32>(state.items.size()) - maxLines);
 
 					const RectF innerScrollBarArea = scrollBarArea.stretched(0, -ScrollBarWidth);
 					const int32 scrollBarHeight = static_cast<int32>(innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
