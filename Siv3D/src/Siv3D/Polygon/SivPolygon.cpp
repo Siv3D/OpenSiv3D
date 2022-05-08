@@ -15,6 +15,7 @@
 # include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Circular.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/HashSet.hpp>
 # include <Siv3D/Mouse.hpp>
@@ -211,11 +212,204 @@ namespace s3d
 		return{ vertices[triangleIndex.i0], vertices[triangleIndex.i1], vertices[triangleIndex.i2] };
 	}
 
-	Polygon& Polygon::addHole(Array<Vec2> hole, const SkipValidation skipValidation)
+	bool Polygon::addHole(const RectF& rect)
 	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			inners.push_back(Array<Vec2>{ rect.tl(), rect.bl(), rect.br(), rect.tr() });
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+		
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(const Triangle& triangle)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			inners.push_back(Array<Vec2>{ triangle.p0, triangle.p2, triangle.p1 });
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(const Quad& quad)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			inners.push_back(Array<Vec2>{ quad.p0, quad.p3, quad.p2, quad.p1 });
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(const Circle& circle, const uint32 quality)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		const uint32 n = Max(quality, 3u);
+
+		Array<Vec2> vertices(n, circle.center);
+		{
+			Vec2* pPos = vertices.data();
+
+			const double d = (-Math::TwoPi / n);
+
+			for (uint32 i = 0; i < n; ++i)
+			{
+				*pPos += Circular{ circle.r, (i * d) }.fastToVec2();
+				++pPos;
+			}
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			inners.push_back(std::move(vertices));
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(const Ellipse& ellipse, const uint32 quality)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		const uint32 n = Max(quality, 3u);
+
+		Array<Vec2> vertices(n, ellipse.center);
+		{
+			Vec2* pPos = vertices.data();
+			const double d = (-Math::TwoPi / n);
+
+			for (uint32 i = 0; i < n; ++i)
+			{
+				const double rad = (i * d);
+				const auto [s, c] = FastMath::SinCos(rad);
+				pPos->moveBy(ellipse.a * c, ellipse.b * s);
+				++pPos;
+			}
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			inners.push_back(std::move(vertices));
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(const RoundRect& roundRect, const uint32 quality)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
+		{
+			inners.append(pImpl->inners());
+			Array<Vec2> hole = roundRect.outerVertices();
+			hole.reverse();
+			inners.push_back(std::move(hole));
+		}
+
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
+	}
+
+	bool Polygon::addHole(Array<Vec2> hole)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
 		if (hole.size() < 3)
 		{
-			return *this;
+			return false;
+		}
+
+		if (Geometry2D::IsClockwise(hole))
+		{
+			hole.reverse();
 		}
 
 		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
@@ -224,16 +418,38 @@ namespace s3d
 			inners.push_back(std::move(hole));
 		}
 
-		return (*this = Polygon{ pImpl->outer(), std::move(inners), skipValidation });
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
 	}
 
-	Polygon& Polygon::addHoles(Array<Array<Vec2>> holes, const SkipValidation skipValidation)
+	bool Polygon::addHoles(Array<Array<Vec2>> holes, const SkipValidation skipValidation)
 	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
 		holes.remove_if([](const Array<Vec2>& hole) { return (hole.size() < 3); });
 
 		if (not holes)
 		{
-			return *this;
+			return false;
+		}
+
+		for (auto& hole : holes)
+		{
+			if (Geometry2D::IsClockwise(hole))
+			{
+				hole.reverse();
+			}
 		}
 
 		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + holes.size()));
@@ -242,7 +458,16 @@ namespace s3d
 			inners.append(holes);
 		}
 
-		return (*this = Polygon(pImpl->outer(), std::move(inners), skipValidation));
+		Polygon result{ pImpl->outer(), std::move(inners) };
+
+		if (not result)
+		{
+			return false;
+		}
+
+		*this = std::move(result);
+
+		return true;
 	}
 
 	Polygon Polygon::movedBy(const Vec2 v) const

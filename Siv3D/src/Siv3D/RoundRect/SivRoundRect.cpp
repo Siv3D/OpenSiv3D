@@ -92,6 +92,19 @@ namespace s3d
 		}
 	}
 
+	Array<Vec2> RoundRect::outerVertices(const uint32 quality) const
+	{
+		const double rr = Min({ (rect.w * 0.5), (rect.h * 0.5), r });
+
+		if (rr <= 0.0)
+		{
+			return{};
+		}
+
+		const uint32 n = Max(quality, 3u);
+		return detail::GetOuterVertices(*this, 0.0, (n / 24.0f));
+	}
+
 	Polygon RoundRect::asPolygon(const uint32 quality) const
 	{
 		const double rr = Min({ (rect.w * 0.5), (rect.h * 0.5), r });

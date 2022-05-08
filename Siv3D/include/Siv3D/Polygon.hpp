@@ -121,17 +121,47 @@ namespace s3d
 		Triangle triangle(size_t index) const;
 
 		/// @brief 多角形に穴を追加します。
+		/// @param rect 穴の形状
+		/// @return 穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const RectF& rect);
+
+		/// @brief 多角形に穴を追加します。
+		/// @param triangle 穴の形状
+		/// @return  穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const Triangle& triangle);
+
+		/// @brief 多角形に穴を追加します。
+		/// @param quad 穴の形状
+		/// @return  穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const Quad& quad);
+
+		/// @brief 多角形に穴を追加します。
+		/// @param circle 穴の形状
+		/// @param quality 頂点分割の品質
+		/// @return  穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const Circle& circle, uint32 quality = 24);
+
+		/// @brief 多角形に穴を追加します。
+		/// @param ellipse 穴の形状
+		/// @param quality 頂点分割の品質
+		/// @return  穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const Ellipse& ellipse, uint32 quality = 24);
+
+		/// @brief 多角形に穴を追加します。
+		/// @param roundRect 穴の形状
+		/// @param quality 頂点分割の品質
+		/// @return  穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(const RoundRect& roundRect, uint32 quality = 24);
+
+		/// @brief 多角形に穴を追加します。
 		/// @param hole 穴を構成する頂点配列
-		/// @param skipValidation 不適切な頂点配列のチェックを行う場合 `SkipValidation::Yes`, それ以外の場合は `SkipValidation::No`
-		/// @remark 入力チェックを行う場合、不適切な頂点配列を渡すと、多角形は空になります。
-		/// @return *this
-		Polygon& addHole(Array<Vec2> hole, SkipValidation skipValidation = SkipValidation::No);
+		/// @return 穴の追加に成功したら true, それ以外の場合は false
+		bool addHole(Array<Vec2> hole);
 
 		/// @brief 多角形に穴を追加します。
 		/// @param holes 穴を構成する頂点配列の配列（複数の穴）
-		/// @param skipValidation 不適切な頂点配列のチェックを行う場合 `SkipValidation::Yes`, それ以外の場合は `SkipValidation::No`
-		/// @return 入力チェックを行う場合、不適切な頂点配列を渡すと、多角形は空になります。
-		Polygon& addHoles(Array<Array<Vec2>> holes, SkipValidation skipValidation = SkipValidation::No);
+		/// @return 穴の追加に成功したら true, それ以外の場合は false
+		bool addHoles(Array<Array<Vec2>> holes, SkipValidation skipValidation = SkipValidation::No);
 
 		[[nodiscard]]
 		Polygon movedBy(double x, double y) const;

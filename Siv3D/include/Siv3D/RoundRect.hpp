@@ -224,6 +224,9 @@ namespace s3d
 		constexpr double perimeter() const noexcept;
 
 		[[nodiscard]]
+		Array<Vec2> outerVertices(uint32 quality = 24) const;
+
+		[[nodiscard]]
 		Polygon asPolygon(uint32 quality = 24) const;
 
 		[[nodiscard]]
