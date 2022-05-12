@@ -911,7 +911,7 @@ set(SIV3D_THIRDPARTY_SOURCES
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
+  # ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
