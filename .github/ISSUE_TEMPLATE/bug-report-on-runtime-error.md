@@ -13,13 +13,14 @@ assignees: ''
 
 **発生環境(デスクトップの場合) | Desktop (please complete the following information):**
  - OS:
- - ブラウザ | Browser:
  - バージョン | Version:
+ - GPU:
+ - ブラウザ (Web 版) | Browser:
 
 **発生環境(モバイルの場合) | Smartphone (please complete the following information):**
  - デバイス | Device:
  - OS:
- - ブラウザ | Browser:
  - バージョン | Version:
+ - ブラウザ (Web 版) | Browser:
 
 **備考 | Additional context**
