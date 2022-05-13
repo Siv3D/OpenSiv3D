@@ -378,7 +378,7 @@ namespace s3d
 		Array<Array<Vec2>> inners(Arg::reserve = (pImpl->inners().size() + 1));
 		{
 			inners.append(pImpl->inners());
-			Array<Vec2> hole = roundRect.outerVertices();
+			Array<Vec2> hole = roundRect.outerVertices(quality);
 			hole.reverse();
 			inners.push_back(std::move(hole));
 		}
@@ -430,7 +430,7 @@ namespace s3d
 		return true;
 	}
 
-	bool Polygon::addHoles(Array<Array<Vec2>> holes, const SkipValidation skipValidation)
+	bool Polygon::addHoles(Array<Array<Vec2>> holes)
 	{
 		if (isEmpty())
 		{

@@ -161,7 +161,7 @@ namespace s3d
 		/// @brief 多角形に穴を追加します。
 		/// @param holes 穴を構成する頂点配列の配列（複数の穴）
 		/// @return 穴の追加に成功したら true, それ以外の場合は false
-		bool addHoles(Array<Array<Vec2>> holes, SkipValidation skipValidation = SkipValidation::No);
+		bool addHoles(Array<Array<Vec2>> holes);
 
 		[[nodiscard]]
 		Polygon movedBy(double x, double y) const;
