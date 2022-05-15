@@ -13,13 +13,10 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/TextWriter.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Version.hpp>
 # include <Siv3D/LicenseManager/ILicenseManager.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/CacheDirectory/CacheDirectory.hpp>
-
-# if !defined(SIV3D_SHORT_VERSION_STRING)
-#   define SIV3D_SHORT_VERSION_STRING U"0.6.3"
-# endif
 
 namespace s3d
 {
@@ -52,7 +49,7 @@ namespace s3d
 
 		void ShowInBrowser()
 		{
-			const String& licenseUrl = U"https://siv3d.jp/web/license/" SIV3D_SHORT_VERSION_STRING U"/license.html";
+			const String& licenseUrl = U"https://siv3d.jp/web/license/" SIV3D_VERSION_SHORT_STRING U"/license.html";
 			System::LaunchBrowser(licenseUrl);
 		}
 	}
