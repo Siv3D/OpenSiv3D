@@ -5322,6 +5322,38 @@ namespace s3d
 			return results.map(detail::ToPolygon);
 		}
 
+		MultiPolygon Or(const MultiPolygon& a, const Polygon& b)
+		{
+			boost::geometry::model::multi_polygon<CwOpenPolygon> polygons;
+
+			for (const auto& ap : a)
+			{
+				polygons.push_back(ap._detail()->getPolygon());
+			}
+
+			boost::geometry::model::multi_polygon<CwOpenPolygon> unitedPolygons;
+			boost::geometry::union_(polygons, b._detail()->getPolygon(), unitedPolygons);
+
+			MultiPolygon results;
+
+			for (const auto& unitedPolygon : unitedPolygons)
+			{
+				Array<Array<Vec2>> retHoles;
+
+				for (const auto& hole : unitedPolygon.inners())
+				{
+					retHoles.emplace_back(hole.begin(), hole.end());
+				}
+
+				if (Polygon::Validate(unitedPolygon.outer(), retHoles) == PolygonFailureType::OK)
+				{
+					results.emplace_back(unitedPolygon.outer(), retHoles);
+				}
+			}
+
+			return results;
+		}
+
 		//////////////////////////////////////////////////
 		//
 		//	Xor

@@ -2807,6 +2807,9 @@ namespace s3d
 		[[nodiscard]]
 		Array<Polygon> Or(const Polygon& a, const Polygon& b);
 
+		[[nodiscard]]
+		MultiPolygon Or(const MultiPolygon& a, const Polygon& b);
+
 		//////////////////////////////////////////////////
 		//
 		//	Xor
