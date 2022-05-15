@@ -52,7 +52,7 @@ namespace s3d
 		GlyphIndex getGlyphIndex(StringView ch);
 
 		[[nodiscard]]
-		Array<GlyphCluster> getGlyphClusters(StringView s, bool recursive) const;
+		Array<GlyphCluster> getGlyphClusters(StringView s, bool recursive, Ligature ligature) const;
 
 		[[nodiscard]]
 		GlyphInfo getGlyphInfoByGlyphIndex(GlyphIndex glyphIndex) const;
@@ -61,13 +61,13 @@ namespace s3d
 		OutlineGlyph renderOutlineByGlyphIndex(GlyphIndex glyphIndex, CloseRing closeRing) const;
 
 		[[nodiscard]]
-		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing) const;
+		Array<OutlineGlyph> renderOutlines(StringView s, CloseRing closeRing, Ligature ligature) const;
 
 		[[nodiscard]]
 		PolygonGlyph renderPolygonByGlyphIndex(GlyphIndex glyphIndex) const;
 
 		[[nodiscard]]
-		Array<PolygonGlyph> renderPolygons(StringView s) const;
+		Array<PolygonGlyph> renderPolygons(StringView s, Ligature ligature) const;
 
 		[[nodiscard]]
 		BitmapGlyph renderBitmapByGlyphIndex(GlyphIndex glyphIndex) const;

@@ -98,7 +98,7 @@ namespace s3d
 		}
 
 		// 「.」のグリフ
-		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false);
+		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false, Ligature::Yes);
 		if (not prerender(font, dotGlyphCluster, true))
 		{
 			// do tnohing
@@ -479,7 +479,7 @@ namespace s3d
 
 	bool BitmapGlyphCache::preload(const FontData& font, const StringView s)
 	{
-		return prerender(font, font.getGlyphClusters(s, false), true);
+		return prerender(font, font.getGlyphClusters(s, false, Ligature::Yes), true);
 	}
 
 	const Texture& BitmapGlyphCache::getTexture() noexcept

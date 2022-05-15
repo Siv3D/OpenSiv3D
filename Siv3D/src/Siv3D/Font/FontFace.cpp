@@ -89,7 +89,7 @@ namespace s3d
 		return m_property;
 	}
 
-	HBGlyphInfo FontFace::getHBGlyphInfo(const StringView s) const
+	HBGlyphInfo FontFace::getHBGlyphInfo(const StringView s, const Ligature ligature) const
 	{
 		if (not m_hbBuffer)
 		{
@@ -104,7 +104,14 @@ namespace s3d
 
 		::hb_buffer_guess_segment_properties(m_hbBuffer);
 
-		::hb_shape(m_hbFont, m_hbBuffer, nullptr, 0);
+		if (ligature)
+		{
+			::hb_shape(m_hbFont, m_hbBuffer, nullptr, 0);
+		}
+		else
+		{
+			::hb_shape(m_hbFont, m_hbBuffer, m_noLigatureFeatures.data(), static_cast<uint32>(m_noLigatureFeatures.size()));
+		}
 
 		uint32 glyphCount = 0;
 		const hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(m_hbBuffer, &glyphCount);
@@ -172,6 +179,29 @@ namespace s3d
 			}
 		}
 
+		// features to disable ligatures
+		{
+			m_noLigatureFeatures[0].tag = ::hb_tag_from_string("liga", 4);
+			m_noLigatureFeatures[0].start = 0;
+			m_noLigatureFeatures[0].end = (unsigned int)-1;
+			m_noLigatureFeatures[0].value = 0;
+
+			m_noLigatureFeatures[1].tag = ::hb_tag_from_string("rlig", 4);
+			m_noLigatureFeatures[1].start = 0;
+			m_noLigatureFeatures[1].end = (unsigned int)-1;
+			m_noLigatureFeatures[1].value = 0;
+
+			m_noLigatureFeatures[2].tag = ::hb_tag_from_string("dlig", 4);
+			m_noLigatureFeatures[2].start = 0;
+			m_noLigatureFeatures[2].end = (unsigned int)-1;
+			m_noLigatureFeatures[2].value = 0;
+
+			m_noLigatureFeatures[3].tag = ::hb_tag_from_string("calt", 4);
+			m_noLigatureFeatures[3].start = 0;
+			m_noLigatureFeatures[3].end = (unsigned int)-1;
+			m_noLigatureFeatures[3].value = 0;
+		}
+
 		// Font property
 		{
 			m_property.familiyName		= Unicode::Widen(m_face->family_name);
@@ -185,7 +215,7 @@ namespace s3d
 		}
 
 		{
-			const HBGlyphInfo glyphInfo = getHBGlyphInfo(U" ");
+			const HBGlyphInfo glyphInfo = getHBGlyphInfo(U" ", Ligature::Yes);
 
 			if (glyphInfo.count < 1)
 			{

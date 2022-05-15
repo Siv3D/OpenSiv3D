@@ -255,9 +255,9 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphIndex(ch);
 	}
 
-	Array<GlyphCluster> CFont::getGlyphClusters(const Font::IDType handleID, const StringView s, const bool recursive)
+	Array<GlyphCluster> CFont::getGlyphClusters(const Font::IDType handleID, const StringView s, const bool recursive, const Ligature ligature)
 	{
-		return m_fonts[handleID]->getGlyphClusters(s, recursive);
+		return m_fonts[handleID]->getGlyphClusters(s, recursive, ligature);
 	}
 
 	GlyphInfo CFont::getGlyphInfo(const Font::IDType handleID, const StringView ch)
@@ -284,9 +284,9 @@ namespace s3d
 		return m_fonts[handleID]->renderOutlineByGlyphIndex(glyphIndex, closeRing);
 	}
 
-	Array<OutlineGlyph> CFont::renderOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing)
+	Array<OutlineGlyph> CFont::renderOutlines(const Font::IDType handleID, const StringView s, const CloseRing closeRing, const Ligature ligature)
 	{
-		return m_fonts[handleID]->renderOutlines(s, closeRing);
+		return m_fonts[handleID]->renderOutlines(s, closeRing, ligature);
 	}
 
 	PolygonGlyph CFont::renderPolygon(const Font::IDType handleID, const StringView ch)
@@ -301,9 +301,9 @@ namespace s3d
 		return m_fonts[handleID]->renderPolygonByGlyphIndex(glyphIndex);
 	}
 
-	Array<PolygonGlyph> CFont::renderPolygons(const Font::IDType handleID, const StringView s)
+	Array<PolygonGlyph> CFont::renderPolygons(const Font::IDType handleID, const StringView s, const Ligature ligature)
 	{
-		return m_fonts[handleID]->renderPolygons(s);
+		return m_fonts[handleID]->renderPolygons(s, ligature);
 	}
 
 	BitmapGlyph CFont::renderBitmap(const Font::IDType handleID, const StringView s)
@@ -368,10 +368,10 @@ namespace s3d
 		return glyph;
 	}
 
-	Array<Glyph> CFont::getGlyphs(const Font::IDType handleID, const StringView s)
+	Array<Glyph> CFont::getGlyphs(const Font::IDType handleID, const StringView s, const Ligature ligature)
 	{
 		const auto& font = m_fonts[handleID];
-		const Array<GlyphCluster> clusters = font->getGlyphClusters(s, false);
+		const Array<GlyphCluster> clusters = font->getGlyphClusters(s, false, ligature);
 
 		Array<Glyph> glyphs(Arg::reserve = clusters.size());
 		for (const auto& cluster : clusters)

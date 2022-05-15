@@ -114,7 +114,7 @@ namespace s3d
 
 	bool FontData::hasGlyph(const StringView ch)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch, Ligature::Yes);
 
 		if (glyphInfo.count != 1)
 		{
@@ -128,7 +128,7 @@ namespace s3d
 
 	GlyphIndex FontData::getGlyphIndex(const StringView ch)
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch);
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(ch, Ligature::Yes);
 
 		if (glyphInfo.count != 1)
 		{
@@ -140,9 +140,9 @@ namespace s3d
 		return glyphIndex;
 	}
 
-	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s, bool recursive) const
+	Array<GlyphCluster> FontData::getGlyphClusters(const StringView s, const bool recursive, const Ligature ligature) const
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s, ligature);
 
 		const size_t count = glyphInfo.count;
 
@@ -186,7 +186,7 @@ namespace s3d
 					}
 
 					const Array<GlyphCluster> clustersB = 
-						SIV3D_ENGINE(Font)->getGlyphClusters(fallbackFont.lock()->id(), s.substr(i, k), false);
+						SIV3D_ENGINE(Font)->getGlyphClusters(fallbackFont.lock()->id(), s.substr(i, k), false, ligature);
 
 					if (clustersB.none([](const GlyphCluster& g) { return (g.glyphIndex == 0); }))
 					{
@@ -239,9 +239,9 @@ namespace s3d
 		return RenderOutlineGlyph(m_fontFace.getFT_Face(), glyphIndex, closeRing, m_fontFace.getProperty());
 	}
 
-	Array<OutlineGlyph> FontData::renderOutlines(const StringView s, const CloseRing closeRing) const
+	Array<OutlineGlyph> FontData::renderOutlines(const StringView s, const CloseRing closeRing, const Ligature ligature) const
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s, ligature);
 
 		Array<OutlineGlyph> results(Arg::reserve = glyphInfo.count);
 
@@ -274,9 +274,9 @@ namespace s3d
 		return polygonGlyph;
 	}
 
-	Array<PolygonGlyph> FontData::renderPolygons(const StringView s) const
+	Array<PolygonGlyph> FontData::renderPolygons(const StringView s, const Ligature ligature) const
 	{
-		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s);
+		const HBGlyphInfo glyphInfo = m_fontFace.getHBGlyphInfo(s, ligature);
 
 		Array<PolygonGlyph> results(Arg::reserve = glyphInfo.count);
 
