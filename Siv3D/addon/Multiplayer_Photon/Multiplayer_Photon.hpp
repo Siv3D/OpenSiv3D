@@ -13,7 +13,9 @@
 //	Author (OpenSiv3D 実装会)
 //	- mak1a
 //	- Luke
+//	- sthairno
 //-----------------------------------------------
+
 # pragma once
 # include <Siv3D.hpp>
 

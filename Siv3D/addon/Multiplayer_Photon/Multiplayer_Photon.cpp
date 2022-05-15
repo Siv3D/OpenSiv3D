@@ -13,6 +13,7 @@
 //	Author (OpenSiv3D 実装会)
 //	- mak1a
 //	- Luke
+//	- sthairno
 //-----------------------------------------------
 
 # define NOMINMAX
