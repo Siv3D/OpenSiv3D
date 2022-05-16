@@ -14,6 +14,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/FileSystem.hpp>
+# define BOOST_FILESYSTEM_NO_DEPRECATED
 # include <boost/filesystem.hpp>
 # import  <Foundation/Foundation.h>
 
@@ -246,7 +247,7 @@ namespace s3d
 					}
 					else
 					{
-						fs::copy_file(current, destination / current.filename(), fs::copy_option::overwrite_if_exists);
+						fs::copy_file(current, destination / current.filename(), fs::copy_options::overwrite_existing);
 					}
 				}
 				catch (const fs::filesystem_error&)
@@ -822,15 +823,13 @@ namespace s3d
 
 			if (IsFile(from))
 			{
-				const fs::copy_option option = (copyOption == CopyOption::OverwriteExisting)
-					? fs::copy_option::overwrite_if_exists
-					: fs::copy_option::fail_if_exists;
+				const fs::copy_options option = (copyOption == CopyOption::OverwriteExisting)
+					? fs::copy_options::overwrite_existing
+					: fs::copy_options::none;
 				
-				try
-				{
-					fs::copy_file(detail::ToPath(from), detail::ToPath(to), option);
-				}
-				catch (const fs::filesystem_error&)
+				boost::system::error_code ec;
+				
+				if (not fs::copy_file(detail::ToPath(from), detail::ToPath(to), option, ec))
 				{
 					return false;
 				}
