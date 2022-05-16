@@ -86,16 +86,13 @@ void Main()
 
 
 //
-// = お役立ちリンク | Quick Links =
-//
 // Siv3D リファレンス
 // https://zenn.dev/reputeless/books/siv3d-documentation
 //
 // Siv3D Reference
 // https://zenn.dev/reputeless/books/siv3d-documentation-en
 //
-// Siv3D コミュニティへの参加
-// Slack や Twitter, BBS で気軽に質問や情報交換ができます。
+// Siv3D コミュニティへの参加（Slack や Twitter, BBS で気軽に質問や情報交換ができます）
 // https://zenn.dev/reputeless/books/siv3d-documentation/viewer/community
 //
 // Siv3D User Community
@@ -103,4 +100,7 @@ void Main()
 //
 // 新機能の提案やバグの報告 | Feedback
 // https://github.com/Siv3D/OpenSiv3D/issues
+//
+// Sponsoring Siv3D
+// https://github.com/sponsors/Reputeless
 //
