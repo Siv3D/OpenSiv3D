@@ -1044,6 +1044,44 @@ namespace s3d
 		return m_localTransforms[index];
 	}
 
+	void WebGPURenderer3DCommandManager::pushUVTransform(const Float4& state)
+	{
+		constexpr auto command = WebGPURenderer3DCommandType::UVTransform;
+		auto& current = m_currentUVTransform;
+		auto& buffer = m_uvTransforms;
+
+		if (not m_changes.has(command))
+		{
+			if (state != current)
+			{
+				current = state;
+				m_changes.set(command);
+			}
+		}
+		else
+		{
+			if (state == buffer.back())
+			{
+				current = state;
+				m_changes.clear(command);
+			}
+			else
+			{
+				current = state;
+			}
+		}
+	}
+
+	const Float4& WebGPURenderer3DCommandManager::getCurrentUVTransform() const
+	{
+		return m_currentUVTransform;
+	}
+
+	const Float4& WebGPURenderer3DCommandManager::getUVTransform(const uint32 index) const
+	{
+		return m_uvTransforms[index];
+	}
+
 	void WebGPURenderer3DCommandManager::pushConstantBuffer(const ShaderStage stage, const uint32 slot, const ConstantBufferBase& buffer, const float* data, const uint32 num_vectors)
 	{
 		constexpr auto command = WebGPURenderer3DCommandType::SetConstantBuffer;

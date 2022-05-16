@@ -179,7 +179,7 @@ namespace s3d
 		// ::glBindVertexArray(m_vao);
 		// ::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-		pass.SetVertexBuffer(0, m_vertexBuffer, static_cast<uint64>(m_vertexStride * m_vertexCount) << 32);
+		pass.SetVertexBuffer(0, m_vertexBuffer, 0, m_vertexStride * m_vertexCount);
 		pass.SetIndexBuffer(m_indexBuffer, wgpu::IndexFormat::Uint32, 0, sizeof(TriangleIndex32::value_type) * m_indexCount);
 	}
 }

@@ -61,7 +61,7 @@ namespace s3d
 		
 		wgpu::TextureDescriptor desc
 		{
-			.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled,
+			.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding,
 			.dimension = wgpu::TextureDimension::e2D,
 			.size = 
 			{

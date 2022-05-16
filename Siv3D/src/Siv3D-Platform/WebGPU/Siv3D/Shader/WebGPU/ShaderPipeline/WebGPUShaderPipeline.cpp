@@ -230,7 +230,7 @@ namespace s3d
 			return it->second;
 		}
 
-        wgpu::RenderPipelineDescriptor2 desc;
+        wgpu::RenderPipelineDescriptor desc;
 
         wgpu::VertexBufferLayout vertexLayout
         {
@@ -341,7 +341,7 @@ namespace s3d
 			desc.layout = m_device.CreatePipelineLayout(&pipelineLayoutDesc);
 		}
 		
-        auto pipeline = m_device.CreateRenderPipeline2(&desc);
+        auto pipeline = m_device.CreateRenderPipeline(&desc);
         return m_pipelines.emplace(key, pipeline).first->second;
     }
 

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 project(OpenSiv3D_Web CXX C)
 
+option(BUILD_SHARED_LIBS "Build 3rd party libraries as shared libraries (lib*.wasm)." OFF)
+
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -DWITH_SDL2_STATIC -DWITH_NOSOUND")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
@@ -12,23 +14,11 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall -Wextra -Wno-unknown-pragmas -DAS_USE_NAMESPACE -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unknown-pragmas -DAS_USE_NAMESPACE -DMUPARSER_STATIC -D_UNICODE -DWITH_SDL2_STATIC -DWITH_NOSOUND -DBOOST_ASIO_HAS_STD_INVOKE_RESULT -DASIO_HAS_STD_INVOKE_RESULT")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
-
-if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
-endif()
-
-if (NOT ${CMAKE_C_FLAGS} MATCHES "-msimd128")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XM_NO_INTRINSICS_")
-endif ()
-
-if (NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_XM_NO_INTRINSICS_")
-endif ()
 
 if (NOT CMAKE_CONFIGURATION_TYPES AND 
     NOT CMAKE_NO_BUILD_TYPE AND
@@ -42,6 +32,34 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   add_compile_options ("-fcolor-diagnostics")
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   add_compile_options ("-fdiagnostics-color=always")
+endif()
+
+if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
+  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+endif()
+
+if (${CMAKE_C_FLAGS} MATCHES "-msimd128" OR ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
+  set(Siv3DEnableSIMD On)
+else()
+  add_compile_options ("-D_XM_NO_INTRINSICS_")
+endif ()
+
+if (${CMAKE_C_FLAGS} MATCHES "-pthread" OR ${CMAKE_CXX_FLAGS} MATCHES "-pthread")
+  set(Siv3DEnablePThread On)
+endif ()
+
+if (BUILD_SHARED_LIBS)
+  include(CMake/BuildThirdParty.cmake)
+endif()
+
+if (BUILD_SHARED_LIBS OR ${CMAKE_C_FLAGS} MATCHES "-fPIC" OR ${CMAKE_CXX_FLAGS} MATCHES "-fPIC")
+  set(Siv3DEnablePICBuild On)
+
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
+  set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
 endif()
 
 
@@ -591,43 +609,10 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D/Zlib/SivZlib.cpp
 )
 
-if (SIV3D_BUILD_SHARED_MAIN)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MAIN_MODULE=1 -DZSTD_TRACE=0")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s MAIN_MODULE=1 -DZSTD_TRACE=0")
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 --js-library ${CMAKE_SOURCE_DIR}/Siv3D.js")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_OGG=1 -s USE_LIBPNG=1  -s USE_VORBIS=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/Siv3D.pre.js")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --js-library ${CMAKE_SOURCE_DIR}/Siv3D.js")
-
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_WEBGPU=1 --post-js \"${CMAKE_SOURCE_DIR}/Siv3D.post.js\"")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2")
-
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s MAIN_MODULE=1 -s DECLARE_ASM_MODULE_EXPORTS=0 -s EXPORTED_FUNCTIONS='[\"_main\"]'")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file \"${CMAKE_SOURCE_DIR}/App/resources@/resources\"")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_IMPORTS=\"[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText', '_Z4Mainv' ]\"")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s ASYNCIFY_ADD=\"[ 'main', 'InitSiv3D', 's3d::CSystem::init()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]\"")
-
-set(CMAKE_EXECUTABLE_SUFFIX ".html")
-
-endif()
-
-if (SIV3D_ENABLE_SHARED_LIB)
-
-include(cmake/BuildThirdParty.cmake)
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s SIDE_MODULE=1")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SIDE_MODULE=1")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s SIDE_MODULE=1")
-set(CMAKE_SHARED_LIBRARY_SUFFIX ".wasm")
-
-else()
-
-set(SIV3D_SOURCES
-  ${SIV3D_SOURCES}
+set(SIV3D_THIRDPARTY_SOURCES
+  ${SIV3D_THIRDPARTY_SOURCES}
   ../Siv3D/src/ThirdParty/absl/numeric/int128.cc
   ../Siv3D/src/ThirdParty/absl/random/discrete_distribution.cc
   ../Siv3D/src/ThirdParty/absl/random/gaussian_distribution.cc
@@ -926,7 +911,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl/soloud_sdl2_dll.c
   ../Siv3D/src/ThirdParty/soloud/src/backend/sdl_static/soloud_sdl_static.cpp
-  ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
+  # ../Siv3D/src/ThirdParty/soloud/src/backend/vita_homebrew/soloud_vita_homebrew.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/wasapi/soloud_wasapi.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/winmm/soloud_winmm.cpp
   ../Siv3D/src/ThirdParty/soloud/src/backend/xaudio2/soloud_xaudio2.cpp
@@ -995,68 +980,9 @@ set(SIV3D_SOURCES
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
 )
 
-endif()
-
-if(SIV3D_BUILD_SHARED_MAIN)
-
-add_executable(
-  OpenSiv3D_Web
-  ${SIV3D_SOURCES}
-)
-
-target_link_libraries(OpenSiv3D_Web PRIVATE
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_objdetect.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_photo.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_imgproc.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opencv/libopencv_core.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/harfbuzz/libharfbuzz.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/freetype/libfreetype.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/turbojpeg/libturbojpeg.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/giflib/libgif.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/webp/libwebp.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopusfile.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/opus/libopus.a
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/tiff/libtiff.a
-
-  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/wasm-side-module/SDL2/libSDL2.a
-)
-
-else()
-
-add_library(
-  OpenSiv3D_Web STATIC
-  ${SIV3D_SOURCES}
-)
-
-endif()
-
-set_target_properties(OpenSiv3D_Web 
-  PROPERTIES 
-    OUTPUT_NAME "Siv3D"
-)
-
-include_directories(
-  PUBLIC
-  ../Siv3D/include
-  ../Siv3D/include/ThirdParty
-  ../Siv3D/src
-  ../Siv3D/src/Siv3D-Platform/Web
-  ../Siv3D/src/Siv3D-Platform/macOS_Linux
-  ../Siv3D/src/Siv3D-Platform/OpenGLES3
-  ../Siv3D/src/Siv3D-Platform/WebGPU
-  ../Siv3D/src/ThirdParty
-  ../Siv3D/src/ThirdParty/asio
-  ../Siv3D/src/ThirdParty/freetype
-  ../Siv3D/src/ThirdParty/soloud/include
-  ../Siv3D/src/ThirdParty-prebuilt
-  ../Dependencies/boost_1_73_0
-  ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
-  )
 
 
-
-add_library(
-  OpenSiv3D_Web_Script STATIC
+set(SIV3D_SCRIPT_SOURCES
   ../Siv3D/src/Siv3D/Script/angelscript/scriptarray.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptgrid.cpp
@@ -1221,25 +1147,142 @@ add_library(
   ../Siv3D/src/ThirdParty/angelscript/as_variablescope.cpp
 )
 
-set_target_properties(OpenSiv3D_Web_Script
+
+
+add_library(
+  OpenSiv3D STATIC
+  ${SIV3D_SOURCES}
+  ${SIV3D_THIRDPARTY_SOURCES}
+)
+
+set_target_properties(OpenSiv3D 
+  PROPERTIES 
+    OUTPUT_NAME "Siv3D"
+)
+
+target_include_directories(OpenSiv3D
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Siv3D/include>
+    $<INSTALL_INTERFACE:include/Siv3D> 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Siv3D/include/ThirdParty>
+    $<INSTALL_INTERFACE:include/Siv3D/ThirdParty> 
+  PRIVATE
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Web
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/Siv3D-Platform/WebGPU
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ../Siv3D/src/ThirdParty-prebuilt
+    ../Dependencies/boost_1_74_0
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+)
+
+
+
+add_library(
+  OpenSiv3DScript STATIC
+  ${SIV3D_SCRIPT_SOURCES}
+)
+
+set_target_properties(OpenSiv3DScript
   PROPERTIES 
     OUTPUT_NAME "Siv3DScript"
 )
 
 target_include_directories(
-  OpenSiv3D_Web_Script
+  OpenSiv3DScript
+  PRIVATE
+    ../Siv3D/include
+    ../Siv3D/include/ThirdParty
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Web
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/Siv3D-Platform/WebGPU
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ../Siv3D/src/ThirdParty-prebuilt
+    ../Dependencies/boost_1_74_0
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+)
+
+include(GNUInstallDirs)
+
+if (BUILD_SHARED_LIBS)
+  set(Siv3DLibraryConfig "wasm-shared")
+  set(Siv3DLibraryPostfix ".wasm.a")
+elseif (Siv3DEnablePICBuild)
+  set(Siv3DLibraryConfig "wasm-side-module")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnablePThread AND Siv3DEnableSIMD)
+  set(Siv3DLibraryConfig "wasm-mt-simd")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnablePThread)
+  set(Siv3DLibraryConfig "wasm-mt")
+  set(Siv3DLibraryPostfix ".a")
+elseif (Siv3DEnableSIMD)
+  set(Siv3DLibraryConfig "wasm-simd")
+  set(Siv3DLibraryPostfix ".a")
+else()
+  set(Siv3DLibraryConfig "wasm")
+  set(Siv3DLibraryPostfix ".a")
+endif()
+
+target_link_libraries(OpenSiv3D
   PUBLIC
-  ../Siv3D/include
-  ../Siv3D/include/ThirdParty
-  ../Siv3D/src
-  ../Siv3D/src/Siv3D-Platform/Web
-  ../Siv3D/src/Siv3D-Platform/macOS_Linux
-  ../Siv3D/src/Siv3D-Platform/OpenGLES3
-  ../Siv3D/src/ThirdParty
-  ../Siv3D/src/ThirdParty/asio
-  ../Siv3D/src/ThirdParty/freetype
-  ../Siv3D/src/ThirdParty/soloud/include
-  ../Siv3D/src/ThirdParty-prebuilt
-  ../Dependencies/boost_1_73_0
-  ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
-  )
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_photo${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_imgproc${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opencv/libopencv_core${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/harfbuzz/libharfbuzz${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/freetype/libfreetype${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/turbojpeg/libturbojpeg${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/giflib/libgif${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/webp/libwebp${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opus/libopusfile${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/opus/libopus${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/tiff/libtiff${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/png/libpng${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/zlib/libz${Siv3DLibraryPostfix}
+    \${_IMPORT_PREFIX}/lib/Siv3D/SDL2/libSDL2${Siv3DLibraryPostfix}
+)
+
+install(TARGETS OpenSiv3D
+  EXPORT OpenSiv3DExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT OpenSiv3DExport
+  FILE OpenSiv3DConfig.cmake
+  DESTINATION share/cmake/OpenSiv3D/
+)
+
+install(TARGETS OpenSiv3DScript
+  EXPORT OpenSiv3DScriptExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT OpenSiv3DScriptExport
+  FILE OpenSiv3DScriptConfig.cmake
+  DESTINATION share/cmake/OpenSiv3DScript/
+)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/../Siv3D/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Siv3D)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/ DESTINATION ${CMAKE_INSTALL_LIBDIR}/Siv3D)
+install(FILES
+    ${PROJECT_SOURCE_DIR}/Siv3D.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.post.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.pre.js
+  DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}/Siv3D
+)

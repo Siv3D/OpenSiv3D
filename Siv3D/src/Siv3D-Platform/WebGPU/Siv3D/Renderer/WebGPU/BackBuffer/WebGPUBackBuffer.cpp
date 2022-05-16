@@ -73,7 +73,7 @@ namespace s3d
 		wgpu::RenderPassColorAttachment colorAttachment
 		{
 			.view = m_sceneBuffers.scene->getTextureView(),
-			.loadOp = wgpu::LoadOp::Clear,
+			.loadOp = wgpu::LoadOp::Undefined,
 			.storeOp = wgpu::StoreOp::Store,
 			.clearColor = 
 			{
@@ -241,7 +241,7 @@ namespace s3d
 			WGPUSwapChainDescriptor desc
 			{
 				.format = WGPUTextureFormat_BGRA8Unorm,
-				.usage = WGPUTextureUsage_OutputAttachment,
+				.usage = WGPUTextureUsage_RenderAttachment,
 				.width = static_cast<uint32>(m_backBufferSize.x),
 				.height = static_cast<uint32>(m_backBufferSize.y),
 			};

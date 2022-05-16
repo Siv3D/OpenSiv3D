@@ -33,7 +33,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -78,7 +78,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst,
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst,
 				.mipLevelCount = 1 + mipmaps.size()
 			};
 
@@ -140,7 +140,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -189,7 +189,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -232,7 +232,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -287,7 +287,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -341,7 +341,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -395,7 +395,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -449,7 +449,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc,
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc,
 				.sampleCount = 4
 			};
 
@@ -467,7 +467,7 @@ namespace s3d
 					.depthOrArrayLayers = 1
 				},
 				.format = ToEnum<wgpu::TextureFormat>(format.WGPUFormat()),
-				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::Sampled | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
+				.usage = wgpu::TextureUsage::RenderAttachment | wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::CopySrc
 			};
 
 			m_texture = device->CreateTexture(&desc);
@@ -774,7 +774,7 @@ namespace s3d
 		{
 			wgpu::RenderPassColorAttachment colorAttachment
 			{
-				.loadOp = wgpu::LoadOp::Clear,
+				.loadOp = wgpu::LoadOp::Undefined,
 				.storeOp = wgpu::StoreOp::Store,
 				.clearColor =
 				{
@@ -810,11 +810,11 @@ namespace s3d
 
 				descripter.depthStencilAttachment = &depthAttachment;
 
-				encoder.BeginRenderPass(&descripter).EndPass();
+				encoder.BeginRenderPass(&descripter).End();
 			}
 			else
 			{
-				encoder.BeginRenderPass(&descripter).EndPass();
+				encoder.BeginRenderPass(&descripter).End();
 			}
 		}
 
