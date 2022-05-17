@@ -14,6 +14,7 @@ endif ()
 
 find_package(OpenSiv3D REQUIRED)
 find_package(OpenSiv3DScript)
+find_package(OpenSiv3DWebGPU)
 
 
 #
@@ -200,8 +201,9 @@ target_include_directories(Siv3DApp
 
 target_link_libraries(Siv3DApp
   PRIVATE
-    OpenSiv3D
-    # OpenSiv3DScript
+      OpenSiv3D
+      # OpenSiv3DWebGPU
+      # OpenSiv3DScript
 )
 
 
