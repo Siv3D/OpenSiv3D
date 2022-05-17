@@ -713,6 +713,51 @@ mergeInto(LibraryManager.library, {
     siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS" ],
 
     //
+    // ImageDecode
+    //
+    $siv3dDecodeCanvas: null,
+    $siv3dDecodeCanvasContext: null,
+
+    siv3dDecodeImageFromFile: function(src, size, data) {
+        Asyncify.handleSleep(function(wakeUp) {
+            if (!siv3dDecodeCanvas) {
+                siv3dDecodeCanvas = document.createElement('canvas');
+                siv3dDecodeCanvasContext = siv3dDecodeCanvas.getContext("2d");
+            }
+
+            const imageData = new Uint8ClampedArray(HEAPU8.buffer, src, size);
+            const imageBlob = new Blob([ imageData ]);
+            const image = new Image();
+
+            image.onload = function() {
+                siv3dDecodeCanvas.width = image.width;
+                siv3dDecodeCanvas.height = image.height;
+                siv3dDecodeCanvasContext.drawImage(image, 0, 0);
+
+                const decodedImageData = siv3dDecodeCanvasContext.getImageData(0, 0, image.width, image.height).data;
+                const dataBuffer = Module["_malloc"](decodedImageData.length);
+
+                HEAPU8.set(decodedImageData, dataBuffer);
+
+                HEAPU32[(data>>2)+0] = dataBuffer;
+                HEAPU32[(data>>2)+1] = decodedImageData.length;
+                HEAPU32[(data>>2)+2] = image.width;
+                HEAPU32[(data>>2)+3] = image.height;
+
+                URL.revokeObjectURL(image.src);
+                wakeUp();
+            };
+            image.onerror = function() {
+                URL.revokeObjectURL(image.src);
+                wakeUp();
+            };
+            image.src = URL.createObjectURL(imageBlob);
+        });
+    },
+    siv3dDecodeImageFromFile__sig: "vi",
+    siv3dDecodeImageFromFile__deps: [ "$siv3dDecodeCanvas", "$siv3dDecodeCanvasContext" ],
+
+    //
     // Clipboard
     //
     siv3dSetClipboardText: function(ctext) {

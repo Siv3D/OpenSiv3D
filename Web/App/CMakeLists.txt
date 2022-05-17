@@ -15,6 +15,7 @@ endif ()
 find_package(OpenSiv3D REQUIRED)
 find_package(OpenSiv3DScript)
 find_package(OpenSiv3DWebGPU)
+find_package(OpenSiv3DBrowserImageEncodeDecode)
 
 
 #
@@ -129,6 +130,7 @@ else ()
     "siv3dOpenDialog"
     "siv3dDecodeAudioFromFile"
     "siv3dGetClipboardText"
+    "siv3dDecodeImageFromFile"
   )
 
   set(ASYNCIFY_ADD
@@ -143,6 +145,13 @@ else ()
     "s3d::AudioDecoder::Decode(*)"
     "s3d::Wave::Wave(*)"
     "s3d::Audio::Audio(*)"
+    "s3d::GenericDecoder::decode(*) const"
+    "s3d::CImageDecoder::decode(*)"
+    "s3d::Image::Image(*)"
+    "s3d::ImageDecoder::Decode(*)"
+    "s3d::ImageDecoder::GetImageInfo(*)"
+    "s3d::CRenderer2D_GLES3::init()"
+    "s3d::CRenderer2D_WebGPU::init()"
     "s3d::Clipboard::GetText(*)"
     "s3d::CClipboard::getText(*)"
   )
@@ -201,6 +210,9 @@ target_include_directories(Siv3DApp
 
 target_link_libraries(Siv3DApp
   PRIVATE
+    "-Wl,--whole-archive"
+      OpenSiv3DBrowserImageEncodeDecode
+    "-Wl,--no-whole-archive"
       OpenSiv3D
       # OpenSiv3DWebGPU
       # OpenSiv3DScript

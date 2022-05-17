@@ -1248,6 +1248,41 @@ target_include_directories(
     ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
 )
 
+
+
+add_library(
+  OpenSiv3DBrowserImageEncodeDecode STATIC
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageFormat/Generic/GenericDecoder.cpp
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageDecoder/CImageDecoder.cpp
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageEncoder/CImageEncoder.cpp
+)
+
+set_target_properties(OpenSiv3DBrowserImageEncodeDecode
+  PROPERTIES 
+    OUTPUT_NAME "Siv3DBrowserImageEncodeDecode"
+)
+
+target_include_directories(
+  OpenSiv3DBrowserImageEncodeDecode
+  PRIVATE
+    ../Siv3D/include
+    ../Siv3D/include/ThirdParty
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Web
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/Siv3D-Platform/WebGPU
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ../Siv3D/src/ThirdParty-prebuilt
+    ../Dependencies/boost_1_74_0
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+)
+
+
+
 include(GNUInstallDirs)
 
 if (BUILD_SHARED_LIBS)
@@ -1299,6 +1334,18 @@ install(TARGETS OpenSiv3D
 install(EXPORT OpenSiv3DExport
   FILE OpenSiv3DConfig.cmake
   DESTINATION share/cmake/OpenSiv3D/
+)
+
+install(TARGETS OpenSiv3DBrowserImageEncodeDecode
+  EXPORT OpenSiv3DBrowserImageEncodeDecodeExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT OpenSiv3DBrowserImageEncodeDecodeExport
+  FILE OpenSiv3DBrowserImageEncodeDecodeConfig.cmake
+  DESTINATION share/cmake/OpenSiv3DBrowserImageEncodeDecode/
 )
 
 install(TARGETS OpenSiv3DScript
