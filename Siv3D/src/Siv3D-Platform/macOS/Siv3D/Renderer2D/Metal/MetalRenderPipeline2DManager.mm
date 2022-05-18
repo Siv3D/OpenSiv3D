@@ -117,7 +117,7 @@ namespace s3d
 		assert(renderPipelineState);
 		
 		LOG_TRACE(U"new MTLRenderPipelineState created (vsID = {}, psID = {}, pixelFormat = {}, sampleCount = {}, blendState = {})"_fmt
-				  (vsID.value(), psID.value(), pixelFormat, sampleCount, blendState.asValue()));
+				  (vsID.value(), psID.value(), FromEnum(pixelFormat), sampleCount, blendState.asValue()));
 		
 		m_pipelineStates.emplace(key, renderPipelineState);
 	}
@@ -157,7 +157,7 @@ namespace s3d
 		assert(renderPipelineState);
 		
 		LOG_TRACE(U"new MTLRenderPipelineState created (vsID = {}, psID = {}, pixelFormat = {}, sampleCount = {}, blendState = {})"_fmt
-				  (vsID.value(), psID.value(), pixelFormat, sampleCount, blendState.asValue()));
+				  (vsID.value(), psID.value(), FromEnum(pixelFormat), sampleCount, blendState.asValue()));
 		
 		return m_pipelineStates.emplace(key, renderPipelineState).first->second;
 	}
