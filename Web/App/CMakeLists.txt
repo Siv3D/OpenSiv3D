@@ -148,6 +148,7 @@ else ()
     "s3d::GenericDecoder::decode(*) const"
     "s3d::CImageDecoder::decode(*)"
     "s3d::Image::Image(*)"
+    "s3d::Texture::Texture(*)"
     "s3d::ImageDecoder::Decode(*)"
     "s3d::ImageDecoder::GetImageInfo(*)"
     "s3d::CRenderer2D_GLES3::init()"
