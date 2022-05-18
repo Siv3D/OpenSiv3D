@@ -29,7 +29,7 @@ namespace s3d
 
 		inline constexpr int16 FloatToSint16(float f) noexcept
 		{
-			const int32 i = static_cast<int32>(f * 32767.0f);
+			const int32 i = static_cast<int32>(f * 32768.0f);
 
 			return static_cast<int16>(Clamp(i, -32768, 32767));
 		}
