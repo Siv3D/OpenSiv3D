@@ -45,7 +45,7 @@ namespace s3d
 
 		virtual Audio::IDType createStreamingLoop(FilePathView path, uint64 loopBegin) = 0;
 
-		virtual Audio::IDType createDynamic(const std::shared_ptr<IAudioStream>& pAudioStream) = 0;
+		virtual Audio::IDType createDynamic(const std::shared_ptr<IAudioStream>& pAudioStream, Arg::sampleRate_<uint32> sampleRate) = 0;
 
 		virtual void release(Audio::IDType handleID) = 0;
 

@@ -20,7 +20,7 @@ namespace s3d
 	{
 	public:
 
-		DynamicAudioSource(const std::shared_ptr<IAudioStream>& pAudioStream);
+		DynamicAudioSource(const std::shared_ptr<IAudioStream>& pAudioStream, uint32 sampleRate);
 		
 		virtual ~DynamicAudioSource();
 

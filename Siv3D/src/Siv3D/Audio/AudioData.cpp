@@ -179,14 +179,14 @@ namespace s3d
 		m_initialized	= true;
 	}
 
-	AudioData::AudioData(Dynamic, SoLoud::Soloud* pSoloud, const std::shared_ptr<IAudioStream>& pAudioStream)
+	AudioData::AudioData(Dynamic, SoLoud::Soloud* pSoloud, const std::shared_ptr<IAudioStream>& pAudioStream, const Arg::sampleRate_<uint32> sampleRate)
 		: m_pSoloud{ pSoloud }
 		, m_isStreaming{ true }
 	{
-		std::unique_ptr<DynamicAudioSource> source = std::make_unique<DynamicAudioSource>(pAudioStream);
+		std::unique_ptr<DynamicAudioSource> source = std::make_unique<DynamicAudioSource>(pAudioStream, *sampleRate);
 
-		m_sampleRate = Wave::DefaultSampleRate;
-		m_lengthSample = (Wave::DefaultSampleRate * 1); // [Siv3D ToDo] この値は 0 にする？
+		m_sampleRate = *sampleRate;
+		m_lengthSample = (m_sampleRate * 1); // [Siv3D ToDo] この値は 0 にする？
 		m_audioSource = std::move(source);
 
 		m_initialized = true;

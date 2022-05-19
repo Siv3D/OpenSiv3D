@@ -221,7 +221,7 @@ namespace s3d
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Audio(const std::shared_ptr<IAudioStream>& pAudioStream);
+		explicit Audio(const std::shared_ptr<IAudioStream>& pAudioStream, Arg::sampleRate_<uint32> sampleRate = Wave::DefaultSampleRate);
 
 		/// @brief デストラクタ
 		virtual ~Audio();

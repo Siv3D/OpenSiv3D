@@ -58,10 +58,11 @@ namespace s3d
 		DynamicAudioSource* mParent;
 	};
 
-	DynamicAudioSource::DynamicAudioSource(const std::shared_ptr<IAudioStream>& pAudioStream)
+	DynamicAudioSource::DynamicAudioSource(const std::shared_ptr<IAudioStream>& pAudioStream, const uint32 sampleRate)
 		: m_pAudioStream{ pAudioStream }
 	{
 		mChannels = 2;
+		mBaseSamplerate = static_cast<float>(sampleRate);
 	}
 
 	DynamicAudioSource::~DynamicAudioSource()

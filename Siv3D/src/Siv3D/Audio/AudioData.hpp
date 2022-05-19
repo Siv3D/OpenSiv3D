@@ -40,7 +40,7 @@ namespace s3d
 
 		AudioData(SoLoud::Soloud* pSoloud, FilePathView path, uint64 loopBegin);
 
-		AudioData(Dynamic, SoLoud::Soloud* pSoloud, const std::shared_ptr<IAudioStream>& pAudioStream);
+		AudioData(Dynamic, SoLoud::Soloud* pSoloud, const std::shared_ptr<IAudioStream>& pAudioStream, Arg::sampleRate_<uint32> sampleRate);
 
 		AudioData(TextToSpeech, SoLoud::Soloud* pSoloud, StringView text, const KlattTTSParameters& param);
 
