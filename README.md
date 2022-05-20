@@ -104,13 +104,13 @@
 ## Downloads
 
 ### ✨ v0.6.4
-*released ?? May 2022*
+*released 21 May 2022*
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
 | Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.4_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.2<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.4_macOS.zip) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU*<br>- OpenGL 4.1 compatible hardware |
-| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0 (with Boost 1.71.0) or GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
+| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | Web browser with WebAssembly and WebGL2 support |
 
 <small>* M1 will be supported in the future releases</small><br><small>** Some functionality may be missing or limited</small>
@@ -120,7 +120,7 @@
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11 or 2022 17.0-17.1<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 -13.2 (Big Sur requires Xcode 12.5 - 13.2)<br>- Intel CPU*<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | Web browser with WebAssembly and WebGL2 support |
