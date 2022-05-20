@@ -502,7 +502,7 @@ namespace s3d
 			ExitGames::Photon::ConnectionProtocol::DEFAULT, false, (m_requestedRegion ? ExitGames::LoadBalancing::RegionSelectionMode::SELECT : ExitGames::LoadBalancing::RegionSelectionMode::BEST));
 
 		const auto userName = detail::ToJString(userName_);
-		const auto userID = ExitGames::LoadBalancing::AuthenticationValues{}.setUserID(userName + GETTIMEMS());
+		const auto userID = ExitGames::LoadBalancing::AuthenticationValues{}.setUserID(userName + static_cast<uint32>(Time::GetMillisecSinceEpoch()));
 
 		if (not m_client->connect({ userID, userName }))
 		{
