@@ -44,7 +44,7 @@ namespace s3d
 	template <class IndexType>
 	inline typename DisjointSet<IndexType>::index_type DisjointSet<IndexType>::find(index_type i) noexcept
 	{
-		assert(i < size());
+		assert(static_cast<size_t>(i) < size());
 
 		// Path halving
 		while (m_parents[i] != i)
@@ -87,7 +87,7 @@ namespace s3d
 	template <class IndexType>
 	inline size_t DisjointSet<IndexType>::size(const index_type i) noexcept
 	{
-		assert(i < size());
+		assert(static_cast<size_t>(i) < size());
 
 		return m_sizes[find(i)];
 	}
