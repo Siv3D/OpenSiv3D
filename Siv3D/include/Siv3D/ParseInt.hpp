@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	SIV3D_CONCEPT_INTEGRAL
+	template <class Int>
 	[[nodiscard]]
 	Int ParseInt(StringView s, Arg::radix_<uint32> radix = 0);
 
@@ -110,7 +110,7 @@ namespace s3d
 	[[nodiscard]]
 	unsigned long long ParseInt<unsigned long long>(StringView s, Arg::radix_<uint32> radix);
 
-	SIV3D_CONCEPT_INTEGRAL
+	template <class Int>
 	[[nodiscard]]
 	Optional<Int> ParseIntOpt(StringView s, Arg::radix_<uint32> radix = (Arg::radix = 0)) noexcept;
 

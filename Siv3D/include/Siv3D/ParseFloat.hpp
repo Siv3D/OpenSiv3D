@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	SIV3D_CONCEPT_FLOATING_POINT
+	template <class Float>
 	[[nodiscard]]
 	Float ParseFloat(StringView s);
 
@@ -32,7 +32,7 @@ namespace s3d
 	long double ParseFloat<long double>(StringView s);
 
 
-	SIV3D_CONCEPT_FLOATING_POINT
+	template <class Float>
 	[[nodiscard]]
 	Optional<Float> ParseFloatOpt(StringView s) noexcept;
 
