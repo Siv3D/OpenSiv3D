@@ -88,10 +88,10 @@ namespace s3d
 					return;
 				}
 
-				if (m_eof)
-				{
-					m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
-				}
+				//if (m_eof)
+				//{
+				//	m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
+				//}
 
 				m_socket.close();
 
