@@ -2,7 +2,7 @@
 // execution/bulk_execute.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2022 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -351,8 +351,9 @@ static ASIO_CONSTEXPR
 template <typename S, typename F, typename N>
 struct can_bulk_execute :
   integral_constant<bool,
-    asio_execution_bulk_execute_fn::call_traits<S, void(F, N)>::overload !=
-      asio_execution_bulk_execute_fn::ill_formed>
+    asio_execution_bulk_execute_fn::call_traits<
+      S, void(F, N)>::overload !=
+        asio_execution_bulk_execute_fn::ill_formed>
 {
 };
 
@@ -366,7 +367,8 @@ constexpr bool can_bulk_execute_v = can_bulk_execute<S, F, N>::value;
 template <typename S, typename F, typename N>
 struct is_nothrow_bulk_execute :
   integral_constant<bool,
-    asio_execution_bulk_execute_fn::call_traits<S, void(F, N)>::is_noexcept>
+    asio_execution_bulk_execute_fn::call_traits<
+      S, void(F, N)>::is_noexcept>
 {
 };
 

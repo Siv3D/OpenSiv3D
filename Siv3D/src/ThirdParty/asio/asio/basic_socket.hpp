@@ -2,7 +2,7 @@
 // basic_socket.hpp
 // ~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2022 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -32,6 +32,8 @@
 # include "asio/detail/null_socket_service.hpp"
 #elif defined(ASIO_HAS_IOCP)
 # include "asio/detail/win_iocp_socket_service.hpp"
+#elif defined(ASIO_HAS_IO_URING_AS_DEFAULT)
+# include "asio/detail/io_uring_socket_service.hpp"
 #else
 # include "asio/detail/reactive_socket_service.hpp"
 #endif
@@ -86,6 +88,9 @@ public:
     Protocol>::native_handle_type native_handle_type;
 #elif defined(ASIO_HAS_IOCP)
   typedef typename detail::win_iocp_socket_service<
+    Protocol>::native_handle_type native_handle_type;
+#elif defined(ASIO_HAS_IO_URING_AS_DEFAULT)
+  typedef typename detail::io_uring_socket_service<
     Protocol>::native_handle_type native_handle_type;
 #else
   typedef typename detail::reactive_socket_service<
@@ -902,7 +907,8 @@ public:
   /// Start an asynchronous connect.
   /**
    * This function is used to asynchronously connect a socket to the specified
-   * remote endpoint. The function call always returns immediately.
+   * remote endpoint. It is an initiating function for an @ref
+   * asynchronous_operation, and always returns immediately.
    *
    * The socket is automatically opened if it is not already open. If the
    * connect fails, and the socket was automatically opened, the socket is
@@ -911,16 +917,21 @@ public:
    * @param peer_endpoint The remote endpoint to which the socket will be
    * connected. Copies will be made of the endpoint object as required.
    *
-   * @param handler The handler to be called when the connection operation
-   * completes. Copies will be made of the handler as required. The function
-   * signature of the handler must be:
+   * @param token The @ref completion_token that will be used to produce a
+   * completion handler, which will be called when the connect completes.
+   * Potential completion tokens include @ref use_future, @ref use_awaitable,
+   * @ref yield_context, or a function object with the correct completion
+   * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation
+   *   const asio::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
-   * not, the handler will not be invoked from within this function. On
-   * immediate completion, invocation of the handler will be performed in a
+   * not, the completion handler will not be invoked from within this function.
+   * On immediate completion, invocation of the handler will be performed in a
    * manner equivalent to using asio::post().
+   *
+   * @par Completion Signature
+   * @code void(asio::error_code) @endcode
    *
    * @par Example
    * @code
@@ -939,14 +950,24 @@ public:
    *     asio::ip::address::from_string("1.2.3.4"), 12345);
    * socket.async_connect(endpoint, connect_handler);
    * @endcode
+   *
+   * @par Per-Operation Cancellation
+   * On POSIX or Windows operating systems, this asynchronous operation supports
+   * cancellation for the following asio::cancellation_type values:
+   *
+   * @li @c cancellation_type::terminal
+   *
+   * @li @c cancellation_type::partial
+   *
+   * @li @c cancellation_type::total
    */
   template <
       ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
-        ConnectHandler ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
-  ASIO_INITFN_AUTO_RESULT_TYPE(ConnectHandler,
+        ConnectToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
+  ASIO_INITFN_AUTO_RESULT_TYPE(ConnectToken,
       void (asio::error_code))
   async_connect(const endpoint_type& peer_endpoint,
-      ASIO_MOVE_ARG(ConnectHandler) handler
+      ASIO_MOVE_ARG(ConnectToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     asio::error_code open_ec;
@@ -956,8 +977,8 @@ public:
       impl_.get_service().open(impl_.get_implementation(), protocol, open_ec);
     }
 
-    return async_initiate<ConnectHandler, void (asio::error_code)>(
-        initiate_async_connect(this), handler, peer_endpoint, open_ec);
+    return async_initiate<ConnectToken, void (asio::error_code)>(
+        initiate_async_connect(this), token, peer_endpoint, open_ec);
   }
 
   /// Set an option on the socket.
@@ -1741,20 +1762,27 @@ public:
   /// write, or to have pending error conditions.
   /**
    * This function is used to perform an asynchronous wait for a socket to enter
-   * a ready to read, write or error condition state.
+   * a ready to read, write or error condition state. It is an initiating
+   * function for an @ref asynchronous_operation, and always returns
+   * immediately.
    *
    * @param w Specifies the desired socket state.
    *
-   * @param handler The handler to be called when the wait operation completes.
-   * Copies will be made of the handler as required. The function signature of
-   * the handler must be:
+   * @param token The @ref completion_token that will be used to produce a
+   * completion handler, which will be called when the wait completes. Potential
+   * completion tokens include @ref use_future, @ref use_awaitable, @ref
+   * yield_context, or a function object with the correct completion signature.
+   * The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation
+   *   const asio::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
-   * not, the handler will not be invoked from within this function. On
-   * immediate completion, invocation of the handler will be performed in a
+   * not, the completion handler will not be invoked from within this function.
+   * On immediate completion, invocation of the handler will be performed in a
    * manner equivalent to using asio::post().
+   *
+   * @par Completion Signature
+   * @code void(asio::error_code) @endcode
    *
    * @par Example
    * @code
@@ -1772,18 +1800,28 @@ public:
    * ...
    * socket.async_wait(asio::ip::tcp::socket::wait_read, wait_handler);
    * @endcode
+   *
+   * @par Per-Operation Cancellation
+   * On POSIX or Windows operating systems, this asynchronous operation supports
+   * cancellation for the following asio::cancellation_type values:
+   *
+   * @li @c cancellation_type::terminal
+   *
+   * @li @c cancellation_type::partial
+   *
+   * @li @c cancellation_type::total
    */
   template <
       ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
-        WaitHandler ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
-  ASIO_INITFN_AUTO_RESULT_TYPE(WaitHandler,
+        WaitToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
+  ASIO_INITFN_AUTO_RESULT_TYPE(WaitToken,
       void (asio::error_code))
   async_wait(wait_type w,
-      ASIO_MOVE_ARG(WaitHandler) handler
+      ASIO_MOVE_ARG(WaitToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
-    return async_initiate<WaitHandler, void (asio::error_code)>(
-        initiate_async_wait(this), handler, w);
+    return async_initiate<WaitToken, void (asio::error_code)>(
+        initiate_async_wait(this), token, w);
   }
 
 protected:
@@ -1802,6 +1840,9 @@ protected:
 #elif defined(ASIO_HAS_IOCP)
   detail::io_object_impl<
     detail::win_iocp_socket_service<Protocol>, Executor> impl_;
+#elif defined(ASIO_HAS_IO_URING_AS_DEFAULT)
+  detail::io_object_impl<
+    detail::io_uring_socket_service<Protocol>, Executor> impl_;
 #else
   detail::io_object_impl<
     detail::reactive_socket_service<Protocol>, Executor> impl_;
