@@ -416,6 +416,6 @@ namespace s3d
 	/// @brief US ' キー
 	inline constexpr Input KeyApostrophe_US{ InputDeviceType::Keyboard, 0xDE };
 
-	/// @brief @brief JIS \ キー
+	/// @brief JIS \ キー
 	inline constexpr Input KeyUnderscore_JIS{ InputDeviceType::Keyboard, 0xE2 };
 }
