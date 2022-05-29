@@ -47,7 +47,7 @@ namespace s3d
 		/// @brief ダウンロードが終了したときに 1 度だけ true を返します。
 		/// @return ダウンロードが終了した場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isReady();
+		bool isReady() const;
 
 		/// @brief ダウンロードを中断します。
 		void cancel();
