@@ -81,7 +81,7 @@ namespace s3d
 		return m_url.isEmpty();
 	}
 
-	bool AsyncHTTPTaskDetail::isReady()
+	bool AsyncHTTPTaskDetail::isReady() const
 	{
 		return m_task.isReady();
 	}
