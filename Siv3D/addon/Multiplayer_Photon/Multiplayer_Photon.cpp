@@ -447,6 +447,11 @@ namespace s3d
 			m_context.createRoomReturn(playerID, errorCode, detail::ToString(errorString));
 		}
 
+		void joinRandomOrCreateRoomReturn(const int playerID, [[maybe_unused]] const ExitGames::Common::Hashtable& roomProperties, [[maybe_unused]] const ExitGames::Common::Hashtable& playerProperties, const int errorCode, const ExitGames::Common::JString& errorString) override
+		{
+			m_context.joinRandomOrCreateRoomReturn(playerID, errorCode, detail::ToString(errorString));
+		}
+
 	private:
 
 		Multiplayer_Photon& m_context;
@@ -553,6 +558,21 @@ namespace s3d
 		}
 
 		m_client->opJoinRandomRoom({}, static_cast<uint8>(maxPlayers));
+	}
+
+	void Multiplayer_Photon::joinRandomOrCreateRoom(const int32 maxPlayers, const RoomNameView roomName)
+	{
+		if (not m_client)
+		{
+			return;
+		}
+
+		if (not InRange(maxPlayers, 1, 255))
+		{
+			return;
+		}
+
+		m_client->opJoinRandomOrCreateRoom(detail::ToJString(roomName), {}, {}, static_cast<uint8>(maxPlayers));
 	}
 
 	void Multiplayer_Photon::joinRoom(const RoomNameView roomName)
@@ -1372,6 +1392,16 @@ namespace s3d
 		if (m_verbose)
 		{
 			Print << U"[Multiplayer_Photon] Multiplayer_Photon::createRoomReturn() [ルームを新規作成した結果を処理する]";
+			Print << U"- [Multiplayer_Photon] playerID: " << playerID;
+			detail::PrintIfError(errorCode, errorString);
+		}
+	}
+
+	void Multiplayer_Photon::joinRandomOrCreateRoomReturn(const LocalPlayerID playerID, const int32 errorCode, const String& errorString)
+	{
+		if (m_verbose)
+		{
+			Print << U"[Multiplayer_Photon] Multiplayer_Photon::joinRandomOrCreateRoomReturn()";
 			Print << U"- [Multiplayer_Photon] playerID: " << playerID;
 			detail::PrintIfError(errorCode, errorString);
 		}

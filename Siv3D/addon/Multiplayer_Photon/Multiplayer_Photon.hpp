@@ -110,8 +110,13 @@ namespace s3d
 
 		/// @brief ランダムなルームに参加を試みます。
 		/// @param maxPlayers ルームの最大人数
-		/// @remark 最大 255, 無料の Photon アカウントの場合は 20
+		/// @remark maxPlayers は 最大 255, 無料の Photon アカウントの場合は 20
 		void joinRandomRoom(int32 maxPlayers);
+
+		/// @brief ランダムなルームに参加を試み、参加できるルームが無かった場合にルームの作成を試みます。
+		/// @param maxPlayers ルームの最大人数
+		/// @param roomName ルーム名
+		void joinRandomOrCreateRoom(int32 maxPlayers, RoomNameView roomName);
 
 		/// @brief 指定したルームに参加を試みます。
 		/// @param roomName ルーム名
@@ -120,7 +125,7 @@ namespace s3d
 		/// @brief ルームの作成を試みます。
 		/// @param roomName ルーム名
 		/// @param maxPlayers ルームの最大人数
-		/// @remark 最大 255, 無料の Photon アカウントの場合は 20
+		/// @remark maxPlayers は 最大 255, 無料の Photon アカウントの場合は 20
 		void createRoom(RoomNameView roomName, int32 maxPlayers);
 
 		/// @brief ルームからの退出を試みます。
@@ -462,6 +467,12 @@ namespace s3d
 		/// @param errorCode エラーコード
 		/// @param errorString エラー文字列
 		virtual void createRoomReturn(LocalPlayerID playerID, int32 errorCode, const String& errorString);
+
+		/// @brief ランダムなルームへの参加またはルームの作成を試みた結果が通知されるときに呼ばれます。
+		/// @param playerID 自身のローカルプレイヤー ID
+		/// @param errorCode エラーコード
+		/// @param errorString エラー文字列
+		virtual void joinRandomOrCreateRoomReturn(LocalPlayerID playerID, int32 errorCode, const String& errorString);
 
 		/// @brief ルームのイベントを受信した際に呼ばれます。
 		/// @param playerID 送信者のローカルプレイヤー ID
