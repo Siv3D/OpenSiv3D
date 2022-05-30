@@ -108,6 +108,32 @@ namespace s3d
 		/// @remark 6 秒間以上この関数を呼ばないと自動的に切断されます。
 		void update();
 
+		/// @brief サーバのタイムスタンプ（ミリ秒）を返します。
+		/// @return サーバのタイムスタンプ（ミリ秒）
+		[[nodiscard]]
+		int32 getServerTimeMillisec() const;
+
+		/// @brief サーバのタイムスタンプとクライアントのシステムのタイムスタンプのオフセット（ミリ秒）を返します。
+		/// @return サーバのタイムスタンプとクライアントのシステムのタイムスタンプのオフセット（ミリ秒）
+		/// @remark Multiplayer_Photon::GetSystemTimeMillisec() の戻り値と足した値がサーバのタイムスタンプと一致します。
+		[[nodiscard]]
+		int32 getServerTimeOffsetMillisec() const;
+
+		/// @brief サーバーとのラウンドトリップタイムを取得します。
+		/// @return サーバーとのラウンドトリップタイム
+		[[nodiscard]]
+		int32 getPingMillisec() const;
+
+		/// @brief 受信したデータのサイズ（バイト）を返します。
+		/// @return 受信したデータのサイズ（バイト）
+		[[nodiscard]]
+		int32 getBytesIn() const;
+
+		/// @brief 送信したデータのサイズ（バイト）を返します。
+		/// @return 送信したデータのサイズ（バイト）
+		[[nodiscard]]
+		int32 getBytesOut() const;
+
 		/// @brief ランダムなルームに参加を試みます。
 		/// @param maxPlayers ルームの最大人数
 		/// @remark maxPlayers は 最大 255, 無料の Photon アカウントの場合は 20
@@ -690,6 +716,12 @@ namespace s3d
 		/// @param data 受信したデータ
 		/// @remark ユーザ定義型を受信する際に利用します。
 		virtual void customEventAction(LocalPlayerID playerID, uint8 eventCode, Deserializer<MemoryViewReader>& reader);
+
+		/// @brief クライアントのシステムのタイムスタンプ（ミリ秒）を返します。
+		/// @return クライアントのシステムのタイムスタンプ（ミリ秒）
+		/// @remark この値に getServerTimeOffsetMillisec() の戻り値と足した値がサーバのタイムスタンプと一致します。
+		[[nodiscard]]
+		static int32 GetSystemTimeMillisec();
 
 	protected:
 

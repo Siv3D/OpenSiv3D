@@ -545,6 +545,56 @@ namespace s3d
 		m_client->service();
 	}
 
+	int32 Multiplayer_Photon::getServerTimeMillisec() const
+	{
+		if (not m_client)
+		{
+			return 0;
+		}
+
+		return static_cast<uint32>(m_client->getServerTime());
+	}
+
+	int32 Multiplayer_Photon::getServerTimeOffsetMillisec() const
+	{
+		if (not m_client)
+		{
+			return 0;
+		}
+
+		return static_cast<uint32>(m_client->getServerTimeOffset());
+	}
+
+	int32 Multiplayer_Photon::getPingMillisec() const
+	{
+		if (not m_client)
+		{
+			return 0;
+		}
+
+		return m_client->getRoundTripTime();
+	}
+
+	int32 Multiplayer_Photon::getBytesIn() const
+	{
+		if (not m_client)
+		{
+			return 0;
+		}
+
+		return m_client->getBytesIn();
+	}
+
+	int32 Multiplayer_Photon::getBytesOut() const
+	{
+		if (not m_client)
+		{
+			return 0;
+		}
+
+		return m_client->getBytesOut();
+	}
+
 	void Multiplayer_Photon::joinRandomRoom(const int32 maxPlayers)
 	{
 		if (not m_client)
@@ -1696,5 +1746,10 @@ namespace s3d
 			Print << U"[Multiplayer_Photon] eventCode: " << eventCode;
 			Print << U"[Multiplayer_Photon] data: " << reader->size() << U" bytes (serialized)";
 		}
+	}
+
+	int32 Multiplayer_Photon::GetSystemTimeMillisec()
+	{
+		return GETTIMEMS();
 	}
 }
