@@ -588,37 +588,37 @@ namespace s3d
 
 	inline constexpr RectF Rect::scaled(const double s) const noexcept
 	{
-		return{ Arg::center((x + w * 0.5), (y + h * 0.5)), (w * s), (h * s) };
+		return{ Arg::center((pos.x + size.x * 0.5), (pos.y + size.y * 0.5)), (size.x * s), (size.y * s) };
 	}
 
 	inline constexpr RectF Rect::scaled(const double sx, const double sy) const noexcept
 	{
-		return{ Arg::center((x + w * 0.5), (y + h * 0.5)), (w * sx), (h * sy) };
+		return{ Arg::center((pos.x + size.x * 0.5), (pos.y + size.y * 0.5)), (size.x * sx), (size.y * sy) };
 	}
 
 	inline constexpr RectF Rect::scaled(const Vec2 s) const noexcept
 	{
-		return{ Arg::center((x + w * 0.5), (y + h * 0.5)), (w * s.x), (h * s.y) };
+		return{ Arg::center((pos.x + size.x * 0.5), (pos.y + size.y * 0.5)), (size.x * s.x), (size.y * s.y) };
 	}
 
 	inline constexpr RectF Rect::scaledAt(const Vec2 _pos, const double s) const noexcept
 	{
-		return{ (_pos.x + (x - _pos.x) * s), (_pos.y + (y - _pos.y) * s), (w * s), (h * s) };
+		return{ (_pos.x + (pos.x - _pos.x) * s), (_pos.y + (pos.y - _pos.y) * s), (size.x * s), (size.y * s) };
 	}
 
 	inline constexpr RectF Rect::scaledAt(const Vec2 _pos, const double sx, const double sy) const noexcept
 	{
-		return{ (_pos.x + (x - _pos.x) * sx), (_pos.y + (y - _pos.y) * sy), (w * sx), (h * sy) };
+		return{ (_pos.x + (pos.x - _pos.x) * sx), (_pos.y + (pos.y - _pos.y) * sy), (size.x * sx), (size.y * sy) };
 	}
 
 	inline constexpr RectF Rect::scaledAt(const Vec2 _pos, const Vec2 s) const noexcept
 	{
-		return{ (_pos.x + (x - _pos.x) * s.x), (_pos.y + (y - _pos.y) * s.y), (w * s.x), (h * s.y) };
+		return{ (_pos.x + (pos.x - _pos.x) * s.x), (_pos.y + (pos.y - _pos.y) * s.y), (size.x * s.x), (size.y * s.y) };
 	}
 
 	inline constexpr bool Rect::hasArea() const noexcept
 	{
-		return ((w != 0) && (h != 0));
+		return ((size.x != 0) && (size.y != 0));
 	}
 
 	inline constexpr Rect::size_type Rect::tl() const noexcept
@@ -628,42 +628,42 @@ namespace s3d
 
 	inline constexpr Rect::size_type Rect::tr() const noexcept
 	{
-		return{ (x + w), y };
+		return{ (pos.x + size.x), pos.y };
 	}
 
 	inline constexpr Rect::size_type Rect::br() const noexcept
 	{
-		return{ (x + w), (y + h) };
+		return{ (pos.x + size.x), (pos.y + size.y) };
 	}
 
 	inline constexpr Rect::size_type Rect::bl() const noexcept
 	{
-		return{ x, (y + h) };
+		return{ pos.x, (pos.y + size.y) };
 	}
 
 	inline constexpr Vec2 Rect::topCenter() const noexcept
 	{
-		return{ (x + w * 0.5), y };
+		return{ (pos.x + size.x * 0.5), pos.y };
 	}
 
 	inline constexpr Vec2 Rect::rightCenter() const noexcept
 	{
-		return{ (x + w), (y + h * 0.5) };
+		return{ (pos.x + size.x), (pos.y + size.y * 0.5) };
 	}
 
 	inline constexpr Vec2 Rect::bottomCenter() const noexcept
 	{
-		return{ (x + w * 0.5), (y + h) };
+		return{ (pos.x + size.x * 0.5), (pos.y + size.y) };
 	}
 
 	inline constexpr Vec2 Rect::leftCenter() const noexcept
 	{
-		return{ x, (y + h * 0.5) };
+		return{ pos.x, (pos.y + size.y * 0.5) };
 	}
 
 	inline constexpr Vec2 Rect::center() const noexcept
 	{
-		return{ (x + w * 0.5), (y + h * 0.5) };
+		return{ (pos.x + size.x * 0.5), (pos.y + size.y * 0.5) };
 	}
 
 	inline constexpr Line Rect::top() const noexcept
@@ -752,12 +752,12 @@ namespace s3d
 
 	inline constexpr Rect::value_type Rect::area() const noexcept
 	{
-		return (w * h);
+		return (size.x * size.y);
 	}
 
 	inline constexpr Rect::value_type Rect::perimeter() const noexcept
 	{
-		return ((w + h) * 2);
+		return ((size.x + size.y) * 2);
 	}
 
 	template <class Type>
@@ -773,12 +773,12 @@ namespace s3d
 
 	inline constexpr Quad Rect::shearedX(const double vx) const noexcept
 	{
-		return{ {(x + vx), y}, {(x + w + vx), y}, {(x + w - vx), (y + h)}, {(x - vx), (y + h)} };
+		return{ {(pos.x + vx), pos.y}, {(pos.x + size.x + vx), pos.y}, {(pos.x + size.x - vx), (pos.y + size.y)}, {(pos.x - vx), (pos.y + size.y)} };
 	}
 
 	inline constexpr Quad Rect::shearedY(const double vy) const noexcept
 	{
-		return{ {x, (y - vy)}, {(x + w), (y + vy)}, {(x + w), (y + h + vy)}, {x, (y + h - vy)} };
+		return{ {pos.x, (pos.y - vy)}, {(pos.x + size.x), (pos.y + vy)}, {(pos.x + size.x), (pos.y + size.y + vy)}, {pos.x, (pos.y + size.y - vy)} };
 	}
 
 	inline constexpr RoundRect Rect::rounded(const double r) const noexcept

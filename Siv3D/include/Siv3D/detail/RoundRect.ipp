@@ -169,22 +169,22 @@ namespace s3d
 
 	inline constexpr RoundRect RoundRect::stretched(const value_type size) const noexcept
 	{
-		return RoundRect(rect.stretched(size), r);
+		return RoundRect{ rect.stretched(size), r };
 	}
 
 	inline constexpr RoundRect RoundRect::stretched(const value_type _x, const value_type _y) const noexcept
 	{
-		return RoundRect(rect.stretched(_x, _y), r);
+		return RoundRect{ rect.stretched(_x, _y), r };
 	}
 
 	inline constexpr RoundRect RoundRect::stretched(const size_type xy) const noexcept
 	{
-		return RoundRect(rect.stretched(xy.x, xy.y), r);
+		return RoundRect{ rect.stretched(xy.x, xy.y), r };
 	}
 
 	inline constexpr RoundRect RoundRect::stretched(const value_type top, const value_type right, const value_type bottom, const value_type left) const noexcept
 	{
-		return RoundRect(rect.stretched(top, right, bottom, left), r);
+		return RoundRect{ rect.stretched(top, right, bottom, left), r };
 	}
 
 	inline constexpr RoundRect::position_type RoundRect::topCenter() const noexcept
