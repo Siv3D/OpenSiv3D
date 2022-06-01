@@ -39,7 +39,7 @@ namespace s3d
 		bool isEmpty() const noexcept;
 
 		[[nodiscard]]
-		bool isReady();
+		bool isReady() const;
 
 		void cancel();
 

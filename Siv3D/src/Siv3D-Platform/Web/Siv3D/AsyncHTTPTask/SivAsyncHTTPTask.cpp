@@ -28,7 +28,7 @@ namespace s3d
 		return (not isEmpty());
 	}
 
-	bool AsyncHTTPTask::isReady()
+	bool AsyncHTTPTask::isReady() const
 	{
 		return pImpl->isReady();
 	}
