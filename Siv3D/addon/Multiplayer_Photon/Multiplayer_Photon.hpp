@@ -359,9 +359,9 @@ namespace s3d
 		String getUserID() const;
 
 		/// @brief ルーム内でのプレイヤー ID を返します。
-		/// @return ルーム内でのプレイヤー ID, ルームに参加していない場合は none
+		/// @return ルーム内でのプレイヤー ID, ルームに参加していない場合は -1
 		[[nodiscard]]
-		Optional<LocalPlayerID> getLocalPlayerID() const;
+		LocalPlayerID getLocalPlayerID() const;
 
 		/// @brief 存在するルームの一覧を返します。
 		/// @return 存在するルームの一覧

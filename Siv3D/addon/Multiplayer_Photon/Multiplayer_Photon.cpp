@@ -1119,18 +1119,18 @@ namespace s3d
 		return detail::ToString(m_client->getLocalPlayer().getUserID());
 	}
 
-	Optional<LocalPlayerID> Multiplayer_Photon::getLocalPlayerID() const
+	LocalPlayerID Multiplayer_Photon::getLocalPlayerID() const
 	{
 		if (not m_client)
 		{
-			return none;
+			return -1;
 		}
 
 		const LocalPlayerID localPlayerID = m_client->getLocalPlayer().getNumber();
 
 		if (localPlayerID < 0)
 		{
-			return none;
+			return -1;
 		}
 
 		return localPlayerID;
