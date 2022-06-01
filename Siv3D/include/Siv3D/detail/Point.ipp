@@ -269,6 +269,17 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr Type Point::horizontalAspectRatio() const noexcept
+	{
+		if (y == 0)
+		{
+			return 0;
+		}
+
+		return (static_cast<Type>(x) / y);
+	}
+
+	template <class Type>
 	inline Type Point::length() const noexcept
 	{
 		return static_cast<Type>(std::sqrt((x * x) + (y * y)));

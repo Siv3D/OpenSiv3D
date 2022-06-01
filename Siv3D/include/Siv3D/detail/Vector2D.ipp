@@ -299,6 +299,17 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr typename Vector2D<Type>::value_type Vector2D<Type>::horizontalAspectRatio() const noexcept
+	{
+		if (y == 0)
+		{
+			return 0;
+		}
+
+		return (x / y);
+	}
+
+	template <class Type>
 	inline typename Vector2D<Type>::value_type Vector2D<Type>::length() const noexcept
 	{
 		return std::sqrt(lengthSq());

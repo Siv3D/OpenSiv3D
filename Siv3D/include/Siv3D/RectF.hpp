@@ -607,6 +607,9 @@ namespace s3d
 		constexpr value_type perimeter() const noexcept;
 
 		[[nodiscard]]
+		constexpr value_type horizontalAspectRatio() const noexcept;
+
+		[[nodiscard]]
 		Quad rotated(double angle) const noexcept;
 
 		[[nodiscard]]

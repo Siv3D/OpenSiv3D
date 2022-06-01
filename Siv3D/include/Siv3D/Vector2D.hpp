@@ -173,6 +173,9 @@ namespace s3d
 		constexpr value_type cross(Vector2D v) const noexcept;
 
 		[[nodiscard]]
+		constexpr value_type horizontalAspectRatio() const noexcept;
+
+		[[nodiscard]]
 		value_type length() const noexcept;
 
 		[[nodiscard]]

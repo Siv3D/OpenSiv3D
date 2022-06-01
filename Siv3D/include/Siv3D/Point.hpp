@@ -196,6 +196,10 @@ namespace s3d
 
 		template <class Type = double>
 		[[nodiscard]]
+		constexpr Type horizontalAspectRatio() const noexcept;
+
+		template <class Type = double>
+		[[nodiscard]]
 		Type length() const noexcept;
 
 		template <class Type = double>

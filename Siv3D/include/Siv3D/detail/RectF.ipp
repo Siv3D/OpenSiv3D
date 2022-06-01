@@ -771,6 +771,16 @@ namespace s3d
 		return ((w + h) * 2);
 	}
 
+	inline constexpr RectF::value_type RectF::horizontalAspectRatio() const noexcept
+	{
+		if (h == 0)
+		{
+			return 0;
+		}
+
+		return (w / h);
+	}
+
 	inline constexpr Quad RectF::shearedX(const double vx) const noexcept
 	{
 		return{ {(x + vx), y}, {(x + w + vx), y}, {(x + w - vx), (y + h)}, {(x - vx), (y + h)} };

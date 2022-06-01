@@ -760,6 +760,17 @@ namespace s3d
 		return ((w + h) * 2);
 	}
 
+	template <class Type>
+	inline constexpr Type Rect::horizontalAspectRatio() const noexcept
+	{
+		if (h == 0)
+		{
+			return 0;
+		}
+
+		return (static_cast<Type>(w) / h);
+	}
+
 	inline constexpr Quad Rect::shearedX(const double vx) const noexcept
 	{
 		return{ {(x + vx), y}, {(x + w + vx), y}, {(x + w - vx), (y + h)}, {(x - vx), (y + h)} };
