@@ -11,6 +11,15 @@
 
 # pragma once
 
+namespace s3d
+{
+	template <class Type>
+	inline Type Texture::horizontalAspectRatio() const noexcept
+	{
+		return size().horizontalAspectRatio();
+	}
+}
+
 template <>
 inline void std::swap(s3d::Texture& a, s3d::Texture& b) noexcept
 {

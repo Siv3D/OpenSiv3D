@@ -186,6 +186,10 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		template <class Type = double>
+		[[nodiscard]]
+		Type horizontalAspectRatio() const noexcept;
+
 		/// @brief 使用するメモリ量を現在のサイズまで切り詰めます。
 		void shrink_to_fit();
 

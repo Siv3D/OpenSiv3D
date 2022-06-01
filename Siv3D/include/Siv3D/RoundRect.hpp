@@ -218,10 +218,13 @@ namespace s3d
 		constexpr position_type center() const noexcept;
 
 		[[nodiscard]]
-		constexpr double area() const noexcept;
+		constexpr value_type area() const noexcept;
 
 		[[nodiscard]]
-		constexpr double perimeter() const noexcept;
+		constexpr value_type perimeter() const noexcept;
+
+		[[nodiscard]]
+		constexpr value_type horizontalAspectRatio() const noexcept;
 
 		[[nodiscard]]
 		Array<Vec2> outerVertices(uint32 quality = 24) const;

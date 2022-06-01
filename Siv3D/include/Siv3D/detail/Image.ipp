@@ -153,6 +153,12 @@ namespace s3d
 		return (not m_data.empty());
 	}
 
+	template <class Type>
+	inline Type Image::horizontalAspectRatio() const noexcept
+	{
+		return size().horizontalAspectRatio();
+	}
+
 	inline void Image::shrink_to_fit()
 	{
 		m_data.shrink_to_fit();

@@ -23,6 +23,8 @@ namespace s3d
 		/// @brief OpenSiv3D 標準絵文字のサイズ（ピクセル）
 		static constexpr Size ImageSize{ 136, 128 };
 
+		static constexpr double HorizontalAspectRatio = ImageSize.horizontalAspectRatio();
+
 		/// @brief 絵文字のコードポイント
 		String codePoints;
 

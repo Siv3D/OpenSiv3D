@@ -86,6 +86,10 @@ namespace s3d
 		[[nodiscard]]
 		Size size() const;
 
+		template <class Type = double>
+		[[nodiscard]]
+		Type horizontalAspectRatio() const noexcept;
+
 		/// @brief テクスチャの設定を返します。
 		/// @return テクスチャの設定
 		[[nodiscard]]

@@ -212,14 +212,19 @@ namespace s3d
 		return rect.center();
 	}
 
-	inline constexpr double RoundRect::area() const noexcept
+	inline constexpr RoundRect::value_type RoundRect::area() const noexcept
 	{
 		return (rect.area() - (4 - Math::Pi) * r * r);
 	}
 
-	inline constexpr double RoundRect::perimeter() const noexcept
+	inline constexpr RoundRect::value_type RoundRect::perimeter() const noexcept
 	{
 		return (rect.perimeter() + r * (2 * Math::Pi - 8));
+	}
+
+	inline constexpr RoundRect::value_type RoundRect::horizontalAspectRatio() const noexcept
+	{
+		return rect.horizontalAspectRatio();
 	}
 
 	inline constexpr RoundRect RoundRect::lerp(const RoundRect& other, const double f) const noexcept

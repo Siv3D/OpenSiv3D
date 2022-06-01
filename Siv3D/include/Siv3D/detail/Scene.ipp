@@ -44,5 +44,11 @@ namespace s3d
 		{
 			return s3d::Rect{ Size() };
 		}
+
+		template <class Type>
+		inline Type HorizontalAspectRatio() noexcept
+		{
+			return Size().horizontalAspectRatio();
+		}
 	}
 }

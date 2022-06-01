@@ -773,12 +773,12 @@ namespace s3d
 
 	inline constexpr RectF::value_type RectF::horizontalAspectRatio() const noexcept
 	{
-		if (h == 0)
+		if (size.y == 0)
 		{
 			return 0;
 		}
 
-		return (w / h);
+		return (size.x / size.y);
 	}
 
 	inline constexpr Quad RectF::shearedX(const double vx) const noexcept
