@@ -421,7 +421,7 @@ namespace s3d
 		/// @brief 条件を満たす要素があるかを返します。
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
-		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
+		/// @return 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
 		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool any(Fty f = Identity) const;
@@ -570,7 +570,7 @@ namespace s3d
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
 		/// @remark `.any(f)` と同じです。
-		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
+		/// @return 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool includes_if(Fty f) const;
