@@ -12,7 +12,7 @@
 # pragma once
 # include "Common.hpp"
 # include "Concepts.hpp"
-# include "SMFT.hpp"
+# include "SFMT.hpp"
 # include "Distribution.hpp"
 
 namespace s3d

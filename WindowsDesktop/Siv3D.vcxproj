@@ -283,7 +283,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shuffle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SIMD_Float4.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SMFT.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SFMT.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Sphere.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spherical.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Spline.ipp" />
@@ -682,7 +682,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleHTTP.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sky.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SpecialFolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp" />
@@ -858,7 +858,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\scope-guard\scope_fail.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\scope-guard\scope_success.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\scope-guard\unique_resource.h" />
-    <ClInclude Include="..\Siv3D\include\ThirdParty\SMFT\SMFT.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\sol\as_args.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\sol\as_returns.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\sol\base_traits.hpp" />

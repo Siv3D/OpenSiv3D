@@ -220,7 +220,7 @@
     <Filter Include="src\Siv3D\Cursor">
       <UniqueIdentifier>{e72a1b28-c363-4fce-91c4-41388abe3045}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\ThirdParty\SMFT">
+    <Filter Include="include\ThirdParty\SFMT">
       <UniqueIdentifier>{db0f724d-4516-4ae0-9177-e3738c3328b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Siv3D\Color">
@@ -1869,7 +1869,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Scene.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\SMFT.hpp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp">
@@ -2100,8 +2100,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Palette.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\SMFT\SMFT.hpp">
-      <Filter>include\ThirdParty\SMFT</Filter>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp">
+      <Filter>include\ThirdParty\SFMT</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp">
       <Filter>include\Siv3D</Filter>
@@ -5874,7 +5874,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\SIMD_Float4.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SMFT.ipp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\SFMT.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Sphere.ipp">
