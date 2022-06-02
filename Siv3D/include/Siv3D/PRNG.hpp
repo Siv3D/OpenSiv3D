@@ -12,7 +12,7 @@
 # pragma once
 # include <ThirdParty/Xoshiro-cpp/XoshiroCpp.hpp>
 # include "Common.hpp"
-# include "SMFT.hpp"
+# include "SFMT.hpp"
 
 namespace s3d
 {
