@@ -34,7 +34,7 @@ Name | Version
 [GLFW](https://github.com/glfw/glfw) | 3.3.2
 [GMGSx.sf2](http://www.synthfont.com/) | 
 [GSL](https://github.com/microsoft/GSL) | 
-[HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 2.7.4
+[HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 4.3.0
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 

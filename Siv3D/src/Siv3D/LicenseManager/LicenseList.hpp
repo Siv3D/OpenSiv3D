@@ -611,14 +611,14 @@ UR"-(HarfBuzz)-",
 
 UR"-(Copyright (c) 2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020  Google, Inc.
 Copyright (c) 2018,2019,2020  Ebrahim Byagowi
-Copyright (c) 2019,2020  Facebook, Inc. 
+Copyright (c) 2019,2020  Facebook, Inc.
 Copyright (c) 2012  Mozilla Foundation
 Copyright (c) 2011  Codethink Limited
 Copyright (c) 2008,2010  Nokia Corporation and/or its subsidiary(-ies)
 Copyright (c) 2009  Keith Stribley
 Copyright (c) 2009  Martin Hosken and SIL International
 Copyright (c) 2007  Chris Wilson
-Copyright (c) 2006  Behdad Esfahbod
+Copyright (c) 2005,2006,2020,2021  Behdad Esfahbod
 Copyright (c) 2005  David Turner
 Copyright (c) 2004,2007,2008,2009,2010  Red Hat, Inc.
 Copyright (c) 1998-2004  David Turner and Werner Lemberg)-",
