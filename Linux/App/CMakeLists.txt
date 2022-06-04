@@ -48,52 +48,9 @@ add_executable(Siv3DTest
   #../../Test/Siv3DTest_TextWriter.cpp
   #../../Test/Siv3DTest_Timer.cpp
   )
-target_include_directories(Siv3DTest PRIVATE
-  "/usr/include"
-  "../../Siv3D/include"
-  "../../Siv3D/include/ThirdParty"
-  )
-target_link_libraries(Siv3DTest PRIVATE
-  ${PROJECT_SOURCE_DIR}/../build/libSiv3D.a
-  -lasound
-  -lavcodec
-  -lavformat
-  -lavutil
-  -lcurl
-  -ldl
-  -lfreetype
-  -lGL
-  -lglib-2.0
-  -lgobject-2.0
-  -lgif
-  -lgio-2.0
-  -lgdk-3
-  -lgtk-3
-  -lharfbuzz
-  -lm
-  -logg
-  -lopencv_core
-  -lopencv_imgcodecs
-  -lopencv_imgproc
-  -lopencv_objdetect
-  -lopencv_photo
-  -lopencv_videoio
-  -lopus
-  -lopusfile
-  -lpthread
-  -lpng
-  -lSoundTouch
-  -lswresample
-  -ltiff
-  -lturbojpeg
-  -luuid
-  -lvorbis
-  -lvorbisenc
-  -lvorbisfile
-  -lwebp
-  -lX11
-  -lXft
-  )
+
+find_package(Siv3D)
+target_link_libraries(Siv3DTest PUBLIC Siv3D)
 
 
 if(BUILD_TESTING)

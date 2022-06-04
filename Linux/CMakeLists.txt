@@ -1,28 +1,65 @@
 cmake_minimum_required(VERSION 3.12)
-project(OpenSiv3D_Linux CXX C)
-find_package(PkgConfig)
-find_package(Boost 1.71.0 REQUIRED)
-pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED alsa libavcodec libavformat libavutil libcurl freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng soundtouch libswresample libtiff-4 libturbojpeg uuid vorbis libwebp x11 xft zlib)
 
+if(NOT DEFINED PROJECT_NAME)
+  set(Siv3D_NOT_SUBPROJECT ON)
+else()
+  set(Siv3D_NOT_SUBPROJECT OFF)
+endif()
+
+project(OpenSiv3D_Linux
+    VERSION 0.6.4
+    LANGUAGES CXX C ASM
+    HOMEPAGE_URL "https://github.com/Siv3D/OpenSiv3D"
+    DESCRIPTION "A C++20 framework for creative coding (2D/3D games, media art, visualizers, and simulators)."
+)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED alsa libavcodec libavformat libavutil libcurl freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng soundtouch libswresample libtiff-4 libturbojpeg uuid vorbis vorbisenc vorbisfile libwebp x11 xft zlib)
+
+find_package(Boost 1.71.0 REQUIRED)
 message(STATUS "[info] Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
 message(STATUS "[info] SIV3D_THIRD_PARTY_INCLUDE_DIRS: ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}")
 
-set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1 -D_GLFW_X11 -DWITH_ALSA -DWITH_NOSOUND")
-set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
-set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
-set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
-set_property(SOURCE ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress_amd64.S PROPERTY LANGUAGE C)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1 -D__LINUX_ALSA__ -DAS_USE_NAMESPACE -D_GLFW_X11 -DMUPARSER_STATIC -D_UNICODE -DWITH_MINIAUDIO -DWITH_NOSOUND")
-set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
-set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
+find_package(GIF REQUIRED)
+
+include(GNUInstallDirs)
+
+# C flags
+set(Siv3D_C_FLAGS -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1)
+set(Siv3D_C_FLAGS_DEBUG -g3 -O0 -pg -DDEBUG)
+set(Siv3D_C_FLAGS_RELEASE -O2 -DNDEBUG -march=x86-64)
+set(Siv3D_C_FLAGS_RELWITHDEBINFO -g3 -Og -pg)
+set(Siv3D_C_FLAGS_MINSIZEREL -Os -DNDEBUG -march=x86-64)
+set(Siv3D_C_DEFINITION
+    _GLFW_X11
+    WITH_ALSA
+    WITH_NOSOUND
+)
+
+# C++ flags
+set(Siv3D_CXX_FLAGS -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1)
+set(Siv3D_CXX_FLAGS_DEBUG -g3 -O0 -pg -DDEBUG)
+set(Siv3D_CXX_FLAGS_RELEASE -O2 -DNDEBUG -march=x86-64)
+set(Siv3D_CXX_FLAGS_RELWITHDEBINFO -g3 -Og -pg)
+set(Siv3D_CXX_FLAGS_MINSIZEREL -Os -DNDEBUG -march=x86-64)
+set(Siv3D_CXX_DEFINITION
+    __LINUX_ALSA__
+    AS_USE_NAMESPACE
+    _GLFW_X11
+    MUPARSER_STATIC
+    _UNICODE
+    WITH_MINIAUDIO
+    WITH_NOSOUND
+)
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set(Siv3D_CXX_FLAGS_WITH_COMPIER -fdiagnostics-color=always)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    set(Siv3D_CXX_FLAGS_WITH_COMPIER -fdiagnostics-color=always)
+endif()
 
 if (NOT CMAKE_CONFIGURATION_TYPES AND 
     NOT CMAKE_NO_BUILD_TYPE AND
@@ -32,15 +69,9 @@ if (NOT CMAKE_CONFIGURATION_TYPES AND
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  add_compile_options ("-fcolor-diagnostics")
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  add_compile_options ("-fdiagnostics-color=always")
-endif()
 
 
-add_library(Siv3D STATIC
-
+set(Siv3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Siv3DMain.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Audio/SoundTouchFunctions.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/AudioCodec/AudioCodecFactory.cpp
@@ -1143,20 +1174,100 @@ add_library(Siv3D STATIC
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/divsufsort.c
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/fastcover.c
   ../Siv3D/src/ThirdParty/zstd/dictBuilder/zdict.c
+  ../Siv3D/src/ThirdParty/zstd/decompress/huf_decompress_amd64.S
+)
+
+set(Siv3D_INTERNAL_INCLUDE_DIRS
+    ../Siv3D/include
+    ../Siv3D/include/ThirdParty
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Linux
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGL4
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+)
+
+add_library(Siv3D STATIC ${Siv3D_INTERNAL_SOURCES})
+target_link_libraries(Siv3D INTERFACE
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${GIF_LIBRARIES}
+    ${SIV3D_THIRD_PARTY_LIBRARIES}
+    ${CMAKE_DL_LIBS}
+)
+target_compile_features(Siv3D PRIVATE cxx_std_20 c_std_11)
+target_include_directories(Siv3D 
+  PRIVATE
+    $<BUILD_INTERFACE: ${Siv3D_INTERNAL_INCLUDE_DIRS}>
+    $<BUILD_INTERFACE: ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}>
+  INTERFACE
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/Siv3D/ThirdParty>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/Siv3D>
+)
+set_target_properties(Siv3D PROPERTIES
+    C_EXTENSIONS OFF
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+    DEBUG_POSTFIX "d"
+)
+target_compile_options(Siv3D PRIVATE
+  $<$<COMPILE_LANGUAGE:CXX>: ${Siv3D_CXX_FLAGS}
+    $<$<CONFIG:Debug>:   ${Siv3D_CXX_FLAGS_DEBUG}>
+    $<$<CONFIG:Release>: ${Siv3D_CXX_FLAGS_RELEASE}>
+    $<$<CONFIG:RelWithDebInfo>: ${Siv3D_CXX_FLAGS_RELWITHDEBINFO}>
+    $<$<CONFIG:MinSizeRel>: ${Siv3D_CXX_FLAGS_MINSIZEREL}>
+  >
+  $<$<COMPILE_LANGUAGE:C>: ${Siv3D_C_FLAGS}
+    $<$<CONFIG:Debug>:   ${Siv3D_C_FLAGS_DEBUG}>
+    $<$<CONFIG:Release>: ${Siv3D_C_FLAGS_RELEASE}>
+    $<$<CONFIG:RelWithDebInfo>: ${Siv3D_C_FLAGS_RELWITHDEBINFO}>
+    $<$<CONFIG:MinSizeRel>: ${Siv3D_C_FLAGS_MINSIZEREL}>
+  >
+)
+target_compile_definitions(Siv3D PRIVATE
+    $<$<COMPILE_LANGUAGE:CXX>: ${Siv3D_CXX_DEFINITION}>
+    $<$<COMPILE_LANGUAGE:C>:   ${Siv3D_C_DEFINITION}>
+)
+add_library(Siv3D::Siv3D ALIAS Siv3D)
+
+if(Siv3D_NOT_SUBPROJECT)
+  install(
+      TARGETS Siv3D
+      EXPORT Siv3DTargets
+      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  )
+  install(
+      EXPORT Siv3DTargets
+      FILE Siv3DConfig.cmake
+      EXPORT_LINK_INTERFACE_LIBRARIES
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Siv3D
+  )
+  install(
+    FILES ../Siv3D/include/Siv3D.hpp ../Siv3D/include/HamFramework.hpp
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Siv3D
+  )
+  install(
+      DIRECTORY ../Siv3D/include/Siv3D ../Siv3D/include/ThirdParty
+      DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Siv3D
   )
 
-target_include_directories(Siv3D PUBLIC
-  ../Siv3D/include
-  ../Siv3D/include/ThirdParty
-  ../Siv3D/src
-  ../Siv3D/src/Siv3D-Platform/Linux
-  ../Siv3D/src/Siv3D-Platform/macOS_Linux
-  ../Siv3D/src/Siv3D-Platform/OpenGL4
-  ../Siv3D/src/Siv3D-Platform/OpenGLES3
-  ../Siv3D/src/ThirdParty
-  ../Siv3D/src/ThirdParty/asio
-  ../Siv3D/src/ThirdParty/freetype
-  ../Siv3D/src/ThirdParty/soloud/include
-  ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS}
+  set(CPACK_GENERATOR "DEB")
+  set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+  set(CPACK_PACKAGE_CONTACT ${CMAKE_PROJECT_HOMEPAGE_URL})
+  set(CPACK_PACKAGE_HOMEPAGE_URL ${CMAKE_PROJECT_HOMEPAGE_URL})
+  set(CPACK_PACKAGE_NAME "libSiv3D-dev")
+  set(CPACK_PACKAGE_FILE_LICENSE ../LICENSE)
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS
+    "libasound2-dev, libavcodec-dev, libavformat-dev, libavutil-dev, libboost-dev (>=1.71.0), libcurl4-openssl-dev, libgtk-3-dev,
+    libgif-dev, libglu1-mesa-dev, libharfbuzz-dev, libmpg123-dev, libopencv-dev, libopus-dev, libopusfile-dev,
+    libsoundtouch-dev, libswresample-dev, libtiff-dev, libturbojpeg0-dev, libvorbis-dev, libwebp-dev, libxft-dev, uuid-dev, xorg-dev"
   )
+
+  include(CPack)
+endif()
