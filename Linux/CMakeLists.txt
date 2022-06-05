@@ -7,7 +7,7 @@ project(OpenSiv3D_Linux
     DESCRIPTION "A C++20 framework for creative coding (2D/3D games, media art, visualizers, and simulators)."
 )
 
-# Find reuiqred packages
+# Find required packages
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(SIV3D_THIRD_PARTY REQUIRED alsa libavcodec libavformat libavutil libcurl freetype2 gl glib-2.0 gtk+-3.0 harfbuzz libmpg123 ogg opencv4 opus opusfile libpng soundtouch libswresample libtiff-4 libturbojpeg uuid vorbis vorbisenc vorbisfile libwebp x11 xft zlib)
 
