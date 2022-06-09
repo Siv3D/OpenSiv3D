@@ -655,7 +655,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline bool operator !=(const BigInt& a, const Arithmetic b)
 		{
-			return (a.compare(b) == 0);
+			return (a.compare(b) != 0);
 		}
 
 		SIV3D_CONCEPT_ARITHMETIC
