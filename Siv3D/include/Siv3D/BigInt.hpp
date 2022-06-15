@@ -207,7 +207,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline BigInt operator -(const Int a, const BigInt& b)
 		{
-			return (-b + a);
+			return -(b - a);
 		}
 
 		//////////////////////////////////////////////////

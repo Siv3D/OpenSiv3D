@@ -262,7 +262,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline BigFloat operator -(Arithmetic a, const BigFloat& b)
 		{
-			return (-b + a);
+			return -(b - a);
 		}
 
 		//////////////////////////////////////////////////
