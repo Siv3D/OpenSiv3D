@@ -907,6 +907,10 @@ namespace s3d
 		{
 			[[nodiscard]]
 			BigInt operator ""_big(const char* s);
+
+			/// @remark BigFloat 用のサフィックスは _bigF です。
+			[[nodiscard]]
+			BigInt operator ""_big(long double) = delete;
 		}
 	}
 
