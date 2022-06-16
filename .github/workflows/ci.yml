@@ -23,10 +23,14 @@ jobs:
             install-compiler-command:
             cmake-additional-flags:
             boost-package: libboost1.71-dev
-          - runs-on: ubuntu-20.04
-            install-compiler-command: sudo apt install clang-11
-            cmake-additional-flags: -DCMAKE_CXX_COMPILER=clang-11 -DCMAKE_C_COMPILER=clang-11
-            boost-package: libboost1.71-dev
+          - runs-on: ubuntu-22.04
+            install-compiler-command:
+            cmake-additional-flags:
+            boost-package: libboost1.74-dev
+          - runs-on: ubuntu-22.04
+            install-compiler-command:
+            cmake-additional-flags: -DCMAKE_CXX_COMPILER=clang-14 -DCMAKE_C_COMPILER=clang-14
+            boost-package: libboost1.74-dev
 
     runs-on: ${{ matrix.config.runs-on }}
     if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
