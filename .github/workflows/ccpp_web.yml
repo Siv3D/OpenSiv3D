@@ -65,7 +65,7 @@ jobs:
         env:
           cache-name: cache-boost-headers
         with:
-          path: Dependencies/boost_1_74_0/boost
+          path: Dependencies/boost_1_74_0
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports
