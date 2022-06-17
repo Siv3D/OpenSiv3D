@@ -22,7 +22,6 @@ runs:
 
     - name: Download boost
       if: ${{ !steps.cache_boost.outputs.cache-hit }}
-      working-directory: Dependencies
       shell: bash
       run: |
         rm -r ${{ inputs.destination }}
