@@ -90,15 +90,24 @@ namespace s3d
 
 		void swap(Polygon& polygon) noexcept;
 
+		/// @brief 多角形の外周の頂点配列を返します。
+		/// @return 多角形の外周の頂点配列
 		[[nodiscard]]
 		const Array<Vec2>& outer() const noexcept;
 
+		/// @brief 多角形の穴を構成する頂点配列を返します。
+		/// @return 多角形の穴を構成する頂点配列
 		[[nodiscard]]
 		const Array<Array<Vec2>>& inners() const noexcept;
 
+		/// @brief 多角形のすべての頂点を返します。
+		/// @return 多角形のすべての頂点
 		[[nodiscard]]
 		const Array<Float2>& vertices() const noexcept;
 
+		/// @brief 多角形の三角形分割のすべての頂点インデックスを返します。
+		/// @remark `vertices()` の戻り値に対応します。
+		/// @return 多角形の三角形分割のすべての頂点インデックス
 		[[nodiscard]]
 		const Array<TriangleIndex>& indices() const noexcept ;
 
@@ -395,9 +404,18 @@ namespace s3d
 		[[nodiscard]]
 		static PolygonFailureType Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 
+		/// @brief 頂点配列から多角形を生成します。
+		/// @param pVertex 頂点配列の先頭ポインタ
+		/// @param vertexSize 頂点配列の要素数
+		/// @param holes 多角形の穴
+		/// @return 頂点配列から生成した多角形の配列
 		[[nodiscard]]
 		static Array<Polygon> Correct(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes = {});
 
+		/// @brief 頂点配列から多角形を生成します。
+		/// @param vertices 頂点配列
+		/// @param holes 多角形の穴
+		/// @return 頂点配列から生成した多角形の配列
 		[[nodiscard]]
 		static Array<Polygon> Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes = {});
 

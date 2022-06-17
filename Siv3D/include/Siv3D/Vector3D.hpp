@@ -142,22 +142,39 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool hasOppositeDirection(Vector3D other) const noexcept;
 
+		/// @brief ゼロベクトルであるかを返します。
+		/// @return ゼロベクトルである場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool isZero() const noexcept;
 
+		/// @brief NaN である成分を持つかを返します。
+		/// @return NaN である成分を持つ場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasNaN() const noexcept;
 
+		/// @brief 最小の成分を返します。
+		/// @return 最小の成分
 		[[nodiscard]]
 		constexpr value_type minComponent() const noexcept;
 
+		/// @brief 最大の成分を返します。
+		/// @return 最大の成分
 		[[nodiscard]]
 		constexpr value_type maxComponent() const noexcept;
 
+		/// @brief 各成分を 0 にセットします。
 		constexpr void clear() noexcept;
 
+		/// @brief 各成分を変更します。
+		/// @param _x 新しい X 成分
+		/// @param _y 新しい Y 成分
+		/// @param _z 新しい Z 成分
+		/// @return *this
 		constexpr Vector3D& set(value_type _x, value_type _y, value_type _z) noexcept;
 
+		/// @brief ベクトルを変更します。
+		/// @param v 新しいベクトル
+		/// @return *this
 		constexpr Vector3D& set(Vector3D v) noexcept;
 
 		[[nodiscard]]
@@ -190,49 +207,101 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector3D projectOnPlane(Vector3D planeNormal) const noexcept;
 
+		/// @brief ベクトルの大きさ（長さ）を返します。
+		/// @return ベクトルの大きさ（長さ）
 		[[nodiscard]]
 		value_type length() const noexcept;
 
+		/// @brief ベクトルの大きさ（長さ）の二乗を返します。
+		/// @remark 平方根を計算しないため `length()` より高速です。
+		/// @return ベクトルの大きさ（長さ）の二乗
 		[[nodiscard]]
 		constexpr value_type lengthSq() const noexcept;
 
+		/// @brief ベクトルの長さの逆数 (1 / length())を返します。
+		/// @return ベクトルの長さの逆数
 		[[nodiscard]]
 		value_type invLength() const noexcept;
 
+		/// @brief 原点からこの位置ベクトルまでの 3 次元マンハッタン距離を返します。
+		/// @return 原点からの 3 次元マンハッタン距離
 		[[nodiscard]]
 		constexpr value_type manhattanLength() const noexcept;
 
+		/// @brief 別の位置ベクトルからの 3 次元マンハッタン距離を返します。
+		/// @param _x 別の位置ベクトルの X 成分
+		/// @param _y 別の位置ベクトルの Y 成分
+		/// @param _z 別の位置ベクトルの Z 成分
+		/// @return 別の位置ベクトルからの 3 次元マンハッタン距離
 		[[nodiscard]]
 		constexpr value_type manhattanDistanceFrom(value_type _x, value_type _y, value_type _z) const noexcept;
 
+		/// @brief 別の位置ベクトルからの 3 次元マンハッタン距離を返します。
+		/// @param v 別の位置ベクトル
+		/// @return 別の位置ベクトルからの 3 次元マンハッタン距離
 		[[nodiscard]]
 		constexpr value_type manhattanDistanceFrom(Vector3D v) const noexcept;
 
+		/// @brief 別の位置ベクトルからの距離を返します。
+		/// @param _x 別の位置ベクトルの X 成分
+		/// @param _y 別の位置ベクトルの Y 成分
+		/// @param _z 別の位置ベクトルの Z 成分
+		/// @return 別の位置ベクトルからの距離
 		[[nodiscard]]
 		value_type distanceFrom(value_type _x, value_type _y, value_type _z) const noexcept;
 
+		/// @brief 別の位置ベクトルからの距離を返します。
+		/// @param v 別の位置ベクトル
+		/// @return 別の位置ベクトルからの距離
 		[[nodiscard]]
 		value_type distanceFrom(Vector3D v) const noexcept;
 
+		/// @brief 別の位置ベクトルからの距離の二乗を返します。
+		/// @param _x 別の位置ベクトルの X 成分
+		/// @param _y 別の位置ベクトルの Y 成分
+		/// @param _z 別の位置ベクトルの Z 成分
+		/// @remark 平方根を計算しないため `distanceFrom()` より高速です。
+		/// @return 別の位置ベクトルからの距離の二乗
 		[[nodiscard]]
 		constexpr value_type distanceFromSq(value_type _x, value_type _y, value_type _z) const noexcept;
 
+		/// @brief 別の位置ベクトルからの距離の二乗を返します。
+		/// @param v 別の位置ベクトル
+		/// @remark 平方根を計算しないため `distanceFrom()` より高速です。
+		/// @return 別の位置ベクトルからの距離の二乗
 		[[nodiscard]]
 		constexpr value_type distanceFromSq(Vector3D v) const noexcept;
 
+		/// @brief 向きが同じで大きさ（長さ）を変更した新しいベクトルを返します。
+		/// @param _length ベクトルの大きさ（長さ）
+		/// @return 新しいベクトル。自身がゼロベクトルの場合はゼロベクトル
 		[[nodiscard]]
 		Vector3D withLength(value_type _length) const noexcept;
 
+		/// @brief ベクトルの向きはそのままで、大きさ（長さ）だけを変更します。
+		/// @param _length ベクトルの大きさ（長さ）
+		/// @remark 自身がゼロベクトルの場合は何もしません。
+		/// @return *this
 		Vector3D& setLength(value_type _length) noexcept;
 
+		/// @brief 向きが同じで大きさ（長さ）を一定の値以下にした新しいベクトルを返します。
+		/// @param maxLength ベクトルの最大の大きさ（長さ）
+		/// @return 大きさ（長さ）を一定の値以下にした新しいベクトル
 		[[nodiscard]]
 		Vector3D limitLength(value_type maxLength) const noexcept;
 
+		/// @brief ベクトルの向きはそのままで、大きさ（長さ）を一定の値以下にします
+		/// @param maxLength ベクトルの最大の大きさ（長さ）
+		/// @return *this
 		Vector3D& limitLengthSelf(value_type maxLength) noexcept;
 
+		/// @brief 正規化した（大きさを 1 にした）ベクトルを返します。
+		/// @return 正規化した（大きさを 1 にした）ベクトル
 		[[nodiscard]]
 		Vector3D normalized() const noexcept;
 
+		/// @brief 自身を正規化（大きさを 1 に）します。
+		/// @return *this
 		Vector3D& normalize() noexcept;
 
 		[[nodiscard]]
@@ -304,39 +373,63 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector4D<Type> xyz1() const noexcept;
 
+		/// @brief Vector3D{ 0, 0, 0 } を返します。
+		/// @return Vector3D{ 0, 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D Zero() noexcept;
 
+		/// @brief Vector3D{ 1, 1, 1 } を返します。
+		/// @return Vector3D{ 1, 1, 1 }
 		[[nodiscard]]
 		static constexpr Vector3D One() noexcept;
 
+		/// @brief Vector3D{ value, value, value } を返します。
+		/// @return Vector3D{ value, value, value }
 		[[nodiscard]]
 		static constexpr Vector3D All(value_type value = 1) noexcept;
 
+		/// @brief Vector3D{ 1, 0, 0 } を返します。
+		/// @return Vector3D{ 1, 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D UnitX() noexcept;
 
+		/// @brief Vector3D{ 0, 1, 0 } を返します。
+		/// @return Vector3D{ 0, 1, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D UnitY() noexcept;
 
+		/// @brief Vector3D{ 0, 0, 1 } を返します。
+		/// @return Vector3D{ 0, 0, 1 }
 		[[nodiscard]]
 		static constexpr Vector3D UnitZ() noexcept;
 
+		/// @brief Vector3D{ -length, 0, 0 } を返します。
+		/// @return Vector3D{ -length, 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D Left(value_type length = 1) noexcept;
 
+		/// @brief Vector3D{ length, 0, 0 } を返します。
+		/// @return Vector3D{ length, 0, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D Right(value_type length = 1) noexcept;
 
+		/// @brief Vector3D{ 0, length, 0 } を返します。
+		/// @return Vector3D{ 0, length, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D Up(value_type length = 1) noexcept;
 
+		/// @brief Vector3D{ 0, -length, 0 } を返します。
+		/// @return Vector3D{ 0, -length, 0 }
 		[[nodiscard]]
 		static constexpr Vector3D Down(value_type length = 1) noexcept;
 
+		/// @brief Vector3D{ 0, 0, length } を返します。
+		/// @return Vector3D{ 0, 0, length }
 		[[nodiscard]]
 		static constexpr Vector3D Forward(value_type length = 1) noexcept;
 
+		/// @brief Vector3D{ 0, 0, -length } を返します。
+		/// @return Vector3D{ 0, 0, -length }
 		[[nodiscard]]
 		static constexpr Vector3D Backward(value_type length = 1) noexcept;
 
