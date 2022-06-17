@@ -15,7 +15,7 @@ runs:
       id: cache_boost
       uses: actions/cache@v1
       env:
-        cache-name: cache-boost-headers
+        cache-name: cache-boost-headers-1
       with:
         path: ${{ inputs.destination }}
         key: ${{ env.cache-name }}
