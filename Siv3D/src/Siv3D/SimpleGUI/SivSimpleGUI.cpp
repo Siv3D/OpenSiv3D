@@ -83,14 +83,14 @@ namespace s3d
 			return SIV3D_ENGINE(GUI)->getDefaultFont();
 		}
 
-		RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& _width)
+		RectF HeadlineRegion(const StringView text, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(text).region().w + 20); });
 			return{ pos, width, CellSize };
 		}
 
-		void Headline(const String& text, const Vec2& pos, const Optional<double>& _width, const bool enabled)
+		void Headline(const StringView text, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
 			const Font& font = GetFont();
 			const RectF region = HeadlineRegion(text, pos, _width);
@@ -102,27 +102,27 @@ namespace s3d
 			dtext.draw(labelPos, GetTextColor(enabled));
 		}
 
-		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
+		RectF ButtonRegion(const StringView label, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(label).region().w + 40); });
 			return{ pos, width, UnitSize };
 		}
 
-		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
+		RectF ButtonRegionAt(const StringView label, const Vec2& center, const Optional<double>& _width)
 		{
 			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(font(label).region().w + 40); });
 			return{ Arg::center = center, width, UnitSize };
 		}
 
-		bool Button(const String& label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
+		bool Button(const StringView label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
 			const Vec2 center = ButtonRegion(label, pos, _width).center();
 			return ButtonAt(label, center, _width, enabled);
 		}
 
-		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
+		bool ButtonAt(const StringView label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
 			const Font& font = GetFont();
 			const auto dtext = font(label);
@@ -179,20 +179,20 @@ namespace s3d
 
 		bool Slider(double& value, const Vec2& pos, const double sliderWidth, const bool enabled)
 		{
-			return Slider(String{}, value, 0.0, 1.0, pos, 0.0, sliderWidth, enabled);
+			return Slider(StringView{}, value, 0.0, 1.0, pos, 0.0, sliderWidth, enabled);
 		}
 
 		bool Slider(double& value, const double min, const double max, const Vec2& pos, const double sliderWidth, const bool enabled)
 		{
-			return Slider(String{}, value, min, max, pos, 0.0, sliderWidth, enabled);
+			return Slider(StringView{}, value, min, max, pos, 0.0, sliderWidth, enabled);
 		}
 
-		bool Slider(const String& label, double& value, const Vec2& pos, const double labelWidth, const double sliderWidth, const bool enabled)
+		bool Slider(const StringView label, double& value, const Vec2& pos, const double labelWidth, const double sliderWidth, const bool enabled)
 		{
 			return Slider(label, value, 0.0, 1.0, pos, labelWidth, sliderWidth, enabled);
 		}
 
-		bool Slider(const String& label, double& value, const double min, const double max, const Vec2& pos, const double labelWidth, const double sliderWidth, const bool enabled)
+		bool Slider(const StringView label, double& value, const double min, const double max, const Vec2& pos, const double labelWidth, const double sliderWidth, const bool enabled)
 		{
 			const Vec2 center = SliderRegion(pos, labelWidth, sliderWidth).center();
 			return SliderAt(label, value, min, max, center, labelWidth, sliderWidth, enabled);
@@ -200,20 +200,20 @@ namespace s3d
 
 		bool SliderAt(double& value, const Vec2& center, const double sliderWidth, const bool enabled)
 		{
-			return SliderAt(String{}, value, 0.0, 1.0, center, 0.0, sliderWidth, enabled);
+			return SliderAt(StringView{}, value, 0.0, 1.0, center, 0.0, sliderWidth, enabled);
 		}
 
 		bool SliderAt(double& value, const double min, const double max, const Vec2& center, const double sliderWidth, const bool enabled)
 		{
-			return SliderAt(String{}, value, min, max, center, 0.0, sliderWidth, enabled);
+			return SliderAt(StringView{}, value, min, max, center, 0.0, sliderWidth, enabled);
 		}
 
-		bool SliderAt(const String& label, double& value, const Vec2& center, const double labelWidth, const double sliderWidth, const bool enabled)
+		bool SliderAt(const StringView label, double& value, const Vec2& center, const double labelWidth, const double sliderWidth, const bool enabled)
 		{
 			return SliderAt(label, value, 0.0, 1.0, center, labelWidth, sliderWidth, enabled);
 		}
 
-		bool SliderAt(const String& label, double& value, double min, double max, const Vec2& center, const double _labelWidth, const double _sliderWidth, const bool enabled)
+		bool SliderAt(const StringView label, double& value, double min, double max, const Vec2& center, const double _labelWidth, const double _sliderWidth, const bool enabled)
 		{
 			const Font& font = GetFont();
 
@@ -377,27 +377,27 @@ namespace s3d
 			return (value != previousValue);
 		}
 
-		RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
+		RectF CheckBoxRegion(const StringView label, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(CheckBoxPadding * 3 + CheckBoxSize + font(label).region().w); });
 			return{ pos, width, UnitSize };
 		}
 
-		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
+		RectF CheckBoxRegionAt(const StringView label, const Vec2& center, const Optional<double>& _width)
 		{
 			const Font& font = GetFont();
 			const double width = _width.value_or_eval([&](){ return Math::Ceil(CheckBoxPadding * 3 + CheckBoxSize + font(label).region().w); });
 			return{ Arg::center = center, width, UnitSize };
 		}
 
-		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
+		bool CheckBox(bool& checked, const StringView label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
 			const Vec2 center = CheckBoxRegion(label, pos, _width).center();
 			return CheckBoxAt(checked, label, center, _width, enabled);
 		}
 
-		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
+		bool CheckBoxAt(bool& checked, const StringView label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
 			const Font& font = GetFont();
 			const DrawableText dtext = font(label);

@@ -27,15 +27,15 @@ namespace s3d
 		const Font& GetFont() noexcept;
 
 		[[nodiscard]]
-		RectF HeadlineRegion(const String& text, const Vec2& pos, const Optional<double>& width = unspecified);
+		RectF HeadlineRegion(StringView text, const Vec2& pos, const Optional<double>& width = unspecified);
 
-		void Headline(const String& text, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
-
-		[[nodiscard]]
-		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& width = unspecified);
+		void Headline(StringView text, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
 		[[nodiscard]]
-		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
+		RectF ButtonRegion(StringView label, const Vec2& pos, const Optional<double>& width = unspecified);
+
+		[[nodiscard]]
+		RectF ButtonRegionAt(StringView label, const Vec2& center, const Optional<double>& width = unspecified);
 
 		/// @brief ボタンを表示します。
 		/// @param label ボタンに書かれるテキスト
@@ -44,7 +44,7 @@ namespace s3d
 		/// @param enabled ボタンの操作を有効にするか
 		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool Button(const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
+		bool Button(StringView label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
 		/// @brief ボタンを表示します。
 		/// @param label ボタンに書かれるテキスト
@@ -53,7 +53,7 @@ namespace s3d
 		/// @param enabled ボタンの操作を有効にするか
 		/// @return このボタンが押された場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
+		bool ButtonAt(StringView label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
 		[[nodiscard]]
 		RectF SliderRegion(const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0);
@@ -87,7 +87,7 @@ namespace s3d
 		/// @param sliderWidth スライダーの幅（ピクセル）
 		/// @param enabled スライダーの操作を有効にするか
 		/// @return スライダーが操作された場合 true, それ以外の場合は false
-		bool Slider(const String& label, double& value, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
+		bool Slider(StringView label, double& value, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
 		/// @brief テキスト付きのスライダーを表示します。
 		/// @param label スライダーの左に表示するテキスト
@@ -99,15 +99,15 @@ namespace s3d
 		/// @param sliderWidth ライダーの幅（ピクセル）
 		/// @param enabled スライダーの操作を有効にするか
 		/// @return スライダーが操作された場合 true, それ以外の場合は false
-		bool Slider(const String& label, double& value, double min, double max, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
+		bool Slider(StringView label, double& value, double min, double max, const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
 		bool SliderAt(double& value, const Vec2& center, double sliderWidth = 120.0, bool enabled = true);
 
 		bool SliderAt(double& value, double min, double max, const Vec2& center, double sliderWidth = 120.0, bool enabled = true);
 
-		bool SliderAt(const String& label, double& value, const Vec2& center, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
+		bool SliderAt(StringView label, double& value, const Vec2& center, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
-		bool SliderAt(const String& label, double& value, double min, double max, const Vec2& center, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
+		bool SliderAt(StringView label, double& value, double min, double max, const Vec2& center, double labelWidth = 80.0, double sliderWidth = 120.0, bool enabled = true);
 
 		[[nodiscard]]
 		RectF VerticalSliderRegion(const Vec2& pos, double sliderHeight = 120.0);
@@ -124,10 +124,10 @@ namespace s3d
 		bool VerticalSliderAt(double& value, double min, double max, const Vec2& center, double sliderHeight = 120.0, bool enabled = true);
 
 		[[nodiscard]]
-		RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<double>& width = unspecified);
+		RectF CheckBoxRegion(StringView label, const Vec2& pos, const Optional<double>& width = unspecified);
 
 		[[nodiscard]]
-		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
+		RectF CheckBoxRegionAt(StringView label, const Vec2& center, const Optional<double>& width = unspecified);
 
 		/// @brief チェックボックスを表示します。
 		/// @param checked チェックボックスで操作する bool 値への参照
@@ -136,7 +136,7 @@ namespace s3d
 		/// @param width チェックボックス領域の幅（ピクセル）
 		/// @param enabled チェックボックスの操作を有効にするか
 		/// @return チェックボックスが操作された場合 true, それ以外の場合は false
-		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
+		bool CheckBox(bool& checked, StringView label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
 		/// @brief チェックボックスを表示します。
 		/// @param checked チェックボックスで操作する bool 値への参照
@@ -145,7 +145,7 @@ namespace s3d
 		/// @param width チェックボックス領域の幅（ピクセル）
 		/// @param enabled チェックボックスの操作を有効にするか
 		/// @return チェックボックスが操作された場合 true, それ以外の場合は false
-		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
+		bool CheckBoxAt(bool& checked, StringView label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
 		[[nodiscard]]
 		RectF RadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& width = unspecified);
