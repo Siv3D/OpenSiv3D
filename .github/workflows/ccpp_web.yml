@@ -63,9 +63,9 @@ jobs:
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         uses: actions/cache@v1
         env:
-          cache-name: cache-boost-headers
+          cache-name: cache-boost-headers-1
         with:
-          path: Dependencies/boost_1_74_0/boost
+          path: Dependencies/boost_1_74_0
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports

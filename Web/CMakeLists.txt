@@ -96,7 +96,6 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Monitor/SivMonitor_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp
-  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/WebGPU/CRenderer_WebGPU.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/RendererFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer2D/Renderer2DFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer3D/Renderer3DFactory.cpp
@@ -163,26 +162,6 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Shader/GLES3/ShaderPipeline/GLES3ShaderPipeline.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
-
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Mesh/WebGPU/CMesh_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Mesh/WebGPU/WebGPUMesh.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUInternalTexture2D.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/SamplerState/WebGPUSamplerState.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPURenderer2DCommand.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPUVertex2DBatch.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/CRenderer3D_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/WebGPULine3DBatch.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/WebGPURenderer3DCommand.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/CShader_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/PixelShader/WebGPUPixelShader.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/VertexShader/WebGPUVertexShader.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/ShaderPipeline/WebGPUShaderPipeline.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/UniformState/WebGPUUniformState.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/CTexture_WebGPU.cpp
-  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/WebGPUTexture.cpp
 
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
@@ -982,6 +961,32 @@ set(SIV3D_THIRDPARTY_SOURCES
 
 
 
+set(SIV3D_WEBGPU_SOURCES
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Renderer/WebGPU/CRenderer_WebGPU.cpp
+
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/ConstantBuffer/WebGPU/ConstantBufferDetail_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Mesh/WebGPU/CMesh_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Mesh/WebGPU/WebGPUMesh.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUBackBuffer.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/BackBuffer/WebGPUInternalTexture2D.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer/WebGPU/SamplerState/WebGPUSamplerState.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/CRenderer2D_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPURenderer2DCommand.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer2D/WebGPU/WebGPUVertex2DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/CRenderer3D_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/WebGPULine3DBatch.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Renderer3D/WebGPU/WebGPURenderer3DCommand.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/CShader_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/PixelShader/WebGPUPixelShader.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/VertexShader/WebGPUVertexShader.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/ShaderPipeline/WebGPUShaderPipeline.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Shader/WebGPU/UniformState/WebGPUUniformState.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/CTexture_WebGPU.cpp
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/Texture/WebGPU/WebGPUTexture.cpp
+)
+
+
+
 set(SIV3D_SCRIPT_SOURCES
   ../Siv3D/src/Siv3D/Script/angelscript/scriptarray.cpp
   ../Siv3D/src/Siv3D/Script/angelscript/scriptbuilder.cpp
@@ -1184,6 +1189,37 @@ target_include_directories(OpenSiv3D
 
 
 add_library(
+  OpenSiv3DWebGPU STATIC
+  ${SIV3D_WEBGPU_SOURCES}
+)
+
+set_target_properties(OpenSiv3DWebGPU
+  PROPERTIES 
+    OUTPUT_NAME "Siv3DWebGPU"
+)
+
+target_include_directories(
+  OpenSiv3DWebGPU
+  PRIVATE
+    ../Siv3D/include
+    ../Siv3D/include/ThirdParty
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Web
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/Siv3D-Platform/WebGPU
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ../Siv3D/src/ThirdParty-prebuilt
+    ../Dependencies/boost_1_74_0
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+)
+
+
+
+add_library(
   OpenSiv3DScript STATIC
   ${SIV3D_SCRIPT_SOURCES}
 )
@@ -1211,6 +1247,41 @@ target_include_directories(
     ../Dependencies/boost_1_74_0
     ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
 )
+
+
+
+add_library(
+  OpenSiv3DBrowserImageEncodeDecode STATIC
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageFormat/Generic/GenericDecoder.cpp
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageDecoder/CImageDecoder.cpp
+    ../Siv3D/src/Siv3D-Platform/Web/Siv3D/ImageEncoder/CImageEncoder.cpp
+)
+
+set_target_properties(OpenSiv3DBrowserImageEncodeDecode
+  PROPERTIES 
+    OUTPUT_NAME "Siv3DBrowserImageEncodeDecode"
+)
+
+target_include_directories(
+  OpenSiv3DBrowserImageEncodeDecode
+  PRIVATE
+    ../Siv3D/include
+    ../Siv3D/include/ThirdParty
+    ../Siv3D/src
+    ../Siv3D/src/Siv3D-Platform/Web
+    ../Siv3D/src/Siv3D-Platform/macOS_Linux
+    ../Siv3D/src/Siv3D-Platform/OpenGLES3
+    ../Siv3D/src/Siv3D-Platform/WebGPU
+    ../Siv3D/src/ThirdParty
+    ../Siv3D/src/ThirdParty/asio
+    ../Siv3D/src/ThirdParty/freetype
+    ../Siv3D/src/ThirdParty/soloud/include
+    ../Siv3D/src/ThirdParty-prebuilt
+    ../Dependencies/boost_1_74_0
+    ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
+)
+
+
 
 include(GNUInstallDirs)
 
@@ -1265,6 +1336,18 @@ install(EXPORT OpenSiv3DExport
   DESTINATION share/cmake/OpenSiv3D/
 )
 
+install(TARGETS OpenSiv3DBrowserImageEncodeDecode
+  EXPORT OpenSiv3DBrowserImageEncodeDecodeExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT OpenSiv3DBrowserImageEncodeDecodeExport
+  FILE OpenSiv3DBrowserImageEncodeDecodeConfig.cmake
+  DESTINATION share/cmake/OpenSiv3DBrowserImageEncodeDecode/
+)
+
 install(TARGETS OpenSiv3DScript
   EXPORT OpenSiv3DScriptExport
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -1275,6 +1358,18 @@ install(TARGETS OpenSiv3DScript
 install(EXPORT OpenSiv3DScriptExport
   FILE OpenSiv3DScriptConfig.cmake
   DESTINATION share/cmake/OpenSiv3DScript/
+)
+
+install(TARGETS OpenSiv3DWebGPU
+  EXPORT OpenSiv3DWebGPUExport
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT OpenSiv3DWebGPUExport
+  FILE OpenSiv3DWebGPUConfig.cmake
+  DESTINATION share/cmake/OpenSiv3DWebGPU/
 )
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/../Siv3D/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Siv3D)
