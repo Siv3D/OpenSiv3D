@@ -14,19 +14,19 @@
 
 namespace s3d
 {
-    namespace detail
-    {
-        struct DecodedImageData
-        {
-            uint8* decodedImage;
-            uint32 length;
-            uint32 width;
-            uint32 height;
-        };
+	namespace detail
+	{
+		struct DecodedImageData
+		{
+			uint8* decodedImage;
+			uint32 length;
+			uint32 width;
+			uint32 height;
+		};
 
-        __attribute__((import_name("siv3dDecodeImageFromFile")))
-        extern void siv3dDecodeImageFromFile(void* src, uint32 length, DecodedImageData* data);
-    }
+		__attribute__((import_name("siv3dDecodeImageFromFile")))
+		extern void siv3dDecodeImageFromFile(void* src, uint32 length, DecodedImageData* data);
+	}
 
 	StringView GenericDecoder::name() const
 	{
@@ -57,17 +57,17 @@ namespace s3d
 
 	Optional<ImageInfo> GenericDecoder::getImageInfo(IReader& reader, const FilePathView) const
 	{
-        const auto imageSize = reader.size();
-        const auto imageData = std::malloc(imageSize);
+		const auto imageSize = reader.size();
+		const auto imageData = std::malloc(imageSize);
 
-        reader.read(imageData, imageSize);
+		reader.read(imageData, imageSize);
 
-        detail::DecodedImageData data;
+		detail::DecodedImageData data;
 
-        detail::siv3dDecodeImageFromFile(imageData, imageSize, &data);
+		detail::siv3dDecodeImageFromFile(imageData, imageSize, &data);
 
-        std::free(data.decodedImage);
-        std::free(imageData);
+		std::free(data.decodedImage);
+		std::free(imageData);
 
 		return ImageInfo{ Size{ data.width, data.height }, ImageFormat::BMP, ImagePixelFormat::R8G8B8A8, false };
 	}
@@ -82,26 +82,17 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"GenericDecoder::decode()");
 
 		const auto imageSize = reader.size();
-        const auto imageData = ::malloc(imageSize);
+		const auto imageData = ::malloc(imageSize);
 
-        reader.read(imageData, imageSize);
+		reader.read(imageData, imageSize);
 
-        detail::DecodedImageData data;
+		detail::DecodedImageData data;
 
-        detail::siv3dDecodeImageFromFile(imageData, imageSize, &data);
+		detail::siv3dDecodeImageFromFile(imageData, imageSize, &data);
 
-        Image image{ data.width, data.height };
+		Image image{ data.width, data.height };
 
-        auto pSrc = data.decodedImage;
-
-        for (uint32 y = 0; y < data.height; y++)
-        {
-            for (uint32 x = 0; x < data.width; x++)
-            {
-                image[y][x] = Color{ pSrc[0], pSrc[1], pSrc[2], pSrc[3] };
-                pSrc += 4;
-            }
-        }
+		std::memcpy(image.data(), data.decodedImage, image.size_bytes());
 
 		return image;
 	}
