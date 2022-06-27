@@ -26,7 +26,7 @@ namespace s3d
 	struct TexturedRoundRect;
 
 	/// @brief テクスチャ
-	/// @reamrk 描画できる画像です。
+	/// @remark 描画できる画像です。
 	class Texture : public AssetHandle<Texture>
 	{
 	public:

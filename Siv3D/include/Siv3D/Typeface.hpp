@@ -55,7 +55,7 @@ namespace s3d
 		/// @brief とても太いサイズの M+ フォント
 		Mplus_Heavy,
 
-		/// @brif 最も太いサイズの M+ フォント	
+		/// @brief 最も太いサイズの M+ フォント	
 		Mplus_Black,
 
 		/// @brief Font Awesome Solid アイコンフォント
@@ -85,7 +85,7 @@ namespace s3d
 		/// @brief とても太いサイズの M+ フォント
 		Heavy = Mplus_Heavy,
 
-		/// @brif 最も太いサイズの M+ フォント
+		/// @brief 最も太いサイズの M+ フォント
 		Black = Mplus_Black,
 	};
 }
