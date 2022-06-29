@@ -15,6 +15,30 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static std::string RemoveTrailingZeros(std::string&& s) noexcept
+		{
+			if (s.find('.') == std::string::npos)
+			{
+				return s;
+			}
+
+			while (s.back() == '0')
+			{
+				s.pop_back();
+			}
+
+			if (s.back() == '.')
+			{
+				s.pop_back();
+			}
+
+			return s;
+		}
+	}
+
 	BigFloat::BigFloat()
 		: BigFloat{ 0.0 }
 	{
@@ -616,27 +640,9 @@ namespace s3d
 
 	std::string BigFloat::to_string() const
 	{
-		std::string result = pImpl->data.str(0, std::ios_base::fixed);
+		std::string result = pImpl->data.str(100, std::ios_base::fixed);
 
-		const bool removeZeros =
-			(result.length() > 2 && result[0] == '0' && result[1] == '.')
-			|| (result.length() > 2 && result[0] == '-' && result[1] == '0' && result[2] == '.')
-			|| (result.find('.') != std::string::npos);
-
-		if (removeZeros)
-		{
-			while (result.back() == '0')
-			{
-				result.pop_back();
-			}
-		}
-
-		if (result.back() == '.')
-		{
-			result.pop_back();
-		}
-
-		return result;
+		return detail::RemoveTrailingZeros(std::move(result));
 	}
 
 	std::wstring BigFloat::to_wstring() const
