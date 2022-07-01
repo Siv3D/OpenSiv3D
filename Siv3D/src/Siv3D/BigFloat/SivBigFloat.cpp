@@ -647,7 +647,7 @@ namespace s3d
 
 	std::wstring BigFloat::to_wstring() const
 	{
-		const std::string str = pImpl->data.str();
+		const std::string str = to_string();
 
 		return std::wstring(str.begin(), str.end());
 	}
