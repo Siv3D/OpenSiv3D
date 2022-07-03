@@ -25,8 +25,6 @@ Source: "..\Siv3D.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.pre.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.post.js"; DestDir: "{app}\lib"
 Source: "..\..\Siv3D\lib\Web\wasm\*"; DestDir: "{app}\lib"; Flags: recursesubdirs
-Source: "..\App\resources\*"; DestDir: "{app}\resources"; Flags: recursesubdirs
-Source: "..\App\example\*"; DestDir: "{app}\example"; Flags: recursesubdirs
 Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.4)Web.zip"; DestDir: "{userdocs}\Visual Studio 2017\Templates\ProjectTemplates"
 Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.4)Web.zip"; DestDir: "{userdocs}\Visual Studio 2019\Templates\ProjectTemplates"
 Source: "..\VisualStudioTemplate\OpenSiv3D(0.6.4)Web.zip"; DestDir: "{userdocs}\Visual Studio 2022\Templates\ProjectTemplates"
