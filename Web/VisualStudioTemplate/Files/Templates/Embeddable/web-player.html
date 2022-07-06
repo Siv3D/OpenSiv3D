@@ -201,6 +201,7 @@
       </div>
     </div>
     <script>
+      const appContainer = document.querySelector("#app");
       const progressElement = document.querySelector("#progress");
       const canvasContainerElement = document.querySelector("#canvas-container");
       const soundOnIcon = document.querySelector('#sound-on');
@@ -208,6 +209,7 @@
       let gainNode;
 
       const onResize = function() {
+        appContainer.style.height = `${window.innerHeight}px`;
         Options["setCanvasSize"](canvasContainerElement.clientWidth, canvasContainerElement.clientHeight);
       }
 
