@@ -13,12 +13,12 @@
 
 namespace s3d
 {
-	inline HLSL::HLSL(const FilePath _path)
-		: path{ _path } {}
+	inline HLSL::HLSL(FilePath _path)
+		: path{ std::move(_path) } {}
 
-	inline HLSL::HLSL(const FilePath _path, const String _entryPoint)
-		: path{ _path }
-		, entryPoint{ _entryPoint } {}
+	inline HLSL::HLSL(FilePath _path, String _entryPoint)
+		: path{ std::move(_path) }
+		, entryPoint{ std::move(_entryPoint) } {}
 
 	inline ShaderGroup HLSL::operator |(const GLSL& glsl) const
 	{
@@ -64,8 +64,8 @@ namespace s3d
 		}
 	}
 
-	inline GLSL::GLSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
-		: path{ _path }
+	inline GLSL::GLSL(FilePath _path, Array<ConstantBufferBinding> _bindings)
+		: path{ std::move(_path) }
 		, bindings{ std::move(_bindings) } {}
 
 	inline ShaderGroup GLSL::operator |(const HLSL& hlsl) const
@@ -98,12 +98,12 @@ namespace s3d
 		return PixelShader::GLSL(path, bindings);
 	}
 
-	inline MSL::MSL(const StringView _entryPoint)
-		: entryPoint{ _entryPoint } {}
+	inline MSL::MSL(String _entryPoint)
+		: entryPoint{ std::move(_entryPoint) } {}
 
-	inline MSL::MSL(const FilePath _path, const StringView _entryPoint)
-		: path{ _path }
-		, entryPoint{ _entryPoint } {}
+	inline MSL::MSL(FilePath _path, String _entryPoint)
+		: path{ std::move(_path) }
+		, entryPoint{ std::move(_entryPoint) } {}
 
 	inline ShaderGroup MSL::operator |(const HLSL& hlsl) const
 	{
@@ -149,8 +149,8 @@ namespace s3d
 		}
 	}
 
-	inline ESSL::ESSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
-		: path{ _path }
+	inline ESSL::ESSL(FilePath _path, Array<ConstantBufferBinding> _bindings)
+		: path{ std::move(_path) }
 		, bindings{ std::move(_bindings) } {}
 
 	inline ShaderGroup ESSL::operator |(const HLSL& hlsl) const
@@ -183,8 +183,8 @@ namespace s3d
 		return PixelShader::ESSL(path, bindings);
 	}
 
-	inline WGSL::WGSL(const FilePath _path, Array<ConstantBufferBinding> _bindings)
-		: path{ _path }
+	inline WGSL::WGSL(FilePath _path, Array<ConstantBufferBinding> _bindings)
+		: path{ std::move(_path) }
 		, bindings{ std::move(_bindings) } {}
 
 	inline ShaderGroup WGSL::operator |(const HLSL& hlsl) const
