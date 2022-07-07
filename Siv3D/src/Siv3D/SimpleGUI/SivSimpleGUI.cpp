@@ -746,6 +746,8 @@ namespace s3d
 			const RectF region{ Arg::center = center, width, TextBoxHeight };
 			const Vec2 textPos{ (region.x + 8), (center.y - font.height() / 2 + FontYOffset - 0.5) };
 			const ColorF textColor = GetTextColor(enabled);
+			const String previousText = text.text;
+			const String editingText = ((text.active && enabled) ? TextInput::GetEditingText() : U"");
 
 			text.cursorPos = Min(text.cursorPos, text.text.size());
 
@@ -769,7 +771,6 @@ namespace s3d
 				{
 					const String textHeader = text.text.substr(0, text.cursorPos);
 					const String textTail = text.text.substr(text.cursorPos, String::npos);
-					const String editingText = TextInput::GetEditingText();
 
 				# if SIV3D_PLATFORM(WINDOWS)
 
@@ -792,7 +793,7 @@ namespace s3d
 						{
 							ScopedCustomShader2D shader{ Font::GetPixelShader(font.method()) };
 
-							for (auto glyph : font.getGlyphs(textHeader))
+							for (const auto& glyph : font.getGlyphs(textHeader))
 							{
 								glyph.texture.draw(pos + glyph.getOffset(), textColor);
 								pos.x += glyph.xAdvance;
@@ -822,7 +823,7 @@ namespace s3d
 
 							cursorPosX = pos.x;
 
-							for (auto glyph : font.getGlyphs(textTail))
+							for (const auto& glyph : font.getGlyphs(textTail))
 							{
 								glyph.texture.draw(pos + glyph.getOffset(), textColor);
 								pos.x += glyph.xAdvance;
@@ -904,29 +905,22 @@ namespace s3d
 				}
 			}
 
-			const String previousText = text.text;
-
+			// ショートカットキーによるペースト
 			if (text.active)
 			{
 				text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
 
-				if (TextInput::GetEditingText().isEmpty()
-					&&
+				if ((not editingText) &&
 				# if SIV3D_PLATFORM(MACOS)
-
 					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
-
 				# else
-
 					(KeyControl + KeyV).down()
-
 				# endif
 					)
 				{
-
 				# if SIV3D_PLATFORM(WEB)
 
-					if (!text.pendingClipboardText.valid())
+					if (not text.pendingClipboardText.valid())
 					{
 						text.pendingClipboardText = Platform::Web::Clipboard::GetText();
 					}
@@ -940,51 +934,80 @@ namespace s3d
 					}
 
 				# endif
-
 				}
 
 			# if SIV3D_PLATFORM(WEB)
 
-				if (text.pendingClipboardText.valid() && text.pendingClipboardText.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+				if (text.pendingClipboardText.valid()
+					&& (text.pendingClipboardText.wait_for(std::chrono::seconds(0)) == std::future_status::ready))
 				{
 					String paste = text.pendingClipboardText.get();
-
 					text.text.insert(text.cursorPos, paste);
 					text.cursorPos += paste.size();
 				}
 
 			# endif
+			}
 
-				if (maxChars && (text.text.size() > *maxChars))
+			// [←][→] キーでテキストカーソルを移動
+			// 一定時間押下すると、テキストカーソルが高速に移動
+			if (text.active && enabled && (not editingText))
+			{
+				// [←] キー
+				if ((0 < text.cursorPos)
+					&& (KeyLeft.down() || ((SecondsF{ 0.33 } < KeyLeft.pressedDuration()) && (SecondsF{ 0.06 } < text.leftPressStopwatch))))
+				{
+					--text.cursorPos;
+					text.leftPressStopwatch.restart();
+				}
+
+				// [→] キー
+				if ((text.cursorPos < text.text.size())
+					&& (KeyRight.down() || ((SecondsF{ 0.33 } < KeyRight.pressedDuration()) && (SecondsF{ 0.06 } < text.rightPressStopwatch))))
+				{
+					++text.cursorPos;
+					text.rightPressStopwatch.restart();
+				}
+			}
+
+			if (text.active)
+			{
+				// 最大字数を超えていたら削る
+				if (maxChars && (*maxChars < text.text.size()))
 				{
 					text.text.resize(*maxChars);
 					text.cursorPos = Min(text.cursorPos, *maxChars);
 				}
 
+				// 文字列に変更があればカーソル点滅をリセット
 				if (text.text != previousText)
 				{
 					text.cursorStopwatch.restart();
 				}
 
-				if (const String raw = TextInput::GetRawInput(); raw.includes(U'\r') || raw.includes(U'\t'))
+				// [home] キーでテキストカーソルを先頭へ移動
+				if (KeyHome.down())
+				{
+					text.cursorPos = 0;
+					text.cursorStopwatch.restart();
+				}
+
+				// [end] キーでテキストカーソルを末尾へ移動
+				if (KeyEnd.down())
+				{
+					text.cursorPos = text.text.length();
+					text.cursorStopwatch.restart();
+				}
+
+				// [tab] キーで入力カーソルを非アクティブに
+				if (const String raw = TextInput::GetRawInput();
+					(raw.includes(U'\r') || raw.includes(U'\t')))
 				{
 					text.active = false;
 
 				# if SIV3D_PLATFORM(WEB)					
 					Platform::Web::TextInput::RequestDisableIME();					
 				# endif
-				}
-
-				if ((0 < text.cursorPos) && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && text.leftPressStopwatch > SecondsF(0.06))))
-				{
-					--text.cursorPos;
-					text.leftPressStopwatch.restart();
-				}
-
-				if ((text.cursorPos < text.text.size()) && (KeyRight.down() || (KeyRight.pressedDuration() > SecondsF(0.33) && text.rightPressStopwatch > SecondsF(0.06))))
-				{
-					++text.cursorPos;
-					text.rightPressStopwatch.restart();
 				}
 			}
 
