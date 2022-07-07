@@ -43,96 +43,21 @@ namespace s3d
 			return (srcLength / 3 + (srcLength % 3 ? 1 : 0)) * 4;
 		}
 
-		[[nodiscard]]
-		static constexpr size_t DecodeLength(const StringView view) noexcept
-		{
-			size_t length = (view.length() / 4) * 3;
-
-			if (view.length() % 4 == 0 && !view.isEmpty())
-			{
-				length -= (view[view.length() - 2] == U'=') ? 2
-					: (view[view.length() - 1] == U'=') ? 1 : 0;
-			}
-
-			return length;
-		}
-
-		[[nodiscard]]
-		static constexpr size_t DecodeLength(const std::string_view view) noexcept
-		{
-			size_t length = (view.length() / 4) * 3;
-
-			if ((view.length() % 4 == 0) && (not view.empty()))
-			{
-				length -= (view[view.length() - 2] == '=') ? 2
-					: (view[view.length() - 1] == '=') ? 1 : 0;
-			}
-
-			return length;
-		}
-	}
-
-	namespace Base64
-	{
-		String Encode(const void* const data, const size_t size)
-		{
-			String result;
-			
-			Encode(data, size, result);
-			
-			return result;
-		}
-
-		void Encode(const void* data, size_t size, String& dst)
-		{
-			dst.clear();
-			dst.resize(detail::EncodeLength(size), U'=');
-
-			const size_t blocks = (size / 3);
-			const size_t remain = (size % 3);
-			const uint8* pSrc = static_cast<const uint8*>(data);
-			const uint8* pSrcBlocksEnd = pSrc + 3 * blocks;
-			char32* pDst = dst.data();
-
-			while (pSrc != pSrcBlocksEnd)
-			{
-				const uint32 n = pSrc[0] << 16 | pSrc[1] << 8 | pSrc[2];
-				*pDst++ = detail::chars[(n >> 18)];
-				*pDst++ = detail::chars[(n >> 12) & 0x3f];
-				*pDst++ = detail::chars[(n >> 6) & 0x3f];
-				*pDst++ = detail::chars[(n >> 0) & 0x3f];
-				pSrc += 3;
-			}
-
-			if (remain == 1)
-			{
-				const uint32 n = (pSrc[0] << 16);
-				*pDst++ = detail::chars[(n >> 18)];
-				*pDst++ = detail::chars[(n >> 12) & 0x3f];
-			}
-			else if (remain == 2)
-			{
-				const uint32 n = (pSrc[0] << 16) | (pSrc[1] << 8);
-				*pDst++ = detail::chars[(n >> 18)];
-				*pDst++ = detail::chars[(n >> 12) & 0x3f];
-				*pDst++ = detail::chars[(n >> 6) & 0x3f];
-			}
-		}
-
-		void Encode(const void* data, size_t size, std::string& dst)
+		template <class Str>
+		void Encode(const void* data, const size_t size, Str& dst)
 		{
 			dst.clear();
 			dst.resize(detail::EncodeLength(size), '=');
 
-			const size_t blocks = (size / 3);
+			const size_t block = (size / 3);
 			const size_t remain = (size % 3);
 			const uint8* pSrc = static_cast<const uint8*>(data);
-			const uint8* pSrcBlocksEnd = pSrc + 3 * blocks;
-			char* pDst = dst.data();
+			const uint8* pSrcBlocksEnd = (pSrc + 3 * block);
+			auto* pDst = dst.data();
 
 			while (pSrc != pSrcBlocksEnd)
 			{
-				const uint32 n = pSrc[0] << 16 | pSrc[1] << 8 | pSrc[2];
+				const uint32 n = ((pSrc[0] << 16) | (pSrc[1] << 8) | pSrc[2]);
 				*pDst++ = detail::chars[(n >> 18)];
 				*pDst++ = detail::chars[(n >> 12) & 0x3f];
 				*pDst++ = detail::chars[(n >> 6) & 0x3f];
@@ -148,89 +73,79 @@ namespace s3d
 			}
 			else if (remain == 2)
 			{
-				const uint32 n = (pSrc[0] << 16) | (pSrc[1] << 8);
+				const uint32 n = ((pSrc[0] << 16) | (pSrc[1] << 8));
 				*pDst++ = detail::chars[(n >> 18)];
 				*pDst++ = detail::chars[(n >> 12) & 0x3f];
 				*pDst++ = detail::chars[(n >> 6) & 0x3f];
 			}
 		}
 
-		Blob Decode(const StringView base64)
+		struct Base64Length
 		{
-			if (not base64)
+			// ブロック数
+			size_t block;
+
+			// = を含むブロックのデータ文字数 (0, 2, 3 のいずれか）
+			size_t remainder;
+
+			// デコード後のバイナリサイズ
+			size_t binarySize;
+		};
+
+		template <class Ch>
+		[[nodiscard]]
+		inline Base64Length DecodeLength(const Ch* pSrc, size_t inputLength) noexcept
+		{
+			while (inputLength
+				&& (detail::decodeTable[pSrc[inputLength - 1]] == 0xff))
 			{
-				return{};
+				--inputLength;
 			}
 
-			Array<Byte> dst(detail::DecodeLength(base64));
-			const size_t blocks = (base64.length() / 4);
-			const size_t remain = (base64.length() % 4);
-			const char32* pSrc = base64.data();
-			Byte* pDst = dst.data();
+			const size_t block = (inputLength / 4);
+			const size_t remainder = (inputLength % 4);
+			const size_t baseLength = (block * 3);
 
-			for (size_t i = 0; i < blocks; ++i)
+			if (remainder == 0) // 4, 8, 12, ...
 			{
-				const uint8 v1 = detail::decodeTable[*pSrc++ & 0xff];
-				const uint8 v2 = detail::decodeTable[*pSrc++ & 0xff];
-
-				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
-
-				const uint8 v3 = detail::decodeTable[*pSrc++ & 0xff];
-
-				if (v3 == 0xFF)
-				{
-					break;
-				}
-
-				*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
-
-				const uint8 v4 = detail::decodeTable[*pSrc++ & 0xff];
-
-				if (v4 == 0xFF)
-				{
-					break;
-				}
-
-				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
+				return{ block, remainder, baseLength };
 			}
-
-			if (remain)
+			else if (remainder == 1) // error (invalid)
 			{
-				const uint8 v1 = detail::decodeTable[*pSrc++ & 0xff];
-				const uint8 v2 = detail::decodeTable[*pSrc++ & 0xff];
-
-				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
-
-				if (remain == 3)
-				{
-					*pDst++ = static_cast<Byte>((v2 << 4 | detail::decodeTable[*pSrc++ & 0xff] >> 2) & 0xff);
-				}
+				return{ 0, 0, 0 };
 			}
-
-			return Blob{ std::move(dst) };
+			else if (remainder == 2) // 2, 6, 10, 14, ...
+			{
+				return{ block, remainder, (baseLength + 1) };
+			}
+			else // 3, 7, 11, 15, ... 
+			{
+				return{ block, remainder, (baseLength + 2) };
+			}
 		}
 
-		Blob Decode(const std::string_view base64)
+		template <class Ch>
+		[[nodiscard]]
+		inline Blob Decode(const Ch* pSrc, const size_t inputLength)
 		{
-			if (base64.empty())
+			const auto [block, remainder, binarySize] = detail::DecodeLength(pSrc, inputLength);
+
+			if (binarySize == 0)
 			{
 				return{};
 			}
 
-			Array<Byte> dst(detail::DecodeLength(base64));
-			const size_t blocks = (base64.length() / 4);
-			const size_t remain = (base64.length() % 4);
-			const char* pSrc = base64.data();
+			Array<Byte> dst(binarySize);
 			Byte* pDst = dst.data();
 
-			for (size_t i = 0; i < blocks; ++i)
+			for (size_t i = 0; i < block; ++i)
 			{
 				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
 				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
 
 				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
 
-				const uint8 v3 = detail::decodeTable[*pSrc++ & 0xff];
+				const uint8 v3 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
 
 				if (v3 == 0xFF)
 				{
@@ -249,20 +164,50 @@ namespace s3d
 				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
 			}
 
-			if (remain)
+			if (remainder)
 			{
 				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
 				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
 
 				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
 
-				if (remain == 3)
+				if (remainder == 3)
 				{
 					*pDst++ = static_cast<Byte>((v2 << 4 | detail::decodeTable[static_cast<uint8>(*pSrc++)] >> 2) & 0xff);
 				}
 			}
 
 			return Blob{ std::move(dst) };
+		}
+	}
+
+	namespace Base64
+	{
+		String Encode(const void* const data, const size_t size)
+		{
+			String result;
+			detail::Encode(data, size, result);	
+			return result;
+		}
+
+		void Encode(const void* data, size_t size, String& dst)
+		{
+			detail::Encode(data, size, dst);
+		}
+
+		void Encode(const void* data, size_t size, std::string& dst)
+		{
+			detail::Encode(data, size, dst);
+		}
+
+		Blob Decode(const StringView base64)
+		{
+			return detail::Decode(base64.data(), base64.size());
+		}
+
+		Blob Decode(const std::string_view base64)
+		{
+			return detail::Decode(base64.data(), base64.size());
 		}
 	}
 }
