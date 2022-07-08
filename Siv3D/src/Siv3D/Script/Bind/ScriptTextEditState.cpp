@@ -50,6 +50,9 @@ namespace s3d
 		r = engine->RegisterObjectProperty(TypeName, "String text", asOFFSET(BindType, text)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "size_t cursorPos", asOFFSET(BindType, cursorPos)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "bool active", asOFFSET(BindType, active)); assert(r >= 0);
+		r = engine->RegisterObjectProperty(TypeName, "bool textChanged", asOFFSET(BindType, textChanged)); assert(r >= 0);
+		r = engine->RegisterObjectProperty(TypeName, "bool tabKey", asOFFSET(BindType, tabKey)); assert(r >= 0);
+		r = engine->RegisterObjectProperty(TypeName, "bool enterKey", asOFFSET(BindType, enterKey)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "Stopwatch leftPressStopwatch", asOFFSET(BindType, leftPressStopwatch)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "Stopwatch rightPressStopwatch", asOFFSET(BindType, rightPressStopwatch)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "Stopwatch cursorStopwatch", asOFFSET(BindType, cursorStopwatch)); assert(r >= 0);

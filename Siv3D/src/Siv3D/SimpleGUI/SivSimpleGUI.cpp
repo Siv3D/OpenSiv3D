@@ -750,6 +750,8 @@ namespace s3d
 			const String editingText = ((text.active && enabled) ? TextInput::GetEditingText() : U"");
 
 			text.cursorPos = Min(text.cursorPos, text.text.size());
+			text.tabKey = false;
+			text.enterKey = false;
 
 			if (enabled)
 			{
@@ -1000,18 +1002,25 @@ namespace s3d
 				}
 
 				// [tab] キーで入力カーソルを非アクティブに
-				if (const String raw = TextInput::GetRawInput();
-					(raw.includes(U'\r') || raw.includes(U'\t')))
 				{
-					text.active = false;
+					const String raw = TextInput::GetRawInput();
+					text.tabKey = raw.includes(U'\t');
+					text.enterKey = raw.includes(U'\r');
 
-				# if SIV3D_PLATFORM(WEB)					
-					Platform::Web::TextInput::RequestDisableIME();					
-				# endif
+					if (text.tabKey || text.enterKey)
+					{
+						text.active = false;
+
+					# if SIV3D_PLATFORM(WEB)					
+						Platform::Web::TextInput::RequestDisableIME();					
+					# endif
+					}
 				}
 			}
 
-			return (text.text != previousText);
+			text.textChanged = (text.text != previousText);
+
+			return text.textChanged;
 		}
 
 		RectF ColorPickerRegion(const Vec2& pos)
