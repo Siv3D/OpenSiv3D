@@ -13,6 +13,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MD5.hpp>
+# include <Siv3D/Base64.hpp>
 
 namespace s3d
 {
@@ -49,5 +50,29 @@ namespace s3d
 	MD5Value Blob::md5() const
 	{
 		return MD5::FromBinary(m_data.data(), m_data.size_bytes());
+	}
+
+	std::string Blob::base64() const
+	{
+		std::string result;
+		Base64::Encode(m_data.data(), m_data.size_bytes(), result);
+		return result;
+	}
+
+	String Blob::base64Str() const
+	{
+		String result;
+		Base64::Encode(m_data.data(), m_data.size_bytes(), result);
+		return result;
+	}
+
+	void Blob::base64(std::string& dst) const
+	{
+		Base64::Encode(m_data.data(), m_data.size_bytes(), dst);
+	}
+
+	void Blob::base64(String& dst) const
+	{
+		Base64::Encode(m_data.data(), m_data.size_bytes(), dst);
 	}
 }

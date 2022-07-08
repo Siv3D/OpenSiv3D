@@ -80,6 +80,18 @@ namespace s3d
 		bool createFromFile(FilePathView path);
 
 		[[nodiscard]]
+		friend bool operator ==(const Blob& lhs, const Blob& rhs) noexcept
+		{
+			return (lhs.asArray() == rhs.asArray());
+		}
+
+		[[nodiscard]]
+		friend bool operator !=(const Blob& lhs, const Blob& rhs) noexcept
+		{
+			return (lhs.asArray() != rhs.asArray());
+		}
+
+		[[nodiscard]]
 		const Byte& operator [](const size_t index) const;
 
 		[[nodiscard]]
@@ -161,6 +173,18 @@ namespace s3d
 
 		[[nodiscard]]
 		MD5Value md5() const;
+		
+		[[nodiscard]]
+		std::string base64() const;
+
+		[[nodiscard]]
+		String base64Str() const;
+
+		[[nodiscard]]
+		void base64(std::string& dst) const;
+
+		[[nodiscard]]
+		void base64(String& dst) const;
 
 	private:
 
