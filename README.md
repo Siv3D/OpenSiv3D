@@ -144,7 +144,7 @@
 
 - [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
 - [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
-- [Release Notes](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/whats-new)
+- [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
@@ -152,6 +152,13 @@
 ## Community
 
 - [Siv3D User Community Slack](https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM)
+
+
+## Supporting the Project
+
+If you would like to support the project financially, visit my GitHub Sponsors page. Your support will accelerate the development of this exciting framework.
+
+💗 https://github.com/sponsors/Reputeless
 
 
 ## Examples (v0.6.4)
@@ -359,15 +366,3 @@ void Main()
 	}
 }
 ```
-
-## Supporting the Project
-
-If you would like to support the project financially, visit my GitHub Sponsors page. Your support will accelerate the development of this exciting framework.
-
-💗 https://github.com/sponsors/Reputeless
-
-### Platinum Sponsor
-| <a href="https://github.com/Kyle873" target="_blank"><img src="https://avatars.githubusercontent.com/u/1127511?v=4" width="120" alt="Kyle873"></a> | 
-|:--:| 
-| Kyle Belanger |
-
