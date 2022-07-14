@@ -557,7 +557,7 @@ namespace s3d
 			throw std::out_of_range{ "Array::choice(): Array is empty" };
 		}
 
-		return m_container[RandomClosedOpen<size_t>(0, size)];
+		return m_container[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
 	}
 
 	template <class Type, class Allocator>
@@ -571,7 +571,7 @@ namespace s3d
 			throw std::out_of_range{ "Array::choice(): Array is empty" };
 		}
 
-		return m_container[RandomClosedOpen<size_t>(0, size)];
+		return m_container[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
 	}
 
 	template <class Type, class Allocator>

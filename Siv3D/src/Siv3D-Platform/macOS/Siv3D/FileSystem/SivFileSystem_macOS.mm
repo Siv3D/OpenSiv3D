@@ -499,7 +499,7 @@ namespace s3d
 
 		FilePath PathAppend(const FilePathView lhs, const FilePathView rhs)
 		{
-			return FilePath{ (detail::ToPath(lhs) / detail::ToPath(rhs)).u32string() }.replace(U'\\', U'/');
+			return FilePath{ (detail::ToPath(lhs) / detail::ToPath(rhs)).string<std::u32string>() }.replace(U'\\', U'/');
 		}
 	
 		bool IsEmptyDirectory(const FilePathView path)
