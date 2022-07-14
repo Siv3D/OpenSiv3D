@@ -318,9 +318,9 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline void Array<Type, Allocator>::reserve(const size_type new_cap)
+	inline void Array<Type, Allocator>::reserve(const size_type n)
 	{
-		m_container.reserve(new_cap);
+		m_container.reserve(n);
 	}
 
 	template<class Type, class Allocator>

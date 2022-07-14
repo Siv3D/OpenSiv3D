@@ -67,9 +67,11 @@ namespace s3d
 			struct
 			{
 				/// @brief 長方形の幅
+				/// @remark この値が負の時の挙動は未規定です。
 				value_type w;
 
 				/// @brief 長方形の高さ
+				/// @remark この値が負の時の挙動は未規定です。
 				value_type h;
 			};
 		};
@@ -477,14 +479,28 @@ namespace s3d
 
 		constexpr RectF& set(Arg::leftCenter_<position_type> leftCenter, size_type _size) noexcept;
 
+		/// @brief 座標を移動した新しい長方形を返します。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return 新しい長方形
 		[[nodiscard]]
 		constexpr RectF movedBy(value_type _x, value_type _y) const noexcept;
 
+		/// @brief 座標を移動した新しい長方形を返します。
+		/// @param v 移動量
+		/// @return 新しい長方形
 		[[nodiscard]]
 		constexpr RectF movedBy(size_type v) const noexcept;
 
+		/// @brief 長方形を移動させます。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return *this
 		constexpr RectF& moveBy(value_type _x, value_type _y) noexcept;
 
+		/// @brief 長方形を移動させます。
+		/// @param v 移動量
+		/// @return *this
 		constexpr RectF& moveBy(size_type v) noexcept;
 
 		[[nodiscard]]

@@ -67,9 +67,11 @@ namespace s3d
 			struct
 			{
 				/// @brief 長方形の幅
+				/// @remark この値が負の時の挙動は未規定です。
 				value_type w;
 
 				/// @brief 長方形の高さ
+				/// @remark この値が負の時の挙動は未規定です。
 				value_type h;
 			};
 		};
@@ -470,14 +472,28 @@ namespace s3d
 
 		constexpr Rect& set(Arg::leftCenter_<position_type> leftCenter, size_type _size) noexcept;
 
+		/// @brief 座標を移動した新しい長方形を返します。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return 新しい長方形
 		[[nodiscard]]
 		constexpr Rect movedBy(value_type _x, value_type _y) const noexcept;
 
+		/// @brief 座標を移動した新しい長方形を返します。
+		/// @param v 移動量
+		/// @return 新しい長方形
 		[[nodiscard]]
 		constexpr Rect movedBy(size_type v) const noexcept;
 
+		/// @brief 長方形を移動させます。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return *this
 		constexpr Rect& moveBy(value_type _x, value_type _y) noexcept;
 
+		/// @brief 長方形を移動させます。
+		/// @param v 移動量
+		/// @return *this
 		constexpr Rect& moveBy(size_type v) noexcept;
 
 		[[nodiscard]]
@@ -778,6 +794,10 @@ namespace s3d
 		[[nodiscard]]
 		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
+		/// @brief 対角線上の 2 点の座標をもとに長方形を作成します。
+		/// @param a 対角線をなす座標の 1 つ
+		/// @param b 対角線をなす座標の 1 つ
+		/// @return 作成した長方形
 		[[nodiscard]]
 		static constexpr Rect FromPoints(position_type a, position_type b) noexcept;
 
