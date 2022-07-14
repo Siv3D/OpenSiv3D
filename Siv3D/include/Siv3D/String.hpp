@@ -202,6 +202,7 @@ namespace s3d
 
 		iterator erase(const_iterator first, const_iterator last) noexcept;
 
+		/// @brief 格納している文字列を消去し、空の文字列にします。
 		void clear() noexcept;
 
 		[[nodiscard]]
