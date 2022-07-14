@@ -438,6 +438,11 @@ namespace s3d
 			return Unicode::FromWstring(result).replace(U'\\', U'/');
 		}
 
+		FilePath PathAppend(const FilePathView lhs, const FilePathView rhs)
+		{
+			return FilePath{ (detail::ToPath(lhs) / detail::ToPath(rhs)).u32string() }.replace(U'\\', U'/');
+		}
+
 		bool IsEmptyDirectory(const FilePathView path)
 		{
 			if (not path) [[unlikely]]

@@ -120,6 +120,9 @@ namespace s3d
 		[[nodiscard]]
 		FilePath VolumePath(FilePathView path);
 
+		[[nodiscard]]
+		FilePath PathAppend(FilePathView lhs, FilePathView rhs);
+
 		/// @brief 指定したパスが空のディレクトリであるかを返します。
 		/// @param path パス
 		/// @return 空のディレクトリである場合 true, それ以外の場合は false
