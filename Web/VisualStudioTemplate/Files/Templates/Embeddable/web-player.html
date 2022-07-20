@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="user-scalable=no" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>OpenSiv3D for Web</title>
     <style>
       body {
@@ -15,8 +15,8 @@
 
       #app {
         position: relative;
-        height: 100vh;
         width: 100vw;
+        height: 100vh;
         background-color: gray;
       }
 
@@ -31,11 +31,31 @@
         flex: auto;
       }
 
-      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      @media screen and (orientation: landscape) and (max-height: 480px) {
+        #app-container {
+          flex-flow: row;
+        }
+
+        #canvas-container {
+          min-width: 0px;
+        }
+      }
+
+      @media screen and (min-height: 480px) {
+        #app-container {
+          flex-flow: column;
+        }
+
+        #canvas-container {
+          min-height: 0px;
+        }
+      }
+
       canvas.emscripten {
-        position: absolute;
         border: 0px none;
         background-color: gray;
+        width: 100%;
+        height: 100%;
       }
 
       #progress-frame {
@@ -50,7 +70,7 @@
         height: 10px;
       }
 
-      .progress-ok {
+      div.progress-ok {
         background-color: rgb(189, 215, 46);
       }
 
@@ -60,12 +80,24 @@
 
       #footer-control {
         z-index: 15;
-        flex: 0 1.2cm;
+        flex: 0 0 1.2cm;
         background-color: rgb(60, 60, 60);
     
         display: flex;
         justify-content: flex-end; 
         align-items: center;
+      }
+
+      @media screen and (orientation: landscape) and (max-height: 480px) {
+        #footer-control {
+          flex-flow: column;
+        }
+      }
+
+      @media screen and (min-height: 480px) {
+        #footer-control {
+          flex-flow: row;
+        }
       }
 
       .footer-button {
@@ -152,9 +184,9 @@
           ></canvas>
         </div>
         <div id="footer-control">
-          <a class="footer-button st0" href="javascript:void(0);" onclick="Options.toggleAudioContext()">
+          <a class="footer-button st0" href="javascript:void(0);" onclick="toggleAudioContext()">
             <svg id="sound-off" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
+              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
               <g class="st0">
                 <path d="M0,204.883V307.12c0,21.22,17.212,38.437,38.442,38.437h71.582V166.446H38.442
                   C17.212,166.446,0,183.653,0,204.883z"/>
@@ -168,7 +200,7 @@
               </g>
             </svg>
             <svg id="sound-on" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
               <g>
                 <path d="M0,206.254v99.491c0,20.663,16.752,37.418,37.414,37.418h69.667V168.844H37.414
                   C16.752,168.844,0,185.591,0,206.254z"/>
@@ -189,7 +221,7 @@
               </g>
             </svg>
           </a>
-          <a class="footer-button" href="javascript:void(0);" onclick="Options.requestFullscreen(false, false)">
+          <a class="footer-button" href="javascript:void(0);" onclick="enterFullscreen()">
             <svg width="1cm" height="1cm" viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg" version="1.1">
               
@@ -207,30 +239,90 @@
       const soundOnIcon = document.querySelector('#sound-on');
       const soundOffIcon = document.querySelector('#sound-off');
       let gainNode;
+      /** @type { AudioContext } */
+      let audioCtx;
 
-      const onResize = function() {
-        appContainer.style.height = `${window.innerHeight}px`;
-        Options["setCanvasSize"](canvasContainerElement.clientWidth, canvasContainerElement.clientHeight);
+      function enterFullscreen() {
+        const fullscreenFunction = 
+          canvasContainerElement.requestFullscreen || 
+          canvasContainerElement.webkitRequestFullscreen ||
+          function() {
+            alert("Fullscreen is not supported on iOS")
+          };
+        fullscreenFunction.call(canvasContainerElement);
       }
 
-      const onAudioInit = function() {
+      function onExitFullscreen() {
+        if (document.fullscreen) {
+          // switched to normal
+          onResize();
+        } else {
+          // switched to fullscreen
+          onResize();
+        }
+      }
+
+      function onResize() {
+        appContainer.style.height = `${window.innerHeight}px`;
+        Options["setFramebufferSize"](canvasContainerElement.clientWidth * devicePixelRatio, canvasContainerElement.clientHeight * devicePixelRatio);
+      }
+
+      function onAudioInit() {
         // Inject Gain Node
 
-        /** @type { AudioContext } */
-        const audioCtx = Options["getCurrentAudioContext"]();
+        audioCtx = Options["getCurrentAudioContext"]();
         /** @type { ScriptProcessorNode } */
         const audioSource = Options["getCurrentAudioSource"]();
+
+        if (audioCtx.state == "suspended") {
+          showSoundOffIcon();
+        } else {
+          showSoundOnIcon();
+        }
 
         gainNode = audioCtx.createGain();
         audioSource.disconnect(audioCtx.destination);
         audioSource.connect(gainNode);
         gainNode.connect(audioCtx.destination);
+        audioCtx.addEventListener("statechange", updateAudioStatus);
+      }
+
+      function updateAudioStatus() {
+        if (audioCtx.state != "running" || gainNode.gain.value == 0.0) {    
+          showSoundOffIcon();
+        } else {   
+          showSoundOnIcon();
+        }
+      }
+      
+      async function toggleAudioContext() {  
+        if (audioCtx.state != "running") {
+          return;
+        }
+
+        if (gainNode.gain.value == 1.0) {
+          gainNode.gain.value = 0.0;
+        } else {
+          gainNode.gain.value = 1.0;     
+        }
+
+        updateAudioStatus();
+      }
+
+      function showSoundOnIcon() {
+        soundOnIcon.style.display = "inline";
+        soundOffIcon.style.display = "none";
+      }
+
+      function showSoundOffIcon() {
+        soundOnIcon.style.display = "none";
+        soundOffIcon.style.display = "inline";
       }
 
       let runtimeReady = false;
       let hasRaiseRuntimeError = false;
 
-      const onRuntimeError = function() {
+      function onRuntimeError() {
         progressElement.classList.add('progress-error');
         progressElement.style.width = '100%';
         progressElement.hidden = false;
@@ -238,7 +330,7 @@
         hasRaiseRuntimeError = true;
       }
 
-      var Options = {
+      const Options = {
         preRun: [],
         postRun: [ onResize, onAudioInit ],
         printErr: function (text) {
@@ -259,7 +351,7 @@
                 onRuntimeError();
                 e.preventDefault();
             },
-          false
+            false
           );
 
           return canvas;
@@ -297,19 +389,7 @@
         onRuntimeInitialized: function() {
           runtimeReady = true;
           window.addEventListener("resize", onResize);
-        },
-        toggleAudioContext: function() {
-          if (gainNode.gain.value == 1.0) {
-            gainNode.gain.value = 0.0;
-
-            soundOnIcon.style.display = "none";
-            soundOffIcon.style.display = "inline";
-          } else {
-            gainNode.gain.value = 1.0;     
-
-            soundOnIcon.style.display = "inline";
-            soundOffIcon.style.display = "none";
-          }
+          window.addEventListener("fullscreenchange", onExitFullscreen);
         }
       }
       Options["setStatus"]("Downloading...");
