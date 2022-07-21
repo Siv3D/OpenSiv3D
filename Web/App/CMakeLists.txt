@@ -134,6 +134,8 @@ target_link_libraries(Siv3DApp
 set(Siv3DLinkerFlags
   -s ASYNCIFY=1
   -s ASYNCIFY_IGNORE_INDIRECT=1
+  --shell-file ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.html
+  --post-js ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.js
 )
 
 set_target_properties(Siv3DApp
