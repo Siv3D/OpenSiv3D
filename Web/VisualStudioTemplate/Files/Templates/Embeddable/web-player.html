@@ -11,6 +11,13 @@
         overflow: hidden;
         margin: 0px;
         padding: 0px;
+        background-color: rgb(60, 60, 60);
+      }
+
+      div.dummy {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
       }
 
       #app {
@@ -156,6 +163,7 @@
     </style>
   </head>
   <body>
+    <div class="dummy"></div>
     <div id="app">
       <div class="playground-overlay" hidden="true">
         <span class="play-button">
@@ -233,11 +241,13 @@
       </div>
     </div>
     <script>
+      const dummyDiv = document.querySelector("div.dummy");
       const appContainer = document.querySelector("#app");
       const progressElement = document.querySelector("#progress");
       const canvasContainerElement = document.querySelector("#canvas-container");
       const soundOnIcon = document.querySelector('#sound-on');
       const soundOffIcon = document.querySelector('#sound-off');
+     
       let gainNode;
       /** @type { AudioContext } */
       let audioCtx;
@@ -255,15 +265,19 @@
       function onExitFullscreen() {
         if (document.fullscreen) {
           // switched to normal
-          onResize();
+          doResize();
         } else {
           // switched to fullscreen
-          onResize();
+          doResize();
         }
       }
 
       function onResize() {
-        appContainer.style.height = `${window.innerHeight}px`;
+        setTimeout(doResize, 100);
+      }
+
+      function doResize() {
+        appContainer.style.height = `${dummyDiv.clientHeight}px`;
         Options["setFramebufferSize"](canvasContainerElement.clientWidth * devicePixelRatio, canvasContainerElement.clientHeight * devicePixelRatio);
       }
 
@@ -332,7 +346,7 @@
 
       const Options = {
         preRun: [],
-        postRun: [ onResize, onAudioInit ],
+        postRun: [ doResize, onAudioInit ],
         printErr: function (text) {
           if (runtimeReady) {
             onRuntimeError();
