@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, user-scalable=no">
     <title>OpenSiv3D for Web</title>
     <style>
       body {
         font-family: arial;
         overflow: hidden;
         margin: 0px;
-        padding: 0px;
-        background-color: rgb(60, 60, 60);
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-left: env(safe-area-inset-left, 0px);
+        background-color: gray;
       }
 
       div.dummy {
@@ -96,14 +97,24 @@
       }
 
       @media screen and (orientation: landscape) and (max-height: 480px) {
+        body {
+          padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
         #footer-control {
           flex-flow: column;
+          padding-right: env(safe-area-inset-right, 0px);
         }
       }
 
       @media screen and (min-height: 480px) {
+        body {
+          padding-right: env(safe-area-inset-right, 0px);
+        }
+
         #footer-control {
           flex-flow: row;
+          padding-bottom: env(safe-area-inset-bottom, 0px);
         }
       }
 
@@ -241,13 +252,11 @@
       </div>
     </div>
     <script>
-      const dummyDiv = document.querySelector("div.dummy");
       const appContainer = document.querySelector("#app");
       const progressElement = document.querySelector("#progress");
       const canvasContainerElement = document.querySelector("#canvas-container");
       const soundOnIcon = document.querySelector('#sound-on');
       const soundOffIcon = document.querySelector('#sound-off');
-     
       let gainNode;
       /** @type { AudioContext } */
       let audioCtx;
@@ -277,7 +286,7 @@
       }
 
       function doResize() {
-        appContainer.style.height = `${dummyDiv.clientHeight}px`;
+        appContainer.style.height = `${window.innerHeight}px`;
         Options["setFramebufferSize"](canvasContainerElement.clientWidth * devicePixelRatio, canvasContainerElement.clientHeight * devicePixelRatio);
       }
 
