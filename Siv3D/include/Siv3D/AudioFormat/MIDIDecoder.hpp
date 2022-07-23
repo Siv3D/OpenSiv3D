@@ -61,7 +61,7 @@ namespace s3d
 		[[nodiscard]]
 		Wave decode(IReader& reader, FilePathView pathHint = {}) const override;
 
-		/// @brief IDI 形式の音声データをデコードして Wave と譜面データを作成します。
+		/// @brief MIDI 形式の音声データをデコードして Wave と譜面データを作成します。
 		/// @param reader 音声データの IReader インタフェース
 		/// @param midiScore 譜面データの格納先
 		/// @param pathHint ファイルパス（オプション）
