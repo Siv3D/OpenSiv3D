@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	/// @brief PNG 圧縮時のフィルタ
+	/// @brief スクリプトのコンパイルオプション
 	enum class ScriptCompileOption : uint32
 	{
 		Default = 0b00,

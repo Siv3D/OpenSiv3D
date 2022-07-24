@@ -183,7 +183,7 @@ namespace s3d
 		std::variant<std::monostate, String, double> m_id;
 	};
 
-	/// @brief FeatureCollectionオブジェクト
+	/// @brief GeoJSON FeatureCollection オブジェクト
 	/// @details https://tools.ietf.org/html/rfc7946#section-3.3
 	class GeoJSONFeatureCollection : public GeoJSONBase
 	{
