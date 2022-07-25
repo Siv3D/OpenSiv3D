@@ -101,57 +101,33 @@
 
 <small>* Some features are limited to specific platforms</small>
 
-## Downloads
+## How to Install + Tutorial
 
-### ✨ v0.6.4
-*released 21 May 2022*
+- (English) Getting Started with Siv3D: https://siv3d.github.io/
+- (日本語) Siv3D による開発を始める: https://siv3d.github.io/ja-jp/
 
-| Platform           | SDK  | Requirements                  |
-|:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.4_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.2<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.4_macOS.zip) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
-| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
-| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | Web browser with WebAssembly and WebGL2 support |
-
-<small>* Native Apple Silicon support will be added in the future release. You can build and run Siv3D in Rosetta mode</small><br><small>** Some functionality may be missing or limited</small>
-
-### ⏰ v0.6.3 (previous)
-*released 14 November 2021*
+### v0.6.4
+*released 21 May 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D_0.6.3_Installer.exe) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2019 16.11<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.6.3_macOS.zip) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 -13.2 (Big Sur requires Xcode 12.5 - 13.2)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
-| Linux              | [**Compiling for Linux**](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup) | - GCC 9.3.0<br>- Boost 1.71.0 - 1.73.0<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
-| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) | Web browser with WebAssembly and WebGL2 support |
+| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.2<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.github.io/download/macos/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/macos/) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
+| Linux              | [**Compiling for Linux**](https://siv3d.github.io/download/ubuntu/) /<br>[**Linux 版のビルド**](https://siv3d.github.io/ja-jp/download/ubuntu/) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
+| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) /<br>[**Web 版のビルド**](https://siv3d.kamenokosoft.com/ja/download) | Web browser with WebAssembly and WebGL2 support |
 
 <small>* Native Apple Silicon support will be added in the future release. You can build and run Siv3D in Rosetta mode</small><br><small>** Some functionality may be missing or limited</small>
-
-
-
-## How to Install
-
-- [Getting Started (Installing the Siv3D SDK)](https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/setup)
-- (日本語) [開発を始める（SDK のインストール）](https://zenn.dev/reputeless/books/siv3d-documentation/viewer/setup)
-
-
-## Tutorial
-
-- [Tutorial 01 - 42](https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/tutorial-basic)
 
 
 ## Documentation
 
-- [Documentation (日本語)](https://zenn.dev/reputeless/books/siv3d-documentation)
-- [Documentation (English) [WIP]](https://zenn.dev/reputeless/books/siv3d-documentation-en)
-- [Release Notes](https://siv3d.github.io/ja-jp/releases/)
-- [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
+- [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 
 ## Community
 
-- [Siv3D User Community Slack](https://join.slack.com/t/siv3d/shared_invite/enQtNjM4NzQ0MzEyMzUzLTEzNDBkNWVkMTY0OGU5OWQxOTk3NjczMjk0OGJhYzJjOThjZjQ1YmYzMWU2NzQ5NTQ4ODg3NzE2ZmE0NmVlMTM)
+- [Siv3D Discord Server](https://discord.gg/mzevvsY)
 
 
 ## Supporting the Project
