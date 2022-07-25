@@ -531,6 +531,36 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool hasArea() const noexcept;
 
+		/// @brief 長方形の左辺の X 座標を返します。
+		/// @return 長方形の左辺の X 座標
+		[[nodiscard]]
+		constexpr value_type leftX() const noexcept;
+
+		/// @brief 長方形の右辺の X 座標を返します。
+		/// @return 長方形の右辺の X 座標
+		[[nodiscard]]
+		constexpr value_type rightX() const noexcept;
+
+		/// @brief 長方形の上辺の Y 座標を返します。
+		/// @return 長方形の上辺の Y 座標
+		[[nodiscard]]
+		constexpr value_type topY() const noexcept;
+
+		/// @brief 長方形の下辺の Y 座標を返します。
+		/// @return 長方形の下辺の Y 座標
+		[[nodiscard]]
+		constexpr value_type bottomY() const noexcept;
+
+		/// @brief 長方形の中心の X 座標を返します。
+		/// @return 長方形の中心の X 座標
+		[[nodiscard]]
+		constexpr double centerX() const noexcept;
+
+		/// @brief 長方形の中心の Y 座標を返します。
+		/// @return 長方形の中心の Y 座標
+		[[nodiscard]]
+		constexpr double centerY() const noexcept;
+
 		/// @brief 長方形の左上の座標を返します。
 		/// @return 長方形の左上の座標
 		[[nodiscard]]

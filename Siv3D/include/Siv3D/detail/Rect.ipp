@@ -621,6 +621,36 @@ namespace s3d
 		return ((size.x != 0) && (size.y != 0));
 	}
 
+	inline constexpr Rect::value_type Rect::leftX() const noexcept
+	{
+		return x;
+	}
+
+	inline constexpr Rect::value_type Rect::rightX() const noexcept
+	{
+		return (x + w);
+	}
+
+	inline constexpr Rect::value_type Rect::topY() const noexcept
+	{
+		return y;
+	}
+
+	inline constexpr Rect::value_type Rect::bottomY() const noexcept
+	{
+		return (y + h);
+	}
+
+	inline constexpr double Rect::centerX() const noexcept
+	{
+		return (x + w * 0.5);
+	}
+
+	inline constexpr double Rect::centerY() const noexcept
+	{
+		return (y + h * 0.5);
+	}
+
 	inline constexpr Rect::size_type Rect::tl() const noexcept
 	{
 		return pos;
