@@ -583,6 +583,13 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vec2 center() const noexcept;
 
+		/// @brief 長方形の左上を (0 ,0), 右下を (1, 1) としたときの (relativeX, relativeY) の座標を返します。
+		/// @param relativeX X 座標の相対的な位置
+		/// @param relativeY Y 座標の相対的な位置
+		/// @return 長方形の左上を (0 ,0), 右下を (1, 1) としたときの (relativeX, relativeY) の座標
+		[[nodiscard]]
+		constexpr position_type getRelativePoint(double relativeX, double relativeY) const noexcept;
+
 		/// @brief 長方形の上辺を Line として返します。
 		/// @return 長方形の上辺
 		[[nodiscard]]

@@ -677,6 +677,11 @@ namespace s3d
 		return{ (pos.x + size.x * 0.5), (pos.y + size.y * 0.5) };
 	}
 
+	inline constexpr RectF::position_type RectF::getRelativePoint(const double relativeX, const double relativeY) const noexcept
+	{
+		return{ (x + w * relativeX), (y + h * relativeY) };
+	}
+
 	inline constexpr Line RectF::top() const noexcept
 	{
 		return{ tl(), tr() };
