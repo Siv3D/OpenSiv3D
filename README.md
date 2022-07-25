@@ -5,7 +5,7 @@
 **Siv3D** (OpenSiv3D) is a C++20 framework for **creative coding** (2D/3D games, media art, visualizers, and simulators). Siv3D applications run on **Windows, macOS, Linux, and the Web**.
 
 
-## Main Features
+## Features
 
 - **Graphics**
   - Advanced 2D graphics
@@ -101,13 +101,12 @@
 
 <small>* Some features are limited to specific platforms</small>
 
-## How to Install + Tutorial
+## How to Install Siv3D + Tutorial
 
-- (English) Getting Started with Siv3D: https://siv3d.github.io/
-- (日本語) Siv3D による開発を始める: https://siv3d.github.io/ja-jp/
+- **(English) Getting Started with Siv3D:** https://siv3d.github.io/
+- **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
-### v0.6.4
-*released 21 May 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
+**v0.6.4** | *released 21 May 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
@@ -119,15 +118,16 @@
 <small>* Native Apple Silicon support will be added in the future release. You can build and run Siv3D in Rosetta mode</small><br><small>** Some functionality may be missing or limited</small>
 
 
-## Documentation
+## Community
+
+- [Siv3D Discord Server](https://discord.gg/mzevvsY)
+
+
+## Miscellaneous
 
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
 - [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
-
-## Community
-
-- [Siv3D Discord Server](https://discord.gg/mzevvsY)
 
 
 ## Supporting the Project
@@ -137,7 +137,7 @@ If you would like to support the project financially, visit my GitHub Sponsors p
 💗 https://github.com/sponsors/Reputeless
 
 
-## Examples (v0.6.4)
+## Examples
 
 ### 1. Hello, Siv3D!
 
