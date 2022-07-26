@@ -57,7 +57,7 @@ namespace s3d
 		const Size& getSceneSize() const noexcept;
 
 		[[nodiscard]]
-		double getVerticlaFOV() const noexcept;
+		double getVerticalFOV() const noexcept;
 
 		[[nodiscard]]
 		double getNearClip() const noexcept;
