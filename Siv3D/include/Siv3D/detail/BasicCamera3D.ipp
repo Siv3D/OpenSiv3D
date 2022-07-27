@@ -18,7 +18,7 @@ namespace s3d
 		return m_sceneSize;
 	}
 
-	inline double BasicCamera3D::getVerticlaFOV() const noexcept
+	inline double BasicCamera3D::getVerticalFOV() const noexcept
 	{
 		return m_verticalFOV;
 	}
