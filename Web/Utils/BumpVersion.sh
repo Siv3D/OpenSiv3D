@@ -60,8 +60,8 @@ function main() {
     echo "bumping ${currentVersion} to ${newVersion} ..."
 
     for file in "${TargetFiles[@]}"; do
-        sed -i -e "s/${currentVersion//./\.}/${newVersion}/g" $file
-        sed -i -e "s/${shortCurrentVersion//./\.}/${shortNewVersion}/g" $file
+        sed -i -e "s/${currentVersion//./\\.}/${newVersion}/g" $file
+        sed -i -e "s/${shortCurrentVersion//./\\.}/${shortNewVersion}/g" $file
         sed -i -e "s/${shortCurrentVersion//./_}/${shortNewVersion//./_}/g" $file
     done
 }
