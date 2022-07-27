@@ -987,6 +987,56 @@ namespace s3d
 
 	//////////////////////////////////////////////////
 	//
+	//	Dot
+	//
+	//////////////////////////////////////////////////
+
+	struct Dot_impl
+	{
+		template <class V1, class V2>
+		[[nodiscard]]
+		constexpr auto operator()(const V1 v1, const V2 v2) const noexcept
+		{
+			return Math::Dot(v1, v2);
+		}
+
+		template <class Type = void>
+		[[nodiscard]]
+		constexpr auto operator ()(PlaceHolder_t) const noexcept
+		{
+			return *this;
+		}
+	};
+
+	constexpr auto Dot = Dot_impl{};
+
+	//////////////////////////////////////////////////
+	//
+	//	Cross
+	//
+	//////////////////////////////////////////////////
+
+	struct Cross_impl
+	{
+		template <class V1, class V2>
+		[[nodiscard]]
+		constexpr auto operator()(const V1 v1, const V2 v2) const noexcept
+		{
+			return Math::Cross(v1, v2);
+		}
+
+		template <class Type = void>
+		[[nodiscard]]
+		constexpr auto operator ()(PlaceHolder_t) const noexcept
+		{
+			return *this;
+		}
+	};
+
+	constexpr auto Cross = Cross_impl{};
+
+	//////////////////////////////////////////////////
+	//
 	//	Normalize
 	//
 	//////////////////////////////////////////////////
