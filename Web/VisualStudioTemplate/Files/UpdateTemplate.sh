@@ -5,6 +5,14 @@ folders=(
     "resources"
 )
 
+function CopyFromAppFolder() {
+    for folder in "${folders[@]}"; do
+        cp -r ../../App/${folder} .
+    done
+
+    cp -r ../../App/Templates .
+}
+
 function ReplaceVSTemplate() {
     local Items=""
 
@@ -67,6 +75,8 @@ function ReplaceVCXProjFilter() {
     sed -i -e "s|\${ExampleItems}|${ExampleItems}|g" Siv3DTest.vcxproj.filters
 }
 
+
+CopyFromAppFolder
 ReplaceVSTemplate
 ReplaceVCXProj
 ReplaceVCXProjFilter

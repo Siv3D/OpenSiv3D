@@ -36,6 +36,14 @@ struct VSPerObjectStruct
 @group(0) @binding(1)
 var<uniform> VSPerObject: VSPerObjectStruct;
 
+struct VSPerMaterialStruct
+{
+	uvTransform: vec4<f32>,
+};
+
+@group(0) @binding(2)
+var<uniform> VSPerMaterial: VSPerMaterialStruct;
+
 //
 //	Functions
 //
@@ -47,13 +55,14 @@ fn main(
 ) -> VertexOutput
 {
 	var output: VertexOutput;
+	var uv: vec2<f32> = VertexUV * VSPerMaterial.uvTransform.xy + VSPerMaterial.uvTransform.zw;
 	var height: f32 = textureLoad(Texture0, vec2<i32>(vec2<f32>(textureDimensions(Texture0)) * VertexUV), 0).r;
 	var pos: vec4<f32> = vec4<f32>(VertexPosition.x, height, VertexPosition.z, 1.0);
 	var worldPosition: vec4<f32> = pos * VSPerObject.localToWorld;
 
 	output.Position			= worldPosition * VSPerView.worldToProjected;
 	output.WorldPosition	= worldPosition.xyz;
-	output.UV				= VertexUV;
+	output.UV				= uv;
 
 	return output;
 }
