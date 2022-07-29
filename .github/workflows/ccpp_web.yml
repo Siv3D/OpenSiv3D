@@ -272,7 +272,7 @@ jobs:
       - name: Test Installer
         working-directory: Web/WindowsInstaller
         run: |
-          "Output/OpenSiv3D(0.6.4)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
+          & ".\Output\OpenSiv3D(0.6.4)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
           Wait-Process -Name "OpenSiv3D(0.6.4)Web"
           cat InstallLog.Log
           
