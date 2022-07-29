@@ -1,10 +1,10 @@
 Module["getCurrentAudioContext"] = function() {
     return Module["SDL2"].audioContext;
-}
+};
   
 Module["getCurrentAudioSource"] = function() {
     return Module["SDL2"].audio.scriptProcessorNode;
-}
+};
   
 // TODO: fix emscripten side
 Module["setFramebufferSize"] = function(width, height) {
@@ -26,5 +26,5 @@ Module["setFramebufferSize"] = function(width, height) {
       GLFW.onWindowSizeChanged();
       GLFW.onFramebufferSizeChanged();
     }
-}
+};
   
