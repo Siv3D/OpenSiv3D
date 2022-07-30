@@ -32,10 +32,10 @@ var<uniform> PSPerView: PSPerViewStruct;
 struct PSPerMaterialStruct
 {
 	amibientColor: vec3<f32>,
-	hasTexture: u32,
+	hasTexture: u32;
 	diffuseColor: vec4<f32>,
 	specularColor: vec3<f32>,
-	shininess: f32,
+	shininess: f32;
 	emissionColor: vec3<f32>,
 };
 

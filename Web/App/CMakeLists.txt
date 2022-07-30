@@ -2,12 +2,17 @@ cmake_minimum_required(VERSION 3.12)
 
 project(OpenSiv3D_Web_App CXX C)
 
+#
+# General Options
+#
+
 option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
 option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
 option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
 
-
+# Siv3D is supposed to be installed to emscripten sysroot folder.
+# Use `make install` when building Siv3d manually.
 if (NOT CMAKE_PREFIX_PATH)
   set(CMAKE_PREFIX_PATH ${EMSCRIPTEN_SYSROOT})
 endif ()
@@ -19,8 +24,16 @@ find_package(OpenSiv3DBrowserImageEncodeDecode)
 
 
 #
-# General Options
+# General Compile Options
 #
+
+if (NOT CMAKE_CONFIGURATION_TYPES AND 
+    NOT CMAKE_NO_BUILD_TYPE AND
+    NOT CMAKE_BUILD_TYPE AND
+    CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    message(STATUS "[!] Setting build type to 'Release' as none was specified.")
+    set(CMAKE_BUILD_TYPE Release)
+endif()
 
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
@@ -38,35 +51,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 
-if (NOT ${CMAKE_C_FLAGS} MATCHES "-msimd128" OR NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
-  add_compile_options ("-D_XM_NO_INTRINSICS_")
-endif ()
-
-if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
-  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
-  add_link_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
-endif()
-
-if (NOT CMAKE_CONFIGURATION_TYPES AND 
-    NOT CMAKE_NO_BUILD_TYPE AND
-    NOT CMAKE_BUILD_TYPE AND
-    CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    message(STATUS "[!] Setting build type to 'Release' as none was specified.")
-    set(CMAKE_BUILD_TYPE Release)
-endif()
-
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  add_compile_options ("-fcolor-diagnostics")
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  add_compile_options ("-fdiagnostics-color=always")
-endif()
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+#
+# General Linker Options
+#
 
 set(Siv3DLinkerFlags
   --no-export-dynamic
   -s ERROR_ON_UNDEFINED_SYMBOLS=0
-  -Wl,--allow-undefined
   -s ALLOW_MEMORY_GROWTH=1
   -s USE_GLFW=3
   -s USE_OGG=1
@@ -77,6 +68,21 @@ set(Siv3DLinkerFlags
 
 string(REPLACE ";" " " Siv3DLinkerFlags "${Siv3DLinkerFlags}")
 add_link_options("SHELL:${Siv3DLinkerFlags}")
+
+#
+# Configuration-specific Additional Flags
+#
+
+# Use DirectXMath no-simd version when WebAssembly simd is disabled 
+if (NOT ${CMAKE_C_FLAGS} MATCHES "-msimd128" OR NOT ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")
+  add_compile_options ("-D_XM_NO_INTRINSICS_")
+endif ()
+
+# Use exception handling when configuration is not MINSIZEREL
+if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
+  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+  add_link_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+endif()
 
 if (SIV3D_WEBGPU_BACKEND)
   add_compile_options("-DSIV3D_WEBGPU_BACKEND")
@@ -92,32 +98,78 @@ else()
   )
 endif()
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  add_compile_options ("-fcolor-diagnostics")
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  add_compile_options ("-fdiagnostics-color=always")
+endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+
+
+#
+# Siv3D App Definition
+#
 
 add_executable(Siv3DApp
   Main.cpp
 )
 
-set(Siv3DLinkerFlags
-  --preload-file "${CMAKE_SOURCE_DIR}/resources@/resources"
-  --preload-file \"${CMAKE_SOURCE_DIR}/example@/example\"
-  -s ASYNCIFY=1
-  -s ASYNCIFY_IGNORE_INDIRECT=1
+target_include_directories(Siv3DApp 
+  PRIVATE
+    OpenSiv3D
 )
 
+target_link_libraries(Siv3DApp
+  PRIVATE
+    # "-Wl,--whole-archive"
+    #   OpenSiv3DBrowserImageEncodeDecode
+    "-Wl,--no-whole-archive"
+      OpenSiv3D
+      # OpenSiv3DWebGPU
+      # OpenSiv3DScript
+)
 
-if (SIV3D_ENABLE_SHARED_LIB)
-  set(EXPORTED_FUNCTIONS
-    "___THREW__, ___threwValue, _saveSetjmp, _stderr, _stdout, _stdin, 
-    _main, _memset, _memcpy, _memmove, _memcmp, _realloc, _calloc, _strcmp, _strlen, _strncpy, _strtoul,
-    _strtol, _strncmp, _strstr, _strchr, _strncmp, _getenv, _open, _fopen, _fclose, _fseek, _fread, _ftell, _fstat,
-    _pthread_mutex_init, _pthread_mutex_lock, _pthread_mutex_unlock, _sysconf, ___errno_location, _strerror,
-    _mprotect, _mmap, _munmap, _setlocale")
+set(Siv3DLinkerFlags
+  -s MODULARIZE=1
+  -s ASYNCIFY=1
+  -s ASYNCIFY_IGNORE_INDIRECT=1
+  --shell-file ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.html
+  --post-js ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.js
+)
 
-  string(REPLACE "\n" " " EXPORTED_FUNCTIONS ${EXPORTED_FUNCTIONS})
-  target_link_options(Siv3DApp PRIVATE "SHELL:-s EXPORTED_FUNCTIONS=\"[${EXPORTED_FUNCTIONS}]\"")
-endif()
+set_target_properties(Siv3DApp
+  PROPERTIES
+    SUFFIX ".html"
+)
 
+#
+# Packaged Files
+#
+set(Siv3DAppBundledFilesPath
+    /resources/engine/font/min/siv3d-min.woff
+    /resources/engine/font/noto-emoji/LICENSE
+    /resources/engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp
+    /resources/engine/shader/essl
+    /resources/engine/shader/wgsl
+    /resources/engine/texture/box-shadow
+    /resources/engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp
+    /resources/engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp
+    /resources/engine/font/mplus/mplus-1p-regular.ttf.zstdcmp
+    /example/windmill.png
+)
+
+set(Siv3DAppBundledFilesFlags "")
+
+foreach(file ${Siv3DAppBundledFilesPath})
+    list(APPEND Siv3DLinkerFlags "--preload-file")
+    list(APPEND Siv3DLinkerFlags "${CMAKE_CURRENT_SOURCE_DIR}${file}@${file}")
+endforeach()
+
+#
+# Asyncify Setting
+#
 if (SIV3D_BUILD_WITH_SHARED_MAIN)
 
   set(ASYNCIFY_IMPORTS _ZN3s3d6System6UpdateEv)
@@ -173,12 +225,20 @@ target_link_options(Siv3DApp
     "SHELL:${Siv3DLinkerFlags}"
 )
 
-set_target_properties(Siv3DApp
-  PROPERTIES
-    SUFFIX ".html"
-)
-
+#
+# Dynamic Linking Flags
+#
 if (SIV3D_ENABLE_SHARED_LIB)
+
+  set(EXPORTED_FUNCTIONS
+    "___THREW__, ___threwValue, _saveSetjmp, _stderr, _stdout, _stdin, 
+    _main, _memset, _memcpy, _memmove, _memcmp, _realloc, _calloc, _strcmp, _strlen, _strncpy, _strtoul,
+    _strtol, _strncmp, _strstr, _strchr, _strncmp, _getenv, _open, _fopen, _fclose, _fseek, _fread, _ftell, _fstat,
+    _pthread_mutex_init, _pthread_mutex_lock, _pthread_mutex_unlock, _sysconf, ___errno_location, _strerror,
+    _mprotect, _mmap, _munmap, _setlocale")
+
+  string(REPLACE "\n" " " EXPORTED_FUNCTIONS ${EXPORTED_FUNCTIONS})
+  target_link_options(Siv3DApp PRIVATE "SHELL:-s EXPORTED_FUNCTIONS=\"[${EXPORTED_FUNCTIONS}]\"")
 
   target_compile_options(Siv3DApp
     PRIVATE
@@ -204,22 +264,11 @@ elseif (SIV3D_BUILD_WITH_SHARED_MAIN)
 
 endif()
 
-target_include_directories(Siv3DApp 
-  PRIVATE
-    OpenSiv3D
-)
-
-target_link_libraries(Siv3DApp
-  PRIVATE
-    "-Wl,--whole-archive"
-      OpenSiv3DBrowserImageEncodeDecode
-    "-Wl,--no-whole-archive"
-      OpenSiv3D
-      # OpenSiv3DWebGPU
-      # OpenSiv3DScript
-)
 
 
+#
+# Siv3D DinamicLink EntryPoint App
+#
 
 add_executable(Siv3DSharedMain 
   EXCLUDE_FROM_ALL
@@ -324,6 +373,10 @@ target_link_options(Siv3DSharedMain PRIVATE
 )
 
 
+
+#
+# Test Definition
+#
 
 add_executable(Siv3DTest
   EXCLUDE_FROM_ALL

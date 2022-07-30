@@ -1,7 +1,7 @@
 ---
 name: バグ報告(ビルド時エラー) | Bug report (Build Error)
 about: 改良のための報告 | Create a report to help us improve
-title: "[ビルドエラー]"
+title: ""
 labels: build time error
 assignees: ''
 
