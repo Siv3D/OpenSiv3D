@@ -101,27 +101,15 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		static std::string MacOS_FullPath(const char* _path, bool isRelative)
+		static std::string MacOS_FullPath(const char* _path)
 		{
 			@autoreleasepool
 			{
 				NSString* path = [NSString stringWithUTF8String:_path];
-				
-				if (isRelative)
-				{
-					NSURL* bundle = [[NSBundle mainBundle] bundleURL];
-					NSURL* file = [NSURL fileURLWithPath:path relativeToURL:bundle];
-					NSURL* absolutePath = [file absoluteURL];
-					NSString* str = [absolutePath path];
-					return std::string([str UTF8String], [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-				}
-				else
-				{
-					NSURL* file = [NSURL fileURLWithPath:path];
-					NSURL* absolutePath = [file absoluteURL];
-					NSString* str = [absolutePath path];
-					return std::string([str UTF8String], [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
-				}
+				NSURL* file = [NSURL fileURLWithPath:path];
+				NSURL* absolutePath = [file absoluteURL];
+				NSString* str = [absolutePath path];
+				return std::string([str UTF8String], [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
 			}
 		}
 	
@@ -438,34 +426,14 @@ namespace s3d
 				return FilePath();
 			}
 			
-			const bool isDirectory = path.ends_with(U'/');
+			FilePath fullpath = Unicode::FromUTF8(fs::weakly_canonical(detail::ToPath(path)).string());
 			
-			FilePath src;
-			bool isRelative = false;
-			
-			if (path.starts_with(U"/Users/"))
+			if (detail::IsDirectory(fullpath) && (not fullpath.ends_with(U'/')))
 			{
-				src = path;
-			}
-			else
-			{
-				src = (U"../" + path);
-				isRelative = true;
+				fullpath.push_back(U'/');
 			}
 			
-			FilePath result = Unicode::Widen(detail::MacOS_FullPath(src.toUTF8().c_str(), isRelative));
-			
-			if (result.starts_with(U"file://"))
-			{
-				result.erase(result.begin(), result.begin() + 7);
-			}
-			
-			if ((isDirectory || IsDirectory(result)) && !result.ends_with(U'/'))
-			{
-				result.push_back(U'/');
-			}
-			
-			return result;
+			return fullpath;
 		}
 	
 		Platform::NativeFilePath NativePath(const FilePathView path)
@@ -475,20 +443,9 @@ namespace s3d
 				return Platform::NativeFilePath();
 			}
 			
-			FilePath src;
-			bool isRelative = false;
+			const FilePath fullpath = FullPath(path);
 			
-			if (path.starts_with(U"/Users/"))
-			{
-				src = path;
-			}
-			else
-			{
-				src = U"../" + path;
-				isRelative = true;
-			}
-			
-			return detail::MacOS_FullPath(src.toUTF8().c_str(), isRelative);
+			return detail::MacOS_FullPath(fullpath.toUTF8().c_str());
 		}
 	
 		FilePath VolumePath(const FilePathView)
