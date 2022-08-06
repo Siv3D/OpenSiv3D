@@ -137,6 +137,11 @@ namespace s3d
 		return m_data.size();
 	}
 
+	inline size_t Blob::size_bytes() const noexcept
+	{
+		return m_data.size_bytes();
+	}
+
 	inline size_t Blob::capacity() const noexcept
 	{
 		return m_data.capacity();

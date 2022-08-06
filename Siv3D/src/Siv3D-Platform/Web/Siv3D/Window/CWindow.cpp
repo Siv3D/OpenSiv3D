@@ -234,7 +234,12 @@ namespace s3d
 	{
 		LOG_TRACE(U"CWindow::resizeByVirtualSize({})"_fmt(virtualSize));
 
-		::glfwSetWindowSize(m_window, virtualSize.x, virtualSize.y);
+		m_resizingWindow = true;
+		{
+			::glfwSetWindowSize(m_window, virtualSize.x, virtualSize.y);
+		}
+		m_resizingWindow = false;
+
 		return true;
 	}
 
@@ -338,7 +343,11 @@ namespace s3d
 		
 		CWindow* pWindow = static_cast<CWindow*>(::glfwGetWindowUserPointer(window));
 		pWindow->m_state.bounds.size = Size(width, height);
-		pWindow->m_state.virtualSize = Size(width, height);
+
+		if (pWindow->m_state.style == WindowStyle::Sizable || pWindow->m_resizingWindow)
+		{
+			pWindow->m_state.virtualSize = Size(width, height);
+		}
 	}
 
 	void CWindow::OnFrameBufferSize(GLFWwindow* window, const int width, const int height)

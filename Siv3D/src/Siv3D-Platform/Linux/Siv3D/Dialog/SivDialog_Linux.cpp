@@ -11,6 +11,7 @@
 
 # include <Siv3D/Dialog.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <ThirdParty/nativefiledialog-extended/nfd.hpp>
 
 namespace s3d
@@ -143,7 +144,7 @@ namespace s3d
 
 			if (result == NFD_OKAY)
 			{
-				return Unicode::Widen(outPath.get());
+				return FileSystem::FullPath(Unicode::Widen(outPath.get()));
 			}
 			else
 			{

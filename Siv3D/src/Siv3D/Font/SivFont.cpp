@@ -188,6 +188,13 @@ namespace s3d
 		return (prop.ascender + prop.descender);
 	}
 
+	double Font::height(const double size) const
+	{
+		const auto& prop = SIV3D_ENGINE(Font)->getProperty(m_handle->id());
+
+		return ((prop.ascender + prop.descender) * (size / prop.fontPixelSize));
+	}
+
 	double Font::spaceWidth() const
 	{
 		return SIV3D_ENGINE(Font)->getProperty(m_handle->id()).spaceWidth;

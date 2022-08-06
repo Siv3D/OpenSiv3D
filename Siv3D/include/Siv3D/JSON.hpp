@@ -15,6 +15,7 @@
 # include "Optional.hpp"
 # include "String.hpp"
 # include "IReader.hpp"
+# include "Blob.hpp"
 # include "PredefinedYesNo.hpp"
 # include "detail/JSONFwd.ipp"
 
@@ -432,6 +433,15 @@ namespace s3d
 		bool saveMinimum(FilePathView path) const;
 
 		[[nodiscard]]
+		Blob toBSON() const;
+
+		[[nodiscard]]
+		Blob toCBOR() const;
+
+		[[nodiscard]]
+		Blob toMessagePack() const;
+
+		[[nodiscard]]
 		static JSON Invalid();
 
 		[[nodiscard]]
@@ -446,6 +456,15 @@ namespace s3d
 
 		[[nodiscard]]
 		static JSON Parse(StringView str, AllowExceptions allowExceptions = AllowExceptions::No);
+
+		[[nodiscard]]
+		static JSON FromBSON(const Blob& bson, AllowExceptions allowExceptions = AllowExceptions::No);
+
+		[[nodiscard]]
+		static JSON FromCBOR(const Blob& cbor, AllowExceptions allowExceptions = AllowExceptions::No);
+
+		[[nodiscard]]
+		static JSON FromMessagePack(const Blob& msgpack, AllowExceptions allowExceptions = AllowExceptions::No);
 
 		friend void Formatter(FormatData& formatData, const JSON& value);
 

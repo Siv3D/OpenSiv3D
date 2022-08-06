@@ -207,7 +207,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline BigInt operator -(const Int a, const BigInt& b)
 		{
-			return (-b + a);
+			return -(b - a);
 		}
 
 		//////////////////////////////////////////////////
@@ -655,7 +655,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline bool operator !=(const BigInt& a, const Arithmetic b)
 		{
-			return (a.compare(b) == 0);
+			return (a.compare(b) != 0);
 		}
 
 		SIV3D_CONCEPT_ARITHMETIC
@@ -907,6 +907,10 @@ namespace s3d
 		{
 			[[nodiscard]]
 			BigInt operator ""_big(const char* s);
+
+			/// @remark BigFloat 用のサフィックスは _bigF です。
+			[[nodiscard]]
+			BigInt operator ""_big(long double) = delete;
 		}
 	}
 

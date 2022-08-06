@@ -24,6 +24,12 @@ namespace s3d
 
 		bool active = false;
 
+		bool textChanged = false;
+
+		bool tabKey = false;
+
+		bool enterKey = false;
+
 		Stopwatch leftPressStopwatch, rightPressStopwatch, cursorStopwatch;
 
 	# if SIV3D_PLATFORM(WEB)

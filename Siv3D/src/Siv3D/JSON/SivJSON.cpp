@@ -917,6 +917,27 @@ namespace s3d
 		return true;
 	}
 
+	Blob JSON::toBSON() const
+	{
+		std::vector<uint8> result;
+		nlohmann::json::to_bson(m_detail->get(), result);
+		return Blob{ result.data(), result.size() };
+	}
+
+	Blob JSON::toCBOR() const
+	{
+		std::vector<uint8> result;
+		nlohmann::json::to_cbor(m_detail->get(), result);
+		return Blob{ result.data(), result.size() };
+	}
+
+	Blob JSON::toMessagePack() const
+	{
+		std::vector<uint8> result;
+		nlohmann::json::to_msgpack(m_detail->get(), result);
+		return Blob{ result.data(), result.size() };
+	}
+
 	JSON JSON::Invalid()
 	{
 		return JSON(Invalid_{});
@@ -973,6 +994,72 @@ namespace s3d
 			}
 
 			throw Error{ U"JSON::Parse(): " + Unicode::Widen(e.what()) };
+		}
+
+		return value;
+	}
+
+	JSON JSON::FromBSON(const Blob& bson, const AllowExceptions allowExceptions)
+	{
+		JSON value{ Invalid_{} };
+
+		try
+		{
+			value.m_detail = std::make_shared<detail::JSONDetail>(detail::JSONDetail::Value(), nlohmann::json::from_bson(bson.begin(), bson.end(), true, allowExceptions.getBool()));
+			value.m_isValid = true;
+		}
+		catch (const std::exception& e)
+		{
+			if (not allowExceptions)
+			{
+				return JSON::Invalid();
+			}
+
+			throw Error{ U"JSON::FromBSON(): " + Unicode::Widen(e.what()) };
+		}
+
+		return value;
+	}
+
+	JSON JSON::FromCBOR(const Blob& cbor, const AllowExceptions allowExceptions)
+	{
+		JSON value{ Invalid_{} };
+
+		try
+		{
+			value.m_detail = std::make_shared<detail::JSONDetail>(detail::JSONDetail::Value(), nlohmann::json::from_cbor(cbor.begin(), cbor.end(), true, allowExceptions.getBool()));
+			value.m_isValid = true;
+		}
+		catch (const std::exception& e)
+		{
+			if (not allowExceptions)
+			{
+				return JSON::Invalid();
+			}
+
+			throw Error{ U"JSON::FromCBOR(): " + Unicode::Widen(e.what()) };
+		}
+
+		return value;
+	}
+
+	JSON JSON::FromMessagePack(const Blob& msgpack, const AllowExceptions allowExceptions)
+	{
+		JSON value{ Invalid_{} };
+
+		try
+		{
+			value.m_detail = std::make_shared<detail::JSONDetail>(detail::JSONDetail::Value(), nlohmann::json::from_msgpack(msgpack.begin(), msgpack.end(), true, allowExceptions.getBool()));
+			value.m_isValid = true;
+		}
+		catch (const std::exception& e)
+		{
+			if (not allowExceptions)
+			{
+				return JSON::Invalid();
+			}
+
+			throw Error{ U"JSON::FromMessagePack(): " + Unicode::Widen(e.what()) };
 		}
 
 		return value;

@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	/// @brief ピクセルフォーマット
+	/// @brief 画像のピクセルフォーマット
 	enum class ImagePixelFormat : uint8
 	{
 		/// @brief 不明

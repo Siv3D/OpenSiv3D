@@ -17,14 +17,14 @@
 
 namespace s3d
 {
-	/// @brief 
-	/// @return 
+	/// @brief リソースファイルの一覧を取得します。
+	/// @return リソースファイルの一覧
 	[[nodiscard]]
 	const Array<FilePath>& EnumResourceFiles() noexcept;
 
-	/// @brief 
-	/// @param path 
-	/// @return 	
+	/// @brief ファイルパスをリソースパスに変換します。
+	/// @param path ファイルパス
+	/// @return リソースパス	
 	[[nodiscard]]
 	FilePath Resource(FilePathView path);
 

@@ -262,7 +262,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline BigFloat operator -(Arithmetic a, const BigFloat& b)
 		{
-			return (-b + a);
+			return -(b - a);
 		}
 
 		//////////////////////////////////////////////////
@@ -491,7 +491,7 @@ namespace s3d
 		[[nodiscard]]
 		friend inline bool operator !=(const BigFloat& a, const Arithmetic b)
 		{
-			return (a.compare(b) == 0);
+			return (a.compare(b) != 0);
 		}
 
 		SIV3D_CONCEPT_ARITHMETIC

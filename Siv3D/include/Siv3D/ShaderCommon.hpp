@@ -94,10 +94,10 @@ namespace s3d
 		String entryPoint;
 
 		SIV3D_NODISCARD_CXX20
-		explicit MSL(StringView _entryPoint);
+		explicit MSL(String _entryPoint);
 
 		SIV3D_NODISCARD_CXX20
-		MSL(FilePath _path, StringView _entryPoint);
+		MSL(FilePath _path, String _entryPoint);
 
 		[[nodiscard]]
 		ShaderGroup operator |(const HLSL& hlsl) const;

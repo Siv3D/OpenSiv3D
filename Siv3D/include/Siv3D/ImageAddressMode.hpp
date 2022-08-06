@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	/// @brief テクスチャアドレスモード
+	/// @brief 画像アドレスモード
 	enum class ImageAddressMode : uint8
 	{
 		/// @brief 繰り返し

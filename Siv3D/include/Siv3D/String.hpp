@@ -202,6 +202,7 @@ namespace s3d
 
 		iterator erase(const_iterator first, const_iterator last) noexcept;
 
+		/// @brief 格納している文字列を消去し、空の文字列にします。
 		void clear() noexcept;
 
 		[[nodiscard]]
@@ -1182,10 +1183,10 @@ namespace s3d
 		/// @return *this
 		String& xml_escape();
 
-		[[nodiscard]]
 		/// @brief  XML エスケープした文字列を返します。
-		/// @remark&quot;, \, &amp;, &gt;, &lt; などのエスケープを行います
+		/// @remark &quot;, \, &amp;, &gt;, &lt; などのエスケープを行います
 		/// @return 新しい文字列
+		[[nodiscard]]
 		String xml_escaped() const;
 
 		friend bool operator ==(const String& lhs, const value_type* rhs);

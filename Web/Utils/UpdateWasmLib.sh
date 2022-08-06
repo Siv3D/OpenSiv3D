@@ -75,7 +75,8 @@ function build() {
             emlib_build webp
             cp lib/libwebp.a    ../../../Siv3D/lib/Web/${targetOption}/webp/;;
         SDL2)
-            echo "Now Preparing... Skip.";;
+            emlib_build SDL2
+            cp lib/libSDL2.a    ../../../Siv3D/lib/Web/${targetOption}/SDL2/;;
         *)
             echo "Not recognized library name: ${1}... Skip.";;
     esac
@@ -95,6 +96,7 @@ function main() {
         "tiff"
         "turbojpeg"
         "webp"
+        "SDL2"
     )
 
     local targets=(

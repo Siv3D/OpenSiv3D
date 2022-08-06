@@ -49,6 +49,7 @@ namespace s3d
 		};
 
 		/// @brief 円の半径
+		/// @remark この値が負の時の挙動は未規定です。
 		size_type r;
 
 	SIV3D_DISABLE_MSVC_WARNINGS_POP()
@@ -248,37 +249,65 @@ namespace s3d
 
 		constexpr Circle& setR(value_type _r) noexcept;
 
+		/// @brief 中心座標を移動した新しい円を返します。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return 新しい円
 		[[nodiscard]]
 		constexpr Circle movedBy(value_type _x, value_type _y) const noexcept;
 
+		/// @brief 中心座標を移動した新しい円を返します。
+		/// @param v 移動量
+		/// @return 新しい円
 		[[nodiscard]]
 		constexpr Circle movedBy(position_type v) const noexcept;
 
+		/// @brief 中心座標を移動させます。
+		/// @param _x X 軸方向の移動量
+		/// @param _y Y 軸方向の移動量
+		/// @return *this
 		constexpr Circle& moveBy(value_type _x, value_type _y) noexcept;
 
+		/// @brief 中心座標を移動させます。
+		/// @param v 移動量
+		/// @return *this
 		constexpr Circle& moveBy(position_type v) noexcept;
 
+		/// @brief 半径を大きさを変化させた新しい円を返します。
+		/// @param size 半径の変化量
+		/// @return 新しい円
 		[[nodiscard]]
 		constexpr Circle stretched(value_type size) const noexcept;
 
 		[[nodiscard]]
 		constexpr Ellipse stretched(double _x, double _y) const noexcept;
 
+		/// @brief 半径を拡大した新しい円を返します。
+		/// @param s 拡大倍率
+		/// @return 新しい円
 		[[nodiscard]]
 		constexpr Circle scaled(double s) const noexcept;
 
 		[[nodiscard]]
 		constexpr Ellipse scaled(double sx, double sy) const noexcept;
 
+		/// @brief 円周上で最も上にある点の座標を返します。
+		/// @return 最も上にある点の座標
 		[[nodiscard]]
 		constexpr position_type top() const noexcept;
 
+		/// @brief 円周上で最も右にある点の座標を返します。
+		/// @return 最も右にある点の座標
 		[[nodiscard]]
 		constexpr position_type right() const noexcept;
 
+		/// @brief 円周上で最も下にある点の座標を返します。
+		/// @return 最も下にある点の座標
 		[[nodiscard]]
 		constexpr position_type bottom() const noexcept;
 
+		/// @brief 円周上で最も左にある点の座標を返します。
+		/// @return 最も左にある点の座標
 		[[nodiscard]]
 		constexpr position_type left() const noexcept;
 

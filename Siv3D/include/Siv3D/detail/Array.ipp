@@ -318,9 +318,9 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline void Array<Type, Allocator>::reserve(const size_type new_cap)
+	inline void Array<Type, Allocator>::reserve(const size_type n)
 	{
-		m_container.reserve(new_cap);
+		m_container.reserve(n);
 	}
 
 	template<class Type, class Allocator>
@@ -550,28 +550,28 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::choice(URBG&& rbg)
 	{
-		if (empty())
+		const size_t size = m_container.size();
+
+		if (size == 0)
 		{
-			throw std::out_of_range("Array::choice(): Array is empty");
+			throw std::out_of_range{ "Array::choice(): Array is empty" };
 		}
 
-		const size_t index = UniformIntDistribution<size_t>(0, size() - 1)(rbg);
-
-		return operator[](index);
+		return m_container[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
 	}
 
 	template <class Type, class Allocator>
 	SIV3D_CONCEPT_URBG_
 	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::choice(URBG&& rbg) const
 	{
-		if (empty())
+		const size_t size = m_container.size();
+
+		if (size == 0)
 		{
-			throw std::out_of_range("Array::choice(): Array is empty");
+			throw std::out_of_range{ "Array::choice(): Array is empty" };
 		}
 
-		const size_t index = UniformIntDistribution<size_t>(0, size() - 1)(rbg);
-
-		return operator[](index);
+		return m_container[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
 	}
 
 	template <class Type, class Allocator>

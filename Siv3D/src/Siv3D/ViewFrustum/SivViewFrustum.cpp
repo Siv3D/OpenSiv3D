@@ -27,10 +27,10 @@ namespace s3d
 	}
 
 	ViewFrustum::ViewFrustum(const BasicCamera3D& camera, const double farClip) noexcept
-		: ViewFrustum{ camera.getSceneSize(), camera.getVerticlaFOV(), camera.getEyePosition(), camera.getFocusPosition(), camera.getUpDirection(), camera.getNearClip(), farClip } {}
+		: ViewFrustum{ camera.getSceneSize(), camera.getVerticalFOV(), camera.getEyePosition(), camera.getFocusPosition(), camera.getUpDirection(), camera.getNearClip(), farClip } {}
 
 	ViewFrustum::ViewFrustum(const BasicCamera3D& camera, const double nearClip, const double farClip) noexcept
-		: ViewFrustum{ camera.getSceneSize(), camera.getVerticlaFOV(), camera.getEyePosition(), camera.getFocusPosition(), camera.getUpDirection(), nearClip, farClip } {}
+		: ViewFrustum{ camera.getSceneSize(), camera.getVerticalFOV(), camera.getEyePosition(), camera.getFocusPosition(), camera.getUpDirection(), nearClip, farClip } {}
 
 	ViewFrustum::ViewFrustum(const Size& sceneSize, const double verticalFOV, const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection, const double nearClip, const double farClip) noexcept
 	{

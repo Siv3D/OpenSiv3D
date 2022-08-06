@@ -80,6 +80,18 @@ namespace s3d
 		bool createFromFile(FilePathView path);
 
 		[[nodiscard]]
+		friend bool operator ==(const Blob& lhs, const Blob& rhs) noexcept
+		{
+			return (lhs.asArray() == rhs.asArray());
+		}
+
+		[[nodiscard]]
+		friend bool operator !=(const Blob& lhs, const Blob& rhs) noexcept
+		{
+			return (lhs.asArray() != rhs.asArray());
+		}
+
+		[[nodiscard]]
 		const Byte& operator [](const size_t index) const;
 
 		[[nodiscard]]
@@ -103,8 +115,17 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		/// @brief バイナリデータのサイズ（バイト）を返します。
+		/// @remark `size_bytes()` と同じです。
+		/// @return バイナリデータのサイズ（バイト）
 		[[nodiscard]]
 		size_t size() const noexcept;
+
+		/// @brief バイナリデータのサイズ（バイト）を返します。
+		/// @remark `size` と同じです。
+		/// @return バイナリデータのサイズ（バイト）
+		[[nodiscard]]
+		size_t size_bytes() const noexcept;
 
 		[[nodiscard]]
 		size_t capacity() const noexcept;
@@ -155,12 +176,38 @@ namespace s3d
 		[[nodiscard]]
 		const_reverse_iterator crend() const noexcept;
 
+		/// @brief 末尾にバイナリデータを追加します。
+		/// @param src 追加するデータの先頭ポインタ
+		/// @param sizeBytes 追加するデータのサイズ
 		void append(const void* src, size_t sizeBytes);
 
+		/// @brief バイナリデータをファイルに保存します。
+		/// @param path ファイルパス
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(FilePathView path) const;
 
+		/// @brief バイナリデータを MD5 のハッシュ値に変換します。
+		/// @return バイナリデータの MD5 ハッシュ値
 		[[nodiscard]]
 		MD5Value md5() const;
+
+		/// @brief バイナリデータを Base64 エンコードします。
+		/// @return エンコードされたデータ
+		[[nodiscard]]
+		std::string base64() const;
+
+		/// @brief バイナリデータを Base64 エンコードします。
+		/// @return エンコードされたデータ
+		[[nodiscard]]
+		String base64Str() const;
+
+		/// @brief バイナリデータを Base64 エンコードし、dst に格納します。
+		/// @param dst エンコードされたデータの格納先
+		void base64(std::string& dst) const;
+
+		/// @brief バイナリデータを Base64 エンコードし、dst に格納します。
+		/// @param dst エンコードされたデータの格納先
+		void base64(String& dst) const;
 
 	private:
 

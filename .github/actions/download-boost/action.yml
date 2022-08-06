@@ -15,14 +15,13 @@ runs:
       id: cache_boost
       uses: actions/cache@v1
       env:
-        cache-name: cache-boost-headers
+        cache-name: cache-boost-headers-1
       with:
         path: ${{ inputs.destination }}
         key: ${{ env.cache-name }}
 
     - name: Download boost
       if: ${{ !steps.cache_boost.outputs.cache-hit }}
-      working-directory: Dependencies
       shell: bash
       run: |
         rm -r ${{ inputs.destination }}

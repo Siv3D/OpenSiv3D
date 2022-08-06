@@ -29,6 +29,9 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CImageDecoder::~CImageDecoder()");
 	}
 
+# if SIV3D_PLATFORM(WEB)
+	__attribute__((weak))
+# endif
 	void CImageDecoder::init()
 	{
 		LOG_SCOPED_TRACE(U"CImageDecoder::init()");

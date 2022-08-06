@@ -145,6 +145,12 @@ namespace s3d
 		[[nodiscard]]
 		int32 height() const;
 
+		/// @brief 指定したフォントサイズでテキストを描画するときのフォントの高さ（ピクセル）を返します。
+		/// @param size 描画するフォントサイズ
+		/// @return フォントの高さ（ピクセル）
+		[[nodiscard]]
+		double height(double size) const;
+
 		/// @brief 半角スペースの幅（ピクセル）を返します。
 		/// @return 半角スペースの幅（ピクセル）
 		[[nodiscard]]

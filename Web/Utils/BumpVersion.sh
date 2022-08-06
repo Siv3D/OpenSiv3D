@@ -1,8 +1,8 @@
 #!/bin/bash
 
 TargetFiles=(
-    "../VisualStudioTemplate/OpenSiv3D(0.6.3)Web/Siv3DTest.vcxproj"
-    "../VisualStudioTemplate/OpenSiv3D(0.6.3)Web/MyTemplate.vstemplate"
+    "../VisualStudioTemplate/Files/Siv3DTest.vcxproj"
+    "../VisualStudioTemplate/Files/MyTemplate.vstemplate"
     "../WindowsInstaller/setup.iss"
     "../../.github/workflows/ccpp_web.yml"
 )
@@ -60,8 +60,8 @@ function main() {
     echo "bumping ${currentVersion} to ${newVersion} ..."
 
     for file in "${TargetFiles[@]}"; do
-        sed -i -e "s/${currentVersion}/${newVersion}/g" $file
-        sed -i -e "s/${shortCurrentVersion}/${shortNewVersion}/g" $file
+        sed -i -e "s/${currentVersion//./\\.}/${newVersion}/g" $file
+        sed -i -e "s/${shortCurrentVersion//./\\.}/${shortNewVersion}/g" $file
         sed -i -e "s/${shortCurrentVersion//./_}/${shortNewVersion//./_}/g" $file
     done
 }

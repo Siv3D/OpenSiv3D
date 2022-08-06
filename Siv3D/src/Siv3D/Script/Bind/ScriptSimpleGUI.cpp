@@ -109,12 +109,12 @@ namespace s3d
 		return SimpleGUI::CheckBox(checked, text, pos, none, enabled);
 	}
 
-	static bool TextBox1(TextEditState& text, const Vec2& pos, double width, size_t maxChars, bool enabled) // FIXME ->ScriptSimpleGUI.cpp
+	static bool TextBox1(TextEditState& text, const Vec2& pos, double width, size_t maxChars, bool enabled)
 	{
 		return SimpleGUI::TextBox(text, pos, width, maxChars, enabled);
 	}
 
-	static bool TextBox2(TextEditState& text, const Vec2& pos, double width, const uint8&, bool enabled) // FIXME ->ScriptSimpleGUI.cpp
+	static bool TextBox2(TextEditState& text, const Vec2& pos, double width, const uint8&, bool enabled)
 	{
 		return SimpleGUI::TextBox(text, pos, width, unspecified, enabled);
 	}

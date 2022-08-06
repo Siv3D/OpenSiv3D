@@ -198,43 +198,86 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Type horizontalAspectRatio() const noexcept;
 
+		/// @brief ベクトルの大きさ（長さ）を返します。
+		/// @tparam Type 結果の型
+		/// @return ベクトルの大きさ（長さ）
 		template <class Type = double>
 		[[nodiscard]]
 		Type length() const noexcept;
 
+		/// @brief ベクトルの大きさ（長さ）の二乗を返します。
+		/// @tparam Type 結果の型
+		/// @remark 平方根を計算しないため `length()` より高速です。
+		/// @return ベクトルの大きさ（長さ）の二乗
 		template <class Type = double>
 		[[nodiscard]]
 		constexpr Type lengthSq() const noexcept;
 
+		/// @brief 原点からこの座標までのマンハッタン距離を返します。
+		/// @return 原点からのマンハッタン距離
 		[[nodiscard]]
 		constexpr int32 manhattanLength() const noexcept;
 
+		/// @brief 別の位置ベクトルからのマンハッタン距離を返します。
+		/// @param _x 別の座標の X 成分
+		/// @param _y 別の座標の Y 成分
+		/// @return 別の座標からのマンハッタン距離
 		[[nodiscard]]
 		constexpr int32 manhattanDistanceFrom(int32 _x, int32 _y) const noexcept;
 
+		/// @brief 別の座標からのマンハッタン距離を返します。
+		/// @param p 別の座標
+		/// @return 別の座標からのマンハッタン距離
 		[[nodiscard]]
 		constexpr int32 manhattanDistanceFrom(Point p) const noexcept;
 
+		/// @brief 別の座標からの距離を返します。
+		/// @param _x 別の座標の X 成分
+		/// @param _y 別の座標の Y 成分
+		/// @return 別の座標からの距離
 		[[nodiscard]]
 		double distanceFrom(double _x, double _y) const noexcept;
 
+		/// @brief 別の座標からの距離を返します。
+		/// @param p 別の座標
+		/// @return 別の座標からの距離
 		[[nodiscard]]
 		double distanceFrom(Point p) const noexcept;
 
+		/// @brief 別の座標からの距離を返します。
+		/// @tparam Type 別の座標の成分の型
+		/// @param p 別の座標
+		/// @return 別の座標からの距離
 		template <class Type>
 		[[nodiscard]]
 		double distanceFrom(Vector2D<Type> p) const noexcept;
 
+		/// @brief 別の座標からの距離の二乗を返します。
+		/// @param _x 別の座標の X 成分
+		/// @param _y 別の座標の Y 成分
+		/// @remark 平方根を計算しないため `distanceFrom()` より高速です。
+		/// @return 別の座標からの距離の二乗
 		[[nodiscard]]
 		constexpr double distanceFromSq(double _x, double _y) const noexcept;
 
+		/// @brief 別の座標からの距離の二乗を返します。
+		/// @param p 別の座標
+		/// @remark 平方根を計算しないため `distanceFrom()` より高速です。
+		/// @return 別の座標からの距離の二乗
 		[[nodiscard]]
 		constexpr double distanceFromSq(Point p) const noexcept;
 
+		/// @brief 別の座標からの距離の二乗を返します。
+		/// @tparam Type 別の座標の成分の型
+		/// @param p 別の座標
+		/// @remark 平方根を計算しないため `distanceFrom()` より高速です。
+		/// @return 別の座標からの距離の二乗
 		template <class Type>
 		[[nodiscard]]
 		constexpr double distanceFromSq(Vector2D<Type> p) const noexcept;
 
+		/// @brief 幅 x, 高さ y の長方形の面積を返します。
+		/// @return 幅 x, 高さ y の長方形の面積
 		[[nodiscard]]
 		constexpr int32 area() const noexcept;
 

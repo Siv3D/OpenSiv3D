@@ -23,7 +23,7 @@
 namespace s3d
 {
 	/// @brief GeoJSONで定義されているオブジェクトの型
-	/// @detail https://tools.ietf.org/html/rfc7946#section-1.4
+	/// @details https://tools.ietf.org/html/rfc7946#section-1.4
 	enum class GeoJSONType : uint8
 	{
 		Point,
@@ -48,7 +48,7 @@ namespace s3d
 	void Formatter(FormatData& formatData, const GeoJSONType& type);
 
 	/// @brief GeoJSON オブジェクトの基本クラス
-	/// @detail https://tools.ietf.org/html/rfc7946#section-3
+	/// @details https://tools.ietf.org/html/rfc7946#section-3
 	class GeoJSONBase
 	{
 	public:
@@ -75,7 +75,7 @@ namespace s3d
 	protected:
 
 		/// @brief バウンディングボックス
-		/// @detail https://tools.ietf.org/html/rfc7946#section-5
+		/// @details https://tools.ietf.org/html/rfc7946#section-5
 		Array<double> m_bbox;
 
 		/// @brief GeoJSON type
@@ -83,7 +83,7 @@ namespace s3d
 	};
 
 	/// @brief GeoJSON Geometry オブジェクト
-	/// @detail https://tools.ietf.org/html/rfc7946#section-3.1
+	/// @details https://tools.ietf.org/html/rfc7946#section-3.1
 	class GeoJSONGeometry : public GeoJSONBase
 	{
 	public:
@@ -144,7 +144,7 @@ namespace s3d
 	};
 
 	/// @brief GeoJSON Feature オブジェクト
-	/// @detail https://tools.ietf.org/html/rfc7946#section-3.2
+	/// @details https://tools.ietf.org/html/rfc7946#section-3.2
 	class GeoJSONFeature : public GeoJSONBase
 	{
 	public:
@@ -183,8 +183,8 @@ namespace s3d
 		std::variant<std::monostate, String, double> m_id;
 	};
 
-	/// @brief FeatureCollectionオブジェクト
-	/// @detail https://tools.ietf.org/html/rfc7946#section-3.3
+	/// @brief GeoJSON FeatureCollection オブジェクト
+	/// @details https://tools.ietf.org/html/rfc7946#section-3.3
 	class GeoJSONFeatureCollection : public GeoJSONBase
 	{
 	public:

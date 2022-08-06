@@ -63,4 +63,6 @@
             }
         })
     }
+
+    runtimeKeepalivePush();
 })();

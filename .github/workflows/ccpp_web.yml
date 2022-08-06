@@ -63,9 +63,9 @@ jobs:
         if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
         uses: actions/cache@v1
         env:
-          cache-name: cache-boost-headers
+          cache-name: cache-boost-headers-1
         with:
-          path: Dependencies/boost_1_74_0/boost
+          path: Dependencies/boost_1_74_0
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports
@@ -268,6 +268,13 @@ jobs:
         run: |
           mkdir Output
           iscc /O"Output" "./${{ matrix.config.script }}"
+
+      - name: Test Installer
+        working-directory: Web/WindowsInstaller
+        run: |
+          & ".\Output\OpenSiv3D(0.6.4)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
+          Wait-Process -Name "OpenSiv3D(0.6.4)Web"
+          cat InstallLog.Log
           
       - name: Save Bundles
         uses: actions/upload-artifact@v2

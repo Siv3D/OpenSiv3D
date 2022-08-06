@@ -26,7 +26,7 @@ namespace s3d
             std::size_t dataLength;
         };
 
-		 __attribute__((import_name("siv3dDecodeAudioFromFile")))
+		__attribute__((import_name("siv3dDecodeAudioFromFile")))
         void siv3dDecodeAudioFromFile(const char* filePath, DecodedAudioData* data);
 	}
 

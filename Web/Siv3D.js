@@ -843,6 +843,55 @@ mergeInto(LibraryManager.library, {
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
 
     //
+    // Font Rendering
+    //
+    $siv3dTextRenderingCanvas: null,
+    $siv3dTextRenderingCanvasContext: null,
+
+    siv3dRenderText: function(utf32CodePoint, data) {
+        if (!siv3dTextRenderingCanvas) {
+            siv3dTextRenderingCanvas = document.createElement('canvas');
+            siv3dTextRenderingCanvasContext = siv3dTextRenderingCanvas.getContext("2d");
+        }
+
+        const text = String.fromCodePoint(utf32CodePoint);
+        const fontSize = 64;
+        const fontName = "sans-serif";
+
+        siv3dTextRenderingCanvasContext.fillStyle = "0x0";
+        siv3dTextRenderingCanvasContext.font = `${fontSize}px '${fontName}'`;
+        siv3dTextRenderingCanvasContext.textBaseline = "bottom";
+
+        const textMetrix = siv3dTextRenderingCanvasContext.measureText(text);
+        const fontWidth = Math.ceil(Math.abs(textMetrix.actualBoundingBoxLeft) + Math.abs(textMetrix.actualBoundingBoxRight)) || 1;
+        const fontHeight = Math.ceil(Math.abs(textMetrix.actualBoundingBoxAscent) + Math.abs(textMetrix.actualBoundingBoxDescent)) || 1;
+        const fontXAdvance = textMetrix.width;
+
+        siv3dTextRenderingCanvasContext.clearRect(0, 0, siv3dTextRenderingCanvas.width, siv3dTextRenderingCanvas.height);
+        siv3dTextRenderingCanvasContext.fillText(text, Math.abs(textMetrix.actualBoundingBoxLeft), fontHeight);
+
+        const textBitmap = siv3dTextRenderingCanvasContext.getImageData(0, 0, fontWidth, fontHeight).data;
+        const dataBuffer = Module["_malloc"](textBitmap.length);
+
+        HEAPU8.set(textBitmap, dataBuffer);
+
+        HEAPU32[data>>2] = utf32CodePoint; data += 4;                       // glyphIndex
+        HEAP32[data>>2] = dataBuffer; data += 4;                            // buffer
+        HEAP16[data>>1] = textMetrix.actualBoundingBoxLeft; data += 2;      // left
+        HEAP16[data>>1] = fontHeight; data += 2;                            // top
+        HEAP16[data>>1] = fontWidth; data += 2;                             // width
+        HEAP16[data>>1] = fontHeight; data += 2;                            // height
+        HEAP16[data>>1] = fontSize; data += 2;                              // ascender
+        HEAP16[data>>1] = 0; data += 2;                                     // descender
+        data += 4;                                                          // padding
+        HEAPF64[data>>3] = fontXAdvance; data += 8;                         // xAdvance
+        HEAPF64[data>>3] = 0; data += 8;                                    // yAdvance
+    },
+    siv3dRenderText__sig: "vii",
+    siv3dRenderText__deps: [ "$siv3dTextRenderingCanvas", "$siv3dTextRenderingCanvasContext" ],
+
+
+    //
     // Notification
     //
     $siv3dNotifications: [],
@@ -1122,6 +1171,51 @@ mergeInto(LibraryManager.library, {
     },
     siv3dDecodeAudioFromFile__sig: "vii",
     siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS", "$Asyncify" ],
+
+    //
+    // ImageDecode
+    //
+    $siv3dDecodeCanvas: null,
+    $siv3dDecodeCanvasContext: null,
+
+    siv3dDecodeImageFromFile: function(src, size, data) {
+        Asyncify.handleSleep(function(wakeUp) {
+            if (!siv3dDecodeCanvas) {
+                siv3dDecodeCanvas = document.createElement('canvas');
+                siv3dDecodeCanvasContext = siv3dDecodeCanvas.getContext("2d");
+            }
+
+            const imageData = new Uint8ClampedArray(HEAPU8.buffer, src, size);
+            const imageBlob = new Blob([ imageData ]);
+            const image = new Image();
+
+            image.onload = function() {
+                siv3dDecodeCanvas.width = image.width;
+                siv3dDecodeCanvas.height = image.height;
+                siv3dDecodeCanvasContext.drawImage(image, 0, 0);
+
+                const decodedImageData = siv3dDecodeCanvasContext.getImageData(0, 0, image.width, image.height).data;
+                const dataBuffer = Module["_malloc"](decodedImageData.length);
+
+                HEAPU8.set(decodedImageData, dataBuffer);
+
+                HEAPU32[(data>>2)+0] = dataBuffer;
+                HEAPU32[(data>>2)+1] = decodedImageData.length;
+                HEAPU32[(data>>2)+2] = image.width;
+                HEAPU32[(data>>2)+3] = image.height;
+
+                URL.revokeObjectURL(image.src);
+                wakeUp();
+            };
+            image.onerror = function() {
+                URL.revokeObjectURL(image.src);
+                wakeUp();
+            };
+            image.src = URL.createObjectURL(imageBlob);
+        });
+    },
+    siv3dDecodeImageFromFile__sig: "viii",
+    siv3dDecodeImageFromFile__deps: [ "$siv3dDecodeCanvas", "$siv3dDecodeCanvasContext", "$Asyncify" ],
 #else
     siv3dRequestAnimationFrame: function() {
     },
@@ -1134,5 +1228,12 @@ mergeInto(LibraryManager.library, {
         HEAPU32[(arg>>2)+3] = 0;
     },
     siv3dDecodeAudioFromFile__sig: "vii",
+    siv3dDecodeImageFromFile: function(_, _, arg) {
+        HEAP32[(arg>>2)+0] = 0;
+        HEAP32[(arg>>2)+1] = 0;
+        HEAPU32[(arg>>2)+2] = 0;
+        HEAPU32[(arg>>2)+3] = 0;
+    },
+    siv3dDecodeImageFromFile__sig: "viii",
 #endif
 })
