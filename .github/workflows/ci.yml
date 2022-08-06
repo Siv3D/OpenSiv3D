@@ -59,6 +59,11 @@ jobs:
       run: |
         cmake --build build
 
+    - name: Install Siv3D
+      working-directory: Linux
+      run: |
+        sudo cmake --install build
+
     - name: Configure Siv3DTest
       working-directory: Linux/App
       run: |
