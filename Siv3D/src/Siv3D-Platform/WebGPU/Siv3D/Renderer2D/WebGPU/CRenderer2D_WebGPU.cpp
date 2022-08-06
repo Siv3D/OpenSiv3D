@@ -417,6 +417,24 @@ namespace s3d
 			m_commandManager.pushDraw(indexCount);
 		}
 	}
+	
+	void CRenderer2D_WebGPU::addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectFrame(m_bufferCreator, m_buffer, outer, inner, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
 
 	void CRenderer2D_WebGPU::addLineString(const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing)
 	{

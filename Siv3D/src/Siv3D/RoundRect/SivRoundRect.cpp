@@ -214,22 +214,35 @@ namespace s3d
 
 	const RoundRect& RoundRect::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
-		if ((rect.w == 0.0) && (rect.h == 0.0))
+		if ((rect.w <= 0.0) || (rect.h <= 0.0)
+			|| (innerThickness < 0.0) || (outerThickness < 0.0)
+			|| ((innerThickness == 0.0) && (outerThickness == 0.0)))
 		{
 			return *this;
 		}
 
-		const Array<Vec2> vertices = detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5, none);
+		if (r <= 0.0)
+		{
+			rect.drawFrame(innerThickness, outerThickness, color);
+			return *this;
+		}
 
-		SIV3D_ENGINE(Renderer2D)->addLineString(
-			LineStyle::Default,
-			vertices.data(),
-			static_cast<uint16>(vertices.size()),
-			none,
-			static_cast<float>(innerThickness + outerThickness),
-			false,
-			color.toFloat4(),
-			CloseRing::Yes
+		const RectF outerRect = rect.stretched(outerThickness);
+		const RoundRect outerRoundRect{ outerRect, Min((r + outerThickness), (Min(outerRect.w, outerRect.h) * 0.5)) };
+		const RectF innerRect = rect.stretched(-innerThickness);
+
+		if ((innerRect.w <= 0.0) || (innerRect.h <= 0.0))
+		{
+			outerRoundRect.draw(color);
+			return *this;
+		}
+
+		const RoundRect innerRoundRect{ innerRect, Clamp((r - innerThickness), 0.0, (Min(innerRect.w, innerRect.h) * 0.5)) };
+
+		SIV3D_ENGINE(Renderer2D)->addRoundRectFrame(
+			outerRoundRect,
+			innerRoundRect,
+			color.toFloat4()
 		);
 
 		return *this;

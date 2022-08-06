@@ -545,6 +545,19 @@ namespace s3d
 
 	const Rect& Rect::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
+		if ((w <= 0) || (h <= 0)
+			|| (innerThickness < 0.0) || (outerThickness < 0.0)
+			|| ((innerThickness == 0.0) && (outerThickness == 0.0)))
+		{
+			return *this;
+		}
+
+		if (((w * 0.5) <= innerThickness) || ((h * 0.5) <= innerThickness))
+		{
+			RectF{ *this }.stretched(outerThickness).draw(color);
+			return *this;
+		}
+
 		const Float4 color0 = color.toFloat4();
 
 		SIV3D_ENGINE(Renderer2D)->addRectFrame(

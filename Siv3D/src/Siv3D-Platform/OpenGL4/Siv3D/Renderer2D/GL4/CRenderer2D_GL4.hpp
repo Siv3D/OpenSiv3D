@@ -155,6 +155,8 @@ namespace s3d
 
 		void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& color) override;
 
+		void addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& color) override;
+
 		void addLineString(const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing) override;
 
 		void addLineString(const Vec2* points, const ColorF* colors, size_t size, const Optional<Float2>& offset, float thickness, bool inner, CloseRing closeRing) override;

@@ -94,6 +94,9 @@ namespace s3d
 		Vertex2D::IndexType BuildRoundRect(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const FloatRect& rect, float w, float h, float r, const Float4& color, float scale);
 
 		[[nodiscard]]
+		Vertex2D::IndexType BuildRoundRectFrame(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const RoundRect& inner, const RoundRect& outer, const Float4& color, float scale);
+
+		[[nodiscard]]
 		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing, float scale);
 
 		[[nodiscard]]

@@ -956,6 +956,143 @@ namespace s3d
 			return indexSize;
 		}
 
+		Vertex2D::IndexType BuildRoundRectFrame(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const RoundRect& outer, const RoundRect& inner, const Float4& color, float scale)
+		{
+			const float orr = static_cast<float>(outer.r);
+			const Vertex2D::IndexType quality = detail::CaluculateFanQuality(orr * scale);
+
+			const Vertex2D::IndexType outerVertexSize = (quality * 4);
+			const Vertex2D::IndexType vertexSize = (outerVertexSize * 2);
+			const Vertex2D::IndexType indexSize = (outerVertexSize * 6);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			// 外側の頂点
+			{
+				buffer.resize(quality);
+				{
+					const float radDelta = (Math::HalfPiF / (quality - 1));
+
+					for (int32 i = 0; i < quality; ++i)
+					{
+						const float rad = (radDelta * i);
+						const auto [s, c] = FastMath::SinCos(rad);
+						buffer[i].set(s * orr, -c * orr);
+					}
+				}
+
+				const FloatRect rect{ outer.rect.x, outer.rect.y, outer.rect.rightX(), outer.rect.bottomY() };
+				const std::array<Float2, 4> centers =
+				{ {
+					{ rect.right - orr, rect.top + orr },
+					{ rect.right - orr, rect.bottom - orr },
+					{ rect.left + orr, rect.bottom - orr },
+					{ rect.left + orr, rect.top + orr },
+				} };
+
+				Vertex2D* pDst = pVertex;
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[0] + buffer[i]);
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[1] + Float2{ buffer[quality - i - 1].x, -buffer[quality - i - 1].y });
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[2] - buffer[i]);
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[3] + Float2{ -buffer[quality - i - 1].x, buffer[quality - i - 1].y });
+					++pDst;
+				}
+			}
+
+			// 内側の頂点
+			{
+				const float irr = static_cast<float>(inner.r);
+				{
+					const float s = (irr / orr);
+
+					for (int32 i = 0; i < quality; ++i)
+					{
+						buffer[i] *= s;
+					}
+				}
+
+				const FloatRect rect{ inner.rect.x, inner.rect.y, inner.rect.rightX(), inner.rect.bottomY() };
+				const std::array<Float2, 4> centers =
+				{ {
+					{ rect.right - irr, rect.top + irr },
+					{ rect.right - irr, rect.bottom - irr },
+					{ rect.left + irr, rect.bottom - irr },
+					{ rect.left + irr, rect.top + irr },
+				} };
+
+				Vertex2D* pDst = (pVertex + outerVertexSize);
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[0] + buffer[i]);
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[1] + Float2{ buffer[quality - i - 1].x, -buffer[quality - i - 1].y });
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[2] - buffer[i]);
+					++pDst;
+				}
+
+				for (int32 i = 0; i < quality; ++i)
+				{
+					pDst->pos = (centers[3] + Float2{ -buffer[quality - i - 1].x, buffer[quality - i - 1].y });
+					++pDst;
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize; ++i)
+			{
+				(pVertex++)->color = color;
+			}
+
+			for (Vertex2D::IndexType i = 0; i < outerVertexSize; ++i)
+			{
+				const Vertex2D::IndexType i0 = (indexOffset + i);
+				const Vertex2D::IndexType i1 = (indexOffset + (((i + 1) < outerVertexSize) ? (i + 1) : 0));
+				const Vertex2D::IndexType i2 = (indexOffset + outerVertexSize + i);
+				const Vertex2D::IndexType i3 = (indexOffset + outerVertexSize + (((i + 1) < outerVertexSize) ? (i + 1) : 0));
+
+				*pIndex++ = i0;
+				*pIndex++ = i1;
+				*pIndex++ = i2;
+
+				*pIndex++ = i2;
+				*pIndex++ = i1;
+				*pIndex++ = i3;
+			}
+
+			return indexSize;
+		}
+
 		Vertex2D::IndexType BuildLineString(const BufferCreatorFunc& bufferCreator, Array<Float2>& buffer, const LineStyle& style, const Vec2* points, const size_t size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const CloseRing closeRing, const float scale)
 		{
 			if ((size < 2)
