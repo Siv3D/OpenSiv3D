@@ -1,4 +1,4 @@
-# include <Siv3D.hpp> // OpenSiv3D v0.6.4
+# include <Siv3D.hpp> // OpenSiv3D v0.6.5
 
 void Main()
 {
@@ -63,20 +63,20 @@ void Main()
 // プロジェクトのフォルダを ユーザ/(ユーザ名)/アプリケーション/ などに移動させると良いです。
 // Web カメラ、マイク使用時の許可ダイアログは消せません。
 //
-// Siv3D リファレンス
-// https://zenn.dev/reputeless/books/siv3d-documentation
+// チュートリアル
+// https://siv3d.github.io/ja-jp/tutorial/tutorial/
 //
-// Siv3D Reference
-// https://zenn.dev/reputeless/books/siv3d-documentation-en
+// Tutorial
+// https://siv3d.github.io/tutorial/tutorial/
 //
-// Siv3D コミュニティへの参加（Slack や Twitter, BBS で気軽に質問や情報交換ができます）
-// https://zenn.dev/reputeless/books/siv3d-documentation/viewer/community
+// Siv3D コミュニティへの参加（Discord などで気軽に質問や交流, 最新情報の入手ができます）
+// https://siv3d.github.io/ja-jp/community/community/
 //
 // Siv3D User Community
-// https://zenn.dev/reputeless/books/siv3d-documentation-en/viewer/community
+// https://siv3d.github.io/community/community/
 //
 // 新機能の提案やバグの報告 | Feedback
-// https://github.com/Siv3D/OpenSiv3D/issues
+// https://siv3d.github.io/ja-jp/develop/report/
 //
 // Sponsoring Siv3D
 // https://github.com/sponsors/Reputeless
