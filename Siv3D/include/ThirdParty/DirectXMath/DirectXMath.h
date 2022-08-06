@@ -148,7 +148,8 @@
 #endif // !_XM_NO_INTRINSICS_
 
 #if !defined(_MSC_VER)
-#include "sal.h"
+# define PAL_STDCPP_COMPAT
+# include "sal.h"
 # endif
 
 #include <assert.h>
