@@ -290,79 +290,171 @@ namespace s3d
 			return{};
 		}
 
-		if (length <= 0.0)
+		if (closeRing)
 		{
-			distanceFromOrigin += length;
-			length = -length;
-		}
+			const size_t lineCount = (num_lines() + 1);
 
-		const size_t N = (num_lines() + (closeRing ? 1 : 0));
-		Array<double> lens(N);
-		{
-			for (size_t i = 0; i < num_lines(); ++i)
+			Array<double> lineLengths(lineCount);
 			{
-				lens[i] = line(i).length();
-			}
-
-			if (closeRing)
-			{
-				lens.back() = front().distanceFrom(back());
-			}
-		}
-
-		const double perim = lens.sum();
-
-		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
-		length = Min(length, perim);
-		const double distanceToTarget = (distanceFromOrigin + length);
-
-		LineString points;
-		double currentLength = 0.0;
-		const Vec2* pSrc = data();
-
-		for (size_t n = 0; n < (N * 2); ++n)
-		{
-			const size_t i = (n % N);
-			const double len = lens[i];
-			const Vec2 pFrom = pSrc[i];
-			const Vec2 pTo = pSrc[((N <= (i + 1)) ? (i - (N - 1)) : (i + 1)) % size()];
-
-			if (not points)
-			{
-				if ((distanceFromOrigin <= (currentLength + len)))
+				for (size_t i = 0; i < lineCount; ++i)
 				{
-					const Vec2 origin = pFrom + (pTo - pFrom)
-						.setLength(distanceFromOrigin - currentLength);
-					points << origin;
+					lineLengths[i] = line(i, closeRing).length();
+				}
+			}
 
-					if (distanceToTarget <= (currentLength + len))
+			const double lineStringLength = lineLengths.sum();
+
+			double from, to;
+			{
+				if (length < 0.0)
+				{
+					from = (distanceFromOrigin + length);
+					to = distanceFromOrigin;
+				}
+				else
+				{
+					from = distanceFromOrigin;
+					to = (distanceFromOrigin + length);
+				}
+			}
+			distanceFromOrigin = Math::Fmod(from, lineStringLength);
+			
+			if (distanceFromOrigin < 0.0)
+			{
+				distanceFromOrigin += lineStringLength;
+			}
+
+			double distanceToTargetFromOrigin = Math::Fmod(to, lineStringLength);
+
+			if (distanceToTargetFromOrigin < 0.0)
+			{
+				distanceToTargetFromOrigin += lineStringLength;
+			}
+
+			if (distanceToTargetFromOrigin < distanceFromOrigin)
+			{
+				distanceToTargetFromOrigin += lineStringLength;
+			}
+
+			LineString result;
+			double accumulatedLength = 0.0;
+			const Vec2* pSrc = data();
+
+			for (size_t n = 0; n < (lineCount * 2); ++n)
+			{
+				const size_t i = (n % lineCount);
+				const Vec2 pFrom = pSrc[i];
+				const Vec2 pTo = pSrc[(i + 1) % lineCount];
+				const double len = lineLengths[i];
+				
+				if (not result)
+				{
+					if (distanceFromOrigin <= (accumulatedLength + len))
 					{
-						const Vec2 target = pFrom + (pTo - pFrom)
-							.setLength(distanceToTarget - currentLength);
-						points << target;
+						const Vec2 start = (pFrom + (pTo - pFrom).withLength(distanceFromOrigin - accumulatedLength));
+						result << start;
+
+						if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+						{
+							const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+							result << goal;
+							break;
+						}
+
+						result << pTo;
+					}
+				}
+				else
+				{
+					if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+						result << goal;
 						break;
 					}
 
-					points << pTo;
-				}
-			}
-			else
-			{
-				if (distanceToTarget <= (currentLength + len))
-				{
-					const Vec2 target = pFrom + (pTo - pFrom)
-						.setLength(distanceToTarget - currentLength);
-					points << target;
-					break;
+					result << pTo;
 				}
 
-				points << pTo;
+				accumulatedLength += len;
 			}
 
-			currentLength += len;
+			return result;
 		}
+		else
+		{
+			const size_t lineCount = num_lines();
 
-		return points;
+			Array<double> lineLengths(lineCount);
+			{
+				for (size_t i = 0; i < lineCount; ++i)
+				{
+					lineLengths[i] = line(i).length();
+				}
+			}
+
+			const double lineStringLength = lineLengths.sum();
+			
+			double from, to;
+			{
+				if (length < 0.0)
+				{
+					from = (distanceFromOrigin + length);
+					to = distanceFromOrigin;
+				}
+				else
+				{
+					from = distanceFromOrigin;
+					to = (distanceFromOrigin + length);
+				}
+			}
+			distanceFromOrigin = Clamp(from, 0.0, lineStringLength);
+			const double distanceToTargetFromOrigin = Clamp(to, 0.0, lineStringLength);
+
+			LineString result;
+			double accumulatedLength = 0.0;
+			const Vec2* pSrc = data();
+
+			for (size_t i = 0; i < lineCount; ++i)
+			{
+				const Vec2 pFrom = pSrc[i];
+				const Vec2 pTo = pSrc[i + 1];
+				const double len = lineLengths[i];
+
+				if (not result)
+				{
+					if (distanceFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 start = (pFrom + (pTo - pFrom).withLength(distanceFromOrigin - accumulatedLength));
+						result << start;
+
+						if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+						{
+							const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+							result << goal;
+							break;
+						}
+
+						result << pTo;
+					}
+				}
+				else
+				{
+					if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+						result << goal;
+						break;
+					}
+
+					result << pTo;
+				}
+
+				accumulatedLength += len;
+			}
+
+			return result;
+		}
 	}
 
 	Array<Vec2> LineString::computeNormals(const CloseRing closeRing) const
