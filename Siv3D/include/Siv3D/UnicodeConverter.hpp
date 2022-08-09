@@ -72,7 +72,7 @@ namespace s3d
 
 		/// @brief データを追加します。
 		/// @param code 変換用の UTF-32 データ
-		/// @return `get()` で文字を取得可能になった場合 true, それ以外の場合は false
+		/// @return 作成された UTF-8 データのサイズ
 		[[nodiscard]]
 		size_t put(char32 code) noexcept;
 

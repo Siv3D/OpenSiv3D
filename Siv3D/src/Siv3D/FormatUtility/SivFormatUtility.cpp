@@ -11,6 +11,7 @@
 
 # include <Siv3D/FormatUtility.hpp>
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/UnicodeConverter.hpp>
 
 namespace s3d
 {
@@ -28,6 +29,8 @@ namespace s3d
 			U"ZiB"_sv,
 			U"YiB"_sv
 		};
+
+		static constexpr char8 HexTable[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 		String ThousandsSeparateInt(String&& value, const StringView separator)
 		{
@@ -95,5 +98,34 @@ namespace s3d
 		}
 
 		return{};
+	}
+
+	String PercentEncode(const StringView s)
+	{
+		String result;
+
+		UTF32toUTF8_Converter coverter{};
+
+		for (auto codePoint : s)
+		{
+			const size_t size = coverter.put(codePoint);
+
+			for (size_t i = 0; i < size; ++i)
+			{
+				const char8 ch = coverter.get()[i];
+
+				if (IsAlnum(ch) || (ch == '-') || (ch == '_') || (ch == '.') || (ch == '~'))
+				{
+					result.push_back(ch);
+				}
+				else
+				{
+					const char8 chars[3] = { '%', detail::HexTable[(ch >> 4) & 0xF], detail::HexTable[ch & 0xF] };
+					result.append(std::begin(chars), std::end(chars));
+				}
+			}
+		}
+
+		return result;
 	}
 }

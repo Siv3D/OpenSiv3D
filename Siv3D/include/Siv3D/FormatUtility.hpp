@@ -51,6 +51,12 @@ namespace s3d
 	SIV3D_CONCEPT_FLOATING_POINT_
 	[[nodiscard]]
 	inline String ThousandsSeparate(Float value, int32 decimalPlace = 3, Fixed fixed = Fixed::No, StringView separator = U","_sv);
+
+	/// @brief 文字列をパーセントエンコーディングした結果を返します。
+	/// @param s 変換する文字列
+	/// @return 変換した結果
+	[[nodiscard]]
+	String PercentEncode(StringView s);
 }
 
 # include "detail/FormatUtility.ipp"
