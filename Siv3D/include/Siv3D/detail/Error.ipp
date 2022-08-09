@@ -45,8 +45,13 @@ namespace s3d
 		return StringView{ U"Bad optional access" };
 	}
 
+	inline StringView NotImplementedError::type() const noexcept
+	{
+		return StringView{ U"NotImplementedError" };
+	}
+
 	inline StringView EngineError::type() const noexcept
 	{
-		return StringView(U"EngineError");
+		return StringView{ U"EngineError" };
 	}
 }

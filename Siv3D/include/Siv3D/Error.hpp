@@ -79,6 +79,17 @@ namespace s3d
 		StringView type() const noexcept override;
 	};
 
+	/// @brief 未実装の機能を使用したエラーを表現する型
+	class NotImplementedError final : public Error
+	{
+	public:
+
+		using Error::Error;
+
+		[[nodiscard]]
+		StringView type() const noexcept override;
+	};
+
 	/// @brief エンジン内部のエラーを表現する型
 	class EngineError final : public Error
 	{
