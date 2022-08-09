@@ -97,7 +97,7 @@ namespace s3d
 		inline Base64Length DecodeLength(const Ch* pSrc, size_t inputLength) noexcept
 		{
 			while (inputLength
-				&& (detail::decodeTable[pSrc[inputLength - 1]] == 0xff))
+				&& (detail::decodeTable[static_cast<uint8>(pSrc[inputLength - 1])] == 0xff))
 			{
 				--inputLength;
 			}
