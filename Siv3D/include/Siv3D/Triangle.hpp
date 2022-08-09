@@ -280,6 +280,9 @@ namespace s3d
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
+		[[nodiscard]]
+		static Triangle FromPoints(const position_type& baseCenter, const position_type& top, double baseLength) noexcept;
+
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)
 		{

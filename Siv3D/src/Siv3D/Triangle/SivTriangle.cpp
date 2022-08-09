@@ -195,6 +195,41 @@ namespace s3d
 		return Polygon{ { p0, p1, p2 }, {{ 0, 1, 2 }}, boundingRect(), SkipValidation::Yes };
 	}
 
+	bool Triangle::leftClicked() const noexcept
+	{
+		return (MouseL.down() && mouseOver());
+	}
+
+	bool Triangle::leftPressed() const noexcept
+	{
+		return (MouseL.pressed() && mouseOver());
+	}
+
+	bool Triangle::leftReleased() const noexcept
+	{
+		return (MouseL.up() && mouseOver());
+	}
+
+	bool Triangle::rightClicked() const noexcept
+	{
+		return (MouseR.down() && mouseOver());
+	}
+
+	bool Triangle::rightPressed() const noexcept
+	{
+		return (MouseR.pressed() && mouseOver());
+	}
+
+	bool Triangle::rightReleased() const noexcept
+	{
+		return (MouseR.up() && mouseOver());
+	}
+
+	bool Triangle::mouseOver() const noexcept
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
 	const Triangle& Triangle::paintFrame(Image& dst, const int32 thickness, const Color& color) const
 	{
 		LineString{ p0, p1, p2 }.paintClosed(dst, thickness, color);
@@ -245,39 +280,13 @@ namespace s3d
 		return *this;
 	}
 
-	bool Triangle::leftClicked() const noexcept
+	Triangle Triangle::FromPoints(const position_type& baseCenter, const position_type& top, const double baseLength) noexcept
 	{
-		return (MouseL.down() && mouseOver());
-	}
+		Vec2 right = (top - baseCenter);
+		
+		right.set(-right.y, right.x).setLength(baseLength * 0.5);
 
-	bool Triangle::leftPressed() const noexcept
-	{
-		return (MouseL.pressed() && mouseOver());
-	}
-
-	bool Triangle::leftReleased() const noexcept
-	{
-		return (MouseL.up() && mouseOver());
-	}
-
-	bool Triangle::rightClicked() const noexcept
-	{
-		return (MouseR.down() && mouseOver());
-	}
-
-	bool Triangle::rightPressed() const noexcept
-	{
-		return (MouseR.pressed() && mouseOver());
-	}
-
-	bool Triangle::rightReleased() const noexcept
-	{
-		return (MouseR.up() && mouseOver());
-	}
-
-	bool Triangle::mouseOver() const noexcept
-	{
-		return Geometry2D::Intersect(Cursor::PosF(), *this);
+		return{ top, (baseCenter + right), (baseCenter - right) };
 	}
 
 	void Formatter(FormatData& formatData, const Triangle& value)
