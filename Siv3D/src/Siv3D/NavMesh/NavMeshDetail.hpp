@@ -41,11 +41,15 @@ namespace s3d
 
 		bool build(const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
 
-		Array<Vec2> query(const Float2& start, const Float2& end, const Array<std::pair<int32, double>>& areaCosts) const;
+		void query(const Float2& start, const Float2& end, const Array<std::pair<int32, double>>& areaCosts, Array<Vec2>& dst) const;
 
-		Array<Vec3> query(const Float3& start, const Float3& end, const Array<std::pair<int32, double>>& areaCosts) const;
+		void query(const Float3& start, const Float3& end, const Array<std::pair<int32, double>>& areaCosts, Array<Vec3>& dst) const;
 
 	private:
+
+		static constexpr int32 MaxVertices = 8192;
+
+		static constexpr int32 PolygonBufferSize = 8192;
 
 		struct Data
 		{
@@ -72,6 +76,10 @@ namespace s3d
 		int32 m_navDataSize = 0;
 
 		bool m_built = false;
+
+		mutable Array<Float3> m_buffer;
+
+		mutable Array<dtPolyRef> m_polygonBuffer;
 
 		bool build(const NavMeshConfig& config, const NavMeshAABB& aabb,
 			const Array<Float3>& vertices, const Array<TriangleIndex>& indices, const Array<uint8>& areaIDs);

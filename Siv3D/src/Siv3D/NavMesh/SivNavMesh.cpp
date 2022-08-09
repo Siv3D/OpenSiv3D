@@ -103,11 +103,29 @@ namespace s3d
 
 	Array<Vec2> NavMesh::query(const Vec2& start, const Vec2& end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
-		return pImpl->query(start, end, areaCosts);
+		Array<Vec2> dst;
+		
+		pImpl->query(start, end, areaCosts, dst);
+		
+		return dst;
+	}
+
+	void NavMesh::query(const Vec2& start, const Vec2& end, Array<Vec2>& dst, const Array<std::pair<int32, double>>& areaCosts) const
+	{
+		pImpl->query(start, end, areaCosts, dst);
 	}
 
 	Array<Vec3> NavMesh::query(const Vec3& start, const Vec3& end, const Array<std::pair<int32, double>>& areaCosts) const
 	{
-		return pImpl->query(start, end, areaCosts);
+		Array<Vec3> dst;
+
+		pImpl->query(start, end, areaCosts, dst);
+
+		return dst;
+	}
+
+	void NavMesh::query(const Vec3& start, const Vec3& end, Array<Vec3>& dst, const Array<std::pair<int32, double>>& areaCosts) const
+	{
+		pImpl->query(start, end, areaCosts, dst);
 	}
 }
