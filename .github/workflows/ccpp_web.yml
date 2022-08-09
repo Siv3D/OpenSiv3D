@@ -44,6 +44,9 @@ jobs:
       image: ${{ matrix.config.container }}
     runs-on: ubuntu-latest
 
+    outputs: 
+      cache-hit: ${{ steps.cache-siv3d-library.outputs.cache-hit }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -256,32 +259,107 @@ jobs:
           tar -xvf OpenSiv3D.tgz
           mkdir Web/Build
           cp -r Package/lib/* Web/Build
+
+      - name: Cache OpenSiv3D Installer result
+        id: cache_siv3d_installer
+        uses: actions/cache@v1
+        env:
+          cache-name: cache_siv3d_installer
+        with:
+          path: Web/WindowsInstaller/Output
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss', 'Web/Build') }}
           
       - name: Compress Project Template
+        if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/VisualStudioTemplate/Files
         run: |
-          7z a -tzip "OpenSiv3D(0.6.4)Web.zip" .
-          cp "OpenSiv3D(0.6.4)Web.zip" ..
+          7z a -tzip "OpenSiv3D(0.6.5)Web.zip" .
+          cp "OpenSiv3D(0.6.5)Web.zip" ..
           
       - name: Create Installer
+        if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/WindowsInstaller
         run: |
           mkdir Output
           iscc /O"Output" "./${{ matrix.config.script }}"
-
-      - name: Test Installer
-        working-directory: Web/WindowsInstaller
-        run: |
-          & ".\Output\OpenSiv3D(0.6.4)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
-          Wait-Process -Name "OpenSiv3D(0.6.4)Web"
-          cat InstallLog.Log
-          
+       
       - name: Save Bundles
         uses: actions/upload-artifact@v2
         with:
           name: OpenSiv3D-Installer-${{ matrix.config.name }}
           path: Web/WindowsInstaller/Output/*.exe
 
+  test-installer:
+    needs: build-installer
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - name: wasm
+            script: "Setup.iss"
+          - name: wasm-simd
+            script: "Setup.iss"
+    env:
+      MSBuild_path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\bin"
+      VSIXInstaller_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE"
+      DevEnv_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\devenv.exe"
+      WinAppDriver_Path: "C:\\Program Files (x86)\\Windows Application Driver\\WinAppDriver.exe"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore Installer
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Installer-${{ matrix.config.name }}
+          path: Web/WindowsInstaller/
+
+      - name: Test Installer
+        working-directory: Web/WindowsInstaller
+        run: |
+          Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
+          & ".\OpenSiv3D(0.6.5)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
+          Wait-Process -Name "OpenSiv3D(0.6.5)Web"
+          cat InstallLog.Log
+          devenv /installvstemplates
+
+      - name: Install VSIX
+        run: |
+          Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
+          VSIXInstaller /quiet /admin Emscripten.Build.Definition.4e942135-f309-41d4-8214-c2e5bd7c7ace 
+          Wait-Process -Name "VSIXInstaller"
+
+      - name: Restore Nuget package
+        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
+        run: nuget restore WinAppDriverUIRecorder.sln
+      
+      - name: Build the application
+        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
+        run: |
+          Set-Item Env:Path "$env:MSBuild_Path;$env:Path"
+          msbuild WinAppDriverUIRecorder.sln /p:Configuration="Release"
+
+      - name: Run UI Test
+        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
+        continue-on-error: true
+        run: |
+          Start-Process -FilePath "$env:WinAppDriver_Path" -ArgumentList "127.0.0.1","34723"
+          Start-Process -FilePath "$env:DevEnv_Path"
+          & ".\bin\Release\UIRecorderTemplate.exe"
+
+      - name: Save Screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-Installer-TestScreenShots-${{ matrix.config.name }}
+          path: Web/WindowsInstaller/Tests/UIAutomatedTest/*.png
+
+      - name: Clean-up Process
+        run: |
+          Get-Process | Where-Object -FilterScript {$_.Name -eq "WinAppDriver"}  | Stop-Process
+          Get-Process | Where-Object -FilterScript {$_.Name -eq "devenv"}  | Stop-Process
+      
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
     needs: 
@@ -350,7 +428,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
-          asset_path: OpenSiv3D(0.6.4)Web.exe
+          asset_path: OpenSiv3D(0.6.5)Web.exe
           asset_name: OpenSiv3D-Installer-${{ matrix.config.name }}.exe
           asset_content_type: application/octet-stream
 
