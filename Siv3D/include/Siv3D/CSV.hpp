@@ -52,20 +52,42 @@ namespace s3d
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		/// @brief 行数を返します。
+		/// @return 行数
 		[[nodiscard]]
 		size_t rows() const noexcept;
 
+		/// @brief 指定した行の列数を返します。
+		/// @param row 行
+		/// @return 指定した行の列数
 		[[nodiscard]]
 		size_t columns(size_t row) const noexcept;
 
+		/// @brief 指定した位置の値を読み取ります。
+		/// @tparam Type 読み取る値の型
+		/// @param row 行
+		/// @param column 列
+		/// @return 読み取った値
 		template <class Type = String>
 		[[nodiscard]]
 		Type get(size_t row, size_t column) const;
 
+		/// @brief 指定した位置の値を読み取ります。失敗した場合は defaultValue を返します。
+		/// @tparam Type 読み取る値の型
+		/// @tparam U デフォルトの値の型
+		/// @param row 行
+		/// @param column 列
+		/// @param defaultValue デフォルトの値
+		/// @return 読み取った値。失敗した場合はデフォルトの値
 		template <class Type, class U>
 		[[nodiscard]]
 		Type getOr(size_t row, size_t column, U&& defaultValue) const;
 
+		/// @brief 指定した位置の値を読み取ります。失敗した場合は none を返します。
+		/// @tparam Type 読み取る値の型
+		/// @param row 行
+		/// @param column 列
+		/// @return 読み取った値。失敗した場合は none
 		template <class Type>
 		[[nodiscard]]
 		Optional<Type> getOpt(size_t row, size_t column) const;

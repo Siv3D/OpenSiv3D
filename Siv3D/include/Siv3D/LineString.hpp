@@ -20,7 +20,7 @@
 
 namespace s3d
 {
-	/// @brief 点の集合（とそれをつないで表現される線分）
+	/// @brief 点の集合（とそれをつないで表現される、連続する線分）
 	class LineString
 	{
 	public:
@@ -340,18 +340,36 @@ namespace s3d
 		[[nodiscard]]
 		LineString uniqued_consecutive()&&;
 
+		/// @brief LineString を構成する頂点の数を返します。
+		/// @remark `size()` と同じです。
+		/// @return LineString を構成する頂点の数
 		[[nodiscard]]
 		size_t num_points() const noexcept;
 
+		/// @brief LineString を構成する線分の数を返します。
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return LineString を構成する線分の数
 		[[nodiscard]]
 		size_t num_lines(CloseRing closeRing = CloseRing::No) const noexcept;
 
+		/// @brief LineString を構成する線分を返します。
+		/// @param index 線分のインデックス
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return LineString を構成する線分
 		[[nodiscard]]
 		Line line(size_t index, CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 指定した頂点における進行方向左手の単位ベクトルを返します。
+		/// @param index 頂点のインデックス
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 指定した頂点における進行方向左手の単位ベクトル
 		[[nodiscard]]
 		Vec2 normalAtPoint(size_t index, CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 指定した線分における進行方向左手の単位ベクトルを返します。
+		/// @param index 線分のインデックス
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return  指定した線分における進行方向左手の単位ベクトル
 		[[nodiscard]]
 		Vec2 normalAtLine(size_t index, CloseRing closeRing = CloseRing::No) const;
 
@@ -397,7 +415,11 @@ namespace s3d
 
 		[[nodiscard]]
 		RectF computeBoundingRect() const noexcept;
-		
+
+		/// @brief 連続する線分を単純化した LineString を返します。
+		/// @param maxDistance 単純化の大きさ
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 単純化した LineString
 		[[nodiscard]]
 		LineString simplified(double maxDistance = 2.0, CloseRing closeRing = CloseRing::No) const;
 
@@ -414,12 +436,24 @@ namespace s3d
 		[[nodiscard]]
 		LineString catmullRom(CloseRing closeRing, int32 interpolation = 24) const;
 
+		/// @brief 連続する線分全体の長さを返します。
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 連続する線分全体の長さ
 		[[nodiscard]]
 		double calculateLength(CloseRing closeRing = CloseRing::No) const noexcept;
 
+		/// @brief 始点から指定した距離にある、線分上の点を返します
+		/// @param distanceFromOrigin 始点からの距離
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 始点から指定した距離にある線分上の点
 		[[nodiscard]]
 		Vec2 calculatePointFromOrigin(double distanceFromOrigin, CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 部分 LineString を返します。
+		/// @param distanceFromOrigin 始点からの距離
+		/// @param length 長さ
+		/// @param closeRing 終点と始点を結ぶか
+		/// @return 部分 LineString
 		[[nodiscard]]
 		LineString extractLineString(double distanceFromOrigin, double length, CloseRing closeRing = CloseRing::No) const;
 
@@ -467,12 +501,16 @@ namespace s3d
 
 		const LineString& draw(const ColorF& color = Palette::White) const;
 
-		/// @brief 連続した線分を描画します。
+		/// @brief 連続する線分を描画します。
 		/// @param thickness 線の太さ（ピクセル）
 		/// @param color 色
 		/// @return *this
 		const LineString& draw(double thickness, const ColorF& color = Palette::White) const;
 
+		/// @brief 連続する線分を描画します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param colors 各頂点に割り当てる色
+		/// @return *this
 		const LineString& draw(double thickness, const Array<ColorF>& colors) const;
 
 		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;

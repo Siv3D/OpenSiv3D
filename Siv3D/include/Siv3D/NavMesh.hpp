@@ -134,6 +134,11 @@ namespace s3d
 		[[nodiscard]]
 		Array<Vec2> query(const Vec2& start, const Vec2& end, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 
+		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
+		/// @param start 出発地点の座標
+		/// @param end 目的地の座標
+		/// @param dst 経路の格納先
+		/// @param areaCosts エリアのコスト
 		void query(const Vec2& start, const Vec2& end, Array<Vec2>& dst, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 
 		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
@@ -144,6 +149,11 @@ namespace s3d
 		[[nodiscard]]
 		Array<Vec3> query(const Vec3& start, const Vec3& end, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 
+		/// @brief 目的地もしくは目的地の近くまで到達できるナビメッシュ上の経路を計算します。
+		/// @param start 出発地点の座標
+		/// @param end 目的地の座標
+		/// @param dst 経路の格納先
+		/// @param areaCosts エリアのコスト
 		void query(const Vec3& start, const Vec3& end, Array<Vec3>& dst, const Array<std::pair<int32, double>>& areaCosts = {}) const;
 
 	private:

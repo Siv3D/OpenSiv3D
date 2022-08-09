@@ -416,6 +416,10 @@ namespace s3d
 		[[nodiscard]]
 		size_t size() const;
 
+		/// @brief JSON データを文字列にフォーマットした結果を返します。
+		/// @param space インデントの文字
+		/// @param spaceCount インデントの文字数
+		/// @return フォーマットした結果
 		[[nodiscard]]
 		String format(char32 space = U' ', size_t spaceCount = 2) const;
 
@@ -428,22 +432,38 @@ namespace s3d
 		[[nodiscard]]
 		std::string formatUTF8Minimum() const;
 
+		/// @brief JSON データをファイルに保存します。
+		/// @param path ファイルパス
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(FilePathView path) const;
 
+		/// @brief JSON データを、不要なスペースを消したコンパクトな形式でファイルに保存します。
+		/// @param path ファイルパス
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool saveMinimum(FilePathView path) const;
 
+		/// @brief BSON 形式にシリアライズした結果を返します。
+		/// @return BSON データ
 		[[nodiscard]]
 		Blob toBSON() const;
 
+		/// @brief CBOR 形式にシリアライズした結果を返します。
+		/// @return CBOR データ
 		[[nodiscard]]
 		Blob toCBOR() const;
 
+		/// @brief MessagePack 形式にシリアライズした結果を返します。
+		/// @return MessagePack データ
 		[[nodiscard]]
 		Blob toMessagePack() const;
 
 		[[nodiscard]]
 		static JSON Invalid();
 
+		/// @brief JSON ファイルをパースして JSON オブジェクトを返します。
+		/// @param path ファイルパス
+		/// @param allowExceptions 例外を発生させるか
+		/// @return JSON オブジェクト
 		[[nodiscard]]
 		static JSON Load(FilePathView path, AllowExceptions allowExceptions = AllowExceptions::No);
 
@@ -454,15 +474,31 @@ namespace s3d
 		[[nodiscard]]
 		static JSON Load(std::unique_ptr<IReader>&& reader, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief JSON 文字列をパースして JSON オブジェクトを返します。
+		/// @param str 文字列
+		/// @param allowExceptions 例外を発生させるか
+		/// @return JSON オブジェクト
 		[[nodiscard]]
 		static JSON Parse(StringView str, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief BSON 形式のデータから JSON オブジェクトをデシリアライズします。
+		/// @param bson BSON データ
+		/// @param allowExceptions 例外を発生させるか
+		/// @return JSON オブジェクト
 		[[nodiscard]]
 		static JSON FromBSON(const Blob& bson, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief CBOR 形式のデータから JSON オブジェクトをデシリアライズします。
+		/// @param cbor CBOR データ
+		/// @param allowExceptions 例外を発生させるか
+		/// @return JSON オブジェクト
 		[[nodiscard]]
 		static JSON FromCBOR(const Blob& cbor, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief MessagePack 形式のデータから JSON オブジェクトをデシリアライズします。
+		/// @param msgpack MessagePack データ
+		/// @param allowExceptions 例外を発生させるか
+		/// @return JSON オブジェクト
 		[[nodiscard]]
 		static JSON FromMessagePack(const Blob& msgpack, AllowExceptions allowExceptions = AllowExceptions::No);
 
