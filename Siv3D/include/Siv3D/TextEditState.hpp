@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "Stopwatch.hpp"
 # include "String.hpp"
+# include "AsyncTask.hpp"
 
 namespace s3d
 {
@@ -34,7 +35,7 @@ namespace s3d
 
 	# if SIV3D_PLATFORM(WEB)
 
-		std::future<String> pendingClipboardText;
+		AsyncTask<String> pendingClipboardText;
 
 	# endif
 

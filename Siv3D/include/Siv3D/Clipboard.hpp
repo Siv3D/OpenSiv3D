@@ -14,6 +14,7 @@
 # include "String.hpp"
 # include "Array.hpp"
 # include "Image.hpp"
+# include "AsyncTask.hpp"
 
 namespace s3d
 {
@@ -55,7 +56,7 @@ namespace s3d
 # if SIV3D_PLATFORM(WEB)
 	namespace Platform::Web::Clipboard 
 	{
-		std::future<String> GetText();
+		AsyncTask<String> GetText();
 	}
 # endif
 }

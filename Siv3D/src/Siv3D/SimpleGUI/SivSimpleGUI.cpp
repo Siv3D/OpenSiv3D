@@ -922,7 +922,7 @@ namespace s3d
 				{
 				# if SIV3D_PLATFORM(WEB)
 
-					if (not text.pendingClipboardText.valid())
+					if (not text.pendingClipboardText.isValid())
 					{
 						text.pendingClipboardText = Platform::Web::Clipboard::GetText();
 					}
@@ -940,8 +940,7 @@ namespace s3d
 
 			# if SIV3D_PLATFORM(WEB)
 
-				if (text.pendingClipboardText.valid()
-					&& (text.pendingClipboardText.wait_for(std::chrono::seconds(0)) == std::future_status::ready))
+				if (text.pendingClipboardText.isReady())
 				{
 					String paste = text.pendingClipboardText.get();
 					text.text.insert(text.cursorPos, paste);

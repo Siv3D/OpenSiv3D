@@ -124,14 +124,14 @@ namespace s3d
 			}
 		}
 
-		std::future<String> GetText()
+		AsyncTask<String> GetText()
 		{
 			auto p = new std::promise<s3d::String>();
 			auto result_future = p->get_future();
 
 			s3d::detail::siv3dGetClipboardTextAsync(&detail::OnGetClipboardText, p);
 			
-			return result_future;
+			return std::move(result_future);
 		}
 	}
 }
