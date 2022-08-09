@@ -553,15 +553,10 @@ mergeInto(LibraryManager.library, {
         siv3dInputElement.type = "file";
 
         siv3dDialogFileReader = new FileReader();
-
-        siv3dSaveFileBuffer = new Uint8Array(16*1024 /* 16KB */)
         siv3dDownloadLink = document.createElement("a");
-
-        TTY.register(FS.makedev(20, 0), { put_char: siv3dWriteSaveFileBuffer, flush: siv3dFlushSaveFileBuffer });
-        FS.mkdev('/dev/save', FS.makedev(20, 0));
     },
     siv3dInitDialog__sig: "v",
-    siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dWriteSaveFileBuffer", "$siv3dFlushSaveFileBuffer", "$siv3dSaveFileBuffer", "$siv3dDownloadLink", "$TTY", "$FS" ],
+    siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dDownloadLink" ],
 
     siv3dOpenDialog: function(filterStr) {
         return Asyncify.handleSleep(function (wakeUp) {
@@ -633,42 +628,23 @@ mergeInto(LibraryManager.library, {
     $siv3dSaveFileBufferWritePos: 0,
     $siv3dDefaultSaveFileName: null,
 
-    $siv3dWriteSaveFileBuffer: function(tty, chr) {       
-        if (siv3dSaveFileBufferWritePos >= siv3dSaveFileBuffer.length) {
-            const newBuffer = new Uint8Array(siv3dSaveFileBuffer.length * 2);
-            newBuffer.set(siv3dSaveFileBuffer);
-            siv3dSaveFileBuffer = newBuffer;
-        }
+    siv3dDownloadFile: function(filePathPtr, fileNamePtr, mimeTypePtr) {
+        const filePath = UTF8ToString(filePathPtr);
+        const fileName = UTF8ToString(fileNamePtr);
+        const mimeType = mimeTypePtr ? UTF8ToString(mimeTypePtr) : "application/octet-stream";
+        const fileData = FS.readFile(filePath);
 
-        siv3dSaveFileBuffer[siv3dSaveFileBufferWritePos] = chr;
-        siv3dSaveFileBufferWritePos++;
-    },
-    $siv3dWriteSaveFileBuffer__deps: [ "$siv3dSaveFileBuffer", "$siv3dSaveFileBufferWritePos" ], 
-    $siv3dFlushSaveFileBuffer: function(tty) {
-        if (siv3dSaveFileBufferWritePos == 0) {
-            return;
-        }
-
-        const data = siv3dSaveFileBuffer.subarray(0, siv3dSaveFileBufferWritePos);
-        const blob = new Blob([ data ], { type: "application/octet-stream" });
+        const blob = new Blob([ fileData ], { type: mimeType });
 
         siv3dDownloadLink.href = URL.createObjectURL(blob);
-        siv3dDownloadLink.download = siv3dDefaultSaveFileName;
+        siv3dDownloadLink.download = fileName;
 
         siv3dRegisterUserAction(function() {
             siv3dDownloadLink.click();         
         });
-
-        siv3dSaveFileBufferWritePos = 0;
     },
-    $siv3dWriteSaveFileBuffer__deps: [ "$siv3dSaveFileBuffer", "$siv3dSaveFileBufferWritePos", "$siv3dRegisterUserAction", "$siv3dDefaultSaveFileName", "$siv3dDownloadLink" ], 
-
-    siv3dSaveDialog: function(str) {
-        siv3dDefaultSaveFileName = UTF8ToString(str);
-        siv3dSaveFileBufferWritePos = 0;
-    },
-    siv3dSaveDialog__sig: "v",
-    siv3dSaveDialog__deps: [ "$siv3dSaveFileBufferWritePos", "$siv3dDefaultSaveFileName" ],
+    siv3dDownloadFile__sig: "viii",
+    siv3dDownloadFile__deps: [ "$siv3dRegisterUserAction" ],
 
     //
     // Audio Support

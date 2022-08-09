@@ -40,9 +40,6 @@ namespace s3d
 
 			__attribute__((import_name("siv3dOpenDialog")))
 			char* siv3dOpenDialogImpl(const char*);
-
-			__attribute__((import_name("siv3dSaveDialog")))
-			extern void siv3dSaveDialog(const char* fileName);
 		}
 
 		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
@@ -81,15 +78,13 @@ namespace s3d
 
 		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
 		{
-			const auto fileName = FileSystem::FileName(defaultPath);
-			detail::siv3dSaveDialog(fileName.narrow().c_str());
-			
-			return FilePath(U"/dev/save");
+			// [Siv3D Web NoSupport]
+			return (none);
 		}
 
 		Optional<FilePath> SelectFolder(const FilePathView defaultPath, const StringView title)
 		{
-			// [Siv3D ToDo]
+			// [Siv3D Web NoSupport]
 			return (none);
 		}
 	}
@@ -104,6 +99,9 @@ namespace s3d
 			template <class T>
 			__attribute__((import_name("siv3dOpenDialogAsync")))
 			void siv3dOpenDialogImpl(const char*, siv3dOpenDialogCallback<T>, std::promise<T>*);
+
+			__attribute__((import_name("siv3dDownloadFile")))
+			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
 
 			template <class T>
 			void OnOpenFileDialogClosed(char* fileName, std::promise<T>* result)
@@ -218,6 +216,14 @@ namespace s3d
 		AsyncTask<Audio> OpenAudio(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
+		}
+
+
+
+		void DownloadFile(FilePathView filePath)
+		{
+			const auto fileName = FileSystem::FileName(filePath);
+			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
 		}
 	}
 }

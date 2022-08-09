@@ -150,7 +150,11 @@ namespace s3d
 		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
 		[[nodiscard]]
 		AsyncTask<Audio> OpenAudio(Audio::FileStreaming f, FilePathView defaultDirectory = U"", StringView title = U"");
-    }
+    
+		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
+		/// @param filePath ブラウザ上の仮想ファイルへのパス
+		void DownloadFile(FilePathView filePath);
+	}
 
 # endif
 }
