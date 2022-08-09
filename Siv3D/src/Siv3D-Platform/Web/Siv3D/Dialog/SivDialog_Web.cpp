@@ -100,9 +100,6 @@ namespace s3d
 			__attribute__((import_name("siv3dOpenDialogAsync")))
 			void siv3dOpenDialogImpl(const char*, siv3dOpenDialogCallback<T>, std::promise<T>*);
 
-			__attribute__((import_name("siv3dDownloadFile")))
-			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
-
 			template <class T>
 			void OnOpenFileDialogClosed(char* fileName, std::promise<T>* result)
 			{
@@ -217,8 +214,15 @@ namespace s3d
 		{
 			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
 		}
+	}
 
-
+	namespace Platform::Web
+	{
+		namespace detail
+		{
+			__attribute__((import_name("siv3dDownloadFile")))
+			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
+		}
 
 		void DownloadFile(FilePathView filePath)
 		{

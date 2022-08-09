@@ -145,12 +145,15 @@ namespace s3d
 
 		/// @brief ダイアログから音声ファイルを選択し、ストリーミング再生する Audio を作成します。
 		/// @param f `Audio::Stream`
-		/// @param defaultPath ダイアログのデフォルトディレクトリ
+		/// @param defaultDirectory ダイアログのデフォルトディレクトリ
 		/// @param title ダイアログのタイトル
 		/// @return 作成した音声。ファイルが選択されなかった場合は空の Audio
 		[[nodiscard]]
 		AsyncTask<Audio> OpenAudio(Audio::FileStreaming f, FilePathView defaultDirectory = U"", StringView title = U"");
-    
+	}
+
+	namespace Platform::Web
+	{
 		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
 		/// @param filePath ブラウザ上の仮想ファイルへのパス
 		void DownloadFile(FilePathView filePath);
