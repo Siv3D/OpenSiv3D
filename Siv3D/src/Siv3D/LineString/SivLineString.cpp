@@ -283,6 +283,135 @@ namespace s3d
 		}
 	}
 
+	LineString LineString::extractLineString(double distanceFromOrigin, const CloseRing closeRing) const
+	{
+		if (size() < 2)
+		{
+			return{};
+		}
+
+		if (closeRing)
+		{
+			const size_t lineCount = (num_lines() + 1);
+
+			Array<double> lineLengths(lineCount);
+			{
+				for (size_t i = 0; i < lineCount; ++i)
+				{
+					lineLengths[i] = line(i, closeRing).length();
+				}
+			}
+
+			const double lineStringLength = lineLengths.sum();
+
+			distanceFromOrigin = Math::Fmod(distanceFromOrigin, lineStringLength);
+
+			if (distanceFromOrigin < 0.0)
+			{
+				distanceFromOrigin += lineStringLength;
+			}
+
+			const double distanceToTargetFromOrigin = (distanceFromOrigin + lineStringLength);
+
+			LineString result;
+			double accumulatedLength = 0.0;
+			const Vec2* pSrc = data();
+
+			for (size_t n = 0; n < (lineCount * 2); ++n)
+			{
+				const size_t i = (n % lineCount);
+				const Vec2 pFrom = pSrc[i];
+				const Vec2 pTo = pSrc[(i + 1) % lineCount];
+				const double len = lineLengths[i];
+
+				if (not result)
+				{
+					if (distanceFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 start = (pFrom + (pTo - pFrom).withLength(distanceFromOrigin - accumulatedLength));
+						result << start;
+
+						if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+						{
+							const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+							result << goal;
+							break;
+						}
+
+						if (result.back() != pTo)
+						{
+							result << pTo;
+						}
+					}
+				}
+				else
+				{
+					if (distanceToTargetFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 goal = (pFrom + (pTo - pFrom).withLength(distanceToTargetFromOrigin - accumulatedLength));
+						result << goal;
+						break;
+					}
+
+					result << pTo;
+				}
+
+				accumulatedLength += len;
+			}
+
+			return result;
+		}
+		else
+		{
+			const size_t lineCount = num_lines();
+
+			Array<double> lineLengths(lineCount);
+			{
+				for (size_t i = 0; i < lineCount; ++i)
+				{
+					lineLengths[i] = line(i).length();
+				}
+			}
+
+			const double lineStringLength = lineLengths.sum();
+
+			distanceFromOrigin = Clamp(distanceFromOrigin, 0.0, lineStringLength);
+
+			LineString result;
+			double accumulatedLength = 0.0;
+			const Vec2* pSrc = data();
+
+			for (size_t i = 0; i < lineCount; ++i)
+			{
+				const Vec2 pFrom = pSrc[i];
+				const Vec2 pTo = pSrc[i + 1];
+				const double len = lineLengths[i];
+
+				if (not result)
+				{
+					if (distanceFromOrigin <= (accumulatedLength + len))
+					{
+						const Vec2 start = (pFrom + (pTo - pFrom).withLength(distanceFromOrigin - accumulatedLength));
+						result << start;
+
+						if (result.back() != pTo)
+						{
+							result << pTo;
+						}
+					}
+				}
+				else
+				{
+					result << pTo;
+				}
+
+				accumulatedLength += len;
+			}
+
+			return result;
+		}
+	}
+
 	LineString LineString::extractLineString(double distanceFromOrigin, double length, const CloseRing closeRing) const
 	{
 		if (size() < 2)
@@ -361,7 +490,10 @@ namespace s3d
 							break;
 						}
 
-						result << pTo;
+						if (result.back() != pTo)
+						{
+							result << pTo;
+						}
 					}
 				}
 				else
@@ -435,7 +567,10 @@ namespace s3d
 							break;
 						}
 
-						result << pTo;
+						if (result.back() != pTo)
+						{
+							result << pTo;
+						}
 					}
 				}
 				else
