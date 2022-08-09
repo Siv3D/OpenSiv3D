@@ -72,9 +72,9 @@ namespace s3d
 
 	namespace Dialog
 	{
-		Image OpenImage(const FilePathView defaultPath, const StringView title)
+		Image OpenImage(const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenImageFilters, defaultDirectory, title))
 			{
 				return Image{ *path };
 			}
@@ -84,9 +84,9 @@ namespace s3d
 			}
 		}
 
-		Texture OpenTexture(const FilePathView defaultPath, const StringView title)
+		Texture OpenTexture(const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenImageFilters, defaultDirectory, title))
 			{
 				return Texture{ *path };
 			}
@@ -96,9 +96,9 @@ namespace s3d
 			}
 		}
 
-		Texture OpenTexture(const TextureDesc desc, const FilePathView defaultPath, const StringView title)
+		Texture OpenTexture(const TextureDesc desc, const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenImageFilters, defaultDirectory, title))
 			{
 				return Texture{ *path, desc };
 			}
@@ -108,9 +108,9 @@ namespace s3d
 			}
 		}
 
-		Wave OpenWave(const FilePathView defaultPath, const StringView title)
+		Wave OpenWave(const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultDirectory, title))
 			{
 				return Wave{ *path };
 			}
@@ -120,9 +120,9 @@ namespace s3d
 			}
 		}
 
-		Audio OpenAudio(const FilePathView defaultPath, const StringView title)
+		Audio OpenAudio(const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultDirectory, title))
 			{
 				return Audio{ *path };
 			}
@@ -132,9 +132,9 @@ namespace s3d
 			}
 		}
 
-		Audio OpenAudio(Audio::FileStreaming, const FilePathView defaultPath, const StringView title)
+		Audio OpenAudio(Audio::FileStreaming, const FilePathView defaultDirectory, const StringView title)
 		{
-			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultDirectory, title))
 			{
 				return Audio{ Audio::Stream, *path };
 			}
@@ -144,14 +144,14 @@ namespace s3d
 			}
 		}
 
-		Optional<FilePath> SaveImage(const FilePathView defaultPath, const StringView title)
+		Optional<FilePath> SaveImage(const FilePathView defaultDirectory, const StringView title)
 		{
-			return SaveFile(detail::SaveImageFilters, defaultPath, title);
+			return SaveFile(detail::SaveImageFilters, defaultDirectory, title);
 		}
 
-		Optional<FilePath> SaveWave(const FilePathView defaultPath, const StringView title)
+		Optional<FilePath> SaveWave(const FilePathView defaultDirectory, const StringView title)
 		{
-			return SaveFile(detail::SaveWaveFilters, defaultPath, title);
+			return SaveFile(detail::SaveWaveFilters, defaultDirectory, title);
 		}
 	}
 }
