@@ -273,8 +273,8 @@ jobs:
         if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/VisualStudioTemplate/Files
         run: |
-          7z a -tzip "OpenSiv3D(0.6.4)Web.zip" .
-          cp "OpenSiv3D(0.6.4)Web.zip" ..
+          7z a -tzip "OpenSiv3D(0.6.5)Web.zip" .
+          cp "OpenSiv3D(0.6.5)Web.zip" ..
           
       - name: Create Installer
         if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
@@ -320,8 +320,8 @@ jobs:
         working-directory: Web/WindowsInstaller
         run: |
           Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
-          & ".\OpenSiv3D(0.6.4)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
-          Wait-Process -Name "OpenSiv3D(0.6.4)Web"
+          & ".\OpenSiv3D(0.6.5)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
+          Wait-Process -Name "OpenSiv3D(0.6.5)Web"
           cat InstallLog.Log
           devenv /installvstemplates
 
@@ -428,7 +428,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.pre-deploy.outputs.upload_url }}
-          asset_path: OpenSiv3D(0.6.4)Web.exe
+          asset_path: OpenSiv3D(0.6.5)Web.exe
           asset_name: OpenSiv3D-Installer-${{ matrix.config.name }}.exe
           asset_content_type: application/octet-stream
 
