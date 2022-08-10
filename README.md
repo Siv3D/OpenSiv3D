@@ -110,7 +110,7 @@
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.2 / 17.3<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.3<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | [**Download SDK**](https://siv3d.github.io/download/macos/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/macos/) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://siv3d.github.io/download/ubuntu/) /<br>[**Linux 版のビルド**](https://siv3d.github.io/ja-jp/download/ubuntu/) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) /<br>[**Web 版のビルド**](https://siv3d.kamenokosoft.com/ja/download) | Web browser with WebAssembly and WebGL2 support |
