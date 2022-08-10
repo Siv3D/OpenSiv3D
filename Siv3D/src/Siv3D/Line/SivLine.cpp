@@ -282,14 +282,14 @@ namespace s3d
 		return *this;
 	}
 
-	const Line& Line::drawArrow(const double width, const Vec2& headSize, const ColorF& color) const
+	const Line& Line::drawArrow(const double width, const SizeF& headSize, const ColorF& color) const
 	{
 		Shape2D::Arrow(begin, end, width, headSize).draw(color);
 
 		return *this;
 	}
 
-	const Line& Line::drawDoubleHeadedArrow(const double width, const Vec2& headSize, const ColorF& color) const
+	const Line& Line::drawDoubleHeadedArrow(const double width, const SizeF& headSize, const ColorF& color) const
 	{
 		Shape2D::DoubleHeadedArrow(begin, end, width, headSize).draw(color);
 

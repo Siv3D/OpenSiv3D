@@ -343,9 +343,14 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector2D lerp(Vector2D other, value_type f) const noexcept;
 
+		/// @brief Vec2 を Point 型に変換します。小数点数以下は切り捨てられます。
+		/// @return Point
 		[[nodiscard]]
 		constexpr Point asPoint() const noexcept;
 
+		/// @brief 点を中心とした円を作成します。
+		/// @param r 円の半径
+		/// @return 円
 		[[nodiscard]]
 		Circle asCircle(double r) const noexcept;
 

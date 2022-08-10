@@ -91,18 +91,29 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Mat3x2 operator *(const Mat3x2& other) const noexcept;
 
+		/// @brief 点の座標を変換します
+		/// @param pos 点の座標
+		/// @return 変換後の座標
 		[[nodiscard]]
 		constexpr Float2 transformPoint(Point pos) const noexcept;
 
+		/// @brief 点の座標を変換します
+		/// @param pos 点の座標
+		/// @return 変換後の座標
 		[[nodiscard]]
 		constexpr Float2 transformPoint(Float2 pos) const noexcept;
 
+		/// @brief 点の座標を変換します
+		/// @param pos 点の座標
+		/// @return 変換後の座標
 		[[nodiscard]]
 		constexpr Vec2 transformPoint(Vec2 pos) const noexcept;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
+		/// @brief 何も変換をしない行列を返します。
+		/// @return 何も変換をしない行列
 		[[nodiscard]]
 		static constexpr Mat3x2 Identity() noexcept;
 

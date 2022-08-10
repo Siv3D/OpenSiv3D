@@ -1132,7 +1132,7 @@ namespace s3d
 			}
 			else
 			{
-				return 0;
+				throw NotImplementedError{ U"LineString does not support dotted line style yet" };
 			}
 		}
 

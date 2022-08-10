@@ -318,6 +318,8 @@ namespace s3d
 
 		LineString& reverse();
 
+		/// @brief 連続する線分の向きを反転した新しい LineString を返します。
+		/// @return 連続する線分の向きを反転した新しい LineString
 		[[nodiscard]]
 		LineString reversed() const;
 
@@ -430,9 +432,16 @@ namespace s3d
 		[[nodiscard]]
 		LineString densified(double maxDistance, CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief Catmull-Rom スプライン曲線を返します。
+		/// @param interpolation 分割の品質
+		/// @return Catmull-Rom スプライン曲線
 		[[nodiscard]]
 		LineString catmullRom(int32 interpolation = 24) const;
 
+		/// @brief Catmull-Rom スプライン曲線を返します。
+		/// @param closeRing 終点と始点を結ぶか
+		/// @param interpolation 分割の品質
+		/// @return Catmull-Rom スプライン曲線
 		[[nodiscard]]
 		LineString catmullRom(CloseRing closeRing, int32 interpolation = 24) const;
 
@@ -467,15 +476,31 @@ namespace s3d
 		[[nodiscard]]
 		Array<Vec2> computeNormals(CloseRing closeRing = CloseRing::No) const;
 
+		/// @brief 太らせた多角形を作成します。
+		/// @param distance 太らせる距離（ピクセル）
+		/// @param bufferQuality 品質
+		/// @return 太らせた多角形
 		[[nodiscard]]
 		Polygon calculateBuffer(double distance, int32 bufferQuality = 24) const;
 
+		/// @brief 終点と始点を結んだうえで、太らせた多角形を作成します。
+		/// @param distance 太らせる距離（ピクセル）
+		/// @param bufferQuality 品質
+		/// @return 太らせた多角形
 		[[nodiscard]]
 		Polygon calculateBufferClosed(double distance, int32 bufferQuality = 24) const;
 
+		/// @brief 丸く太らせた多角形を作成します。
+		/// @param distance 太らせる距離（ピクセル）
+		/// @param bufferQuality 品質
+		/// @return 丸く太らせた多角形
 		[[nodiscard]]
 		Polygon calculateRoundBuffer(double distance, int32 bufferQuality = 24) const;
 
+		/// @brief 終点と始点を結んだうえで、丸く太らせた多角形を作成します。
+		/// @param distance 太らせる距離（ピクセル）
+		/// @param bufferQuality 品質
+		/// @return 丸く太らせた多角形
 		[[nodiscard]]
 		Polygon calculateRoundBufferClosed(double distance, int32 bufferQuality = 24) const;
 
@@ -522,8 +547,15 @@ namespace s3d
 
 		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
+		/// @brief 終点と始点を結んだうえで、連続する線分を描画します。
+		/// @param color 色
+		/// @return *this
 		const LineString& drawClosed(const ColorF& color = Palette::White) const;
 
+		/// @brief 終点と始点を結んだうえで、連続する線分を描画します。
+		/// @param thickness 線の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const LineString& drawClosed(double thickness, const ColorF & color = Palette::White) const;
 
 		const LineString& drawClosed(double thickness, const Array<ColorF>& colors) const;
