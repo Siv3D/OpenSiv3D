@@ -127,11 +127,11 @@
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1932) // 古い Visual Studio | Old MSVC
+# if SIV3D_PLATFORM(WINDOWS) && (_MSC_VER < 1933) // 古い Visual Studio | Old MSVC
 
 	// お使いの Visual Studio のバージョンが古い場合、このエラーが発生します
 	// This error occures when your Visual Studio version is not up to date.
-	# error Please update the Visual Studio. Visual Studio 2022 17.2 or later is required to build this project.
+	# error Please update the Visual Studio. Visual Studio 2022 17.3 is required to build this project.
 
 # endif
 
