@@ -278,7 +278,7 @@ add_executable(Siv3DSharedMain
 if (SIV3D_BUILD_WITH_SHARED_MAIN)
   set_target_properties(Siv3DSharedMain 
     PROPERTIES
-      EXCLUDE_FROM_ALL On
+      EXCLUDE_FROM_ALL Off
       OUTPUT_NAME Siv3D
   )
 endif()
