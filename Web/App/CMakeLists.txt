@@ -279,6 +279,7 @@ if (SIV3D_BUILD_WITH_SHARED_MAIN)
   set_target_properties(Siv3DSharedMain 
     PROPERTIES
       EXCLUDE_FROM_ALL On
+      OUTPUT_NAME Siv3D
   )
 endif()
 
