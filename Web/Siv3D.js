@@ -876,12 +876,14 @@ mergeInto(LibraryManager.library, {
         if (Notification.permission === "granted") {
             {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
         } else {
-            Notification.requestPermission().then(function(v) {
-                if (v === "granted") {
-                    {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
-                } else {
-                    {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
-                }
+            siv3dRegisterUserAction(function () {
+                Notification.requestPermission().then(function(v) {
+                    if (v === "granted") {
+                        {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
+                    } else {
+                        {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
+                    }
+                });
             });
         }
     },
@@ -906,10 +908,8 @@ mergeInto(LibraryManager.library, {
             actions.push({ title: actionText, action: actionText });
         }
 
-        siv3dRegisterUserAction(function () {
-            siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions })
-            {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-        }); 
+        siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions });
+        {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
 
         return idx;
     },
