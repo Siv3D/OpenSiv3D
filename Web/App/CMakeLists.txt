@@ -294,7 +294,7 @@ set(Siv3DSharedMainLinkerOption
   "-s EXPORTED_FUNCTIONS='[\"_main\"]'"
 
   "--pre-js '${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js'"
-  "--pre-js 'Siv3D.data.js'"
+  "--pre-js '${CMAKE_SOURCE_DIR}/Siv3D.data.js'"
   "-s FORCE_FILESYSTEM=1"
 
   # "-s ASYNCIFY=1"
