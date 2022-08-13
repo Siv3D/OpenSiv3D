@@ -344,8 +344,8 @@ add_custom_command(
   COMMAND python3 
   ARGS
     $ENV{EMSDK}/upstream/emscripten/tools/file_packager.py
-    Siv3D.data
-    --js-output=Siv3D.data.js
+    "${CMAKE_SOURCE_DIR}/Siv3D.data"
+    --js-output="${CMAKE_SOURCE_DIR}/Siv3D.data.js"
     --preload \"${CMAKE_SOURCE_DIR}/resources@/resources\"
     --from-emcc
 )
