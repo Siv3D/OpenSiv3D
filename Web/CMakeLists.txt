@@ -1378,6 +1378,7 @@ install(FILES
     ${PROJECT_SOURCE_DIR}/Siv3D.js
     ${PROJECT_SOURCE_DIR}/Siv3D.post.js
     ${PROJECT_SOURCE_DIR}/Siv3D.pre.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.sharedMain.pre.js
   DESTINATION
     ${CMAKE_INSTALL_LIBDIR}/Siv3D
 )
