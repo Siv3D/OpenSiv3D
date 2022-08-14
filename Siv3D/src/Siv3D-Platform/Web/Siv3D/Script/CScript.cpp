@@ -96,6 +96,11 @@ namespace s3d
 		return {};
 	}
 
+	__attribute__((weak)) const Array<FilePath>& CScript::getIncludedFiles(const Script::IDType handleID)
+	{
+		return {};
+	}
+
 	__attribute__((weak)) const Array<String>& CScript::getMessages(const Script::IDType handleID)
 	{
 		return m_scripts[handleID]->getMessages();

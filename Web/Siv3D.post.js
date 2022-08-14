@@ -9,10 +9,16 @@
             const device = await adapter.requestDevice();
     
             Module["preinitializedWebGPUDevice"] = device;
+        } catch(_) {
+            // ignore
         } finally {
             removeRunDependency(dependencyName);
         }
     })();
+
+    if (Module["_emscripten_clear_interval"]) {
+        Module["_emscripten_clear_interval"].sig = "vi";
+    }
 
     if (findEventTarget) {
         findEventTarget = new Proxy(findEventTarget, {
