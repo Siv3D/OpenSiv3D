@@ -64,6 +64,7 @@ set(Siv3DLinkerFlags
   -s USE_VORBIS=1
   --js-library ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.js
   --pre-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.pre.js
+  --post-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.post.js
 )
 
 string(REPLACE ";" " " Siv3DLinkerFlags "${Siv3DLinkerFlags}")
@@ -88,7 +89,6 @@ if (SIV3D_WEBGPU_BACKEND)
   add_compile_options("-DSIV3D_WEBGPU_BACKEND")
   add_link_options(
     "SHELL:-s USE_WEBGPU=1"
-    "SHELL:--post-js \"${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.post.js\""
   )
 else()
   add_link_options(
