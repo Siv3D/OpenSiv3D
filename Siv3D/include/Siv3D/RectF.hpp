@@ -578,13 +578,13 @@ namespace s3d
 		[[nodiscard]]
 		constexpr size_type tr() const noexcept;
 
-		/// @brief 長方形の左下の座標を返します。
-		/// @return 長方形の左下の座標
+		/// @brief 長方形の右下の座標を返します。
+		/// @return 長方形の右下の座標
 		[[nodiscard]]
 		constexpr size_type br() const noexcept;
 
-		/// @brief 長方形の右下の座標を返します。
-		/// @return 長方形の右下の座標
+		/// @brief 長方形の左下の座標を返します。
+		/// @return 長方形の左下の座標
 		[[nodiscard]]
 		constexpr size_type bl() const noexcept;
 
