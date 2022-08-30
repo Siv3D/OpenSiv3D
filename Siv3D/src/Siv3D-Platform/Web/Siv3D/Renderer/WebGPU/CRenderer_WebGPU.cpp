@@ -157,7 +157,7 @@ namespace s3d
 				.view = backBufferView,
 				.loadOp = wgpu::LoadOp::Undefined,
 				.storeOp = wgpu::StoreOp::Store,
-				.clearColor = 
+				.clearValue = 
 				{
 					.r = 0.0,
 					.g = 0.0,

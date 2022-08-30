@@ -75,7 +75,7 @@ namespace s3d
 			.view = m_sceneBuffers.scene->getTextureView(),
 			.loadOp = wgpu::LoadOp::Undefined,
 			.storeOp = wgpu::StoreOp::Store,
-			.clearColor = 
+			.clearValue = 
 			{
 				.r = m_backgroundColor.r,
 				.g = m_backgroundColor.g,

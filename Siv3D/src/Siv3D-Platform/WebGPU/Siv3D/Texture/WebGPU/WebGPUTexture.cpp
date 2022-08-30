@@ -776,7 +776,7 @@ namespace s3d
 			{
 				.loadOp = wgpu::LoadOp::Undefined,
 				.storeOp = wgpu::StoreOp::Store,
-				.clearColor =
+				.clearValue =
 				{
 					.r = color.r,
 					.g = color.g,
@@ -805,7 +805,7 @@ namespace s3d
 				wgpu::RenderPassDepthStencilAttachment depthAttachment
 				{
 					.view = m_depthTextureView,
-					.clearDepth = 0.0f
+					.depthClearValue = 0.0f
 				};
 
 				descripter.depthStencilAttachment = &depthAttachment;
