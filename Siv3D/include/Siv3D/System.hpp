@@ -14,6 +14,8 @@
 # include "Duration.hpp"
 # include "EngineOptions.hpp"
 # include "HashTable.hpp"
+# include "AsyncTask.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -81,7 +83,13 @@ namespace s3d
 		/// @return 現在のページのクエリ文字列
 		[[nodiscard]]
 		HashTable<String, String> GetURLParameters();
+
+		/// @brief 指定した AsyncTask の準備ができるまで待機します
+		template<class Type>
+		Optional<Type> WaitForFutureResolved(AsyncTask<Type>& task);
 	}
 
 # endif
 }
+
+# include "detail/System.ipp"
