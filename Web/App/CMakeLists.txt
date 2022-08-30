@@ -124,7 +124,7 @@ target_include_directories(Siv3DApp
 target_link_libraries(Siv3DApp
   PRIVATE
     # "-Wl,--whole-archive"
-    #   OpenSiv3DBrowserImageEncodeDecode
+      # OpenSiv3DBrowserImageEncodeDecode
     "-Wl,--no-whole-archive"
       OpenSiv3D
       # OpenSiv3DWebGPU
@@ -297,8 +297,8 @@ set(Siv3DSharedMainLinkerOption
   "--pre-js '${CMAKE_SOURCE_DIR}/Siv3D.data.js'"
   "-s FORCE_FILESYSTEM=1"
 
-  # "-s ASYNCIFY=1"
-  # "-s ASYNCIFY_IGNORE_INDIRECT=1"
+  "-s ASYNCIFY=1"
+  "-s ASYNCIFY_IGNORE_INDIRECT=1"
 )
 
 set(ASYNCIFY_IMPORTS
@@ -373,10 +373,10 @@ list (TRANSFORM ASYNCIFY_ADD REPLACE ".+" "'\\0'")
 string (REPLACE ";" "," ASYNCIFY_IMPORTS "${ASYNCIFY_IMPORTS}")
 string (REPLACE ";" "," ASYNCIFY_ADD "${ASYNCIFY_ADD}")
 
-# list (APPEND Siv3DSharedMainLinkerOption
-#   "-s ASYNCIFY_IMPORTS=\"[${ASYNCIFY_IMPORTS}]\""
-#   "-s ASYNCIFY_ADD=\"[${ASYNCIFY_ADD}]\""
-# )
+list (APPEND Siv3DSharedMainLinkerOption
+  "-s ASYNCIFY_IMPORTS=\"[${ASYNCIFY_IMPORTS}]\""
+  "-s ASYNCIFY_ADD=\"[${ASYNCIFY_ADD}]\""
+)
 string (REPLACE ";" " " Siv3DSharedMainLinkerOption "${Siv3DSharedMainLinkerOption}")
 
 target_link_options(Siv3DSharedMain PRIVATE
