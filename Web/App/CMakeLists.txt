@@ -116,20 +116,27 @@ add_executable(Siv3DApp
   Main.cpp
 )
 
-target_include_directories(Siv3DApp 
-  PRIVATE
-    OpenSiv3D
-)
+if (SIV3D_BUILD_WITH_SHARED_MAIN)
 
-target_link_libraries(Siv3DApp
-  PRIVATE
-    # "-Wl,--whole-archive"
-      # OpenSiv3DBrowserImageEncodeDecode
-    "-Wl,--no-whole-archive"
-      OpenSiv3D
-      # OpenSiv3DWebGPU
-      # OpenSiv3DScript
-)
+  get_target_property(Siv3DIncludeDirectory OpenSiv3D INTERFACE_INCLUDE_DIRECTORIES)
+  target_include_directories(Siv3DApp
+    PRIVATE
+      ${Siv3DIncludeDirectory}
+  )
+
+else()
+
+  target_link_libraries(Siv3DApp
+    PRIVATE
+      # "-Wl,--whole-archive"
+        # OpenSiv3DBrowserImageEncodeDecode
+      "-Wl,--no-whole-archive"
+        OpenSiv3D
+        # OpenSiv3DWebGPU
+        # OpenSiv3DScript
+  )
+
+endif()
 
 set(Siv3DLinkerFlags
   -s MODULARIZE=1
@@ -253,6 +260,11 @@ if (SIV3D_ENABLE_SHARED_LIB)
 elseif (SIV3D_BUILD_WITH_SHARED_MAIN)
 
   target_compile_options(Siv3DApp
+    PRIVATE
+      "SHELL:-s SIDE_MODULE=1"
+  )
+
+  target_link_options(Siv3DApp
     PRIVATE
       "SHELL:-s SIDE_MODULE=1"
   )
