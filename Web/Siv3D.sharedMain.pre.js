@@ -7,3 +7,5 @@
     Module["dynamicLibraries"] = [];
     libs.forEach(lib => Module["dynamicLibraries"] += Module["locateFile"](lib));
 })();
+// This is meaningless, but occurs runtime error on removed...
+var _SDL_CloseAudio=function(){};
