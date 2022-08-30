@@ -179,10 +179,9 @@ else ()
 
   set(ASYNCIFY_IMPORTS
     "siv3dRequestAnimationFrame"
-    "siv3dOpenDialog"
-    "siv3dDecodeAudioFromFile"
     "siv3dGetClipboardText"
     "siv3dDecodeImageFromFile"
+    "siv3dSleepUntilWaked"
   )
 
   set(ASYNCIFY_ADD
@@ -207,6 +206,7 @@ else ()
     "s3d::CRenderer2D_WebGPU::init()"
     "s3d::Clipboard::GetText(*)"
     "s3d::CClipboard::getText(*)"
+    "s3d::Platform::Web::System::WaitForFutureResolved(*)"
   )
 endif ()
 
@@ -303,9 +303,9 @@ set(Siv3DSharedMainLinkerOption
 
 set(ASYNCIFY_IMPORTS
   "siv3dRequestAnimationFrame"
-  "siv3dOpenDialog"
-  "siv3dDecodeAudioFromFile"
   "siv3dGetClipboardText"
+  "siv3dDecodeImageFromFile"
+  "siv3dSleepUntilWaked"
   "_Z4Mainv"
 )
 
@@ -320,8 +320,17 @@ set(ASYNCIFY_ADD
   "s3d::AudioDecoder::Decode(*)"
   "s3d::Wave::Wave(*)"
   "s3d::Audio::Audio(*)"
+  "s3d::GenericDecoder::decode(*) const"
+  "s3d::CImageDecoder::decode(*)"
+  "s3d::Image::Image(*)"
+  "s3d::Texture::Texture(*)"
+  "s3d::ImageDecoder::Decode(*)"
+  "s3d::ImageDecoder::GetImageInfo(*)"
+  "s3d::CRenderer2D_GLES3::init()"
+  "s3d::CRenderer2D_WebGPU::init()"
   "s3d::Clipboard::GetText(*)"
   "s3d::CClipboard::getText(*)"
+  "s3d::Platform::Web::System::WaitForFutureResolved(*)"
 )
 
 set_target_properties(Siv3DSharedMain 
