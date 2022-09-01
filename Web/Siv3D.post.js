@@ -20,3 +20,9 @@
         Module["_emscripten_clear_interval"].sig = "vi";
     }
 })();
+
+__ATEXIT__.push(function() {
+    if (Module["onRuntimeExit"]) {
+      Module["onRuntimeExit"]();
+    }
+})

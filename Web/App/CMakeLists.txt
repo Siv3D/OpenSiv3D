@@ -62,6 +62,7 @@ set(Siv3DLinkerFlags
   -s USE_GLFW=3
   -s USE_OGG=1
   -s USE_VORBIS=1
+  -s EXIT_RUNTIME=1
   --js-library ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.js
   --pre-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.pre.js
   --post-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.post.js
