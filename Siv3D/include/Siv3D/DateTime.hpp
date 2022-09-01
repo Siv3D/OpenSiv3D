@@ -269,7 +269,7 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::DateTime, s3d::char32>
 
 		if (tag.empty())
 		{
-			return format_to(ctx.out(), sv);
+			return format_to(ctx.out(), U"{}", sv);
 		}
 		else
 		{

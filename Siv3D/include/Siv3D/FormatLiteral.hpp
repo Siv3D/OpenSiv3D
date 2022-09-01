@@ -76,7 +76,7 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::String, s3d::char32>
 
 		if (tag.empty())
 		{
-			return format_to(ctx.out(), sv);
+			return format_to(ctx.out(), U"{}", sv);
 		}
 		else
 		{
@@ -103,7 +103,7 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::StringView, s3d::char32>
 
 		if (tag.empty())
 		{
-			return format_to(ctx.out(), sv);
+			return format_to(ctx.out(), U"{}", sv);
 		}
 		else
 		{
@@ -126,19 +126,92 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::Array<Type, Allocator>, s3d::char32>
 	template <class FormatContext>
 	auto format(const s3d::Array<Type, Allocator>& value, FormatContext& ctx)
 	{
-		if (tag.empty())
+		if (value.empty())
 		{
-			const s3d::String s = s3d::Format(value).replace(U"{", U"{{").replace(U"}", U"}}");
-			const basic_string_view<s3d::char32> sv(s.data(), s.size());
-			return format_to(ctx.out(), sv);
+			return format_to(ctx.out(), U"{{}}");
 		}
-		else
+
+		const std::u32string firstTag = (tag.empty() ? U"{{{}" : (U"{{{:" + tag + U"}"));
+		const std::u32string secondTag = (tag.empty() ? U", {}" : (U", {:" + tag + U"}"));
+
+		auto it = format_to(ctx.out(), firstTag, value[0]);
+
+		for (size_t i = 1; i < value.size(); ++i)
 		{
-			const s3d::String format = U"{:" + tag + U'}';
-			const auto formatHelper = s3d::Fmt(format);
-			const s3d::String s = s3d::Format(value.map([&formatHelper](const auto& e) { return formatHelper(e); })).replace(U"{", U"{{").replace(U"}", U"}}");
-			const basic_string_view<s3d::char32> sv(s.data(), s.size());
-			return format_to(ctx.out(), sv);
+			it = format_to(it, secondTag, value[i]);
 		}
+
+		it = format_to(it, U"}}");
+
+		return it;
 	}
 };
+
+template <class Type, class Allocator>
+struct SIV3D_HIDDEN fmt::formatter<std::vector<Type, Allocator>, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const std::vector<Type, Allocator>& value, FormatContext& ctx)
+	{
+		if (value.empty())
+		{
+			return format_to(ctx.out(), U"{{}}");
+		}
+
+		const std::u32string firstTag = (tag.empty() ? U"{{{}" : (U"{{{:" + tag + U"}"));
+		const std::u32string secondTag = (tag.empty() ? U", {}" : (U", {:" + tag + U"}"));
+
+		auto it = format_to(ctx.out(), firstTag, value[0]);
+
+		for (size_t i = 1; i < value.size(); ++i)
+		{
+			it = format_to(it, secondTag, value[i]);
+		}
+
+		it = format_to(it, U"}}");
+
+		return it;
+	}
+};
+
+template <class Type, size_t N>
+struct SIV3D_HIDDEN fmt::formatter<std::array<Type, N>, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const std::array<Type, N>& value, FormatContext& ctx)
+	{
+		if (value.empty())
+		{
+			return format_to(ctx.out(), U"{{}}");
+		}
+
+		const std::u32string firstTag = (tag.empty() ? U"{{{}" : (U"{{{:" + tag + U"}"));
+		const std::u32string secondTag = (tag.empty() ? U", {}" : (U", {:" + tag + U"}"));
+
+		auto it = format_to(ctx.out(), firstTag, value[0]);
+
+		for (size_t i = 1; i < value.size(); ++i)
+		{
+			it = format_to(it, secondTag, value[i]);
+		}
+
+		it = format_to(it, U"}}");
+
+		return it;
+	}
+};
+

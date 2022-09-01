@@ -551,9 +551,7 @@ namespace s3d
 				}
 				else
 				{
-					formatData.string.push_back(U',');
-
-					formatData.string.push_back(U'\n');
+					formatData.string.append(U",\n");
 				}
 
 				Formatter(formatData, value[y], value[y] + value.width());
@@ -620,20 +618,36 @@ struct SIV3D_HIDDEN fmt::formatter<s3d::Grid<Type, Allocator>, s3d::char32>
 	template <class FormatContext>
 	auto format(const s3d::Grid<Type, Allocator>& value, FormatContext& ctx)
 	{
-		if (tag.empty())
+		if (value.empty())
 		{
-			const s3d::String s = s3d::Format(value).replace(U"{", U"{{").replace(U"}", U"}}");
-			const basic_string_view<s3d::char32> sv(s.data(), s.size());
-			return format_to(ctx.out(), sv);
+			return format_to(ctx.out(), U"{{}}");
 		}
-		else
+
+		const std::u32string firstTag = (tag.empty() ? U"{{{}" : (U"{{{:" + tag + U"}"));
+		const std::u32string secondTag = (tag.empty() ? U", {}" : (U", {:" + tag + U"}"));
+
+		auto it = format_to(ctx.out(), U"{{");
+		
+		for (size_t y = 0; y < value.height(); ++y)
 		{
-			const s3d::String format = U"{:" + tag + U'}';
-			const auto formatHelper = s3d::Fmt(format);
-			const s3d::String s = s3d::Format(value.map([&formatHelper](const auto& e) { return formatHelper(e); })).replace(U"{", U"{{").replace(U"}", U"}}");
-			const basic_string_view<s3d::char32> sv(s.data(), s.size());
-			return format_to(ctx.out(), sv);
+			if (y != 0)
+			{
+				it = format_to(it, U",\n");
+			}
+
+			it = format_to(it, firstTag, value[y][0]);
+
+			for (size_t x = 1; x < value.width(); ++x)
+			{
+				it = format_to(it, secondTag, value[y][x]);
+			}
+
+			it = format_to(it, U"}}");
 		}
+		
+		it = format_to(it, U"}}");
+
+		return it;
 	}
 };
 
