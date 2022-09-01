@@ -15,50 +15,58 @@ namespace s3d
 {
 	template <class IndexType>
 	inline DisjointSet<IndexType>::DisjointSet(const size_t n)
-		: m_parents(n)
-		, m_sizes(n, 1u)
+		: m_parentsOrSize(n, static_cast<signed_index_type>(-1))
 	{
 		assert(n <= MaxSize);
-
-		std::iota(m_parents.begin(), m_parents.end(), static_cast<index_type>(0));
 	}
 
 	template <class IndexType>
 	inline DisjointSet<IndexType>::operator bool() const noexcept
 	{
-		return isEmpty();
+		return (not m_parentsOrSize.empty());
 	}
 
 	template <class IndexType>
 	inline bool DisjointSet<IndexType>::isEmpty() const noexcept
 	{
-		return m_parents.empty();
+		return m_parentsOrSize.empty();
 	}
 
 	template <class IndexType>
 	inline size_t DisjointSet<IndexType>::size() const noexcept
 	{
-		return m_parents.size();
+		return m_parentsOrSize.size();
 	}
 
 	template <class IndexType>
-	inline typename DisjointSet<IndexType>::index_type DisjointSet<IndexType>::find(index_type i) noexcept
+	inline typename DisjointSet<IndexType>::index_type DisjointSet<IndexType>::find(const index_type i) noexcept
 	{
 		assert(static_cast<size_t>(i) < size());
 
-		// Path halving
-		while (m_parents[i] != i)
+		if (m_parentsOrSize[i] < 0)
 		{
-			i = m_parents[i] = m_parents[m_parents[i]];
+			return i;
 		}
 
-		return i;
+		// path compression
+		return (m_parentsOrSize[i] = find(static_cast<index_type>(m_parentsOrSize[i])));
 	}
 
 	template <class IndexType>
 	inline bool DisjointSet<IndexType>::connected(const index_type i, const index_type k) noexcept
 	{
+		assert(static_cast<size_t>(i) < size());
+		assert(static_cast<size_t>(k) < size());
+
 		return (find(i) == find(k));
+	}
+
+	template <class IndexType>
+	bool DisjointSet<IndexType>::isRoot(const index_type i) const noexcept
+	{
+		assert(static_cast<size_t>(i) < size());
+
+		return (m_parentsOrSize[i] < 0);
 	}
 
 	template <class IndexType>
@@ -72,14 +80,15 @@ namespace s3d
 			return false;
 		}
 
-		if (m_sizes[i] < m_sizes[k])
+		// union by size
+		if (-m_parentsOrSize[i] < -m_parentsOrSize[k])
 		{
 			using std::swap;
 			swap(i, k);
 		}
 
-		m_sizes[i] += m_sizes[k];
-		m_parents[k] = i;
+		m_parentsOrSize[i] += m_parentsOrSize[k];
+		m_parentsOrSize[k] = i;
 
 		return true;
 	}
@@ -89,7 +98,7 @@ namespace s3d
 	{
 		assert(static_cast<size_t>(i) < size());
 
-		return m_sizes[find(i)];
+		return static_cast<size_t>(-m_parentsOrSize[find(i)]);
 	}
 
 	template <class IndexType>
@@ -97,11 +106,11 @@ namespace s3d
 	{
 		size_t count = 0;
 
-		const size_t size = m_parents.size();
+		const size_t size = m_parentsOrSize.size();
 
 		for (size_t i = 0; i < size; ++i)
 		{
-			if (static_cast<index_type>(i) == m_parents[i])
+			if (m_parentsOrSize[i] < 0)
 			{
 				++count;
 			}
@@ -113,8 +122,6 @@ namespace s3d
 	template <class IndexType>
 	inline void DisjointSet<IndexType>::reset() noexcept
 	{
-		std::iota(m_parents.begin(), m_parents.end(), static_cast<index_type>(0));
-
-		std::fill(m_sizes.begin(), m_sizes.end(), 1u);
+		std::fill(m_parentsOrSize.begin(), m_parentsOrSize.end(), static_cast<signed_index_type>(-1));
 	}
 }
