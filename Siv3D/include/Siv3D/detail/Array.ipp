@@ -820,6 +820,13 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	auto Array<Type, Allocator>::partition(Fty f)
+	{
+		return std::partition(begin(), end(), f);
+	}
+
+	template <class Type, class Allocator>
 	template <class Fty, class R>
 	inline auto Array<Type, Allocator>::reduce(Fty f, R init) const
 	{
@@ -1265,6 +1272,13 @@ namespace s3d
 	inline Array<Type, Allocator> Array<Type, Allocator>::sorted() const&
 	{
 		return Array(*this).sort();
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	auto Array<Type, Allocator>::stable_partition(Fty f)
+	{
+		return std::stable_partition(begin(), end(), f);
 	}
 
 	template <class Type, class Allocator>

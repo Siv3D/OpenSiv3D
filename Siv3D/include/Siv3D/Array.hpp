@@ -665,6 +665,13 @@ namespace s3d
 		[[nodiscard]]
 		bool none(Fty f = Identity) const;
 
+		/// @brief 条件を満たすすべての要素を、条件を満たさないすべての要素より前に移動させます。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 区分化された境界を指すイテレータ
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		auto partition(Fty f);
+
 		/// @brief 
 		/// @tparam Fty 
 		/// @tparam R 
@@ -918,6 +925,13 @@ namespace s3d
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array sorted() const&;
+
+		/// @brief 相対順序を保ちながら、条件を満たすすべての要素を、条件を満たさないすべての要素より前に移動させます。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @return 区分化された境界を指すイテレータ
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		auto stable_partition(Fty f);
 
 		/// @brief 
 		/// @return 

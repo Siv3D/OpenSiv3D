@@ -516,6 +516,12 @@ namespace s3d
 			return std::none_of(begin(), end(), f);
 		}
 
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
+		auto partition(Fty f)
+		{
+			return std::partition(begin(), end(), f);
+		}
+
 		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, bool, bool>>>
 		auto reduce(Fty f, R init) const
 		{
@@ -909,6 +915,12 @@ namespace s3d
 			std::sort(begin(), end());
 
 			return *this;
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
+		auto stable_partition(Fty f)
+		{
+			return std::stable_partition(begin(), end(), f);
 		}
 
 		Array& stable_sort()
