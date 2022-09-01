@@ -627,6 +627,16 @@ namespace s3d
 		return{ (_pos.x + (pos.x - _pos.x) * s.x), (_pos.y + (pos.y - _pos.y) * s.y), (size.x * s.x), (size.y * s.y) };
 	}
 
+	inline constexpr RectF::operator bool() const noexcept
+	{
+		return hasArea();
+	}
+
+	inline constexpr bool RectF::isEmpty() const noexcept
+	{
+		return ((size.x == 0.0) || (size.y == 0.0));
+	}
+
 	inline constexpr bool RectF::hasArea() const noexcept
 	{
 		return ((size.x != 0.0) && (size.y != 0.0));
@@ -846,6 +856,25 @@ namespace s3d
 		return{ pos.lerp(other.pos, f), size.lerp(other.size, f) };
 	}
 
+	inline constexpr RectF RectF::getOverlap(const RectF& other) const noexcept
+	{
+		const auto ox = std::max(pos.x, other.pos.x);
+		const auto oy = std::max(pos.y, other.pos.y);
+		const auto ow = (std::min((pos.x + w), (other.pos.x + other.w)) - ox);
+
+		if (0 <= ow)
+		{
+			const auto oh = (std::min((pos.y + h), (other.pos.y + other.h)) - oy);
+
+			if (0 <= oh)
+			{
+				return{ ox, oy, ow, oh };
+			}
+		}
+
+		return Empty();
+	}
+
 	inline size_t RectF::hash() const noexcept
 	{
 		return Hash::FNV1a(*this);
@@ -867,6 +896,11 @@ namespace s3d
 	inline bool RectF::contains(const Shape2DType& other) const
 	{
 		return Geometry2D::Contains(*this, other);
+	}
+
+	inline constexpr RectF RectF::Empty() noexcept
+	{
+		return{ 0, 0, 0, 0 };
 	}
 
 	inline constexpr RectF RectF::FromPoints(const position_type a, const position_type b) noexcept

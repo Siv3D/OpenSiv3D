@@ -526,6 +526,17 @@ namespace s3d
 		[[nodiscard]]
 		constexpr RectF scaledAt(Vec2 _pos, Vec2 s) const noexcept;
 
+		/// @brief 長方形が空でないかを返します。
+		/// @remark `hasArea()` と同じです。
+		/// @return 長方形が空でない場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr explicit operator bool() const noexcept;
+
+		/// @brief 長方形が空であるかを返します。
+		/// @return 空の長方形である場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool isEmpty() const noexcept;
+
 		/// @brief 長方形が大きさを持っているかを返します。
 		/// @return 長方形が大きさを持っている場合 true, それ以外の場合は false
 		[[nodiscard]]
@@ -706,6 +717,18 @@ namespace s3d
 		[[nodiscard]]
 		constexpr RectF lerp(const RectF& other, double f) const noexcept;
 
+		/// @brief 別の長方形と重なる領域を返します。重ならない場合は空の長方形を返します。
+		/// @param other 別の長方形
+		/// @return 別の長方形と重なる領域。重ならない場合は空の長方形
+		[[nodiscard]]
+		constexpr Rect getOverlap(const Rect& other) const noexcept;
+
+		/// @brief 別の長方形と重なる領域を返します。重ならない場合は空の長方形を返します。
+		/// @param other 別の長方形
+		/// @return 別の長方形と重なる領域。重ならない場合は空の長方形
+		[[nodiscard]]
+		constexpr RectF getOverlap(const RectF& other) const noexcept;
+
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
@@ -830,6 +853,11 @@ namespace s3d
 
 		[[nodiscard]]
 		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+
+		/// @brief 空の長方形を返します。
+		/// @return 空の長方形 (`Rect{ 0, 0, 0, 0 }`)
+		[[nodiscard]]
+		static constexpr Rect Empty() noexcept;
 
 		/// @brief 対角線上の 2 点の座標をもとに長方形を作成します。
 		/// @param a 対角線をなす座標の 1 つ
