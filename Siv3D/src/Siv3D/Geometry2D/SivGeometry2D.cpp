@@ -560,7 +560,7 @@ namespace s3d
 		{
 			if (size == 0)
 			{
-				return Rect{ 0 };
+				return Rect::Empty();
 			}
 
 			const Point* it = points;
@@ -604,7 +604,7 @@ namespace s3d
 		{
 			if (size == 0)
 			{
-				return RectF{ 0 };
+				return RectF::Empty();
 			}
 
 			const PointType* it = points;

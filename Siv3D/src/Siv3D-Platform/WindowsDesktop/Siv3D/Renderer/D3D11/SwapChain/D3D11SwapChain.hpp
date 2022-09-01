@@ -33,7 +33,7 @@ namespace s3d
 
 		double m_displayFrequency		= 60.0;
 
-		Rect m_previousWindowBounds		= Rect(0);
+		Rect m_previousWindowBounds		= Rect::Empty();
 
 		uint64 m_lastPresentTime = 0;
 

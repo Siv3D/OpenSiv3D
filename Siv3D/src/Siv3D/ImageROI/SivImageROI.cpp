@@ -73,7 +73,7 @@ namespace s3d
 
 	bool ImageROI::isEmpty() const noexcept
 	{
-		return (not region.hasArea());
+		return (region.isEmpty());
 	}
 
 	ImageROI& ImageROI::negate()
@@ -572,7 +572,7 @@ namespace s3d
 
 	bool ImageConstROI::isEmpty() const noexcept
 	{
-		return (not region.hasArea());
+		return (region.isEmpty());
 	}
 
 	void ImageConstROI::paint(Image& dst, const int32 x, const int32 y, const Color& color) const

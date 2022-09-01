@@ -39,7 +39,7 @@ namespace s3d
 		double scaling = 1.0;
 
 		/// @brief スクリーン座標におけるウィンドウの矩形
-		Rect bounds = Rect{ 0 };
+		Rect bounds = Rect::Empty();
 
 		/// @brief スタイル
 		WindowStyle style = WindowStyle::Fixed;

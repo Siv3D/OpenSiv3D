@@ -21,7 +21,7 @@ namespace s3d
 	{
 		if (isEmpty())
 		{
-			return RectF{ 0 };
+			return RectF::Empty();
 		}
 
 		auto it				= begin();

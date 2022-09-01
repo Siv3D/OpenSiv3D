@@ -67,7 +67,7 @@ namespace s3d
 
 		Array<TriangleIndex> m_indices;
 
-		RectF m_boundingRect{ 0 };
+		RectF m_boundingRect = RectF::Empty();
 
 	public:
 

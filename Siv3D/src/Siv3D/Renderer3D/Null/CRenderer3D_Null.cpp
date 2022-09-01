@@ -72,7 +72,7 @@ namespace s3d
 
 	Rect CRenderer3D_Null::getScissorRect() const
 	{
-		return Rect{ 0 };
+		return Rect::Empty();
 	}
 
 	void CRenderer3D_Null::setViewport(const Optional<Rect>&) {}

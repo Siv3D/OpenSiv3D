@@ -32,10 +32,10 @@ namespace s3d
 		String displayDeviceName;
 
 		/// @brief ディスプレイ全体の位置とサイズ
-		Rect displayRect = Rect{ 0 };
+		Rect displayRect = Rect::Empty();
 
 		/// @brief タスクバーなどを除いた利用可能な領域の位置とサイズ
-		Rect workArea = Rect{ 0 };
+		Rect workArea = Rect::Empty();
 
 		/// @brief フルスクリーン時の解像度
 		Size fullscreenResolution = Size{ 0, 0 };
