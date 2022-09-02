@@ -543,13 +543,13 @@ namespace s3d::detail
 		[[nodiscard]]
 		constexpr auto operator()(TypeX&& x) const
 		{
-			if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
-			{
-				return std::forward<TypeX>(x) % y;
-			}
-			else if constexpr (std::conjunction_v<std::is_arithmetic<std::decay_t<TypeX>>, std::is_arithmetic<std::decay_t<TypeY>>>)
+			if constexpr (std::disjunction_v<std::is_floating_point_v<TypeX>, std::is_floating_point_v<TypeY>>)
 			{
 				return std::fmod(x, y);
+			}
+			else
+			{
+				return (std::forward<TypeX>(x) % y);
 			}
 		}
 	};
@@ -566,13 +566,13 @@ namespace s3d::detail
 		[[nodiscard]]
 		constexpr auto operator()(TypeY&& y) const
 		{
-			if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
-			{
-				return x % std::forward<TypeY>(y);
-			}
-			else if constexpr (std::conjunction_v<std::is_arithmetic<std::decay_t<TypeX>>, std::is_arithmetic<std::decay_t<TypeY>>>)
+			if constexpr (std::disjunction_v<std::is_floating_point<TypeX>, std::is_floating_point<TypeY>>)
 			{
 				return std::fmod(x, y);
+			}
+			else
+			{
+				return (x % std::forward<TypeY>(y));
 			}
 		}
 	};
@@ -583,13 +583,13 @@ namespace s3d::detail
 		[[nodiscard]]
 		constexpr auto operator() (TypeX&& x, TypeY&& y) const
 		{
-			if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
-			{
-				return x % y;
-			}
-			else if constexpr (std::conjunction_v<std::is_arithmetic<std::decay_t<TypeX>>, std::is_arithmetic<std::decay_t<TypeY>>>)
+			if constexpr (std::disjunction_v<std::is_floating_point<TypeX>, std::is_floating_point<TypeY>>)
 			{
 				return std::fmod(x, y);
+			}
+			else
+			{
+				return (x % y);
 			}
 		}
 	};
@@ -600,13 +600,13 @@ namespace s3d::detail
 		[[nodiscard]]
 		constexpr auto operator()(Type&& x) const
 		{
-			if constexpr (Meta::HasModulus_v<Type, Type>)
-			{
-				return (std::forward<Type>(x) % std::forward<Type>(x));
-			}
-			else if constexpr (std::is_arithmetic_v<std::decay_t<Type>>)
+			if constexpr (std::is_floating_point_v<Type>)
 			{
 				return std::fmod(x, x);
+			}
+			else
+			{
+				return (x % x);
 			}
 		}
 	};

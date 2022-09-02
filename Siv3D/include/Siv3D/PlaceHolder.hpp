@@ -12,8 +12,7 @@
 # pragma once
 # include <utility>
 # include <cmath>
-# include <functional>
-# include "Meta.hpp"
+# include "Concepts.hpp"
 # include "detail/Functor.ipp"
 
 namespace s3d

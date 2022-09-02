@@ -10,11 +10,14 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "StringView.hpp"
+# include <string>
+# include "Utility.hpp"
 
 namespace s3d
 {
+	class String;
+	class StringView;
+
 	/// @brief 文字列のエンコードの変換
 	namespace Unicode
 	{

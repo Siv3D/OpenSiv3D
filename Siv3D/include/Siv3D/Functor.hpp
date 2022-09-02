@@ -14,7 +14,6 @@
 # include <cmath>
 # include <functional>
 # include "Common.hpp"
-# include "Meta.hpp"
 # include "PlaceHolder.hpp"
 # include "detail/Functor.ipp"
 
