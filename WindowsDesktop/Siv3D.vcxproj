@@ -149,7 +149,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\BoolArray.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Byte.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2D.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2DParameters.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Char.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Circular.ipp" />
@@ -2123,6 +2122,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Parse\SivParse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Particle2D\SivParticle2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\SivParticleSystem2D.cpp" />

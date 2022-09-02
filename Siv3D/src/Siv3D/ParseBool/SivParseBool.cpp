@@ -23,7 +23,7 @@ namespace s3d
 		}
 		else
 		{
-			throw ParseError(U"ParseBool(\"{}\") failed"_fmt(s));
+			throw ParseError{ U"ParseBool(\"{}\") failed"_fmt(s) };
 		}
 	}
 

@@ -66,5 +66,3 @@ namespace s3d
 		static Camera2DParameters NoControl();
 	};
 }
-
-# include "detail/Camera2DParameters.ipp"
