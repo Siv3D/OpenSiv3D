@@ -15,7 +15,6 @@
 # endif
 # include <functional>
 # include <string>
-# include <unordered_set>
 # include "Common.hpp"
 # include "StringView.hpp"
 # include "Utility.hpp"
@@ -1291,19 +1290,19 @@ namespace s3d
 	};
 
 	[[nodiscard]]
-	inline String operator +(const String::value_type lhs, StringView rhs);
+	String operator +(const String::value_type lhs, StringView rhs);
 
 	[[nodiscard]]
-	inline String operator +(const String::value_type* lhs, StringView rhs);
+	String operator +(const String::value_type* lhs, StringView rhs);
 
 	[[nodiscard]]
-	inline String operator +(StringView lhs, const String::value_type* rhs);
+	String operator +(StringView lhs, const String::value_type* rhs);
 
 	[[nodiscard]]
-	inline String operator +(StringView lhs, StringView rhs);
+	String operator +(StringView lhs, StringView rhs);
 
 	[[nodiscard]]
-	inline String operator +(StringView lhs, const String::value_type rhs);
+	String operator +(StringView lhs, const String::value_type rhs);
 
 	inline void swap(String& a, String& b) noexcept;
 

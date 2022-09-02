@@ -21,6 +21,7 @@
 	#	include <execution>
 	# endif
 # endif
+# include <unordered_set>
 # include "String.hpp"
 # include "Meta.hpp"
 # include "Threading.hpp"

@@ -9,15 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/None.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	class String;
-
-	/// @brief 名前をデマングルします。
-	/// @param name 名前
-	/// @return デマングルされた名前
-	[[nodiscard]]
-	String Demangle(const char* name);
+	void Formatter(FormatData& formatData, None_t)
+	{
+		formatData.string.append(U"none"_sv);
+	}
 }

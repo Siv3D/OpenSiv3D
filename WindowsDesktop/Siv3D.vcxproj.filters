@@ -1573,6 +1573,12 @@
     <Filter Include="src\ThirdParty\par_octasphere">
       <UniqueIdentifier>{91088f8e-d30c-496a-a777-9d5990071d3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Demangle">
+      <UniqueIdentifier>{5a3ab8f8-385c-40e5-ad82-3133d864593d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\None">
+      <UniqueIdentifier>{9356030c-50f4-44ce-95ff-a9cad1f7d08a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5518,9 +5524,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DeadZone.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Demangle.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DiscreteDistribution.ipp">
@@ -9895,6 +9898,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptINI.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Demangle\SivDemangle.cpp">
+      <Filter>src\Siv3D\Demangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\None\SivNone.cpp">
+      <Filter>src\Siv3D\None</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

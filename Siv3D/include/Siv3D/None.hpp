@@ -13,10 +13,11 @@
 # include <ostream>
 # include <optional>
 # include "Common.hpp"
-# include "FormatData.hpp"
 
 namespace s3d
 {
+	struct FormatData;
+
 	/// @brief 無効値の型
 	using None_t = std::nullopt_t;
 
@@ -27,10 +28,7 @@ namespace s3d
 		return output << no;
 	}
 
-	inline void Formatter(FormatData& formatData, None_t)
-	{
-		formatData.string.append(U"none"_sv);
-	}
+	void Formatter(FormatData& formatData, None_t);
 
 	/// @brief 無効値
 	inline constexpr None_t none = std::nullopt;
