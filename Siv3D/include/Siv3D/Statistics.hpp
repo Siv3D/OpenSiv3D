@@ -19,6 +19,7 @@
 # include "Common.hpp"
 # include "Array.hpp"
 # include "Optional.hpp"
+# include "Math.hpp"
 
 namespace s3d
 {

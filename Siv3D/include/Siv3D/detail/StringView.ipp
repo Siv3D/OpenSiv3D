@@ -10,10 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <cassert>
-# include <stdexcept>
-# include <algorithm>
-# include "../Utility.hpp"
 
 namespace s3d
 {

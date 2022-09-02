@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Functor.hpp>
 # include "NavMeshDetail.hpp"
 
 namespace s3d
@@ -139,7 +138,7 @@ namespace s3d
 			return false;
 		}
 
-		if (not areaIDs.all(LessThanEqual(RC_WALKABLE_AREA)))
+		if (not areaIDs.all([](uint8 id) { return (id <= RC_WALKABLE_AREA); }))
 		{
 			return false;
 		}
@@ -173,7 +172,7 @@ namespace s3d
 			return false;
 		}
 
-		if (not areaIDs.all(LessThanEqual(RC_WALKABLE_AREA)))
+		if (not areaIDs.all([](uint8 id) { return (id <= RC_WALKABLE_AREA); }))
 		{
 			return false;
 		}

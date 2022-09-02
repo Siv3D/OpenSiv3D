@@ -16,7 +16,11 @@
 # include <iosfwd>
 # include <string_view>
 # include <string>
+# include <cassert>
+# include <stdexcept>
+# include <algorithm>
 # include "Common.hpp"
+# include "Utility.hpp"
 # include "Hash.hpp"
 
 namespace s3d

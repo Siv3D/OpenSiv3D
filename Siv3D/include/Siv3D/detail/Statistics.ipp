@@ -15,7 +15,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../Math.hpp"
 
 namespace s3d
 {

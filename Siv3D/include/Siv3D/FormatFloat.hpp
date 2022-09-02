@@ -13,6 +13,8 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "PredefinedYesNo.hpp"
+# include "FloatingPoint.hpp"
+# include "FormatInt.hpp"
 
 namespace s3d
 {

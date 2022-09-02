@@ -10,8 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../Utility.hpp"
-# include "../Hash.hpp"
 
 namespace s3d
 {
