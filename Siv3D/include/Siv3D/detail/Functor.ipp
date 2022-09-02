@@ -626,4 +626,213 @@ namespace s3d::detail
 			return !(std::forward<TypeX>(x));
 		}
 	};
+
+	//////////////////////////////////////////////////
+	//
+	//	Max
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	struct Max1_impl
+	{
+		const Type& a;
+
+		constexpr Max1_impl(const Type& _a) noexcept
+			: a{ _a } {}
+
+		[[nodiscard]]
+		constexpr const Type& operator()(const Type& b) const noexcept(noexcept(a < b))
+		{
+			return ((a < b) ? b : a);
+		}
+	};
+
+	struct Max2_impl
+	{
+		SIV3D_CONCEPT_SCALAR
+		[[nodiscard]]
+		constexpr Scalar operator()(Scalar a, Scalar b) const noexcept
+		{
+			return ((a < b) ? b : a);
+		}
+
+	# if __cpp_lib_concepts
+		template <class Type>
+	# else
+		template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+	# endif
+		[[nodiscard]]
+		constexpr const Type& operator()(const Type& a, const Type& b) const noexcept(noexcept(a < b))
+		{
+			return ((a < b) ? b : a);
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//
+	//	Min
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	struct Min1_impl
+	{
+		const Type& a;
+
+		constexpr Min1_impl(const Type& _a) noexcept
+			: a{ _a } {}
+
+		[[nodiscard]]
+		constexpr const Type& operator()(const Type& b) const noexcept(noexcept(b < a))
+		{
+			return ((b < a) ? b : a);
+		}
+	};
+
+	struct Min2_impl
+	{
+		SIV3D_CONCEPT_SCALAR
+		[[nodiscard]]
+		constexpr Scalar operator()(Scalar a, Scalar b) const noexcept
+		{
+			return ((b < a) ? b : a);
+		}
+
+	# if __cpp_lib_concepts
+		template <class Type>
+	# else
+		template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
+	# endif
+		[[nodiscard]]
+		constexpr const Type& operator()(const Type& a, const Type& b) const noexcept(noexcept(b < a))
+		{
+			return ((b < a) ? b : a);
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//
+	//	Clamp
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	class Clamp_impl
+	{
+	private:
+
+		const Type& min;
+
+		const Type& max;
+
+	public:
+
+		constexpr Clamp_impl(const Type& _min, const Type& _max) noexcept
+			: min{ _min }
+			, max{ _max } {}
+
+		[[nodiscard]]
+		constexpr const Type& operator()(const Type& v) const noexcept(noexcept(max < v) && noexcept(v < min))
+		{
+			if (max < v)
+			{
+				return max;
+			}
+
+			if (v < min)
+			{
+				return min;
+			}
+
+			return v;
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//
+	//	InRange
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	class InRange_impl
+	{
+	private:
+
+		const Type& min;
+
+		const Type& max;
+
+	public:
+
+		constexpr InRange_impl(const Type& _min, const Type& _max) noexcept
+			: min{ _min }
+			, max{ _max } {}
+
+		[[nodiscard]]
+		constexpr bool operator()(const Type& v) const noexcept(noexcept(min <= v))
+		{
+			return ((min <= v) && (v <= max));
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//
+	//	InOpenRange
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	class InOpenRange_impl
+	{
+	private:
+
+		const Type& min;
+
+		const Type& max;
+
+	public:
+
+		constexpr InOpenRange_impl(const Type& _min, const Type& _max) noexcept
+			: min{ _min }
+			, max{ _max } {}
+
+		[[nodiscard]]
+		constexpr bool operator()(const Type& v) const noexcept(noexcept(min < v))
+		{
+			return (min < v) && (v < max);
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//
+	//	AbsDiff
+	//
+	//////////////////////////////////////////////////
+
+	SIV3D_CONCEPT_ARITHMETIC
+	struct AbsDiff1_impl
+	{
+		const Arithmetic a;
+
+		constexpr AbsDiff1_impl(Arithmetic _a) noexcept
+			: a(_a) {}
+
+		[[nodiscard]]
+		constexpr auto operator()(Arithmetic b) const noexcept
+		{
+			return AbsDiff(a, b);
+		}
+	};
+
+	struct AbsDiff2_impl
+	{
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		constexpr auto operator()(Arithmetic a, Arithmetic b) const noexcept
+		{
+			return AbsDiff(a, b);
+		}
+	};
 }
