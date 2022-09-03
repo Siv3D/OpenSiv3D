@@ -591,4 +591,19 @@ namespace s3d
 			return "";
 		}		
 	}
+
+	namespace Platform::Web
+	{
+		namespace detail
+		{
+			__attribute__((import_name("siv3dDownloadFile")))
+			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
+		}
+
+		void DownloadFile(FilePathView filePath)
+		{
+			const auto fileName = s3d::FileSystem::FileName(filePath);
+			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
+		}
+	}
 }

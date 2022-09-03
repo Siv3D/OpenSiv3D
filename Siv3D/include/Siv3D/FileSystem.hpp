@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -250,4 +250,16 @@ namespace s3d
 		/// @return リネームに成功した場合 true, それ以外の場合は false
 		bool Rename(FilePathView from, FilePathView to);
 	}
+
+# if SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web
+	{
+		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
+		/// @param filePath ブラウザ上の仮想ファイルへのパス
+		void DownloadFile(FilePathView filePath);
+	}
+
+
+# endif
 }

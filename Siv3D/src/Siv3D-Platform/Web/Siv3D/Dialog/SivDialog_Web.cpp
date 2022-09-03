@@ -210,19 +210,4 @@ namespace s3d
 			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
 		}
 	}
-
-	namespace Platform::Web
-	{
-		namespace detail
-		{
-			__attribute__((import_name("siv3dDownloadFile")))
-			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
-		}
-
-		void DownloadFile(FilePathView filePath)
-		{
-			const auto fileName = FileSystem::FileName(filePath);
-			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
-		}
-	}
 }
