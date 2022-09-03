@@ -14,6 +14,7 @@
 # include "HTTPProgress.hpp"
 # include "HTTPResponse.hpp"
 # include "URLView.hpp"
+# include "AsyncTask.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,15 @@ namespace s3d
 	{
 		AsyncHTTPTask SaveAsync(URLView url, FilePathView filePath);
 	}
+
+# if SIV3D_PLATFORM(WEB)
+
+	namespace Platform::Web::SimpleHTTP
+	{
+		AsyncTask<HTTPResponse> CreateAsyncTask(AsyncHTTPTask& httpTask);
+	}
+
+# endif
 
 	/// @brief 非同期ダウンロードを管理するクラス
 	class AsyncHTTPTask
@@ -96,6 +106,10 @@ namespace s3d
 		AsyncHTTPTask(URLView url, FilePathView path);
 
 		friend AsyncHTTPTask SimpleHTTP::SaveAsync(URLView url, FilePathView filePath);
+
+	# if SIV3D_PLATFORM(WEB)
+		friend AsyncTask<HTTPResponse> Platform::Web::SimpleHTTP::CreateAsyncTask(AsyncHTTPTask& httpTask);
+	# endif
 
 		std::shared_ptr<AsyncHTTPTaskDetail> pImpl;
 	};
