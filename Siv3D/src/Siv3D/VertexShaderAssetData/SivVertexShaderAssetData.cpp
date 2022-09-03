@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/VertexShaderAssetData.hpp>
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {

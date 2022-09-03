@@ -414,6 +414,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/ParticleSystem2D/SivParticleSystem2D.cpp
   ../Siv3D/src/Siv3D/Pentablet/Null/CPentablet_Null.cpp
   ../Siv3D/src/Siv3D/Pentablet/SivPentablet.cpp
+  ../Siv3D/src/Siv3D/Periodic/SivPeriodic.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Body.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2BodyDetail.cpp
   ../Siv3D/src/Siv3D/Physics2D/P2Circle.cpp
@@ -639,6 +640,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
   ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
   ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
+  ../Siv3D/src/Siv3D/Shader/ShaderCommon/SivShaderCommon.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shader/SivShader.cpp
   ../Siv3D/src/Siv3D/Shape2D/SivShape2D.cpp

@@ -245,7 +245,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OpenCV_Bridge.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Optional.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Parse.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Plane.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Point.ipp" />
@@ -276,7 +275,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScopeGuard.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serialization.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shape2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Shuffle.ipp" />
@@ -2128,6 +2126,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParticleSystem2D\SivParticleSystem2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Pentablet\SivPentablet.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Periodic\SivPeriodic.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Body.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2BodyDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\P2Circle.cpp" />
@@ -2353,6 +2352,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\SerialPortInfo\SivSerialPortInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Serial\SivSerial.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ShaderCommon\SivShaderCommon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />

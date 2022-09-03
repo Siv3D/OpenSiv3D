@@ -12,12 +12,12 @@
 # pragma once
 # include "Common.hpp"
 # include "Optional.hpp"
-# include "VertexShader.hpp"
-# include "PixelShader.hpp"
-# include "System.hpp"
+# include "ConstantBufferBinding.hpp"
 
 namespace s3d
 {
+	class VertexShader;
+	class PixelShader;
 	class ShaderGroup;
 	struct HLSL;
 	struct GLSL;
@@ -219,5 +219,3 @@ namespace s3d
 		Optional<WGSL> m_wgsl;
 	};
 }
-
-# include "detail/ShaderCommon.ipp"

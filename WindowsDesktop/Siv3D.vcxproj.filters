@@ -1582,6 +1582,12 @@
     <Filter Include="src\Siv3D\Parse">
       <UniqueIdentifier>{81ca1d53-14d5-4184-8cec-812c4f781d79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ShaderCommon">
+      <UniqueIdentifier>{99f970c6-60ef-4802-a939-cda7c0051807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Periodic">
+      <UniqueIdentifier>{618670b6-5ec6-418e-ab7e-ce64c3a615e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5772,9 +5778,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Parse.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5860,9 +5863,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serialization.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp">
@@ -9907,6 +9907,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Parse\SivParse.cpp">
       <Filter>src\Siv3D\Parse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ShaderCommon\SivShaderCommon.cpp">
+      <Filter>src\Siv3D\ShaderCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Periodic\SivPeriodic.cpp">
+      <Filter>src\Siv3D\Periodic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
