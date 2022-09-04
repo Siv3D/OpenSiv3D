@@ -224,6 +224,9 @@ else ()
     "s3d::SimpleHTTP::Get(*)"
     "s3d::SimpleHTTP::Post(*)"
 
+    "s3d::VideoReader::VideoReader(*)"
+    "s3d::VideoReader::open(*)"
+
     "s3d::Platform::Web::FileSystem::FetchFileIfNotExists(*)"
   )
 endif ()
