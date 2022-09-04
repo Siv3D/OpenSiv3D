@@ -17,6 +17,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EnvironmentVariable.hpp>
 # include <Siv3D/INI.hpp>
+# include <Siv3D/SimpleHTTP.hpp>
 
 namespace s3d
 {
@@ -604,6 +605,17 @@ namespace s3d
 		{
 			const auto fileName = s3d::FileSystem::FileName(filePath);
 			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
+		}
+	}
+
+	namespace Platform::Web::FileSystem
+	{
+		void FetchFileIfNotExists(FilePathView filePath)
+		{
+			if (not s3d::FileSystem::Exists(filePath))
+			{
+				s3d::SimpleHTTP::Save(filePath, filePath);
+			}
 		}
 	}
 }

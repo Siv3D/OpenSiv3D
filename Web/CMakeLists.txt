@@ -103,6 +103,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Resource/SivResource_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Script/CScript.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/Shader/ShaderFactory.cpp
+  ../Siv3D/src/Siv3D-Platform/Web/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/CSystem.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/System/SivSystem_Web.cpp
   ../Siv3D/src/Siv3D-Platform/Web/Siv3D/TCPClient/SivTCPClient.cpp
@@ -507,7 +508,7 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D/SIMDMath/SivSIMDMath.cpp
   ../Siv3D/src/Siv3D/SimpleAnimation/SivSimpleAnimation.cpp
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
-  ../Siv3D/src/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
+  # ../Siv3D/src/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
   ../Siv3D/src/Siv3D/Sky/SivSky.cpp
   ../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp

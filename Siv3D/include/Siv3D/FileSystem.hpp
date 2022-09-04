@@ -260,6 +260,12 @@ namespace s3d
 		void DownloadFile(FilePathView filePath);
 	}
 
+	namespace Platform::Web::FileSystem
+	{
+		/// @brief サーバー上からブラウザ上の仮想ファイルへファイルをダウンロードします。
+		/// @param filePath ブラウザ上の仮想ファイルへのパス
+		void FetchFileIfNotExists(FilePathView filePath);
+	}
 
 # endif
 }

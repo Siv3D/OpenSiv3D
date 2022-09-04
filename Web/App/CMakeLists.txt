@@ -165,7 +165,6 @@ set(Siv3DAppBundledFilesPath
     /resources/engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp
     /resources/engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp
     /resources/engine/font/mplus/mplus-1p-regular.ttf.zstdcmp
-    /example/windmill.png
 )
 
 set(Siv3DAppBundledFilesFlags "")
@@ -190,6 +189,7 @@ else ()
     "siv3dGetClipboardText"
     "siv3dDecodeImageFromFile"
     "siv3dSleepUntilWaked"
+    "invoke_vi"
   )
 
   set(ASYNCIFY_ADD
@@ -198,23 +198,33 @@ else ()
     "InitSiv3D"
     "s3d::CSystem::init()"
     "s3d::System::Update()"
+
     "s3d::AACDecoder::decode(*) const"
     "s3d::MP3Decoder::decode(*) const"
     "s3d::CAudioDecoder::decode(*)"
     "s3d::AudioDecoder::Decode(*)"
     "s3d::Wave::Wave(*)"
     "s3d::Audio::Audio(*)"
+
     "s3d::GenericDecoder::decode(*) const"
     "s3d::CImageDecoder::decode(*)"
     "s3d::Image::Image(*)"
     "s3d::Texture::Texture(*)"
     "s3d::ImageDecoder::Decode(*)"
     "s3d::ImageDecoder::GetImageInfo(*)"
+
     "s3d::CRenderer2D_GLES3::init()"
     "s3d::CRenderer2D_WebGPU::init()"
+
     "s3d::Clipboard::GetText(*)"
     "s3d::CClipboard::getText(*)"
-    "s3d::Platform::Web::System::WaitForFutureResolved(*)"
+
+    "s3d::SimpleHTTP::Save(*)"
+    "s3d::SimpleHTTP::Load(*)"
+    "s3d::SimpleHTTP::Get(*)"
+    "s3d::SimpleHTTP::Post(*)"
+
+    "s3d::Platform::Web::FileSystem::FetchFileIfNotExists(*)"
   )
 endif ()
 

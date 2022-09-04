@@ -213,12 +213,12 @@ mergeInto(LibraryManager.library, {
             videoElements[idx] = video;
 
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         });
 
         video.src = URL.createObjectURL(media_source);
     },
-    $siv3dOpenVideoStream__deps: [ "$siv3dMaybeAwake" ],
+    $siv3dOpenVideoStream__deps: [ "siv3dMaybeAwake" ],
 
     siv3dOpenVideo: function(fileName, callback, callbackArg) {
         const videoData = FS.readFile(UTF8ToString(fileName));
@@ -236,13 +236,13 @@ mergeInto(LibraryManager.library, {
             videoElements[idx] = video;
 
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         });
 
         video.src = URL.createObjectURL(videoBlob);
     },
     siv3dOpenVideo__sig: "viii",
-    siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction", "$siv3dMaybeAwake" ],
+    siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction", "siv3dMaybeAwake" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
@@ -265,18 +265,18 @@ mergeInto(LibraryManager.library, {
                     videoElements[idx] = video;
 
                     if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-                    siv3dMaybeAwake();
+                    _siv3dMaybeAwake();
                 });
 
                 video.srcObject = stream;
             }
         ).catch(function(_) {
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         })
     },
     siv3dOpenCamera__sig: "viiii",
-    siv3dOpenCamera__deps: [ "$videoElements", "$siv3dMaybeAwake" ],
+    siv3dOpenCamera__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dSetCameraResolution: function(idx, width, height, callback, callbackArg) {
         /** @type { HTMLVideoElement } */
@@ -292,12 +292,12 @@ mergeInto(LibraryManager.library, {
         stream.applyConstraints(constraint).then(
             function () {
                 if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-                siv3dMaybeAwake();
+                _siv3dMaybeAwake();
             }
         );
     },
     siv3dSetCameraResolution__sig: "viiiii",
-    siv3dSetCameraResolution__deps: [ "$videoElements", "$siv3dMaybeAwake" ],
+    siv3dSetCameraResolution__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dQueryCameraAvailability: function () {
         return !!navigator.getUserMedia;
@@ -310,14 +310,14 @@ mergeInto(LibraryManager.library, {
         if (callback) {
             video.ontimeupdate = function() {
                 {{{ makeDynCall('vi', 'callback') }}}(callbackArg);
-                siv3dMaybeAwake();
+                _siv3dMaybeAwake();
             }
         } else {
             video.ontimeupdate = null;
         }
     },
     siv3dRegisterVideoTimeUpdateCallback__sig: "viii",
-    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements", "$siv3dMaybeAwake" ], 
+    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements", "siv3dMaybeAwake" ], 
 
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
@@ -586,7 +586,7 @@ mergeInto(LibraryManager.library, {
 
             if (files.length < 1) {
                 {{{ makeDynCall('vii', 'callback') }}}(0, futurePtr);
-                siv3dMaybeAwake();
+                _siv3dMaybeAwake();
                 return;
             }
 
@@ -598,7 +598,7 @@ mergeInto(LibraryManager.library, {
 
                 const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
                 {{{ makeDynCall('vii', 'callback') }}}(namePtr, futurePtr);
-                siv3dMaybeAwake();
+                _siv3dMaybeAwake();
 
                 siv3dDialogFileReader.removeEventListener("load", onLoaded);
             });
@@ -611,7 +611,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dOpenDialogAsync__sig: "vii",
-    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "$siv3dMaybeAwake" ],
+    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "siv3dMaybeAwake" ],
 
     $siv3dSaveFileBuffer: null, 
     $siv3dSaveFileBufferWritePos: 0,
@@ -661,7 +661,7 @@ mergeInto(LibraryManager.library, {
             HEAPU32[(arg>>2)+3] = decoded.length;
 
             {{{ makeDynCall('vi', 'callback') }}}(arg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         };
 
         const onFailure = function() {
@@ -671,13 +671,13 @@ mergeInto(LibraryManager.library, {
             HEAPU32[(arg>>2)+3] = 0;
 
             {{{ makeDynCall('vi', 'callback') }}}(arg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         }
 
         Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
     },
     siv3dDecodeAudioFromFileAsync__sig: "viii",
-    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS", "$siv3dMaybeAwake" ],
+    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS", "siv3dMaybeAwake" ],
 
     //
     // Clipboard
@@ -866,7 +866,7 @@ mergeInto(LibraryManager.library, {
     siv3dRequestNotificationPermission: function(callback, callbackArg) {
         if (Notification.permission === "granted") {
             {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         } else {
             siv3dRegisterUserAction(function () {
                 Notification.requestPermission().then(function(v) {
@@ -875,18 +875,18 @@ mergeInto(LibraryManager.library, {
                     } else {
                         {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
                     }
-                    siv3dMaybeAwake();
+                    _siv3dMaybeAwake();
                 });
             });
         }
     },
     siv3dRequestNotificationPermission__sig: "vii",
-    siv3dRequestNotificationPermission__deps: [ "$siv3dMaybeAwake"],
+    siv3dRequestNotificationPermission__deps: [ "siv3dMaybeAwake"],
 
     siv3dCreateNotification: function(title, body, actionsNum, actionTexts, callback, callbackArg) {
         if (!window.Notification && Notification.permission !== "granted") {
             {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
             return 0;
         }
 
@@ -905,35 +905,35 @@ mergeInto(LibraryManager.library, {
 
         siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions });
         {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-        siv3dMaybeAwake();
+        _siv3dMaybeAwake();
 
         return idx;
     },
     siv3dCreateNotification__sig: "iiiiiii",
-    siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications", "$siv3dMaybeAwake" ],
+    siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dRegisterNotificationCallback: function(id, callback, callbackArg) {
         const notificattion = siv3dNotifications[id];
 
         notificattion.onclick = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 1 /* ToastNotificationState.Activated */, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         }
         notificattion.onshow = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 2 /* ToastNotificationState.Shown */, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         }
         notificattion.onclose = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 5 /* ToastNotificationState.TimedOut */, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         }
         notificattion.onerror = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 6 /* ToastNotificationState.Error */, callbackArg);
-            siv3dMaybeAwake();
+            _siv3dMaybeAwake();
         }
     },
     siv3dRegisterNotificationCallback__sig: "viii",
-    siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications", "$siv3dMaybeAwake" ],
+    siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dCloseNotification: function(id) {
         const notificattion = siv3dNotifications[id];
@@ -1108,13 +1108,15 @@ mergeInto(LibraryManager.library, {
     siv3dSleepUntilWaked__sig: "iv",
     siv3dSleepUntilWaked__deps: [ "$Asyncify", "$siv3dAwakeFunction" ],
 
-    $siv3dMaybeAwake: function() {
+    siv3dMaybeAwake: function() {
         if (siv3dAwakeFunction) {
-            siv3dAwakeFunction();
+            let awake = siv3dAwakeFunction;
             siv3dAwakeFunction = null;
+            awake();
         }
     },
-    $siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction" ],
+    siv3dMaybeAwake__sig: "v",
+    siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction" ],
     
     siv3dRequestAnimationFrame: function() {
         Asyncify.handleSleep(function(wakeUp) {
@@ -1176,9 +1178,10 @@ mergeInto(LibraryManager.library, {
         return -1;
     },
     siv3dSleepUntilWaked__sig: "iv",
-    $siv3dMaybeAwake: function() {
+    siv3dMaybeAwake: function() {
         // nop
     },
+    siv3dMaybeAwake__sig: "v",
     siv3dRequestAnimationFrame: function() {
         // nop
     },
