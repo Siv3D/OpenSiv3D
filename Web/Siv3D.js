@@ -1112,7 +1112,14 @@ mergeInto(LibraryManager.library, {
         if (siv3dAwakeFunction) {
             let awake = siv3dAwakeFunction;
             siv3dAwakeFunction = null;
-            awake();
+
+            try {
+                awake();
+            } catch (e) {
+                abort(e);
+            } finally {
+                maybeExit();
+            }
         }
     },
     siv3dMaybeAwake__sig: "v",
@@ -1121,13 +1128,18 @@ mergeInto(LibraryManager.library, {
     siv3dRequestAnimationFrame: function() {
         Asyncify.handleSleep(function(wakeUp) {
             requestAnimationFrame(function() {
-                wakeUp();
-                maybeExit();
+                try {
+                    wakeUp();
+                } catch (e) {
+                    abort(e);
+                } finally {
+                    maybeExit();
+                }
             });
         });
     },
     siv3dRequestAnimationFrame__sig: "v", 
-    siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$maybeExit" ],
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$maybeExit", "abort" ],
 
     //
     // ImageDecode
