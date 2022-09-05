@@ -353,7 +353,6 @@
         soundOffIcon.style.display = "inline";
       }
 
-      let runtimeReady = false;
       let hasRaiseRuntimeError = false;
 
       function onRuntimeError() {
@@ -367,11 +366,8 @@
       const Options = {
         preRun: [],
         postRun: [ doResize, onAudioInit ],
-        printErr: function (text) {
-          if (runtimeReady) {
-            onRuntimeError();
-          }
-          console.warn(text);
+        onAbort: function (e) {
+          onRuntimeError();
         },
         canvas: (function () {
           var canvas = document.getElementById("canvas");
@@ -422,7 +418,6 @@
           );
         },
         onRuntimeInitialized: function() {
-          runtimeReady = true;
           window.addEventListener("resize", onResize);
           window.addEventListener("fullscreenchange", onExitFullscreen);
         },

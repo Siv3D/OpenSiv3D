@@ -1,5 +1,7 @@
 (function() 
 {
+    const originalOnAbort = Module["onAbort"];
+
     Module["onAbort"] = function(e) 
     {
         if (e instanceof WebAssembly.CompileError)
@@ -16,6 +18,10 @@ Original Error: " + e;
         else
         {
             window.alert(e)
+        }
+
+        if (originalOnAbort) {
+            originalOnAbort();
         }
     }
 })();
