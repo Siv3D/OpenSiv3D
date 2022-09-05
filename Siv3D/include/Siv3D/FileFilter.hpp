@@ -176,5 +176,3 @@ namespace s3d
 		static FileFilter AllFiles();
 	};
 }
-
-# include "detail/FileFilter.ipp"

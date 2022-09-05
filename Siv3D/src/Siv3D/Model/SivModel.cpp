@@ -135,4 +135,19 @@ namespace s3d
 	{
 		m_handle.swap(other.m_handle);
 	}
+
+	bool Model::RegisterDiffuseTextures(const Model& model, const TextureDesc textureDesc)
+	{
+		bool result = true;
+
+		for (const auto& textureName : model.diffuseTextureNames())
+		{
+			if (not TextureAsset::IsRegistered(textureName))
+			{
+				result &= TextureAsset::Register(textureName, textureName, textureDesc);
+			}
+		}
+
+		return result;
+	}
 }

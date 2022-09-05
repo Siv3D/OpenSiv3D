@@ -1588,6 +1588,12 @@
     <Filter Include="src\Siv3D\Periodic">
       <UniqueIdentifier>{618670b6-5ec6-418e-ab7e-ce64c3a615e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\FileFilter">
+      <UniqueIdentifier>{6096e6e7-425b-4205-a290-ae5ba881c894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\HSV">
+      <UniqueIdentifier>{28af24ff-3165-41d3-bb4d-446b005415f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5563,9 +5569,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FastMath.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FileFilter.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatingPoint.ipp">
@@ -9913,6 +9916,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Periodic\SivPeriodic.cpp">
       <Filter>src\Siv3D\Periodic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileFilter\SivFileFilter.cpp">
+      <Filter>src\Siv3D\FileFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
+      <Filter>src\Siv3D\HSV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

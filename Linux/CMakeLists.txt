@@ -270,6 +270,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/FFT/CFFT.cpp
   ../Siv3D/src/Siv3D/FFT/FFTFactory.cpp
   ../Siv3D/src/Siv3D/FFT/SivFFT.cpp
+  ../Siv3D/src/Siv3D/FileFilter/SivFileFilter.cpp
   ../Siv3D/src/Siv3D/FileSystem/SivFileSystem.cpp
   ../Siv3D/src/Siv3D/Font/CFont.cpp
   ../Siv3D/src/Siv3D/Font/CFont_Headless.cpp
@@ -312,6 +313,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/GUI/CGUI.cpp
   ../Siv3D/src/Siv3D/GUI/GUIFactory.cpp
   ../Siv3D/src/Siv3D/Hash/SivHash.cpp
+  ../Siv3D/src/Siv3D/HSV/SivHSV.cpp
   ../Siv3D/src/Siv3D/HTMLWriter/HTMLWriterDetail.cpp
   ../Siv3D/src/Siv3D/HTMLWriter/SivHTMLWriter.cpp
   ../Siv3D/src/Siv3D/HTTPResponse/SivHTTPResponse.cpp

@@ -53,11 +53,6 @@ namespace s3d
 		return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
 	}
 
-	inline Vec2 Bezier2::getTangent(const double t) const noexcept
-	{
-		return ((p1 - p0) * 2 * (1 - t) + (p2 - p1) * (2 * t)).normalized();
-	}
-
 	inline size_t Bezier2::hash() const noexcept
 	{
 		return Hash::FNV1a(*this);
@@ -86,16 +81,6 @@ namespace s3d
 
 	inline constexpr double Bezier2Path::getT() const noexcept
 	{
-		return m_t;
-	}
-
-	inline double Bezier2Path::advance(const double distance, const int32 quality) noexcept
-	{
-		for (int32 i = 0; i < quality; ++i)
-		{
-			m_t += (distance / quality) / (m_t * m_v0 + m_v1).length();
-		}
-
 		return m_t;
 	}
 }

@@ -175,17 +175,14 @@ namespace s3d
 		[[nodiscard]]
 		static constexpr HSV Zero() noexcept;
 
-		friend void Formatter(FormatData& formatData, const HSV& value)
-		{
-			Formatter(formatData, value.hsva());
-		}
+		friend void Formatter(FormatData& formatData, const HSV& value);
 	};
 
 	[[nodiscard]]
-	inline Color HueToColor(double hue) noexcept;
+	Color HueToColor(double hue) noexcept;
 
 	[[nodiscard]]
-	inline ColorF HueToColorF(double hue) noexcept;
+	ColorF HueToColorF(double hue) noexcept;
 }
 
 template <>

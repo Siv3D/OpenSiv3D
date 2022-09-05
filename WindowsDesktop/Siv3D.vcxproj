@@ -173,7 +173,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\EngineLog.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Error.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FastMath.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FileFilter.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatingPoint.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatQuad.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatRect.ipp" />
@@ -1982,6 +1981,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\FFTFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileFilter\SivFileFilter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FontAssetData\SivFontAssetData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FontAsset\SivFontAsset.cpp" />
@@ -2024,6 +2024,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\CGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GUI\GUIFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Hash\SivHash.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\HTMLWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTTPResponse\SivHTTPResponse.cpp" />
