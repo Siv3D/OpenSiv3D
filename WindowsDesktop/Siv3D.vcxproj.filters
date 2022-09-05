@@ -5586,9 +5586,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatData.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatFloat.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatInt.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -6459,9 +6456,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ViewFrustum.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Geometry3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Disc.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -6854,6 +6848,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\par_octasphere\par_octasphere.h">
       <Filter>src\ThirdParty\par_octasphere</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDCollision.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

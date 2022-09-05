@@ -11,6 +11,7 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/Stopwatch.hpp>
 # include <Siv3D/VariableSpeedStopwatch.hpp>

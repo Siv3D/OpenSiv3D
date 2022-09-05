@@ -12,6 +12,7 @@
 # include <Siv3D/Ray.hpp>
 # include <Siv3D/Sphere.hpp>
 # include <Siv3D/Plane.hpp>
+# include <Siv3D/InfinitePlane.hpp>
 # include <Siv3D/Box.hpp>
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/ViewFrustum.hpp>

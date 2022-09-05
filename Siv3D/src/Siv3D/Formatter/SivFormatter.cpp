@@ -94,13 +94,6 @@ namespace s3d
 		Formatter(formatData, static_cast<double>(value));
 	}
 
-	void Formatter(FormatData& formatData, const double value)
-	{
-		char32 buf[detail::FormatFloatBufferSize];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, Fixed::No);
-		formatData.string.append(buf, len);
-	}
-
 	void Formatter(FormatData& formatData, const long double value)
 	{
 		Formatter(formatData, static_cast<double>(value));

@@ -38,7 +38,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicMesh.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DynamicTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Font.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Geometry3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Glyph.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InfinitePlane.ipp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatRect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatBool.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatData.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatFloat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatInt.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatLiteral.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatLiteral_impl.ipp" />
@@ -671,6 +669,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shuffle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDCollision.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMD_Float4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleAnimation.hpp" />
