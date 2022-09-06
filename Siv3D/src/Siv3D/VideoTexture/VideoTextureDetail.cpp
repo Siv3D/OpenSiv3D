@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "VideoTextureDetail.hpp"
-# include <Siv3D/Math.hpp>
 # include <Siv3D/EngineLog.hpp>
 
 namespace s3d
@@ -48,7 +47,7 @@ namespace s3d
 		{
 			if (m_loop)
 			{
-				m_playTimeSec = Math::Fmod(m_playTimeSec, lengthSec);
+				m_playTimeSec = std::fmod(m_playTimeSec, lengthSec);
 			}
 			else
 			{

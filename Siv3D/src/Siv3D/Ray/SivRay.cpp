@@ -18,7 +18,6 @@
 # include <Siv3D/ViewFrustum.hpp>
 # include <Siv3D/Cylinder.hpp>
 # include <Siv3D/Cone.hpp>
-# include <Siv3D/Math.hpp>
 # include <Siv3D/FormatFloat.hpp>
 
 namespace s3d
