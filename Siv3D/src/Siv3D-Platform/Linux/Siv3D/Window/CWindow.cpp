@@ -16,6 +16,7 @@
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/MonitorInfo.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>

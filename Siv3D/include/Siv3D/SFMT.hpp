@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <array>
 # include <ThirdParty/SFMT/SFMT.hpp>
 # include "Common.hpp"
 # include "Number.hpp"

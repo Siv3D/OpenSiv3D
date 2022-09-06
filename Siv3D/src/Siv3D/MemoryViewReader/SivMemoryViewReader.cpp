@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cstring>
 # include <Siv3D/MemoryViewReader.hpp>
 # include <Siv3D/Utility.hpp>
 
