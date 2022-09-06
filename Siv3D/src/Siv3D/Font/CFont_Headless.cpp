@@ -11,6 +11,9 @@
 
 # include <Siv3D/Font.hpp>
 # include <Siv3D/Error.hpp>
+# include <Siv3D/OutlineGlyph.hpp>
+# include <Siv3D/PolygonGlyph.hpp>
+# include <Siv3D/MeshGlyph.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CFont_Headless.hpp"

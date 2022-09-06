@@ -495,38 +495,10 @@ namespace s3d
 		return m_data.count_if(f);
 	}
 
-	inline Wave& Wave::fill(const value_type& value)
-	{
-		m_data.fill(value);
-
-		return *this;
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Wave::value_type>>*>
 	inline bool Wave::none(Fty f) const
 	{
 		return std::none_of(m_data.begin(), m_data.end(), f);
-	}
-
-	inline Wave& Wave::append(const Array<value_type>& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline Wave& Wave::append(const Wave& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline Wave& Wave::remove_at(const size_t index)
-	{
-		m_data.remove_at(index);
-
-		return *this;
 	}
 
 	template <class Fty>
@@ -535,38 +507,6 @@ namespace s3d
 		m_data.remove_if(f);
 
 		return *this;
-	}
-
-	inline Wave& Wave::reverse()
-	{
-		m_data.reverse();
-
-		return *this;
-	}
-
-	inline Wave Wave::reversed() const
-	{
-		return Wave(rbegin(), rend());
-	}
-
-	inline Wave Wave::slice(const size_t index) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return Wave(begin() + index, end());
-	}
-
-	inline Wave Wave::slice(const size_t index, const size_t length) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return Wave(begin() + index, begin() + Min(index + length, size()));
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<double, Fty, double>>*>

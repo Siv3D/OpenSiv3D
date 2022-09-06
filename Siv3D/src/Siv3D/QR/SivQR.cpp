@@ -13,6 +13,7 @@
 # include <Siv3D/QR.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/StringView.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/TextWriter.hpp>
 # include <ThirdParty/qr-code-generator-library/qrcodegen.hpp>
 

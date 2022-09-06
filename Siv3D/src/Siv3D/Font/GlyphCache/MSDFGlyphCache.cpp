@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/MSDFGlyph.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>

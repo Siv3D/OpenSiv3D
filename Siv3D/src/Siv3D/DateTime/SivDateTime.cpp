@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/DateTime.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include <Siv3D/FormatUtility.hpp>
 

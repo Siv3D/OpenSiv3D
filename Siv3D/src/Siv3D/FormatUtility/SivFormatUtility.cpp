@@ -12,6 +12,7 @@
 # include <Siv3D/FormatUtility.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/UnicodeConverter.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {

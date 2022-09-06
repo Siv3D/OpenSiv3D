@@ -14,24 +14,23 @@
 # include "String.hpp"
 # include "AssetHandle.hpp"
 # include "FontStyle.hpp"
-# include "GlyphInfo.hpp"
 # include "GlyphCluster.hpp"
-# include "OutlineGlyph.hpp"
-# include "PolygonGlyph.hpp"
-# include "MeshGlyph.hpp"
-# include "BitmapGlyph.hpp"
-# include "SDFGlyph.hpp"
-# include "MSDFGlyph.hpp"
 # include "FontMethod.hpp"
 # include "Typeface.hpp"
 # include "TextStyle.hpp"
 # include "Glyph.hpp"
-# include "PixelShader.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
+	struct OutlineGlyph;
+	struct PolygonGlyph;
+	struct MeshGlyph;
+	struct BitmapGlyph;
+	struct SDFGlyph;
+	struct MSDFGlyph;
 	struct DrawableText;
+	class PixelShader;
 
 	/// @brief フォント
 	class Font : public AssetHandle<Font>

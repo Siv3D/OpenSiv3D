@@ -11,7 +11,6 @@
 
 # pragma once
 # include "Common.hpp"
-# include "FormatData.hpp"
 # include "FormatLiteral.hpp"
 # include "CommonFloat.hpp"
 # include "Hash.hpp"
@@ -26,6 +25,7 @@ namespace s3d
 	struct Circle;
 	struct Color;
 	class Image;
+	struct FormatData;
 
 	/// @brief 2 次元のベクトル（整数）
 	struct Point

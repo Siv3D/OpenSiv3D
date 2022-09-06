@@ -19,7 +19,6 @@
 # include "StringView.hpp"
 # include "Utility.hpp"
 # include "Random.hpp"
-# include "Char.hpp"
 # include "Shuffle.hpp"
 
 namespace s3d

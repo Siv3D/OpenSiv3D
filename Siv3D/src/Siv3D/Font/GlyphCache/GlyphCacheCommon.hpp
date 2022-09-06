@@ -14,6 +14,7 @@
 # include <Siv3D/GlyphInfo.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/HashTable.hpp>
+# include <Siv3D/Char.hpp>
 # include "../FontData.hpp"
 
 namespace s3d

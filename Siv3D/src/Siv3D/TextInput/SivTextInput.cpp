@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextInput.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/DrawableText.hpp>

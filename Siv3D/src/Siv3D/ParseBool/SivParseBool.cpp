@@ -12,6 +12,7 @@
 # include <Siv3D/ParseBool.hpp>
 # include <Siv3D/Error.hpp>
 # include <Siv3D/FormatLiteral.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {

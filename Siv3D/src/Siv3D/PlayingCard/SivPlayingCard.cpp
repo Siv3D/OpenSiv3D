@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/PlayingCard.hpp>
+# include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Transformer2D.hpp>
 # include <Siv3D/DrawableText.hpp>
 

@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/PixelShader.hpp>
 # include <Siv3D/AssetHandleManager/AssetHandleManager.hpp>
 # include "IFont.hpp"
 # include "FontData.hpp"

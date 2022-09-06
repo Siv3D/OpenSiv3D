@@ -11,6 +11,7 @@
 
 # include <Siv3D/VertexShader.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/Error.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/Shader/IShader.hpp>
