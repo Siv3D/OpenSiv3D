@@ -36,7 +36,6 @@ namespace s3d
 		inline uint64 XXHash3(const TriviallyCopyable& input) noexcept;
 
 		template <class Type>
-		[[nodiscard]]
 		inline void Combine(size_t& h, const Type& input) noexcept;
 	}
 }
