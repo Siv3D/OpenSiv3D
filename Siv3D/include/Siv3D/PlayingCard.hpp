@@ -14,7 +14,7 @@
 # pragma once
 # include <Siv3D/Common.hpp>
 # include <Siv3D/String.hpp>
-# include <Siv3D/Transformer2D.hpp>
+# include <Siv3D/Font.hpp>
 
 namespace s3d
 {
@@ -428,7 +428,7 @@ namespace s3d
 		/// @remark シャッフルしたい場合は、取得後に shuffle() します。
 		/// @return カードの山札		
 		[[nodiscard]]
-		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front);
+		Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front);
 	}
 }
 

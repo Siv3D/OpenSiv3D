@@ -49,6 +49,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PhongMaterial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PlayingCard.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Script.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScriptFunction.ipp" />
@@ -337,12 +338,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\InputIcon.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\MiniScene.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\PlayingCard.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SaturatedLinework.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\SevenSegment.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\InputIcon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\MiniScene.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SaturatedLinework.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\SevenSegment.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FFT.hpp" />
@@ -593,6 +592,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Plane.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PNGFilter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
@@ -2153,6 +2153,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShaderAsset\SivPixelShaderAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Plane\SivPlane.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PlayingCard\SivPlayingCard.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PolygonEmitter2D\SivPolygonEmitter2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\PolygonDetail.cpp" />
