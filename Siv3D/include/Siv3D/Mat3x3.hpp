@@ -80,7 +80,7 @@ namespace s3d
 		constexpr float determinant() const noexcept;
 
 		[[nodiscard]]
-		Mat3x3 inverse() const noexcept;
+		constexpr Mat3x3 inverse() const noexcept;
 
 		[[nodiscard]]
 		constexpr Float2 transformPoint(Point pos) const noexcept;

@@ -13,57 +13,6 @@
 
 namespace s3d::PRNG
 {
-	inline SFMT19937_64::SFMT19937_64()
-	{
-		HardwareRNG rng;
-
-		uint32 keys[SeedSequencCount * 2];
-
-		for (auto& key : keys)
-		{
-			key = rng();
-		}
-
-		detail::sfmt_init_by_array(&m_state, keys, static_cast<int32>(SeedSequencCount * 2));
-	}
-
-	inline SFMT19937_64::SFMT19937_64(const uint64 seed) noexcept
-	{
-		this->seed(seed);
-	}
-
-	inline SFMT19937_64::SFMT19937_64(const std::array<uint64, SeedSequencCount>& seeds) noexcept
-	{
-		this->seed(seeds);
-	}
-
-	inline void SFMT19937_64::seed(const uint64 seed) noexcept
-	{
-		XoshiroCpp::SplitMix64 splitmix64(seed);
-
-		uint32 keys[SeedSequencCount * 2];
-
-		for (auto& key : keys)
-		{
-			key = static_cast<uint32>(splitmix64());
-		}
-
-		detail::sfmt_init_by_array(&m_state, keys, static_cast<int32>(SeedSequencCount * 2));
-	}
-
-	inline void SFMT19937_64::seed(const std::array<uint64, SeedSequencCount>& seeds) noexcept
-	{
-		uint32 keys[SeedSequencCount * 2];
-
-		for (size_t i = 0; i < 16; ++i)
-		{
-			keys[i * 2] = static_cast<uint32>(seeds[i] >> 32);
-			keys[i * 2 + 1] = static_cast<uint32>(seeds[i] & 0xffFFffFF);
-		}
-
-		detail::sfmt_init_by_array(&m_state, keys, static_cast<int32>(SeedSequencCount * 2));
-	}
-
 	[[nodiscard]]
 	inline constexpr SFMT19937_64::result_type SFMT19937_64::min() noexcept
 	{

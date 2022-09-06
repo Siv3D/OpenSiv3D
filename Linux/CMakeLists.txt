@@ -642,6 +642,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/SerialPortInfo/SivSerialPortInfo.cpp
   ../Siv3D/src/Siv3D/Serial/SerialDetail.cpp
   ../Siv3D/src/Siv3D/Serial/SivSerial.cpp
+  ../Siv3D/src/Siv3D/SFMT/SivSFMT.cpp
   ../Siv3D/src/Siv3D/Shader/ShaderCommon/SivShaderCommon.cpp
   ../Siv3D/src/Siv3D/Shader/Null/CShader_Null.cpp
   ../Siv3D/src/Siv3D/Shader/SivShader.cpp

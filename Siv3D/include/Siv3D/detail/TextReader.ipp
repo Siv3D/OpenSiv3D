@@ -25,9 +25,4 @@ namespace s3d
 	{
 		return open(std::make_unique<Reader>(std::forward<Reader>(reader)), encoding);
 	}
-
-	inline TextReader::operator bool() const noexcept
-	{
-		return isOpen();
-	}
 }

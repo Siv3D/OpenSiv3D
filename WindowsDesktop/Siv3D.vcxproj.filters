@@ -1594,6 +1594,9 @@
     <Filter Include="src\Siv3D\HSV">
       <UniqueIdentifier>{28af24ff-3165-41d3-bb4d-446b005415f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SFMT">
+      <UniqueIdentifier>{4b5558c1-25a5-4a48-ab2b-8b414a6129b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1627,9 +1630,6 @@
       <Filter>src\ThirdParty\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
-      <Filter>include\ThirdParty\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h">
       <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\diy-fp.h">
@@ -9919,6 +9919,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
       <Filter>src\Siv3D\HSV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SFMT\SivSFMT.cpp">
+      <Filter>src\Siv3D\SFMT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

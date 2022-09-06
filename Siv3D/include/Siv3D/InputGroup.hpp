@@ -64,11 +64,9 @@ namespace s3d
 		[[nodiscard]]
 		InputGroup operator |(const InputGroup& other) const noexcept;
 
-		[[nodiscard]]
-		bool operator ==(const InputGroup& other) const;
+		friend bool operator ==(const InputGroup& lhs, const InputGroup& rhs);
 
-		[[nodiscard]]
-		bool operator !=(const InputGroup& other) const;
+		friend bool operator !=(const InputGroup& lhs, const InputGroup& rhs);
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const InputGroup& value)

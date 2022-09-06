@@ -52,6 +52,11 @@ namespace s3d
 		return pImpl->isOpen();
 	}
 
+	TextReader::operator bool() const noexcept
+	{
+		return pImpl->isOpen();
+	}
+
 	Optional<char32> TextReader::readChar()
 	{
 		return pImpl->readChar();

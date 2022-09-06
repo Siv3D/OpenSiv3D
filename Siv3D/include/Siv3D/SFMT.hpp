@@ -10,12 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
-# include <cassert>
-# include <ThirdParty/Xoshiro-cpp/XoshiroCpp.hpp>
 # include <ThirdParty/SFMT/SFMT.hpp>
 # include "Common.hpp"
 # include "Number.hpp"
-# include "HardwareRNG.hpp"
 
 namespace s3d
 {

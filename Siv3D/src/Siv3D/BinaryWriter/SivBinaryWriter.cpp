@@ -15,9 +15,12 @@
 namespace s3d
 {
 	BinaryWriter::BinaryWriter()
-		: pImpl{ std::make_shared<BinaryWriterDetail>() }
-	{
+		: pImpl{ std::make_shared<BinaryWriterDetail>() } {}
 
+	BinaryWriter::BinaryWriter(const FilePathView path, const OpenMode openMode)
+		: BinaryWriter{}
+	{
+		open(path, openMode);
 	}
 
 	bool BinaryWriter::open(const FilePathView path, const OpenMode openMode)
@@ -31,6 +34,11 @@ namespace s3d
 	}
 
 	bool BinaryWriter::isOpen() const noexcept
+	{
+		return pImpl->isOpen();
+	}
+
+	BinaryWriter::operator bool() const noexcept
 	{
 		return pImpl->isOpen();
 	}

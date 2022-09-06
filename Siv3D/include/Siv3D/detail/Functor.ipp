@@ -543,7 +543,7 @@ namespace s3d::detail
 		[[nodiscard]]
 		constexpr auto operator()(TypeX&& x) const
 		{
-			if constexpr (std::disjunction_v<std::is_floating_point_v<TypeX>, std::is_floating_point_v<TypeY>>)
+			if constexpr (std::disjunction_v<std::is_floating_point<TypeX>, std::is_floating_point<TypeY>>)
 			{
 				return std::fmod(x, y);
 			}

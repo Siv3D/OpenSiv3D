@@ -32,21 +32,25 @@ namespace s3d
 			- (_11 * _23 * _32));
 	}
 
-	inline Mat3x3 Mat3x3::inverse() const noexcept
+	inline constexpr Mat3x3 Mat3x3::inverse() const noexcept
 	{
-		const float invdet = (1.0f / determinant());
+		const float det = determinant();
+		assert(det != 0.0f);
 
-		Mat3x3 result;
-		result._11 = ( _22 * _33 - _23 * _32) * invdet;
-		result._12 = (-_12 * _33 + _13 * _32) * invdet;
-		result._13 = ( _12 * _23 - _13 * _22) * invdet;
-		result._21 = (-_21 * _33 + _23 * _31) * invdet;
-		result._22 = ( _11 * _33 - _13 * _31) * invdet;
-		result._23 = (-_11 * _23 + _13 * _21) * invdet;
-		result._31 = ( _21 * _32 - _22 * _31) * invdet;
-		result._32 = (-_11 * _32 + _12 * _31) * invdet;
-		result._33 = ( _11 * _22 - _12 * _21) * invdet;
-		return result;
+		const float invdet = (1.0f / det);
+
+		return Mat3x3
+		{
+			(_22 * _33 - _23 * _32) * invdet,
+			(-_12 * _33 + _13 * _32) * invdet,
+			(_12 * _23 - _13 * _22) * invdet,
+			(-_21 * _33 + _23 * _31) * invdet,
+			(_11 * _33 - _13 * _31) * invdet,
+			(-_11 * _23 + _13 * _21) * invdet,
+			(_21 * _32 - _22 * _31) * invdet,
+			(-_11 * _32 + _12 * _31) * invdet,
+			(_11 * _22 - _12 * _21) * invdet
+		};
 	}
 
 	inline constexpr Float2 Mat3x3::transformPoint(const Point pos) const noexcept

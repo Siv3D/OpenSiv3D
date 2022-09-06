@@ -1,5 +1,6 @@
 ﻿
 # pragma once
+# include <cassert>
 # include <cstring>
 # include <Siv3D/SIMD.hpp>
 
