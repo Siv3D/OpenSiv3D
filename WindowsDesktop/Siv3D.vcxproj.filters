@@ -1573,6 +1573,54 @@
     <Filter Include="src\ThirdParty\par_octasphere">
       <UniqueIdentifier>{91088f8e-d30c-496a-a777-9d5990071d3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Demangle">
+      <UniqueIdentifier>{5a3ab8f8-385c-40e5-ad82-3133d864593d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\None">
+      <UniqueIdentifier>{9356030c-50f4-44ce-95ff-a9cad1f7d08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Parse">
+      <UniqueIdentifier>{81ca1d53-14d5-4184-8cec-812c4f781d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ShaderCommon">
+      <UniqueIdentifier>{99f970c6-60ef-4802-a939-cda7c0051807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Periodic">
+      <UniqueIdentifier>{618670b6-5ec6-418e-ab7e-ce64c3a615e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\FileFilter">
+      <UniqueIdentifier>{6096e6e7-425b-4205-a290-ae5ba881c894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\HSV">
+      <UniqueIdentifier>{28af24ff-3165-41d3-bb4d-446b005415f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SFMT">
+      <UniqueIdentifier>{4b5558c1-25a5-4a48-ab2b-8b414a6129b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PlayingCard">
+      <UniqueIdentifier>{5bdde62f-dffc-4952-b581-e1000f185a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\VariableSpeedStopwatch">
+      <UniqueIdentifier>{5c48ae41-0531-4628-9afb-8974c123a28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Timer">
+      <UniqueIdentifier>{6ce4d34f-1397-4345-a799-b52eb2c292f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Transformer2D">
+      <UniqueIdentifier>{c9b7e0bb-4e29-42a4-b3d1-f5af179786a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Transformer3D">
+      <UniqueIdentifier>{f1fda0bd-bc94-4650-8420-ccdf16b0eefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryReader">
+      <UniqueIdentifier>{dfed2a0c-af62-406f-8c7c-77747a7c1bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryViewReader">
+      <UniqueIdentifier>{2a200f4f-0927-4a58-988d-87883bb41b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryWriter">
+      <UniqueIdentifier>{02e4fa4b-1044-4618-a24f-fd53138eceb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1606,9 +1654,6 @@
       <Filter>src\ThirdParty\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
-      <Filter>include\ThirdParty\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h">
       <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\diy-fp.h">
@@ -4047,12 +4092,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\InputIcon.ipp">
       <Filter>include\Siv3D\Experimental\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\detail\PlayingCard.ipp">
-      <Filter>include\Siv3D\Experimental\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Experimental\PlayingCard.hpp">
-      <Filter>include\Siv3D\Experimental</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Glyph.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -5481,9 +5520,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Camera2DParameters.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Char.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5520,9 +5556,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DeadZone.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Demangle.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DiscreteDistribution.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5541,9 +5574,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Ellipse.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Endian.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5554,9 +5584,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FastMath.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FileFilter.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FloatingPoint.ipp">
@@ -5572,9 +5599,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatData.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatFloat.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\FormatInt.ipp">
@@ -5769,9 +5793,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Parse.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Periodic.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PerlinNoise.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5859,9 +5880,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Serialization.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderCommon.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ShaderStage.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
@@ -5934,13 +5952,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TOMLReader.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp">
@@ -5965,9 +5977,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility_detail.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector2D.ipp">
@@ -6447,14 +6456,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ViewFrustum.hpp">
       <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Geometry3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Disc.ipp">
       <Filter>include\Siv3D\detail</Filter>
@@ -6848,6 +6851,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\par_octasphere\par_octasphere.h">
       <Filter>src\ThirdParty\par_octasphere</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDCollision.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\PlayingCard.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PlayingCard.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -9895,6 +9907,54 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptINI.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Demangle\SivDemangle.cpp">
+      <Filter>src\Siv3D\Demangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\None\SivNone.cpp">
+      <Filter>src\Siv3D\None</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Parse\SivParse.cpp">
+      <Filter>src\Siv3D\Parse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ShaderCommon\SivShaderCommon.cpp">
+      <Filter>src\Siv3D\ShaderCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Periodic\SivPeriodic.cpp">
+      <Filter>src\Siv3D\Periodic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileFilter\SivFileFilter.cpp">
+      <Filter>src\Siv3D\FileFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
+      <Filter>src\Siv3D\HSV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SFMT\SivSFMT.cpp">
+      <Filter>src\Siv3D\SFMT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PlayingCard\SivPlayingCard.cpp">
+      <Filter>src\Siv3D\PlayingCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VariableSpeedStopwatch\SivVariableSpeedStopwatch.cpp">
+      <Filter>src\Siv3D\VariableSpeedStopwatch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Timer\SivTimer.cpp">
+      <Filter>src\Siv3D\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer2D\SivTransformer2D.cpp">
+      <Filter>src\Siv3D\Transformer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer3D\SivTransformer3D.cpp">
+      <Filter>src\Siv3D\Transformer3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryReader\SivMemoryReader.cpp">
+      <Filter>src\Siv3D\MemoryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryViewReader\SivMemoryViewReader.cpp">
+      <Filter>src\Siv3D\MemoryViewReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryWriter\SivMemoryWriter.cpp">
+      <Filter>src\Siv3D\MemoryWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

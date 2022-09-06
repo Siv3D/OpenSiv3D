@@ -760,6 +760,21 @@ namespace s3d
 		return BigFloat(pImpl->data.str());
 	}
 
+	BigInt::operator size_t() const
+	{
+		return this->pImpl->data.convert_to<size_t>();
+	}
+
+	BigInt::operator float() const
+	{
+		return this->pImpl->data.convert_to<float>();
+	}
+
+	BigInt::operator double() const
+	{
+		return this->pImpl->data.convert_to<double>();
+	}
+
 	BigInt::operator BigFloat() const
 	{
 		return asBigFloat();

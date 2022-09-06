@@ -39,6 +39,18 @@ namespace s3d
 		}
 	}
 
+	INI::INI() {}
+
+	INI::INI(const FilePathView path, const Optional<TextEncoding>& encoding)
+	{
+		load(path, encoding);
+	}
+
+	INI::INI(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
+	{
+		load(std::move(reader), encoding);
+	}
+
 	bool INI::load(const FilePathView path, const Optional<TextEncoding>& encoding)
 	{
 		TextReader textReader(path, encoding);
@@ -51,6 +63,13 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	void INI::clear()
+	{
+		m_sections.clear();
+
+		m_keyIndices.clear();
 	}
 
 	bool INI::load(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)

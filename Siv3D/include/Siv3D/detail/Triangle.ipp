@@ -231,9 +231,9 @@ namespace s3d
 		}
 	}
 
-	inline Triangle::value_type Triangle::area() const noexcept
+	inline constexpr Triangle::value_type Triangle::area() const noexcept
 	{
-		return std::abs((p0.x - p2.x) * (p1.y - p0.y) - (p0.x - p1.x) * (p2.y - p0.y)) * 0.5;
+		return Abs((p0.x - p2.x) * (p1.y - p0.y) - (p0.x - p1.x) * (p2.y - p0.y)) * 0.5;
 	}
 
 	inline Triangle::value_type Triangle::perimeter() const noexcept

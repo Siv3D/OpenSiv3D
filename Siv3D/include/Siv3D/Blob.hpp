@@ -14,10 +14,11 @@
 # include "Array.hpp"
 # include "Byte.hpp"
 # include "IReader.hpp"
-# include "MD5Value.hpp"
 
 namespace s3d
 {
+	struct MD5Value;
+
 	/// @brief バイナリデータ
 	class Blob
 	{

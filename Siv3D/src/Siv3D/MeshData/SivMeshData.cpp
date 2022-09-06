@@ -40,6 +40,7 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/ScopeGuard.hpp>
 # include <Siv3D/SIMD_Float4.hpp>
+# include <Siv3D/SIMDCollision.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Mat4x4.hpp>

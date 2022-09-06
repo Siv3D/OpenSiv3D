@@ -17,6 +17,235 @@
 
 namespace s3d
 {
+	MultiPolygon::value_type& MultiPolygon::choice()
+	{
+		return choice(GetDefaultRNG());
+	}
+
+	const MultiPolygon::value_type& MultiPolygon::choice() const
+	{
+		return choice(GetDefaultRNG());
+	}
+
+	String MultiPolygon::join(const StringView sep, const StringView begin, const StringView end) const
+	{
+		return m_data.join(sep, begin, end);
+	}
+
+	MultiPolygon& MultiPolygon::append(const Array<value_type>& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::append(const MultiPolygon& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::remove_at(const size_t index)
+	{
+		m_data.remove_at(index);
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::reverse()
+	{
+		m_data.reverse();
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::reversed() const
+	{
+		return MultiPolygon(rbegin(), rend());
+	}
+
+	MultiPolygon& MultiPolygon::shuffle()
+	{
+		m_data.shuffle();
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::slice(const size_t index) const
+	{
+		if (index >= size())
+		{
+			return{};
+		}
+
+		return MultiPolygon(begin() + index, end());
+	}
+
+	MultiPolygon MultiPolygon::slice(const size_t index, const size_t length) const
+	{
+		if (index >= size())
+		{
+			return{};
+		}
+
+		return MultiPolygon(begin() + index, begin() + Min(index + length, size()));
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const double x, const double y) const
+	{
+		MultiPolygon polygons{ *this };
+
+		polygons.moveBy(x, y);
+
+		return polygons;
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const Vec2 v) const
+	{
+		return movedBy(v.x, v.y);
+	}
+
+	MultiPolygon& MultiPolygon::moveBy(const double x, const double y) noexcept
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.moveBy(x, y);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::moveBy(const Vec2 v) noexcept
+	{
+		return moveBy(v.x, v.y);
+	}
+
+	MultiPolygon MultiPolygon::rotated(const double angle) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotated(angle); }) };
+	}
+
+	MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotatedAt(pos, angle); }) };
+	}
+
+	MultiPolygon& MultiPolygon::rotate(const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotate(angle);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotateAt(pos, angle);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.transformed(s, c, pos); }) };
+	}
+
+	MultiPolygon& MultiPolygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.transform(s, c, pos);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::scaled(const double s) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
+	}
+
+	MultiPolygon MultiPolygon::scaled(const double sx, const double sy) const
+	{
+		return scaled(Vec2{ sx, sy });
+	}
+
+	MultiPolygon MultiPolygon::scaled(const Vec2 s) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
+	}
+
+	MultiPolygon& MultiPolygon::scale(const double s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scale(s);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::scale(const double sx, const double sy)
+	{
+		return scale(Vec2{ sx, sy });
+	}
+
+	MultiPolygon& MultiPolygon::scale(const Vec2 s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scale(s);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double s) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
+	}
+
+	MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scaleAt(pos, s);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	{
+		return scaledAt(pos, Vec2{ sx, sy });
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
+	}
+
+	MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double sx, const double sy)
+	{
+		return scaleAt(pos, Vec2{ sx, sy });
+	}
+
+	MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const Vec2 s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scaleAt(pos, s);
+		}
+
+		return *this;
+	}
+
 	RectF MultiPolygon::computeBoundingRect() const noexcept
 	{
 		if (isEmpty())
@@ -63,6 +292,11 @@ namespace s3d
 		}
 
 		return{ left, top, (right - left), (bottom - top) };
+	}
+
+	MultiPolygon MultiPolygon::simplified(const double maxDistance) const
+	{
+		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.simplified(maxDistance); }) };
 	}
 
 	bool MultiPolygon::leftClicked() const noexcept

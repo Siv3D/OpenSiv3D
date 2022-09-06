@@ -79,14 +79,49 @@ namespace s3d
 		return pImpl->isOpen();
 	}
 
+	TextWriter::operator bool() const noexcept
+	{
+		return pImpl->isOpen();
+	}
+
 	void TextWriter::clear()
 	{
 		pImpl->clear();
 	}
 
+	void TextWriter::write(const char32 ch)
+	{
+		pImpl->write(StringView(&ch, 1));
+	}
+
+	void TextWriter::write(const char32* s)
+	{
+		pImpl->write(StringView(s));
+	}
+
+	void TextWriter::write(const String& s)
+	{
+		pImpl->write(StringView(s));
+	}
+
 	void TextWriter::write(const StringView s)
 	{
 		pImpl->write(s);
+	}
+
+	void TextWriter::writeln(const char32 ch)
+	{
+		writeln(StringView(&ch, 1));
+	}
+
+	void TextWriter::writeln(const char32* s)
+	{
+		writeln(StringView(s));
+	}
+
+	void TextWriter::writeln(const String& s)
+	{
+		writeln(StringView(s));
 	}
 
 	void TextWriter::writeln(const StringView s)

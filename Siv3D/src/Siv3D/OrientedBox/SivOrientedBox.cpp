@@ -11,10 +11,8 @@
 
 # include <Siv3D/OrientedBox.hpp>
 # include <Siv3D/Line3D.hpp>
-# include <Siv3D/Triangle3D.hpp>
-# include <Siv3D/ViewFrustum.hpp>
 # include <Siv3D/Mesh.hpp>
-# include <Siv3D/Quaternion.hpp>
+# include <Siv3D/Ray.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/Geometry3D.hpp>
 # include <Siv3D/PrimitiveMesh/IPrimitiveMesh.hpp>
@@ -22,65 +20,39 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		constexpr std::array<size_t, 8> CornerIndices =
-		{
-			7, 6, 4, 5, 3, 2, 0, 1
-		};
-	}
-
 	std::array<Vec3, 8> OrientedBox::getCorners() const noexcept
 	{
-		std::array<DirectX::XMFLOAT3, 8> corners;
-
-		detail::FromOrientedBox(*this).GetCorners(corners.data());
-
-		std::array<Vec3, 8> results;
-
-		for (size_t i = 0; i < 8; ++i)
-		{
-			const auto& corner = corners[detail::CornerIndices[i]];
-
-			results[i].set(corner.x, corner.y, corner.z);
-		}
-
-		return results;
+		return Geometry3D::GetCorners(*this);
 	}
 
 	bool OrientedBox::intersects(const Vec3& point) const noexcept
 	{
-		return (detail::FromOrientedBox(*this).Contains(SIMD_Float4{ point, 0.0f }) == DirectX::CONTAINS);
+		return Geometry3D::Intersects(*this, point);
 	}
 
 	bool OrientedBox::intersects(const Triangle3D& triangle) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		return b.Intersects(triangle.p0, triangle.p1, triangle.p2);
+		return Geometry3D::Intersects(*this, triangle);
 	}
 
 	bool OrientedBox::intersects(const Sphere& sphere) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		return b.Intersects(detail::FromSphere(sphere));
+		return Geometry3D::Intersects(*this, sphere);
 	}
 
 	bool OrientedBox::intersects(const Box& box) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		return b.Intersects(detail::FromBox(box));
+		return Geometry3D::Intersects(*this, box);
 	}
 
 	bool OrientedBox::intersects(const OrientedBox& box) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		return b.Intersects(detail::FromOrientedBox(box));
+		return Geometry3D::Intersects(*this, box);
 	}
 
 	bool OrientedBox::intersects(const ViewFrustum& frustum) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		return b.Intersects(frustum.getData());
+		return Geometry3D::Intersects(*this, frustum);
 	}
 
 	Optional<float> OrientedBox::intersects(const Ray& ray) const noexcept
@@ -90,50 +62,33 @@ namespace s3d
 
 	bool OrientedBox::contains(const Vec3& point) const noexcept
 	{
-		return (detail::FromOrientedBox(*this).Contains(SIMD_Float4{ point, 0.0f }) == DirectX::CONTAINS);
+		return Geometry3D::Contains(*this, point);
 	}
 
 	bool OrientedBox::contains(const Triangle3D& triangle) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		const auto result = b.Contains(triangle.p0, triangle.p1, triangle.p2);
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, triangle);
 	}
 
 	bool OrientedBox::contains(const Sphere& sphere) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		const auto result = b.Contains(detail::FromSphere(sphere));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, sphere);
 	}
 
 	bool OrientedBox::contains(const Box& box) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		const auto result = b.Contains(detail::FromBox(box));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, box);
 	}
 
 	bool OrientedBox::contains(const OrientedBox& box) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		const auto result = b.Contains(detail::FromOrientedBox(box));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, box);
 	}
 
 	bool OrientedBox::contains(const ViewFrustum& frustum) const noexcept
 	{
-		const auto b = detail::FromOrientedBox(*this);
-		const auto result = b.Contains(frustum.getData());
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, frustum);
 	}
-
-
 
 	const OrientedBox& OrientedBox::draw(const ColorF& color) const
 	{

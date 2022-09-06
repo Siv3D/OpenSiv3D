@@ -70,8 +70,56 @@ namespace s3d
 		return num;
 	}
 
+	InputGroup InputGroup::operator |(const Input other) const noexcept
+	{
+		return InputGroup{ *this, other };
+	}
+
+	InputGroup InputGroup::operator |(const InputCombination& other) const noexcept
+	{
+		return InputGroup{ *this, other };
+	}
+
+	InputGroup InputGroup::operator |(const InputGroup& other) const noexcept
+	{
+		return InputGroup{ *this, other };
+	}
+
+	bool operator ==(const InputGroup& lhs, const InputGroup& rhs)
+	{
+		return (lhs.m_inputs == rhs.m_inputs)
+			&& (lhs.m_inputCombinations == rhs.m_inputCombinations);
+	}
+
+	bool operator !=(const InputGroup& lhs, const InputGroup& rhs)
+	{
+		return (lhs.m_inputs != rhs.m_inputs)
+			|| (lhs.m_inputCombinations != rhs.m_inputCombinations);
+	}
+
 	void Formatter(FormatData& formatData, const InputGroup& value)
 	{
 		Formatter(formatData, value.name());
+	}
+
+	void InputGroup::append()
+	{
+		// do nothing
+	}
+
+	void InputGroup::append(const Input other)
+	{
+		(m_inputs << other).sort_and_unique();
+	}
+
+	void InputGroup::append(const InputCombination& other)
+	{
+		(m_inputCombinations << other).sort_and_unique();
+	}
+
+	void InputGroup::append(const InputGroup& other)
+	{
+		m_inputs.append(other.m_inputs).sort_and_unique();
+		m_inputCombinations.append(other.m_inputCombinations).sort_and_unique();
 	}
 }

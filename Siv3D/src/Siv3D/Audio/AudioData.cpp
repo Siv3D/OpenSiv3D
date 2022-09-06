@@ -11,8 +11,9 @@
 
 # include <Siv3D/Audio/IAudio.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/Math.hpp>
+# include <Siv3D/MathConstants.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "AudioData.hpp"
 # include "AudioBus.hpp"

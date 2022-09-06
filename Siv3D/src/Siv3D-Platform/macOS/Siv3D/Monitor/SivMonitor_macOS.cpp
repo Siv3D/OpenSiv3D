@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/MonitorInfo.hpp>
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/Common/OpenGL.hpp>
 

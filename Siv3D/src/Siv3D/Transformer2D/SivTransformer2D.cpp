@@ -9,14 +9,16 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Transformer2D.hpp>
+# include <Siv3D/Graphics2D.hpp>
+# include <Siv3D/Cursor.hpp>
 
 namespace s3d
 {
-	inline Transformer2D::Transformer2D(const Mat3x2& transform, const Target target)
+	Transformer2D::Transformer2D(const Mat3x2& transform, const Target target)
 		: Transformer2D{ transform, TransformCursor::No, target } {}
 
-	inline Transformer2D::Transformer2D(const Mat3x2& transform, const TransformCursor transformCursor, const Target target)
+	Transformer2D::Transformer2D(const Mat3x2& transform, const TransformCursor transformCursor, const Target target)
 		: m_target{ target }
 		, m_oldTransform{ getGraphics2DTransform() }
 	{
@@ -42,7 +44,7 @@ namespace s3d
 		}
 	}
 
-	inline Transformer2D::Transformer2D(const Mat3x2& graphics2DTransform, const Mat3x2& cursorTransform, const Target target)
+	Transformer2D::Transformer2D(const Mat3x2& graphics2DTransform, const Mat3x2& cursorTransform, const Target target)
 		: m_target{ target }
 		, m_oldTransform{ getGraphics2DTransform() }
 		, m_oldCursorTransform{ getCursorTransform() }
@@ -59,7 +61,7 @@ namespace s3d
 		}
 	}
 
-	inline Transformer2D::Transformer2D(Transformer2D&& other) noexcept
+	Transformer2D::Transformer2D(Transformer2D&& other) noexcept
 		: m_target{ other.m_target }
 		, m_oldTransform{ other.m_oldTransform }
 		, m_oldCursorTransform{ other.m_oldCursorTransform }
@@ -67,7 +69,7 @@ namespace s3d
 		other.clear();
 	}
 
-	inline Transformer2D::~Transformer2D()
+	Transformer2D::~Transformer2D()
 	{
 		if (m_oldTransform)
 		{
@@ -80,31 +82,31 @@ namespace s3d
 		}
 	}
 
-	inline void Transformer2D::clear() noexcept
+	void Transformer2D::clear() noexcept
 	{
 		m_oldTransform.reset();
 		m_oldCursorTransform.reset();
 	}
 
-	inline bool Transformer2D::isPush() const noexcept
+	bool Transformer2D::isPush() const noexcept
 	{
 		return ((m_target == Target::PushLocal)
 			|| (m_target == Target::PushCamera));
 	}
 
-	inline bool Transformer2D::isLocal() const noexcept
+	bool Transformer2D::isLocal() const noexcept
 	{
 		return ((m_target == Target::PushLocal)
 			|| (m_target == Target::SetLocal));
 	}
 
-	inline bool Transformer2D::isCamera() const noexcept
+	bool Transformer2D::isCamera() const noexcept
 	{
 		return ((m_target == Target::PushCamera)
 			|| (m_target == Target::SetCamera));
 	}
 
-	inline const Mat3x2& Transformer2D::getGraphics2DTransform() const noexcept
+	const Mat3x2& Transformer2D::getGraphics2DTransform() const noexcept
 	{
 		if (isLocal())
 		{
@@ -116,7 +118,7 @@ namespace s3d
 		}
 	}
 
-	inline const Mat3x2& Transformer2D::getCursorTransform() const noexcept
+	const Mat3x2& Transformer2D::getCursorTransform() const noexcept
 	{
 		if (isLocal())
 		{
@@ -128,7 +130,7 @@ namespace s3d
 		}
 	}
 
-	inline void Transformer2D::setGraphics2DTransform(const Mat3x2& transform) const
+	void Transformer2D::setGraphics2DTransform(const Mat3x2& transform) const
 	{
 		if (isLocal())
 		{
@@ -140,7 +142,7 @@ namespace s3d
 		}
 	}
 
-	inline void Transformer2D::setCursorTransform(const Mat3x2& transform) const
+	void Transformer2D::setCursorTransform(const Mat3x2& transform) const
 	{
 		if (isLocal())
 		{

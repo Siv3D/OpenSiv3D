@@ -13,30 +13,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		inline constexpr bool IsTrimmable(char32 ch) noexcept
-		{
-			return (ch <= 0x20) || ((ch - 0x7F) <= (0x9F - 0x7F));
-		};
-
-		template <class Type>
-		class StableUniqueHelper
-		{
-		private:
-
-			std::unordered_set<Type> m_set;
-
-		public:
-
-			[[nodiscard]]
-			bool operator()(const Type& value)
-			{
-				return m_set.insert(value).second;
-			}
-		};
-	}
-
 	inline String::String()
 		: m_string()
 	{
@@ -648,126 +624,6 @@ namespace s3d
 		m_string.swap(other.m_string);
 	}
 
-	inline bool String::starts_with(const value_type ch) const noexcept
-	{
-		return (not m_string.empty() && (m_string.front() == ch));
-	}
-
-	inline bool String::starts_with(const StringView s) const
-	{
-		if (size() < s.size())
-		{
-			return false;
-		}
-
-		return std::equal(s.begin(), s.end(), begin());
-	}
-
-	inline bool String::ends_with(const value_type ch) const noexcept
-	{
-		return (not m_string.empty() && (m_string.back() == ch));
-	}
-
-	inline bool String::ends_with(const StringView s) const
-	{
-		if (size() < s.size())
-		{
-			return false;
-		}
-
-		return std::equal(s.begin(), s.end(), end() - s.size());
-	}
-
-	inline String String::substr(const size_t offset, const size_t count) const
-	{
-		return m_string.substr(offset, count);
-	}
-
-	inline StringView String::substrView(const size_t offset, const size_t count) const &
-	{
-		if (offset > size())
-		{
-			throw std::out_of_range("String::substrView(): index out of range");
-		}
-
-		return StringView(data() + offset, Min(count, size() - offset));
-	}
-
-	inline const std::u32string& String::toUTF32() const noexcept
-	{
-		return m_string;
-	}
-
-	inline uint64 String::hash() const noexcept
-	{
-		return Hash::FNV1a(data(), size_bytes());
-	}
-
-	inline size_t String::indexOf(const StringView s, const size_t offset) const noexcept
-	{
-		return m_string.find(s.data(), offset, s.length());
-	}
-
-	inline size_t String::indexOf(const value_type ch, const size_t offset) const noexcept
-	{
-		return m_string.find(ch, offset);
-	}
-
-	inline size_t String::indexOfNot(const value_type ch, const size_t offset) const noexcept
-	{
-		return m_string.find_first_not_of(ch, offset);
-	}
-
-	inline size_t String::lastIndexOf(const StringView s, const size_t offset) const noexcept
-	{
-		return m_string.rfind(s.data(), offset, s.length());
-	}
-
-	inline size_t String::lastIndexOf(const value_type ch, const size_t offset) const noexcept
-	{
-		return m_string.rfind(ch, offset);
-	}
-
-	inline size_t String::lastIndexNotOf(const value_type ch, const size_t offset) const noexcept
-	{
-		return m_string.find_last_not_of(ch, offset);
-	}
-
-	inline size_t String::indexOfAny(const StringView anyof, const size_t offset) const noexcept
-	{
-		return m_string.find_first_of(anyof.data(), offset, anyof.length());
-	}
-
-	inline size_t String::lastIndexOfAny(const StringView anyof, const size_t offset) const noexcept
-	{
-		return m_string.find_last_of(anyof.data(), offset, anyof.length());
-	}
-
-	inline size_t String::indexNotOfAny(const StringView anyof, const size_t offset) const
-	{
-		return m_string.find_first_not_of(anyof.data(), offset, anyof.length());
-	}
-
-	inline size_t String::lastIndexNotOfAny(const StringView anyof, const size_t offset) const
-	{
-		return m_string.find_last_not_of(anyof.data(), offset, anyof.length());
-	}
-
-	inline int32 String::compare(const String& s) const noexcept
-	{
-		return m_string.compare(s.m_string);
-	}
-
-	inline int32 String::compare(const StringView s) const noexcept
-	{
-		return m_string.compare(std::u32string_view(s.data(), s.size()));
-	}
-
-	inline int32 String::compare(const value_type* s) const noexcept
-	{
-		return m_string.compare(s);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline bool String::all(Fty f) const
 	{
@@ -778,38 +634,6 @@ namespace s3d
 	inline bool String::any(Fty f) const
 	{
 		return std::any_of(m_string.begin(), m_string.end(), f);
-	}
-
-	inline String String::capitalized() const &
-	{
-		return String(*this).capitalize();
-	}
-
-	inline String String::capitalized() &&
-	{
-		capitalize();
-
-		return std::move(*this);
-	}
-
-	inline size_t String::count(const value_type ch) const noexcept
-	{
-		return std::count(m_string.begin(), m_string.end(), ch);
-	}
-
-	inline size_t String::count(const StringView s) const
-	{
-		size_t count = 0;
-
-		for (auto it = begin();; ++it, ++count)
-		{
-			it = std::search(it, end(), s.begin(), s.end());
-
-			if (it == end())
-			{
-				return count;
-			}
-		}
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
@@ -876,13 +700,6 @@ namespace s3d
 		return m_string[index];
 	}
 
-	inline String& String::fill(const value_type value)
-	{
-		std::fill(m_string.begin(), m_string.end(), value);
-
-		return *this;
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline String String::filter(Fty f) const
 	{
@@ -899,16 +716,6 @@ namespace s3d
 		return new_array;
 	}
 
-	inline bool String::includes(const value_type ch) const
-	{
-		return (indexOf(ch) != String::npos);
-	}
-
-	inline bool String::includes(const StringView s) const
-	{
-		return (indexOf(s) != String::npos);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline bool String::includes_if(Fty f) const
 	{
@@ -921,44 +728,6 @@ namespace s3d
 		m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not_fn(f)), m_string.end());
 
 		return *this;
-	}
-
-	inline String String::lowercased() const &
-	{
-		return String(*this).lowercase();
-	}
-
-	inline String String::lowercased() &&
-	{
-		lowercase();
-
-		return std::move(*this);
-	}
-
-	inline String String::lpadded(const size_t length, const value_type fillChar) &&
-	{
-		lpad(length, fillChar);
-
-		return std::move(*this);
-	}
-
-	inline String& String::ltrim()
-	{
-		m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
-
-		return *this;
-	}
-
-	inline String String::ltrimmed() const&
-	{
-		return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), m_string.end());
-	}
-
-	inline String String::ltrimmed()&&
-	{
-		ltrim();
-
-		return std::move(*this);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32>>*>
@@ -981,96 +750,6 @@ namespace s3d
 	inline bool String::none(Fty f) const
 	{
 		return std::none_of(m_string.begin(), m_string.end(), f);
-	}
-
-	inline String& String::remove(const value_type ch)
-	{
-		m_string.erase(std::remove(m_string.begin(), m_string.end(), ch), m_string.end());
-
-		return *this;
-	}
-
-	inline String& String::remove(const StringView s)
-	{
-		return *this = removed(s);
-	}
-
-	inline String String::removed(const value_type ch) const&
-	{
-		String new_string;
-
-		for (const auto c : m_string)
-		{
-			if (c != ch)
-			{
-				new_string.push_back(c);
-			}
-		}
-
-		return new_string;
-	}
-
-	inline String String::removed(const value_type ch)&&
-	{
-		remove(ch);
-
-		return std::move(*this);
-	}
-
-	inline String String::removed(const StringView s) const
-	{
-		String result;
-
-		for (auto it = begin(); it != end();)
-		{
-			const auto it2 = it;
-
-			result.append(it2, it = std::search(it, end(), s.begin(), s.end()));
-
-			if (it != end())
-			{
-				it += s.size();
-			}
-		}
-
-		return result;
-	}
-
-	inline String& String::remove_at(const size_t index)
-	{
-		if (m_string.size() <= index)
-		{
-			throw std::out_of_range("String::remove_at(): index out of range");
-		}
-
-		m_string.erase(m_string.begin() + index);
-
-		return *this;
-	}
-
-	inline String String::removed_at(const size_t index) const&
-	{
-		if (m_string.size() <= index)
-		{
-			throw std::out_of_range("String::removed_at(): index out of range");
-		}
-
-		String new_string;
-
-		new_string.reserve(m_string.length() - 1);
-
-		new_string.assign(m_string.begin(), m_string.begin() + index);
-
-		new_string.append(m_string.begin() + index + 1, m_string.end());
-
-		return new_string;
-	}
-
-	inline String String::removed_at(const size_t index)&&
-	{
-		remove_at(index);
-
-		return std::move(*this);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
@@ -1105,56 +784,10 @@ namespace s3d
 		return std::move(*this);
 	}
 
-	inline String& String::replace(const value_type oldChar, const value_type newChar)
-	{
-		for (auto& c : m_string)
-		{
-			if (c == oldChar)
-			{
-				c = newChar;
-			}
-		}
-
-		return *this;
-	}
-
-	inline String& String::replace(const StringView oldStr, const StringView newStr)
-	{
-		return *this = replaced(oldStr, newStr);
-	}
-
-	inline String& String::replace(const size_type pos, const size_type count, const String& s)
-	{
-		m_string.replace(pos, count, s.m_string);
-
-		return *this;
-	}
-
-	inline String& String::replace(const size_type pos, const size_type count, const value_type* s)
-	{
-		m_string.replace(pos, count, s);
-
-		return *this;
-	}
-
 	template <class StringViewIsh, class>
 	inline String& String::replace(const size_type pos, const size_type count, const StringViewIsh& s)
 	{
 		m_string.replace(pos, count, s);
-
-		return *this;
-	}
-
-	inline String& String::replace(const_iterator first, const_iterator last, const String& s)
-	{
-		m_string.replace(first, last, s.m_string);
-
-		return *this;
-	}
-
-	inline String& String::replace(const_iterator first, const_iterator last, const value_type* s)
-	{
-		m_string.replace(first, last, s);
 
 		return *this;
 	}
@@ -1173,18 +806,6 @@ namespace s3d
 		m_string.replace(first, last, first2, last2);
 
 		return *this;
-	}
-
-	inline String String::replaced(const value_type oldChar, const value_type newChar) const&
-	{
-		return String(*this).replace(oldChar, newChar);
-	}
-
-	inline String String::replaced(const value_type oldChar, const value_type newChar)&&
-	{
-		replace(oldChar, newChar);
-
-		return std::move(*this);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
@@ -1215,25 +836,6 @@ namespace s3d
 		return std::move(*this);
 	}
 
-	inline String& String::reverse()
-	{
-		std::reverse(m_string.begin(), m_string.end());
-
-		return *this;
-	}
-
-	inline String String::reversed() const&
-	{
-		return String(m_string.rbegin(), m_string.rend());
-	}
-
-	inline String String::reversed()&&
-	{
-		reverse();
-
-		return *this;
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, char32&>>*>
 	inline String& String::reverse_each(Fty f)
 	{
@@ -1262,95 +864,12 @@ namespace s3d
 		return *this;
 	}
 
-	inline String String::rotated(const std::ptrdiff_t count) const&
-	{
-		return String(*this).rotate(count);
-	}
-
-	inline String String::rotated(const std::ptrdiff_t count)&&
-	{
-		rotate(count);
-
-		return std::move(*this);
-	}
-
-	inline String& String::rpad(const size_t length, const value_type fillChar)
-	{
-		if (length <= m_string.length())
-		{
-			return *this;
-		}
-
-		m_string.append(length - m_string.length(), fillChar);
-
-		return *this;
-	}
-
-	inline String String::rpadded(const size_t length, const value_type fillChar) const&
-	{
-		if (length <= m_string.length())
-		{
-			return *this;
-		}
-
-		String new_string;
-
-		new_string.reserve(length);
-
-		new_string.assign(m_string);
-
-		new_string.append(length - m_string.length(), fillChar);
-
-		return new_string;
-	}
-
-	inline String String::rpadded(const size_t length, const value_type fillChar)&&
-	{
-		rpad(length, fillChar);
-
-		return std::move(*this);
-	}
-
-	inline String& String::rtrim()
-	{
-		m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
-
-		return *this;
-	}
-
-	inline String String::rtrimmed() const&
-	{
-		return String(m_string.begin(), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
-	}
-
-	inline String String::rtrimmed()&&
-	{
-		rtrim();
-
-		return std::move(*this);
-	}
-
-	inline String& String::shuffle()
-	{
-		return shuffle(GetDefaultRNG());
-	}
-
 	SIV3D_CONCEPT_URBG_
 	inline String& String::shuffle(URBG&& rbg)
 	{
 		Shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
 		return *this;
-	}
-
-	inline String String::shuffled() const&
-	{
-		return shuffled(GetDefaultRNG());
-	}
-
-	inline String String::shuffled()&&
-	{
-		return shuffled(GetDefaultRNG());
 	}
 
 	SIV3D_CONCEPT_URBG_
@@ -1367,125 +886,12 @@ namespace s3d
 		return std::move(*this);
 	}
 
-	inline String& String::swapcase() noexcept
-	{
-		for (auto& v : m_string)
-		{
-			if (IsLower(v))
-			{
-				v -= ('a' - 'A');
-			}
-			else if (IsUpper(v))
-			{
-				v += ('a' - 'A');
-			}
-		}
-
-		return *this;
-	}
-
-	inline String String::swapcased() const&
-	{
-		return String(*this).swapcase();
-	}
-
-	inline String String::swapcased()&&
-	{
-		swapcase();
-
-		return std::move(*this);
-	}
-
-	inline String& String::trim()
-	{
-		m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
-
-		m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
-
-		return *this;
-	}
-
-	inline String String::trimmed() const&
-	{
-		return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
-	}
-
-	inline String String::trimmed()&&
-	{
-		trim();
-
-		return std::move(*this);
-	}
-
-	inline String& String::uppercase() noexcept
-	{
-		for (auto& v : m_string)
-		{
-			if (IsLower(v))
-			{
-				v -= ('a' - 'A');
-			}
-		}
-
-		return *this;
-	}
-
-	inline String String::uppercased() const&
-	{
-		return String(*this).uppercase();
-	}
-
-	inline String String::uppercased()&&
-	{
-		uppercase();
-
-		return std::move(*this);
-	}
-
-	inline String& String::rsort() noexcept
-	{
-		std::sort(begin(), end(), std::greater<>());
-
-		return *this;
-	}
-
-	inline String String::rsorted() const&
-	{
-		return String(*this).rsort();
-	}
-
-	inline String String::rsorted()&&
-	{
-		rsort();
-
-		return std::move(*this);
-	}
-
-	inline String& String::sort() noexcept
-	{
-		std::sort(m_string.begin(), m_string.end());
-
-		return *this;
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>*>
 	inline String& String::sort_by(Fty f)
 	{
 		std::sort(m_string.begin(), m_string.end(), f);
 
 		return *this;
-	}
-
-	inline String String::sorted() const&
-	{
-		return String(*this).sort();
-	}
-
-	inline String String::sorted()&&
-	{
-		std::sort(m_string.begin(), m_string.end());
-
-		return std::move(*this);
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32, char32>>*>
@@ -1502,118 +908,10 @@ namespace s3d
 		return std::move(*this);
 	}
 
-	inline String String::take(const size_t n) const
-	{
-		return String(m_string.begin(), m_string.begin() + Min(n, m_string.size()));
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline String String::take_while(Fty f) const
 	{
 		return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
-	}
-
-	inline String& String::stable_unique()
-	{
-		// [Siv3D ToDo: 最適化]
-		return *this = stable_uniqued();
-	}
-
-	inline String& String::sort_and_unique()
-	{
-		sort();
-
-		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
-
-		return *this;
-	}
-
-	inline String String::sorted_and_uniqued() const&
-	{
-		return String(*this).sort_and_unique();
-	}
-
-	inline String String::sorted_and_uniqued()&&
-	{
-		sort();
-
-		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
-
-		m_string.shrink_to_fit();
-
-		return std::move(*this);
-	}
-
-	inline String& String::unique_consecutive()
-	{
-		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
-
-		return *this;
-	}
-
-	inline String String::uniqued_consecutive() const&
-	{
-		String result;
-
-		std::unique_copy(m_string.begin(), m_string.end(), std::back_inserter(result));
-
-		return result;
-	}
-
-	inline String String::uniqued_consecutive()&&
-	{
-		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
-
-		m_string.shrink_to_fit();
-
-		return std::move(*this);
-	}
-
-	inline String operator +(const String::value_type lhs, StringView rhs)
-	{
-		String result;
-		result.reserve(1 + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	inline String operator +(const String::value_type* lhs, StringView rhs)
-	{
-		const size_t len = std::char_traits<String::value_type>::length(lhs);
-		String result;
-		result.reserve(len + rhs.size());
-		result.append(lhs, len);
-		result.append(rhs);
-		return result;
-	}
-
-	inline String operator +(StringView lhs, const String::value_type* rhs)
-	{
-		const size_t len = std::char_traits<String::value_type>::length(rhs);
-		String result;
-		result.reserve(lhs.size() + len);
-		result.append(lhs);
-		result.append(rhs, len);
-		return result;
-	}
-
-	inline String operator +(StringView lhs, StringView rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + rhs.size());
-		result.append(lhs);
-		result.append(rhs);
-		return result;
-	}
-
-	inline String operator +(StringView lhs, const String::value_type rhs)
-	{
-		String result;
-		result.reserve(lhs.size() + 1);
-		result.append(lhs);
-		result.append(rhs);
-		return result;
 	}
 
 	inline void swap(String& a, String& b) noexcept

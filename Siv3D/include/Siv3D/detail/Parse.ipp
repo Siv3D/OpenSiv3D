@@ -14,6 +14,12 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[noreturn]]
+		void ThrowParseError(const char* type, StringView s);
+	}
+
 	template <class Type>
 	inline Type Parse(const StringView s)
 	{
@@ -31,49 +37,11 @@ namespace s3d
 
 			if (not(std::wistringstream{ s.toWstr() } >> to))
 			{
-				throw ParseError(U"Parse<{}>(\"{}\") failed"_fmt(Demangle(typeid(Type).name()), s));
+				detail::ThrowParseError(typeid(Type).name(), s);
 			}
 
 			return to;
 		}
-	}
-
-	template <>
-	inline bool Parse<bool>(const StringView s)
-	{
-		return ParseBool(s);
-	}
-
-	template <>
-	inline char Parse<char>(const StringView s)
-	{
-		const String t = String(s).trimmed();
-
-		if (t.isEmpty())
-		{
-			return 0;
-		}
-
-		return static_cast<char>(t[0]);
-	}
-
-	template <>
-	inline char32 Parse<char32>(const StringView s)
-	{
-		const String t = String(s).trimmed();
-
-		if (t.isEmpty())
-		{
-			return 0;
-		}
-
-		return t[0];
-	}
-
-	template <>
-	inline String Parse<String>(const StringView s)
-	{
-		return String(s).trimmed();
 	}
 
 	template <class Type>
@@ -98,51 +66,6 @@ namespace s3d
 
 			return Optional<Type>(std::move(to));
 		}
-	}
-
-	template <>
-	inline Optional<bool> ParseOpt<bool>(const StringView s)
-	{
-		return ParseBoolOpt(s);
-	}
-
-	template <>
-	inline Optional<char> ParseOpt<char>(const StringView s)
-	{
-		const String t = String(s).trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return static_cast<char>(t[0]);
-	}
-
-	template <>
-	inline Optional<char32> ParseOpt<char32>(const StringView s)
-	{
-		const String t = String(s).trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return t[0];
-	}
-
-	template <>
-	inline Optional<String> ParseOpt<String>(const StringView s)
-	{
-		String t = String(s).trimmed();
-
-		if (t.isEmpty())
-		{
-			return none;
-		}
-
-		return Optional<String>(std::move(t));
 	}
 
 	template <class Type, class U>

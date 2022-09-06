@@ -13,7 +13,6 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/LineString.hpp>
-# include <Siv3D/Math.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Geometry2D.hpp>
@@ -109,7 +108,7 @@ namespace s3d
 		};
 		const double perim = (lens[0] + lens[1] + lens[2] + lens[3]);
 
-		distanceFromOrigin = Math::Fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
+		distanceFromOrigin = std::fmod(distanceFromOrigin, perim) + (distanceFromOrigin < 0 ? perim : 0);
 		length = Min(length, perim);
 		const double distanceToTarget = (distanceFromOrigin + length);
 

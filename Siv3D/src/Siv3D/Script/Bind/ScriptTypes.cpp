@@ -9,7 +9,48 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
+# include <Siv3D/Script.hpp>
+# include <Siv3D/DateTime.hpp>
+# include <Siv3D/Stopwatch.hpp>
+# include <Siv3D/VariableSpeedStopwatch.hpp>
+# include <Siv3D/Timer.hpp>
+# include <Siv3D/MillisecClock.hpp>
+# include <Siv3D/MicrosecClock.hpp>
+# include <Siv3D/RDTSCClock.hpp>
+# include <Siv3D/TextReader.hpp>
+# include <Siv3D/TextWriter.hpp>
+# include <Siv3D/INI.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/ColorHSV.hpp>
+# include <Siv3D/Circular.hpp>
+# include <Siv3D/OffsetCircular.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier3.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/LineString.hpp>
+# include <Siv3D/Spline2D.hpp>
+# include <Siv3D/Shape2D.hpp>
+# include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Input.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/Texture.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/TexturedCircle.hpp>
+# include <Siv3D/TexturedRoundRect.hpp>
+# include <Siv3D/DynamicTexture.hpp>
+# include <Siv3D/VideoTexture.hpp>
+# include <Siv3D/Font.hpp>
+# include <Siv3D/DrawableText.hpp>
+# include <Siv3D/ScopedViewport2D.hpp>
+# include <Siv3D/Camera2D.hpp>
+# include <Siv3D/Emoji.hpp>
+# include <Siv3D/Icon.hpp>
+# include <Siv3D/Wave.hpp>
+# include <Siv3D/Audio.hpp>
+# include <Siv3D/TextEditState.hpp>
 # include "ScriptBind.hpp"
 # include "ScriptOptional.hpp"
 

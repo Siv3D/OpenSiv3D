@@ -23,7 +23,6 @@
 # endif
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4459)
 # include <ThirdParty/DirectXMath/DirectXMath.h>
-# include <ThirdParty/DirectXMath/DirectXCollision.h>
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # ifdef __GNUC__
 #	pragma GCC diagnostic pop

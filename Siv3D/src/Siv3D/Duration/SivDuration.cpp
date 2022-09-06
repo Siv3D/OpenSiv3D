@@ -10,10 +10,12 @@
 //-----------------------------------------------
 
 # include <Siv3D/String.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/Duration.hpp>
 # include <Siv3D/Date.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/FormatInt.hpp>
+# include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/FormatUtility.hpp>
 
 namespace s3d

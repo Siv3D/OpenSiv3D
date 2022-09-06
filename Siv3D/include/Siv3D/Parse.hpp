@@ -37,7 +37,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータ
 	template <>
 	[[nodiscard]]
-	inline bool Parse<bool>(StringView s);
+	bool Parse<bool>(StringView s);
 
 	/// @brief 文字列をパースして char 型に変換します。
 	/// @param s 変換する文字列
@@ -45,7 +45,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータ
 	template <>
 	[[nodiscard]]
-	inline char Parse<char>(StringView s);
+	char Parse<char>(StringView s);
 
 	/// @brief 文字列をパースして char32 型に変換します。
 	/// @param s 変換する文字列
@@ -53,7 +53,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータ
 	template <>
 	[[nodiscard]]
-	inline char32 Parse<char32>(StringView s);
+	char32 Parse<char32>(StringView s);
 
 	/// @brief 文字列をパースして返します。
 	/// @param s 変換する文字列
@@ -61,7 +61,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータ
 	template <>
 	[[nodiscard]]
-	inline String Parse<String>(StringView s);
+	String Parse<String>(StringView s);
 
 	/// @brief 文字列をパースしてデータ型に変換します。
 	/// @tparam Type 変換先のデータ型
@@ -78,7 +78,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
 	[[nodiscard]]
-	inline Optional<bool> ParseOpt<bool>(StringView s);
+	Optional<bool> ParseOpt<bool>(StringView s);
 
 	/// @brief 文字列をパースして char 型に変換します。
 	/// @param s 変換する文字列
@@ -86,7 +86,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
 	[[nodiscard]]
-	inline Optional<char> ParseOpt<char>(StringView s);
+	Optional<char> ParseOpt<char>(StringView s);
 
 	/// @brief 文字列をパースして char32 型に変換します。
 	/// @param s 変換する文字列
@@ -94,7 +94,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータの Optional, 失敗した場合は none
 	template <>
 	[[nodiscard]]
-	inline Optional<char32> ParseOpt<char32>(StringView s);
+	Optional<char32> ParseOpt<char32>(StringView s);
 
 	/// @brief 文字列をパースして返します。
 	/// @param s 変換する文字列
@@ -102,7 +102,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータの Optional, 文字列が空だった場合は none
 	template <>
 	[[nodiscard]]
-	inline Optional<String> ParseOpt<String>(StringView s);
+	Optional<String> ParseOpt<String>(StringView s);
 
 	/// @brief 文字列をパースしてデータ型に変換します。
 	/// @tparam Type 変換先のデータ型
@@ -113,7 +113,7 @@ namespace s3d
 	/// @return 文字列から変換されたデータ、失敗した場合は defaultValue から構築した Type 型の値
 	template <class Type, class U>
 	[[nodiscard]]
-	Type ParseOr(StringView s, U&& defaultValue);
+	inline Type ParseOr(StringView s, U&& defaultValue);
 }
 
 # include "detail/Parse.ipp"

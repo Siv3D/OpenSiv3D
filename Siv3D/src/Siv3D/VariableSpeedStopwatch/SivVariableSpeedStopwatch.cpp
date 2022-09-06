@@ -9,14 +9,16 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/VariableSpeedStopwatch.hpp>
+# include <Siv3D/ISteadyClock.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
+	VariableSpeedStopwatch::VariableSpeedStopwatch(const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: VariableSpeedStopwatch{ 1.0, startImmediately, pSteadyClock } {}
 
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
+	VariableSpeedStopwatch::VariableSpeedStopwatch(const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_speed{ speed }
 		, m_pSteadyClock{ pSteadyClock }
 	{
@@ -26,7 +28,7 @@ namespace s3d
 		}
 	}
 
-	inline VariableSpeedStopwatch::VariableSpeedStopwatch(const Duration& startTime, const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
+	VariableSpeedStopwatch::VariableSpeedStopwatch(const Duration& startTime, const double speed, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_speed{ speed }
 		, m_pSteadyClock{ pSteadyClock }
 	{
@@ -38,22 +40,22 @@ namespace s3d
 		}
 	}
 
-	inline bool VariableSpeedStopwatch::isStarted() const noexcept
+	bool VariableSpeedStopwatch::isStarted() const noexcept
 	{
 		return m_isStarted;
 	}
 
-	inline bool VariableSpeedStopwatch::isPaused() const noexcept
+	bool VariableSpeedStopwatch::isPaused() const noexcept
 	{
 		return (m_isStarted && m_pausing);
 	}
 
-	inline bool VariableSpeedStopwatch::isRunning() const noexcept
+	bool VariableSpeedStopwatch::isRunning() const noexcept
 	{
 		return (m_isStarted && not m_pausing);
 	}
 
-	inline void VariableSpeedStopwatch::start()
+	void VariableSpeedStopwatch::start()
 	{
 		if (not m_pausing)
 		{
@@ -67,14 +69,14 @@ namespace s3d
 		m_lastTimeNanosec = ISteadyClock::GetNanosec(m_pSteadyClock);
 	}
 
-	inline void VariableSpeedStopwatch::pause()
+	void VariableSpeedStopwatch::pause()
 	{
 		m_accumulationNanosec = ns();
 
 		m_pausing = true;
 	}
 
-	inline void VariableSpeedStopwatch::resume()
+	void VariableSpeedStopwatch::resume()
 	{
 		if (not isPaused())
 		{
@@ -84,7 +86,7 @@ namespace s3d
 		start();
 	}
 
-	inline void VariableSpeedStopwatch::reset() noexcept
+	void VariableSpeedStopwatch::reset() noexcept
 	{
 		m_accumulationNanosec = 0;
 
@@ -93,14 +95,14 @@ namespace s3d
 		m_pausing = true;
 	}
 
-	inline void VariableSpeedStopwatch::restart()
+	void VariableSpeedStopwatch::restart()
 	{
 		reset();
 
 		start();
 	}
 
-	inline void VariableSpeedStopwatch::set(const Duration& time)
+	void VariableSpeedStopwatch::set(const Duration& time)
 	{
 		m_isStarted = true;
 
@@ -109,7 +111,7 @@ namespace s3d
 		m_lastTimeNanosec = ISteadyClock::GetNanosec(m_pSteadyClock);
 	}
 
-	inline void VariableSpeedStopwatch::setSpeed(const double speed)
+	void VariableSpeedStopwatch::setSpeed(const double speed)
 	{
 		assert(0.0 <= speed);
 
@@ -123,112 +125,112 @@ namespace s3d
 		m_speed = speed;
 	}
 
-	inline double VariableSpeedStopwatch::getSpeed() const noexcept
+	double VariableSpeedStopwatch::getSpeed() const noexcept
 	{
 		return m_speed;
 	}
 
-	inline int32 VariableSpeedStopwatch::d() const
+	int32 VariableSpeedStopwatch::d() const
 	{
 		return static_cast<int32>(d64());
 	}
 
-	inline int64 VariableSpeedStopwatch::d64() const
+	int64 VariableSpeedStopwatch::d64() const
 	{
 		return (ns() / (1000LL * 1000LL * 1000LL * 60LL * 60LL * 24LL));
 	}
 
-	inline double VariableSpeedStopwatch::dF() const
+	double VariableSpeedStopwatch::dF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL * 60LL * 24LL));
 	}
 
-	inline int32 VariableSpeedStopwatch::h() const
+	int32 VariableSpeedStopwatch::h() const
 	{
 		return static_cast<int32>(h64());
 	}
 
-	inline int64 VariableSpeedStopwatch::h64() const
+	int64 VariableSpeedStopwatch::h64() const
 	{
 		return (ns() / (1000LL * 1000LL * 1000LL * 60LL * 60LL));
 	}
 
-	inline double VariableSpeedStopwatch::hF() const
+	double VariableSpeedStopwatch::hF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL * 60LL));
 	}
 
-	inline int32 VariableSpeedStopwatch::min() const
+	int32 VariableSpeedStopwatch::min() const
 	{
 		return static_cast<int32>(min64());
 	}
 
-	inline int64 VariableSpeedStopwatch::min64() const
+	int64 VariableSpeedStopwatch::min64() const
 	{
 		return (ns() / (1000LL * 1000LL * 1000LL * 60LL));
 	}
 
-	inline double VariableSpeedStopwatch::minF() const
+	double VariableSpeedStopwatch::minF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL));
 	}
 
-	inline int32 VariableSpeedStopwatch::s() const
+	int32 VariableSpeedStopwatch::s() const
 	{
 		return static_cast<int32>(s64());
 	}
 
-	inline int64 VariableSpeedStopwatch::s64() const
+	int64 VariableSpeedStopwatch::s64() const
 	{
 		return (ns() / (1000LL * 1000LL * 1000LL));
 	}
 
-	inline double VariableSpeedStopwatch::sF() const
+	double VariableSpeedStopwatch::sF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL));
 	}
 
-	inline int32 VariableSpeedStopwatch::ms() const
+	int32 VariableSpeedStopwatch::ms() const
 	{
 		return static_cast<int32>(ms64());
 	}
 
-	inline int64 VariableSpeedStopwatch::ms64() const
+	int64 VariableSpeedStopwatch::ms64() const
 	{
 		return (ns() / (1000LL * 1000LL));
 	}
 
-	inline double VariableSpeedStopwatch::msF() const
+	double VariableSpeedStopwatch::msF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL));
 	}
 
-	inline int64 VariableSpeedStopwatch::us() const
+	int64 VariableSpeedStopwatch::us() const
 	{
 		return us64();
 	}
 
-	inline int64 VariableSpeedStopwatch::us64() const
+	int64 VariableSpeedStopwatch::us64() const
 	{
 		return (ns() / (1000LL));
 	}
 
-	inline double VariableSpeedStopwatch::usF() const
+	double VariableSpeedStopwatch::usF() const
 	{
 		return static_cast<double>(ns() / static_cast<double>(1000LL));
 	}
 
-	inline Duration VariableSpeedStopwatch::elapsed() const
+	Duration VariableSpeedStopwatch::elapsed() const
 	{
 		return SecondsF{ sF() };
 	}
 
-	inline String VariableSpeedStopwatch::format(const StringView format) const
+	String VariableSpeedStopwatch::format(const StringView format) const
 	{
 		return FormatTime(elapsed(), format);
 	}
 
-	inline int64 VariableSpeedStopwatch::ns() const
+	int64 VariableSpeedStopwatch::ns() const
 	{
 		const int64 t = ISteadyClock::GetNanosec(m_pSteadyClock);
 
@@ -249,5 +251,10 @@ namespace s3d
 		m_lastTimeNanosec = t;
 
 		return m_accumulationNanosec;
+	}
+
+	void Formatter(FormatData& formatData, const VariableSpeedStopwatch& value)
+	{
+		formatData.string.append(value.format());
 	}
 }

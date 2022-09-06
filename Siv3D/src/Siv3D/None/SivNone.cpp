@@ -9,16 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/None.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	inline Emoji::Emoji(const char32* emoji) noexcept
-		: codePoints{ emoji } {}
-
-	inline Emoji::Emoji(const StringView emoji) noexcept
-		: codePoints{ emoji } {}
-
-	inline Emoji::Emoji(String emoji) noexcept
-		: codePoints{ std::move(emoji) } {}
+	void Formatter(FormatData& formatData, None_t)
+	{
+		formatData.string.append(U"none"_sv);
+	}
 }

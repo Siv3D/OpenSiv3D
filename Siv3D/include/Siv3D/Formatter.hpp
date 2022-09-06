@@ -46,8 +46,6 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, float value);
 
-	void Formatter(FormatData& formatData, double value);
-
 	void Formatter(FormatData& formatData, long double value);
 
 	void Formatter(FormatData& formatData, char ch);

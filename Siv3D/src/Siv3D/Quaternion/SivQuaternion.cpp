@@ -17,9 +17,48 @@ namespace s3d
 	Quaternion::Quaternion(const Mat4x4& m) noexcept
 		: value{ DirectX::XMQuaternionRotationMatrix(m) } {}
 
+	std::pair<Float3, float> Quaternion::toAxisAngle() const noexcept
+	{
+		SIMD_Float4 axis;
+		float angle;
+		DirectX::XMQuaternionToAxisAngle(&axis.vec, &angle, value);
+
+		return{ axis.xyz(), angle };
+	}
+
 	Quaternion Quaternion::Rotate(const Mat4x4& m) noexcept
 	{
 		return DirectX::XMQuaternionRotationMatrix(m);
+	}
+
+	Quaternion Quaternion::FromUnitVectors(const Vec3& from, const Vec3& to) noexcept
+	{
+		Vec4 q;
+
+		if (const double r = (from.dot(to) + 1.0);
+			(r < 0.0000001))
+		{
+			if (std::abs(from.z) < std::abs(from.x))
+			{
+				q.x = -from.y;
+				q.y = from.x;
+				q.z = 0.0;
+				q.w = 0.0;
+			}
+			else
+			{
+				q.x = 0.0;
+				q.y = -from.z;
+				q.z = from.y;
+				q.w = 0.0;
+			}
+		}
+		else
+		{
+			q = Vec4{ from.cross(to), r };
+		}
+
+		return Quaternion{ q.normalized() };
 	}
 
 	Quaternion Quaternion::FromUnitVectorPairs(const std::pair<Vec3, Vec3>& from, const std::pair<Vec3, Vec3>& to) noexcept

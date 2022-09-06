@@ -8,99 +8,17 @@
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
-// s3d::PlayingCard is originally created by Yuta Ishii (OpenSiv3D Project)
-//-----------------------------------------------
 
-# pragma once
+# include <Siv3D/PlayingCard.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Transformer2D.hpp>
+# include <Siv3D/DrawableText.hpp>
 
 namespace s3d
 {
 	namespace PlayingCard
 	{
-		inline constexpr Card::Card(const Suit _suit, const int32 _rank, const bool _isFaceSide) noexcept
-			: rank{ _suit == Suit::Joker ? 0 : _rank }
-			, suit{ _suit }
-			, isFaceSide{ _isFaceSide } {}
-
-		inline constexpr Card& Card::flip() noexcept
-		{
-			isFaceSide = (not isFaceSide);
-			return *this;
-		}
-
-		inline constexpr bool Card::isRed() const noexcept
-		{
-			return ((suit == Heart) || (suit == Diamond));
-		}
-
-		inline constexpr bool Card::isBlack() const noexcept
-		{
-			return ((suit == Spade) || (suit == Club));
-		}
-
-		inline constexpr bool Card::isSpade() const noexcept
-		{
-			return (suit == Spade);
-		}
-
-		inline constexpr bool Card::isHeart() const noexcept
-		{
-			return (suit == Heart);
-		}
-
-		inline constexpr bool Card::isClub() const noexcept
-		{
-			return (suit == Club);
-		}
-
-		inline constexpr bool Card::isDiamond() const noexcept
-		{
-			return (suit == Diamond);
-		}
-
-		inline constexpr bool Card::isJoker() const noexcept
-		{
-			return (suit == Joker);
-		}
-
-		inline constexpr bool Card::isAce() const noexcept
-		{
-			return (rank == 1);
-		}
-
-		inline constexpr bool Card::isJack() const noexcept
-		{
-			return (rank == 11);
-		}
-
-		inline constexpr bool Card::isQueen() const noexcept
-		{
-			return (rank == 12);
-		}
-
-		inline constexpr bool Card::isKing() const noexcept
-		{
-			return (rank == 13);
-		}
-
-		inline constexpr bool Card::isValid() const noexcept
-		{
-			return (InRange(rank, 1, 13) || isJoker());
-		}
-
-		inline constexpr char32 Card::GetSuit(const Suit suit) noexcept
-		{
-			return U"♠♥♣♦"[static_cast<size_t>(suit)];
-		}
-
-		inline constexpr StringView Card::GetRank(const int32 rank) noexcept
-		{
-			assert(InRange(rank, 1, 13));
-			constexpr StringView ranks[13] = { U"A", U"2", U"3", U"4", U"5", U"6", U"7", U"8", U"9", U"10", U"J", U"Q", U"K" };
-			return ranks[rank - 1];
-		}
-
-		inline CardInfo::CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Font& fontEmoji, const Vec2& size, const double frameThickness, const ColorF& backSideColor)
+		CardInfo::CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Font& fontEmoji, const Vec2& size, const double frameThickness, const ColorF& backSideColor)
 			: m_card{ card }
 			, m_font{ font }
 			, m_fontLarge{ fontLarge }
@@ -112,7 +30,7 @@ namespace s3d
 			assert(card.isValid());
 		}
 
-		inline void CardInfo::drawBack(const Vec2& pos) const
+		void CardInfo::drawBack(const Vec2& pos) const
 		{
 			RoundRect{ pos, m_cardSize, (m_cardSize.x * corner) }
 				.draw()
@@ -120,46 +38,46 @@ namespace s3d
 				.rect.stretched(m_cardSize.x * -0.1).draw(m_backSideColor);
 		}
 
-		inline void CardInfo::drawBack(const double x, const double y) const
+		void CardInfo::drawBack(const double x, const double y) const
 		{
 			drawBack(Vec2{ x, y });
 		}
 
-		inline void CardInfo::drawBack(const Vec2& pos, const double angle) const
+		void CardInfo::drawBack(const Vec2& pos, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, (pos + m_cardSize / 2)) };
 
 			drawBack(pos);
 		}
 
-		inline void CardInfo::drawBack(const double x, const double y, const double angle) const
+		void CardInfo::drawBack(const double x, const double y, const double angle) const
 		{
 			drawBack(Vec2{ x, y }, angle);
 		}
 
-		inline void CardInfo::drawBackAt(const Vec2& center) const
+		void CardInfo::drawBackAt(const Vec2& center) const
 		{
 			drawBack(center - m_cardSize * 0.5);
 		}
 
-		inline void CardInfo::drawBackAt(const double x, const double y) const
+		void CardInfo::drawBackAt(const double x, const double y) const
 		{
 			drawBackAt(Vec2{ x, y });
 		}
 
-		inline void CardInfo::drawBackAt(const Vec2& center, const double angle) const
+		void CardInfo::drawBackAt(const Vec2& center, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
 
 			drawBackAt(center);
 		}
 
-		inline void CardInfo::drawBackAt(const double x, const double y, const double angle) const
+		void CardInfo::drawBackAt(const double x, const double y, const double angle) const
 		{
 			drawBackAt(Vec2{ x, y }, angle);
 		}
 
-		inline void CardInfo::draw(const Vec2& pos) const
+		void CardInfo::draw(const Vec2& pos) const
 		{
 			if (not m_card.isFaceSide)
 			{
@@ -328,46 +246,46 @@ namespace s3d
 			}
 		}
 
-		inline void CardInfo::draw(const double x, const double y) const
+		void CardInfo::draw(const double x, const double y) const
 		{
 			draw(Vec2{ x, y });
 		}
 
-		inline void CardInfo::draw(const Vec2& pos, const double angle) const
+		void CardInfo::draw(const Vec2& pos, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, pos + m_cardSize / 2) };
 
 			draw(pos);
 		}
 
-		inline void CardInfo::draw(const double x, const double y, const double angle) const
+		void CardInfo::draw(const double x, const double y, const double angle) const
 		{
 			draw(Vec2{ x, y }, angle);
 		}
 
-		inline void CardInfo::drawAt(const Vec2& center) const
+		void CardInfo::drawAt(const Vec2& center) const
 		{
 			draw(center - m_cardSize * 0.5);
 		}
 
-		inline void CardInfo::drawAt(const double x, const double y) const
+		void CardInfo::drawAt(const double x, const double y) const
 		{
 			drawAt(Vec2{ x, y });
 		}
 
-		inline void CardInfo::drawAt(const Vec2& center, const double angle) const
+		void CardInfo::drawAt(const Vec2& center, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
 
 			draw(center - m_cardSize * 0.5);
 		}
 
-		inline void CardInfo::drawAt(const double x, const double y, const double angle) const
+		void CardInfo::drawAt(const double x, const double y, const double angle) const
 		{
 			drawAt(Vec2{ x, y }, angle);
 		}
 
-		inline void CardInfo::drawSimple(const Vec2& pos) const
+		void CardInfo::drawSimple(const Vec2& pos) const
 		{
 			if (m_card.isFaceSide)
 			{
@@ -396,51 +314,46 @@ namespace s3d
 			}
 		}
 
-		inline void CardInfo::drawSimple(const double x, const double y) const
+		void CardInfo::drawSimple(const double x, const double y) const
 		{
 			drawSimple(Vec2{ x, y });
 		}
 
-		inline void CardInfo::drawSimple(const Vec2& pos, const double angle) const
+		void CardInfo::drawSimple(const Vec2& pos, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, pos + m_cardSize / 2) };
 
 			drawSimple(pos);
 		}
 
-		inline void CardInfo::drawSimple(const double x, const double y, const double angle) const
+		void CardInfo::drawSimple(const double x, const double y, const double angle) const
 		{
 			drawSimple(Vec2{ x, y }, angle);
 		}
 
-		inline void CardInfo::drawSimpleAt(const Vec2& center) const
+		void CardInfo::drawSimpleAt(const Vec2& center) const
 		{
 			drawSimple(center - m_cardSize * 0.5);
 		}
 
-		inline void CardInfo::drawSimpleAt(const double x, const double y) const
+		void CardInfo::drawSimpleAt(const double x, const double y) const
 		{
 			drawSimpleAt(Vec2{ x, y });
 		}
 
-		inline void CardInfo::drawSimpleAt(const Vec2& center, const double angle) const
+		void CardInfo::drawSimpleAt(const Vec2& center, const double angle) const
 		{
 			const Transformer2D transformer{ Mat3x2::Rotate(angle, center) };
 
 			drawSimple(center - m_cardSize * 0.5);
 		}
 
-		inline void CardInfo::drawSimpleAt(const double x, const double y, const double angle) const
+		void CardInfo::drawSimpleAt(const double x, const double y, const double angle) const
 		{
 			drawSimpleAt(Vec2{ x, y }, angle);
 		}
 
-		inline constexpr int32 CalculateFontSize(const double cardWidth) noexcept
-		{
-			return Max(static_cast<int32>(cardWidth * (2.0 / 3.0)), 1);
-		}
-
-		inline Pack::Pack(const Font& font, const Font& fontLarge, const Font& fontEmoji, const double cardWidth, const ColorF& backSideColor, const double frameThickness)
+		Pack::Pack(const Font& font, const Font& fontLarge, const Font& fontEmoji, const double cardWidth, const ColorF& backSideColor, const double frameThickness)
 			: m_font{ font }
 			, m_fontLarge{ fontLarge }
 			, m_fontEmoji{ fontEmoji }
@@ -448,7 +361,7 @@ namespace s3d
 			, m_backSideColor{ backSideColor }
 			, m_framethickness{ frameThickness } {}
 
-		inline Pack::Pack(const double cardWidth, const ColorF& backSideColor, const double frameThickness)
+		Pack::Pack(const double cardWidth, const ColorF& backSideColor, const double frameThickness)
 			: m_font{ CalculateFontSize(cardWidth * 0.475) }
 			, m_fontLarge{ CalculateFontSize(cardWidth) }
 			, m_fontEmoji{ CalculateFontSize(cardWidth), Typeface::MonochromeEmoji }
@@ -456,52 +369,52 @@ namespace s3d
 			, m_backSideColor{ backSideColor }
 			, m_framethickness{ frameThickness } {}
 
-		inline CardInfo Pack::operator ()(const Suit suit, const int32 rank, const bool isFaceSide) const
+		CardInfo Pack::operator ()(const Suit suit, const int32 rank, const bool isFaceSide) const
 		{
 			return operator()(Card{ suit, rank, isFaceSide });
 		}
 
-		inline CardInfo Pack::operator ()(const Card& card) const
+		CardInfo Pack::operator ()(const Card& card) const
 		{
 			return CardInfo{ card, m_font, m_fontLarge, m_fontEmoji, m_cardSize, m_framethickness, m_backSideColor };
 		}
 
-		inline Vec2 Pack::size() const noexcept
+		Vec2 Pack::size() const noexcept
 		{
 			return m_cardSize;
 		}
 
-		inline double Pack::width() const noexcept
+		double Pack::width() const noexcept
 		{
 			return m_cardSize.x;
 		}
 
-		inline double Pack::height() const noexcept
+		double Pack::height() const noexcept
 		{
 			return m_cardSize.y;
 		}
 
-		inline RectF Pack::region(const Vec2& pos) const
+		RectF Pack::region(const Vec2& pos) const
 		{
 			return{ pos, m_cardSize };
 		}
 
-		inline Quad Pack::region(const Vec2& pos, const double angle) const
+		Quad Pack::region(const Vec2& pos, const double angle) const
 		{
 			return RectF{ pos, m_cardSize }.rotated(angle);
 		}
 
-		inline RectF Pack::regionAt(const Vec2& center) const
+		RectF Pack::regionAt(const Vec2& center) const
 		{
 			return{ Arg::center = center, m_cardSize };
 		}
 
-		inline Quad Pack::regionAt(const Vec2& center, const double angle) const
+		Quad Pack::regionAt(const Vec2& center, const double angle) const
 		{
 			return RectF{ Arg::center = center, m_cardSize }.rotated(angle);
 		}
 
-		inline Array<Card> CreateDeck(const size_t num_jokers, const bool isFaceSide)
+		Array<Card> CreateDeck(const size_t num_jokers, const bool isFaceSide)
 		{
 			Array<Card> cards(Arg::reserve = (13 * 4 + num_jokers));
 			{

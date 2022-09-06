@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	inline PhongMaterial::PhongMaterial(const ColorF& _diffuseColor, const HasDiffuseTexture _hasDiffuseTexture)
+	inline constexpr PhongMaterial::PhongMaterial(const ColorF& _diffuseColor, const HasDiffuseTexture _hasDiffuseTexture)
 		: diffuseColor{ _diffuseColor }
 		, hasDiffuseTexture{ _hasDiffuseTexture.getBool() } {}
 

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/BitmapGlyph.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/Font/IFont.hpp>

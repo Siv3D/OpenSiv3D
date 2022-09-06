@@ -10,17 +10,14 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Common.hpp"
-# include "String.hpp"
-# include "Unicode.hpp"
 
 namespace s3d
 {
+	class String;
+
 	/// @brief 名前をデマングルします。
 	/// @param name 名前
 	/// @return デマングルされた名前
 	[[nodiscard]]
-	inline String Demangle(const char* name);
+	String Demangle(const char* name);
 }
-
-# include "detail/Demangle.ipp"

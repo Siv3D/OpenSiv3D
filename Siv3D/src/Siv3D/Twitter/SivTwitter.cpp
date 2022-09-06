@@ -14,6 +14,7 @@
 # include <Siv3D/System.hpp>
 # include <Siv3D/FormatUtility.hpp>
 # include <Siv3D/FormatInt.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {

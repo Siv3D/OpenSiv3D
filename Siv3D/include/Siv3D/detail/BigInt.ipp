@@ -302,21 +302,6 @@ namespace s3d
 	{
 		return compare(static_cast<long double>(f));
 	}
-
-	inline BigInt::operator size_t() const
-	{
-		return asSize_t();
-	}
-
-	inline BigInt::operator float() const
-	{
-		return asFloat();
-	}
-
-	inline BigInt::operator double() const
-	{
-		return asDouble();
-	}
 }
 
 template <>

@@ -216,10 +216,7 @@ namespace s3d
 			return output << value.format();
 		}
 
-		friend void Formatter(FormatData& formatData, const DateTime& value)
-		{
-			formatData.string.append(value.format());
-		}
+		friend void Formatter(FormatData& formatData, const DateTime& value);
 	};
 
 	/// @brief 日付と時刻を文字列に変換します。

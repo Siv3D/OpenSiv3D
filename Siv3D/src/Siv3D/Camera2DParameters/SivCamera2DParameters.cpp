@@ -52,4 +52,24 @@ namespace s3d
 		
 		return params;
 	}
+
+	Camera2DParameters Camera2DParameters::Default()
+	{
+		return{};
+	}
+
+	Camera2DParameters Camera2DParameters::MouseOnly()
+	{
+		return Make(CameraControl::Mouse);
+	}
+
+	Camera2DParameters Camera2DParameters::KeyboardOnly()
+	{
+		return Make(CameraControl::Keyboard);
+	}
+
+	Camera2DParameters Camera2DParameters::NoControl()
+	{
+		return Make(CameraControl::None_);
+	}
 }

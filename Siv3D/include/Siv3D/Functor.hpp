@@ -14,7 +14,6 @@
 # include <cmath>
 # include <functional>
 # include "Common.hpp"
-# include "Meta.hpp"
 # include "PlaceHolder.hpp"
 # include "detail/Functor.ipp"
 
@@ -505,5 +504,123 @@ namespace s3d
 	[[nodiscard]] inline constexpr auto Modulus(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
 		return detail::BinaryModulus_impl{};
+	}
+
+
+	//////////////////////////////////////////////////
+	//
+	//	Max
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto Max(const Type& a, PlaceHolder_t) noexcept
+	{
+		return detail::Max1_impl<Type>(a);
+	}
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto Max(PlaceHolder_t, const Type& b) noexcept
+	{
+		return detail::Max1_impl<Type>(b);
+	}
+
+	[[nodiscard]]
+	inline constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept
+	{
+		return detail::Max2_impl{};
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	Min
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto Min(const Type& a, PlaceHolder_t) noexcept
+	{
+		return detail::Min1_impl<Type>(a);
+	}
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto Min(PlaceHolder_t, const Type& b) noexcept
+	{
+		return detail::Min1_impl<Type>(b);
+	}
+
+	[[nodiscard]]
+	inline constexpr auto Min(PlaceHolder_t, PlaceHolder_t) noexcept
+	{
+		return detail::Min2_impl{};
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	Clamp
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	[[nodiscard]]
+	constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept
+	{
+		return detail::Clamp_impl<Type>(min, max);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	InRange
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
+	{
+		return detail::InRange_impl<Type>(min, max);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	InOpenRange
+	//
+	//////////////////////////////////////////////////
+
+	template <class Type>
+	[[nodiscard]]
+	inline constexpr auto InOpenRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
+	{
+		return detail::InOpenRange_impl<Type>(min, max);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	AbsDiff
+	//
+	//////////////////////////////////////////////////
+
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(Arithmetic a, PlaceHolder_t) noexcept
+	{
+		return detail::AbsDiff1_impl<Arithmetic>(a);
+	}
+
+	SIV3D_CONCEPT_ARITHMETIC
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(PlaceHolder_t, Arithmetic b) noexcept
+	{
+		return detail::AbsDiff1_impl<Arithmetic>(b);
+	}
+
+	[[nodiscard]]
+	inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept
+	{
+		return detail::AbsDiff2_impl{};
 	}
 }

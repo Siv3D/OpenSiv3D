@@ -9,121 +9,121 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/FileFilter.hpp>
 
 namespace s3d
 {
-	inline FileFilter FileFilter::BMP()
+	FileFilter FileFilter::BMP()
 	{
 		return{ U"BMP",{ U"bmp" } };
 	}
 
-	inline FileFilter FileFilter::GIF()
+	FileFilter FileFilter::GIF()
 	{
 		return{ U"GIF",{ U"gif" } };
 	}
 
-	inline FileFilter FileFilter::JPEG()
+	FileFilter FileFilter::JPEG()
 	{
 		return{ U"JPEG",{ U"jpg", U"jpeg" } };
 	}
 
-	inline FileFilter FileFilter::PNG()
+	FileFilter FileFilter::PNG()
 	{
 		return{ U"PNG",{ U"png" } };
 	}
 
-	inline FileFilter FileFilter::PPM()
+	FileFilter FileFilter::PPM()
 	{
 		return{ U"PPM",{ U"ppm", U"pgm", U"pbm", U"pnm" } };
 	}
 
-	inline FileFilter FileFilter::SVG()
+	FileFilter FileFilter::SVG()
 	{
 		return{ U"SVG",{ U"svg" } };
 	}
 
-	inline FileFilter FileFilter::TGA()
+	FileFilter FileFilter::TGA()
 	{
 		return{ U"TGA",{ U"tga" } };
 	}
 
-	inline FileFilter FileFilter::WebP()
+	FileFilter FileFilter::WebP()
 	{
 		return{ U"WebP",{ U"webp" } };
 	}
 
-	inline FileFilter FileFilter::AllImageFiles()
+	FileFilter FileFilter::AllImageFiles()
 	{
 		return{ U"All Picture Files",{ U"png", U"jpg", U"jpeg", U"bmp", U"gif", U"tga", U"svg", U"webp", U"ppm", U"pgm", U"pbm", U"pnm" } };
 	}
 
-	inline FileFilter FileFilter::AVI()
+	FileFilter FileFilter::AVI()
 	{
 		return{ U"AVI",{ U"avi" } };
 	}
 
-	inline FileFilter FileFilter::MP4()
+	FileFilter FileFilter::MP4()
 	{
 		return{ U"MP4",{ U"mp4" } };
 	}
 
-	inline FileFilter FileFilter::WebM()
+	FileFilter FileFilter::WebM()
 	{
 		return{ U"WebM",{ U"webm" } };
 	}
 
-	inline FileFilter FileFilter::AllVideoFiles()
+	FileFilter FileFilter::AllVideoFiles()
 	{
 		return{ U"All Video Files",{ U"avi", U"mp4", U"webm" } };
 	}
 
-	inline FileFilter FileFilter::AAC()
+	FileFilter FileFilter::AAC()
 	{
 		return{ U"AAC",{ U"m4a" } };
 	}
 
-	inline FileFilter FileFilter::AIFF()
+	FileFilter FileFilter::AIFF()
 	{
 		return{ U"AIFF",{ U"aif", U"aiff", U"aifc" } };
 	}
 
-	inline FileFilter FileFilter::FLAC()
+	FileFilter FileFilter::FLAC()
 	{
 		return{ U"FLAC",{ U"flac" } };
 	}
 
-	inline FileFilter FileFilter::MIDI()
+	FileFilter FileFilter::MIDI()
 	{
 		return{ U"MIDI",{ U"mid" } };
 	}
 
-	inline FileFilter FileFilter::MP3()
+	FileFilter FileFilter::MP3()
 	{
 		return{ U"MP3",{ U"mp3" } };
 	}
 
-	inline FileFilter FileFilter::OggVorbis()
+	FileFilter FileFilter::OggVorbis()
 	{
 		return{ U"Ogg Vorbis",{ U"ogg" } };
 	}
 
-	inline FileFilter FileFilter::Opus()
+	FileFilter FileFilter::Opus()
 	{
 		return{ U"Opus",{ U"opus" } };
 	}
 
-	inline FileFilter FileFilter::WAVE()
+	FileFilter FileFilter::WAVE()
 	{
 		return{ U"WAVE",{ U"wav" } };
 	}
 
-	inline FileFilter FileFilter::WMA()
+	FileFilter FileFilter::WMA()
 	{
 		return{ U"WMA",{ U"wma" } };
 	}
 
-	inline FileFilter FileFilter::AllAudioFiles()
+	FileFilter FileFilter::AllAudioFiles()
 	{
 		return{ U"All Audio Files",{ U"wav", U"mp3", U"m4a", U"ogg", U"opus", U"mid",
 		# if SIV3D_PLATFORM(WINDOWS)
@@ -140,37 +140,37 @@ namespace s3d
 		} };
 	}
 
-	inline FileFilter FileFilter::CSV()
+	FileFilter FileFilter::CSV()
 	{
 		return{ U"CSV",{ U"csv" } };
 	}
 
-	inline FileFilter FileFilter::INI()
+	FileFilter FileFilter::INI()
 	{
 		return{ U"INI",{ U"ini" } };
 	}
 
-	inline FileFilter FileFilter::JSON()
+	FileFilter FileFilter::JSON()
 	{
 		return{ U"JSON",{ U"json" } };
 	}
 
-	inline FileFilter FileFilter::Text()
+	FileFilter FileFilter::Text()
 	{
 		return{ U"Text",{ U"txt" } };
 	}
 
-	inline FileFilter FileFilter::TOML()
+	FileFilter FileFilter::TOML()
 	{
 		return{ U"TOML",{ U"toml" } };
 	}
 
-	inline FileFilter FileFilter::XML()
+	FileFilter FileFilter::XML()
 	{
 		return{ U"XML",{ U"xml" } };
 	}
 
-	inline FileFilter FileFilter::AllFiles()
+	FileFilter FileFilter::AllFiles()
 	{
 		return{ U"All Files", {} };
 	}

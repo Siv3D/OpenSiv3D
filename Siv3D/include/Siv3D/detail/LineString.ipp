@@ -425,16 +425,6 @@ namespace s3d
 		return std::any_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline LineString::value_type& LineString::choice()
-	{
-		return choice(GetDefaultRNG());
-	}
-
-	inline const LineString::value_type& LineString::choice() const
-	{
-		return choice(GetDefaultRNG());
-	}
-
 	SIV3D_CONCEPT_URBG_
 	inline LineString::value_type& LineString::choice(URBG&& rbg)
 	{
@@ -482,61 +472,16 @@ namespace s3d
 		return result;
 	}
 
-	inline size_t LineString::count(const value_type& value) const
-	{
-		return m_data.count(value);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, LineString::value_type>>*>
 	inline size_t LineString::count_if(Fty f) const
 	{
 		return m_data.count_if(f);
 	}
 
-	inline LineString& LineString::fill(const value_type& value)
-	{
-		m_data.fill(value);
-
-		return *this;
-	}
-
-	inline String LineString::join(const StringView sep, const StringView begin, const StringView end) const
-	{
-		return m_data.join(sep, begin, end);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, LineString::value_type>>*>
 	inline bool LineString::none(Fty f) const
 	{
 		return std::none_of(m_data.begin(), m_data.end(), f);
-	}
-
-	inline LineString& LineString::append(const Array<value_type>& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline LineString& LineString::append(const LineString& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline LineString& LineString::remove(const value_type& value)
-	{
-		m_data.remove(value);
-
-		return *this;
-	}
-
-	inline LineString& LineString::remove_at(const size_t index)
-	{
-		m_data.remove_at(index);
-
-		return *this;
 	}
 
 	template <class Fty>
@@ -547,51 +492,12 @@ namespace s3d
 		return *this;
 	}
 
-	inline LineString& LineString::reverse()
-	{
-		m_data.reverse();
-
-		return *this;
-	}
-
-	inline LineString LineString::reversed() const
-	{
-		return LineString(rbegin(), rend());
-	}
-
-	inline LineString& LineString::shuffle()
-	{
-		m_data.shuffle();
-
-		return *this;
-	}
-
 	SIV3D_CONCEPT_URBG_
 	inline LineString& LineString::shuffle(URBG&& rbg)
 	{
 		m_data.shuffle(std::forward<URBG>(rbg));
 
 		return *this;
-	}
-
-	inline LineString LineString::slice(const size_t index) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return LineString(begin() + index, end());
-	}
-
-	inline LineString LineString::slice(const size_t index, const size_t length) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return LineString(begin() + index, begin() + Min(index + length, size()));
 	}
 
 	inline size_t LineString::num_points() const noexcept
@@ -636,143 +542,6 @@ namespace s3d
 		{
 			return{ pData[index], pData[index + 1] };
 		}
-	}
-
-	inline LineString LineString::movedBy(const double x, const double y) const
-	{
-		LineString lines{ *this };
-		
-		lines.moveBy(x, y);
-		
-		return lines;
-	}
-
-	inline LineString LineString::movedBy(const Vec2 v) const
-	{
-		return movedBy(v.x, v.y);
-	}
-
-	inline LineString& LineString::moveBy(const double x, const double y) noexcept
-	{
-		for (auto& point : *this)
-		{
-			point.moveBy(x, y);
-		}
-
-		return *this;
-	}
-
-	inline LineString& LineString::moveBy(const Vec2 v) noexcept
-	{
-		return moveBy(v.x, v.y);
-	}
-
-	inline LineString LineString::scaled(const double s) const
-	{
-		LineString result{ *this };
-
-		for (auto& point : result)
-		{
-			point *= s;
-		}
-
-		return result;
-	}
-
-	inline LineString LineString::scaled(const double sx, const double sy) const
-	{
-		return scaled(Vec2{ sx, sy });
-	}
-
-	inline LineString LineString::scaled(const Vec2 s) const
-	{
-		LineString result{ *this };
-
-		for (auto& point : result)
-		{
-			point *= s;
-		}
-
-		return result;
-	}
-
-	inline LineString& LineString::scale(const double s)
-	{
-		for (auto& point : m_data)
-		{
-			point *= s;
-		}
-
-		return *this;
-	}
-
-	inline LineString& LineString::scale(const double sx, const double sy)
-	{
-		return scale(Vec2{ sx, sy });
-	}
-
-	inline LineString& LineString::scale(const Vec2 s)
-	{
-		for (auto& point : m_data)
-		{
-			point *= s;
-		}
-
-		return *this;
-	}
-
-	inline LineString LineString::scaledAt(const Vec2 pos, const double s) const
-	{
-		LineString result{ *this };
-
-		for (auto& point : result)
-		{
-			point = (pos + (point - pos) * s);
-		}
-
-		return result;
-	}
-
-	inline LineString LineString::scaledAt(const Vec2 pos, const double sx, const double sy) const
-	{
-		return scaledAt(pos, Vec2{ sx, sy });
-	}
-
-	inline LineString LineString::scaledAt(const Vec2 pos, const Vec2 s) const
-	{
-		LineString result{ *this };
-
-		for (auto& point : result)
-		{
-			point = (pos + (point - pos) * s);
-		}
-
-		return result;
-	}
-
-	inline LineString& LineString::scaleAt(const Vec2 pos, const double s)
-	{
-		for (auto& point : m_data)
-		{
-			point = (pos + (point - pos) * s);
-		}
-
-		return *this;
-	}
-
-	inline LineString& LineString::scaleAt(const Vec2 pos, const double sx, const double sy)
-	{
-		return scaleAt(pos, Vec2{ sx, sy });
-	}
-
-	inline LineString& LineString::scaleAt(const Vec2 pos, const Vec2 s)
-	{
-		for (auto& point : m_data)
-		{
-			point = (pos + (point - pos) * s);
-		}
-
-		return *this;
 	}
 
 	template <class Shape2DType>

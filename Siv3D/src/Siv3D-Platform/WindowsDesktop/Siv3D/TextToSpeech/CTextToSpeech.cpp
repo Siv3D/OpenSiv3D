@@ -11,7 +11,6 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Unicode.hpp>
-# include <Siv3D/Math.hpp>
 # include <Siv3D/FormatInt.hpp>
 # include "CTextToSpeech.hpp"
 
@@ -228,7 +227,7 @@ namespace s3d
 			return;
 		}
 
-		m_volume = Math::Saturate(volume);
+		m_volume = Clamp(volume, 0.0, 1.0);
 
 		m_voice->SetVolume(detail::ConvertVolume(volume));
 	}

@@ -13,20 +13,8 @@
 
 namespace s3d
 {
-	inline INI::INI() {}
-
-	inline INI::INI(const FilePathView path, const Optional<TextEncoding>& encoding)
-	{
-		load(path, encoding);
-	}
-
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
 	inline INI::INI(Reader&& reader, const Optional<TextEncoding>& encoding)
-	{
-		load(std::move(reader), encoding);
-	}
-
-	inline INI::INI(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding)
 	{
 		load(std::move(reader), encoding);
 	}
@@ -35,13 +23,6 @@ namespace s3d
 	inline bool INI::load(Reader&& reader, const Optional<TextEncoding>& encoding)
 	{
 		return load(std::make_shared<Reader>(std::move(reader)), encoding);
-	}
-
-	inline void INI::clear()
-	{
-		m_sections.clear();
-
-		m_keyIndices.clear();
 	}
 
 	inline bool INI::isEmpty() const noexcept

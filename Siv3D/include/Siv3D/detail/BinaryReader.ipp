@@ -13,20 +13,9 @@
 
 namespace s3d
 {
-	inline BinaryReader::BinaryReader(const FilePathView path)
-		: BinaryReader{}
-	{
-		open(path);
-	}
-
 	inline bool BinaryReader::supportsLookahead() const noexcept
 	{
 		return true;
-	}
-
-	inline BinaryReader::operator bool() const noexcept
-	{
-		return isOpen();
 	}
 
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_

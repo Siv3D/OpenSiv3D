@@ -9,35 +9,35 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Periodic.hpp>
 
 namespace s3d
 {
 	namespace Periodic
 	{
-		inline double Sine0_1(const double periodSec, const double t) noexcept
+		double Sine0_1(const double periodSec, const double t) noexcept
 		{
 			const double x = (std::fmod(t, periodSec) / (periodSec * Math::InvTwoPi));
 
 			return (std::sin(x) * 0.5 + 0.5);
 		}
 
-		inline double Sine0_1(const Duration& period, const double t) noexcept
+		double Sine0_1(const Duration& period, const double t) noexcept
 		{
 			return Sine0_1(period.count(), t);
 		}
 
-		inline double Square0_1(const double periodSec, const double t) noexcept
+		double Square0_1(const double periodSec, const double t) noexcept
 		{
 			return (std::fmod(t, periodSec) < (periodSec * 0.5)) ? 1.0 : 0.0;
 		}
 
-		inline double Square0_1(const Duration& period, const double t) noexcept
+		double Square0_1(const Duration& period, const double t) noexcept
 		{
 			return Square0_1(period.count(), t);
 		}
 
-		inline double Triangle0_1(const double periodSec, const double t) noexcept
+		double Triangle0_1(const double periodSec, const double t) noexcept
 		{
 			const double x = (std::fmod(t, periodSec) / (periodSec * 0.5));
 
@@ -51,22 +51,22 @@ namespace s3d
 			}
 		}
 
-		inline double Triangle0_1(const Duration& period, const double t) noexcept
+		double Triangle0_1(const Duration& period, const double t) noexcept
 		{
 			return Triangle0_1(period.count(), t);
 		}
 
-		inline double Sawtooth0_1(const double periodSec, const double t) noexcept
+		double Sawtooth0_1(const double periodSec, const double t) noexcept
 		{
 			return std::fmod(t, periodSec) / periodSec;
 		}
 
-		inline double Sawtooth0_1(const Duration& period, const double t) noexcept
+		double Sawtooth0_1(const Duration& period, const double t) noexcept
 		{
 			return Sawtooth0_1(period.count(), t);
 		}
 
-		inline double Jump0_1(const double periodSec, const double t) noexcept
+		double Jump0_1(const double periodSec, const double t) noexcept
 		{
 			double x = (std::fmod(t, periodSec) / (periodSec * 0.5));
 
@@ -78,35 +78,35 @@ namespace s3d
 			return (2 * x - (x * x));
 		}
 
-		inline double Jump0_1(const Duration& period, const double t) noexcept
+		double Jump0_1(const Duration& period, const double t) noexcept
 		{
 			return Jump0_1(period.count(), t);
 		}
 
 
-		inline double Sine1_1(const double periodSec, const double t) noexcept
+		double Sine1_1(const double periodSec, const double t) noexcept
 		{
 			const double x = (std::fmod(t, periodSec) / (periodSec * Math::InvTwoPi));
 
 			return std::sin(x);
 		}
 
-		inline double Sine1_1(const Duration& period, const double t) noexcept
+		double Sine1_1(const Duration& period, const double t) noexcept
 		{
 			return Sine1_1(period.count(), t);
 		}
 
-		inline double Square1_1(const double periodSec, const double t) noexcept
+		double Square1_1(const double periodSec, const double t) noexcept
 		{
 			return (std::fmod(t, periodSec) < (periodSec * 0.5)) ? 1.0 : -1.0;
 		}
 
-		inline double Square1_1(const Duration& period, const double t) noexcept
+		double Square1_1(const Duration& period, const double t) noexcept
 		{
 			return Square1_1(period.count(), t);
 		}
 
-		inline double Triangle1_1(const double periodSec, const double t) noexcept
+		double Triangle1_1(const double periodSec, const double t) noexcept
 		{
 			const double x = (std::fmod(t, periodSec) / (periodSec * 0.5));
 
@@ -120,22 +120,22 @@ namespace s3d
 			}
 		}
 
-		inline double Triangle1_1(const Duration& period, const double t) noexcept
+		double Triangle1_1(const Duration& period, const double t) noexcept
 		{
 			return Triangle1_1(period.count(), t);
 		}
 
-		inline double Sawtooth1_1(const double periodSec, const double t) noexcept
+		double Sawtooth1_1(const double periodSec, const double t) noexcept
 		{
 			return ((std::fmod(t, periodSec) / periodSec) * 2.0 - 1.0);
 		}
 
-		inline double Sawtooth1_1(const Duration& period, const double t) noexcept
+		double Sawtooth1_1(const Duration& period, const double t) noexcept
 		{
 			return Sawtooth1_1(period.count(), t);
 		}
 
-		inline double Jump1_1(const double periodSec, const double t) noexcept
+		double Jump1_1(const double periodSec, const double t) noexcept
 		{
 			double x = (std::fmod(t, periodSec) / (periodSec * 0.5));
 
@@ -147,7 +147,7 @@ namespace s3d
 			return ((2 * x - (x * x)) * 2.0 - 1.0);
 		}
 
-		inline double Jump1_1(const Duration& period, const double t) noexcept
+		double Jump1_1(const Duration& period, const double t) noexcept
 		{
 			return Jump1_1(period.count(), t);
 		}

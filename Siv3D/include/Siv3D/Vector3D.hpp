@@ -11,12 +11,12 @@
 
 # pragma once
 # include "Common.hpp"
-# include "FormatData.hpp"
 # include "FormatLiteral.hpp"
 
 namespace s3d
 {
 	struct Box;
+	struct FormatData;
 
 	/// @brief 3 次元のベクトル
 	/// @tparam Type ベクトルの要素の型

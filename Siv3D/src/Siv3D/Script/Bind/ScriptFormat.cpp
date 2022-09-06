@@ -9,7 +9,23 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
+# include <Siv3D/Script.hpp>
+# include <Siv3D/Unicode.hpp>
+# include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/DateTime.hpp>
+# include <Siv3D/Stopwatch.hpp>
+# include <Siv3D/VariableSpeedStopwatch.hpp>
+# include <Siv3D/Timer.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/ColorHSV.hpp>
+# include <Siv3D/Circular.hpp>
+# include <Siv3D/OffsetCircular.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/2DShapes.hpp>
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier3.hpp>
+# include <Siv3D/Polygon.hpp>
+# include <Siv3D/LineString.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d

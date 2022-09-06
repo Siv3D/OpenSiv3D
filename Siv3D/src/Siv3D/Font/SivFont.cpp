@@ -10,6 +10,12 @@
 //-----------------------------------------------
 
 # include <Siv3D/Font.hpp>
+# include <Siv3D/PolygonGlyph.hpp>
+# include <Siv3D/MeshGlyph.hpp>
+# include <Siv3D/OutlineGlyph.hpp>
+# include <Siv3D/BitmapGlyph.hpp>
+# include <Siv3D/SDFGlyph.hpp>
+# include <Siv3D/MSDFGlyph.hpp>
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Font/IFont.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>

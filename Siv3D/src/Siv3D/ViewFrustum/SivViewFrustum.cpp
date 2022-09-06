@@ -15,17 +15,10 @@
 # include <Siv3D/Spherical.hpp>
 # include <Siv3D/Line3D.hpp>
 # include <Siv3D/Geometry3D.hpp>
+# include <Siv3D/BasicCamera3D.hpp>
 
 namespace s3d
 {
-	namespace detail
-	{
-		constexpr std::array<size_t, 8> CornerIndices =
-		{
-			0, 1, 3, 2, 4, 5, 7, 6
-		};
-	}
-
 	ViewFrustum::ViewFrustum(const BasicCamera3D& camera, const double farClip) noexcept
 		: ViewFrustum{ camera.getSceneSize(), camera.getVerticalFOV(), camera.getEyePosition(), camera.getFocusPosition(), camera.getUpDirection(), camera.getNearClip(), farClip } {}
 
@@ -53,52 +46,37 @@ namespace s3d
 
 	std::array<Vec3, 8> ViewFrustum::getCorners() const noexcept
 	{
-		std::array<DirectX::XMFLOAT3, 8> corners;
-
-		m_frustum.GetCorners(corners.data());
-
-		std::array<Vec3, 8> results;
-
-		for (size_t i = 0; i < 8; ++i)
-		{
-			const auto& corner = corners[detail::CornerIndices[i]];
-
-			results[i].set(corner.x, corner.y, corner.z);
-		}
-
-		return results;
+		return Geometry3D::GetCorners(*this);
 	}
 
 	bool ViewFrustum::intersects(const Vec3& point) const noexcept
 	{
-		const auto result = m_frustum.Contains(SIMD_Float4{ point, 0.0f });
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Intersects(*this, point);
 	}
 
 	bool ViewFrustum::intersects(const Triangle3D& triangle) const noexcept
 	{
-		return m_frustum.Intersects(triangle.p0, triangle.p1, triangle.p2);
+		return Geometry3D::Intersects(*this, triangle);
 	}
 
 	bool ViewFrustum::intersects(const Sphere& sphere) const noexcept
 	{
-		return m_frustum.Intersects(detail::FromSphere(sphere));
+		return Geometry3D::Intersects(*this, sphere);
 	}
 
 	bool ViewFrustum::intersects(const Box& box) const noexcept
 	{
-		return m_frustum.Intersects(detail::FromBox(box));
+		return Geometry3D::Intersects(*this, box);
 	}
 
 	bool ViewFrustum::intersects(const OrientedBox& box) const noexcept
 	{
-		return m_frustum.Intersects(detail::FromOrientedBox(box));
+		return Geometry3D::Intersects(*this, box);
 	}
 
 	bool ViewFrustum::intersects(const ViewFrustum& frustum) const noexcept
 	{
-		return m_frustum.Intersects(frustum.getData());
+		return Geometry3D::Intersects(*this, frustum);
 	}
 
 	Optional<float> ViewFrustum::intersects(const Ray& ray) const noexcept
@@ -108,42 +86,32 @@ namespace s3d
 
 	bool ViewFrustum::contains(const Vec3& point) const noexcept
 	{
-		return intersects(point);
+		return Geometry3D::Contains(*this, point);
 	}
 
 	bool ViewFrustum::contains(const Triangle3D& triangle) const noexcept
 	{
-		const auto result = m_frustum.Contains(triangle.p0, triangle.p1, triangle.p2);
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, triangle);
 	}
 
 	bool ViewFrustum::contains(const Sphere& sphere) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromSphere(sphere));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, sphere);
 	}
 
 	bool ViewFrustum::contains(const Box& box) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromBox(box));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, box);
 	}
 
 	bool ViewFrustum::contains(const OrientedBox& box) const noexcept
 	{
-		const auto result = m_frustum.Contains(detail::FromOrientedBox(box));
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, box);
 	}
 
 	bool ViewFrustum::contains(const ViewFrustum& frustum) const noexcept
 	{
-		const auto result = m_frustum.Contains(frustum.getData());
-
-		return (result == DirectX::ContainmentType::CONTAINS);
+		return Geometry3D::Contains(*this, frustum);
 	}
 	
 	Vec3 ViewFrustum::getOrigin() const noexcept

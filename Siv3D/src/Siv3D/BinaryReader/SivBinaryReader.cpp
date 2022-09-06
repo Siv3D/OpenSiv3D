@@ -15,9 +15,12 @@
 namespace s3d
 {
 	BinaryReader::BinaryReader()
-		: pImpl{ std::make_shared<BinaryReaderDetail>() }
-	{
+		: pImpl{ std::make_shared<BinaryReaderDetail>() } {}
 
+	BinaryReader::BinaryReader(const FilePathView path)
+		: BinaryReader{}
+	{
+		open(path);
 	}
 
 	bool BinaryReader::open(const FilePathView path)
@@ -31,6 +34,11 @@ namespace s3d
 	}
 
 	bool BinaryReader::isOpen() const noexcept
+	{
+		return pImpl->isOpen();
+	}
+
+	BinaryReader::operator bool() const noexcept
 	{
 		return pImpl->isOpen();
 	}

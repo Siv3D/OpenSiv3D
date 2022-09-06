@@ -87,6 +87,8 @@ namespace s3d
 	# define SIV3D_CONCEPT_FLOATING_POINT_		template <s3d::Concept::FloatingPoint Float>
 	# define SIV3D_CONCEPT_SCALAR				template <s3d::Concept::Scalar Scalar>
 	# define SIV3D_CONCEPT_SCALAR_				template <s3d::Concept::Scalar Scalar>
+	# define SIV3D_CONCEPT_NONSCALAR			template <class NonScalar> requires (not std::is_scalar_v<NonScalar>)
+	# define SIV3D_CONCEPT_NONSCALAR_			template <class NonScalar> requires (not std::is_scalar_v<NonScalar>)
 	# define SIV3D_CONCEPT_ARITHMETIC			template <s3d::Concept::Arithmetic Arithmetic>
 	# define SIV3D_CONCEPT_ARITHMETIC_			template <s3d::Concept::Arithmetic Arithmetic>
 	# define SIV3D_CONCEPT_ENUM					template <s3d::Concept::Enum Enum>
@@ -112,6 +114,8 @@ namespace s3d
 	# define SIV3D_CONCEPT_FLOATING_POINT_		template <class Float, std::enable_if_t<std::is_floating_point_v<Float>>*>
 	# define SIV3D_CONCEPT_SCALAR				template <class Scalar, std::enable_if_t<std::is_scalar_v<Scalar>>* = nullptr>
 	# define SIV3D_CONCEPT_SCALAR_				template <class Scalar, std::enable_if_t<std::is_scalar_v<Scalar>>*>
+	# define SIV3D_CONCEPT_NONSCALAR			template <class NonScalar, std::enable_if_t<not std::is_scalar_v<NonScalar>>* = nullptr>
+	# define SIV3D_CONCEPT_NONSCALAR_			template <class NonScalar, std::enable_if_t<not std::is_scalar_v<NonScalar>>*>
 	# define SIV3D_CONCEPT_ARITHMETIC			template <class Arithmetic, std::enable_if_t<std::is_arithmetic_v<Arithmetic>>* = nullptr>
 	# define SIV3D_CONCEPT_ARITHMETIC_			template <class Arithmetic, std::enable_if_t<std::is_arithmetic_v<Arithmetic>>*>
 	# define SIV3D_CONCEPT_ENUM					template <class Enum, std::enable_if_t<std::is_enum_v<Enum>>* = nullptr>

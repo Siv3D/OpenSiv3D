@@ -15,4 +15,3 @@
 # include <Siv3D/Experimental/SevenSegment.hpp>
 # include <Siv3D/Experimental/SaturatedLinework.hpp>
 # include <Siv3D/Experimental/InputIcon.hpp>
-# include <Siv3D/Experimental/PlayingCard.hpp>

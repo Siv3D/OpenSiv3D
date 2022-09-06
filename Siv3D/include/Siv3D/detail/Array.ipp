@@ -13,6 +13,25 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		template <class Type>
+		class StableUniqueHelper
+		{
+		private:
+
+			std::unordered_set<Type> m_set;
+
+		public:
+
+			[[nodiscard]]
+			bool operator()(const Type& value)
+			{
+				return m_set.insert(value).second;
+			}
+		};
+	}
+
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator>::Array(const container_type& other)
 		: m_container(other) {}

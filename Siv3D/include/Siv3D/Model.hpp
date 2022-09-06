@@ -18,7 +18,6 @@
 # include "StringView.hpp"
 # include "ColorOption.hpp"
 # include "TextureDesc.hpp"
-# include "TextureAsset.hpp"
 
 namespace s3d
 {

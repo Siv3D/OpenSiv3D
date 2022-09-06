@@ -14,7 +14,6 @@
 # include <type_traits>
 # include "Common.hpp"
 # include "Concepts.hpp"
-# include "PlaceHolder.hpp"
 # include "detail/Utility_detail.ipp"
 
 namespace s3d
@@ -24,17 +23,6 @@ namespace s3d
 	//	Max
 	//
 	//////////////////////////////////////////////////
-
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto Max(const Type& a, PlaceHolder_t) noexcept;
-
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto Max(PlaceHolder_t, const Type& b) noexcept;
-
-	[[nodiscard]]
-	inline constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept;
 
 	/// @brief 2 つの値のうち大きい方の値を返します。 | Returns the greater of the two.
 	/// @tparam Scalar 比較する値の型
@@ -50,13 +38,9 @@ namespace s3d
 	/// @param a 比較する値 | A value to compare
 	/// @param b 比較する値 | Another value to compare
 	/// @return 2 つの値のうち大きい方の値。等しい場合は a | The greater of a and b. If they are equivalent, returns a
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_NONSCALAR
 	[[nodiscard]]
-	inline constexpr const Type& Max(const Type& a, const Type& b) noexcept(noexcept(a < b));
+	inline constexpr const NonScalar& Max(const NonScalar& a, const NonScalar& b) noexcept(noexcept(a < b));
 
 	/// @brief 渡された初期化リストの中で最大の値を返します。 | Returns the greatest of the values in initializer list.
 	/// @tparam Type 比較する値の型
@@ -72,17 +56,6 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto Min(const Type& a, PlaceHolder_t) noexcept;
-
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto Min(PlaceHolder_t, const Type& b) noexcept;
-
-	[[nodiscard]]
-	inline constexpr auto Min(PlaceHolder_t, PlaceHolder_t) noexcept;
-
 	/// @brief 2 つの値のうち小さい方の値を返します。 | Returns the lesser of the two.
 	/// @tparam Scalar 比較する値の型
 	/// @param a 比較する値 | A value to compare
@@ -97,13 +70,9 @@ namespace s3d
 	/// @param a 比較する値 | A value to compare
 	/// @param b 比較する値 | Another value to compare
 	/// @return 2 つの値のうち小さい方の値。等しい場合は a | The lesser of a and b. If they are equivalent, returns a
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_NONSCALAR
 	[[nodiscard]]
-	inline constexpr const Type& Min(const Type& a, const Type& b) noexcept(noexcept(b < a));
+	inline constexpr const NonScalar& Min(const NonScalar& a, const NonScalar& b) noexcept(noexcept(b < a));
 
 	/// @brief 渡された初期化リストの中で最小の値を返します。 | Returns the least of the values in initializer list.
 	/// @tparam Type 比較する値の型
@@ -118,10 +87,6 @@ namespace s3d
 	//	Clamp
 	//
 	//////////////////////////////////////////////////
-
-	template <class Type>
-	[[nodiscard]]
-	constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
 	/// @brief 最小値と最大値の範囲にクランプした値を返します。 | Clamps the value to the specified minimum and maximum range.
 	/// @tparam Scalar 比較する値の型
@@ -139,23 +104,15 @@ namespace s3d
 	/// @param min 範囲の最小値 | The specified minimum range
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return v をクランプした値 | The clamped value for the v
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_NONSCALAR
 	[[nodiscard]]
-	inline constexpr const Type& Clamp(const Type& v, const Type& min, const Type& max) noexcept(noexcept(max < v) && noexcept(v < min));
+	inline constexpr const NonScalar& Clamp(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(max < v) && noexcept(v < min));
 
 	//////////////////////////////////////////////////
 	//
 	//	InRange
 	//
 	//////////////////////////////////////////////////
-
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
 	/// @brief 値が閉区間 [min, max] にあるかを返します。 | Returns true if the value is in the closed interval [min, max].
 	/// @tparam Scalar 比較する値の型
@@ -173,23 +130,15 @@ namespace s3d
 	/// @param min 範囲の最小値 | The specified minimum range
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return 閉区間 [min, max] にある場合 true, それ以外の場合は false | Returns true if the value is in the closed interval [min, max], false otherwise
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_NONSCALAR
 	[[nodiscard]]
-	inline constexpr bool InRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min));
+	inline constexpr bool InRange(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(v < min));
 
 	//////////////////////////////////////////////////
 	//
 	//	InOpenRange
 	//
 	//////////////////////////////////////////////////
-
-	template <class Type>
-	[[nodiscard]]
-	inline constexpr auto InOpenRange(PlaceHolder_t, const Type& min, const Type& max) noexcept;
 
 	/// @brief 値が開区間 (min, max) にあるかを返します。 | Returns true if the value is in the open interval (min, max).
 	/// @tparam Scalar 比較する値の型
@@ -207,13 +156,9 @@ namespace s3d
 	/// @param min 範囲の最小値 | The specified minimum range
 	/// @param max 範囲の最大値 | The specified maximum range
 	/// @return 開区間 (min, max) にある場合 true, それ以外の場合は false | Returns true if the value is in the open interval (min, max), false otherwise
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>* = nullptr>
-# endif
+	SIV3D_CONCEPT_NONSCALAR
 	[[nodiscard]]
-	inline constexpr bool InOpenRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min));
+	inline constexpr bool InOpenRange(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(v < min));
 
 	//////////////////////////////////////////////////
 	//
@@ -230,17 +175,6 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	SIV3D_CONCEPT_ARITHMETIC
-	[[nodiscard]]
-	inline constexpr auto AbsDiff(Arithmetic a, PlaceHolder_t) noexcept;
-
-	SIV3D_CONCEPT_ARITHMETIC
-	[[nodiscard]]
-	inline constexpr auto AbsDiff(PlaceHolder_t, Arithmetic b) noexcept;
-
-	[[nodiscard]]
-	inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept;
-	
 	/// @brief 差の絶対値を返します。
 	/// @tparam Arithmetic 値の型
 	/// @param a 1 つ目の値

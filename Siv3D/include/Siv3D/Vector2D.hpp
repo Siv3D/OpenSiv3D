@@ -11,12 +11,13 @@
 
 # pragma once
 # include "Common.hpp"
-# include "FormatData.hpp"
 # include "FormatLiteral.hpp"
 # include "2DShapesFwd.hpp"
 
 namespace s3d
 {
+	struct FormatData;
+
 	/// @brief 2 次元のベクトル
 	/// @tparam Type ベクトルの要素の型
 	template <class Type>

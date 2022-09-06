@@ -14,7 +14,6 @@
 # include "Uncopyable.hpp"
 # include "Optional.hpp"
 # include "Mat4x4.hpp"
-# include "Graphics3D.hpp"
 SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4324)
 
 namespace s3d
@@ -56,5 +55,3 @@ namespace s3d
 }
 
 SIV3D_DISABLE_MSVC_WARNINGS_POP()
-
-# include "detail/Transformer3D.ipp"

@@ -222,4 +222,64 @@ namespace s3d
 	{
 		return OggVorbisEncoder{}.encode(*this, quality, loopTiming);
 	}
+
+	Wave& Wave::fill(const value_type& value)
+	{
+		m_data.fill(value);
+
+		return *this;
+	}
+
+	Wave& Wave::append(const Array<value_type>& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	Wave& Wave::append(const Wave& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	Wave& Wave::remove_at(const size_t index)
+	{
+		m_data.remove_at(index);
+
+		return *this;
+	}
+
+	Wave& Wave::reverse()
+	{
+		m_data.reverse();
+
+		return *this;
+	}
+
+	Wave Wave::reversed() const
+	{
+		return Wave(rbegin(), rend());
+	}
+
+	Wave Wave::slice(const size_t index) const
+	{
+		if (index >= size())
+		{
+			return{};
+		}
+
+		return Wave(begin() + index, end());
+	}
+
+	Wave Wave::slice(const size_t index, const size_t length) const
+	{
+		if (index >= size())
+		{
+			return{};
+		}
+
+		return Wave(begin() + index, begin() + Min(index + length, size()));
+	}
 }

@@ -20,40 +20,5 @@ namespace s3d
 		{
 			SetTitle(Format(args...));
 		}
-
-		inline WindowStyle GetStyle() noexcept
-		{
-			return GetState().style;
-		}
-
-		inline void SetPos(const int32 x, const int32 y)
-		{
-			SetPos(Point{ x, y });
-		}
-
-		inline Point GetPos() noexcept
-		{
-			return GetState().bounds.pos;
-		}
-
-		inline bool Resize(const Size size, const s3d::Centering centering)
-		{
-			return ResizeVirtual(size, centering);
-		}
-
-		inline bool Resize(const int32 width, const int32 height, const s3d::Centering centering)
-		{
-			return ResizeVirtual(Size{ width, height }, centering);
-		}
-
-		inline bool ResizeVirtual(const int32 width, const int32 height, const s3d::Centering centering)
-		{
-			return ResizeVirtual(Size{ width, height }, centering);
-		}
-
-		inline bool ResizeActual(const int32 width, const int32 height, const s3d::Centering centering)
-		{
-			return ResizeActual(Size{ width, height }, centering);
-		}
 	}
 }

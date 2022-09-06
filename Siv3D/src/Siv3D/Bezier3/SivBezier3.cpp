@@ -15,6 +15,13 @@
 
 namespace s3d
 {
+	Vec2 Bezier3::getTangent(const double t) const noexcept
+	{
+		return (-3 * p0 * (1 - t) * (1 - t) +
+			p1 * (3 * (1 - t) * (1 - t) - 6 * (1 - t) * t) +
+			p2 * (6 * (1 - t) * t - 3 * t * t) + 3 * p3 * t * t).normalized();
+	}
+
 	LineString Bezier3::getLineString(const int32 quality) const
 	{
 		return getLineString(0.0, 1.0, quality);
@@ -105,5 +112,15 @@ namespace s3d
 		formatData.string.append(U", "_sv);
 		formatData.string.append(ToString(value.p3.y, formatData.decimalPlaces.value));
 		formatData.string.append(U"))"_sv);
+	}
+
+	double Bezier3Path::advance(const double distance, const int32 quality) noexcept
+	{
+		for (int32 i = 0; i < quality; ++i)
+		{
+			m_t += (distance / quality) / (m_t * m_t * m_v0 + m_t * m_v1 + m_v2).length();
+		}
+
+		return m_t;
 	}
 }

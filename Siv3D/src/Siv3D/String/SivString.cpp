@@ -16,6 +16,59 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline constexpr bool IsTrimmable(char32 ch) noexcept
+		{
+			return (ch <= 0x20) || ((ch - 0x7F) <= (0x9F - 0x7F));
+		};
+	}
+
+	bool String::starts_with(const value_type ch) const noexcept
+	{
+		return (not m_string.empty() && (m_string.front() == ch));
+	}
+
+	bool String::starts_with(const StringView s) const
+	{
+		if (size() < s.size())
+		{
+			return false;
+		}
+
+		return std::equal(s.begin(), s.end(), begin());
+	}
+
+	bool String::ends_with(const value_type ch) const noexcept
+	{
+		return (not m_string.empty() && (m_string.back() == ch));
+	}
+
+	bool String::ends_with(const StringView s) const
+	{
+		if (size() < s.size())
+		{
+			return false;
+		}
+
+		return std::equal(s.begin(), s.end(), end() - s.size());
+	}
+
+	String String::substr(const size_t offset, const size_t count) const
+	{
+		return m_string.substr(offset, count);
+	}
+
+	StringView String::substrView(const size_t offset, const size_t count) const&
+	{
+		if (offset > size())
+		{
+			throw std::out_of_range("String::substrView(): index out of range");
+		}
+
+		return StringView(data() + offset, Min(count, size() - offset));
+	}
+
 	std::string String::narrow() const
 	{
 		return Unicode::Narrow(m_string);
@@ -34,6 +87,81 @@ namespace s3d
 	std::u16string String::toUTF16() const
 	{
 		return Unicode::ToUTF16(m_string);
+	}
+
+	const std::u32string& String::toUTF32() const noexcept
+	{
+		return m_string;
+	}
+
+	uint64 String::hash() const noexcept
+	{
+		return Hash::FNV1a(data(), size_bytes());
+	}
+
+	size_t String::indexOf(const StringView s, const size_t offset) const noexcept
+	{
+		return m_string.find(s.data(), offset, s.length());
+	}
+
+	size_t String::indexOf(const value_type ch, const size_t offset) const noexcept
+	{
+		return m_string.find(ch, offset);
+	}
+
+	size_t String::indexOfNot(const value_type ch, const size_t offset) const noexcept
+	{
+		return m_string.find_first_not_of(ch, offset);
+	}
+
+	size_t String::lastIndexOf(const StringView s, const size_t offset) const noexcept
+	{
+		return m_string.rfind(s.data(), offset, s.length());
+	}
+
+	size_t String::lastIndexOf(const value_type ch, const size_t offset) const noexcept
+	{
+		return m_string.rfind(ch, offset);
+	}
+
+	size_t String::lastIndexNotOf(const value_type ch, const size_t offset) const noexcept
+	{
+		return m_string.find_last_not_of(ch, offset);
+	}
+
+	size_t String::indexOfAny(const StringView anyof, const size_t offset) const noexcept
+	{
+		return m_string.find_first_of(anyof.data(), offset, anyof.length());
+	}
+
+	size_t String::lastIndexOfAny(const StringView anyof, const size_t offset) const noexcept
+	{
+		return m_string.find_last_of(anyof.data(), offset, anyof.length());
+	}
+
+	size_t String::indexNotOfAny(const StringView anyof, const size_t offset) const
+	{
+		return m_string.find_first_not_of(anyof.data(), offset, anyof.length());
+	}
+
+	size_t String::lastIndexNotOfAny(const StringView anyof, const size_t offset) const
+	{
+		return m_string.find_last_not_of(anyof.data(), offset, anyof.length());
+	}
+
+	int32 String::compare(const String& s) const noexcept
+	{
+		return m_string.compare(s.m_string);
+	}
+
+	int32 String::compare(const StringView s) const noexcept
+	{
+		return m_string.compare(std::u32string_view(s.data(), s.size()));
+	}
+
+	int32 String::compare(const value_type* s) const noexcept
+	{
+		return m_string.compare(s);
 	}
 
 	int32 String::case_insensitive_compare(const StringView s) const noexcept
@@ -102,6 +230,38 @@ namespace s3d
 		return *this;
 	}
 
+	String String::capitalized() const&
+	{
+		return String(*this).capitalize();
+	}
+
+	String String::capitalized()&&
+	{
+		capitalize();
+
+		return std::move(*this);
+	}
+
+	size_t String::count(const value_type ch) const noexcept
+	{
+		return std::count(m_string.begin(), m_string.end(), ch);
+	}
+
+	size_t String::count(const StringView s) const
+	{
+		size_t count = 0;
+
+		for (auto it = begin();; ++it, ++count)
+		{
+			it = std::search(it, end(), s.begin(), s.end());
+
+			if (it == end())
+			{
+				return count;
+			}
+		}
+	}
+
 	String String::expandTabs(const size_t tabSize) const
 	{
 		const size_t tabCount = count(value_type('\t'));
@@ -127,6 +287,23 @@ namespace s3d
 		}
 
 		return result;
+	}
+
+	String& String::fill(const value_type value)
+	{
+		std::fill(m_string.begin(), m_string.end(), value);
+
+		return *this;
+	}
+
+	bool String::includes(const value_type ch) const
+	{
+		return (indexOf(ch) != String::npos);
+	}
+
+	bool String::includes(const StringView s) const
+	{
+		return (indexOf(s) != String::npos);
 	}
 
 	String String::layout(const size_t width) const
@@ -173,6 +350,18 @@ namespace s3d
 		return *this;
 	}
 
+	String String::lowercased() const&
+	{
+		return String(*this).lowercase();
+	}
+
+	String String::lowercased()&&
+	{
+		lowercase();
+
+		return std::move(*this);
+	}
+
 	String& String::lpad(const size_t length, const value_type fillChar)
 	{
 		if (length <= m_string.length())
@@ -203,6 +392,180 @@ namespace s3d
 		return new_string;
 	}
 
+	String String::lpadded(const size_t length, const value_type fillChar)&&
+	{
+		lpad(length, fillChar);
+
+		return std::move(*this);
+	}
+
+	String& String::ltrim()
+	{
+		m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
+
+		return *this;
+	}
+
+	String String::ltrimmed() const&
+	{
+		return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), m_string.end());
+	}
+
+	String String::ltrimmed()&&
+	{
+		ltrim();
+
+		return std::move(*this);
+	}
+
+	String& String::remove(const value_type ch)
+	{
+		m_string.erase(std::remove(m_string.begin(), m_string.end(), ch), m_string.end());
+
+		return *this;
+	}
+
+	String& String::remove(const StringView s)
+	{
+		return *this = removed(s);
+	}
+
+	String String::removed(const value_type ch) const&
+	{
+		String new_string;
+
+		for (const auto c : m_string)
+		{
+			if (c != ch)
+			{
+				new_string.push_back(c);
+			}
+		}
+
+		return new_string;
+	}
+
+	String String::removed(const value_type ch)&&
+	{
+		remove(ch);
+
+		return std::move(*this);
+	}
+
+	String String::removed(const StringView s) const
+	{
+		String result;
+
+		for (auto it = begin(); it != end();)
+		{
+			const auto it2 = it;
+
+			result.append(it2, it = std::search(it, end(), s.begin(), s.end()));
+
+			if (it != end())
+			{
+				it += s.size();
+			}
+		}
+
+		return result;
+	}
+
+	String& String::remove_at(const size_t index)
+	{
+		if (m_string.size() <= index)
+		{
+			throw std::out_of_range("String::remove_at(): index out of range");
+		}
+
+		m_string.erase(m_string.begin() + index);
+
+		return *this;
+	}
+
+	String String::removed_at(const size_t index) const&
+	{
+		if (m_string.size() <= index)
+		{
+			throw std::out_of_range("String::removed_at(): index out of range");
+		}
+
+		String new_string;
+
+		new_string.reserve(m_string.length() - 1);
+
+		new_string.assign(m_string.begin(), m_string.begin() + index);
+
+		new_string.append(m_string.begin() + index + 1, m_string.end());
+
+		return new_string;
+	}
+
+	String String::removed_at(const size_t index)&&
+	{
+		remove_at(index);
+
+		return std::move(*this);
+	}
+
+	String& String::replace(const value_type oldChar, const value_type newChar)
+	{
+		for (auto& c : m_string)
+		{
+			if (c == oldChar)
+			{
+				c = newChar;
+			}
+		}
+
+		return *this;
+	}
+
+	String& String::replace(const StringView oldStr, const StringView newStr)
+	{
+		return *this = replaced(oldStr, newStr);
+	}
+
+	String& String::replace(const size_type pos, const size_type count, const String& s)
+	{
+		m_string.replace(pos, count, s.m_string);
+
+		return *this;
+	}
+
+	String& String::replace(const size_type pos, const size_type count, const value_type* s)
+	{
+		m_string.replace(pos, count, s);
+
+		return *this;
+	}
+
+	String& String::replace(const_iterator first, const_iterator last, const String& s)
+	{
+		m_string.replace(first, last, s.m_string);
+
+		return *this;
+	}
+
+	String& String::replace(const_iterator first, const_iterator last, const value_type* s)
+	{
+		m_string.replace(first, last, s);
+
+		return *this;
+	}
+
+	String String::replaced(const value_type oldChar, const value_type newChar) const&
+	{
+		return String(*this).replace(oldChar, newChar);
+	}
+
+	String String::replaced(const value_type oldChar, const value_type newChar)&&
+	{
+		replace(oldChar, newChar);
+
+		return std::move(*this);
+	}
+
 	String String::replaced(const StringView oldStr, const StringView newStr) const
 	{
 		String new_string;
@@ -227,6 +590,25 @@ namespace s3d
 		new_string.append(itCurrent, itNext);
 
 		return new_string;
+	}
+
+	String& String::reverse()
+	{
+		std::reverse(m_string.begin(), m_string.end());
+
+		return *this;
+	}
+
+	String String::reversed() const&
+	{
+		return String(m_string.rbegin(), m_string.rend());
+	}
+
+	String String::reversed()&&
+	{
+		reverse();
+
+		return *this;
 	}
 
 	String& String::rotate(std::ptrdiff_t count)
@@ -257,6 +639,89 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	String String::rotated(const std::ptrdiff_t count) const&
+	{
+		return String(*this).rotate(count);
+	}
+
+	String String::rotated(const std::ptrdiff_t count)&&
+	{
+		rotate(count);
+
+		return std::move(*this);
+	}
+
+	String& String::rpad(const size_t length, const value_type fillChar)
+	{
+		if (length <= m_string.length())
+		{
+			return *this;
+		}
+
+		m_string.append(length - m_string.length(), fillChar);
+
+		return *this;
+	}
+
+	String String::rpadded(const size_t length, const value_type fillChar) const&
+	{
+		if (length <= m_string.length())
+		{
+			return *this;
+		}
+
+		String new_string;
+
+		new_string.reserve(length);
+
+		new_string.assign(m_string);
+
+		new_string.append(length - m_string.length(), fillChar);
+
+		return new_string;
+	}
+
+	String String::rpadded(const size_t length, const value_type fillChar)&&
+	{
+		rpad(length, fillChar);
+
+		return std::move(*this);
+	}
+
+	String& String::rtrim()
+	{
+		m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
+
+		return *this;
+	}
+
+	String String::rtrimmed() const&
+	{
+		return String(m_string.begin(), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
+	}
+
+	String String::rtrimmed()&&
+	{
+		rtrim();
+
+		return std::move(*this);
+	}
+
+	String& String::shuffle()
+	{
+		return shuffle(GetDefaultRNG());
+	}
+
+	String String::shuffled() const&
+	{
+		return shuffled(GetDefaultRNG());
+	}
+
+	String String::shuffled()&&
+	{
+		return shuffled(GetDefaultRNG());
 	}
 
 	Array<String> String::split(const value_type ch) const
@@ -335,6 +800,180 @@ namespace s3d
 		std::copy_if(m_string.begin(), m_string.end(), std::back_inserter(result), std::ref(pred));
 
 		return result;
+	}
+
+	String& String::swapcase() noexcept
+	{
+		for (auto& v : m_string)
+		{
+			if (IsLower(v))
+			{
+				v -= ('a' - 'A');
+			}
+			else if (IsUpper(v))
+			{
+				v += ('a' - 'A');
+			}
+		}
+
+		return *this;
+	}
+
+	String String::swapcased() const&
+	{
+		return String(*this).swapcase();
+	}
+
+	String String::swapcased()&&
+	{
+		swapcase();
+
+		return std::move(*this);
+	}
+
+	String& String::trim()
+	{
+		m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
+
+		m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
+
+		return *this;
+	}
+
+	String String::trimmed() const&
+	{
+		return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
+	}
+
+	String String::trimmed()&&
+	{
+		trim();
+
+		return std::move(*this);
+	}
+
+	String& String::uppercase() noexcept
+	{
+		for (auto& v : m_string)
+		{
+			if (IsLower(v))
+			{
+				v -= ('a' - 'A');
+			}
+		}
+
+		return *this;
+	}
+
+	String String::uppercased() const&
+	{
+		return String(*this).uppercase();
+	}
+
+	String String::uppercased()&&
+	{
+		uppercase();
+
+		return std::move(*this);
+	}
+
+	String& String::rsort() noexcept
+	{
+		std::sort(begin(), end(), std::greater<>());
+
+		return *this;
+	}
+
+	String String::rsorted() const&
+	{
+		return String(*this).rsort();
+	}
+
+	String String::rsorted()&&
+	{
+		rsort();
+
+		return std::move(*this);
+	}
+
+	String& String::sort() noexcept
+	{
+		std::sort(m_string.begin(), m_string.end());
+
+		return *this;
+	}
+
+	String String::sorted() const&
+	{
+		return String(*this).sort();
+	}
+
+	String String::sorted()&&
+	{
+		std::sort(m_string.begin(), m_string.end());
+
+		return std::move(*this);
+	}
+
+	String String::take(const size_t n) const
+	{
+		return String(m_string.begin(), m_string.begin() + Min(n, m_string.size()));
+	}
+
+	String& String::stable_unique()
+	{
+		// [Siv3D ToDo: 最適化]
+		return *this = stable_uniqued();
+	}
+
+	String& String::sort_and_unique()
+	{
+		sort();
+
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		return *this;
+	}
+
+	String String::sorted_and_uniqued() const&
+	{
+		return String(*this).sort_and_unique();
+	}
+
+	String String::sorted_and_uniqued()&&
+	{
+		sort();
+
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		m_string.shrink_to_fit();
+
+		return std::move(*this);
+	}
+
+	String& String::unique_consecutive()
+	{
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		return *this;
+	}
+
+	String String::uniqued_consecutive() const&
+	{
+		String result;
+
+		std::unique_copy(m_string.begin(), m_string.end(), std::back_inserter(result));
+
+		return result;
+	}
+
+	String String::uniqued_consecutive()&&
+	{
+		m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
+
+		m_string.shrink_to_fit();
+
+		return std::move(*this);
 	}
 
 	String String::values_at(std::initializer_list<size_t> indices) const
@@ -611,6 +1250,53 @@ namespace s3d
 		{
 			return std::move(rhs.insert(0, lhs));
 		}
+	}
+
+	String operator +(const String::value_type lhs, StringView rhs)
+	{
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(const String::value_type* lhs, StringView rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(StringView lhs, const String::value_type* rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
+	}
+
+	String operator +(StringView lhs, StringView rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	String operator +(StringView lhs, const String::value_type rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
 	std::ostream& operator <<(std::ostream& output, const String& value)

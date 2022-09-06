@@ -19,35 +19,14 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	template <class Type>
-	inline constexpr auto Max(const Type& a, PlaceHolder_t) noexcept
-	{
-		return detail::Max1_impl<Type>(a);
-	}
-
-	template <class Type>
-	inline constexpr auto Max(PlaceHolder_t, const Type& b) noexcept
-	{
-		return detail::Max1_impl<Type>(b);
-	}
-
-	inline constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::Max2_impl{};
-	}
-
 	SIV3D_CONCEPT_SCALAR_
 	inline constexpr Scalar Max(const Scalar a, const Scalar b) noexcept
 	{
 		return (a < b) ? b : a;
 	}
 
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr const Type& Max(const Type& a, const Type& b) noexcept(noexcept(a < b))
+	SIV3D_CONCEPT_NONSCALAR_
+	inline constexpr const NonScalar& Max(const NonScalar& a, const NonScalar& b) noexcept(noexcept(a < b))
 	{
 		return (a < b) ? b : a;
 	}
@@ -64,35 +43,14 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	template <class Type>
-	inline constexpr auto Min(const Type& a, PlaceHolder_t) noexcept
-	{
-		return detail::Min1_impl<Type>(a);
-	}
-
-	template <class Type>
-	inline constexpr auto Min(PlaceHolder_t, const Type& b) noexcept
-	{
-		return detail::Min1_impl<Type>(b);
-	}
-
-	inline constexpr auto Min(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::Min2_impl{};
-	}
-
 	SIV3D_CONCEPT_SCALAR_
 	inline constexpr Scalar Min(const Scalar a, const Scalar b) noexcept
 	{
 		return (b < a) ? b : a;
 	}
 
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr const Type& Min(const Type& a, const Type& b) noexcept(noexcept(b < a))
+	SIV3D_CONCEPT_NONSCALAR_
+	inline constexpr const NonScalar& Min(const NonScalar& a, const NonScalar& b) noexcept(noexcept(b < a))
 	{
 		return (b < a) ? b : a;
 	}
@@ -108,12 +66,6 @@ namespace s3d
 	//	Clamp
 	//
 	//////////////////////////////////////////////////
-
-	template <class Type>
-	constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept
-	{
-		return detail::Clamp_impl<Type>(min, max);
-	}
 
 	SIV3D_CONCEPT_SCALAR_
 	inline constexpr Scalar Clamp(const Scalar v, const Scalar min, const Scalar max) noexcept
@@ -131,12 +83,8 @@ namespace s3d
 		return v;
 	}
 
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr const Type& Clamp(const Type& v, const Type& min, const Type& max) noexcept(noexcept(max < v) && noexcept(v < min))
+	SIV3D_CONCEPT_NONSCALAR_
+	inline constexpr const NonScalar& Clamp(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(max < v) && noexcept(v < min))
 	{
 		if (max < v)
 		{
@@ -157,24 +105,14 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	template <class Type>
-	inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
-	{
-		return detail::InRange_impl<Type>(min, max);
-	}
-
 	SIV3D_CONCEPT_SCALAR_
 	inline constexpr bool InRange(const Scalar v, const Scalar min, const Scalar max) noexcept
 	{
 		return (min <= v) && (v <= max);
 	}
 
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr bool InRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min))
+	SIV3D_CONCEPT_NONSCALAR_
+	inline constexpr bool InRange(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(v < min))
 	{
 		return (min <= v) && (v <= max);
 	}
@@ -185,24 +123,14 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	template <class Type>
-	inline constexpr auto InOpenRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
-	{
-		return detail::InOpenRange_impl<Type>(min, max);
-	}
-
 	SIV3D_CONCEPT_SCALAR_
 	inline constexpr bool InOpenRange(const Scalar v, const Scalar min, const Scalar max) noexcept
 	{
 		return (min < v) && (v < max);
 	}
 
-# if __cpp_lib_concepts
-	template <class Type> requires (not std::is_scalar_v<Type>)
-# else
-	template <class Type, std::enable_if_t<not std::is_scalar_v<Type>>*>
-# endif
-	inline constexpr bool InOpenRange(const Type& v, const Type& min, const Type& max) noexcept(noexcept(v < min))
+	SIV3D_CONCEPT_NONSCALAR_
+	inline constexpr bool InOpenRange(const NonScalar& v, const NonScalar& min, const NonScalar& max) noexcept(noexcept(v < min))
 	{
 		return (min < v) && (v < max);
 	}
@@ -214,26 +142,18 @@ namespace s3d
 	//////////////////////////////////////////////////
 
 	SIV3D_CONCEPT_ARITHMETIC_
-	inline constexpr auto AbsDiff(const Arithmetic a, PlaceHolder_t) noexcept
-	{
-		return detail::AbsDiff1_impl<Arithmetic>(a);
-	}
-
-	SIV3D_CONCEPT_ARITHMETIC_
-	inline constexpr auto AbsDiff(PlaceHolder_t, const Arithmetic b) noexcept
-	{
-		return detail::AbsDiff1_impl<Arithmetic>(b);
-	}
-
-	inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept
-	{
-		return detail::AbsDiff2_impl{};
-	}
-
-	SIV3D_CONCEPT_ARITHMETIC_
 	inline constexpr auto AbsDiff(const Arithmetic a, const Arithmetic b) noexcept
 	{
-		return detail::AbsDiff2_impl{}(a, b);
+		if constexpr (std::is_integral_v<Arithmetic>)
+		{
+			using U = std::make_unsigned_t<Arithmetic>;
+			return (a > b) ? (static_cast<U>(a) - static_cast<U>(b))
+				: (static_cast<U>(b) - static_cast<U>(a));
+		}
+		else
+		{
+			return detail::Abs_impl{}(a - b);
+		}
 	}
 
 	//////////////////////////////////////////////////

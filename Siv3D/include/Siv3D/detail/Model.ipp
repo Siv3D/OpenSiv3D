@@ -11,24 +11,6 @@
 
 # pragma once
 
-namespace s3d
-{
-	inline bool Model::RegisterDiffuseTextures(const Model& model, const TextureDesc textureDesc)
-	{
-		bool result = true;
-
-		for (const auto& textureName : model.diffuseTextureNames())
-		{
-			if (not TextureAsset::IsRegistered(textureName))
-			{
-				result &= TextureAsset::Register(textureName, textureName, textureDesc);
-			}
-		}
-
-		return result;
-	}
-}
-
 template <>
 inline void std::swap(s3d::Model& a, s3d::Model& b) noexcept
 {

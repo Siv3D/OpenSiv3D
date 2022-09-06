@@ -24,45 +24,10 @@ namespace s3d
 		}
 	}
 
-	inline TextWriter::operator bool() const noexcept
-	{
-		return isOpen();
-	}
-
-	inline void TextWriter::write(const char32 ch)
-	{
-		write(StringView(&ch, 1));
-	}
-
-	inline void TextWriter::write(const char32* s)
-	{
-		write(StringView(s));
-	}
-
-	inline void TextWriter::write(const String& s)
-	{
-		write(StringView(s));
-	}
-
 	SIV3D_CONCEPT_FORMATTABLE_ARGS_
 	inline void TextWriter::write(const Args& ... args)
 	{
 		write(Format(args...));
-	}
-
-	inline void TextWriter::writeln(const char32 ch)
-	{
-		writeln(StringView(&ch, 1));
-	}
-
-	inline void TextWriter::writeln(const char32* s)
-	{
-		writeln(StringView(s));
-	}
-
-	inline void TextWriter::writeln(const String& s)
-	{
-		writeln(StringView(s));
 	}
 
 	SIV3D_CONCEPT_FORMATTABLE_ARGS_

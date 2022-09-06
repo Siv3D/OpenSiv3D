@@ -12,6 +12,7 @@
 # include <Siv3D/MessageBox.hpp>
 # include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/MonitorInfo.hpp>
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Error.hpp>
 

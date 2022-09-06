@@ -14,8 +14,6 @@
 # include "Uncopyable.hpp"
 # include "Optional.hpp"
 # include "Mat3x2.hpp"
-# include "Graphics2D.hpp"
-# include "Cursor.hpp"
 # include "PredefinedYesNo.hpp"
 
 namespace s3d
@@ -99,5 +97,3 @@ namespace s3d
 		void setCursorTransform(const Mat3x2& transform) const;
 	};
 }
-
-# include "detail/Transformer2D.ipp"

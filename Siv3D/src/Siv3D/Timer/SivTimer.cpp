@@ -9,11 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Timer.hpp>
+# include <Siv3D/ISteadyClock.hpp>
+# include <Siv3D/FormatData.hpp>
 
 namespace s3d
 {
-	inline Timer::Timer(const Duration& duration, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
+	Timer::Timer(const Duration& duration, const StartImmediately startImmediately, ISteadyClock* pSteadyClock)
 		: m_durationMicrosec{ static_cast<int64>(duration.count() * 1'000'000) }
 		, m_remainingMicrosec{ m_durationMicrosec }
 		, m_pSteadyClock{ pSteadyClock }
@@ -24,27 +26,27 @@ namespace s3d
 		}
 	}
 
-	inline bool Timer::isStarted() const noexcept
+	bool Timer::isStarted() const noexcept
 	{
 		return m_isStarted;
 	}
 
-	inline bool Timer::isPaused() const noexcept
+	bool Timer::isPaused() const noexcept
 	{
 		return (m_isStarted && m_pausing);
 	}
 
-	inline bool Timer::isRunning() const noexcept
+	bool Timer::isRunning() const noexcept
 	{
 		return (m_isStarted && not m_pausing);
 	}
 
-	inline bool Timer::reachedZero() const
+	bool Timer::reachedZero() const
 	{
 		return (us() == 0);
 	}
 
-	inline void Timer::start()
+	void Timer::start()
 	{
 		if (m_isStarted && (not m_pausing))
 		{
@@ -58,14 +60,14 @@ namespace s3d
 		m_startTimeMicrosec = ISteadyClock::GetMicrosec(m_pSteadyClock);
 	}
 
-	inline void Timer::pause()
+	void Timer::pause()
 	{
 		m_remainingMicrosec = us();
 
 		m_pausing = true;
 	}
 
-	inline void Timer::resume()
+	void Timer::resume()
 	{
 		if (not isPaused())
 		{
@@ -75,7 +77,7 @@ namespace s3d
 		start();
 	}
 
-	inline void Timer::reset() noexcept
+	void Timer::reset() noexcept
 	{
 		m_remainingMicrosec = m_durationMicrosec;
 
@@ -84,14 +86,14 @@ namespace s3d
 		m_pausing = false;
 	}
 
-	inline void Timer::restart()
+	void Timer::restart()
 	{
 		setRemaining(MicrosecondsF(m_durationMicrosec));
 
 		start();
 	}
 
-	inline void Timer::restart(const Duration& duration)
+	void Timer::restart(const Duration& duration)
 	{
 		reset();
 
@@ -100,7 +102,7 @@ namespace s3d
 		start();
 	}
 
-	inline void Timer::set(const Duration& duration)
+	void Timer::set(const Duration& duration)
 	{
 		m_durationMicrosec = static_cast<int64>(duration.count() * 1'000'000);
 
@@ -109,89 +111,89 @@ namespace s3d
 		m_startTimeMicrosec = ISteadyClock::GetMicrosec(m_pSteadyClock);
 	}
 
-	inline void Timer::setRemaining(const Duration& remaining)
+	void Timer::setRemaining(const Duration& remaining)
 	{
 		m_remainingMicrosec = static_cast<int64>(remaining.count() * (1000LL * 1000LL));
 
 		m_startTimeMicrosec = ISteadyClock::GetMicrosec(m_pSteadyClock);
 	}
 
-	inline int32 Timer::d() const
+	int32 Timer::d() const
 	{
 		return static_cast<int32>(d64());
 	}
 
-	inline int64 Timer::d64() const
+	int64 Timer::d64() const
 	{
 		return (us() / (1000LL * 1000LL * 60LL * 60LL * 24LL));
 	}
 
-	inline double Timer::dF() const
+	double Timer::dF() const
 	{
 		return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL));
 	}
 
-	inline int32 Timer::h() const
+	int32 Timer::h() const
 	{
 		return static_cast<int32>(h64());
 	}
 
-	inline int64 Timer::h64() const
+	int64 Timer::h64() const
 	{
 		return (us() / (1000LL * 1000LL * 60LL * 60LL));
 	}
 
-	inline double Timer::hF() const
+	double Timer::hF() const
 	{
 		return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL));
 	}
 
-	inline int32 Timer::min() const
+	int32 Timer::min() const
 	{
 		return static_cast<int32>(min64());
 	}
 
-	inline int64 Timer::min64() const
+	int64 Timer::min64() const
 	{
 		return (us() / (1000LL * 1000LL * 60LL));
 	}
 
-	inline double Timer::minF() const
+	double Timer::minF() const
 	{
 		return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL));
 	}
 
-	inline int32 Timer::s() const
+	int32 Timer::s() const
 	{
 		return static_cast<int32>(s64());
 	}
 
-	inline int64 Timer::s64() const
+	int64 Timer::s64() const
 	{
 		return (us() / (1000LL * 1000LL));
 	}
 
-	inline double Timer::sF() const
+	double Timer::sF() const
 	{
 		return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL));
 	}
 
-	inline int32 Timer::ms() const
+	int32 Timer::ms() const
 	{
 		return static_cast<int32>(ms64());
 	}
 
-	inline int64 Timer::ms64() const
+	int64 Timer::ms64() const
 	{
 		return (us() / (1000LL));
 	}
 
-	inline double Timer::msF() const
+	double Timer::msF() const
 	{
 		return static_cast<double>(us() / static_cast<double>(1000LL));
 	}
 
-	inline int64 Timer::us() const
+	int64 Timer::us() const
 	{
 		const int64 t = ISteadyClock::GetMicrosec(m_pSteadyClock);
 
@@ -208,27 +210,27 @@ namespace s3d
 		return Max<int64>(m_remainingMicrosec - (t - m_startTimeMicrosec), 0);
 	}
 
-	inline int64 Timer::us64() const
+	int64 Timer::us64() const
 	{
 		return us();
 	}
 
-	inline double Timer::usF() const
+	double Timer::usF() const
 	{
 		return static_cast<double>(us());
 	}
 
-	inline Duration Timer::duration() const
+	Duration Timer::duration() const
 	{
 		return SecondsF{ m_durationMicrosec / static_cast<double>(1000LL * 1000LL) };
 	}
 
-	inline Duration Timer::remaining() const
+	Duration Timer::remaining() const
 	{
 		return SecondsF{ sF() };
 	}
 
-	inline double Timer::progress1_0() const
+	double Timer::progress1_0() const
 	{
 		if (m_durationMicrosec == 0)
 		{
@@ -240,13 +242,18 @@ namespace s3d
 		}
 	}
 
-	inline double Timer::progress0_1() const
+	double Timer::progress0_1() const
 	{
 		return (1.0 - progress1_0());
 	}
 
-	inline String Timer::format(const StringView format) const
+	String Timer::format(const StringView format) const
 	{
 		return FormatTime(remaining(), format);
+	}
+
+	void Formatter(FormatData& formatData, const Timer& value)
+	{
+		formatData.string.append(value.format());
 	}
 }

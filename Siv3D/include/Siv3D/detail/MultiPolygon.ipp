@@ -432,16 +432,6 @@ namespace s3d
 		return std::any_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline MultiPolygon::value_type& MultiPolygon::choice()
-	{
-		return choice(GetDefaultRNG());
-	}
-
-	inline const MultiPolygon::value_type& MultiPolygon::choice() const
-	{
-		return choice(GetDefaultRNG());
-	}
-
 	SIV3D_CONCEPT_URBG_
 	inline MultiPolygon::value_type& MultiPolygon::choice(URBG&& rbg)
 	{
@@ -495,36 +485,10 @@ namespace s3d
 		return m_data.count_if(f);
 	}
 
-	inline String MultiPolygon::join(const StringView sep, const StringView begin, const StringView end) const
-	{
-		return m_data.join(sep, begin, end);
-	}
-
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, MultiPolygon::value_type>>*>
 	inline bool MultiPolygon::none(Fty f) const
 	{
 		return std::none_of(m_data.begin(), m_data.end(), f);
-	}
-
-	inline MultiPolygon& MultiPolygon::append(const Array<value_type>& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline MultiPolygon& MultiPolygon::append(const MultiPolygon& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline MultiPolygon& MultiPolygon::remove_at(const size_t index)
-	{
-		m_data.remove_at(index);
-
-		return *this;
 	}
 
 	template <class Fty>
@@ -535,210 +499,12 @@ namespace s3d
 		return *this;
 	}
 
-	inline MultiPolygon& MultiPolygon::reverse()
-	{
-		m_data.reverse();
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::reversed() const
-	{
-		return MultiPolygon(rbegin(), rend());
-	}
-
-	inline MultiPolygon& MultiPolygon::shuffle()
-	{
-		m_data.shuffle();
-
-		return *this;
-	}
-
 	SIV3D_CONCEPT_URBG_
-		inline MultiPolygon& MultiPolygon::shuffle(URBG&& rbg)
+	inline MultiPolygon& MultiPolygon::shuffle(URBG&& rbg)
 	{
 		m_data.shuffle(std::forward<URBG>(rbg));
 
 		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::slice(const size_t index) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return MultiPolygon(begin() + index, end());
-	}
-
-	inline MultiPolygon MultiPolygon::slice(const size_t index, const size_t length) const
-	{
-		if (index >= size())
-		{
-			return{};
-		}
-
-		return MultiPolygon(begin() + index, begin() + Min(index + length, size()));
-	}
-
-	inline MultiPolygon MultiPolygon::movedBy(const double x, const double y) const
-	{
-		MultiPolygon polygons{ *this };
-
-		polygons.moveBy(x, y);
-
-		return polygons;
-	}
-
-	inline MultiPolygon MultiPolygon::movedBy(const Vec2 v) const
-	{
-		return movedBy(v.x, v.y);
-	}
-
-	inline MultiPolygon& MultiPolygon::moveBy(const double x, const double y) noexcept
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.moveBy(x, y);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon& MultiPolygon::moveBy(const Vec2 v) noexcept
-	{
-		return moveBy(v.x, v.y);
-	}
-
-	inline MultiPolygon MultiPolygon::rotated(const double angle) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotated(angle); }) };
-	}
-
-	inline MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotatedAt(pos, angle); }) };
-	}
-
-	inline MultiPolygon& MultiPolygon::rotate(const double angle)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.rotate(angle);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon& MultiPolygon::rotateAt(const Vec2& pos, const double angle)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.rotateAt(pos, angle);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.transformed(s, c, pos); }) };
-	}
-
-	inline MultiPolygon& MultiPolygon::transform(const double s, const double c, const Vec2& pos)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.transform(s, c, pos);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::scaled(const double s) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
-	}
-
-	inline MultiPolygon MultiPolygon::scaled(const double sx, const double sy) const
-	{
-		return scaled(Vec2{ sx, sy });
-	}
-
-	inline MultiPolygon MultiPolygon::scaled(const Vec2 s) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
-	}
-
-	inline MultiPolygon& MultiPolygon::scale(const double s)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.scale(s);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon& MultiPolygon::scale(const double sx, const double sy)
-	{
-		return scale(Vec2{ sx, sy });
-	}
-
-	inline MultiPolygon& MultiPolygon::scale(const Vec2 s)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.scale(s);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double s) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
-	}
-
-	inline MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double s)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.scaleAt(pos, s);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
-	{
-		return scaledAt(pos, Vec2{ sx, sy });
-	}
-
-	inline MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
-	}
-
-	inline MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double sx, const double sy)
-	{
-		return scaleAt(pos, Vec2{ sx, sy });
-	}
-
-	inline MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const Vec2 s)
-	{
-		for (auto& polygon : *this)
-		{
-			polygon.scaleAt(pos, s);
-		}
-
-		return *this;
-	}
-
-	inline MultiPolygon MultiPolygon::simplified(const double maxDistance) const
-	{
-		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.simplified(maxDistance); }) };
 	}
 
 	template <class Shape2DType>

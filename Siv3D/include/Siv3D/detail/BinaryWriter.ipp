@@ -13,17 +13,6 @@
 
 namespace s3d
 {
-	inline BinaryWriter::BinaryWriter(const FilePathView path, const OpenMode openMode)
-		: BinaryWriter{}
-	{
-		open(path, openMode);
-	}
-
-	inline BinaryWriter::operator bool() const noexcept
-	{
-		return isOpen();
-	}
-
 	SIV3D_CONCEPT_TRIVIALLY_COPYABLE_
 	inline bool BinaryWriter::write(const TriviallyCopyable& src)
 	{

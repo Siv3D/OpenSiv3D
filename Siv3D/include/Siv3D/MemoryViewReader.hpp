@@ -24,7 +24,7 @@ namespace s3d
 		MemoryViewReader() = default;
 
 		SIV3D_NODISCARD_CXX20
-		constexpr MemoryViewReader(const void* data, size_t size_bytes) noexcept;
+		MemoryViewReader(const void* data, size_t size_bytes) noexcept;
 
 		/// @brief 読み込み位置を変更しないデータ読み込みをサポートしているかを返します。
 		/// @return 読み込み位置を変更しないデータ読み込みをサポートしている場合 true, それ以外の場合は false

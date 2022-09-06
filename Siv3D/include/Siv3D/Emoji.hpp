@@ -73,5 +73,3 @@ namespace s3d
 		}
 	}
 }
-
-# include "detail/Emoji.ipp"

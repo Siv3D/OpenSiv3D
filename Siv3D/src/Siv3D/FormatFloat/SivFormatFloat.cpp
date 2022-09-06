@@ -10,7 +10,11 @@
 //-----------------------------------------------
 
 # include <Siv3D/FormatFloat.hpp>
+# include <Siv3D/FormatInt.hpp>
+# include <Siv3D/FloatingPoint.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/FormatData.hpp>
+# include <Siv3D/PredefinedYesNo.hpp>
 # include <ThirdParty/double-conversion/double-conversion.h>
 
 namespace s3d
@@ -19,10 +23,12 @@ namespace s3d
 	{
 		using namespace double_conversion;
 
-		constexpr int FormatFlags = DoubleToStringConverter::UNIQUE_ZERO |
+		inline constexpr size_t FormatFloatBufferSize = 384;
+
+		inline constexpr int FormatFlags = DoubleToStringConverter::UNIQUE_ZERO |
 			DoubleToStringConverter::EMIT_POSITIVE_EXPONENT_SIGN;
 
-		String FormatFloat(const double value, const int32 decimalPlace, const Fixed fixed)
+		static String FormatFloat(const double value, const int32 decimalPlace, const Fixed fixed)
 		{
 			DoubleToStringConverter conv(FormatFlags, "inf", "nan", 'e', -324, 309, 0, 0);
 
@@ -64,7 +70,7 @@ namespace s3d
 			}
 		}
 
-		size_t FormatFloat(char32(&dst)[FormatFloatBufferSize], const double value, int32 decimalPlace, const Fixed fixed)
+		static size_t FormatFloat(char32(&dst)[FormatFloatBufferSize], const double value, int32 decimalPlace, const Fixed fixed)
 		{
 			DoubleToStringConverter conv(FormatFlags, "inf", "nan", 'e', -324, 309, 0, 0);
 
@@ -120,5 +126,72 @@ namespace s3d
 				return length;
 			}
 		}
+	}
+
+	void Formatter(FormatData& formatData, const double value)
+	{
+		char32 buf[detail::FormatFloatBufferSize];
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlaces.value, Fixed::No);
+		formatData.string.append(buf, len);
+	}
+
+	String ToString(const float value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(value, decimalPlace, Fixed::No);
+	}
+
+	String ToString(const double value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(value, decimalPlace, Fixed::No);
+	}
+
+	String ToString(const long double value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(static_cast<double>(value), decimalPlace, Fixed::No);
+	}
+
+	String ToFixed(const float value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(value, decimalPlace, Fixed::Yes);
+	}
+
+	String ToFixed(const double value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(value, decimalPlace, Fixed::Yes);
+	}
+
+	String ToFixed(const long double value, const int32 decimalPlace)
+	{
+		return detail::FormatFloat(static_cast<double>(value), decimalPlace, Fixed::Yes);
+	}
+
+	String ToBinary(const float value)
+	{
+		return ToBinary(AsUint32(value));
+	}
+
+	String ToBinary(const double value)
+	{
+		return ToBinary(AsUint64(value));
+	}
+
+	String ToOctal(const float value)
+	{
+		return ToOctal(AsUint32(value));
+	}
+
+	String ToOctal(const double value)
+	{
+		return ToOctal(AsUint64(value));
+	}
+
+	String ToHex(const float value)
+	{
+		return ToHex(AsUint32(value));
+	}
+
+	String ToHex(const double value)
+	{
+		return ToHex(AsUint64(value));
 	}
 }

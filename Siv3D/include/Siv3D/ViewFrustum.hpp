@@ -14,11 +14,18 @@
 # include "Common.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
-# include "SIMDMath.hpp"
-# include "BasicCamera3D.hpp"
+# include "Optional.hpp"
+# include "SIMDCollision.hpp"
 
 namespace s3d
 {
+	class BasicCamera3D;
+	struct Triangle3D;
+	struct Sphere;
+	struct OrientedBox;
+	struct Ray;
+	struct Quaternion;
+
 	class ViewFrustum
 	{
 	public:
