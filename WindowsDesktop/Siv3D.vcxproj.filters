@@ -1612,6 +1612,15 @@
     <Filter Include="src\Siv3D\Transformer3D">
       <UniqueIdentifier>{f1fda0bd-bc94-4650-8420-ccdf16b0eefa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MemoryReader">
+      <UniqueIdentifier>{dfed2a0c-af62-406f-8c7c-77747a7c1bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryViewReader">
+      <UniqueIdentifier>{2a200f4f-0927-4a58-988d-87883bb41b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryWriter">
+      <UniqueIdentifier>{02e4fa4b-1044-4618-a24f-fd53138eceb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -9937,6 +9946,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Transformer3D\SivTransformer3D.cpp">
       <Filter>src\Siv3D\Transformer3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryReader\SivMemoryReader.cpp">
+      <Filter>src\Siv3D\MemoryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryViewReader\SivMemoryViewReader.cpp">
+      <Filter>src\Siv3D\MemoryViewReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryWriter\SivMemoryWriter.cpp">
+      <Filter>src\Siv3D\MemoryWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

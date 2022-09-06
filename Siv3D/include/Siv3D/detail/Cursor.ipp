@@ -15,11 +15,6 @@ namespace s3d
 {
 	namespace Cursor
 	{
-		inline void SetPos(int32 x, int32 y)
-		{
-			SetPos(Point{ x, y });
-		}
-
 		namespace Internal
 		{
 			void SetLocalTransform(const Mat3x2& matrix);

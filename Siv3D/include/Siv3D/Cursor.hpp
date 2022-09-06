@@ -91,7 +91,7 @@ namespace s3d
 		/// @brief マウスカーソルを指定したクライアント座標に移動させます。
 		/// @param x 移動先の X 座標 (ピクセル)
 		/// @param y 移動先の Y 座標 (ピクセル)
-		inline void SetPos(int32 x, int32 y);
+		void SetPos(int32 x, int32 y);
 
 		/// @brief マウスカーソルを指定したクライアント座標に移動させます。
 		/// @param pos 移動先の座標 (ピクセル)

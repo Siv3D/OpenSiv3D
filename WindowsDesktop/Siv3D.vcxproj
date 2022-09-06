@@ -2083,6 +2083,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFileView\SivMemoryMappedFileView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMappedFile\SivMemoryMappedFile.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryReader\SivMemoryReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryViewReader\SivMemoryViewReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryWriter\SivMemoryWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\MeshUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MeshData\SivMeshData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mesh\Null\CMesh_Null.cpp" />

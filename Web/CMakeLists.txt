@@ -376,6 +376,9 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D/MD5Value/SivMD5Value.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFileView/SivMemoryMappedFileView.cpp
   ../Siv3D/src/Siv3D/MemoryMappedFile/SivMemoryMappedFile.cpp
+  ../Siv3D/src/Siv3D/MemoryReader/SivMemoryReader.cpp
+  ../Siv3D/src/Siv3D/MemoryViewReader/SivMemoryViewReader.cpp
+  ../Siv3D/src/Siv3D/MemoryWriter/SivMemoryWriter.cpp
   ../Siv3D/src/Siv3D/Mesh/Null/CMesh_Null.cpp
   ../Siv3D/src/Siv3D/Mesh/SivMesh.cpp
   ../Siv3D/src/Siv3D/MeshData/MeshUtility.cpp
