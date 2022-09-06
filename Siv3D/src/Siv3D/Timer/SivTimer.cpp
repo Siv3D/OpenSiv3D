@@ -11,7 +11,6 @@
 
 # include <Siv3D/Timer.hpp>
 # include <Siv3D/ISteadyClock.hpp>
-# include <Siv3D/String.hpp>
 # include <Siv3D/FormatData.hpp>
 
 namespace s3d
