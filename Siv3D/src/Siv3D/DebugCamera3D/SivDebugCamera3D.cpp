@@ -12,6 +12,7 @@
 # include <Siv3D/DebugCamera3D.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/Interpolation.hpp>
 # include <Siv3D/Graphics3D.hpp>

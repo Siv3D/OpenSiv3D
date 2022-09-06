@@ -1600,6 +1600,18 @@
     <Filter Include="src\Siv3D\PlayingCard">
       <UniqueIdentifier>{5bdde62f-dffc-4952-b581-e1000f185a76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\VariableSpeedStopwatch">
+      <UniqueIdentifier>{5c48ae41-0531-4628-9afb-8974c123a28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Timer">
+      <UniqueIdentifier>{6ce4d34f-1397-4345-a799-b52eb2c292f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Transformer2D">
+      <UniqueIdentifier>{c9b7e0bb-4e29-42a4-b3d1-f5af179786a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Transformer3D">
+      <UniqueIdentifier>{f1fda0bd-bc94-4650-8420-ccdf16b0eefa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -5934,13 +5946,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TOMLReader.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer2D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp">
@@ -5965,9 +5971,6 @@
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility_detail.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector2D.ipp">
@@ -6446,9 +6449,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer3D.hpp">
       <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer3D.ipp">
-      <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ViewFrustum.hpp">
       <Filter>include\Siv3D</Filter>
@@ -9928,6 +9928,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PlayingCard\SivPlayingCard.cpp">
       <Filter>src\Siv3D\PlayingCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VariableSpeedStopwatch\SivVariableSpeedStopwatch.cpp">
+      <Filter>src\Siv3D\VariableSpeedStopwatch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Timer\SivTimer.cpp">
+      <Filter>src\Siv3D\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer2D\SivTransformer2D.cpp">
+      <Filter>src\Siv3D\Transformer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer3D\SivTransformer3D.cpp">
+      <Filter>src\Siv3D\Transformer3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

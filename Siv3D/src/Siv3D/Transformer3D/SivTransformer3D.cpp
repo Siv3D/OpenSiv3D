@@ -9,11 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Transformer3D.hpp>
+# include <Siv3D/Graphics3D.hpp>
 
 namespace s3d
 {
-	inline Transformer3D::Transformer3D(const Mat4x4& transform, const Target target)
+	Transformer3D::Transformer3D(const Mat4x4& transform, const Target target)
 		: m_oldTransform{ Graphics3D::GetLocalTransform() }
 		, m_target{ target }
 	{
@@ -27,14 +28,14 @@ namespace s3d
 		}
 	}
 
-	inline Transformer3D::Transformer3D(Transformer3D&& other) noexcept
+	Transformer3D::Transformer3D(Transformer3D&& other) noexcept
 		: m_oldTransform{ other.m_oldTransform }
 		, m_target{ other.m_target }
 	{
 		other.clear();
 	}
 
-	inline Transformer3D::~Transformer3D()
+	Transformer3D::~Transformer3D()
 	{
 		if (m_oldTransform)
 		{
@@ -42,12 +43,12 @@ namespace s3d
 		}
 	}
 
-	inline void Transformer3D::clear() noexcept
+	void Transformer3D::clear() noexcept
 	{
 		m_oldTransform.reset();
 	}
 
-	inline bool Transformer3D::isPush() const noexcept
+	bool Transformer3D::isPush() const noexcept
 	{
 		return (m_target == Target::PushLocal);
 	}

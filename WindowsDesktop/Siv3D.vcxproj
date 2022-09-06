@@ -56,7 +56,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DisjointSet.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Disc.hpp" />
@@ -297,9 +296,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureDesc.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextureFormat.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TextWriter.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Timer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TOMLReader.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transformer2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Transition.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Triangle.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Triangle3D.ipp" />
@@ -309,7 +306,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Utility_detail.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\UUIDValue.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\VariableSpeedStopwatch.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Vector4D.ipp" />
@@ -2403,9 +2399,12 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Timer\SivTimer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\SivToastNotification.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ToastNotification\ToastNotificationFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer2D\SivTransformer2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Transformer3D\SivTransformer3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
@@ -2415,6 +2414,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\UserAction\CUserAction.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UserAction\UserActionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UUIDValue\SivUUIDValue.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VariableSpeedStopwatch\SivVariableSpeedStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />

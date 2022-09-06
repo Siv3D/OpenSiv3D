@@ -21,17 +21,22 @@ namespace s3d
 {
 	namespace Hash
 	{
+		[[nodiscard]]
 		inline size_t FNV1a(const void* input, size_t size) noexcept;
 
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		[[nodiscard]]
 		inline size_t FNV1a(const TriviallyCopyable& input) noexcept;
 
+		[[nodiscard]]
 		uint64 XXHash3(const void* input, size_t size) noexcept;
 
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
+		[[nodiscard]]
 		inline uint64 XXHash3(const TriviallyCopyable& input) noexcept;
 
 		template <class Type>
+		[[nodiscard]]
 		inline void Combine(size_t& h, const Type& input) noexcept;
 	}
 }

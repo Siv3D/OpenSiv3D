@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Camera2D.hpp>
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Interpolation.hpp>
 # include <Siv3D/Mouse.hpp>
 

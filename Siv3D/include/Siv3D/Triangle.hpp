@@ -183,9 +183,11 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Line side(size_t index) const;
 
-		[[nodiscard]] value_type area() const noexcept;
+		[[nodiscard]]
+		constexpr value_type area() const noexcept;
 
-		[[nodiscard]] value_type perimeter() const noexcept;
+		[[nodiscard]]
+		value_type perimeter() const noexcept;
 	
 		[[nodiscard]]
 		constexpr RectF boundingRect() const noexcept;
