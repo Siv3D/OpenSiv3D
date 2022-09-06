@@ -11,6 +11,7 @@
 
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Window.hpp>
+# include <Siv3D/WindowState.hpp>
 # include <Siv3D/Cursor/ICursor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 

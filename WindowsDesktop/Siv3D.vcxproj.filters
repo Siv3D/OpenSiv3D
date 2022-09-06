@@ -5565,9 +5565,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Ellipse.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp">
-      <Filter>include\Siv3D\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Endian.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>

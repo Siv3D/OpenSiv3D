@@ -484,20 +484,6 @@ namespace s3d
 		return std::none_of(m_data.begin(), m_data.end(), f);
 	}
 
-	inline LineString& LineString::append(const Array<value_type>& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
-	inline LineString& LineString::append(const LineString& other)
-	{
-		m_data.insert(end(), other.begin(), other.end());
-
-		return *this;
-	}
-
 	template <class Fty>
 	inline LineString& LineString::remove_if(Fty f)
 	{

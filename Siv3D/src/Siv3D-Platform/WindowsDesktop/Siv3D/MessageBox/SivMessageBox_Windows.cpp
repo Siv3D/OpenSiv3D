@@ -12,6 +12,7 @@
 # include <Siv3D/MessageBox.hpp>
 # include <Siv3D/AsyncTask.hpp>
 # include <Siv3D/Window.hpp>
+# include <Siv3D/WindowState.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>

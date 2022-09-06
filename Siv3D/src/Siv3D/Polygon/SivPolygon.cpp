@@ -157,6 +157,11 @@ namespace s3d
 		return pImpl->outer().isEmpty();
 	}
 
+	Polygon::operator bool() const noexcept
+	{
+		return (not pImpl->outer().isEmpty());
+	}
+
 	bool Polygon::hasHoles() const noexcept
 	{
 		return (not pImpl->inners().isEmpty());
@@ -165,6 +170,11 @@ namespace s3d
 	size_t Polygon::num_holes() const noexcept
 	{
 		return pImpl->inners().size();
+	}
+
+	void Polygon::swap(Polygon& polygon) noexcept
+	{
+		std::swap(pImpl, polygon.pImpl);
 	}
 
 	const Array<Vec2>& Polygon::outer() const noexcept
@@ -470,6 +480,11 @@ namespace s3d
 		return true;
 	}
 
+	Polygon Polygon::movedBy(const double x, const double y) const
+	{
+		return movedBy(Vec2{ x, y });
+	}
+
 	Polygon Polygon::movedBy(const Vec2 v) const
 	{
 		Polygon result{ *this };
@@ -479,11 +494,26 @@ namespace s3d
 		return result;
 	}
 
+	Polygon& Polygon::moveBy(const double x, const double y) noexcept
+	{
+		return moveBy(Vec2{ x, y });
+	}
+
 	Polygon& Polygon::moveBy(const Vec2 v) noexcept
 	{
 		pImpl->moveBy(v);
 
 		return *this;
+	}
+
+	Polygon Polygon::rotated(const double angle) const
+	{
+		return rotatedAt(Vec2{ 0, 0 }, angle);
+	}
+
+	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
+	{
+		return rotatedAt(Vec2{ x, y }, angle);
 	}
 
 	Polygon Polygon::rotatedAt(const Vec2 pos, const double angle) const
@@ -493,6 +523,16 @@ namespace s3d
 		result.rotateAt(pos, angle);
 
 		return result;
+	}
+
+	Polygon& Polygon::rotate(const double angle)
+	{
+		return rotateAt(Vec2{ 0, 0 }, angle);
+	}
+
+	Polygon& Polygon::rotateAt(const double x, const double y, const double angle)
+	{
+		return rotateAt(Vec2{ x, y }, angle);
 	}
 
 	Polygon& Polygon::rotateAt(const Vec2 pos, const double angle)
@@ -820,6 +860,11 @@ namespace s3d
 		return *this;
 	}
 
+	void Polygon::draw(const double x, const double y, const ColorF& color) const
+	{
+		draw(Vec2{ x, y }, color);
+	}
+
 	void Polygon::draw(const Vec2& pos, const ColorF& color) const
 	{
 		pImpl->draw(pos, color);
@@ -841,6 +886,11 @@ namespace s3d
 		pImpl->drawFrame(thickness, color);
 
 		return *this;
+	}
+
+	void Polygon::drawFrame(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawFrame(Vec2{ x, y }, thickness, color);
 	}
 
 	void Polygon::drawFrame(const Vec2& pos, const double thickness, const ColorF& color) const
@@ -871,6 +921,11 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	void Polygon::drawWireframe(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawWireframe(Vec2{ x, y }, thickness, color);
 	}
 
 	void Polygon::drawWireframe(const Vec2& pos, const double thickness, const ColorF& color) const
@@ -965,6 +1020,11 @@ namespace s3d
 		return detail::Convert(failure);
 	}
 
+	PolygonFailureType Polygon::Validate(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return Validate(vertices.data(), vertices.size(), holes);
+	}
+
 	Array<Polygon> Polygon::Correct(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{
 		CwOpenPolygon polygon;
@@ -1035,6 +1095,11 @@ namespace s3d
 		return results;
 	}
 
+	Array<Polygon> Polygon::Correct(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return Correct(vertices.data(), vertices.size(), holes);
+	}
+
 	Polygon Polygon::CorrectOne(const Vec2* pVertex, const size_t vertexSize, const Array<Array<Vec2>>& holes)
 	{
 		Array<Polygon> polygons = Correct(pVertex, vertexSize, holes);
@@ -1059,6 +1124,11 @@ namespace s3d
 		}
 
 		return polygons[index];
+	}
+
+	Polygon Polygon::CorrectOne(const Array<Vec2>& vertices, const Array<Array<Vec2>>& holes)
+	{
+		return CorrectOne(vertices.data(), vertices.size(), holes);
 	}
 
 	void Formatter(FormatData& formatData, const Polygon& value)

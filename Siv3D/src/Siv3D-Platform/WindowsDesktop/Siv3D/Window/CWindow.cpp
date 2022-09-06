@@ -15,7 +15,7 @@
 # include <Siv3D/FormatLiteral.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/UserAction.hpp>
-# include <Siv3D/Monitor.hpp>
+# include <Siv3D/MonitorInfo.hpp>
 # include <Siv3D/Scene.hpp>
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>

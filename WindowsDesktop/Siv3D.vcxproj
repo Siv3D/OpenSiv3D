@@ -167,7 +167,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\EasingAB.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Effect.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Ellipse.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Emoji.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Endian.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\EngineLog.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Error.ipp" />

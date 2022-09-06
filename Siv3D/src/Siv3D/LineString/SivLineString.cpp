@@ -112,6 +112,20 @@ namespace s3d
 		return m_data.join(sep, begin, end);
 	}
 
+	LineString& LineString::append(const Array<value_type>& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	LineString& LineString::append(const LineString& other)
+	{
+		m_data.insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
 	LineString& LineString::remove(const value_type& value)
 	{
 		m_data.remove(value);

@@ -15,6 +15,15 @@
 
 namespace s3d
 {
+	Emoji::Emoji(const char32* emoji) noexcept
+		: codePoints{ emoji } {}
+
+	Emoji::Emoji(const StringView emoji) noexcept
+		: codePoints{ emoji } {}
+
+	Emoji::Emoji(String emoji) noexcept
+		: codePoints{ std::move(emoji) } {}
+
 	bool Emoji::HasGlyph(const StringView emoji)
 	{
 		return SIV3D_ENGINE(Font)->hasEmoji(emoji);

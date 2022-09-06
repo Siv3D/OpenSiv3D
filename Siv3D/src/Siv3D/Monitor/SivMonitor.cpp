@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/MonitorInfo.hpp>
 
 namespace s3d
 {

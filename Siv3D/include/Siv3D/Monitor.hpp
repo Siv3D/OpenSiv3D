@@ -11,10 +11,11 @@
 
 # pragma once
 # include "Common.hpp"
-# include "MonitorInfo.hpp"
 
 namespace s3d
 {
+	struct MonitorInfo;
+
 	namespace System
 	{
 		/// @brief ウィンドウが配置されているモニターのインデックスを取得します。

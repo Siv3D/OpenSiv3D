@@ -14,6 +14,7 @@
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 # include "Window.hpp"
+# include "WindowState.hpp"
 # include "TextureFilter.hpp"
 # include "ResizeMode.hpp"
 
@@ -51,7 +52,7 @@ namespace s3d
 		/// @remark シーンのリサイズモードが `ResizeMode::Keep` でなければ、ウィンドウのリサイズ時に自動的にシーンのサイズも変更されます。
 		/// @param width 新しいシーンの幅（ピクセル）
 		/// @param height 新しいシーンの高さ（ピクセル）
-		inline void Resize(int32 width, int32 height);
+		void Resize(int32 width, int32 height);
 
 		/// @brief 現在のシーンの幅と高さ（ピクセル）を返します。
 		/// @return シーンの幅と高さ（ピクセル）
@@ -61,27 +62,27 @@ namespace s3d
 		/// @brief 現在のシーンの幅（ピクセル）を返します。
 		/// @return シーンの幅（ピクセル）
 		[[nodiscard]]
-		inline int32 Width() noexcept;
+		int32 Width() noexcept;
 
 		/// @brief 現在のシーンの高さ（ピクセル）を返します。
 		/// @return シーンの高さ（ピクセル）
 		[[nodiscard]]
-		inline int32 Height() noexcept;
+		int32 Height() noexcept;
 
 		/// @brief シーンの中心の座標を `Point` 型で返します。
 		/// @return シーンの中心の座標
 		[[nodiscard]]
-		inline Point Center() noexcept;
+		Point Center() noexcept;
 
 		/// @brief シーンの中心の座標を `Vec2` 型で返します。
 		/// @return シーンの中心の座標
 		[[nodiscard]]
-		inline Vec2 CenterF() noexcept;
+		Vec2 CenterF() noexcept;
 
 		/// @brief 左上が (0, 0) で現在のシーンと同じ大きさの `Rect` を返します。
 		/// @return シーンと同じ大きさの `Rect`
 		[[nodiscard]]
-		inline s3d::Rect Rect() noexcept;
+		s3d::Rect Rect() noexcept;
 
 		template <class Type = double>
 		[[nodiscard]]
