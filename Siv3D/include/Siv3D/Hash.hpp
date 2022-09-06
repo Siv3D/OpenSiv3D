@@ -22,7 +22,7 @@ namespace s3d
 	namespace Hash
 	{
 		[[nodiscard]]
-		inline size_t FNV1a(const void* input, size_t size) noexcept;
+		size_t FNV1a(const void* input, size_t size) noexcept;
 
 		SIV3D_CONCEPT_TRIVIALLY_COPYABLE
 		[[nodiscard]]
