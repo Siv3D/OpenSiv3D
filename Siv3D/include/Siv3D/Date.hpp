@@ -18,11 +18,12 @@
 # include "DayOfWeek.hpp"
 # include "String.hpp"
 # include "Duration.hpp"
-# include "FormatData.hpp"
 # include "FormatLiteral.hpp"
 
 namespace s3d
 {
+	struct FormatData;
+
 	/// @brief 日付 | Date
 	struct Date
 	{
@@ -253,10 +254,7 @@ namespace s3d
 		/// @brief 
 		/// @param formatData 
 		/// @param value 
-		friend void Formatter(FormatData& formatData, const Date& value)
-		{
-			formatData.string.append(value.format());
-		}
+		friend void Formatter(FormatData& formatData, const Date& value);
 	};
 
 	/// @brief 日付を文字列に変換します。

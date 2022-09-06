@@ -12,6 +12,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Window/IWindow.hpp>
 # include <Siv3D/UserAction/IUserAction.hpp>

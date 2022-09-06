@@ -13,6 +13,7 @@
 # include <cmath>
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "PlaceHolder.hpp"
 
 namespace s3d
 {

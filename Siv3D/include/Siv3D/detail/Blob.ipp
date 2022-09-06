@@ -68,31 +68,6 @@ namespace s3d
 		return m_data.capacity();
 	}
 
-	inline void Blob::reserve(const size_t sizeBytes)
-	{
-		m_data.reserve(sizeBytes);
-	}
-
-	inline void Blob::resize(const size_t sizeBytes)
-	{
-		m_data.resize(sizeBytes, Byte{ 0 });
-	}
-
-	inline void Blob::shrink_to_fit()
-	{
-		m_data.shrink_to_fit();
-	}
-
-	inline void Blob::clear()
-	{
-		m_data.clear();
-	}
-
-	inline void Blob::release()
-	{
-		m_data.release();
-	}
-
 	inline Blob::iterator Blob::begin() noexcept
 	{
 		return m_data.begin();

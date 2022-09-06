@@ -112,6 +112,31 @@ namespace s3d
 		return result;
 	}
 
+	void Blob::reserve(const size_t sizeBytes)
+	{
+		m_data.reserve(sizeBytes);
+	}
+
+	void Blob::resize(const size_t sizeBytes)
+	{
+		m_data.resize(sizeBytes, Byte{ 0 });
+	}
+
+	void Blob::shrink_to_fit()
+	{
+		m_data.shrink_to_fit();
+	}
+
+	void Blob::clear()
+	{
+		m_data.clear();
+	}
+
+	void Blob::release()
+	{
+		m_data.release();
+	}
+
 	void Blob::append(const void* src, const size_t sizeBytes)
 	{
 		m_data.insert(m_data.end(), static_cast<const Byte*>(src), (static_cast<const Byte*>(src) + sizeBytes));

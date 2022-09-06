@@ -11,7 +11,6 @@
 
 # pragma once
 # include "Common.hpp"
-# include "PlaceHolder.hpp"
 # include "FormatData.hpp"
 # include "Formatter.hpp"
 
@@ -24,26 +23,6 @@ namespace s3d
 
 		template <class T, class... TT>
 		struct FormatArgValidation<T, TT...> : std::bool_constant<!(std::disjunction_v<std::is_same<std::decay_t<T>, char*>, std::is_same<std::decay_t<T>, wchar_t*>>) && FormatArgValidation<TT...>::value> {};
-
-		struct FormatPlaceholder_impl
-		{
-		private:
-
-			String m_head;
-
-			String m_tail;
-
-		public:
-
-			SIV3D_NODISCARD_CXX20
-			FormatPlaceholder_impl(String&& head, String&& tail) noexcept
-				: m_head(std::move(head))
-				, m_tail(std::move(tail)) {}
-
-			template <class Type>
-			[[nodiscard]]
-			String operator ()(const Type& value) const;
-		};
 
 		struct Format_impl
 		{
@@ -157,40 +136,7 @@ namespace s3d
 			{
 				return std::move(s);
 			}
-
-			[[nodiscard]]
-			constexpr Format_impl operator ()(PlaceHolder_t) const
-			{
-				return detail::Format_impl{};
-			}
-
-			template <class Head>
-			[[nodiscard]]
-			FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t) const
-			{
-				return FormatPlaceholder_impl(operator()(std::forward<Head>(head)), String());
-			}
-
-			template <class Tail>
-			[[nodiscard]]
-			FormatPlaceholder_impl operator ()(PlaceHolder_t, Tail&& tail) const
-			{
-				return FormatPlaceholder_impl(String(), operator()(std::forward<Tail>(tail)));
-			}
-
-			template <class Head, class Tail>
-			[[nodiscard]]
-			FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t, Tail&& tail) const
-			{
-				return FormatPlaceholder_impl(operator()(std::forward<Head>(head)), operator()(std::forward<Tail>(tail)));
-			}
 		};
-
-		template <class Type>
-		String FormatPlaceholder_impl::operator ()(const Type& value) const
-		{
-			return m_head + Format_impl{}(value) + m_tail;
-		}
 	}
 
 	inline constexpr auto Format = detail::Format_impl{};
