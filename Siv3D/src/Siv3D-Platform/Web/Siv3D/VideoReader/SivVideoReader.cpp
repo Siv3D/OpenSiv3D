@@ -31,7 +31,7 @@ namespace s3d
 	bool VideoReader::open(const FilePathView path)
 	{
 	# if SIV3D_PLATFORM(WEB)
-		Platform::Web::FileSystem::FetchFileIfNotExists(path);
+		Platform::Web::FetchFileIfNotExists(path);
 	# endif
 		return pImpl->open(path);
 	}

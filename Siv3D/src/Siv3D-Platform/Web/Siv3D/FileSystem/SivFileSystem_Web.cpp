@@ -606,10 +606,7 @@ namespace s3d
 			const auto fileName = s3d::FileSystem::FileName(filePath);
 			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
 		}
-	}
 
-	namespace Platform::Web::FileSystem
-	{
 		void FetchFileIfNotExists(FilePathView filePath)
 		{
 			if (not s3d::FileSystem::Exists(filePath))

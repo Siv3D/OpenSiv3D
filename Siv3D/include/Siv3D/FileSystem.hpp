@@ -258,10 +258,7 @@ namespace s3d
 		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
 		/// @param filePath ブラウザ上の仮想ファイルへのパス
 		void DownloadFile(FilePathView filePath);
-	}
 
-	namespace Platform::Web::FileSystem
-	{
 		/// @brief サーバー上からブラウザ上の仮想ファイルへファイルをダウンロードします。
 		/// @param filePath ブラウザ上の仮想ファイルへのパス
 		void FetchFileIfNotExists(FilePathView filePath);
