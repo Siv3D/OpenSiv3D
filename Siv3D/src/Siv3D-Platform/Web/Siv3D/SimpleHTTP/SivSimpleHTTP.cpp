@@ -12,6 +12,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/SimpleHTTP.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
@@ -99,13 +100,30 @@ namespace s3d
 				return{};
 			}
 
-			String tmpFile{U"/tmp/file"};
+			String temporaryFile{U"/tmp/file"};
 
-			auto httpTask = SaveAsync(url, tmpFile);
+			auto httpTask = SaveAsync(url, temporaryFile);
 			auto httpFuture = Platform::Web::SimpleHTTP::CreateAsyncTask(httpTask);
-			
+
 			if (auto httpResponse = Platform::Web::System::WaitForFutureResolved(httpFuture))
 			{
+				BinaryReader temporaryFileReader{temporaryFile};
+
+				Array<uint8> buffer;
+				buffer.resize(4096);
+
+				while (true)
+				{
+					auto size = temporaryFileReader.read(buffer.data(), buffer.size());
+
+					if (size == 0)
+					{
+						break;
+					}
+
+					writer.write(buffer.data(), size);
+				}
+
 				return *httpResponse;
 			}
 			else
