@@ -1,11 +1,18 @@
 # include <Siv3D.hpp>
-# include <emscripten/bind.h>
+# include <emscripten/emscripten.h>
 
 static String Text;
 
-std::string GetText()
+typedef char __attribute__((address_space(10)))* externref;
+
+EM_JS(externref, UTF8ToJsString, (const char* text), {
+ 	return UTF8ToString(text);
+});
+
+EMSCRIPTEN_KEEPALIVE
+extern "C" externref GetResult()
 {
-    return Text.narrow();
+    return UTF8ToJsString(Text.narrow().c_str());
 }
 
 void Main()
@@ -20,10 +27,4 @@ void Main()
 			Text = textState.text;
 		}
     }
-}
-
-EMSCRIPTEN_BINDINGS(Bindings) {
-    using namespace emscripten;
-
-    function("GetText", &GetText);
 }

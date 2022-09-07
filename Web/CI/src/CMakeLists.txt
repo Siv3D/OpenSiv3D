@@ -47,7 +47,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unknown-pragmas")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unknown-pragmas -mreference-types")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -O2 -pg")
@@ -65,10 +65,10 @@ set(Siv3DLinkerFlags
   -s USE_OGG=1
   -s USE_VORBIS=1
   -s EXIT_RUNTIME=1
-  -lembind
   --js-library ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.js
   --pre-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.pre.js
   --post-js ${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.post.js
+  -s EXPORTED_FUNCTIONS='["_GetResult", "_main"]'
 )
 
 string(REPLACE ";" " " Siv3DLinkerFlags "${Siv3DLinkerFlags}")
@@ -108,7 +108,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   add_compile_options ("-fdiagnostics-color=always")
 endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 
 #
 # Siv3D App Definition
@@ -141,11 +141,8 @@ else()
 endif()
 
 set(Siv3DLinkerFlags
-  -s MODULARIZE=1
   -s ASYNCIFY=1
   -s ASYNCIFY_IGNORE_INDIRECT=1
-  --shell-file ${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.html
-  --post-js ${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.js
 )
 
 set_target_properties(Siv3DApp
