@@ -27,8 +27,6 @@ void Main()
 	// 絵文字を描画する座標 | Coordinates of the emoji
 	Vec2 emojiPos{ 300, 150 };
 
-	double* Pos = &emojiPos.x;
-
 	// テキストを画面にデバッグ出力 | Print a text
 	Print << U"Push [A] key";
 
