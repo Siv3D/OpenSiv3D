@@ -546,9 +546,8 @@ jobs:
           path: .
       - name: Restore Siv3D library
         run: |
-          tar -xvf OpenSiv3D.tgz
-          mkdir Web/build
-          cp -r Package/lib/* Web/build
+          tar -xvf OpenSiv3D.tgz   
+          mv Package Web/CI/src
 
       - name: Install dependencies
         working-directory: Web/CI
@@ -556,6 +555,6 @@ jobs:
       - name: Building web application to be tested
         working-directory: Web/CI
         run: npm run build
-      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+      - name: Running test on BrowserStack  # Invokes the actual test script that would run on BrowserStack browsers
         working-directory: Web/CI
         run: npm test  # See sample test script above
