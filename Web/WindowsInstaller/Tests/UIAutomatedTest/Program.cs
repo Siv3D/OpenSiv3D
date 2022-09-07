@@ -105,9 +105,9 @@ namespace UIXPathLib
                 desktopSession.TakeScreenShot("Start.png");
 
                 //Paste generated code here
-                // LeftClick on Hyperlink "Not now, maybe later." at (16,9)
-                Console.WriteLine("LeftClick on Hyperlink \"Not now, maybe later.\" at (16,9)");
-                string xpath_LeftClickHyperlinkNotnowmayb_16_9 = "/Pane[@ClassName=\"#32769\"][@Name=\"Desktop 1\"]/Window[@ClassName=\"Window\"][@Name=\"Microsoft Visual Studio\"]/Custom[starts-with(@AutomationId,\"UserControl_\")]/Text[@Name=\"Not now, maybe later.\"][starts-with(@AutomationId,\"TextBlock_\")]/Hyperlink[@ClassName=\"Hyperlink\"][@Name=\"Not now, maybe later.\"]";
+                // LeftClick on Hyperlink "Skip this for now." at (16,9)
+                Console.WriteLine("LeftClick on Hyperlink \"Skip this for now.\" at (16,9)");
+                string xpath_LeftClickHyperlinkNotnowmayb_16_9 = "/Pane[@ClassName=\"#32769\"][@Name=\"Desktop 1\"]/Window[@ClassName=\"Window\"][@Name=\"Microsoft Visual Studio\"]/Custom[starts-with(@AutomationId,\"UserControl_\")]/Text[@Name=\"Skip this for now.\"][starts-with(@AutomationId,\"TextBlock_\")]/Hyperlink[@ClassName=\"Hyperlink\"][@Name=\"Skip this for now.\"]";
                 var winElem_LeftClickHyperlinkNotnowmayb_16_9 = desktopSession.FindElementByAbsoluteXPath(xpath_LeftClickHyperlinkNotnowmayb_16_9, TimeSpan.FromMinutes(10), TimeSpan.FromSeconds(10));
                 desktopSession.TakeScreenShot("Initial Window1.png");
                 if (winElem_LeftClickHyperlinkNotnowmayb_16_9 != null)
