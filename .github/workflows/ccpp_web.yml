@@ -232,9 +232,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Siv3DApp-${{ matrix.config.app-name }}
-          path: Web/App/Siv3DApp.*
+          path: |
+            Web/App/Siv3DApp.*
+            Web/App/example/
 
-      - name: Save Bundles
+      - name: Save Bundles (Side Module)
         if: ${{ matrix.config.name == 'wasm-side-module' }}
         uses: actions/upload-artifact@v2
         with:
