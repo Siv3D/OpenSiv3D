@@ -60,7 +60,7 @@ parallel("TextInput Tests", function() {
 
                 const app: Siv3DApp = await Siv3DApp.open(
                     driver,
-                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
+                    getUrl(capability, "src/TextInput/Siv3DApp.html"),
                     { width: 800, height: 600 });
 
                 await app.waitForReady(driver);
@@ -103,7 +103,7 @@ parallel("TextInput Tests", function() {
 
                 await Siv3DApp.open(
                     driver,
-                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
+                    getUrl(capability, "src/TextInput/Siv3DApp.html"),
                     { width: 800, height: 600 });
                 
                 await driver.wait(until.alertIsPresent(), 30 * 1000);

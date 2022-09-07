@@ -59,12 +59,12 @@ parallel("MessageBox Tests", function() {
                 if (capability.os === "iOS") {
                     app = await Siv3DApp.open(
                         driver,
-                        "http://bs-local.com:8080/src/MessageBox/Siv3DTest.html",
+                        "http://bs-local.com:8080/src/MessageBox/Siv3DApp.html",
                         { width: 800, height: 600 });
                 } else {
                     app = await Siv3DApp.open(
                         driver,
-                        "http://127.0.0.1:8080/src/MessageBox/Siv3DTest.html",
+                        "http://127.0.0.1:8080/src/MessageBox/Siv3DApp.html",
                         { width: 800, height: 600 });
                 }
 
