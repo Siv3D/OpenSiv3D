@@ -51,7 +51,7 @@ parallel("MessageBox Tests", function() {
                 this.timeout(timeout);
 
                 async function GetResult() {
-                    return await driver.executeScript("return Module.GetResult()") as string;
+                    return await driver.executeScript("return Module[\"_GetResult\"]()") as string;
                 }
 
                 let app: Siv3DApp;

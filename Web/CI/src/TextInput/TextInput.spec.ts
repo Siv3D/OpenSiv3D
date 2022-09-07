@@ -55,7 +55,7 @@ parallel("TextInput Tests", function() {
                 }
 
                 async function GetInputText() {
-                    return await driver.executeScript("return Module.GetText()") as string;
+                    return await driver.executeScript("return Module[\"_GetResult\"]()") as string;
                 }
 
                 const app: Siv3DApp = await Siv3DApp.open(
