@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <IncludePath>$(SIV3D_0_6_5_WEB)\include;$(SIV3D_0_6_5_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\libpng;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
+    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\png;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <IncludePath>$(SIV3D_0_6_5_WEB)\include;$(SIV3D_0_6_5_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\libpng;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
+    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\png;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
