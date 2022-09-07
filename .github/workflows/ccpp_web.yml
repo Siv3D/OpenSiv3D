@@ -504,9 +504,9 @@ jobs:
     steps:
       - run: |
           curl -X POST \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" \
           "https://api.github.com/repos/nokotan/OpenSiv3DForWeb-VSCode/actions/workflows/update.yml/dispatches" \
-          -d '{ "ref": "master", "inputs": { "name": "Update ${{ github.ref }}", "url": "${{ needs.pre-deploy.outputs.upload_url }}" } }'
+          -d '{ "ref": "main", "inputs": { "name": "Update ${{ github.ref }}", "url": "${{ needs.pre-deploy.outputs.upload_url }}" } }'
 
   e2e-test-prerequisites:
     runs-on: ubuntu-latest
