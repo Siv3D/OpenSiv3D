@@ -1194,11 +1194,14 @@ namespace s3d
 	inline void swap(Array<Type, Allocator>& a, Array<Type, Allocator>& b) noexcept;
 
 	// deduction guide
-	template <class Type>
-	Array(std::initializer_list<Type>)->Array<Type>;
+	template <class Type, class Allocator = std::allocator<Type>>
+	Array(std::initializer_list<Type>, const Allocator& = Allocator{}) -> Array<Type, Allocator>;
 
 	template <class ArrayIsh, std::enable_if_t<Meta::HasAsArray<ArrayIsh>::value>* = nullptr>
-	Array(const ArrayIsh& a)->Array<typename decltype(std::declval<ArrayIsh>().asArray())::value_type>;
+	Array(ArrayIsh&&) -> Array<typename std::remove_cvref_t<decltype(std::declval<ArrayIsh>().asArray())>::value_type, typename std::remove_cvref_t<decltype(std::declval<ArrayIsh>().asArray())>::allocator_type>;
+
+	template <class Iterator, class Allocator = std::allocator<typename std::iterator_traits<Iterator>::value_type>>
+	Array(Iterator, Iterator, const Allocator& = Allocator{}) -> Array<typename std::iterator_traits<Iterator>::value_type, Allocator>;
 
 	/// @brief 
 	/// @tparam T0 
