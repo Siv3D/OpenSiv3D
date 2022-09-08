@@ -1,7 +1,8 @@
 (function() {
+    const scriptUrl = document.currentScript.src;
+    const scriptUrlRoot = scriptUrl.substr(0, scriptUrl.lastIndexOf("/") + 1);
     Module["locateFile"] = function(url) {
-        const scriptUrl = document.currentScript.src;
-        return scriptUrl.substr(0, scriptUrl.lastIndexOf("/") + 1) + url;
+        return scriptUrlRoot + url;
     }
     const libs = Module["dynamicLibraries"];
     Module["dynamicLibraries"] = [];
