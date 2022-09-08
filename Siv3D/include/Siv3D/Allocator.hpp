@@ -39,9 +39,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Allocator(const Allocator&) noexcept = default;
 
-		template <class Other>
+		template <class Other, size_t OtherAlignment>
 		SIV3D_NODISCARD_CXX20
-		constexpr Allocator(const Allocator<Other>&) noexcept {}
+		constexpr Allocator(const Allocator<Other, OtherAlignment>&) noexcept {}
 
 		[[nodiscard]]
 	# if SIV3D_PLATFORM(WINDOWS)
@@ -50,11 +50,17 @@ namespace s3d
 		Type* allocate(size_t n);
 
 		void deallocate(Type* p, size_t);
+		
+		template <class U>
+		struct rebind
+		{
+			using other = Allocator<U, Alignment>;
+		};
 	};
 
-	template <class T1, class T2>
+	template <class T1, size_t A1, class T2, size_t A2>
 	[[nodiscard]]
-	inline constexpr bool operator ==(const Allocator<T1>&, const Allocator<T2>&) noexcept;
+	inline constexpr bool operator ==(const Allocator<T1, A1>&, const Allocator<T2, A2>&) noexcept;
 
 	/// @brief メモリアライメントを考慮したデフォルトのアロケータ
 	/// @tparam Type アロケーションするオブジェクトの型
