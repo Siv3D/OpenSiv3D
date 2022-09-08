@@ -241,7 +241,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: OpenSiv3D-Bundles-wasm-shared-main
-          path: Web/App/Siv3D.*
+          path: |
+            Web/App/Siv3D.*
+            Web/App/example/
 
   build-installer:
     needs: build
@@ -454,7 +456,7 @@ jobs:
           mkdir -p Dest/v6-wasm-app
           mkdir -p Dest/v6-wasm-simd-app
           mkdir -p Dest/v6-wasm-side-module-app
-          mkdir -p Dest/lib/v6
+          mkdir -p Dest/v6/lib
 
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
@@ -482,9 +484,10 @@ jobs:
 
       - name: Place Siv3D library (wasm-side-module)
         run: |
-          cp Package/lib/Siv3D.wasm Dest/lib/v6
-          cp Package/lib/Siv3D.js Dest/lib/v6
-          cp Package/lib/Siv3D.data Dest/lib/v6
+          cp Package/lib/Siv3D.wasm Dest/v6/lib
+          cp Package/lib/Siv3D.js Dest/v6/lib
+          cp Package/lib/Siv3D.data Dest/v6/lib
+          cp -r Package/lib/example Dest/v6/
 
       - name: Place Siv3D Apps (wasm-side-module)
         uses: actions/download-artifact@v2
