@@ -13,6 +13,16 @@ mergeInto(LibraryManager.library, {
     siv3dRuntimeKeepalivePop__sig: "v",
     siv3dRuntimeKeepalivePop__deps: [ "$runtimeKeepalivePop" ],
 
+    siv3dLocateFile: function() {
+        if (Module["locateFile"]) {
+            const origin = Module["locateFile"]("");
+            return allocate(intArrayFromString(origin), ALLOC_NORMAL);
+        } else {
+            return 0;
+        }
+    },
+    siv3dLocateFile__sig: "vi",
+
     //
     // GamePads
     //
