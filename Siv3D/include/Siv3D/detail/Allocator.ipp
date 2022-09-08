@@ -25,8 +25,8 @@ namespace s3d
 		AlignedFree(p);
 	}
 
-	template <class T1, class T2>
-	inline constexpr bool operator ==(const Allocator<T1>&, const Allocator<T2>&) noexcept
+	template <class T1, size_t A1, class T2, size_t A2>
+	inline constexpr bool operator ==(const Allocator<T1, A1>&, const Allocator<T2, A2>&) noexcept
 	{
 		return true;
 	}
