@@ -22,7 +22,7 @@ jobs:
         id: check_siv3d_update
         uses: actions/cache@v1
         env:
-          cache-name: check_siv3d_update
+          cache-name: check_siv3d_update-1
         with:
           path: dummy 
           key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
