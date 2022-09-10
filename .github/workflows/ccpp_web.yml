@@ -314,7 +314,7 @@ jobs:
         if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/WindowsInstaller
         run: |
-          mkdir Output
+          mkdir -Force Output
           iscc /O"Output" "./${{ matrix.config.script }}"
        
       - name: Save Bundles
