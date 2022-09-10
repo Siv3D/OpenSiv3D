@@ -29,7 +29,7 @@ jobs:
 
       - name: Install Boost
         uses: ./.github/actions/download-boost
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        if: ${{ !steps.check_siv3d_update.outputs.cache-hit }}
         with:
           version: '1.74.0'
           cache-name: cache-boost-headers-1
