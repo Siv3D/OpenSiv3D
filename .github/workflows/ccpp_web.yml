@@ -11,7 +11,7 @@ jobs:
   pre-build:
     runs-on: ubuntu-latest
     outputs: 
-      has-update: ${{ !steps.check_siv3d_update.outputs.cache-hit }}
+      has-update: ${{ steps.store_siv3d_cache_result.outputs.has-update }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -26,6 +26,9 @@ jobs:
         with:
           path: dummy 
           key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
+
+      - id: store_siv3d_cache_result
+        run: echo "::set-output name=has-update::${{ !steps.check_siv3d_update.outputs.cache-hit }}"
 
       - name: Install Boost
         uses: ./.github/actions/download-boost
