@@ -477,6 +477,7 @@ jobs:
           mkdir -p dist/v6-wasm-simd-app
           mkdir -p dist/v6-wasm-side-module-app
           mkdir -p dist/v6/lib
+          mkdir -p dist/v6/dev/lib
 
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
