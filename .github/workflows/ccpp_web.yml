@@ -16,13 +16,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - run: mkdir dummy
+
       - name: Check If Rebuild is Required
         id: check_siv3d_update
         uses: actions/cache@v1
         env:
           cache-name: check_siv3d_update
         with:
-          path: README.md
+          path: dummy 
           key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
 
       - name: Install Boost
