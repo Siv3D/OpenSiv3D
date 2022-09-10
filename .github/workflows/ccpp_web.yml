@@ -11,7 +11,7 @@ jobs:
   pre-build:
     runs-on: ubuntu-latest
     outputs: 
-      has-update: ${{ steps.store_siv3d_cache_result.outputs.has-update }}
+      has-update: ${{ !steps.check_siv3d_update.outputs.cache-hit }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -26,9 +26,6 @@ jobs:
         with:
           path: dummy 
           key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
-
-      - id: store_siv3d_cache_result
-        run: echo "::set-output name=has-update::${{ !steps.check_siv3d_update.outputs.cache-hit }}"
 
       - name: Install Boost
         uses: ./.github/actions/download-boost
@@ -81,7 +78,7 @@ jobs:
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
 
       - name: Cache boost
-        if: ${{ needs.pre-build.outputs.has-update }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         uses: actions/cache@v1
         env:
           cache-name: cache-boost-headers-1
@@ -90,12 +87,12 @@ jobs:
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports
-        if: ${{ needs.pre-build.outputs.has-update }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         run: |
           embuilder.py build ogg vorbis libpng
 
       - name: Build project
-        if: ${{ needs.pre-build.outputs.has-update }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
@@ -151,18 +148,18 @@ jobs:
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/App/**/*.*', 'Test/**/*.*') }}
 
       - name: Restore Bundles
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_test.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
         uses: actions/download-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: Web
       - name: Restore Siv3D library
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_test.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web
         run: tar -xvf OpenSiv3D.tgz
 
       - name: Create & Build test project
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_test.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Debug \
@@ -209,7 +206,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs: 
-      did-build: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_app.outputs.cache-hit }}
+      did-build: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
     
     steps:
       - name: Checkout code
@@ -228,19 +225,19 @@ jobs:
           key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*') }}
 
       - name: Restore Bundles
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_app.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
         uses: actions/download-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: Web
 
       - name: Restore Siv3D library
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_app.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web
         run: tar -xvf OpenSiv3D.tgz
 
       - name: Create & Build Siv3d App
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_app.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
         working-directory: Web/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
@@ -293,28 +290,28 @@ jobs:
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss') }}
 
       - name: Restore Bundles
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         uses: actions/download-artifact@v2
         with:
           name: OpenSiv3D-Bundles-${{ matrix.config.name }}
           path: .
 
       - name: Restore Siv3D library
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         run: |
           tar -xvf OpenSiv3D.tgz
           mkdir Web/Build
           cp -r Package/lib/* Web/Build
           
       - name: Compress Project Template
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/VisualStudioTemplate/Files
         run: |
           7z a -tzip "OpenSiv3D(0.6.5)Web.zip" .
           cp "OpenSiv3D(0.6.5)Web.zip" ..
           
       - name: Create Installer
-        if: ${{ needs.build.outputs.did-build || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/WindowsInstaller
         run: |
           mkdir -Force Output
@@ -562,7 +559,7 @@ jobs:
 
   e2e-test:
     needs: [ build, e2e-test-prerequisites ]
-    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
+    if: ${{ fromJSON(needs.e2e-test-prerequisites.outputs.browserstack-keys-found) }}
     runs-on: ubuntu-latest
     container: 
       image: 'emscripten/emsdk:3.1.20'
