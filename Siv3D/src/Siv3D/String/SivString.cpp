@@ -454,6 +454,11 @@ namespace s3d
 
 	String String::removed(const StringView s) const
 	{
+		if (s.isEmpty())
+		{
+			return *this;
+		}
+
 		String result;
 
 		for (auto it = begin(); it != end();)
