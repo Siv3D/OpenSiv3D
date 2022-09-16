@@ -41,22 +41,17 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: ''
           - name: wasm-mt
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: '-pthread'
           - name: wasm-simd
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: '-msimd128 -msse4.2'
           - name: wasm-mt-simd
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: '-pthread -msimd128 -msse4.2'
           - name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: '-fPIC'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
 
     outputs: 
@@ -96,7 +91,6 @@ jobs:
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            ${{ matrix.config.cmake-additional-flags }} \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --parallel 4
@@ -123,13 +117,11 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: ''
           # - name: wasm-simd
-          #  container: 'emscripten/emsdk:3.1.20'
           #  cmake-cflags: '-msimd128 -msse4.2'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
     
     steps:
@@ -183,26 +175,22 @@ jobs:
         config:
           - name: wasm
             app-name: wasm
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: ''
             cmake-additional-flags: ''
           - name: wasm-simd
             app-name: wasm-simd
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: '-msimd128 -msse4.2'
             cmake-additional-flags: ''
           - name: wasm
             app-name: wasm-wgpu
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_WEBGPU_BACKEND=On'
           - name: wasm-side-module
             app-name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.20'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_BUILD_WITH_SHARED_MAIN=On'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
 
     outputs: 
@@ -287,7 +275,7 @@ jobs:
           cache-name: cache_siv3d_installer
         with:
           path: Web/WindowsInstaller/Output
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss') }}
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss', 'Web/VisualStudioTemplate') }}
 
       - name: Restore Bundles
         if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
@@ -337,6 +325,81 @@ jobs:
     env:
       MSBuild_path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\bin"
       VSIXInstaller_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore Installer
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Installer-${{ matrix.config.name }}
+          path: Web/WindowsInstaller/
+
+      - name: Test Installer
+        working-directory: Web/WindowsInstaller
+        run: |
+          Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
+          & ".\OpenSiv3D(0.6.5)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
+          Wait-Process -Name "OpenSiv3D(0.6.5)Web"
+          cat InstallLog.Log
+          $env:SIV3D_0_6_5_WEB = [System.Environment]::GetEnvironmentVariable("SIV3D_0_6_5_WEB","User")
+          echo "SIV3D_0_6_5_WEB=$env:SIV3D_0_6_5_WEB" >> $env:GITHUB_ENV
+          devenv /installvstemplates
+
+      - name: Install VSIX
+        run: |
+          Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
+          curl -L https://github.com/nokotan/VSExtForEmscripten/releases/download/v0.7.0/Emscripten.Build.Definition.vsix -o Emscripten.vsix
+          VSIXInstaller /quiet /admin Emscripten.vsix 
+          Wait-Process -Name "VSIXInstaller"
+
+      - name: Install Emscripten
+        run: |
+          curl -L https://github.com/nokotan/EmscriptenInstaller/releases/download/v0.1.2/EmscriptenOffline.exe -o Emscripten.exe
+          & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
+          Wait-Process -Name "Emscripten"
+          $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
+          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          echo $env:Path >> $Env:GITHUB_PATH
+
+      - name: Create Project
+        run: |
+          mkdir Siv3DTest
+          7z x "$env:USERPROFILE\Documents\Visual Studio 2022\Templates\ProjectTemplates\OpenSiv3D(0.6.5)Web.zip" -oSiv3DTest
+          cd Siv3DTest
+          $Content = Get-Content -path "Siv3DTest.vcxproj"
+          $Content -Replace '$guid1$', '4e942135-f309-41d4-8214-c2e5bd7c7ace'
+          $Content -Replace '$safeprojectname$', 'Siv3DTest' | Out-File "Siv3DTest.vcxproj"
+
+      - name: Build Sample Project
+        working-directory: Siv3DTest
+        run: |
+          Set-Item Env:Path "$env:MSBuild_Path;$env:Path"
+          embuilder build ogg vorbis
+          msbuild Siv3DTest.vcxproj /p:BaseOutputPath="Release\Emscripten" /p:BaseOutputPath="." /p:Platform="Emscripten" /p:Configuration="Release"
+
+      - name: Save Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-VisualStudio-App-${{ matrix.config.name }}
+          path: Siv3DTest/Emscripten/Release/Siv3DTest.*
+
+  document-test:
+    needs: build-installer
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - name: wasm
+            script: "Setup.iss"
+          - name: wasm-simd
+            script: "Setup.iss"
+    env:
+      MSBuild_path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\bin"
+      VSIXInstaller_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE"
       DevEnv_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\devenv.exe"
       WinAppDriver_Path: "C:\\Program Files (x86)\\Windows Application Driver\\WinAppDriver.exe"
 
@@ -357,19 +420,32 @@ jobs:
           & ".\OpenSiv3D(0.6.5)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
           Wait-Process -Name "OpenSiv3D(0.6.5)Web"
           cat InstallLog.Log
+          $env:SIV3D_0_6_5_WEB = [System.Environment]::GetEnvironmentVariable("SIV3D_0_6_5_WEB","User")
+          echo "SIV3D_0_6_5_WEB=$env:SIV3D_0_6_5_WEB" >> $env:GITHUB_ENV
           devenv /installvstemplates
 
       - name: Install VSIX
         run: |
           Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
-          VSIXInstaller /quiet /admin Emscripten.Build.Definition.4e942135-f309-41d4-8214-c2e5bd7c7ace 
+          curl -L https://github.com/nokotan/VSExtForEmscripten/releases/download/v0.7.0/Emscripten.Build.Definition.vsix -o Emscripten.vsix
+          VSIXInstaller /quiet /admin Emscripten.vsix 
           Wait-Process -Name "VSIXInstaller"
+
+      - name: Install Emscripten
+        run: |
+          curl -L https://github.com/nokotan/EmscriptenInstaller/releases/download/v0.1.2/EmscriptenOffline.exe -o Emscripten.exe
+          & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
+          Wait-Process -Name "Emscripten"
+          $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
+          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          echo $env:Path >> $Env:GITHUB_PATH
 
       - name: Restore Nuget package
         working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
         run: nuget restore WinAppDriverUIRecorder.sln
       
-      - name: Build the application
+      - name: Build the UI Test application
         working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
         run: |
           Set-Item Env:Path "$env:MSBuild_Path;$env:Path"
@@ -393,12 +469,10 @@ jobs:
         run: |
           Get-Process | Where-Object -FilterScript {$_.Name -eq "WinAppDriver"}  | Stop-Process
           Get-Process | Where-Object -FilterScript {$_.Name -eq "devenv"}  | Stop-Process
-      
+
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
-    needs: 
-      - build
-      - build-installer
+    needs: [ build, build-installer ]
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create-release.outputs.upload_url }}

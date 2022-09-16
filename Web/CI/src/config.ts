@@ -18,7 +18,8 @@ export interface MobileCapability {
     real_mobile: string,
     device: string,
     os_version: string,
-    browserName: string
+    browserName: string,
+    connectHardwareKeyboard?: boolean
 }
 
 export interface DesktopCapability { 
@@ -101,14 +102,16 @@ export const deviceCapabilities: DeciceCapability[] = [
         "real_mobile" : "true",
         'device' : 'iPhone 11',
         'os_version' : '15',
-        'browserName' : 'Safari'
+        'browserName' : 'Safari',
+        'connectHardwareKeyboard': false
     },
     {
         'os' : 'iOS',
         "real_mobile" : "true",
         'device' : 'iPhone 11',
         'os_version' : '15',
-        'browserName' : 'Chrome'
+        'browserName' : 'Chrome',
+        'connectHardwareKeyboard': false
     },
     // {
     //     'os' : 'iOS',
