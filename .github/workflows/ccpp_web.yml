@@ -384,7 +384,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: OpenSiv3D-VisualStudio-App-${{ matrix.config.name }}
-          path: Siv3DTest/Emscripten/Release/Siv3DTest.*
+          path: |
+            Siv3DTest/Emscripten/Release/Siv3DTest.html
+            Siv3DTest/Emscripten/Release/Siv3DTest.js
+            Siv3DTest/Emscripten/Release/Siv3DTest.wasm
+            Siv3DTest/Emscripten/Release/Siv3DTest.data
 
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
