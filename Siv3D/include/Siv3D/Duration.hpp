@@ -14,6 +14,8 @@
 # include "Common.hpp"
 # include "Fwd.hpp"
 # include "StringView.hpp"
+# include "Format.hpp"
+# include "FormatLiteral.hpp"
 
 namespace s3d
 {
@@ -186,5 +188,33 @@ namespace s3d
 	/// @param nanoseconds ナノ秒
 	void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds);
 }
+
+template <class Rep, class Period>
+struct SIV3D_HIDDEN fmt::formatter<std::chrono::duration<Rep, Period>, s3d::char32>
+{
+	std::u32string tag;
+
+	auto parse(basic_format_parse_context<s3d::char32>& ctx)
+	{
+		return s3d::detail::GetFormatTag(tag, ctx);
+	}
+
+	template <class FormatContext>
+	auto format(const std::chrono::duration<Rep, Period>& value, FormatContext& ctx)
+	{
+		const s3d::String s = s3d::Format(value);
+		const basic_string_view<s3d::char32> sv(s.data(), s.size());
+
+		if (tag.empty())
+		{
+			return format_to(ctx.out(), U"{}", sv);
+		}
+		else
+		{
+			const std::u32string format = (U"{:" + tag + U'}');
+			return format_to(ctx.out(), format, sv);
+		}
+	}
+};
 
 # include "detail/Duration.ipp"
