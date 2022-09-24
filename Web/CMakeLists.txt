@@ -164,6 +164,8 @@ set(SIV3D_SOURCES
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/CTexture_GLES3.cpp
   ../Siv3D/src/Siv3D-Platform/OpenGLES3/Siv3D/Texture/GLES3/GLES3Texture.cpp
 
+  ../Siv3D/src/Siv3D-Platform/WebGPU/Siv3D/WebGPUStub.cpp
+
   ../Siv3D/src/Siv3D/Addon/AddonFactory.cpp
   ../Siv3D/src/Siv3D/Addon/CAddon.cpp
   ../Siv3D/src/Siv3D/Addon/SivAddon.cpp
