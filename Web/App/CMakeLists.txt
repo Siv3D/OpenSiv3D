@@ -125,7 +125,19 @@ if (SIV3D_BUILD_WITH_SHARED_MAIN)
       ${Siv3DIncludeDirectory}
   )
 
-else()
+elseif (SIV3D_WEBGPU_BACKEND)
+
+  target_link_libraries(Siv3DApp
+    PRIVATE
+      # "-Wl,--whole-archive"
+        # OpenSiv3DBrowserImageEncodeDecode
+      "-Wl,--no-whole-archive"
+        OpenSiv3D
+        OpenSiv3DWebGPU
+        # OpenSiv3DScript
+  )
+
+else ()
 
   target_link_libraries(Siv3DApp
     PRIVATE
