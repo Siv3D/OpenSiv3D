@@ -171,7 +171,17 @@ namespace s3d
 		}
 	}
 
+	XMLReader::XMLReader(const char32* path, const PreserveWhitespace preserveWhitespace)
+	{
+		open(path, preserveWhitespace);
+	}
+
 	XMLReader::XMLReader(const FilePathView path, const PreserveWhitespace preserveWhitespace)
+	{
+		open(path, preserveWhitespace);
+	}
+
+	XMLReader::XMLReader(const FilePath& path, const PreserveWhitespace preserveWhitespace)
 	{
 		open(path, preserveWhitespace);
 	}
@@ -184,6 +194,11 @@ namespace s3d
 	XMLReader::XMLReader(std::unique_ptr<IReader>&& reader, const PreserveWhitespace preserveWhitespace)
 	{
 		open(std::move(reader), preserveWhitespace);
+	}
+
+	bool XMLReader::open(const char32* path, const PreserveWhitespace preserveWhitespace)
+	{
+		return open(StringView{ path }, preserveWhitespace);
 	}
 
 	bool XMLReader::open(const FilePathView path, const PreserveWhitespace preserveWhitespace)
@@ -208,6 +223,11 @@ namespace s3d
 		m_detail = std::make_unique<XMLElementDetail>(document, root);
 
 		return true;
+	}
+
+	bool XMLReader::open(const FilePath& path, const PreserveWhitespace preserveWhitespace)
+	{
+		return open(StringView{ path }, preserveWhitespace);
 	}
 
 	bool XMLReader::open(Arg::code_<String> code, const PreserveWhitespace preserveWhitespace)
