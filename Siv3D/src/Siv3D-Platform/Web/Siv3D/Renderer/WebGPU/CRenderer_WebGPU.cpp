@@ -155,7 +155,7 @@ namespace s3d
 			wgpu::RenderPassColorAttachment colorAttachment
 			{
 				.view = backBufferView,
-				.loadOp = wgpu::LoadOp::Undefined,
+				.loadOp = wgpu::LoadOp::Load,
 				.storeOp = wgpu::StoreOp::Store,
 				.clearValue = 
 				{
