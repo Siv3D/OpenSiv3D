@@ -774,7 +774,7 @@ namespace s3d
 		{
 			wgpu::RenderPassColorAttachment colorAttachment
 			{
-				.loadOp = wgpu::LoadOp::Undefined,
+				.loadOp = wgpu::LoadOp::Load,
 				.storeOp = wgpu::StoreOp::Store,
 				.clearValue =
 				{
