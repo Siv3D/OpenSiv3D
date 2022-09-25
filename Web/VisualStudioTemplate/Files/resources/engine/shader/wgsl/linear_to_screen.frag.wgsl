@@ -16,7 +16,7 @@ fn Gamma(color: vec3<f32>, g: f32) -> vec3<f32>
 	return pow(color, vec3<f32>(g));
 }
 
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) Color: vec4<f32>,

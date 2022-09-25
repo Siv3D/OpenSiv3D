@@ -8,7 +8,7 @@ struct VertexOutput
    	@location(0) UV: vec2<f32>,
 };
 
-@stage(vertex)
+@vertex
 fn main(
    @builtin(vertex_index) VertexIndex: u32,
 ) -> VertexOutput

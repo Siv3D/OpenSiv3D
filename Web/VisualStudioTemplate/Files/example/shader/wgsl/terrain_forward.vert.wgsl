@@ -47,7 +47,7 @@ var<uniform> VSPerMaterial: VSPerMaterialStruct;
 //
 //	Functions
 //
-@stage(vertex)
+@vertex
 fn main(
 	@location(0) VertexPosition: vec3<f32>,
 	@location(1) VertexNormal: vec3<f32>,

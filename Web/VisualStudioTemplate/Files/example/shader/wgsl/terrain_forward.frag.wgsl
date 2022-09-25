@@ -95,7 +95,7 @@ fn TerrainTriplanar(worldPos: vec3<f32>, normal: vec3<f32>, uvScale: f32) -> vec
 //
 //	Functions
 //
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) WorldPosition: vec3<f32>,
