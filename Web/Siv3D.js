@@ -16,7 +16,7 @@ mergeInto(LibraryManager.library, {
             return 0;
         }
     },
-    siv3dLocateFile__sig: "vi",
+    siv3dLocateFile__sig: "iv",
 
     //
     // GamePads

@@ -347,11 +347,15 @@ set(ASYNCIFY_IMPORTS
   "siv3dGetClipboardText"
   "siv3dDecodeImageFromFile"
   "siv3dSleepUntilWaked"
+  "invoke_v"
+  "invoke_vi"
   "_Z4Mainv"
 )
 
 set(ASYNCIFY_ADD
   "main"
+  "dynCall_v"
+  "dynCall_vi"
   "s3d::TryMain()"
   "s3d::CSystem::init()"
   "s3d::System::Update()"
