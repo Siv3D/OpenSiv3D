@@ -1,5 +1,9 @@
 (function() 
 {
+    Module["onAlert"] = Module["onAlert"] || function(text) {
+        window.alert(text);
+    };
+
     const originalOnAbort = Module["onAbort"];
 
     Module["onAbort"] = function(e) 
@@ -13,27 +17,27 @@ Please refer https://webassembly.org/roadmap/ to check which webassembly feature
 \
 Original Error: " + e;
             
-            window.alert(additionalMessage);
+            Module["onAlert"](additionalMessage);
         }
         else if (e instanceof ProgressEvent)
         {
-            window.alert("Browser seems to blocked fetch required assets. \
+            Module["onAlert"]("Browser seems to blocked fetch required assets. \
 The application has been launched from explorer, which is not supported. \
 Please launch emrun or your favorite HTTP server and access this application through it.");
         }
         else if (e instanceof ReferenceError && e.message.includes("WebAssembly"))
         {
-            window.alert("The application cannot be launched with this browser. \
+            Module["onAlert"]("The application cannot be launched with this browser. \
 The application requires that this browser supports WebAssembly, which seems to be not available in this browser.\
 Please use another browser that supports WebAssembly.")
         }
         else
         {
-            window.alert(e)
+            Module["onAlert"](e)
         }
 
         if (originalOnAbort) {
-            originalOnAbort();
+            originalOnAbort(e);
         }
-    }
+    };
 })();
