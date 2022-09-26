@@ -34,8 +34,9 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   add_compile_options ("-fdiagnostics-color=always")
 endif()
 
+# Use exception handling when configuration is not MINSIZEREL
 if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
-  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"main\",\"_ZN3s3d7TryMainEv\"]")
 endif()
 
 if (${CMAKE_C_FLAGS} MATCHES "-msimd128" OR ${CMAKE_CXX_FLAGS} MATCHES "-msimd128")

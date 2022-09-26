@@ -82,8 +82,8 @@ endif ()
 
 # Use exception handling when configuration is not MINSIZEREL
 if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
-  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
-  add_link_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"InitSiv3D\"]")
+  add_compile_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"main\",\"_ZN3s3d7TryMainEv\"]")
+  add_link_options ("SHELL:-s EXCEPTION_CATCHING_ALLOWED=[\"main\",\"_ZN3s3d7TryMainEv\"]")
 endif()
 
 if (SIV3D_WEBGPU_BACKEND)
@@ -201,13 +201,16 @@ else ()
     "siv3dGetClipboardText"
     "siv3dDecodeImageFromFile"
     "siv3dSleepUntilWaked"
+    "invoke_v"
     "invoke_vi"
   )
 
   set(ASYNCIFY_ADD
     "main"
     "Main()"
-    "InitSiv3D"
+    "dynCall_v"
+    "dynCall_vi"
+    "s3d::TryMain()"
     "s3d::CSystem::init()"
     "s3d::System::Update()"
 
@@ -349,7 +352,7 @@ set(ASYNCIFY_IMPORTS
 
 set(ASYNCIFY_ADD
   "main"
-  "InitSiv3D"
+  "s3d::TryMain()"
   "s3d::CSystem::init()"
   "s3d::System::Update()"
   "s3d::AACDecoder::decode(*) const"

@@ -15,7 +15,7 @@ Original Error: " + e;
             
             window.alert(additionalMessage);
         }
-        else if (e instanceof XMLHttpRequestProgressEvent)
+        else if (e instanceof ProgressEvent)
         {
             window.alert("Browser seems to blocked fetch required assets. \
 The application has been launched from explorer, which is not supported. \
