@@ -187,13 +187,16 @@ else ()
     "siv3dGetClipboardText"
     "siv3dDecodeImageFromFile"
     "siv3dSleepUntilWaked"
+    "invoke_v"
     "invoke_vi"
   )
 
   set(ASYNCIFY_ADD
     "main"
     "Main()"
-    "InitSiv3D"
+    "dynCall_v"
+    "dynCall_vi"
+    "s3d::TryMain()"
     "s3d::CSystem::init()"
     "s3d::System::Update()"
 
