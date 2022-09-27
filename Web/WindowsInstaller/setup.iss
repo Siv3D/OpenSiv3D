@@ -5,7 +5,7 @@ WizardStyle=modern
 SetupIconFile=..\..\WindowsDesktop\App\icon.ico
 OutputBaseFilename=OpenSiv3D(0.6.5)Web
 DefaultDirName={autopf}\OpenSiv3D(0.6.5)Web
-VersionInfoVersion=0.6.5.2
+VersionInfoVersion=0.6.5.3
 VersionInfoDescription=OpenSiv3D (0.6.5) for Web Installer
 Compression=lzma2
 SolidCompression=yes
@@ -21,6 +21,8 @@ Name: "ja"; MessagesFile: "compiler:Languages\Japanese.isl"
 Source: "..\..\Siv3D\include\*"; DestDir: "{app}\include"; Flags: recursesubdirs
 Source: "..\Build\libSiv3D.a"; DestDir: "{app}\lib"
 Source: "..\Build\libSiv3DScript.a"; DestDir: "{app}\lib"
+Source: "..\Build\libSiv3DWebGPU.a"; DestDir: "{app}\lib"
+Source: "..\Build\libSiv3DBrowserImageEncodeDecode.a"; DestDir: "{app}\lib"
 Source: "..\Siv3D.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.pre.js"; DestDir: "{app}\lib"
 Source: "..\Siv3D.post.js"; DestDir: "{app}\lib"
