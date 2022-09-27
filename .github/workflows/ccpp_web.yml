@@ -396,6 +396,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create-release.outputs.upload_url }}
+      html_url: ${{ steps.create-release.outputs.html_url }}
     steps:
       - name: Create release
         id: create-release
@@ -537,7 +538,7 @@ jobs:
           curl -X POST \
           -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" \
           "https://api.github.com/repos/nokotan/OpenSiv3DForWeb-VSCode/actions/workflows/update.yml/dispatches" \
-          -d '{ "ref": "main", "inputs": { "name": "Update ${{ github.ref }}", "url": "${{ needs.pre-deploy.outputs.upload_url }}/OpenSiv3D-wasm.tgz" } }'
+          -d '{ "ref": "main", "inputs": { "name": "Update ${{ github.ref }}", "url": "${{ needs.pre-deploy.outputs.html_url }}/OpenSiv3D-wasm.tgz" } }'
 
   e2e-test-prerequisites:
     runs-on: ubuntu-latest
