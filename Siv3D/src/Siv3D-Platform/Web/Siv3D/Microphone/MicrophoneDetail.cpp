@@ -71,7 +71,7 @@ namespace s3d
 
 			::alcCloseDevice(m_device);
 		}
-		
+
 		m_writePos = 0;
 		m_isRecording = false;
 		m_initialized = false;
@@ -88,11 +88,6 @@ namespace s3d
 
 		if ((not m_initialized)
 			|| (m_isRecording))
-		{
-			return false;
-		}
-
-		if (!m_initialized || m_isRecording)
 		{
 			return false;
 		}
@@ -158,8 +153,9 @@ namespace s3d
 
 	bool Microphone::MicrophoneDetail::onRead_S16_1ch()
 	{
-		if (!m_isRecording)
+		if (static_cast<char>(m_isRecording) != 1)
 		{
+			LOG_FAIL(U"{}"_fmt(static_cast<int>(m_isRecording)));
 			return false;
 		}
 
