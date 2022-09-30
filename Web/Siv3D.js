@@ -706,6 +706,12 @@ mergeInto(LibraryManager.library, {
     siv3dGetClipboardText: function() {
         return Asyncify.handleSleep(function (wakeUp) {
             siv3dRegisterUserAction(function () {
+                if (!navigator.clipboard.readText) {
+                    err("Reading clipboard is not allowed in this browser.");
+                    wakeUp(0);
+                    return;
+                }
+
                 navigator.clipboard.readText()
                 .then(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
@@ -713,7 +719,7 @@ mergeInto(LibraryManager.library, {
                 })
                 .catch(function(_) {
                     wakeUp(0);
-                })
+                });
             }); 
         });
     },
@@ -722,6 +728,12 @@ mergeInto(LibraryManager.library, {
 
     siv3dGetClipboardTextAsync: function(callback, promise) {
         siv3dRegisterUserAction(function () {
+            if (!navigator.clipboard.readText) {
+                err("Reading clipboard is not allowed in this browser.");
+                {{{ makeDynCall('vii', 'callback') }}}(0, promise);
+                return;
+            }
+
             navigator.clipboard.readText()
             .then(function(str) {
                 const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
@@ -730,9 +742,8 @@ mergeInto(LibraryManager.library, {
             })
             .catch(function (e) {
                 {{{ makeDynCall('vii', 'callback') }}}(0, promise);
-            })
+            });
         });
-        
     },
     siv3dGetClipboardTextAsync__sig: "vii",
     siv3dGetClipboardTextAsync__deps: [ "$siv3dRegisterUserAction" ],
