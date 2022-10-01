@@ -338,6 +338,7 @@ set(Siv3DSharedMainLinkerOption
   "--pre-js '${CMAKE_SOURCE_DIR}/Siv3D.data.js'"
   "-s FORCE_FILESYSTEM=1"
 
+  "-s ASSERTIONS=1"
   "-s ASYNCIFY=1"
   "-s ASYNCIFY_IGNORE_INDIRECT=1"
 )
