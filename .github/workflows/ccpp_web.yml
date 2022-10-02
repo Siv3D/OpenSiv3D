@@ -236,6 +236,15 @@ jobs:
             ${{ matrix.config.cmake-additional-flags }} ..
           cmake --build .
 
+      - name: Test Siv3d App
+        working-directory: Web/App
+        run: |
+          sudo apt update
+          sudo apt install -y firefox
+          useradd -m -u 1001 runner
+          export EMRUN=$(which emrun)
+          find *.html -type f | xargs -I{} sudo -E -u runner "${EMRUN}" --timeout 60 --timeout_returncode 0 --safe_firefox_profile {}
+
       - name: Save Bundles
         uses: actions/upload-artifact@v2
         with:
@@ -361,6 +370,7 @@ jobs:
           Wait-Process -Name "Emscripten"
           $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
           echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
           echo $env:Path >> $Env:GITHUB_PATH
 
@@ -379,6 +389,10 @@ jobs:
           Set-Item Env:Path "$env:MSBuild_Path;$env:Path"
           embuilder build ogg vorbis
           msbuild Siv3DTest.vcxproj /p:BaseOutputPath="Release\Emscripten" /p:BaseOutputPath="." /p:Platform="Emscripten" /p:Configuration="Release"
+
+      - name: Test Siv3d App
+        working-directory: Siv3DTest/Emscripten/Release
+        run: emrun --timeout 60 --timeout_returncode 0 Siv3DTest.html
 
       - name: Save Build Artifacts
         uses: actions/upload-artifact@v2

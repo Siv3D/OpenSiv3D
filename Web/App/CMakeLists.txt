@@ -155,6 +155,7 @@ set(Siv3DLinkerFlags
   -s MODULARIZE=1
   -s ASYNCIFY=1
   -s ASYNCIFY_IGNORE_INDIRECT=1
+  --emrun
   --shell-file ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.html
   --post-js ${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.js
 )
@@ -338,6 +339,7 @@ set(Siv3DSharedMainLinkerOption
   "--pre-js '${CMAKE_SOURCE_DIR}/Siv3D.data.js'"
   "-s FORCE_FILESYSTEM=1"
 
+  "--emrun"
   "-s ASSERTIONS=1"
   "-s ASYNCIFY=1"
   "-s ASYNCIFY_IGNORE_INDIRECT=1"
