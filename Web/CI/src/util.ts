@@ -162,7 +162,7 @@ export class Siv3DApp {
         await actions
                 .move(this.scalePoint(point))
                 .press()
-                .pause(50)
+                .pause(200)
                 .release()
                 .perform();
     }
@@ -170,7 +170,7 @@ export class Siv3DApp {
     async keyDown(actions: Actions, key: string) {
         await actions
                 .keyDown(key)
-                .pause(30)
+                .pause(200)
                 .keyUp(key)
                 .perform();
     }
@@ -178,7 +178,7 @@ export class Siv3DApp {
     async sendKeys(actions: Actions, keys: string) {
         for (const key of keys) {
             actions.keyDown(key)
-                .pause(30)
+                .pause(200)
                 .keyUp(key);
         }
 

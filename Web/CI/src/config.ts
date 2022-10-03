@@ -36,13 +36,13 @@ export const deviceCapabilities: DeciceCapability[] = [
         'os' : 'Windows',
         'os_version' : '10',
         'browserName' : 'Chrome',
-        'browser_version' : '98'
+        'browser_version' : '105'
     },
     // {
     //     'os' : 'Windows',
     //     'os_version' : '10',
     //     'browserName' : 'Edge',
-    //     'browser_version' : '98'
+    //     'browser_version' : '105'
     // },
     {
         'os' : 'OS X',
@@ -54,13 +54,13 @@ export const deviceCapabilities: DeciceCapability[] = [
         'os' : 'OS X',
         'os_version' : 'Monterey',
         'browserName' : 'Chrome',
-        'browser_version' : '98'
+        'browser_version' : '105'
     },
     {
         'os' : 'OS X',
         'os_version' : 'Monterey',
         'browserName' : 'FireFox',
-        'browser_version' : '97'
+        'browser_version' : '105'
     },
     // {
     //     'os' : 'android',
@@ -141,7 +141,7 @@ export const notSupportedDeviceCapabilities: DeciceCapability[] = [
         'os' : 'Windows',
         'os_version' : '10',
         'browserName' : 'Firefox',
-        'browser_version' : '97'
+        'browser_version' : '105'
     },
     {
         'os' : 'OS X',
