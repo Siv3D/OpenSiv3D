@@ -161,8 +161,8 @@ export class Siv3DApp {
     async mouseClick(actions: Actions, point: IPoint) {
         await actions
                 .move(this.scalePoint(point))
-                .click()
-                .pause(30)
+                .press()
+                .pause(50)
                 .release()
                 .perform();
     }
