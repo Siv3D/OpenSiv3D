@@ -101,15 +101,17 @@ export class Siv3DApp {
 
     canvasElement: WebElement;
     canvasRectangle: IRectangle;
+    capability: Capability;
     screenSize?: ISize;
 
     private get canvasSize(): ISize {
         return this.screenSize || { width: this.canvasRectangle.width, height: this.canvasRectangle.height };
     }
 
-    private constructor(canvasElement: WebElement, canvasRectangle: IRectangle, expectedScreenSize?: ISize) {
+    private constructor(canvasElement: WebElement, canvasRectangle: IRectangle, capability: Capability, expectedScreenSize?: ISize) {
         this.canvasElement = canvasElement;
         this.canvasRectangle = canvasRectangle;
+        this.capability = capability;
         this.screenSize = expectedScreenSize;
     }
 
@@ -143,12 +145,12 @@ export class Siv3DApp {
         }
     }
 
-    static async open(driver: ThenableWebDriver, testedPage: string, expectedScreenSize?: ISize) {   
+    static async open(driver: ThenableWebDriver, testedPage: string, capability: Capability, expectedScreenSize?: ISize) {   
         await driver.get(testedPage);
         await driver.wait(until.elementLocated(By.id("status")), 30 * 1000);
 
         const canvas = await driver.findElement(By.css("canvas"));
-        return new Siv3DApp(canvas, { x: 0, y: 0, width: 320, height: 240 }, expectedScreenSize);
+        return new Siv3DApp(canvas, { x: 0, y: 0, width: 320, height: 240 }, capability, expectedScreenSize);
     }
 
     async waitForReady(driver: ThenableWebDriver) {
@@ -175,14 +177,25 @@ export class Siv3DApp {
                 .perform();
     }
 
-    async sendKeys(actions: Actions, keys: string) {
-        for (const key of keys) {
-            actions.keyDown(key)
-                .pause(200)
-                .keyUp(key);
-        }
+    async sendKeys(driver: ThenableWebDriver, keys: string) {
+        const isiOS = this.capability.os === "iOS";
 
-        await actions.perform();
+        for (const key of keys) {
+            const actions = driver.actions();
+            
+            if (isiOS) {
+                actions.move(this.scalePoint({ x: 20, y: 20}))
+                    .keyDown(key)
+                    .keyUp(key)
+                    .pause(200);
+            } else {
+                actions.keyDown(key)
+                    .pause(200)
+                    .keyUp(key);
+            }
+
+            await actions.perform();
+        }
     }
 
     async screenShot() {
