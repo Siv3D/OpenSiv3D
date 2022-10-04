@@ -789,7 +789,27 @@ mergeInto(LibraryManager.library, {
                         {{{ makeDynCall('vi', 'callback') }}}(codePoint);
                     }
                 }
-            }    
+            } else if (e.inputType == "insertFromPaste") {
+                if (e.data) {
+                    for (var i = 0; i < e.data.length; i++) {
+                        const codePoint = e.data.charCodeAt(i);
+                        {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                    }
+                } else {
+                    navigator.clipboard.readText().then(
+                        data => {
+                            for (var i = 0; i < data.length; i++) {
+                                const codePoint = data.charCodeAt(i);
+                                {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                            }
+                        }
+                    );
+                }
+            } else if (e.inputType == "deleteContentBackward") {
+                {{{ makeDynCall('vi', 'callback') }}}(8);
+            } else if (e.inputType == "deleteContentForward") {
+                {{{ makeDynCall('vi', 'callback') }}}(0x7F);
+            }
         });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
             for (var i = 0; i < e.data.length; i++) {
@@ -818,18 +838,39 @@ mergeInto(LibraryManager.library, {
         const isFocusRequiredBool = isFocusRequired != 0;
 
         if (isFocusRequiredBool) {
-            siv3dRegisterUserAction(function () {
-                siv3dTextInputElement.value = ""
-                siv3dTextInputElement.focus();
-            });
+            if (document.activeElement != siv3dTextInputElement) {
+                siv3dRegisterUserAction(function () {
+                    siv3dTextInputElement.focus();
+                });
+            }
         } else {
-            siv3dRegisterUserAction(function () {
-                siv3dTextInputElement.blur();
-            });
+            if (document.activeElement == siv3dTextInputElement) {
+                siv3dRegisterUserAction(function () {
+                    siv3dTextInputElement.blur();
+                });
+            }
         }
     },
     siv3dRequestTextInputFocus__sig: "vi",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
+
+    siv3dSetTextInputText: function(ptr) {
+        siv3dTextInputElement.value = UTF8ToString(ptr);
+    },
+    siv3dSetTextInputText__sig: "vi",
+    siv3dSetTextInputText__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dSetTextInputCursor: function(index) {
+        siv3dTextInputElement.selectionStart = siv3dTextInputElement.selectionEnd = index;
+    },
+    siv3dSetTextInputCursor__sig: "vi",
+    siv3dSetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dGetTextInputCursor: function() {
+        return siv3dTextInputElement.selectionStart;
+    },
+    siv3dGetTextInputCursor__sig: "iv",
+    siv3dGetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
 
     //
     // Font Rendering

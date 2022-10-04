@@ -173,4 +173,39 @@ namespace s3d
 	{
 		SIV3D_ENGINE(TextInput)->pushChar(codePoint);
 	}
+
+	namespace Platform::Web::TextInput
+	{
+		namespace detail
+		{
+			__attribute__((import_name("siv3dSetTextInputCursor")))
+			extern void siv3dSetTextInputCursor(int index);
+
+			__attribute__((import_name("siv3dGetTextInputCursor")))
+			extern int siv3dGetTextInputCursor();
+
+			__attribute__((import_name("siv3dSetTextInputText")))
+			extern void siv3dSetTextInputText(const char* text);
+		}
+		
+		void SetFocusToTextInput(bool focused) 
+		{
+			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(focused);
+		}
+
+		void SyncronizeText(StringView text)
+		{
+			detail::siv3dSetTextInputText(text.narrow().c_str());
+		}
+
+		int32 GetCursorIndex()
+		{
+			return detail::siv3dGetTextInputCursor();
+		}
+
+		void SetCursorIndex(int32 index)
+		{
+			detail::siv3dSetTextInputCursor(index);
+		}
+	}
 }

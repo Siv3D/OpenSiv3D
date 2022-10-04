@@ -100,9 +100,14 @@ namespace s3d
 
 	namespace Platform::Web::TextInput
 	{
-		void RequestEnableIME();
-		
-		void RequestDisableIME();
+		void SetFocusToTextInput(bool focused);
+
+		void SyncronizeText(StringView text);
+
+		[[nodiscard]]
+		int32 GetCursorIndex();
+
+		void SetCursorIndex(int32 index);
 	}
 
 # endif
