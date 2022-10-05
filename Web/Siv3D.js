@@ -819,6 +819,9 @@ mergeInto(LibraryManager.library, {
         });
         siv3dTextInputElement.addEventListener('compositionstart', function (e) {
             composing = true;
+            for (var i = 0; i < e.data.length; i++) {
+                {{{ makeDynCall('vi', 'callback') }}}(8);
+            }
         });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
             composing = false;

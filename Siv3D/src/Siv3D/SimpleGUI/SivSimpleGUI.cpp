@@ -749,21 +749,6 @@ namespace s3d
 			const String previousText = text.text;
 			const String editingText = ((text.active && enabled) ? TextInput::GetEditingText() : U"");
 
-		# if SIV3D_PLATFORM(WEB)	
-		    if (auto index = Platform::Web::TextInput::GetCursorIndex() - TextInput::GetRawInput().trim().length() - TextInput::GetEditingText().length(); text.cursorPos == text.lastCursorPos)
-			{
-				text.cursorPos = index;
-
-				if (index != text.lastCursorPos)
-				{
-					text.leftPressStopwatch.restart();
-					text.rightPressStopwatch.restart();
-				}
-			}
-
-			const auto previousCursorPos = text.cursorPos;
-		# endif
-
 			text.cursorPos = Min(text.cursorPos, text.text.size());
 			text.tabKey = false;
 			text.enterKey = false;
@@ -1010,13 +995,18 @@ namespace s3d
 					
 			if (text.active)
 			{
-				if (previousCursorPos != text.cursorPos)
+				if (text.lastCursorPos != text.cursorPos)
 				{
 					if (not editingText)
 					{
 						Platform::Web::TextInput::SyncronizeText(text.text);
 					}
 					Platform::Web::TextInput::SetCursorIndex(text.cursorPos);
+				}
+				else if (auto currentCursorPos = Platform::Web::TextInput::GetCursorIndex(); text.lastCursorPos != currentCursorPos)
+				{
+					text.cursorPos = currentCursorPos;
+					text.cursorStopwatch.restart();
 				}
 
 				text.lastCursorPos = text.cursorPos;
