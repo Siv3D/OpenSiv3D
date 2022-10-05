@@ -781,7 +781,13 @@ mergeInto(LibraryManager.library, {
     siv3dInitTextInput__deps: [ "$siv3dTextInputElement" ],
 
     siv3dRegisterTextInputCallback: function(callback) {
+        let composing = false;
+
         siv3dTextInputElement.addEventListener('input', function (e) {
+            if (e.isComposing || composing) {
+                return;
+            }
+
             if (e.inputType == "insertText") {
                 if (e.data) {
                     for (var i = 0; i < e.data.length; i++) {
@@ -811,7 +817,11 @@ mergeInto(LibraryManager.library, {
                 {{{ makeDynCall('vi', 'callback') }}}(0x7F);
             }
         });
+        siv3dTextInputElement.addEventListener('compositionstart', function (e) {
+            composing = true;
+        });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
+            composing = false;
             for (var i = 0; i < e.data.length; i++) {
                 const codePoint = e.data.charCodeAt(i);
                 {{{ makeDynCall('vi', 'callback') }}}(codePoint);
