@@ -25,7 +25,7 @@ jobs:
           cache-name: check_siv3d_update-1
         with:
           path: dummy 
-          key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
+          key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
 
       - name: Install Boost
         uses: ./.github/actions/download-boost
@@ -99,6 +99,8 @@ jobs:
       - name: Bundle output
         working-directory: Web/
         run: |
+          cp Siv3D.js Package/lib/Siv3D/
+          cp Siv3D.*.js Package/lib/Siv3D/
           cp -r App/resources Package
           cp -r App/example Package   
           cp -r App/Templates Package   
