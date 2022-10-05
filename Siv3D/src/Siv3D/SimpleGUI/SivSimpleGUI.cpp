@@ -1000,8 +1000,8 @@ namespace s3d
 					if (not editingText)
 					{
 						Platform::Web::TextInput::SyncronizeText(text.text);
+						Platform::Web::TextInput::SetCursorIndex(text.cursorPos);
 					}
-					Platform::Web::TextInput::SetCursorIndex(text.cursorPos);
 				}
 				else if (auto currentCursorPos = Platform::Web::TextInput::GetCursorIndex(); text.lastCursorPos != currentCursorPos)
 				{
