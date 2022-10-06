@@ -993,15 +993,12 @@ namespace s3d
 		# if SIV3D_PLATFORM(WEB)
 			Platform::Web::TextInput::SetFocusToTextInput(text.active);		
 					
-			if (text.active)
+			if (text.active && not editingText)
 			{
 				if (text.lastCursorPos != text.cursorPos)
 				{
-					if (not editingText)
-					{
-						Platform::Web::TextInput::SyncronizeText(text.text);
-						Platform::Web::TextInput::SetCursorIndex(text.cursorPos);
-					}
+					Platform::Web::TextInput::SyncronizeText(text.text);
+					Platform::Web::TextInput::SetCursorIndex(text.cursorPos);		
 				}
 				else if (auto currentCursorPos = Platform::Web::TextInput::GetCursorIndex(); text.lastCursorPos != currentCursorPos)
 				{
