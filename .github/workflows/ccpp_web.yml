@@ -70,7 +70,10 @@ jobs:
           cache-name: cache-siv3d-library-1
         with:
           path: Web/Package
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt', 'Web/*.js') }}
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}-${{ hashFiles('Web/*.js') }}
+          restore-keys: |
+            ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
+            ${{ matrix.config.name }}-${{ env.cache-name }}-
 
       - name: Cache boost
         if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
