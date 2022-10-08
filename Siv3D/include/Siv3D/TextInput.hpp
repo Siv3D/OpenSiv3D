@@ -100,6 +100,11 @@ namespace s3d
 
 	namespace Platform::Web::TextInput
 	{
+		/// @brief 変換待ちのテキストの範囲を返します。
+		/// @return 変換待ちのテキストの範囲
+		[[nodiscard]]
+		std::pair<int32, int32> GetCandicateCursorIndex();
+
 		void SetFocusToTextInput(bool focused);
 
 		void SyncronizeText(StringView text);

@@ -752,6 +752,7 @@ mergeInto(LibraryManager.library, {
     // TextInput
     //
     $siv3dTextInputElement: null,
+    $siv3dTextInputCompositionRange: null,
 
     siv3dInitTextInput: function() {
         const textInput = document.createElement("input");
@@ -782,6 +783,7 @@ mergeInto(LibraryManager.library, {
 
     siv3dRegisterTextInputCallback: function(callback) {
         let composing = false;
+        let insertCompositionTextInvoked = false;
 
         siv3dTextInputElement.addEventListener('input', function (e) {
             if (e.isComposing || composing) {
@@ -817,14 +819,26 @@ mergeInto(LibraryManager.library, {
                 {{{ makeDynCall('vi', 'callback') }}}(0x7F);
             }
         });
+        siv3dTextInputElement.addEventListener('beforeinput', function (e) {
+            if (e.inputType == "insertCompositionText") {
+                siv3dTextInputCompositionRange = e.getTargetRanges()[0];
+
+                if (insertCompositionTextInvoked) {
+                    const length = siv3dTextInputCompositionRange.endOffset - siv3dTextInputCompositionRange.startOffset;
+                    for (var i = 0; i < length; i++) {
+                        {{{ makeDynCall('vi', 'callback') }}}(8);
+                    }
+                }
+                insertCompositionTextInvoked = true;
+            }
+        });
         siv3dTextInputElement.addEventListener('compositionstart', function (e) {
             composing = true;
-            for (var i = 0; i < e.data.length; i++) {
-                {{{ makeDynCall('vi', 'callback') }}}(8);
-            }
         });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
             composing = false;
+            insertCompositionTextInvoked = false;
+            siv3dTextInputCompositionRange = null;
             for (var i = 0; i < e.data.length; i++) {
                 const codePoint = e.data.charCodeAt(i);
                 {{{ makeDynCall('vi', 'callback') }}}(codePoint);
@@ -832,7 +846,14 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dRegisterTextInputCallback__sig: "vi",
-    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement" ],
+    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement", "$siv3dTextInputCompositionRange" ],
+
+    siv3dGetTextInputCompositionRange: function(start, end) {
+        setValue(start, siv3dTextInputCompositionRange.startOffset, 'i32');
+        setValue(end, siv3dTextInputCompositionRange.endOffset, 'i32');
+    },
+    siv3dGetTextInputCompositionRange__sig: "vii",
+    siv3dGetTextInputCompositionRange__deps: [ "$siv3dTextInputCompositionRange" ],
 
     siv3dRegisterTextInputMarkedCallback: function(callback) {
         siv3dTextInputElement.addEventListener('compositionupdate', function (e) {

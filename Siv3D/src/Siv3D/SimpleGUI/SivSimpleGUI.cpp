@@ -779,6 +779,11 @@ namespace s3d
 					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
 					const bool hasEditingTarget = (editingTargetlength > 0);
 
+				# elif SIV3D_PLATFORM(WEB) 
+
+					const auto[editingCursorIndex, editingTargetlength] = Platform::Web::TextInput::GetCandicateCursorIndex();
+					const bool hasEditingTarget = (editingTargetlength > 0);
+
 				# else
 
 					const int32 editingCursorIndex = -1, editingTargetlength = 0;

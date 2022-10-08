@@ -31,6 +31,7 @@ extern "C"
 	extern void siv3dRegisterTextInputCallback(void (*cb)(uint32));
 	extern void siv3dRegisterTextInputMarkedCallback(void (*cb)(const char* text));
 	extern void siv3dRequestTextInputFocus(bool isFocusRequired);
+	extern void siv3dGetTextInputCompositionRange(int32* start, int32* end);
 }
 
 namespace s3d
@@ -143,8 +144,9 @@ namespace s3d
 	
 	std::pair<int32, int32> CTextInput::getCursorIndex() const
 	{
-		// [Siv3D ToDo]
-		return{ 0, 0};
+		int32 start, end;
+		::siv3dGetTextInputCompositionRange(&start, &end);
+		return{ start, end - start };
 	}
 	
 	const Array<String>& CTextInput::getCandidates() const
@@ -188,6 +190,11 @@ namespace s3d
 			extern void siv3dSetTextInputText(const char* text);
 		}
 		
+		std::pair<int32, int32> GetCandicateCursorIndex()
+		{
+			return Siv3DEngine::Get<ISiv3DTextInput>()->getCursorIndex();
+		}
+
 		void SetFocusToTextInput(bool focused) 
 		{
 			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(focused);
