@@ -138,6 +138,38 @@ namespace s3d
 		}
 	}
 
+	void Input::clearInput() const
+	{
+		switch (m_deviceType)
+		{
+		//case InputDeviceType::Keyboard:
+		//	SIV3D_ENGINE(Keyboard)->clearInput(m_code);
+		case InputDeviceType::Mouse:
+			SIV3D_ENGINE(Mouse)->clearInput(m_code);
+		//case InputDeviceType::Gamepad:
+		//	SIV3D_ENGINE(Gamepad)->clearInput(m_playerIndex, m_code);
+		//case InputDeviceType::XInput:
+		//	SIV3D_ENGINE(XInput)->clearInput(m_playerIndex, m_code);
+		}
+	}
+
+	bool Input::cleared() const
+	{
+		switch (m_deviceType)
+		{
+		//case InputDeviceType::Keyboard:
+		//	return SIV3D_ENGINE(Keyboard)->cleared(m_code);
+		case InputDeviceType::Mouse:
+			return SIV3D_ENGINE(Mouse)->cleared(m_code);
+		//case InputDeviceType::Gamepad:
+		//	return SIV3D_ENGINE(Gamepad)->cleared(m_playerIndex, m_code);
+		//case InputDeviceType::XInput:
+		//	return SIV3D_ENGINE(XInput)->cleared(m_playerIndex, m_code);
+		default:
+			return false;
+		}
+	}
+
 	Duration Input::pressedDuration() const
 	{
 		switch (m_deviceType)

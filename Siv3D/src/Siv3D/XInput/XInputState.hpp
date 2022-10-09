@@ -33,11 +33,11 @@ namespace s3d
 
 		bool connected = false;
 
-		void clear()
+		void reset()
 		{
 			for (auto& button : buttons)
 			{
-				button.clear();
+				button.reset();
 			}
 
 			leftTrigger = rightTrigger = 0.0;

@@ -143,7 +143,7 @@ namespace s3d
 					LOG_INFO(U"🎮 Gamepad({}) `{}` disconnected"_fmt(playerIndex, state.info.name));
 					
 					// has disconnected
-					state.clear();
+					state.reset();
 				}
 			}
 		}
@@ -206,11 +206,11 @@ namespace s3d
 
 		if (index < m_states[playerIndex].buttons.size())
 		{
-			return m_states[playerIndex].buttons[index].down;
+			return m_states[playerIndex].buttons[index].down();
 		}
 		else if (InRange(index, 0x80u, 0x83u))
 		{
-			return m_states[playerIndex].povs[(index - 0x80u)].down;
+			return m_states[playerIndex].povs[(index - 0x80u)].down();
 		}
 
 		return false;
@@ -222,11 +222,11 @@ namespace s3d
 
 		if (index < m_states[playerIndex].buttons.size())
 		{
-			return m_states[playerIndex].buttons[index].pressed;
+			return m_states[playerIndex].buttons[index].pressed();
 		}
 		else if (InRange(index, 0x80u, 0x83u))
 		{
-			return m_states[playerIndex].povs[(index - 0x80u)].pressed;
+			return m_states[playerIndex].povs[(index - 0x80u)].pressed();
 		}
 
 		return false;
@@ -238,11 +238,11 @@ namespace s3d
 
 		if (index < m_states[playerIndex].buttons.size())
 		{
-			return m_states[playerIndex].buttons[index].up;
+			return m_states[playerIndex].buttons[index].up();
 		}
 		else if (InRange(index, 0x80u, 0x83u))
 		{
-			return m_states[playerIndex].povs[(index - 0x80u)].up;
+			return m_states[playerIndex].povs[(index - 0x80u)].up();
 		}
 
 		return false;

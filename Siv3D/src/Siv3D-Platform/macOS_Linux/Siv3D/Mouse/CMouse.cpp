@@ -76,7 +76,7 @@ namespace s3d
 			{
 				const auto& state = m_states[i];
 
-				if (state.pressed || state.up)
+				if (state.pressed() || state.up())
 				{
 					m_allInputs.emplace_back(InputDeviceType::Mouse, static_cast<uint8>(i));
 				}
@@ -87,19 +87,31 @@ namespace s3d
 	bool CMouse::down(const uint32 index) const
 	{
 		assert(index < InputState::MouseButtonCount);
-		return m_states[index].down;
+		return m_states[index].down();
 	}
 
 	bool CMouse::pressed(const uint32 index) const
 	{
 		assert(index < InputState::MouseButtonCount);
-		return m_states[index].pressed;
+		return m_states[index].pressed();
 	}
 
 	bool CMouse::up(const uint32 index) const
 	{
 		assert(index < InputState::MouseButtonCount);
-		return m_states[index].up;
+		return m_states[index].up();
+	}
+
+	void CMouse::clearInput(const uint32 index)
+	{
+		assert(index < InputState::MouseButtonCount);
+		m_states[index].clearInput();
+	}
+
+	bool CMouse::cleared(const uint32 index) const
+	{
+		assert(index < InputState::MouseButtonCount);
+		return m_states[index].cleared();
 	}
 
 	Duration CMouse::pressedDuration(const uint32 index) const

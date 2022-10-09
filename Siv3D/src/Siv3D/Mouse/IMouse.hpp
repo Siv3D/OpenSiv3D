@@ -34,6 +34,10 @@ namespace s3d
 
 		virtual bool up(uint32 index) const = 0;
 
+		virtual void clearInput(uint32 index) = 0;
+
+		virtual bool cleared(uint32 index) const = 0;
+
 		virtual Duration pressedDuration(uint32 index) const = 0;
 
 		virtual const Array<Input>& getAllInput() const noexcept = 0;

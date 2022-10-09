@@ -25,14 +25,28 @@ namespace s3d
 
 		Stopwatch stopwatch;
 
-		bool up = false;
-
-		bool pressed = false;
-
-		bool down = false;
-
 		void update(bool currentPressed);
 
-		void clear();
+		void reset();
+
+		void clearInput();
+
+		bool cleared() const noexcept;
+
+		bool up() const noexcept;
+
+		bool pressed() const noexcept;
+
+		bool down() const noexcept;
+
+	private:
+
+		bool m_up = false;
+
+		bool m_pressed = false;
+
+		bool m_down = false;
+
+		bool m_cleared = false;
 	};
 }

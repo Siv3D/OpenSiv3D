@@ -33,13 +33,13 @@ namespace s3d
 
 		bool connected = false;
 
-		void clear()
+		void reset()
 		{
 			buttons.clear();
 
 			for (auto& pov : povs)
 			{
-				pov.clear();
+				pov.reset();
 			}
 
 			povDegree.reset();
