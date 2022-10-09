@@ -308,6 +308,7 @@
 		2C36F835267F937400691B1C /* Renderer3DFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F834267F937400691B1C /* Renderer3DFactory.mm */; };
 		2C36F83A267F939200691B1C /* CRenderer3D_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */; };
 		2C36F83B267F939200691B1C /* CRenderer3D_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */; };
+		2C398E4228F2CF16006A24E3 /* SivSimpleMenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C398E4128F2CF16006A24E3 /* SivSimpleMenuBar.cpp */; };
 		2C39ECA92564030E0021DF34 /* GL4Renderer2DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C39ECA72564030E0021DF34 /* GL4Renderer2DCommand.cpp */; };
 		2C39ECAA2564030E0021DF34 /* GL4Renderer2DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C39ECA82564030E0021DF34 /* GL4Renderer2DCommand.hpp */; };
 		2C39ECB4256406FA0021DF34 /* MetalRenderer2DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C39ECB2256406FA0021DF34 /* MetalRenderer2DCommand.hpp */; };
@@ -2306,6 +2307,8 @@
 		2C36F834267F937400691B1C /* Renderer3DFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer3DFactory.mm; sourceTree = "<group>"; };
 		2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer3D_GL4.hpp; sourceTree = "<group>"; };
 		2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer3D_GL4.cpp; sourceTree = "<group>"; };
+		2C398E3F28F2CEF6006A24E3 /* SimpleMenuBar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleMenuBar.hpp; sourceTree = "<group>"; };
+		2C398E4128F2CF16006A24E3 /* SivSimpleMenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleMenuBar.cpp; sourceTree = "<group>"; };
 		2C39ECA72564030E0021DF34 /* GL4Renderer2DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer2DCommand.cpp; sourceTree = "<group>"; };
 		2C39ECA82564030E0021DF34 /* GL4Renderer2DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer2DCommand.hpp; sourceTree = "<group>"; };
 		2C39ECB2256406FA0021DF34 /* MetalRenderer2DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRenderer2DCommand.hpp; sourceTree = "<group>"; };
@@ -5527,6 +5530,14 @@
 			path = GL4;
 			sourceTree = "<group>";
 		};
+		2C398E4028F2CF16006A24E3 /* SimpleMenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				2C398E4128F2CF16006A24E3 /* SivSimpleMenuBar.cpp */,
+			);
+			path = SimpleMenuBar;
+			sourceTree = "<group>";
+		};
 		2C4231D9242B155E00A16BCA /* GLFW */ = {
 			isa = PBXGroup;
 			children = (
@@ -7941,6 +7952,7 @@
 				2CC8B52928C752ED008C770A /* SimpleAnimation.hpp */,
 				2CC8B54C28C752ED008C770A /* SimpleGUI.hpp */,
 				2CC8B4E328C752ED008C770A /* SimpleHTTP.hpp */,
+				2C398E3F28F2CEF6006A24E3 /* SimpleMenuBar.hpp */,
 				2CC8B69F28C752EE008C770A /* Sky.hpp */,
 				2CC8B4AD28C752ED008C770A /* SoundFont.hpp */,
 				2CC8B4C728C752ED008C770A /* SpecialFolder.hpp */,
@@ -8593,6 +8605,7 @@
 				2CC8B9DE28C7532D008C770A /* SimpleAnimation */,
 				2CC8B77428C7532D008C770A /* SimpleGUI */,
 				2CC8B87B28C7532D008C770A /* SimpleHTTP */,
+				2C398E4028F2CF16006A24E3 /* SimpleMenuBar */,
 				2CC8B78828C7532D008C770A /* Sky */,
 				2CC8BAF528C7532E008C770A /* SoundFont */,
 				2CC8B88128C7532D008C770A /* Sphere */,
@@ -13630,6 +13643,7 @@
 				2CC8BC3228C7532F008C770A /* SivCone.cpp in Sources */,
 				2CC8BC8628C75330008C770A /* ScriptColorF.cpp in Sources */,
 				2C834D8E248805D4006208B8 /* unicode_fold2_key.c in Sources */,
+				2C398E4228F2CF16006A24E3 /* SivSimpleMenuBar.cpp in Sources */,
 				2CC8BCB828C75330008C770A /* ScriptMonitor.cpp in Sources */,
 				2C48BEF725CFB8C500A93CE3 /* edge-selectors.cpp in Sources */,
 				2C13C8CD25B8FA9D0054B968 /* RecastAlloc.cpp in Sources */,
