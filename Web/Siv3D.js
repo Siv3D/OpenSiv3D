@@ -895,7 +895,9 @@ mergeInto(LibraryManager.library, {
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
 
     siv3dSetTextInputText: function(ptr) {
-        siv3dTextInputElement.textContent = UTF8ToString(ptr);
+        /** @type { string } */
+        const newText = UTF8ToString(ptr);
+        siv3dTextInputElement.textContent = " ".repeat(newText.length);
     },
     siv3dSetTextInputText__sig: "vi",
     siv3dSetTextInputText__deps: [ "$siv3dTextInputElement" ],
