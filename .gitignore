@@ -406,7 +406,7 @@ gmon.out
 ## Ignore compiled binaries
 /Siv3D/lib/*/Siv3D_d.lib
 /Siv3D/lib/*/Siv3D.lib
-/Siv3D/lib/*/libSiv3D.a
+/Siv3D/lib/macOS/siv3d/libSiv3D.a
 /Siv3D/lib/*/siv3d.a
 **/App/*.app
 **/App/*.exe

@@ -13964,7 +13964,7 @@
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../Siv3D/lib/macOS,
+					../Siv3D/lib/macOS/siv3d,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
@@ -14035,7 +14035,7 @@
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					../Siv3D/lib/macOS,
+					../Siv3D/lib/macOS/siv3d,
 					../Siv3D/lib/macOS/boost,
 					../Siv3D/lib/macOS/freetype,
 					../Siv3D/lib/macOS/harfbuzz,
@@ -14159,7 +14159,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/lib/macOS/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/lib/macOS/siv3d";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -14239,7 +14239,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/lib/macOS/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/lib/macOS/siv3d";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
