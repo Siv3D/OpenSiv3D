@@ -148,8 +148,8 @@ namespace s3d
 			SIV3D_ENGINE(Mouse)->clearInput(m_code);
 		//case InputDeviceType::Gamepad:
 		//	SIV3D_ENGINE(Gamepad)->clearInput(m_playerIndex, m_code);
-		//case InputDeviceType::XInput:
-		//	SIV3D_ENGINE(XInput)->clearInput(m_playerIndex, m_code);
+		case InputDeviceType::XInput:
+			SIV3D_ENGINE(XInput)->clearInput(m_playerIndex, m_code);
 		}
 	}
 
@@ -163,8 +163,8 @@ namespace s3d
 			return SIV3D_ENGINE(Mouse)->cleared(m_code);
 		//case InputDeviceType::Gamepad:
 		//	return SIV3D_ENGINE(Gamepad)->cleared(m_playerIndex, m_code);
-		//case InputDeviceType::XInput:
-		//	return SIV3D_ENGINE(XInput)->cleared(m_playerIndex, m_code);
+		case InputDeviceType::XInput:
+			return SIV3D_ENGINE(XInput)->cleared(m_playerIndex, m_code);
 		default:
 			return false;
 		}

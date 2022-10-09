@@ -56,6 +56,10 @@ namespace s3d
 
 		virtual bool up(uint32 playerIndex, uint32 index) const = 0;
 
+		virtual void clearInput(uint32 playerIndex, uint32 index) = 0;
+
+		virtual bool cleared(uint32 playerIndex, uint32 index) const = 0;
+
 		virtual Duration pressedDuration(uint32 playerIndex, uint32 index) const = 0;
 
 		virtual const detail::XInput_impl& getInput(uint32 playerIndex) const = 0;

@@ -239,6 +239,20 @@ namespace s3d
 		return m_states[playerIndex].buttons[index].up();
 	}
 
+	void CXInput::clearInput(const uint32 playerIndex, const uint32 index)
+	{
+		assert(playerIndex < XInput.MaxPlayerCount);
+
+		m_states[playerIndex].buttons[index].clearInput();
+	}
+
+	bool CXInput::cleared(const uint32 playerIndex, const uint32 index) const
+	{
+		assert(playerIndex < XInput.MaxPlayerCount);
+
+		return m_states[playerIndex].buttons[index].cleared();
+	}
+
 	Duration CXInput::pressedDuration(const uint32 playerIndex, const uint32 index) const
 	{
 		assert(playerIndex < XInput.MaxPlayerCount);
