@@ -39,6 +39,10 @@ namespace s3d
 
 		virtual bool up(size_t playerIndex, uint32 index) = 0;
 
+		virtual void clearInput(uint32 playerIndex, uint32 index) = 0;
+
+		virtual bool cleared(uint32 playerIndex, uint32 index) = 0;
+
 		virtual Duration pressedDuration(size_t playerIndex, uint32 index) = 0;
 
 		virtual Optional<int32> povDegree(size_t playerIndex) = 0;

@@ -248,6 +248,36 @@ namespace s3d
 		return false;
 	}
 
+	void CGamepad::clearInput(const size_t playerIndex, const uint32 index)
+	{
+		assert(playerIndex < Gamepad.MaxPlayerCount);
+
+		if (index < m_states[playerIndex].buttons.size())
+		{
+			m_states[playerIndex].buttons[index].clearInput();
+		}
+		else if (InRange(index, 0x80u, 0x83u))
+		{
+			m_states[playerIndex].povs[(index - 0x80u)].clearInput();
+		}
+	}
+
+	bool CGamepad::cleared(const size_t playerIndex, const uint32 index)
+	{
+		assert(playerIndex < Gamepad.MaxPlayerCount);
+
+		if (index < m_states[playerIndex].buttons.size())
+		{
+			return m_states[playerIndex].buttons[index].cleared();
+		}
+		else if (InRange(index, 0x80u, 0x83u))
+		{
+			return m_states[playerIndex].povs[(index - 0x80u)].cleared();
+		}
+
+		return false;
+	}
+
 	Duration CGamepad::pressedDuration(const size_t playerIndex, const uint32 index)
 	{
 		assert(playerIndex < Gamepad.MaxPlayerCount);
