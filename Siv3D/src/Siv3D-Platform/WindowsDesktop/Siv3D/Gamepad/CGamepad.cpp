@@ -283,7 +283,7 @@ namespace s3d
 		return false;
 	}
 
-	void CGamepad::clearInput(const uint32 playerIndex, const uint32 index)
+	void CGamepad::clearInput(const size_t playerIndex, const uint32 index)
 	{
 		if (not m_initialized)
 		{
@@ -302,7 +302,7 @@ namespace s3d
 		}
 	}
 
-	bool CGamepad::cleared(const uint32 playerIndex, const uint32 index)
+	bool CGamepad::cleared(const size_t playerIndex, const uint32 index)
 	{
 		if (not m_initialized)
 		{
