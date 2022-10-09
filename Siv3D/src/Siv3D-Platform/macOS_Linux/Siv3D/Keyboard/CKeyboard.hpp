@@ -44,6 +44,10 @@ namespace s3d
 
 		bool up(uint32 index) const override;
 
+		void clearInput(uint32 index) override;
+
+		bool cleared(uint32 index) const override;
+
 		Duration pressedDuration(uint32 index) const override;
 
 		const String& name(uint32 index) const override;

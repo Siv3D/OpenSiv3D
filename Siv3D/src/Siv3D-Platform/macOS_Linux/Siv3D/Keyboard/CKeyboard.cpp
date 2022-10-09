@@ -302,6 +302,18 @@ namespace s3d
 		return m_states[index].up();
 	}
 
+	void CKeyboard::clearInput(const uint32 index)
+	{
+		assert(index < InputState::KeyCount);
+		m_states[index].clearInput();
+	}
+
+	bool CKeyboard::cleared(const uint32 index) const
+	{
+		assert(index < InputState::KeyCount);
+		return m_states[index].cleared();
+	}
+
 	Duration CKeyboard::pressedDuration(const uint32 index) const
 	{
 		assert(index < InputState::KeyCount);

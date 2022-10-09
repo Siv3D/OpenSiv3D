@@ -143,7 +143,7 @@ namespace s3d
 		switch (m_deviceType)
 		{
 		case InputDeviceType::Keyboard:
-		//	SIV3D_ENGINE(Keyboard)->clearInput(m_code);
+			SIV3D_ENGINE(Keyboard)->clearInput(m_code);
 			break;
 		case InputDeviceType::Mouse:
 			SIV3D_ENGINE(Mouse)->clearInput(m_code);
@@ -161,8 +161,8 @@ namespace s3d
 	{
 		switch (m_deviceType)
 		{
-		//case InputDeviceType::Keyboard:
-		//	return SIV3D_ENGINE(Keyboard)->cleared(m_code);
+		case InputDeviceType::Keyboard:
+			return SIV3D_ENGINE(Keyboard)->cleared(m_code);
 		case InputDeviceType::Mouse:
 			return SIV3D_ENGINE(Mouse)->cleared(m_code);
 		case InputDeviceType::Gamepad:
