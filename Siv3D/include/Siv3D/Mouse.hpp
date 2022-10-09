@@ -23,6 +23,9 @@ namespace s3d
 		[[nodiscard]]
 		const Array<Input>& GetAllInputs() noexcept;
 
+		/// @brief 現在のフレームで、以降の MouseL / MouseR の down() と pressed() を強制的に false にします。
+		void ClearLRInput();
+
 		/// @brief マウスホイールのスクロール量を返します。
 		/// @return マウスホイールのスクロール量
 		[[nodiscard]]

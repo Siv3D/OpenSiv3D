@@ -23,6 +23,12 @@ namespace s3d
 			return SIV3D_ENGINE(Mouse)->getAllInput();
 		}
 
+		void ClearLRInput()
+		{
+			MouseL.clearInput();
+			MouseR.clearInput();
+		}
+
 		double Wheel() noexcept
 		{
 			return SIV3D_ENGINE(Mouse)->wheel().y;
