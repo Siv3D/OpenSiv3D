@@ -546,6 +546,27 @@ namespace s3d
 		return static_cast<P2BodyType>(pImpl->getBody().GetType());
 	}
 
+	P2Body& P2Body::setBullet(const bool bullet) noexcept
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->getBody().SetBullet(bullet);
+		return *this;
+	}
+
+	bool P2Body::isBullet() const noexcept
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return pImpl->getBody().IsBullet();
+	}
+
 	P2Body& P2Body::setFixedRotation(const bool fixedRotation) noexcept
 	{
 		if (isEmpty())

@@ -327,6 +327,15 @@ namespace s3d
 		[[nodiscard]]
 		P2BodyType getBodyType() const noexcept;
 
+		/// @brief 
+		/// @param bullet 
+		/// @return 
+		P2Body& setBullet(bool bullet) noexcept;
+
+		/// @brief 
+		/// @return 
+		bool isBullet() const noexcept;
+
 		/// @brief 物体の回転の無効・有効を設定します（デフォルトは有効）
 		/// @param fixedRotation 回転を有効にするか
 		/// @return *this
