@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(OpenSiv3D_Web_App CXX C)
+project(OpenSiv3D_Web_App CXX C ASM)
 
 #
 # General Options
@@ -192,7 +192,13 @@ endforeach()
 #
 if (SIV3D_BUILD_WITH_SHARED_MAIN)
 
-  set(ASYNCIFY_IMPORTS _ZN3s3d6System6UpdateEv)
+  set(ASYNCIFY_IMPORTS 
+    _ZN3s3d6System6UpdateEv
+    _ZN3s3d7TextureC1ENS_10StringViewENS_11TextureDescE
+    _ZN3s3d5ImageC1ENS_10StringViewENS_11ImageFormatE
+    _ZN3s3d5AudioC1ENS_10StringViewE
+    _ZN3s3d5AudioC1ENS_10StringViewENS_5YesNoINS_8Loop_tagEEE
+  )
   set(ASYNCIFY_ADD "Main()")
 
 else ()
@@ -315,6 +321,7 @@ endif()
 add_executable(Siv3DSharedMain 
   EXCLUDE_FROM_ALL
   Empty.cpp
+  DynCallStub.S
 )
 
 if (SIV3D_BUILD_WITH_SHARED_MAIN)
@@ -333,7 +340,6 @@ target_compile_options(Siv3DSharedMain PRIVATE
 set(Siv3DSharedMainLinkerOption
   "-s MAIN_MODULE=1"
   "-s DECLARE_ASM_MODULE_EXPORTS=0"
-  "-s EXPORTED_FUNCTIONS='[\"_main\"]'"
 
   "--pre-js '${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js'"
   "--pre-js '${CMAKE_SOURCE_DIR}/Siv3D.data.js'"
@@ -358,6 +364,8 @@ set(ASYNCIFY_ADD
   "main"
   "dynCall_v"
   "dynCall_vi"
+  "__synccall"
+  "fakeDynCall_v"
   "s3d::TryMain()"
   "s3d::CSystem::init()"
   "s3d::System::Update()"
