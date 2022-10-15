@@ -88,7 +88,7 @@ namespace s3d
 		/// @return HTTP レスポンス
 		HTTPResponse Post(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, MemoryWriter& writer);
 
-		/// @brief OST メソッドで Web サーバにリクエストを送ります。
+		/// @brief POST メソッドで Web サーバにリクエストを送ります。
 		/// @param url URL
 		/// @param headers ヘッダ
 		/// @param src 送信するデータの先頭ポインタ
