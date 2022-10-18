@@ -235,6 +235,9 @@ else ()
     "s3d::ImageDecoder::Decode(*)"
     "s3d::ImageDecoder::GetImageInfo(*)"
 
+    "s3d::Model::Model(*)"
+    "s3d::CModel::create(*)"
+
     "s3d::CRenderer2D_GLES3::init()"
     "s3d::CRenderer2D_WebGPU::init()"
 
@@ -381,6 +384,8 @@ set(ASYNCIFY_ADD
   "s3d::Texture::Texture(*)"
   "s3d::ImageDecoder::Decode(*)"
   "s3d::ImageDecoder::GetImageInfo(*)"
+  "s3d::Model::Model(*)"
+  "s3d::CModel::create(*)"
   "s3d::CRenderer2D_GLES3::init()"
   "s3d::CRenderer2D_WebGPU::init()"
   "s3d::Clipboard::GetText(*)"
