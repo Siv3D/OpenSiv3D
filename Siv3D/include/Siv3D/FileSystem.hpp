@@ -259,9 +259,12 @@ namespace s3d
 		/// @param filePath ブラウザ上の仮想ファイルへのパス
 		void DownloadFile(FilePathView filePath);
 
-		/// @brief サーバー上からブラウザ上の仮想ファイルへファイルをダウンロードします。
+		/// @brief 仮想ファイルシステムに `path` と同名のファイルが無い場合、カレントディレクトリ基準で `path` を
+		///        HTTP リクエスト経由でダウンロードし仮想ファイルシステムに追加します。これにより、当該ファイルに
+		///        Siv3D の API でアクセスできるようになります。この関数を呼び出す関数は、ビルドオプションで
+		///        `ASYNCIFY_ADD` への登録が必要です。その関数を呼ぶ関数も再帰的に登録が必要です。
 		/// @param filePath ブラウザ上の仮想ファイルへのパス
-		void FetchFileIfNotExists(FilePathView filePath);
+		void FetchFile(FilePathView filePath);
 	}
 
 # endif

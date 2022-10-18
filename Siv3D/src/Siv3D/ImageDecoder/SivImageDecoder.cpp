@@ -39,7 +39,7 @@ namespace s3d
 		Image Decode(const FilePathView path, const ImageFormat imageFormat)
 		{
 		# if SIV3D_PLATFORM(WEB)
-			Platform::Web::FetchFileIfNotExists(path);
+			Platform::Web::FetchFile(path);
 		# endif
 
 			BinaryReader reader(path);

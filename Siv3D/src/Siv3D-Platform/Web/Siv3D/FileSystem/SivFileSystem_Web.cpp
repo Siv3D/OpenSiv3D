@@ -610,7 +610,7 @@ namespace s3d
 			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
 		}
 
-		void FetchFileIfNotExists(FilePathView filePath)
+		void FetchFile(FilePathView filePath)
 		{
 			if (not s3d::FileSystem::Exists(filePath))
 			{

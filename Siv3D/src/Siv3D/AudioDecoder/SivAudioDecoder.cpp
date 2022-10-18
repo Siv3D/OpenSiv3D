@@ -51,7 +51,7 @@ namespace s3d
 		Wave Decode(const FilePathView path, const StringView decoderName)
 		{
 		# if SIV3D_PLATFORM(WEB)
-			Platform::Web::FetchFileIfNotExists(path);
+			Platform::Web::FetchFile(path);
 		# endif
 
 			BinaryReader reader{ path };

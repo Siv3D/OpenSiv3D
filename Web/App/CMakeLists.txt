@@ -249,7 +249,7 @@ else ()
     "s3d::VideoReader::VideoReader(*)"
     "s3d::VideoReader::open(*)"
 
-    "s3d::Platform::Web::FetchFileIfNotExists(*)"
+    "s3d::Platform::Web::FetchFile(*)"
   )
 endif ()
 
