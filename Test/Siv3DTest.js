@@ -51,4 +51,4 @@ Module.preRun = [
       requestPermission() {}
     }
   }
-]
+];
