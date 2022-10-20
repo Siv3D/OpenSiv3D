@@ -295,6 +295,11 @@ namespace s3d
 		return false;
 	}
 
+	void CWindow::setTaskbarProgressBar(double)
+	{
+		// do nothing
+	}
+
 	void CWindow::updateState()
 	{
 		// frameBufferSize

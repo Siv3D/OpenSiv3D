@@ -258,6 +258,21 @@ namespace s3d
 			m_deviceNotificationHandle = ::RegisterDeviceNotificationW(m_hWnd, (DEV_BROADCAST_HDR*)&dbi, DEVICE_NOTIFY_WINDOW_HANDLE);
 		}
 
+		// タスクバー取得
+		{
+			if (SUCCEEDED(::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_taskbar))))
+			{
+				if (FAILED(m_taskbar->HrInit()))
+				{
+					LOG_FAIL(U"Failed to initialize a TaskbarList object");
+				}
+			}
+			else
+			{
+				LOG_FAIL(U"Failed to create a TaskbarList object");
+			}
+		}
+
 		SIV3D_ENGINE(TextInput)->init();
 	}
 
@@ -267,6 +282,8 @@ namespace s3d
 
 		if (m_hWnd)
 		{
+			m_taskbar.Reset();
+
 			if (m_deviceNotificationHandle)
 			{
 				LOG_VERBOSE(U"UnregisterDeviceNotification()");
@@ -514,6 +531,23 @@ namespace s3d
 		::UpdateWindow(m_hWnd);
 		::SetForegroundWindow(m_hWnd);
 		m_showWindowCalled = true;
+	}
+
+	void CWindow::setTaskbarProgressBar(const double progress0_1)
+	{
+		if (not m_taskbar)
+		{
+			return;
+		}
+
+		if (progress0_1 == 1.0)
+		{
+			m_taskbar->SetProgressState(m_hWnd, TBPF_NOPROGRESS);
+		}
+		else
+		{
+			m_taskbar->SetProgressValue(m_hWnd, static_cast<int32>(progress0_1 * 100), 100);
+		}
 	}
 
 	void CWindow::setFullscreen(const bool fullscreen, const size_t monitorIndex, const bool skipSceneResize)

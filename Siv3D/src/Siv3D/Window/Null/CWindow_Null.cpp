@@ -110,4 +110,9 @@ namespace s3d
 	{
 		return false;
 	}
+
+	void CWindow_Null::setTaskbarProgressBar(double)
+	{
+		// do nothing
+	}
 }

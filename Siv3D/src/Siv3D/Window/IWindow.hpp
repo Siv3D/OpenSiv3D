@@ -56,6 +56,8 @@ namespace s3d
 
 		virtual bool isToggleFullscreenEnabled() const = 0;
 
-		virtual void show() {};
+		virtual void show() {}
+
+		virtual void setTaskbarProgressBar(double progress0_1) = 0;
 	};
 }
