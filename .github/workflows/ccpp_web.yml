@@ -133,7 +133,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2  
       - name: Create build folder  
-        run: mkdir Web/App/build
+        run: mkdir Web/CI/App/build
 
       - name: Cache OpenSiv3D Test Build result
         id: cache_siv3d_test
@@ -141,7 +141,7 @@ jobs:
         env:
           cache-name: cache-siv3d-test
         with:
-          path: Web/App
+          path: Web/CI/App
           key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/App/**/*.*', 'Test/**/*.*') }}
 
       - name: Restore Bundles
@@ -157,11 +157,11 @@ jobs:
 
       - name: Create & Build test project
         if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
-        working-directory: Web/App/build
+        working-directory: Web/CI/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
-            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --target Siv3DTest
@@ -170,7 +170,7 @@ jobs:
         with:
           node-version: 16
       - name: Test project
-        working-directory: Web/App
+        working-directory: Web/CI/App
         run: node --experimental-wasm-simd Siv3DTest.js
 
   build-app:
@@ -205,17 +205,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create build folder
-        working-directory: Web/App
-        run: mkdir build
+        working-directory: Web/CI/App
+        run: |
+          mkdir build
+          cp -r ../../App/example .
 
       - name: Cache OpenSiv3D App Build result
         id: cache_siv3d_app
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-app
+          cache-name: cache-siv3d-app-1
         with:
-          path: Web/App
-          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*') }}
+          path: Web/CI/App
+          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*', 'Web/CI/App/**/*.*') }}
 
       - name: Restore Bundles
         if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
@@ -231,11 +233,11 @@ jobs:
 
       - name: Create & Build Siv3d App
         if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
-        working-directory: Web/App/build
+        working-directory: Web/CI/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
-            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
             ${{ matrix.config.cmake-additional-flags }} ..
@@ -246,8 +248,8 @@ jobs:
         with:
           name: Siv3DApp-${{ matrix.config.app-name }}
           path: |
-            Web/App/Siv3DApp.*
-            Web/App/example/
+            Web/CI/App/Siv3DApp.*
+            Web/CI/App/example/
 
       - name: Save Bundles (Side Module)
         if: ${{ matrix.config.name == 'wasm-side-module' }}
@@ -255,8 +257,8 @@ jobs:
         with:
           name: OpenSiv3D-Bundles-wasm-shared-main
           path: |
-            Web/App/Siv3D.*
-            Web/App/example/
+            Web/CI/App/Siv3D.*
+            Web/CI/App/example/
 
   test-app:
     needs: build-app
