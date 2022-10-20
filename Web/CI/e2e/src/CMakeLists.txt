@@ -11,7 +11,7 @@ option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
 option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
 
-set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../App)
+set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../App)
 
 # Siv3D is supposed to be installed to emscripten sysroot folder.
 # Use `make install` when building Siv3d manually.
