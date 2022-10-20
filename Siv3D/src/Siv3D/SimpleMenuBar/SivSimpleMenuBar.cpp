@@ -176,7 +176,7 @@ namespace s3d
 			{
 				const Rect itemRect{ itemBoxRect.x, (itemBoxRect.y + ItemPaddingY + (*m_mouseOverItem * ItemHeight)), itemBoxRect.w, ItemHeight };
 
-				itemRect.stretched(-4, -2).rounded(3.5).draw(m_palette.itemRectColor);
+				itemRect.stretched(-4, -2).rounded(3.5).draw(m_palette.itemMouseoverColor);
 			}
 
 			Point pos{ itemBoxRect.pos.movedBy(ItemPaddingLeft, ItemPaddingY) };
@@ -219,9 +219,10 @@ namespace s3d
 		return m_menus[itemIndex.menuIndex].itemsEnabled[itemIndex.itemIndex];
 	}
 
-	void SimpleMenuBar::setColorPalette(const ColorPalette& palette) noexcept
+	SimpleMenuBar& SimpleMenuBar::setColorPalette(const ColorPalette& palette) noexcept
 	{
 		m_palette = palette;
+		return *this;
 	}
 
 	void SimpleMenuBar::reset() noexcept

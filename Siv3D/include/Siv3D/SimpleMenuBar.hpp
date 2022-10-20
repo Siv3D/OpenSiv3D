@@ -18,10 +18,13 @@
 
 namespace s3d
 {
+	/// @brief メニューバー上のアイテムのインデックス
 	struct MenuBarItemIndex
 	{
+		/// @brief メニューのインデックス
 		size_t menuIndex = 0;
 
+		/// @brief アイテムのインデックス
 		size_t itemIndex = 0;
 
 		friend constexpr bool operator ==(const MenuBarItemIndex& lhs, const MenuBarItemIndex& rhs) noexcept
@@ -35,50 +38,86 @@ namespace s3d
 		}
 	};
 
+	/// @brief メニューバー
 	class SimpleMenuBar
 	{
 	public:
 
+		/// @brief メニューバーの高さ（ピクセル）
 		static constexpr int32 MenuBarHeight = 30;
 
+		/// @brief カラーパレット
 		struct ColorPalette
 		{
+			/// @brief メニューバーの背景色
 			ColorF menuBarColor{ 0.88 };
 
+			/// @brief アクティブなメニューの背景色
 			ColorF activeMenuColor{ 0.8 };
 
+			/// @brief メニューのテキストの色
 			ColorF menuTextColor{ 0.11 };
 
+			/// @brief メニューアイテムの背景色
 			ColorF itemBoxColor{ 0.99 };
 
-			ColorF itemRectColor{ 0.88 };
+			/// @brief マウスオーバーされているメニューアイテムの背景色
+			ColorF itemMouseoverColor{ 0.88 };
 
+			/// @brief メニューアイテムのテキストの色
 			ColorF itemTextColor{ 0.11 };
 
+			/// @brief マウスオーバーされているメニューアイテムのテキストの色
 			ColorF itemMouseoverTextColor{ 0.11 };
 
+			/// @brief 無効化されているメニューアイテムのテキストの色
 			ColorF itemDisabledTextColor{ 0.8 };
 
+			/// @brief メニューアイテムの影の色
 			ColorF itemRectShadowColor{ 0.0, 0.5 };
 		};
 
 		SimpleMenuBar() = default;
 
+		/// @brief メニューバーを構築します。
+		/// @param menus メニューアイテム
 		explicit SimpleMenuBar(const Array<std::pair<String, Array<String>>>& menus);
 
+		/// @brief メニューバーを更新します。
+		/// @return メニューアイテムが選択され場合、そのアイテムのインデックス。それ以外の場合は none
 		Optional<MenuBarItemIndex> update();
 
+		/// @brief メニューバーを描画します。
 		void draw() const;
 
+		/// @brief アイテムの有効無効を切り替えます。
+		/// @param menuIndex メニューインデックス
+		/// @param itemIndex アイテムインデックス
+		/// @param enbaled 有効にする場合 true, 無効にする場合 false
+		/// @return *this
 		SimpleMenuBar& setItemEnabled(size_t menuIndex, size_t itemIndex, bool enbaled);
 
+		/// @brief アイテムの有効無効を切り替えます。
+		/// @param itemIndex アイテムのインデックス
+		/// @param enbaled 有効にする場合 true, 無効にする場合 false
+		/// @return *this
 		SimpleMenuBar& setItemEnabled(const MenuBarItemIndex& itemIndex, bool enbaled);
 
+		/// @brief アイテムの有効無効を取得します。
+		/// @param menuIndex メニューインデックス
+		/// @param itemIndex アイテムインデックス
+		/// @return 有効である場合 true, 無効である場合 false
 		bool getItemEnabled(size_t menuIndex, size_t itemIndex) const;
 
+		/// @brief アイテムの有効無効を取得します。
+		/// @param itemIndex イテムのインデックス
+		/// @return 有効である場合 true, 無効である場合 false
 		bool getItemEnabled(const MenuBarItemIndex& itemIndex) const;
 
-		void setColorPalette(const ColorPalette& palette) noexcept;
+		/// @brief カラーパレットを変更します。
+		/// @param palette 新しいカラーパレット
+		/// @return *this
+		SimpleMenuBar& setColorPalette(const ColorPalette& palette) noexcept;
 
 	private:
 
