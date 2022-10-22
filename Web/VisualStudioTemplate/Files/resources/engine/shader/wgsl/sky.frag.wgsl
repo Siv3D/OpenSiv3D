@@ -361,7 +361,7 @@ fn GetDynamicSkyColor(V: vec3<f32>, sun_enabled: bool, clouds_enabled: bool, dar
 	return sky;
 }
 
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) WorldPosition: vec3<f32>,

@@ -4,6 +4,9 @@ inputs:
   version:
     description: boost version
     required: true
+  cache-name:
+    description: cache name
+    default: cache-boost-headers
   destination:
     description: installed path
     default: '.'
@@ -15,7 +18,7 @@ runs:
       id: cache_boost
       uses: actions/cache@v1
       env:
-        cache-name: cache-boost-headers-1
+        cache-name: ${{ inputs.cache-name }}
       with:
         path: ${{ inputs.destination }}
         key: ${{ env.cache-name }}

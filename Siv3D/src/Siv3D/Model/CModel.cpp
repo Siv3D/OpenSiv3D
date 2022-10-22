@@ -12,6 +12,7 @@
 # include "CModel.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -48,6 +49,10 @@ namespace s3d
 
 	Model::IDType CModel::create(const FilePathView path, const ColorOption colorOption)
 	{
+	# if SIV3D_PLATFORM(WEB)
+		Platform::Web::FetchFile(path);
+	# endif
+
 		auto model = std::make_unique<ModelData>(path, colorOption);
 
 		if (not model->isInitialized())

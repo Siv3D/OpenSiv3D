@@ -1,5 +1,24 @@
 mergeInto(LibraryManager.library, {
     //
+    // System
+    //
+    siv3dCallOnAlert: function(textPtr) {
+        const text = UTF8ToString(textPtr);
+        Module["onAlert"] && Module["onAlert"](text);
+    },
+    siv3dCallOnAlert__sig: "vi",
+
+    siv3dLocateFile: function() {
+        if (Module["locateFile"]) {
+            const origin = Module["locateFile"]("");
+            return allocate(intArrayFromString(origin), ALLOC_NORMAL);
+        } else {
+            return 0;
+        }
+    },
+    siv3dLocateFile__sig: "iv",
+
+    //
     // GamePads
     //
     siv3dGetJoystickInfo: function(joystickId) {
@@ -199,10 +218,12 @@ mergeInto(LibraryManager.library, {
             videoElements[idx] = video;
 
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+            _siv3dMaybeAwake();
         });
 
         video.src = URL.createObjectURL(media_source);
     },
+    $siv3dOpenVideoStream__deps: [ "siv3dMaybeAwake" ],
 
     siv3dOpenVideo: function(fileName, callback, callbackArg) {
         const videoData = FS.readFile(UTF8ToString(fileName));
@@ -220,12 +241,13 @@ mergeInto(LibraryManager.library, {
             videoElements[idx] = video;
 
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+            _siv3dMaybeAwake();
         });
 
         video.src = URL.createObjectURL(videoBlob);
     },
     siv3dOpenVideo__sig: "viii",
-    siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction" ],
+    siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction", "siv3dMaybeAwake" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
         const constraint = {
@@ -248,16 +270,18 @@ mergeInto(LibraryManager.library, {
                     videoElements[idx] = video;
 
                     if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+                    _siv3dMaybeAwake();
                 });
 
                 video.srcObject = stream;
             }
         ).catch(function(_) {
             if (callback) {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
+            _siv3dMaybeAwake();
         })
     },
     siv3dOpenCamera__sig: "viiii",
-    siv3dOpenCamera__deps: ["$videoElements"],
+    siv3dOpenCamera__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dSetCameraResolution: function(idx, width, height, callback, callbackArg) {
         /** @type { HTMLVideoElement } */
@@ -273,11 +297,12 @@ mergeInto(LibraryManager.library, {
         stream.applyConstraints(constraint).then(
             function () {
                 if (callback) {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+                _siv3dMaybeAwake();
             }
         );
     },
     siv3dSetCameraResolution__sig: "viiiii",
-    siv3dSetCameraResolution__deps: ["$videoElements"],
+    siv3dSetCameraResolution__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dQueryCameraAvailability: function () {
         return !!navigator.getUserMedia;
@@ -290,13 +315,14 @@ mergeInto(LibraryManager.library, {
         if (callback) {
             video.ontimeupdate = function() {
                 {{{ makeDynCall('vi', 'callback') }}}(callbackArg);
+                _siv3dMaybeAwake();
             }
         } else {
             video.ontimeupdate = null;
         }
     },
     siv3dRegisterVideoTimeUpdateCallback__sig: "viii",
-    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements" ], 
+    siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements", "siv3dMaybeAwake" ], 
 
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
         const video = videoElements[idx];
@@ -400,17 +426,17 @@ mergeInto(LibraryManager.library, {
     
     $siv3dOnTouchStart: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.preventDefault()
+        // e.preventDefault()
     },
 
     $siv3dOnTouchEnd: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.stopPropagation();
+        // e.stopPropagation();
     },
 
     $siv3dOnTouchMove: function(e) {
         siv3dActiveTouches = Array.from(e.touches);
-        e.stopPropagation();
+        // e.stopPropagation();
     },
 
     siv3dRegisterTouchCallback: function() {
@@ -525,21 +551,27 @@ mergeInto(LibraryManager.library, {
     },
     $siv3dUserActionHookCallBack__deps: [ "$siv3dHasUserActionTriggered", "$siv3dTriggerUserAction" ],
 
+    $siv3dUserActionTouchEndCallBack: function(e) {
+        siv3dTriggerUserAction();
+        e.preventDefault();
+    },
+    $siv3dUserActionHookCallBack__deps: [ "$siv3dHasUserActionTriggered", "$siv3dTriggerUserAction" ],
+
     siv3dStartUserActionHook: function() {
-        Module["canvas"].addEventListener('touchend', siv3dUserActionHookCallBack);
+        Module["canvas"].addEventListener('touchend', siv3dUserActionTouchEndCallBack);
         Module["canvas"].addEventListener('mousedown', siv3dUserActionHookCallBack);
         window.addEventListener('keydown', siv3dUserActionHookCallBack);
     },
     siv3dStartUserActionHook__sig: "v",
-    siv3dStartUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dHasUserActionTriggered" ],
+    siv3dStartUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dUserActionTouchEndCallBack", "$siv3dHasUserActionTriggered" ],
 
     siv3dStopUserActionHook: function() {
-        Module["canvas"].removeEventListener('touchend', siv3dUserActionHookCallBack);
+        Module["canvas"].removeEventListener('touchend', siv3dUserActionTouchEndCallBack);
         Module["canvas"].removeEventListener('mousedown', siv3dUserActionHookCallBack);
         window.removeEventListener('keydown', siv3dUserActionHookCallBack);
     },
     siv3dStopUserActionHook__sig: "v",
-    siv3dStopUserActionHook__deps: [ "$siv3dUserActionHookCallBack" ],
+    siv3dStopUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dUserActionTouchEndCallBack" ],
 
     //
     // Dialog Support
@@ -558,40 +590,6 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__sig: "v",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dDownloadLink" ],
 
-    siv3dOpenDialog: function(filterStr) {
-        return Asyncify.handleSleep(function (wakeUp) {
-            siv3dInputElement.accept = UTF8ToString(filterStr);
-            siv3dInputElement.oninput = function(e) {
-                const files = e.target.files;
-
-                if (files.length < 1) {
-                    wakeUp(0);
-                    return;
-                }
-
-                const file = files[0];
-                const filePath = "/tmp/" + file.name;
-
-                siv3dDialogFileReader.addEventListener("load", function onLoaded() {
-                    FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
-
-                    const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
-                    wakeUp(namePtr);
-
-                    siv3dDialogFileReader.removeEventListener("load", onLoaded);
-                });
-
-                siv3dDialogFileReader.readAsArrayBuffer(file);         
-            };
-
-            siv3dRegisterUserAction(function() {
-                siv3dInputElement.click();
-            });
-        })
-    },
-    siv3dOpenDialog__sig: "ii",
-    siv3dOpenDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "$Asyncify" ],
-
     siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
         siv3dInputElement.accept = UTF8ToString(filterStr);
         siv3dInputElement.oninput = function(e) {
@@ -599,6 +597,7 @@ mergeInto(LibraryManager.library, {
 
             if (files.length < 1) {
                 {{{ makeDynCall('vii', 'callback') }}}(0, futurePtr);
+                _siv3dMaybeAwake();
                 return;
             }
 
@@ -610,6 +609,7 @@ mergeInto(LibraryManager.library, {
 
                 const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
                 {{{ makeDynCall('vii', 'callback') }}}(namePtr, futurePtr);
+                _siv3dMaybeAwake();
 
                 siv3dDialogFileReader.removeEventListener("load", onLoaded);
             });
@@ -622,7 +622,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dOpenDialogAsync__sig: "vii",
-    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS" ],
+    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "siv3dMaybeAwake" ],
 
     $siv3dSaveFileBuffer: null, 
     $siv3dSaveFileBufferWritePos: 0,
@@ -672,6 +672,7 @@ mergeInto(LibraryManager.library, {
             HEAPU32[(arg>>2)+3] = decoded.length;
 
             {{{ makeDynCall('vi', 'callback') }}}(arg);
+            _siv3dMaybeAwake();
         };
 
         const onFailure = function() {
@@ -681,12 +682,13 @@ mergeInto(LibraryManager.library, {
             HEAPU32[(arg>>2)+3] = 0;
 
             {{{ makeDynCall('vi', 'callback') }}}(arg);
+            _siv3dMaybeAwake();
         }
 
         Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
     },
     siv3dDecodeAudioFromFileAsync__sig: "viii",
-    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS" ],
+    siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS", "siv3dMaybeAwake" ],
 
     //
     // Clipboard
@@ -704,6 +706,12 @@ mergeInto(LibraryManager.library, {
     siv3dGetClipboardText: function() {
         return Asyncify.handleSleep(function (wakeUp) {
             siv3dRegisterUserAction(function () {
+                if (!navigator.clipboard.readText) {
+                    err("Reading clipboard is not allowed in this browser.");
+                    wakeUp(0);
+                    return;
+                }
+
                 navigator.clipboard.readText()
                 .then(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
@@ -711,7 +719,7 @@ mergeInto(LibraryManager.library, {
                 })
                 .catch(function(_) {
                     wakeUp(0);
-                })
+                });
             }); 
         });
     },
@@ -720,6 +728,12 @@ mergeInto(LibraryManager.library, {
 
     siv3dGetClipboardTextAsync: function(callback, promise) {
         siv3dRegisterUserAction(function () {
+            if (!navigator.clipboard.readText) {
+                err("Reading clipboard is not allowed in this browser.");
+                {{{ makeDynCall('vii', 'callback') }}}(0, promise);
+                return;
+            }
+
             navigator.clipboard.readText()
             .then(function(str) {
                 const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
@@ -728,9 +742,8 @@ mergeInto(LibraryManager.library, {
             })
             .catch(function (e) {
                 {{{ makeDynCall('vii', 'callback') }}}(0, promise);
-            })
+            });
         });
-        
     },
     siv3dGetClipboardTextAsync__sig: "vii",
     siv3dGetClipboardTextAsync__deps: [ "$siv3dRegisterUserAction" ],
@@ -739,12 +752,14 @@ mergeInto(LibraryManager.library, {
     // TextInput
     //
     $siv3dTextInputElement: null,
+    $siv3dTextInputCompositionRange: null,
 
     siv3dInitTextInput: function() {
-        const textInput = document.createElement("input");
-        textInput.type = "text";
+        const textInput = document.createElement("div");
+        textInput.contentEditable = true;
         textInput.style.position = "absolute";
         textInput.style.zIndex = -2;
+        textInput.style.whiteSpace = "pre-wrap";
         textInput.autocomplete = false;
 
         const maskDiv = document.createElement("div");
@@ -768,7 +783,14 @@ mergeInto(LibraryManager.library, {
     siv3dInitTextInput__deps: [ "$siv3dTextInputElement" ],
 
     siv3dRegisterTextInputCallback: function(callback) {
+        let composing = false;
+        let insertCompositionTextInvoked = false;
+
         siv3dTextInputElement.addEventListener('input', function (e) {
+            if (e.isComposing || composing) {
+                return;
+            }
+
             if (e.inputType == "insertText") {
                 if (e.data) {
                     for (var i = 0; i < e.data.length; i++) {
@@ -776,9 +798,48 @@ mergeInto(LibraryManager.library, {
                         {{{ makeDynCall('vi', 'callback') }}}(codePoint);
                     }
                 }
-            }    
+            } else if (e.inputType == "insertFromPaste") {
+                if (e.data) {
+                    for (var i = 0; i < e.data.length; i++) {
+                        const codePoint = e.data.charCodeAt(i);
+                        {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                    }
+                } else {
+                    navigator.clipboard.readText().then(
+                        data => {
+                            for (var i = 0; i < data.length; i++) {
+                                const codePoint = data.charCodeAt(i);
+                                {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                            }
+                        }
+                    );
+                }
+            } else if (e.inputType == "deleteContentBackward") {
+                {{{ makeDynCall('vi', 'callback') }}}(8);
+            } else if (e.inputType == "deleteContentForward") {
+                {{{ makeDynCall('vi', 'callback') }}}(0x7F);
+            }
+        });
+        siv3dTextInputElement.addEventListener('beforeinput', function (e) {
+            if (e.inputType == "insertCompositionText" || (composing && e.inputType == "insertText")) {
+                siv3dTextInputCompositionRange = e.getTargetRanges()[0];
+
+                if (!insertCompositionTextInvoked && !!siv3dTextInputCompositionRange) {
+                    const length = siv3dTextInputCompositionRange.endOffset - siv3dTextInputCompositionRange.startOffset;
+                    for (var i = 0; i < length; i++) {
+                        {{{ makeDynCall('vi', 'callback') }}}(8);
+                    }
+                }
+                insertCompositionTextInvoked = true;
+            }
+        });
+        siv3dTextInputElement.addEventListener('compositionstart', function (e) {
+            composing = true;
+            insertCompositionTextInvoked = false;
         });
         siv3dTextInputElement.addEventListener('compositionend', function (e) {
+            composing = false;
+            siv3dTextInputCompositionRange = null;
             for (var i = 0; i < e.data.length; i++) {
                 const codePoint = e.data.charCodeAt(i);
                 {{{ makeDynCall('vi', 'callback') }}}(codePoint);
@@ -786,7 +847,19 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dRegisterTextInputCallback__sig: "vi",
-    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement" ],
+    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement", "$siv3dTextInputCompositionRange" ],
+
+    siv3dGetTextInputCompositionRange: function(start, end) {
+        if (siv3dTextInputCompositionRange) {
+            setValue(start, siv3dTextInputCompositionRange.startOffset, 'i32');
+            setValue(end, siv3dTextInputCompositionRange.endOffset, 'i32');
+        } else {
+            setValue(start, 0, 'i32');
+            setValue(end, 0, 'i32');
+        }
+    },
+    siv3dGetTextInputCompositionRange__sig: "vii",
+    siv3dGetTextInputCompositionRange__deps: [ "$siv3dTextInputCompositionRange" ],
 
     siv3dRegisterTextInputMarkedCallback: function(callback) {
         siv3dTextInputElement.addEventListener('compositionupdate', function (e) {
@@ -805,18 +878,62 @@ mergeInto(LibraryManager.library, {
         const isFocusRequiredBool = isFocusRequired != 0;
 
         if (isFocusRequiredBool) {
-            siv3dRegisterUserAction(function () {
-                siv3dTextInputElement.value = ""
-                siv3dTextInputElement.focus();
-            });
+            if (document.activeElement != siv3dTextInputElement) {
+                siv3dRegisterUserAction(function () {
+                    siv3dTextInputElement.focus();
+                });
+            }
         } else {
-            siv3dRegisterUserAction(function () {
-                siv3dTextInputElement.blur();
-            });
+            if (document.activeElement == siv3dTextInputElement) {
+                siv3dRegisterUserAction(function () {
+                    siv3dTextInputElement.blur();
+                });
+            }
         }
     },
     siv3dRequestTextInputFocus__sig: "vi",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
+
+    siv3dSetTextInputText: function(ptr) {
+        /** @type { string } */
+        const newText = UTF8ToString(ptr);
+        siv3dTextInputElement.textContent = " ".repeat(newText.length);
+    },
+    siv3dSetTextInputText__sig: "vi",
+    siv3dSetTextInputText__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dSetTextInputCursor: function(index) {
+        const targetTextNode = siv3dTextInputElement.childNodes[0];
+
+        if (!targetTextNode) {
+            return;
+        }
+
+        const selection = window.getSelection();
+        const range = document.createRange();
+
+        range.selectNode(targetTextNode);
+        range.setStart(targetTextNode, index);
+        range.setEnd(targetTextNode, index);
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+    },
+    siv3dSetTextInputCursor__sig: "vi",
+    siv3dSetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
+
+    siv3dGetTextInputCursor: function() {
+        const selection = window.getSelection();
+        const targetTextNode = siv3dTextInputElement.childNodes[0];
+
+        if (selection.focusNode == targetTextNode) {
+            return selection.focusOffset;
+        } else {
+            return 0;
+        }
+    },
+    siv3dGetTextInputCursor__sig: "iv",
+    siv3dGetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
 
     //
     // Font Rendering
@@ -875,21 +992,27 @@ mergeInto(LibraryManager.library, {
     siv3dRequestNotificationPermission: function(callback, callbackArg) {
         if (Notification.permission === "granted") {
             {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
+            _siv3dMaybeAwake();
         } else {
-            Notification.requestPermission().then(function(v) {
-                if (v === "granted") {
-                    {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
-                } else {
-                    {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
-                }
+            siv3dRegisterUserAction(function () {
+                Notification.requestPermission().then(function(v) {
+                    if (v === "granted") {
+                        {{{ makeDynCall('vii', 'callback') }}}(1 /* NotificationPermission.Granted */, callbackArg);
+                    } else {
+                        {{{ makeDynCall('vii', 'callback') }}}(2 /* NotificationPermission.Denied */, callbackArg);
+                    }
+                    _siv3dMaybeAwake();
+                });
             });
         }
     },
     siv3dRequestNotificationPermission__sig: "vii",
+    siv3dRequestNotificationPermission__deps: [ "siv3dMaybeAwake"],
 
     siv3dCreateNotification: function(title, body, actionsNum, actionTexts, callback, callbackArg) {
         if (!window.Notification && Notification.permission !== "granted") {
             {{{ makeDynCall('vii', 'callback') }}}(0, callbackArg);
+            _siv3dMaybeAwake();
             return 0;
         }
 
@@ -906,34 +1029,37 @@ mergeInto(LibraryManager.library, {
             actions.push({ title: actionText, action: actionText });
         }
 
-        siv3dRegisterUserAction(function () {
-            siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions })
-            {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
-        }); 
+        siv3dNotifications[idx] = new Notification(titleText, { body: bodyText, actions: actions });
+        {{{ makeDynCall('vii', 'callback') }}}(idx, callbackArg);
+        _siv3dMaybeAwake();
 
         return idx;
     },
     siv3dCreateNotification__sig: "iiiiiii",
-    siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications" ],
+    siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dRegisterNotificationCallback: function(id, callback, callbackArg) {
         const notificattion = siv3dNotifications[id];
 
         notificattion.onclick = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 1 /* ToastNotificationState.Activated */, callbackArg);
+            _siv3dMaybeAwake();
         }
         notificattion.onshow = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 2 /* ToastNotificationState.Shown */, callbackArg);
+            _siv3dMaybeAwake();
         }
         notificattion.onclose = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 5 /* ToastNotificationState.TimedOut */, callbackArg);
+            _siv3dMaybeAwake();
         }
         notificattion.onerror = function() {
             {{{ makeDynCall('viii', 'callback') }}}(id, 6 /* ToastNotificationState.Error */, callbackArg);
+            _siv3dMaybeAwake();
         }
     },
     siv3dRegisterNotificationCallback__sig: "viii",
-    siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications" ],
+    siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dCloseNotification: function(id) {
         const notificattion = siv3dNotifications[id];
@@ -1077,14 +1203,14 @@ mergeInto(LibraryManager.library, {
     siv3dWebGPUConfigureSwapchain: function(deviceId, swapChainId, descriptor) {
         var device = WebGPU["mgrDevice"].get(deviceId);
         var swapChain = WebGPU["mgrSwapChain"].get(swapChainId);
-        var width = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.width, 'i32', false, true) }}};
-        var height = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.height, 'i32', false, true) }}};
+        var width = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.width, 'u32', false) }}};
+        var height = {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.height, 'u32', false) }}};
 
         var desc = {
             "device": device,
             "format": WebGPU.TextureFormat[
-                {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.format, 'i32', false, true) }}}],
-            "usage": {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.usage, 'i32', false, true) }}},
+                {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.format, 'u32', false) }}}],
+            "usage": {{{ makeGetValue('descriptor', C_STRUCTS.WGPUSwapChainDescriptor.usage, 'u32', false) }}},
             "size": { width, height }
         };
 
@@ -1097,56 +1223,49 @@ mergeInto(LibraryManager.library, {
     // Asyncify Support
     //
 #if ASYNCIFY
+
+    $siv3dAwakeFunction: null,
+    siv3dSleepUntilWaked: function() {
+        Asyncify.handleSleep(function(wakeUp) {
+            siv3dAwakeFunction = wakeUp;
+        });
+        return 0;
+    },
+    siv3dSleepUntilWaked__sig: "iv",
+    siv3dSleepUntilWaked__deps: [ "$Asyncify", "$siv3dAwakeFunction" ],
+
+    siv3dMaybeAwake: function() {
+        if (siv3dAwakeFunction) {
+            let awake = siv3dAwakeFunction;
+            siv3dAwakeFunction = null;
+
+            try {
+                awake();
+            } catch (e) {
+                abort(e);
+            } finally {
+                maybeExit();
+            }
+        }
+    },
+    siv3dMaybeAwake__sig: "v",
+    siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction" ],
+    
     siv3dRequestAnimationFrame: function() {
         Asyncify.handleSleep(function(wakeUp) {
             requestAnimationFrame(function() {
-                wakeUp();
+                try {
+                    wakeUp();
+                } catch (e) {
+                    abort(e);
+                } finally {
+                    maybeExit();
+                }
             });
         });
     },
     siv3dRequestAnimationFrame__sig: "v", 
-    siv3dRequestAnimationFrame__deps: [ "$Asyncify" ],
-
-    siv3dDecodeAudioFromFile: function(filePath, arg) {
-        Asyncify.handleSleep(function(wakeUp) {
-            const path = UTF8ToString(filePath, 1024);
-            const fileBytes = FS.readFile(path);
-
-            const onSuccess = function(decoded) {
-                const leftDataBuffer = Module["_malloc"](decoded.length * 4);
-                HEAPF32.set(decoded.getChannelData(0), leftDataBuffer>>2);
-
-                let rightDataBuffer;
-                
-                if (decoded.numberOfChannels >= 2) {
-                    rightDataBuffer = Module["_malloc"](decoded.length * 4);
-                    HEAPF32.set(decoded.getChannelData(1), rightDataBuffer>>2);
-                } else {
-                    rightDataBuffer = leftDataBuffer;
-                }
-
-                HEAP32[(arg>>2)+0] = leftDataBuffer;
-                HEAP32[(arg>>2)+1] = rightDataBuffer;
-                HEAPU32[(arg>>2)+2] = decoded.sampleRate;
-                HEAPU32[(arg>>2)+3] = decoded.length;
-
-                wakeUp();
-            };
-
-            const onFailure = function() {
-                HEAP32[(arg>>2)+0] = 0;
-                HEAP32[(arg>>2)+1] = 0;
-                HEAPU32[(arg>>2)+2] = 0;
-                HEAPU32[(arg>>2)+3] = 0;
-
-                wakeUp();
-            }
-
-            Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure); 
-        });
-    },
-    siv3dDecodeAudioFromFile__sig: "vii",
-    siv3dDecodeAudioFromFile__deps: [ "$AL", "$FS", "$Asyncify" ],
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$maybeExit", "abort" ],
 
     //
     // ImageDecode
@@ -1193,17 +1312,19 @@ mergeInto(LibraryManager.library, {
     siv3dDecodeImageFromFile__sig: "viii",
     siv3dDecodeImageFromFile__deps: [ "$siv3dDecodeCanvas", "$siv3dDecodeCanvasContext", "$Asyncify" ],
 #else
+    siv3dSleepUntilWaked: function() {
+        return -1;
+    },
+    siv3dSleepUntilWaked__sig: "iv",
+    siv3dMaybeAwake: function() {
+        // nop
+    },
+    siv3dMaybeAwake__sig: "v",
     siv3dRequestAnimationFrame: function() {
+        // nop
     },
     siv3dRequestAnimationFrame__sig: "v",
 
-    siv3dDecodeAudioFromFile: function(_, arg) {
-        HEAP32[(arg>>2)+0] = 0;
-        HEAP32[(arg>>2)+1] = 0;
-        HEAPU32[(arg>>2)+2] = 0;
-        HEAPU32[(arg>>2)+3] = 0;
-    },
-    siv3dDecodeAudioFromFile__sig: "vii",
     siv3dDecodeImageFromFile: function(_, _, arg) {
         HEAP32[(arg>>2)+0] = 0;
         HEAP32[(arg>>2)+1] = 0;

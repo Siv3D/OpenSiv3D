@@ -18,7 +18,8 @@ export interface MobileCapability {
     real_mobile: string,
     device: string,
     os_version: string,
-    browserName: string
+    browserName: string,
+    connectHardwareKeyboard?: boolean
 }
 
 export interface DesktopCapability { 
@@ -35,13 +36,13 @@ export const deviceCapabilities: DeciceCapability[] = [
         'os' : 'Windows',
         'os_version' : '10',
         'browserName' : 'Chrome',
-        'browser_version' : '98'
+        'browser_version' : '105'
     },
     // {
     //     'os' : 'Windows',
     //     'os_version' : '10',
     //     'browserName' : 'Edge',
-    //     'browser_version' : '98'
+    //     'browser_version' : '105'
     // },
     {
         'os' : 'OS X',
@@ -53,76 +54,85 @@ export const deviceCapabilities: DeciceCapability[] = [
         'os' : 'OS X',
         'os_version' : 'Monterey',
         'browserName' : 'Chrome',
-        'browser_version' : '98'
+        'browser_version' : '105'
     },
     {
         'os' : 'OS X',
         'os_version' : 'Monterey',
         'browserName' : 'FireFox',
-        'browser_version' : '97'
+        'browser_version' : '105'
     },
     // {
     //     'os' : 'android',
     //     "real_mobile" : "true",
     //     'device' : 'Google Pixel',
     //     'os_version' : '8.0',
-    //     'browserName' : 'Chrome'
+    //     'browserName' : 'Chrome',
+    //     'connectHardwareKeyboard': false
     // },
     {
         'os' : 'android',
         "real_mobile" : "true",
         'device' : 'Google Pixel 6',
         'os_version' : '12.0',
-        'browserName' : 'Chrome'
+        'browserName' : 'Chrome',
+        'connectHardwareKeyboard': false
     },
     {
         'os' : 'android',
         "real_mobile" : "true",
         'device' : 'Google Pixel 6',
         'os_version' : '12.0',
-        'browserName' : 'FireFox'
+        'browserName' : 'FireFox',
+        'connectHardwareKeyboard': false
     },
     // {
     //     'os' : 'android',
     //     "real_mobile" : "true",
     //     'device' : 'Samsung Galaxy S9 Plus',
     //     'os_version' : '8.0',
-    //     'browserName' : 'Chrome'
+    //     'browserName' : 'Chrome',
+    //     'connectHardwareKeyboard': false
     // },
     {
         'os' : 'android',
         "real_mobile" : "true",
         'device' : 'Samsung Galaxy S21',
         'os_version' : '11.0',
-        'browserName' : 'Chrome'
+        'browserName' : 'Chrome',
+        'connectHardwareKeyboard': false
     },
     {
         'os' : 'iOS',
         "real_mobile" : "true",
         'device' : 'iPhone 11',
         'os_version' : '15',
-        'browserName' : 'Safari'
+        'browserName' : 'Safari',
+        'connectHardwareKeyboard': false
     },
     {
         'os' : 'iOS',
         "real_mobile" : "true",
         'device' : 'iPhone 11',
         'os_version' : '15',
-        'browserName' : 'Chrome'
+        'browserName' : 'Chrome',
+        'connectHardwareKeyboard': false
     },
     // {
     //     'os' : 'iOS',
     //     "real_mobile" : "true",
     //     'device' : 'iPhone XS',
     //     'os_version' : '15',
-    //     'browserName' : 'Safari'
+    //     'browserName' : 'Safari',
+    //     'connectHardwareKeyboard': false
     // },
     // {
     //     'os' : 'iOS',
     //     "real_mobile" : "true",
     //     'device' : 'iPad 9th',
     //     'os_version' : '15',
-    //     'browserName' : 'Safari'
+    //     'browserName' : 'Safari',
+    //     'connectHardwareKeyboard': false
     // },
 ];
 
@@ -138,7 +148,7 @@ export const notSupportedDeviceCapabilities: DeciceCapability[] = [
         'os' : 'Windows',
         'os_version' : '10',
         'browserName' : 'Firefox',
-        'browser_version' : '97'
+        'browser_version' : '105'
     },
     {
         'os' : 'OS X',

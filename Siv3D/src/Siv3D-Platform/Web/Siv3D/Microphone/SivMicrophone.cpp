@@ -13,7 +13,7 @@
 # include <Siv3D/Math.hpp>
 # include <Siv3D/FFTResult.hpp>
 # include <Siv3D/FFT.hpp>
-# include <Siv3D/Microphone/MicrophoneDetail.hpp>
+# include "MicrophoneDetail.hpp"
 
 namespace s3d
 {

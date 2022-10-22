@@ -152,41 +152,63 @@
         width: 100%;
         height: 100%;
 
-        color: transparent;
-        transition: all 0.2s ease-out;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        transition: color 0.2s ease-out;
+
+        font-size: large;
       }
 
       .playground-overlay:hover {
-        color: white;
         border-color: white;
-        background: rgba(0, 0, 0, 0.5);
       }
 
-      .play-button {
+      .play-button, .reload-button {
+        margin-left: auto;
+        margin-right: auto;
         width: 3cm;
         height: 3cm;
+      }
 
+      .button-container {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
       }
+
+      .error-text {
+        margin-top: 1em;
+      }
     </style>
   </head>
   <body>
-    <div class="dummy"></div>
     <div id="app">
       <div class="playground-overlay" hidden="true">
-        <span class="play-button">
-          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-            <g>
-              <path class="st1" d="M256,0C114.625,0,0,114.625,0,256c0,141.374,114.625,256,256,256c141.374,0,256-114.626,256-256
-                C512,114.625,397.374,0,256,0z M351.062,258.898l-144,85.945c-1.031,0.626-2.344,0.657-3.406,0.031
-                c-1.031-0.594-1.687-1.702-1.687-2.937v-85.946v-85.946c0-1.218,0.656-2.343,1.687-2.938c1.062-0.609,2.375-0.578,3.406,0.031
-                l144,85.962c1.031,0.586,1.641,1.718,1.641,2.89C352.703,257.187,352.094,258.297,351.062,258.898z"/>
-            </g>
-          </svg>
+        <span class="button-container">
+          <div class="play-button">
+            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+              <g>
+                <path class="st1" d="M256,0C114.625,0,0,114.625,0,256c0,141.374,114.625,256,256,256c141.374,0,256-114.626,256-256
+                  C512,114.625,397.374,0,256,0z M351.062,258.898l-144,85.945c-1.031,0.626-2.344,0.657-3.406,0.031
+                  c-1.031-0.594-1.687-1.702-1.687-2.937v-85.946v-85.946c0-1.218,0.656-2.343,1.687-2.938c1.062-0.609,2.375-0.578,3.406,0.031
+                  l144,85.962c1.031,0.586,1.641,1.718,1.641,2.89C352.703,257.187,352.094,258.297,351.062,258.898z"/>
+              </g>
+            </svg>
+          </div>
+          <div class="reload-button" hidden="true">
+            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+              <g>
+                <path class="st1" d="M268.175,488.161c98.2-11,176.9-89.5,188.1-187.7c14.7-128.4-85.1-237.7-210.2-239.1v-57.6c0-3.2-4-4.9-6.7-2.9
+                  l-118.6,87.1c-2,1.5-2,4.4,0,5.9l118.6,87.1c2.7,2,6.7,0.2,6.7-2.9v-57.5c87.9,1.4,158.3,76.2,152.3,165.6
+                  c-5.1,76.9-67.8,139.3-144.7,144.2c-81.5,5.2-150.8-53-163.2-130c-2.3-14.3-14.8-24.7-29.2-24.7c-17.9,0-31.9,15.9-29.1,33.6
+                  C49.575,418.961,150.875,501.261,268.175,488.161z"/>
+              </g>
+            </svg>
+          </div>
+          <div class="error-text"></div>
         </span>
       </div>
       <div id="progress-frame">
@@ -342,7 +364,6 @@
         soundOffIcon.style.display = "inline";
       }
 
-      let runtimeReady = false;
       let hasRaiseRuntimeError = false;
 
       function onRuntimeError() {
@@ -356,10 +377,11 @@
       const Options = {
         preRun: [],
         postRun: [ doResize, onAudioInit ],
-        printErr: function (text) {
-          if (runtimeReady) {
-            onRuntimeError();
-          }
+        onAbort: function (e) {
+          onRuntimeError();
+        },
+        onAlert: function (text) {
+          document.querySelector(".error-text").textContent = text;
         },
         canvas: (function () {
           var canvas = document.getElementById("canvas");
@@ -410,9 +432,22 @@
           );
         },
         onRuntimeInitialized: function() {
-          runtimeReady = true;
           window.addEventListener("resize", onResize);
           window.addEventListener("fullscreenchange", onExitFullscreen);
+        },
+        onRuntimeExit: function() {
+          var overlay = document.querySelector(".playground-overlay");
+          overlay.hidden = false;
+
+          var reloadButton = document.querySelector(".reload-button");
+          reloadButton.hidden = false;
+
+          var playButton = document.querySelector(".play-button");
+          playButton.hidden = true;
+
+          reloadButton.addEventListener("click", function() {
+            location.reload();
+          });
         }
       }
       Options["setStatus"]("Downloading...");

@@ -10,14 +10,29 @@ on:
 jobs:
   pre-build:
     runs-on: ubuntu-latest
+    outputs: 
+      has-update: ${{ !steps.check_siv3d_update.outputs.cache-hit }}
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
+
+      - run: mkdir dummy
+
+      - name: Check If Rebuild is Required
+        id: check_siv3d_update
+        uses: actions/cache@v1
+        env:
+          cache-name: check_siv3d_update-1
+        with:
+          path: dummy 
+          key: ${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
 
       - name: Install Boost
         uses: ./.github/actions/download-boost
+        if: ${{ !steps.check_siv3d_update.outputs.cache-hit }}
         with:
           version: '1.74.0'
+          cache-name: cache-boost-headers-1
           destination: Dependencies/boost_1_74_0
 
   build:
@@ -26,26 +41,21 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
           - name: wasm-mt
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-pthread'
           - name: wasm-simd
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-msimd128 -msse4.2'
           - name: wasm-mt-simd
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-pthread -msimd128 -msse4.2'
           - name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-fPIC'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
 
     outputs: 
-      cache-hit: ${{ steps.cache-siv3d-library.outputs.cache-hit }}
+      did-build: ${{ needs.pre-build.outputs.has-update }}
 
     steps:
       - name: Checkout code
@@ -57,13 +67,16 @@ jobs:
         id: cache_siv3d_library
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-library
+          cache-name: cache-siv3d-library-1
         with:
           path: Web/Package
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}-${{ hashFiles('Web/*.js') }}
+          restore-keys: |
+            ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Siv3D/**/*.*', 'Web/CMakeLists.txt') }}
+            ${{ matrix.config.name }}-${{ env.cache-name }}-
 
       - name: Cache boost
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         uses: actions/cache@v1
         env:
           cache-name: cache-boost-headers-1
@@ -72,16 +85,15 @@ jobs:
           key: ${{ env.cache-name }}
 
       - name: Prebuild emscripten ports
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         run: |
           embuilder.py build ogg vorbis libpng
 
       - name: Build project
-        if: ${{ !steps.cache_siv3d_library.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.pre-build.outputs.has-update) }}
         working-directory: Web/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            ${{ matrix.config.cmake-additional-flags }} \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --parallel 4
@@ -90,8 +102,11 @@ jobs:
       - name: Bundle output
         working-directory: Web/
         run: |
+          cp Siv3D.js Package/lib/Siv3D/
+          cp Siv3D.*.js Package/lib/Siv3D/
           cp -r App/resources Package
           cp -r App/example Package   
+          cp -r App/Templates Package   
           zip -r OpenSiv3D.zip Package
           tar -cvzf OpenSiv3D.tgz Package/*
 
@@ -107,32 +122,18 @@ jobs:
       matrix:
         config:
           - name: wasm
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
           # - name: wasm-simd
-          #  container: 'emscripten/emsdk:3.1.8'
           #  cmake-cflags: '-msimd128 -msse4.2'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
+        uses: actions/checkout@v2  
       - name: Create build folder  
-        run: mkdir Web/App/build
-  
-      - name: Restore Bundles
-        uses: actions/download-artifact@v2
-        with:
-          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: Web
-      - name: Restore Siv3D library
-        working-directory: Web
-        run: tar -xvf OpenSiv3D.tgz
+        run: mkdir Web/CI/App/build
 
       - name: Cache OpenSiv3D Test Build result
         id: cache_siv3d_test
@@ -140,22 +141,36 @@ jobs:
         env:
           cache-name: cache-siv3d-test
         with:
-          path: Web/App
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/build/*.a', 'Web/App/**/*.*', 'Test/**/*.*') }}
+          path: Web/CI/App
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/App/**/*.*', 'Test/**/*.*') }}
+
+      - name: Restore Bundles
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: Web
+      - name: Restore Siv3D library
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
+        working-directory: Web
+        run: tar -xvf OpenSiv3D.tgz
 
       - name: Create & Build test project
-        if: ${{ !steps.cache_siv3d_test.outputs.cache-hit }}
-        working-directory: Web/App/build
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_test.outputs.cache-hit }}
+        working-directory: Web/CI/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
-            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" ..
           cmake --build . --target Siv3DTest
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Test project
-        working-directory: Web/App
+        working-directory: Web/CI/App
         run: node --experimental-wasm-simd Siv3DTest.js
 
   build-app:
@@ -165,63 +180,64 @@ jobs:
         config:
           - name: wasm
             app-name: wasm
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: ''
           - name: wasm-simd
             app-name: wasm-simd
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: '-msimd128 -msse4.2'
             cmake-additional-flags: ''
           - name: wasm
             app-name: wasm-wgpu
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_WEBGPU_BACKEND=On'
           - name: wasm-side-module
             app-name: wasm-side-module
-            container: 'emscripten/emsdk:3.1.8'
             cmake-cflags: ''
             cmake-additional-flags: '-DSIV3D_BUILD_WITH_SHARED_MAIN=On'
     container: 
-      image: ${{ matrix.config.container }}
+      image: emscripten/emsdk:3.1.20
     runs-on: ubuntu-latest
 
     outputs: 
-      cache-hit: ${{ steps.cache_siv3d_app.outputs.cache-hit }}
+      did-build: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create build folder
-        working-directory: Web/App
-        run: mkdir build
-
-      - name: Restore Bundles
-        uses: actions/download-artifact@v2
-        with:
-          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: Web
-      - name: Restore Siv3D library
-        working-directory: Web
-        run: tar -xvf OpenSiv3D.tgz
+        working-directory: Web/CI/App
+        run: |
+          mkdir build
+          cp -r ../../App/example .
 
       - name: Cache OpenSiv3D App Build result
         id: cache_siv3d_app
         uses: actions/cache@v1
         env:
-          cache-name: cache-siv3d-app
+          cache-name: cache-siv3d-app-1
         with:
-          path: Web/App
-          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*') }}
+          path: Web/CI/App
+          key: ${{ matrix.config.app-name }}-${{ env.cache-name }}-${{ hashFiles('Web/Package/**/*.*', 'Web/App/**/*.*', 'Web/CI/App/**/*.*') }}
+
+      - name: Restore Bundles
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: Web
+
+      - name: Restore Siv3D library
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
+        working-directory: Web
+        run: tar -xvf OpenSiv3D.tgz
 
       - name: Create & Build Siv3d App
-        if: ${{ !steps.cache_siv3d_app.outputs.cache-hit }}
-        working-directory: Web/App/build
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_app.outputs.cache-hit }}
+        working-directory: Web/CI/App/build
         run: |
           emcmake cmake -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(pwd)))/Package \
-            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(pwd)))/Package \
+            -DCMAKE_FIND_ROOT_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
+            -DCMAKE_PREFIX_PATH=$(dirname $(dirname $(dirname $(pwd))))/Package \
             -DCMAKE_C_FLAGS="${{ matrix.config.cmake-cflags }}" \
             -DCMAKE_CXX_FLAGS="${{ matrix.config.cmake-cflags }}" \
             ${{ matrix.config.cmake-additional-flags }} ..
@@ -231,8 +247,62 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Siv3DApp-${{ matrix.config.app-name }}
-          path: Web/App/Siv3DApp.*
+          path: |
+            Web/CI/App/Siv3DApp.*
+            Web/CI/App/example/
 
+      - name: Save Bundles (Side Module)
+        if: ${{ matrix.config.name == 'wasm-side-module' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-wasm-shared-main
+          path: |
+            Web/CI/App/Siv3D.*
+            Web/CI/App/example/
+
+  test-app:
+    needs: build-app
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        config:
+          - app-name: wasm
+          - app-name: wasm-simd
+          # - app-name: wasm-wgpu
+          - app-name: wasm-side-module
+    steps:
+      - name: Install Emscripten
+        run: |
+          curl -L https://github.com/nokotan/EmscriptenInstaller/releases/download/v0.1.2/EmscriptenOffline.exe -o Emscripten.exe
+          & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
+          Wait-Process -Name "Emscripten"
+          $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
+          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          echo $env:Path >> $Env:GITHUB_PATH
+
+      - name: Restore Bundles
+        uses: actions/download-artifact@v2
+        with:
+          name: Siv3DApp-${{ matrix.config.app-name }}
+          path: .
+
+      - name: Restore Bundles (Side Module)
+        if: ${{ matrix.config.app-name == 'wasm-side-module' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-wasm-shared-main
+          path: .
+      
+      - name: Test Siv3d App
+        if: ${{ matrix.config.app-name != 'wasm-side-module' }}
+        run: emrun --timeout 60 --timeout_returncode 0 Siv3DApp.html
+
+      # - name: Test Siv3d App (Side Module)
+      #   if: ${{ matrix.config.app-name == 'wasm-side-module' }}
+      #   run: emrun --timeout 60 --timeout_returncode 0 Siv3D.html
+      
   build-installer:
     needs: build
     runs-on: windows-latest
@@ -247,18 +317,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Restore Bundles
-        uses: actions/download-artifact@v2
-        with:
-          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
-          path: .
-
-      - name: Restore Siv3D library
-        run: |
-          tar -xvf OpenSiv3D.tgz
-          mkdir Web/Build
-          cp -r Package/lib/* Web/Build
 
       - name: Cache OpenSiv3D Installer result
         id: cache_siv3d_installer
@@ -267,20 +325,34 @@ jobs:
           cache-name: cache_siv3d_installer
         with:
           path: Web/WindowsInstaller/Output
-          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss', 'Web/Build') }}
+          key: ${{ matrix.config.name }}-${{ env.cache-name }}-${{ hashFiles('Web/WindowsInstaller/setup.iss', 'Web/VisualStudioTemplate') }}
+
+      - name: Restore Bundles
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-${{ matrix.config.name }}
+          path: .
+
+      - name: Restore Siv3D library
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
+        run: |
+          tar -xvf OpenSiv3D.tgz
+          mkdir Web/Build
+          cp -r Package/lib/* Web/Build
           
       - name: Compress Project Template
-        if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/VisualStudioTemplate/Files
         run: |
           7z a -tzip "OpenSiv3D(0.6.5)Web.zip" .
           cp "OpenSiv3D(0.6.5)Web.zip" ..
           
       - name: Create Installer
-        if: ${{ !steps.cache_siv3d_installer.outputs.cache-hit }}
+        if: ${{ fromJSON(needs.build.outputs.did-build) || !steps.cache_siv3d_installer.outputs.cache-hit }}
         working-directory: Web/WindowsInstaller
         run: |
-          mkdir Output
+          mkdir -Force Output
           iscc /O"Output" "./${{ matrix.config.script }}"
        
       - name: Save Bundles
@@ -303,8 +375,6 @@ jobs:
     env:
       MSBuild_path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\bin"
       VSIXInstaller_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE"
-      DevEnv_Path: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\devenv.exe"
-      WinAppDriver_Path: "C:\\Program Files (x86)\\Windows Application Driver\\WinAppDriver.exe"
 
     steps:
       - name: Checkout code
@@ -323,51 +393,65 @@ jobs:
           & ".\OpenSiv3D(0.6.5)Web.exe" /SILENT /SUPPRESSMSGBOXES /LOG="InstallLog.Log"
           Wait-Process -Name "OpenSiv3D(0.6.5)Web"
           cat InstallLog.Log
+          $env:SIV3D_0_6_5_WEB = [System.Environment]::GetEnvironmentVariable("SIV3D_0_6_5_WEB","User")
+          echo "SIV3D_0_6_5_WEB=$env:SIV3D_0_6_5_WEB" >> $env:GITHUB_ENV
           devenv /installvstemplates
 
       - name: Install VSIX
         run: |
           Set-Item Env:Path "$env:VSIXInstaller_Path;$env:Path"
-          VSIXInstaller /quiet /admin Emscripten.Build.Definition.4e942135-f309-41d4-8214-c2e5bd7c7ace 
+          curl -L https://github.com/nokotan/VSExtForEmscripten/releases/download/v0.7.0/Emscripten.Build.Definition.vsix -o Emscripten.vsix
+          VSIXInstaller /quiet /admin Emscripten.vsix 
           Wait-Process -Name "VSIXInstaller"
 
-      - name: Restore Nuget package
-        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
-        run: nuget restore WinAppDriverUIRecorder.sln
-      
-      - name: Build the application
-        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
+      - name: Install Emscripten
+        run: |
+          curl -L https://github.com/nokotan/EmscriptenInstaller/releases/download/v0.1.2/EmscriptenOffline.exe -o Emscripten.exe
+          & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
+          Wait-Process -Name "Emscripten"
+          $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
+          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          echo $env:Path >> $Env:GITHUB_PATH
+
+      - name: Create Project
+        run: |
+          mkdir Siv3DTest
+          7z x "$env:USERPROFILE\Documents\Visual Studio 2022\Templates\ProjectTemplates\OpenSiv3D(0.6.5)Web.zip" -oSiv3DTest
+          cd Siv3DTest
+          $Content = Get-Content -path "Siv3DTest.vcxproj"
+          $Content -Replace '$guid1$', '4e942135-f309-41d4-8214-c2e5bd7c7ace'
+          $Content -Replace '$safeprojectname$', 'Siv3DTest' | Out-File "Siv3DTest.vcxproj"
+
+      - name: Build Sample Project
+        working-directory: Siv3DTest
         run: |
           Set-Item Env:Path "$env:MSBuild_Path;$env:Path"
-          msbuild WinAppDriverUIRecorder.sln /p:Configuration="Release"
+          embuilder build ogg vorbis
+          msbuild Siv3DTest.vcxproj /p:BaseOutputPath="Release\Emscripten" /p:BaseOutputPath="." /p:Platform="Emscripten" /p:Configuration="Release"
 
-      - name: Run UI Test
-        working-directory: Web/WindowsInstaller/Tests/UIAutomatedTest
-        continue-on-error: true
-        run: |
-          Start-Process -FilePath "$env:WinAppDriver_Path" -ArgumentList "127.0.0.1","34723"
-          Start-Process -FilePath "$env:DevEnv_Path"
-          & ".\bin\Release\UIRecorderTemplate.exe"
+      - name: Test Siv3d App
+        working-directory: Siv3DTest/Emscripten/Release
+        run: emrun --timeout 60 --timeout_returncode 0 Siv3DTest.html
 
-      - name: Save Screenshots
+      - name: Save Build Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: OpenSiv3D-Installer-TestScreenShots-${{ matrix.config.name }}
-          path: Web/WindowsInstaller/Tests/UIAutomatedTest/*.png
+          name: OpenSiv3D-VisualStudio-App-${{ matrix.config.name }}
+          path: |
+            Siv3DTest/Emscripten/Release/Siv3DTest.html
+            Siv3DTest/Emscripten/Release/Siv3DTest.js
+            Siv3DTest/Emscripten/Release/Siv3DTest.wasm
+            Siv3DTest/Emscripten/Release/Siv3DTest.data
 
-      - name: Clean-up Process
-        run: |
-          Get-Process | Where-Object -FilterScript {$_.Name -eq "WinAppDriver"}  | Stop-Process
-          Get-Process | Where-Object -FilterScript {$_.Name -eq "devenv"}  | Stop-Process
-      
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
-    needs: 
-      - build
-      - build-installer
+    needs: [ build, build-installer ]
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create-release.outputs.upload_url }}
+      html_url: ${{ steps.create-release.outputs.html_url }}
     steps:
       - name: Create release
         id: create-release
@@ -441,56 +525,75 @@ jobs:
     steps:
       - name: Create Destination Folders
         run: |
-          mkdir -p Dest/v6-wasm-app
-          mkdir -p Dest/v6-wasm-simd-app
-          mkdir -p Dest/v6-wasm-side-module-app
-          mkdir -p Dest/lib/v6
+          mkdir -p dist/v6-wasm-app
+          mkdir -p dist/v6-wasm-simd-app
+          mkdir -p dist/v6-wasm-side-module-app
+          mkdir -p dist/v6/lib
+          mkdir -p dist/v6/dev/lib
 
       - name: Place Siv3D Apps (wasm)
         uses: actions/download-artifact@v2
         with:
           name: Siv3DApp-wasm
-          path: Dest/v6-wasm-app
+          path: dist/v6-wasm-app
 
       - name: Place Siv3D Apps (wasm-simd)
         uses: actions/download-artifact@v2
         with:
           name: Siv3DApp-wasm-simd
-          path: Dest/v6-wasm-simd-app
+          path: dist/v6-wasm-simd-app
           
       - name: Place Siv3D Apps (wasm-webgpu)
         uses: actions/download-artifact@v2
         with:
           name: Siv3DApp-wasm-wgpu
-          path: Dest/v6-wasm-wgpu-app
+          path: dist/v6-wasm-wgpu-app
 
-      # - name: Restore Bundles (wasm-side-module)
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: OpenSiv3D-Bundles-wasm-side-module
-      #     path: .
+      - name: Restore Bundles (wasm-side-module)
+        uses: actions/download-artifact@v2
+        with:
+          name: OpenSiv3D-Bundles-wasm-shared-main
+          path: Package/lib 
 
-      # - name: Restore Siv3D library (wasm-side-module)
-      #   run: tar -xvf OpenSiv3D.tgz   
+      - name: Place Siv3D library (wasm-side-module)
+        if: ${{ contains(github.ref, 'tags/v') }}
+        run: |
+          cp Package/lib/Siv3D.wasm dist/v6/lib
+          cp Package/lib/Siv3D.js dist/v6/lib
+          cp Package/lib/Siv3D.data dist/v6/lib
+          cp -r Package/lib/example dist/v6/
 
-      # - name: Place Siv3D library (wasm-side-module)
-      #   run: |
-      #     cp Package/lib/Siv3D.wasm Dest/lib/v6
-      #     cp Package/lib/Siv3D.js Dest/lib/v6
-      #     cp Package/lib/Siv3D.data Dest/lib/v6
+      - name: Place Siv3D library (wasm-side-module)
+        if: ${{ !contains(github.ref, 'tags/v') }}
+        run: |
+          cp Package/lib/Siv3D.wasm dist/v6/dev/lib
+          cp Package/lib/Siv3D.js dist/v6/dev/lib
+          cp Package/lib/Siv3D.data dist/v6/dev/lib
+          cp -r Package/lib/example dist/v6/dev/
 
       - name: Place Siv3D Apps (wasm-side-module)
         uses: actions/download-artifact@v2
         with:
           name: Siv3DApp-wasm-side-module
-          path: Dest/v6-wasm-side-module-app
+          path: dist/v6-wasm-side-module-app
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Dest
+          publish_dir: ./dist
           keep_files: true
+
+  custom-web-hook:
+    needs: [ pre-deploy, deploy ]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.REPO_GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/nokotan/OpenSiv3DForWeb-VSCode/actions/workflows/update.yml/dispatches" \
+          -d '{ "ref": "main", "inputs": { "name": "Update ${{ github.ref }}", "url": "${{ needs.pre-deploy.outputs.html_url }}/OpenSiv3D-wasm.tgz" } }'
 
   e2e-test-prerequisites:
     runs-on: ubuntu-latest
@@ -506,10 +609,10 @@ jobs:
 
   e2e-test:
     needs: [ build, e2e-test-prerequisites ]
-    if: ${{ needs.e2e-test-prerequisites.outputs.browserstack-keys-found == 'true' }}
+    if: ${{ fromJSON(needs.e2e-test-prerequisites.outputs.browserstack-keys-found) }}
     runs-on: ubuntu-latest
     container: 
-      image: 'emscripten/emsdk:3.1.8'
+      image: 'emscripten/emsdk:3.1.20'
 
     steps:
       - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
@@ -528,16 +631,15 @@ jobs:
           path: .
       - name: Restore Siv3D library
         run: |
-          tar -xvf OpenSiv3D.tgz
-          mkdir Web/build
-          cp -r Package/lib/* Web/build
+          tar -xvf OpenSiv3D.tgz   
+          mv Package Web/CI/e2e/src
 
       - name: Install dependencies
-        working-directory: Web/CI
+        working-directory: Web/CI/e2e
         run: npm install
       - name: Building web application to be tested
-        working-directory: Web/CI
+        working-directory: Web/CI/e2e
         run: npm run build
-      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
-        working-directory: Web/CI
+      - name: Running test on BrowserStack  # Invokes the actual test script that would run on BrowserStack browsers
+        working-directory: Web/CI/e2e
         run: npm test  # See sample test script above

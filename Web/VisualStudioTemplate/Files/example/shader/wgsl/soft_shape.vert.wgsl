@@ -49,7 +49,7 @@ fn Circular(r: f32, theta: f32) -> vec2<f32>
 	return vec2<f32>(sin(theta), -cos(theta)) * r;
 }
 
-@stage(vertex)
+@vertex
 fn main(
 	@builtin(vertex_index) VertexIndex: u32
 ) -> VertexOutput

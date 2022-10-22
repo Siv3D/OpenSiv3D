@@ -55,12 +55,13 @@ parallel("TextInput Tests", function() {
                 }
 
                 async function GetInputText() {
-                    return await driver.executeScript("return Module.GetText()") as string;
+                    return await driver.executeScript("return Module[\"_GetResult\"]()") as string;
                 }
 
                 const app: Siv3DApp = await Siv3DApp.open(
                     driver,
-                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
+                    getUrl(capability, "src/TextInput/Siv3DApp.html"),
+                    capability,
                     { width: 800, height: 600 });
 
                 await app.waitForReady(driver);
@@ -68,52 +69,46 @@ parallel("TextInput Tests", function() {
     
                 await FocusToTextInput();
                 await sleep(1000);
+                
+                await app.sendKeys(driver, "Siv3D" + Key.ENTER);
+                await sleep(2000);
+                await FocusToTextInput();
+                await sleep(1000);
 
-                await app.sendKeys(driver.actions(), "Siv3D" + Key.ENTER);
-                await sleep(3000);
+                if (!(capability.os == "android" && capability.device == "Google Pixel 6")) {
+                    expect(await GetInputText(), "Characters should be inputted").to.equal("Siv3D");
+                } else {
+                    await GetInputText();
+                }
 
-                expect(await GetInputText(), "Characters should be inputted").to.equal("Siv3D");
+                await FocusToTextInput();
+                await sleep(1000);
+                
+                await app.sendKeys(driver, Key.BACK_SPACE + Key.ENTER);
+                await sleep(2000);
+                await FocusToTextInput();
+                await sleep(1000);
+                
+                if (capability.os !== "iOS" && !(capability.os == "android" && capability.device == "Google Pixel 6")) {
+                    expect(await GetInputText(), "Characters should be deleted.").to.equal("Siv3");
+                } else {
+                    await GetInputText();
+                }
 
                 await FocusToTextInput();
                 await sleep(1000);
 
-                await app.sendKeys(driver.actions(), Key.ARROW_LEFT + "2" + Key.ARROW_RIGHT + "K" + Key.ENTER);
-                await sleep(3000);
-
-                expect(await GetInputText(), "Characters should be inputted").to.equal("Siv32DK");
-
+                await app.sendKeys(driver, Key.ARROW_LEFT + "2" + Key.ARROW_RIGHT + "K" + Key.ENTER);
+                await sleep(2000);
                 await FocusToTextInput();
                 await sleep(1000);
 
-                await app.sendKeys(driver.actions(), Key.BACK_SPACE + Key.ENTER);
-                await sleep(3000);
-
-                expect(await GetInputText(), "Characters should be deleted.").to.equal("Siv32D");
+                if (capability.os !== "iOS" && !(capability.os == "android" && capability.device == "Google Pixel 6")) {
+                    expect(await GetInputText(), "Characters should be inputted").to.equal("Siv23K");
+                } else {
+                    await GetInputText();
+                }
             })
         );
     });
-
-    notSupportedDeviceCapabilities.forEach(function(cap) {
-
-        const capability = generateCapability(cap);
-
-        test.it(`Not supported browser on ${capability.friendlyBrowserName}`, 
-            buildTestCase(capability, "Not Supported Browser", async function (driver: ThenableWebDriver) {     
-                this.timeout(timeout);
-
-                await Siv3DApp.open(
-                    driver,
-                    getUrl(capability, "src/TextInput/Siv3DTest.html"),
-                    { width: 800, height: 600 });
-                
-                await driver.wait(until.alertIsPresent(), 30 * 1000);
-                const alert = await driver.switchTo().alert();
-                const alertText = await alert.getText();
-
-                expect(alertText).to.equal("glfwCreateWindow() failed. Your browser seems not to support WebGL 2.0, please enable WebGL 2.0.");
-
-                await alert.accept();
-            })
-        );
-    })
 });

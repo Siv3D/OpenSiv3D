@@ -42,7 +42,7 @@ fn Transform(pos: vec3<f32>, mat: mat3x3<f32>) -> vec2<f32>
 	return vec2<f32>(x, y);
 }
 
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) Color: vec4<f32>,
