@@ -72,6 +72,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addRectFrameTB(const FloatRect&, const float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addCircle(const Float2&, const float, const Float4&, const Float4&)
 	{
 		// do nothing
@@ -117,7 +122,17 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addRoundRect(const FloatRect&, float, float, float, const Float4&, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addRoundRectFrame(const RoundRect&, const RoundRect&, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addRoundRectFrame(const RoundRect&, const RoundRect&, const Float4&, const Float4&)
 	{
 		// do nothing
 	}

@@ -69,6 +69,8 @@ namespace s3d
 
 		virtual void addRectFrame(const FloatRect& rect, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
+		virtual void addRectFrameTB(const FloatRect& rect, float thickness, const Float4& topColor, const Float4& bottomColor) = 0;
+
 		virtual void addCircle(const Float2& center, float r, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
@@ -87,7 +89,11 @@ namespace s3d
 
 		virtual void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& color) = 0;
 
+		virtual void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& topColor, const Float4& bottomColor) = 0;
+
 		virtual void addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& color) = 0;
+
+		virtual void addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& topColor, const Float4& bottomColor) = 0;
 
 		virtual void addLineString(const LineStyle& style, const Vec2* points, size_t size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, CloseRing closeRing) = 0;
 

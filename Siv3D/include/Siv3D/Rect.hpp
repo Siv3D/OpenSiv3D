@@ -824,6 +824,13 @@ namespace s3d
 		/// @param outerColor 外側寄りの枠の色
 		/// @return *this
 		const Rect& drawFrame(double thickness, const ColorF& innerColor, const ColorF& outerColor) const;
+		
+		/// @brief 長方形の枠を描画します。
+		/// @param thickness 枠の太さ
+		/// @param topColor 上側の色
+		/// @param bottomColor 下側の色
+		/// @return *this
+		const Rect& drawFrame(double thickness, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
 		/// @brief 長方形の枠を描画します。
 		/// @param innerThickness 内側寄りの枠の太さ
@@ -839,6 +846,14 @@ namespace s3d
 		/// @param outerColor 外側寄りの枠の色
 		/// @return *this
 		const Rect& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
+
+		/// @brief 長方形の枠を描画します。
+		/// @param innerThickness 内側寄りの枠の太さ
+		/// @param outerThickness 外側寄りの枠の太さ
+		/// @param topColor 上側の色
+		/// @param bottomColor 下側の色
+		/// @return *this
+		const Rect& drawFrame(double innerThickness, double outerThickness, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
 		/// @brief 長方形の影を描画します。
 		/// @param offset 影の位置のオフセット（ピクセル）

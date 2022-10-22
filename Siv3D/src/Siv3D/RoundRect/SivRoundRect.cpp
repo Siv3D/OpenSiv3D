@@ -207,9 +207,28 @@ namespace s3d
 		return *this;
 	}
 
+	const RoundRect& RoundRect::draw(const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	{
+		const Float4 color0 = topColor->toFloat4();
+		const Float4 color1 = bottomColor->toFloat4();
+
+		SIV3D_ENGINE(Renderer2D)->addRoundRect(FloatRect{ x, y, (x + w), (y + h) },
+			static_cast<float>(w),
+			static_cast<float>(h),
+			static_cast<float>(r),
+			color0, color1);
+
+		return *this;
+	}
+
 	const RoundRect& RoundRect::drawFrame(const double thickness, const ColorF& color) const
 	{
-		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		return drawFrame((thickness * 0.5), (thickness * 0.5), color);
+	}
+
+	const RoundRect& RoundRect::drawFrame(const double thickness, const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	{
+		return drawFrame((thickness * 0.5), (thickness * 0.5), topColor, bottomColor);
 	}
 
 	const RoundRect& RoundRect::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
@@ -243,6 +262,43 @@ namespace s3d
 			outerRoundRect,
 			innerRoundRect,
 			color.toFloat4()
+		);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::drawFrame(const double innerThickness, const double outerThickness, const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	{
+		if ((rect.w <= 0.0) || (rect.h <= 0.0)
+			|| (innerThickness < 0.0) || (outerThickness < 0.0)
+			|| ((innerThickness == 0.0) && (outerThickness == 0.0)))
+		{
+			return *this;
+		}
+
+		if (r <= 0.0)
+		{
+			rect.drawFrame(innerThickness, outerThickness, topColor, bottomColor);
+			return *this;
+		}
+
+		const RectF outerRect = rect.stretched(outerThickness);
+		const RoundRect outerRoundRect{ outerRect, Min((r + outerThickness), (Min(outerRect.w, outerRect.h) * 0.5)) };
+		const RectF innerRect = rect.stretched(-innerThickness);
+
+		if ((innerRect.w <= 0.0) || (innerRect.h <= 0.0))
+		{
+			outerRoundRect.draw(topColor, bottomColor);
+			return *this;
+		}
+
+		const RoundRect innerRoundRect{ innerRect, Clamp((r - innerThickness), 0.0, (Min(innerRect.w, innerRect.h) * 0.5)) };
+
+		SIV3D_ENGINE(Renderer2D)->addRoundRectFrame(
+			outerRoundRect,
+			innerRoundRect,
+			topColor->toFloat4(),
+			bottomColor->toFloat4()
 		);
 
 		return *this;
