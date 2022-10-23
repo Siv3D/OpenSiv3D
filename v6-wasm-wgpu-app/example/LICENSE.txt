@@ -1,0 +1,8 @@
+﻿- siv3d-kun.png
+(c) 2015-2021 Siv3D, licensed under a CC BY-NC: http://creativecommons.org/licenses/by-nc/4.0/
+
+- windmill.png
+To the extent possible under law, Siv3D has waived all copyright and related or neighboring rights to windmill.png. This work is published from: Japan.
+
+- bay.jpg
+To the extent possible under law, Siv3D has waived all copyright and related or neighboring rights to bay.jpg. This work is published from: Japan.

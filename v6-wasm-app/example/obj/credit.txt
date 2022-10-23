@@ -1,0 +1,10 @@
+[blacksmith]
+[crystal1]
+[crystal2]
+[crystal3]
+[mill]
+[pine]
+[tree]
+https://quaternius.com/
+[siv3d-kun.obj]
+https://github.com/itakawa/siv3dkun
