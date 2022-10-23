@@ -152,12 +152,5 @@ namespace s3d
 		AsyncTask<Audio> OpenAudio(Audio::FileStreaming f, FilePathView defaultDirectory = U"", StringView title = U"");
 	}
 
-	namespace Platform::Web
-	{
-		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
-		/// @param filePath ブラウザ上の仮想ファイルへのパス
-		void DownloadFile(FilePathView filePath);
-	}
-
 # endif
 }

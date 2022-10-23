@@ -3,7 +3,7 @@ import test from "mocha";
 import parallel, { limit } from "mocha.parallel";
 import { use, expect } from "chai";
 import { chaiImage } from "chai-image";
-import { buildTestCase, Siv3DApp, sleep, spawnAsync } from "../util";
+import { buildTestCase, getUrl, Siv3DApp, sleep, spawnAsync } from "../util";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { deviceCapabilities, generateCapability, notSupportedDeviceCapabilities } from "../config";
 import { ChildProcessWithoutNullStreams, spawn, spawnSync } from "child_process";
@@ -51,23 +51,15 @@ parallel("MessageBox Tests", function() {
                 this.timeout(timeout);
 
                 async function GetResult() {
-                    return await driver.executeScript("return Module.GetResult()") as string;
+                    return await driver.executeScript("return Module[\"_GetResult\"]()") as string;
                 }
 
-                let app: Siv3DApp;
-                
-                if (capability.os === "iOS") {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://bs-local.com:8080/src/MessageBox/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                } else {
-                    app = await Siv3DApp.open(
-                        driver,
-                        "http://127.0.0.1:8080/src/MessageBox/Siv3DTest.html",
-                        { width: 800, height: 600 });
-                }
-
+                const app = await Siv3DApp.open(
+                    driver,
+                    getUrl(capability, "src/MessageBox/Siv3DApp.html"),
+                    capability,
+                    { width: 800, height: 600 });
+               
                 await app.waitForReady(driver);
 
                 {

@@ -1,0 +1,223 @@
+cmake_minimum_required(VERSION 3.12)
+project(OpenSiv3D_Web_App CXX C ASM)
+
+#
+# General Options
+#
+option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
+option(SIV3D_USE_SCRIPT "Enable Siv3D Script." OFF)
+option(SIV3D_USE_BROWSER_IMAGE_ENCODING "Enable Browser Image Encoding." OFF)
+
+option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
+option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
+option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
+option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
+
+set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../App)
+
+if (NOT CMAKE_CONFIGURATION_TYPES AND 
+    NOT CMAKE_NO_BUILD_TYPE AND
+    NOT CMAKE_BUILD_TYPE AND
+    CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    message(STATUS "[!] Setting build type to 'Release' as none was specified.")
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+#
+# Siv3D App Definition
+#
+add_executable(Siv3DApp
+  ${SIV3D_SOURCE}
+)
+
+#
+# Pre-bundled Files
+#
+set(SIV3D_BUNDLED_FILES
+    /resources/engine/font/min/siv3d-min.woff
+    /resources/engine/font/noto-emoji/LICENSE
+    /resources/engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp
+    /resources/engine/shader/essl
+    /resources/engine/shader/wgsl
+    /resources/engine/texture/box-shadow
+    /resources/engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp
+    /resources/engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp
+    /resources/engine/font/mplus/mplus-1p-regular.ttf.zstdcmp
+)
+
+#
+# Asyncify Setting
+#
+set(SIV3D_ASYNCIFY_IMPORTS
+  siv3dRequestAnimationFrame
+  siv3dGetClipboardText
+  siv3dDecodeImageFromFile
+  siv3dSleepUntilWaked
+  invoke_v
+  invoke_vi
+)
+
+set(SIV3D_ASYNCIFY_ADD
+  main
+  "Main()"
+  dynCall_v
+  dynCall_vi
+  "s3d::TryMain()"
+  "s3d::CSystem::init()"
+  "s3d::System::Update()"
+
+  "s3d::AACDecoder::decode(*) const"
+  "s3d::MP3Decoder::decode(*) const"
+  "s3d::CAudioDecoder::decode(*)"
+  "s3d::AudioDecoder::Decode(*)"
+  "s3d::Wave::Wave(*)"
+  "s3d::Audio::Audio(*)"
+
+  "s3d::GenericDecoder::decode(*) const"
+  "s3d::CImageDecoder::decode(*)"
+  "s3d::Image::Image(*)"
+  "s3d::Texture::Texture(*)"
+  "s3d::ImageDecoder::Decode(*)"
+  "s3d::ImageDecoder::GetImageInfo(*)"
+
+  "s3d::Model::Model(*)"
+  "s3d::CModel::create(*)"
+
+  "s3d::CRenderer2D_GLES3::init()"
+  "s3d::CRenderer2D_WebGPU::init()"
+
+  "s3d::Clipboard::GetText(*)"
+  "s3d::CClipboard::getText(*)"
+
+  "s3d::SimpleHTTP::Save(*)"
+  "s3d::SimpleHTTP::Load(*)"
+  "s3d::SimpleHTTP::Get(*)"
+  "s3d::SimpleHTTP::Post(*)"
+
+  "s3d::VideoReader::VideoReader(*)"
+  "s3d::VideoReader::open(*)"
+
+  "s3d::Platform::Web::FetchFile(*)"
+)
+
+
+
+#
+# General Options
+#
+find_package(Siv3D REQUIRED)
+
+set(SIV3D_CXX_DEFINITIONS)
+set(SIV3D_EXE_LINKER_FLAGS
+  --no-export-dynamic
+  -sERROR_ON_UNDEFINED_SYMBOLS=0
+  -sALLOW_MEMORY_GROWTH=1
+  -sUSE_GLFW=3
+  -sUSE_OGG=1
+  -sUSE_VORBIS=1
+  -sASYNCIFY=1
+  -sASYNCIFY_IGNORE_INDIRECT=1
+)
+set(SIV3D_LINK_LIBRARIES
+  -Wl,--no-whole-archive
+    Siv3D::Siv3D
+)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+
+#
+# Configuration-specific Flags
+#
+if (SIV3D_WEBGPU_BACKEND)
+  list(APPEND SIV3D_CXX_DEFINITIONS
+    SIV3D_WEBGPU_BACKEND
+  )
+  list(APPEND SIV3D_EXE_LINKER_FLAGS
+    -sUSE_WEBGPU=1
+  )
+  list(PREPEND SIV3D_LINK_LIBRARIES
+    -Wl,--whole-archive
+      Siv3D::Siv3DWebGPU
+  )
+else()
+  list(APPEND SIV3D_EXE_LINKER_FLAGS
+    -sFULL_ES3
+    -sMIN_WEBGL_VERSION=2
+    -sMAX_WEBGL_VERSION=2
+  )
+endif()
+
+if (SIV3D_USE_BROWSER_IMAGE_ENCODING)
+  list(PREPEND SIV3D_LINK_LIBRARIES
+    -Wl,--whole-archive
+      Siv3D::Siv3DBrowserImageEncodeDecode
+  )
+endif()
+
+if (SIV3D_USE_SCRIPT)
+  list(APPEND SIV3D_LINK_LIBRARIES
+    Siv3D::Siv3DScript
+  )
+endif()
+
+
+
+#
+# Helper Functions: target_asyncify_imports, target_asyncify_add, target_exported_functions, target_preload_files
+#
+function(target_add_listed_link_options target option_name)
+  set(option_list ${ARGN})
+  list (TRANSFORM option_list REPLACE ".+" "'\\0'")
+  string (REPLACE ";" "," option_list "${option_list}")
+  target_link_options(${target} PRIVATE -s${option_name}=[${option_list}])
+endfunction()
+
+function(target_asyncify_imports target)
+  target_add_listed_link_options(${target} "ASYNCIFY_IMPORTS" ${ARGN})
+endfunction()
+
+function(target_asyncify_add target)
+  target_add_listed_link_options(${target} "ASYNCIFY_ADD" ${ARGN})
+endfunction()
+
+function(target_exported_functions target)
+  target_add_listed_link_options(${target} "EXPORTED_FUNCTIONS" ${ARGN})
+endfunction()
+
+function(target_preload_files target)
+  set(SIV3D_BUNDLED_FILES_LINKER_FLAGS "")
+
+  foreach(file ${SIV3D_BUNDLED_FILES})
+      list(APPEND SIV3D_BUNDLED_FILES_LINKER_FLAGS "--preload-file=${SIV3D_APP_ROOT}${file}@${file}")
+  endforeach()
+
+  target_link_options(${target} PRIVATE ${SIV3D_BUNDLED_FILES_LINKER_FLAGS})
+endfunction()
+
+
+
+#
+# Siv3DApp Common Option Target
+#
+add_library(Siv3DAppInterface INTERFACE)
+
+target_compile_definitions(Siv3DAppInterface INTERFACE ${SIV3D_CXX_DEFINITIONS})
+target_link_options(Siv3DAppInterface INTERFACE ${SIV3D_EXE_LINKER_FLAGS})
+target_link_libraries(Siv3DAppInterface INTERFACE ${SIV3D_LINK_LIBRARIES})
+
+
+
+#
+# Siv3D App Definition
+#
+target_link_libraries(Siv3DApp PRIVATE Siv3DAppInterface)
+target_compile_options(Siv3DApp PRIVATE -mreference-types)
+target_compile_features(Siv3DApp PRIVATE cxx_std_20)
+set_target_properties(Siv3DApp PROPERTIES
+    SUFFIX ".html"
+)
+
+target_asyncify_imports(Siv3DApp ${SIV3D_ASYNCIFY_IMPORTS})
+target_asyncify_add(Siv3DApp ${SIV3D_ASYNCIFY_ADD})
+target_preload_files(Siv3DApp ${SIV3D_BUNDLED_FILES})

@@ -51,7 +51,7 @@ let offsets: array<vec2<f32>, 8> = array<vec2<f32>, 8>(
 //
 //	Functions
 //
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) Color: vec4<f32>,

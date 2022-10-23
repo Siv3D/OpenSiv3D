@@ -36,7 +36,7 @@ var<uniform> VSConstants2D: VSConstants2DStruct;
 //
 //	Functions
 //
-@stage(vertex)
+@vertex
 fn main(
 	@location(0) VertexPosition: vec2<f32>,
 	@location(1) VertexUV: vec2<f32>,

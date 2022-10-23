@@ -72,9 +72,9 @@ namespace s3d
 
  	namespace Platform::Web::AudioDecoder
 	{
-		void DecodeFromFile(const FilePath& path, std::promise<Wave> p);
+		void DecodeFromFile(const FilePathView path, std::promise<Wave> p);
 		
-		AsyncTask<Wave> DecodeFromFile(const FilePath& path);
+		AsyncTask<Wave> DecodeFromFile(const FilePathView path);
 	}
 
 # endif

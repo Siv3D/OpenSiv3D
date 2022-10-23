@@ -779,6 +779,11 @@ namespace s3d
 					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
 					const bool hasEditingTarget = (editingTargetlength > 0);
 
+				# elif SIV3D_PLATFORM(WEB) 
+
+					const auto[editingCursorIndex, editingTargetlength] = Platform::Web::TextInput::GetCandicateCursorIndex();
+					const bool hasEditingTarget = (editingTargetlength > 0);
+
 				# else
 
 					const int32 editingCursorIndex = -1, editingTargetlength = 0;
@@ -892,26 +897,20 @@ namespace s3d
 					text.cursorStopwatch.restart();
 					text.leftPressStopwatch.reset();
 					text.rightPressStopwatch.reset();
-
-				# if SIV3D_PLATFORM(WEB)
-					Platform::Web::TextInput::RequestEnableIME();		
-				# endif
 				}
 				else
 				{
 					text.active = false;
-
-				# if SIV3D_PLATFORM(WEB)
-					Platform::Web::TextInput::RequestDisableIME();		
-				# endif
 				}
 			}
 
-			// ショートカットキーによるペースト
 			if (text.active)
 			{
 				text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
 
+			# if not SIV3D_PLATFORM(WEB)
+
+				// ショートカットキーによるペースト
 				if ((not editingText) &&
 				# if SIV3D_PLATFORM(MACOS)
 					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
@@ -920,35 +919,16 @@ namespace s3d
 				# endif
 					)
 				{
-				# if SIV3D_PLATFORM(WEB)
-
-					if (not text.pendingClipboardText.isValid())
-					{
-						text.pendingClipboardText = Platform::Web::Clipboard::GetText();
-					}
-
-				# else
-
 					if (String paste; Clipboard::GetText(paste))
 					{
 						text.text.insert(text.cursorPos, paste);
 						text.cursorPos += paste.size();
 					}
-
-				# endif
 				}
-
-			# if SIV3D_PLATFORM(WEB)
-
-				if (text.pendingClipboardText.isReady())
-				{
-					String paste = text.pendingClipboardText.get();
-					text.text.insert(text.cursorPos, paste);
-					text.cursorPos += paste.size();
-				}
-
 			# endif
 			}
+
+		# if not SIV3D_PLATFORM(WEB)
 
 			// [←][→] キーでテキストカーソルを移動
 			// 一定時間押下すると、テキストカーソルが高速に移動
@@ -970,6 +950,8 @@ namespace s3d
 					text.rightPressStopwatch.restart();
 				}
 			}
+
+		# endif
 
 			if (text.active)
 			{
@@ -1009,13 +991,29 @@ namespace s3d
 					if (text.tabKey || text.enterKey)
 					{
 						text.active = false;
-
-					# if SIV3D_PLATFORM(WEB)					
-						Platform::Web::TextInput::RequestDisableIME();					
-					# endif
 					}
 				}
 			}
+
+		# if SIV3D_PLATFORM(WEB)
+			Platform::Web::TextInput::SetFocusToTextInput(text.active);		
+					
+			if (text.active && not editingText)
+			{
+				if (text.lastCursorPos != text.cursorPos)
+				{
+					Platform::Web::TextInput::SyncronizeText(text.text);
+					Platform::Web::TextInput::SetCursorIndex(text.cursorPos);		
+				}
+				else if (auto currentCursorPos = Platform::Web::TextInput::GetCursorIndex(); text.lastCursorPos != currentCursorPos)
+				{
+					text.cursorPos = currentCursorPos;
+					text.cursorStopwatch.restart();
+				}
+
+				text.lastCursorPos = text.cursorPos;
+			}
+		# endif
 
 			text.textChanged = (text.text != previousText);
 

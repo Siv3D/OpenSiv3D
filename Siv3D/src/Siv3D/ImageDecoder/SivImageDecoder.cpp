@@ -13,6 +13,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include "IImageDecoder.hpp"
 # include <Siv3D/Common/Siv3DEngine.hpp>
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -37,6 +38,10 @@ namespace s3d
 
 		Image Decode(const FilePathView path, const ImageFormat imageFormat)
 		{
+		# if SIV3D_PLATFORM(WEB)
+			Platform::Web::FetchFile(path);
+		# endif
+
 			BinaryReader reader(path);
 
 			if (not reader)

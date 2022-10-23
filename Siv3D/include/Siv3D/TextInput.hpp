@@ -100,9 +100,19 @@ namespace s3d
 
 	namespace Platform::Web::TextInput
 	{
-		void RequestEnableIME();
-		
-		void RequestDisableIME();
+		/// @brief 変換待ちのテキストの範囲を返します。
+		/// @return 変換待ちのテキストの範囲
+		[[nodiscard]]
+		std::pair<int32, int32> GetCandicateCursorIndex();
+
+		void SetFocusToTextInput(bool focused);
+
+		void SyncronizeText(StringView text);
+
+		[[nodiscard]]
+		int32 GetCursorIndex();
+
+		void SetCursorIndex(int32 index);
 	}
 
 # endif

@@ -26,6 +26,9 @@ namespace s3d
 
 			httpTask.updateResponseStatus("HTTP/1.1 200 Ok\n");
 			httpTask.setStatus(HTTPAsyncStatus::Succeeded);
+			httpTask.resolveResponse();
+
+			EM_ASM("setTimeout(function() { _siv3dMaybeAwake(); }, 0)");
 		}
 
 		static void OnErrorCallback(unsigned requestID, void* userData, int statusCode)
@@ -34,6 +37,9 @@ namespace s3d
 
 			httpTask.updateResponseStatus(U"HTTP/1.1 {} Unknown\n"_fmt(statusCode).toUTF8());
 			httpTask.setStatus(HTTPAsyncStatus::Failed);
+			httpTask.resolveResponse();
+
+			EM_ASM("setTimeout(function() { _siv3dMaybeAwake(); }, 0)");
 		}
 
 		static void ProgressCallback(unsigned requestID, void* userData, int percentComplete)
@@ -84,6 +90,11 @@ namespace s3d
 	const HTTPResponse& AsyncHTTPTaskDetail::getResponse()
 	{
 		return m_response;
+	}
+
+	void AsyncHTTPTaskDetail::resolveResponse()
+	{
+		m_promise.set_value(m_response);
 	}
 
 	HTTPAsyncStatus AsyncHTTPTaskDetail::getStatus()

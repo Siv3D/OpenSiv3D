@@ -34,7 +34,7 @@ var<uniform> VSPerObject: VSPerObjectStruct;
 //
 //	Functions
 //
-@stage(vertex)
+@vertex
 fn main(
 	@location(0) VertexPosition: vec4<f32>,
 	@location(1) VertexColor: vec4<f32>

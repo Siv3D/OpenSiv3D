@@ -15,6 +15,8 @@
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
 # include <Siv3D/AudioDecoder.hpp>
+# include <Siv3D/System.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include <Siv3D/PseudoThread/PseudoThread.hpp>
 
 namespace s3d
@@ -37,42 +39,35 @@ namespace s3d
 					})
 					.join(U",", U"", U"");
 			}
-
-			__attribute__((import_name("siv3dOpenDialog")))
-			char* siv3dOpenDialogImpl(const char*);
 		}
 
 		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
-		{
-			const auto filter = detail::TransformFileFilters(filters);
-			auto rawFilePath = detail::siv3dOpenDialogImpl(filter.narrow().c_str());
-
-			if (rawFilePath == nullptr)
+		{		
+			auto openFileFuture = Platform::Web::Dialog::OpenFile(filters);
+			
+			if (auto path = Platform::Web::System::WaitForFutureResolved(openFileFuture))
 			{
-				return (none);
+				return *path;
 			}
 			else
 			{
-				auto filePath = Unicode::FromUTF8(rawFilePath);
-				delete rawFilePath;
-				return (filePath);
-			}	
+				LOG_ERROR(U"cannot use Dialog::OpenFile without Asyncify. Please confirm that linker option contains `-sASYNCIFY=1`");
+				return (none);
+			}
 		}
 
 		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
 		{
-			const auto filter = detail::TransformFileFilters(filters);
-			auto rawFilePath = detail::siv3dOpenDialogImpl(filter.narrow().c_str());
-
-			if (rawFilePath == nullptr)
+			auto openFileFuture = Platform::Web::Dialog::OpenFiles(filters);
+			
+			if (auto path = Platform::Web::System::WaitForFutureResolved(openFileFuture))
 			{
-				return {};
+				return *path;
 			}
 			else
 			{
-				auto filePath = Unicode::FromUTF8(rawFilePath);
-				delete rawFilePath;
-				return { filePath };
+				LOG_ERROR(U"cannot use Dialog::OpenFiles without Asyncify. Please confirm that linker option contains `-sASYNCIFY=1`");
+				return {};
 			}
 		}
 
@@ -213,21 +208,6 @@ namespace s3d
 		AsyncTask<Audio> OpenAudio(FilePathView defaultPath, StringView title)
 		{
 			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
-		}
-	}
-
-	namespace Platform::Web
-	{
-		namespace detail
-		{
-			__attribute__((import_name("siv3dDownloadFile")))
-			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
-		}
-
-		void DownloadFile(FilePathView filePath)
-		{
-			const auto fileName = FileSystem::FileName(filePath);
-			detail::siv3dDownloadFile(filePath.narrow().c_str(), fileName.narrow().c_str());
 		}
 	}
 }

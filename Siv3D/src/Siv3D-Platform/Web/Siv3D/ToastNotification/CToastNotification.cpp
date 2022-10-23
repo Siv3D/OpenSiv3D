@@ -46,7 +46,7 @@ namespace s3d
 
 	bool CToastNotification::isAvailable() const
 	{
-		return detail::siv3dQueryNotificationPermission() == NotificationPermission::Granted;
+		return detail::siv3dQueryNotificationPermission() != NotificationPermission::Denied;
 	}
 
 	ToastNotificationID CToastNotification::show(const ToastNotificationItem& item)
