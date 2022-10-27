@@ -53,7 +53,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Script.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScriptFunction.ipp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Table.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OrderedTable.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
@@ -690,7 +690,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\Table.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OrderedTable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPError.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />

@@ -14,13 +14,13 @@
 namespace s3d
 {
 	template <class Key, class Value>
-	inline void swap(Table<Key, Value>& a, Table<Key, Value>& b) noexcept
+	inline void swap(OrderedTable<Key, Value>& a, OrderedTable<Key, Value>& b) noexcept
 	{
 		a.swap(b);
 	}
 
 	template <class Key, class Value>
-	inline void Formatter(FormatData& formatData, const Table<Key, Value>& table)
+	inline void Formatter(FormatData& formatData, const OrderedTable<Key, Value>& table)
 	{
 		formatData.string.append(U"{\n"_sv);
 

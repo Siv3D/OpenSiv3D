@@ -31,16 +31,16 @@ namespace s3d
 	template <class Key, class Value,
 		class Compare = phmap::Less<Key>,
 		class Alloc = phmap::priv::Allocator<phmap::priv::Pair<const Key, Value>>>
-	using Table = phmap::btree_map<Key, Value, Compare, Alloc>;
+	using OrderedTable = phmap::btree_map<Key, Value, Compare, Alloc>;
 
 	template <class Key, class Value>
-	inline void swap(Table<Key, Value>& a, Table<Key, Value>& b) noexcept;
+	inline void swap(OrderedTable<Key, Value>& a, OrderedTable<Key, Value>& b) noexcept;
 
 	template <class Key, class Value>
-	inline void Formatter(FormatData& formatData, const Table<Key, Value>& table);
+	inline void Formatter(FormatData& formatData, const OrderedTable<Key, Value>& table);
 }
 
-# include "detail/Table.ipp"
+# include "detail/OrderedTable.ipp"
 
 # if SIV3D_INTRINSIC(SSE)
 #	undef PHMAP_HAVE_SSE2

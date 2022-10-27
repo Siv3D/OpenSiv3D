@@ -6867,10 +6867,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleMenuBar.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Table.hpp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\OrderedTable.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Table.ipp">
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OrderedTable.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
   </ItemGroup>
