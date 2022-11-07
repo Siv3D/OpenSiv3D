@@ -79,8 +79,14 @@ namespace s3d
 
 		void AlphaToBinary2x(const Image& from, cv::Mat_<uint8>& to, uint32 threshold);
 
+		/// @brief Image を cv::Mat_ に変換します。
+		/// @param from 変換する Image
+		/// @param to 変換結果の格納先（Image と同じサイズ）
 		void ToMatVec3bBGR(const Image& from, cv::Mat_<cv::Vec3b>& to);
 
+		/// @brief Image を cv::Mat_ に変換します。
+		/// @param from 変換する Image
+		/// @param to 変換結果の格納先（Image と同じサイズ）
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to);
 	}
 }
