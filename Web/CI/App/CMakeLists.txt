@@ -309,7 +309,6 @@ set_target_properties(Siv3DSharedMainApp PROPERTIES
 
 target_asyncify_imports(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_IMPORTS})
 target_asyncify_add(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_ADD})
-target_preload_files(Siv3DSharedMainApp ${SIV3D_BUNDLED_FILES})
 
 
 
@@ -366,7 +365,8 @@ set_target_properties(Siv3DSharedMain
 
 target_asyncify_imports(Siv3DSharedMain ${SIV3D_SHAREDMAIN_ASYNCIFY_IMPORTS})
 target_asyncify_add(Siv3DSharedMain ${SIV3D_SHAREDMAIN_ASYNCIFY_ADD})
-target_preload_files(Siv3DSharedMain ${SIV3D_BUNDLED_FILES})
+
+
 
 #
 # Siv3D DinamicLink EntryPoint AppData 
