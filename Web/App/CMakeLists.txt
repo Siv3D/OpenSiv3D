@@ -115,6 +115,7 @@ set(SIV3D_EXE_LINKER_FLAGS
   -sMAX_WEBGL_VERSION=2
   --emrun
   -sMODULARIZE=1
+  -sEXPORT_NAME=Runtime
   --shell-file=${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.html
   --post-js=${CMAKE_CURRENT_SOURCE_DIR}/Templates/Embeddable/web-player.js
 )
@@ -125,7 +126,6 @@ set(SIV3D_LINK_LIBRARIES
     Siv3D::Siv3D
     Siv3D::Siv3DScript
 )
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 
 
@@ -173,6 +173,7 @@ target_link_libraries(Siv3DApp PRIVATE ${SIV3D_LINK_LIBRARIES})
 
 set_target_properties(Siv3DApp PROPERTIES
     SUFFIX ".html"
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 target_asyncify_imports(Siv3DApp ${SIV3D_ASYNCIFY_IMPORTS})

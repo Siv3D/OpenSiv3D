@@ -106,8 +106,9 @@ namespace s3d
 		//	full screen triangle
 		//
 		//////////////////////////////////////////////////
-		GLuint m_vertexArray		= 0;
-		GLuint m_sampler			= 0;
+		GLuint m_vertexArray				= 0;
+		GLuint m_placeHolderVertexBuffer	= 0;
+		GLuint m_sampler					= 0;
 
 		// VertexBuilder でのメモリアロケーションを避けるためのバッファ
 		Array<Float2> m_buffer;

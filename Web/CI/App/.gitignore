@@ -2,3 +2,4 @@ Siv3DApp.*
 Siv3DTest.*
 Siv3D.*
 lib*.wasm
+!SharedMainEntry.html
