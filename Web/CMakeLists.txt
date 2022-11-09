@@ -1338,6 +1338,7 @@ else()
 endif()
 
 set(SIV3D_THIRD_PARTY_LIBRARIES
+  -Wl,--no-whole-archive
     \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
     \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_photo${Siv3DLibraryPostfix}
     \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_imgproc${Siv3DLibraryPostfix}

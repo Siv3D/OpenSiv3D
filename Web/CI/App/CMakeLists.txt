@@ -119,8 +119,7 @@ set(SIV3D_EXE_LINKER_FLAGS
   -sASYNCIFY_IGNORE_INDIRECT=1
 )
 set(SIV3D_LINK_LIBRARIES
-  -Wl,--no-whole-archive
-    Siv3D::Siv3D
+  Siv3D::Siv3D
 )
 set(SIV3DAPP_EXE_LINKER_FLAGS
   --emrun
@@ -145,6 +144,7 @@ if (SIV3D_WEBGPU_BACKEND)
   list(PREPEND SIV3D_LINK_LIBRARIES
     -Wl,--whole-archive
       Siv3D::Siv3DWebGPU
+    -Wl,--no-whole-archive
   )
 else()
   list(APPEND SIV3D_EXE_LINKER_FLAGS
@@ -158,6 +158,7 @@ if (SIV3D_USE_BROWSER_IMAGE_ENCODING)
   list(PREPEND SIV3D_LINK_LIBRARIES
     -Wl,--whole-archive
       Siv3D::Siv3DBrowserImageEncodeDecode
+    -Wl,--no-whole-archive
   )
 endif()
 
@@ -299,8 +300,8 @@ get_target_property(Siv3DLinkerOptions Siv3D::Siv3DInterface INTERFACE_LINK_OPTI
 target_include_directories(Siv3DSharedMainApp PRIVATE ${Siv3DIncludeDirectory})
 target_compile_definitions(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerDefinitions} ${SIV3D_CXX_DEFINITIONS})
 target_compile_features(Siv3DSharedMainApp PRIVATE cxx_std_20) 
-target_compile_options(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerOptions} -sSIDE_MODULE=2)
-target_link_options(Siv3DSharedMainApp PRIVATE ${Siv3DLinkerOptions} ${SIV3D_EXE_LINKER_FLAGS} -sSIDE_MODULE=2)
+target_compile_options(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerOptions} -sSIDE_MODULE=1)
+target_link_options(Siv3DSharedMainApp PRIVATE ${Siv3DLinkerOptions} ${SIV3D_EXE_LINKER_FLAGS} -sSIDE_MODULE=1)
 set_target_properties(Siv3DSharedMainApp PROPERTIES
     SUFFIX .wasm
     OUTPUT_NAME Siv3DApp
