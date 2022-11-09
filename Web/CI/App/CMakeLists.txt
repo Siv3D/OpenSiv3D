@@ -300,8 +300,8 @@ get_target_property(Siv3DLinkerOptions Siv3D::Siv3DInterface INTERFACE_LINK_OPTI
 target_include_directories(Siv3DSharedMainApp PRIVATE ${Siv3DIncludeDirectory})
 target_compile_definitions(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerDefinitions} ${SIV3D_CXX_DEFINITIONS})
 target_compile_features(Siv3DSharedMainApp PRIVATE cxx_std_20) 
-target_compile_options(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerOptions} -sSIDE_MODULE=1)
-target_link_options(Siv3DSharedMainApp PRIVATE ${Siv3DLinkerOptions} ${SIV3D_EXE_LINKER_FLAGS} -sSIDE_MODULE=1)
+target_compile_options(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerOptions} -sSIDE_MODULE=2)
+target_link_options(Siv3DSharedMainApp PRIVATE ${Siv3DLinkerOptions} ${SIV3D_EXE_LINKER_FLAGS} -sSIDE_MODULE=2)
 set_target_properties(Siv3DSharedMainApp PROPERTIES
     SUFFIX .wasm
     OUTPUT_NAME Siv3DApp
@@ -310,6 +310,7 @@ set_target_properties(Siv3DSharedMainApp PROPERTIES
 
 target_asyncify_imports(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_IMPORTS})
 target_asyncify_add(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_ADD})
+target_exported_functions(Siv3DSharedMainApp __Z4Mainv)
 
 
 
