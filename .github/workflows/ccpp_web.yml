@@ -312,7 +312,7 @@ jobs:
 
       - name: Test Siv3d App (Side Module)
         if: ${{ matrix.config.app-name == 'wasm-side-module' }}
-        run: emrun --timeout 300 --timeout_returncode -1 Siv3D.html
+        run: emrun --timeout 600 --timeout_returncode -1 Siv3D.html
       
   build-installer:
     needs: build
@@ -457,7 +457,7 @@ jobs:
 
   pre-deploy:
     if: ${{ contains(github.ref, 'tags/v') }}
-    needs: [ build, build-installer ]
+    needs: [ test-app, test-installer ]
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create-release.outputs.upload_url }}
@@ -534,7 +534,7 @@ jobs:
 
 
   deploy-gh-pages:
-    needs: build-app
+    needs: test-app
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
