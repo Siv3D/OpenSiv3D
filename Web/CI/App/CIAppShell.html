@@ -1278,7 +1278,12 @@
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         },
-        dynamicLibraries: [ "Siv3DApp.wasm" ]
+#if MAIN_MODULE
+        dynamicLibraries: [ "Siv3DApp.wasm" ],
+#endif
+        onRuntimeExit: function(code) {
+          console.log(`RuntimeExited(${code})`);
+        }
       };
       Module.setStatus('Downloading...');
       window.onerror = function(event) {

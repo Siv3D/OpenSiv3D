@@ -23,6 +23,6 @@
 
 __ATEXIT__.push(function() {
     if (Module["onRuntimeExit"]) {
-      Module["onRuntimeExit"]();
+        Module["onRuntimeExit"](EXITSTATUS || 0);
     }
 });

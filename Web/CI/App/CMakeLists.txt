@@ -122,11 +122,8 @@ set(SIV3D_LINK_LIBRARIES
   Siv3D::Siv3D
 )
 set(SIV3DAPP_EXE_LINKER_FLAGS
-  --emrun
-  -sMODULARIZE=1
-  -sEXPORT_NAME=Runtime
-  --shell-file=${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.html
-  --post-js=${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.js
+  -sEXIT_RUNTIME=1
+  --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
 
 
@@ -331,12 +328,14 @@ if (SIV3D_BUILD_WITH_SHARED_MAIN)
 endif()
 
 set(SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS
+  -sEXIT_RUNTIME=1
   -sMAIN_MODULE=1
   -sDECLARE_ASM_MODULE_EXPORTS=0
   -sFORCE_FILESYSTEM=1
   -sASSERTIONS=1
   --pre-js=${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
   --pre-js=${CMAKE_SOURCE_DIR}/Siv3D.data.js
+  --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
 
 set(SIV3D_SHAREDMAIN_ASYNCIFY_IMPORTS
@@ -356,7 +355,6 @@ target_compile_definitions(Siv3DSharedMain PRIVATE ZSTD_TRACE=0)
 target_compile_features(Siv3DSharedMain PRIVATE cxx_std_20) 
 target_link_options(Siv3DSharedMain PRIVATE 
   ${SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS}
-  --shell-file=${CMAKE_SOURCE_DIR}/SharedMainEntry.html
 )
 set_target_properties(Siv3DSharedMain 
   PROPERTIES

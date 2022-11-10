@@ -282,16 +282,16 @@ jobs:
           # - app-name: wasm-wgpu
           - app-name: wasm-side-module
     steps:
-      - name: Install Emscripten
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.5.0
+        with:
+          node-version: 16
+
+      - name: Install Prerequisites
         run: |
-          curl -L https://github.com/nokotan/EmscriptenInstaller/releases/download/v0.1.2/EmscriptenOffline.exe -o Emscripten.exe
-          & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
-          Wait-Process -Name "Emscripten"
-          $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
-          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
-          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
-          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-          echo $env:Path >> $Env:GITHUB_PATH
+          npm install -g statikk cdp-gdb-bridge
+          cp Web/CI/App/AppRunner.mjs .
 
       - name: Restore Bundles
         uses: actions/download-artifact@v3
@@ -308,11 +308,11 @@ jobs:
       
       - name: Test Siv3d App
         if: ${{ matrix.config.app-name != 'wasm-side-module' }}
-        run: emrun --timeout 300 --timeout_returncode -1 Siv3DApp.html
+        run: node AppRunner.mjs -p http://localhost:8080/Siv3DApp.html
 
       - name: Test Siv3d App (Side Module)
         if: ${{ matrix.config.app-name == 'wasm-side-module' }}
-        run: emrun --timeout 600 --timeout_returncode -1 Siv3D.html
+        run: node AppRunner.mjs -p http://localhost:8080/Siv3D.html
       
   build-installer:
     needs: build
@@ -443,7 +443,9 @@ jobs:
 
       - name: Test Siv3d App
         working-directory: Siv3DTest/Emscripten/Release
-        run: emrun --timeout 60 --timeout_returncode 0 Siv3DTest.html
+        run: |
+          $PSDefaultParameterValues['*:Encoding'] = 'utf8'
+          emrun --timeout 60 --timeout_returncode 0 Siv3DTest.html
 
       - name: Save Build Artifacts
         uses: actions/upload-artifact@v3
