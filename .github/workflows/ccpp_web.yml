@@ -420,15 +420,23 @@ jobs:
           & ".\Emscripten.exe" /SILENT /SUPPRESSMSGBOXES
           Wait-Process -Name "Emscripten"
           $env:EMSDK = [System.Environment]::GetEnvironmentVariable("EMSDK","User")
-          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
-          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
+          $env:EMSDK_PYTHON = [System.Environment]::GetEnvironmentVariable("EMSDK_PYTHON","User")
+          $env:EMSDK_NODE = [System.Environment]::GetEnvironmentVariable("EMSDK_NODE","User")
+          $env:EM_CONFIG = [System.Environment]::GetEnvironmentVariable("EM_CONFIG","User")
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          echo "EMSDK=$env:EMSDK" >> $env:GITHUB_ENV
+          echo "EMSDK_PYTHON=$env:EMSDK_PYTHON" >> $env:GITHUB_ENV
+          echo "EMSDK_NODE=$env:EMSDK_NODE" >> $env:GITHUB_ENV
+          echo "EM_CONFIG=$env:EM_CONFIG" >> $env:GITHUB_ENV
+          echo "PYTHONUTF8=1" >> $env:GITHUB_ENV
+          echo "PYTHONIOENCODING=utf-8" >> $env:GITHUB_ENV
           echo $env:Path >> $Env:GITHUB_PATH
 
       - name: Create Project
         run: |
           mkdir Siv3DTest
           7z x "$env:USERPROFILE\Documents\Visual Studio 2022\Templates\ProjectTemplates\OpenSiv3D(0.6.5)Web.zip" -oSiv3DTest
+          cp Web\CI\App\Main.cpp Siv3DTest
           cd Siv3DTest
           $Content = Get-Content -path "Siv3DTest.vcxproj"
           $Content -Replace '$guid1$', '4e942135-f309-41d4-8214-c2e5bd7c7ace'
@@ -443,9 +451,7 @@ jobs:
 
       - name: Test Siv3d App
         working-directory: Siv3DTest/Emscripten/Release
-        run: |
-          $PSDefaultParameterValues['*:Encoding'] = 'utf8'
-          emrun --timeout 60 --timeout_returncode 0 Siv3DTest.html
+        run: python $env:EMSDK\upstream\emscripten\emrun.py --timeout 180 --timeout_returncode -1 Siv3DTest.html
 
       - name: Save Build Artifacts
         uses: actions/upload-artifact@v3
