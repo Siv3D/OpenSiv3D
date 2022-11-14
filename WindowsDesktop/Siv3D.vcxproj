@@ -835,6 +835,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\lua\lualib.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Obfuscate\obfuscate.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\btree.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_base.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_bits.h" />
