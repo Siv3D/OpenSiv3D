@@ -2954,6 +2954,7 @@
 		2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEnvironmentVariable.cpp; sourceTree = "<group>"; };
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
+		2C903A912922863D008A61F4 /* btree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = btree.h; sourceTree = "<group>"; };
 		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
 		2C9566872645625F00539B85 /* mz_strm_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_os_posix.c; sourceTree = "<group>"; };
 		2C9566892645625F00539B85 /* mz_strm_pkcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_pkcrypt.c; sourceTree = "<group>"; };
@@ -5900,6 +5901,7 @@
 		2C4564C92479193600DB01F0 /* parallel_hashmap */ = {
 			isa = PBXGroup;
 			children = (
+				2C903A912922863D008A61F4 /* btree.h */,
 				2C4564CA2479193600DB01F0 /* phmap_config.h */,
 				2C4564CB2479193600DB01F0 /* phmap.h */,
 				2C4564CC2479193600DB01F0 /* LICENSE */,

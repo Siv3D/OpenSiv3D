@@ -272,10 +272,10 @@ namespace base_internal {
 
 PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64Slow(uint64_t n) {
     int zeroes = 60;
-    if (n >> 32) zeroes -= 32, n >>= 32;
-    if (n >> 16) zeroes -= 16, n >>= 16;
-    if (n >> 8) zeroes -= 8, n >>= 8;
-    if (n >> 4) zeroes -= 4, n >>= 4;
+	if (n >> 32) static_cast<void>(zeroes -= 32), n >>= 32;
+	if (n >> 16) static_cast<void>(zeroes -= 16), n >>= 16;
+	if (n >> 8) static_cast<void>(zeroes -= 8), n >>= 8;
+	if (n >> 4) static_cast<void>(zeroes -= 4), n >>= 4;
     return "\4\3\2\2\1\1\1\1\0\0\0\0\0\0\0"[n] + zeroes;
 }
 
@@ -317,9 +317,9 @@ PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64(uint64_t n) {
 
 PHMAP_BASE_INTERNAL_FORCEINLINE uint32_t CountLeadingZeros32Slow(uint64_t n) {
     uint32_t zeroes = 28;
-    if (n >> 16) zeroes -= 16, n >>= 16;
-    if (n >> 8) zeroes -= 8, n >>= 8;
-    if (n >> 4) zeroes -= 4, n >>= 4;
+	if (n >> 16) static_cast<void>(zeroes -= 16), n >>= 16;
+	if (n >> 8) static_cast<void>(zeroes -= 8), n >>= 8;
+	if (n >> 4) static_cast<void>(zeroes -= 4), n >>= 4;
     return "\4\3\2\2\1\1\1\1\0\0\0\0\0\0\0"[n] + zeroes;
 }
 
