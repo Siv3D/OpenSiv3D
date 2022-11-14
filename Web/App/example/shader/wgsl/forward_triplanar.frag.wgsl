@@ -80,7 +80,7 @@ fn CalculateSpecularReflection(n: vec3<f32>, h: vec3<f32>, shininess: f32, nl: f
 //
 //	Functions
 //
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) WorldPosition: vec3<f32>,

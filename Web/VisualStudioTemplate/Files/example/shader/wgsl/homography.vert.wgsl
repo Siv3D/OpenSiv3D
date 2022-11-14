@@ -55,7 +55,7 @@ fn Transform(pos: vec3<f32>, mat: mat3x3<f32>) -> vec2<f32>
 //
 //	Functions
 //
-@stage(vertex)
+@vertex
 fn main(
 	@location(0) VertexPosition: vec2<f32>,
 	@location(1) VertexUV: vec2<f32>,

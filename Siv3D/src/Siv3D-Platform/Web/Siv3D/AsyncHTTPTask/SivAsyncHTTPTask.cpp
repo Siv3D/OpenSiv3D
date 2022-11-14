@@ -75,4 +75,12 @@ namespace s3d
 
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const FilePathView path)
 		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, path) } {}
+
+	namespace Platform::Web::SimpleHTTP
+	{
+		AsyncTask<HTTPResponse> CreateAsyncTask(AsyncHTTPTask& httpTask)
+		{
+			return httpTask.pImpl->m_promise.get_future();
+		}
+	}
 }

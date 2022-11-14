@@ -84,7 +84,7 @@ Name | Version
 [Star Nest](https://www.shadertoy.com/view/XlfGRj) | 
 [stb_truetype](https://github.com/nothings/stb) | v1.24
 [stduuid](https://github.com/mariusbancila/stduuid) | v1.2.2
-[The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.4
+[The Parallel Hashmap](https://github.com/greg7mdp/parallel-hashmap) | 1.3.8
 [tinycolormap](https://github.com/yuki-koyama/tinycolormap) | 
 [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) | 
 [TinySoundFont](https://github.com/schellingb/TinySoundFont) | 

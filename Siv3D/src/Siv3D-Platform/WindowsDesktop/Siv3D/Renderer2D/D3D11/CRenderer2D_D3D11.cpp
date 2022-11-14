@@ -260,6 +260,24 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::addRectFrameTB(const FloatRect& rect, const float thickness, const Float4& topColor, const Float4& bottomColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRectFrameTB(m_bufferCreator, rect, thickness, topColor, bottomColor))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_D3D11::addCircle(const Float2& center, const float r, const Float4& innerColor, const Float4& outerColor)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildCircle(m_bufferCreator, center, r, innerColor, outerColor, getMaxScaling()))
@@ -422,9 +440,45 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::addRoundRect(const FloatRect& rect, const float w, const float h, const float r, const Float4& topColor, const Float4& bottomColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRect(m_bufferCreator, m_buffer, rect, w, h, r, topColor, bottomColor, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_D3D11::addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& color)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectFrame(m_bufferCreator, m_buffer, outer, inner, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_D3D11::addRoundRectFrame(const RoundRect& outer, const RoundRect& inner, const Float4& topColor, const Float4& bottomColor)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectFrame(m_bufferCreator, m_buffer, outer, inner, topColor, bottomColor, getMaxScaling()))
 		{
 			if (not m_currentCustomVS)
 			{

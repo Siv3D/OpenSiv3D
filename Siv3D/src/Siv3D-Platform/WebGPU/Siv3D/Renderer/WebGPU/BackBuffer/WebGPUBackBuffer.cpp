@@ -73,9 +73,9 @@ namespace s3d
 		wgpu::RenderPassColorAttachment colorAttachment
 		{
 			.view = m_sceneBuffers.scene->getTextureView(),
-			.loadOp = wgpu::LoadOp::Undefined,
+			.loadOp = wgpu::LoadOp::Load,
 			.storeOp = wgpu::StoreOp::Store,
-			.clearColor = 
+			.clearValue = 
 			{
 				.r = m_backgroundColor.r,
 				.g = m_backgroundColor.g,

@@ -34,7 +34,7 @@ fn median(r: f32, g: f32, b: f32) -> f32
 //
 //	Functions
 //
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) Color: vec4<f32>,

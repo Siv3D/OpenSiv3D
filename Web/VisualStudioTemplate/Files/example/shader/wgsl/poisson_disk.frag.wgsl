@@ -57,7 +57,7 @@ let poisson: array<vec2<f32>, 12> = array<vec2<f32>, 12>(
 //
 //	Functions
 //
-@stage(fragment)
+@fragment
 fn main(
 	@builtin(position) Position: vec4<f32>,
 	@location(0) Color: vec4<f32>,

@@ -12,6 +12,8 @@
 # include <Siv3D/Error.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/System.hpp>
+# include <Siv3D/AudioDecoder.hpp>
 # include "CAudioCodec.hpp"
 
 namespace s3d
@@ -25,9 +27,6 @@ namespace s3d
             uint32 samplingRate;
             std::size_t dataLength;
         };
-
-		__attribute__((import_name("siv3dDecodeAudioFromFile")))
-        void siv3dDecodeAudioFromFile(const char* filePath, DecodedAudioData* data);
 	}
 
 	CAudioCodec::CAudioCodec()
@@ -73,31 +72,17 @@ namespace s3d
 		return(false);
 	}
 
-	Wave CAudioCodec::decode(const FilePathView path, const AudioFormat audioFormat)
+	Wave CAudioCodec::decode(const FilePathView path, const AudioFormat)
 	{
-		detail::DecodedAudioData data;
-		detail::siv3dDecodeAudioFromFile(path.toUTF8().c_str(), &data);
-
-		if (data.dataLength > 0)
+		auto audioFuture = Platform::Web::AudioDecoder::DecodeFromFile(path);
+		
+		if (auto audio = Platform::Web::System::WaitForFutureResolved(audioFuture))
 		{
-			Wave wave { data.dataLength, data.samplingRate };
-
-			for (uint32 i = 0; i < data.dataLength; i++)
-			{
-				wave[i].set(data.leftChannelData[i], data.rightChannelData[i]);
-			}
-
-			if (data.leftChannelData != data.rightChannelData) 
-			{
-				::free(data.rightChannelData);
-			}
-
-			::free(data.leftChannelData);
-
-			return wave;
+			return *audio;
 		}
 		else
 		{
+			LOG_WARNING(U"cannot decode .mp3 or .aac files without Asyncify. Please confirm that linker option contains `-sASYNCIFY=1`");
 			return{};
 		}
 	}	

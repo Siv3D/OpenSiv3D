@@ -9,30 +9,28 @@
 //
 //-----------------------------------------------
 
-# include <iostream>
+# include <Siv3D/MessageBox.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		static void ShowFreestandingMessageBox(const StringView text)
-		{
-			// [Siv3D ToDo]
-			std::cerr << text << '\n';
-		}
+		
+		__attribute__((import_name("siv3dCallOnAlert")))
+		void siv3dCallOnAlert(const char*);
 	}
 
 	namespace FreestandingMessageBox
 	{
 		void ShowInfo(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text);
+			System::MessageBoxOK(U"Application Error", text, MessageBoxStyle::Info);
 		}
 
 		void ShowError(const StringView text)
 		{
-			detail::ShowFreestandingMessageBox(text);
+			detail::siv3dCallOnAlert(text.narrow().c_str());
 		}
 	}
 }

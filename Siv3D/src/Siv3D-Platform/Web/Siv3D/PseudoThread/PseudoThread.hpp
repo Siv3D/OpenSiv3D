@@ -19,6 +19,11 @@
 
 namespace s3d
 {
+    namespace detail
+    {
+        void clearInterval(long intervalID);
+    }
+
     class PseudoThread
     {
     public:
@@ -50,7 +55,7 @@ namespace s3d
             if (intervalID > 0) 
             {
                 std::get<0>(*__p)->nativeHandle = intervalID;
-                std::get<0>(*__p)->terminateThread = &::emscripten_clear_interval;
+                std::get<0>(*__p)->terminateThread = &detail::clearInterval;
                 __p.release();
             }
         }

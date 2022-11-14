@@ -205,6 +205,11 @@ namespace s3d
 		{
 			return SIV3D_ENGINE(Window)->getHandle();
 		}
+
+		void SetTaskbarProgressBar(const double progress0_1)
+		{
+			SIV3D_ENGINE(Window)->setTaskbarProgressBar(progress0_1);
+		}
 	}
 
 # endif

@@ -29,6 +29,8 @@ namespace s3d
 
         bool hasAlpha : 1 = true;
 
+		uint8 padding : 8 = 0;
+
         [[nodiscard]]
 		storage_type asValue() const noexcept;
 

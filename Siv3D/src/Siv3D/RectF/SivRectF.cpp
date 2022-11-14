@@ -428,6 +428,11 @@ namespace s3d
 		return drawFrame((thickness * 0.5), (thickness * 0.5), innerColor, outerColor);
 	}
 
+	const RectF& RectF::drawFrame(const double thickness, const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	{
+		return drawFrame((thickness * 0.5), (thickness * 0.5), topColor, bottomColor);
+	}
+
 	const RectF& RectF::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
 	{
 		if ((w <= 0.0) || (h <= 0.0)
@@ -459,6 +464,16 @@ namespace s3d
 			FloatRect{ (x + innerThickness), (y + innerThickness), (x + w - innerThickness), (y + h - innerThickness) },
 			static_cast<float>(innerThickness + outerThickness),
 			innerColor.toFloat4(), outerColor.toFloat4());
+
+		return *this;
+	}
+
+	const RectF& RectF::drawFrame(const double innerThickness, const double outerThickness, const Arg::top_<ColorF> topColor, const Arg::bottom_<ColorF> bottomColor) const
+	{
+		SIV3D_ENGINE(Renderer2D)->addRectFrameTB(
+			FloatRect{ (x + innerThickness), (y + innerThickness), (x + w - innerThickness), (y + h - innerThickness) },
+			static_cast<float>(innerThickness + outerThickness),
+			topColor->toFloat4(), bottomColor->toFloat4());
 
 		return *this;
 	}

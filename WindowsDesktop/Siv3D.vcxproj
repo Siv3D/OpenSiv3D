@@ -53,6 +53,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\RenderTexture.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Script.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ScriptFunction.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OrderedTable.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPClient.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\TCPServer.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Texture.ipp" />
@@ -689,6 +690,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Subdivision2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OrderedTable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPError.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />
@@ -833,6 +835,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\lua\lualib.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\Obfuscate\obfuscate.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\btree.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_base.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_bits.h" />

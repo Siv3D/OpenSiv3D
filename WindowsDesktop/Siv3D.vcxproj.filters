@@ -1977,27 +1977,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_bits.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_config.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_dump.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_fwd_decl.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_utils.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_base.h">
-      <Filter>include\ThirdParty\parallel_hashmap</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\HashTable.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -6866,6 +6845,36 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleMenuBar.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OrderedTable.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OrderedTable.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\btree.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_base.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_bits.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_config.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_dump.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_fwd_decl.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_utils.h">
+      <Filter>include\ThirdParty\parallel_hashmap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

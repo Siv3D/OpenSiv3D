@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
-    <IncludePath>$(SIV3D_0_6_4_WEB)\include;$(SIV3D_0_6_4_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_4_WEB)\lib\freetype;$(SIV3D_0_6_4_WEB)\lib\giflib;$(SIV3D_0_6_4_WEB)\lib\harfbuzz;$(SIV3D_0_6_4_WEB)\lib\opencv;$(SIV3D_0_6_4_WEB)\lib\turbojpeg;$(SIV3D_0_6_4_WEB)\lib\webp;$(SIV3D_0_6_4_WEB)\lib\opus;$(SIV3D_0_6_4_WEB)\lib\tiff;$(SIV3D_0_6_4_WEB)\lib</LibraryPath>
+    <IncludePath>$(SIV3D_0_6_5_WEB)\include;$(SIV3D_0_6_5_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\png;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
-    <IncludePath>$(SIV3D_0_6_4_WEB)\include;$(SIV3D_0_6_4_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_4_WEB)\lib\freetype;$(SIV3D_0_6_4_WEB)\lib\giflib;$(SIV3D_0_6_4_WEB)\lib\harfbuzz;$(SIV3D_0_6_4_WEB)\lib\opencv;$(SIV3D_0_6_4_WEB)\lib\turbojpeg;$(SIV3D_0_6_4_WEB)\lib\webp;$(SIV3D_0_6_4_WEB)\lib\opus;$(SIV3D_0_6_4_WEB)\lib\tiff;$(SIV3D_0_6_4_WEB)\lib</LibraryPath>
+    <IncludePath>$(SIV3D_0_6_5_WEB)\include;$(SIV3D_0_6_5_WEB)\include\ThirdParty;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SIV3D_0_6_5_WEB)\lib\freetype;$(SIV3D_0_6_5_WEB)\lib\giflib;$(SIV3D_0_6_5_WEB)\lib\harfbuzz;$(SIV3D_0_6_5_WEB)\lib\opencv;$(SIV3D_0_6_5_WEB)\lib\turbojpeg;$(SIV3D_0_6_5_WEB)\lib\webp;$(SIV3D_0_6_5_WEB)\lib\opus;$(SIV3D_0_6_5_WEB)\lib\tiff;$(SIV3D_0_6_5_WEB)\lib\png;$(SIV3D_0_6_5_WEB)\lib\zlib;$(SIV3D_0_6_5_WEB)\lib\SDL2;$(SIV3D_0_6_5_WEB)\lib</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -94,16 +94,16 @@ ${ExampleItems}
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <Link>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
-      <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1
-  -s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
-  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
-  -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s MODULARIZE=1
+  -s EXCEPTION_CATCHING_ALLOWED=["main","_ZN3s3d7TryMainEv"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
+  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dGetClipboardText', 'siv3dDecodeImageFromFile', 'siv3dSleepUntilWaked', 'invoke_vi', 'invoke_v' ]"
+  -s ASYNCIFY_ADD="[ 'main','Main()','dynCall_v','dynCall_vi','s3d::TryMain()','s3d::CSystem::init()','s3d::System::Update()','s3d::AACDecoder::decode(*) const','s3d::MP3Decoder::decode(*) const','s3d::CAudioDecoder::decode(*)','s3d::AudioDecoder::Decode(*)','s3d::Wave::Wave(*)','s3d::Audio::Audio(*)','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::GenericDecoder::decode(*) const','s3d::CImageDecoder::decode(*)','s3d::Image::Image(*)','s3d::Texture::Texture(*)','s3d::ImageDecoder::Decode(*)','s3d::ImageDecoder::GetImageInfo(*)','s3d::Model::Model(*)','s3d::CModel::create(*)','s3d::CRenderer2D_GLES3::init()','s3d::CRenderer2D_WebGPU::init()','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::SimpleHTTP::Save(*)','s3d::SimpleHTTP::Load(*)','s3d::SimpleHTTP::Get(*)','s3d::SimpleHTTP::Post(*)','s3d::VideoReader::VideoReader(*)','s3d::VideoReader::open(*)','s3d::Platform::Web::FetchFile(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
-      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
+      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;png;z;SDL2;</AdditionalDependencies>
       <EchoCommandLines>false</EchoCommandLines>
-      <JsLibrary>$(SIV3D_0_6_4_WEB)\lib\Siv3D.js;</JsLibrary>
-      <PreJsFile>$(SIV3D_0_6_4_WEB)\lib\Siv3D.pre.js;</PreJsFile>
-      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_4_WEB)\lib\Siv3D.post.js;</PostJsFile>
+      <JsLibrary>$(SIV3D_0_6_5_WEB)\lib\Siv3D.js;</JsLibrary>
+      <PreJsFile>$(SIV3D_0_6_5_WEB)\lib\Siv3D.pre.js;</PreJsFile>
+      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_5_WEB)\lib\Siv3D.post.js;</PostJsFile>
       <HtmlShellFile>$(ProjectDir)\Templates\Embeddable\web-player.html</HtmlShellFile>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <EmRun>true</EmRun>
@@ -122,15 +122,15 @@ ${ExampleItems}
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
     <Link>
-     <AdditionalOptions>-s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s USE_SDL=2 -s MODULARIZE=1
-  -s EXCEPTION_CATCHING_ALLOWED=["InitSiv3D"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
-  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dOpenDialog', 'siv3dDecodeAudioFromFile', 'siv3dGetClipboardText' ]"
-  -s ASYNCIFY_ADD="[ 'main', 'Main()', 's3d::System::Update()', 's3d::AACDecoder::decode(*) const', 's3d::MP3Decoder::decode(*) const', 's3d::CAudioDecoder::decode(*)', 's3d::AudioDecoder::Decode(*)', 's3d::Wave::Wave(*)', 's3d::Audio::Audio(*)', 's3d::Clipboard::GetText(*)', 's3d::CClipboard::getText(*)' ]" %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;</AdditionalDependencies>
+     <AdditionalOptions>-s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s MODULARIZE=1
+  -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
+  -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dGetClipboardText', 'siv3dDecodeImageFromFile', 'siv3dSleepUntilWaked', 'invoke_vi', 'invoke_v' ]"
+  -s ASYNCIFY_ADD="[ 'main','Main()','dynCall_v','dynCall_vi','s3d::TryMain()','s3d::CSystem::init()','s3d::System::Update()','s3d::AACDecoder::decode(*) const','s3d::MP3Decoder::decode(*) const','s3d::CAudioDecoder::decode(*)','s3d::AudioDecoder::Decode(*)','s3d::Wave::Wave(*)','s3d::Audio::Audio(*)','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::GenericDecoder::decode(*) const','s3d::CImageDecoder::decode(*)','s3d::Image::Image(*)','s3d::Texture::Texture(*)','s3d::ImageDecoder::Decode(*)','s3d::ImageDecoder::GetImageInfo(*)','s3d::Model::Model(*)','s3d::CModel::create(*)','s3d::CRenderer2D_GLES3::init()','s3d::CRenderer2D_WebGPU::init()','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::SimpleHTTP::Save(*)','s3d::SimpleHTTP::Load(*)','s3d::SimpleHTTP::Get(*)','s3d::SimpleHTTP::Post(*)','s3d::VideoReader::VideoReader(*)','s3d::VideoReader::open(*)','s3d::Platform::Web::FetchFile(*)' ]" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;png;z;SDL2;</AdditionalDependencies>
       <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
-      <JsLibrary>$(SIV3D_0_6_4_WEB)\lib\Siv3D.js;</JsLibrary>
-      <PreJsFile>$(SIV3D_0_6_4_WEB)\lib\Siv3D.pre.js;</PreJsFile>
-      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_4_WEB)\lib\Siv3D.post.js;</PostJsFile>
+      <JsLibrary>$(SIV3D_0_6_5_WEB)\lib\Siv3D.js;</JsLibrary>
+      <PreJsFile>$(SIV3D_0_6_5_WEB)\lib\Siv3D.pre.js;</PreJsFile>
+      <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_5_WEB)\lib\Siv3D.post.js;</PostJsFile>
       <HtmlShellFile>$(ProjectDir)\Templates\Embeddable\web-player.html</HtmlShellFile>
       <AdditionalLinkDirectories>$(LibraryPath);%(AdditionalLinkDirectories)</AdditionalLinkDirectories>
       <EchoCommandLines>false</EchoCommandLines>

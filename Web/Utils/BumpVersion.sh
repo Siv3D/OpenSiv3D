@@ -1,8 +1,8 @@
 #!/bin/bash
 
 TargetFiles=(
-    "../VisualStudioTemplate/Files/Siv3DTest.vcxproj"
-    "../VisualStudioTemplate/Files/MyTemplate.vstemplate"
+    "../VisualStudioTemplate/Files/Siv3DTest.vcxproj.tpl"
+    "../VisualStudioTemplate/Files/MyTemplate.vstemplate.tpl"
     "../WindowsInstaller/setup.iss"
     "../../.github/workflows/ccpp_web.yml"
 )

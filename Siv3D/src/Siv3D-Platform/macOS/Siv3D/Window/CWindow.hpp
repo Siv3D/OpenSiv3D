@@ -85,5 +85,7 @@ namespace s3d
 		void setToggleFullscreenEnabled(bool enabled) override;
 
 		bool isToggleFullscreenEnabled() const override;
+
+		void setTaskbarProgressBar(double progress0_1) override;
 	};
 }

@@ -17,6 +17,7 @@
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/ResizeMode.hpp>
 # include <Siv3D/Optional.hpp>
+# include <ShObjIdl_core.h>
 
 namespace s3d
 {
@@ -45,6 +46,8 @@ namespace s3d
 		bool m_toggleFullscreenEnabled = true;
 		bool m_toggleFullscreenRequest = false;
 		bool m_showWindowCalled = false;
+
+		ComPtr<ITaskbarList3> m_taskbar;
 
 		int32 getSystemMetrics(int32 index) const;
 
@@ -95,6 +98,8 @@ namespace s3d
 		bool isToggleFullscreenEnabled() const override;
 
 		void show() override;
+
+		void setTaskbarProgressBar(double progress0_1) override;
 
 
 		void setFullscreen(bool fullscreen, size_t monitorIndex, bool skipSceneResize);

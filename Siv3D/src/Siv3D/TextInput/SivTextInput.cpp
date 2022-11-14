@@ -204,21 +204,5 @@ namespace s3d
 			return SIV3D_ENGINE(TextInput)->getEditingTextStyle();
 		}
 	}
-
-# elif SIV3D_PLATFORM(WEB)
-
-	namespace Platform::Web::TextInput
-	{
-		void RequestEnableIME() 
-		{
-			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(true);
-		}
-
-		void RequestDisableIME() 
-		{
-			Siv3DEngine::Get<ISiv3DTextInput>()->enableIME(false);
-		}
-	}
-
 # endif
 }

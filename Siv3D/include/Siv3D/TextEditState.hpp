@@ -35,7 +35,7 @@ namespace s3d
 
 	# if SIV3D_PLATFORM(WEB)
 
-		AsyncTask<String> pendingClipboardText;
+		size_t lastCursorPos = 0;
 
 	# endif
 

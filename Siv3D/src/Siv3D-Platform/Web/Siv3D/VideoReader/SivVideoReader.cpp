@@ -12,6 +12,7 @@
 # include <Siv3D/VideoReader.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/VideoReader/VideoReaderDetail.hpp>
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -29,6 +30,9 @@ namespace s3d
 
 	bool VideoReader::open(const FilePathView path)
 	{
+	# if SIV3D_PLATFORM(WEB)
+		Platform::Web::FetchFile(path);
+	# endif
 		return pImpl->open(path);
 	}
 

@@ -1,9 +1,10 @@
 # include <Siv3D.hpp>
-# include <emscripten/bind.h>
+# include <emscripten/emscripten.h>
 
 static MessageBoxResult result;
 
-uint32 GetResult()
+EMSCRIPTEN_KEEPALIVE
+extern "C" uint32 GetResult()
 {
     return FromEnum(result);
 }
@@ -30,10 +31,4 @@ void Main()
 	result = System::MessageBoxOKCancel(U"OK or Cancel MessageBox");
 
 	WaitForFrames(1000);
-}
-
-EMSCRIPTEN_BINDINGS(Bindings) {
-    using namespace emscripten;
-
-    function("GetResult", &GetResult);
 }
