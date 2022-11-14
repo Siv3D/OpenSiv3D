@@ -162,6 +162,9 @@
 // 文字列ルックアップヘルパー | Heterogeneous lookup helper
 # include <Siv3D/HeterogeneousLookupHelper.hpp>
 
+// 順序付けテーブル | Ordered table
+# include <Siv3D/OrderedTable.hpp>
+
 // ハッシュテーブル | Hash table
 # include <Siv3D/HashTable.hpp>
 
