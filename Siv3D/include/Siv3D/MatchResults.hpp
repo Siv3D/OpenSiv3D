@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "Array.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -20,8 +21,8 @@ namespace s3d
 	{
 	public:
 
-		using container			= Array<StringView>;
-		using value_type		= StringView;
+		using container			= Array<Optional<StringView>>;
+		using value_type		= Optional<StringView>;
 		using const_reference	= const value_type&;
 		using reference			= value_type&;
 		using const_iterator	= typename container::const_iterator;

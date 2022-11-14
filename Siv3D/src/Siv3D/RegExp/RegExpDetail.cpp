@@ -112,10 +112,17 @@ namespace s3d
 
 		if (r >= 0)
 		{
-			Array<StringView> matches;
+			Array<Optional<StringView>> matches;
 
 			for (int32 i = 0; i < region->num_regs; ++i)
 			{
+				if ((region->beg[i] == ONIG_REGION_NOTPOS)
+					|| (region->end[i] == ONIG_REGION_NOTPOS))
+				{
+					matches.emplace_back();
+					continue;
+				}
+
 				const size_t begIndex = (region->beg[i] / sizeof(char32_t));
 				const size_t endIndex = (region->end[i] / sizeof(char32_t));
 				const size_t length = (endIndex - begIndex);
@@ -154,12 +161,19 @@ namespace s3d
 
 		const int r = ::onig_search(m_regex, pString, pEnd, pStart, pRange, region, ONIG_OPTION_NONE);
 
-		Array<StringView> matches;
+		Array<Optional<StringView>> matches;
 
 		if (r >= 0)
 		{
 			for (int32 i = 0; i < region->num_regs; ++i)
 			{
+				if ((region->beg[i] == ONIG_REGION_NOTPOS)
+					|| (region->end[i] == ONIG_REGION_NOTPOS))
+				{
+					matches.emplace_back();
+					continue;
+				}
+
 				const size_t begIndex = (region->beg[i] / sizeof(char32_t));
 				const size_t endIndex = (region->end[i] / sizeof(char32_t));
 				const size_t length = (endIndex - begIndex);
@@ -201,7 +215,7 @@ namespace s3d
 		
 		for (;;)
 		{
-			Array<StringView> matches;
+			Array<Optional<StringView>> matches;
 
 			const int r = ::onig_search(m_regex, pString, pEnd, pStart, pRange, region, ONIG_OPTION_NONE);
 
@@ -209,6 +223,13 @@ namespace s3d
 			{
 				for (int32 i = 0; i < region->num_regs; ++i)
 				{
+					if ((region->beg[i] == ONIG_REGION_NOTPOS)
+						|| (region->end[i] == ONIG_REGION_NOTPOS))
+					{
+						matches.emplace_back();
+						continue;
+					}
+
 					const size_t begIndex = (region->beg[i] / sizeof(char32_t));
 					const size_t endIndex = (region->end[i] / sizeof(char32_t));
 					const size_t length = (endIndex - begIndex);
