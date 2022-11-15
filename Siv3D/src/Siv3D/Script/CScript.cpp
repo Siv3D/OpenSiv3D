@@ -163,6 +163,7 @@ namespace s3d
 			RegisterInput(m_engine);
 			RegisterKeyboard(m_engine);
 			RegisterMouse(m_engine);
+			RegisterXInput(m_engine);
 			RegisterImageFormat(m_engine);
 			RegisterImage(m_engine);
 

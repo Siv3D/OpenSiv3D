@@ -129,6 +129,9 @@ namespace s3d
 		TextEditState,
 		LicenseInfo,
 
+		XInputVibration,
+		XInput_helper,
+		XInput_impl,
 	};
 
 	using AngelScript::asIScriptEngine;
@@ -228,6 +231,7 @@ namespace s3d
 	void RegisterInput(asIScriptEngine* engine);
 	void RegisterKeyboard(asIScriptEngine* engine);
 	void RegisterMouse(asIScriptEngine* engine);
+	void RegisterXInput(asIScriptEngine* engine);
 
 	void RegisterImageFormat(asIScriptEngine* engine);
 	void RegisterImage(asIScriptEngine* engine);

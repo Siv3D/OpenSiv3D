@@ -1174,6 +1174,7 @@ set(SIV3D_SCRIPT_SOURCES
   ../Siv3D/src/Siv3D/Script/Bind/ScriptWaveSample.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptWindow.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptWindowStyle.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptXInput.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptYesNo.cpp
   ../Siv3D/src/Siv3D/Script/CScript.cpp
 
