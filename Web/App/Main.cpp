@@ -30,6 +30,8 @@ void Main()
 	// テキストを画面にデバッグ出力 | Print a text
 	Print << U"Push [A] key";
 
+	Platform::Web::System::DisbaleBrowserKeyboardShortcuts({ { .key = KeyF12 } });
+
 	while (System::Update())
 	{
 		// テクスチャを描く | Draw a texture

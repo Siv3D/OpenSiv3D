@@ -935,6 +935,11 @@ mergeInto(LibraryManager.library, {
     siv3dGetTextInputCursor__sig: "iv",
     siv3dGetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
 
+    $siv3dGetTextInputFocused: function() {
+        return document.activeElement == siv3dTextInputElement;
+    },
+    $siv3dGetTextInputFocused__deps: [ "$siv3dTextInputElement" ],
+
     //
     // Font Rendering
     //
@@ -1337,6 +1342,67 @@ mergeInto(LibraryManager.library, {
     },
     siv3dDeleteXMLHTTPRequest__sig: "viii",
     siv3dDeleteXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList" ],
+
+    //
+    // Disabling Browser Shortcut
+    //
+    $siv3dAllowedKeyBindings: [],
+
+    siv3dAddAllowedKeyBinding: function(keyCode, ctrlKey, shiftKey, altKey, metaKey, allowed) {
+        const key = {
+            keyCode,
+            ctrlKey: !!ctrlKey, shiftKey: !!shiftKey, altKey: !!altKey, metaKey: !!metaKey
+        };
+
+        function compareObject(obj) {
+            return JSON.stringify(obj) == JSON.stringify(key);
+        }
+
+        const index = siv3dAllowedKeyBindings.findIndex(compareObject);
+
+        if (allowed) {
+            if (index === -1) {
+                siv3dAllowedKeyBindings.push(key);
+            }
+        } else {
+            if (index !== -1) {
+                delete siv3dAllowedKeyBindings[index];
+            }
+        }
+    },
+    siv3dAddAllowedKeyBinding__sig: "viiiiii",
+    siv3dAddAllowedKeyBinding__deps: [ "$siv3dAllowedKeyBindings" ],
+
+    siv3dDisableAllKeyBindings: function(disabled) {
+        function onKeyEvent(e) {
+            if (siv3dGetTextInputFocused()) {
+                return;
+            }
+
+            const key = {
+                keyCode: GLFW.DOMToGLFWKeyCode(e.keyCode),
+                ctrlKey: e.ctrlKey, shiftKey: e.shiftKey, altKey: e.altKey, metaKey: e.metaKey
+            };
+
+            function compareObject(obj) {
+                return JSON.stringify(obj) == JSON.stringify(key);
+            }
+    
+            const index = siv3dAllowedKeyBindings.findIndex(compareObject);
+
+            if (index === -1) {
+                e.preventDefault();
+            }
+        }
+
+        if (disabled) {
+            window.addEventListener("keydown", onKeyEvent);
+        } else {
+            window.removeEventListener("keydown", onKeyEvent);
+        }
+    },
+    siv3dDisableAllKeyBindings__sig: "vi",
+    siv3dDisableAllKeyBindings__deps: [ "$siv3dAllowedKeyBindings", "$siv3dGetTextInputFocused" ],
 
     //
     // Asyncify Support

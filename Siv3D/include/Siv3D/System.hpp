@@ -15,6 +15,7 @@
 # include "EngineOptions.hpp"
 # include "HashTable.hpp"
 # include "AsyncTask.hpp"
+# include "InputGroup.hpp"
 # include "Optional.hpp"
 
 namespace s3d
@@ -73,20 +74,42 @@ namespace s3d
 
 # if SIV3D_PLATFORM(WEB)
 
+	namespace Platform::Web
+	{
+		enum class KeyModifier 
+		{
+			_None,
+			Control,
+			Shift,
+			ControlShift
+		};
+
+		struct BrowserKeyboardShorcut
+		{ 
+			Input key;
+			KeyModifier modifier;
+		};
+	}
+
 	namespace Platform::Web::System
 	{
 		/// @brief ゲームループごとに呼ばれる関数を登録します
 		[[noreturn]] 
 		void SetMainLoop(std::function<void()> mainLoop);
 
+		/// @brief 指定した AsyncTask の準備ができるまで待機します
+		template<class Type>
+		Optional<Type> WaitForFutureResolved(AsyncTask<Type>& task);
+
 		/// @brief 現在のページのクエリ文字列を取得します
 		/// @return 現在のページのクエリ文字列
 		[[nodiscard]]
 		HashTable<String, String> GetURLParameters();
 
-		/// @brief 指定した AsyncTask の準備ができるまで待機します
-		template<class Type>
-		Optional<Type> WaitForFutureResolved(AsyncTask<Type>& task);
+		/// @brief ブラウザ側が用意しているキーボードショートカットを可能な限り無効化します
+		/// @param allowList 許可するキーボードショートカットのリスト
+		/// @remarks タブを閉じるなど、一部のキーボードショートカットはブラウザの制約により無効化することができません
+		void DisbaleBrowserKeyboardShortcuts(const Array<BrowserKeyboardShorcut>& allowList = {});
 	}
 
 # endif
