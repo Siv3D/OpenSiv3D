@@ -112,6 +112,7 @@ namespace s3d
 		DrawableText,
 		Transformer2D,
 		ScopedViewport2D,
+		Camera2DParameters,
 		Camera2D,
 		Emoji,
 		Icon,
@@ -232,6 +233,7 @@ namespace s3d
 
 	void RegisterTransformer2D(asIScriptEngine* engine);
 	void RegisterScopedViewport2D(asIScriptEngine* engine);
+	void RegisterCamera2DParameters(asIScriptEngine* engine);
 	void RegisterCameraControl(asIScriptEngine* engine);
 	void RegisterCamera2D(asIScriptEngine* engine);
 

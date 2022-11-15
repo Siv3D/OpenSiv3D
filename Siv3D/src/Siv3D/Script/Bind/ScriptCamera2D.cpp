@@ -11,6 +11,7 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Camera2D.hpp>
+# include "ScriptCamera2DParameters.hpp"
 
 namespace s3d
 {
@@ -33,6 +34,11 @@ namespace s3d
 		new(self) BindType(center, scale, ToEnum<CameraControl>(static_cast<uint8>(cameraControl)));
 	}
 
+	static void ConstructVSP(Vec2 center, double scale, const ScriptCamera2DParameters& p, BindType* self)
+	{
+		new(self) BindType(center, scale, p.asCamera2DParameters());
+	}
+
 	static void Destruct(BindType* self)
 	{
 		self->~BindType();
@@ -46,6 +52,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Camera2D& in) explicit", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(Vec2 center, double scale = 1.0, CameraControl cameraControl = CameraControl::Default) explicit", asFUNCTION(ConstructVDC), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(Vec2 center, double scale, const Camera2DParameters& in)", asFUNCTION(ConstructVSP), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		// ...
 		

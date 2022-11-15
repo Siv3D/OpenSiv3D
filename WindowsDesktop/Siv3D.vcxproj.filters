@@ -6876,6 +6876,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\parallel_hashmap\phmap_utils.h">
       <Filter>include\ThirdParty\parallel_hashmap</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCamera2DParameters.hpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -9973,6 +9976,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleMenuBar\SivSimpleMenuBar.cpp">
       <Filter>src\Siv3D\SimpleMenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCamera2DParameters.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

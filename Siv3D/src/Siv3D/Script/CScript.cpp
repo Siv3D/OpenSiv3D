@@ -185,6 +185,7 @@ namespace s3d
 			RegisterDrawableText(m_engine);
 			RegisterTransformer2D(m_engine);
 			RegisterScopedViewport2D(m_engine);
+			RegisterCamera2DParameters(m_engine);
 			RegisterCameraControl(m_engine);
 			RegisterCamera2D(m_engine); // [Siv3D ToDo]
 
