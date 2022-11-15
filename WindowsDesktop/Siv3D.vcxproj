@@ -2268,6 +2268,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptInterpolation.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptKeyboard.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLanguageCode.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLicenseInfo.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLineString.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptLineStyle.cpp" />

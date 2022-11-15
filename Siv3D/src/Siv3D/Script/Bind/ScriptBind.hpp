@@ -127,6 +127,7 @@ namespace s3d
 		SayBuffer,
 		Say_impl,
 		TextEditState,
+		LicenseInfo,
 
 	};
 
@@ -266,6 +267,8 @@ namespace s3d
 	void RegisterTextInputMode(asIScriptEngine* engine);
 	void RegisterTextInput(asIScriptEngine* engine);
 	void RegisterTextEditState(asIScriptEngine* engine);
+	void RegisterLicenseInfo(asIScriptEngine* engine);
+	void RegisterLicenseManager(asIScriptEngine* engine);
 	void RegisterSimpleGUI(asIScriptEngine* engine);
 	void RegisterLanguageCode(asIScriptEngine* engine);
 	void RegisterTextToSpeech(asIScriptEngine* engine);

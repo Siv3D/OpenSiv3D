@@ -218,6 +218,8 @@ namespace s3d
 			RegisterTextInputMode(m_engine);
 			RegisterTextInput(m_engine);
 			RegisterTextEditState(m_engine);
+			RegisterLicenseInfo(m_engine);
+			RegisterLicenseManager(m_engine);
 			RegisterSimpleGUI(m_engine);
 			RegisterLanguageCode(m_engine);
 			RegisterTextToSpeech(m_engine);

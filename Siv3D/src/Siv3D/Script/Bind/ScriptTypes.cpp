@@ -51,6 +51,7 @@
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Audio.hpp>
 # include <Siv3D/TextEditState.hpp>
+# include <Siv3D/LicenseInfo.hpp>
 # include "ScriptBind.hpp"
 # include "ScriptOptional.hpp"
 # include "ScriptCamera2DParameters.hpp"
@@ -173,6 +174,7 @@ namespace s3d
 		RegisterType(engine, "SayBuffer", 0, asOBJ_REF);
 		RegisterType(engine, "Say_impl", sizeof(uint8), asOBJ_VALUE | asOBJ_POD);
 		RegisterType(engine, "TextEditState", sizeof(TextEditState), asOBJ_VALUE | asGetTypeTraits<TextEditState>());
+		RegisterType(engine, "LicenseInfo", sizeof(LicenseInfo), asOBJ_VALUE | asGetTypeTraits<LicenseInfo>());
 
 
 		RegisterEnum(engine, "TextEncoding");
@@ -276,6 +278,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("SayBuffer") == static_cast<int32>(ScriptTypeID::SayBuffer));
 		assert(engine->GetTypeIdByDecl("Say_impl") == static_cast<int32>(ScriptTypeID::Say_impl));
 		assert(engine->GetTypeIdByDecl("TextEditState") == static_cast<int32>(ScriptTypeID::TextEditState));
+		assert(engine->GetTypeIdByDecl("LicenseInfo") == static_cast<int32>(ScriptTypeID::LicenseInfo));
 
 		r = engine->RegisterTypedef("size_t", "uint64"); assert(r >= 0);
 		r = engine->RegisterTypedef("GlyphIndex", "uint32"); assert(r >= 0);

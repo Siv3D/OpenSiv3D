@@ -1092,6 +1092,8 @@ set(SIV3D_SCRIPT_SOURCES
   ../Siv3D/src/Siv3D/Script/Bind/ScriptInterpolation.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptKeyboard.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLanguageCode.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLicenseInfo.cpp
+  ../Siv3D/src/Siv3D/Script/Bind/ScriptLicenseManager.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLine.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLineString.cpp
   ../Siv3D/src/Siv3D/Script/Bind/ScriptLineStyle.cpp
