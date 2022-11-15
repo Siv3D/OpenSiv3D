@@ -191,7 +191,7 @@ namespace s3d
 					t.flipped().mirrored().drawAt(pos - drawPos - Vec2{ 0, a * height * 1.2 } + m_cardSize, color);
 				}
 
-				m_fontEmoji.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
+				m_fontEmoji.getGlyph(U'♋').texture.scaled(0.8).drawAt(center, color);
 
 				return;
 			}
