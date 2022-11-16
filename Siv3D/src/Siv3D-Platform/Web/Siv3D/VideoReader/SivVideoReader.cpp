@@ -12,7 +12,7 @@
 # include <Siv3D/VideoReader.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/VideoReader/VideoReaderDetail.hpp>
-# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Browser.hpp>
 
 namespace s3d
 {

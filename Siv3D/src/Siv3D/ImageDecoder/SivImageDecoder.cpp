@@ -13,7 +13,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include "IImageDecoder.hpp"
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Browser.hpp>
 
 namespace s3d
 {

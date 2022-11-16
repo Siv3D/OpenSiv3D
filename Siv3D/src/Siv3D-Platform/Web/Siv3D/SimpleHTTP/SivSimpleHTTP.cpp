@@ -93,7 +93,7 @@ namespace s3d
 			
 			auto httpFuture = httpTask->CreateAsyncTask();
 
-			if (auto httpResponse = Platform::Web::System::WaitForFutureResolved(httpFuture))
+			if (auto httpResponse = Platform::Web::System::AwaitAsyncTask(httpFuture))
 			{
 				BinaryReader temporaryFileReader{temporaryFile};
 
@@ -172,7 +172,7 @@ namespace s3d
 			
 			auto httpFuture = httpTask->CreateAsyncTask();
 
-			if (auto httpResponse = Platform::Web::System::WaitForFutureResolved(httpFuture))
+			if (auto httpResponse = Platform::Web::System::AwaitAsyncTask(httpFuture))
 			{
 				BinaryReader temporaryFileReader{temporaryFile};
 

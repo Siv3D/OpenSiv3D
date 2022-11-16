@@ -241,6 +241,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/BinaryWriter/SivBinaryWriter.cpp
   ../Siv3D/src/Siv3D/Blob/SivBlob.cpp
   ../Siv3D/src/Siv3D/Box/SivBox.cpp
+  ../Siv3D/src/Siv3D/Browser/SivBrowser.cpp
   ../Siv3D/src/Siv3D/Buffer2D/SivBuffer2D.cpp
   ../Siv3D/src/Siv3D/Byte/SivByte.cpp
   ../Siv3D/src/Siv3D/CacheDirectory/CacheDirectory.cpp
