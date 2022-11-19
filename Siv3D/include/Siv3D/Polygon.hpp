@@ -364,22 +364,49 @@ namespace s3d
 
 		const Polygon& overwrite(Image& dst, const Vec2& pos, const Color& color, Antialiased antialiased = Antialiased::Yes) const;
 
+		/// @brief 多角形を描画します。
+		/// @param color 色
+		/// @return *this
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形を移動して描画します。
+		/// @param x X 方向の移動量
+		/// @param y Y 方向の移動量
+		/// @param color 色
 		void draw(double x, double y, const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形を移動して描画します。
+		/// @param pos 移動量
+		/// @param color 色
 		void draw(const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形を回転 + 移動して描画します。
+		/// @param angle 回転角度（ラジアン）
+		/// @param pos 位置
+		/// @param color 色
 		void drawTransformed(double angle, const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形を回転 + 移動して描画します。
+		/// @param s 回転角度のサイン
+		/// @param c 回転角度のコサイン
+		/// @param pos 位置
+		/// @param color 色
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形の枠を描画します。
+		/// @param thickness 枠の太さ（ピクセル）
+		/// @param color 色
+		/// @return *this
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		void drawFrame(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		void drawFrame(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		/// @brief 多角形をワイヤフレーム表示で描画します。
+		/// @param thickness ワイヤフレームの太さ
+		/// @param color 色
+		/// @return *this
 		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;

@@ -25,9 +25,14 @@ namespace s3d
 			SIV3D_NODISCARD_CXX20
 			Gamepad_impl(size_t playerIndex);
 
+			/// @brief ゲームパッドが接続されているかを返します。
+			/// @return ゲームパッドが接続されている場合 true, それ以外の場合は false
 			[[nodiscard]]
 			bool isConnected() const;
 
+			/// @brief ゲームパッドが接続されているかを返します。
+			/// @remark `isConnected()` と同じです。
+			/// @return ゲームパッドが接続されている場合 true, それ以外の場合は false
 			[[nodiscard]]
 			explicit operator bool() const;
 

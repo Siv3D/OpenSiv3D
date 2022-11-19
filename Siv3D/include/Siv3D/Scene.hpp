@@ -84,6 +84,9 @@ namespace s3d
 		[[nodiscard]]
 		s3d::Rect Rect() noexcept;
 
+		/// @brief シーンのアスペクト比（幅 / 高さ）を返します。
+		/// @tparam Type アスペクト比の型
+		/// @return シーンのアスペクト比（幅 / 高さ）
 		template <class Type = double>
 		[[nodiscard]]
 		inline Type HorizontalAspectRatio() noexcept;

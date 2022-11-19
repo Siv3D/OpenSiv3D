@@ -682,6 +682,9 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Quad shearedY(double vy) const noexcept;
 
+		/// @brief 角を丸めた RoundRect を作成して返します。
+		/// @param r 角の半径
+		/// @return 作成した RoundRect
 		[[nodiscard]]
 		constexpr RoundRect rounded(double r) const noexcept;
 

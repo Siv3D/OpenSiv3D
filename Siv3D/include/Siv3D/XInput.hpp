@@ -25,9 +25,14 @@ namespace s3d
 			SIV3D_NODISCARD_CXX20
 			explicit XInput_impl(size_t playerIndex) noexcept;
 
+			/// @brief コントローラが接続されているかを返します。
+			/// @return コントローラが接続されている場合 true, それ以外の場合は false
 			[[nodiscard]]
 			bool isConnected() const;
 
+			/// @brief コントローラが接続されているかを返します。
+			/// @remark `isConnected()` と同じです。
+			/// @return コントローラが接続されている場合 true, それ以外の場合は false
 			[[nodiscard]]
 			explicit operator bool() const;
 
@@ -39,8 +44,12 @@ namespace s3d
 			/// @param deadZone 設定するデッドゾーン
 			void setRightTriggerDeadZone(const DeadZone& deadZone = { .size = 0.12, .maxValue = 1.0, .type = DeadZoneType::Independent });
 
+			/// @brief 左スティックにデッドゾーンを設定します。
+			/// @param deadZone 設定するデッドゾーン
 			void setLeftThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
+			/// @brief 右スティックにデッドゾーンを設定します。
+			/// @param deadZone 設定するデッドゾーン
 			void setRightThumbDeadZone(const DeadZone& deadZone = { .size = 0.24, .maxValue = 1.0, .type = DeadZoneType::Circular });
 
 			/// @brief プレイヤーインデックス
@@ -114,20 +123,36 @@ namespace s3d
 			/// @brief 右スティックの Y 軸の値 [-1.0, 1.0]
 			double rightThumbY;
 
+			/// @brief 左スティックが押されている方向を 0～3 で返します。
+			/// @param threshold 押されていると判定する閾値
+			/// @return 左スティックが押されている方向。押されていない場合は none
 			[[nodiscard]]
 			Optional<int32> leftThumbD4(double threshold = 0.2) const;
 
+			/// @brief 左スティックが押されている方向を 0～7 で返します。
+			/// @param threshold 押されていると判定する閾値
+			/// @return 左スティックが押されている方向。押されていない場合は none
 			[[nodiscard]]
 			Optional<int32> leftThumbD8(double threshold = 0.2) const;
 
+			/// @brief 右スティックが押されている方向を 0～3 で返します。
+			/// @param threshold 押されていると判定する閾値
+			/// @return 右スティックが押されている方向。押されていない場合は none
 			[[nodiscard]]
 			Optional<int32> rightThumbD4(double threshold = 0.2) const;
 
+			/// @brief 右スティックが押されている方向を 0～7 で返します。
+			/// @param threshold 押されていると判定する閾値
+			/// @return 右スティックが押されている方向。押されていない場合は none
 			[[nodiscard]]
 			Optional<int32> rightThumbD8(double threshold = 0.2) const;
 
+			/// @brief バイブレーションを設定します。
+			/// @param vibration バイブレーション強度
 			void setVibration(const XInputVibration& vibration) const;
 
+			/// @brief 現在のバイブレーション設定を返します。
+			/// @return 現在のバイブレーション設定
 			[[nodiscard]]
 			const XInputVibration& getVibration() const;
 
