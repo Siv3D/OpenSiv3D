@@ -77,7 +77,7 @@
   - CSV / INI / JSON / XML / TOML reader classes
   - CSV / INI / JSON writer classes
 - **Misc**
-  - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box)
+  - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box, menu bar)
   - Integrated 2D physics engine (Box2D)
   - Advanced array / 2D array classes (`Array`, `Grid`)
   - Kd-tree
@@ -106,11 +106,11 @@
 - **(English) Getting Started with Siv3D:** https://siv3d.github.io/
 - **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
-**v0.6.5** | *released 10 August 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
+**v0.6.6** | *released 22 November 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 7 SP1 / 8.1 / 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.3<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.4<br>- Windows 10 SDK<br>- Intel / AMD CPU |
 | macOS              | [**Download SDK**](https://siv3d.github.io/download/macos/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/macos/) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
 | Linux              | [**Compiling for Linux**](https://siv3d.github.io/download/ubuntu/) /<br>[**Linux 版のビルド**](https://siv3d.github.io/ja-jp/download/ubuntu/) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
 | Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) /<br>[**Web 版のビルド**](https://siv3d.kamenokosoft.com/ja/download) | Web browser with WebAssembly and WebGL2 support |

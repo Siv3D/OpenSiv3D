@@ -18,7 +18,7 @@
 # define SIV3D_VERSION_MINOR			6
 
 /// @brief ライブラリのリビジョンバージョン | Library revision version
-# define SIV3D_VERSION_REVISION			5
+# define SIV3D_VERSION_REVISION			6
 
 /// @brief プレリリースタグ | Pre-release tag
 # define SIV3D_VERSION_PRERELEASE_TAG	U""
@@ -27,10 +27,10 @@
 # define SIV3D_VERSION			((SIV3D_VERSION_MAJOR * 100 * 100) + (SIV3D_VERSION_MINOR * 100) + (SIV3D_VERSION_REVISION))
 
 /// @brief ライブラリのバージョンの文字列（簡易版） | Short Library version
-# define SIV3D_VERSION_SHORT_STRING	U"0.6.5"
+# define SIV3D_VERSION_SHORT_STRING	U"0.6.6"
 
 /// @brief ライブラリのバージョンの文字列 | Library version
-# define SIV3D_VERSION_STRING	U"0.6.5" SIV3D_VERSION_PRERELEASE_TAG
+# define SIV3D_VERSION_STRING	U"0.6.6" SIV3D_VERSION_PRERELEASE_TAG
 
 /// @brief ライブラリのバージョン名 | Library version name
-# define SIV3D_VERSION_NAME		U"Siv3D August 2022"
+# define SIV3D_VERSION_NAME		U"Siv3D November 2022"
