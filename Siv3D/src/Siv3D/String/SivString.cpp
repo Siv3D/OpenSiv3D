@@ -1044,7 +1044,7 @@ namespace s3d
 		return (lhs.str() == rhs);
 	}
 
-#if __cpp_impl_three_way_comparison
+#if __cpp_lib_three_way_comparison
 
 	std::strong_ordering operator <=>(const String& lhs, const String::value_type* rhs)
 	{

@@ -1189,7 +1189,7 @@ namespace s3d
 
 		friend bool operator ==(const String& lhs, const value_type* rhs);
 
-#if __cpp_impl_three_way_comparison
+#if __cpp_lib_three_way_comparison
 
 		bool operator ==(const String& rhs) const noexcept = default;
 

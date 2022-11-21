@@ -281,7 +281,7 @@ namespace s3d
 		[[nodiscard]]
 		uint64 hash() const noexcept;
 
-#if __cpp_impl_three_way_comparison
+#if __cpp_lib_three_way_comparison
 
 		[[nodiscard]]
 		constexpr std::strong_ordering operator <=>(const StringView& rhs) const noexcept = default;

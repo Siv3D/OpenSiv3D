@@ -154,6 +154,8 @@ namespace s3d
 		case InputDeviceType::XInput:
 			SIV3D_ENGINE(XInput)->clearInput(m_playerIndex, m_code);
 			break;
+		default:
+			break;
 		}
 	}
 

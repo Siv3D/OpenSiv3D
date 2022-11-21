@@ -1152,7 +1152,7 @@ namespace s3d
 		[[nodiscard]]
 		static Array IndexedGenerate(size_type size, Fty indexedGenerator);
 
-#if __cpp_impl_three_way_comparison
+#if __cpp_lib_three_way_comparison
 
 		[[nodiscard]]
 		auto operator <=>(const Array& rhs) const {
