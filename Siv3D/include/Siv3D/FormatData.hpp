@@ -36,8 +36,10 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		FormatData() = default;
 
+		/// @brief 変換結果を蓄積する文字列バッファ
 		String string;
 
+		/// @brief 小数点数位置の設定
 		DecimalPlaces decimalPlaces;
 	};
 

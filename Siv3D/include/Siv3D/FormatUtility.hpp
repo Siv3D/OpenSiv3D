@@ -26,9 +26,9 @@ namespace s3d
 	[[nodiscard]]
 	inline String Pad(const Type& value, std::pair<int32, char32> padding);
 
-	/// @brief 
-	/// @param bytes 
-	/// @return 
+	/// @brief データサイズを文字列に変換します。
+	/// @param bytes データサイズ
+	/// @return 変換した結果
 	[[nodiscard]]
 	String FormatDataSize(int64 bytes);
 

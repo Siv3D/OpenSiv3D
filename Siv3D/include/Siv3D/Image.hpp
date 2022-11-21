@@ -83,9 +83,16 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Image(size_t size, Arg::generator0_1_<Fty> generator);
 
+		/// @brief 画像データを作成します。
+		/// @param width 画像の幅（ピクセル）
+		/// @param height 画像の高さ（ピクセル）
 		SIV3D_NODISCARD_CXX20
 		Image(size_t width, size_t height);
 
+		/// @brief 画像データを作成します。
+		/// @param width 画像の幅（ピクセル）
+		/// @param height 画像の高さ（ピクセル）
+		/// @param color 塗りつぶしの色
 		SIV3D_NODISCARD_CXX20
 		Image(size_t width, size_t height, Color color);
 
@@ -302,8 +309,15 @@ namespace s3d
 		/// @param color 塗りつぶしの色
 		void fill(Color color) noexcept;
 
+		/// @brief 画像のデータのサイズを変更します。
+		/// @param width 新しい幅（ピクセル）
+		/// @param height 新しい高さ（ピクセル）
+		/// @remark サイズが変更された場合、画像データの内容は不定になります。
 		void resize(size_t width, size_t height);
 
+		/// @brief 画像のデータのサイズを変更します。
+		/// @param size 新しい幅と高さ（ピクセル）
+		/// @remark サイズが変更された場合、画像データの内容は不定になります。
 		void resize(Size size);
 
 		void resize(size_t width, size_t height, Color fillColor);
@@ -324,6 +338,9 @@ namespace s3d
 		[[nodiscard]]
 		ColorF samplePixel(Vec2 pos, ImageAddressMode addressMode) const;
 
+		/// @brief 画像の一部領域をコピーした新しい画像データを返します。
+		/// @param rect 領域
+		/// @return 新しい画像データ
 		[[nodiscard]]
 		Image clipped(const Rect& rect) const;
 
@@ -538,11 +555,20 @@ namespace s3d
 
 		Image& scale(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
+		/// @brief 拡大縮小した新しい画像を返します。
+		/// @param width 新しい画像の幅（ピクセル）
+		/// @param height 新しい画像の高さ（ピクセル）
+		/// @param interpolation 補間アルゴリズム
+		/// @return 拡大縮小した新しい画像
 		[[nodiscard]]
 		Image scaled(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 
 		Image& scale(const Size& size, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
+		/// @brief 拡大縮小した新しい画像を返します。
+		/// @param size 新しい画像の幅と高さ（ピクセル）
+		/// @param interpolation 補間アルゴリズム
+		/// @return 拡大縮小した新しい画像
 		[[nodiscard]]
 		Image scaled(const Size& size, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto) const;
 

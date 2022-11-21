@@ -104,6 +104,8 @@ namespace s3d
 		[[nodiscard]]
 		Byte* data() noexcept;
 
+		/// @brief バイナリデータを格納する配列にアクセスします。
+		/// @return バイナリデータを格納する配列
 		[[nodiscard]]
 		const Array<Byte>& asArray() const noexcept;
 

@@ -18,8 +18,10 @@ namespace s3d
 {
 	struct Glyph : GlyphInfo
 	{
+		/// @brief レンダリング済みテクスチャ
 		TextureRegion texture;
 
+		/// @brief UTF-32 コードポイント
 		char32 codePoint = U'\0';
 
 		SIV3D_NODISCARD_CXX20

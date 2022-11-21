@@ -29,6 +29,9 @@ namespace s3d
 {
 	namespace Geometry3D
 	{
+		/// @brief 点群のバウンディングスフィアを返します。
+		/// @param points 点群
+		/// @return 点群のバウンディングスフィア
 		[[nodiscard]]
 		Sphere BoundingSphere(const Array<Float3>& points) noexcept;
 

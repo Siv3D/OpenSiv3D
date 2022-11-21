@@ -25,9 +25,16 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		ChildProcess();
 
+		/// @brief 子プロセスを作成します。
+		/// @param path 実行するプログラムのパス
+		/// @param pipe パイプ通信の設定
 		SIV3D_NODISCARD_CXX20
 		ChildProcess(FilePathView path, Pipe pipe);
 
+		/// @brief 子プロセスを作成します。
+		/// @param path 実行するプログラムのパス
+		/// @param command コマンド引数
+		/// @param pipe パイプ通信の設定
 		SIV3D_NODISCARD_CXX20
 		ChildProcess(FilePathView path, StringView command = U"", Pipe pipe = Pipe::None_);
 

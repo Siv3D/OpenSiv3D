@@ -17,6 +17,7 @@
 
 namespace s3d
 {
+	/// @brief 物体の部品のインタフェース
 	class P2Shape
 	{
 	public:

@@ -16,6 +16,10 @@
 
 namespace s3d
 {
+	/// @brief bool 型の値を文字列に変換します。
+	/// @param value 値
+	/// @param letterCase 大文字にするか小文字にするか
+	/// @return 変換後の文字列
 	[[nodiscard]]
 	inline constexpr StringView ToString(bool value, LetterCase letterCase = LetterCase::Lower);
 }
