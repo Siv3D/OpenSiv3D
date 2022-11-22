@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 project(OpenSiv3D_Linux
-    VERSION 0.6.5
+    VERSION 0.6.6
     LANGUAGES CXX C ASM
     HOMEPAGE_URL "https://github.com/Siv3D/OpenSiv3D"
     DESCRIPTION "A C++20 framework for creative coding (2D/3D games, media art, visualizers, and simulators)."
