@@ -19,6 +19,7 @@
 # include <cassert>
 # include <stdexcept>
 # include <algorithm>
+# include <limits>
 # include "Common.hpp"
 # include "Utility.hpp"
 # include "Hash.hpp"
