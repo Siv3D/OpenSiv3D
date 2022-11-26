@@ -63,6 +63,7 @@ Name | Version
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
 [Opus](https://opus-codec.org/downloads/) | 1.3.1
 [opusfile](https://opus-codec.org/downloads/) | 0.12
+[oscpack](http://www.rossbencina.com/code/oscpack) | 1.1.0
 [par_octasphere](https://github.com/prideout/par/blob/master/par_octasphere.h) | 
 [par_shapes](https://github.com/prideout/par/blob/master/par_shapes.h) | 
 [pffft](https://bitbucket.org/jpommier/pffft/src/master/) | 
