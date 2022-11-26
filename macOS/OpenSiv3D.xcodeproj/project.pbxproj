@@ -1801,6 +1801,15 @@
 		2CE762B229326ECF00E410FF /* IpEndpointName.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE7629B29326ECF00E410FF /* IpEndpointName.h */; };
 		2CE762B329326ECF00E410FF /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7629C29326ECF00E410FF /* IpEndpointName.cpp */; };
 		2CE762B429326ECF00E410FF /* NetworkingUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE7629D29326ECF00E410FF /* NetworkingUtils.h */; };
+		2CE762CA29327C5700E410FF /* OSCReceiverDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762BF29327C5600E410FF /* OSCReceiverDetail.cpp */; };
+		2CE762CB29327C5700E410FF /* SivOSCReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C029327C5600E410FF /* SivOSCReceiver.cpp */; };
+		2CE762CC29327C5700E410FF /* OSCPacketListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C129327C5600E410FF /* OSCPacketListener.cpp */; };
+		2CE762CD29327C5700E410FF /* OSCPacketListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE762C229327C5600E410FF /* OSCPacketListener.hpp */; };
+		2CE762CE29327C5700E410FF /* OSCReceiverDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE762C329327C5600E410FF /* OSCReceiverDetail.hpp */; };
+		2CE762CF29327C5700E410FF /* SivOSCSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C529327C5600E410FF /* SivOSCSender.cpp */; };
+		2CE762D029327C5700E410FF /* OSCMessageDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE762C729327C5700E410FF /* OSCMessageDetail.hpp */; };
+		2CE762D129327C5700E410FF /* SivOSCMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C829327C5700E410FF /* SivOSCMessage.cpp */; };
+		2CE762D229327C5700E410FF /* OSCMessageDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C929327C5700E410FF /* OSCMessageDetail.cpp */; };
 		2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */; };
 		2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */; };
 		2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */; };
@@ -4685,6 +4694,22 @@
 		2CE7629B29326ECF00E410FF /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
 		2CE7629C29326ECF00E410FF /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		2CE7629D29326ECF00E410FF /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
+		2CE762B729327BE900E410FF /* OSCMessage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCMessage.hpp; sourceTree = "<group>"; };
+		2CE762B829327BE900E410FF /* OSCReceiver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCReceiver.hpp; sourceTree = "<group>"; };
+		2CE762B929327BE900E410FF /* OSCArgument.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCArgument.hpp; sourceTree = "<group>"; };
+		2CE762BA29327BE900E410FF /* OSCSender.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCSender.hpp; sourceTree = "<group>"; };
+		2CE762BB29327BEA00E410FF /* OSCTypeTag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCTypeTag.hpp; sourceTree = "<group>"; };
+		2CE762BC29327BEA00E410FF /* ReceivedOSCMessage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ReceivedOSCMessage.hpp; sourceTree = "<group>"; };
+		2CE762BD29327C1600E410FF /* OSCArgument.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OSCArgument.ipp; sourceTree = "<group>"; };
+		2CE762BF29327C5600E410FF /* OSCReceiverDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSCReceiverDetail.cpp; sourceTree = "<group>"; };
+		2CE762C029327C5600E410FF /* SivOSCReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOSCReceiver.cpp; sourceTree = "<group>"; };
+		2CE762C129327C5600E410FF /* OSCPacketListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSCPacketListener.cpp; sourceTree = "<group>"; };
+		2CE762C229327C5600E410FF /* OSCPacketListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OSCPacketListener.hpp; sourceTree = "<group>"; };
+		2CE762C329327C5600E410FF /* OSCReceiverDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OSCReceiverDetail.hpp; sourceTree = "<group>"; };
+		2CE762C529327C5600E410FF /* SivOSCSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOSCSender.cpp; sourceTree = "<group>"; };
+		2CE762C729327C5700E410FF /* OSCMessageDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OSCMessageDetail.hpp; sourceTree = "<group>"; };
+		2CE762C829327C5700E410FF /* SivOSCMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOSCMessage.cpp; sourceTree = "<group>"; };
+		2CE762C929327C5700E410FF /* OSCMessageDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSCMessageDetail.cpp; sourceTree = "<group>"; };
 		2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSTaskWrapper.mm; sourceTree = "<group>"; };
 		2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NSTaskWrapper.hpp; sourceTree = "<group>"; };
 		2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChildProcessDetail.hpp; sourceTree = "<group>"; };
@@ -7899,6 +7924,11 @@
 				2CC8B71028C752EE008C770A /* OpenMode.hpp */,
 				2CC8B64428C752EE008C770A /* Optional.hpp */,
 				2CC8B64628C752EE008C770A /* OrientedBox.hpp */,
+				2CE762B929327BE900E410FF /* OSCArgument.hpp */,
+				2CE762B729327BE900E410FF /* OSCMessage.hpp */,
+				2CE762B829327BE900E410FF /* OSCReceiver.hpp */,
+				2CE762BA29327BE900E410FF /* OSCSender.hpp */,
+				2CE762BB29327BEA00E410FF /* OSCTypeTag.hpp */,
 				2CC8B4F128C752ED008C770A /* OutlineGlyph.hpp */,
 				2CC8B46228C752EC008C770A /* Palette.hpp */,
 				2CC8B70028C752EE008C770A /* Parse.hpp */,
@@ -7957,6 +7987,7 @@
 				2CC8B51F28C752ED008C770A /* RasterizerState.hpp */,
 				2CC8B66428C752EE008C770A /* Ray.hpp */,
 				2CC8B4FA28C752ED008C770A /* RDTSCClock.hpp */,
+				2CE762BC29327BEA00E410FF /* ReceivedOSCMessage.hpp */,
 				2CC8B4F028C752ED008C770A /* Rect.hpp */,
 				2CC8B42B28C752EC008C770A /* RectanglePacking.hpp */,
 				2CC8B4D028C752ED008C770A /* RectEmitter2D.hpp */,
@@ -8327,6 +8358,7 @@
 				2CC8B5B528C752ED008C770A /* OpenCV_Bridge.ipp */,
 				2CC8B5A228C752ED008C770A /* Optional.ipp */,
 				2CC8B5A128C752ED008C770A /* OrientedBox.ipp */,
+				2CE762BD29327C1600E410FF /* OSCArgument.ipp */,
 				2CC8B58228C752ED008C770A /* Parse.ipp */,
 				2CC8B5CF28C752ED008C770A /* ParticleSystem2D.ipp */,
 				2CC8B5A628C752ED008C770A /* PerlinNoise.ipp */,
@@ -8590,6 +8622,9 @@
 				2CC8BADF28C7532E008C770A /* None */,
 				2CC8BB0128C7532E008C770A /* OpenCV_Bridge */,
 				2CC8BB0D28C7532E008C770A /* OrientedBox */,
+				2CE762C629327C5600E410FF /* OSCMessage */,
+				2CE762BE29327C5600E410FF /* OSCReceiver */,
+				2CE762C429327C5600E410FF /* OSCSender */,
 				2CC8B83828C7532D008C770A /* Parse */,
 				2CC8B76828C7532D008C770A /* ParseBool */,
 				2CC8B8AE28C7532D008C770A /* ParseFloat */,
@@ -11713,6 +11748,36 @@
 			path = posix;
 			sourceTree = "<group>";
 		};
+		2CE762BE29327C5600E410FF /* OSCReceiver */ = {
+			isa = PBXGroup;
+			children = (
+				2CE762BF29327C5600E410FF /* OSCReceiverDetail.cpp */,
+				2CE762C029327C5600E410FF /* SivOSCReceiver.cpp */,
+				2CE762C129327C5600E410FF /* OSCPacketListener.cpp */,
+				2CE762C229327C5600E410FF /* OSCPacketListener.hpp */,
+				2CE762C329327C5600E410FF /* OSCReceiverDetail.hpp */,
+			);
+			path = OSCReceiver;
+			sourceTree = "<group>";
+		};
+		2CE762C429327C5600E410FF /* OSCSender */ = {
+			isa = PBXGroup;
+			children = (
+				2CE762C529327C5600E410FF /* SivOSCSender.cpp */,
+			);
+			path = OSCSender;
+			sourceTree = "<group>";
+		};
+		2CE762C629327C5600E410FF /* OSCMessage */ = {
+			isa = PBXGroup;
+			children = (
+				2CE762C729327C5700E410FF /* OSCMessageDetail.hpp */,
+				2CE762C829327C5700E410FF /* SivOSCMessage.cpp */,
+				2CE762C929327C5700E410FF /* OSCMessageDetail.cpp */,
+			);
+			path = OSCMessage;
+			sourceTree = "<group>";
+		};
 		2CE8D13D2616107200C75FBB /* ChildProcess */ = {
 			isa = PBXGroup;
 			children = (
@@ -12282,6 +12347,7 @@
 				2C48BEFF25CFB8C500A93CE3 /* rasterization.h in Headers */,
 				2C43C8A125C837F100D6D613 /* svsfnt.h in Headers */,
 				2C9566CC2645626000539B85 /* mz_os.h in Headers */,
+				2CE762CD29327C5700E410FF /* OSCPacketListener.hpp in Headers */,
 				2C834DB1248805D4006208B8 /* oniguruma.h in Headers */,
 				2C9566F32645626000539B85 /* mz_strm_mem.h in Headers */,
 				2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */,
@@ -12575,6 +12641,7 @@
 				2CC8BC3028C7532F008C770A /* IAudioCodec.hpp in Headers */,
 				2CC8BB9A28C7532F008C770A /* AsyncHTTPTaskDetail.hpp in Headers */,
 				2CE762B029326ECF00E410FF /* TimerListener.h in Headers */,
+				2CE762CE29327C5700E410FF /* OSCReceiverDetail.hpp in Headers */,
 				2C43C89B25C837F100D6D613 /* svmetric.h in Headers */,
 				2CC8BB6928C7532F008C770A /* CacheDirectory.hpp in Headers */,
 				2C636E542657F7D300AF029F /* soloud_file_hack_on.h in Headers */,
@@ -12661,6 +12728,7 @@
 				2CC8BDA728C75332008C770A /* agg_array.h in Headers */,
 				2C2AA36026009C74003F3EBC /* b2_contact_solver.h in Headers */,
 				2C439F7A241DCEA9001154C2 /* fixed-dtoa.h in Headers */,
+				2CE762D029327C5700E410FF /* OSCMessageDetail.hpp in Headers */,
 				2C43C87C25C837F000D6D613 /* ftdriver.h in Headers */,
 				2CC8BC5628C75330008C770A /* scriptbuilder.h in Headers */,
 				2C13C9B225BD29FC0054B968 /* lapi.h in Headers */,
@@ -13055,6 +13123,7 @@
 				2C636E6A2657F7D300AF029F /* soloud_fader.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
 				2CC8BD9528C75332008C770A /* SivShader.cpp in Sources */,
+				2CE762CA29327C5700E410FF /* OSCReceiverDetail.cpp in Sources */,
 				2CC8BE0028C75332008C770A /* SivGlobalAudio.cpp in Sources */,
 				2CC8BC9728C75330008C770A /* ScriptGraphics.cpp in Sources */,
 				2C28E9592796816C0004E07D /* zstd_opt.c in Sources */,
@@ -13180,6 +13249,7 @@
 				2CC8BBF128C7532F008C770A /* SivFormatUtility.cpp in Sources */,
 				2CC8BBA628C7532F008C770A /* EmptyFactory.cpp in Sources */,
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
+				2CE762D129327C5700E410FF /* SivOSCMessage.cpp in Sources */,
 				2C2AA38F26009C74003F3EBC /* b2_block_allocator.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
 				2CC8BC4428C75330008C770A /* AudioGroupDetail.cpp in Sources */,
@@ -13347,6 +13417,7 @@
 				2CC8BCDE28C75330008C770A /* ScriptTexturedCircle.cpp in Sources */,
 				2CC8BDFA28C75332008C770A /* SivKlattTTS.cpp in Sources */,
 				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
+				2CE762CF29327C5700E410FF /* SivOSCSender.cpp in Sources */,
 				2CC8BDEE28C75332008C770A /* SivResource.cpp in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2CC8BC8C28C75330008C770A /* ScriptBezier2.cpp in Sources */,
@@ -13514,6 +13585,7 @@
 				2C48BF0025CFB8C500A93CE3 /* shape-description.cpp in Sources */,
 				2CC8BD1928C75331008C770A /* SivFormatter.cpp in Sources */,
 				2C636E6F2657F7D300AF029F /* soloud_core_setters.cpp in Sources */,
+				2CE762CC29327C5700E410FF /* OSCPacketListener.cpp in Sources */,
 				2C2AA3AB26009C74003F3EBC /* b2_time_of_impact.cpp in Sources */,
 				2CC8BCC928C75330008C770A /* ScriptPrint.cpp in Sources */,
 				2CC8BC6028C75330008C770A /* SivScript.cpp in Sources */,
@@ -13527,6 +13599,7 @@
 				2CC8BCF928C75331008C770A /* SivScopedCustomShader3D.cpp in Sources */,
 				2CC8BD9A28C75332008C770A /* SivSubdivision2D.cpp in Sources */,
 				2CC8BD5B28C75331008C770A /* ModelFactory.cpp in Sources */,
+				2CE762CB29327C5700E410FF /* SivOSCReceiver.cpp in Sources */,
 				2C4564E1247946AF00DB01F0 /* int128.cc in Sources */,
 				2CC8BE0E28C75332008C770A /* SivBlob.cpp in Sources */,
 				2CC8BB6128C7532F008C770A /* MIDIDecoder.cpp in Sources */,
@@ -13942,6 +14015,7 @@
 				2CC8BDAF28C75332008C770A /* OutlineGlyphRenderer.cpp in Sources */,
 				2CC8BC8928C75330008C770A /* ScriptCursor.cpp in Sources */,
 				2C439F85241DCEA9001154C2 /* double-to-string.cc in Sources */,
+				2CE762D229327C5700E410FF /* OSCMessageDetail.cpp in Sources */,
 				2CC8BD9228C75332008C770A /* CFFT.cpp in Sources */,
 				2CC8BD0628C75331008C770A /* SystemMisc.cpp in Sources */,
 				2CC8BC1728C7532F008C770A /* SivStringView.cpp in Sources */,
