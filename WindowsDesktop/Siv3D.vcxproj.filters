@@ -1636,6 +1636,15 @@
     <Filter Include="src\ThirdParty\oscpack\osc">
       <UniqueIdentifier>{652dabe1-2211-4dd2-81ef-20bd6c9e5797}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\OSCMessage">
+      <UniqueIdentifier>{6af1c972-ecf4-47fa-9a37-4ea3842c6a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\OSCSender">
+      <UniqueIdentifier>{82efcb18-677f-486f-9bf2-adccda9883f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\OSCReceiver">
+      <UniqueIdentifier>{4d72780c-5718-45dd-82a1-55f0a8a2241b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -6951,6 +6960,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\OSCArgument.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.hpp">
+      <Filter>src\Siv3D\OSCMessage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCReceiverDetail.hpp">
+      <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.hpp">
+      <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10081,6 +10099,24 @@
     </ClCompile>
     <ClCompile Include="..\..\v066Test\v066Test\oscapack\osc\OscOutboundPacketStream.cpp">
       <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\SivOSCMessage.cpp">
+      <Filter>src\Siv3D\OSCMessage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.cpp">
+      <Filter>src\Siv3D\OSCMessage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCSender\SivOSCSender.cpp">
+      <Filter>src\Siv3D\OSCSender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCReceiverDetail.cpp">
+      <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\SivOSCReceiver.cpp">
+      <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.cpp">
+      <Filter>src\Siv3D\OSCReceiver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

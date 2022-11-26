@@ -10,22 +10,16 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Common.hpp"
-# include "IPv4Address.hpp"
-# include "ReceivedOSCMessage.hpp"
+# include <mutex>
+# include <queue>
+# include <Siv3D/ReceivedOSCMessage.hpp>
+# include <ThirdParty/oscpack/osc/OscPacketListener.h>
 
 namespace s3d
 {
-	class OSCReceiver
+	class OSCPacketListener : public osc::OscPacketListener
 	{
 	public:
-
-		OSCReceiver();
-
-		OSCReceiver(const IPv4Address& ipv4, int16 port);
-
-		~OSCReceiver();
 
 		[[nodiscard]]
 		bool hasMessages();
@@ -40,8 +34,12 @@ namespace s3d
 
 	private:
 
-		class OSCReceiverDetail;
+		std::mutex m_mutex;
 
-		std::shared_ptr<OSCReceiverDetail> pImpl;
+		std::queue<ReceivedOSCMessage> m_messages;
+
+		void push(ReceivedOSCMessage&& message);
+
+		void ProcessMessage(const osc::ReceivedMessage& m, const IpEndpointName&) override;
 	};
 }
