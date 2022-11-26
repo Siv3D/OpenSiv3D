@@ -59,6 +59,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mesh.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Model.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OSCArgument.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PhongMaterial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
@@ -492,6 +493,11 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCArgument.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCMessage.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCReceiver.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCSender.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCTypeTag.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Particle2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2D.hpp" />
@@ -638,6 +644,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ReceivedOSCMessage.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectEmitter2D.hpp" />
