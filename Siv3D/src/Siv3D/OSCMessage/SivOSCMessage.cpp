@@ -100,7 +100,7 @@ namespace s3d
 	{
 		try
 		{
-			pImpl->getStream() << value;
+			pImpl->getStream() << static_cast<osc::int32>(value);
 			return *this;
 		}
 		catch (const osc::OutOfBufferMemoryException&)
@@ -113,7 +113,7 @@ namespace s3d
 	{
 		try
 		{
-			pImpl->getStream() << value;
+			pImpl->getStream() << static_cast<osc::int64>(value);
 			return *this;
 		}
 		catch (const osc::OutOfBufferMemoryException&)

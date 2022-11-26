@@ -80,10 +80,10 @@ namespace s3d
 					argument.value = arg->AsCharUnchecked();
 					break;
 				case osc::TypeTagValues::INT32_TYPE_TAG:
-					argument.value = arg->AsInt32Unchecked();
+					argument.value = static_cast<int32>(arg->AsInt32Unchecked());
 					break;
 				case osc::TypeTagValues::INT64_TYPE_TAG:
-					argument.value = arg->AsInt64Unchecked();
+					argument.value = static_cast<int64>(arg->AsInt64Unchecked());
 					break;
 				case osc::TypeTagValues::FLOAT_TYPE_TAG:
 					argument.value = arg->AsFloatUnchecked();
@@ -92,10 +92,10 @@ namespace s3d
 					argument.value = arg->AsDoubleUnchecked();
 					break;
 				case osc::TypeTagValues::MIDI_MESSAGE_TYPE_TAG:
-					argument.value = arg->AsMidiMessageUnchecked();
+					argument.value = static_cast<uint32>(arg->AsMidiMessageUnchecked());
 					break;
 				case osc::TypeTagValues::TIME_TAG_TYPE_TAG:
-					argument.value = arg->AsTimeTagUnchecked();
+					argument.value = static_cast<uint64>(arg->AsTimeTagUnchecked());
 					break;
 				case osc::TypeTagValues::RGBA_COLOR_TYPE_TAG:
 					argument.value = Color::FromRGBA(arg->AsRgbaColorUnchecked());
