@@ -414,7 +414,7 @@ namespace s3d
 
 			Font m_fontEmoji;
 
-			Vec2 m_cardSize = { 0, 0 };
+			Vec2 m_cardSize = { 80, (80 * Math::Phi) };
 
 			ColorF m_backSideColor = Palette::Blue;
 
