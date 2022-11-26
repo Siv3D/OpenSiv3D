@@ -164,7 +164,7 @@ namespace s3d
 		static String Serialize(const Input& input);
 
 		[[nodiscard]]
-		static Input Deserialize(const String& s);
+		static Input Deserialize(StringView s);
 
 	private:
 

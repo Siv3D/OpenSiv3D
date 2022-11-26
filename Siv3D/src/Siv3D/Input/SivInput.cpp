@@ -225,7 +225,7 @@ namespace s3d
 		}
 	}
 
-	Input Input::Deserialize(const String& s)
+	Input Input::Deserialize(const StringView s)
 	{
 		std::istringstream is{ s.toUTF8() };
 
