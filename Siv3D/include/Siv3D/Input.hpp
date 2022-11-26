@@ -160,6 +160,12 @@ namespace s3d
 
 		friend void Formatter(FormatData& formatData, const Input& value);
 
+		[[nodiscard]]
+		static String Serialize(const Input& input);
+
+		[[nodiscard]]
+		static Input Deserialize(const String& s);
+
 	private:
 
 		InputDeviceType m_deviceType = InputDeviceType::Undefined;

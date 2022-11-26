@@ -212,4 +212,42 @@ namespace s3d
 	{
 		Formatter(formatData, value.name());
 	}
+
+	String Input::Serialize(const Input& input)
+	{
+		if (input.playerIndex())
+		{
+			return U"({}, {}, {})"_fmt(FromEnum(input.deviceType()), input.code(), input.playerIndex());
+		}
+		else
+		{
+			return U"({}, {})"_fmt(FromEnum(input.deviceType()), input.code());
+		}
+	}
+
+	Input Input::Deserialize(const String& s)
+	{
+		std::istringstream is{ s.toUTF8() };
+
+		char unused;
+		is >> unused;
+
+		uint32 values[3];
+		is
+			>> values[0] >> unused
+			>> values[1] >> unused;
+
+		if (unused == ',')
+		{
+			is >> values[2] >> unused;
+		}
+		else
+		{
+			values[2] = 0;
+		}
+
+		return Input{ ToEnum<InputDeviceType>(static_cast<uint8>(values[0])),
+			static_cast<uint8>(values[1]),
+			static_cast<uint8>(values[2]) };
+	}
 }
