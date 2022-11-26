@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <sstream>
 # include <Siv3D/InputGroups.hpp>
 # include <Siv3D/Keyboard/IKeyboard.hpp>
 # include <Siv3D/Mouse/IMouse.hpp>
