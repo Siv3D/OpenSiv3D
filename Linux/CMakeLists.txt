@@ -410,6 +410,12 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/None/SivNone.cpp
   ../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp
   ../Siv3D/src/Siv3D/OrientedBox/SivOrientedBox.cpp
+  ../Siv3D/src/Siv3D/OSCMessage/OSCMessageDetail.cpp
+  ../Siv3D/src/Siv3D/OSCMessage/SivOSCMessage.cpp
+  ../Siv3D/src/Siv3D/OSCReceiver/OSCPacketListener.cpp
+  ../Siv3D/src/Siv3D/OSCReceiver/OSCReceiverDetail.cpp
+  ../Siv3D/src/Siv3D/OSCReceiver/SivOSCReceiver.cpp
+  ../Siv3D/src/Siv3D/OSCSender/SivOSCSender.cpp
   ../Siv3D/src/Siv3D/Parse/SivParse.cpp
   ../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp
   ../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp
@@ -1060,6 +1066,14 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/ThirdParty/Oniguruma/utf32_be.c
   ../Siv3D/src/ThirdParty/Oniguruma/utf32_le.c
   ../Siv3D/src/ThirdParty/Oniguruma/utf8.c
+
+  ../Siv3D/src/ThirdParty/oscpack/ip/IpEndpointName.cpp
+  ../Siv3D/src/ThirdParty/oscpack/ip/posix/NetworkingUtils.cpp
+  ../Siv3D/src/ThirdParty/oscpack/ip/posix/UdpSocket.cpp
+  ../Siv3D/src/ThirdParty/oscpack/osc/OscOutboundPacketStream.cpp
+  ../Siv3D/src/ThirdParty/oscpack/osc/OscPrintReceivedElements.cpp
+  ../Siv3D/src/ThirdParty/oscpack/osc/OscReceivedElements.cpp
+  ../Siv3D/src/ThirdParty/oscpack/osc/OscTypes.cpp
 
   ../Siv3D/src/ThirdParty/pffft/pffft.c
 
