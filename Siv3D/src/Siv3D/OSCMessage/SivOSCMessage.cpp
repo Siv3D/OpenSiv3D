@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	OSCMessage::OSCMessage(size_t bufferSize)
+	OSCMessage::OSCMessage(const size_t bufferSize)
 		: pImpl{ std::make_shared<OSCMessageDetail>(bufferSize) } {}
 
 	OSCMessage& OSCMessage::beginBundle()
@@ -44,11 +44,11 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::beginMessage(StringView s)
+	OSCMessage& OSCMessage::beginMessage(const StringView addressPattern)
 	{
 		try
 		{
-			pImpl->getStream() << osc::BeginMessage(s.toUTF8().c_str());
+			pImpl->getStream() << osc::BeginMessage(addressPattern.toUTF8().c_str());
 			return *this;
 		}
 		catch (const osc::OutOfBufferMemoryException&)
@@ -70,7 +70,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addBool(bool value)
+	OSCMessage& OSCMessage::addBool(const bool value)
 	{
 		try
 		{
@@ -83,7 +83,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addChar(char value)
+	OSCMessage& OSCMessage::addChar(const char value)
 	{
 		try
 		{
@@ -96,7 +96,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addInt32(int32 value)
+	OSCMessage& OSCMessage::addInt32(const int32 value)
 	{
 		try
 		{
@@ -109,7 +109,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addInt64(int64 value)
+	OSCMessage& OSCMessage::addInt64(const int64 value)
 	{
 		try
 		{
@@ -122,7 +122,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addFloat(float value)
+	OSCMessage& OSCMessage::addFloat(const float value)
 	{
 		try
 		{
@@ -135,7 +135,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addDouble(double value)
+	OSCMessage& OSCMessage::addDouble(const double value)
 	{
 		try
 		{
@@ -148,7 +148,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addMIDIMessage(uint32 value)
+	OSCMessage& OSCMessage::addMIDIMessage(const uint32 value)
 	{
 		try
 		{
@@ -161,7 +161,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addTimeTag(uint64 value)
+	OSCMessage& OSCMessage::addTimeTag(const uint64 value)
 	{
 		try
 		{
@@ -187,7 +187,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addString(StringView value)
+	OSCMessage& OSCMessage::addString(const StringView value)
 	{
 		try
 		{
@@ -201,7 +201,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addSymbol(StringView value)
+	OSCMessage& OSCMessage::addSymbol(const StringView value)
 	{
 		try
 		{
@@ -215,7 +215,7 @@ namespace s3d
 		}
 	}
 
-	OSCMessage& OSCMessage::addBlob(const void* data, size_t size)
+	OSCMessage& OSCMessage::addBlob(const void* data, const size_t size)
 	{
 		try
 		{
@@ -280,7 +280,7 @@ namespace s3d
 		}
 	}
 
-	const osc::OutboundPacketStream* OSCMessage::detail() const noexcept
+	const osc::OutboundPacketStream* OSCMessage::_detail() const noexcept
 	{
 		return pImpl->getStreamPtr();
 	}

@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	OSCReceiver::OSCReceiverDetail::OSCReceiverDetail(const IPv4Address& ipv4, int16 port)
+	OSCReceiver::OSCReceiverDetail::OSCReceiverDetail(const IPv4Address& ipv4, const int16 port)
 		: m_listner{}
 		, m_socket{ std::make_unique<UdpListeningReceiveSocket>(IpEndpointName{ ipv4.getData()[0], ipv4.getData()[1], ipv4.getData()[2], ipv4.getData()[3], port }, &m_listner) }
 	{

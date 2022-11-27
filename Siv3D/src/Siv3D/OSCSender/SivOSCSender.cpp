@@ -16,7 +16,7 @@
 
 namespace s3d
 {
-	OSCSender::OSCSender(const IPv4Address& ipv4, int16 port)
+	OSCSender::OSCSender(const IPv4Address& ipv4, const int16 port)
 		: m_transmitSocket{ std::make_shared<UdpTransmitSocket>(IpEndpointName{ ipv4.getData()[0], ipv4.getData()[1], ipv4.getData()[2], ipv4.getData()[3], port }) } {}
 
 	void OSCSender::send(const OSCMessage& message)
@@ -26,7 +26,7 @@ namespace s3d
 			return;
 		}
 
-		const osc::OutboundPacketStream* pStream = message.detail();
+		const osc::OutboundPacketStream* pStream = message._detail();
 
 		m_transmitSocket->Send(pStream->Data(), pStream->Size());
 	}

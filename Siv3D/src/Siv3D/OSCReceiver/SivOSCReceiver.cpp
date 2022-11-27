@@ -17,7 +17,7 @@ namespace s3d
 	OSCReceiver::OSCReceiver()
 		: pImpl{ std::make_shared<OSCReceiverDetail>() } {}
 
-	OSCReceiver::OSCReceiver(const IPv4Address& ipv4, int16 port)
+	OSCReceiver::OSCReceiver(const IPv4Address& ipv4, const int16 port)
 		: pImpl{ std::make_shared<OSCReceiverDetail>(ipv4, port) } {}
 
 	OSCReceiver::~OSCReceiver() {}

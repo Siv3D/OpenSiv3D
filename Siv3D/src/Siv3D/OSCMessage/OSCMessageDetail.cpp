@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	OSCMessage::OSCMessageDetail::OSCMessageDetail(size_t bufferSize)
+	OSCMessage::OSCMessageDetail::OSCMessageDetail(const size_t bufferSize)
 		: m_buffer(bufferSize, '\0')
 		, m_stream{ m_buffer.data(), bufferSize } {}
 

@@ -33,7 +33,7 @@ namespace s3d
 
 		OSCMessage& endBundle();
 
-		OSCMessage& beginMessage(StringView s);
+		OSCMessage& beginMessage(StringView addressPattern);
 
 		OSCMessage& endMessage();
 
@@ -70,7 +70,7 @@ namespace s3d
 		OSCMessage& endArray();
 
 		[[nodiscard]]
-		const osc::OutboundPacketStream* detail() const noexcept;
+		const osc::OutboundPacketStream* _detail() const noexcept;
 
 	public:
 
