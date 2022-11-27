@@ -899,6 +899,30 @@
 
 //////////////////////////////////////////////////
 //
+//	OSC 通信 | OSC Communication
+//
+//////////////////////////////////////////////////
+
+// OSC 型タグ
+# include <Siv3D/OSCTypeTag.hpp>
+
+// OSC 送信メッセージ
+# include <Siv3D/OSCMessage.hpp>
+
+// OSC 送信クラス
+# include <Siv3D/OSCSender.hpp>
+
+// OSC 受信メッセージの引数
+# include <Siv3D/OSCArgument.hpp>
+
+// OSC 受信メッセージ
+# include <Siv3D/ReceivedOSCMessage.hpp>
+
+// OSC 受信クラス
+# include <Siv3D/OSCReceiver.hpp>
+
+//////////////////////////////////////////////////
+//
 //	HTTP 通信 | HTTP Communication
 //
 //////////////////////////////////////////////////

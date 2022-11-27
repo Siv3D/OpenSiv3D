@@ -46,6 +46,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mesh.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Model.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\MSRenderTexture.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\OSCArgument.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ParticleSystem2D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PhongMaterial.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\PixelShader.ipp" />
@@ -479,6 +480,11 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCArgument.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCMessage.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCReceiver.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCSender.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OSCTypeTag.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Particle2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParticleSystem2D.hpp" />
@@ -625,6 +631,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ReceivedOSCMessage.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectanglePacking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RectEmitter2D.hpp" />
@@ -1149,6 +1156,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\NavMeshDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCReceiverDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ParticleSystem2D\ParticleSystem2DDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\IPentablet.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Pentablet\Null\CPentablet_Null.hpp" />
@@ -1626,6 +1636,19 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\json.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Oniguruma\oniguruma.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\PacketListener.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\TimerListener.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\UdpSocket.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscException.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPacketListener.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscTypes.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\par_octasphere\par_octasphere.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\par_shapes\par_shapes.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\pffft\pffft.h" />
@@ -2119,6 +2142,12 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\None\SivNone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OrientedBox\SivOrientedBox.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\SivOSCMessage.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCReceiverDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\SivOSCReceiver.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OSCSender\SivOSCSender.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
@@ -2690,6 +2719,13 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserError.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscTypes.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\pffft\pffft.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-blend.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\plutovg\plutovg-dash.c" />
@@ -2893,7 +2929,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_MINIAUDIO;WITH_NOSOUND;_CRT_SECURE_NO_WARNINGS;AS_USE_NAMESPACE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_MINIAUDIO;WITH_NOSOUND;_CRT_SECURE_NO_WARNINGS;AS_USE_NAMESPACE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;OSC_HOST_LITTLE_ENDIAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat />
@@ -2919,7 +2955,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_MINIAUDIO;WITH_NOSOUND;_CRT_SECURE_NO_WARNINGS;AS_DEBUG;AS_USE_NAMESPACE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_ENABLE_EXTENDED_ALIGNED_STORAGE;SIV3D_LIBRARY_BUILD;GLEW_STATIC;ONIG_STATIC;MUPARSER_STATIC;MSDFGEN_USE_CPP11;__WINDOWS_WASAPI__;WITH_MINIAUDIO;WITH_NOSOUND;_CRT_SECURE_NO_WARNINGS;AS_DEBUG;AS_USE_NAMESPACE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_SILENCE_ALL_CXX23_DEPRECATION_WARNINGS;OSC_HOST_LITTLE_ENDIAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
