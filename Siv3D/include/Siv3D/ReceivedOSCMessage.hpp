@@ -17,10 +17,13 @@
 
 namespace s3d
 {
+	/// @brief OSC 受信メッセージ
 	struct ReceivedOSCMessage
 	{
+		/// @brief アドレスパターン
 		String addressPattern;
 
+		/// @brief 引数
 		Array<OSCArgument> arguments;
 	};
 }

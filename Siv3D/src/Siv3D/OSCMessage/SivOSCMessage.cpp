@@ -11,6 +11,7 @@
 
 # include <Siv3D/OSCMessage.hpp>
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Blob.hpp>
 # include <Siv3D/OSCMessage/OSCMessageDetail.hpp>
 
 namespace s3d
@@ -213,6 +214,11 @@ namespace s3d
 		{
 			throw Error{ U"OSCMessage::addSymbol(), out of buffer" };
 		}
+	}
+
+	OSCMessage& OSCMessage::addBlob(const Blob& blob)
+	{
+		return addBlob(blob.data(), blob.size_bytes());
 	}
 
 	OSCMessage& OSCMessage::addBlob(const void* data, const size_t size)

@@ -19,6 +19,7 @@ class UdpTransmitSocket;
 
 namespace s3d
 {
+	/// @brief OSC 送信クラス
 	class OSCSender
 	{
 	public:
@@ -26,9 +27,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		OSCSender() = default;
 
+		/// @brief OSC の送信先を設定します。
+		/// @param ipv4 送信先のアドレス
+		/// @param port 送信先のポート番号
 		SIV3D_NODISCARD_CXX20
 		OSCSender(const IPv4Address& ipv4, int16 port);
 
+		/// @brief OSC メッセージを送信します。
+		/// @param message メッセージ
 		void send(const OSCMessage& message);
 
 	public:

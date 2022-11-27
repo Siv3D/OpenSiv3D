@@ -912,7 +912,7 @@
 // OSC 送信クラス
 # include <Siv3D/OSCSender.hpp>
 
-// OSC 引数
+// OSC 受信メッセージの引数
 # include <Siv3D/OSCArgument.hpp>
 
 // OSC 受信メッセージ

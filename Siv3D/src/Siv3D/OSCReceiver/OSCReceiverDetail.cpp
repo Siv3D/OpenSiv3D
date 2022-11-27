@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Error.hpp>
 # include "OSCReceiverDetail.hpp"
 
 namespace s3d
@@ -42,6 +43,11 @@ namespace s3d
 
 	ReceivedOSCMessage OSCReceiver::OSCReceiverDetail::pop()
 	{
+		if (not m_listner.hasMessages())
+		{
+			throw Error{ U"OSCReceiver::pop(): no message exists" };
+		}
+
 		return m_listner.pop();
 	}
 
