@@ -34,7 +34,7 @@
 	requested that these non-binding requests be included whenever the
 	above license is reproduced.
 */
-#include "ip/NetworkingUtils.h"
+#include "../../ip/NetworkingUtils.h"
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>   // this must come first to prevent errors with MSVC7

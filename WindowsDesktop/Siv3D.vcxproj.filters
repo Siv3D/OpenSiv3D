@@ -6900,45 +6900,6 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptCamera2DParameters.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\ip\IpEndpointName.h">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\ip\NetworkingUtils.h">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\ip\PacketListener.h">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\ip\TimerListener.h">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\ip\UdpSocket.h">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscPrintReceivedElements.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscReceivedElements.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscTypes.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\MessageMappingOscPacketListener.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscException.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscHostEndianness.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscOutboundPacketStream.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\v066Test\v066Test\oscapack\osc\OscPacketListener.h">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\OSCReceiver.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -6968,6 +6929,45 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.hpp">
       <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\PacketListener.h">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\TimerListener.h">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\UdpSocket.h">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.h">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\NetworkingUtils.h">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPrintReceivedElements.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscReceivedElements.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscTypes.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\MessageMappingOscPacketListener.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscException.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscHostEndianness.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscOutboundPacketStream.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPacketListener.h">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -10079,27 +10079,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptXInput.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\ip\IpEndpointName.cpp">
-      <Filter>src\ThirdParty\oscpack\ip</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\ip\win32\NetworkingUtils.cpp">
-      <Filter>src\ThirdParty\oscpack\ip\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\ip\win32\UdpSocket.cpp">
-      <Filter>src\ThirdParty\oscpack\ip\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\osc\OscPrintReceivedElements.cpp">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\osc\OscReceivedElements.cpp">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\osc\OscTypes.cpp">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\v066Test\v066Test\oscapack\osc\OscOutboundPacketStream.cpp">
-      <Filter>src\ThirdParty\oscpack\osc</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\SivOSCMessage.cpp">
       <Filter>src\Siv3D\OSCMessage</Filter>
     </ClCompile>
@@ -10117,6 +10096,27 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.cpp">
       <Filter>src\Siv3D\OSCReceiver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.cpp">
+      <Filter>src\ThirdParty\oscpack\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\NetworkingUtils.cpp">
+      <Filter>src\ThirdParty\oscpack\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\UdpSocket.cpp">
+      <Filter>src\ThirdParty\oscpack\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscPrintReceivedElements.cpp">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscReceivedElements.cpp">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscTypes.cpp">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\osc\OscOutboundPacketStream.cpp">
+      <Filter>src\ThirdParty\oscpack\osc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
