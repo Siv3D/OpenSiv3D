@@ -11,16 +11,16 @@
 
 # pragma once
 # define SIV3D_SERIALIZE		siv3d_serialize
-# define SIV3D_SERIALIZE_LOAD	siv3d_serialize_save
-# define SIV3D_SERIALIZE_SAVE	siv3d_serialize_load
-# define SIV3D_SERIALIZE_LOAD_M	siv3d_serialize_save_minimal
-# define SIV3D_SERIALIZE_SAVE_M	siv3d_serialize_load_minimal
+# define SIV3D_SERIALIZE_LOAD	siv3d_serialize_load
+# define SIV3D_SERIALIZE_SAVE	siv3d_serialize_save
+# define SIV3D_SERIALIZE_LOAD_M	siv3d_serialize_load_minimal
+# define SIV3D_SERIALIZE_SAVE_M	siv3d_serialize_save_minimal
 
 # define CEREAL_SERIALIZE_FUNCTION_NAME		SIV3D_SERIALIZE
 # define CEREAL_LOAD_FUNCTION_NAME			SIV3D_SERIALIZE_LOAD
 # define CEREAL_SAVE_FUNCTION_NAME			SIV3D_SERIALIZE_SAVE
-# define CEREAL_SAVE_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_LOAD_M
-# define CEREAL_LOAD_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_SAVE_M
+# define CEREAL_SAVE_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_SAVE_M
+# define CEREAL_LOAD_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_LOAD_M
 
 # include "../ThirdParty/cereal/cereal.hpp"
 # include "../ThirdParty/cereal/archives/binary.hpp"
