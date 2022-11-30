@@ -57,7 +57,7 @@ namespace s3d
 		JSONIterator(const JSONIterator&);
 
 		SIV3D_NODISCARD_CXX20
-		explicit JSONIterator(const detail::JSONIteratorDetail&);
+		explicit JSONIterator(JSON* parent, difference_type index, const detail::JSONIteratorDetail&);
 
 		JSONIterator& operator =(const JSONIterator& rhs);
 
@@ -89,6 +89,10 @@ namespace s3d
 
 	private:
 
+		JSON* m_parent = nullptr;
+
+		difference_type m_index = -1;
+
 		std::shared_ptr<detail::JSONIteratorDetail> m_detail;
 	};
 
@@ -112,7 +116,7 @@ namespace s3d
 		JSONConstIterator(const JSONConstIterator&);
 
 		SIV3D_NODISCARD_CXX20
-		explicit JSONConstIterator(const detail::JSONConstIteratorDetail&);
+		explicit JSONConstIterator(const JSON* parent, difference_type index, const detail::JSONConstIteratorDetail&);
 
 		JSONConstIterator& operator =(const JSONIterator& rhs);
 
@@ -145,6 +149,10 @@ namespace s3d
 		bool operator !=(const JSONConstIterator& other) const noexcept;
 
 	private:
+
+		const JSON* m_parent = nullptr;
+
+		difference_type m_index = -1;
 
 		std::shared_ptr<detail::JSONConstIteratorDetail> m_detail;
 	};
