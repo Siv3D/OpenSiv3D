@@ -38,6 +38,12 @@ namespace s3d
 
 			explicit JSONConstIteratorDetail(nlohmann::json::const_iterator _it)
 				: it{ _it } {}
+
+			explicit JSONConstIteratorDetail(const JSONIteratorDetail& _it)
+				: it{_it.it} {}
+
+			explicit JSONConstIteratorDetail(JSONIteratorDetail&& _it)
+				: it{std::move(_it).it} {}
 		};
 
 		struct JSONIterationProxyDetail
@@ -104,28 +110,46 @@ namespace s3d
 
 	JSONIterator& JSONIterator::operator =(const JSONIterator& rhs)
 	{
-		JSONIterator tmp = rhs;
+		JSONIterator tmp{ rhs };
 
-		m_detail = std::move(tmp.m_detail);
+		this->m_detail = std::move(tmp.m_detail);
 
 		return *this;
 	}
 
-	JSONIterator& JSONIterator::operator++()
+	JSONIterator& JSONIterator::operator ++()
 	{
 		++m_detail->it;
 
 		return *this;
 	}
 
-	JSONIterator JSONIterator::operator++(int)
+	JSONIterator JSONIterator::operator ++(int)
 	{
-		const detail::JSONIteratorDetail tmp{ m_detail->it++ };
+		const JSONIterator tmp{ *this };
 
-		return JSONIterator{ tmp };
+		++*this;
+
+		return tmp;
 	}
 
-	JSONIterator JSONIterator::operator+(size_t index) const
+	JSONIterator& JSONIterator::operator --()
+	{
+		--m_detail->it;
+
+		return *this;
+	}
+
+	JSONIterator JSONIterator::operator --(int)
+	{
+		const JSONIterator tmp{ *this };
+
+		--*this;
+
+		return tmp;
+	}
+
+	JSONIterator JSONIterator::operator +(JSONIterator::difference_type index) const
 	{
 		const detail::JSONIteratorDetail tmp{ m_detail->it + index };
 
@@ -149,6 +173,10 @@ namespace s3d
 
 	bool JSONIterator::operator ==(const JSONIterator& other) const noexcept
 	{
+		if (!m_detail || !other.m_detail)
+		{
+			return !m_detail && !other.m_detail;
+		}
 		return (m_detail->it == other.m_detail->it);
 	}
 
@@ -163,36 +191,66 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
+	JSONConstIterator::JSONConstIterator(const JSONIterator& rhs)
+		: m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(*rhs.m_detail) } {}
+
 	JSONConstIterator::JSONConstIterator(const JSONConstIterator& rhs)
 		: m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(*rhs.m_detail) } {}
 
 	JSONConstIterator::JSONConstIterator(const detail::JSONConstIteratorDetail& d)
 		: m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(d.it) } {}
 
-	JSONConstIterator& JSONConstIterator::operator =(const JSONConstIterator& rhs)
+	JSONConstIterator& JSONConstIterator::operator =(const JSONIterator& rhs)
 	{
-		JSONConstIterator tmp = rhs;
+		JSONConstIterator tmp{ rhs };
 
-		m_detail = std::move(tmp.m_detail);
+		std::ranges::swap(*this, tmp);
 
 		return *this;
 	}
 
-	JSONConstIterator& JSONConstIterator::operator++()
+	JSONConstIterator& JSONConstIterator::operator =(const JSONConstIterator& rhs)
+	{
+		JSONConstIterator tmp{ rhs };
+
+		this->m_detail = std::move(tmp.m_detail);
+
+		return *this;
+	}
+
+	JSONConstIterator& JSONConstIterator::operator ++()
 	{
 		++m_detail->it;
 
 		return *this;
 	}
 
-	JSONConstIterator JSONConstIterator::operator++(int)
+	JSONConstIterator JSONConstIterator::operator ++(int)
 	{
-		const detail::JSONConstIteratorDetail tmp{ m_detail->it++ };
+		const JSONConstIterator tmp{ *this };
 
-		return JSONConstIterator{ tmp };
+		++*this;
+
+		return tmp;
 	}
 
-	JSONConstIterator JSONConstIterator::operator+(size_t index) const
+	JSONConstIterator& JSONConstIterator::operator --()
+	{
+		--m_detail->it;
+
+		return *this;
+	}
+
+	JSONConstIterator JSONConstIterator::operator --(int)
+	{
+		const JSONConstIterator tmp{ *this };
+
+		--*this;
+
+		return tmp;
+	}
+
+	JSONConstIterator JSONConstIterator::operator +(JSONConstIterator::difference_type index) const
 	{
 		const detail::JSONConstIteratorDetail tmp{ m_detail->it + index };
 
@@ -216,6 +274,10 @@ namespace s3d
 
 	bool JSONConstIterator::operator ==(const JSONConstIterator& other) const noexcept
 	{
+		if (!m_detail || !other.m_detail)
+		{
+			return !m_detail && !other.m_detail;
+		}
 		return (m_detail->it == other.m_detail->it);
 	}
 
