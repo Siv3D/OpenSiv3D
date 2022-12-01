@@ -237,7 +237,9 @@ namespace s3d
 	{
 		JSONConstIterator tmp{ rhs };
 
-		std::ranges::swap(*this, tmp);
+		this->m_parent = tmp.m_parent;
+		this->m_index  = tmp.m_index;
+		this->m_detail = std::move(tmp.m_detail);
 
 		return *this;
 	}
