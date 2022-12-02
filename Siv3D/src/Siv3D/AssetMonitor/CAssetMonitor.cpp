@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/MessageBox.hpp>
 # include "CAssetMonitor.hpp"
 
 namespace s3d
@@ -22,7 +22,7 @@ namespace s3d
 			&& std::all_of(m_assetReleaseCount.begin(), m_assetReleaseCount.end(), [](int32 n) { return n > 0; }))
 		{
 			LOG_ERROR(U"🔥 Assets have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.");
-			//System::ShowMessageBox(U"Asset creation report", U"🔥 Assets have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.", MessageBoxStyle::Error);
+			System::MessageBoxOK(U"Asset creation report", U"🔥 Assets (Textures, Fonts or Audio) have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.", MessageBoxStyle::Error);
 			return false;
 		}
 
