@@ -1211,7 +1211,7 @@ namespace s3d
 						ID3D11RenderTargetView* const rtv = pTexture->getRTV(rt->id());
 						pRenderer->getBackBuffer().bindToContext(rtv, nullptr);
 						
-						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value));
+						LOG_COMMAND(U"SetRT[{}] (texture {})"_fmt(command.index, rt->id().value()));
 					}
 					else // [シーン]
 					{
