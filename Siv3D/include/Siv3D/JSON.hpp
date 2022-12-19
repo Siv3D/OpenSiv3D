@@ -203,8 +203,6 @@ namespace s3d
 	{
 	public:
 
-		JSONArrayView() = default;
-
 		JSONArrayView(JSONIterationProxy begin, JSONIterationProxy end);
 
 		[[nodiscard]]

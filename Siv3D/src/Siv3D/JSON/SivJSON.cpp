@@ -136,7 +136,7 @@ namespace s3d
 	{
 		const JSONIterator tmp{ *this };
 
-		++*this;
+		++(*this);
 
 		return tmp;
 	}
@@ -154,7 +154,7 @@ namespace s3d
 	{
 		const JSONIterator tmp{ *this };
 
-		--*this;
+		--(*this);
 
 		return tmp;
 	}
@@ -163,7 +163,7 @@ namespace s3d
 	{
 		const detail::JSONIteratorDetail tmp{ m_detail->it + index };
 
-		return JSONIterator{ m_parent, m_index + index, tmp };
+		return JSONIterator{ m_parent, (m_index + index), tmp };
 	}
 
 	JSONItem JSONIterator::operator *() const
@@ -173,24 +173,22 @@ namespace s3d
 
 	String JSONIterator::key() const
 	{
-		if (m_parent != nullptr)
-			SIV3D_LIKELY
+		if (m_parent != nullptr) SIV3D_LIKELY
+		{
+			switch (m_parent->getType())
 			{
-				switch (m_parent->getType())
-				{
-				case JSONValueType::Object:
-					return Unicode::FromUTF8(m_detail->it.key());
-				case JSONValueType::Array:
-					return Format(m_index);
-				default:
-					return U"";
-				}
+			case JSONValueType::Object:
+				return Unicode::FromUTF8(m_detail->it.key());
+			case JSONValueType::Array:
+				return Format(m_index);
+			default:
+				return{};
 			}
-		else
-			SIV3D_UNLIKELY
-			{
-				throw Error{ U"This JSONIterator has not been constructed from any JSON." };
-			}
+		}
+		else SIV3D_UNLIKELY
+		{
+			throw Error{ U"This JSONIterator has not been constructed from any JSON." };
+		}
 	}
 
 	JSON JSONIterator::value() const
@@ -200,16 +198,17 @@ namespace s3d
 
 	bool JSONIterator::operator ==(const JSONIterator& other) const noexcept
 	{
-		if (!m_detail || !other.m_detail)
+		if ((not m_detail) || (not other.m_detail))
 		{
-			return !m_detail && !other.m_detail;
+			return (not m_detail) && (not other.m_detail);
 		}
+
 		return (m_detail->it == other.m_detail->it);
 	}
 
 	bool JSONIterator::operator !=(const JSONIterator& other) const noexcept
 	{
-		return !(*this == other);
+		return (not (*this == other));
 	}
 
 	//////////////////////////////////////////////////
@@ -268,7 +267,7 @@ namespace s3d
 	{
 		const JSONConstIterator tmp{ *this };
 
-		++*this;
+		++(*this);
 
 		return tmp;
 	}
@@ -286,7 +285,7 @@ namespace s3d
 	{
 		const JSONConstIterator tmp{ *this };
 
-		--*this;
+		--(*this);
 
 		return tmp;
 	}
@@ -295,7 +294,7 @@ namespace s3d
 	{
 		const detail::JSONConstIteratorDetail tmp{ m_detail->it + index };
 
-		return JSONConstIterator{ m_parent, m_index + index, tmp };
+		return JSONConstIterator{ m_parent, (m_index + index), tmp };
 	}
 
 	const JSONItem JSONConstIterator::operator *() const
@@ -305,24 +304,22 @@ namespace s3d
 
 	String JSONConstIterator::key() const
 	{
-		if (m_parent != nullptr)
-			SIV3D_LIKELY
+		if (m_parent != nullptr) SIV3D_LIKELY
+		{
+			switch (m_parent->getType())
 			{
-				switch (m_parent->getType())
-				{
-				case JSONValueType::Object:
-					return Unicode::FromUTF8(m_detail->it.key());
-				case JSONValueType::Array:
-					return Format(m_index);
-				default:
-					return U"";
-				}
+			case JSONValueType::Object:
+				return Unicode::FromUTF8(m_detail->it.key());
+			case JSONValueType::Array:
+				return Format(m_index);
+			default:
+				return{};
 			}
-		else
-			SIV3D_UNLIKELY
-			{
-				throw Error{ U"This JSONConstIterator has not been constructed from any JSON." };
-			}
+		}
+		else SIV3D_UNLIKELY
+		{
+			throw Error{ U"This JSONConstIterator has not been constructed from any JSON." };
+		}
 	}
 
 	const JSON JSONConstIterator::value() const
@@ -332,16 +329,17 @@ namespace s3d
 
 	bool JSONConstIterator::operator ==(const JSONConstIterator& other) const noexcept
 	{
-		if (!m_detail || !other.m_detail)
+		if ((not m_detail) || (not other.m_detail))
 		{
-			return !m_detail && !other.m_detail;
+			return (not m_detail) && (not other.m_detail);
 		}
+
 		return (m_detail->it == other.m_detail->it);
 	}
 
 	bool JSONConstIterator::operator !=(const JSONConstIterator& other) const noexcept
 	{
-		return !(*this == other);
+		return (not (*this == other));
 	}
 
 	//////////////////////////////////////////////////
@@ -402,7 +400,7 @@ namespace s3d
 
 	bool JSONIterationProxy::operator !=(const JSONIterationProxy& other) const noexcept
 	{
-		return !(*this == other);
+		return (not (*this == other));
 	}
 
 	//////////////////////////////////////////////////
