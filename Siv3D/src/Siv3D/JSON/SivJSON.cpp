@@ -38,6 +38,12 @@ namespace s3d
 
 			explicit JSONConstIteratorDetail(nlohmann::json::const_iterator _it)
 				: it{ _it } {}
+
+			explicit JSONConstIteratorDetail(const JSONIteratorDetail& _it)
+				: it{_it.it} {}
+
+			explicit JSONConstIteratorDetail(JSONIteratorDetail&& _it)
+				: it{std::move(_it).it} {}
 		};
 
 		struct JSONIterationProxyDetail
@@ -97,39 +103,67 @@ namespace s3d
 	//////////////////////////////////////////////////
 
 	JSONIterator::JSONIterator(const JSONIterator& rhs)
-		: m_detail{ std::make_shared<detail::JSONIteratorDetail>(*rhs.m_detail) } {}
+		: m_parent{ rhs.m_parent }
+		, m_index{ rhs.m_index }
+		, m_detail{ std::make_shared<detail::JSONIteratorDetail>(*rhs.m_detail) } {}
 
-	JSONIterator::JSONIterator(const detail::JSONIteratorDetail& d)
-		: m_detail{ std::make_shared<detail::JSONIteratorDetail>(d.it) } {}
+	JSONIterator::JSONIterator(JSON* parent, JSONIterator::difference_type index, const detail::JSONIteratorDetail& d)
+		: m_parent{ parent }
+		, m_index{ index }
+		, m_detail{ std::make_shared<detail::JSONIteratorDetail>(d.it) } {}
 
 	JSONIterator& JSONIterator::operator =(const JSONIterator& rhs)
 	{
-		JSONIterator tmp = rhs;
+		JSONIterator tmp{ rhs };
 
-		m_detail = std::move(tmp.m_detail);
+		this->m_parent = tmp.m_parent;
+		this->m_index  = tmp.m_index;
+		this->m_detail = std::move(tmp.m_detail);
 
 		return *this;
 	}
 
-	JSONIterator& JSONIterator::operator++()
+	JSONIterator& JSONIterator::operator ++()
 	{
 		++m_detail->it;
 
+		++m_index;
+
 		return *this;
 	}
 
-	JSONIterator JSONIterator::operator++(int)
+	JSONIterator JSONIterator::operator ++(int)
 	{
-		const detail::JSONIteratorDetail tmp{ m_detail->it++ };
+		const JSONIterator tmp{ *this };
 
-		return JSONIterator{ tmp };
+		++*this;
+
+		return tmp;
 	}
 
-	JSONIterator JSONIterator::operator+(size_t index) const
+	JSONIterator& JSONIterator::operator --()
+	{
+		--m_detail->it;
+
+		--m_index;
+
+		return *this;
+	}
+
+	JSONIterator JSONIterator::operator --(int)
+	{
+		const JSONIterator tmp{ *this };
+
+		--*this;
+
+		return tmp;
+	}
+
+	JSONIterator JSONIterator::operator +(JSONIterator::difference_type index) const
 	{
 		const detail::JSONIteratorDetail tmp{ m_detail->it + index };
 
-		return JSONIterator{ tmp };
+		return JSONIterator{ m_parent, m_index + index, tmp };
 	}
 
 	JSONItem JSONIterator::operator *() const
@@ -139,7 +173,24 @@ namespace s3d
 
 	String JSONIterator::key() const
 	{
-		return Unicode::FromUTF8(m_detail->it.key());
+		if (m_parent != nullptr)
+			SIV3D_LIKELY
+			{
+				switch (m_parent->getType())
+				{
+				case JSONValueType::Object:
+					return Unicode::FromUTF8(m_detail->it.key());
+				case JSONValueType::Array:
+					return Format(m_index);
+				default:
+					return U"";
+				}
+			}
+		else
+			SIV3D_UNLIKELY
+			{
+				throw Error{ U"This JSONIterator has not been constructed from any JSON." };
+			}
 	}
 
 	JSON JSONIterator::value() const
@@ -149,6 +200,10 @@ namespace s3d
 
 	bool JSONIterator::operator ==(const JSONIterator& other) const noexcept
 	{
+		if (!m_detail || !other.m_detail)
+		{
+			return !m_detail && !other.m_detail;
+		}
 		return (m_detail->it == other.m_detail->it);
 	}
 
@@ -163,40 +218,84 @@ namespace s3d
 	//
 	//////////////////////////////////////////////////
 
-	JSONConstIterator::JSONConstIterator(const JSONConstIterator& rhs)
-		: m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(*rhs.m_detail) } {}
+	JSONConstIterator::JSONConstIterator(const JSONIterator& rhs)
+		: m_parent{ rhs.m_parent }
+		, m_index{ rhs.m_index }
+		, m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(*rhs.m_detail) } {}
 
-	JSONConstIterator::JSONConstIterator(const detail::JSONConstIteratorDetail& d)
-		: m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(d.it) } {}
+	JSONConstIterator::JSONConstIterator(const JSONConstIterator& rhs)
+		: m_parent{ rhs.m_parent }
+		, m_index{ rhs.m_index }
+		, m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(*rhs.m_detail) } {}
+
+	JSONConstIterator::JSONConstIterator(const JSON* parent, JSONConstIterator::difference_type index, const detail::JSONConstIteratorDetail& d)
+		: m_parent{ parent }
+		, m_index{ index }
+		, m_detail{ std::make_shared<detail::JSONConstIteratorDetail>(d.it) } {}
+
+	JSONConstIterator& JSONConstIterator::operator =(const JSONIterator& rhs)
+	{
+		JSONConstIterator tmp{ rhs };
+
+		this->m_parent = tmp.m_parent;
+		this->m_index  = tmp.m_index;
+		this->m_detail = std::move(tmp.m_detail);
+
+		return *this;
+	}
 
 	JSONConstIterator& JSONConstIterator::operator =(const JSONConstIterator& rhs)
 	{
-		JSONConstIterator tmp = rhs;
+		JSONConstIterator tmp{ rhs };
 
-		m_detail = std::move(tmp.m_detail);
+		this->m_parent = tmp.m_parent;
+		this->m_index  = tmp.m_index;
+		this->m_detail = std::move(tmp.m_detail);
 
 		return *this;
 	}
 
-	JSONConstIterator& JSONConstIterator::operator++()
+	JSONConstIterator& JSONConstIterator::operator ++()
 	{
 		++m_detail->it;
 
+		++m_index;
+
 		return *this;
 	}
 
-	JSONConstIterator JSONConstIterator::operator++(int)
+	JSONConstIterator JSONConstIterator::operator ++(int)
 	{
-		const detail::JSONConstIteratorDetail tmp{ m_detail->it++ };
+		const JSONConstIterator tmp{ *this };
 
-		return JSONConstIterator{ tmp };
+		++*this;
+
+		return tmp;
 	}
 
-	JSONConstIterator JSONConstIterator::operator+(size_t index) const
+	JSONConstIterator& JSONConstIterator::operator --()
+	{
+		--m_detail->it;
+
+		--m_index;
+
+		return *this;
+	}
+
+	JSONConstIterator JSONConstIterator::operator --(int)
+	{
+		const JSONConstIterator tmp{ *this };
+
+		--*this;
+
+		return tmp;
+	}
+
+	JSONConstIterator JSONConstIterator::operator +(JSONConstIterator::difference_type index) const
 	{
 		const detail::JSONConstIteratorDetail tmp{ m_detail->it + index };
 
-		return JSONConstIterator{ tmp };
+		return JSONConstIterator{ m_parent, m_index + index, tmp };
 	}
 
 	const JSONItem JSONConstIterator::operator *() const
@@ -206,7 +305,24 @@ namespace s3d
 
 	String JSONConstIterator::key() const
 	{
-		return Unicode::FromUTF8(m_detail->it.key());
+		if (m_parent != nullptr)
+			SIV3D_LIKELY
+			{
+				switch (m_parent->getType())
+				{
+				case JSONValueType::Object:
+					return Unicode::FromUTF8(m_detail->it.key());
+				case JSONValueType::Array:
+					return Format(m_index);
+				default:
+					return U"";
+				}
+			}
+		else
+			SIV3D_UNLIKELY
+			{
+				throw Error{ U"This JSONConstIterator has not been constructed from any JSON." };
+			}
 	}
 
 	const JSON JSONConstIterator::value() const
@@ -216,6 +332,10 @@ namespace s3d
 
 	bool JSONConstIterator::operator ==(const JSONConstIterator& other) const noexcept
 	{
+		if (!m_detail || !other.m_detail)
+		{
+			return !m_detail && !other.m_detail;
+		}
 		return (m_detail->it == other.m_detail->it);
 	}
 
@@ -808,22 +928,22 @@ namespace s3d
 
 	JSON::iterator JSON::begin()
 	{
-		return iterator{ detail::JSONIteratorDetail(m_detail->get().begin()) };
+		return iterator{ std::addressof(*this), 0, detail::JSONIteratorDetail(m_detail->get().begin()) };
 	}
 
 	JSON::const_iterator JSON::begin() const
 	{
-		return const_iterator{ detail::JSONConstIteratorDetail(m_detail->get().begin()) };
+		return const_iterator{ std::addressof(*this), 0, detail::JSONConstIteratorDetail(m_detail->get().begin()) };
 	}
 
 	JSON::iterator JSON::end()
 	{
-		return iterator{ detail::JSONIteratorDetail(m_detail->get().end()) };
+		return iterator{ std::addressof(*this), static_cast<JSON::iterator::difference_type>(size()), detail::JSONIteratorDetail(m_detail->get().end()) };
 	}
 
 	JSON::const_iterator JSON::end() const
 	{
-		return const_iterator{ detail::JSONConstIteratorDetail(m_detail->get().end()) };
+		return const_iterator{ std::addressof(*this), static_cast<JSON::iterator::difference_type>(size()), detail::JSONConstIteratorDetail(m_detail->get().end()) };
 	}
 
 	JSONArrayView JSON::arrayView() const

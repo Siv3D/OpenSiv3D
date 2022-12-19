@@ -42,6 +42,14 @@ namespace s3d
 	{
 	public:
 
+		friend JSONConstIterator;
+
+		using value_type = JSONItem;
+
+		using difference_type = ptrdiff_t;
+
+		using iterator_concept = std::bidirectional_iterator_tag;
+
 		SIV3D_NODISCARD_CXX20
 		JSONIterator() = default;
 
@@ -49,7 +57,7 @@ namespace s3d
 		JSONIterator(const JSONIterator&);
 
 		SIV3D_NODISCARD_CXX20
-		explicit JSONIterator(const detail::JSONIteratorDetail&);
+		explicit JSONIterator(JSON* parent, difference_type index, const detail::JSONIteratorDetail&);
 
 		JSONIterator& operator =(const JSONIterator& rhs);
 
@@ -57,8 +65,12 @@ namespace s3d
 
 		JSONIterator operator ++(int);
 
+		JSONIterator& operator --();
+
+		JSONIterator operator --(int);
+
 		[[nodiscard]]
-		JSONIterator operator +(size_t index) const;
+		JSONIterator operator +(difference_type index) const;
 
 		[[nodiscard]]
 		JSONItem operator *() const;
@@ -77,6 +89,10 @@ namespace s3d
 
 	private:
 
+		JSON* m_parent = nullptr;
+
+		difference_type m_index = -1;
+
 		std::shared_ptr<detail::JSONIteratorDetail> m_detail;
 	};
 
@@ -84,14 +100,25 @@ namespace s3d
 	{
 	public:
 
+		using value_type = const JSONItem;
+
+		using difference_type = ptrdiff_t;
+
+		using iterator_concept = std::bidirectional_iterator_tag;
+
 		SIV3D_NODISCARD_CXX20
 		JSONConstIterator() = default;
+
+		SIV3D_NODISCARD_CXX20
+		JSONConstIterator(const JSONIterator&);
 
 		SIV3D_NODISCARD_CXX20
 		JSONConstIterator(const JSONConstIterator&);
 
 		SIV3D_NODISCARD_CXX20
-		explicit JSONConstIterator(const detail::JSONConstIteratorDetail&);
+		explicit JSONConstIterator(const JSON* parent, difference_type index, const detail::JSONConstIteratorDetail&);
+
+		JSONConstIterator& operator =(const JSONIterator& rhs);
 
 		JSONConstIterator& operator =(const JSONConstIterator& rhs);
 
@@ -99,8 +126,12 @@ namespace s3d
 
 		JSONConstIterator operator ++(int);
 
+		JSONConstIterator& operator --();
+
+		JSONConstIterator operator --(int);
+
 		[[nodiscard]]
-		JSONConstIterator operator +(size_t index) const;
+		JSONConstIterator operator +(difference_type index) const;
 
 		[[nodiscard]]
 		const JSONItem operator *() const;
@@ -119,6 +150,10 @@ namespace s3d
 
 	private:
 
+		const JSON* m_parent = nullptr;
+
+		difference_type m_index = -1;
+
 		std::shared_ptr<detail::JSONConstIteratorDetail> m_detail;
 	};
 
@@ -126,8 +161,14 @@ namespace s3d
 	{
 	public:
 
+		using value_type = JSON;
+
+		using difference_type = ptrdiff_t;
+
+		using iterator_concept = std::input_iterator_tag;
+
 		SIV3D_NODISCARD_CXX20
-		JSONIterationProxy() = default;
+		JSONIterationProxy() = delete;
 
 		SIV3D_NODISCARD_CXX20
 		JSONIterationProxy(const JSONIterationProxy&);
