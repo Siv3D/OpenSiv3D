@@ -250,12 +250,6 @@ namespace s3d
 		m_coordinates = object[U"coordinates"];
 	}
 
-	template <class Type>
-	Type GeoJSONGeometry::get() const
-	{
-		return std::get<Type>(getCache());
-	}
-
 	MultiPolygon GeoJSONGeometry::getPolygons() const
 	{
 		const auto& cache = getCache();

@@ -102,7 +102,10 @@ namespace s3d
 		/// @return 形状データ
 		template <class Type>
 		[[nodiscard]]
-		Type get() const;
+		Type get() const
+		{
+			return std::get<Type>(getCache());
+		}
 
 		/// @brief 形状データをもとに MultiPolygon を作成して返します。
 		/// @return 形状データをもとに作成した　MultiPolygon
