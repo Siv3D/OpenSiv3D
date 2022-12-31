@@ -102,7 +102,7 @@ namespace s3d
 		/// @return 形状データ
 		template <class Type>
 		[[nodiscard]]
-		Type GeoJSONGeometry::get() const
+		Type get() const
 		{
 			return std::get<Type>(getCache());
 		}
