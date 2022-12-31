@@ -19,6 +19,8 @@ namespace s3d
 		struct JSONConstIteratorDetail;
 		struct JSONIterationProxyDetail;
 		class JSONDetail;
+		struct JSONPointerDetail;
+		struct JSONSchemaDetail;
 	}
 
 	class JSONIterator;
@@ -27,4 +29,6 @@ namespace s3d
 	class JSONArrayView;
 	class JSON;
 	struct JSONItem;
+	struct JSONPointer;
+	struct JSONSchema;
 }

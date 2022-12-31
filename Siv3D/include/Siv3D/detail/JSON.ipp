@@ -168,4 +168,10 @@ namespace s3d
 
 		return none;
 	}
+
+	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>*>
+	inline JSONSchema JSONSchema::Load(Reader&& reader, AllowExceptions allowExceptions)
+	{
+		return Load(std::make_shared<Reader>(std::move(reader)), allowExceptions);
+	}
 }
