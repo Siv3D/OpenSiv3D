@@ -41,7 +41,7 @@ void Main()
 		{
 			if (keys[i].down())
 			{
-				sounds[i].playOneShot(0, 0.5);
+				sounds[i].playOneShot(0.5);
 			}
 		}
 
