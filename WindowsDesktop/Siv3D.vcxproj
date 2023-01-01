@@ -1634,7 +1634,10 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTemplateMagic.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserToken.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\json-patch.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\json-schema.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\json.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\nlohmann\smtp-address-validator.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Oniguruma\oniguruma.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\oscpack\ip\NetworkingUtils.h" />
@@ -2719,6 +2722,12 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserError.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\json-patch.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\json-schema-draft7.json.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\json-uri.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\json-validator.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\smtp-address-validator.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\string-format-check.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\IpEndpointName.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\NetworkingUtils.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\oscpack\ip\win32\UdpSocket.cpp" />
