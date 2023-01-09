@@ -133,7 +133,7 @@ namespace s3d
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>*>
 	inline JSON JSON::Load(Reader&& reader, const AllowExceptions allowExceptions)
 	{
-		return Load(std::make_shared<Reader>(std::move(reader)), allowExceptions);
+		return Load(std::make_unique<Reader>(std::move(reader)), allowExceptions);
 	}
 
 	SIV3D_CONCEPT_INTEGRAL_
