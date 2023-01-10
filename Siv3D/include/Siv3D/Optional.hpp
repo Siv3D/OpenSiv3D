@@ -64,7 +64,10 @@ namespace s3d
 		
 		constexpr Optional& operator =(Optional&& other) noexcept(std::is_nothrow_move_assignable_v<Type> && std::is_nothrow_move_constructible_v<Type>);
 
-		template <class U = Type>
+		template <class U = Type, std::enable_if_t<std::disjunction_v<
+			std::is_assignable<std::optional<Type>&, U>,
+			std::is_assignable<std::optional<Type>&, const U&>,
+			std::is_assignable<std::optional<Type>&, U&&>>>* = nullptr>
 		Optional& operator =(U&& value);
 
 		template <class U>
