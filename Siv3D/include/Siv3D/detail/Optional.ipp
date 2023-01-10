@@ -72,7 +72,14 @@ namespace s3d
 		}
 		else
 		{
-			reset();
+			if constexpr (std::is_assignable_v<Type&, const Optional<U>&>)
+			{
+				base_type::operator =(other);
+			}
+			else
+			{
+				reset();
+			}
 		}
 
 		return *this;
@@ -88,7 +95,14 @@ namespace s3d
 		}
 		else
 		{
-			reset();
+			if constexpr (std::is_assignable_v<Type&, Optional<U>&&>)
+			{
+				base_type::operator =(std::move(other));
+			}
+			else
+			{
+				reset();
+			}
 		}
 
 		return *this;
