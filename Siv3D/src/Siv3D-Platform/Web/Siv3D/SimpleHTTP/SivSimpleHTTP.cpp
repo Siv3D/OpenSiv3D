@@ -48,6 +48,9 @@ namespace s3d
 					writer.write(buffer.data(), size);
 				}
 			}
+
+			__attribute__((import_name("siv3dLocateFile")))
+			char* siv3dLocateFile();
 		}
 
 		HTTPResponse Save(const URLView url, const FilePathView filePath)
@@ -103,9 +106,20 @@ namespace s3d
 				return{};
 			}
 
+			String origin{U""};
+
+			const bool isWebPage = url.starts_with(U"http://")
+				|| url.starts_with(U"https://");
+			auto originNamePtr = detail::siv3dLocateFile();
+
+			if (not isWebPage && originNamePtr)
+			{
+				origin = Unicode::FromUTF8(originNamePtr);
+			}
+
 			String temporaryFile{U"/tmp/file"};
 
-			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", url, temporaryFile);
+			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", origin + url, temporaryFile);
 
 			for (auto [key, value] : headers)
 			{
@@ -175,9 +189,20 @@ namespace s3d
 				return{};
 			}
 
+			String origin{U""};
+
+			const bool isWebPage = url.starts_with(U"http://")
+				|| url.starts_with(U"https://");
+			auto originNamePtr = detail::siv3dLocateFile();
+
+			if (not isWebPage && originNamePtr)
+			{
+				origin = Unicode::FromUTF8(originNamePtr);
+			}
+
 			String temporaryFile{U"/tmp/file"};
 
-			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", url, temporaryFile);
+			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", origin + url, temporaryFile);
 
 			for (auto [key, value] : headers)
 			{

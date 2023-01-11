@@ -25,9 +25,6 @@ namespace s3d
 		{
 			__attribute__((import_name("siv3dDownloadFile")))
 			void siv3dDownloadFile(const char* filePath, const char* fileName, const char* mimeType = nullptr);
-
-			__attribute__((import_name("siv3dLocateFile")))
-			char* siv3dLocateFile();
 		}
 
 		void DownloadFile(FilePathView filePath)
@@ -40,14 +37,7 @@ namespace s3d
 		{
 			if (not s3d::FileSystem::Exists(filePath))
 			{
-				String origin{U""};
-
-				if (auto originNamePtr = detail::siv3dLocateFile())
-				{
-					origin = Unicode::FromUTF8(originNamePtr);
-				}
-
-				s3d::SimpleHTTP::Save(origin + filePath, filePath);
+				s3d::SimpleHTTP::Save(filePath, filePath);
 			}
 		}
 	}
