@@ -27,6 +27,29 @@ namespace s3d
 {
 	namespace SimpleHTTP
 	{
+		namespace detail
+		{
+			void CopyFileToIWriter(const StringView path, IWriter& writer)
+			{
+				BinaryReader temporaryFileReader{path};
+
+				Array<uint8> buffer;
+				buffer.resize(4096);
+
+				while (true)
+				{
+					auto size = temporaryFileReader.read(buffer.data(), buffer.size());
+
+					if (size == 0)
+					{
+						break;
+					}
+
+					writer.write(buffer.data(), size);
+				}
+			}
+		}
+
 		HTTPResponse Save(const URLView url, const FilePathView filePath)
 		{
 			return Get(url, {}, filePath);
@@ -95,21 +118,14 @@ namespace s3d
 
 			if (auto httpResponse = Platform::Web::System::AwaitAsyncTask(httpFuture))
 			{
-				BinaryReader temporaryFileReader{temporaryFile};
-
-				Array<uint8> buffer;
-				buffer.resize(4096);
-
-				while (true)
+				if (FileSystem::Exists(temporaryFile))
 				{
-					auto size = temporaryFileReader.read(buffer.data(), buffer.size());
-
-					if (size == 0)
-					{
-						break;
-					}
-
-					writer.write(buffer.data(), size);
+					detail::CopyFileToIWriter(temporaryFile, writer);
+					FileSystem::Remove(temporaryFile);
+				}
+				else
+				{
+					LOG_FAIL(U"❌ SimpleHttp: Failed to get the url `{0}`"_fmt(url));
 				}
 
 				return *httpResponse;
@@ -174,21 +190,14 @@ namespace s3d
 
 			if (auto httpResponse = Platform::Web::System::AwaitAsyncTask(httpFuture))
 			{
-				BinaryReader temporaryFileReader{temporaryFile};
-
-				Array<uint8> buffer;
-				buffer.resize(4096);
-
-				while (true)
+				if (FileSystem::Exists(temporaryFile))
 				{
-					auto size = temporaryFileReader.read(buffer.data(), buffer.size());
-
-					if (size == 0)
-					{
-						break;
-					}
-
-					writer.write(buffer.data(), size);
+					detail::CopyFileToIWriter(temporaryFile, writer);
+					FileSystem::Remove(temporaryFile);
+				}
+				else
+				{
+					LOG_FAIL(U"❌ SimpleHttp: Failed to post the url `{0}`"_fmt(url));
 				}
 
 				return *httpResponse;
