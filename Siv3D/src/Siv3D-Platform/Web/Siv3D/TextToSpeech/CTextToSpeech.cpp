@@ -14,38 +14,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		struct AvailableLanguageList
-		{
-			struct AvailableLanguage
-			{
-				LanguageCode languageCode;
-
-				bool isDefault;
-			};
-
-			size_t length;
-
-			AvailableLanguage* data;
-		};
-
-		__attribute__((import_name("siv3dEnumerateAvailableTextToSpeechLanguages")))
-		extern AvailableLanguageList siv3dEnumerateAvailableTextToSpeechLanguages();
-
-		__attribute__((import_name("siv3dStartTextToSpeechLanguages")))
-		extern void siv3dStartTextToSpeechLanguages(const char* text, double rate, double volume, LanguageCode code);
-
-		__attribute__((import_name("siv3dIsSpeakingTextToSpeechLanguages")))
-		extern bool siv3dIsSpeakingTextToSpeechLanguages();
-
-		__attribute__((import_name("siv3dPauseTextToSpeechLanguages")))
-		extern void siv3dPauseTextToSpeechLanguages();
-
-		__attribute__((import_name("siv3dResumeTextToSpeechLanguages")))
-		extern void siv3dResumeTextToSpeechLanguages();
-	}
-
 	CTextToSpeech::CTextToSpeech() {}
 
 	CTextToSpeech::~CTextToSpeech()
@@ -57,94 +25,62 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CTextToSpeech::init()");
 
-		auto list = detail::siv3dEnumerateAvailableTextToSpeechLanguages();
-
-		if (list.length > 0) 
-		{
-			LOG_INFO(U"ℹ️ TextToSpeech available");
-		}
-		else
-		{
-			LOG_WARNING(U"⚠️ TextToSpeech unavailable");
-		}
-
-		for (uint32 i = 0; i < list.length; ++i)
-		{
-			auto& item = list.data[i];
-
-			m_AvailableLanguages << item.languageCode;
-
-			if (item.isDefault)
-			{
-				m_DefaultLanguage = item.languageCode;
-				
-				LOG_TRACE(U"LanguageCode: {} - Default"_fmt(item.languageCode));
-			}
-			else
-			{
-				LOG_TRACE(U"LanguageCode: {}"_fmt(item.languageCode));
-			}
-		}
-
-		::free(list.data);
+		
 	}
 
 	bool CTextToSpeech::hasLanguage(const LanguageCode languageCode)
 	{
-		return m_AvailableLanguages.includes(languageCode);
+		return false;
 	}
 
 	void CTextToSpeech::setDefaultLanguage(const LanguageCode languageCode)
 	{
-		m_DefaultLanguage = languageCode;
+		
 	}
 
 	LanguageCode CTextToSpeech::getDefaultLanguage() const
 	{
-		return m_DefaultLanguage;
+		return LanguageCode::Unspecified;
 	}
 
 	bool CTextToSpeech::speak(const StringView text, const LanguageCode languageCode)
 	{
-		const LanguageCode lang = (languageCode == LanguageCode::Unspecified) ? m_DefaultLanguage : languageCode;
-
-		detail::siv3dStartTextToSpeechLanguages(text.toUTF8().c_str(), m_Speed, m_Volume, lang);
-		return (true);
+		return (false);
 	}
 
 	bool CTextToSpeech::isSpeaking() const
 	{
-		return detail::siv3dIsSpeakingTextToSpeechLanguages();
+		return (false);
 	}
 
 	void CTextToSpeech::pause()
 	{
-		detail::siv3dPauseTextToSpeechLanguages();
+
 	}
 
 	void CTextToSpeech::resume()
 	{
-		detail::siv3dResumeTextToSpeechLanguages();
+		
 	}
 
 	void CTextToSpeech::setVolume(const double volume)
 	{
-		m_Volume = volume;
+		
 	}
 
 	double CTextToSpeech::getVolume() const
 	{
-		return m_Volume;
+		return 0.0;
 	}
 
 	void CTextToSpeech::setSpeed(const double speed)
 	{
-		m_Speed = speed;
+		
 	}
 
 	double CTextToSpeech::getSpeed() const
 	{
 		// [Siv3D ToDo]
-		return m_Speed;
+		return 1.0;
 	}
 }
