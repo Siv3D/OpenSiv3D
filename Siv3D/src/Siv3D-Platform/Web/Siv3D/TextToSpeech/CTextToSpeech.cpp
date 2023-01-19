@@ -11,6 +11,7 @@
 
 # include <Siv3D/EngineLog.hpp>
 # include "CTextToSpeech.hpp"
+# include <emscripten/html5.h>
 
 namespace s3d
 {
@@ -29,6 +30,9 @@ namespace s3d
 
 			AvailableLanguage* data;
 		};
+
+		__attribute__((import_name("siv3dRegisterTextToSpeechLanguagesUpdateHander")))
+		extern void siv3dRegisterTextToSpeechLanguagesUpdateHander(void (*callback)(void*), void* callbackArg);
 
 		__attribute__((import_name("siv3dEnumerateAvailableTextToSpeechLanguages")))
 		extern AvailableLanguageList siv3dEnumerateAvailableTextToSpeechLanguages();
@@ -61,12 +65,39 @@ namespace s3d
 
 		if (list.length > 0) 
 		{
+			updateLanguageList();
+		}
+		else
+		{
+			detail::siv3dRegisterTextToSpeechLanguagesUpdateHander(&CTextToSpeech::delayedInit, this);
+			::emscripten_set_timeout(&CTextToSpeech::delayedInit, 2000, this);
+		}
+
+		::free(list.data);
+	}
+
+	void CTextToSpeech::delayedInit(void* callbackArg)
+	{
+		const auto that = static_cast<CTextToSpeech*>(callbackArg);
+
+		that->updateLanguageList();
+	}
+
+	void CTextToSpeech::updateLanguageList()
+	{
+		auto list = detail::siv3dEnumerateAvailableTextToSpeechLanguages();
+
+		if (list.length > 0) 
+		{
 			LOG_INFO(U"ℹ️ TextToSpeech available");
 		}
 		else
 		{
 			LOG_WARNING(U"⚠️ TextToSpeech unavailable");
+			return;
 		}
+
+		m_AvailableLanguages.clear();
 
 		for (uint32 i = 0; i < list.length; ++i)
 		{
@@ -78,11 +109,11 @@ namespace s3d
 			{
 				m_DefaultLanguage = item.languageCode;
 				
-				LOG_TRACE(U"LanguageCode: {} - Default"_fmt(item.languageCode));
+				LOG_TRACE(U"LanguageCode: {} - Default"_fmt(FromEnum(item.languageCode)));
 			}
 			else
 			{
-				LOG_TRACE(U"LanguageCode: {}"_fmt(item.languageCode));
+				LOG_TRACE(U"LanguageCode: {}"_fmt(FromEnum(item.languageCode)));
 			}
 		}
 

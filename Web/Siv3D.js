@@ -1088,6 +1088,13 @@ mergeInto(LibraryManager.library, {
     //
     // TextToSpeech
     //
+    siv3dRegisterTextToSpeechLanguagesUpdateHander: function(callback, callbackArg) {
+        window.speechSynthesis.onvoiceschanged = function() {
+            {{{ makeDynCall('vi', 'callback') }}}(callbackArg);
+        };
+    },
+    siv3dRegisterTextToSpeechLanguagesUpdateHander__sig: "vii",
+
     siv3dEnumerateAvailableTextToSpeechLanguages: function(returnPtr) {
         const LanguageNameToLanguageCodeList = {
             "ar-SA": 1025,
