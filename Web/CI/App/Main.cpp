@@ -30,7 +30,16 @@ void Main()
 	// テキストを画面にデバッグ出力 | Print a text
 	Print << U"Push [A] key";
 
-	while (System::Update() && Scene::Time() < 10)
+	HashTable<String, String> urlParams = Platform::Web::System::GetURLParameters();
+
+	uint32 timeout = -1;
+	
+	if (urlParams.contains(U"timeout"))
+	{
+		timeout = ParseOr<uint32>(urlParams[U"timeout"], timeout);
+	}
+
+	while (System::Update() && Scene::Time() < timeout)
 	{
 		// テクスチャを描く | Draw a texture
 		texture.draw(200, 200);

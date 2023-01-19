@@ -308,11 +308,11 @@ jobs:
       
       - name: Test Siv3d App
         if: ${{ matrix.config.app-name != 'wasm-side-module' }}
-        run: node AppRunner.mjs -p http://localhost:8080/Siv3DApp.html
+        run: node AppRunner.mjs -p http://localhost:8080/Siv3DApp.html?timeout=10
 
       - name: Test Siv3d App (Side Module)
         if: ${{ matrix.config.app-name == 'wasm-side-module' }}
-        run: node AppRunner.mjs -p http://localhost:8080/Siv3D.html
+        run: node AppRunner.mjs -p http://localhost:8080/Siv3DApp.html?timeout=10
       
   build-installer:
     needs: build
