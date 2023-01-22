@@ -12,7 +12,7 @@ option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emsc
 option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
 
-if (NOT ${CMAKE_PREFIX_PATH})
+if (NOT CMAKE_PREFIX_PATH)
   set(CMAKE_PREFIX_PATH ${EMSCRIPTEN_SYSROOT})
 endif ()
 
