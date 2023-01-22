@@ -2,21 +2,21 @@
 
 void Main()
 {
-	JSON bad_person = JSON::Parse(UR"({
+	JSON bad_person = UR"({
     "name": "Albert",
     "age": 42,
     "object": {}
-})");
+})"_json;
 
-	JSON good_person = JSON::Parse(UR"({
+	JSON good_person = UR"({
     "name": "Albert",
     "age": 42,
     "object": {
         "string": "string"
     }
-})");
+})"_json;
 
-	JSONSchema schema = JSONSchema::Parse(UR"({
+	JSONValidator schema = UR"({
     "title": "A person",
     "properties": {
         "name": {
@@ -47,64 +47,84 @@ void Main()
         "object"
     ],
     "type": "object"
-})");
+})"_jsonValidator;
 
-	Print << U"\n[Test 1]";
+	Console << U"\n[Test 1]";
 
-	for (auto& person : { bad_person, good_person })
+	for (auto& person : {bad_person, good_person})
 	{
-		Print << U"---";
+		Console << U"---";
 
 		if (schema.validate(person))
 		{
-			Print << U"OK";
+			Console << U"OK";
 		}
 		else
 		{
-			Print << U"NG";
+			Console << U"NG";
 		}
 	}
 
-	Print << U"\n[Test 2]";
+	Console << U"---\n[Test 2]";
 
-	for (auto& person : { bad_person, good_person })
+	for (auto& person : {bad_person, good_person})
 	{
-		JSONSchema::ValidationStatus err;
+		JSONValidator::ValidationError err;
 
-		Print << U"---";
+		Console << U"---";
 
 		if (schema.validate(person, err))
 		{
-			Print << U"OK";
-			Print << err.isOK();
+			Console << U"OK";
+			Console << err.isOK();
 		}
 		else
 		{
-			Print << U"NG";
-			Print << err.isOK();
-			Print << err.message();
-			Print << U"pointer: " << err.pointer();
-			Console << err.instance();
+			Console << U"NG";
+			Console << err.isOK();
+			Console << err;
 		}
 	}
 
-	Print << U"\n[Test 3]";
+	Console << U"---\n[Test 3]";
 
-	for (auto& person : { bad_person, good_person })
+	for (auto& person : {bad_person, good_person})
 	{
-		Print << U"---";
+		Console << U"---";
 
 		try
 		{
 			schema.validationAssert(person);
-			Print << U"OK";
+			Console << U"OK";
 		}
-		catch (const JSONSchema::ValidationError& err)
+		catch (const JSONValidator::ValidationError& err)
 		{
-			Print << U"NG";
-			Print << err;
+			Console << U"NG";
+			Console << err;
 		}
 	}
+
+	Console << U"---";
+
+	const auto json = UR"({
+	"aa~/a" : {
+		"b" : [5, 6, 7, 8, 9]
+	}
+})"_json;
+
+	JSONPointer pointer;
+
+	// ~ や / がキーに含まれる場合も問題なく扱える
+	pointer /= U"aa~/a";
+
+	Print << pointer;
+
+	// 型レベルの識別をすることで、operator[] のオーバーロードが可
+	Print << json[pointer];
+
+	// 従来の String による json pointer でも出来ない訳では無いが
+	// ネストしたプロパティへのアクセスが楽に
+	Print << json[pointer / U"/b/1"_jsonPointer];
 
 	while (System::Update())
 	{

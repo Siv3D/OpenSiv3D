@@ -20,7 +20,7 @@ namespace s3d
 		struct JSONIterationProxyDetail;
 		class JSONDetail;
 		struct JSONPointerDetail;
-		struct JSONSchemaDetail;
+		struct JSONValidatorDetail;
 	}
 
 	class JSONIterator;
@@ -30,5 +30,5 @@ namespace s3d
 	class JSON;
 	struct JSONItem;
 	struct JSONPointer;
-	struct JSONSchema;
+	struct JSONValidator;
 }

@@ -41,6 +41,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Glyph.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Graphics3D.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\InfinitePlane.ipp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\JSONValidator.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Leap.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\ListBoxState.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Mesh.ipp" />
@@ -425,6 +426,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Interpolation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSON.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\JSONValidator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KeyEvent.hpp" />

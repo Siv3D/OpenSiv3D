@@ -477,6 +477,9 @@
 // JSON データの読み書き | JSON reader/writer
 # include <Siv3D/JSON.hpp>
 
+// JSON データの検証 | JSON validation
+# include <Siv3D/JSONValidator.hpp>
+
 // XML ファイルの読み込み | XML parser
 # include <Siv3D/XMLReader.hpp>
 

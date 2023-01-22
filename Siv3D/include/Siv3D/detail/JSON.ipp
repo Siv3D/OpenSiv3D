@@ -169,9 +169,19 @@ namespace s3d
 		return none;
 	}
 
-	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>*>
-	inline JSONSchema JSONSchema::Load(Reader&& reader, AllowExceptions allowExceptions)
+	inline namespace Literals
 	{
-		return Load(std::make_unique<Reader>(std::move(reader)), allowExceptions);
+		inline namespace JSONLiterals
+		{
+			inline JSON operator ""_json(const char32_t* str, const size_t length)
+			{
+				return JSON::Parse(StringView{str, length});
+			}
+
+			inline JSONPointer operator ""_jsonPointer(const char32_t* str, const size_t length)
+			{
+				return JSONPointer{{str, length}};
+			}
+		}
 	}
 }
