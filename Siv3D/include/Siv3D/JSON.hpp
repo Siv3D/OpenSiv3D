@@ -667,6 +667,8 @@ namespace s3d
 
 		struct ValidationStatus
 		{
+			ValidationStatus() = default;
+
 			SIV3D_NODISCARD_CXX20
 			ValidationStatus(const ValidationStatus&) = default;
 
@@ -674,21 +676,13 @@ namespace s3d
 			ValidationStatus(ValidationStatus&&) = default;
 
 			SIV3D_NODISCARD_CXX20
-			ValidationStatus(const JSON& json);
-
-			SIV3D_NODISCARD_CXX20
-			ValidationStatus(JSON&& json);
-
-			SIV3D_NODISCARD_CXX20
 			ValidationStatus(const ErrorDetails& details);
 
 			SIV3D_NODISCARD_CXX20
 			ValidationStatus(ErrorDetails&& details);
-			
-			[[nodiscard]]
+
 			ValidationStatus& operator =(const ValidationStatus&) = default;
 
-			[[nodiscard]]
 			ValidationStatus& operator =(ValidationStatus&&) = default;
 
 			[[nodiscard]] 
@@ -701,17 +695,10 @@ namespace s3d
 			[[nodiscard]] 
 			explicit operator bool() const noexcept;
 
-			[[nodiscard]] 
-			JSON& value() & noexcept;
+			void reset();
 
 			[[nodiscard]] 
-			JSON&& value() && noexcept;
-
-			[[nodiscard]] 
-			const JSON& value() const & noexcept;
-
-			[[nodiscard]] 
-			const ErrorDetails& error() const noexcept;
+			const ErrorDetails& value() const noexcept;
 
 			[[nodiscard]] 
 			const JSONPointer& pointer() const noexcept;
@@ -726,7 +713,7 @@ namespace s3d
 
 		private:
 
-			std::variant<JSON, ErrorDetails> m_data;
+			Optional<ErrorDetails> m_data;
 
 			static inline constexpr size_t OK = 0;
 
@@ -789,29 +776,20 @@ namespace s3d
 
 		/// @brief validation を行う関数
 		/// @param [in] json validation をしたい JSON
-		/// @return 成功不成功を含有した JSON
-		/// @retval json validation に成功した時
-		/// @retval JSON::Invalid() validation に失敗した時
-		JSON validate(const JSON& json) const noexcept;
-
-		JSON validate(JSON&& json) const noexcept;
+		/// @return バリデーションをパスしたら true, それ以外の場合は false
+		bool validate(const JSON& json) const noexcept;
 
 		/// @brief validation を行う関数（返り値がエラーについての詳しい情報を持っている版）
 		/// @param [in] json validation をしたい JSON
 		/// @return 成功不成功を表すオブジェクト ValidationStatus
 		[[nodiscard]]
-		ValidationStatus validateWithDetails(const JSON& json) const noexcept;
-		
-		[[nodiscard]]
-		ValidationStatus validateWithDetails(JSON&& json) const noexcept;
+		bool validate(const JSON& json, ValidationStatus& status) const noexcept;
 
 		/// @brief assert 形式で validation を行う関数
 		/// @param [in] json validation をしたい JSON
 		/// @return 引数の json
 		/// @exception ValidationError validation に失敗したら送出
-		JSON validationAssert(const JSON& json) const;
-
-		JSON validationAssert(JSON&& json) const;
+		void validationAssert(const JSON& json) const;
 
 		[[nodiscard]]
 		static JSONSchema Invalid();

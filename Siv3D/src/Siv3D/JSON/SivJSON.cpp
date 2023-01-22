@@ -1436,86 +1436,46 @@ namespace s3d
 		return (not m_isValid);
 	}
 
-	JSON JSONSchema::validate(const JSON& json) const noexcept
+	bool JSONSchema::validate(const JSON& json) const noexcept
 	{
-		if (nlohmann::json_schema::basic_error_handler err; 
-			m_detail->validator.validate(json.m_detail.get()->get(), err), err)
+		nlohmann::json_schema::basic_error_handler err;
+
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
+
+		return (not static_cast<bool>(err));
+	}
+
+	bool JSONSchema::validate(const JSON& json, ValidationStatus& status) const noexcept
+	{
+		detail::ValidationErrorHandler err;
+
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
+
+		if (err.isOK)
 		{
-			return json;
+			status.reset();
+
+			return true;
 		}
 		else
 		{
-			return JSON::Invalid();
+			status = err.details;
+
+			return false;
 		}
 	}
 
-	JSON JSONSchema::validate(JSON&& json) const noexcept
+	void JSONSchema::validationAssert(const JSON& json) const
 	{
-		if (nlohmann::json_schema::basic_error_handler err;
-		    m_detail->validator.validate(json.m_detail.get()->get(), err), err)
-		{
-			return std::move(json);
-		}
-		else
-		{
-			return JSON::Invalid();
-		}
-	}
+		detail::ValidationErrorHandler err;
 
-	JSONSchema::ValidationStatus JSONSchema::validateWithDetails(const JSON& json) const noexcept
-	{
-		if (detail::ValidationErrorHandler err;
-			m_detail->validator.validate(json.m_detail.get()->get(), err), err.isOK)
-		{
-			return json;
-		}
-		else
-		{
-			return std::move(err).details;
-		}
-	}
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
 
-	JSONSchema::ValidationStatus JSONSchema::validateWithDetails(JSON&& json) const noexcept
-	{
-		if (detail::ValidationErrorHandler err;
-		    m_detail->validator.validate(json.m_detail.get()->get(), err), err.isOK)
-		{
-			return std::move(json);
-		}
-		else
-		{
-			return std::move(err).details;
-		}
-	}
-
-	JSON JSONSchema::validationAssert(const JSON& json) const
-	{
-		if (detail::ValidationErrorHandler err;
-		    m_detail->validator.validate(json.m_detail.get()->get(), err), err.isOK)
-		{
-			return json;
-		}
-		else
+		if (not err.isOK)
 		{
 			throw JSONSchema::ValidationError{ 
 				std::move(err.details.message), 
 				std::move(err.details.pointer), 
-				std::move(err.details.instance) };
-		}
-	}
-
-	JSON JSONSchema::validationAssert(JSON&& json) const
-	{
-		if (detail::ValidationErrorHandler err;
-		    m_detail->validator.validate(json.m_detail.get()->get(), err), err.isOK)
-		{
-			return std::move(json);
-		}
-		else
-		{
-			throw JSONSchema::ValidationError{
-				std::move(err.details.message),
-				std::move(err.details.pointer),
 				std::move(err.details.instance) };
 		}
 	}
@@ -1581,14 +1541,6 @@ instance: {})"_fmt(value.message, value.pointer.format(), value.instance.format(
 	//
 	//////////////////////////////////////////////////
 
-	JSONSchema::ValidationStatus::ValidationStatus(const JSON& json)
-		: m_data(json)
-	{}
-
-	JSONSchema::ValidationStatus::ValidationStatus(JSON&& json)
-		: m_data(std::move(json))
-	{}
-
 	JSONSchema::ValidationStatus::ValidationStatus(const ErrorDetails& details)
 		: m_data(details)
 	{}
@@ -1599,12 +1551,12 @@ instance: {})"_fmt(value.message, value.pointer.format(), value.instance.format(
 
 	bool JSONSchema::ValidationStatus::isOK() const noexcept
 	{
-		return m_data.index() == OK;
+		return (not m_data.has_value());
 	}
 
 	bool JSONSchema::ValidationStatus::isError() const noexcept
 	{
-		return m_data.index() == Error;
+		return m_data.has_value();
 	}
 
 	JSONSchema::ValidationStatus::operator bool() const noexcept
@@ -1612,51 +1564,41 @@ instance: {})"_fmt(value.message, value.pointer.format(), value.instance.format(
 		return isOK();
 	}
 
-	JSON& JSONSchema::ValidationStatus::value() & noexcept
+	void JSONSchema::ValidationStatus::reset()
 	{
-		return std::get<OK>(m_data);
+		return m_data.reset();
 	}
 
-	JSON&& JSONSchema::ValidationStatus::value() && noexcept
+	const JSONSchema::ErrorDetails& JSONSchema::ValidationStatus::value() const noexcept
 	{
-		return std::get<OK>(std::move(m_data));
-	}
-
-	const JSON& JSONSchema::ValidationStatus::value() const & noexcept
-	{
-		return std::get<OK>(m_data);
-	}
-
-	const JSONSchema::ErrorDetails& JSONSchema::ValidationStatus::error() const noexcept
-	{
-		return std::get<Error>(m_data);
+		return m_data.value();
 	}
 
 	const JSONPointer& JSONSchema::ValidationStatus::pointer() const noexcept
 	{
-		return error().pointer;
+		return m_data->pointer;
 	}
 
 	const JSON& JSONSchema::ValidationStatus::instance() const noexcept
 	{
-		return error().instance;
+		return m_data->instance;
 	}
 
 	const String& JSONSchema::ValidationStatus::message() const noexcept
 	{
-		return error().message;
+		return m_data->message;
 	}
 
 	void Formatter(FormatData& formatData, const JSONSchema::ValidationStatus& value)
 	{
-		if (value.isOK())
-		{
-			formatData.string += value.value().format();
-		}
-		else if (value.isError())
-		{
-			formatData.string += Format(value.error());
-		}
+		//if (value.isOK())
+		//{
+		//	formatData.string += value.value().format();
+		//}
+		//else if (value.isError())
+		//{
+		//	formatData.string += Format(value.value());
+		//}
 	}
 
 	//////////////////////////////////////////////////
