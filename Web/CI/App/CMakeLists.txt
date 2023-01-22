@@ -326,13 +326,16 @@ if (SIV3D_BUILD_WITH_SHARED_MAIN)
   )
 endif()
 
+get_filename_component(SIV3D_JSLIBRARY_PATH ${Siv3D_DIR} DIRECTORY)
+get_filename_component(SIV3D_JSLIBRARY_PATH ${SIV3D_JSLIBRARY_PATH} DIRECTORY)
+
 set(SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS
   -sEXIT_RUNTIME=1
   -sMAIN_MODULE=1
   -sDECLARE_ASM_MODULE_EXPORTS=0
   -sFORCE_FILESYSTEM=1
   -sASSERTIONS=1
-  --pre-js=${CMAKE_FIND_ROOT_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
+  --pre-js=${SIV3D_SHAREDMAIN_JSLIBRARY_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
   --pre-js=${CMAKE_SOURCE_DIR}/Siv3D.data.js
   --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
