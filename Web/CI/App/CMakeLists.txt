@@ -11,7 +11,10 @@ option(SIV3D_USE_BROWSER_IMAGE_ENCODING "Enable Browser Image Encoding." OFF)
 option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
 option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
-option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
+
+if (NOT ${CMAKE_PREFIX_PATH})
+  set(CMAKE_PREFIX_PATH ${EMSCRIPTEN_SYSROOT})
+endif ()
 
 set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../App)
 
@@ -333,7 +336,7 @@ set(SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS
   -sDECLARE_ASM_MODULE_EXPORTS=0
   -sFORCE_FILESYSTEM=1
   -sASSERTIONS=1
-  --pre-js=${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
+  --pre-js=${CMAKE_INSTALL_PREFIX}/lib/Siv3D/Siv3D.sharedMain.pre.js
   --pre-js=${CMAKE_SOURCE_DIR}/Siv3D.data.js
   --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
