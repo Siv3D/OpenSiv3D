@@ -332,7 +332,7 @@ set(SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS
   -sDECLARE_ASM_MODULE_EXPORTS=0
   -sFORCE_FILESYSTEM=1
   -sASSERTIONS=1
-  --pre-js=${CMAKE_INSTALL_PREFIX}/lib/Siv3D/Siv3D.sharedMain.pre.js
+  --pre-js=${CMAKE_FIND_ROOT_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
   --pre-js=${CMAKE_SOURCE_DIR}/Siv3D.data.js
   --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
