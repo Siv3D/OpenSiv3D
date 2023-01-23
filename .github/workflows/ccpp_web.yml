@@ -449,7 +449,7 @@ jobs:
 
       - name: Test Siv3d App
         working-directory: Siv3DTest/Emscripten/Release
-        run: python $env:EMSDK\upstream\emscripten\emrun.py --timeout 180 --timeout_returncode -1 Siv3DTest.html
+        run: python $env:EMSDK\upstream\emscripten\emrun.py --timeout 180 --timeout_returncode -1 Siv3DTest.html -- --timeout=10
 
       - name: Save Build Artifacts
         uses: actions/upload-artifact@v3

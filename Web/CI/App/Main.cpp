@@ -39,6 +39,14 @@ void Main()
 		timeout = ParseOr<uint32>(urlParams[U"timeout"], timeout);
 	}
 
+	for (const auto& arg : System::GetCommandLineArgs())
+	{
+		if (auto match = RegExp(U"--timeout=(\\d+)").search(arg))
+		{
+			timeout = ParseOr<uint32>(*match[1], timeout);
+		}
+	}
+
 	while (System::Update() && Scene::Time() < timeout)
 	{
 		// テクスチャを描く | Draw a texture

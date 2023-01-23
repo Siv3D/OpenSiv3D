@@ -40,7 +40,7 @@ async function main() {
 			});
 		});
 
-		await Promise.race([ launchedProcessPromise, sleep(5 * 60 * 1000) ]);
+		await Promise.race([ launchedProcessPromise, sleep(10 * 60 * 1000) ]);
 	} finally {
 		serverProcess.kill();
 		launchedProcess.kill();
