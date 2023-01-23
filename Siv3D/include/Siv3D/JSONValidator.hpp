@@ -1,4 +1,4 @@
-//-----------------------------------------------
+ï»¿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -35,37 +35,37 @@ namespace s3d
 
 			ValidationError& operator =(ValidationError&&) = default;
 
-			/// @brief ³í‚É Validation ‚ğs‚¦‚½‚©‚ğ•Ô‚·
-			/// @return ƒGƒ‰[î•ñ‚ª–³‚¯‚ê‚Î true, ƒGƒ‰[î•ñ‚ª‚ ‚ê‚Î false
+			/// @brief æ­£å¸¸ã« Validation ã‚’è¡ŒãˆãŸã‹ã‚’è¿”ã™
+			/// @return ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒç„¡ã‘ã‚Œã° true, ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒã‚ã‚Œã° false
 			[[nodiscard]]
 			bool isOK() const noexcept;
 
-			/// @brief ³í‚É Validation ‚ğs‚¦‚½‚©‚ğ•Ô‚·
-			/// @return ƒGƒ‰[î•ñ‚ª‚ ‚ê‚Î true, ƒGƒ‰[î•ñ‚ª–³‚¯‚ê‚Î false
+			/// @brief æ­£å¸¸ã« Validation ã‚’è¡ŒãˆãŸã‹ã‚’è¿”ã™
+			/// @return ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒã‚ã‚Œã° true, ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒç„¡ã‘ã‚Œã° false
 			[[nodiscard]]
 			bool isError() const noexcept;
 
-			/// @brief ³í‚É Validation ‚ğs‚¦‚½‚©‚ğ•Ô‚·
-			/// @return ƒGƒ‰[î•ñ‚ª–³‚¯‚ê‚Î true, ƒGƒ‰[î•ñ‚ª‚ ‚ê‚Î false
+			/// @brief æ­£å¸¸ã« Validation ã‚’è¡ŒãˆãŸã‹ã‚’è¿”ã™
+			/// @return ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒç„¡ã‘ã‚Œã° true, ã‚¨ãƒ©ãƒ¼æƒ…å ±ãŒã‚ã‚Œã° false
 			[[nodiscard]]
 			explicit operator bool() const noexcept;
 
-			/// @brief ƒGƒ‰[î•ñ‚ğÁ‹‚·‚é
+			/// @brief ã‚¨ãƒ©ãƒ¼æƒ…å ±ã‚’æ¶ˆå»ã™ã‚‹
 			void reset();
 
-			/// @brief ƒGƒ‰[ƒƒbƒZ[ƒW‚ğæ“¾‚·‚é
-			/// @return ƒGƒ‰[ƒƒbƒZ[ƒW•¶š—ñ‚Ö‚ÌQÆ
+			/// @brief ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—ã™ã‚‹
+			/// @return ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ–‡å­—åˆ—ã¸ã®å‚ç…§
 			[[nodiscard]]
 			const String& message() const noexcept;
 
-			/// @brief ƒGƒ‰[‚ª‹N‚«‚½êŠ‚ğ¦‚· JSON Pointer ‚ğæ“¾‚·‚é
-			/// @return ƒGƒ‰[‚ª‹N‚«‚½êŠ‚ğ¦‚· JSON Pointer ‚Ö‚ÌQÆ
-			/// @remark Root document ‚Í‹ó•¶š—ñ‚Å•\‚·‚±‚Æ‚©‚çA‚»‚±‚ÅƒGƒ‰[‚ª‹N‚«‚ê‚Î JSON Pointer ‚Í‹óB
+			/// @brief ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸå ´æ‰€ã‚’ç¤ºã™ JSON Pointer ã‚’å–å¾—ã™ã‚‹
+			/// @return ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸå ´æ‰€ã‚’ç¤ºã™ JSON Pointer ã¸ã®å‚ç…§
+			/// @remark Root document ã¯ç©ºæ–‡å­—åˆ—ã§è¡¨ã™ã“ã¨ã‹ã‚‰ã€ãã“ã§ã‚¨ãƒ©ãƒ¼ãŒèµ·ãã‚Œã° JSON Pointer ã¯ç©ºã€‚
 			[[nodiscard]] 
 			const JSONPointer& pointer() const noexcept;
 
-			/// @brief ƒGƒ‰[‚ª‹N‚«‚½ JSON ƒIƒuƒWƒFƒNƒg‚ğæ“¾‚·‚é
-			/// @return ƒGƒ‰[‚ª‹N‚«‚½ JSON ƒIƒuƒWƒFƒNƒg‚ÌƒRƒs[‚Ö‚ÌQÆ
+			/// @brief ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸ JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã™ã‚‹
+			/// @return ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸ JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚³ãƒ”ãƒ¼ã¸ã®å‚ç…§
 			[[nodiscard]] 
 			const JSON& instance() const noexcept;
 
@@ -82,7 +82,7 @@ namespace s3d
 
 		private:
 
-			// what ‚Ì•û‚É message ‚ğİ’è‚·‚é‚Ì‚Å m_message ‚Í‚½‚È‚¢
+			// what ã®æ–¹ã« message ã‚’è¨­å®šã™ã‚‹ã®ã§ m_message ã¯æŒãŸãªã„
 			JSONPointer m_pointer;
 			JSON        m_instance;
 		};
@@ -90,7 +90,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		JSONValidator();
 
-		/// @remark ƒRƒs[•s‰Â
+		/// @remark ã‚³ãƒ”ãƒ¼ä¸å¯
 		SIV3D_NODISCARD_CXX20
 		JSONValidator(const JSONValidator&) = delete;
 
@@ -104,64 +104,64 @@ namespace s3d
 
 		JSONValidator& operator =(JSONValidator&&) = default;
 
-		// Load ‚â Parse ‚É¸”s‚µ‚½‚Æ‚«‚Ì‚İ true
+		// Load ã‚„ Parse ã«å¤±æ•—ã—ãŸã¨ãã®ã¿ true
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
-		/// @brief validation ‚ğs‚¤ŠÖ”
-		/// @param [in] json validation ‚ğ‚µ‚½‚¢ JSON
-		/// @return ƒoƒŠƒf[ƒVƒ‡ƒ“‚ğƒpƒX‚µ‚½‚ç true, ‚»‚êˆÈŠO‚Ìê‡‚Í false
+		/// @brief validation ã‚’è¡Œã†é–¢æ•°
+		/// @param [in] json validation ã‚’ã—ãŸã„ JSON
+		/// @return ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒ‘ã‚¹ã—ãŸã‚‰ true, ãã‚Œä»¥å¤–ã®å ´åˆã¯ false
 		bool validate(const JSON& json) const noexcept;
 
-		/// @brief validation ‚ğs‚¤ŠÖ”i•Ô‚è’l‚ªƒGƒ‰[‚É‚Â‚¢‚Ä‚ÌÚ‚µ‚¢î•ñ‚ğ‚Á‚Ä‚¢‚é”Åj
-		/// @param [in] json validation ‚ğ‚µ‚½‚¢ JSON
-		/// @param [out] status validation ‚ÌŒ‹‰Ê‚ÆƒGƒ‰[‚È‚çƒGƒ‰[î•ñ‚ğŠÜ‚Ş
-		/// @return ƒoƒŠƒf[ƒVƒ‡ƒ“‚ğƒpƒX‚µ‚½‚ç true, ‚»‚êˆÈŠO‚Ìê‡‚Í false
+		/// @brief validation ã‚’è¡Œã†é–¢æ•°ï¼ˆè¿”ã‚Šå€¤ãŒã‚¨ãƒ©ãƒ¼ã«ã¤ã„ã¦ã®è©³ã—ã„æƒ…å ±ã‚’æŒã£ã¦ã„ã‚‹ç‰ˆï¼‰
+		/// @param [in] json validation ã‚’ã—ãŸã„ JSON
+		/// @param [out] status validation ã®çµæœã¨ã‚¨ãƒ©ãƒ¼ãªã‚‰ã‚¨ãƒ©ãƒ¼æƒ…å ±ã‚’å«ã‚€
+		/// @return ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒ‘ã‚¹ã—ãŸã‚‰ true, ãã‚Œä»¥å¤–ã®å ´åˆã¯ false
 		[[nodiscard]]
 		bool validate(const JSON& json, ValidationError& status) const noexcept;
 
-		/// @brief assert Œ`®‚Å validation ‚ğs‚¤ŠÖ”
-		/// @param [in] json validation ‚ğ‚µ‚½‚¢ JSON
-		/// @return ˆø”‚Ì json
-		/// @exception ValidationError validation ‚É¸”s‚µ‚½‚ç‘—o
+		/// @brief assert å½¢å¼ã§ validation ã‚’è¡Œã†é–¢æ•°
+		/// @param [in] json validation ã‚’ã—ãŸã„ JSON
+		/// @return å¼•æ•°ã® json
+		/// @exception ValidationError validation ã«å¤±æ•—ã—ãŸã‚‰é€å‡º
 		void validationAssert(const JSON& json) const;
 
 		[[nodiscard]]
 		static JSONValidator Invalid();
 
-		/// @brief JSON Schema ƒtƒ@ƒCƒ‹‚ğƒp[ƒX‚µ‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
-		/// @param [in] path ƒtƒ@ƒCƒ‹ƒpƒX
-		/// @param [in] allowExceptions —áŠO‚ğ”­¶‚³‚¹‚é‚©
-		/// @return JSONValidator ƒIƒuƒWƒFƒNƒg
+		/// @brief JSON Schema ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ‘ãƒ¼ã‚¹ã—ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
+		/// @param [in] path ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+		/// @param [in] allowExceptions ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+		/// @return JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		[[nodiscard]]
 		static JSONValidator Load(FilePathView path, AllowExceptions allowExceptions = AllowExceptions::No);
 
-		/// @brief JSON Schema ƒtƒ@ƒCƒ‹‚ğƒp[ƒX‚µ‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
-		/// @param [in] path JSON Schema ƒtƒ@ƒCƒ‹‚Ö‚Ìƒtƒ@ƒCƒ‹ƒpƒX
-		/// @param [in] allowExceptions —áŠO‚ğ”­¶‚³‚¹‚é‚©
-		/// @return JSONValidator ƒIƒuƒWƒFƒNƒg
+		/// @brief JSON Schema ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ‘ãƒ¼ã‚¹ã—ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
+		/// @param [in] path JSON Schema ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+		/// @param [in] allowExceptions ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+		/// @return JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		[[nodiscard]]
 		static JSONValidator Load(Reader&& reader, AllowExceptions allowExceptions = AllowExceptions::No);
 
-		/// @brief JSON Schema •¶š—ñ‚ğ IReader ‚©‚çæ“¾‚µ‚Äƒp[ƒX‚µ‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
-		/// @param [in] reader JSON Schema •¶š—ñ‚ğ’ñ‹Ÿ‚·‚é IReader
-		/// @param [in] allowExceptions —áŠO‚ğ”­¶‚³‚¹‚é‚©
-		/// @return JSONValidator ƒIƒuƒWƒFƒNƒg
+		/// @brief JSON Schema æ–‡å­—åˆ—ã‚’ IReader ã‹ã‚‰å–å¾—ã—ã¦ãƒ‘ãƒ¼ã‚¹ã—ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
+		/// @param [in] reader JSON Schema æ–‡å­—åˆ—ã‚’æä¾›ã™ã‚‹ IReader
+		/// @param [in] allowExceptions ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+		/// @return JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		[[nodiscard]]
 		static JSONValidator Load(std::unique_ptr<IReader>&& reader, AllowExceptions allowExceptions = AllowExceptions::No);
 		
-		/// @brief JSON Schema •¶š—ñ‚ğƒp[ƒX‚µ‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
-		/// @param [in] str JSON Schema •¶š—ñ
-		/// @param [in] allowExceptions —áŠO‚ğ”­¶‚³‚¹‚é‚©
-		/// @return JSONValidator ƒIƒuƒWƒFƒNƒg
+		/// @brief JSON Schema æ–‡å­—åˆ—ã‚’ãƒ‘ãƒ¼ã‚¹ã—ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
+		/// @param [in] str JSON Schema æ–‡å­—åˆ—
+		/// @param [in] allowExceptions ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+		/// @return JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		[[nodiscard]]
 		static JSONValidator Parse(StringView str, AllowExceptions allowExceptions = AllowExceptions::No);
 
-		/// @brief Šù‚É JSON ‚Æ‚µ‚Ä“Ç‚İ‚Ü‚ê‚Ä‚¢‚é JSON Schema ƒIƒuƒWƒFƒNƒg‚ğg‚Á‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
-		/// @param [in] schema JSON Schema ‚ğ“Ç‚İ‚ñ‚Å‚ ‚é JSON ƒIƒuƒWƒFƒNƒg
-		/// @param [in] allowExceptions —áŠO‚ğ”­¶‚³‚¹‚é‚©
-		/// @return JSONValidator ƒIƒuƒWƒFƒNƒg
+		/// @brief æ—¢ã« JSON ã¨ã—ã¦èª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹ JSON Schema ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½¿ã£ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
+		/// @param [in] schema JSON Schema ã‚’èª­ã¿è¾¼ã‚“ã§ã‚ã‚‹ JSON ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+		/// @param [in] allowExceptions ä¾‹å¤–ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+		/// @return JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		[[nodiscard]]
 		static JSONValidator Set(const JSON& schema, AllowExceptions allowExceptions = AllowExceptions::No);
 
@@ -180,8 +180,8 @@ namespace s3d
 	{
 		inline namespace JSONLiterals
 		{
-			/// @brief —^‚¦‚ç‚ê‚½•¶š—ñ‚ğƒp[ƒX‚µ‚Ä JSONValidator ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
-			/// @remark •Ï”‚Å—^‚¦‚½‚¢ê‡‚É‚Í JSONValidator::Load/Parse ‚ğg—p‚·‚é‚±‚Æ
+			/// @brief ä¸ãˆã‚‰ã‚ŒãŸæ–‡å­—åˆ—ã‚’ãƒ‘ãƒ¼ã‚¹ã—ã¦ JSONValidator ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
+			/// @remark å¤‰æ•°ã§ä¸ãˆãŸã„å ´åˆã«ã¯ JSONValidator::Load/Parse ã‚’ä½¿ç”¨ã™ã‚‹ã“ã¨
 			inline JSONValidator operator""_jsonValidator(const char32_t* str, size_t length);
 		}
 	}
