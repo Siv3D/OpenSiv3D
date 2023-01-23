@@ -35,24 +35,37 @@ namespace s3d
 
 			ValidationError& operator =(ValidationError&&) = default;
 
+			/// @brief 正常に Validation を行えたかを返す
+			/// @return エラー情報が無ければ true, エラー情報があれば false
 			[[nodiscard]]
 			bool isOK() const noexcept;
 
+			/// @brief 正常に Validation を行えたかを返す
+			/// @return エラー情報があれば true, エラー情報が無ければ false
 			[[nodiscard]]
 			bool isError() const noexcept;
 
-			/// @brief 正常かどうかを返す
+			/// @brief 正常に Validation を行えたかを返す
+			/// @return エラー情報が無ければ true, エラー情報があれば false
 			[[nodiscard]]
 			explicit operator bool() const noexcept;
 
+			/// @brief エラー情報を消去する
 			void reset();
 
+			/// @brief エラーメッセージを取得する
+			/// @return エラーメッセージ文字列への参照
 			[[nodiscard]]
 			const String& message() const noexcept;
 
+			/// @brief エラーが起きた場所を示す JSON Pointer を取得する
+			/// @return エラーが起きた場所を示す JSON Pointer への参照
+			/// @remark Root document は空文字列で表すことから、そこでエラーが起きれば JSON Pointer は空。
 			[[nodiscard]] 
 			const JSONPointer& pointer() const noexcept;
 
+			/// @brief エラーが起きた JSON オブジェクトを取得する
+			/// @return エラーが起きた JSON オブジェクトのコピーへの参照
 			[[nodiscard]] 
 			const JSON& instance() const noexcept;
 
@@ -77,6 +90,7 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		JSONValidator();
 
+		/// @remark コピー不可
 		SIV3D_NODISCARD_CXX20
 		JSONValidator(const JSONValidator&) = delete;
 
@@ -102,6 +116,7 @@ namespace s3d
 		/// @brief validation を行う関数（返り値がエラーについての詳しい情報を持っている版）
 		/// @param [in] json validation をしたい JSON
 		/// @param [out] status validation の結果とエラーならエラー情報を含む
+		/// @return バリデーションをパスしたら true, それ以外の場合は false
 		[[nodiscard]]
 		bool validate(const JSON& json, ValidationError& status) const noexcept;
 
@@ -114,27 +129,39 @@ namespace s3d
 		[[nodiscard]]
 		static JSONValidator Invalid();
 
-		/// @brief JSONSchema ファイルをパースして JSONSchema オブジェクトを返します。
-		/// @param path ファイルパス
-		/// @param allowExceptions 例外を発生させるか
-		/// @return JSONSchema オブジェクト
+		/// @brief JSON Schema ファイルをパースして JSONValidator オブジェクトを返します。
+		/// @param [in] path ファイルパス
+		/// @param [in] allowExceptions 例外を発生させるか
+		/// @return JSONValidator オブジェクト
 		[[nodiscard]]
 		static JSONValidator Load(FilePathView path, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief JSON Schema ファイルをパースして JSONValidator オブジェクトを返します。
+		/// @param [in] path JSON Schema ファイルへのファイルパス
+		/// @param [in] allowExceptions 例外を発生させるか
+		/// @return JSONValidator オブジェクト
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader>>* = nullptr>
 		[[nodiscard]]
 		static JSONValidator Load(Reader&& reader, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief JSON Schema 文字列を IReader から取得してパースして JSONValidator オブジェクトを返します。
+		/// @param [in] reader JSON Schema 文字列を提供する IReader
+		/// @param [in] allowExceptions 例外を発生させるか
+		/// @return JSONValidator オブジェクト
 		[[nodiscard]]
 		static JSONValidator Load(std::unique_ptr<IReader>&& reader, AllowExceptions allowExceptions = AllowExceptions::No);
 		
-		/// @brief JSONSchema 文字列をパースして JSONSchema オブジェクトを返します。
-		/// @param str 文字列
-		/// @param allowExceptions 例外を発生させるか
-		/// @return JSONSchema オブジェクト
+		/// @brief JSON Schema 文字列をパースして JSONValidator オブジェクトを返します。
+		/// @param [in] str JSON Schema 文字列
+		/// @param [in] allowExceptions 例外を発生させるか
+		/// @return JSONValidator オブジェクト
 		[[nodiscard]]
 		static JSONValidator Parse(StringView str, AllowExceptions allowExceptions = AllowExceptions::No);
 
+		/// @brief 既に JSON として読み込まれている JSON Schema オブジェクトを使って JSONValidator オブジェクトを返します。
+		/// @param [in] schema JSON Schema を読み込んである JSON オブジェクト
+		/// @param [in] allowExceptions 例外を発生させるか
+		/// @return JSONValidator オブジェクト
 		[[nodiscard]]
 		static JSONValidator Set(const JSON& schema, AllowExceptions allowExceptions = AllowExceptions::No);
 
@@ -153,6 +180,8 @@ namespace s3d
 	{
 		inline namespace JSONLiterals
 		{
+			/// @brief 与えられた文字列をパースして JSONValidator オブジェクトを返す
+			/// @remark 変数で与えたい場合には JSONValidator::Load/Parse を使用すること
 			inline JSONValidator operator""_jsonValidator(const char32_t* str, size_t length);
 		}
 	}

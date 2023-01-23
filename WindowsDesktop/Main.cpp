@@ -65,7 +65,7 @@ void Main()
 		}
 	}
 
-	Console << U"---\n[Test 2]";
+	Console << U"\n[Test 2]";
 
 	for (auto& person : {bad_person, good_person})
 	{
@@ -86,7 +86,7 @@ void Main()
 		}
 	}
 
-	Console << U"---\n[Test 3]";
+	Console << U"\n[Test 3]";
 
 	for (auto& person : {bad_person, good_person})
 	{
@@ -104,52 +104,42 @@ void Main()
 		}
 	}
 
-	Console << U"---";
+#define JSONINIT UR"({"a~/a": {"b": [5, 6, 7, 8, 9]}})"_json;
 
-	auto json = UR"({
-	"aa~/a" : {
-		"b" : [5, 6, 7, 8, 9]
-	}
-})"_json;
+	auto json = JSONINIT;
 
-	const auto f = [](auto&& json) {
+	const auto f = []<class T>(T& json) {
 		// デフォルトコンストラクタは JSON 全体を指すパス（空文字列）
 		JSONPointer pointer;
+		Print << json[pointer];
 
-		// ~ や / がキーに含まれる場合も
+		// ~ や / がキーに含まれる場合、エスケープしていないキーを
 		//  operator/
 		//  operator/=
 		//  push_back
-		// の場合はキー単位で追加するため、エスケープも同時に行なわれることと等価
-		Print << (pointer /= U"aa~/a");
+		// でキー単位で追加することが可能
+		Print << json[pointer / U"a~/a"];
 
 		// 型レベルの識別をすることで、operator[] のオーバーロードが可
 		//  operator[](const JSONPointer&) JSONPointer でアクセス
-		//  operator[](StringView)         JSON key でアクセス（エスケープ不要）
-		//  operator[](size_t)             index でアクセス
-		Print << json[pointer][U"b"][0];
+		//  operator[](StringView)         JSON キーでアクセス（エスケープ不要）
+		//  operator[](size_t)             インデックスでアクセス
+		// 注: JSONPointer コンストラクタは JSON Pointer（エスケープ）が必要
+		Print << json[U"/a~0~1a"_jsonPtr][U"b"][0];
 
 		// ネストしたプロパティへのアクセスが楽に
-		// 注: JSONPointer コンストラクタは JSON Pointer（エスケープ）が必要
-		Print << json[pointer / U"/b/0"_jsonPtr];
+		Print << json[U"/a~0~1a/b/0"_jsonPtr];
 
-		if constexpr (std::same_as<decltype(json), JSON&>)
+		if constexpr (std::same_as<T, JSON>)
 		{
-			json[pointer] = UR"({
-	"c" : [5, 6, 7, 8, 9]
-})"_json;
-
-			json[pointer][U"c"] = UR"([10, 11, 12, 13, 14])"_json;
-
+			// 書き換えテスト
+			json[pointer]          = UR"({"c": [5, 6, 7, 8, 9]})"_json;
+			json[pointer][U"c"]    = UR"([10, 11, 12, 13, 14])"_json;
 			json[pointer][U"c"][5] = 15;
 
 			Print << json;
 
-			json = UR"({
-	"aa~/a" : {
-		"b" : [5, 6, 7, 8, 9]
-	}
-})"_json;
+			json = JSONINIT;
 		}
 	};
 

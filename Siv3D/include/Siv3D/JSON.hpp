@@ -610,6 +610,12 @@ namespace s3d
 
 	struct JSONPointer
 	{
+		/// @brief ユーザーが主に使用するコンストラクタ。
+		/// @param[in] jsonPointer JSON Pointer 文字列
+		/// @remark 空の文字列の場合は Root document を指すようになります。
+		/// 空の文字列ではない場合、"/" から始まる必要があります。
+		/// トークン（区切り文字ではない Object キーや Array インデックス）の中においては、
+		/// "~" は "~0" へ、"/" は "~1" へとエスケープされる必要があります。
 		SIV3D_NODISCARD_CXX20
 		explicit JSONPointer(StringView jsonPointer = U"");
 
@@ -626,55 +632,102 @@ namespace s3d
 
 		JSONPointer& operator =(JSONPointer&&) = default;
 
+		/// @brief 保持しているパスを文字列として取得します。
+		/// @return 保持しているパスを文字列にしたもの
+		/// @remark 返される文字列はエスケープされたままであることに留意してください。
 		[[nodiscard]] 
 		String format() const;
 
-		// operator != は導出により利用可能
+		/// @brief 同じパスを指しているかを調べます。
+		/// @return 同じパスを指しているなら true, そうでなければ false
+		/// @remark operator != は自動導出によって利用可能になります。
 		friend bool operator ==(const JSONPointer& lhs, const JSONPointer& rhs) noexcept;
 
+		/// @brief JSONPointer を末尾に追加します。
+		/// @param [in] rhs JSONPointer
+		/// @return *this
 		JSONPointer& operator /=(const JSONPointer& rhs);
 
+		/// @brief トークン（Object キーまたは Array インデックス）を末尾に追加します。
+		/// @param [in] unescapedToken トークン（エスケープはしない）
+		/// @return *this
 		JSONPointer& operator /=(const String& unescapedToken);
  
+		/// @brief JSON の Array インデックスを末尾に追加します。
+		/// @param [in] index インデックス
+		/// @return *this
 		JSONPointer& operator /=(size_t index);
 
+		/// @brief JSONPointer を末尾に追加した JSONPointer を作成します。
+		/// @param [in] rhs JSONPointer
+		/// @return 受け取った JSONPointer を末尾に追加して作成された JSONPointer
 		[[nodiscard]] 
 		JSONPointer operator /(const JSONPointer& rhs) const;
 
+		/// @brief トークン（Object キーまたは Array インデックス）を末尾に追加した JSONPointer を作成します。
+		/// @param [in] unescapedToken トークン（エスケープはしない）
+		/// @return 受け取ったトークンを末尾に追加して作成された JSONPointer
 		[[nodiscard]] 
 		JSONPointer operator /(const String& unescapedToken) const;
 
+		/// @brief Array インデックスを末尾に追加した JSONPointer を作成します。
+		/// @param [in] index インデックス
+		/// @return 受け取った Array インデックスを末尾に追加して作成された JSONPointer
 		[[nodiscard]] 
 		JSONPointer operator /(size_t index) const;
 
+		/// @brief 親パスを返り値で取得します。
+		/// @return 親パスを持った JSONPointer
+		/// @remark 親パスとは、pop_back をした状態と同じパスのことを指しています。
 		[[nodiscard]] 
 		JSONPointer parent() const;
 
+		/// @brief 末尾のトークン（Object キーまたは Array インデックス）を取得します。
+		/// @return 末尾のトークンの文字列
 		[[nodiscard]] 
 		String back() const;
 
+		/// @brief 末尾から1つトークン（Object キーまたは Array インデックス）を削除します。
+		/// @param [in] n 削除する個数
+		/// @remark n が持っているトークンの個数よりも多い場合は全てのトークンを削除します。
 		void pop_back();
 
+		/// @brief 末尾から指定された個数のトークン（Object キーまたは Array インデックス）を削除します。
+		/// @param [in] n 削除する個数
+		/// @remark n が持っているトークンの個数よりも多い場合は全てのトークンを削除します。
+		void pop_back_N(size_t n);
+
+		/// @brief JSONPointer を末尾に追加します。
+		/// @param [in] rhs JSONPointer
+		void push_back(const JSONPointer& rhs);
+
+		/// @brief トークン（Object キーまたは Array インデックス）を末尾に追加します。
+		/// @param [in] unescapedToken トークン（エスケープはしない）
 		void push_back(const String& unescapedToken);
 
+		/// @brief JSON の Array インデックスを末尾に追加します。
+		/// @param [in] index インデックス
 		void push_back(size_t index);
 
-		// pointer が root document を指しているかを返す
+		/// @brief Root document を指しているかを返します。
+		/// @return Root document を指していれば true, そうでなければ false
 		[[nodiscard]] 
 		bool isEmpty() const noexcept;
 
+		/// @brief Root document を指しているかを返します。
+		/// @return Root document を指していれば true, そうでなければ false
 		[[nodiscard]]
 		bool empty() const noexcept;
 
 		friend void Formatter(FormatData& formatData, const JSONPointer& value);
 
 		/// @brief ~ -> ~0, / -> ~1 の escape を行う関数
-		/// /abc/xyz のような JSONPointer パスを処理するわけではなく、abc や xyz の部分の処理に使用する
+		/// /abc/xyz のような JSONPointer パスを処理するわけではなく、abc や xyz のトークン部分の処理に使用する
 		[[nodiscard]] 
 		static String Escape(const String& unescapedToken);
 
 		/// @brief ~0 -> ~, ~1 -> / の unescape を行う関数
-		/// /abc/xyz のような JSONPointer パスを処理するわけではなく、abc や xyz の部分の処理に使用する
+		/// /abc/xyz のような JSONPointer パスを処理するわけではなく、abc や xyz のトークン部分の処理に使用する
 		[[nodiscard]] 
 		static String Unescape(const String& escapedToken);
 
@@ -689,9 +742,14 @@ namespace s3d
 	{
 		inline namespace JSONLiterals
 		{
+			/// @brief 与えられた文字列をパースして JSON オブジェクトを返す
+			/// @remark 変数で与えたい場合には JSON::Load/Parse を使用すること
 			inline JSON operator ""_json(const char32_t* str, size_t length);
 
+			/// @brief 与えられた文字列をパースして JSONPointer オブジェクトを返す
 			inline JSONPointer operator ""_jsonPointer(const char32_t* str, size_t length);
+
+			/// @brief 与えられた文字列をパースして JSONPointer オブジェクトを返す
 			inline JSONPointer operator ""_jsonPtr(const char32_t* str, size_t length);
 		}
 	}

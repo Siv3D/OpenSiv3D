@@ -1436,10 +1436,21 @@ In push_back, however, JSON keys are passed as is without escaping."};
 		m_detail->pointer.pop_back();
 	}
 
+	void JSONPointer::pop_back_N(size_t n)
+	{
+		for (size_t i = 0; i < n && (not empty()); ++i)
+		{
+			m_detail->pointer.pop_back();
+		}
+	}
+
+	void JSONPointer::push_back(const JSONPointer& rhs)
+	{
+		*this /= rhs;
+	}
+
 	void JSONPointer::push_back(const String& unescapedToken)
 	{
-		// nlohmann::json::json_pointer において
-		// operator /= は push_back に投げられるので問題ない
 		*this /= unescapedToken;
 	}
 
