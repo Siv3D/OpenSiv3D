@@ -182,6 +182,11 @@ namespace s3d
 			{
 				return JSONPointer{{str, length}};
 			}
+
+			inline JSONPointer operator ""_jsonPtr(const char32_t* str, const size_t length)
+			{
+				return JSONPointer{{str, length}};
+			}
 		}
 	}
 }

@@ -420,9 +420,11 @@ namespace s3d
 		[[nodiscard]]
 		const JSON operator [](size_t index) const;
 
+		// 実際の処理は access(JSONPointer) が行う
 		[[nodiscard]]
 		JSON operator[](const JSONPointer& jsonPointer);
 
+		// 実際の処理は access(JSONPointer) が行う
 		[[nodiscard]]
 		const JSON operator[](const JSONPointer& jsonPointer) const;
 
@@ -432,9 +434,11 @@ namespace s3d
 		[[nodiscard]]
 		const JSON access(const JSONPointer& jsonPointer) const;
 
+		// 実際の処理は access(JSONPointer) が行う
 		[[nodiscard]]
 		JSON access(StringView jsonPointer);
 
+		// 実際の処理は access(JSONPointer) が行う
 		[[nodiscard]]
 		const JSON access(StringView jsonPointer) const;
 
@@ -688,6 +692,7 @@ namespace s3d
 			inline JSON operator ""_json(const char32_t* str, size_t length);
 
 			inline JSONPointer operator ""_jsonPointer(const char32_t* str, size_t length);
+			inline JSONPointer operator ""_jsonPtr(const char32_t* str, size_t length);
 		}
 	}
 }

@@ -838,7 +838,7 @@ namespace s3d
 			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[Unicode::ToUTF8(name)]));
 		}
 
-		throw Error{ U"JSON::operator [](): Key `{}` not found"_fmt(name) };
+		throw Error{ U"JSON::operator [](StringView) const: Key `{}` not found"_fmt(name) };
 	}
 
 	JSON JSON::operator [](const size_t index)
@@ -848,14 +848,9 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		if (not isArray())
+		if (not isArray() && not isNull())
 		{
-			throw Error{ U"JSON::operator [](size_t): Value is not an Array type" };
-		}
-
-		if (not contains(index))
-		{
-			throw Error{ U"JSON::operator [](size_t): Index out of range" };
+			throw Error{ U"JSON::operator [](size_t): The value is neither of type Array nor of type Null." };
 		}
 
 		return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[index]));
@@ -870,12 +865,12 @@ namespace s3d
 
 		if (not isArray())
 		{
-			throw Error{ U"JSON::operator [](size_t): Value is not an Array type" };
+			throw Error{ U"JSON::operator [](size_t) const: The value is not an Array type" };
 		}
 
 		if (not contains(index))
 		{
-			throw Error{ U"JSON::operator [](size_t): Index out of range (index: {} >= size: {})"_fmt(index, size()) };
+			throw Error{ U"JSON::operator [](size_t) const: Index out of range (index: {} >= size: {})"_fmt(index, size()) };
 		}
 
 		return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[index]));
@@ -903,7 +898,7 @@ namespace s3d
 			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[jsonPointer.m_detail->pointer]));
 		}
 
-		throw Error{ U"JSON::access(): Invalid JSON type" };
+		throw Error{ U"JSON::access(JSONPointer): Invalid JSON type. This function requires that the value be of type Object, Array or Null." };
 	}
 
 	const JSON JSON::access(const JSONPointer& jsonPointer) const
@@ -913,12 +908,12 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		if (isObject() || isArray() || isNull())
+		if (contains(jsonPointer))
 		{
 			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[jsonPointer.m_detail->pointer]));
 		}
 
-		throw Error{ U"JSON::access(): Invalid JSON type" };
+		throw Error{ U"JSON::access(JSONPointer) const: The element indicated by the JSON Pointer does not exist." };
 	}
 
 	JSON JSON::access(const StringView jsonPointer)
@@ -1415,7 +1410,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 	{
 		if (empty())
 		{
-			throw Error{U"JSONPointer::parent: JSON pointer indicates root document, therefore has no parent."};
+			throw Error{U"JSONPointer::parent(): JSON pointer indicates root document, therefore has no parent."};
 		}
 
 		return JSONPointer{ std::make_shared<detail::JSONPointerDetail>(m_detail->pointer.parent_pointer()) };
@@ -1425,7 +1420,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 	{
 		if (empty())
 		{
-			throw Error{U"JSONPointer::back: JSON pointer indicates root document, therefore has no parent."};
+			throw Error{U"JSONPointer::back(): JSON pointer indicates root document, therefore has no parent."};
 		}
 
 		return Unicode::FromUTF8(m_detail->pointer.back());
@@ -1435,7 +1430,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 	{
 		if (empty())
 		{
-			throw Error{U"JSONPointer::pop_back: JSON pointer indicates root document, therefore has no parent."};
+			throw Error{U"JSONPointer::pop_back(): JSON pointer indicates root document, therefore has no parent."};
 		}
 
 		m_detail->pointer.pop_back();

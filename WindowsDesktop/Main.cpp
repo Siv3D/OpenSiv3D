@@ -106,25 +106,58 @@ void Main()
 
 	Console << U"---";
 
-	const auto json = UR"({
+	auto json = UR"({
 	"aa~/a" : {
 		"b" : [5, 6, 7, 8, 9]
 	}
 })"_json;
 
-	JSONPointer pointer;
+	const auto f = [](auto&& json) {
+		// デフォルトコンストラクタは JSON 全体を指すパス（空文字列）
+		JSONPointer pointer;
 
-	// ~ や / がキーに含まれる場合も問題なく扱える
-	pointer /= U"aa~/a";
+		// ~ や / がキーに含まれる場合も
+		//  operator/
+		//  operator/=
+		//  push_back
+		// の場合はキー単位で追加するため、エスケープも同時に行なわれることと等価
+		Print << (pointer /= U"aa~/a");
 
-	Print << pointer;
+		// 型レベルの識別をすることで、operator[] のオーバーロードが可
+		//  operator[](const JSONPointer&) JSONPointer でアクセス
+		//  operator[](StringView)         JSON key でアクセス（エスケープ不要）
+		//  operator[](size_t)             index でアクセス
+		Print << json[pointer][U"b"][0];
 
-	// 型レベルの識別をすることで、operator[] のオーバーロードが可
-	Print << json[pointer];
+		// ネストしたプロパティへのアクセスが楽に
+		// 注: JSONPointer コンストラクタは JSON Pointer（エスケープ）が必要
+		Print << json[pointer / U"/b/0"_jsonPtr];
 
-	// 従来の String による json pointer でも出来ない訳では無いが
-	// ネストしたプロパティへのアクセスが楽に
-	Print << json[pointer / U"/b/1"_jsonPointer];
+		if constexpr (std::same_as<decltype(json), JSON&>)
+		{
+			json[pointer] = UR"({
+	"c" : [5, 6, 7, 8, 9]
+})"_json;
+
+			json[pointer][U"c"] = UR"([10, 11, 12, 13, 14])"_json;
+
+			json[pointer][U"c"][5] = 15;
+
+			Print << json;
+
+			json = UR"({
+	"aa~/a" : {
+		"b" : [5, 6, 7, 8, 9]
+	}
+})"_json;
+		}
+	};
+
+	// JSON&
+	f(json);
+
+	// const JSON&
+	f(std::as_const(json));
 
 	while (System::Update())
 	{
