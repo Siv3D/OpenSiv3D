@@ -34,5 +34,8 @@ namespace s3d
 
 		/// @brief アドオンの毎フレームの描画処理を記述します。
 		virtual void draw() const {}
+
+		/// @brief present 呼出し後の処理を記述します。
+		virtual void postPresent() {}
 	};
 }

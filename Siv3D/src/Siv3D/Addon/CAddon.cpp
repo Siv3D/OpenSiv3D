@@ -81,4 +81,12 @@ namespace s3d
 			addon.pAddon->draw();
 		}
 	}
+
+	void CAddon::postPresent()
+	{
+		for (auto& addon : m_addons)
+		{
+			addon.pAddon->postPresent();
+		}
+	}
 }

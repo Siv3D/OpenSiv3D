@@ -53,5 +53,7 @@ namespace s3d
 		bool update() override;
 
 		void draw() const override;
+
+		void postPresent() override;
 	};
 }

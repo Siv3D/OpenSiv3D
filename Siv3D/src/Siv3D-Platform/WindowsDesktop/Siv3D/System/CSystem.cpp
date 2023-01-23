@@ -176,6 +176,7 @@ namespace s3d
 		SIV3D_ENGINE(Profiler)->endFrame();
 		SIV3D_ENGINE(Renderer)->present();
 		SIV3D_ENGINE(ScreenCapture)->update();
+		SIV3D_ENGINE(Addon)->postPresent();
 
 		//
 		// previous frame
