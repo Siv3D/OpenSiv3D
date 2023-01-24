@@ -13,6 +13,7 @@
 # include <cmath>
 # include "Common.hpp"
 # include "PointVector.hpp"
+# include "MathConstants.hpp"
 # include "PlaceHolder.hpp"
 
 namespace s3d
@@ -1253,6 +1254,30 @@ namespace s3d
 
 		[[nodiscard]]
 		inline constexpr Vec4 Smoothstep(Vec4 v) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	NormalizeAngle
+		//
+		//////////////////////////////////////////////////
+
+		/// @brief 正規化した角度を返します。
+		/// @param radian 角度（ラジアン）
+		/// @param center 正規化の中心角度。Pi の場合の戻り値は [0, TwoPi), 0 の場合の戻り値は [-Pi, Pi)
+		/// @return 正規化した角度
+		[[nodiscard]]
+		inline float NormalizeAngle(float radian, float center = PiF) noexcept;
+
+		/// @brief 正規化した角度を返します。
+		/// @param radian 角度（ラジアン）
+		/// @param center 正規化の中心角度。Pi の場合の戻り値は [0, TwoPi), 0 の場合の戻り値は [-Pi, Pi)
+		/// @return 正規化した角度
+		[[nodiscard]]
+		inline double NormalizeAngle(double radian, double center = Pi) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double NormalizeAngle(Arithmetic radian, double center = Pi) noexcept;
 
 		//////////////////////////////////////////////////
 		//

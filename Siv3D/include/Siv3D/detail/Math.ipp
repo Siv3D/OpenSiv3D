@@ -1254,6 +1254,49 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	NormalizeAngle
+		//
+		//////////////////////////////////////////////////
+
+		inline float NormalizeAngle(float radian, const float center) noexcept
+		{
+			radian = Math::Fmod(radian + (PiF - center), TwoPiF);
+
+			if (radian < 0.0f)
+			{
+				radian += TwoPiF;
+			}
+
+			return (radian - (PiF - center));
+		}
+
+		inline double NormalizeAngle(double radian, const double center) noexcept
+		{
+			radian = Math::Fmod(radian + (Pi - center), TwoPi);
+
+			if (radian < 0.0)
+			{
+				radian += TwoPi;
+			}
+
+			return (radian - (Pi - center));
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double NormalizeAngle(const Arithmetic radian_, const double center) noexcept
+		{
+			double radian = Math::Fmod(radian_ + (Pi - center), TwoPi);
+
+			if (radian < 0.0)
+			{
+				radian += TwoPi;
+			}
+
+			return (radian - (Pi - center));
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	GCD
 		//
 		//////////////////////////////////////////////////
