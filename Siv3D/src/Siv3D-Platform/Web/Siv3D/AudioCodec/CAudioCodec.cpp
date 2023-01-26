@@ -76,7 +76,7 @@ namespace s3d
 	{
 		auto audioFuture = Platform::Web::AudioDecoder::DecodeFromFile(path);
 		
-		if (auto audio = Platform::Web::System::WaitForFutureResolved(audioFuture))
+		if (auto audio = Platform::Web::System::AwaitAsyncTask(audioFuture))
 		{
 			return *audio;
 		}

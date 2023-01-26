@@ -20,47 +20,91 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void OnLoadCallBack(unsigned requestID, void* userData, const char* locatedFileName)
+		__attribute__((import_name("siv3dCreateXMLHTTPRequest")))
+		extern int32 siv3dCreateXMLHTTPRequest();
+
+		__attribute__((import_name("siv3dSetXMLHTTPRequestWriteBackFile")))
+		extern void siv3dSetXMLHTTPRequestWriteBackFile(int32 id, const char* fileName);
+
+		__attribute__((import_name("siv3dSetXMLHTTPRequestCallback")))
+		extern void siv3dSetXMLHTTPRequestCallback(int32 id, void(*callback)(int32, void*), void* userData);
+
+		__attribute__((import_name("siv3dSetXMLHTTPRequestErrorCallback")))
+		extern void siv3dSetXMLHTTPRequestErrorCallback(int32 id, void(*callback)(int32, void*), void* userData);
+
+		__attribute__((import_name("siv3dSetXMLHTTPRequestProgressCallback")))
+		extern void siv3dSetXMLHTTPRequestProgressCallback(int32 id, void(*callback)(int32, void*, int32, int32), void* userData);
+	
+		__attribute__((import_name("siv3dSetXMLHTTPRequestRequestHeader")))
+		extern void siv3dSetXMLHTTPRequestRequestHeader(int32 id, const char* name, const char* value);
+
+		__attribute__((import_name("siv3dGetXMLHTTPRequestResponseHeaders")))
+		extern char* siv3dGetXMLHTTPRequestResponseHeaders(int32 id);
+
+		__attribute__((import_name("siv3dSendXMLHTTPRequest")))
+		extern void siv3dSendXMLHTTPRequest(int32 id, const char* data);
+
+		__attribute__((import_name("siv3dOpenXMLHTTPRequest")))
+		extern void siv3dOpenXMLHTTPRequest(int32 id, const char* method, const char* url);
+
+		__attribute__((import_name("siv3dAbortXMLHTTPRequest")))
+		extern void siv3dAbortXMLHTTPRequest(int32 id);
+
+		__attribute__((import_name("siv3dDeleteXMLHTTPRequest")))
+		extern void siv3dDeleteXMLHTTPRequest(int32 id);
+
+		static void OnLoadCallBack(int32 requestID, void* userData)
 		{
+			char* responseHeader = siv3dGetXMLHTTPRequestResponseHeaders(requestID);
+			HTTPResponse response{ std::string(responseHeader) };
+			::free(responseHeader);
+
 			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			httpTask.updateResponseStatus("HTTP/1.1 200 Ok\n");
 			httpTask.setStatus(HTTPAsyncStatus::Succeeded);
-			httpTask.resolveResponse();
+			httpTask.resolveResponse(response);
 
 			EM_ASM("setTimeout(function() { _siv3dMaybeAwake(); }, 0)");
 		}
 
-		static void OnErrorCallback(unsigned requestID, void* userData, int statusCode)
+		static void OnErrorCallback(int32 requestID, void* userData)
 		{
+			char* responseHeader = siv3dGetXMLHTTPRequestResponseHeaders(requestID);
+			HTTPResponse response{ std::string(responseHeader) };
+			::free(responseHeader);
 			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			httpTask.updateResponseStatus(U"HTTP/1.1 {} Unknown\n"_fmt(statusCode).toUTF8());
 			httpTask.setStatus(HTTPAsyncStatus::Failed);
-			httpTask.resolveResponse();
+			httpTask.resolveResponse(response);
 
 			EM_ASM("setTimeout(function() { _siv3dMaybeAwake(); }, 0)");
 		}
 
-		static void ProgressCallback(unsigned requestID, void* userData, int percentComplete)
+		static void ProgressCallback(int32 requestID, void* userData, int dlTotal, int dlNow)
 		{
 			auto& httpTask = *static_cast<AsyncHTTPTaskDetail*>(userData);
 
-			httpTask.updateProgress(0, percentComplete, 0, 0);
+			httpTask.updateProgress(dlTotal, dlNow, 0, 0);
 		}
 	}
 
 	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail() {}
 
-	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const FilePathView path)
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(URLView url, FilePathView path)
+		: AsyncHTTPTaskDetail(U"GET", url, path) {}
+
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(StringView method, URLView url, FilePathView path)
 		: m_url{ url }
 	{
-		run(path);
+		m_wgetHandle = detail::siv3dCreateXMLHTTPRequest();
+
+		detail::siv3dOpenXMLHTTPRequest(m_wgetHandle, method.toUTF8().data(), url.toUTF8().data());
+		detail::siv3dSetXMLHTTPRequestWriteBackFile(m_wgetHandle, path.toUTF8().data());
 	}
 
 	AsyncHTTPTaskDetail::~AsyncHTTPTaskDetail()
 	{
-		if (getStatus() == HTTPAsyncStatus::Downloading)
+		if (m_wgetHandle != 0)
 		{
 			cancel();
 		}
@@ -73,28 +117,50 @@ namespace s3d
 
 	bool AsyncHTTPTaskDetail::isReady() const
 	{
-		return m_progress_internal.status == HTTPAsyncStatus::Succeeded;
+		return m_task.isReady();
 	}
 
 	void AsyncHTTPTaskDetail::cancel()
 	{
 		if (m_wgetHandle != 0)
 		{
-			::emscripten_async_wget2_abort(m_wgetHandle);
+			detail::siv3dAbortXMLHTTPRequest(m_wgetHandle);
+			detail::siv3dDeleteXMLHTTPRequest(m_wgetHandle);
 			m_wgetHandle = 0;
 
 			m_progress_internal.status = HTTPAsyncStatus::Canceled;
 		}
 	}
 
+	void AsyncHTTPTaskDetail::setRequestHeader(StringView name, StringView value)
+	{
+		detail::siv3dSetXMLHTTPRequestRequestHeader(m_wgetHandle, name.toUTF8().data(), value.toUTF8().data());
+	}
+
 	const HTTPResponse& AsyncHTTPTaskDetail::getResponse()
 	{
+		if (m_task.isReady())
+		{
+			m_response = m_task.get();
+		}
+
 		return m_response;
 	}
 
-	void AsyncHTTPTaskDetail::resolveResponse()
+	void AsyncHTTPTaskDetail::resolveResponse(const HTTPResponse& response)
 	{
-		m_promise.set_value(m_response);
+		// CreateAsyncTask で作成した AsyncTask を resolved 状態にする
+		{
+			m_promise.set_value(response);
+		}
+
+		// m_task を resolved 状態にする
+		{
+			std::promise<HTTPResponse> resolvedPromise;
+		
+			resolvedPromise.set_value(response);
+			m_task = resolvedPromise.get_future();
+		}
 	}
 
 	HTTPAsyncStatus AsyncHTTPTaskDetail::getStatus()
@@ -146,15 +212,26 @@ namespace s3d
 		m_response = HTTPResponse(std::string(response));
 	}
 
-	void AsyncHTTPTaskDetail::run(FilePathView path)
+	void AsyncHTTPTaskDetail::send(Optional<std::string_view> body)
 	{
 		setStatus(HTTPAsyncStatus::Downloading);
 
-		const std::string urlUTF8 = m_url.toUTF8();
+		detail::siv3dSetXMLHTTPRequestCallback(m_wgetHandle, &detail::OnLoadCallBack, this);
+		detail::siv3dSetXMLHTTPRequestErrorCallback(m_wgetHandle, &detail::OnErrorCallback, this);
+		detail::siv3dSetXMLHTTPRequestProgressCallback(m_wgetHandle, &detail::ProgressCallback, this);
 
-		m_wgetHandle = ::emscripten_async_wget2(
-			urlUTF8.c_str(), path.toUTF8().c_str(), 
-			"GET", "", 
-			this, detail::OnLoadCallBack, detail::OnErrorCallback, detail::ProgressCallback);
+		if (body)
+		{
+			detail::siv3dSendXMLHTTPRequest(m_wgetHandle, body->data());
+		}
+		else
+		{
+			detail::siv3dSendXMLHTTPRequest(m_wgetHandle, nullptr);
+		}
+	}
+
+	AsyncTask<HTTPResponse> AsyncHTTPTaskDetail::CreateAsyncTask()
+	{
+		return m_promise.get_future();
 	}
 }

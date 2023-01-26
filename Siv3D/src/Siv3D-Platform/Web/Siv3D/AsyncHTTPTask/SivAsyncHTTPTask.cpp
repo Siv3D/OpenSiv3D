@@ -16,7 +16,8 @@
 namespace s3d
 {
 	AsyncHTTPTask::AsyncHTTPTask()
-		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>() } {}
+		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>() } 
+	{}
 
 	bool AsyncHTTPTask::isEmpty() const
 	{
@@ -74,13 +75,16 @@ namespace s3d
 	}
 
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const FilePathView path)
-		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, path) } {}
+		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, path) } 
+	{
+		pImpl->send(none);
+	}
 
 	namespace Platform::Web::SimpleHTTP
 	{
 		AsyncTask<HTTPResponse> CreateAsyncTask(AsyncHTTPTask& httpTask)
 		{
-			return httpTask.pImpl->m_promise.get_future();
+			return httpTask.pImpl->CreateAsyncTask();
 		}
 	}
 }

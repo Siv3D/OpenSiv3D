@@ -250,22 +250,4 @@ namespace s3d
 		/// @return リネームに成功した場合 true, それ以外の場合は false
 		bool Rename(FilePathView from, FilePathView to);
 	}
-
-# if SIV3D_PLATFORM(WEB)
-
-	namespace Platform::Web
-	{
-		/// @brief ブラウザ上の仮想ファイルをローカルにダウンロードします。
-		/// @param filePath ブラウザ上の仮想ファイルへのパス
-		void DownloadFile(FilePathView filePath);
-
-		/// @brief 仮想ファイルシステムに `path` と同名のファイルが無い場合、カレントディレクトリ基準で `path` を
-		///        HTTP リクエスト経由でダウンロードし仮想ファイルシステムに追加します。これにより、当該ファイルに
-		///        Siv3D の API でアクセスできるようになります。この関数を呼び出す関数は、ビルドオプションで
-		///        `ASYNCIFY_ADD` への登録が必要です。その関数を呼ぶ関数も再帰的に登録が必要です。
-		/// @param filePath ブラウザ上の仮想ファイルへのパス
-		void FetchFile(FilePathView filePath);
-	}
-
-# endif
 }

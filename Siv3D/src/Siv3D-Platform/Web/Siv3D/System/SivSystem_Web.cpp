@@ -11,7 +11,6 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Unicode.hpp>
 # include <emscripten.h>
 
 namespace s3d
@@ -62,9 +61,6 @@ namespace s3d
 				const auto* mainLoop = static_cast<const std::function<void()>*>(userData);
 				mainLoop->operator()();
 			}
-
-			__attribute__((import_name("siv3dGetURLParameters")))
-			extern char **siv3dGetURLParameters();
 		}
 
 		void SetMainLoop(std::function<void()> mainLoop)
@@ -84,32 +80,6 @@ namespace s3d
 			*/
 			static std::function<void()> g_mainLoop = mainLoop;
 			::emscripten_set_main_loop_arg(&detail::RunMainLoop, &g_mainLoop, 0, 1);
-		}
-
-		HashTable<String, String> GetURLParameters()
-		{
-			int paramReadPos = 0;
-			auto params = detail::siv3dGetURLParameters();
-
-			HashTable<String, String> result;
-
-			while (params[paramReadPos] != nullptr)
-			{
-				auto keyCStr = params[paramReadPos++];
-				auto valueCStr = params[paramReadPos++];
-
-				auto key = Unicode::FromUTF8(keyCStr);
-				auto value = Unicode::FromUTF8(valueCStr);
-
-				result.emplace(key, value);
-
-				::free(keyCStr);
-				::free(valueCStr);
-			}
-			
-			::free(params);
-
-			return result;
 		}
 	}
 }

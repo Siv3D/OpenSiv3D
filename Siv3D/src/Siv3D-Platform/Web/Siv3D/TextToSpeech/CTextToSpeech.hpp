@@ -57,5 +57,8 @@ namespace s3d
 
 		double m_Volume = 1.0;
 
+		static void delayedInit(void*);
+
+		void updateLanguageList();
 	};
 }

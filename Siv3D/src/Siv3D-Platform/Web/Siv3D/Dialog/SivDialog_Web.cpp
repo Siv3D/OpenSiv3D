@@ -45,7 +45,7 @@ namespace s3d
 		{		
 			auto openFileFuture = Platform::Web::Dialog::OpenFile(filters);
 			
-			if (auto path = Platform::Web::System::WaitForFutureResolved(openFileFuture))
+			if (auto path = Platform::Web::System::AwaitAsyncTask(openFileFuture))
 			{
 				return *path;
 			}
@@ -60,7 +60,7 @@ namespace s3d
 		{
 			auto openFileFuture = Platform::Web::Dialog::OpenFiles(filters);
 			
-			if (auto path = Platform::Web::System::WaitForFutureResolved(openFileFuture))
+			if (auto path = Platform::Web::System::AwaitAsyncTask(openFileFuture))
 			{
 				return *path;
 			}

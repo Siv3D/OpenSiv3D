@@ -11,7 +11,6 @@ option(SIV3D_USE_BROWSER_IMAGE_ENCODING "Enable Browser Image Encoding." OFF)
 option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
 option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
 option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
-option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
 
 set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../App)
 
@@ -119,16 +118,12 @@ set(SIV3D_EXE_LINKER_FLAGS
   -sASYNCIFY_IGNORE_INDIRECT=1
 )
 set(SIV3D_LINK_LIBRARIES
-  -Wl,--no-whole-archive
-    Siv3D::Siv3D
+  Siv3D::Siv3D
 )
 set(SIV3DAPP_EXE_LINKER_FLAGS
-  --emrun
-  -sMODULARIZE=1
-  --shell-file=${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.html
-  --post-js=${SIV3D_APP_ROOT}/Templates/Embeddable/web-player.js
+  -sEXIT_RUNTIME=1
+  --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 
@@ -145,6 +140,7 @@ if (SIV3D_WEBGPU_BACKEND)
   list(PREPEND SIV3D_LINK_LIBRARIES
     -Wl,--whole-archive
       Siv3D::Siv3DWebGPU
+    -Wl,--no-whole-archive
   )
 else()
   list(APPEND SIV3D_EXE_LINKER_FLAGS
@@ -158,6 +154,7 @@ if (SIV3D_USE_BROWSER_IMAGE_ENCODING)
   list(PREPEND SIV3D_LINK_LIBRARIES
     -Wl,--whole-archive
       Siv3D::Siv3DBrowserImageEncodeDecode
+    -Wl,--no-whole-archive
   )
 endif()
 
@@ -232,7 +229,8 @@ endif()
 target_link_libraries(Siv3DApp PRIVATE Siv3DAppInterface)
 target_compile_features(Siv3DApp PRIVATE cxx_std_20)
 set_target_properties(Siv3DApp PROPERTIES
-    SUFFIX ".html"
+    SUFFIX .html
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 target_asyncify_imports(Siv3DApp ${SIV3D_ASYNCIFY_IMPORTS})
@@ -261,7 +259,8 @@ target_compile_features(Siv3DSharedLibApp PRIVATE cxx_std_20)
 target_compile_options(Siv3DSharedLibApp PRIVATE -sMAIN_MODULE=2)
 target_link_options(Siv3DSharedLibApp PRIVATE -sMAIN_MODULE=2)
 set_target_properties(Siv3DSharedLibApp PROPERTIES
-    SUFFIX ".html"
+    SUFFIX .html
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 target_exported_functions(Siv3DSharedLibApp SIV3D_SHAREDLIB_EXPORTED_FUNCTIONS)
@@ -299,10 +298,15 @@ target_compile_definitions(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerDefinitions
 target_compile_features(Siv3DSharedMainApp PRIVATE cxx_std_20) 
 target_compile_options(Siv3DSharedMainApp PRIVATE ${Siv3DCompilerOptions} -sSIDE_MODULE=2)
 target_link_options(Siv3DSharedMainApp PRIVATE ${Siv3DLinkerOptions} ${SIV3D_EXE_LINKER_FLAGS} -sSIDE_MODULE=2)
+set_target_properties(Siv3DSharedMainApp PROPERTIES
+    SUFFIX .wasm
+    OUTPUT_NAME Siv3DApp
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
 
 target_asyncify_imports(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_IMPORTS})
 target_asyncify_add(Siv3DSharedMainApp ${SIV3D_SHAREDMAIN_APP_ASYNCIFY_ADD})
-target_preload_files(Siv3DSharedMainApp ${SIV3D_BUNDLED_FILES})
+target_exported_functions(Siv3DSharedMainApp __Z4Mainv)
 
 
 
@@ -316,25 +320,25 @@ add_executable(Siv3DSharedMain
 )
 
 if (SIV3D_BUILD_WITH_SHARED_MAIN)
-  set_target_properties(Siv3DSharedMain 
-    PROPERTIES
-      EXCLUDE_FROM_ALL Off
-      OUTPUT_NAME Siv3D
-  )
-
-  set_target_properties(Siv3DSharedMainApp
+  set_target_properties(Siv3DSharedMain Siv3DSharedMainApp
     PROPERTIES
       EXCLUDE_FROM_ALL Off
   )
 endif()
 
+get_filename_component(SIV3D_JSLIBRARY_PATH ${Siv3D_DIR} DIRECTORY)
+get_filename_component(SIV3D_JSLIBRARY_PATH ${SIV3D_JSLIBRARY_PATH} DIRECTORY)
+get_filename_component(SIV3D_JSLIBRARY_PATH ${SIV3D_JSLIBRARY_PATH} DIRECTORY)
+
 set(SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS
+  -sEXIT_RUNTIME=1
   -sMAIN_MODULE=1
   -sDECLARE_ASM_MODULE_EXPORTS=0
   -sFORCE_FILESYSTEM=1
   -sASSERTIONS=1
-  --pre-js=${CMAKE_PREFIX_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
+  --pre-js=${SIV3D_JSLIBRARY_PATH}/lib/Siv3D/Siv3D.sharedMain.pre.js
   --pre-js=${CMAKE_SOURCE_DIR}/Siv3D.data.js
+  --shell-file=${CMAKE_SOURCE_DIR}/CIAppShell.html
 )
 
 set(SIV3D_SHAREDMAIN_ASYNCIFY_IMPORTS
@@ -352,15 +356,20 @@ target_link_libraries(Siv3DSharedMain PRIVATE Siv3DInterface)
 target_compile_options(Siv3DSharedMain PRIVATE -sMAIN_MODULE=1)
 target_compile_definitions(Siv3DSharedMain PRIVATE ZSTD_TRACE=0)
 target_compile_features(Siv3DSharedMain PRIVATE cxx_std_20) 
-target_link_options(Siv3DSharedMain PRIVATE ${SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS})
+target_link_options(Siv3DSharedMain PRIVATE 
+  ${SIV3D_SHAREDMAIN_APP_LINKER_OPTIONS}
+)
 set_target_properties(Siv3DSharedMain 
   PROPERTIES
-    SUFFIX ".html"
+    SUFFIX .html
+    OUTPUT_NAME Siv3D
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 target_asyncify_imports(Siv3DSharedMain ${SIV3D_SHAREDMAIN_ASYNCIFY_IMPORTS})
 target_asyncify_add(Siv3DSharedMain ${SIV3D_SHAREDMAIN_ASYNCIFY_ADD})
-target_preload_files(Siv3DSharedMain ${SIV3D_BUNDLED_FILES})
+
+
 
 #
 # Siv3D DinamicLink EntryPoint AppData 
@@ -409,6 +418,10 @@ target_link_libraries(Siv3DTest PRIVATE Siv3DInterface)
 target_link_options(Siv3DTest PRIVATE 
   -lnodefs.js
   --pre-js=${CMAKE_SOURCE_DIR}/../../../Test/Siv3DTest.js
+)
+set_target_properties(Siv3DTest
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 if(SIV3D_BUILD_TESTING)

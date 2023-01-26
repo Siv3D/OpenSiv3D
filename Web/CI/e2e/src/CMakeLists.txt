@@ -4,13 +4,6 @@ project(OpenSiv3D_Web_App CXX C ASM)
 #
 # General Options
 #
-option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
-option(SIV3D_USE_SCRIPT "Enable Siv3D Script." OFF)
-option(SIV3D_USE_BROWSER_IMAGE_ENCODING "Enable Browser Image Encoding." OFF)
-
-option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
-option(SIV3D_BUILD_WITH_SHARED_MAIN "Build plugin-style Siv3D application loader." OFF)
-option(SIV3D_BUILD_TESTING "Build tests and run." OFF)
 option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
 
 set(SIV3D_APP_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../App)
@@ -117,49 +110,15 @@ set(SIV3D_EXE_LINKER_FLAGS
   -sUSE_VORBIS=1
   -sASYNCIFY=1
   -sASYNCIFY_IGNORE_INDIRECT=1
+  -sFULL_ES3
+  -sMIN_WEBGL_VERSION=2
+  -sMAX_WEBGL_VERSION=2
 )
 set(SIV3D_LINK_LIBRARIES
   -Wl,--no-whole-archive
     Siv3D::Siv3D
 )
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-
-
-#
-# Configuration-specific Flags
-#
-if (SIV3D_WEBGPU_BACKEND)
-  list(APPEND SIV3D_CXX_DEFINITIONS
-    SIV3D_WEBGPU_BACKEND
-  )
-  list(APPEND SIV3D_EXE_LINKER_FLAGS
-    -sUSE_WEBGPU=1
-  )
-  list(PREPEND SIV3D_LINK_LIBRARIES
-    -Wl,--whole-archive
-      Siv3D::Siv3DWebGPU
-  )
-else()
-  list(APPEND SIV3D_EXE_LINKER_FLAGS
-    -sFULL_ES3
-    -sMIN_WEBGL_VERSION=2
-    -sMAX_WEBGL_VERSION=2
-  )
-endif()
-
-if (SIV3D_USE_BROWSER_IMAGE_ENCODING)
-  list(PREPEND SIV3D_LINK_LIBRARIES
-    -Wl,--whole-archive
-      Siv3D::Siv3DBrowserImageEncodeDecode
-  )
-endif()
-
-if (SIV3D_USE_SCRIPT)
-  list(APPEND SIV3D_LINK_LIBRARIES
-    Siv3D::Siv3DScript
-  )
-endif()
 
 
 

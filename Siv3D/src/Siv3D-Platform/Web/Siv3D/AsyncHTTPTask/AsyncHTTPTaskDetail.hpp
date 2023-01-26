@@ -34,6 +34,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 			AsyncHTTPTaskDetail(URLView url, FilePathView path);
 
+		SIV3D_NODISCARD_CXX20
+			AsyncHTTPTaskDetail(StringView method, URLView url, FilePathView path);
+
 		~AsyncHTTPTaskDetail();
 
 		[[nodiscard]]
@@ -42,12 +45,16 @@ namespace s3d
 		[[nodiscard]]
 		bool isReady() const;
 
+		void send(Optional<std::string_view> body);
+
 		void cancel();
+
+		void setRequestHeader(StringView name, StringView value);
 
 		[[nodiscard]]
 		const HTTPResponse& getResponse();
 
-		void resolveResponse();
+		void resolveResponse(const HTTPResponse&);
 
 		[[nodiscard]]
 		HTTPAsyncStatus getStatus();
@@ -64,9 +71,10 @@ namespace s3d
 		[[nodiscard]]
 		bool isAborted() const;
 
-	private:
+		[[nodiscard]]
+		AsyncTask<HTTPResponse> CreateAsyncTask();
 
-		void run(FilePathView path);
+	private:
 
 		////
 		//
@@ -80,10 +88,12 @@ namespace s3d
 		//
 		////
 
+		String m_method;
+		
 		URL m_url;
 
-		HTTPResponse m_response;
+		AsyncTask<HTTPResponse> m_task;
 
-		friend AsyncTask<HTTPResponse> Platform::Web::SimpleHTTP::CreateAsyncTask(AsyncHTTPTask& httpTask);
+		HTTPResponse m_response;
 	};
 }

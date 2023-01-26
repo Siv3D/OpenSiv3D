@@ -13,7 +13,6 @@
 # include "Common.hpp"
 # include "Duration.hpp"
 # include "EngineOptions.hpp"
-# include "HashTable.hpp"
 # include "AsyncTask.hpp"
 # include "Optional.hpp"
 
@@ -79,14 +78,9 @@ namespace s3d
 		[[noreturn]] 
 		void SetMainLoop(std::function<void()> mainLoop);
 
-		/// @brief 現在のページのクエリ文字列を取得します
-		/// @return 現在のページのクエリ文字列
-		[[nodiscard]]
-		HashTable<String, String> GetURLParameters();
-
 		/// @brief 指定した AsyncTask の準備ができるまで待機します
 		template<class Type>
-		Optional<Type> WaitForFutureResolved(AsyncTask<Type>& task);
+		Optional<Type> AwaitAsyncTask(AsyncTask<Type>& task);
 	}
 
 # endif

@@ -5,9 +5,15 @@
 //	Licensed under the MIT License.
 
 //
+// VSInput: Safari 16.1 requires input and output for vertex stage
+//
+layout(location = 0) in vec2 unusedInput;
+
+//
 // VSOutput
 //
 out vec2 UV;
+out vec2 placeHolderOutput;
 				
 void main()
 {
@@ -17,4 +23,6 @@ void main()
 	
 	UV.x = (x + 1.0) * 0.5;
 	UV.y = (-y + 1.0) * 0.5;
+
+	placeHolderOutput = unusedInput;
 }

@@ -463,12 +463,12 @@
           overlay.hidden = true;
 
           Options.canvas.hidden = false;
-          Module(Options);
+          Runtime(Options);
         });
       } else {
         document.querySelector("script[async]").addEventListener('load', function() {
           Options.canvas.hidden = false;
-          Module(Options);
+          Runtime(Options);
         });
       }
     </script>
