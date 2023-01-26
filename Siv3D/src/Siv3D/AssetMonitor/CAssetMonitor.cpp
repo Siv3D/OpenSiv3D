@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/MessageBox.hpp>
 # include "CAssetMonitor.hpp"
