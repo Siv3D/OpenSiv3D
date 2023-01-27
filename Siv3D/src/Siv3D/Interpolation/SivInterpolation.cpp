@@ -114,6 +114,11 @@ namespace s3d
 			return detail::Damp_impl(a, b, r, dt);
 		}
 
+		ColorF Damp(const ColorF& a, const ColorF& b, double r, double dt)
+		{
+			return detail::Damp_impl(a, b, r, dt);
+		}
+
 		float SmoothDamp(const float from, float to, float& velocity, const float smoothTime, const Optional<float>& maxSpeed, const float deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
@@ -152,6 +157,17 @@ namespace s3d
 		Vec4 SmoothDamp(const Vec4& from, const Vec4& to, Vec4& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
 		{
 			return detail::SmoothDamp_impl(from, to, velocity, smoothTime, deltaTime, maxSpeed);
+		}
+
+		ColorF SmoothDamp(const ColorF& from, const ColorF& to, ColorF& velocity, const double smoothTime, const Optional<double>& maxSpeed, const double deltaTime)
+		{
+			Vec4 vel = velocity.toVec4();
+
+			const Vec4 result = detail::SmoothDamp_impl(from.toVec4(), to.toVec4(), vel, smoothTime, deltaTime, maxSpeed);
+
+			velocity = ColorF{ vel };
+
+			return ColorF{ result };
 		}
 	}
 }
