@@ -635,6 +635,27 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
+	inline bool Array<Type, Allocator>::contains(const value_type& value) const
+	{
+		for (const auto& v : *this)
+		{
+			if (v == value)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	template <class Type, class Allocator>
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>*>
+	inline bool Array<Type, Allocator>::contains_if(Fty f) const
+	{
+		return any(f);
+	}
+
+	template <class Type, class Allocator>
 	inline size_t Array<Type, Allocator>::count(const value_type& value) const
 	{
 		return std::count(begin(), end(), value);

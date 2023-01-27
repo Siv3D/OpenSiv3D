@@ -122,7 +122,7 @@ namespace s3d
 
 	bool CTextToSpeech::hasLanguage(const LanguageCode languageCode)
 	{
-		return m_AvailableLanguages.includes(languageCode);
+		return m_AvailableLanguages.contains(languageCode);
 	}
 
 	void CTextToSpeech::setDefaultLanguage(const LanguageCode languageCode)

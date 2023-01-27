@@ -319,6 +319,27 @@ namespace s3d
 		}
 
 		[[nodiscard]]
+		bool contains(const value_type& value) const
+		{
+			for (const auto& v : *this)
+			{
+				if (v == value)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
+		[[nodiscard]]
+		bool contains_if(Fty f) const
+		{
+			return any(f);
+		}
+
+		[[nodiscard]]
 		size_t count(const value_type& value) const
 		{
 			return std::count(begin(), end(), value);

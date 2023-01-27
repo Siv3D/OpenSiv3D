@@ -22,7 +22,7 @@ namespace s3d
 		static Array<std::string> ConvertFilters(const Array<FileFilter>& filters)
 		{
 			// All files
-			if (filters.includes_if([](const FileFilter& f){ return f.patterns.isEmpty(); }))
+			if (filters.contains_if([](const FileFilter& f){ return f.patterns.isEmpty(); }))
 			{
 				return {};
 			}

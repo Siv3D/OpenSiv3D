@@ -129,7 +129,7 @@ namespace s3d
 	{
 		updateSession();
 
-		return m_sessions.includes_if([=](const auto& session) { return session.first == id; });
+		return m_sessions.contains_if([=](const auto& session) { return session.first == id; });
 	}
 
 	size_t TCPServer::TCPServerDetail::num_sessions()

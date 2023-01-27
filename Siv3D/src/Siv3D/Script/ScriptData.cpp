@@ -231,7 +231,7 @@ namespace s3d
 
 		if (it == m_functions.end())
 		{
-			const bool byDecl = decl.includes(U' ');
+			const bool byDecl = decl.contains(U' ');
 			const std::string declc = decl.narrow();
 
 			AngelScript::asIScriptFunction* func =

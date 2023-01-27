@@ -548,6 +548,21 @@ namespace s3d
 		[[nodiscard]]
 		Array<Array<value_type>> chunk(size_t n) const;
 
+		/// @brief 指定した値と等しい要素があるかを返します。
+		/// @param value 検索する値
+		/// @return 指定した値と等しい要素がある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool contains(const value_type& value) const;
+
+		/// @brief 指定した条件を満たす要素があるかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @remark `.any(f)` と同じです。
+		/// @return 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
+		[[nodiscard]]
+		bool contains_if(Fty f) const;
+
 		/// @brief 指定した値と等しい要素の個数を返します。
 		/// @param value 検索する値
 		/// @return 指定した値と等しい要素の個数
@@ -625,6 +640,7 @@ namespace s3d
 		/// @brief 指定した値と等しい要素があるかを返します。
 		/// @param value 検索する値
 		/// @return 指定した値と等しい要素がある場合 true, それ以外の場合は false
+		/// @remark `.contains(value)` と同じです。
 		[[nodiscard]]
 		bool includes(const value_type& value) const;
 
@@ -633,6 +649,7 @@ namespace s3d
 		/// @param f 条件を記述した関数
 		/// @remark `.any(f)` と同じです。
 		/// @return 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
+		/// @remark `.contains_if(f)` および `.any(f)` と同じです。
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		bool includes_if(Fty f) const;

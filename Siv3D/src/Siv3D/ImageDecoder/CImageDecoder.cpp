@@ -114,7 +114,7 @@ namespace s3d
 	{
 		const StringView name = decoder->name();
 
-		const bool exisits = m_decoders.includes_if([name](const std::unique_ptr<IImageDecoder>& decoder)
+		const bool exisits = m_decoders.contains_if([name](const std::unique_ptr<IImageDecoder>& decoder)
 			{
 				return decoder->name() == name;
 			});
@@ -193,7 +193,7 @@ namespace s3d
 
 			for (auto it = m_decoders.begin(); it != m_decoders.end(); ++it)
 			{
-				if ((*it)->possibleExtensions().includes(extension))
+				if ((*it)->possibleExtensions().contains(extension))
 				{
 					return it;
 				}

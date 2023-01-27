@@ -168,12 +168,12 @@ namespace s3d
 					writer.write(separator);
 				}
 
-				if (column.includes(quote))
+				if (column.contains(quote))
 				{
 					column.replace(quoteStr, escapedQuote);
 				}
 
-				if (column.includes(separator))
+				if (column.contains(separator))
 				{
 					column.push_front(quote);
 

@@ -45,7 +45,7 @@ namespace s3d
 
 	bool CAddon::isRegistered(const StringView name) const noexcept
 	{
-		return m_addons.includes_if([=](const AddonData& a) { return (a.name == name); });
+		return m_addons.contains_if([=](const AddonData& a) { return (a.name == name); });
 	}
 
 	IAddon* CAddon::get(const StringView name)

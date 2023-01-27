@@ -41,7 +41,7 @@ namespace s3d
 
 		for (const auto& encoder : m_encoders)
 		{
-			if (encoder->possibleExtensions().includes(ext))
+			if (encoder->possibleExtensions().contains(ext))
 			{
 				return String(encoder->name());
 			}
@@ -96,7 +96,7 @@ namespace s3d
 	{
 		const StringView name = encoder->name();
 
-		const bool exisits = m_encoders.includes_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
+		const bool exisits = m_encoders.contains_if([name](const std::unique_ptr<IAudioEncoder>& encoder)
 			{
 				return encoder->name() == name;
 			});

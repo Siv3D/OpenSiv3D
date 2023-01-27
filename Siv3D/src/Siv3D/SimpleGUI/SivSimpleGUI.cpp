@@ -985,8 +985,8 @@ namespace s3d
 				// [tab] キーで入力カーソルを非アクティブに
 				{
 					const String raw = TextInput::GetRawInput();
-					text.tabKey = raw.includes(U'\t');
-					text.enterKey = raw.includes(U'\r');
+					text.tabKey = raw.contains(U'\t');
+					text.enterKey = raw.contains(U'\r');
 
 					if (text.tabKey || text.enterKey)
 					{

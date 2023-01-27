@@ -172,6 +172,18 @@ namespace s3d
 		[[nodiscard]]
 		constexpr int32 compare(size_type pos1, size_type n1, const value_type* s, size_type n2) const noexcept;
 
+		/// @brief 文字列が指定した文字を含むかを返します。
+		/// @param ch 検索する文字
+		/// @return 指定した文字を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool contains(value_type ch) const noexcept;
+
+		/// @brief 文字列が指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool contains(StringView s) const noexcept;
+
 		/// @brief 文字列が指定した文字から始まるかを返します。
 		/// @param ch 検索する文字
 		/// @return 指定した文字から始まる場合 true, それ以外の場合は false	
@@ -253,12 +265,14 @@ namespace s3d
 		/// @brief 文字列が指定した文字を含むかを返します。
 		/// @param ch 検索する文字
 		/// @return 指定した文字を含む場合 true, それ以外の場合は false
+		/// @remark `.contains(ch)` と同じです。
 		[[nodiscard]]
 		constexpr bool includes(value_type ch) const noexcept;
 
 		/// @brief 文字列が指定した文字列を含むかを返します。
 		/// @param ch 検索する文字列
 		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		/// @remark `.contains(s)` と同じです。
 		[[nodiscard]]
 		constexpr bool includes(StringView s) const noexcept;
 

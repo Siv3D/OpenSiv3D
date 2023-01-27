@@ -42,7 +42,7 @@ namespace s3d
 
 		if (sampleRate)
 		{
-			if (not sampleRates.includes(*sampleRate))
+			if (not sampleRates.contains(*sampleRate))
 			{
 				LOG_FAIL(U"✖ Microphone: Device does not support sampleRate {}Hz"_fmt(*sampleRate));
 				return false;
@@ -157,7 +157,7 @@ namespace s3d
 
 		if (sampleRate)
 		{
-			if (not sampleRates.includes(*sampleRate))
+			if (not sampleRates.contains(*sampleRate))
 			{
 				LOG_FAIL(U"✖ Microphone: Device does not support sampleRate {}Hz"_fmt(*sampleRate));
 				return false;

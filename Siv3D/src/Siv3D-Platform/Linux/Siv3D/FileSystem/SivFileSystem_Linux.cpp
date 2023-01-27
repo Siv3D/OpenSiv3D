@@ -283,7 +283,7 @@ namespace s3d
 				return FilePath{};
 			}
 
-			if (path.includes(U'/'))
+			if (path.contains(U'/'))
 			{
 				return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(detail::ToPath(path)).string()));
 			}

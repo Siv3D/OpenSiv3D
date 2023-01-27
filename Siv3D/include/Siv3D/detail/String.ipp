@@ -625,6 +625,12 @@ namespace s3d
 	}
 
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
+	inline bool String::contains_if(Fty f) const
+	{
+		return any(f);
+	}
+
+	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline bool String::all(Fty f) const
 	{
 		return std::all_of(m_string.begin(), m_string.end(), f);

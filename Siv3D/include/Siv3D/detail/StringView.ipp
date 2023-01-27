@@ -199,6 +199,16 @@ namespace s3d
 		return m_view.compare(pos1, n1, s, n2);
 	}
 
+	inline constexpr bool StringView::contains(const value_type ch) const noexcept
+	{
+		return (indexOf(ch) != StringView::npos);
+	}
+
+	inline constexpr bool StringView::contains(const StringView s) const noexcept
+	{
+		return (indexOf(s) != StringView::npos);
+	}
+
 	inline constexpr bool StringView::starts_with(const value_type ch) const noexcept
 	{
 		return (not empty()) && (front() == ch);

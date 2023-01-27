@@ -24,6 +24,16 @@ namespace s3d
 		};
 	}
 
+	bool String::contains(const value_type ch) const
+	{
+		return (indexOf(ch) != String::npos);
+	}
+
+	bool String::contains(const StringView s) const
+	{
+		return (indexOf(s) != String::npos);
+	}
+
 	bool String::starts_with(const value_type ch) const noexcept
 	{
 		return (not m_string.empty() && (m_string.front() == ch));

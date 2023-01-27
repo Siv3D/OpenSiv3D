@@ -371,6 +371,27 @@ namespace s3d
 
 		void swap(String& other) noexcept;
 
+		/// @brief 指定した値と等しい要素があるかを返します。
+		/// @param value 検索する値
+		/// @return 指定した値と等しい要素がある場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool contains(value_type ch) const;
+
+		/// @brief 指定した文字列を含むかを返します。
+		/// @param ch 検索する文字列
+		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool contains(StringView s) const;
+
+		/// @brief 指定した条件を満たす要素があるかを返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件を記述した関数
+		/// @remark `.any(f)` と同じです。
+		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
+		[[nodiscard]]
+		bool contains_if(Fty f) const;
+
 		/// @brief 文字列が指定した文字から始まるかを返します。
 		/// @param ch 検索する文字
 		/// @return 指定した文字から始まる場合 true, それ以外の場合は false	
@@ -555,6 +576,7 @@ namespace s3d
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
 		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
+		/// @remark `.contains_if(f)` と同じです。
 		template <class Fty = decltype(Identity), std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
 		bool any(Fty f = Identity) const;
@@ -656,19 +678,21 @@ namespace s3d
 		/// @brief 指定した値と等しい要素があるかを返します。
 		/// @param value 検索する値
 		/// @return 指定した値と等しい要素がある場合 true, それ以外の場合は false
+		/// @remark `.contains(ch)` と同じです。
 		[[nodiscard]]
 		bool includes(value_type ch) const;
 
 		/// @brief 指定した文字列を含むかを返します。
 		/// @param ch 検索する文字列
 		/// @return 指定した文字列を含む場合 true, それ以外の場合は false
+		/// @remark `.contains(s)` と同じです。
 		[[nodiscard]]
 		bool includes(StringView s) const;
 
 		/// @brief 指定した条件を満たす要素があるかを返します。
 		/// @tparam Fty 条件を記述した関数の型
 		/// @param f 条件を記述した関数
-		/// @remark `.any(f)` と同じです。
+		/// @remark `.contains_if(f)` および `.any(f)` と同じです。
 		/// @return 条件を満たす要素が 1 つでもあれば true, 俺以外の場合は false
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>* = nullptr>
 		[[nodiscard]]
