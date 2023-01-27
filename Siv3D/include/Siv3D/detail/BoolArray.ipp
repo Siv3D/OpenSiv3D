@@ -321,15 +321,7 @@ namespace s3d
 		[[nodiscard]]
 		bool contains(const value_type& value) const
 		{
-			for (const auto& v : *this)
-			{
-				if (v == value)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return (std::find(begin(), end(), value) != end());
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
@@ -464,15 +456,7 @@ namespace s3d
 		[[nodiscard]]
 		bool includes(const value_type& value) const
 		{
-			for (const auto& v : *this)
-			{
-				if (v == value)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return (std::find(begin(), end(), value) != end());
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>

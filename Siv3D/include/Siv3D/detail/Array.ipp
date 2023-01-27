@@ -637,15 +637,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline bool Array<Type, Allocator>::contains(const value_type& value) const
 	{
-		for (const auto& v : *this)
-		{
-			if (v == value)
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return (std::find(m_container.begin(), m_container.end(), value) != m_container.end());
 	}
 
 	template <class Type, class Allocator>
@@ -785,15 +777,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline bool Array<Type, Allocator>::includes(const value_type& value) const
 	{
-		for (const auto& v : *this)
-		{
-			if (v == value)
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return (std::find(m_container.begin(), m_container.end(), value) != m_container.end());
 	}
 
 	template <class Type, class Allocator>
