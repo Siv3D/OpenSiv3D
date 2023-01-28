@@ -47,7 +47,22 @@ namespace s3d
 				(ItemPaddingLeft + static_cast<int32>(Math::Ceil(itemBoxWidth)) + ItemPaddingRight),
 				(ItemPaddingY + static_cast<int32>(menu.second.size() * ItemHeight) + ItemPaddingY) };
 
-			m_menus.push_back({ menu.first, menuRect, itemBoxRect, menu.second, Array<bool>(menu.second.size(), true) });
+			Array<Menu::Item> items(menu.second.size());
+
+			for (size_t i = 0; i < items.size(); ++i)
+			{
+				String label = menu.second[i];
+
+				if (label && InRange<char32>(label.front(), 0xF0000, 0x10FFFF))
+				{
+					items[i].icon = label.front();
+					label.pop_front();
+				}
+
+				items[i].label = std::move(label);
+			}
+
+			m_menus.push_back({ menu.first, menuRect, itemBoxRect, std::move(items) });
 
 			penPosX += menuRect.w;
 		}
@@ -117,7 +132,7 @@ namespace s3d
 
 					if (MouseL.down())
 					{
-						if (menu.itemsEnabled[*m_mouseOverItem])
+						if (menu.items[*m_mouseOverItem].enabled)
 						{
 							result = { *m_openMenu, i };
 
@@ -172,7 +187,7 @@ namespace s3d
 		
 			itemBoxRect.rounded(5).draw(m_palette.itemBoxColor);
 
-			if (m_mouseOverItem && menu.itemsEnabled[*m_mouseOverItem])
+			if (m_mouseOverItem && menu.items[*m_mouseOverItem].enabled)
 			{
 				const Rect itemRect{ itemBoxRect.x, (itemBoxRect.y + ItemPaddingY + (*m_mouseOverItem * ItemHeight)), itemBoxRect.w, ItemHeight };
 
@@ -183,10 +198,21 @@ namespace s3d
 
 			for (auto&& [i, item] : Indexed(menu.items))
 			{
-				const ColorF textColor = (menu.itemsEnabled[i] ? ((i == m_mouseOverItem) ? m_palette.itemMouseoverTextColor : m_palette.itemTextColor)
+				const ColorF textColor = (item.enabled ? ((i == m_mouseOverItem) ? m_palette.itemMouseoverTextColor : m_palette.itemTextColor)
 					: m_palette.itemDisabledTextColor);
 
-				font(item).draw(FontSize, Arg::leftCenter(pos.x, pos.y + (ItemHeight / 2)),
+				if (item.checked)
+				{
+					font(U"\U000F012C").draw((FontSize * 1.25), Arg::leftCenter((pos.x - ItemPaddingLeft * 0.75), pos.y + (ItemHeight / 2)),
+						textColor);
+				}
+				else if (item.icon)
+				{
+					font(item.icon).draw((FontSize * 1.25), Arg::leftCenter((pos.x - ItemPaddingLeft * 0.75), pos.y + (ItemHeight / 2)),
+						textColor);
+				}
+
+				font(item.label).draw(FontSize, Arg::leftCenter(pos.x, pos.y + (ItemHeight / 2)),
 					textColor);
 
 				pos.y += ItemHeight;
@@ -194,16 +220,16 @@ namespace s3d
 		}
 	}
 
-	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const size_t menuIndex, const size_t itemIndex, bool enbaled)
+	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const size_t menuIndex, const size_t itemIndex, const bool enbaled)
 	{
 		return setItemEnabled(MenuBarItemIndex{ menuIndex, itemIndex }, enbaled);
 	}
 
-	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const MenuBarItemIndex& itemIndex, bool enbaled)
+	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const MenuBarItemIndex& itemIndex, const bool enbaled)
 	{
 		assert(itemIndex.menuIndex < m_menus.size());
-		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].itemsEnabled.size());
-		m_menus[itemIndex.menuIndex].itemsEnabled[itemIndex.itemIndex] = enbaled;
+		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].items.size());
+		m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].enabled = enbaled;
 		return *this;
 	}
 
@@ -215,8 +241,33 @@ namespace s3d
 	bool SimpleMenuBar::getItemEnabled(const MenuBarItemIndex& itemIndex) const
 	{
 		assert(itemIndex.menuIndex < m_menus.size());
-		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].itemsEnabled.size());
-		return m_menus[itemIndex.menuIndex].itemsEnabled[itemIndex.itemIndex];
+		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].items.size());
+		return m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].enabled;
+	}
+
+	SimpleMenuBar& SimpleMenuBar::setItemChecked(const size_t menuIndex, const size_t itemIndex, const bool checked)
+	{
+		return setItemChecked(MenuBarItemIndex{ menuIndex, itemIndex }, checked);
+	}
+
+	SimpleMenuBar& SimpleMenuBar::setItemChecked(const MenuBarItemIndex& itemIndex, const bool checked)
+	{
+		assert(itemIndex.menuIndex < m_menus.size());
+		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].items.size());
+		m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].checked = checked;
+		return *this;
+	}
+
+	bool SimpleMenuBar::getItemChecked(const size_t menuIndex, const size_t itemIndex) const
+	{
+		return getItemChecked(MenuBarItemIndex{ menuIndex, itemIndex });
+	}
+
+	bool SimpleMenuBar::getItemChecked(const MenuBarItemIndex& itemIndex) const
+	{
+		assert(itemIndex.menuIndex < m_menus.size());
+		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].items.size());
+		return m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].checked;
 	}
 
 	SimpleMenuBar& SimpleMenuBar::setColorPalette(const ColorPalette& palette) noexcept
