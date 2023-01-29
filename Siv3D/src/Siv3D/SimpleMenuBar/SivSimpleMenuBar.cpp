@@ -18,6 +18,8 @@
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Indexed.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/CursorStyle.hpp>
 
 namespace s3d
 {
@@ -162,6 +164,11 @@ namespace s3d
 	{
 		m_rect.draw(m_palette.menuBarColor);
 
+		if (m_rect.mouseOver())
+		{
+			Cursor::RequestStyle(CursorStyle::Default);
+		}
+
 		if (m_mouseOverMenu)
 		{
 			m_menus[*m_mouseOverMenu].menuRect.stretched(0, -2).rounded(3.5).draw(m_palette.activeMenuColor);
@@ -189,6 +196,8 @@ namespace s3d
 
 			if (m_mouseOverItem && menu.items[*m_mouseOverItem].enabled)
 			{
+				Cursor::RequestStyle(CursorStyle::Default);
+
 				const Rect itemRect{ itemBoxRect.x, (itemBoxRect.y + ItemPaddingY + (*m_mouseOverItem * ItemHeight)), itemBoxRect.w, ItemHeight };
 
 				itemRect.stretched(-4, -2).rounded(3.5).draw(m_palette.itemMouseoverColor);
