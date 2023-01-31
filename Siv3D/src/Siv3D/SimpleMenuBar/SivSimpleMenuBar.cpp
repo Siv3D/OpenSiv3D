@@ -18,6 +18,8 @@
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Indexed.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/CursorStyle.hpp>
 
 namespace s3d
 {
@@ -161,6 +163,11 @@ namespace s3d
 	void SimpleMenuBar::draw() const
 	{
 		m_rect.draw(m_palette.menuBarColor);
+
+		if (m_rect.mouseOver() || m_openMenu)
+		{
+			Cursor::RequestStyle(CursorStyle::Default);
+		}
 
 		if (m_mouseOverMenu)
 		{
