@@ -164,7 +164,7 @@ namespace s3d
 	{
 		m_rect.draw(m_palette.menuBarColor);
 
-		if (m_rect.mouseOver())
+		if (m_rect.mouseOver() || m_openMenu)
 		{
 			Cursor::RequestStyle(CursorStyle::Default);
 		}
@@ -196,8 +196,6 @@ namespace s3d
 
 			if (m_mouseOverItem && menu.items[*m_mouseOverItem].enabled)
 			{
-				Cursor::RequestStyle(CursorStyle::Default);
-
 				const Rect itemRect{ itemBoxRect.x, (itemBoxRect.y + ItemPaddingY + (*m_mouseOverItem * ItemHeight)), itemBoxRect.w, ItemHeight };
 
 				itemRect.stretched(-4, -2).rounded(3.5).draw(m_palette.itemMouseoverColor);
