@@ -84,7 +84,7 @@ namespace s3d
 		explicit SimpleMenuBar(const Array<std::pair<String, Array<String>>>& menus);
 
 		/// @brief メニューバーを更新します。
-		/// @return メニューアイテムが選択され場合、そのアイテムのインデックス。それ以外の場合は none
+		/// @return メニューアイテムが選択された場合、そのアイテムのインデックス。それ以外の場合は none
 		Optional<MenuBarItemIndex> update();
 
 		/// @brief メニューバーを描画します。
