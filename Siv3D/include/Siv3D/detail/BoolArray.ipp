@@ -820,7 +820,7 @@ namespace s3d
 		[[nodiscard]]
 		Array rotated(std::ptrdiff_t count = 1) const&
 		{
-			return Array(*this).rotate(count);
+			return std::move(Array(*this).rotate(count));
 		}
 
 		[[nodiscard]]
@@ -841,7 +841,7 @@ namespace s3d
 		[[nodiscard]]
 		Array rsorted() const&
 		{
-			return Array(*this).rsort();
+			return std::move(Array(*this).rsort());
 		}
 
 		[[nodiscard]]
@@ -874,14 +874,14 @@ namespace s3d
 		[[nodiscard]]
 		Array shuffled()&&
 		{
-			return shuffled(GetDefaultRNG());
+			return std::move(*this).shuffled(GetDefaultRNG());
 		}
 
 		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
 		Array shuffled(URBG&& rbg) const&
 		{
-			return Array(*this).shuffle(std::forward<URBG>(rbg));
+			return std::move(Array(*this).shuffle(std::forward<URBG>(rbg)));
 		}
 
 		SIV3D_CONCEPT_URBG
@@ -954,13 +954,13 @@ namespace s3d
 		[[nodiscard]]
 		Array sorted() const&
 		{
-			return Array(*this).sort();
+			return std::move(Array(*this).sort());
 		}
 
 		[[nodiscard]]
 		Array stable_sorted() const&
 		{
-			return Array(*this).stable_sort();
+			return std::move(Array(*this).stable_sort());
 		}
 
 		[[nodiscard]]
@@ -983,14 +983,14 @@ namespace s3d
 		[[nodiscard]]
 		Array sorted_by(Fty f) const&
 		{
-			return Array(*this).sort_by(f);
+			return std::move(Array(*this).sort_by(f));
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
 		[[nodiscard]]
 		Array stable_sorted_by(Fty f) const&
 		{
-			return Array(*this).stable_sort_by(f);
+			return std::move(Array(*this).stable_sort_by(f));
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool, bool>>* = nullptr>
@@ -1069,7 +1069,7 @@ namespace s3d
 		[[nodiscard]]
 		Array sorted_and_uniqued()&&
 		{
-			return stable_uniqued().sort();
+			return std::move(stable_uniqued().sort());
 		}
 
 		Array& unique_consecutive()

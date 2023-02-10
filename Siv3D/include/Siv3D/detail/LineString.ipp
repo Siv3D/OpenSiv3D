@@ -153,7 +153,7 @@ namespace s3d
 
 	inline LineString::value_type LineString::at(const size_t index)&&
 	{
-		return m_data.at(index);
+		return std::move(m_data.at(index));
 	}
 
 	inline LineString::value_type& LineString::operator[](const size_t index) & noexcept

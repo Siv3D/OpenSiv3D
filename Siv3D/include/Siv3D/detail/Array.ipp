@@ -1154,7 +1154,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::rotated(const std::ptrdiff_t count) const&
 	{
-		return Array(*this).rotate(count);
+		return std::move(Array(*this).rotate(count));
 	}
 
 	template <class Type, class Allocator>
@@ -1178,7 +1178,7 @@ namespace s3d
 	template <class T, std::enable_if_t<Meta::HasGreaterThan_v<T>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::rsorted() const&
 	{
-		return Array(*this).rsort();
+		return std::move(Array(*this).rsort());
 	}
 
 	template <class Type, class Allocator>
@@ -1214,14 +1214,14 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::shuffled()&&
 	{
-		return shuffled(GetDefaultRNG());
+		return std::move(*this).shuffled(GetDefaultRNG());
 	}
 
 	template <class Type, class Allocator>
 	SIV3D_CONCEPT_URBG_
 	inline Array<Type, Allocator> Array<Type, Allocator>::shuffled(URBG&& rbg) const&
 	{
-		return Array(*this).shuffle(std::forward<URBG>(rbg));
+		return std::move(Array(*this).shuffle(std::forward<URBG>(rbg)));
 	}
 
 	template <class Type, class Allocator>
@@ -1295,7 +1295,7 @@ namespace s3d
 	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::sorted() const&
 	{
-		return Array(*this).sort();
+		return std::move(Array(*this).sort());
 	}
 
 	template <class Type, class Allocator>
@@ -1309,7 +1309,7 @@ namespace s3d
 	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::stable_sorted() const&
 	{
-		return Array(*this).stable_sort();
+		return std::move(Array(*this).stable_sort());
 	}
 
 	template <class Type, class Allocator>
@@ -1334,14 +1334,14 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::sorted_by(Fty f) const&
 	{
-		return Array(*this).sort_by(f);
+		return std::move(Array(*this).sort_by(f));
 	}
 
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
 	inline Array<Type, Allocator> Array<Type, Allocator>::stable_sorted_by(Fty f) const&
 	{
-		return Array(*this).stable_sort_by(f);
+		return std::move(Array(*this).stable_sort_by(f));
 	}
 
 	template <class Type, class Allocator>
@@ -1445,7 +1445,7 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Array<Type, Allocator> Array<Type, Allocator>::sorted_and_uniqued() const&
 	{
-		return Array(*this).sort_and_unique();
+		return std::move(Array(*this).sort_and_unique());
 	}
 
 	template <class Type, class Allocator>
