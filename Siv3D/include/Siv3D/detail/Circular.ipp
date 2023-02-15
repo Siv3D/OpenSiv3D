@@ -60,7 +60,7 @@ namespace s3d
 	template <class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock> CircularBase<Float, Oclock>::rotated(const value_type angle) const noexcept
 	{
-		return std::move(CircularBase{ *this }.rotate(angle));
+		return CircularBase{ *this }.rotate(angle);
 	}
 
 	template <class Float, int32 Oclock>

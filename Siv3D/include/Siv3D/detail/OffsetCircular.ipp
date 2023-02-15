@@ -71,7 +71,7 @@ namespace s3d
 	template <class Float, int32 Oclock>
 	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::movedBy(const position_type v) const noexcept
 	{
-		return std::move(OffsetCircularBase{ *this }.moveBy(v));
+		return OffsetCircularBase{ *this }.moveBy(v);
 	}
 
 	template <class Float, int32 Oclock>
@@ -123,7 +123,7 @@ namespace s3d
 	template <class Float, int32 Oclock>
 	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::rotated(const value_type angle) const noexcept
 	{
-		return std::move(OffsetCircularBase{ *this }.rotate(angle));
+		return OffsetCircularBase{ *this }.rotate(angle);
 	}
 
 	template <class Float, int32 Oclock>

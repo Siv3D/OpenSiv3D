@@ -217,7 +217,7 @@ namespace s3d
 
 	inline Wave::value_type Wave::at(const size_t index)&&
 	{
-		return std::move(m_data.at(index));
+		return m_data.at(index);
 	}
 
 	inline Wave::value_type& Wave::operator[](const size_t index) & noexcept
@@ -232,7 +232,7 @@ namespace s3d
 
 	inline Wave::value_type Wave::operator[](const size_t index) && noexcept
 	{
-		return std::move(m_data[index]);
+		return m_data[index];
 	}
 
 	inline void Wave::push_front(const value_type& value)

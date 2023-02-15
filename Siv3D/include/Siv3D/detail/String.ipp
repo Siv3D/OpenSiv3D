@@ -471,7 +471,7 @@ namespace s3d
 
 	inline String::value_type String::at(const size_t offset)&&
 	{
-		return std::move(m_string.at(offset));
+		return m_string.at(offset);
 	}
 
 	inline String::value_type& String::operator[](const size_t offset)& noexcept
@@ -486,7 +486,7 @@ namespace s3d
 
 	inline String::value_type String::operator[](const size_t offset) && noexcept
 	{
-		return std::move(m_string[offset]);
+		return m_string[offset];
 	}
 
 	inline void String::push_front(const value_type ch)
