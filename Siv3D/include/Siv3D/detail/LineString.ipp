@@ -168,7 +168,7 @@ namespace s3d
 
 	inline LineString::value_type LineString::operator[](const size_t index) && noexcept
 	{
-		return std::move(m_data[index]);
+		return m_data[index];
 	}
 
 	inline void LineString::push_front(const value_type& value)

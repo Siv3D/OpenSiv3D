@@ -138,7 +138,7 @@ namespace s3d
 
 	inline MultiPolygon::value_type MultiPolygon::at(const size_t index)&&
 	{
-		return m_data.at(index);
+		return std::move(m_data.at(index));
 	}
 
 	inline MultiPolygon::value_type& MultiPolygon::operator[](const size_t index) & noexcept
