@@ -815,6 +815,20 @@ namespace s3d
 		/// @return *this
 		const Rect& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const;
 
+		/// @brief 長方形を描画します。
+		/// @param topLeftColor 長方形の左上の色
+		/// @param bottomRightColor 長方形の右下の色
+		/// @remark `rect.draw(Arg::topLeft = ColorF{ 0.0 }, Arg::bottomRight = ColorF{ 1.0 })` のように呼びます。
+		/// @return *this
+		const Rect& draw(Arg::topLeft_<ColorF> topLeftColor, Arg::bottomRight_<ColorF> bottomRightColor) const;
+
+		/// @brief 長方形を描画します。
+		/// @param topRightColor 長方形の右上の色
+		/// @param bottomLeftColor 長方形の左下の色
+		/// @remark `rect.draw(Arg::topRight = ColorF{ 0.0 }, Arg::bottomLeft = ColorF{ 1.0 })` のように呼びます。
+		/// @return 
+		const Rect& draw(Arg::topRight_<ColorF> topRightColor, Arg::bottomLeft_<ColorF> bottomLeftColor) const;
+
 		/// @brief 長方形の枠を描画します。
 		/// @param thickness 枠の太さ
 		/// @param color 色

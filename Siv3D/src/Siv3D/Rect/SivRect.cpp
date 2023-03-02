@@ -533,6 +533,30 @@ namespace s3d
 		return *this;
 	}
 
+	const Rect& Rect::draw(const Arg::topLeft_<ColorF> topLeftColor, const Arg::bottomRight_<ColorF> bottomRightColor) const
+	{
+		const Float4 color0 = topLeftColor->toFloat4();
+		const Float4 color2 = bottomRightColor->toFloat4();
+		const Float4 color1 = ((color0 + color2) * 0.5f);
+
+		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) },
+			{ color0, color1, color2, color1 });
+
+		return *this;
+	}
+
+	const Rect& Rect::draw(const Arg::topRight_<ColorF> topRightColor, const Arg::bottomLeft_<ColorF> bottomLeftColor) const
+	{
+		const Float4 color0 = topRightColor->toFloat4();
+		const Float4 color2 = bottomLeftColor->toFloat4();
+		const Float4 color1 = ((color0 + color2) * 0.5f);
+
+		SIV3D_ENGINE(Renderer2D)->addRect(FloatRect{ x, y, (x + w), (y + h) },
+			{ color1, color0, color1, color2 });
+
+		return *this;
+	}
+
 	const Rect& Rect::drawFrame(const double thickness, const ColorF& color) const
 	{
 		return drawFrame((thickness * 0.5), (thickness * 0.5), color);
