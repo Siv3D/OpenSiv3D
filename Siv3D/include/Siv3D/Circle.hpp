@@ -470,22 +470,81 @@ namespace s3d
 		/// @return *this
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 		
+		/// @brief 扇形を描きます。
+		/// @param startAngle 扇形の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 扇形の角度（ラジアン）
+		/// @param color 扇形の色
+		/// @return *this
 		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
 
+		/// @brief 扇形を描きます。
+		/// @param startAngle 扇形の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 扇形の角度（ラジアン）
+		/// @param innerColor 扇の中心部分の色
+		/// @param outerColor 扇の外側部分の色
+		/// @return *this
 		const Circle& drawPie(double startAngle, double angle, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 円の弧を描きます。
+		/// @param startAngle 弧の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 弧の角度（ラジアン）
+		/// @param innerThickness 基準の円から内側方向への弧の太さ
+		/// @param outerThickness 基準の円から外側方向への弧の太さ
+		/// @param color 弧の色
+		/// @return *this
 		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
+		/// @brief 円の弧を描きます。
+		/// @param startAngle 弧の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 弧の角度（ラジアン）
+		/// @param innerThickness 基準の円から内側方向への弧の太さ
+		/// @param outerThickness 基準の円から外側方向への弧の太さ
+		/// @param innerColor 内側部分の弧の色
+		/// @param outerColor 外側部分の弧の色
+		/// @return *this
 		const Circle& drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 円の弧を描きます。
+		/// @param style 線のスタイル
+		/// @param startAngle 弧の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 弧の角度（ラジアン）
+		/// @param innerThickness 基準の円から内側方向への弧の太さ
+		/// @param outerThickness 基準の円から外側方向への弧の太さ
+		/// @param color 弧の色
+		/// @return *this
 		const Circle& drawArc(const LineStyle& style, double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
+		/// @brief 円の弧を描きます。
+		/// @param style 線のスタイル
+		/// @param startAngle 弧の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 弧の角度（ラジアン）
+		/// @param innerThickness 基準の円から内側方向への弧の太さ
+		/// @param outerThickness 基準の円から外側方向への弧の太さ
+		/// @param innerColor 内側部分の弧の色
+		/// @param outerColor 外側部分の弧の色
+		/// @return *this
 		const Circle& drawArc(const LineStyle& style, double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
 
+		/// @brief 弓形を描きます。
+		/// @param arcMidpointAngle 弓形の弧の中心を円の中心から見た角度（ラジアン, 0 時の方向から時計回り）
+		/// @param height 弓形の高さ
+		/// @param color 色
+		/// @return *this
 		const Circle& drawSegment(double arcMidpointAngle, double height, const ColorF& color = Palette::White) const;
 
+		/// @brief 弓形を描きます。
+		/// @param startAngle 弓形の弧の開始角度（ラジアン, 0 時の方向から時計回り）
+		/// @param angle 弓形の弧の角度（ラジアン）
+		/// @param color 色
+		/// @return *this
 		const Circle& drawSegmentFromAngles(double startAngle, double angle, const ColorF& color = Palette::White) const;
 
+		/// @brief 円の影を描きます。
+		/// @param offset 影の位置のオフセット
+		/// @param blurRadius ぼかし距離
+		/// @param spread 元の円からのサイズのオフセット
+		/// @param color 影の色
+		/// @return *this
 		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]

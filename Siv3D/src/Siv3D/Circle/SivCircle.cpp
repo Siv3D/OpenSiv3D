@@ -417,7 +417,7 @@ namespace s3d
 
 	const Circle& Circle::drawSegment(const double arcMidpointAngle, const double height, const ColorF& color) const
 	{
-		if (height <= 0.0)
+		if ((height <= 0.0) || (r <= 0.0))
 		{
 			return *this;
 		}
