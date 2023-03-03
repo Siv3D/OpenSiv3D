@@ -82,6 +82,9 @@ namespace s3d
 		Vertex2D::IndexType BuildUncappedCircleArc(const BufferCreatorFunc& bufferCreator, const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& innerColor, const Float4& outerColor, float scale);
 
 		[[nodiscard]]
+		Vertex2D::IndexType BuildCircleSegment(const BufferCreatorFunc& bufferCreator, const Float2& center, float r, float startAngle, float angle, const Float4& color, float scale);
+
+		[[nodiscard]]
 		Vertex2D::IndexType BuildEllipse(const BufferCreatorFunc& bufferCreator, const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor, float scale);
 
 		[[nodiscard]]

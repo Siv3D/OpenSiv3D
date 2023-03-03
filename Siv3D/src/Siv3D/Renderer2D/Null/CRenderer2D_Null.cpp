@@ -97,6 +97,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addCircleSegment(const Float2&, const float, const float, const float, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addEllipse(const Float2&, const float, const float, const Float4&, const Float4&)
 	{
 		// do nothing

@@ -142,6 +142,8 @@ namespace s3d
 
 		void addCircleArc(const LineStyle& style, const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 
+		void addCircleSegment(const Float2& center, float r, float startAngle, float angle, const Float4& color) override;
+
 		void addEllipse(const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor) override;
 
 		void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) override;

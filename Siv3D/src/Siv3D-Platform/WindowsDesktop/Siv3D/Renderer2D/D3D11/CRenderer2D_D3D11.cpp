@@ -350,6 +350,24 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_D3D11::addCircleSegment(const Float2& center, const float r, const float startAngle, const float angle, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircleSegment(m_bufferCreator, center, r, startAngle, angle, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->shapeID);
+			}
+
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& innerColor, const Float4& outerColor)
 	{
 		if (const auto indexCount = Vertex2DBuilder::BuildEllipse(m_bufferCreator, center, a, b, innerColor, outerColor, getMaxScaling()))

@@ -744,6 +744,73 @@ namespace s3d
 			return indexSize;
 		}
 
+		Vertex2D::IndexType BuildCircleSegment(const BufferCreatorFunc& bufferCreator, const Float2& center, const float r, const float startAngle, const float _angle, const Float4& color, const float scale)
+		{
+			if (_angle == 0.0f)
+			{
+				return 0;
+			}
+
+			const float angle = Clamp(_angle, -Math::TwoPiF, Math::TwoPiF);
+			const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
+			const Vertex2D::IndexType vertexSize = (quality + 1), indexSize = ((quality - 1) * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float centerX = center.x;
+			const float centerY = center.y;
+
+			{
+				const auto [s1, c1] = FastMath::SinCos(startAngle);
+				const Float2 p1{ s1, -c1 };
+
+				const auto [s2, c2] = FastMath::SinCos(startAngle + angle);
+				const Float2 p2{ s2, -c2 };
+
+				const Float2 mid = ((p1 + p2) * 0.5f * r);
+
+				// 中心
+				pVertex[0].pos = (mid + Float2{ centerX, centerY });
+			}
+
+			// 周
+			{
+				const float radDelta = Math::TwoPiF / (quality - 1);
+				const float start = -(startAngle + angle) + Math::HalfPiF;
+				const float angleScale = (angle / Math::TwoPiF);
+				Vertex2D* pDst = &pVertex[1];
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = start + (radDelta * i) * angleScale;
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + r * c, centerY - r * s);
+				}
+			}
+
+			{
+				(pVertex++)->color = color;
+
+				for (size_t i = 1; i < vertexSize; ++i)
+				{
+					(pVertex++)->color = color;
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
+			{
+				*pIndex++ = (indexOffset + i + 1);
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 2);
+			}
+
+			return indexSize;
+		}
+
 		Vertex2D::IndexType BuildEllipse(const BufferCreatorFunc& bufferCreator, const Float2& center, float a, float b, const Float4& innerColor, const Float4& outerColor, float scale)
 		{
 			const float majorAxis = Max(Abs(a), Abs(b));
