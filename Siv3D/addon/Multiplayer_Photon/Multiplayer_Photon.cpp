@@ -504,7 +504,7 @@ namespace s3d
 		m_client.reset();
 
 		m_client = std::make_unique<ExitGames::LoadBalancing::Client>(*m_listener, detail::ToJString(m_secretPhotonAppID), detail::ToJString(m_photonAppVersion),
-			ExitGames::Photon::ConnectionProtocol::DEFAULT, false, (m_requestedRegion ? ExitGames::LoadBalancing::RegionSelectionMode::SELECT : ExitGames::LoadBalancing::RegionSelectionMode::BEST));
+		  ExitGames::LoadBalancing::ClientConstructOptions{ ExitGames::Photon::ConnectionProtocol::DEFAULT, false, (m_requestedRegion ? ExitGames::LoadBalancing::RegionSelectionMode::SELECT : ExitGames::LoadBalancing::RegionSelectionMode::BEST) });
 
 		const auto userName = detail::ToJString(userName_);
 		const auto userID = ExitGames::LoadBalancing::AuthenticationValues{}.setUserID(userName + static_cast<uint32>(Time::GetMillisecSinceEpoch()));
