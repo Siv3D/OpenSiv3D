@@ -1,155 +1,123 @@
-#include <Siv3D.hpp>
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.7
 
 void Main()
 {
-	JSON bad_person = UR"({
-    "name": "Albert",
-    "age": 42,
-    "object": {}
-})"_json;
+	// 背景の色を設定する | Set the background color
+	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
 
-	JSON good_person = UR"({
-    "name": "Albert",
-    "age": 42,
-    "object": {
-        "string": "string"
-    }
-})"_json;
+	// 画像ファイルからテクスチャを作成する | Create a texture from an image file
+	const Texture texture{ U"example/windmill.png" };
 
-	JSONValidator schema = UR"({
-    "title": "A person",
-    "properties": {
-        "name": {
-            "description": "Name",
-            "type": "string"
-        },
-        "age": {
-            "description": "Age of the person",
-            "type": "number",
-            "minimum": 2,
-            "maximum": 200
-        },
-        "object": {
-            "type": "object",
-            "properties": {
-                "string": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "string"
-            ]
-        }
-    },
-    "required": [
-        "name",
-        "age",
-        "object"
-    ],
-    "type": "object"
-})"_jsonValidator;
+	// 絵文字からテクスチャを作成する | Create a texture from an emoji
+	const Texture emoji{ U"🦖"_emoji };
 
-	Console << U"\n[Test 1]";
+	// 太文字のフォントを作成する | Create a bold font with MSDF method
+	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 
-	for (auto& person : {bad_person, good_person})
-	{
-		Console << U"---";
+	// テキストに含まれる絵文字のためのフォントを作成し、font に追加する | Create a font for emojis in text and add it to font as a fallback
+	const Font emojiFont{ 48, Typeface::ColorEmoji };
+	font.addFallback(emojiFont);
 
-		if (schema.validate(person))
-		{
-			Console << U"OK";
-		}
-		else
-		{
-			Console << U"NG";
-		}
-	}
+	// ボタンを押した回数 | Number of button presses
+	int32 count = 0;
 
-	Console << U"\n[Test 2]";
+	// チェックボックスの状態 | Checkbox state
+	bool checked = false;
 
-	for (auto& person : {bad_person, good_person})
-	{
-		JSONValidator::ValidationError err;
+	// プレイヤーの移動スピード | Player's movement speed
+	double speed = 200.0;
 
-		Console << U"---";
+	// プレイヤーの X 座標 | Player's X position
+	double playerPosX = 400;
 
-		if (schema.validate(person, err))
-		{
-			Console << U"OK";
-			Console << err.isOK();
-		}
-		else
-		{
-			Console << U"NG";
-			Console << err.isOK();
-			Console << err;
-		}
-	}
-
-	Console << U"\n[Test 3]";
-
-	for (auto& person : {bad_person, good_person})
-	{
-		Console << U"---";
-
-		try
-		{
-			schema.validationAssert(person);
-			Console << U"OK";
-		}
-		catch (const JSONValidator::ValidationError& err)
-		{
-			Console << U"NG";
-			Console << err;
-		}
-	}
-
-#define JSONINIT UR"({"a~/a": {"b": [5, 6, 7, 8, 9]}})"_json;
-
-	auto json = JSONINIT;
-
-	const auto f = []<class T>(T& json) {
-		// デフォルトコンストラクタは JSON 全体を指すパス（空文字列）
-		JSONPointer pointer;
-		Print << json[pointer];
-
-		// ~ や / がキーに含まれる場合、エスケープしていないキーを
-		//  operator/
-		//  operator/=
-		//  push_back
-		// でキー単位で追加することが可能
-		Print << json[pointer / U"a~/a"];
-
-		// 型レベルの識別をすることで、operator[] のオーバーロードが可
-		//  operator[](const JSONPointer&) JSONPointer でアクセス
-		//  operator[](StringView)         JSON キーでアクセス（エスケープ不要）
-		//  operator[](size_t)             インデックスでアクセス
-		// 注: JSONPointer コンストラクタは JSON Pointer（エスケープ）が必要
-		Print << json[U"/a~0~1a"_jsonPtr][U"b"][0];
-
-		// ネストしたプロパティへのアクセスが楽に
-		Print << json[U"/a~0~1a/b/0"_jsonPtr];
-
-		if constexpr (std::same_as<T, JSON>)
-		{
-			// 書き換えテスト
-			json[pointer]          = UR"({"c": [5, 6, 7, 8, 9]})"_json;
-			json[pointer][U"c"]    = UR"([10, 11, 12, 13, 14])"_json;
-			json[pointer][U"c"][5] = 15;
-
-			Print << json;
-
-			json = JSONINIT;
-		}
-	};
-
-	// JSON&
-	f(json);
-
-	// const JSON&
-	f(std::as_const(json));
+	// プレイヤーが右を向いているか | Whether player is facing right
+	bool isPlayerFacingRight = true;
 
 	while (System::Update())
 	{
+		// テクスチャを描く | Draw the texture
+		texture.draw(20, 20);
+
+		// テキストを描く | Draw text
+		font(U"Hello, Siv3D!🎮").draw(64, Vec2{ 20, 340 }, ColorF{ 0.2, 0.4, 0.8 });
+
+		// 指定した範囲内にテキストを描く | Draw text within a specified area
+		font(U"Siv3D (シブスリーディー) は、ゲームやアプリを楽しく簡単な C++ コードで開発できるフレームワークです。")
+			.draw(18, Rect{ 20, 430, 480, 200 }, Palette::Black);
+
+		// 長方形を描く | Draw a rectangle
+		Rect{ 540, 20, 80, 80 }.draw();
+
+		// 角丸長方形を描く | Draw a rounded rectangle
+		RoundRect{ 680, 20, 80, 200, 20 }.draw(ColorF{ 0.0, 0.4, 0.6 });
+
+		// 円を描く | Draw a circle
+		Circle{ 580, 180, 40 }.draw(Palette::Seagreen);
+
+		// 矢印を描く | Draw an arrow
+		Line{ 540, 330, 760, 260 }.drawArrow(8, SizeF{ 20, 20 }, ColorF{ 0.4 });
+
+		// 半透明の円を描く | Draw a semi-transparent circle
+		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1.0, 0.0, 0.0, 0.5 });
+
+		// ボタン | Button
+		if (SimpleGUI::Button(U"count: {}"_fmt(count), Vec2{ 520, 370 }, 120, (checked == false)))
+		{
+			// カウントを増やす | Increase the count
+			++count;
+		}
+
+		// チェックボックス | Checkbox
+		SimpleGUI::CheckBox(checked, U"Lock \U000F033E", Vec2{ 660, 370 }, 120);
+
+		// スライダー | Slider
+		SimpleGUI::Slider(U"speed: {:.1f}"_fmt(speed), speed, 100, 400, Vec2{ 520, 420 }, 140, 120);
+
+		// 左キーが押されていたら | If left key is pressed
+		if (KeyLeft.pressed())
+		{
+			// プレイヤーが左に移動する | Player moves left
+			playerPosX = Max((playerPosX - speed * Scene::DeltaTime()), 60.0);
+			isPlayerFacingRight = false;
+		}
+
+		// 右キーが押されていたら | If right key is pressed
+		if (KeyRight.pressed())
+		{
+			// プレイヤーが右に移動する | Player moves right
+			playerPosX = Min((playerPosX + speed * Scene::DeltaTime()), 740.0);
+			isPlayerFacingRight = true;
+		}
+
+		// プレイヤーを描く | Draw the player
+		emoji.scaled(0.75).mirrored(isPlayerFacingRight).drawAt(playerPosX, 540);
 	}
 }
+
+//
+// - Debug ビルド: プログラムの最適化を減らす代わりに、エラーやクラッシュ時に詳細な情報を得られます。
+//
+// - Release ビルド: 最大限の最適化でビルドします。
+//
+// - [デバッグ] メニュー → [デバッグの開始] でプログラムを実行すると、[出力] ウィンドウに詳細なログが表示され、エラーの原因を探せます。
+//
+// - Visual Studio を更新した直後は、プログラムのリビルド（[ビルド]メニュー → [ソリューションのリビルド]）が必要です。
+//
+// チュートリアル
+// https://siv3d.github.io/ja-jp/tutorial/tutorial/
+//
+// Tutorial
+// https://siv3d.github.io/tutorial/tutorial/
+//
+// Siv3D コミュニティへの参加（Discord などで気軽に質問や交流, 最新情報の入手ができます）
+// https://siv3d.github.io/ja-jp/community/community/
+//
+// Siv3D User Community
+// https://siv3d.github.io/community/community/
+//
+// 新機能の提案やバグの報告 | Feedback
+// https://siv3d.github.io/ja-jp/develop/report/
+//
+// Sponsoring Siv3D
+// https://github.com/sponsors/Reputeless
+//
