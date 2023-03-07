@@ -36,7 +36,6 @@ Name | Version
 [GSL](https://github.com/microsoft/GSL) | 
 [HarfBuzz](https://github.com/harfbuzz/harfbuzz) | 4.3.0
 [infoware](https://github.com/ThePhD/infoware) | v0.5.3
-[json-schema-validator](https://github.com/pboettch/json-schema-validator) | v2.2.0
 [kld-polynomial](https://github.com/Quazistax/kld-polynomial) | 
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libcurl](https://github.com/curl/curl) | 7.77.0
@@ -52,6 +51,7 @@ Name | Version
 [Material Design Icons](https://github.com/Templarian/MaterialDesign) | v6.5.95
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
+[Modern C++ JSON schema validator](https://github.com/pboettch/json-schema-validator) | v2.2.0
 [msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
 [muparser](https://github.com/beltoforion/muparser) | 2.3.3
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.4.2
