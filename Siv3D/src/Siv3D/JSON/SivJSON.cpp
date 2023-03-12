@@ -1329,7 +1329,7 @@ namespace s3d
 		{
 			m_detail = std::make_shared<detail::JSONPointerDetail>(Unicode::ToUTF8(jsonPointer));
 		}
-		catch (const std::exception& e)
+		catch (const std::exception&)
 		{
 			throw Error{U"JSONPointer::(constructor): JSON pointers must not contain only \"~\" which is not followed by 0 or 1. \
 This is because, in a json pointer, \"~\" is escaped to \"~0\" and \"/\" is escaped to \"~1\", as \"/\" is used as a delimiter. \
@@ -1371,7 +1371,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 		return *this;
 	}
 
-	JSONPointer& JSONPointer::operator /=(const String& unescapedToken)
+	JSONPointer& JSONPointer::operator /=(StringView unescapedToken)
 	{
 		this->m_detail->pointer /= Unicode::ToUTF8(unescapedToken);
 
@@ -1392,7 +1392,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 		return tmp /= rhs;
 	}
 
-	JSONPointer JSONPointer::operator /(const String& unescapedToken) const
+	JSONPointer JSONPointer::operator /(StringView unescapedToken) const
 	{
 		JSONPointer tmp{ *this };
 
@@ -1449,7 +1449,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 		*this /= rhs;
 	}
 
-	void JSONPointer::push_back(const String& unescapedToken)
+	void JSONPointer::push_back(StringView unescapedToken)
 	{
 		*this /= unescapedToken;
 	}
@@ -1474,12 +1474,12 @@ In push_back, however, JSON keys are passed as is without escaping."};
 		formatData.string += value.format();
 	}
 
-	String JSONPointer::Escape(const String& unescapedToken)
+	String JSONPointer::Escape(StringView unescapedToken)
 	{
 		return Unicode::FromUTF8(nlohmann::detail::escape(Unicode::ToUTF8(unescapedToken)));
 	}
 
-	String JSONPointer::Unescape(const String& escapedToken)
+	String JSONPointer::Unescape(StringView escapedToken)
 	{
 		std::string tmp{ Unicode::ToUTF8(escapedToken) };
 
@@ -1656,10 +1656,7 @@ In push_back, however, JSON keys are passed as is without escaping."};
 
 	void Formatter(FormatData& formatData, const JSONValidator::ValidationError& value)
 	{
+		// pointer 及び instance は表示させない
 		Formatter(formatData, static_cast<const Error&>(value));
-
-		formatData.string += UR"(
-pointer : {}
-instance: {})"_fmt(value.pointer().format(), value.instance().format());
 	}
 }

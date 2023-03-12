@@ -35,36 +35,36 @@ namespace s3d
 
 			ValidationError& operator =(ValidationError&&) = default;
 
-			/// @brief 正常に Validation を行えたかを返す
+			/// @brief 正常に Validation を行えたかを返します。
 			/// @return エラー情報が無ければ true, エラー情報があれば false
 			[[nodiscard]]
 			bool isOK() const noexcept;
 
-			/// @brief 正常に Validation を行えたかを返す
+			/// @brief 正常に Validation を行えたかを返します。
 			/// @return エラー情報があれば true, エラー情報が無ければ false
 			[[nodiscard]]
 			bool isError() const noexcept;
 
-			/// @brief 正常に Validation を行えたかを返す
+			/// @brief 正常に Validation を行えたかを返します。
 			/// @return エラー情報が無ければ true, エラー情報があれば false
 			[[nodiscard]]
 			explicit operator bool() const noexcept;
 
-			/// @brief エラー情報を消去する
+			/// @brief エラー情報を消去します。
 			void reset();
 
-			/// @brief エラーメッセージを取得する
+			/// @brief エラーメッセージを取得します。
 			/// @return エラーメッセージ文字列への参照
 			[[nodiscard]]
 			const String& message() const noexcept;
 
-			/// @brief エラーが起きた場所を示す JSON Pointer を取得する
+			/// @brief エラーが起きた場所を示す JSON Pointer を取得します。
 			/// @return エラーが起きた場所を示す JSON Pointer への参照
-			/// @remark Root document は空文字列で表すことから、そこでエラーが起きれば JSON Pointer は空。
+			/// @remark Root document は空文字列で表すので、そこでエラーが起きた場合は JSON Pointer は空になります。
 			[[nodiscard]] 
 			const JSONPointer& pointer() const noexcept;
 
-			/// @brief エラーが起きた JSON オブジェクトを取得する
+			/// @brief エラーが起きた JSON オブジェクトを取得します。
 			/// @return エラーが起きた JSON オブジェクトのコピーへの参照
 			[[nodiscard]] 
 			const JSON& instance() const noexcept;
@@ -82,7 +82,7 @@ namespace s3d
 
 		private:
 
-			// what の方に message を設定するので m_message は持たない
+			// message は what にを設定するので m_message は持ちません。
 			JSONPointer m_pointer;
 			JSON        m_instance;
 		};
@@ -108,22 +108,19 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
-		/// @brief validation を行う関数
-		/// @param [in] json validation をしたい JSON
-		/// @return バリデーションをパスしたら true, それ以外の場合は false
+		/// @brief バリデーションを行います。
+		/// @param [in] json バリデーションをしたい JSON
 		bool validate(const JSON& json) const noexcept;
 
-		/// @brief validation を行う関数（返り値がエラーについての詳しい情報を持っている版）
-		/// @param [in] json validation をしたい JSON
-		/// @param [out] status validation の結果とエラーならエラー情報を含む
-		/// @return バリデーションをパスしたら true, それ以外の場合は false
+		/// @brief バリデーションを行います。（返り値がエラーについての詳しい情報を持っている版）
+		/// @param [in] json バリデーションをしたい JSON
+		/// @param [out] status バリデーションの結果とエラーならエラー情報を含む
 		[[nodiscard]]
 		bool validate(const JSON& json, ValidationError& status) const noexcept;
 
-		/// @brief assert 形式で validation を行う関数
-		/// @param [in] json validation をしたい JSON
-		/// @return 引数の json
-		/// @exception ValidationError validation に失敗したら送出
+		/// @brief assert 形式でバリデーションを行います。
+		/// @param [in] json バリデーションをしたい JSON
+		/// @exception ValidationError バリデーションに失敗したら送出
 		void validationAssert(const JSON& json) const;
 
 		[[nodiscard]]
@@ -180,8 +177,9 @@ namespace s3d
 	{
 		inline namespace JSONLiterals
 		{
-			/// @brief 与えられた文字列をパースして JSONValidator オブジェクトを返す
-			/// @remark 変数で与えたい場合には JSONValidator::Load/Parse を使用すること
+			/// @brief 与えられた文字列をパースして JSONValidator オブジェクトを返します。
+			/// @remark JSON Schema を表す文字列変数から JSONValidator オブジェクトを作成する場合には、
+			/// JSONValidator::Load/Parse を使用してください。
 			inline JSONValidator operator""_jsonValidator(const char32_t* str, size_t length);
 		}
 	}
