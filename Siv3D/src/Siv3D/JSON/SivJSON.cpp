@@ -820,8 +820,6 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		const std::string key = Unicode::ToUTF8(name);
-
 		return JSON(std::make_shared<detail::JSONDetail>(
 			detail::JSONDetail::Ref(), m_detail->get()[Unicode::ToUTF8(name)]));
 	}
@@ -968,9 +966,7 @@ namespace s3d
 			return;
 		}
 
-		const std::string key = Unicode::ToUTF8(name);
-
-		m_detail->get().erase(key);
+		m_detail->get().erase(Unicode::ToUTF8(name));
 	}
 
 	void JSON::erase(const size_t index)
