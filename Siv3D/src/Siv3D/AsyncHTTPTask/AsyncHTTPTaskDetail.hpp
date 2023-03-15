@@ -33,7 +33,7 @@ namespace s3d
 		AsyncHTTPTaskDetail();
 
 		SIV3D_NODISCARD_CXX20
-		AsyncHTTPTaskDetail(URLView url, FilePathView path);
+		AsyncHTTPTaskDetail(URLView url, const HashTable<String, String>& headers, FilePathView path);
 
 		SIV3D_NODISCARD_CXX20
 		AsyncHTTPTaskDetail(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView path);
@@ -68,7 +68,7 @@ namespace s3d
 
 		void close();
 
-		HTTPResponse run();
+		HTTPResponse runGet();
 
 		HTTPResponse runPost();
 

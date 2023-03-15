@@ -105,6 +105,14 @@ namespace s3d
 		[[nodiscard]]
 		AsyncHTTPTask SaveAsync(URLView url, FilePathView filePath);
 
+		/// @brief GET メソッドで Web サーバにリクエストを送ります。
+		/// @param url URL
+		/// @param headers ヘッダ
+		/// @param filePath ダウンロードしたファイルを保存するパス
+		/// @return 非同期ダウンロードを管理するオブジェクト
+		[[nodiscard]]
+		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
+
 		/// @brief POST メソッドで Web サーバにリクエストを送ります。
 		/// @param url URL
 		/// @param headers ヘッダ

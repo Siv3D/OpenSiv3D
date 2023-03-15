@@ -24,7 +24,7 @@ namespace s3d
 
 	namespace SimpleHTTP
 	{
-		AsyncHTTPTask SaveAsync(URLView url, FilePathView filePath);
+		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
 
 		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
 	}
@@ -106,11 +106,11 @@ namespace s3d
 
 	private:
 
-		AsyncHTTPTask(URLView url, FilePathView path);
+		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, FilePathView path);
 
 		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView path);
 
-		friend AsyncHTTPTask SimpleHTTP::SaveAsync(URLView url, FilePathView filePath);
+		friend AsyncHTTPTask SimpleHTTP::GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
 
 		friend AsyncHTTPTask SimpleHTTP::PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
 
