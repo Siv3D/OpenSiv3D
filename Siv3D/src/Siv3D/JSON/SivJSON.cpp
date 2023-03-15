@@ -11,10 +11,12 @@
 
 # include <variant>
 # include <Siv3D/JSON.hpp>
+# include <Siv3D/JSONValidator.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/TextWriter.hpp>
 # include <Siv3D/Unicode.hpp>
 # include <ThirdParty/nlohmann/json.hpp>
+# include <ThirdParty/nlohmann/json-schema.hpp>
 
 namespace s3d
 {
@@ -93,6 +95,52 @@ namespace s3d
 				return (m_json.index() == ValueIndex) ?
 					std::get<ValueType>(m_json) : std::get<RefType>(m_json).get();
 			}
+		};
+
+		struct ValidationErrorHandler : nlohmann::json_schema::error_handler
+		{
+			void error(const nlohmann::json::json_pointer& pointer, const nlohmann::json& instance, const std::string& message) override
+			{
+				nlohmann::json tmp{ instance };
+
+				details = JSONValidator::ValidationError {
+					Unicode::FromUTF8(message),
+					JSONPointer{std::make_shared<detail::JSONPointerDetail>(pointer)},
+					JSON(std::make_shared<detail::JSONDetail>(JSONDetail::Value{}, std::move(tmp)))
+				};
+			}
+
+			JSONValidator::ValidationError details;
+		};
+
+		struct JSONPointerDetail
+		{
+			nlohmann::json::json_pointer pointer;
+
+			explicit JSONPointerDetail(const std::string& s = "")
+				: pointer(s)
+			{}
+		};
+
+		struct JSONValidatorDetail
+		{
+			nlohmann::json_schema::json_validator validator;
+
+			JSONValidatorDetail() = default;
+
+			JSONValidatorDetail(const JSONValidatorDetail&) = delete;
+
+			JSONValidatorDetail(JSONValidatorDetail&&) = default;
+
+			JSONValidatorDetail(nlohmann::json_schema::json_validator&& validator)
+				: validator(std::move(validator))
+			{}
+
+			~JSONValidatorDetail() = default;
+
+			JSONValidatorDetail& operator=(const JSONValidatorDetail&) = delete;
+
+			JSONValidatorDetail& operator=(JSONValidatorDetail&&) = default;
 		};
 	}
 
@@ -772,10 +820,8 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		const std::string key = Unicode::ToUTF8(name);
-
 		return JSON(std::make_shared<detail::JSONDetail>(
-			detail::JSONDetail::Ref(), *m_detail->get().emplace(key, nlohmann::json()).first));
+			detail::JSONDetail::Ref(), m_detail->get()[Unicode::ToUTF8(name)]));
 	}
 
 	const JSON JSON::operator [](const StringView name) const
@@ -785,16 +831,12 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		const std::string key = Unicode::ToUTF8(name);
-
-		const auto it = m_detail->get().find(key);
-
-		if (it != m_detail->get().end())
+		if (contains(name))
 		{
-			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), *it));
+			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[Unicode::ToUTF8(name)]));
 		}
 
-		throw Error{ U"JSON::operator [](): Key `{}` not found"_fmt(name) };
+		throw Error{ U"JSON::operator [](StringView) const: Key `{}` not found"_fmt(name) };
 	}
 
 	JSON JSON::operator [](const size_t index)
@@ -804,14 +846,9 @@ namespace s3d
 			return JSON::Invalid();
 		}
 
-		if (not isArray())
+		if (not isArray() && not isNull())
 		{
-			throw Error{ U"JSON::operator [](size_t): Value is not an Array type" };
-		}
-
-		if (index >= m_detail->get().size())
-		{
-			throw Error{ U"JSON::operator [](size_t): Index out of range" };
+			throw Error{ U"JSON::operator [](size_t): The value is neither of type Array nor of type Null." };
 		}
 
 		return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[index]));
@@ -826,50 +863,74 @@ namespace s3d
 
 		if (not isArray())
 		{
-			throw Error{ U"JSON::operator [](size_t): Value is not an Array type" };
+			throw Error{ U"JSON::operator [](size_t) const: The value is not an Array type" };
 		}
 
-		if (const size_t size = m_detail->get().size();
-			index >= size)
+		if (not contains(index))
 		{
-			throw Error{ U"JSON::operator [](size_t): Index out of range (index: {} >= size: {})"_fmt(index, size) };
+			throw Error{ U"JSON::operator [](size_t) const: Index out of range (index: {} >= size: {})"_fmt(index, size()) };
 		}
 
 		return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[index]));
 	}
 
-	JSON JSON::access(const StringView jsonPointer)
+	JSON JSON::operator[](const JSONPointer& jsonPointer)
 	{
-		if (not jsonPointer.starts_with(U'/'))
+		return access(jsonPointer);
+	}
+
+	const JSON JSON::operator[](const JSONPointer& jsonPointer) const
+	{
+		return access(jsonPointer);
+	}
+
+	JSON JSON::access(const JSONPointer& jsonPointer)
+	{
+		if (not m_isValid)
 		{
-			throw Error{ U"JSON::access(): Invalid JSON pointer `{}`"_fmt(jsonPointer) };
+			return JSON::Invalid();
 		}
 
 		if (isObject() || isArray() || isNull())
 		{
-			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[nlohmann::json::json_pointer(Unicode::ToUTF8(jsonPointer))]));
+			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[jsonPointer.m_detail->pointer]));
 		}
 
-		throw Error{ U"JSON::access(): Invalid JSON type" };
+		throw Error{ U"JSON::access(JSONPointer): Invalid JSON type. This function requires that the value be of type Object, Array or Null." };
+	}
+
+	const JSON JSON::access(const JSONPointer& jsonPointer) const
+	{
+		if (not m_isValid)
+		{
+			return JSON::Invalid();
+		}
+
+		if (contains(jsonPointer))
+		{
+			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[jsonPointer.m_detail->pointer]));
+		}
+
+		throw Error{ U"JSON::access(JSONPointer) const: The element indicated by the JSON Pointer does not exist." };
+	}
+
+	JSON JSON::access(const StringView jsonPointer)
+	{
+		return access(JSONPointer{jsonPointer});
 	}
 
 	const JSON JSON::access(const StringView jsonPointer) const
 	{
-		if (not jsonPointer.starts_with(U'/'))
-		{
-			throw Error{ U"JSON::access(): Invalid JSON pointer `{}`"_fmt(jsonPointer) };
-		}
-
-		if (isObject() || isArray() || isNull())
-		{
-			return JSON(std::make_shared<detail::JSONDetail>(detail::JSONDetail::Ref(), m_detail->get()[nlohmann::json::json_pointer(Unicode::ToUTF8(jsonPointer))]));
-		}
-
-		throw Error{ U"JSON::access(): Invalid JSON type" };
+		return access(JSONPointer{jsonPointer});
 	}
 
 	void JSON::push_back(const JSON& value)
 	{
+		if (not m_isValid)
+		{
+			return;
+		}
+
 		m_detail->get().push_back(value.m_detail->get());
 	}
 
@@ -883,6 +944,21 @@ namespace s3d
 		m_detail->get().clear();
 	}
 
+	bool JSON::contains(StringView key) const noexcept
+	{
+		return isObject() && m_detail->get().find(Unicode::ToUTF8(key)) != m_detail->get().end();
+	}
+
+	bool JSON::contains(const size_t index) const noexcept
+	{		
+		return isArray() && index < size();
+	}
+
+	bool JSON::contains(const JSONPointer& jsonPointer) const noexcept
+	{
+		return m_isValid && m_detail->get().contains(jsonPointer.m_detail->pointer);
+	}
+
 	void JSON::erase(const StringView name)
 	{
 		if (not m_isValid)
@@ -890,9 +966,7 @@ namespace s3d
 			return;
 		}
 
-		const std::string key = Unicode::ToUTF8(name);
-
-		m_detail->get().erase(key);
+		m_detail->get().erase(Unicode::ToUTF8(name));
 	}
 
 	void JSON::erase(const size_t index)
@@ -1231,5 +1305,354 @@ namespace s3d
 		}
 
 		return m_detail->get().get<bool>();
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	JSONPointer
+	//
+	//////////////////////////////////////////////////
+
+	JSONPointer::JSONPointer(StringView jsonPointer)
+		: m_detail()
+	{
+		if (not jsonPointer.empty() && not jsonPointer.starts_with(U"/"))
+		{
+			throw Error{U"JSONPointer::(constructor): JSON pointers must start with \"/\" or be empty."};
+		}
+
+		try
+		{
+			m_detail = std::make_shared<detail::JSONPointerDetail>(Unicode::ToUTF8(jsonPointer));
+		}
+		catch (const std::exception&)
+		{
+			throw Error{U"JSONPointer::(constructor): JSON pointers must not contain only \"~\" which is not followed by 0 or 1. \
+This is because, in a json pointer, \"~\" is escaped to \"~0\" and \"/\" is escaped to \"~1\", as \"/\" is used as a delimiter. \
+In push_back, however, JSON keys are passed as is without escaping."};
+		}
+	}
+
+	JSONPointer::JSONPointer(const JSONPointer& other)
+		: m_detail(std::make_shared<detail::JSONPointerDetail>(other.m_detail->pointer))
+	{}
+
+	JSONPointer::JSONPointer(std::shared_ptr<detail::JSONPointerDetail>&& detail)
+		: m_detail(std::move(detail))
+	{}
+
+	JSONPointer& JSONPointer::operator =(const JSONPointer& other)
+	{
+		JSONPointer tmp{ other };
+
+		this->m_detail = std::move(tmp).m_detail;
+
+		return *this;
+	}
+
+	String JSONPointer::format() const
+	{
+		return Unicode::FromUTF8(m_detail->pointer.to_string());
+	}
+
+	bool operator ==(const JSONPointer& lhs, const JSONPointer& rhs) noexcept
+	{
+		return lhs.m_detail->pointer == rhs.m_detail->pointer;
+	}
+
+	JSONPointer& JSONPointer::operator /=(const JSONPointer& rhs)
+	{
+		this->m_detail->pointer /= rhs.m_detail->pointer;
+
+		return *this;
+	}
+
+	JSONPointer& JSONPointer::operator /=(StringView unescapedToken)
+	{
+		this->m_detail->pointer /= Unicode::ToUTF8(unescapedToken);
+
+		return *this;
+	}
+
+	JSONPointer& JSONPointer::operator /=(size_t index)
+	{
+		this->m_detail->pointer /= index;
+
+		return *this;
+	}
+
+	JSONPointer JSONPointer::operator /(const JSONPointer& rhs) const
+	{
+		JSONPointer tmp{ *this };
+
+		return tmp /= rhs;
+	}
+
+	JSONPointer JSONPointer::operator /(StringView unescapedToken) const
+	{
+		JSONPointer tmp{ *this };
+
+		return tmp /= unescapedToken;
+	}
+
+	JSONPointer JSONPointer::operator /(size_t index) const
+	{
+		JSONPointer tmp{ *this };
+
+		return tmp /= index;
+	}
+
+	JSONPointer JSONPointer::parent() const
+	{
+		if (empty())
+		{
+			throw Error{U"JSONPointer::parent(): JSON pointer indicates root document, therefore has no parent."};
+		}
+
+		return JSONPointer{ std::make_shared<detail::JSONPointerDetail>(m_detail->pointer.parent_pointer()) };
+	}
+
+	String JSONPointer::back() const
+	{
+		if (empty())
+		{
+			throw Error{U"JSONPointer::back(): JSON pointer indicates root document, therefore has no parent."};
+		}
+
+		return Unicode::FromUTF8(m_detail->pointer.back());
+	}
+
+	void JSONPointer::pop_back()
+	{
+		if (empty())
+		{
+			throw Error{U"JSONPointer::pop_back(): JSON pointer indicates root document, therefore has no parent."};
+		}
+
+		m_detail->pointer.pop_back();
+	}
+
+	void JSONPointer::pop_back_N(size_t n)
+	{
+		for (size_t i = 0; i < n && (not empty()); ++i)
+		{
+			m_detail->pointer.pop_back();
+		}
+	}
+
+	void JSONPointer::push_back(const JSONPointer& rhs)
+	{
+		*this /= rhs;
+	}
+
+	void JSONPointer::push_back(StringView unescapedToken)
+	{
+		*this /= unescapedToken;
+	}
+
+	void JSONPointer::push_back(size_t index)
+	{
+		*this /= index;
+	}
+
+	bool JSONPointer::isEmpty() const noexcept
+	{
+		return m_detail->pointer.empty();
+	}
+
+	bool JSONPointer::empty() const noexcept
+	{
+		return m_detail->pointer.empty();
+	}
+
+	void Formatter(FormatData& formatData, const JSONPointer& value)
+	{
+		formatData.string += value.format();
+	}
+
+	String JSONPointer::Escape(StringView unescapedToken)
+	{
+		return Unicode::FromUTF8(nlohmann::detail::escape(Unicode::ToUTF8(unescapedToken)));
+	}
+
+	String JSONPointer::Unescape(StringView escapedToken)
+	{
+		std::string tmp{ Unicode::ToUTF8(escapedToken) };
+
+		nlohmann::detail::unescape(tmp);
+
+		return Unicode::FromUTF8(tmp);
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	JSONValidator
+	//
+	//////////////////////////////////////////////////
+
+	JSONValidator::JSONValidator()
+		: m_detail{ std::make_shared<detail::JSONValidatorDetail>() }
+	{}
+
+	JSONValidator::JSONValidator(Invalid_)
+		: m_detail{ std::make_shared<detail::JSONValidatorDetail>() }
+		, m_isValid{ false }
+	{}
+
+	JSONValidator::JSONValidator(std::shared_ptr<detail::JSONValidatorDetail>&& detail)
+		: m_detail(std::move(detail))
+	{}
+
+	bool JSONValidator::isEmpty() const noexcept
+	{
+		return (not m_isValid);
+	}
+
+	bool JSONValidator::validate(const JSON& json) const noexcept
+	{
+		detail::ValidationErrorHandler err;
+
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
+
+		return err.details.isOK();
+	}
+
+	bool JSONValidator::validate(const JSON& json, ValidationError& status) const noexcept
+	{
+		detail::ValidationErrorHandler err;
+
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
+
+		status = std::move(err).details;
+
+		return status.isOK();
+	}
+
+	void JSONValidator::validationAssert(const JSON& json) const
+	{
+		detail::ValidationErrorHandler err;
+
+		m_detail->validator.validate(json.m_detail.get()->get(), err);
+
+		if (err.details.isError())
+		{
+			throw std::move(err).details;
+		}
+	}
+
+	JSONValidator JSONValidator::Invalid()
+	{
+		return JSONValidator{ JSONValidator::Invalid_{} };
+	}
+
+	JSONValidator JSONValidator::Load(FilePathView path, AllowExceptions allowExceptions)
+	{
+		return JSONValidator::Set(JSON::Load(path, allowExceptions), allowExceptions);
+	}
+
+	JSONValidator JSONValidator::Load(std::unique_ptr<IReader>&& reader, AllowExceptions allowExceptions)
+	{
+		return JSONValidator::Set(JSON::Load(std::move(reader), allowExceptions), allowExceptions);
+	}
+
+	JSONValidator JSONValidator::Parse(StringView str, AllowExceptions allowExceptions)
+	{
+		return JSONValidator::Set(JSON::Parse(str, allowExceptions), allowExceptions);
+	}
+
+	JSONValidator JSONValidator::Set(const JSON& schema, AllowExceptions allowExceptions)
+	{
+		try
+		{
+			nlohmann::json_schema::json_validator validator;
+
+			validator.set_root_schema(schema.m_detail.get()->get());
+
+			return JSONValidator{ std::make_shared<detail::JSONValidatorDetail>(std::move(validator)) };
+		}
+		catch (const std::exception& e)
+		{
+			if (not allowExceptions)
+			{
+				return JSONValidator::Invalid();
+			}
+
+			throw Error{ U"JSONValidator::Load/Parse/Set(): " + Unicode::Widen(e.what()) };
+		}
+	}
+
+	//////////////////////////////////////////////////
+	//
+	//	JSONSchema::ValidationError
+	//
+	//////////////////////////////////////////////////
+
+	JSONValidator::ValidationError::ValidationError(StringView message, const JSONPointer& pointer, const JSON& instance)
+		: Error(message)
+		, m_pointer(pointer)
+		, m_instance(instance)
+	{}
+
+	bool JSONValidator::ValidationError::isOK() const noexcept
+	{
+		return m_what.empty();
+	}
+
+	bool JSONValidator::ValidationError::isError() const noexcept
+	{
+		return (not isOK());
+	}
+
+	JSONValidator::ValidationError::operator bool() const noexcept
+	{
+		return isOK();
+	}
+
+	void JSONValidator::ValidationError::reset()
+	{
+		m_what.clear();
+		m_pointer = JSONPointer{};
+		m_instance.clear();
+	}
+
+	const String& JSONValidator::ValidationError::message() const noexcept
+	{
+		return m_what;
+	}
+
+	const JSONPointer& JSONValidator::ValidationError::pointer() const noexcept
+	{
+		return m_pointer;
+	}
+
+	const JSON& JSONValidator::ValidationError::instance() const noexcept
+	{
+		return m_instance;
+	}
+
+	StringView JSONValidator::ValidationError::type() const noexcept
+	{
+		return StringView{ U"JSONValidator::ValidationError" };
+	}
+
+	std::ostream& operator<<(std::ostream& output, const JSONValidator::ValidationError& value)
+	{
+		return (output << Format(value).narrow());
+	}
+
+	std::wostream& operator<<(std::wostream& output, const JSONValidator::ValidationError& value)
+	{
+		return (output << Format(value).toWstr());
+	}
+
+	std::basic_ostream<char32>& operator<<(std::basic_ostream<char32>& output, const JSONValidator::ValidationError& value)
+	{
+		return (output << Format(value));
+	}
+
+	void Formatter(FormatData& formatData, const JSONValidator::ValidationError& value)
+	{
+		// pointer 及び instance は表示させない
+		Formatter(formatData, static_cast<const Error&>(value));
 	}
 }

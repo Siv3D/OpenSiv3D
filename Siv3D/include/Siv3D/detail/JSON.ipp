@@ -168,4 +168,25 @@ namespace s3d
 
 		return none;
 	}
+
+	inline namespace Literals
+	{
+		inline namespace JSONLiterals
+		{
+			inline JSON operator ""_json(const char32_t* str, const size_t length)
+			{
+				return JSON::Parse(StringView{str, length});
+			}
+
+			inline JSONPointer operator ""_jsonPointer(const char32_t* str, const size_t length)
+			{
+				return JSONPointer{{str, length}};
+			}
+
+			inline JSONPointer operator ""_jsonPtr(const char32_t* str, const size_t length)
+			{
+				return JSONPointer{{str, length}};
+			}
+		}
+	}
 }
