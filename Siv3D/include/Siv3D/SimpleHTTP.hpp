@@ -72,7 +72,7 @@ namespace s3d
 		/// @param url URL
 		/// @param headers ヘッダ
 		/// @param src 送信するデータの先頭ポインタ
-		/// @param size 送信するデータのサイズ
+		/// @param size 送信するデータのサイズ（バイト）
 		/// @param filePath ダウンロードしたファイルを保存するパス
 		/// @remark この関数は、失敗するかレスポンスを受け取るまで制御を返しません。
 		/// @return HTTP レスポンス
@@ -82,7 +82,7 @@ namespace s3d
 		/// @param url URL
 		/// @param headers ヘッダ
 		/// @param src 送信するデータの先頭ポインタ
-		/// @param size 送信するデータのサイズ
+		/// @param size 送信するデータのサイズ（バイト）
 		/// @param writer ダウンロードしたデータの格納先
 		/// @remark この関数は、失敗するかレスポンスを受け取るまで制御を返しません。
 		/// @return HTTP レスポンス
@@ -92,7 +92,7 @@ namespace s3d
 		/// @param url URL
 		/// @param headers ヘッダ
 		/// @param src 送信するデータの先頭ポインタ
-		/// @param size 送信するデータのサイズ
+		/// @param size 送信するデータのサイズ（バイト）
 		/// @param writer ダウンロードしたデータの格納先の IWriter インタフェース
 		/// @remark この関数は、失敗するかレスポンスを受け取るまで制御を返しません。
 		/// @return HTTP レスポンス
@@ -104,5 +104,15 @@ namespace s3d
 		/// @return 非同期ダウンロードを管理するオブジェクト
 		[[nodiscard]]
 		AsyncHTTPTask SaveAsync(URLView url, FilePathView filePath);
+
+		/// @brief POST メソッドで Web サーバにリクエストを送ります。
+		/// @param url URL
+		/// @param headers ヘッダ
+		/// @param src 送信するデータの先頭ポインタ
+		/// @param size 送信するデータのサイズ（バイト）
+		/// @param filePath ダウンロードしたファイルを保存するパス
+		/// @return 非同期ダウンロードを管理するオブジェクト
+		[[nodiscard]]
+		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
 	}
 }

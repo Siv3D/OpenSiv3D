@@ -66,6 +66,18 @@ namespace s3d
 		m_task = Async(&AsyncHTTPTaskDetail::run, this);
 	}
 
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView path)
+		: m_url{ url }
+	{
+		m_writer.open(path);
+
+		m_headers = headers;
+
+		m_blob.create(src, size);
+
+		m_task = Async(&AsyncHTTPTaskDetail::runPost, this);
+	}
+
 	AsyncHTTPTaskDetail::~AsyncHTTPTaskDetail()
 	{
 		if (getStatus() == HTTPAsyncStatus::Downloading)
@@ -150,6 +162,15 @@ namespace s3d
 		return m_abort;
 	}
 
+	void AsyncHTTPTaskDetail::close()
+	{
+		m_writer.close();
+
+		m_headers.clear();
+
+		m_blob.release();
+	}
+
 	HTTPResponse AsyncHTTPTaskDetail::run()
 	{
 		if (not m_writer)
@@ -163,7 +184,7 @@ namespace s3d
 			if (not curl)
 			{
 				setStatus(HTTPAsyncStatus::Failed);
-				m_writer.close();
+				close();
 				return{};
 			}
 		}
@@ -186,14 +207,92 @@ namespace s3d
 		}
 
 		const ::CURLcode result = ::curl_easy_perform(curl);
-
-		// ...
-
 		::curl_easy_cleanup(curl);
 
 		const FilePath saveFilePath = m_writer.path();
 
-		m_writer.close();
+		close();
+
+		if (result != ::CURLE_OK)
+		{
+			LOG_FAIL(U"curl failed (CURLcode: {})"_fmt(FromEnum(result)));
+
+			if (result == ::CURLE_ABORTED_BY_CALLBACK)
+			{
+				setStatus(HTTPAsyncStatus::Canceled);
+			}
+			else
+			{
+				setStatus(HTTPAsyncStatus::Failed);
+			}
+
+			FileSystem::Remove(saveFilePath);
+
+			return{};
+		}
+
+		setStatus(HTTPAsyncStatus::Succeeded);
+
+		return HTTPResponse{ responseHeader };
+	}
+
+	HTTPResponse AsyncHTTPTaskDetail::runPost()
+	{
+		if (not m_writer)
+		{
+			setStatus(HTTPAsyncStatus::Failed);
+			return{};
+		}
+
+		::CURL* curl = ::curl_easy_init();
+		{
+			if (not curl)
+			{
+				setStatus(HTTPAsyncStatus::Failed);
+				close();
+				return{};
+			}
+		}
+
+		// ヘッダの追加
+		::curl_slist* header_slist = nullptr;
+		{
+			for (auto&& [key, value] : m_headers)
+			{
+				const std::string header = (key.toUTF8() + ": " + value.toUTF8());
+				header_slist = ::curl_slist_append(header_slist, header.c_str());
+			}
+		}
+
+		setStatus(HTTPAsyncStatus::Downloading);
+
+		const std::string urlUTF8 = m_url.toUTF8();
+		::curl_easy_setopt(curl, ::CURLOPT_URL, urlUTF8.c_str());
+		::curl_easy_setopt(curl, ::CURLOPT_FOLLOWLOCATION, 1L);
+		::curl_easy_setopt(curl, ::CURLOPT_HTTPHEADER, header_slist);
+		::curl_easy_setopt(curl, ::CURLOPT_POST, 1L);
+		::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDS, const_cast<char*>(static_cast<const char*>(static_cast<const void*>(m_blob.data()))));
+		::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDSIZE, static_cast<long>(m_blob.size_bytes()));
+		::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteAsyncCallback);
+		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &m_writer);
+		::curl_easy_setopt(curl, ::CURLOPT_XFERINFOFUNCTION, detail::ProgressCallback);
+		::curl_easy_setopt(curl, ::CURLOPT_XFERINFODATA, this);
+		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
+
+		// レスポンスヘッダーの設定
+		std::string responseHeader;
+		{
+			::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderAsyncCallback);
+			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+		}
+
+		const ::CURLcode result = ::curl_easy_perform(curl);
+		::curl_easy_cleanup(curl);
+		::curl_slist_free_all(header_slist);
+
+		const FilePath saveFilePath = m_writer.path();
+
+		close();
 
 		if (result != ::CURLE_OK)
 		{

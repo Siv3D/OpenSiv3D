@@ -20,6 +20,8 @@
 # include <Siv3D/HTTPAsyncStatus.hpp>
 # include <Siv3D/HTTPProgress.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/HashTable.hpp>
+# include <Siv3D/Blob.hpp>
 
 namespace s3d
 {
@@ -32,6 +34,9 @@ namespace s3d
 
 		SIV3D_NODISCARD_CXX20
 		AsyncHTTPTaskDetail(URLView url, FilePathView path);
+
+		SIV3D_NODISCARD_CXX20
+		AsyncHTTPTaskDetail(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView path);
 
 		~AsyncHTTPTaskDetail();
 
@@ -61,7 +66,11 @@ namespace s3d
 
 	private:
 
+		void close();
+
 		HTTPResponse run();
+
+		HTTPResponse runPost();
 
 		////
 		//
@@ -76,6 +85,10 @@ namespace s3d
 		std::atomic<bool> m_abort = false;
 
 		BinaryWriter m_writer;
+
+		HashTable<String, String> m_headers;
+
+		Blob m_blob;
 
 		AsyncTask<HTTPResponse> m_task;
 

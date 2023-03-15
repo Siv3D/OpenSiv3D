@@ -121,7 +121,7 @@ namespace s3d
 
 			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", origin + url, temporaryFile);
 
-			for (auto [key, value] : headers)
+			for (auto&& [key, value] : headers)
 			{
 				httpTask->setRequestHeader(key, value);
 			}
@@ -204,7 +204,7 @@ namespace s3d
 
 			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", origin + url, temporaryFile);
 
-			for (auto [key, value] : headers)
+			for (auto&& [key, value] : headers)
 			{
 				httpTask->setRequestHeader(key, value);
 			}

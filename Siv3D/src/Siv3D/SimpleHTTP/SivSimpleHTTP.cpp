@@ -127,7 +127,7 @@ namespace s3d
 			// ヘッダの追加
 			::curl_slist* header_slist = nullptr;
 			{
-				for (auto [key, value] : headers)
+				for (auto&& [key, value] : headers)
 				{
 					const std::string header = (key.toUTF8() + ": " + value.toUTF8());
 					header_slist = ::curl_slist_append(header_slist, header.c_str());
@@ -216,7 +216,7 @@ namespace s3d
 			// ヘッダの追加
 			::curl_slist* header_slist = nullptr;
 			{
-				for (auto [key, value] : headers)
+				for (auto&& [key, value] : headers)
 				{
 					const std::string header = (key.toUTF8() + ": " + value.toUTF8());
 					header_slist = ::curl_slist_append(header_slist, header.c_str());
@@ -258,6 +258,13 @@ namespace s3d
 			SIV3D_ENGINE(Network)->init();
 
 			return AsyncHTTPTask{ url, filePath };
+		}
+
+		AsyncHTTPTask PostAsync(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers, src, size, filePath };
 		}
 	}
 }

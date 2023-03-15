@@ -15,6 +15,7 @@
 # include "HTTPResponse.hpp"
 # include "URLView.hpp"
 # include "AsyncTask.hpp"
+# include "HashTable.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,8 @@ namespace s3d
 	namespace SimpleHTTP
 	{
 		AsyncHTTPTask SaveAsync(URLView url, FilePathView filePath);
+
+		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
 	}
 
 # if SIV3D_PLATFORM(WEB)
@@ -105,7 +108,11 @@ namespace s3d
 
 		AsyncHTTPTask(URLView url, FilePathView path);
 
+		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView path);
+
 		friend AsyncHTTPTask SimpleHTTP::SaveAsync(URLView url, FilePathView filePath);
+
+		friend AsyncHTTPTask SimpleHTTP::PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
 
 	# if SIV3D_PLATFORM(WEB)
 		friend AsyncTask<HTTPResponse> Platform::Web::SimpleHTTP::CreateAsyncTask(AsyncHTTPTask& httpTask);
