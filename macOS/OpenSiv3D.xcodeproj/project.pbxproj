@@ -788,6 +788,15 @@
 		2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C695D51268EDDB400970FB3 /* par_shapes.h */; };
 		2C6BFB1827FDD61E005DFD4D /* qrcodegen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6BFB1627FDD61E005DFD4D /* qrcodegen.hpp */; };
 		2C6BFB1927FDD61E005DFD4D /* qrcodegen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BFB1727FDD61E005DFD4D /* qrcodegen.cpp */; };
+		2C6C658129C16F1A009298ED /* smtp-address-validator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C657829C16F18009298ED /* smtp-address-validator.cpp */; };
+		2C6C658229C16F1A009298ED /* json-patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C657929C16F18009298ED /* json-patch.cpp */; };
+		2C6C658329C16F1A009298ED /* smtp-address-validator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C657A29C16F18009298ED /* smtp-address-validator.hpp */; };
+		2C6C658429C16F1A009298ED /* json-uri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C657B29C16F19009298ED /* json-uri.cpp */; };
+		2C6C658529C16F1A009298ED /* json-patch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C657C29C16F19009298ED /* json-patch.hpp */; };
+		2C6C658629C16F1A009298ED /* json-validator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C657D29C16F19009298ED /* json-validator.cpp */; };
+		2C6C658729C16F1A009298ED /* string-format-check.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C657E29C16F19009298ED /* string-format-check.cpp */; };
+		2C6C658829C16F1A009298ED /* json-schema.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C657F29C16F1A009298ED /* json-schema.hpp */; };
+		2C6C658929C16F1A009298ED /* json-schema-draft7.json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C658029C16F1A009298ED /* json-schema-draft7.json.cpp */; };
 		2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */; };
 		2C6C781D2688959700B3C44A /* GL4Renderer3DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */; };
 		2C6C7822268895E300B3C44A /* GL4Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C7820268895E200B3C44A /* GL4Mesh.cpp */; };
@@ -2907,6 +2916,17 @@
 		2C695D51268EDDB400970FB3 /* par_shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = par_shapes.h; sourceTree = "<group>"; };
 		2C6BFB1627FDD61E005DFD4D /* qrcodegen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qrcodegen.hpp; sourceTree = "<group>"; };
 		2C6BFB1727FDD61E005DFD4D /* qrcodegen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qrcodegen.cpp; sourceTree = "<group>"; };
+		2C6C657629C16E9F009298ED /* JSONValidator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSONValidator.hpp; sourceTree = "<group>"; };
+		2C6C657729C16EE2009298ED /* JSONValidator.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSONValidator.ipp; sourceTree = "<group>"; };
+		2C6C657829C16F18009298ED /* smtp-address-validator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "smtp-address-validator.cpp"; sourceTree = "<group>"; };
+		2C6C657929C16F18009298ED /* json-patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-patch.cpp"; sourceTree = "<group>"; };
+		2C6C657A29C16F18009298ED /* smtp-address-validator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "smtp-address-validator.hpp"; sourceTree = "<group>"; };
+		2C6C657B29C16F19009298ED /* json-uri.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-uri.cpp"; sourceTree = "<group>"; };
+		2C6C657C29C16F19009298ED /* json-patch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "json-patch.hpp"; sourceTree = "<group>"; };
+		2C6C657D29C16F19009298ED /* json-validator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-validator.cpp"; sourceTree = "<group>"; };
+		2C6C657E29C16F19009298ED /* string-format-check.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "string-format-check.cpp"; sourceTree = "<group>"; };
+		2C6C657F29C16F1A009298ED /* json-schema.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "json-schema.hpp"; sourceTree = "<group>"; };
+		2C6C658029C16F1A009298ED /* json-schema-draft7.json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-schema-draft7.json.cpp"; sourceTree = "<group>"; };
 		2C6C781A2688959700B3C44A /* GL4Renderer3DCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Renderer3DCommand.hpp; sourceTree = "<group>"; };
 		2C6C781B2688959700B3C44A /* GL4Renderer3DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer3DCommand.cpp; sourceTree = "<group>"; };
 		2C6C7820268895E200B3C44A /* GL4Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Mesh.cpp; sourceTree = "<group>"; };
@@ -7214,6 +7234,15 @@
 		2C794AA825C3DE2700034D81 /* nlohmann */ = {
 			isa = PBXGroup;
 			children = (
+				2C6C657929C16F18009298ED /* json-patch.cpp */,
+				2C6C657C29C16F19009298ED /* json-patch.hpp */,
+				2C6C658029C16F1A009298ED /* json-schema-draft7.json.cpp */,
+				2C6C657F29C16F1A009298ED /* json-schema.hpp */,
+				2C6C657B29C16F19009298ED /* json-uri.cpp */,
+				2C6C657D29C16F19009298ED /* json-validator.cpp */,
+				2C6C657829C16F18009298ED /* smtp-address-validator.cpp */,
+				2C6C657A29C16F18009298ED /* smtp-address-validator.hpp */,
+				2C6C657E29C16F19009298ED /* string-format-check.cpp */,
 				2C794AA925C3DE2700034D81 /* json.hpp */,
 			);
 			path = nlohmann;
@@ -7850,6 +7879,7 @@
 				2CC8B4B928C752ED008C770A /* IWriter.hpp */,
 				2CC8B64B28C752EE008C770A /* JoyCon.hpp */,
 				2CC8B47628C752EC008C770A /* JSON.hpp */,
+				2C6C657629C16E9F009298ED /* JSONValidator.hpp */,
 				2CC8B6F828C752EE008C770A /* KahanSummation.hpp */,
 				2CC8B4A628C752ED008C770A /* KDTree.hpp */,
 				2CC8B46528C752EC008C770A /* Keyboard.hpp */,
@@ -8326,6 +8356,7 @@
 				2CC8B62F28C752ED008C770A /* IWriter.ipp */,
 				2CC8B62128C752ED008C770A /* JSON.ipp */,
 				2CC8B63228C752ED008C770A /* JSONFwd.ipp */,
+				2C6C657729C16EE2009298ED /* JSONValidator.ipp */,
 				2CC8B57C28C752ED008C770A /* KahanSummation.ipp */,
 				2CC8B62628C752ED008C770A /* KDTree.ipp */,
 				2CC8B55D28C752ED008C770A /* Leap.ipp */,
@@ -12208,6 +12239,7 @@
 				2C636E9F2657F7D300AF029F /* dr_flac.h in Headers */,
 				2C4AEF7A262C4E8300D36CFC /* CTextToSpeech.hpp in Headers */,
 				2CB18E9926B5A68700862C28 /* as_generic.h in Headers */,
+				2C6C658329C16F1A009298ED /* smtp-address-validator.hpp in Headers */,
 				2CC8BD4328C75331008C770A /* ManagedScriptDetail.hpp in Headers */,
 				2C28E97C2796816D0004E07D /* zstd_deps.h in Headers */,
 				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
@@ -12522,6 +12554,7 @@
 				2CC8BE3428C75333008C770A /* IKeyboard.hpp in Headers */,
 				2CC8BC3928C75330008C770A /* VertexLine3D.hpp in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
+				2C6C658829C16F1A009298ED /* json-schema.hpp in Headers */,
 				2CC584462646319400C33E9F /* MemoryMappedFileDetail.hpp in Headers */,
 				2C44C06F264960D400A5E72A /* uvcode.h in Headers */,
 				2CC8BE4828C75697008C770A /* IAudioEncoder.hpp in Headers */,
@@ -12899,6 +12932,7 @@
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
 				2CFABB25272E3ACB00939278 /* canvas.h in Headers */,
 				2C9566F52645626000539B85 /* mz_strm_os.h in Headers */,
+				2C6C658529C16F1A009298ED /* json-patch.hpp in Headers */,
 				2C68509124B768A800B98A7F /* CConsole.hpp in Headers */,
 				2C42323D242B155E00A16BCA /* cocoa_joystick.h in Headers */,
 				2C636D8D2657A0BF00AF029F /* pffft.h in Headers */,
@@ -13060,6 +13094,7 @@
 				2CC8BDFD28C75332008C770A /* AnimatedGIFReaderDetail.cpp in Sources */,
 				2CC8BB6828C7532F008C770A /* CacheDirectory.cpp in Sources */,
 				2CC8BCC528C75330008C770A /* ScriptOpenMode.cpp in Sources */,
+				2C6C658929C16F1A009298ED /* json-schema-draft7.json.cpp in Sources */,
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
 				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
@@ -13294,6 +13329,7 @@
 				2CB18EE626B5A68700862C28 /* as_string.cpp in Sources */,
 				2C834DBF248805D4006208B8 /* iso8859_10.c in Sources */,
 				2CC8BB9628C7532F008C770A /* SivSFMT.cpp in Sources */,
+				2C6C658729C16F1A009298ED /* string-format-check.cpp in Sources */,
 				2C60AE7F248158A500277281 /* vendor_model_name_non_windows_non_darwin.cpp in Sources */,
 				2C794AA725C257C000034D81 /* ConstantBufferDetail_Metal.cpp in Sources */,
 				2CC8BD3D28C75331008C770A /* SivXInput.cpp in Sources */,
@@ -13651,6 +13687,7 @@
 				2CC8BE4428C75333008C770A /* ClipboardFactory.cpp in Sources */,
 				2C636E952657F7D300AF029F /* soloud_dcremovalfilter.cpp in Sources */,
 				2CC8BC9628C75330008C770A /* ScriptNumber.cpp in Sources */,
+				2C6C658429C16F1A009298ED /* json-uri.cpp in Sources */,
 				2CC8BDDB28C75332008C770A /* SivCircleEmitter2D.cpp in Sources */,
 				2CC8BC1128C7532F008C770A /* SivVertexShader.cpp in Sources */,
 				2C533741264E0EE600CE0F1B /* FLACDecoder.cpp in Sources */,
@@ -13717,6 +13754,7 @@
 				2CC8BC1428C7532F008C770A /* SivBase64.cpp in Sources */,
 				2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */,
 				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
+				2C6C658129C16F1A009298ED /* smtp-address-validator.cpp in Sources */,
 				2CC8BB6028C7532F008C770A /* OpusEncoder.cpp in Sources */,
 				2CC8BD1E28C75331008C770A /* CAudio.cpp in Sources */,
 				2C28E9682796816C0004E07D /* zstd_decompress.c in Sources */,
@@ -13868,12 +13906,14 @@
 				2CC8BC4228C75330008C770A /* SivMemoryWriter.cpp in Sources */,
 				2CC8BBFC28C7532F008C770A /* SivCamera2DParameters.cpp in Sources */,
 				2CC8BD9D28C75332008C770A /* ProfilerFactory.cpp in Sources */,
+				2C6C658229C16F1A009298ED /* json-patch.cpp in Sources */,
 				2CC8BC8828C75330008C770A /* ScriptTextureFormat.cpp in Sources */,
 				2C28E94D2796816C0004E07D /* zstd_compress_sequences.c in Sources */,
 				2C636EAD2657F7D300AF029F /* soloud_sfxr.cpp in Sources */,
 				2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */,
 				2C636E692657F7D300AF029F /* soloud_bus.cpp in Sources */,
 				2CC8BD6F28C75331008C770A /* TIFFDecoder.cpp in Sources */,
+				2C6C658629C16F1A009298ED /* json-validator.cpp in Sources */,
 				2C9566F42645626000539B85 /* mz_strm.c in Sources */,
 				2CC8BC2D28C7532F008C770A /* SivTriangle.cpp in Sources */,
 				2CC8BC3628C7532F008C770A /* SivSphere.cpp in Sources */,
