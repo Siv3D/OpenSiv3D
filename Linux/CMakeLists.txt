@@ -1018,6 +1018,13 @@ set(SIV3D_INTERNAL_SOURCES
 
   ../Siv3D/src/ThirdParty/nativefiledialog-extended/nfd_gtk.cpp
 
+  ../Siv3D/src/ThirdParty/nlohmann/json-patch.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-schema-draft7.json.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-uri.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-validator.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/smtp-address-validator.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/string-format-check.cpp
+
   ../Siv3D/src/ThirdParty/Oniguruma/ascii.c
   ../Siv3D/src/ThirdParty/Oniguruma/big5.c
   ../Siv3D/src/ThirdParty/Oniguruma/cp1251.c

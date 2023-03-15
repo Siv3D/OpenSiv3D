@@ -808,7 +808,14 @@ set(SIV3D_THIRDPARTY_SOURCES
   ../Siv3D/src/ThirdParty/muparser/muParserError.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserInt.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserTokenReader.cpp
-  
+
+  ../Siv3D/src/ThirdParty/nlohmann/json-patch.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-schema-draft7.json.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-uri.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/json-validator.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/smtp-address-validator.cpp
+  ../Siv3D/src/ThirdParty/nlohmann/string-format-check.cpp
+
   ../Siv3D/src/ThirdParty/Oniguruma/ascii.c
   ../Siv3D/src/ThirdParty/Oniguruma/big5.c
   ../Siv3D/src/ThirdParty/Oniguruma/cp1251.c
