@@ -45,7 +45,7 @@ namespace s3d
 		FilePath fullPath;
 		const FilePath parentFilePath = FileSystem::ParentPath(path, 0, fullPath);
 
-		if ((not FileSystem::Exists(parentFilePath)) && (not FileSystem::CreateDirectories(parentFilePath)))
+		if (parentFilePath && (not FileSystem::Exists(parentFilePath)) && (not FileSystem::CreateDirectories(parentFilePath)))
 		{
 			LOG_FAIL(U"❌ BinaryWriter: Failed to create parent directories \"{0}\""_fmt(parentFilePath));
 			return false;

@@ -693,7 +693,7 @@ namespace s3d
 		{
 			if (not path)
 			{
-				return false;
+				return true;
 			}
 
 			if (IsResourcePath(path))
