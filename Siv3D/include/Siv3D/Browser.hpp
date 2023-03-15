@@ -11,7 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
-# include "InputGroup.hpp"
+# include "InputGroups.hpp"
 # include "HashTable.hpp"
 
 namespace s3d
