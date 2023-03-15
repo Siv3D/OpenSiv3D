@@ -271,7 +271,7 @@ namespace s3d
 
 			Array<std::pair<ValueType, Index>> results;
 
-			for (auto [key, value] : ht)
+			for (auto&& [key, value] : ht)
 			{
 				if (value.first == maxCount)
 				{

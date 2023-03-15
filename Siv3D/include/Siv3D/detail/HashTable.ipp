@@ -24,7 +24,7 @@ namespace s3d
 	{
 		formatData.string.append(U"{\n"_sv);
 
-		for (auto [key, value] : table)
+		for (auto&& [key, value] : table)
 		{
 			formatData.string.append(U"\t{"_sv);
 
