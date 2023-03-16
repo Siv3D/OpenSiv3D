@@ -22,6 +22,7 @@ namespace s3d
 	class AsyncHTTPTask;
 	class AsyncHTTPTaskDetail;
 	class Blob;
+	class MemoryViewReader;
 
 	namespace SimpleHTTP
 	{
@@ -118,6 +119,11 @@ namespace s3d
 		/// @return ダウンロード内容を保存したバイナリデータ。ファイルへのダウンロードの場合は空のバイナリデータ。
 		[[nodiscard]]
 		const Blob& getBlob() const;
+
+		/// @brief ダウンロードしたデータを読み込む MemoryViewReader を返します。
+		/// @return ダウンロード内容を保存したバイナリデータに対する MemoryViewReader, ファイルへのダウンロードの場合は空の MemoryViewReader.
+		[[nodiscard]]
+		MemoryViewReader getBlobReader() const;
 
 	private:
 

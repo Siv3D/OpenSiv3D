@@ -11,6 +11,7 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/AsyncHTTPTask.hpp>
+# include <Siv3D/MemoryViewReader.hpp>
 # include "AsyncHTTPTaskDetail.hpp"
 
 namespace s3d
@@ -81,6 +82,13 @@ namespace s3d
 	const Blob& AsyncHTTPTask::getBlob() const
 	{
 		return pImpl->getBlob();
+	}
+
+	MemoryViewReader AsyncHTTPTask::getBlobReader() const
+	{
+		const Blob& blob = pImpl->getBlob();
+
+		return{ blob.data(), blob.size_bytes() };
 	}
 
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const FilePathView path)
