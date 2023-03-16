@@ -243,10 +243,10 @@ namespace s3d
 		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
 
 		// レスポンスヘッダーの設定
-		std::string responseHeader;
+		std::string responseHeaders;
 		{
 			::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderAsyncCallback);
-			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeaders);
 		}
 
 		const ::CURLcode result = ::curl_easy_perform(curl);
@@ -278,7 +278,7 @@ namespace s3d
 
 		setStatus(HTTPAsyncStatus::Succeeded);
 
-		return HTTPResponse{ responseHeader };
+		return HTTPResponse{ responseHeaders };
 	}
 
 	HTTPResponse AsyncHTTPTaskDetail::runPost()
@@ -325,10 +325,10 @@ namespace s3d
 		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
 
 		// レスポンスヘッダーの設定
-		std::string responseHeader;
+		std::string responseHeaders;
 		{
 			::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderAsyncCallback);
-			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+			::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeaders);
 		}
 
 		const ::CURLcode result = ::curl_easy_perform(curl);
@@ -360,6 +360,6 @@ namespace s3d
 
 		setStatus(HTTPAsyncStatus::Succeeded);
 
-		return HTTPResponse{ responseHeader };
+		return HTTPResponse{ responseHeaders };
 	}
 }

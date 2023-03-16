@@ -142,10 +142,10 @@ namespace s3d
 			::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &writer);
 
 			// レスポンスヘッダーの設定
-			std::string responseHeader;
+			std::string responseHeaders;
 			{
 				::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderCallback);
-				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeaders);
 			}
 
 			const ::CURLcode result = ::curl_easy_perform(curl);
@@ -158,7 +158,7 @@ namespace s3d
 				return{};
 			}
 
-			return HTTPResponse{ responseHeader };
+			return HTTPResponse{ responseHeaders };
 		}
 
 		HTTPResponse Post(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
@@ -234,10 +234,10 @@ namespace s3d
 			::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &writer);
 
 			// レスポンスヘッダーの設定
-			std::string responseHeader;
+			std::string responseHeaders;
 			{
 				::curl_easy_setopt(curl, ::CURLOPT_HEADERFUNCTION, detail::HeaderCallback);
-				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeader);
+				::curl_easy_setopt(curl, ::CURLOPT_HEADERDATA, &responseHeaders);
 			}
 
 			const ::CURLcode result = ::curl_easy_perform(curl);
@@ -250,7 +250,7 @@ namespace s3d
 				return{};
 			}
 
-			return HTTPResponse{ responseHeader };
+			return HTTPResponse{ responseHeaders };
 		}
 
 		AsyncHTTPTask SaveAsync(const URLView url, const FilePathView filePath)

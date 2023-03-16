@@ -27,9 +27,9 @@ namespace s3d
 		HTTPResponse() = default;
 
 		/// @brief HTTP レスポンスからステータスとヘッダを取得します。
-		/// @param response HTTP レスポンス
+		/// @param responsesHeaders HTTP レスポンス
 		SIV3D_NODISCARD_CXX20
-		explicit HTTPResponse(const std::string& response);
+		explicit HTTPResponse(const std::string& responseHeaders);
 
 		/// @brief ステータスコードを返します。
 		/// @return ステータスコード

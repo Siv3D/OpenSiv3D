@@ -17,46 +17,129 @@
 
 namespace s3d
 {
-	HTTPResponse::HTTPResponse(const std::string& response)
+	namespace detail
 	{
-		const size_t statusLineEnd = response.find(U'\n');
+		[[nodiscard]]
+		static bool IsDelimiter(char ch) noexcept
 		{
-			if (statusLineEnd == std::string::npos)
-			{
-				return;
-			}
-
-			m_statusLine = Unicode::Widen(std::string_view(response.data(), (statusLineEnd + 1)));
+			return ((ch == '\r') || (ch == '\n'));
 		}
 
+		[[nodiscard]]
+		static std::string GetLastResponseHeader(const std::string& responseHeaders)
 		{
-			// Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
-			if (not m_statusLine.starts_with(U"HTTP"))
+			if (responseHeaders.empty())
 			{
-				return;
+				return{};
 			}
 
-			const Array<String> elements = m_statusLine.split(U' ');
+			constexpr std::string_view Delimiter = "\r\n\r\n";
 
-			if (elements.size() < 2)
+			size_t pos = responseHeaders.size();
+
+			while ((0 < pos) && IsDelimiter(responseHeaders[pos - 1]))
 			{
-				return;
+				--pos;
 			}
 
-			m_statusCode = HTTPStatusCode{ ParseOr<uint32>(elements[1], 0) };
+			const size_t start = responseHeaders.rfind(Delimiter, (pos - 1));
+
+			if (start == std::string::npos)
+			{
+				return (responseHeaders.substr(0, pos) + "\r\n");
+			}
+			else
+			{
+				return (responseHeaders.substr((start + Delimiter.size()), (pos - start - Delimiter.size())) + "\r\n");
+			}
 		}
 
-		const size_t headerEnd = response.find("\r\n\r\n", statusLineEnd, 4);
+		[[nodiscard]]
+		static std::string GetStatusLine(const std::string& responseHeader)
 		{
-			if (headerEnd == std::string::npos)
+			if (not responseHeader.starts_with("HTTP/"))
 			{
-				return;
+				return{};
 			}
 
-			const std::string_view view(response.data() + (statusLineEnd + 1),
-				(headerEnd + 2) - (statusLineEnd + 1));
-			m_header = Unicode::Widen(view);
+			const size_t endOfStatusLine = responseHeader.find("\r\n");
+
+			if (endOfStatusLine == std::string::npos)
+			{
+				return responseHeader;
+			}
+			else
+			{
+				return responseHeader.substr(0, endOfStatusLine);
+			}
 		}
+
+		[[nodiscard]]
+		static int32 GetStatusCode(const std::string& statusLine)
+		{
+			if (statusLine.empty())
+			{
+				return 0;
+			}
+
+			const size_t statusCodePos = statusLine.find(' ');
+
+			if (statusCodePos == std::string::npos)
+			{
+				return 0;
+			}
+
+			// statusLine からステータスコードを抽出して整数に変換
+			try
+			{
+				return std::stoi(statusLine.substr((statusCodePos + 1), 3));
+			}
+			catch (const std::exception&)
+			{
+				return 0;
+			}
+		}
+
+		[[nodiscard]]
+		static std::string GetHeaders(const std::string& responseHeader)
+		{
+			const size_t endOfStatusLine = responseHeader.find("\r\n");
+
+			if (endOfStatusLine == std::string::npos)
+			{
+				return{};
+			}
+			else
+			{
+				return responseHeader.substr(endOfStatusLine + 2); // 2 を足して、\r\n をスキップ
+			}
+		}
+	}
+
+	HTTPResponse::HTTPResponse(const std::string& responseHeaders)
+	{
+		// 最後のレスポンスヘッダ（リダイレクト発生時、responseHeaders には複数のレスポンスが含まれる）
+		const std::string lastResponseHeader = detail::GetLastResponseHeader(responseHeaders);
+
+		// ステータスライン
+		const std::string statusLine = detail::GetStatusLine(lastResponseHeader);
+
+		// ステータスコード
+		const int32 statusCode = detail::GetStatusCode(statusLine);
+
+		if (statusCode == 0)
+		{
+			return;
+		}
+
+		// ステータスラインを除いたヘッダ部分
+		const std::string headers = detail::GetHeaders(lastResponseHeader);
+
+		m_statusLine = Unicode::WidenAscii(statusLine);
+
+		m_statusCode = ToEnum<HTTPStatusCode>(statusCode);
+
+		m_header = Unicode::WidenAscii(headers);
 	}
 
 	HTTPStatusCode HTTPResponse::getStatusCode() const noexcept
