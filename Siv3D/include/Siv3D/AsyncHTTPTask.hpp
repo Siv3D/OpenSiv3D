@@ -23,6 +23,7 @@ namespace s3d
 	class AsyncHTTPTaskDetail;
 	class Blob;
 	class MemoryViewReader;
+	class JSON;
 
 	namespace SimpleHTTP
 	{
@@ -110,6 +111,16 @@ namespace s3d
 		[[nodiscard]]
 		const HTTPResponse& getResponse();
 
+		/// @brief ダウンロード先がファイルであるかを返します。
+		/// @return ダウンロード先がファイルの場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isFile() const;
+
+		/// @brief ダウンロード先がメモリであるかを返します。
+		/// @return ダウンロード先がメモリの場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool isBlob() const;
+
 		/// @brief ダウンロード先のファイルパスを返します。
 		/// @return ダウンロード内容を保存したファイルパス。メモリへのダウンロードの場合は空の文字列。
 		[[nodiscard]]
@@ -124,6 +135,12 @@ namespace s3d
 		/// @return ダウンロード内容を保存したバイナリデータに対する MemoryViewReader, ファイルへのダウンロードの場合は空の MemoryViewReader.
 		[[nodiscard]]
 		MemoryViewReader getBlobReader() const;
+
+		/// @brief ダウンロードしたデータを JSON としてパースした結果を返します。
+		/// @return ダウンロード内容を JSON と解釈した結果
+		/// @remark ダウンロード先がファイルであっても、メモリであっても使用できます。
+		[[nodiscard]]
+		JSON getAsJSON() const;
 
 	private:
 

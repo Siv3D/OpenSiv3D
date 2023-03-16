@@ -12,6 +12,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/AsyncHTTPTask.hpp>
 # include <Siv3D/MemoryViewReader.hpp>
+# include <Siv3D/JSON.hpp>
 # include "AsyncHTTPTaskDetail.hpp"
 
 namespace s3d
@@ -74,6 +75,16 @@ namespace s3d
 		return pImpl->getResponse();
 	}
 
+	bool AsyncHTTPTask::isFile() const
+	{
+		return pImpl->isFile();
+	}
+
+	bool AsyncHTTPTask::isBlob() const
+	{
+		return (not pImpl->isFile());
+	}
+
 	const FilePath& AsyncHTTPTask::getFilePath() const
 	{
 		return pImpl->getFilePath();
@@ -89,6 +100,18 @@ namespace s3d
 		const Blob& blob = pImpl->getBlob();
 
 		return{ blob.data(), blob.size_bytes() };
+	}
+
+	JSON AsyncHTTPTask::getAsJSON() const
+	{
+		if (pImpl->isFile())
+		{
+			return JSON::Load(getFilePath());
+		}
+		else
+		{
+			return JSON::Load(getBlobReader());
+		}
 	}
 
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const FilePathView path)

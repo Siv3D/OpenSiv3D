@@ -136,6 +136,11 @@ namespace s3d
 		return m_response;
 	}
 
+	bool AsyncHTTPTaskDetail::isFile() const
+	{
+		return m_writer.isFile;
+	}
+
 	const FilePath& AsyncHTTPTaskDetail::getFilePath() const
 	{
 		return m_writer.path;
@@ -192,7 +197,7 @@ namespace s3d
 
 	void AsyncHTTPTaskDetail::close()
 	{
-		if (m_writer.useFile)
+		if (m_writer.isFile)
 		{
 			m_writer.file.close();
 		}
@@ -204,7 +209,7 @@ namespace s3d
 
 	HTTPResponse AsyncHTTPTaskDetail::runGet()
 	{
-		if (m_writer.useFile && (not m_writer.file))
+		if (m_writer.isFile && (not m_writer.file))
 		{
 			setStatus(HTTPAsyncStatus::Failed);
 			return{};
@@ -283,7 +288,7 @@ namespace s3d
 
 	HTTPResponse AsyncHTTPTaskDetail::runPost()
 	{
-		if (m_writer.useFile && (not m_writer.file))
+		if (m_writer.isFile && (not m_writer.file))
 		{
 			setStatus(HTTPAsyncStatus::Failed);
 			return{};

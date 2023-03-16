@@ -57,6 +57,9 @@ namespace s3d
 
 		[[nodiscard]]
 		const HTTPResponse& getResponse();
+		
+		[[nodiscard]]
+		bool isFile() const;
 
 		[[nodiscard]]
 		const FilePath& getFilePath() const;
@@ -105,11 +108,11 @@ namespace s3d
 
 			MemoryWriter memory;
 
-			bool useFile = true;
+			bool isFile = true;
 
 			IWriter* getIWriter()
 			{
-				if (useFile)
+				if (isFile)
 				{
 					return &file;
 				}
