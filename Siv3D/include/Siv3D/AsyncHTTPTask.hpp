@@ -21,12 +21,17 @@ namespace s3d
 {
 	class AsyncHTTPTask;
 	class AsyncHTTPTaskDetail;
+	class Blob;
 
 	namespace SimpleHTTP
 	{
 		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
 
+		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers);
+
 		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
+
+		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size);
 	}
 
 # if SIV3D_PLATFORM(WEB)
@@ -104,15 +109,33 @@ namespace s3d
 		[[nodiscard]]
 		const HTTPResponse& getResponse();
 
+		/// @brief ダウンロード先のファイルパスを返します。
+		/// @return ダウンロード内容を保存したファイルパス。メモリへのダウンロードの場合は空の文字列。
+		[[nodiscard]]
+		const FilePath& getFilePath() const;
+
+		/// @brief ダウンロードしたデータを返します。
+		/// @return ダウンロード内容を保存したバイナリデータ。ファイルへのダウンロードの場合は空のバイナリデータ。
+		[[nodiscard]]
+		const Blob& getBlob() const;
+
 	private:
 
 		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, FilePathView path);
 
+		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers);
+
 		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView path);
+
+		AsyncHTTPTask(URLView url, const HashTable<String, String>& headers, const void* src, size_t size);
 
 		friend AsyncHTTPTask SimpleHTTP::GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
 
+		friend AsyncHTTPTask SimpleHTTP::GetAsync(URLView url, const HashTable<String, String>& headers);
+
 		friend AsyncHTTPTask SimpleHTTP::PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
+
+		friend AsyncHTTPTask SimpleHTTP::PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size);
 
 	# if SIV3D_PLATFORM(WEB)
 		friend AsyncTask<HTTPResponse> Platform::Web::SimpleHTTP::CreateAsyncTask(AsyncHTTPTask& httpTask);

@@ -73,9 +73,25 @@ namespace s3d
 		return pImpl->getResponse();
 	}
 
+	const FilePath& AsyncHTTPTask::getFilePath() const
+	{
+		return pImpl->getFilePath();
+	}
+
+	const Blob& AsyncHTTPTask::getBlob() const
+	{
+		return pImpl->getBlob();
+	}
+
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const FilePathView path)
 		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, headers, path) } {}
 
+	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers)
+		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, headers) } {}
+
 	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView path)
 		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, headers, src, size, path) } {}
+
+	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size)
+		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, headers, src, size) } {}
 }

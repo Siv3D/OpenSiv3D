@@ -265,11 +265,25 @@ namespace s3d
 			return AsyncHTTPTask{ url, headers, filePath };
 		}
 
+		AsyncHTTPTask GetAsync(const URLView url, const HashTable<String, String>& headers)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers };
+		}
+
 		AsyncHTTPTask PostAsync(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
 		{
 			SIV3D_ENGINE(Network)->init();
 
 			return AsyncHTTPTask{ url, headers, src, size, filePath };
+		}
+
+		AsyncHTTPTask PostAsync(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers, src, size };
 		}
 	}
 }

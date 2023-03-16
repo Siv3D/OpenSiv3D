@@ -113,6 +113,14 @@ namespace s3d
 		[[nodiscard]]
 		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers, FilePathView filePath);
 
+		/// @brief GET メソッドで Web サーバにリクエストを送ります。
+		/// @param url URL
+		/// @param headers ヘッダ
+		/// @return 非同期ダウンロードを管理するオブジェクト
+		/// @remark ダウンロード内容はメモリに保存されます。ダウンロード完了後、`AsyncHTTPTask::getBlob()` で取得します。
+		[[nodiscard]]
+		AsyncHTTPTask GetAsync(URLView url, const HashTable<String, String>& headers);
+
 		/// @brief POST メソッドで Web サーバにリクエストを送ります。
 		/// @param url URL
 		/// @param headers ヘッダ
@@ -122,5 +130,15 @@ namespace s3d
 		/// @return 非同期ダウンロードを管理するオブジェクト
 		[[nodiscard]]
 		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size, FilePathView filePath);
+
+		/// @brief POST メソッドで Web サーバにリクエストを送ります。
+		/// @param url URL
+		/// @param headers ヘッダ
+		/// @param src 送信するデータの先頭ポインタ
+		/// @param size 送信するデータのサイズ（バイト）
+		/// @return 非同期ダウンロードを管理するオブジェクト
+		/// @remark ダウンロード内容はメモリに保存されます。ダウンロード完了後、`AsyncHTTPTask::getBlob()` で取得します。
+		[[nodiscard]]
+		AsyncHTTPTask PostAsync(URLView url, const HashTable<String, String>& headers, const void* src, size_t size);
 	}
 }

@@ -60,23 +60,39 @@ namespace s3d
 
 	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const HashTable<String, String>& headers, const FilePathView path)
 		: m_url{ url }
+		, m_writer{ BinaryWriter{ path }, {}, {}, true }
+		, m_headers{ headers }
 	{
-		m_writer.open(path);
+		m_writer.path = m_writer.file.path();
 
-		m_headers = headers;
+		m_task = Async(&AsyncHTTPTaskDetail::runGet, this);
+	}
 
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const HashTable<String, String>& headers)
+		: m_url{ url }
+		, m_writer{ {}, {}, {}, false }
+		, m_headers{ headers }
+	{
 		m_task = Async(&AsyncHTTPTaskDetail::runGet, this);
 	}
 
 	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView path)
 		: m_url{ url }
+		, m_writer{ BinaryWriter{ path }, {}, {}, true }
+		, m_headers{ headers }
+		, m_blob{ src, size }
 	{
-		m_writer.open(path);
+		m_writer.path = m_writer.file.path();
 
-		m_headers = headers;
+		m_task = Async(&AsyncHTTPTaskDetail::runPost, this);
+	}
 
-		m_blob.create(src, size);
-
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size)
+		: m_url{ url }
+		, m_writer{ {}, {}, {}, false }
+		, m_headers{ headers }
+		, m_blob{ src, size }
+	{
 		m_task = Async(&AsyncHTTPTaskDetail::runPost, this);
 	}
 
@@ -118,6 +134,16 @@ namespace s3d
 		}
 
 		return m_response;
+	}
+
+	const FilePath& AsyncHTTPTaskDetail::getFilePath() const
+	{
+		return m_writer.path;
+	}
+
+	const Blob& AsyncHTTPTaskDetail::getBlob() const
+	{
+		return m_writer.memory.getBlob();
 	}
 
 	HTTPAsyncStatus AsyncHTTPTaskDetail::getStatus()
@@ -166,7 +192,10 @@ namespace s3d
 
 	void AsyncHTTPTaskDetail::close()
 	{
-		m_writer.close();
+		if (m_writer.useFile)
+		{
+			m_writer.file.close();
+		}
 
 		m_headers.clear();
 
@@ -175,7 +204,7 @@ namespace s3d
 
 	HTTPResponse AsyncHTTPTaskDetail::runGet()
 	{
-		if (not m_writer)
+		if (m_writer.useFile && (not m_writer.file))
 		{
 			setStatus(HTTPAsyncStatus::Failed);
 			return{};
@@ -208,7 +237,7 @@ namespace s3d
 		::curl_easy_setopt(curl, ::CURLOPT_FOLLOWLOCATION, 1L);
 		::curl_easy_setopt(curl, ::CURLOPT_HTTPHEADER, header_slist);
 		::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteAsyncCallback);
-		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &m_writer);
+		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, m_writer.getIWriter());
 		::curl_easy_setopt(curl, ::CURLOPT_XFERINFOFUNCTION, detail::ProgressCallback);
 		::curl_easy_setopt(curl, ::CURLOPT_XFERINFODATA, this);
 		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
@@ -223,8 +252,6 @@ namespace s3d
 		const ::CURLcode result = ::curl_easy_perform(curl);
 		::curl_easy_cleanup(curl);
 		::curl_slist_free_all(header_slist);
-
-		const FilePath saveFilePath = m_writer.path();
 
 		close();
 
@@ -241,7 +268,10 @@ namespace s3d
 				setStatus(HTTPAsyncStatus::Failed);
 			}
 
-			FileSystem::Remove(saveFilePath);
+			if (m_writer.path)
+			{
+				FileSystem::Remove(m_writer.path);
+			}
 
 			return{};
 		}
@@ -253,7 +283,7 @@ namespace s3d
 
 	HTTPResponse AsyncHTTPTaskDetail::runPost()
 	{
-		if (not m_writer)
+		if (m_writer.useFile && (not m_writer.file))
 		{
 			setStatus(HTTPAsyncStatus::Failed);
 			return{};
@@ -289,7 +319,7 @@ namespace s3d
 		::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDS, const_cast<char*>(static_cast<const char*>(static_cast<const void*>(m_blob.data()))));
 		::curl_easy_setopt(curl, ::CURLOPT_POSTFIELDSIZE, static_cast<long>(m_blob.size_bytes()));
 		::curl_easy_setopt(curl, ::CURLOPT_WRITEFUNCTION, detail::WriteAsyncCallback);
-		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, &m_writer);
+		::curl_easy_setopt(curl, ::CURLOPT_WRITEDATA, m_writer.getIWriter());
 		::curl_easy_setopt(curl, ::CURLOPT_XFERINFOFUNCTION, detail::ProgressCallback);
 		::curl_easy_setopt(curl, ::CURLOPT_XFERINFODATA, this);
 		::curl_easy_setopt(curl, ::CURLOPT_NOPROGRESS, 0L);
@@ -304,8 +334,6 @@ namespace s3d
 		const ::CURLcode result = ::curl_easy_perform(curl);
 		::curl_easy_cleanup(curl);
 		::curl_slist_free_all(header_slist);
-
-		const FilePath saveFilePath = m_writer.path();
 
 		close();
 
@@ -322,7 +350,10 @@ namespace s3d
 				setStatus(HTTPAsyncStatus::Failed);
 			}
 
-			FileSystem::Remove(saveFilePath);
+			if (m_writer.path)
+			{
+				FileSystem::Remove(m_writer.path);
+			}
 
 			return{};
 		}
