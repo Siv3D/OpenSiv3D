@@ -17,7 +17,7 @@
 # include "Image.hpp"
 
 /*
-	このライブラリは、OpenAI の ChatGPT と DALL-E モデルを使用して、テキストベースの会話や画像生成を行うための API を提供します。主な関数は以下の通りです。
+	このヘッダは、OpenAI の ChatGPT と DALL-E モデルを使用して、テキストベースの会話や画像生成を行うための API を提供します。主な関数は以下の通りです。
 
 		OpenAI::Chat::Complete() - ChatGPT にメッセージを送信し、返答メッセージを取得します。
 		OpenAI::Chat::CompleteAsync() - ChatGPTに メッセージを送信し、レスポンス（JSON）を取得する非同期タスクを返します。
@@ -25,7 +25,7 @@
 		OpenAI::Image::Create() - テキストに基づいて DALL-E モデルを使用して生成された画像を取得します。
 		OpenAI::Image::CreateAsync() - テキストに基づいて DALL-E モデルを使用して画像を生成する非同期タスクを返します。
 
-	This library provides an API to interact with OpenAI's ChatGPT and DALL-E models for text-based conversations and image generation. The main functions are as follows:
+	This header provides an API to interact with OpenAI's ChatGPT and DALL-E models for text-based conversations and image generation. The main functions are as follows:
 
 		OpenAI::Chat::Complete() - Sends a message to ChatGPT and retrieves the response message.
 		OpenAI::Chat::CompleteAsync() - Returns an asynchronous task that sends a message to ChatGPT and retrieves the response (JSON).
