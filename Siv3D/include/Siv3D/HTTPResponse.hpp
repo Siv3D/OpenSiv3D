@@ -36,6 +36,11 @@ namespace s3d
 		[[nodiscard]]
 		HTTPStatusCode getStatusCode() const noexcept;
 
+		/// @brief ステータスコードを `int32` 型で返します。
+		/// @return ステータスコード
+		[[nodiscard]]
+		int32 getStatusCodeInt() const noexcept;
+
 		/// @brief ステータス行を返します。
 		/// @return ステータス行
 		[[nodiscard]]

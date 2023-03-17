@@ -147,6 +147,11 @@ namespace s3d
 		return m_statusCode;
 	}
 
+	int32 HTTPResponse::getStatusCodeInt() const noexcept
+	{
+		return static_cast<int32>(m_statusCode);
+	}
+
 	const String& HTTPResponse::getStatusLine() const noexcept
 	{
 		return m_statusLine;
