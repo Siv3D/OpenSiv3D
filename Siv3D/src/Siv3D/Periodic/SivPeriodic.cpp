@@ -37,12 +37,12 @@ namespace s3d
 			return Square0_1(period.count(), t);
 		}
 
-		double Pulse0_1(double periodSec, double dutyCycle, const double t) noexcept
+		double Pulse0_1(const double periodSec, const double dutyCycle, const double t) noexcept
 		{
 			return (std::fmod(t, periodSec) < (periodSec * dutyCycle)) ? 1.0 : 0.0;
 		}
 
-		double Pulse0_1(const Duration& period, double dutyCycle, const double t) noexcept
+		double Pulse0_1(const Duration& period, const double dutyCycle, const double t) noexcept
 		{
 			return Pulse0_1(period.count(), dutyCycle, t);
 		}
@@ -116,12 +116,12 @@ namespace s3d
 			return Square1_1(period.count(), t);
 		}
 
-		double Pulse1_1(const double periodSec, double dutyCycle, const double t) noexcept
+		double Pulse1_1(const double periodSec, const double dutyCycle, const double t) noexcept
 		{
 			return (std::fmod(t, periodSec) < (periodSec * dutyCycle)) ? 1.0 : -1.0;
 		}
 
-		double Pulse1_1(const Duration& period, double dutyCycle, const double t) noexcept
+		double Pulse1_1(const Duration& period, const double dutyCycle, const double t) noexcept
 		{
 			return Pulse1_1(period.count(), dutyCycle, t);
 		}

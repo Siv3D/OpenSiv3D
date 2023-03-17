@@ -155,6 +155,7 @@ namespace s3d
 		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
 		/// @param t 経過時間（秒）
 		/// @return 0.0 または 1.0
+		/// @remark デューティー比が 0.5 のとき `Square0_1()` と一致します。
 		[[nodiscard]]
 		double Pulse0_1(double periodSec, double dutyCycle, double t = Scene::Time()) noexcept;
 
@@ -163,6 +164,7 @@ namespace s3d
 		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
 		/// @param t 経過時間（秒）
 		/// @return 0.0 または 1.0
+		/// @remark デューティー比が 0.5 のとき `Square0_1()` と一致します。
 		[[nodiscard]]
 		double Pulse0_1(const Duration& period, double dutyCycle, double t = Scene::Time()) noexcept;
 
@@ -242,6 +244,7 @@ namespace s3d
 		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
 		/// @param t 経過時間（秒）
 		/// @return -1.0 または 1.0
+		/// @remark デューティー比が 0.5 のとき `Square1_1()` と一致します。
 		[[nodiscard]]
 		double Pulse1_1(double periodSec, double dutyCycle, double t = Scene::Time()) noexcept;
 
@@ -250,6 +253,7 @@ namespace s3d
 		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
 		/// @param t 経過時間（秒）
 		/// @return -1.0 または 1.0
+		/// @remark デューティー比が 0.5 のとき `Square1_1()` と一致します。
 		[[nodiscard]]
 		double Pulse1_1(const Duration& period, double dutyCycle, double t = Scene::Time()) noexcept;
 
