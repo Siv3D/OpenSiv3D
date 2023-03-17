@@ -657,39 +657,26 @@ namespace s3d
 
 		const auto& src = m_polygon;
 
-		polygon_t in;
+		polygon_t dst;
 		{
-			auto& in_outer = in.outer();
 			const auto& src_outer = src.outer();
-
-			for (size_t i = 0; i < src_outer.size(); ++i)
-			{
-				in_outer.push_back(src_outer[src_outer.size() - i - 1]);
-			}
-
-			if (src.outer().size() >= 2)
-			{
-				in_outer.push_back(src_outer[src_outer.size() - 1]);
-
-				in_outer.push_back(src_outer[src_outer.size() - 2]);
-			}
+			dst.outer().assign(src_outer.rbegin(), src_outer.rend());
 		}
 
 		if (const size_t num_holes = src.inners().size())
 		{
-			in.inners().resize(num_holes);
+			dst.inners().resize(num_holes);
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				for (size_t k = 0; k < src.inners()[i].size(); ++k)
-				{
-					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
-				}
+				auto& dstInner = dst.inners()[i];
+				const auto& srcInner = src.inners()[i];
+				dstInner.assign(srcInner.rbegin(), srcInner.rend());
 			}
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
-		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+		boost::geometry::buffer(dst, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
 
 		if (multiPolygon.size() != 1)
 		{
@@ -714,7 +701,7 @@ namespace s3d
 			holes[i].assign(resultHole.rbegin(), resultHole.rend());
 		}
 
-		return Polygon{ outer, holes };
+		return Polygon::CorrectOne(outer, holes);
 	}
 
 	Polygon Polygon::PolygonDetail::calculateRoundBuffer(const double distance) const
@@ -728,39 +715,26 @@ namespace s3d
 
 		const auto& src = m_polygon;
 
-		polygon_t in;
+		polygon_t dst;
 		{
-			auto& in_outer = in.outer();
 			const auto& src_outer = src.outer();
-
-			for (size_t i = 0; i < src_outer.size(); ++i)
-			{
-				in_outer.push_back(src_outer[src_outer.size() - i - 1]);
-			}
-
-			if (src.outer().size() >= 2)
-			{
-				in_outer.push_back(src_outer[src_outer.size() - 1]);
-
-				in_outer.push_back(src_outer[src_outer.size() - 2]);
-			}
+			dst.outer().assign(src_outer.rbegin(), src_outer.rend());
 		}
 
 		if (const size_t num_holes = src.inners().size())
 		{
-			in.inners().resize(num_holes);
+			dst.inners().resize(num_holes);
 
 			for (size_t i = 0; i < num_holes; ++i)
 			{
-				for (size_t k = 0; k < src.inners()[i].size(); ++k)
-				{
-					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
-				}
+				auto& dstInner = dst.inners()[i];
+				const auto& srcInner = src.inners()[i];
+				dstInner.assign(srcInner.rbegin(), srcInner.rend());
 			}
 		}
 
 		boost::geometry::model::multi_polygon<CwOpenPolygon> multiPolygon;
-		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+		boost::geometry::buffer(dst, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
 
 		if (multiPolygon.size() != 1)
 		{
@@ -785,7 +759,7 @@ namespace s3d
 			holes[i].assign(resultHole.rbegin(), resultHole.rend());
 		}
 
-		return Polygon{ outer, holes };
+		return Polygon::CorrectOne(outer, holes);
 	}
 
 	Polygon Polygon::PolygonDetail::simplified(const double maxDistance) const
