@@ -773,4 +773,22 @@ namespace s3d
 		archive(cereal::binary_data(binary.data(), binary.size()));
 		image = Image{ MemoryReader{ std::move(binary) } };
 	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	TextEditState
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const TextEditState& value)
+	{
+		archive(value.text);
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, TextEditState& value)
+	{
+		String text;
+		archive(text);
+		value = TextEditState{ std::move(text) };
+	}
 }
