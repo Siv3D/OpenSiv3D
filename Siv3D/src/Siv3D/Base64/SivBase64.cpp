@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Base64.hpp>
+# include <Siv3D/Error.hpp>
 
 namespace s3d
 {
@@ -92,12 +93,11 @@ namespace s3d
 			size_t binarySize;
 		};
 
-		template <class Ch>
+		template <bool ThrowError, class Ch>
 		[[nodiscard]]
-		inline Base64Length DecodeLength(const Ch* pSrc, size_t inputLength) noexcept
+		inline Base64Length DecodeLength(const Ch* pSrc, size_t inputLength) noexcept(not ThrowError)
 		{
-			while (inputLength
-				&& (detail::decodeTable[static_cast<uint8>(pSrc[inputLength - 1])] == 0xff))
+			while (inputLength && (pSrc[inputLength - 1] == '='))
 			{
 				--inputLength;
 			}
@@ -112,7 +112,14 @@ namespace s3d
 			}
 			else if (remainder == 1) // error (invalid)
 			{
-				return{ 0, 0, 0 };
+				if constexpr (ThrowError)
+				{
+					throw Error{ U"Base64::Decode(): Invalid length" };
+				}
+				else
+				{
+					return{ 0, 0, 0 };
+				}
 			}
 			else if (remainder == 2) // 2, 6, 10, 14, ...
 			{
@@ -128,7 +135,7 @@ namespace s3d
 		[[nodiscard]]
 		inline Blob Decode(const Ch* pSrc, const size_t inputLength)
 		{
-			const auto [block, remainder, binarySize] = detail::DecodeLength(pSrc, inputLength);
+			const auto [block, remainder, binarySize] = DecodeLength<false>(pSrc, inputLength);
 
 			if (binarySize == 0)
 			{
@@ -140,40 +147,117 @@ namespace s3d
 
 			for (size_t i = 0; i < block; ++i)
 			{
-				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
-				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v1 = decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v2 = decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v3 = decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v4 = decodeTable[static_cast<uint8>(*pSrc++)];
 
 				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
-
-				const uint8 v3 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
-
-				if (v3 == 0xFF)
-				{
-					break;
-				}
-
 				*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
-
-				const uint8 v4 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
-
-				if (v4 == 0xFF)
-				{
-					break;
-				}
-
 				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
 			}
 
 			if (remainder)
 			{
-				const uint8 v1 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
-				const uint8 v2 = detail::decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v1 = decodeTable[static_cast<uint8>(*pSrc++)];
+				const uint8 v2 = decodeTable[static_cast<uint8>(*pSrc++)];
 
 				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
 
 				if (remainder == 3)
 				{
-					*pDst++ = static_cast<Byte>((v2 << 4 | detail::decodeTable[static_cast<uint8>(*pSrc++)] >> 2) & 0xff);
+					const uint8 v3 = decodeTable[static_cast<uint8>(*pSrc++)];
+
+					*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
+				}
+			}
+
+			return Blob{ std::move(dst) };
+		}
+
+		[[noreturn]]
+		static void ThrowBase64DecodeInvalidCharacterError()
+		{
+			throw Error{ U"Base64::Decode(): Invalid character" };
+		}
+
+		template <class Ch>
+		[[nodiscard]]
+		inline Blob DecodeWithCheck(const Ch* pSrc, const size_t inputLength)
+		{
+			const auto [block, remainder, binarySize] = DecodeLength<true>(pSrc, inputLength);
+
+			if (binarySize == 0)
+			{
+				return{};
+			}
+
+			Array<Byte> dst(binarySize);
+			Byte* pDst = dst.data();
+
+			for (size_t i = 0; i < block; ++i)
+			{
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v1 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v1 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v2 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v2 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v3 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v3 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v4 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v4 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
+				*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
+				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
+			}
+
+			if (remainder)
+			{
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v1 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v1 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				if constexpr (sizeof(Ch) >= 2)
+				{
+					if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+				}
+				const uint8 v2 = decodeTable[static_cast<uint8>(*pSrc++)];
+				if (v2 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
+
+				if (remainder == 3)
+				{
+					if constexpr (sizeof(Ch) >= 2)
+					{
+						if (*pSrc >= 256) ThrowBase64DecodeInvalidCharacterError();
+					}
+					const uint8 v3 = decodeTable[static_cast<uint8>(*pSrc++)];
+					if (v3 == 0xff) ThrowBase64DecodeInvalidCharacterError();
+
+					*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
 				}
 			}
 
@@ -200,14 +284,28 @@ namespace s3d
 			detail::Encode(data, size, dst);
 		}
 
-		Blob Decode(const StringView base64)
+		Blob Decode(const StringView base64, SkipValidation skipValidation)
 		{
-			return detail::Decode(base64.data(), base64.size());
+			if (skipValidation)
+			{
+				return detail::Decode(base64.data(), base64.size());
+			}
+			else
+			{
+				return detail::DecodeWithCheck(base64.data(), base64.size());
+			}
 		}
 
-		Blob Decode(const std::string_view base64)
+		Blob Decode(const std::string_view base64, SkipValidation skipValidation)
 		{
-			return detail::Decode(base64.data(), base64.size());
+			if (skipValidation)
+			{
+				return detail::Decode(base64.data(), base64.size());
+			}
+			else
+			{
+				return detail::DecodeWithCheck(base64.data(), base64.size());
+			}
 		}
 	}
 }
