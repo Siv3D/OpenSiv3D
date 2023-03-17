@@ -150,6 +150,22 @@ namespace s3d
 		[[nodiscard]]
 		double Square0_1(const Duration& period, double t = Scene::Time()) noexcept;
 
+		/// @brief 矩形波に従って、周期的に [0.0, 1.0] の値を返します。
+		/// @param periodSec 周期（秒）
+		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
+		/// @param t 経過時間（秒）
+		/// @return 0.0 または 1.0
+		[[nodiscard]]
+		double Pulse0_1(double periodSec, double dutyCycle, double t = Scene::Time()) noexcept;
+
+		/// @brief 矩形波に従って、周期的に [0.0, 1.0] の値を返します。
+		/// @param periodSec 周期（秒）
+		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
+		/// @param t 経過時間（秒）
+		/// @return 0.0 または 1.0
+		[[nodiscard]]
+		double Pulse0_1(const Duration& period, double dutyCycle, double t = Scene::Time()) noexcept;
+
 		/// @brief 三角波に従って、周期的に [0.0, 1.0] の値を返します。
 		/// @param periodSec 周期（秒）
 		/// @param t 経過時間（秒）
@@ -220,6 +236,22 @@ namespace s3d
 		/// @return [-1.0, 1.0] の範囲の値
 		[[nodiscard]]
 		double Square1_1(const Duration& period, double t = Scene::Time()) noexcept;
+
+		/// @brief 矩形波に従って、周期的に [-1.0, 1.0] の値を返します。
+		/// @param periodSec 周期（秒）
+		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
+		/// @param t 経過時間（秒）
+		/// @return -1.0 または 1.0
+		[[nodiscard]]
+		double Pulse1_1(double periodSec, double dutyCycle, double t = Scene::Time()) noexcept;
+
+		/// @brief 矩形波に従って、周期的に [-1.0, 1.0] の値を返します。
+		/// @param periodSec 周期（秒）
+		/// @param dutyCycle デューティー比、周期内で波形の大きさが 1.0 である時間の割合
+		/// @param t 経過時間（秒）
+		/// @return -1.0 または 1.0
+		[[nodiscard]]
+		double Pulse1_1(const Duration& period, double dutyCycle, double t = Scene::Time()) noexcept;
 
 		/// @brief 三角波に従って、周期的に [-1.0, 1.0] の値を返します。
 		/// @param periodSec 周期（秒）
