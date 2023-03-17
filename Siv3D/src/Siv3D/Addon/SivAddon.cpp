@@ -19,7 +19,12 @@ namespace s3d
 	{
 		bool Register(const StringView name, std::unique_ptr<IAddon>&& pAddon, const int32 priority)
 		{
-			return SIV3D_ENGINE(Addon)->add(name, std::move(pAddon), priority);
+			return SIV3D_ENGINE(Addon)->add(name, std::move(pAddon), priority, priority);
+		}
+
+		bool Register(const StringView name, std::unique_ptr<IAddon>&& pAddon, const int32 updatePriority, const int32 drawPriority)
+		{
+			return SIV3D_ENGINE(Addon)->add(name, std::move(pAddon), updatePriority, drawPriority);
 		}
 
 		void Unregister(const StringView name)

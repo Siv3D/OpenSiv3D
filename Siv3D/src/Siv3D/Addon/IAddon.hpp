@@ -23,7 +23,7 @@ namespace s3d
 
 		virtual ~ISiv3DAddon() = default;
 
-		virtual bool add(StringView name, std::unique_ptr<IAddon>&& addon, int32 priority) = 0;
+		virtual bool add(StringView name, std::unique_ptr<IAddon>&& addon, int32 updatePriority, int32 drawPriority) = 0;
 
 		virtual void remove(StringView name) = 0;
 

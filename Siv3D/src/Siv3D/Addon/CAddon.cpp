@@ -13,15 +13,57 @@
 
 namespace s3d
 {
-	bool CAddon::add(const StringView name, std::unique_ptr<IAddon>&& addon, const int32 priority)
+	namespace detail
+	{
+		static Array<std::pair<size_t, int32>> MakeUpdateIndices(const Array<AddonData>& addons)
+		{
+			Array<std::pair<size_t, int32>> indices(Arg::reserve = addons.size());
+
+			size_t i = 0;
+
+			for (const auto& addon : addons)
+			{
+				indices.emplace_back(i++, addon.updatePriority);
+			}
+
+			indices.sort_by([](const std::pair<size_t, int32>& a, const std::pair<size_t, int32>& b) { return (a.second > b.second); });
+
+			return indices;
+		}
+
+		static Array<std::pair<size_t, int32>> MakeDrawIndices(const Array<AddonData>& addons)
+		{
+			Array<std::pair<size_t, int32>> indices(Arg::reserve = addons.size());
+
+			size_t i = 0;
+
+			for (const auto& addon : addons)
+			{
+				indices.emplace_back(i++, addon.drawPriority);
+			}
+
+			indices.sort_by([](const std::pair<size_t, int32>& a, const std::pair<size_t, int32>& b) { return (a.second > b.second); });
+
+			return indices;
+		}
+	}
+
+	AddonData::AddonData(std::unique_ptr<IAddon>&& _pAddon, StringView _name, int32 _updatePriority, int32 _drawPriority)
+		: pAddon{ std::move(_pAddon) }
+		, name{ _name }
+		, updatePriority{ _updatePriority }
+		, drawPriority{ _drawPriority } {}
+
+	bool CAddon::add(const StringView name, std::unique_ptr<IAddon>&& addon, const int32 updatePriority, const int32 drawPriority)
 	{
 		if (isRegistered(name))
 		{
 			return false;
 		}
 
-		m_addons.emplace_back(std::move(addon), name, priority);
-		m_addons.sort_by([](const AddonData& a, const AddonData& b) { return (a.priority > b.priority); });
+		m_addons.emplace_back(std::move(addon), name, updatePriority, drawPriority);	
+		m_updateIndices = detail::MakeUpdateIndices(m_addons);
+		m_drawIndices = detail::MakeDrawIndices(m_addons);
 
 		return true;
 	}
@@ -33,6 +75,8 @@ namespace s3d
 			if (it->name == name)
 			{
 				m_addons.erase(it);
+				m_updateIndices = detail::MakeUpdateIndices(m_addons);
+				m_drawIndices = detail::MakeDrawIndices(m_addons);
 				return;
 			}
 		}
@@ -41,6 +85,8 @@ namespace s3d
 	void CAddon::removeAll()
 	{
 		m_addons.clear();
+		m_updateIndices.clear();
+		m_drawIndices.clear();
 	}
 
 	bool CAddon::isRegistered(const StringView name) const noexcept
@@ -63,9 +109,9 @@ namespace s3d
 
 	bool CAddon::update()
 	{
-		for (auto& addon : m_addons)
+		for (const auto& index : m_updateIndices)
 		{
-			if (not addon.pAddon->update())
+			if (not m_addons[index.first].pAddon->update())
 			{
 				return false;
 			}
@@ -76,17 +122,17 @@ namespace s3d
 
 	void CAddon::draw() const
 	{
-		for (const auto& addon : m_addons)
+		for (const auto& index : m_drawIndices)
 		{
-			addon.pAddon->draw();
+			m_addons[index.first].pAddon->draw();
 		}
 	}
 
 	void CAddon::postPresent()
 	{
-		for (auto& addon : m_addons)
+		for (const auto& index : m_drawIndices)
 		{
-			addon.pAddon->postPresent();
+			m_addons[index.first].pAddon->postPresent();
 		}
 	}
 }

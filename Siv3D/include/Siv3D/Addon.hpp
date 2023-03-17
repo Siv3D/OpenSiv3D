@@ -27,12 +27,29 @@ namespace s3d
 		bool Register(StringView name, std::unique_ptr<IAddon>&& pAddon, int32 priority = 0);
 
 		/// @brief アドオンを登録します。
+		/// @param name アドオンの名前
+		/// @param pAddon アドオン
+		/// @param updatePriority アドオンリスト内での更新処理の優先度。数値が大きいほど先に実行されます
+		/// @param drawPriority アドオンリスト内での描画処理の優先度。数値が大きいほど先に実行されます
+		/// @return アドオンの登録に成功した場合 true, それ以外の場合は false
+		bool Register(StringView name, std::unique_ptr<IAddon>&& pAddon, int32 updatePriority, int32 drawPriority);
+
+		/// @brief アドオンを登録します。
 		/// @tparam AddonType アドオンクラス
 		/// @param name アドオンの名前
 		/// @param priority アドオンリスト内での処理の優先度。数値が大きいほど先に実行されます
 		/// @return アドオンの登録に成功した場合 true, それ以外の場合は false
 		template <class AddonType, std::enable_if_t<std::is_base_of_v<IAddon, AddonType>>* = nullptr>
 		bool Register(StringView name, int32 priority = 0);
+
+		/// @brief アドオンを登録します。
+		/// @tparam AddonType アドオンクラス
+		/// @param name アドオンの名前
+		/// @param updatePriority アドオンリスト内での更新処理の優先度。数値が大きいほど先に実行されます
+		/// @param drawPriority アドオンリスト内での描画処理の優先度。数値が大きいほど先に実行されます
+		/// @return アドオンの登録に成功した場合 true, それ以外の場合は false
+		template <class AddonType, std::enable_if_t<std::is_base_of_v<IAddon, AddonType>>* = nullptr>
+		bool Register(StringView name, int32 updatePriority, int32 drawPriority);
 
 		/// @brief 指定した名前のアドオンの登録を解除します。
 		/// @param name アドオンの名前

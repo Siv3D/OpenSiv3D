@@ -18,6 +18,12 @@ namespace s3d
 		template <class AddonType, std::enable_if_t<std::is_base_of_v<IAddon, AddonType>>*>
 		bool Register(const StringView name, const int32 priority)
 		{
+			return Register<AddonType>(name, priority, priority);
+		}
+
+		template <class AddonType, std::enable_if_t<std::is_base_of_v<IAddon, AddonType>>*>
+		bool Register(const StringView name, const int32 updatePriority, const int32 drawPriority)
+		{
 			if (IsRegistered(name))
 			{
 				return false;
@@ -30,7 +36,7 @@ namespace s3d
 				return false;
 			}
 
-			return Register(name, std::move(pAddon), priority);
+			return Register(name, std::move(pAddon), updatePriority, drawPriority);
 		}
 
 		template <class AddonType>
