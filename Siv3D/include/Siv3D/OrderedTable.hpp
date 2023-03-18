@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -23,11 +23,11 @@ SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
-	/// @brief �e�[�u��
-	/// @tparam Key �L�[�̌^
-	/// @tparam Value �l�̌^
-	/// @tparam Compare �L�[�̔�r�֐��̌^
-	/// @tparam Alloc �A���P�[�^�̌^
+	/// @brief テーブル
+	/// @tparam Key キーの型
+	/// @tparam Value 値の型
+	/// @tparam Compare キーの比較関数の型
+	/// @tparam Alloc アロケータの型
 	template <class Key, class Value,
 		class Compare = phmap::Less<Key>,
 		class Alloc = phmap::priv::Allocator<phmap::priv::Pair<const Key, Value>>>
