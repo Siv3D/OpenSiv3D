@@ -51,6 +51,7 @@
   - TCP communication
   - Serial communication
   - Interprocess communication (pipe)
+  - OSC (Open Sound Control)
 - **Math**
   - Vector and matrix classes (`Point`, `Float2`, `Vec2`, `Float3`, `Vec3`, `Float4`, `Vec4`, `Mat3x2`, `Mat3x3`, `Mat4x4`, `SIMD_Float4`, `Quaternion`)
   - 2D shape classes (`Line`, `Circle`, `Ellipse`, `Rect`, `RectF`, `Triangle`, `Quad`, `RoundRect`, `Polygon`, `MultiPolygon`, `LineString`, `Spline2D`, `Bezier2`, `Bezier3`)
@@ -76,6 +77,7 @@
   - Text reader / writer classes
   - CSV / INI / JSON / XML / TOML reader classes
   - CSV / INI / JSON writer classes
+  - JSON Validation
 - **Misc**
   - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box, menu bar)
   - Integrated 2D physics engine (Box2D)
@@ -98,6 +100,7 @@
   - Clipboard
   - Power status
   - Scripting (AngelScript)
+  - OpenAI API (Chat, Image)
 
 <small>* Some features are limited to specific platforms</small>
 
@@ -106,7 +109,7 @@
 - **(English) Getting Started with Siv3D:** https://siv3d.github.io/
 - **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
-**v0.6.6** | *released 22 November 2022* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
+**v0.6.7** | *released 18 March 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
@@ -127,7 +130,6 @@
 
 - [Open Source Software used in Siv3D](ThirdParty.md)
 - [Architecture](ARCHITECTURE.md)
-- [Roadmap](https://zenn.dev/reputeless/articles/opensiv3d-roadmap)
 
 
 ## Supporting the Project
@@ -141,141 +143,214 @@ If you would like to support the project financially, visit my GitHub Sponsors p
 
 ### 1. Hello, Siv3D!
 
-![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-siv3d.gif)
+![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello.gif)
 
 ```cpp
 # include <Siv3D.hpp>
 
 void Main()
 {
-	// Set background color to sky blue
-	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+	// 背景の色を設定する | Set the background color
+	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
 
-	// Create a new font
-	const Font font{ 60 };
-	
-	// Create a new emoji font
-	const Font emojiFont{ 60, Typeface::ColorEmoji };
-	
-	// Set emojiFont as a fallback
-	font.addFallback(emojiFont);
-
-	// Create a texture from an image file
+	// 画像ファイルからテクスチャを作成する | Create a texture from an image file
 	const Texture texture{ U"example/windmill.png" };
 
-	// Create a texture from an emoji
-	const Texture emoji{ U"🐈"_emoji };
+	// 絵文字からテクスチャを作成する | Create a texture from an emoji
+	const Texture emoji{ U"🦖"_emoji };
 
-	// Coordinates of the emoji
-	Vec2 emojiPos{ 300, 150 };
+	// 太文字のフォントを作成する | Create a bold font with MSDF method
+	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 
-	// Print a text
-	Print << U"Push [A] key";
+	// テキストに含まれる絵文字のためのフォントを作成し、font に追加する | Create a font for emojis in text and add it to font as a fallback
+	const Font emojiFont{ 48, Typeface::ColorEmoji };
+	font.addFallback(emojiFont);
+
+	// ボタンを押した回数 | Number of button presses
+	int32 count = 0;
+
+	// チェックボックスの状態 | Checkbox state
+	bool checked = false;
+
+	// プレイヤーの移動スピード | Player's movement speed
+	double speed = 200.0;
+
+	// プレイヤーの X 座標 | Player's X position
+	double playerPosX = 400;
+
+	// プレイヤーが右を向いているか | Whether player is facing right
+	bool isPlayerFacingRight = true;
 
 	while (System::Update())
 	{
-		// Draw a texture
-		texture.draw(200, 200);
+		// テクスチャを描く | Draw the texture
+		texture.draw(20, 20);
 
-		// Put a text in the middle of the screen
-		font(U"Hello, Siv3D!🚀").drawAt(Scene::Center(), Palette::Black);
+		// テキストを描く | Draw text
+		font(U"Hello, Siv3D!🎮").draw(64, Vec2{ 20, 340 }, ColorF{ 0.2, 0.4, 0.8 });
 
-		// Draw a texture with animated size
-		emoji.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(emojiPos);
+		// 指定した範囲内にテキストを描く | Draw text within a specified area
+		font(U"Siv3D (シブスリーディー) は、ゲームやアプリを楽しく簡単な C++ コードで開発できるフレームワークです。")
+			.draw(18, Rect{ 20, 430, 480, 200 }, Palette::Black);
 
-		// Draw a red transparent circle that follows the mouse cursor
-		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1, 0, 0, 0.5 });
+		// 長方形を描く | Draw a rectangle
+		Rect{ 540, 20, 80, 80 }.draw();
 
-		// When [A] key is down
-		if (KeyA.down())
+		// 角丸長方形を描く | Draw a rounded rectangle
+		RoundRect{ 680, 20, 80, 200, 20 }.draw(ColorF{ 0.0, 0.4, 0.6 });
+
+		// 円を描く | Draw a circle
+		Circle{ 580, 180, 40 }.draw(Palette::Seagreen);
+
+		// 矢印を描く | Draw an arrow
+		Line{ 540, 330, 760, 260 }.drawArrow(8, SizeF{ 20, 20 }, ColorF{ 0.4 });
+
+		// 半透明の円を描く | Draw a semi-transparent circle
+		Circle{ Cursor::Pos(), 40 }.draw(ColorF{ 1.0, 0.0, 0.0, 0.5 });
+
+		// ボタン | Button
+		if (SimpleGUI::Button(U"count: {}"_fmt(count), Vec2{ 520, 370 }, 120, (checked == false)))
 		{
-			// Print a randomly selected text
-			Print << Sample({ U"Hello!", U"こんにちは", U"你好", U"안녕하세요?" });
+			// カウントを増やす | Increase the count
+			++count;
 		}
 
-		// When [Button] is pushed
-		if (SimpleGUI::Button(U"Button", Vec2{ 640, 40 }))
+		// チェックボックス | Checkbox
+		SimpleGUI::CheckBox(checked, U"Lock \U000F033E", Vec2{ 660, 370 }, 120);
+
+		// スライダー | Slider
+		SimpleGUI::Slider(U"speed: {:.1f}"_fmt(speed), speed, 100, 400, Vec2{ 520, 420 }, 140, 120);
+
+		// 左キーが押されていたら | If left key is pressed
+		if (KeyLeft.pressed())
 		{
-			// Move the coordinates to a random position in the screen
-			emojiPos = RandomVec2(Scene::Rect());
+			// プレイヤーが左に移動する | Player moves left
+			playerPosX = Max((playerPosX - speed * Scene::DeltaTime()), 60.0);
+			isPlayerFacingRight = false;
 		}
+
+		// 右キーが押されていたら | If right key is pressed
+		if (KeyRight.pressed())
+		{
+			// プレイヤーが右に移動する | Player moves right
+			playerPosX = Min((playerPosX + speed * Scene::DeltaTime()), 740.0);
+			isPlayerFacingRight = true;
+		}
+
+		// プレイヤーを描く | Draw the player
+		emoji.scaled(0.75).mirrored(isPlayerFacingRight).drawAt(playerPosX, 540);
 	}
 }
 ```
 
 ### 2. Breakout
 
-> [Web Demo](https://siv3d.jp/web/sample/breakout/breakout.html)
-
-![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/breakout.gif)
+![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/breakout-v067.gif)
 
 ```cpp
 # include <Siv3D.hpp>
 
 void Main()
 {
-	constexpr Size brickSize{ 40, 20 };
-	
-	constexpr double speed = 480.0;
-	
-	Vec2 ballVelocity{ 0, -speed };
-	
+	// 1 つのブロックのサイズ | Size of a single block
+	constexpr Size BrickSize{ 40, 20 };
+
+	// ボールの速さ（ピクセル / 秒） | Ball speed (pixels / second)
+	constexpr double BallSpeedPerSec = 480.0;
+
+	// ボールの速度 | Ball velocity
+	Vec2 ballVelocity{ 0, -BallSpeedPerSec };
+
+	// ボール | Ball
 	Circle ball{ 400, 400, 8 };
 
+	// ブロックの配列 | Array of bricks
 	Array<Rect> bricks;
-	for (auto p : step(Size{ (Scene::Width() / brickSize.x), 5 }))
+
+	for (int32 y = 0; y < 5; ++y)
 	{
-		bricks << Rect{ (p.x * brickSize.x), (60 + p.y * brickSize.y), brickSize };
+		for (int32 x = 0; x < (Scene::Width() / BrickSize.x); ++x)
+		{
+			bricks << Rect{ (x * BrickSize.x), (60 + y * BrickSize.y), BrickSize };
+		}
 	}
 
 	while (System::Update())
 	{
+		// パドル | Paddle
 		const Rect paddle{ Arg::center(Cursor::Pos().x, 500), 60, 10 };
 
+		// ボールを移動させる | Move the ball
 		ball.moveBy(ballVelocity * Scene::DeltaTime());
 
+		// ブロックを順にチェックする | Check bricks in sequence
 		for (auto it = bricks.begin(); it != bricks.end(); ++it)
 		{
+			// ブロックとボールが交差していたら | If block and ball intersect
 			if (it->intersects(ball))
 			{
-				(it->bottom().intersects(ball) || it->top().intersects(ball)
-					? ballVelocity.y : ballVelocity.x) *= -1;
+				// ブロックの上辺、または底辺と交差していたら | If ball intersects with top or bottom of the block
+				if (it->bottom().intersects(ball) || it->top().intersects(ball))
+				{
+					// ボールの速度の Y 成分の符号を反転する | Reverse the sign of the Y component of the ball's velocity
+					ballVelocity.y *= -1;
+				}
+				else // ブロックの左辺または右辺と交差していたら
+				{
+					// ボールの速度の X 成分の符号を反転する | Reverse the sign of the X component of the ball's velocity
+					ballVelocity.x *= -1;
+				}
 
+				// ブロックを配列から削除する（イテレータは無効になる） | Remove the block from the array (the iterator becomes invalid)
 				bricks.erase(it);
+
+				// これ以上チェックしない | Do not check any more
 				break;
 			}
 		}
 
-		if (ball.y < 0 && ballVelocity.y < 0)
+		// 天井にぶつかったら | If the ball hits the ceiling
+		if ((ball.y < 0) && (ballVelocity.y < 0))
 		{
+			// ボールの速度の Y 成分の符号を反転する | Reverse the sign of the Y component of the ball's velocity
 			ballVelocity.y *= -1;
 		}
 
-		if ((ball.x < 0 && ballVelocity.x < 0)
-			|| (Scene::Width() < ball.x && 0 < ballVelocity.x))
+		// 左右の壁にぶつかったら | If the ball hits the left or right wall
+		if (((ball.x < 0) && (ballVelocity.x < 0))
+			|| ((Scene::Width() < ball.x) && (0 < ballVelocity.x)))
 		{
+			// ボールの速度の X 成分の符号を反転する | Reverse the sign of the X component of the ball's velocity
 			ballVelocity.x *= -1;
 		}
 
-		if (0 < ballVelocity.y && paddle.intersects(ball))
+		// パドルにあたったら | If the ball hits the left or right wall
+		if ((0 < ballVelocity.y) && paddle.intersects(ball))
 		{
-			ballVelocity = Vec2{ (ball.x - paddle.center().x) * 10, -ballVelocity.y }.setLength(speed);
+			// パドルの中心からの距離に応じてはね返る方向（速度ベクトル）を変える | Change the direction (velocity vector) of the ball depending on the distance from the center of the paddle
+			ballVelocity = Vec2{ (ball.x - paddle.center().x) * 10, -ballVelocity.y }.setLength(BallSpeedPerSec);
 		}
 
+		// すべてのブロックを描画する | Draw all the bricks
 		for (const auto& brick : bricks)
 		{
+			// ブロックの Y 座標に応じて色を変える | Change the color of the brick depending on the Y coordinate
 			brick.stretched(-1).draw(HSV{ brick.y - 40 });
 		}
 
+		// マウスカーソルを非表示にする | Hide the mouse cursor
+		Cursor::RequestStyle(CursorStyle::Hidden);
+
+		// ボールを描く | Draw the ball
 		ball.draw();
-		paddle.draw();
+
+		// パドルを描く | Draw the paddle
+		paddle.rounded(3).draw();
 	}
 }
 ```
 
 ### 3. Hello, 3D world! 
-
-> [Web Demo](https://siv3d.jp/web/sample/basic3d/basic3d.html)
 
 ![Screenshot](https://raw.githubusercontent.com/Siv3D/File/master/v6/screenshot/hello-3d.png)
 
