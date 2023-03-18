@@ -97,24 +97,6 @@ void Main()
 //
 // = アドバイス =
 // アプリケーションをビルドして実行するたびにファイルアクセス許可のダイアログが表示されるのを避けたい場合、
-// プロジェクトのフォルダを ユーザ/(ユーザ名)/アプリケーション/ などに移動させると良いです。
-// Web カメラ、マイク使用時の許可ダイアログは消せません。
-//
-// チュートリアル
-// https://siv3d.github.io/ja-jp/tutorial/tutorial/
-//
-// Tutorial
-// https://siv3d.github.io/tutorial/tutorial/
-//
-// Siv3D コミュニティへの参加（Discord などで気軽に質問や交流, 最新情報の入手ができます）
-// https://siv3d.github.io/ja-jp/community/community/
-//
-// Siv3D User Community
-// https://siv3d.github.io/community/community/
-//
-// 新機能の提案やバグの報告 | Feedback
-// https://siv3d.github.io/ja-jp/develop/report/
-//
-// Sponsoring Siv3D
-// https://github.com/sponsors/Reputeless
+// プロジェクトのフォルダを ユーザ/(ユーザ名)/アプリケーション/ などに移動させてください。
+// Web カメラ、マイク使用時の許可ダイアログを消すことはできません。
 //

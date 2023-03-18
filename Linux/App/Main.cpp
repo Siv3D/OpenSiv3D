@@ -3,7 +3,7 @@
 //
 //	Example non-graphical program
 //
-# include <Siv3D.hpp> // OpenSiv3D v0.6.6
+# include <Siv3D.hpp> // OpenSiv3D v0.6.7
 SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
 void Main()
 {
@@ -120,25 +120,3 @@ void Main()
 //
 /////////////////
 */
-
-
-
-//
-// チュートリアル
-// https://siv3d.github.io/ja-jp/tutorial/tutorial/
-//
-// Tutorial
-// https://siv3d.github.io/tutorial/tutorial/
-//
-// Siv3D コミュニティへの参加（Discord などで気軽に質問や交流, 最新情報の入手ができます）
-// https://siv3d.github.io/ja-jp/community/community/
-//
-// Siv3D User Community
-// https://siv3d.github.io/community/community/
-//
-// 新機能の提案やバグの報告 | Feedback
-// https://siv3d.github.io/ja-jp/develop/report/
-//
-// Sponsoring Siv3D
-// https://github.com/sponsors/Reputeless
-//
