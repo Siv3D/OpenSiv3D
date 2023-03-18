@@ -31,10 +31,10 @@ namespace s3d
 
 		// チャット API に送信するリクエストを作成する
 		[[nodiscard]]
-		static std::string MakeChatRequest(const Array<std::pair<String, String>>& messages)
+		static std::string MakeChatRequest(const Array<std::pair<String, String>>& messages, const StringView model)
 		{
 			JSON request;
-			request[U"model"] = U"gpt-3.5-turbo";
+			request[U"model"] = model;
 
 			for (auto&& [role, content] : messages)
 			{
@@ -146,24 +146,24 @@ namespace s3d
 	{
 		namespace Chat
 		{
-			String Complete(const StringView apiKey, const StringView message)
+			String Complete(const StringView apiKey, const StringView message, const StringView model)
 			{
 				String unused;
-				return Complete(apiKey, { { U"user", String{ message } } }, unused);
+				return Complete(apiKey, { { U"user", String{ message } } }, unused, model);
 			}
 
-			String Complete(const StringView apiKey, const StringView message, String& error)
+			String Complete(const StringView apiKey, const StringView message, String& error, const StringView model)
 			{
-				return Complete(apiKey, { { U"user", String{ message } } }, error);
+				return Complete(apiKey, { { U"user", String{ message } } }, error, model);
 			}
 
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages)
+			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, const StringView model)
 			{
 				String unused;
-				return Complete(apiKey, messages, unused);
+				return Complete(apiKey, messages, unused, model);
 			}
 
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, String& error)
+			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, String& error, const StringView model)
 			{
 				error.clear();
 
@@ -174,7 +174,7 @@ namespace s3d
 					return{};
 				}
 
-				const std::string data = detail::MakeChatRequest(messages);
+				const std::string data = detail::MakeChatRequest(messages, model);
 
 				const auto headers = detail::MakeHeaders(apiKey);
 
@@ -191,11 +191,11 @@ namespace s3d
 					}
 					else if (statusCode == HTTPStatusCode::Unauthorized) // 401 は無効な API キーが原因
 					{
-						error = U"Invalid API key. Status code: 401";
+						error = U"Invalid API key. [Status code: 401]";
 					}
 					else
 					{
-						error = U"Response was not HTTPStatusCode::OK. Status code: {}"_fmt(response.getStatusCodeInt());
+						error = U"Response was not HTTPStatusCode::OK. [Status code: {}]"_fmt(response.getStatusCodeInt());
 					}
 				}
 				else
@@ -206,12 +206,12 @@ namespace s3d
 				return{};
 			}
 
-			AsyncHTTPTask CompleteAsync(const StringView apiKey, const StringView message)
+			AsyncHTTPTask CompleteAsync(const StringView apiKey, const StringView message, const StringView model)
 			{
-				return CompleteAsync(apiKey, { { U"user", String{ message } } });
+				return CompleteAsync(apiKey, { { U"user", String{ message } } }, model);
 			}
 
-			AsyncHTTPTask CompleteAsync(const StringView apiKey, const Array<std::pair<String, String>>& messages)
+			AsyncHTTPTask CompleteAsync(const StringView apiKey, const Array<std::pair<String, String>>& messages, const StringView model)
 			{
 				// API キーが空の文字列である場合は失敗
 				if (apiKey.isEmpty())
@@ -219,7 +219,7 @@ namespace s3d
 					return{};
 				}
 
-				const std::string data = detail::MakeChatRequest(messages);
+				const std::string data = detail::MakeChatRequest(messages, model);
 
 				const auto headers = detail::MakeHeaders(apiKey);
 
