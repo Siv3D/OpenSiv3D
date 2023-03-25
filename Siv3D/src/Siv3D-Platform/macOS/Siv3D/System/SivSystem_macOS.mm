@@ -96,6 +96,23 @@ namespace s3d
 			return true;
 		}
 	
+		String ComputerName()
+		{
+			@autoreleasepool
+			{
+				NSString *localizedName = [[NSHost currentHost] localizedName];
+				
+				if (localizedName)
+				{
+					return Unicode::Widen(std::string([localizedName UTF8String]));
+				}
+				else
+				{
+					return{};
+				}
+			}
+		}
+	
 		String UserName()
 		{
 			@autoreleasepool
@@ -116,25 +133,28 @@ namespace s3d
 
 		String DefaultLocale()
 		{
-			CFLocaleRef locale = CFLocaleCopyCurrent();
-			
-			CFStringRef languageCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleLanguageCode);
-			NSString *nsLanguageCode = (__bridge NSString*)languageCodeStr;
-			std::string languageCode([nsLanguageCode UTF8String]);
-			
-			CFStringRef countryCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleCountryCode);
-			NSString *nsCountryCode = (__bridge NSString*)countryCodeStr;
-			std::string countryCode([nsCountryCode UTF8String]);
-			
-			CFRelease(locale);
-
-			if (languageCode.empty())
+			@autoreleasepool
 			{
-				return U"en-US";
-			}
-			else
-			{
-				return (Unicode::WidenAscii(languageCode) + U"-" + Unicode::Widen(countryCode));
+				CFLocaleRef locale = CFLocaleCopyCurrent();
+				
+				CFStringRef languageCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleLanguageCode);
+				NSString *nsLanguageCode = (__bridge NSString*)languageCodeStr;
+				std::string languageCode([nsLanguageCode UTF8String]);
+				
+				CFStringRef countryCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleCountryCode);
+				NSString *nsCountryCode = (__bridge NSString*)countryCodeStr;
+				std::string countryCode([nsCountryCode UTF8String]);
+				
+				CFRelease(locale);
+				
+				if (languageCode.empty())
+				{
+					return U"en-US";
+				}
+				else
+				{
+					return (Unicode::WidenAscii(languageCode) + U"-" + Unicode::Widen(countryCode));
+				}
 			}
 		}
 
