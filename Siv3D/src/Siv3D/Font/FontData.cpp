@@ -176,6 +176,8 @@ namespace s3d
 					}
 				}
 
+				const size_t fallbackStrSize = ((count <= (i + k)) ? s.size() : glyphInfo.info[(i + k)].cluster) - pos;
+
 				bool fallbackDone = false;
 				uint32 fallbackIndex = 1;
 
@@ -187,7 +189,7 @@ namespace s3d
 					}
 
 					const Array<GlyphCluster> clustersB = 
-						SIV3D_ENGINE(Font)->getGlyphClusters(fallbackFont.lock()->id(), s.substr(i, k), false, ligature);
+						SIV3D_ENGINE(Font)->getGlyphClusters(fallbackFont.lock()->id(), s.substr(pos, fallbackStrSize), false, ligature);
 
 					if (clustersB.none([](const GlyphCluster& g) { return (g.glyphIndex == 0); }))
 					{
