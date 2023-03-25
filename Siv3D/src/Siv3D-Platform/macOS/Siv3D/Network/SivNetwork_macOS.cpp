@@ -11,8 +11,7 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Network.hpp>
-# import <Foundation/Foundation.h>
-# import <SystemConfiguration/SystemConfiguration.h>
+# include <SystemConfiguration/SystemConfiguration.h>
 
 namespace s3d
 {
@@ -20,9 +19,11 @@ namespace s3d
 	{
 		bool IsConnected()
 		{
+			const char* hostName = "www.example.com";
+			
 			SCNetworkReachabilityFlags flags;
-			SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, "www.example.com");
-			const BOOL result = SCNetworkReachabilityGetFlags(reachability, &flags);
+			SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostName);
+			const bool result = SCNetworkReachabilityGetFlags(reachability, &flags);
 			CFRelease(reachability);
 
 			if (not result)

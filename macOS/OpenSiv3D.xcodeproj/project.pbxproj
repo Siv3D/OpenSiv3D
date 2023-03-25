@@ -994,7 +994,7 @@
 		2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB18E9526B5A68700862C28 /* as_callfunc_sh4.cpp */; };
 		2CB18EE926B5A68700862C28 /* as_texts.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E9626B5A68700862C28 /* as_texts.h */; };
 		2CB4C6ED29C44DBC00ADFD8C /* SivOpenAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */; };
-		2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.mm */; };
+		2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */; };
 		2CB4C6F229CF1E9200ADFD8C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */; };
 		2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749EC261F52C200D31274 /* XInputFactory.cpp */; };
 		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
@@ -3133,7 +3133,7 @@
 		2CB18E9626B5A68700862C28 /* as_texts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_texts.h; sourceTree = "<group>"; };
 		2CB4C6EA29C44D9300ADFD8C /* OpenAI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenAI.hpp; sourceTree = "<group>"; };
 		2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAI.cpp; sourceTree = "<group>"; };
-		2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivNetwork_macOS.mm; sourceTree = "<group>"; };
+		2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivNetwork_macOS.cpp; sourceTree = "<group>"; };
 		2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2CB749EC261F52C200D31274 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
@@ -7600,7 +7600,7 @@
 		2CB4C6EE29CF1CB500ADFD8C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.mm */,
+				2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -13564,7 +13564,7 @@
 				2CC8BD4828C75331008C770A /* SivScopedRenderTarget3D.cpp in Sources */,
 				2CC8BBE928C7532F008C770A /* SivIPv4Address.cpp in Sources */,
 				2CC8BD6D28C75331008C770A /* BMPEncoder.cpp in Sources */,
-				2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.mm in Sources */,
+				2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.cpp in Sources */,
 				2C2AA36326009C74003F3EBC /* b2_pulley_joint.cpp in Sources */,
 				2CC8BD5728C75331008C770A /* SivTexturedRoundRect.cpp in Sources */,
 				2CC8BCA228C75330008C770A /* ScriptTypes.cpp in Sources */,
