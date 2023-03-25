@@ -68,6 +68,21 @@ namespace s3d
 		/// @return レンダラーの設定
 		[[nodiscard]]
 		EngineOption::Renderer GetRendererType();
+
+		/// @brief プログラムを実行しているユーザの名前を返します。
+		/// @return プログラムを実行しているユーザの名前
+		[[nodiscard]]
+		String UserName();
+
+		/// @brief プログラムを実行しているユーザのデフォルトのロケールを返します。
+		/// @return プログラムを実行しているユーザのデフォルトのロケール
+		[[nodiscard]]
+		String DefaultLocale();
+
+		/// @brief プログラムを実行しているユーザのデフォルト言語を返します。
+		/// @return プログラムを実行しているユーザのデフォルト言語
+		[[nodiscard]]
+		String DefaultLanguage();
 	}
 
 # if SIV3D_PLATFORM(WEB)

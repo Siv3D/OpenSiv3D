@@ -11,7 +11,11 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Windows/Windows.hpp>
+# define SECURITY_WIN32
+# include <Security.h>
+# include <lmcons.h>
 
 namespace s3d
 {
@@ -70,6 +74,55 @@ namespace s3d
 			}
 
 			return false;
+		}
+
+		String UserName()
+		{
+			wchar_t buffer[UNLEN + 1];
+			ULONG size = static_cast<ULONG>(std::ssize(buffer));
+			
+			if (::GetUserNameExW(NameDisplay, buffer, &size))
+			{
+				return Unicode::FromWstring(buffer);
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		String DefaultLocale()
+		{
+			wchar_t languageBuffer[LOCALE_NAME_MAX_LENGTH];
+
+			if (const size_t length = ::GetUserDefaultLocaleName(languageBuffer, LOCALE_NAME_MAX_LENGTH))
+			{
+				return Unicode::FromWstring(std::wstring_view{ languageBuffer, (length - 1) });
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		String DefaultLanguage()
+		{
+			ULONG numLanguages = 0;
+			ULONG languageBufferSize = 0;
+
+			if (::GetUserPreferredUILanguages(MUI_LANGUAGE_NAME, &numLanguages, nullptr, &languageBufferSize))
+			{
+				std::wstring languages(languageBufferSize, '\0');
+
+				if (::GetUserPreferredUILanguages(MUI_LANGUAGE_NAME, &numLanguages, languages.data(), &languageBufferSize))
+				{
+					// languages はヌル区切りされた文字列。
+					// ヌル区切りされたうち、最初の言語が使用言語
+					return Unicode::FromWstring(languages.data());
+				}
+			}
+
+			return DefaultLocale();
 		}
 	}
 }
