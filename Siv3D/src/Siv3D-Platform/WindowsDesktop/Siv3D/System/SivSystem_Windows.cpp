@@ -116,7 +116,7 @@ namespace s3d
 			}
 			else
 			{
-				return{};
+				return U"en-US";
 			}
 		}
 
