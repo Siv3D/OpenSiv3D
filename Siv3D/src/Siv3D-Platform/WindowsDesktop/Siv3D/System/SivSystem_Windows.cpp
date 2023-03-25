@@ -79,8 +79,23 @@ namespace s3d
 		String UserName()
 		{
 			wchar_t buffer[UNLEN + 1];
-			ULONG size = static_cast<ULONG>(std::ssize(buffer));
+			DWORD size = static_cast<DWORD>(std::ssize(buffer));
 			
+			if (GetUserNameW(buffer, &size))
+			{
+				return Unicode::FromWstring(buffer);
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		String FullUserName()
+		{
+			wchar_t buffer[UNLEN + 1];
+			ULONG size = static_cast<ULONG>(std::ssize(buffer));
+
 			if (::GetUserNameExW(NameDisplay, buffer, &size))
 			{
 				return Unicode::FromWstring(buffer);

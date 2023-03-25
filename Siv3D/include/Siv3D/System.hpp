@@ -69,10 +69,15 @@ namespace s3d
 		[[nodiscard]]
 		EngineOption::Renderer GetRendererType();
 
-		/// @brief プログラムを実行しているユーザの名前を返します。
-		/// @return プログラムを実行しているユーザの名前
+		/// @brief プログラムを実行しているユーザ名を返します。
+		/// @return プログラムを実行しているユーザ名
 		[[nodiscard]]
 		String UserName();
+
+		/// @brief プログラムを実行しているユーザのフルネームを返します。
+		/// @return プログラムを実行しているユーザのフルネーム
+		[[nodiscard]]
+		String FullUserName();
 
 		/// @brief プログラムを実行しているユーザのデフォルトのロケールを返します。
 		/// @return プログラムを実行しているユーザのデフォルトのロケール
