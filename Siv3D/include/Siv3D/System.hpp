@@ -69,6 +69,11 @@ namespace s3d
 		[[nodiscard]]
 		EngineOption::Renderer GetRendererType();
 
+		/// @brief プログラムを実行しているコンピュータの名前を返します。
+		/// @return プログラムを実行しているコンピュータの名前
+		[[nodiscard]]
+		String ComputerName();
+
 		/// @brief プログラムを実行しているユーザ名を返します。
 		/// @return プログラムを実行しているユーザ名
 		[[nodiscard]]
