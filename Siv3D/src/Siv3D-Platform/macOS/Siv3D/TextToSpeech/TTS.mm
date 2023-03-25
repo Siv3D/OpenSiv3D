@@ -71,10 +71,12 @@ namespace s3d
 	
 	bool TTS::hasLanguage(const LanguageCode languageCode)
 	{
-		NSSpeechSynthesizer* tmp = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-		const bool result = [tmp setVoice: detail::ConvertLanguageCode(languageCode)];
-		[tmp release];
-		return result;
+		@autoreleasepool
+		{
+			NSSpeechSynthesizer* tmp = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+			const bool result = [tmp setVoice: detail::ConvertLanguageCode(languageCode)];
+			return result;
+		}
 	}
 	
 	void TTS::setDefaultLanguage(const LanguageCode languageCode)
@@ -121,7 +123,6 @@ namespace s3d
 		}
 		
 		[m_speechSynth stopSpeaking];
-		[m_speechSynth release];
 		m_speechSynth = nil;
 	}
 	

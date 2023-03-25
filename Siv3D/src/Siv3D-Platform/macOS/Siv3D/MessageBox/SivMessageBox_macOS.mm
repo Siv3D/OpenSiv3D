@@ -50,7 +50,6 @@ namespace s3d
 			}
 			
 			const long resultIndex = [alert runModal];
-			[alert release];
 			
 			if (type == 0) // [OK]
 			{

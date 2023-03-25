@@ -59,169 +59,170 @@ namespace s3d
 	{
 		Optional<FilePath> OpenFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
-			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
-			NSOpenPanel* dialog = [NSOpenPanel openPanel];
-			[dialog setAllowsMultipleSelection:NO];
-			[dialog setFloatingPanel:YES];
-			[dialog setCanChooseDirectories:NO];
-			[dialog setCanChooseFiles:YES];
-			
-			if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
+			@autoreleasepool
 			{
-				NSMutableArray* filterList = [[NSMutableArray alloc] init];
+				NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
+				NSOpenPanel* dialog = [NSOpenPanel openPanel];
+				[dialog setAllowsMultipleSelection:NO];
+				[dialog setFloatingPanel:YES];
+				[dialog setCanChooseDirectories:NO];
+				[dialog setCanChooseFiles:YES];
 				
-				for (const auto& filter : filtersUTF8)
+				if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
 				{
-					NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
-					[filterList addObject:filterType];
+					NSMutableArray* filterList = [[NSMutableArray alloc] init];
+					
+					for (const auto& filter : filtersUTF8)
+					{
+						NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
+						[filterList addObject:filterType];
+					}
+					
+					NSArray* result = [NSArray arrayWithArray:filterList];
+					[dialog setAllowedFileTypes:result];
 				}
 				
-				NSArray* result = [NSArray arrayWithArray:filterList];
-				[dialog setAllowedFileTypes:result];
+				if (!detail::SetDefaultPath(dialog, defaultPath))
+				{
+					return none;
+				}
+				
+				Optional<FilePath> result;
+				
+				if ([dialog runModal] == NSModalResponseOK)
+				{
+					NSURL* url = [dialog URL];
+					result = Unicode::FromUTF8([[url path] UTF8String]);
+				}
+				
+				[keyWindow makeKeyAndOrderFront:nil];
+				
+				return result;
 			}
-			
-			if (!detail::SetDefaultPath(dialog, defaultPath))
-			{
-				return none;
-			}
-			
-			Optional<FilePath> result;
-			
-			if ([dialog runModal] == NSModalResponseOK)
-			{
-				NSURL* url = [dialog URL];
-				result = Unicode::FromUTF8([[url path] UTF8String]);
-			}
-			
-			[pool release];
-			[keyWindow makeKeyAndOrderFront:nil];
-			
-			return result;
 		}
 		
 		Array<FilePath> OpenFiles(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
-			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
-			NSOpenPanel* dialog = [NSOpenPanel openPanel];
-			[dialog setAllowsMultipleSelection:YES];
-			[dialog setFloatingPanel:YES];
-			[dialog setCanChooseDirectories:NO];
-			[dialog setCanChooseFiles:YES];
-			
-			if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
+			@autoreleasepool
 			{
-				NSMutableArray* filterList = [[NSMutableArray alloc] init];
+				NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
+				NSOpenPanel* dialog = [NSOpenPanel openPanel];
+				[dialog setAllowsMultipleSelection:YES];
+				[dialog setFloatingPanel:YES];
+				[dialog setCanChooseDirectories:NO];
+				[dialog setCanChooseFiles:YES];
 				
-				for (const auto& filter : filtersUTF8)
+				if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
 				{
-					NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
-					[filterList addObject:filterType];
+					NSMutableArray* filterList = [[NSMutableArray alloc] init];
+					
+					for (const auto& filter : filtersUTF8)
+					{
+						NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
+						[filterList addObject:filterType];
+					}
+					
+					NSArray* result = [NSArray arrayWithArray:filterList];
+					[dialog setAllowedFileTypes:result];
 				}
 				
-				NSArray* result = [NSArray arrayWithArray:filterList];
-				[dialog setAllowedFileTypes:result];
-			}
-			
-			if (!detail::SetDefaultPath(dialog, defaultPath))
-			{
-				return{};
-			}
-			
-			Array<FilePath> result;
-			
-			if ([dialog runModal] == NSModalResponseOK)
-			{
-				NSArray* urls = [dialog URLs];
-				
-				if ([urls count] == 0)
+				if (!detail::SetDefaultPath(dialog, defaultPath))
 				{
-					[pool release];
 					return{};
 				}
 				
-				for (NSURL *url in urls)
+				Array<FilePath> result;
+				
+				if ([dialog runModal] == NSModalResponseOK)
 				{
-					NSString* path = [url path];
-					result << Unicode::FromUTF8([path UTF8String]);
+					NSArray* urls = [dialog URLs];
+					
+					if ([urls count] == 0)
+					{
+						return{};
+					}
+					
+					for (NSURL *url in urls)
+					{
+						NSString* path = [url path];
+						result << Unicode::FromUTF8([path UTF8String]);
+					}
 				}
+				
+				[keyWindow makeKeyAndOrderFront:nil];
+				
+				return result;
 			}
-			
-			[pool release];
-			[keyWindow makeKeyAndOrderFront:nil];
-			
-			return result;
 		}
 		
 		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
 		{
-			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-			
-			NSSavePanel* dialog = [NSSavePanel savePanel];
-			[dialog setExtensionHidden:NO];
-			[dialog setFloatingPanel:YES];
-			
-			if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
+			@autoreleasepool
 			{
-				NSMutableArray* filterList = [[NSMutableArray alloc] init];
+				NSSavePanel* dialog = [NSSavePanel savePanel];
+				[dialog setExtensionHidden:NO];
+				[dialog setFloatingPanel:YES];
 				
-				for (const auto& filter : filtersUTF8)
+				if (const auto filtersUTF8 = detail::ConvertFilters(filters); filtersUTF8)
 				{
-					NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
-					[filterList addObject:filterType];
+					NSMutableArray* filterList = [[NSMutableArray alloc] init];
+					
+					for (const auto& filter : filtersUTF8)
+					{
+						NSString* filterType = [NSString stringWithUTF8String: filter.c_str()];
+						[filterList addObject:filterType];
+					}
+					
+					NSArray* result = [NSArray arrayWithArray:filterList];
+					[dialog setAllowedFileTypes:result];
 				}
 				
-				NSArray* result = [NSArray arrayWithArray:filterList];
-				[dialog setAllowedFileTypes:result];
+				if (!detail::SetDefaultPath(dialog, defaultPath))
+				{
+					return none;
+				}
+				
+				Optional<FilePath> result;
+				
+				if ([dialog runModal] == NSModalResponseOK)
+				{
+					NSURL* url = [dialog URL];
+					result = Unicode::FromUTF8([[url path] UTF8String]);
+				}
+				
+				return result;
 			}
-			
-			if (!detail::SetDefaultPath(dialog, defaultPath))
-			{
-				return none;
-			}
-			
-			Optional<FilePath> result;
-			
-			if ([dialog runModal] == NSModalResponseOK)
-			{
-				NSURL* url = [dialog URL];
-				result = Unicode::FromUTF8([[url path] UTF8String]);
-			}
-			
-			[pool release];
-			
-			return result;
 		}
 		
 		Optional<FilePath> SelectFolder(const FilePathView defaultPath, const StringView)
 		{
-			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-			NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
-			NSOpenPanel* dialog = [NSOpenPanel openPanel];
-			[dialog setAllowsMultipleSelection:NO];
-			[dialog setFloatingPanel:YES];
-			[dialog setCanChooseDirectories:YES];
-			[dialog setCanCreateDirectories:YES];
-			[dialog setCanChooseFiles:NO];
-			
-			if (!detail::SetDefaultPath(dialog, defaultPath))
+			@autoreleasepool
 			{
-				return none;
+				NSWindow* keyWindow = [[NSApplication sharedApplication] keyWindow];
+				NSOpenPanel* dialog = [NSOpenPanel openPanel];
+				[dialog setAllowsMultipleSelection:NO];
+				[dialog setFloatingPanel:YES];
+				[dialog setCanChooseDirectories:YES];
+				[dialog setCanCreateDirectories:YES];
+				[dialog setCanChooseFiles:NO];
+				
+				if (!detail::SetDefaultPath(dialog, defaultPath))
+				{
+					return none;
+				}
+				
+				Optional<FilePath> result;
+				
+				if ([dialog runModal] == NSModalResponseOK)
+				{
+					NSURL* url = [dialog URL];
+					result = FileSystem::FullPath(Unicode::FromUTF8([[url path] UTF8String]));
+				}
+				
+				[keyWindow makeKeyAndOrderFront:nil];
+				
+				return result;
 			}
-			
-			Optional<FilePath> result;
-			
-			if ([dialog runModal] == NSModalResponseOK)
-			{
-				NSURL* url = [dialog URL];
-				result = FileSystem::FullPath(Unicode::FromUTF8([[url path] UTF8String]));
-			}
-			
-			[pool release];
-			[keyWindow makeKeyAndOrderFront:nil];
-			
-			return result;
 		}
 	}
 }

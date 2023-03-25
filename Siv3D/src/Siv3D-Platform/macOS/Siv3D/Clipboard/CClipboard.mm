@@ -109,28 +109,29 @@ namespace s3d
 			
 			image.RGBAtoBGRA();
 			
-			CGImageRef cgImage;
+			@autoreleasepool
 			{
-				CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault,
-															 image.dataAsUint8(), image.size_bytes(), kCFAllocatorNull);
+				CGImageRef cgImage;
+				{
+					CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault,
+																 image.dataAsUint8(), image.size_bytes(), kCFAllocatorNull);
+					
+					CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
+					
+					cgImage = CGImageCreate(image.width(), image.height(), 8, 32, image.stride(),
+											CGColorSpaceCreateWithName(kCGColorSpaceSRGB),
+											kCGImageAlphaFirst | kCGBitmapByteOrder32Host,
+											dataProvider, nullptr, false, kCGRenderingIntentDefault);
+				}
 				
-				CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
+				NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCGImage:cgImage];
+				NSImage* img = [[NSImage alloc] init];
+				[img addRepresentation: rep];
 				
-				cgImage = CGImageCreate(image.width(), image.height(), 8, 32, image.stride(),
-										CGColorSpaceCreateWithName(kCGColorSpaceSRGB),
-										kCGImageAlphaFirst | kCGBitmapByteOrder32Host,
-										dataProvider, nullptr, false, kCGRenderingIntentDefault);
+				NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+				[pasteboard declareTypes: [NSArray arrayWithObject: NSPasteboardTypeTIFF] owner:nil];
+				[pasteboard setData:[img TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 			}
-			
-			NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCGImage:cgImage] autorelease];
-			NSImage* img = [[NSImage alloc] init];
-			[img addRepresentation: rep];
-			
-			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
-			[pasteboard declareTypes: [NSArray arrayWithObject: NSPasteboardTypeTIFF] owner:nil];
-			[pasteboard setData:[img TIFFRepresentation] forType:NSPasteboardTypeTIFF];
-			
-			[img release];
 		}
 		
 		void ClipboardClear_macOS()

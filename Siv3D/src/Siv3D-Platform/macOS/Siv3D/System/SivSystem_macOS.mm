@@ -11,6 +11,7 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Unicode.hpp>
 # import  <Cocoa/Cocoa.h>
 
 namespace s3d
@@ -93,6 +94,67 @@ namespace s3d
 			}
 			
 			return true;
+		}
+	
+		String UserName()
+		{
+			@autoreleasepool
+			{
+				NSString *userName = NSUserName();
+				return Unicode::Widen(std::string([userName UTF8String]));
+			}
+		}
+	
+		String FullUserName()
+		{
+			@autoreleasepool
+			{
+				NSString *fullUserName = NSFullUserName();
+				return Unicode::Widen(std::string([fullUserName UTF8String]));
+			}
+		}
+
+		String DefaultLocale()
+		{
+			CFLocaleRef locale = CFLocaleCopyCurrent();
+			
+			CFStringRef languageCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleLanguageCode);
+			NSString *nsLanguageCode = (__bridge NSString*)languageCodeStr;
+			std::string languageCode([nsLanguageCode UTF8String]);
+			
+			CFStringRef countryCodeStr = (CFStringRef)CFLocaleGetValue(locale, kCFLocaleCountryCode);
+			NSString *nsCountryCode = (__bridge NSString*)countryCodeStr;
+			std::string countryCode([nsCountryCode UTF8String]);
+			
+			CFRelease(locale);
+
+			if (languageCode.empty())
+			{
+				return U"en-US";
+			}
+			else
+			{
+				return (Unicode::WidenAscii(languageCode) + U"-" + Unicode::Widen(countryCode));
+			}
+		}
+
+		String DefaultLanguage()
+		{
+			@autoreleasepool
+			{
+				NSArray<NSString*>* preferredLanguages = [NSLocale preferredLanguages];
+				
+				if (0 < preferredLanguages.count)
+				{
+					NSString *language = preferredLanguages[0];
+					return Unicode::WidenAscii(std::string([language UTF8String]));
+				}
+				else
+				{
+					// Fallback to a default value if preferredLanguages is empty
+					return U"en-US";
+				}
+			}
 		}
 	}
 }
