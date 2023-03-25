@@ -11,6 +11,8 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Network.hpp>
+# include <ifaddrs.h>
+# include <net/if.h>
 
 namespace s3d
 {
@@ -18,7 +20,32 @@ namespace s3d
 	{
 		bool IsConnected()
 		{
-			return(true);
+			struct ifaddrs* ifaddr;
+			if (getifaddrs(&ifaddr) == -1)
+			{
+				return false;
+			}
+
+			bool result = false;
+			for (struct ifaddrs* ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next)
+			{
+				if (ifa->ifa_addr == nullptr)
+				{
+					continue;
+				}
+
+				const int family = ifa->ifa_addr->sa_family;
+
+				if (((family == AF_INET )|| (family == AF_INET6))
+					&& (not (ifa->ifa_flags & IFF_LOOPBACK)))
+				{
+					result = true;
+					break;
+				}
+			}
+
+			freeifaddrs(ifaddr);
+			return result;
 		}
 	}
 }
