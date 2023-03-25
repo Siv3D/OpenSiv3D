@@ -315,7 +315,7 @@
 		2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C39ECB3256406FA0021DF34 /* MetalRenderer2DCommand.cpp */; };
 		2C423219242B155E00A16BCA /* cocoa_joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DB242B155E00A16BCA /* cocoa_joystick.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C42321B242B155E00A16BCA /* monitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DD242B155E00A16BCA /* monitor.c */; };
-		2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DE242B155E00A16BCA /* cocoa_init.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231DE242B155E00A16BCA /* cocoa_init.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
 		2C42321D242B155E00A16BCA /* internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4231E0242B155E00A16BCA /* internal.h */; };
 		2C423220242B155E00A16BCA /* cocoa_platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4231E4242B155E00A16BCA /* cocoa_platform.h */; };
 		2C423222242B155E00A16BCA /* glfw3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4231E6242B155E00A16BCA /* glfw3.h */; };
@@ -327,10 +327,10 @@
 		2C423239242B155E00A16BCA /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4231FE242B155E00A16BCA /* input.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C42323B242B155E00A16BCA /* mappings.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C423201242B155E00A16BCA /* mappings.h */; };
 		2C42323D242B155E00A16BCA /* cocoa_joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C423203242B155E00A16BCA /* cocoa_joystick.h */; };
-		2C423241242B155E00A16BCA /* cocoa_window.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C423207242B155E00A16BCA /* cocoa_window.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2C423241242B155E00A16BCA /* cocoa_window.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C423207242B155E00A16BCA /* cocoa_window.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
 		2C423244242B155E00A16BCA /* context.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C42320A242B155E00A16BCA /* context.c */; };
 		2C423245242B155E00A16BCA /* cocoa_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C42320C242B155E00A16BCA /* cocoa_time.c */; };
-		2C423246242B155E00A16BCA /* nsgl_context.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C42320D242B155E00A16BCA /* nsgl_context.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2C423246242B155E00A16BCA /* nsgl_context.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C42320D242B155E00A16BCA /* nsgl_context.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
 		2C423248242B155E00A16BCA /* xkb_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C42320F242B155E00A16BCA /* xkb_unicode.c */; };
 		2C42324F242B155E00A16BCA /* cocoa_monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C423216242B155E00A16BCA /* cocoa_monitor.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C423250242B155E00A16BCA /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C423217242B155E00A16BCA /* window.c */; };
@@ -1820,7 +1820,7 @@
 		2CE762D029327C5700E410FF /* OSCMessageDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE762C729327C5700E410FF /* OSCMessageDetail.hpp */; };
 		2CE762D129327C5700E410FF /* SivOSCMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C829327C5700E410FF /* SivOSCMessage.cpp */; };
 		2CE762D229327C5700E410FF /* OSCMessageDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE762C929327C5700E410FF /* OSCMessageDetail.cpp */; };
-		2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */; };
+		2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D13E2616107200C75FBB /* NSTaskWrapper.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2CE8D1432616107200C75FBB /* NSTaskWrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D13F2616107200C75FBB /* NSTaskWrapper.hpp */; };
 		2CE8D1442616107200C75FBB /* ChildProcessDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CE8D1402616107200C75FBB /* ChildProcessDetail.hpp */; };
 		2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8D1412616107200C75FBB /* ChildProcessDetail.mm */; };
@@ -14345,6 +14345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -14383,6 +14384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -14422,7 +14424,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -14502,7 +14504,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++2a";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;

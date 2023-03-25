@@ -26,32 +26,32 @@ namespace s3d
 
 	std::vector<macOS_WebcamInfo> macOS_EnumerateWebcam()
 	{
-		NSAutoreleasePool* localpool = [[NSAutoreleasePool alloc] init];
-		
-		NSArray* devices = [[AVCaptureDevice devicesWithMediaType: AVMediaTypeVideo]
-							arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]];
-		
-		std::vector<macOS_WebcamInfo> results;
-		
-		for (unsigned index = 0; index < devices.count; ++index)
+		@autoreleasepool
 		{
-			AVCaptureDevice* captureDevice = devices[index];
+			NSArray* devices = [[AVCaptureDevice devicesWithMediaType: AVMediaTypeVideo]
+								arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]];
 			
-			if (!captureDevice)
+			std::vector<macOS_WebcamInfo> results;
+			
+			for (unsigned index = 0; index < devices.count; ++index)
 			{
-				continue;
+				AVCaptureDevice* captureDevice = devices[index];
+				
+				if (!captureDevice)
+				{
+					continue;
+				}
+				
+				macOS_WebcamInfo info;
+				info.cameraIndex = index;
+				info.name = [[captureDevice localizedName] UTF8String];
+				info.uniqueName = [[captureDevice uniqueID] UTF8String];
+				
+				results.push_back(info);
 			}
 			
-			macOS_WebcamInfo info;
-			info.cameraIndex = index;
-			info.name = [[captureDevice localizedName] UTF8String];
-			info.uniqueName = [[captureDevice uniqueID] UTF8String];
-			
-			results.push_back(info);
+			return results;
 		}
-		
-		[localpool drain];
-		return results;
 	}
 
 	namespace System
