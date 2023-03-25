@@ -84,6 +84,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Mesh/MeshFactory.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/MessageBox/SivMessageBox_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Monitor/SivMonitor_Linux.cpp
+  ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Network/SivNetwork_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/PowerStatus/SivPowerStatus.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/GL4/CRenderer_GL4.cpp
   ../Siv3D/src/Siv3D-Platform/Linux/Siv3D/Renderer/GLES3/CRenderer_GLES3.cpp

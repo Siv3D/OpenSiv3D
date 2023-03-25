@@ -18,6 +18,11 @@ namespace s3d
 {
 	namespace Network
 	{
+		/// @brief インターネットに接続されているかを返します。
+		/// @return インターネットに接続されている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool IsConnected();
+
 		[[nodiscard]]
 		Array<IPv4Address> EnumerateIPv4Addresses();
 	}

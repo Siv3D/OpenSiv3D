@@ -30,6 +30,7 @@
 # pragma comment (lib, "Setupapi")
 # pragma comment (lib, "version")
 # pragma comment (lib, "winmm")
+# pragma comment (lib, "wininet")
 # pragma comment (lib, "Ws2_32")
 # pragma comment (lib, "curl/libcurl" SIV3D_DEBUG_LIB_POSTFIX(-d))
 # pragma comment (lib, "freetype/freetype" SIV3D_DEBUG_LIB_POSTFIX(d))
