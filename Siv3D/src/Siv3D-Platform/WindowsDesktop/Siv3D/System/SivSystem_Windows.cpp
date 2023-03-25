@@ -76,6 +76,21 @@ namespace s3d
 			return false;
 		}
 
+		String ComputerName()
+		{
+			wchar_t buffer[MAX_COMPUTERNAME_LENGTH + 1];
+			DWORD size = static_cast<DWORD>(std::ssize(buffer));
+
+			if (::GetComputerNameExW(ComputerNamePhysicalDnsHostname, buffer, &size))
+			{
+				return Unicode::FromWstring(buffer);
+			}
+			else
+			{
+				return{};
+			}
+		}
+
 		String UserName()
 		{
 			wchar_t buffer[UNLEN + 1];
