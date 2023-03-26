@@ -17,20 +17,29 @@
 
 namespace s3d
 {
-	/// @brief ドライブの情報 | Drive information
+	/// @brief ドライブの情報 | Represents information about a drive.
 	struct DriveInfo
 	{
-		/// @brief ルートパス | Root path
+		/// @brief ルートパス | The root path of the drive
 		String rootPath;
 
-		/// @brief ボリューム名 | Volume name
+		/// @brief ボリューム名 | The name of the drive's volume
 		String volumeName;
 
-		/// @brief ファイルシステム名 | File system name
+		/// @brief ファイルシステム名 | The name of the drive's file system
 		String fileSystem;
 
-		/// @brief ドライブの種類 | Drive type
+		/// @brief ドライブの種類 | The type of the drive
 		DriveType driveType = DriveType::Unknown;
+
+		/// @brief 空き容量（バイト） | The amount of free space available on the drive, in bytes
+		uint64 freeSpaceBytes = 0;
+
+		/// @brief 総容量（バイト） | The total size of the drive, in bytes
+		uint64 totalSizeBytes = 0;
+
+		/// @brief SSD であるか | Whether the drive is an SSD
+		bool isSSD = false;
 	};
 
 	namespace System

@@ -15,6 +15,46 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		static bool IsSSD(const std::wstring& driveName)
+		{
+			const std::wstring devicePath = (L"\\\\.\\" + driveName.substr(0, 2));
+
+			HANDLE hDevice = ::CreateFileW(devicePath.c_str(),
+				FILE_READ_ATTRIBUTES, (FILE_SHARE_READ | FILE_SHARE_WRITE), nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+			if (hDevice == INVALID_HANDLE_VALUE)
+			{
+				return false;
+			}
+
+			{
+				STORAGE_PROPERTY_QUERY query{};
+				query.PropertyId = StorageDeviceSeekPenaltyProperty;
+				query.QueryType = PropertyStandardQuery;
+
+				DEVICE_SEEK_PENALTY_DESCRIPTOR desc{};
+		
+				DWORD bytesRead;
+
+				if (::DeviceIoControl(hDevice, IOCTL_STORAGE_QUERY_PROPERTY,
+					&query, sizeof(query),
+					&desc, sizeof(desc),
+					&bytesRead, nullptr))
+				{
+					::CloseHandle(hDevice);
+					return (not desc.IncursSeekPenalty);
+				}
+			}
+
+			::CloseHandle(hDevice);
+			
+			return false;
+		}
+	}
+
 	namespace System
 	{
 		Array<DriveInfo> EnumerateDrives()
@@ -45,6 +85,17 @@ namespace s3d
 							.fileSystem = Unicode::FromWstring(fileSystemName),
 							.driveType = static_cast<DriveType>(::GetDriveTypeW(rootPathName))
 						};
+
+						ULARGE_INTEGER freeBytesAvailable;
+						ULARGE_INTEGER totalNumberOfBytes;
+
+						if (::GetDiskFreeSpaceExW(rootPathName, &freeBytesAvailable, &totalNumberOfBytes, nullptr))
+						{
+							driveInfo.freeSpaceBytes = freeBytesAvailable.QuadPart;
+							driveInfo.totalSizeBytes = totalNumberOfBytes.QuadPart;
+						}
+
+						driveInfo.isSSD = detail::IsSSD(rootPathName);
 
 						driveInfos.push_back(std::move(driveInfo));
 					}
