@@ -996,6 +996,7 @@
 		2CB4C6ED29C44DBC00ADFD8C /* SivOpenAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */; };
 		2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */; };
 		2CB4C6F229CF1E9200ADFD8C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */; };
+		2CB4C6F729D030A100ADFD8C /* SivDriveInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6F629D030A000ADFD8C /* SivDriveInfo.cpp */; };
 		2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749EC261F52C200D31274 /* XInputFactory.cpp */; };
 		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
 		2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4ED2556E247007EB42E /* CMouse.hpp */; };
@@ -3135,6 +3136,9 @@
 		2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAI.cpp; sourceTree = "<group>"; };
 		2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivNetwork_macOS.cpp; sourceTree = "<group>"; };
 		2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2CB4C6F329D0307E00ADFD8C /* DriveInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DriveInfo.hpp; sourceTree = "<group>"; };
+		2CB4C6F429D0307F00ADFD8C /* DriveType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DriveType.hpp; sourceTree = "<group>"; };
+		2CB4C6F629D030A000ADFD8C /* SivDriveInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDriveInfo.cpp; sourceTree = "<group>"; };
 		2CB749EC261F52C200D31274 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
 		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
@@ -7091,6 +7095,7 @@
 				2C68507E24B768A800B98A7F /* Date */,
 				2C68507C24B768A800B98A7F /* DateTime */,
 				2C5C6796265F315500FAA651 /* DLL */,
+				2CB4C6F529D030A000ADFD8C /* DriveInfo */,
 				2C8E717B24C7458800CECCAE /* EnvironmentVariable */,
 				2C427FD32628436F00106F19 /* Gamepad */,
 				2CFE199E2555B221005826A1 /* Keyboard */,
@@ -7605,6 +7610,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		2CB4C6F529D030A000ADFD8C /* DriveInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2CB4C6F629D030A000ADFD8C /* SivDriveInfo.cpp */,
+			);
+			path = DriveInfo;
+			sourceTree = "<group>";
+		};
 		2CB749EB261F52C200D31274 /* XInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -7792,6 +7805,8 @@
 				2CC8B53328C752ED008C770A /* DragItemType.hpp */,
 				2CC8B4D328C752ED008C770A /* DragStatus.hpp */,
 				2CC8B50128C752ED008C770A /* DrawableText.hpp */,
+				2CB4C6F329D0307E00ADFD8C /* DriveInfo.hpp */,
+				2CB4C6F429D0307F00ADFD8C /* DriveType.hpp */,
 				2CC8B68C28C752EE008C770A /* DroppedFilePath.hpp */,
 				2CC8B4E428C752ED008C770A /* DroppedText.hpp */,
 				2CC8B6EE28C752EE008C770A /* Duration.hpp */,
@@ -13544,6 +13559,7 @@
 				2CC8BE4128C75333008C770A /* SivQRScanner.cpp in Sources */,
 				2CC8BDE328C75332008C770A /* SceneFactory.cpp in Sources */,
 				2C9566EE2645626000539B85 /* mz_strm_split.c in Sources */,
+				2CB4C6F729D030A100ADFD8C /* SivDriveInfo.cpp in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
 				2C423246242B155E00A16BCA /* nsgl_context.m in Sources */,
 				2C60AE87248158A500277281 /* displays_x11.cpp in Sources */,

@@ -62,6 +62,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\DisjointSet.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\VertexShader.ipp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Disc.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DriveInfo.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DriveType.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DynamicMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Emission2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EngineOptions.hpp" />
@@ -1836,6 +1838,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DirectoryWatcher\DirectoryWatcherDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DLL\SivDLL.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DragDrop\CDragDrop.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DriveInfo\SivDriveInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\EnvironmentVariable\SivEnvironmentVariable.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\FreestandingMessageBox\FreestandingMessageBox_Windows.cpp" />
