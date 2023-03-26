@@ -870,6 +870,12 @@
 // クリップボード | Clipboard
 # include <Siv3D/Clipboard.hpp>
 
+// ドライブの種類 | Drive type
+# include <Siv3D/DriveType.hpp>
+
+// ドライブの情報 | Drive information
+# include <Siv3D/DriveInfo.hpp>
+
 //////////////////////////////////////////////////
 //
 //	ネットワーク | Network

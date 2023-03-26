@@ -157,6 +157,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Date/SivDate_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DateTime/SivDateTime_macOS_Linux.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DLL/SivDLL.cpp
+  ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/DriveInfo/SivDriveInfo.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/EnvironmentVariable/SivEnvironmentVariable.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Gamepad/CGamepad.cpp
   ../Siv3D/src/Siv3D-Platform/macOS_Linux/Siv3D/Keyboard/CKeyboard.cpp
