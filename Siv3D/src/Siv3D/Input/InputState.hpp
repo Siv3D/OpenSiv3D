@@ -31,6 +31,8 @@ namespace s3d
 
 		void clearInput();
 
+    void handleInput();
+
 		bool cleared() const noexcept;
 
 		bool up() const noexcept;

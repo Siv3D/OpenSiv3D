@@ -55,6 +55,11 @@ namespace s3d
 		m_cleared = true;
 	}
 
+  void InputState::handleInput()
+  {
+    m_cleared = false;
+  }
+
 	bool InputState::cleared() const noexcept
 	{
 		return m_cleared;
