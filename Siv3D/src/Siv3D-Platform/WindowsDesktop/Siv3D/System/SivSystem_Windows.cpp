@@ -155,14 +155,11 @@ namespace s3d
 			return DefaultLocale();
 		}
 
-		bool LaunchFile(const FilePathView fileName, const EditMode editMode)
+		bool LaunchFile(const FilePathView fileName)
 		{
 			const Platform::NativeFilePath fullpath = FileSystem::NativePath(fileName);
 
-			// nullptr はデフォルトの挙動
-			const wchar_t* operation = (editMode ? L"edit" : nullptr);
-
-			const HINSTANCE result = ::ShellExecuteW(nullptr, operation, fullpath.c_str(), nullptr, nullptr, SW_SHOW);
+			const HINSTANCE result = ::ShellExecuteW(nullptr, nullptr, fullpath.c_str(), nullptr, nullptr, SW_SHOW);
 
 			return (32 < static_cast<int32>(reinterpret_cast<size_t>(result)));
 		}
