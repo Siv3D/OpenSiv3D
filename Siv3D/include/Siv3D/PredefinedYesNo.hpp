@@ -118,4 +118,7 @@ namespace s3d
 
 	/// @brief リガチャ（合字）を使う
 	using Ligature = YesNo<struct Ligature_tag>;
+
+	/// @brief 編集モードで開く
+	using EditMode = YesNo<struct EditMode_tag>;
 }

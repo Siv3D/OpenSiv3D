@@ -15,6 +15,7 @@
 # include "EngineOptions.hpp"
 # include "AsyncTask.hpp"
 # include "Optional.hpp"
+# include "PredefinedYesNo.hpp"
 
 namespace s3d
 {
@@ -93,6 +94,17 @@ namespace s3d
 		/// @return プログラムを実行しているユーザのデフォルト言語
 		[[nodiscard]]
 		String DefaultLanguage();
+
+		/// @brief 指定したファイルをデフォルトのアプリケーションで開きます。 | Opens the specified file with the default application.
+		/// @param fileName ファイル名 | File name
+		/// @param editMode 編集モード | Edit mode
+		/// @return アプリケーションの起動に成功した場合 true, それ以外の場合は false | Returns true if the application was launched successfully, otherwise false.
+		bool LaunchFile(FilePathView fileName, EditMode editMode = EditMode::No);
+
+		/// @brief 指定したファイルをテキストエディタで開きます。 | Opens the specified file with the default text editor.
+		/// @param fileName ファイル名 | File name
+		/// @return テキストエディタの起動に成功した場合 true, それ以外の場合は false | Returns true if the text editor was launched successfully, otherwise false.
+		bool LaunchFileWithTextEditor(FilePathView fileName);
 	}
 
 # if SIV3D_PLATFORM(WEB)
