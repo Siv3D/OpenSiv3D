@@ -181,14 +181,14 @@ namespace s3d
 		{
 			const std::string command = ("open " + FileSystem::NativePath(fileName));
 
-			return (system(command.c_str()) == 0);
+			return (std::system(command.c_str()) == 0);
 		}
 
 		bool LaunchFileWithTextEditor(const FilePathView fileName)
 		{
 			const std::string command = ("open -t " + FileSystem::NativePath(fileName));
 
-			return (system(command.c_str()) == 0);
+			return (std::system(command.c_str()) == 0);
 		}
 	}
 }
