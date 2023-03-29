@@ -154,5 +154,28 @@ namespace s3d
 
 			return DefaultLocale();
 		}
+
+		bool LaunchFile(const FilePathView fileName)
+		{
+			const Platform::NativeFilePath fullpath = FileSystem::NativePath(fileName);
+
+			const HINSTANCE result = ::ShellExecuteW(nullptr, nullptr, fullpath.c_str(), nullptr, nullptr, SW_SHOW);
+
+			return (32 < static_cast<int32>(reinterpret_cast<size_t>(result)));
+		}
+
+		bool LaunchFileWithTextEditor(const FilePathView fileName)
+		{
+			const Platform::NativeFilePath fullpath = FileSystem::NativePath(fileName);
+
+			SHELLEXECUTEINFO sei{};
+			sei.cbSize = sizeof(sei);
+			sei.lpVerb = L"open";
+			sei.lpFile = L"notepad.exe";
+			sei.lpParameters = fullpath.c_str();
+			sei.nShow = SW_SHOW;
+
+			return (::ShellExecuteExW(&sei) != 0);
+		}
 	}
 }

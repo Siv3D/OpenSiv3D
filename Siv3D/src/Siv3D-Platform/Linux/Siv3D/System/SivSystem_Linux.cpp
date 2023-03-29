@@ -197,5 +197,39 @@ namespace s3d
 				return U"en-US";
 			}
 		}
+
+		bool LaunchFile(const FilePathView fileName)
+		{
+			const std::string command = ("xdg-open '" + fileName.narrow() + "'");
+
+			return (std::system(command.c_str()) == 0);
+		}
+
+		bool LaunchFileWithTextEditor(const FilePathView fileName)
+		{
+			const char* editor = std::getenv("VISUAL");
+
+			if (editor == nullptr)
+			{
+				editor = std::getenv("EDITOR");
+
+				if (editor == nullptr)
+				{
+					// gedit is the default text editor in Ubuntu
+					if (std::system("which gedit >/dev/null 2>&1") == 0)
+					{
+						editor = "gedit";
+					}
+					else
+					{
+						editor = "vi";
+					}
+				}
+			}
+
+			const std::string command = (std::string(editor) + " '" + fileName.narrow() + "'");
+
+			return (std::system(command.c_str()) == 0);
+		}
 	}
 }
