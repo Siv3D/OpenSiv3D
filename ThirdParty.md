@@ -48,7 +48,7 @@ Name | Version
 [Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.3.1
 [M+ Fonts](https://mplus-fonts.osdn.jp/) | 063a
-[Material Design Icons](https://github.com/Templarian/MaterialDesign) | v6.5.95
+[Material Design Icons](https://github.com/Templarian/MaterialDesign) | v7.2.96
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [Modern C++ JSON schema validator](https://github.com/pboettch/json-schema-validator) | v2.2.0
@@ -58,7 +58,7 @@ Name | Version
 [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 
 [nlohmann/json](https://github.com/nlohmann/json) | v3.10.5
 [Noto CJK](https://github.com/googlefonts/noto-cjk) | v20201206
-[Noto Emoji](https://github.com/googlefonts/noto-emoji) | v2.034
+[Noto Emoji](https://github.com/googlefonts/noto-emoji) | v2.038
 [Obfuscate](https://github.com/adamyaxley/Obfuscate) | 
 [Oniguruma](https://github.com/kkos/oniguruma) | v6.9.5_rev1
 [OpenCV](https://github.com/opencv/opencv) | 4.5.1
