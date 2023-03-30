@@ -100,7 +100,7 @@
   - Clipboard
   - Power status
   - Scripting (AngelScript)
-  - OpenAI API (Chat, Image)
+  - OpenAI API (Chat, Image, Embedding)
 
 <small>* Some features are limited to specific platforms</small>
 
@@ -109,7 +109,7 @@
 - **(English) Getting Started with Siv3D:** https://siv3d.github.io/
 - **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
-**v0.6.7** | *released 18 March 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
+**v0.6.8** | *released 1 April 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
