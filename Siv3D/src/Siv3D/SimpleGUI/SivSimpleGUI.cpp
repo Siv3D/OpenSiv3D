@@ -1196,7 +1196,39 @@ namespace s3d
 
 						if (itemRect.leftClicked())
 						{
+							state.active = true;
 							state.selectedItemIndex = itemIndex;
+						}
+					}
+				}
+				
+				if ((not enabled) || (MouseL.down() && not rect.mouseOver()))
+				{
+					state.active = false;
+				}
+
+				if (state.active && state.selectedItemIndex)
+				{
+					if ((0 < *state.selectedItemIndex) &&
+						(KeyUp.down() || ((SecondsF{ 0.33 } < KeyUp.pressedDuration()) && (SecondsF{ 0.06 } < state.upPressStopwatch))))
+					{
+						--(*state.selectedItemIndex);
+						state.upPressStopwatch.restart();
+
+						if (hasScrollBar  && (*state.selectedItemIndex < state.scroll))
+						{
+							state.scroll = Max(state.scroll - 1, 0);
+						}
+					}
+					else if (((*state.selectedItemIndex + 1) < state.items.size()) &&
+						(KeyDown.down() || ((SecondsF{ 0.33 } < KeyDown.pressedDuration()) && (SecondsF{ 0.06 } < state.downPressStopwatch))))
+					{
+						++(*state.selectedItemIndex);
+						state.downPressStopwatch.restart();
+
+						if (hasScrollBar && (maxLines <= (*state.selectedItemIndex - state.scroll)))
+						{
+							state.scroll = Min(state.scroll + 1, static_cast<int32>(state.items.size()) - maxLines);
 						}
 					}
 				}

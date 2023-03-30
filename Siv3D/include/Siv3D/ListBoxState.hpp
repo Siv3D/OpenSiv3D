@@ -32,8 +32,13 @@ namespace s3d
 		/// @brief スクロール数
 		int32 scroll = 0;
 
+		/// @brief アクティブであるか
+		bool active = false;
+
 		/// @brief ホイールの状態
 		double wheel = 0.0;
+
+		Stopwatch upPressStopwatch, downPressStopwatch;
 
 		SIV3D_NODISCARD_CXX20
 		ListBoxState() = default;
