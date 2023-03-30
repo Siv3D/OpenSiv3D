@@ -1220,9 +1220,9 @@ namespace s3d
 					state.scroll = Min(state.scroll, static_cast<int32>(state.items.size()) - maxLines);
 
 					const RectF innerScrollBarArea = scrollBarArea.stretched(0, -ScrollBarWidth);
-					const int32 scrollBarHeight = static_cast<int32>(innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
+					const double scrollBarHeight = (innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
 					const int32 scrollBarOffset = static_cast<int32>((innerScrollBarArea.h - scrollBarHeight) * (static_cast<double>(state.scroll) / (state.items.size() - maxLines)));
-					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, scrollBarOffset), innerScrollBarArea.w, scrollBarHeight);
+					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, (scrollBarOffset - 3.0)), innerScrollBarArea.w, (scrollBarHeight + 6.0));
 
 					if (state.scrollBarGrabbed && MouseL.up())
 					{
@@ -1320,9 +1320,9 @@ namespace s3d
 								.draw(ColorF{ 0.33 });
 						}
 
-						Triangle{ c.movedBy(0, -ScrollBarWidth * 0.15),
-							c.movedBy(ScrollBarWidth * 0.25, ScrollBarWidth * 0.15),
-							c.movedBy(-ScrollBarWidth * 0.25, ScrollBarWidth * 0.15) }
+						Triangle{ c.movedBy(0, -ScrollBarWidth * 0.22),
+							c.movedBy(ScrollBarWidth * 0.25, ScrollBarWidth * 0.08),
+							c.movedBy(-ScrollBarWidth * 0.25, ScrollBarWidth * 0.08) }
 						.draw(pressed ? ColorF{ 0.85 } : ColorF{ 0.33 });
 					}
 
@@ -1337,16 +1337,16 @@ namespace s3d
 								.draw(ColorF{ 0.33 });
 						}
 
-						Triangle{ c.movedBy(0, ScrollBarWidth * 0.15),
-							c.movedBy(-ScrollBarWidth * 0.25, -ScrollBarWidth * 0.15),
-							c.movedBy(ScrollBarWidth * 0.25, -ScrollBarWidth * 0.15) }
+						Triangle{ c.movedBy(0, ScrollBarWidth * 0.22),
+							c.movedBy(-ScrollBarWidth * 0.25, -ScrollBarWidth * 0.08),
+							c.movedBy(ScrollBarWidth * 0.25, -ScrollBarWidth * 0.08) }
 						.draw(pressed ? ColorF{ 0.85 } : ColorF{ 0.33 });
 					}
 
 					const RectF innerScrollBarArea = scrollBarArea.stretched(0, -ScrollBarWidth);
-					const int32 scrollBarHeight = static_cast<int32>(innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
+					const double scrollBarHeight = (innerScrollBarArea.h * (static_cast<double>(maxLines) / state.items.size()));
 					const int32 scrollBarOffset = static_cast<int32>((innerScrollBarArea.h - scrollBarHeight) * (static_cast<double>(state.scroll) / (state.items.size() - maxLines)));
-					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, scrollBarOffset), innerScrollBarArea.w, scrollBarHeight);
+					const RectF scrollBar(innerScrollBarArea.pos.movedBy(0, (scrollBarOffset - 3.0)), innerScrollBarArea.w, (scrollBarHeight + 6.0));
 
 					scrollBar
 						.stretched(-1, 0)
