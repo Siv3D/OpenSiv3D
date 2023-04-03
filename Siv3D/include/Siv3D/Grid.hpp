@@ -367,10 +367,10 @@ namespace s3d
 		const Grid& each_index(Fty f) const;
 
 		[[nodiscard]]
-		const value_type& fetch(size_type y, size_type x, const value_type& defaultValue) const;
+		value_type fetch(size_type y, size_type x, const value_type& defaultValue) const;
 
 		[[nodiscard]]
-		const value_type& fetch(Point pos, const value_type& defaultValue) const;
+		value_type fetch(Point pos, const value_type& defaultValue) const;
 
 		Grid& fill(const value_type& value);
 

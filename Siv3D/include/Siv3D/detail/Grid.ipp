@@ -927,7 +927,7 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::fetch(const size_type y, const size_type x, const value_type& defaultValue) const
+	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const size_type y, const size_type x, const value_type& defaultValue) const
 	{
 		if (not inBounds(y, x))
 		{
@@ -938,7 +938,7 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Grid<Type, Allocator>::value_type& Grid<Type, Allocator>::fetch(const Point pos, const value_type& defaultValue) const
+	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const Point pos, const value_type& defaultValue) const
 	{
 		return fetch(pos.y, pos.x, defaultValue);
 	}
