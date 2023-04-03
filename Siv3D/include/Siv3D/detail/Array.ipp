@@ -713,7 +713,7 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::fetch(const size_t index, const value_type& defaultValue) const
+	inline typename Array<Type, Allocator>::value_type Array<Type, Allocator>::fetch(const size_t index, const value_type& defaultValue) const
 	{
 		if (index >= size())
 		{
