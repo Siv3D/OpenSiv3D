@@ -393,7 +393,7 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		const value_type& fetch(size_t index, const value_type& defaultValue) const
+		value_type fetch(size_t index, const value_type& defaultValue) const
 		{
 			if (index >= size())
 			{
