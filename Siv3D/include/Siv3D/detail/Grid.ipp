@@ -927,20 +927,22 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const size_type y, const size_type x, const value_type& defaultValue) const
+	template <class U>
+	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const size_type y, const size_type x, U&& defaultValue) const
 	{
 		if (not inBounds(y, x))
 		{
-			return defaultValue;
+			return std::forward<U>(defaultValue);
 		}
 
 		return m_data[y * m_width + x];
 	}
 
 	template <class Type, class Allocator>
-	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const Point pos, const value_type& defaultValue) const
+	template <class U>
+	inline typename Grid<Type, Allocator>::value_type Grid<Type, Allocator>::fetch(const Point pos, U&& defaultValue) const
 	{
-		return fetch(pos.y, pos.x, defaultValue);
+		return fetch(pos.y, pos.x, std::forward<U>(defaultValue));
 	}
 
 	template <class Type, class Allocator>
