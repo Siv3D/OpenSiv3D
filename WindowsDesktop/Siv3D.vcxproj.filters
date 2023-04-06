@@ -1654,6 +1654,9 @@
     <Filter Include="src\Siv3D-Platform\WindowsDesktop\Siv3D\DriveInfo">
       <UniqueIdentifier>{f48a6572-43dc-4dca-b46d-f8d3a8e0b843}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SimpleTable">
+      <UniqueIdentifier>{50444692-bafb-4d5a-ba66-7e1b57f0072f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7002,6 +7005,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DriveType.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleTable.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10177,6 +10183,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\DriveInfo\SivDriveInfo.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\DriveInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleTable\SivSimpleTable.cpp">
+      <Filter>src\Siv3D\SimpleTable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
