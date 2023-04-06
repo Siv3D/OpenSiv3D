@@ -16,8 +16,13 @@
 
 namespace s3d
 {
+	SimpleTable::Style SimpleTable::Style::Default()
+	{
+		return{};
+	}
+
 	SimpleTable::SimpleTable(const size_t columns, const Style& style)
-		: SimpleTable{ Array<double>(columns, DefaultCellHeight), style } {}
+		: SimpleTable{ Array<double>(columns, Style::DefaultCellHeight), style } {}
 
 	SimpleTable::SimpleTable(const Array<double>& minColumnWidths, const Style& style)
 		: m_style{ style }

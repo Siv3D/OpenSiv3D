@@ -99,6 +99,17 @@ namespace s3d
 
 			/// @brief セルがマウスオーバーされているときのセルの色 | Cell color when hovered
 			std::function<Optional<ColorF>(const Point& index)> hoveredCell;
+
+			static constexpr double DefaultCellHeight = 35.0;
+
+			static constexpr double DefaultBorderThickness = 1.0;
+
+			static constexpr double DefaultTextPaddingLR = 12.0;
+
+			static constexpr double DefaultFontSize = 20.0;
+			
+			[[nodiscard]]
+			static Style Default();
 		};
 
 		/// @brief 空のテーブルを作成します。 | Creates an empty table.
@@ -109,13 +120,13 @@ namespace s3d
 		/// @param columns 列数 | Number of columns
 		/// @param style スタイル | Style
 		SIV3D_NODISCARD_CXX20
-		explicit SimpleTable(size_t columns, const Style& style = {});
+		explicit SimpleTable(size_t columns, const Style& style = Style::Default());
 
 		/// @brief 列数と各列の最小幅を指定して空のテーブルを作成します。 | Creates an empty table with specified number of columns and minimum column widths.
 		/// @param minColumnWidths 各列の最小幅（ピクセル） | Minimum width of each column (pixels)
 		/// @param style スタイル | Style
 		SIV3D_NODISCARD_CXX20
-		explicit SimpleTable(const Array<double>& minColumnWidths, const Style& style = {});
+		explicit SimpleTable(const Array<double>& minColumnWidths, const Style& style = Style::Default());
 
 		/// @brief テーブルのアイテムの二次元配列を返します。 | Returns a 2D array of table items.
 		/// @return テーブルのアイテムの二次元配列 | 2D array of table items
@@ -340,14 +351,6 @@ namespace s3d
 		void draw(const Vec2& tablePos = Vec2{ 0, 0 }) const;
 
 	private:
-
-		static constexpr double DefaultCellHeight = 35.0;
-
-		static constexpr double DefaultBorderThickness = 1.0;
-
-		static constexpr double DefaultTextPaddingLR = 12.0;
-
-		static constexpr double DefaultFontSize = 20.0;
 
 		static constexpr int32 DefaultAlignmnet = -1;
 
