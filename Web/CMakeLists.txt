@@ -552,6 +552,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/SimpleGUI/SivSimpleGUI.cpp
   # ../Siv3D/src/Siv3D/SimpleHTTP/SivSimpleHTTP.cpp
   ../Siv3D/src/Siv3D/SimpleMenuBar/SivSimpleMenuBar.cpp
+  ../Siv3D/src/Siv3D/SimpleTable/SivSimpleTable.cpp
   ../Siv3D/src/Siv3D/Sky/SivSky.cpp
   ../Siv3D/src/Siv3D/SoundFont/CSoundFont.cpp
   ../Siv3D/src/Siv3D/SoundFont/SivSoundFont.cpp

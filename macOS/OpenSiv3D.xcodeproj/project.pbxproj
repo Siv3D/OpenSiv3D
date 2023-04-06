@@ -814,6 +814,7 @@
 		2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6225C4241800034D81 /* GL4Texture.hpp */; };
 		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
+		2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
 		2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7DE5DB26137A3B00D7F031 /* liblibgif.a */; };
 		2C8046152653FEA000CE7C3E /* SivMessageBox_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */; };
@@ -2950,6 +2951,8 @@
 		2C794B6225C4241800034D81 /* GL4Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Texture.hpp; sourceTree = "<group>"; };
 		2C794B6525C4FD0400034D81 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
+		2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleTable.hpp; sourceTree = "<group>"; };
+		2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleTable.cpp; sourceTree = "<group>"; };
 		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
 		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
 		2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivMessageBox_macOS.mm; sourceTree = "<group>"; };
@@ -7298,6 +7301,14 @@
 			path = Metal;
 			sourceTree = "<group>";
 		};
+		2C7CA7EC29DF0D3B00FEC104 /* SimpleTable */ = {
+			isa = PBXGroup;
+			children = (
+				2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */,
+			);
+			path = SimpleTable;
+			sourceTree = "<group>";
+		};
 		2C7DE5D8261379FD00D7F031 /* libgif */ = {
 			isa = PBXGroup;
 			children = (
@@ -8108,6 +8119,7 @@
 				2CC8B54C28C752ED008C770A /* SimpleGUI.hpp */,
 				2CC8B4E328C752ED008C770A /* SimpleHTTP.hpp */,
 				2C398E3F28F2CEF6006A24E3 /* SimpleMenuBar.hpp */,
+				2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */,
 				2CC8B69F28C752EE008C770A /* Sky.hpp */,
 				2CC8B4AD28C752ED008C770A /* SoundFont.hpp */,
 				2CC8B4C728C752ED008C770A /* SpecialFolder.hpp */,
@@ -8767,6 +8779,7 @@
 				2CC8B77428C7532D008C770A /* SimpleGUI */,
 				2CC8B87B28C7532D008C770A /* SimpleHTTP */,
 				2C398E4028F2CF16006A24E3 /* SimpleMenuBar */,
+				2C7CA7EC29DF0D3B00FEC104 /* SimpleTable */,
 				2CC8B78828C7532D008C770A /* Sky */,
 				2CC8BAF528C7532E008C770A /* SoundFont */,
 				2CC8B88128C7532D008C770A /* Sphere */,
@@ -13395,6 +13408,7 @@
 				2C2AA3A926009C74003F3EBC /* b2_collide_polygon.cpp in Sources */,
 				2CC8BC8428C75330008C770A /* ScriptWindowStyle.cpp in Sources */,
 				2CC8BCBB28C75330008C770A /* ScriptUserAction.cpp in Sources */,
+				2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */,
 				2C13C8BA25B8FA9D0054B968 /* Recast.cpp in Sources */,
 				2C636E892657F7D300AF029F /* soloud_nosound.cpp in Sources */,
 				2CC8BDC928C75332008C770A /* SivFont.cpp in Sources */,

@@ -1676,8 +1676,11 @@
 // 簡易的な GUI | Simple GUI widgets
 # include <Siv3D/SimpleGUI.hpp>
 
-// 簡易的なメニューバー | Simple Menu bar
+// 簡易的なメニューバー | Simple menu bar
 # include <Siv3D/SimpleMenuBar.hpp>
+
+// 簡易的なテーブル | Simple table
+# include <Siv3D/SimpleTable.hpp>
 
 // テキストの入力処理方式 | Text input mode
 # include <Siv3D/TextInputMode.hpp>

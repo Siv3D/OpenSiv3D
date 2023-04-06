@@ -684,6 +684,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleHTTP.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleMenuBar.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleTable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sky.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
@@ -2409,6 +2410,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SivSimpleGUI.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleHTTP\SivSimpleHTTP.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleMenuBar\SivSimpleMenuBar.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleTable\SivSimpleTable.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Sky\SivSky.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SivSoundFont.cpp" />
