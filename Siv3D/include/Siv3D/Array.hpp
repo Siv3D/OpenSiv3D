@@ -613,8 +613,9 @@ namespace s3d
 		/// @param index インデックス
 		/// @param defaultValue インデックスが範囲外の場合に返すデフォルト値
 		/// @return 指定したインデックスにある要素、範囲外の場合 defaultValue
+		template <class U>
 		[[nodiscard]]
-		const value_type& fetch(size_t index, const value_type& defaultValue) const;
+		value_type fetch(size_t index, U&& defaultValue) const;
 
 		/// @brief 指定した値を全ての要素に代入します。
 		/// @param value 代入する値

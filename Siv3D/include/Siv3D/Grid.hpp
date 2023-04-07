@@ -366,11 +366,13 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Point, Type>>* = nullptr>
 		const Grid& each_index(Fty f) const;
 
+		template <class U>
 		[[nodiscard]]
-		const value_type& fetch(size_type y, size_type x, const value_type& defaultValue) const;
+		value_type fetch(size_type y, size_type x, U&& defaultValue) const;
 
+		template <class U>
 		[[nodiscard]]
-		const value_type& fetch(Point pos, const value_type& defaultValue) const;
+		value_type fetch(Point pos, U&& defaultValue) const;
 
 		Grid& fill(const value_type& value);
 

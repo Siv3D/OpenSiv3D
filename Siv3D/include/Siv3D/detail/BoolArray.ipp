@@ -392,12 +392,13 @@ namespace s3d
 			return *this;
 		}
 
+		template <class U>
 		[[nodiscard]]
-		const value_type& fetch(size_t index, const value_type& defaultValue) const
+		value_type fetch(size_t index, U&& defaultValue) const
 		{
 			if (index >= size())
 			{
-				return defaultValue;
+				return std::forward<U>(defaultValue);
 			}
 
 			return operator[](index);

@@ -713,11 +713,12 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator>
-	inline const typename Array<Type, Allocator>::value_type& Array<Type, Allocator>::fetch(const size_t index, const value_type& defaultValue) const
+	template <class U>
+	inline typename Array<Type, Allocator>::value_type Array<Type, Allocator>::fetch(const size_t index, U&& defaultValue) const
 	{
 		if (index >= size())
 		{
-			return defaultValue;
+			return std::forward<U>(defaultValue);
 		}
 
 		return operator[](index);
