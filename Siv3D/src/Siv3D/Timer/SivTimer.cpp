@@ -38,7 +38,7 @@ namespace s3d
 
 	bool Timer::isRunning() const noexcept
 	{
-		return (m_isStarted && not m_pausing);
+		return (m_isStarted && (not m_pausing) && (not reachedZero()));
 	}
 
 	bool Timer::reachedZero() const
