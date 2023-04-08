@@ -162,7 +162,7 @@ namespace s3d
 
 	void SimpleTable::clear()
 	{
-		m_grid = Grid<Item>(m_minColumnWidths.size(), 0);
+		m_grid.resize(m_minColumnWidths.size(), 0);
 
 		m_columnWidths = m_minColumnWidths;
 

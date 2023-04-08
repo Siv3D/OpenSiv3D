@@ -609,18 +609,19 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline void Grid<Type, Allocator>::resize(const size_type w, const size_type h)
 	{
+		// 幅か高さが 0 なら空の二次元配列にする
+		if ((w == 0) || (h == 0))
+		{
+			m_data.clear();
+			m_width = w;
+			m_height = h;
+			return;
+		}
+
 		const size_t oldWidth = m_width;
 		const size_t newWidth = w;
 		const size_t oldHeight = m_height;
 		const size_t newHeight = h;
-
-		// 幅か高さが 0 なら空の二次元配列にする
-		if ((newWidth == 0) || (newHeight == 0))
-		{
-			m_data.clear();
-			m_width = m_height = 0;
-			return;
-		}
 
 		// 元のサイズが 0 なら
 		if (m_data.isEmpty())
@@ -687,18 +688,19 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline void Grid<Type, Allocator>::resize(const size_type w, const size_type h, const value_type& value)
 	{
+		// 幅か高さが 0 なら空の二次元配列にする
+		if ((w == 0) || (h == 0))
+		{
+			m_data.clear();
+			m_width = w;
+			m_height = h;
+			return;
+		}
+
 		const size_t oldWidth = m_width;
 		const size_t newWidth = w;
 		const size_t oldHeight = m_height;
 		const size_t newHeight = h;
-
-		// 幅か高さが 0 なら空の二次元配列にする
-		if ((newWidth == 0) || (newHeight == 0))
-		{
-			m_data.clear();
-			m_width = m_height = 0;
-			return;
-		}
 
 		// 元のサイズが 0 なら
 		if (m_data.isEmpty())
