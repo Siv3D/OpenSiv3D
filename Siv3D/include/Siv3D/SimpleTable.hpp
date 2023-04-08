@@ -352,7 +352,7 @@ namespace s3d
 
 	private:
 
-		static constexpr int32 DefaultAlignmnet = -1;
+		static constexpr int32 DefaultAlignment = -1;
 
 		Style m_style;
 
