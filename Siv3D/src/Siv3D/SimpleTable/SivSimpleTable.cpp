@@ -93,7 +93,7 @@ namespace s3d
 
 	SimpleTable& SimpleTable::push_back_row(const Array<String>& texts)
 	{
-		Array<int32> textAlignments(m_grid.width(), DefaultAlignmnet);
+		Array<int32> textAlignments(m_grid.width(), DefaultAlignment);
 
 		if (0 < m_grid.height())
 		{
