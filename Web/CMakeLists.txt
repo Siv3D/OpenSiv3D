@@ -574,6 +574,7 @@ set(SIV3D_INTERNAL_SOURCES
   # ../Siv3D/src/Siv3D/TCPClient/TCPClientDetail.cpp
   ../Siv3D/src/Siv3D/TCPServer/SivTCPServer.cpp
   ../Siv3D/src/Siv3D/TCPServer/TCPServerDetail.cpp
+  ../Siv3D/src/Siv3D/TextAreaEditState/SivTextAreaEditState.cpp
   ../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp
   ../Siv3D/src/Siv3D/TextInput/SivTextInput.cpp
   ../Siv3D/src/Siv3D/TextInput/TextInputFactory.cpp

@@ -1657,6 +1657,9 @@
     <Filter Include="src\Siv3D\SimpleTable">
       <UniqueIdentifier>{50444692-bafb-4d5a-ba66-7e1b57f0072f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextAreaEditState">
+      <UniqueIdentifier>{53f1a7f1-0e25-4829-83ed-b4b71ff1720c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7008,6 +7011,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleTable.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextAreaEditState.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10186,6 +10192,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleTable\SivSimpleTable.cpp">
       <Filter>src\Siv3D\SimpleTable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextAreaEditState\SivTextAreaEditState.cpp">
+      <Filter>src\Siv3D\TextAreaEditState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
