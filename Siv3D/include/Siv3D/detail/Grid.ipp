@@ -129,6 +129,8 @@ namespace s3d
 	inline void Grid<Type, Allocator>::assign(const size_type w, const size_type h, const value_type& value)
 	{
 		m_data.assign(w * h, value);
+		m_width = w;
+		m_height = h;
 	}
 
 	template <class Type, class Allocator>
@@ -136,7 +138,7 @@ namespace s3d
 	{
 		assert(0 <= size.x);
 		assert(0 <= size.y);
-		m_data.assign(size.x * size.y, value);
+		assign(size.x, size.y, value);
 	}
 
 	template <class Type, class Allocator>
@@ -144,7 +146,7 @@ namespace s3d
 	{
 		m_data.clear();
 
-		m_data.resize(std::max_element(set.begin(), set.end(),
+		resize(std::max_element(set.begin(), set.end(),
 			[](auto& lhs, auto& rhs) { return lhs.size() < rhs.size(); })->size(), set.size());
 
 		auto dst = begin();
