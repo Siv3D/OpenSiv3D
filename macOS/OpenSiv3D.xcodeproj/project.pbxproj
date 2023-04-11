@@ -815,6 +815,7 @@
 		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
 		2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */; };
+		2C7CA7F229E43A0A00FEC104 /* SivTextAreaEditState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
 		2C7DE5DC26137A3B00D7F031 /* liblibgif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7DE5DB26137A3B00D7F031 /* liblibgif.a */; };
 		2C8046152653FEA000CE7C3E /* SivMessageBox_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */; };
@@ -2953,6 +2954,8 @@
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleTable.hpp; sourceTree = "<group>"; };
 		2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleTable.cpp; sourceTree = "<group>"; };
+		2C7CA7EF29E439E300FEC104 /* TextAreaEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextAreaEditState.hpp; sourceTree = "<group>"; };
+		2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextAreaEditState.cpp; sourceTree = "<group>"; };
 		2C7DE5D9261379FD00D7F031 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
 		2C7DE5DB26137A3B00D7F031 /* liblibgif.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibgif.a; path = ../Siv3D/lib/macOS/libgif/liblibgif.a; sourceTree = "<group>"; };
 		2C8046142653FEA000CE7C3E /* SivMessageBox_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivMessageBox_macOS.mm; sourceTree = "<group>"; };
@@ -7309,6 +7312,14 @@
 			path = SimpleTable;
 			sourceTree = "<group>";
 		};
+		2C7CA7F029E43A0A00FEC104 /* TextAreaEditState */ = {
+			isa = PBXGroup;
+			children = (
+				2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */,
+			);
+			path = TextAreaEditState;
+			sourceTree = "<group>";
+		};
 		2C7DE5D8261379FD00D7F031 /* libgif */ = {
 			isa = PBXGroup;
 			children = (
@@ -8139,6 +8150,7 @@
 				2CC8B6A128C752EE008C770A /* TCPClient.hpp */,
 				2CC8B47328C752EC008C770A /* TCPError.hpp */,
 				2CC8B50B28C752ED008C770A /* TCPServer.hpp */,
+				2C7CA7EF29E439E300FEC104 /* TextAreaEditState.hpp */,
 				2CC8B6C628C752EE008C770A /* TextEditState.hpp */,
 				2CC8B4E728C752ED008C770A /* TextEncoding.hpp */,
 				2CC8B42428C752EC008C770A /* TextInput.hpp */,
@@ -8791,6 +8803,7 @@
 				2CC8B97428C7532D008C770A /* System */,
 				2CC8B9AD28C7532D008C770A /* TCPClient */,
 				2CC8B75228C7532C008C770A /* TCPServer */,
+				2C7CA7F029E43A0A00FEC104 /* TextAreaEditState */,
 				2CC8B9E628C7532E008C770A /* TextEncoding */,
 				2CC8B82A28C7532D008C770A /* TextInput */,
 				2CC8B96E28C7532D008C770A /* TextReader */,
@@ -13300,6 +13313,7 @@
 				2CC8BD2828C75331008C770A /* AudioBus.cpp in Sources */,
 				2C9566D82645626000539B85 /* mz_crypt.c in Sources */,
 				2C834D96248805D4006208B8 /* iso8859_5.c in Sources */,
+				2C7CA7F229E43A0A00FEC104 /* SivTextAreaEditState.cpp in Sources */,
 				2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */,
 				2CC8BD3828C75331008C770A /* SivLine.cpp in Sources */,
 				2CC8BC9128C75330008C770A /* ScriptRect.cpp in Sources */,

@@ -15,6 +15,7 @@
 # include "2DShapes.hpp"
 # include "Unspecified.hpp"
 # include "TextEditState.hpp"
+# include "TextAreaEditState.hpp"
 # include "ListBoxState.hpp"
 
 namespace s3d
@@ -23,6 +24,10 @@ namespace s3d
 
 	namespace SimpleGUI
 	{
+		/// @brief テキストエリアの最大文字数の推奨値 | Recommended maximum number of characters for a text area
+		/// @remark テキストエリアの最大文字数はこの値を超えてもよいですが、入力処理が重くなる場合があります。 | The maximum number of characters for a text area can be greater than this value, but the input process may become slow.
+		inline constexpr size_t PreferredTextAreaMaxChars = 800;
+
 		[[nodiscard]]
 		const Font& GetFont() noexcept;
 
@@ -218,6 +223,38 @@ namespace s3d
 		/// @param enabled テキストボックスの操作を有効にするか
 		/// @return テキストが操作された場合 true, それ以外の場合は false
 		bool TextBoxAt(TextEditState& text, const Vec2& center, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
+
+		/// @brief テキストエリアの領域を返します。 | Returns the region of a text area.
+		/// @param pos テキストエリアの左上座標 | Top-left coordinates of the text area
+		/// @param size テキストエリアのサイズ | Size of the text area
+		/// @return テキストエリアの領域 | Region of the text area
+		[[nodiscard]]
+		RectF TextAreaRegion(const Vec2& pos, const SizeF& size = SizeF{ 200, 100 });
+
+		/// @brief テキストエリアの領域を返します。 | Returns the region of a text area.
+		/// @param center テキストエリアの中心座標 | Center coordinates of the text area
+		/// @param size テキストエリアのサイズ | Size of the text area
+		/// @return テキストエリアの領域 | Region of the text area
+		[[nodiscard]]
+		RectF TextAreaRegionAt(const Vec2& center, const SizeF& size = SizeF{ 200, 100 });
+
+		/// @brief テキストエリアを描画します。 | Draws a text area.
+		/// @param text テキストの編集情報 | Text editing information
+		/// @param pos テキストエリアの左上座標 | Top-left coordinates of the text area
+		/// @param size テキストエリアのサイズ | Size of the text area
+		/// @param maxChars テキストエリアの最大文字数 | Maximum number of characters for the text area
+		/// @param enabled テキストエリアを有効にするか | Whether to enable the text area
+		/// @return テキストが変更された場合 true, それ以外の場合は false | Returns true if the text was changed, otherwise false
+		bool TextArea(TextAreaEditState& text, const Vec2& pos, const SizeF& size = SizeF{ 200, 100 }, size_t maxChars = PreferredTextAreaMaxChars, bool enabled = true);
+
+		/// @brief テキストエリアを描画します。 | Draws a text area.
+		/// @param text テキストの編集情報 | Text editing information
+		/// @param center テキストエリアの中心座標 | Center coordinates of the text area
+		/// @param size テキストエリアのサイズ | Size of the text area
+		/// @param maxChars テキストエリアの最大文字数 | Maximum number of characters for the text area
+		/// @param enabled テキストエリアを有効にするか | Whether to enable the text area
+		/// @return テキストが変更された場合 true, それ以外の場合は false | Returns true if the text was changed, otherwise false
+		bool TextAreaAt(TextAreaEditState& text, const Vec2& center, const SizeF& size = SizeF{ 200, 100 }, size_t maxChars = PreferredTextAreaMaxChars, bool enabled = true);
 
 		[[nodiscard]]
 		RectF ColorPickerRegion(const Vec2& pos);
