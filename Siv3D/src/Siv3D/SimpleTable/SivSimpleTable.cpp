@@ -48,7 +48,8 @@ namespace s3d
 
 	const SimpleTable::Item& SimpleTable::getItem(const Point& index) const
 	{
-		if ((m_grid.width() <= index.x) || (m_grid.height() <= index.y))
+		if ((static_cast<int32>(m_grid.width()) <= index.x)
+			|| (static_cast<int32>(m_grid.height()) <= index.y))
 		{
 			throw Error{ U"TableRenderer::getItem(): Invalid index ({})"_fmt(index) };
 		}

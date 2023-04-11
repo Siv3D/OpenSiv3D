@@ -1803,7 +1803,7 @@ namespace s3d
 						--(*state.selectedItemIndex);
 						state.upPressStopwatch.restart();
 
-						if (hasScrollBar  && (*state.selectedItemIndex < state.scroll))
+						if (hasScrollBar  && (static_cast<int32>(*state.selectedItemIndex) < state.scroll))
 						{
 							state.scroll = Max(state.scroll - 1, 0);
 						}
@@ -1814,7 +1814,7 @@ namespace s3d
 						++(*state.selectedItemIndex);
 						state.downPressStopwatch.restart();
 
-						if (hasScrollBar && (maxLines <= (*state.selectedItemIndex - state.scroll)))
+						if (hasScrollBar && (maxLines <= (static_cast<int32>(*state.selectedItemIndex) - state.scroll)))
 						{
 							state.scroll = Min(state.scroll + 1, static_cast<int32>(state.items.size()) - maxLines);
 						}
