@@ -2073,6 +2073,24 @@ namespace s3d
 							const Vec2 pos = (editingGlyphPositions.front() - firstGlyph.getOffset());
 							const double w = ((editingGlyphPositions.back().x - lastGlyph.getOffset().x + lastGlyph.xAdvance) - pos.x);
 							RectF{ pos, w, fontHeight }.draw(TextAreaEditingTextBackgroundColor);
+
+						# if SIV3D_PLATFORM(WINDOWS)
+
+							// 変換テキストの選択範囲の描画
+							{
+								const std::pair<int32, int32> editingTarget = Platform::Windows::TextInput::GetCursorIndex();
+
+								if (editingTarget.second && ((editingTarget.first + editingTarget.second) <= editingGlyphPositions.size()))
+								{
+									const int32 firstIndex = editingTarget.first;
+									const int32 lastIndex = (editingTarget.first + editingTarget.second - 1);
+									const double x0 = editingGlyphPositions[firstIndex].x;
+									const double x1 = editingGlyphPositions[lastIndex].x + editingGlyphs[lastIndex].xAdvance;
+									RectF{ x0, (pos.y + fontHeight - 2), (x1 - x0), 2 }.draw(ActiveTextColor);
+								}
+							}
+
+						# endif
 						}
 
 						// 変換テキストの描画
