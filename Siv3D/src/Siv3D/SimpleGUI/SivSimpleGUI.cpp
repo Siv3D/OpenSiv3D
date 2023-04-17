@@ -982,6 +982,21 @@ namespace s3d
 					text.cursorStopwatch.restart();
 				}
 
+				// [tab] キーで入力カーソルを非アクティブに
+				{
+					const String raw = TextInput::GetRawInput();
+					text.tabKey = raw.contains(U'\t');
+					text.enterKey = raw.contains(U'\r');
+
+					if (text.tabKey || text.enterKey)
+					{
+						text.active = false;
+					}
+				}
+			}
+
+			if (text.active && enabled && (not editingText))
+			{
 				// [home] キーでテキストカーソルを先頭へ移動
 				if (KeyHome.down())
 				{
@@ -994,18 +1009,6 @@ namespace s3d
 				{
 					text.cursorPos = text.text.length();
 					text.cursorStopwatch.restart();
-				}
-
-				// [tab] キーで入力カーソルを非アクティブに
-				{
-					const String raw = TextInput::GetRawInput();
-					text.tabKey = raw.contains(U'\t');
-					text.enterKey = raw.contains(U'\r');
-
-					if (text.tabKey || text.enterKey)
-					{
-						text.active = false;
-					}
 				}
 			}
 
