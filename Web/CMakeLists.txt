@@ -1389,6 +1389,7 @@ set(SIV3D_JSLIBS
   ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextToSpeech.js
   ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.UserAction.js
   ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebCam.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebGL.js
   ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebGPU.js
 )
 
