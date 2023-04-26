@@ -12,6 +12,7 @@ mergeInto(LibraryManager.library, {
         };
     },
     siv3dRegisterDragEnter__sig: "vi",
+    siv3dRegisterDragEnter__proxy: "sync",
 
     siv3dRegisterDragUpdate: function(ptr) {
         Module["canvas"]["ondragover"] = function (e) {
@@ -21,6 +22,7 @@ mergeInto(LibraryManager.library, {
         };
     },
     siv3dRegisterDragUpdate__sig: "vi",
+    siv3dRegisterDragUpdate__proxy: "sync",
     siv3dRegisterDragUpdate__deps: [ "$siv3dAdjustPoint" ],
 
     siv3dRegisterDragExit: function(ptr) {
@@ -30,6 +32,7 @@ mergeInto(LibraryManager.library, {
         };
     },
     siv3dRegisterDragExit__sig: "vi",
+    siv3dRegisterDragExit__proxy: "sync",
 
     $siv3dDragDropFileReader: null,
     siv3dRegisterDragDrop: function(ptr) {
@@ -72,5 +75,6 @@ mergeInto(LibraryManager.library, {
         };
     },
     siv3dRegisterDragDrop__sig: "vi",
+    siv3dRegisterDragDrop__proxy: "sync",
     siv3dRegisterDragDrop__deps: [ "$siv3dDragDropFileReader", "$FS" ],
 });

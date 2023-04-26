@@ -42,5 +42,6 @@ mergeInto(LibraryManager.library, {
         HEAPF64[data>>3] = 0; data += 8;                                    // yAdvance
     },
     siv3dRenderText__sig: "vii",
+    siv3dRenderText__proxy: "sync",
     siv3dRenderText__deps: [ "$siv3dTextRenderingCanvas", "$siv3dTextRenderingCanvasContext" ],
 });

@@ -24,6 +24,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dAddAllowedKeyBinding__sig: "viiiiii",
+    siv3dAddAllowedKeyBinding__proxy: "sync",
     siv3dAddAllowedKeyBinding__deps: [ "$siv3dAllowedKeyBindings" ],
 
     siv3dDisableAllKeyBindings: function(disabled) {
@@ -55,5 +56,6 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dDisableAllKeyBindings__sig: "vi",
+    siv3dDisableAllKeyBindings__proxy: "sync",
     siv3dDisableAllKeyBindings__deps: [ "$siv3dAllowedKeyBindings", "$siv3dGetTextInputFocused" ],
 });

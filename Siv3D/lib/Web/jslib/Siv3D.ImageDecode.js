@@ -45,6 +45,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dDecodeImageFromFile__sig: "viii",
+    siv3dDecodeImageFromFile__proxy: "sync",
     siv3dDecodeImageFromFile__deps: ["$siv3dDecodeImageFromFileImpl", "$Asyncify"],
 #elif PROXY_TO_PTHREAD
     siv3dDecodeImageFromFile: function(ctx, src, size, data) {
@@ -53,6 +54,7 @@ mergeInto(LibraryManager.library, {
         }, src, size, data);
     },
     siv3dDecodeImageFromFile__sig: "viiii",
+    siv3dDecodeImageFromFile__proxy: "sync",
     siv3dDecodeImageFromFile__deps: ["$siv3dDecodeImageFromFileImpl"],
 #else
     siv3dDecodeImageFromFile: function(_, _, arg) {
@@ -62,5 +64,6 @@ mergeInto(LibraryManager.library, {
         HEAPU32[(arg>>2)+3] = 0;
     },
     siv3dDecodeImageFromFile__sig: "viii",
+    siv3dDecodeImageFromFile__proxy: "sync",
 #endif
 });

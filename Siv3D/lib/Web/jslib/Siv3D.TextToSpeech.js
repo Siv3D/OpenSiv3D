@@ -5,6 +5,7 @@ mergeInto(LibraryManager.library, {
         };
     },
     siv3dRegisterTextToSpeechLanguagesUpdateHander__sig: "vii",
+    siv3dRegisterTextToSpeechLanguagesUpdateHander__proxy: "sync",
 
     siv3dEnumerateAvailableTextToSpeechLanguages: function(returnPtr) {
         const LanguageNameToLanguageCodeList = {
@@ -42,6 +43,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dEnumerateAvailableTextToSpeechLanguages__sig: "vi",
+    siv3dEnumerateAvailableTextToSpeechLanguages__proxy: "sync",
 
     siv3dStartTextToSpeechLanguages: function(textPtr, rate, volume, languageCode) {
         const LanguageCodeToLanguageNameList = {
@@ -73,19 +75,23 @@ mergeInto(LibraryManager.library, {
         window.speechSynthesis.speak(speechUtter);
     },
     siv3dStartTextToSpeechLanguages__sig: "viiii",
+    siv3dStartTextToSpeechLanguages__proxy: "sync",
 
     siv3dIsSpeakingTextToSpeechLanguages: function() {
         return window.speechSynthesis.speaking;
     },
     siv3dIsSpeakingTextToSpeechLanguages__sig: "iv",
+    siv3dIsSpeakingTextToSpeechLanguages__proxy: "sync",
 
     siv3dPauseTextToSpeechLanguages: function() {
         window.speechSynthesis.pause();
     },
     siv3dPauseTextToSpeechLanguages__sig: "v",
+    siv3dPauseTextToSpeechLanguages__proxy: "sync",
 
     siv3dResumeTextToSpeechLanguages: function() {
         window.speechSynthesis.resume();
     },
     siv3dResumeTextToSpeechLanguages__sig: "v",
+    siv3dResumeTextToSpeechLanguages__proxy: "sync",
 });

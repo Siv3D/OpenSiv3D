@@ -38,6 +38,7 @@ mergeInto(LibraryManager.library, {
         Module["canvas"].addEventListener("touchmove", siv3dOnTouchMove);
     },
     siv3dRegisterTouchCallback__sig: "v",
+    siv3dRegisterTouchCallback__proxy: "sync",
     siv3dRegisterTouchCallback__deps: [ "$siv3dOnTouchMove", "$siv3dOnTouchStart", "$siv3dActiveTouches" ],
 
     siv3dUnregisterTouchCallback: function() {
@@ -45,6 +46,7 @@ mergeInto(LibraryManager.library, {
         Module["canvas"].removeEventListener("touchmove", siv3dOnTouchMove);
     },
     siv3dUnregisterTouchCallback__sig: "v",
+    siv3dUnregisterTouchCallback__proxy: "sync",
     siv3dUnregisterTouchCallback__deps: [ "$siv3dOnTouchMove", "$siv3dOnTouchStart" ],
 
     siv3dGetPrimaryTouchPoint: function(pX, pY) {
@@ -60,5 +62,6 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dGetPrimaryTouchPoint__sig: "iii",
+    siv3dGetPrimaryTouchPoint__proxy: "sync",
     siv3dGetPrimaryTouchPoint__deps: [ "$siv3dActiveTouches", "$siv3dAdjustPoint" ],
 });

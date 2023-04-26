@@ -11,6 +11,7 @@ mergeInto(LibraryManager.library, {
         siv3dDownloadLink = document.createElement("a");
     },
     siv3dInitDialog__sig: "v",
+    siv3dInitDialog__proxy: "sync",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dDownloadLink" ],
 
     siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
@@ -45,6 +46,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dOpenDialogAsync__sig: "vii",
+    siv3dOpenDialogAsync__proxy: "sync",
     siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "siv3dMaybeAwake" ],
 
     $siv3dSaveFileBuffer: null, 
@@ -67,5 +69,6 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dDownloadFile__sig: "viii",
+    siv3dDownloadFile__proxy: "sync",
     siv3dDownloadFile__deps: [ "$siv3dRegisterUserAction" ],
 });

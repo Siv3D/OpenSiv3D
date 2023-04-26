@@ -37,6 +37,7 @@ mergeInto(LibraryManager.library, {
         window.addEventListener('keydown', siv3dUserActionHookCallBack);
     },
     siv3dStartUserActionHook__sig: "v",
+    siv3dStartUserActionHook__proxy: "sync",
     siv3dStartUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dUserActionTouchEndCallBack", "$siv3dHasUserActionTriggered" ],
 
     siv3dStopUserActionHook: function() {
@@ -45,6 +46,7 @@ mergeInto(LibraryManager.library, {
         window.removeEventListener('keydown', siv3dUserActionHookCallBack);
     },
     siv3dStopUserActionHook__sig: "v",
+    siv3dStopUserActionHook__proxy: "sync",
     siv3dStopUserActionHook__deps: [ "$siv3dUserActionHookCallBack", "$siv3dUserActionTouchEndCallBack" ],
 
 });

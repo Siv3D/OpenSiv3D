@@ -54,6 +54,7 @@ mergeInto(LibraryManager.library, {
         video.src = URL.createObjectURL(videoBlob);
     },
     siv3dOpenVideo__sig: "viii",
+    siv3dOpenVideo__proxy: "sync",
     siv3dOpenVideo__deps: [ "$FS", "$videoElements", "$siv3dRegisterUserAction", "siv3dMaybeAwake" ],
 
     siv3dOpenCamera: function(width, height, callback, callbackArg) {
@@ -88,6 +89,7 @@ mergeInto(LibraryManager.library, {
         })
     },
     siv3dOpenCamera__sig: "viiii",
+    siv3dOpenCamera__proxy: "sync",
     siv3dOpenCamera__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dSetCameraResolution: function(idx, width, height, callback, callbackArg) {
@@ -109,12 +111,14 @@ mergeInto(LibraryManager.library, {
         );
     },
     siv3dSetCameraResolution__sig: "viiiii",
+    siv3dSetCameraResolution__proxy: "sync",
     siv3dSetCameraResolution__deps: [ "$videoElements", "siv3dMaybeAwake" ],
 
     siv3dQueryCameraAvailability: function () {
         return !!navigator.getUserMedia;
     },
     siv3dQueryCameraAvailability__sig: "iv",
+    siv3dQueryCameraAvailability__proxy: "sync",
 
     siv3dRegisterVideoTimeUpdateCallback: function(idx, callback, callbackArg) {
         const video = videoElements[idx];
@@ -129,6 +133,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dRegisterVideoTimeUpdateCallback__sig: "viii",
+    siv3dRegisterVideoTimeUpdateCallback__proxy: "sync",
     siv3dRegisterVideoTimeUpdateCallback__deps: [ "$videoElements", "siv3dMaybeAwake" ], 
 
     siv3dCaptureVideoFrame: function(target, level, internalFormat, width, height, border, format, type, idx) {
@@ -136,6 +141,7 @@ mergeInto(LibraryManager.library, {
         GLctx.texSubImage2D(target, level, 0, 0, width, height, format, type, video);
     },
     siv3dCaptureVideoFrame__sig: "viiiiiiiii",
+    siv3dCaptureVideoFrame__proxy: "sync",
     siv3dCaptureVideoFrame__deps: ["$videoElements"],
 
     siv3dQueryVideoPlaybackedTime: function(idx) {
@@ -143,6 +149,7 @@ mergeInto(LibraryManager.library, {
         return video.currentTime;
     },
     siv3dQueryVideoPlaybackedTime__sig: "di",
+    siv3dQueryVideoPlaybackedTime__proxy: "sync",
     siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
 
     siv3dSetVideoPlaybackedTime: function(idx, time) {
@@ -150,6 +157,7 @@ mergeInto(LibraryManager.library, {
         video.currentTime = time;
     },
     siv3dSetVideoPlaybackedTime__sig: "vid",
+    siv3dSetVideoPlaybackedTime__proxy: "sync",
     siv3dSetVideoPlaybackedTime__deps: ["$videoElements"],
 
     siv3dQueryVideoDuration: function(idx) {
@@ -157,6 +165,7 @@ mergeInto(LibraryManager.library, {
         return video.duration;
     },
     siv3dQueryVideoDuration__sig: "di",
+    siv3dQueryVideoDuration__proxy: "sync",
     siv3dQueryVideoDuration__deps: ["$videoElements"],
 
     siv3dQueryVideoEnded: function(idx) {
@@ -164,6 +173,7 @@ mergeInto(LibraryManager.library, {
         return video.ended;
     },
     siv3dQueryVideoEnded__sig: "ii",
+    siv3dQueryVideoEnded__proxy: "sync",
     siv3dQueryVideoEnded__deps: ["$videoElements"],
 
     siv3dQueryVideoPreference: function(idx, width, height, fps) {
@@ -174,6 +184,7 @@ mergeInto(LibraryManager.library, {
         setValue(fps, 29.7, 'double');
     },
     siv3dQueryVideoPlaybackedTime__sig: "viiii",
+    siv3dQueryVideoPlaybackedTime__proxy: "sync",
     siv3dQueryVideoPlaybackedTime__deps: ["$videoElements"],
 
     siv3dPlayVideo: function(idx) {
@@ -187,6 +198,7 @@ mergeInto(LibraryManager.library, {
         );
     },
     siv3dPlayVideo__sig: "vi",
+    siv3dPlayVideo__proxy: "sync",
     siv3dPlayVideo__deps: ["$videoElements"],
 
     siv3dStopVideo: function(idx) {
@@ -194,6 +206,7 @@ mergeInto(LibraryManager.library, {
         video.pause();
     },
     siv3dStopVideo__sig: "vi",
+    siv3dStopVideo__proxy: "sync",
     siv3dStopVideo__deps: ["$videoElements"],
 
     siv3dDestroyVideo: function(idx) {
@@ -207,5 +220,6 @@ mergeInto(LibraryManager.library, {
         delete videoElements[idx];
     },
     siv3dDestroyVideo__sig: "vi",
+    siv3dDestroyVideo__proxy: "sync",
     siv3dDestroyVideo__deps: ["$videoElements", "siv3dStopVideo"],
 });

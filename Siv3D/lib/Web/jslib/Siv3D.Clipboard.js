@@ -43,6 +43,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dGetClipboardText__sig: "ii",
+    siv3dGetClipboardText__proxy: "sync",
     siv3dGetClipboardText__deps: [ "$siv3dGetClipboardTextImpl" ],
 #else
     siv3dGetClipboardText: function() {
@@ -71,5 +72,6 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dGetClipboardTextAsync__sig: "vii",
+    siv3dGetClipboardTextAsync__proxy: "sync",
     siv3dGetClipboardTextAsync__deps: [ "$siv3dRegisterUserAction" ],
 });

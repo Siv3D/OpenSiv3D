@@ -29,6 +29,7 @@ mergeInto(LibraryManager.library, {
     },
     siv3dInitTextInput__sig: "v",
     siv3dInitTextInput__proxy: "sync",
+    siv3dInitTextInput__proxy: "sync",
     siv3dInitTextInput__deps: [ "$siv3dTextInputElement" ],
 
     siv3dRegisterTextInputCallback: function(callback) {
@@ -97,6 +98,7 @@ mergeInto(LibraryManager.library, {
     },
     siv3dRegisterTextInputCallback__sig: "vi",
     siv3dRegisterTextInputCallback__proxy: "sync",
+    siv3dRegisterTextInputCallback__proxy: "sync",
     siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement", "$siv3dTextInputCompositionRange" ],
 
     siv3dGetTextInputCompositionRange: function(start, end) {
@@ -109,6 +111,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dGetTextInputCompositionRange__sig: "vii",
+    siv3dGetTextInputCompositionRange__proxy: "sync",
     siv3dGetTextInputCompositionRange__proxy: "sync",
     siv3dGetTextInputCompositionRange__deps: [ "$siv3dTextInputCompositionRange" ],
 
@@ -123,6 +126,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dRegisterTextInputMarkedCallback__sig: "vi",
+    siv3dRegisterTextInputMarkedCallback__proxy: "sync",
     siv3dRegisterTextInputMarkedCallback__proxy: "sync",
     siv3dRegisterTextInputMarkedCallback__deps: [ "$siv3dTextInputElement" ],
 
@@ -144,6 +148,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dRequestTextInputFocus__sig: "vi",
+    siv3dRequestTextInputFocus__proxy: "sync",
     siv3dRequestTextInputFocus__sync: "sync",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
 
@@ -153,6 +158,7 @@ mergeInto(LibraryManager.library, {
         siv3dTextInputElement.textContent = " ".repeat(newText.length);
     },
     siv3dSetTextInputText__sig: "vi",
+    siv3dSetTextInputText__proxy: "sync",
     siv3dSetTextInputText__proxy: "sync",
     siv3dSetTextInputText__deps: [ "$siv3dTextInputElement" ],
 
@@ -174,6 +180,7 @@ mergeInto(LibraryManager.library, {
         selection.addRange(range);
     },
     siv3dSetTextInputCursor__sig: "vi",
+    siv3dSetTextInputCursor__proxy: "sync",
     siv3dSetTextInputCursor__proxy: "proxy",
     siv3dSetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
 
@@ -188,6 +195,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dGetTextInputCursor__sig: "iv",
+    siv3dGetTextInputCursor__proxy: "sync",
     siv3dGetTextInputCursor__proxy: "sync",
     siv3dGetTextInputCursor__deps: [ "$siv3dTextInputElement" ],
 

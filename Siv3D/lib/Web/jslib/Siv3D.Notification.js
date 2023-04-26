@@ -19,6 +19,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dRequestNotificationPermission__sig: "vii",
+    siv3dRequestNotificationPermission__proxy: "sync",
     siv3dRequestNotificationPermission__deps: [ "siv3dMaybeAwake"],
 
     siv3dCreateNotification: function(title, body, actionsNum, actionTexts, callback, callbackArg) {
@@ -48,6 +49,7 @@ mergeInto(LibraryManager.library, {
         return idx;
     },
     siv3dCreateNotification__sig: "iiiiiii",
+    siv3dCreateNotification__proxy: "sync",
     siv3dCreateNotification__deps: [ "$siv3dRegisterUserAction", "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dRegisterNotificationCallback: function(id, callback, callbackArg) {
@@ -71,6 +73,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dRegisterNotificationCallback__sig: "viii",
+    siv3dRegisterNotificationCallback__proxy: "sync",
     siv3dRegisterNotificationCallback__deps: [ "$siv3dNotifications", "siv3dMaybeAwake" ],
 
     siv3dCloseNotification: function(id) {
@@ -80,6 +83,7 @@ mergeInto(LibraryManager.library, {
         delete siv3dNotifications[id];
     },
     siv3dCloseNotification__sig: "vi",
+    siv3dCloseNotification__proxy: "sync",
     siv3dCloseNotification__deps: [ "$siv3dNotifications" ],
 
     siv3dQueryNotificationPermission: function() {
@@ -91,4 +95,5 @@ mergeInto(LibraryManager.library, {
         return status[Notification.permission];
     },
     siv3dQueryNotificationPermission__sig: "iv",
+    siv3dQueryNotificationPermission__proxy: "sync",
 });

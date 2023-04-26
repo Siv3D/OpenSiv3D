@@ -16,5 +16,6 @@ mergeInto(LibraryManager.library, {
         swapChain["configure"](desc);
     },
     siv3dWebGPUConfigureSwapchain__sig: "viii",
+    siv3dWebGPUConfigureSwapchain__proxy: "sync",
     siv3dWebGPUConfigureSwapchain__deps: [ "$WebGPU" ], 
 });

@@ -38,5 +38,6 @@ mergeInto(LibraryManager.library, {
         Module["SDL2"].audioContext.decodeAudioData(fileBytes.buffer, onSuccess, onFailure);   
     },
     siv3dDecodeAudioFromFileAsync__sig: "viii",
+    siv3dDecodeAudioFromFileAsync__proxy: "sync",
     siv3dDecodeAudioFromFileAsync__deps: [ "$AL", "$FS", "siv3dMaybeAwake" ],
 });

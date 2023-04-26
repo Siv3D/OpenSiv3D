@@ -3,12 +3,14 @@ mergeInto(LibraryManager.library, {
         return GLFW.joys[joystickId].id;
     },
     siv3dGetJoystickInfo__sig: "iiiii",
+    siv3dGetJoystickInfo__proxy: "sync",
 
     glfwGetJoystickHats: function () {
         // Not supported.
         return 0;
     },
     glfwGetJoystickHats__sig: "iii",
+    glfwGetJoystickHats__proxy: "sync",
 
     glfwGetKeysSiv3D: function (windowid) {
         const window = GLFW.WindowFromId(windowid);
@@ -21,4 +23,5 @@ mergeInto(LibraryManager.library, {
         return window.keysBuffer;
     },
     glfwGetKeysSiv3D__sig: "ii",
+    glfwGetKeysSiv3D__proxy: "sync",
 });

@@ -7,6 +7,7 @@ mergeInto(LibraryManager.library, {
         Module["onAlert"] && Module["onAlert"](text);
     },
     siv3dCallOnAlert__sig: "vi",
+    siv3dCallOnAlert__proxy: "sync",
 
     siv3dLocateFile: function() {
         if (Module["locateFile"]) {
@@ -17,12 +18,14 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dLocateFile__sig: "iv",
+    siv3dLocateFile__proxy: "sync",
 
     siv3dSetCursorStyle: function(style) {
         const styleText = UTF8ToString(style);
         Module["canvas"]["style"]["cursor"] = styleText;
     },
     siv3dSetCursorStyle__sig: "vi",
+    siv3dSetCursorStyle__proxy: "sync",
 
     siv3dRequestFullscreen: function() {
         siv3dRegisterUserAction(function () {
@@ -30,6 +33,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dRequestFullscreen__sig: "v",
+    siv3dRequestFullscreen__proxy: "sync",
     siv3dRequestFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
 
     siv3dExitFullscreen: function() {
@@ -38,6 +42,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dExitFullscreen__sig: "v",
+    siv3dExitFullscreen__proxy: "sync",
     siv3dExitFullscreen__deps: [ "$siv3dRegisterUserAction", "$Browser" ],
 
     //
@@ -58,6 +63,7 @@ mergeInto(LibraryManager.library, {
         return 4; /* MessageBoxSelection.None */
     },
     siv3dShowMessageBox__sig: "iii",
+    siv3dShowMessageBox__proxy: "sync",
 
     //
     // AngelScript Support
@@ -112,6 +118,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dCallIndirect__sig: "viiii",
+    siv3dCallIndirect__proxy: "sync",
 
     //
     // Misc
@@ -124,6 +131,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dLaunchBrowser__sig: "vi",
+    siv3dLaunchBrowser__proxy: "sync",
     siv3dLaunchBrowser__deps: [ "$siv3dRegisterUserAction" ],
 
     siv3dGetURLParameters: function() {
@@ -146,6 +154,7 @@ mergeInto(LibraryManager.library, {
         return dataPos * 4; // dataPos * sizeof(uint32_t)
     },
     siv3dGetURLParameters__sig: "iv",
+    siv3dGetURLParameters__proxy: "sync",
 
     //
     // Asyncify Support
@@ -160,6 +169,7 @@ mergeInto(LibraryManager.library, {
         return 0;
     },
     siv3dSleepUntilWaked__sig: "iv",
+    siv3dSleepUntilWaked__proxy: "sync",
     siv3dSleepUntilWaked__deps: [ "$Asyncify", "$siv3dAwakeFunction" ],
 
     siv3dMaybeAwake: function() {
@@ -177,6 +187,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dMaybeAwake__sig: "v",
+    siv3dMaybeAwake__proxy: "sync",
     siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction" ],
     
     siv3dRequestAnimationFrame: function() {
@@ -192,7 +203,8 @@ mergeInto(LibraryManager.library, {
             });
         });
     },
-    siv3dRequestAnimationFrame__sig: "v", 
+    siv3dRequestAnimationFrame__sig: "v",
+    siv3dRequestAnimationFrame__proxy: "sync", 
     siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$maybeExit", "abort" ],
 
 #else
@@ -200,13 +212,16 @@ mergeInto(LibraryManager.library, {
         return -1;
     },
     siv3dSleepUntilWaked__sig: "iv",
+    siv3dSleepUntilWaked__proxy: "sync",
     siv3dMaybeAwake: function() {
         // nop
     },
     siv3dMaybeAwake__sig: "v",
+    siv3dMaybeAwake__proxy: "sync",
     siv3dRequestAnimationFrame: function() {
         // nop
     },
     siv3dRequestAnimationFrame__sig: "v",
+    siv3dRequestAnimationFrame__proxy: "sync",
 #endif
 });

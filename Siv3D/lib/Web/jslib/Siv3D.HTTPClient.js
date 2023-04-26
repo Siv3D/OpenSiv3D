@@ -8,6 +8,7 @@ mergeInto(LibraryManager.library, {
         return id;
     },
     siv3dCreateXMLHTTPRequest__sig: "vi",
+    siv3dCreateXMLHTTPRequest__proxy: "sync",
     siv3dCreateXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList", "$siv3dXMLHTTPRequestListNextID" ],
 
     siv3dSetXMLHTTPRequestWriteBackFile: function(id, fileNamePtr) {
@@ -30,6 +31,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dSetXMLHTTPRequestWriteBackFile__sig: "vii",
+    siv3dSetXMLHTTPRequestWriteBackFile__proxy: "sync",
     siv3dSetXMLHTTPRequestWriteBackFile__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dSetXMLHTTPRequestCallback: function(id, fnPtr, userDataPtr) {
@@ -38,6 +40,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dSetXMLHTTPRequestCallback__sig: "viii",
+    siv3dSetXMLHTTPRequestCallback__proxy: "sync",
     siv3dSetXMLHTTPRequestCallback__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dSetXMLHTTPRequestErrorCallback: function(id, fnPtr, userDataPtr) {
@@ -46,6 +49,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dSetXMLHTTPRequestErrorCallback__sig: "viii",
+    siv3dSetXMLHTTPRequestErrorCallback__proxy: "sync",
     siv3dSetXMLHTTPRequestErrorCallback__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dSetXMLHTTPRequestProgressCallback: function(id, fnPtr, userDataPtr) {
@@ -54,6 +58,7 @@ mergeInto(LibraryManager.library, {
         });
     },
     siv3dSetXMLHTTPRequestProgressCallback__sig: "viii",
+    siv3dSetXMLHTTPRequestProgressCallback__proxy: "sync",
     siv3dSetXMLHTTPRequestProgressCallback__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dSetXMLHTTPRequestRequestHeader: function(id, namePtr, dataPtr) {
@@ -62,6 +67,7 @@ mergeInto(LibraryManager.library, {
         siv3dXMLHTTPRequestList[id].setRequestHeader(name, data);
     },
     siv3dSetXMLHTTPRequestRequestHeader__sig: "viii",
+    siv3dSetXMLHTTPRequestRequestHeader__proxy: "sync",
     siv3dSetXMLHTTPRequestRequestHeader__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dGetXMLHTTPRequestResponseHeaders: function(id) {
@@ -70,6 +76,7 @@ mergeInto(LibraryManager.library, {
         return allocate(intArrayFromString(`HTTP/1.1 ${http.status} ${http.statusText}\r\n${responseHeaders}`), ALLOC_NORMAL);
     },
     siv3dGetXMLHTTPRequestResponseHeaders__sig: "ii",
+    siv3dGetXMLHTTPRequestResponseHeaders__proxy: "sync",
     siv3dGetXMLHTTPRequestResponseHeaders__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dSendXMLHTTPRequest: function(id, dataPtr) {
@@ -86,6 +93,7 @@ mergeInto(LibraryManager.library, {
         siv3dXMLHTTPRequestList[id].send(data);
     },
     siv3dSendXMLHTTPRequest__sig: "vii",
+    siv3dSendXMLHTTPRequest__proxy: "sync",
     siv3dSendXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dOpenXMLHTTPRequest: function(id, methodPtr, urlPtr) {
@@ -101,17 +109,20 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dOpenXMLHTTPRequest__sig: "viii",
+    siv3dOpenXMLHTTPRequest__proxy: "sync",
     siv3dOpenXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dAbortXMLHTTPRequest: function(id) {
         siv3dXMLHTTPRequestList[id].abort();
     },
     siv3dAbortXMLHTTPRequest__sig: "vi",
+    siv3dAbortXMLHTTPRequest__proxy: "sync",
     siv3dAbortXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList" ],
 
     siv3dDeleteXMLHTTPRequest: function(id, methodPtr, urlPtr) {
         delete siv3dXMLHTTPRequestList[id];
     },
     siv3dDeleteXMLHTTPRequest__sig: "viii",
+    siv3dDeleteXMLHTTPRequest__proxy: "sync",
     siv3dDeleteXMLHTTPRequest__deps: [ "$siv3dXMLHTTPRequestList" ],
 });
