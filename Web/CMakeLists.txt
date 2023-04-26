@@ -1371,6 +1371,42 @@ target_link_libraries(Siv3D INTERFACE
   ${SIV3D_THIRD_PARTY_LIBRARIES}
 )
 
+set(SIV3D_JSLIBS
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.AudioDecode.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Clipboard.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Dialog.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.DragDrop.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.GamePad.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.GLFW.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.HTTPClient.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.ImageDecode.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.KeyBindings.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.MultiTouch.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Notification.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.System.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextInput.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextRendering.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextToSpeech.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.UserAction.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebCam.js
+  ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebGPU.js
+)
+
+add_custom_command(
+  OUTPUT Siv3D.js
+  COMMAND cat ${SIV3D_JSLIBS} > Siv3D.js
+  DEPENDS ${SIV3D_JSLIBS}
+)
+
+add_custom_target(Siv3DJSLib
+  DEPENDS
+    Siv3D.js
+)
+
+add_dependencies(Siv3D
+  Siv3DJSLib
+)
+
 # Siv3D install settings
 message(STATUS "[info] CMAKE_INSTALL_LIBDIR: ${CMAKE_INSTALL_PREFIX}/\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 message(STATUS "[info] CMAKE_INSTALL_INCLUDEDIR: ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/Siv3D")
@@ -1403,25 +1439,7 @@ install(
 )
 install(
   FILES
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.AudioDecode.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Clipboard.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Dialog.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.DragDrop.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.GamePad.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.GLFW.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.HTTPClient.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.ImageDecode.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.KeyBindings.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.MultiTouch.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.Notification.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.System.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextInput.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextRendering.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.TextToSpeech.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.UserAction.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebCam.js
-    ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.WebGPU.js
+    ${CMAKE_CURRENT_BINARY_DIR}/Siv3D.js
     ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.post.js
     ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.pre.js
     ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.SharedMain.pre.js

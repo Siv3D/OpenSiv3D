@@ -36,7 +36,7 @@ mergeInto(LibraryManager.library, {
         };
         image.src = URL.createObjectURL(imageBlob);
     },
-    siv3dDecodeImageFromFileImpl__deps: [ "$siv3dDecodeCanvas", "$siv3dDecodeCanvasContext" ],
+    $siv3dDecodeImageFromFileImpl__deps: [ "$siv3dDecodeCanvas", "$siv3dDecodeCanvasContext" ],
 
 #if ASYNCIFY
     siv3dDecodeImageFromFile: function(src, size, data) {
