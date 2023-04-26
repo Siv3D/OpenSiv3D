@@ -1404,6 +1404,24 @@ install(
 install(
   FILES
     ${PROJECT_SOURCE_DIR}/Siv3D.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.AudioDecode.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.Clipboard.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.Dialog.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.DragDrop.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.GamePad.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.GLFW.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.HTTPClient.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.ImageDecode.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.KeyBindings.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.MultiTouch.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.Notification.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.System.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.TextInput.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.TextRendering.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.TextToSpeech.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.UserAction.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.WebCam.js
+    ${PROJECT_SOURCE_DIR}/Siv3D.WebGPU.js
     ${PROJECT_SOURCE_DIR}/Siv3D.post.js
     ${PROJECT_SOURCE_DIR}/Siv3D.pre.js
     ${PROJECT_SOURCE_DIR}/Siv3D.sharedMain.pre.js
