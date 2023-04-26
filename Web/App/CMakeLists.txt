@@ -26,15 +26,7 @@ add_executable(Siv3DApp
 # Pre-bundled Files
 #
 set(SIV3D_BUNDLED_FILES
-    /resources/engine/font/min/siv3d-min.woff
-    /resources/engine/font/noto-emoji/LICENSE
-    /resources/engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp
-    /resources/engine/shader/essl
-    /resources/engine/shader/wgsl
-    /resources/engine/texture/box-shadow
-    /resources/engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp
-    /resources/engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp
-    /resources/engine/font/mplus/mplus-1p-regular.ttf.zstdcmp
+    /resources/engine
 )
 
 #
@@ -109,6 +101,8 @@ set(SIV3D_EXE_LINKER_FLAGS
   -sUSE_VORBIS=1
   -sASYNCIFY=1
   -sASYNCIFY_IGNORE_INDIRECT=1
+  -sUSE_PTHREADS=1
+  -sPROXY_TO_PTHREAD=1
   -sUSE_WEBGPU=1
   -sFULL_ES3
   -sMIN_WEBGL_VERSION=2

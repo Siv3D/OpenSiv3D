@@ -93,7 +93,7 @@ ${ExampleItems}
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <Link>
-      <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
+      <PreloadFile>$(ProjectDir)\resources@/resources;</PreloadFile>
       <AdditionalOptions>-s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s MODULARIZE=1
   -s EXCEPTION_CATCHING_ALLOWED=["main","_ZN3s3d7TryMainEv"] -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
   -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dGetClipboardText', 'siv3dDecodeImageFromFile', 'siv3dSleepUntilWaked', 'invoke_vi', 'invoke_v' ]"
@@ -122,12 +122,12 @@ ${ExampleItems}
       <AdditionalOptions>-D_XM_NO_INTRINSICS_</AdditionalOptions>
     </ClCompile>
     <Link>
-     <AdditionalOptions>-s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s MODULARIZE=1
+      <AdditionalOptions>-s USE_OGG=1 -s USE_VORBIS=1 -s WARN_ON_UNDEFINED_SYMBOLS=0 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FULL_ES3=1 -s USE_WEBGPU=1 -s USE_GLFW=3 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s MODULARIZE=1
   -s ASYNCIFY=1 -s ASYNCIFY_IGNORE_INDIRECT=1
   -s ASYNCIFY_IMPORTS="[ 'siv3dRequestAnimationFrame', 'siv3dGetClipboardText', 'siv3dDecodeImageFromFile', 'siv3dSleepUntilWaked', 'invoke_vi', 'invoke_v' ]"
   -s ASYNCIFY_ADD="[ 'main','Main()','dynCall_v','dynCall_vi','s3d::TryMain()','s3d::CSystem::init()','s3d::System::Update()','s3d::AACDecoder::decode(*) const','s3d::MP3Decoder::decode(*) const','s3d::CAudioDecoder::decode(*)','s3d::AudioDecoder::Decode(*)','s3d::Wave::Wave(*)','s3d::Audio::Audio(*)','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::GenericDecoder::decode(*) const','s3d::CImageDecoder::decode(*)','s3d::Image::Image(*)','s3d::Texture::Texture(*)','s3d::ImageDecoder::Decode(*)','s3d::ImageDecoder::GetImageInfo(*)','s3d::Model::Model(*)','s3d::CModel::create(*)','s3d::CRenderer2D_GLES3::init()','s3d::CRenderer2D_WebGPU::init()','s3d::Clipboard::GetText(*)','s3d::CClipboard::getText(*)','s3d::SimpleHTTP::Save(*)','s3d::SimpleHTTP::Load(*)','s3d::SimpleHTTP::Get(*)','s3d::SimpleHTTP::Post(*)','s3d::VideoReader::VideoReader(*)','s3d::VideoReader::open(*)','s3d::Platform::Web::FetchFile(*)' ]" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>Siv3DScript;Siv3D;opencv_objdetect;opencv_photo;opencv_imgproc;opencv_core;harfbuzz;freetype;turbojpeg;gif;webp;opusfile;opus;tiff;png;z;SDL2;</AdditionalDependencies>
-      <PreloadFile>$(ProjectDir)\resources@/resources;$(ProjectDir)\example@/example</PreloadFile>
+      <PreloadFile>$(ProjectDir)\resources@/resources;</PreloadFile>
       <JsLibrary>$(SIV3D_0_6_6_WEB)\lib\Siv3D.js;</JsLibrary>
       <PreJsFile>$(SIV3D_0_6_6_WEB)\lib\Siv3D.pre.js;</PreJsFile>
       <PostJsFile>$(ProjectDir)\Templates\Embeddable\web-player.js;$(SIV3D_0_6_6_WEB)\lib\Siv3D.post.js;</PostJsFile>
