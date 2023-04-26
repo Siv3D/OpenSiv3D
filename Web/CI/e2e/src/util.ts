@@ -184,7 +184,7 @@ export class Siv3DApp {
             const actions = driver.actions();
             
             if (isiOS) {
-                actions.move(this.scalePoint({ x: 20, y: 20}))
+                actions.move(this.scalePoint({ x: 20, y: 20 }))
                     .keyDown(key)
                     .keyUp(key)
                     .pause(200);
