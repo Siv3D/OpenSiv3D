@@ -106,7 +106,7 @@ jobs:
           cp build/Siv3D.js Package/lib/Siv3D/
           cp ../Siv3D/lib/Web/jslib/Siv3D.pre.js Package/lib/Siv3D/
           cp ../Siv3D/lib/Web/jslib/Siv3D.post.js Package/lib/Siv3D/
-          cp ../Siv3D/lib/Web/jslib/Siv3D.SharedMain.js Package/lib/Siv3D/
+          cp ../Siv3D/lib/Web/jslib/Siv3D.SharedMain.pre.js Package/lib/Siv3D/
           cp -r App/resources Package
           cp -r App/example Package   
           cp -r App/Templates Package   
