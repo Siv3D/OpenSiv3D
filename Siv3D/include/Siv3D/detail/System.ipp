@@ -11,6 +11,11 @@
 
 # pragma once
 
+# if SIV3D_PLATFORM(WEB)
+#   include <emscripten/threading.h>
+#   include <emscripten/proxying.h>
+# endif
+
 namespace s3d
 {
 # if SIV3D_PLATFORM(WEB)
@@ -19,8 +24,31 @@ namespace s3d
 	{
         namespace detail
         {
+        # if defined(PROXY_TO_PTHREAD)
             __attribute__((import_name("siv3dSleepUntilWaked")))
-            int siv3dSleepUntilWaked();
+            extern void siv3dSleepUntilWakedImpl(em_proxying_ctx*, void*);
+
+            static int siv3dSleepUntilWaked()
+            {
+                auto defaultQueue = ::emscripten_proxy_get_system_queue();
+
+                if (::emscripten_proxy_sync_with_ctx(
+                    defaultQueue,
+                    emscripten_main_browser_thread_id(),
+                    &siv3dSleepUntilWakedImpl,
+                    nullptr) == 1)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        # else
+            __attribute__((import_name("siv3dSleepUntilWaked")))
+            extern int siv3dSleepUntilWaked();
+        # endif
         }
 
         /// @brief 指定した AsyncTask の準備ができるまで待機します

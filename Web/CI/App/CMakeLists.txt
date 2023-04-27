@@ -6,6 +6,8 @@ project(OpenSiv3D_Web_App CXX C ASM)
 #
 option(SIV3D_WEBGPU_BACKEND "Enable WebGPU rendering backend." OFF)
 option(SIV3D_USE_SCRIPT "Enable Siv3D Script." OFF)
+option(SIV3D_USE_ASYNCIFY "Enable synchronous operations with emscripten's Asyncify." ON)
+option(SIV3D_USE_PROXY_TO_PTHREAD "Enable synchronous operations with emscripten's PROXY_TO_PTHREAD." OFF)
 option(SIV3D_USE_BROWSER_IMAGE_ENCODING "Enable Browser Image Encoding." OFF)
 
 option(SIV3D_ENABLE_SHARED_LIB "Enable WebAssembly shared library linking. (emscripten's experimental feature)" OFF)
@@ -107,15 +109,14 @@ set(SIV3D_ASYNCIFY_ADD
 find_package(Siv3D REQUIRED)
 
 set(SIV3D_CXX_DEFINITIONS)
+set(SIV3D_CXX_FLAGS)
 set(SIV3D_EXE_LINKER_FLAGS
   --no-export-dynamic
   -sERROR_ON_UNDEFINED_SYMBOLS=0
   -sALLOW_MEMORY_GROWTH=1
   -sUSE_GLFW=3
   -sUSE_OGG=1
-  -sUSE_VORBIS=1
-  -sASYNCIFY=1
-  -sASYNCIFY_IGNORE_INDIRECT=1
+  -sUSE_VORBIS=1  
 )
 set(SIV3D_LINK_LIBRARIES
   Siv3D::Siv3D
@@ -130,6 +131,23 @@ set(SIV3DAPP_EXE_LINKER_FLAGS
 #
 # Configuration-specific Flags
 #
+if (SIV3D_USE_ASYNCIFY)
+  list(APPEND SIV3D_EXE_LINKER_FLAGS
+    -sASYNCIFY=1
+    -sASYNCIFY_IGNORE_INDIRECT=1
+  )
+endif()
+
+if (SIV3D_USE_PROXY_TO_PTHREAD)
+  list(APPEND SIV3D_CXX_FLAGS
+    -sUSE_PTHREAD=1
+  )
+  list(APPEND SIV3D_EXE_LINKER_FLAGS
+    -sUSE_PTHREAD=1
+    -sPROXY_TO_PTHREAD=1
+  )
+endif()
+
 if (SIV3D_WEBGPU_BACKEND)
   list(APPEND SIV3D_CXX_DEFINITIONS
     SIV3D_WEBGPU_BACKEND
@@ -206,6 +224,7 @@ endfunction()
 add_library(Siv3DAppInterface INTERFACE)
 
 target_compile_definitions(Siv3DAppInterface INTERFACE ${SIV3D_CXX_DEFINITIONS})
+target_compile_options(Siv3DAppInterface INTERFACE ${SIV3D_CXX_FLAGS})
 target_link_options(Siv3DAppInterface INTERFACE ${SIV3D_EXE_LINKER_FLAGS} ${SIV3DAPP_EXE_LINKER_FLAGS})
 target_link_libraries(Siv3DAppInterface INTERFACE ${SIV3D_LINK_LIBRARIES})
 

@@ -37,12 +37,12 @@ mergeInto(LibraryManager.library, {
     siv3dGetClipboardText__sig: "iv",
     siv3dGetClipboardText__deps: [ "$siv3dGetClipboardTextImpl", "$Asyncify" ],
 #elif PROXY_TO_PTHREAD
-    siv3dGetClipboardText: function(ctx) {
+    siv3dGetClipboardText: function(ctx, _) {
         siv3dGetClipboardTextImpl(function () {
             Module["_emscripten_proxy_finish"](ctx);
         });
     },
-    siv3dGetClipboardText__sig: "ii",
+    siv3dGetClipboardText__sig: "vii",
     siv3dGetClipboardText__proxy: "sync",
     siv3dGetClipboardText__deps: [ "$siv3dGetClipboardTextImpl" ],
 #else

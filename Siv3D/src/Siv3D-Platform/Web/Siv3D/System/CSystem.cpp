@@ -55,6 +55,9 @@
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
 
+# include <emscripten/threading.h>
+# include <emscripten/proxying.h>
+
 namespace s3d
 {
 	namespace detail
@@ -68,8 +71,23 @@ namespace s3d
 		__attribute__((import_name("siv3dInitDialog")))
 		extern void siv3dInitDialog();
 
+	# if defined(PROXY_TO_PTHREAD)
+		__attribute__((import_name("siv3dRequestAnimationFrame")))
+		extern void siv3dRequestAnimationFrameImpl(em_proxying_ctx*, void*);
+
+		static void siv3dRequestAnimationFrame()
+		{
+			auto defaultQueue = ::emscripten_proxy_get_system_queue();
+			::emscripten_proxy_sync_with_ctx(
+				defaultQueue,
+				emscripten_main_browser_thread_id(),
+				&siv3dRequestAnimationFrameImpl,
+				nullptr);
+		}
+    # else
 		__attribute__((import_name("siv3dRequestAnimationFrame")))
 		extern void siv3dRequestAnimationFrame();
+	# endif
 	}
 
 	CSystem::CSystem()

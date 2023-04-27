@@ -161,7 +161,6 @@ mergeInto(LibraryManager.library, {
     //
 #if ASYNCIFY
 
-    $siv3dAwakeFunction: null,
     siv3dSleepUntilWaked: function() {
         Asyncify.handleSleep(function(wakeUp) {
             siv3dAwakeFunction = wakeUp;
@@ -171,7 +170,50 @@ mergeInto(LibraryManager.library, {
     siv3dSleepUntilWaked__sig: "iv",
     siv3dSleepUntilWaked__proxy: "sync",
     siv3dSleepUntilWaked__deps: [ "$Asyncify", "$siv3dAwakeFunction" ],
+    
+    siv3dRequestAnimationFrame: function() {
+        Asyncify.handleSleep(function(wakeUp) {
+            siv3dAwakeFunction = wakeUp;
+            requestAnimationFrame(siv3dMaybeAwake);
+        });
+    },
+    siv3dRequestAnimationFrame__sig: "v",
+    siv3dRequestAnimationFrame__proxy: "sync", 
+    siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$siv3dAwakeFunction" ],
 
+#elif PROXY_TO_PTHREAD
+
+    siv3dSleepUntilWaked: function(ctx, _) {
+        siv3dAwakeFunction = function () {
+            Module["_emscripten_proxy_finish"](ctx);
+        };
+    },
+    siv3dSleepUntilWaked__sig: "vii",
+    siv3dSleepUntilWaked__deps: [ "$siv3dAwakeFunction" ],
+
+    siv3dRequestAnimationFrame: function(ctx, _) {
+        siv3dAwakeFunction = function () {
+            Module["_emscripten_proxy_finish"](ctx);
+        };
+        requestAnimationFrame(_siv3dMaybeAwake);
+    },
+    siv3dRequestAnimationFrame__sig: "v",
+    siv3dRequestAnimationFrame__deps: [ "$siv3dAwakeFunction", "siv3dMaybeAwake" ],
+
+#else
+
+    siv3dSleepUntilWaked: function() {
+        return -1;
+    },
+    siv3dSleepUntilWaked__sig: "iv",
+    siv3dRequestAnimationFrame: function() {
+        // nop
+    },
+    siv3dRequestAnimationFrame__sig: "v",
+
+#endif
+
+    $siv3dAwakeFunction: null,
     siv3dMaybeAwake: function() {
         if (siv3dAwakeFunction) {
             let awake = siv3dAwakeFunction;
@@ -182,46 +224,13 @@ mergeInto(LibraryManager.library, {
             } catch (e) {
                 abort(e);
             } finally {
+#if ASYNCIFY
                 maybeExit();
+#endif
             }
         }
     },
     siv3dMaybeAwake__sig: "v",
     siv3dMaybeAwake__proxy: "sync",
-    siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction" ],
-    
-    siv3dRequestAnimationFrame: function() {
-        Asyncify.handleSleep(function(wakeUp) {
-            requestAnimationFrame(function() {
-                try {
-                    wakeUp();
-                } catch (e) {
-                    abort(e);
-                } finally {
-                    maybeExit();
-                }
-            });
-        });
-    },
-    siv3dRequestAnimationFrame__sig: "v",
-    siv3dRequestAnimationFrame__proxy: "sync", 
-    siv3dRequestAnimationFrame__deps: [ "$Asyncify", "$maybeExit", "abort" ],
-
-#else
-    siv3dSleepUntilWaked: function() {
-        return -1;
-    },
-    siv3dSleepUntilWaked__sig: "iv",
-    siv3dSleepUntilWaked__proxy: "sync",
-    siv3dMaybeAwake: function() {
-        // nop
-    },
-    siv3dMaybeAwake__sig: "v",
-    siv3dMaybeAwake__proxy: "sync",
-    siv3dRequestAnimationFrame: function() {
-        // nop
-    },
-    siv3dRequestAnimationFrame__sig: "v",
-    siv3dRequestAnimationFrame__proxy: "sync",
-#endif
+    siv3dMaybeAwake__deps: [ "$siv3dAwakeFunction", "$maybeExit", "abort" ],
 });
