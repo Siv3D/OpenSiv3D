@@ -191,14 +191,31 @@ mergeInto(LibraryManager.library, {
     siv3dSleepUntilWaked__sig: "vii",
     siv3dSleepUntilWaked__deps: [ "$siv3dAwakeFunction" ],
 
+    $siv3dRequestedFrameId: null,
+    $siv3dNextFrameReached: false,
     siv3dRequestAnimationFrame: function(ctx, _) {
-        siv3dAwakeFunction = function () {
-            Module["_emscripten_proxy_finish"](ctx);
+        if (siv3dNextFrameReached) {
+            Module["_emscripten_proxy_finish"](ctx);  
+        } else {
+            siv3dAwakeFunction = function () {
+                Module["_emscripten_proxy_finish"](ctx);
+            };
+        }
+
+        function onAnimationFrame() {
+            siv3dNextFrameReached = true;
+            _siv3dMaybeAwake();
+            siv3dRequestedFrameId = requestAnimationFrame(onAnimationFrame);
         };
-        requestAnimationFrame(_siv3dMaybeAwake);
+
+        if (!siv3dRequestedFrameId) {
+            siv3dRequestedFrameId = requestAnimationFrame(onAnimationFrame);
+        }
+
+        siv3dNextFrameReached = false;
     },
     siv3dRequestAnimationFrame__sig: "v",
-    siv3dRequestAnimationFrame__deps: [ "$siv3dAwakeFunction", "siv3dMaybeAwake" ],
+    siv3dRequestAnimationFrame__deps: [ "$siv3dAwakeFunction", "siv3dMaybeAwake", "$siv3dRequestedFrameId", "$siv3dNextFrameReached" ],
 
 #else
 
