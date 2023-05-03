@@ -1,0 +1,65 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches:
+      - v6_web_develop
+  pull_request:
+    branches:
+      - v6_web_develop
+
+jobs:
+  Web:
+
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+
+    container: 
+      image: emscripten/emsdk:3.1.20
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Boost
+        uses: ./.github/actions/download-boost
+        with:
+          version: '1.74.0'
+          cache-name: cache-boost-headers
+          destination: Dependencies/boost_1_74_0
+
+      - name: Prebuild Third-party Libraries
+        run: |
+          embuilder.py build ogg vorbis
+
+      - name: Configure Siv3D
+        working-directory: Web
+        run: |
+          mkdir build && cd build
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+
+      - name: Build Siv3D
+        working-directory: Web
+        run: |
+          cmake --build build
+
+      - name: Install Siv3D
+        working-directory: Web
+        run: |
+          cmake --install build
+
+      - name: Configure Siv3DApp
+        working-directory: Web/App
+        run: |
+          mkdir build && cd build
+          emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+
+      - name: Build Siv3DApp
+        working-directory: Web/App
+        run: |
+          cmake --build build
+
+      - name: Run Siv3DApp
+        working-directory: Web/App
+        run: |
+          cd build
+          emrun.py --timeout 180 --timeout_returncode 0 Siv3DApp.html
