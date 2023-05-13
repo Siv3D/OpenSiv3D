@@ -18,6 +18,11 @@ namespace s3d
 		: base_type{ std::nullopt } {}
 
 	template <class Type>
+	template <class U>
+	inline Optional<Type>::Optional(Optional<U>&& other) noexcept(std::is_nothrow_constructible_v<Type, U>)
+		: base_type{ std::move(other) } {}
+
+	template <class Type>
 	inline Optional<Type>& Optional<Type>::operator =(None_t) noexcept
 	{
 		base_type::operator =(std::nullopt);
