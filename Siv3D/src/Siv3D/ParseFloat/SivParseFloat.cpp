@@ -55,7 +55,7 @@ namespace s3d
 			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
 
 			int unused;
-			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), false, &unused);
+			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), true, &unused);
 
 			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
 			{
