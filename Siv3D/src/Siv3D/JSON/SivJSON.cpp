@@ -758,6 +758,16 @@ namespace s3d
 		return m_detail->get().is_object();
 	}
 
+	bool JSON::isBinary() const
+	{
+		if (not m_isValid)
+		{
+			return false;
+		}
+
+		return m_detail->get().is_binary();
+	}
+
 	JSONValueType JSON::getType() const
 	{
 		if (not m_isValid)
@@ -765,29 +775,35 @@ namespace s3d
 			return JSONValueType::Empty;
 		}
 
-		if (isArray())
+		const auto& j = m_detail->get();
+
+		if (j.is_array())
 		{
 			return JSONValueType::Array;
 		}
-		else if (isBool())
+		else if (j.is_boolean())
 		{
 			return JSONValueType::Bool;
 		}
-		else if (isNull())
+		else if (j.is_null())
 		{
 			return JSONValueType::Null;
 		}
-		else if (isNumber())
+		else if (j.is_number())
 		{
 			return JSONValueType::Number;
 		}
-		else if (isObject())
+		else if (j.is_object())
 		{
 			return JSONValueType::Object;
 		}
-		else if (isString())
+		else if (j.is_string())
 		{
 			return JSONValueType::String;
+		}
+		else if (j.is_binary())
+		{
+			return JSONValueType::Binary;
 		}
 
 		throw Error{ U"JSON::getType(): Unknown JSONValueType" };
@@ -811,6 +827,16 @@ namespace s3d
 		}
 
 		return Unicode::FromUTF8(m_detail->get().get<std::string>());
+	}
+
+	Array<uint8> JSON::getBinary() const
+	{
+		if (not isBinary())
+		{
+			throw Error{ U"JSON::getBinary(): Value is not a Binary type" };
+		}
+
+		return m_detail->get().get_binary();
 	}
 
 	JSON JSON::operator [](const StringView name)

@@ -37,6 +37,8 @@ namespace s3d
 		Number,
 
 		Bool,
+
+		Binary,
 	};
 
 	/// @brief JSON が持つ要素を走査するために使用するイテレータ
@@ -409,6 +411,10 @@ namespace s3d
 		[[nodiscard]]
 		bool isObject() const;
 
+		/// @brief 所有している値が バイナリ であるかを返します。 
+		[[nodiscard]]
+		bool isBinary() const;
+
 		/// @brief 所有している値の種類を取得します。
 		/// @return 所有している値の種類を表す列挙体の値
 		[[nodiscard]]
@@ -420,13 +426,18 @@ namespace s3d
 		bool hasElement(StringView name) const;
 
 		/// @brief 所有している値が文字列の場合に、その値を String として取得します。
-		/// @return 取得したその値
+		/// @return 取得した値
 		[[nodiscard]]
 		String getString() const;
 
+		/// @brief 所有している値がバイナリである場合に、その値を配列として取得します。
+		/// @return 取得した値
+		[[nodiscard]]
+		Array<uint8> getBinary() const;
+
 		/// @brief 所有している値を Type の値として取得しようとし、失敗した場合は例外を投げます。
 		/// @tparam Type 取得したい型 
-		/// @return 取得したその値
+		/// @return 取得した値
 		/// @exception Type の値として取得するのに失敗した場合
 		template <class Type>
 		[[nodiscard]]
