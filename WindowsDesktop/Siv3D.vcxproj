@@ -2959,6 +2959,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>26451;26812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -2985,6 +2986,7 @@
       <DisableSpecificWarnings>26451;26812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

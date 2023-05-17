@@ -74,6 +74,7 @@
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,6 +101,7 @@
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <BuildStlModules>false</BuildStlModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
