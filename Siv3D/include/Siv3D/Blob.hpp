@@ -43,7 +43,7 @@ namespace s3d
 		explicit Blob(size_t sizeBytes);
 
 		SIV3D_NODISCARD_CXX20
-		explicit Blob(Arg::reserve_<size_t> resrveSizeBytes);
+		explicit Blob(Arg::reserve_<size_t> reserveSizeBytes);
 
 		SIV3D_NODISCARD_CXX20
 		explicit Blob(FilePathView path);

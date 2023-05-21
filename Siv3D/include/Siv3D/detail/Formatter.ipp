@@ -63,8 +63,8 @@ namespace s3d
 		Formatter(formatData, ilist.begin(), ilist.end());
 	}
 
-	template <class Fitrst, class Second>
-	inline void Formatter(FormatData& formatData, const std::pair<Fitrst, Second>& pair)
+	template <class First, class Second>
+	inline void Formatter(FormatData& formatData, const std::pair<First, Second>& pair)
 	{
 		formatData.string.push_back(U'{');
 		Formatter(formatData, pair.first);

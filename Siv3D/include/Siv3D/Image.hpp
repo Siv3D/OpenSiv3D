@@ -392,10 +392,10 @@ namespace s3d
 		[[nodiscard]]
 		Blob encodeJPEG(int32 quality = JPEGEncoder::DefaultQuality) const;
 
-		bool savePPM(FilePathView path, PPMType format = PPMEncoder::DefaultFromat) const;
+		bool savePPM(FilePathView path, PPMType format = PPMEncoder::DefaultFormat) const;
 
 		[[nodiscard]]
-		Blob encodePPM(PPMType format = PPMEncoder::DefaultFromat) const;
+		Blob encodePPM(PPMType format = PPMEncoder::DefaultFormat) const;
 
 		bool saveWebP(FilePathView path, Lossless lossless = Lossless::No, double quality = WebPEncoder::DefaultQuality, WebPMethod method = WebPMethod::Default) const;
 

@@ -21,7 +21,7 @@ namespace s3d
 	public:
 
 		/// @brief デフォルトの PPM フォーマット (PPMType::AsciiRGB)
-		static constexpr PPMType DefaultFromat = PPMType::AsciiRGB;
+		static constexpr PPMType DefaultFormat = PPMType::AsciiRGB;
 
 		/// @brief エンコーダの対応形式 `U"PPM"` を返します。
 		/// @return 文字列 `U"PPM"`

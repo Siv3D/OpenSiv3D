@@ -245,7 +245,7 @@ namespace s3d
 
 	bool PPMEncoder::save(const Image& image, const FilePathView path) const
 	{
-		return save(image, path, DefaultFromat);
+		return save(image, path, DefaultFormat);
 	}
 
 	bool PPMEncoder::save(const Image& image, const FilePathView path, const PPMType format) const
@@ -262,7 +262,7 @@ namespace s3d
 
 	bool PPMEncoder::encode(const Image& image, IWriter& writer) const
 	{
-		return encode(image, writer, DefaultFromat);
+		return encode(image, writer, DefaultFormat);
 	}
 
 	bool PPMEncoder::encode(const Image& image, IWriter& writer, PPMType format) const
@@ -293,7 +293,7 @@ namespace s3d
 
 	Blob PPMEncoder::encode(const Image& image) const
 	{
-		return encode(image, DefaultFromat);
+		return encode(image, DefaultFormat);
 	}
 
 	Blob PPMEncoder::encode(const Image& image, PPMType format) const

@@ -20,8 +20,8 @@ namespace s3d
 	Blob::Blob(const size_t sizeBytes)
 		: m_data(sizeBytes) {}
 
-	Blob::Blob(const Arg::reserve_<size_t> resrveSizeBytes)
-		: m_data(resrveSizeBytes) {}
+	Blob::Blob(const Arg::reserve_<size_t> reserveSizeBytes)
+		: m_data(reserveSizeBytes) {}
 
 	Blob::Blob(const FilePathView path)
 	{
