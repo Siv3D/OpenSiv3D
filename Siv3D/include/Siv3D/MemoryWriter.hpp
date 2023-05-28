@@ -25,7 +25,7 @@ namespace s3d
 		MemoryWriter() = default;
 
 		SIV3D_NODISCARD_CXX20
-		explicit MemoryWriter(Arg::reserve_<size_t> resrveSizeBytes);
+		explicit MemoryWriter(Arg::reserve_<size_t> reserveSizeBytes);
 
 		[[nodiscard]]
 		bool isOpen() const noexcept override;

@@ -13,8 +13,8 @@
 
 namespace s3d
 {
-	MemoryWriter::MemoryWriter(const Arg::reserve_<size_t> resrveSizeBytes)
-		: m_blob{ resrveSizeBytes } {}
+	MemoryWriter::MemoryWriter(const Arg::reserve_<size_t> reserveSizeBytes)
+		: m_blob{ reserveSizeBytes } {}
 
 	bool MemoryWriter::isOpen() const noexcept
 	{

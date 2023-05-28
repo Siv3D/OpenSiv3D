@@ -24,34 +24,34 @@ namespace s3d
 		RenderTexture();
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDpeth = HasDepth::No);
+		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const TextureFormat& format, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(uint32 width, uint32 height, const TextureFormat& format, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, HasDepth hasDpeth);
+		RenderTexture(uint32 width, uint32 height, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Size& size, const TextureFormat& format, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(const Size& size, const TextureFormat& format, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Size& size, HasDepth hasDpeth);
+		RenderTexture(const Size& size, HasDepth hasDepth);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Image& image, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(const Image& image, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<float>& image, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(const Grid<float>& image, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float2>& image, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(const Grid<Float2>& image, HasDepth hasDepth = HasDepth::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float4>& image, HasDepth hasDpeth = HasDepth::No);
+		RenderTexture(const Grid<Float4>& image, HasDepth hasDepth = HasDepth::No);
 
 		virtual ~RenderTexture();
 

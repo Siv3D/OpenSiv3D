@@ -18,44 +18,44 @@ namespace s3d
 	RenderTexture::RenderTexture()
 		: Texture{} {}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDpeth)
-		: RenderTexture{ Size{ width, height }, format, hasDpeth }
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
+		: RenderTexture{ Size{ width, height }, format, hasDepth }
 	{
 		clear(color);
 	}
 
-	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDpeth)
-		: RenderTexture{ size, format, hasDpeth }
+	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
+		: RenderTexture{ size, format, hasDepth }
 	{
 		clear(color);
 	}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat& format, const HasDepth hasDpeth)
-		: RenderTexture{ Size{ width, height }, format, hasDpeth } {}
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat& format, const HasDepth hasDepth)
+		: RenderTexture{ Size{ width, height }, format, hasDepth } {}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const HasDepth hasDpeth)
-		: RenderTexture{ Size{ width, height }, TextureFormat::R8G8B8A8_Unorm, hasDpeth } {}
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const HasDepth hasDepth)
+		: RenderTexture{ Size{ width, height }, TextureFormat::R8G8B8A8_Unorm, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Size& size, const TextureFormat& format, const HasDepth hasDpeth)
-		: Texture{ Texture::Render{}, size, format, hasDpeth } {}
+	RenderTexture::RenderTexture(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
+		: Texture{ Texture::Render{}, size, format, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Size& size, const HasDepth hasDpeth)
-		: RenderTexture{ size, TextureFormat::R8G8B8A8_Unorm, hasDpeth } {}
+	RenderTexture::RenderTexture(const Size& size, const HasDepth hasDepth)
+		: RenderTexture{ size, TextureFormat::R8G8B8A8_Unorm, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Image& image, const HasDepth hasDpeth)
-		: Texture{ Texture::Render{}, image, hasDpeth } {}
+	RenderTexture::RenderTexture(const Image& image, const HasDepth hasDepth)
+		: Texture{ Texture::Render{}, image, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Grid<float>& image, const HasDepth hasDpeth)
-		: Texture{ Texture::Render{}, image, hasDpeth } {}
+	RenderTexture::RenderTexture(const Grid<float>& image, const HasDepth hasDepth)
+		: Texture{ Texture::Render{}, image, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Grid<Float2>& image, const HasDepth hasDpeth)
-		: Texture{ Texture::Render{}, image, hasDpeth } {}
+	RenderTexture::RenderTexture(const Grid<Float2>& image, const HasDepth hasDepth)
+		: Texture{ Texture::Render{}, image, hasDepth } {}
 
-	RenderTexture::RenderTexture(const Grid<Float4>& image, const HasDepth hasDpeth)
-		: Texture{ Texture::Render{}, image, hasDpeth } {}
+	RenderTexture::RenderTexture(const Grid<Float4>& image, const HasDepth hasDepth)
+		: Texture{ Texture::Render{}, image, hasDepth } {}
 
-	RenderTexture::RenderTexture(MSRender, const Size& size, const TextureFormat& format, const HasDepth hasDpeth)
-		: Texture{ Texture::MSRender{}, size, format, hasDpeth } {}
+	RenderTexture::RenderTexture(MSRender, const Size& size, const TextureFormat& format, const HasDepth hasDepth)
+		: Texture{ Texture::MSRender{}, size, format, hasDepth } {}
 
 	RenderTexture::~RenderTexture() {}
 
