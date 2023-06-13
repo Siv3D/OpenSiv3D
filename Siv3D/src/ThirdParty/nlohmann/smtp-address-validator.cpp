@@ -63,7 +63,7 @@ static const short _address_key_offsets[] = {
 	1363, 1365, 1367, 1368, 1370, 1388, 0
 };
 
-static const char _address_trans_keys[] = {
+static const signed char _address_trans_keys[] = {
 	-32, -19, -16, -12, 34, 45, 61, 63,
 	-62, -33, -31, -17, -15, -13, 33, 39,
 	42, 43, 47, 57, 65, 90, 94, 126,
@@ -711,7 +711,7 @@ bool is_address(const char* p, const char* pe)
 	{
 		int _klen;
 		unsigned int _trans = 0;
-		const char * _keys;
+		const signed char * _keys;
 		const signed char * _acts;
 		unsigned int _nacts;
 		_resume: {}
@@ -728,9 +728,9 @@ bool is_address(const char* p, const char* pe)
 			
 			_klen = (int)_address_single_lengths[cs];
 			if ( _klen > 0 ) {
-				const char *_lower = _keys;
-				const char *_upper = _keys + _klen - 1;
-				const char *_mid;
+				const signed char *_lower = _keys;
+				const signed char *_upper = _keys + _klen - 1;
+				const signed char *_mid;
 				while ( 1 ) {
 					if ( _upper < _lower ) {
 						_keys += _klen;
@@ -752,9 +752,9 @@ bool is_address(const char* p, const char* pe)
 			
 			_klen = (int)_address_range_lengths[cs];
 			if ( _klen > 0 ) {
-				const char *_lower = _keys;
-				const char *_upper = _keys + (_klen<<1) - 2;
-				const char *_mid;
+				const signed char *_lower = _keys;
+				const signed char *_upper = _keys + (_klen<<1) - 2;
+				const signed char *_mid;
 				while ( 1 ) {
 					if ( _upper < _lower ) {
 						_trans += (unsigned int)_klen;
