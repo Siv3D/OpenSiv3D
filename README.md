@@ -106,17 +106,17 @@
 
 ## How to Install Siv3D + Tutorial
 
-- **(English) Getting Started with Siv3D:** https://siv3d.github.io/
+- **(English) Getting Started with Siv3D:** https://siv3d.github.io/en-us/
 - **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
 **v0.6.10** | *released 17 May 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|
-| Windows            | [**Download SDK**](https://siv3d.github.io/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.5<br>- Windows 10 SDK<br>- Intel / AMD CPU |
-| macOS              | [**Download SDK**](https://siv3d.github.io/download/macos/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/macos/) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
-| Linux              | [**Compiling for Linux**](https://siv3d.github.io/download/ubuntu/) /<br>[**Linux 版のビルド**](https://siv3d.github.io/ja-jp/download/ubuntu/) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
-| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/download) /<br>[**Web 版のビルド**](https://siv3d.kamenokosoft.com/ja/download) | Web browser with WebAssembly and WebGL2 support |
+| Windows            | [**Download SDK**](https://siv3d.github.io/en-us/download/windows/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/windows/) | - Windows 10 / 11 (64-bit)<br>- Microsoft Visual C++ 2022 17.5<br>- Windows 10 SDK<br>- Intel / AMD CPU |
+| macOS              | [**Download SDK**](https://siv3d.github.io/en-us/download/macos/) /<br>[**SDK をダウンロード**](https://siv3d.github.io/ja-jp/download/macos/) | - macOS Mojave / Catalina / Big Sur / Monterey<br>- Xcode 11.3 or newer (Big Sur requires Xcode 12.5 or newer)<br>- Intel CPU / Apple Silicon (Rosetta mode)*<br>- OpenGL 4.1 compatible hardware |
+| Linux              | [**Compiling for Linux**](https://siv3d.github.io/en-us/download/ubuntu/) /<br>[**Linux 版のビルド**](https://siv3d.github.io/ja-jp/download/ubuntu/) | - GCC 9.3.0 (with Boost 1.71.0) / GCC 11.2 (with Boost 1.74.0)<br>- Intel / AMD CPU<br>- OpenGL 4.1 compatible hardware |
+| Web (experimental**) | [**Compiling for Web**](https://siv3d.kamenokosoft.com/docs/en/) /<br>[**Web 版のビルド**](https://siv3d.kamenokosoft.com/docs/ja/) | Web browser with WebAssembly and WebGL2 support |
 
 <small>* Native Apple Silicon support will be added in the future release. You can build and run Siv3D in Rosetta mode</small><br><small>** Some functionality may be missing or limited</small>
 
