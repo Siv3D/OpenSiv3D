@@ -147,9 +147,10 @@ namespace s3d
 		[[nodiscard]]
 		double DeltaTime() noexcept;
 
-		/// @brief アプリケーションが起動してからの経過時間（秒）を返します。
+		/// @brief アプリケーションが起動してからのシーンの経過時間（秒）を返します。
 		/// @remark `System::Update()` を呼ぶことで値が更新されます。
-		/// @return アプリケーションが起動してからの経過時間（秒）
+		/// @return アプリケーションが起動してからのシーンの経過時間（秒）
+		/// @remark `GetMaxDeltaTime()` の設定によっては、実際のアプリケーション起動時間よりも小さくなることがあります。
 		[[nodiscard]]
 		double Time() noexcept;
 
