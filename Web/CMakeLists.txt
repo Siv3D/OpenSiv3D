@@ -1485,6 +1485,7 @@ install(
 add_executable(Siv3DTest
   ../Test/Siv3DTest.cpp
   ../Test/Siv3DTest_Array.cpp
+  ../Test/Siv3DTest_AsyncHTTPTask.cpp
   ../Test/Siv3DTest_BinaryReader.cpp
   ../Test/Siv3DTest_BinaryWriter.cpp
   #../Test/Siv3DTest_FileSystem.cpp
@@ -1501,6 +1502,8 @@ target_link_libraries(Siv3DTest PUBLIC Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DTest PRIVATE cxx_std_20)
 target_link_options(Siv3DTest PRIVATE
   -lnodefs.js
+  -sASYNCIFY=1
+  -sASYNCIFY_IGNORE_INDIRECT=0
   --pre-js=${PROJECT_SOURCE_DIR}/../Test/Siv3DTest.js
 )
 
