@@ -1,3 +1,7 @@
+//
+// Mock implementation for Node.js
+//
+
 Module.preRun = [
   function () 
   {

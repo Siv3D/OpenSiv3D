@@ -15,22 +15,37 @@
 # include "../../../../../Siv3DTest.hpp"
 # include "MockGLFW.hpp"
 
+class EngineErrorMatcher : public Catch::MatcherBase<s3d::EngineError> {    
+    s3d::String description;
+public:
+    EngineErrorMatcher(s3d::String description):
+        description(description)
+    {}
+
+    bool match(s3d::EngineError const& ex) const override {
+        return ex.what() == description;
+    }
+
+    std::string describe() const override { return description.narrow(); }
+};
+
 TEST_CASE("Platform::Web::CWindow::init")
 {
     SECTION("glfwInit") {
         SetReturnValue_glfwInit(GLFW_FALSE);
 
         s3d::CWindow window {};
-        REQUIRE_THROWS_AS(window.init(), s3d::EngineError);
+        REQUIRE_THROWS_MATCHES(window.init(), s3d::EngineError, EngineErrorMatcher(U"glfwInit() failed"));
 
         SetReturnValue_glfwInit(none);
     }
 
-    SECTION("glfwCreateWindow") {
+    SECTION("glfwCreateWindow (#9)")
+    {
         SetReturnValue_glfwCreateWindow(nullptr);
 
         s3d::CWindow window {};
-        REQUIRE_THROWS_AS(window.init(), s3d::EngineError);
+        REQUIRE_THROWS_MATCHES(window.init(), s3d::EngineError, EngineErrorMatcher(U"glfwCreateWindow() failed. Your browser seems not to support WebGL 2.0, please enable WebGL 2.0."));
 
         SetReturnValue_glfwCreateWindow(none);
     }

@@ -11,13 +11,6 @@
 
 # include "Siv3DTest.hpp"
 
-# if SIV3D_PLATFORM(WEB)
-
-__attribute__((import_name("siv3dRequestAnimationFrame")))
-extern void siv3dRequestAnimationFrame();
-
-# endif
-
 TEST_CASE("AsyncHTTPTask (#38)")
 {
 	const URL url = U"https://raw.githubusercontent.com/Siv3D/siv3d.docs.images/master/logo/logo.png";
@@ -26,18 +19,8 @@ TEST_CASE("AsyncHTTPTask (#38)")
 	// ファイルの非同期ダウンロードを開始
 	AsyncHTTPTask task = SimpleHTTP::SaveAsync(url, saveFilePath);
 
-	while (true)
+	while (System::Update())
 	{
-	# if SIV3D_PLATFORM(WEB)
-		// [BUGBUG] calling System::Update() with Headless mode causes unreachable
-		siv3dRequestAnimationFrame();
-	# else
-		if (not System::Update())
-		{
-			break;
-		}
-	# endif
-
 		if (task.isReady())
 		{
 			REQUIRE(task.getResponse().isOK() == true);

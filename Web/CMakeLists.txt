@@ -1491,20 +1491,26 @@ add_executable(Siv3DTest
   #../Test/Siv3DTest_FileSystem.cpp
   ../Test/Siv3DTest_Image.cpp
   ../Test/Siv3DTest_Resource.cpp
+  ../Test/Siv3DTest_SimpleHTTP.cpp
   ../Test/Siv3DTest_Stopwatch.cpp
   ../Test/Siv3DTest_TextEncoding.cpp
   ../Test/Siv3DTest_TextReader.cpp
   ../Test/Siv3DTest_TextWriter.cpp
+  ../Test/Siv3DTest_Texture.cpp
   ../Test/Siv3DTest_Timer.cpp
+  ../Test/Siv3DTest_Window.cpp
 )
 
 target_link_libraries(Siv3DTest PUBLIC Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DTest PRIVATE cxx_std_20)
 target_link_options(Siv3DTest PRIVATE
-  -lnodefs.js
+  --emrun
   -sASYNCIFY=1
-  -sASYNCIFY_IGNORE_INDIRECT=0
-  --pre-js=${PROJECT_SOURCE_DIR}/../Test/Siv3DTest.js
+  --preload-file=../../../Test/test@/test
+  --preload-file=../../App/resources@/resources
+)
+set_target_properties(Siv3DTest PROPERTIES
+  SUFFIX ".html"
 )
 
 add_executable(Siv3DUnitTest
@@ -1516,20 +1522,49 @@ add_executable(Siv3DUnitTest
 target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
 target_link_options(Siv3DUnitTest PRIVATE
-  -lnodefs.js
-  --pre-js=${PROJECT_SOURCE_DIR}/../Test/Siv3DTest.js
+  --emrun
+  --preload-file=../../../Test/test@/test
+  --preload-file=../../App/resources@/resources
 )
+set_target_properties(Siv3DUnitTest PROPERTIES
+  SUFFIX ".html"
+)
+
+set(SIV3D_ASYNCIFY_IMPORTS
+  siv3dRequestAnimationFrame
+  siv3dGetClipboardText
+  siv3dDecodeImageFromFile
+  siv3dSleepUntilWaked
+  invoke_v
+  invoke_vi
+)
+
+#
+# Helper Functions: target_asyncify_imports, target_asyncify_add, target_exported_functions, target_preload_files
+#
+function(target_add_listed_link_options target option_name)
+  set(option_list ${ARGN})
+  list (TRANSFORM option_list REPLACE ".+" "'\\0'")
+  string (REPLACE ";" "," option_list "${option_list}")
+  target_link_options(${target} PRIVATE -s${option_name}=[${option_list}])
+endfunction()
+
+function(target_asyncify_imports target)
+  target_add_listed_link_options(${target} "ASYNCIFY_IMPORTS" ${ARGN})
+endfunction()
+
+target_asyncify_imports(Siv3DTest ${SIV3D_ASYNCIFY_IMPORTS})
 
 if(BUILD_TESTING)
   enable_testing()
   add_test(
     NAME Test
-    COMMAND Siv3DTest
+    COMMAND emrun Siv3DTest.html
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   )
   add_test(
     NAME UnitTest
-    COMMAND Siv3DUnitTest
+    COMMAND emrun Siv3DUnitTest.html
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   )
 endif()
