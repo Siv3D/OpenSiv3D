@@ -23,7 +23,7 @@ set(SIV3D_C_DEFINITION
 )
 
 # C++ flags
-set(SIV3D_CXX_FLAGS -Wall -Wextra -Wno-unknown-pragmas -Wno-enum-constexpr-conversion)
+set(SIV3D_CXX_FLAGS -Wall -Wextra -Wno-unknown-pragmas -Wno-enum-constexpr-conversion -fexceptions)
 set(SIV3D_CXX_FLAGS_DEBUG -g3 -O0 -pg -DDEBUG)
 set(SIV3D_CXX_FLAGS_RELEASE -O2 -DNDEBUG)
 set(SIV3D_CXX_FLAGS_RELWITHDEBINFO -g3 -Og -pg)
@@ -40,9 +40,16 @@ set(SIV3D_CXX_DEFINITION
 
 # Linker flags
 set(SIV3D_EXE_LINKER_FLAGS
-  --js-library=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.js
-  --pre-js=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.pre.js
-  --post-js=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.post.js
+  $<BUILD_INTERFACE:
+    --js-library=Siv3D.js
+    --pre-js=${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.pre.js
+    --post-js=${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/jslib/Siv3D.post.js
+  >
+  $<INSTALL_INTERFACE:
+    --js-library=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.js
+    --pre-js=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.pre.js
+    --post-js=\${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/Siv3D.post.js
+  >
   -sUSE_GLFW=3
   -sUSE_OGG=1
   -sUSE_VORBIS=1
@@ -68,7 +75,7 @@ if (NOT CMAKE_CONFIGURATION_TYPES AND
 endif()
 
 # Use exception handling when configuration is not MINSIZEREL
-if (NOT CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
+if (CMAKE_BUILD_TYPE STREQUAL "MINSIZEREL")
   list(APPEND SIV3D_C_FLAGS -sEXCEPTION_CATCHING_ALLOWED=["main","_ZN3s3d7TryMainEv"])
   list(APPEND SIV3D_CXX_FLAGS -sEXCEPTION_CATCHING_ALLOWED=["main","_ZN3s3d7TryMainEv"])
 endif()
@@ -1357,22 +1364,42 @@ else()
 endif()
 
 set(SIV3D_THIRD_PARTY_LIBRARIES
-  -Wl,--no-whole-archive
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_photo${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_imgproc${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_core${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/harfbuzz/libharfbuzz${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/freetype/libfreetype${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/turbojpeg/libturbojpeg${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/giflib/libgif${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/webp/libwebp${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opus/libopusfile${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opus/libopus${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/tiff/libtiff${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/png/libpng${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/zlib/libz${Siv3DLibraryPostfix}
-    \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/SDL2/libSDL2${Siv3DLibraryPostfix}
+  $<BUILD_INTERFACE:
+    -Wl,--no-whole-archive
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opencv/libopencv_photo${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opencv/libopencv_imgproc${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opencv/libopencv_core${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/harfbuzz/libharfbuzz${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/freetype/libfreetype${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/turbojpeg/libturbojpeg${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/giflib/libgif${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/webp/libwebp${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opus/libopusfile${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/opus/libopus${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/tiff/libtiff${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/png/libpng${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/zlib/libz${Siv3DLibraryPostfix}
+      ${PROJECT_SOURCE_DIR}/../Siv3D/lib/Web/${Siv3DLibraryConfig}/SDL2/libSDL2${Siv3DLibraryPostfix}
+  >
+  $<INSTALL_INTERFACE:
+    -Wl,--no-whole-archive
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_objdetect${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_photo${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_imgproc${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opencv/libopencv_core${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/harfbuzz/libharfbuzz${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/freetype/libfreetype${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/turbojpeg/libturbojpeg${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/giflib/libgif${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/webp/libwebp${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opus/libopusfile${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/opus/libopus${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/tiff/libtiff${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/png/libpng${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/zlib/libz${Siv3DLibraryPostfix}
+      \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D/SDL2/libSDL2${Siv3DLibraryPostfix}
+  >
 )
 
 target_link_libraries(Siv3D INTERFACE
@@ -1454,3 +1481,52 @@ install(
   DESTINATION
     \${_IMPORT_PREFIX}/${CMAKE_INSTALL_LIBDIR}/Siv3D
 )
+
+add_executable(Siv3DTest
+  ../Test/Siv3DTest.cpp
+  ../Test/Siv3DTest_Array.cpp
+  ../Test/Siv3DTest_BinaryReader.cpp
+  ../Test/Siv3DTest_BinaryWriter.cpp
+  #../Test/Siv3DTest_FileSystem.cpp
+  ../Test/Siv3DTest_Image.cpp
+  ../Test/Siv3DTest_Resource.cpp
+  ../Test/Siv3DTest_Stopwatch.cpp
+  ../Test/Siv3DTest_TextEncoding.cpp
+  ../Test/Siv3DTest_TextReader.cpp
+  ../Test/Siv3DTest_TextWriter.cpp
+  ../Test/Siv3DTest_Timer.cpp
+)
+
+target_link_libraries(Siv3DTest PUBLIC Siv3D Siv3DPrivateInterface)
+target_compile_features(Siv3DTest PRIVATE cxx_std_20)
+target_link_options(Siv3DTest PRIVATE
+  -lnodefs.js
+  --pre-js=${PROJECT_SOURCE_DIR}/../Test/Siv3DTest.js
+)
+
+add_executable(Siv3DUnitTest
+  ../Test/Siv3DTest.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/Web/Window/CWindow.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/Web/Window/MockGLFW.cpp
+)
+
+target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
+target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
+target_link_options(Siv3DUnitTest PRIVATE
+  -lnodefs.js
+  --pre-js=${PROJECT_SOURCE_DIR}/../Test/Siv3DTest.js
+)
+
+if(BUILD_TESTING)
+  enable_testing()
+  add_test(
+    NAME Test
+    COMMAND Siv3DTest
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  )
+  add_test(
+    NAME UnitTest
+    COMMAND Siv3DUnitTest
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  )
+endif()

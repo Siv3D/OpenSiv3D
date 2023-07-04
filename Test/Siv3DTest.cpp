@@ -10,10 +10,13 @@
 //-----------------------------------------------
 
 # define CATCH_CONFIG_RUNNER
+
 # include "Siv3DTest.hpp"
 # include <unordered_map>
 
-void Siv3DTest()
+SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
+
+void Main()
 {
 	Console.open();
 	

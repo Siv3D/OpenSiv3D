@@ -15,6 +15,7 @@ Module.preRun = [
     };
 
     global.window = {
+      alert(text) { console.error(text); },
       addEventListener() {},
       removeEventListener() {},
       speechSynthesis: {
@@ -34,7 +35,9 @@ Module.preRun = [
     };
     
     Module.canvas = {
-      style: {},
+      style: {
+        removeProperty() {}
+      },
       parentNode: {
         prepend() {}
       },
