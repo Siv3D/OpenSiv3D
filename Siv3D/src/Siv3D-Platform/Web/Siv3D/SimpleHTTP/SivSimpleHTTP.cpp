@@ -119,7 +119,7 @@ namespace s3d
 
 			String temporaryFile{U"/tmp/file"};
 
-			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", origin + url, temporaryFile);
+			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", origin + url, HashTable<String, String>{}, temporaryFile);
 
 			for (auto&& [key, value] : headers)
 			{
@@ -202,7 +202,7 @@ namespace s3d
 
 			String temporaryFile{U"/tmp/file"};
 
-			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", origin + url, temporaryFile);
+			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", origin + url, HashTable<String, String>{}, temporaryFile);
 
 			for (auto&& [key, value] : headers)
 			{
@@ -236,9 +236,40 @@ namespace s3d
 
 		AsyncHTTPTask SaveAsync(const URLView url, const FilePathView filePath)
 		{
+			return GetAsync(url, {}, filePath);
+		}
+
+		AsyncHTTPTask LoadAsync(const URLView url)
+		{
+			return GetAsync(url, {});
+		}
+
+		AsyncHTTPTask GetAsync(const URLView url, const HashTable<String, String>& headers, const FilePathView filePath)
+		{
 			SIV3D_ENGINE(Network)->init();
 
-			return AsyncHTTPTask{ url, filePath };
+			return AsyncHTTPTask{ url, headers, filePath };
+		}
+
+		AsyncHTTPTask GetAsync(const URLView url, const HashTable<String, String>& headers)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers };
+		}
+
+		AsyncHTTPTask PostAsync(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size, const FilePathView filePath)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers, src, size, filePath };
+		}
+
+		AsyncHTTPTask PostAsync(const URLView url, const HashTable<String, String>& headers, const void* src, const size_t size)
+		{
+			SIV3D_ENGINE(Network)->init();
+
+			return AsyncHTTPTask{ url, headers, src, size };
 		}
 	}
 }

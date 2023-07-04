@@ -90,16 +90,21 @@ namespace s3d
 
 	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail() {}
 
-	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(URLView url, FilePathView path)
-		: AsyncHTTPTaskDetail(U"GET", url, path) {}
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(URLView url, const HashTable<String, String>& headers, FilePathView path)
+		: AsyncHTTPTaskDetail(U"GET", url, headers, path) {}
 
-	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(StringView method, URLView url, FilePathView path)
+	AsyncHTTPTaskDetail::AsyncHTTPTaskDetail(StringView method, URLView url, const HashTable<String, String>& headers, FilePathView path)
 		: m_url{ url }
 	{
 		m_wgetHandle = detail::siv3dCreateXMLHTTPRequest();
 
 		detail::siv3dOpenXMLHTTPRequest(m_wgetHandle, method.toUTF8().data(), url.toUTF8().data());
 		detail::siv3dSetXMLHTTPRequestWriteBackFile(m_wgetHandle, path.toUTF8().data());
+
+		for (auto [key, value] : headers)
+		{
+			setRequestHeader(key, value);
+		}
 	}
 
 	AsyncHTTPTaskDetail::~AsyncHTTPTaskDetail()

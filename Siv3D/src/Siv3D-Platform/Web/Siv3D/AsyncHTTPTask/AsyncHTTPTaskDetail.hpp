@@ -29,13 +29,13 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-			AsyncHTTPTaskDetail();
+		AsyncHTTPTaskDetail();
 
 		SIV3D_NODISCARD_CXX20
-			AsyncHTTPTaskDetail(URLView url, FilePathView path);
+		AsyncHTTPTaskDetail(URLView url, const HashTable<String, String>& headers, FilePathView path);
 
 		SIV3D_NODISCARD_CXX20
-			AsyncHTTPTaskDetail(StringView method, URLView url, FilePathView path);
+		AsyncHTTPTaskDetail(StringView method, URLView url, const HashTable<String, String>& headers, FilePathView path);
 
 		~AsyncHTTPTaskDetail();
 
