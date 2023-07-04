@@ -70,7 +70,7 @@ namespace s3d
 		::glewExperimental = GL_TRUE;
 		if (::glewInit() != GLEW_OK)
 		{
-			throw EngineError(U"glefInit() failed");
+			throw EngineError(U"glewInit() failed");
 		}
 		
 		if (SIV3D_BUILD(DEBUG) && GLEW_ARB_debug_output)

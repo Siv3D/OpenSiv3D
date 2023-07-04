@@ -12,7 +12,7 @@ Module.preRun = [
     //
     global.navigator = {
       getGamepads() { return []; }
-    }
+    };
 
     global.window = {
       addEventListener() {},
@@ -21,7 +21,7 @@ Module.preRun = [
         getVoices() { return []; }
       },
       screen: {}
-    }
+    };
 
     global.document = {
       createElement() { 
@@ -31,7 +31,7 @@ Module.preRun = [
           removeEventListener() {},
         };
       }, 
-    }
+    };
     
     Module.canvas = {
       style: {},
@@ -40,15 +40,21 @@ Module.preRun = [
       },
       addEventListener() {},
       removeEventListener() {},
-    }
+    };
 
     global.FileReader = class {
       constructor() {}
-    }
+    };
 
     global.Notification = {
       permission: "granted",
       requestPermission() {}
-    }
+    };
+
+    global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+    global.requestAnimationFrame = function(callback) {
+      setTimeout(callback, 16);
+    };
   }
 ];
