@@ -17,8 +17,21 @@
 
 TEST_CASE("Platform::Web::CWindow::init")
 {
-    SetReturnValue_glfwInit(GLFW_FALSE);
+    SECTION("glfwInit") {
+        SetReturnValue_glfwInit(GLFW_FALSE);
 
-	s3d::CWindow window {};
-    REQUIRE_THROWS_AS(window.init(), s3d::EngineError);
+        s3d::CWindow window {};
+        REQUIRE_THROWS_AS(window.init(), s3d::EngineError);
+
+        SetReturnValue_glfwInit(none);
+    }
+
+    SECTION("glfwCreateWindow") {
+        SetReturnValue_glfwCreateWindow(nullptr);
+
+        s3d::CWindow window {};
+        REQUIRE_THROWS_AS(window.init(), s3d::EngineError);
+
+        SetReturnValue_glfwCreateWindow(none);
+    }
 }

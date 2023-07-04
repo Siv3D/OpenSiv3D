@@ -15,3 +15,4 @@
 # include <ThirdParty/GLFW/glfw3.h>
 
 void SetReturnValue_glfwInit(Optional<int> mockReturnValue);
+void SetReturnValue_glfwCreateWindow(Optional<GLFWwindow*> mockReturnValue);
