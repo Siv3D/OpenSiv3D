@@ -27,8 +27,7 @@ TEST_CASE("AsyncHTTPTask (#38)")
 
 			Image image{ saveFilePath };
 
-			REQUIRE(image.width() == 523);
-			REQUIRE(image.height() == 523);
+			REQUIRE(image.size() == Size(523, 523));
 
 			break;
 		}

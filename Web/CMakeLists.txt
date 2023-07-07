@@ -1488,6 +1488,8 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_AsyncHTTPTask.cpp
   ../Test/Siv3DTest_BinaryReader.cpp
   ../Test/Siv3DTest_BinaryWriter.cpp
+  ../Test/Siv3DTest_Dialog.cpp
+  ../Test/Siv3DTest_Eval.cpp
   #../Test/Siv3DTest_FileSystem.cpp
   ../Test/Siv3DTest_Image.cpp
   ../Test/Siv3DTest_Resource.cpp
