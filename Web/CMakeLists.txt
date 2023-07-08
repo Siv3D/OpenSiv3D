@@ -1486,7 +1486,8 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest.cpp
   ../Test/Siv3DTest_Array.cpp
   ../Test/Siv3DTest_AsyncHTTPTask.cpp
-  ../Test/Siv3DTest_Audio.cpp
+  ../Test/Siv3DTest_AsyncTask.cpp
+  ../Test/Siv3DTest_AudioDecoder.cpp
   ../Test/Siv3DTest_BinaryReader.cpp
   ../Test/Siv3DTest_BinaryWriter.cpp
   ../Test/Siv3DTest_Cursor.cpp
@@ -1494,6 +1495,7 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_Eval.cpp
   #../Test/Siv3DTest_FileSystem.cpp
   ../Test/Siv3DTest_Image.cpp
+  ../Test/Siv3DTest_PowerStatus.cpp
   ../Test/Siv3DTest_Resource.cpp
   ../Test/Siv3DTest_SimpleHTTP.cpp
   ../Test/Siv3DTest_Stopwatch.cpp
@@ -1509,6 +1511,8 @@ target_link_libraries(Siv3DTest PUBLIC Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DTest PRIVATE cxx_std_20)
 target_link_options(Siv3DTest PRIVATE
   --emrun
+  -g2
+  -fexceptions
   -sASYNCIFY=1
   --preload-file=../../../Test/test@/test
   --preload-file=../../App/resources@/resources

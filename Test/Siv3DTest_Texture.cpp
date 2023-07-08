@@ -13,13 +13,10 @@
 
 TEST_CASE("non-existent Texture (#44)")
 {
-    std::string cout, cerr;
-
+    auto [cout, cerr] = CaptureStandardOutput([]
     {
-        Catch::OutputRedirect outputCapture{ cout, cerr };
-
-	    const Texture texture{ U"example/windmill2.png" };
-    }
+        const Texture texture{ U"example/windmill2.png" };   
+    });
 
 # if SIV3D_PLATFORM(WEB)
 	REQUIRE_THAT(cout, Catch::Matchers::Contains("SimpleHttp: Failed to get the url `example/windmill2.png`"));

@@ -35,6 +35,19 @@ void Main()
 	}
 }
 
+std::tuple<std::string, std::string> CaptureStandardOutput(const std::function<void(void)>& logic)
+{
+	std::string cout, cerr;
+
+    {
+        Catch::OutputRedirect outputCapture{ cout, cerr };
+
+	    logic();
+    }
+
+	return { cout, cerr };
+}
+
 TEST_CASE("String")
 {
 	SECTION("Constructor")
