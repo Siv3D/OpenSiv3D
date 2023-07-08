@@ -14,7 +14,7 @@
 # include "Siv3DTest.hpp"
 # include <unordered_map>
 
-SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
+// SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
 
 void Main()
 {
