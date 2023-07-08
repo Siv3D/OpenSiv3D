@@ -156,6 +156,15 @@ namespace s3d
 				ring.unique_consecutive();
 			}
 
+			const auto orientation = FT_Outline_Get_Orientation(&face->glyph->outline);
+			if (orientation == FT_ORIENTATION_POSTSCRIPT)
+			{
+				for (auto& ring : userData.rings)
+				{
+					ring.reverse();
+				}
+			}
+
 			if (not closeRing)
 			{
 				for (auto& ring : userData.rings)
