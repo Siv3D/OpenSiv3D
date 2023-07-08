@@ -1486,6 +1486,7 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest.cpp
   ../Test/Siv3DTest_Array.cpp
   ../Test/Siv3DTest_AsyncHTTPTask.cpp
+  ../Test/Siv3DTest_Audio.cpp
   ../Test/Siv3DTest_BinaryReader.cpp
   ../Test/Siv3DTest_BinaryWriter.cpp
   ../Test/Siv3DTest_Dialog.cpp
