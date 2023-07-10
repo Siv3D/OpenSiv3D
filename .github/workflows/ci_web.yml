@@ -45,8 +45,8 @@ jobs:
       - name: Run Siv3DTest
         working-directory: Web/build
         run: |
-          emrun.py Siv3DTest.html
-          emrun.py Siv3DUnitTest.html
+          emrun Siv3DTest.html
+          emrun Siv3DUnitTest.html
 
       - name: Install Siv3D
         working-directory: Web
@@ -68,4 +68,4 @@ jobs:
         working-directory: Web/App
         run: |
           cd build
-          emrun.py --timeout 180 --timeout_returncode 0 Siv3DApp.html
+          emrun --timeout 180 --timeout_returncode 0 Siv3DApp.html
