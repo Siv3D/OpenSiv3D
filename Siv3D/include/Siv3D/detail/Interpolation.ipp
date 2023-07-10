@@ -52,5 +52,15 @@ namespace s3d
 			assert(0.0 <= (b / a));
 			return (a * std::pow((b / a), t));
 		}
+
+		inline constexpr float MoveTowards(const float current, const float target, const float maxSpeed) noexcept
+		{
+			return (current + Clamp((target - current), -maxSpeed, maxSpeed));
+		}
+
+		inline constexpr double MoveTowards(const double current, const double target, const double maxSpeed) noexcept
+		{
+			return (current + Clamp((target - current), -maxSpeed, maxSpeed));
+		}
 	}
 }
