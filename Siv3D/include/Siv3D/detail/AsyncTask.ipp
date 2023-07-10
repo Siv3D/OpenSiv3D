@@ -24,7 +24,11 @@ namespace s3d
 	template <class Type>
 	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>*>
 	inline AsyncTask<Type>::AsyncTask(Fty&& f, Args&&... args)
+	# if !SIV3D_PLATFORM(WEB) || defined(__EMSCRIPTEN_PTHREADS__)
 		: m_data{ std::async(std::launch::async, std::forward<Fty>(f), std::forward<Args>(args)...) } {}
+	# else
+		: m_data{} {}
+	# endif
 
 	template <class Type>
 	inline AsyncTask<Type>& AsyncTask<Type>::operator =(base_type&& other) noexcept

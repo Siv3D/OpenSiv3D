@@ -286,6 +286,7 @@ namespace s3d
 		}
 		else
 		{
+			LOG_ERROR(U"CreateCursor is not supported on Web platform.");
 			return false;
 		}
 	}
