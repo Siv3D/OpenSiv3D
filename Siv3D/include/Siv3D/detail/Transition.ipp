@@ -71,4 +71,9 @@ namespace s3d
 	{
 		return EaseInOut(easingFunction, m_value);
 	}
+
+	inline constexpr void Transition::reset(const double initialValue) noexcept
+	{
+		m_value = initialValue;
+	}
 }
