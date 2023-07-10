@@ -48,6 +48,8 @@ jobs:
       - name: Run Siv3DTest
         working-directory: Web/build
         run: |
+          export DISPLAY=:1
+          Xvfb -ac ${DISPLAY} -screen 0 1280x1024x24 > /dev/null 2>&1 &
           emrun --browser chrome Siv3DTest.html
           emrun --browser chrome Siv3DUnitTest.html
 
@@ -70,5 +72,6 @@ jobs:
       - name: Run Siv3DApp
         working-directory: Web/App
         run: |
+          export DISPLAY=:1
           cd build
           emrun --browser chrome --timeout 180 --timeout_returncode 0 Siv3DApp.html
