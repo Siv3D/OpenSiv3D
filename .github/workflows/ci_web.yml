@@ -43,7 +43,7 @@ jobs:
       - name: Build Siv3D
         working-directory: Web
         run: |
-          cmake --build build
+          cmake --build build --parallel 4
 
       - name: Run Siv3DTest
         working-directory: Web/build
