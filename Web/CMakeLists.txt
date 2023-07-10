@@ -1492,9 +1492,12 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_BinaryWriter.cpp
   ../Test/Siv3DTest_Cursor.cpp
   ../Test/Siv3DTest_Dialog.cpp
+  ../Test/Siv3DTest_DLL.cpp
+  ../Test/Siv3DTest_DriveInfo.cpp
   ../Test/Siv3DTest_Eval.cpp
   #../Test/Siv3DTest_FileSystem.cpp
   ../Test/Siv3DTest_Image.cpp
+  ../Test/Siv3DTest_Monitor.cpp
   ../Test/Siv3DTest_PowerStatus.cpp
   ../Test/Siv3DTest_Resource.cpp
   ../Test/Siv3DTest_SimpleHTTP.cpp
