@@ -1517,8 +1517,8 @@ target_link_options(Siv3DTest PRIVATE
   -g2
   -fexceptions
   -sASYNCIFY=1
-  --preload-file=../../../Test/test@/test
-  --preload-file=../../App/resources@/resources
+  --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
+  --preload-file=${PROJECT_SOURCE_DIR}/App/resources@/resources
 )
 set_target_properties(Siv3DTest PROPERTIES
   SUFFIX ".html"
@@ -1534,8 +1534,8 @@ target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
 target_link_options(Siv3DUnitTest PRIVATE
   --emrun
-  --preload-file=../../../Test/test@/test
-  --preload-file=../../App/resources@/resources
+  --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
+  --preload-file=${PROJECT_SOURCE_DIR}/App/resources@/resources
 )
 set_target_properties(Siv3DUnitTest PROPERTIES
   SUFFIX ".html"
