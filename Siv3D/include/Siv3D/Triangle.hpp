@@ -171,6 +171,11 @@ namespace s3d
 
 		constexpr Triangle& scaleAt(Vec2 pos, Vec2 s) noexcept;
 
+		/// @brief 三角形の頂点が時計回りであるかを返します。
+		/// @return 頂点が時計回りである場合 true, それ以外の場合は false
+		[[nodiscard]]
+		constexpr bool isClockwise() const noexcept;
+
 		[[nodiscard]]
 		constexpr position_type& p(size_t index) noexcept;
 
@@ -281,6 +286,14 @@ namespace s3d
 		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		/// @brief 3 つの頂点を時計回りに並べ替えて三角形を作成します。
+		/// @param p0 頂点
+		/// @param p1 頂点
+		/// @param p2 頂点
+		/// @return 三角形
+		[[nodiscard]]
+		constexpr static Triangle FromPoints(const position_type& p0, const position_type& p1, const position_type& p2) noexcept;
 
 		[[nodiscard]]
 		static Triangle FromPoints(const position_type& baseCenter, const position_type& top, double baseLength) noexcept;
