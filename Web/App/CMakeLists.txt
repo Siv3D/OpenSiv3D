@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Web_App CXX C)
 
-#
-# General Options
-#
-option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
-option(CMAKE_FIND_ROOT_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
-
 if (NOT CMAKE_CONFIGURATION_TYPES AND 
     NOT CMAKE_NO_BUILD_TYPE AND
     NOT CMAKE_BUILD_TYPE AND
