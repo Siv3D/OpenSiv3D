@@ -145,6 +145,11 @@ namespace s3d
 		return (end - begin);
 	}
 
+	inline Line::position_type Line::normalizedVector() const noexcept
+	{
+		return vector().normalized();
+	}
+
 	inline Line::position_type Line::normal() const noexcept
 	{
 		return Vec2{ (end.y - begin.y), (begin.x - end.x) }.normalized();

@@ -132,9 +132,19 @@ namespace s3d
 		[[nodiscard]]
 		Line stretched(value_type lengthBegin, value_type lengthEnd) const noexcept;
 
+		/// @brief 始点から終点へ向かうベクトルを返します。
+		/// @return 始点から終点へ向かうベクトル
 		[[nodiscard]]
 		constexpr position_type vector() const noexcept;
 
+		/// @brief 始点から終点へ向かうベクトルを正規化して返します。
+		/// @return 始点から終点への単位方向ベクトル
+		[[nodiscard]]
+		position_type normalizedVector() const noexcept;
+
+		/// @brief 線分に対して垂直な単位法線ベクトルを返します。
+		/// @remark 線分の進行方向に対して左手側の法線を返します。
+		/// @return 線分に対して垂直な単位法線ベクトル
 		[[nodiscard]]
 		position_type normal() const noexcept;
 
