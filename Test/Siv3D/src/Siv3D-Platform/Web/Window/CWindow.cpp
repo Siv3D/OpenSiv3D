@@ -15,20 +15,6 @@
 # include "../../../../../Siv3DTest.hpp"
 # include "MockGLFW.hpp"
 
-class EngineErrorMatcher : public Catch::MatcherBase<s3d::EngineError> {    
-    s3d::String description;
-public:
-    EngineErrorMatcher(s3d::String description):
-        description(description)
-    {}
-
-    bool match(s3d::EngineError const& ex) const override {
-        return ex.what() == description;
-    }
-
-    std::string describe() const override { return description.narrow(); }
-};
-
 TEST_CASE("Platform::Web::CWindow::init")
 {
     SECTION("glfwInit") {

@@ -14,7 +14,14 @@
 
 TEST_CASE("DLL")
 {
-# if !SIV3D_PLATFORM(WEB)
+# if SIV3D_PLATFORM(WEB)
+
+	SECTION("No support")
+	{
+		REQUIRE_THROWS_MATCHES(DLL::Load(U"libsub.so"), s3d::EngineError, EngineErrorMatcher(U"To use dlopen, you need enable dynamic linking, see https://github.com/emscripten-core/emscripten/wiki/Linking"));
+	}
+
+# else
 
 	SECTION("Existent Module")
 	{

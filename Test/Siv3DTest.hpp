@@ -22,4 +22,18 @@ using namespace std::literals;
 
 std::tuple<std::string, std::string> CaptureStandardOutput(const std::function<void(void)>& logic);
 
+class EngineErrorMatcher : public Catch::MatcherBase<s3d::EngineError> {    
+    s3d::String description;
+public:
+    EngineErrorMatcher(s3d::String description):
+        description(description)
+    {}
+
+    bool match(s3d::EngineError const& ex) const override {
+        return ex.what() == description;
+    }
+
+    std::string describe() const override { return description.narrow(); }
+};
+
 //# define SIV3D_RUN_BENCHMARK
