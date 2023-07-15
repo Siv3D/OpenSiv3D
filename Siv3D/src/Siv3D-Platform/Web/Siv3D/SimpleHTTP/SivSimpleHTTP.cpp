@@ -117,7 +117,7 @@ namespace s3d
 				origin = Unicode::FromUTF8(originNamePtr);
 			}
 
-			String temporaryFile{U"/tmp/file"};
+			String temporaryFile{U"/tmp/http_get_response"};
 
 			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"GET", origin + url, HashTable<String, String>{}, temporaryFile);
 
@@ -200,7 +200,7 @@ namespace s3d
 				origin = Unicode::FromUTF8(originNamePtr);
 			}
 
-			String temporaryFile{U"/tmp/file"};
+			String temporaryFile{U"/tmp/http_post_response"};
 
 			auto httpTask = std::make_unique<AsyncHTTPTaskDetail>(U"POST", origin + url, HashTable<String, String>{}, temporaryFile);
 
