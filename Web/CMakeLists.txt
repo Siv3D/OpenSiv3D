@@ -1500,6 +1500,7 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_Image.cpp
   ../Test/Siv3DTest_Monitor.cpp
   ../Test/Siv3DTest_PowerStatus.cpp
+  ../Test/Siv3DTest_RasterizerState.cpp
   ../Test/Siv3DTest_Resource.cpp
   ../Test/Siv3DTest_SimpleHTTP.cpp
   ../Test/Siv3DTest_Stopwatch.cpp
