@@ -14,7 +14,7 @@
 
 TEST_CASE("AsyncTask")
 {
-# if SIV3D_PLATFORM(WEB) && defined(__EMSCRIPTEN_PTHREADS__)
+# if SIV3D_PLATFORM(WEB) && !defined(__EMSCRIPTEN_PTHREADS__)
 	SECTION("Web, no pthread support")
 	{
 		auto [cout, cerr] = CaptureStandardOutput([]

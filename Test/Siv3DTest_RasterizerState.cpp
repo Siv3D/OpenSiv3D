@@ -15,7 +15,9 @@ TEST_CASE("RasterizerState")
 {
     auto [cout, cerr] = CaptureStandardOutput([]
     {
-        ScopedRenderStates3D _renderState { RasterizerState::WireframeCullNone };  
+        ScopedRenderStates2D _renderState { RasterizerState::WireframeCullNone };
+
+		Graphics2D::Flush();
     });
 
 # if SIV3D_PLATFORM(WEB)
