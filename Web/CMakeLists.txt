@@ -1490,6 +1490,7 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_AudioDecoder.cpp
   ../Test/Siv3DTest_BinaryReader.cpp
   ../Test/Siv3DTest_BinaryWriter.cpp
+  ../Test/Siv3DTest_ChildProcess.cpp
   ../Test/Siv3DTest_Cursor.cpp
   ../Test/Siv3DTest_Dialog.cpp
   ../Test/Siv3DTest_DLL.cpp
