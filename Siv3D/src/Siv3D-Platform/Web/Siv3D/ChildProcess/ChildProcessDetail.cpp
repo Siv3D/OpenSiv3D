@@ -10,9 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/EngineLog.hpp>
 # include "ChildProcessDetail.hpp"
-# include <boost/process/io.hpp>
-# include <boost/process/start_dir.hpp>
 
 namespace s3d
 {
@@ -20,66 +19,32 @@ namespace s3d
 
 	ChildProcess::ChildProcessDetail::ChildProcessDetail(const FilePathView path, const StringView command, const Pipe pipe)
 	{
-		const std::wstring pathW = path.toWstr();
-		const std::wstring commandW = command.toWstr();
-		const std::wstring startDir = FileSystem::ParentPath(path).toWstr();
-
-		switch (pipe)
-		{
-		case Pipe::None_:
-			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir);
-			break;
-		case Pipe::StdIn:
-			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_out > m_ips);
-			break;
-		case Pipe::StdOut:
-			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_in < m_ops);
-			break;
-		case Pipe::StdInOut:
-			m_child = boost::process::child(pathW, commandW, boost::process::start_dir = startDir, boost::process::std_out > m_ips, boost::process::std_in < m_ops);
-			break;
-		}
+		LOG_FAIL(U"ChildProcess is not supported");
 	}
 
-	ChildProcess::ChildProcessDetail::~ChildProcessDetail()
-	{
-		if (m_child.joinable())
-		{
-			m_child.detach();
-		}
-	}
+	ChildProcess::ChildProcessDetail::~ChildProcessDetail() {}
 
 	bool ChildProcess::ChildProcessDetail::isValid() const
 	{
-		return m_child.valid();
+		return false;
 	}
 
 	bool ChildProcess::ChildProcessDetail::isRunning()
 	{
-		return m_child.running();
+		return false;
 	}
 
 	void ChildProcess::ChildProcessDetail::wait()
 	{
-		m_child.wait();
 	}
 
 	void ChildProcess::ChildProcessDetail::terminate()
 	{
-		m_child.terminate();
 	}
 
 	Optional<int32> ChildProcess::ChildProcessDetail::getExitCode()
 	{
-		if ((not m_child.valid())
-			|| m_child.running())
-		{
-			return none;
-		}
-		else
-		{
-			return m_child.exit_code();
-		}
+		return none;
 	}
 
 	std::istream& ChildProcess::ChildProcessDetail::istream()
