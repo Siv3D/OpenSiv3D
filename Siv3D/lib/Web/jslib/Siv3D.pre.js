@@ -31,9 +31,9 @@ Please launch emrun or your favorite HTTP server and access this application thr
 The application requires that this browser supports WebAssembly, which seems to be not available in this browser.\
 Please use another browser that supports WebAssembly.")
         }
-        else
+        else if (typeof e === "string" && e !== "" && e !== "native code called abort()")
         {
-            Module["onAlert"](e)
+            Module["siv3dSetThrowJSException"](e);
         }
 
         if (originalOnAbort) {

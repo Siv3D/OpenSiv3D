@@ -1568,6 +1568,11 @@ function(target_asyncify_imports target)
   target_add_listed_link_options(${target} "ASYNCIFY_IMPORTS" ${ARGN})
 endfunction()
 
+function(target_exported_runtime_methods target)
+  target_add_listed_link_options(${target} "EXPORTED_RUNTIME_METHODS" ${ARGN})
+endfunction()
+
+target_exported_runtime_methods(Siv3DTest siv3dSetThrowJSException)
 target_asyncify_imports(Siv3DTest ${SIV3D_ASYNCIFY_IMPORTS})
 
 if(BUILD_TESTING)

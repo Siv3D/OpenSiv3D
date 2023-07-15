@@ -2,6 +2,11 @@ mergeInto(LibraryManager.library, {
     //
     // System
     //
+    $siv3dSetThrowJSException: function(ex) {
+        const text = allocate(intArrayFromString(ex), ALLOC_STACK);
+        Module["_siv3dThrowException"](text);
+    },
+
     siv3dCallOnAlert: function(textPtr) {
         const text = UTF8ToString(textPtr);
         Module["onAlert"] && Module["onAlert"](text);
@@ -170,7 +175,7 @@ mergeInto(LibraryManager.library, {
             try {
                 awake();
             } catch (e) {
-                abort(e);
+                handleException(e);
             } finally {
                 maybeExit();
             }
