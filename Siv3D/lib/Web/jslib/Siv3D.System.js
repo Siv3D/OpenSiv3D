@@ -190,7 +190,7 @@ mergeInto(LibraryManager.library, {
                 try {
                     wakeUp();
                 } catch (e) {
-                    abort(e);
+                    handleException(e);
                 } finally {
                     maybeExit();
                 }
