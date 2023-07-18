@@ -1509,6 +1509,7 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_TextWriter.cpp
   ../Test/Siv3DTest_Texture.cpp
   ../Test/Siv3DTest_Timer.cpp
+  ../Test/Siv3DTest_VideoReader.cpp
   ../Test/Siv3DTest_Window.cpp
 )
 
@@ -1520,6 +1521,7 @@ target_link_options(Siv3DTest PRIVATE
   -sASYNCIFY=1
   --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
   --preload-file=${PROJECT_SOURCE_DIR}/App/resources@/resources
+  --preload-file=${PROJECT_SOURCE_DIR}/App/example@/example
 )
 set_target_properties(Siv3DTest PROPERTIES
   SUFFIX ".html"

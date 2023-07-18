@@ -11,6 +11,8 @@
 
 # define CATCH_CONFIG_RUNNER
 
+# include <Siv3D/OpenCV_Bridge.hpp>
+
 # include "Siv3DTest.hpp"
 # include <unordered_map>
 
@@ -46,6 +48,19 @@ std::tuple<std::string, std::string> CaptureStandardOutput(const std::function<v
     }
 
 	return { cout, cerr };
+}
+
+void AssertImagesAreEqual(const Image& target, const Image& checked)
+{
+	Image clonedTarget = target;
+	Image clonedChecked = checked;
+
+	auto targetMat = OpenCV_Bridge::GetMatView(clonedTarget);
+	auto targetChecked = OpenCV_Bridge::GetMatView(clonedChecked);
+	cv::Mat diff { cv::Size{ clonedTarget.width(), clonedTarget.height() }, CV_8UC4 };
+
+	cv::absdiff(targetMat, targetChecked, diff);
+	cv::checkRange(diff, false, nullptr, -1.0, 1.0);
 }
 
 TEST_CASE("String")

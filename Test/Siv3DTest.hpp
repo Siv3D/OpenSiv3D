@@ -22,6 +22,8 @@ using namespace std::literals;
 
 std::tuple<std::string, std::string> CaptureStandardOutput(const std::function<void(void)>& logic);
 
+void AssertImagesAreEqual(const Image& target, const Image& checked);
+
 class EngineErrorMatcher : public Catch::MatcherBase<s3d::EngineError> {    
     s3d::String description;
 public:
