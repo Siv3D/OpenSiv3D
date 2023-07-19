@@ -1492,23 +1492,28 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_BinaryWriter.cpp
   ../Test/Siv3DTest_ChildProcess.cpp
   ../Test/Siv3DTest_Cursor.cpp
+  ../Test/Siv3DTest_Date.cpp
   ../Test/Siv3DTest_Dialog.cpp
   ../Test/Siv3DTest_DLL.cpp
   ../Test/Siv3DTest_DriveInfo.cpp
   ../Test/Siv3DTest_Eval.cpp
   #../Test/Siv3DTest_FileSystem.cpp
+  ../Test/Siv3DTest_Format.cpp
+  ../Test/Siv3DTest_HashTable.cpp
   ../Test/Siv3DTest_Image.cpp
   ../Test/Siv3DTest_Monitor.cpp
   ../Test/Siv3DTest_PowerStatus.cpp
   ../Test/Siv3DTest_RasterizerState.cpp
   ../Test/Siv3DTest_Resource.cpp
   ../Test/Siv3DTest_SimpleHTTP.cpp
+  ../Test/Siv3DTest_String.cpp
   ../Test/Siv3DTest_Stopwatch.cpp
   ../Test/Siv3DTest_TextEncoding.cpp
   ../Test/Siv3DTest_TextReader.cpp
   ../Test/Siv3DTest_TextWriter.cpp
   ../Test/Siv3DTest_Texture.cpp
   ../Test/Siv3DTest_Timer.cpp
+  ../Test/Siv3DTest_Unicode.cpp
   ../Test/Siv3DTest_VideoReader.cpp
   ../Test/Siv3DTest_Window.cpp
 )
