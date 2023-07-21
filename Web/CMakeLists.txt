@@ -1493,7 +1493,6 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_ChildProcess.cpp
   ../Test/Siv3DTest_Cursor.cpp
   ../Test/Siv3DTest_Date.cpp
-  ../Test/Siv3DTest_Dialog.cpp
   ../Test/Siv3DTest_DLL.cpp
   ../Test/Siv3DTest_DriveInfo.cpp
   ../Test/Siv3DTest_Eval.cpp
@@ -1534,6 +1533,8 @@ set_target_properties(Siv3DTest PROPERTIES
 
 add_executable(Siv3DUnitTest
   ../Test/Siv3DTest.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/SivDialog_Web.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/MockSiv3DDialog.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/CWindow.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/MockGLFW.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/TextToSpeech/CTextToSpeech.cpp
@@ -1543,10 +1544,12 @@ target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
 target_link_options(Siv3DUnitTest PRIVATE
   --emrun
+  -g2
   -fexceptions
   -sASYNCIFY=1
   --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
   --preload-file=${PROJECT_SOURCE_DIR}/App/resources@/resources
+  --preload-file=${PROJECT_SOURCE_DIR}/App/example@/example
 )
 set_target_properties(Siv3DUnitTest PROPERTIES
   SUFFIX ".html"
@@ -1581,6 +1584,8 @@ endfunction()
 
 target_exported_runtime_methods(Siv3DTest siv3dSetThrowJSException)
 target_asyncify_imports(Siv3DTest ${SIV3D_ASYNCIFY_IMPORTS})
+
+target_asyncify_imports(Siv3DUnitTest ${SIV3D_ASYNCIFY_IMPORTS})
 
 if(BUILD_TESTING)
   enable_testing()

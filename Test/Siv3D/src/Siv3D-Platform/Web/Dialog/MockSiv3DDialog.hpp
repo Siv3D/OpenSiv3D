@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,11 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DTest.hpp"
+# pragma once
 
-TEST_CASE("Dialog::Save")
-{
-# if SIV3D_PLATFORM(WEB)
-	REQUIRE(Dialog::SaveFile() == none);
-# endif
-}
+# include "../../../../../Siv3DTest.hpp"
+
+void SetReturnValue_siv3dOpenDialogAsync(const String& mockReturnValue);
