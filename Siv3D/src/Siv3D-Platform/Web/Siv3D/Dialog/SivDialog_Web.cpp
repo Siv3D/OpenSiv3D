@@ -89,54 +89,74 @@ namespace s3d
 		namespace detail
 		{
 			template <class T>
-			using siv3dOpenDialogCallback = void (*)(char*, std::promise<T>*);
+			using siv3dOpenDialogCallback = void (*)(char**, uint32, std::promise<T>*);
 
 			template <class T>
 			__attribute__((import_name("siv3dOpenDialogAsync")))
-			void siv3dOpenDialogImpl(const char*, siv3dOpenDialogCallback<T>, std::promise<T>*);
+			void siv3dOpenDialogImpl(const char*, siv3dOpenDialogCallback<T>, std::promise<T>*, bool allowMultiple);
 
 			template <class T>
-			void OnOpenFileDialogClosed(char* fileName, std::promise<T>* result)
+			void OnOpenFileDialogClosed(char** fileNames, uint32 fileNamesCount, std::promise<T>* result)
 			{
-				if (fileName == 0)
+				if (fileNames == 0)
 				{
 					result->set_value(T{});
 				}
 				else
 				{
-					auto path = Unicode::Widen(fileName);
+					auto path = Unicode::Widen(fileNames[0]);
 					result->set_value(T{path});
 				}
 
-				delete fileName;
 				delete result;
 			}
 
-			void OnOpenWaveDialogClosed(char* fileName, std::promise<Wave>* result)
+			template<>
+			void OnOpenFileDialogClosed<Array<FilePath>>(char** fileNames, uint32 fileNamesCount, std::promise<Array<FilePath>>* result)
 			{
-				if (fileName == 0)
+				if (fileNames == 0)
+				{
+					result->set_value(Array<FilePath>{});
+				}
+				else
+				{
+					Array<FilePath> pathes;
+
+					for (uint32 i = 0; i < fileNamesCount; i++)
+					{
+						pathes << Unicode::Widen(fileNames[i]);
+					}
+
+					result->set_value(std::move(pathes));
+				}
+
+				delete result;
+			}
+
+			void OnOpenWaveDialogClosed(char** fileNames, uint32 fileNamesCount, std::promise<Wave>* result)
+			{
+				if (fileNames == 0)
 				{
 					result->set_value(Wave{});
 				}
 				else
 				{
-					auto path = Unicode::Widen(fileName);
+					auto path = Unicode::Widen(fileNames[0]);
 					Platform::Web::AudioDecoder::DecodeFromFile(path, std::move(*result));
 				}
 
-				delete fileName;
 				delete result;
 			}
 
-			void OnOpenAudioDialogClosed(char* fileName, std::promise<Audio>* result)
+			void OnOpenAudioDialogClosed(char** fileNames, uint32 fileNamesCount, std::promise<Audio>* result)
 			{
-				if (fileName == 0)
+				if (fileNames == 0)
 				{
 					result->set_value(Audio{});
 				}
 				else
 				{
-					auto path = Unicode::Widen(fileName);
+					auto path = Unicode::Widen(fileNames[0]);
 					auto waveFuture = Platform::Web::AudioDecoder::DecodeFromFile(path);
 
 					PseudoThread futureResolver
@@ -160,19 +180,18 @@ namespace s3d
 					futureResolver.detach();
 				}
 
-				delete fileName;
 				delete result;
 			}
 
 			template <class T>
-			std::future<T> siv3dOpenDialogAsync(const Array<FileFilter>& filters, siv3dOpenDialogCallback<T> callback = &OnOpenFileDialogClosed<T>)
+			std::future<T> siv3dOpenDialogAsync(const Array<FileFilter>& filters, bool allowMultiple = false, siv3dOpenDialogCallback<T> callback = &OnOpenFileDialogClosed<T>)
 			{
 				const auto filter = s3d::Dialog::detail::TransformFileFilters(filters);
 
 				auto result = new std::promise<T>();
 				auto result_future = result->get_future();
 				
-				siv3dOpenDialogImpl<T>(filter.narrow().c_str(), callback, result);
+				siv3dOpenDialogImpl<T>(filter.narrow().c_str(), callback, result, allowMultiple);
 				
 				return result_future;
 			}
@@ -183,7 +202,10 @@ namespace s3d
 			return detail::siv3dOpenDialogAsync<Optional<FilePath>>(filters);
 		}
 
-
+		AsyncTask<Array<FilePath>> OpenFiles(const Array<FileFilter>& filters, FilePathView defaultPath, StringView)
+		{
+			return detail::siv3dOpenDialogAsync<Array<FilePath>>(filters, true);
+		}
 
 		AsyncTask<Image> OpenImage(FilePathView defaultPath, StringView title)
 		{
@@ -202,12 +224,12 @@ namespace s3d
 
 		AsyncTask<Wave> OpenWave(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialogAsync<Wave>({ FileFilter::AllAudioFiles() }, &detail::OnOpenWaveDialogClosed);
+			return detail::siv3dOpenDialogAsync<Wave>({ FileFilter::AllAudioFiles() }, false, &detail::OnOpenWaveDialogClosed);
 		}
 
 		AsyncTask<Audio> OpenAudio(FilePathView defaultPath, StringView title)
 		{
-			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, &detail::OnOpenAudioDialogClosed);
+			return detail::siv3dOpenDialogAsync<Audio>({ FileFilter::AllAudioFiles() }, false, &detail::OnOpenAudioDialogClosed);
 		}
 	}
 }

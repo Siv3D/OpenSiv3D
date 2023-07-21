@@ -13,31 +13,50 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__sig: "v",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dDownloadLink" ],
 
-    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr) {
+    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr, acceptMuilitple) {
         siv3dInputElement.accept = UTF8ToString(filterStr);
-        siv3dInputElement.oninput = function(e) {
+        siv3dInputElement.multiple = !!acceptMuilitple;
+
+        siv3dInputElement.oninput = async function(e) {
             const files = e.target.files;
 
             if (files.length < 1) {
-                {{{ makeDynCall('vii', 'callback') }}}(0, futurePtr);
+                {{{ makeDynCall('viii', 'callback') }}}(0, 0, futurePtr);
                 _siv3dMaybeAwake();
                 return;
             }
 
-            const file = files[0];
-            const filePath = "/tmp/" + file.name;
+            let filePathes = [];
+            const sp = stackSave();
 
-            siv3dDialogFileReader.addEventListener("load", function onLoaded() {
-                FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
+            for (let file of files) {
+                await new Promise((resolve) => {
+                    const filePath = "/tmp/" + file.name;
 
-                const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
-                {{{ makeDynCall('vii', 'callback') }}}(namePtr, futurePtr);
-                _siv3dMaybeAwake();
+                    siv3dDialogFileReader.addEventListener("load", function onLoaded() {
+                        FS.writeFile(filePath, new Uint8Array(siv3dDialogFileReader.result));
+        
+                        const namePtr = allocate(intArrayFromString(filePath), ALLOC_STACK);
+                        filePathes.push(namePtr);
+                        
+                        siv3dDialogFileReader.removeEventListener("load", onLoaded);
+                        resolve();
+                    });
+        
+                    siv3dDialogFileReader.readAsArrayBuffer(file);  
+                });
+            }
 
-                siv3dDialogFileReader.removeEventListener("load", onLoaded);
-            });
+            const filePathesPtr = stackAlloc(filePathes.length * {{{ POINTER_SIZE }}});
 
-            siv3dDialogFileReader.readAsArrayBuffer(file);         
+            for (let i = 0; i < filePathes.length; i++) {
+                setValue(filePathesPtr + i * {{{ POINTER_SIZE }}}, filePathes[i], "i32");
+            }
+
+            {{{ makeDynCall('viii', 'callback') }}}(filePathesPtr, filePathes.length, futurePtr);
+            
+            stackRestore(sp);
+            _siv3dMaybeAwake();
         };
 
         siv3dRegisterUserAction(function() {
