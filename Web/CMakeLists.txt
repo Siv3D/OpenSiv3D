@@ -1537,6 +1537,7 @@ add_executable(Siv3DUnitTest
   ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/MockSiv3DDialog.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/CWindow.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/MockGLFW.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/Web/TextInput/CTextInput.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/TextToSpeech/CTextToSpeech.cpp
 )
 
@@ -1544,7 +1545,6 @@ target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
 target_link_options(Siv3DUnitTest PRIVATE
   --emrun
-  -g2
   -fexceptions
   -sASYNCIFY=1
   --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
