@@ -36,6 +36,25 @@ TEST_CASE("Dialog")
 		REQUIRE(Dialog::OpenFile() == none);
 	}
 
+	SECTION("Open Mulpiple")
+	{
+		SetReturnValue_siv3dOpenDialogAsync(U"/tmp/file.txt");
+
+		auto opened = Dialog::OpenFiles();
+
+		REQUIRE(opened.size() == 1);
+		REQUIRE(opened[0] == U"/tmp/file.txt");
+	}
+
+	SECTION("Open Multiple Empty")
+	{
+		SetReturnValue_siv3dOpenDialogAsync(U"");
+
+		auto opened = Dialog::OpenFiles();
+
+		REQUIRE(opened.size() == 0);
+	}
+
 	SECTION("Open Image")
 	{
 		SetReturnValue_siv3dOpenDialogAsync(U"/example/bay.jpg");
