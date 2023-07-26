@@ -684,6 +684,108 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	Max
+		//
+		//////////////////////////////////////////////////
+
+		inline constexpr float Max(const float x, const float y) noexcept
+		{
+			return s3d::Max(x, y);
+		}
+
+		inline constexpr double Max(const double x, const double y) noexcept
+		{
+			return s3d::Max(x, y);
+		}
+
+		inline constexpr Point Max(const Point v1, const Point v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y) };
+		}
+
+		inline constexpr Float2 Max(const Float2 v1, const Float2 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y) };
+		}
+
+		inline constexpr Float3 Max(const Float3 v1, const Float3 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y), s3d::Max(v1.z, v2.z) };
+		}
+
+		inline constexpr Float4 Max(const Float4 v1, const Float4 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y), s3d::Max(v1.z, v2.z), s3d::Max(v1.w, v2.w) };
+		}
+
+		inline constexpr Vec2 Max(const Vec2 v1, const Vec2 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y) };
+		}
+
+		inline constexpr Vec3 Max(const Vec3 v1, const Vec3 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y), s3d::Max(v1.z, v2.z) };
+		}
+
+		inline constexpr Vec4 Max(const Vec4 v1, const Vec4 v2) noexcept
+		{
+			return{ s3d::Max(v1.x, v2.x), s3d::Max(v1.y, v2.y), s3d::Max(v1.z, v2.z), s3d::Max(v1.w, v2.w) };
+		}
+
+		//////////////////////////////////////////////////
+		//
+		//	Min
+		//
+		//////////////////////////////////////////////////
+	
+		inline constexpr float Min(const float x, const float y) noexcept
+		{
+			return s3d::Min(x, y);
+		}
+
+		inline constexpr double Min(const double x, const double y) noexcept
+		{
+			return s3d::Min(x, y);
+		}
+
+		inline constexpr Point Min(const Point v1, const Point v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y) };
+		}
+
+		inline constexpr Float2 Min(const Float2 v1, const Float2 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y) };
+		}
+
+		inline constexpr Float3 Min(const Float3 v1, const Float3 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y), s3d::Min(v1.z, v2.z) };
+		}
+
+		inline constexpr Float4 Min(const Float4 v1, const Float4 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y), s3d::Min(v1.z, v2.z), s3d::Min(v1.w, v2.w) };
+		}
+
+		inline constexpr Vec2 Min(const Vec2 v1, const Vec2 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y) };
+		}
+
+		inline constexpr Vec3 Min(const Vec3 v1, const Vec3 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y), s3d::Min(v1.z, v2.z) };
+		}
+
+		inline constexpr Vec4 Min(const Vec4 v1, const Vec4 v2) noexcept
+		{
+			return{ s3d::Min(v1.x, v2.x), s3d::Min(v1.y, v2.y), s3d::Min(v1.z, v2.z), s3d::Min(v1.w, v2.w) };
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	Clamp
 		//
 		//////////////////////////////////////////////////

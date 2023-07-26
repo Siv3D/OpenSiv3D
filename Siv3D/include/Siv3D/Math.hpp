@@ -713,6 +713,72 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	Max
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float Max(float x, float y) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double Max(double x, double y) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Point Max(Point v1, Point v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Max(Float2 v1, Float2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Max(Float3 v1, Float3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Max(Float4 v1, Float4 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Max(Vec2 v1, Vec2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Max(Vec3 v1, Vec3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Max(Vec4 v1, Vec4 v2) noexcept;
+
+		//////////////////////////////////////////////////
+		//
+		//	Min
+		//
+		//////////////////////////////////////////////////
+
+		[[nodiscard]]
+		inline constexpr float Min(float x, float y) noexcept;
+
+		[[nodiscard]]
+		inline constexpr double Min(double x, double y) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Point Min(Point v1, Point v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float2 Min(Float2 v1, Float2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float3 Min(Float3 v1, Float3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Float4 Min(Float4 v1, Float4 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec2 Min(Vec2 v1, Vec2 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec3 Min(Vec3 v1, Vec3 v2) noexcept;
+
+		[[nodiscard]]
+		inline constexpr Vec4 Min(Vec4 v1, Vec4 v2) noexcept;
+
+		//////////////////////////////////////////////////
+		//
 		//	Clamp
 		//
 		//////////////////////////////////////////////////
