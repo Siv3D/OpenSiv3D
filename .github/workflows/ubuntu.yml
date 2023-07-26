@@ -1,0 +1,57 @@
+name: Ubuntu
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  Build:
+
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04]
+
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install packages
+      run: |
+        sudo apt update
+        sudo apt install -y ninja-build libasound2-dev libavcodec-dev libavformat-dev libavutil-dev libboost-dev libcurl4-openssl-dev libgtk-3-dev libgif-dev libglu1-mesa-dev libharfbuzz-dev libmpg123-dev libopencv-dev libopus-dev libopusfile-dev libsoundtouch-dev libswresample-dev libtiff-dev libturbojpeg0-dev libvorbis-dev libwebp-dev libxft-dev uuid-dev xorg-dev
+
+    - name: Configure Siv3D
+      working-directory: Linux
+      run: |
+        mkdir build && cd build
+        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+
+    - name: Build Siv3D
+      working-directory: Linux
+      run: |
+        cmake --build build
+
+    - name: Install Siv3D
+      working-directory: Linux
+      run: |
+        sudo cmake --install build
+
+    - name: Configure Siv3DTest
+      working-directory: Linux/App
+      run: |
+        mkdir build && cd build
+        cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+
+    - name: Build Siv3DTest
+      working-directory: Linux/App
+      run: |
+        cmake --build build
+
+    - name: Run Siv3DTest
+      working-directory: Linux/App
+      run: |
+        cd build
+        cmake -DBUILD_TESTING:BOOL=ON .
+        ctest --output-on-failure --verbose
