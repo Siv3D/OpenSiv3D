@@ -16,7 +16,14 @@ namespace s3d
 	double GetTabAdvance(const double spaceWidth, const double scale, const double baseX, const double currentX, const int32 indentSize)
 	{
 		const double maxTabWidth = (spaceWidth * scale * indentSize);
-		const double newX = baseX + static_cast<int32>(((currentX + maxTabWidth) - baseX) / maxTabWidth) * maxTabWidth;
+		const int32 indentLevel = static_cast<int32>(((currentX + maxTabWidth) - baseX) / maxTabWidth);
+		double newX = (baseX + indentLevel * maxTabWidth);
+		// 戻り値が 0 になる場合は、浮動小数点数の誤差により indentLevel が 1 だけ小さく計算されている
+		if ((newX - currentX) == 0)
+		{
+			// indentLevel を 1 だけ増やして再計算
+			newX = (baseX + (indentLevel + 1) * maxTabWidth);
+		}
 		return (newX - currentX);
 	}
 
