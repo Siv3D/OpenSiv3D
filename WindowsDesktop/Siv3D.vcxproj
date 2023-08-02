@@ -1238,6 +1238,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\TextureCommon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextWriter\TextWriterDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ToastNotification\IToastNotification.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Unicode\UnicodeUtility.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\CUserAction.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\UserAction\IUSerAction.hpp" />
@@ -2463,6 +2464,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Transformer3D\SivTransformer3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle3D\SivTriangle3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\UnicodeConverter\SivUnicodeConverter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp" />

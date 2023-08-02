@@ -21,7 +21,7 @@ namespace s3d
 	{
 		static void ShowFreestandingMessageBox(const StringView text, const uint32 type)
 		{
-			::MessageBoxW(nullptr, text.toWstr().c_str(), L"Engine notification", type);
+			::MessageBoxW(nullptr, text.toWstr().c_str(), L"Siv3D Engine", type);
 		}
 	}
 

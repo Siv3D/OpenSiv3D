@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/EngineLog.hpp>
-# include <Siv3D/MessageBox.hpp>
+# include <algorithm>
+# include <Siv3D/Troubleshooting/Troubleshooting.hpp>
 # include "CAssetMonitor.hpp"
 
 namespace s3d
@@ -18,16 +18,15 @@ namespace s3d
 	bool CAssetMonitor::update()
 	{
 		if (m_assetCreationWarningEnabled
-			&& std::all_of(m_assetCreationCount.begin(), m_assetCreationCount.end(), [](int32 n) { return n > 0; })
-			&& std::all_of(m_assetReleaseCount.begin(), m_assetReleaseCount.end(), [](int32 n) { return n > 0; }))
+			&& std::all_of(m_assetCreationCount.begin(), m_assetCreationCount.end(), [](int32 n) { return (0 < n); })
+			&& std::all_of(m_assetReleaseCount.begin(), m_assetReleaseCount.end(), [](int32 n) { return (0 < n); }))
 		{
-			LOG_ERROR(U"🔥 Assets have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.");
-			System::MessageBoxOK(U"Asset creation report", U"🔥 Assets (Textures, Fonts or Audio) have been created and released every frame. Set Profiler::EnableAssetCreationWarning(false) to suppress this assertion.", MessageBoxStyle::Error);
+			Troubleshooting::Show(Troubleshooting::Warning::InefficientAssetCreation);
 			return false;
 		}
 
-		std::rotate(m_assetCreationCount.rbegin(), m_assetCreationCount.rbegin() + 1, m_assetCreationCount.rend());
-		std::rotate(m_assetReleaseCount.rbegin(), m_assetReleaseCount.rbegin() + 1, m_assetReleaseCount.rend());
+		std::rotate(m_assetCreationCount.rbegin(), (m_assetCreationCount.rbegin() + 1), m_assetCreationCount.rend());
+		std::rotate(m_assetReleaseCount.rbegin(), (m_assetReleaseCount.rbegin() + 1), m_assetReleaseCount.rend());
 		m_assetCreationCount[0] = m_assetReleaseCount[0] = 0;
 
 		return true;
