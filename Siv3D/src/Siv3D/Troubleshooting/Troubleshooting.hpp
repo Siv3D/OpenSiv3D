@@ -23,7 +23,7 @@ namespace s3d
 
 		enum class Error
 		{
-			Test = 200,
+			AssetInitializationBeforeEngineStartup = 200,
 		};
 
 		void Show(Warning id, StringView hint = {});

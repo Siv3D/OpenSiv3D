@@ -18,7 +18,7 @@
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
-# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/Troubleshooting/Troubleshooting.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
@@ -32,8 +32,8 @@ namespace s3d
 	{
 		if (not Siv3DEngine::isActive())
 		{
-			FreestandingMessageBox::ShowError(U"`Texture` must be initialized after engine-setup. Please fix the C++ code.");
-			std::abort();
+			Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, U"Texture");
+			std::exit(EXIT_FAILURE);
 		}
 	}
 
