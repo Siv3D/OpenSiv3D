@@ -51,34 +51,47 @@ namespace s3d
 		{
 			return (System::DefaultLanguage().lowercase().contains(U"ja") ? 1 : 0);
 		}
+
+		void Show(const bool isError, const int32 number, const int32 messageArrayIndex, const StringView hint)
+		{
+			const size_t languageIndex = GetLanguageIndex();
+			const StringView language = Languages[languageIndex];
+			
+			const String messageBody = (Fmt((isError ? detail::Errors : detail::Warnings)[messageArrayIndex][languageIndex])(hint));
+			const StringView messageFooter = detail::AdditionalMessages[languageIndex];	
+			const String url = U"https://github.com/Siv3D/Troubleshooting/blob/main/{}/{}{}.md"_fmt(language, (isError ? U"errors/e" : U"warnings/w"), number);
+
+			String logMessage;
+			String displayMessage;
+
+			if (isError)
+			{
+				logMessage = U"Error (E{}) | {}\nFor more information, see: {}"_fmt(number, messageBody, url);
+				displayMessage = U"Error | E{}\n\n{}\n\n{}"_fmt(number, messageBody, messageFooter);
+				LOG_ERROR(logMessage);
+			}
+			else
+			{
+				logMessage = U"Warning (W{}) | {}\nFor more information, see: {}"_fmt(number, messageBody, url);
+				displayMessage = U"Warning | W{}\n\n{}\n\n{}"_fmt(number, messageBody, messageFooter);
+				LOG_WARNING(logMessage);
+			}
+	
+			FreestandingMessageBox::ShowError(displayMessage);
+			System::LaunchBrowser(url);
+		}
 	}
 
 	namespace Troubleshooting
 	{
 		void Show(const Warning id, const StringView hint)
 		{
-			const int32 number = FromEnum(id);
-			const int32 index = (number - FromEnum(Warning::InefficientAssetCreation));
-			const size_t languageIndex = detail::GetLanguageIndex();
-			const StringView language = detail::Languages[languageIndex];
-			const String message = U"Warning | W{}\n\n{}\n\n{}"_fmt(number, (Fmt(detail::Warnings[index][languageIndex])(hint)), detail::AdditionalMessages[languageIndex]);
-
-			LOG_ERROR(message);
-			FreestandingMessageBox::ShowError(message);
-			System::LaunchBrowser(U"https://github.com/Siv3D/Troubleshooting/blob/main/{}/warnings/w{}.md"_fmt(language, number));
+			detail::Show(false, FromEnum(id), (FromEnum(id) - FromEnum(Warning::InefficientAssetCreation)), hint);
 		}
 
 		void Show(const Error id, const StringView hint)
 		{
-			const int32 number = FromEnum(id);
-			const int32 index = (number - FromEnum(Error::AssetInitializationBeforeEngineStartup));
-			const size_t languageIndex = detail::GetLanguageIndex();
-			const StringView language = detail::Languages[languageIndex];
-			const String message = U"Error | E{}\n\n{}\n\n{}"_fmt(number, (Fmt(detail::Errors[index][languageIndex])(hint)), detail::AdditionalMessages[languageIndex]);
-
-			LOG_ERROR(message);
-			FreestandingMessageBox::ShowError(message);
-			System::LaunchBrowser(U"https://github.com/Siv3D/Troubleshooting/blob/main/{}/errors/e{}.md"_fmt(language, number));
+			detail::Show(true, FromEnum(id), (FromEnum(id) - FromEnum(Error::AssetInitializationBeforeEngineStartup)), hint);
 		}
 	}
 }
