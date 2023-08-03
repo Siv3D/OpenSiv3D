@@ -58,6 +58,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Optional(const Optional& other) = default;
 
+		SIV3D_NODISCARD_CXX20
+		Optional(Optional&& other) = default;
+
 		template <class U>
 		SIV3D_NODISCARD_CXX20
 		Optional(Optional<U>&& other) noexcept(std::is_nothrow_constructible_v<Type, U>);
