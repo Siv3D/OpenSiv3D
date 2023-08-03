@@ -14,11 +14,11 @@
 
 namespace s3d
 {
-	NinePatch::NinePatch(const Texture& texture, const int32 cornerSize, const Style& style)
-		: NinePatch{ texture, cornerSize, cornerSize, cornerSize, cornerSize, style } {}
+	NinePatch::NinePatch(const Texture& texture, const int32 patchSize, const Style& style)
+		: NinePatch{ texture, patchSize, patchSize, patchSize, patchSize, style } {}
 
-	NinePatch::NinePatch(const Texture& texture, const int32 cornerWidth, const int32 cornerHeight, const Style& style)
-		: NinePatch{ texture, cornerWidth, cornerHeight, cornerWidth, cornerHeight, style } {}
+	NinePatch::NinePatch(const Texture& texture, const int32 patchWidth, const int32 patchHeight, const Style& style)
+		: NinePatch{ texture, patchWidth, patchHeight, patchWidth, patchHeight, style } {}
 
 	NinePatch::NinePatch(const Texture& texture, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
 		: pImpl{ std::make_shared<NinePatchDetail>(texture, leftWidth, topHeight, rightWidth, bottomHeight, style) } {}
@@ -36,5 +36,20 @@ namespace s3d
 	void NinePatch::release()
 	{
 		pImpl->release();
+	}
+
+	const Texture& NinePatch::getTexture() const noexcept
+	{
+		return pImpl->getTexture();
+	}
+
+	const NinePatch::RepeatableTexture& NinePatch::getRepeatableTexture() const noexcept
+	{
+		return pImpl->getRepeatableTexture();
+	}
+
+	const NinePatch::PatchSize& NinePatch::getPatchSize() const noexcept
+	{
+		return pImpl->getPatchSize();
 	}
 }

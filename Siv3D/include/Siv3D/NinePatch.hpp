@@ -13,7 +13,9 @@
 # include <memory>
 # include "Common.hpp"
 # include "Texture.hpp"
+# include "RenderTexture.hpp"
 # include "TextureFilter.hpp"
+# include "2DShapes.hpp"
 
 namespace s3d
 {
@@ -68,24 +70,107 @@ namespace s3d
 			static constexpr Style TileAll() noexcept;
 		};
 
+		/// @brief パッチのサイズ（ピクセル）
+		struct PatchSize
+		{
+			/// @brief 左端のパッチの幅（ピクセル）
+			int32 left = 0;
+
+			/// @brief 上端のパッチの幅（ピクセル）
+			int32 top = 0;
+
+			/// @brief 右端のパッチの幅（ピクセル）
+			int32 right = 0;
+
+			/// @brief 下端のパッチの幅（ピクセル）
+			int32 bottom = 0;
+
+			/// @brief テクスチャのサイズ（ピクセル）
+			Size textureSize{ 0, 0 };
+
+			/// @brief テクスチャにおける左上のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける左上のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect topLeftRect() const noexcept;
+
+			/// @brief テクスチャにおける上中央のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける上中央のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect topRect() const noexcept;
+
+			/// @brief テクスチャにおける右上のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける右上のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect topRightRect() const noexcept;
+
+			/// @brief テクスチャにおける左中央のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける左中央のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect leftRect() const noexcept;
+
+			/// @brief テクスチャにおける中央のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける中央のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect centerRect() const noexcept;
+
+			/// @brief テクスチャにおける右中央のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける右中央のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect rightRect() const noexcept;
+
+			/// @brief テクスチャにおける左下のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける左下のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect bottomLeftRect() const noexcept;
+
+			/// @brief テクスチャにおける下中央のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける下中央のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect bottomRect() const noexcept;
+
+			/// @brief テクスチャにおける右下のパッチの領域（ピクセル）を返します。
+			/// @return テクスチャにおける右下のパッチの領域（ピクセル）
+			[[nodiscard]]
+			constexpr Rect bottomRightRect() const noexcept;
+		};
+
+		/// @brief タイリング用のテクスチャ（タイリングしない場合は空のテクスチャ）
+		struct RepeatableTexture
+		{
+			/// @brief 上部のタイリング用テクスチャ
+			RenderTexture top;
+
+			/// @brief 下部のタイリング用テクスチャ
+			RenderTexture bottom;
+
+			/// @brief 左部のタイリング用テクスチャ
+			RenderTexture left;
+
+			/// @brief 右部のタイリング用テクスチャ
+			RenderTexture right;
+
+			/// @brief 中央のタイリング用テクスチャ
+			RenderTexture center;
+		};
+
 		/// @brief デフォルトコンストラクタ
 		SIV3D_NODISCARD_CXX20
 		NinePatch() = default;
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
-		/// @param cornerSize 9 パッチテクスチャの四隅のパッチの幅（ピクセル）
+		/// @param patchSize 9 パッチテクスチャの四隅のパッチの幅（ピクセル）
 		/// @param style スタイル
 		SIV3D_NODISCARD_CXX20
-		explicit NinePatch(const Texture& texture, int32 cornerSize, const Style& style = Style::Default());
+		explicit NinePatch(const Texture& texture, int32 patchSize, const Style& style = Style::Default());
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
-		/// @param cornerWidth 9 パッチテクスチャの左および右のパッチの幅（ピクセル）
-		/// @param cornerHeight 9 パッチテクスチャの上および下のパッチの高さ（ピクセル）
+		/// @param patchWidth 9 パッチテクスチャの左および右のパッチの幅（ピクセル）
+		/// @param patchHeight 9 パッチテクスチャの上および下のパッチの高さ（ピクセル）
 		/// @param style スタイル
 		SIV3D_NODISCARD_CXX20
-		explicit NinePatch(const Texture& texture, int32 cornerWidth, int32 cornerHeight, const Style& style = Style::Default());
+		explicit NinePatch(const Texture& texture, int32 patchWidth, int32 patchHeight, const Style& style = Style::Default());
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
@@ -109,7 +194,24 @@ namespace s3d
 		/// @param color 乗算する色
 		void draw(const RectF& rect, double textureScale, TextureFilter textureFilter = TextureFilter::Linear, const ColorF& color = Palette::White) const;
 
+		/// @brief 9 パッチのデータをクリアします。
 		void release();
+
+		/// @brief 9 パッチの元テクスチャを返します。
+		/// @return 9 パッチの元テクスチャ
+		[[nodiscard]]
+		const Texture& getTexture() const noexcept;
+
+		/// @brief 9 パッチのタイリング用テクスチャを返します。
+		/// @return 9 パッチのタイリング用テクスチャ
+		/// @remark タイリングしない場合は空のテクスチャが含まれます。
+		[[nodiscard]]
+		const RepeatableTexture& getRepeatableTexture() const noexcept;
+
+		/// @brief 9 パッチのサイズ（ピクセル）を返します。
+		/// @return 9 パッチのサイズ（ピクセル）
+		[[nodiscard]]
+		const PatchSize& getPatchSize() const noexcept;
 
 	private:
 

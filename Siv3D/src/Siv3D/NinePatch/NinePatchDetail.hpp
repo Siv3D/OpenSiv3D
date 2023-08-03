@@ -27,33 +27,23 @@ namespace s3d
 
 		void release();
 
+		[[nodiscard]]
+		const Texture& getTexture() const noexcept;
+
+		[[nodiscard]]
+		const RepeatableTexture& getRepeatableTexture() const noexcept;
+
+		[[nodiscard]]
+		const PatchSize& getPatchSize() const noexcept;
+
 	private:
 
 		Style m_style = Style::Default();
 
 		Texture m_texture;
 
-		// タイリング用のテクスチャ。タイリングしない場合は空のテクスチャ
-		struct RepeatableTexture
-		{
-			RenderTexture top;
+		RepeatableTexture m_repeatableTexture;
 
-			RenderTexture bottom;
-
-			RenderTexture left;
-
-			RenderTexture right;
-
-			RenderTexture center;
-
-		} m_repeatableTexture;
-
-		int32 m_leftWidth = 0;
-
-		int32 m_topHeight = 0;
-
-		int32 m_rightWidth = 0;
-
-		int32 m_bottomHeight = 0;
+		PatchSize m_patchSize;
 	};
 }

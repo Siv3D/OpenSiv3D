@@ -20,55 +20,52 @@ namespace s3d
 	NinePatch::NinePatchDetail::NinePatchDetail(const Texture& texture, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
 		: m_style{ style }
 		, m_texture{ texture }
-		, m_leftWidth{ leftWidth }
-		, m_topHeight{ topHeight }
-		, m_rightWidth{ rightWidth }
-		, m_bottomHeight{ bottomHeight }
+		, m_patchSize{ leftWidth, topHeight, rightWidth, bottomHeight, m_texture.size() }
 	{
 		const int32 textureWidth = m_texture.width();
 		const int32 textureHeight = m_texture.height();
-		const int32 centerWidth = (textureWidth - (m_leftWidth + m_rightWidth));
-		const int32 centerHeight = (textureHeight - (m_topHeight + m_bottomHeight));
+		const int32 centerWidth = (textureWidth - (m_patchSize.left + m_patchSize.right));
+		const int32 centerHeight = (textureHeight - (m_patchSize.top + m_patchSize.bottom));
 
 		if (m_style.tileTopBottom)
 		{
-			m_repeatableTexture.top = RenderTexture{ Size{ centerWidth, m_topHeight } };
-			Shader::Copy(m_texture(m_leftWidth, 0, centerWidth, m_topHeight), m_repeatableTexture.top);
+			m_repeatableTexture.top = RenderTexture{ Size{ centerWidth, m_patchSize.top } };
+			Shader::Copy(m_texture(m_patchSize.left, 0, centerWidth, m_patchSize.top), m_repeatableTexture.top);
 
-			m_repeatableTexture.bottom = RenderTexture{ Size{ centerWidth, m_bottomHeight } };
-			Shader::Copy(m_texture(m_leftWidth, (textureHeight - m_bottomHeight), centerWidth, m_bottomHeight), m_repeatableTexture.bottom);
+			m_repeatableTexture.bottom = RenderTexture{ Size{ centerWidth, m_patchSize.bottom } };
+			Shader::Copy(m_texture(m_patchSize.left, (textureHeight - m_patchSize.bottom), centerWidth, m_patchSize.bottom), m_repeatableTexture.bottom);
 		}
 
 		if (m_style.tileLeftRight)
 		{
-			m_repeatableTexture.left = RenderTexture{ Size{ m_leftWidth, centerHeight } };
-			Shader::Copy(m_texture(0, m_topHeight, m_leftWidth, centerHeight), m_repeatableTexture.left);
+			m_repeatableTexture.left = RenderTexture{ Size{ m_patchSize.left, centerHeight } };
+			Shader::Copy(m_texture(0, m_patchSize.top, m_patchSize.left, centerHeight), m_repeatableTexture.left);
 
-			m_repeatableTexture.right = RenderTexture{ Size{ m_rightWidth, centerHeight } };
-			Shader::Copy(m_texture((textureWidth - m_rightWidth), m_topHeight, m_rightWidth, centerHeight), m_repeatableTexture.right);
+			m_repeatableTexture.right = RenderTexture{ Size{ m_patchSize.right, centerHeight } };
+			Shader::Copy(m_texture((textureWidth - m_patchSize.right), m_patchSize.top, m_patchSize.right, centerHeight), m_repeatableTexture.right);
 		}
 
 		if (m_style.tileCenter)
 		{
 			m_repeatableTexture.center = RenderTexture{ Size{ centerWidth, centerHeight } };
-			Shader::Copy(m_texture(m_leftWidth, m_topHeight, centerWidth, centerHeight), m_repeatableTexture.center);
+			Shader::Copy(m_texture(m_patchSize.left, m_patchSize.top, centerWidth, centerHeight), m_repeatableTexture.center);
 		}
 	}
 
 	void NinePatch::NinePatchDetail::draw(const RectF& rect, const double textureScale, const TextureFilter textureFilter, const ColorF& color) const
 	{
-		const double left = (m_leftWidth * textureScale);
-		const double top = (m_topHeight * textureScale);
-		const double right = (m_rightWidth * textureScale);
-		const double bottom = (m_bottomHeight * textureScale);
+		const double left = (m_patchSize.left * textureScale);
+		const double top = (m_patchSize.top * textureScale);
+		const double right = (m_patchSize.right * textureScale);
+		const double bottom = (m_patchSize.bottom * textureScale);
 		const double topBottomWidth = (rect.w - (left + right));
 		const double leftRightHeight = (rect.h - (top + bottom));
 		const bool showTopBottom = (0.0 <= topBottomWidth);
 		const bool showLeftRight = (0.0 <= leftRightHeight);
 		const int32 textureWidth = m_texture.width();
 		const int32 textureHeight = m_texture.height();
-		const int32 centerWidth = (textureWidth - (m_leftWidth + m_rightWidth));
-		const int32 centerHeight = (textureHeight - (m_topHeight + m_bottomHeight));
+		const int32 centerWidth = (textureWidth - (m_patchSize.left + m_patchSize.right));
+		const int32 centerHeight = (textureHeight - (m_patchSize.top + m_patchSize.bottom));
 
 		const RectF topLeftRect{ rect.pos, left, top };
 		const RectF topRect{ (rect.x + left), rect.y, topBottomWidth, top };
@@ -85,7 +82,7 @@ namespace s3d
 			if (not m_style.tileCenter)
 			{
 				const ScopedRenderStates2D sampler{ (textureFilter == TextureFilter::Nearest) ? SamplerState::ClampNearest : SamplerState::ClampLinear };
-				rect(m_texture(m_leftWidth, m_topHeight, centerWidth, centerHeight)).draw(color);
+				rect(m_texture(m_patchSize.left, m_patchSize.top, centerWidth, centerHeight)).draw(color);
 			}
 			else
 			{
@@ -101,46 +98,46 @@ namespace s3d
 				const ScopedRenderStates2D sampler{ (textureFilter == TextureFilter::Nearest) ? SamplerState::ClampNearest : SamplerState::ClampLinear };
 
 				// top-left
-				topLeftRect(m_texture(0, 0, m_leftWidth, m_topHeight)).draw(color);
+				topLeftRect(m_texture(0, 0, m_patchSize.left, m_patchSize.top)).draw(color);
 
 				// top
 				if ((not m_style.tileTopBottom) && showTopBottom)
 				{
-					topRect(m_texture(m_leftWidth, 0, centerWidth, m_topHeight)).draw(color);
+					topRect(m_texture(m_patchSize.left, 0, centerWidth, m_patchSize.top)).draw(color);
 				}
 
 				// top-right
-				topRightRect(m_texture((textureWidth - m_rightWidth), 0, m_rightWidth, m_topHeight)).draw(color);
+				topRightRect(m_texture((textureWidth - m_patchSize.right), 0, m_patchSize.right, m_patchSize.top)).draw(color);
 
 				// left
 				if ((not m_style.tileLeftRight) && showLeftRight)
 				{
-					leftRect(m_texture(0, m_topHeight, m_leftWidth, centerHeight)).draw(color);
+					leftRect(m_texture(0, m_patchSize.top, m_patchSize.left, centerHeight)).draw(color);
 				}
 
 				// center
 				if ((not m_style.tileCenter) && showTopBottom && showLeftRight)
 				{
-					centerRect(m_texture(m_leftWidth, m_topHeight, centerWidth, centerHeight)).draw(color);
+					centerRect(m_texture(m_patchSize.left, m_patchSize.top, centerWidth, centerHeight)).draw(color);
 				}
 
 				// right
 				if ((not m_style.tileLeftRight) && showLeftRight)
 				{
-					rightRect(m_texture((textureWidth - m_rightWidth), m_topHeight, m_rightWidth, centerHeight)).draw(color);
+					rightRect(m_texture((textureWidth - m_patchSize.right), m_patchSize.top, m_patchSize.right, centerHeight)).draw(color);
 				}
 
 				// bottom-left
-				bottomLeftRect(m_texture(0, (textureHeight - m_bottomHeight), m_leftWidth, m_bottomHeight)).draw(color);
+				bottomLeftRect(m_texture(0, (textureHeight - m_patchSize.bottom), m_patchSize.left, m_patchSize.bottom)).draw(color);
 
 				// bottom
 				if ((not m_style.tileTopBottom) && showTopBottom)
 				{
-					bottomRect(m_texture(m_leftWidth, (textureHeight - m_bottomHeight), centerWidth, m_bottomHeight)).draw(color);
+					bottomRect(m_texture(m_patchSize.left, (textureHeight - m_patchSize.bottom), centerWidth, m_patchSize.bottom)).draw(color);
 				}
 
 				// bottom-right
-				bottomRightRect(m_texture((textureWidth - m_rightWidth), (textureHeight - m_bottomHeight), m_rightWidth, m_bottomHeight)).draw(color);
+				bottomRightRect(m_texture((textureWidth - m_patchSize.right), (textureHeight - m_patchSize.bottom), m_patchSize.right, m_patchSize.bottom)).draw(color);
 			}
 
 			if (m_style.tileTopBottom || m_style.tileLeftRight || m_style.tileCenter)
@@ -174,6 +171,21 @@ namespace s3d
 		m_style = Style::Default();
 		m_texture.release();
 		m_repeatableTexture = RepeatableTexture{};
-		m_leftWidth = m_topHeight = m_rightWidth = m_bottomHeight = 0;
+		m_patchSize = PatchSize{};
+	}
+
+	const Texture& NinePatch::NinePatchDetail::getTexture() const noexcept
+	{
+		return m_texture;
+	}
+
+	const NinePatch::RepeatableTexture& NinePatch::NinePatchDetail::getRepeatableTexture() const noexcept
+	{
+		return m_repeatableTexture;
+	}
+
+	const NinePatch::PatchSize& NinePatch::NinePatchDetail::getPatchSize() const noexcept
+	{
+		return m_patchSize;
 	}
 }
