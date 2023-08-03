@@ -18,8 +18,12 @@ namespace s3d
 	// エンジン未初期化でも使えるメッセージボックス
 	namespace FreestandingMessageBox
 	{
+		/// @brief メッセージボックスを表示します。
+		/// @param text メッセージボックスに表示するテキスト
 		void ShowInfo(StringView text);
 
+		/// @brief エラーメッセージボックスを表示します。
+		/// @param text メッセージボックスに表示するテキスト
 		void ShowError(StringView text);
 	}
 }

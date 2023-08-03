@@ -36,8 +36,8 @@ namespace s3d
 
 		constexpr std::array<StringView, 2> AdditionalMessages =
 		{
-			U"Pressing [OK] will open the troubleshooting page.",
-			U"[OK] を押すとトラブルシューティングのページを開きます。",
+			U"Press [OK] to open the troubleshooting page in your web browser.",
+			U"[OK] を押して Web ブラウザでトラブルシューティングのページを開きます。",
 		};
 
 		constexpr std::array<StringView, 2> Languages =
@@ -59,25 +59,30 @@ namespace s3d
 			
 			const String messageBody = (Fmt((isError ? detail::Errors : detail::Warnings)[messageArrayIndex][languageIndex])(hint));
 			const StringView messageFooter = detail::AdditionalMessages[languageIndex];	
+
+			// トラブルシューティングの Web ページの URL
 			const String url = U"https://github.com/Siv3D/Troubleshooting/blob/main/{}/{}{}.md"_fmt(language, (isError ? U"errors/e" : U"warnings/w"), number);
 
 			String logMessage;
 			String displayMessage;
 
-			if (isError)
+			if (isError) // エラーの場合
 			{
 				logMessage = U"Error (E{}) | {}\nFor more information, see: {}"_fmt(number, messageBody, url);
 				displayMessage = U"Error | E{}\n\n{}\n\n{}"_fmt(number, messageBody, messageFooter);
 				LOG_ERROR(logMessage);
 			}
-			else
+			else // 警告の場合
 			{
 				logMessage = U"Warning (W{}) | {}\nFor more information, see: {}"_fmt(number, messageBody, url);
 				displayMessage = U"Warning | W{}\n\n{}\n\n{}"_fmt(number, messageBody, messageFooter);
 				LOG_WARNING(logMessage);
 			}
 	
+			// メッセージボックスを表示する
 			FreestandingMessageBox::ShowError(displayMessage);
+
+			// Web ブラウザで開く
 			System::LaunchBrowser(url);
 		}
 	}
