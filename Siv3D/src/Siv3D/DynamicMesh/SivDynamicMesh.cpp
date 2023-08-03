@@ -13,7 +13,6 @@
 # include <Siv3D/Mesh/IMesh.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
-# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 
 namespace s3d
 {

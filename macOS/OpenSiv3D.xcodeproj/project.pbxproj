@@ -305,6 +305,8 @@
 		2C2AA3AC26009C74003F3EBC /* b2_distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AA34E26009C74003F3EBC /* b2_distance.cpp */; };
 		2C2AA3AD26009C74003F3EBC /* b2_contact_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA34F26009C74003F3EBC /* b2_contact_manager.h */; };
 		2C2AA3AE26009C74003F3EBC /* b2_edge_shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2AA35026009C74003F3EBC /* b2_edge_shape.h */; };
+		2C3464092A7B81EB0083F8B7 /* Troubleshooting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3464072A7B81EB0083F8B7 /* Troubleshooting.cpp */; };
+		2C34640A2A7B81EB0083F8B7 /* Troubleshooting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3464082A7B81EB0083F8B7 /* Troubleshooting.hpp */; };
 		2C36F835267F937400691B1C /* Renderer3DFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F834267F937400691B1C /* Renderer3DFactory.mm */; };
 		2C36F83A267F939200691B1C /* CRenderer3D_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */; };
 		2C36F83B267F939200691B1C /* CRenderer3D_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */; };
@@ -2353,6 +2355,8 @@
 		2C2AA34E26009C74003F3EBC /* b2_distance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2_distance.cpp; sourceTree = "<group>"; };
 		2C2AA34F26009C74003F3EBC /* b2_contact_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2_contact_manager.h; sourceTree = "<group>"; };
 		2C2AA35026009C74003F3EBC /* b2_edge_shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2_edge_shape.h; sourceTree = "<group>"; };
+		2C3464072A7B81EB0083F8B7 /* Troubleshooting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Troubleshooting.cpp; sourceTree = "<group>"; };
+		2C3464082A7B81EB0083F8B7 /* Troubleshooting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Troubleshooting.hpp; sourceTree = "<group>"; };
 		2C36F834267F937400691B1C /* Renderer3DFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer3DFactory.mm; sourceTree = "<group>"; };
 		2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer3D_GL4.hpp; sourceTree = "<group>"; };
 		2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer3D_GL4.cpp; sourceTree = "<group>"; };
@@ -5616,6 +5620,15 @@
 			path = collision;
 			sourceTree = "<group>";
 		};
+		2C3464062A7B81EB0083F8B7 /* Troubleshooting */ = {
+			isa = PBXGroup;
+			children = (
+				2C3464072A7B81EB0083F8B7 /* Troubleshooting.cpp */,
+				2C3464082A7B81EB0083F8B7 /* Troubleshooting.hpp */,
+			);
+			path = Troubleshooting;
+			sourceTree = "<group>";
+		};
 		2C36F833267F937400691B1C /* Renderer3D */ = {
 			isa = PBXGroup;
 			children = (
@@ -8826,6 +8839,7 @@
 				2CC8BB1328C7532E008C770A /* Transformer3D */,
 				2CC8B86F28C7532D008C770A /* Triangle */,
 				2CC8BB1128C7532E008C770A /* Triangle3D */,
+				2C3464062A7B81EB0083F8B7 /* Troubleshooting */,
 				2CC8B74D28C7532C008C770A /* Twitter */,
 				2CC8B7EA28C7532D008C770A /* Unicode */,
 				2CC8B86D28C7532D008C770A /* UnicodeConverter */,
@@ -12524,6 +12538,7 @@
 				2CC8BB5828C7532F008C770A /* ILicenseManager.hpp in Headers */,
 				2C48BF0825CFB8C500A93CE3 /* EdgeHolder.h in Headers */,
 				2CC8BDEB28C75332008C770A /* FrameCounter.hpp in Headers */,
+				2C34640A2A7B81EB0083F8B7 /* Troubleshooting.hpp in Headers */,
 				2C2AA37C26009C74003F3EBC /* b2_stack_allocator.h in Headers */,
 				2CC8BDAB28C75332008C770A /* agg_basics.h in Headers */,
 				2C28E9782796816D0004E07D /* bitstream.h in Headers */,
@@ -14220,6 +14235,7 @@
 				2CC8BBC728C7532F008C770A /* P2Quad.cpp in Sources */,
 				2C636E782657F7D300AF029F /* soloud_misc.cpp in Sources */,
 				2C13C9AE25BD29FC0054B968 /* lua.c in Sources */,
+				2C3464092A7B81EB0083F8B7 /* Troubleshooting.cpp in Sources */,
 				2C60AE83248158A500277281 /* memory_non_windows_non_darwin.cpp in Sources */,
 				2C834DA5248805D4006208B8 /* regsyntax.c in Sources */,
 				2CC8BCA128C75330008C770A /* ScriptDrawableText.cpp in Sources */,

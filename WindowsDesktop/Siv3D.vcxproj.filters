@@ -1660,6 +1660,9 @@
     <Filter Include="src\Siv3D\TextAreaEditState">
       <UniqueIdentifier>{53f1a7f1-0e25-4829-83ed-b4b71ff1720c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Troubleshooting">
+      <UniqueIdentifier>{e6cba460-6b0f-41d0-a6e5-50fa2e1e229b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7014,6 +7017,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextAreaEditState.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.hpp">
+      <Filter>src\Siv3D\Troubleshooting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10195,6 +10201,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextAreaEditState\SivTextAreaEditState.cpp">
       <Filter>src\Siv3D\TextAreaEditState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.cpp">
+      <Filter>src\Siv3D\Troubleshooting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

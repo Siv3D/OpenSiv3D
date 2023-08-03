@@ -18,7 +18,7 @@
 # include <Siv3D/MSDFGlyph.hpp>
 # include <Siv3D/DrawableText.hpp>
 # include <Siv3D/Font/IFont.hpp>
-# include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
+# include <Siv3D/Troubleshooting/Troubleshooting.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/MeshData.hpp>
@@ -89,8 +89,8 @@ namespace s3d
 	{
 		if (not Siv3DEngine::isActive())
 		{
-			FreestandingMessageBox::ShowError(U"`Font` must be initialized after engine-setup. Please fix the C++ code.");
-			std::abort();
+			Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, U"Font");
+			std::exit(EXIT_FAILURE);
 		}
 	}
 

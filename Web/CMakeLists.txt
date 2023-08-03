@@ -604,6 +604,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/Transformer2D/SivTransformer2D.cpp
   ../Siv3D/src/Siv3D/Transformer3D/SivTransformer3D.cpp
   ../Siv3D/src/Siv3D/Triangle3D/SivTriangle3D.cpp
+  ../Siv3D/src/Siv3D/Troubleshooting/Troubleshooting.cpp
   ../Siv3D/src/Siv3D/Twitter/SivTwitter.cpp
   ../Siv3D/src/Siv3D/Unicode/SivUnicode.cpp
   ../Siv3D/src/Siv3D/Unicode/UnicodeUtility.cpp
