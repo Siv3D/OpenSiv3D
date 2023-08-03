@@ -1663,6 +1663,9 @@
     <Filter Include="src\Siv3D\Troubleshooting">
       <UniqueIdentifier>{e6cba460-6b0f-41d0-a6e5-50fa2e1e229b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\NinePatch">
+      <UniqueIdentifier>{a246703f-2273-459e-9baa-503e14d5742c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7020,6 +7023,15 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.hpp">
       <Filter>src\Siv3D\Troubleshooting</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\NinePatch.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\NinePatch.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\NinePatch\NinePatchDetail.hpp">
+      <Filter>src\Siv3D\NinePatch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10204,6 +10216,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Troubleshooting\Troubleshooting.cpp">
       <Filter>src\Siv3D\Troubleshooting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NinePatch\SivNinePatch.cpp">
+      <Filter>src\Siv3D\NinePatch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NinePatch\NinePatchDetail.cpp">
+      <Filter>src\Siv3D\NinePatch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

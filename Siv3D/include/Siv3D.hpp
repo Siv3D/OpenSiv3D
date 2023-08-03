@@ -1601,6 +1601,9 @@
 
 # include <Siv3D/MSRenderTexture.hpp>
 
+// 9 パッチテクスチャ | Nine-patch texture
+# include <Siv3D/NinePatch.hpp>
+
 //////////////////////////////////////////////////
 //
 //	フォント | Font

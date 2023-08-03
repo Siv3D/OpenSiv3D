@@ -24,6 +24,9 @@
 		2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D612566A855002A4B5E /* sw_ft_math.c */; };
 		2C0A4D86256A1C6C002A4B5E /* example in Resources */ = {isa = PBXBuildFile; fileRef = 2C0A4D85256A1C6C002A4B5E /* example */; };
 		2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D9C256A21E6002A4B5E /* sprite.metal */; };
+		2C0A98D12A7BB93800402926 /* SivNinePatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A98CE2A7BB93800402926 /* SivNinePatch.cpp */; };
+		2C0A98D22A7BB93800402926 /* NinePatchDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A98CF2A7BB93800402926 /* NinePatchDetail.hpp */; };
+		2C0A98D32A7BB93800402926 /* NinePatchDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A98D02A7BB93800402926 /* NinePatchDetail.cpp */; };
 		2C0CEDAF249F4E5B003647A7 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C0CEDAE249F4E5B003647A7 /* engine */; };
 		2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD7126297CB90050E354 /* WebcamInfo.mm */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
@@ -1966,6 +1969,11 @@
 		2C0A4D7C256A1807002A4B5E /* nanoflann.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nanoflann.hpp; sourceTree = "<group>"; };
 		2C0A4D85256A1C6C002A4B5E /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = App/example; sourceTree = "<group>"; };
 		2C0A4D9C256A21E6002A4B5E /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
+		2C0A98CB2A7BB8EC00402926 /* NinePatch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NinePatch.hpp; sourceTree = "<group>"; };
+		2C0A98CC2A7BB90F00402926 /* NinePatch.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NinePatch.ipp; sourceTree = "<group>"; };
+		2C0A98CE2A7BB93800402926 /* SivNinePatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivNinePatch.cpp; sourceTree = "<group>"; };
+		2C0A98CF2A7BB93800402926 /* NinePatchDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NinePatchDetail.hpp; sourceTree = "<group>"; };
+		2C0A98D02A7BB93800402926 /* NinePatchDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NinePatchDetail.cpp; sourceTree = "<group>"; };
 		2C0CEDAE249F4E5B003647A7 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = "<group>"; };
 		2C0F89ED249E3945008B9220 /* catch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2C0FBD7126297CB90050E354 /* WebcamInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebcamInfo.mm; sourceTree = "<group>"; };
@@ -4985,6 +4993,16 @@
 				2C0A4D9C256A21E6002A4B5E /* sprite.metal */,
 			);
 			path = msl;
+			sourceTree = "<group>";
+		};
+		2C0A98CD2A7BB93800402926 /* NinePatch */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A98CE2A7BB93800402926 /* SivNinePatch.cpp */,
+				2C0A98CF2A7BB93800402926 /* NinePatchDetail.hpp */,
+				2C0A98D02A7BB93800402926 /* NinePatchDetail.cpp */,
+			);
+			path = NinePatch;
 			sourceTree = "<group>";
 		};
 		2C0CED51249F2E2D003647A7 /* macOS_Linux */ = {
@@ -8018,6 +8036,7 @@
 				2CC8B68528C752EE008C770A /* NavMesh.hpp */,
 				2CC8B4BB28C752ED008C770A /* NavMeshConfig.hpp */,
 				2CC8B6B828C752EE008C770A /* Network.hpp */,
+				2C0A98CB2A7BB8EC00402926 /* NinePatch.hpp */,
 				2CC8B68928C752EE008C770A /* Noise.hpp */,
 				2CC8B6D028C752EE008C770A /* None.hpp */,
 				2CC8B71628C752EE008C770A /* NonNull.hpp */,
@@ -8461,6 +8480,7 @@
 				2CC8B5F928C752ED008C770A /* Model.ipp */,
 				2CC8B5A428C752ED008C770A /* MSRenderTexture.ipp */,
 				2CC8B63028C752ED008C770A /* MultiPolygon.ipp */,
+				2C0A98CC2A7BB90F00402926 /* NinePatch.ipp */,
 				2CC8B5BB28C752ED008C770A /* Noise.ipp */,
 				2CC8B62C28C752ED008C770A /* Number.ipp */,
 				2CC8B5ED28C752ED008C770A /* OffsetCircular.ipp */,
@@ -8728,6 +8748,7 @@
 				2CC8BA1F28C7532E008C770A /* MultiPolygon */,
 				2CC8B8A028C7532D008C770A /* NavMesh */,
 				2CC8B83E28C7532D008C770A /* Network */,
+				2C0A98CD2A7BB93800402926 /* NinePatch */,
 				2CC8BADF28C7532E008C770A /* None */,
 				2CB4C6EB29C44DBB00ADFD8C /* OpenAI */,
 				2CC8BB0128C7532E008C770A /* OpenCV_Bridge */,
@@ -12859,6 +12880,7 @@
 				2C13C9D025BD29FC0054B968 /* lfunc.h in Headers */,
 				2C2AA3AE26009C74003F3EBC /* b2_edge_shape.h in Headers */,
 				2CE762A229326ECF00E410FF /* OscPacketListener.h in Headers */,
+				2C0A98D22A7BB93800402926 /* NinePatchDetail.hpp in Headers */,
 				2C636E442657F7D300AF029F /* soloud_fft.h in Headers */,
 				2C57E9B32923A58700FB32FC /* ScriptCamera2DParameters.hpp in Headers */,
 				2CC8BC2428C7532F008C770A /* IAssetMonitor.hpp in Headers */,
@@ -13421,6 +13443,7 @@
 				2CC8BC6928C75330008C770A /* ScriptMat3x2.cpp in Sources */,
 				2CC8BC7F28C75330008C770A /* ScriptVec4.cpp in Sources */,
 				2CC8BB4D28C7532E008C770A /* SivBasicCamera3D.cpp in Sources */,
+				2C0A98D12A7BB93800402926 /* SivNinePatch.cpp in Sources */,
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
 				2CC8BE3328C75333008C770A /* SivKeyboard.cpp in Sources */,
@@ -13653,6 +13676,7 @@
 				2CC8BC7A28C75330008C770A /* ScriptSpecialFolder.cpp in Sources */,
 				2C13C8CC25B8FA9D0054B968 /* DetourAssert.cpp in Sources */,
 				2C6390E925367F020030F18E /* ConstantBufferDetailFactory.cpp in Sources */,
+				2C0A98D32A7BB93800402926 /* NinePatchDetail.cpp in Sources */,
 				2C28E9462796816C0004E07D /* zstd_compress_superblock.c in Sources */,
 				2CC8BBA528C7532F008C770A /* CEmpty.cpp in Sources */,
 				2CB18EAB26B5A68700862C28 /* as_tokenizer.cpp in Sources */,
