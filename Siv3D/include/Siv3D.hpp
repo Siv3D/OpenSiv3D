@@ -1597,8 +1597,10 @@
 // ビデオ・テクスチャ | Video texture
 # include <Siv3D/VideoTexture.hpp>
 
+// レンダーテクスチャ | Render texture
 # include <Siv3D/RenderTexture.hpp>
 
+// マルチサンプルレンダーテクスチャ | Multisample render texture
 # include <Siv3D/MSRenderTexture.hpp>
 
 // 9 パッチテクスチャ | Nine-patch texture
@@ -1623,6 +1625,7 @@
 // フォント描画方式 | Font rendering method
 # include <Siv3D/FontMethod.hpp>
 
+// 標準フォントの種類 | Standard font type
 # include <Siv3D/Typeface.hpp>
 
 // フォント | Font
@@ -1827,6 +1830,7 @@
 //
 //////////////////////////////////////////////////
 
+// トランプカード描画 | Playing card
 # include <Siv3D/PlayingCard.hpp>
 
 //////////////////////////////////////////////////
@@ -1835,6 +1839,7 @@
 //
 //////////////////////////////////////////////////
 
+// OpenAI API | OpenAI API
 # include <Siv3D/OpenAI.hpp>
 
 //////////////////////////////////////////////////

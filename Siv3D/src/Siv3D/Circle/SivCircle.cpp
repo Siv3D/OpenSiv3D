@@ -486,13 +486,13 @@ namespace s3d
 		const float radDelta		= (Math::TwoPiF / quality);
 
 		const Vertex2D::IndexType outerVertexCount	= quality;
-		const Vertex2D::IndexType innnerVertexCount	= quality;
+		const Vertex2D::IndexType innerVertexCount	= quality;
 
 		const size_t outerTriangleCount		= (quality * 2);
-		const size_t innnerTriangleCount	= quality;
+		const size_t innerTriangleCount	= quality;
 
-		const Vertex2D::IndexType vertexCount = (outerVertexCount + innnerVertexCount + 1);
-		const size_t triangleCount	= (outerTriangleCount + innnerTriangleCount);
+		const Vertex2D::IndexType vertexCount = (outerVertexCount + innerVertexCount + 1);
+		const size_t triangleCount	= (outerTriangleCount + innerTriangleCount);
 
 		Array<Vertex2D> vertices(vertexCount);
 		{

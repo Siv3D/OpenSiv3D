@@ -318,9 +318,9 @@ namespace s3d
 		}
 
 		const Float4 colF			= color.toFloat4();
-		const double innnerOffset	= (r < blurRadius * 0.5) ? (blurRadius * 0.5) : r;
+		const double innerOffset	= (r < blurRadius * 0.5) ? (blurRadius * 0.5) : r;
 		const double over			= Max(blurRadius * 0.5 - r, 0.0);
-		const RectF baseRect		= rect.stretched(spread - innnerOffset).movedBy(offset);
+		const RectF baseRect		= rect.stretched(spread - innerOffset).movedBy(offset);
 		const double pR				= Min({ w * 0.5, h * 0.5, r });
 		const double nearR			= Max(pR - blurRadius * 0.5, 0.0);
 		const double farR			= (pR + blurRadius * 0.5 + over);
