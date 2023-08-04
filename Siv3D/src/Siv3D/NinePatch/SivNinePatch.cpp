@@ -14,6 +14,24 @@
 
 namespace s3d
 {
+	NinePatch::NinePatch(const FilePathView path, const int32 patchSize, const Style& style)
+		: NinePatch{ Image{ path }, patchSize, patchSize, patchSize, patchSize, style } {}
+
+	NinePatch::NinePatch(const FilePathView path, const int32 patchWidth, const int32 patchHeight, const Style& style)
+		: NinePatch{ Image{ path }, patchWidth, patchHeight, patchWidth, patchHeight, style } {}
+
+	NinePatch::NinePatch(const FilePathView path, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
+		: NinePatch{ Image{ path }, leftWidth, topHeight, rightWidth, bottomHeight, style } {}
+
+	NinePatch::NinePatch(const Image& image, const int32 patchSize, const Style& style)
+		: NinePatch{ image, patchSize, patchSize, patchSize, patchSize, style } {}
+
+	NinePatch::NinePatch(const Image& image, const int32 patchWidth, const int32 patchHeight, const Style& style)
+		: NinePatch{ image, patchWidth, patchHeight, patchWidth, patchHeight, style } {}
+
+	NinePatch::NinePatch(const Image& image, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
+		: pImpl{ std::make_shared<NinePatchDetail>(image, leftWidth, topHeight, rightWidth, bottomHeight, style) } {}
+
 	NinePatch::NinePatch(const Texture& texture, const int32 patchSize, const Style& style)
 		: NinePatch{ texture, patchSize, patchSize, patchSize, patchSize, style } {}
 

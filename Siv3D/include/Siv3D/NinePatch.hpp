@@ -158,11 +158,61 @@ namespace s3d
 		NinePatch() = default;
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像ファイルのパス
+		/// @param patchSize 9 パッチテクスチャの四隅のパッチの幅（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(FilePathView path, int32 patchSize, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像ファイルのパス
+		/// @param patchWidth 9 パッチテクスチャの左および右のパッチの幅（ピクセル）
+		/// @param patchHeight 9 パッチテクスチャの上および下のパッチの高さ（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(FilePathView path, int32 patchWidth, int32 patchHeight, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像ファイルのパス
+		/// @param leftWidth 9 パッチテクスチャの左のパッチの幅（ピクセル）
+		/// @param topHeight 9 パッチテクスチャの上のパッチの高さ（ピクセル）
+		/// @param rightWidth 9 パッチテクスチャの右のパッチの幅（ピクセル）
+		/// @param bottomHeight 9 パッチテクスチャの下のパッチの幅（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(FilePathView path, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像
+		/// @param patchSize 9 パッチテクスチャの四隅のパッチの幅（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(const Image& image, int32 patchSize, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像
+		/// @param patchWidth 9 パッチテクスチャの左および右のパッチの幅（ピクセル）
+		/// @param patchHeight 9 パッチテクスチャの上および下のパッチの高さ（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(const Image& image, int32 patchWidth, int32 patchHeight, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
+		/// @param image 画像
+		/// @param leftWidth 9 パッチテクスチャの左のパッチの幅（ピクセル）
+		/// @param topHeight 9 パッチテクスチャの上のパッチの高さ（ピクセル）
+		/// @param rightWidth 9 パッチテクスチャの右のパッチの幅（ピクセル）
+		/// @param bottomHeight 9 パッチテクスチャの下のパッチの幅（ピクセル）
+		/// @param style スタイル
+		SIV3D_NODISCARD_CXX20
+		NinePatch(const Image& image, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style = Style::Default());
+
+		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
 		/// @param patchSize 9 パッチテクスチャの四隅のパッチの幅（ピクセル）
 		/// @param style スタイル
 		SIV3D_NODISCARD_CXX20
-		explicit NinePatch(const Texture& texture, int32 patchSize, const Style& style = Style::Default());
+		NinePatch(const Texture& texture, int32 patchSize, const Style& style = Style::Default());
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
@@ -170,7 +220,7 @@ namespace s3d
 		/// @param patchHeight 9 パッチテクスチャの上および下のパッチの高さ（ピクセル）
 		/// @param style スタイル
 		SIV3D_NODISCARD_CXX20
-		explicit NinePatch(const Texture& texture, int32 patchWidth, int32 patchHeight, const Style& style = Style::Default());
+		NinePatch(const Texture& texture, int32 patchWidth, int32 patchHeight, const Style& style = Style::Default());
 
 		/// @brief 9 パッチでテクスチャを描画するクラスを作成します。
 		/// @param texture テクスチャ
@@ -180,7 +230,7 @@ namespace s3d
 		/// @param bottomHeight 9 パッチテクスチャの下のパッチの幅（ピクセル）
 		/// @param style スタイル
 		SIV3D_NODISCARD_CXX20
-		explicit NinePatch(const Texture& texture, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style = Style::Default());
+		NinePatch(const Texture& texture, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style = Style::Default());
 
 		/// @brief 9 パッチを用いて長方形を描画します。
 		/// @param rect 長方形

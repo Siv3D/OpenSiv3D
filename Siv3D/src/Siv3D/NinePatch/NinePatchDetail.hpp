@@ -21,6 +21,8 @@ namespace s3d
 
 		NinePatchDetail() = default;
 
+		NinePatchDetail(const Image& image, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style);
+
 		NinePatchDetail(const Texture& texture, int32 leftWidth, int32 topHeight, int32 rightWidth, int32 bottomHeight, const Style& style);
 
 		void draw(const RectF& rect, double textureScale, TextureFilter textureFilter, const ColorF& color) const;

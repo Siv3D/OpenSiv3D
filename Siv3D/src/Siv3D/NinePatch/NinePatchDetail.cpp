@@ -17,6 +17,34 @@
 
 namespace s3d
 {
+	NinePatch::NinePatchDetail::NinePatchDetail(const Image& image, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
+		: m_style{ style }
+		, m_texture{ image }
+		, m_patchSize{ leftWidth, topHeight, rightWidth, bottomHeight, m_texture.size() }
+	{
+		const int32 textureWidth = m_texture.width();
+		const int32 textureHeight = m_texture.height();
+		const int32 centerWidth = (textureWidth - (m_patchSize.left + m_patchSize.right));
+		const int32 centerHeight = (textureHeight - (m_patchSize.top + m_patchSize.bottom));
+
+		if (m_style.tileTopBottom)
+		{
+			m_repeatableTexture.top = RenderTexture{ image.clipped(m_patchSize.left, 0, centerWidth, m_patchSize.top) };
+			m_repeatableTexture.bottom = RenderTexture{ image.clipped(m_patchSize.left, (textureHeight - m_patchSize.bottom), centerWidth, m_patchSize.bottom) };
+		}
+
+		if (m_style.tileLeftRight)
+		{
+			m_repeatableTexture.left = RenderTexture{ image.clipped(0, m_patchSize.top, m_patchSize.left, centerHeight) };
+			m_repeatableTexture.right = RenderTexture{ image.clipped((textureWidth - m_patchSize.right), m_patchSize.top, m_patchSize.right, centerHeight) };
+		}
+
+		if (m_style.tileCenter)
+		{
+			m_repeatableTexture.center = RenderTexture{ image.clipped(m_patchSize.left, m_patchSize.top, centerWidth, centerHeight) };
+		}
+	}
+
 	NinePatch::NinePatchDetail::NinePatchDetail(const Texture& texture, const int32 leftWidth, const int32 topHeight, const int32 rightWidth, const int32 bottomHeight, const Style& style)
 		: m_style{ style }
 		, m_texture{ texture }
