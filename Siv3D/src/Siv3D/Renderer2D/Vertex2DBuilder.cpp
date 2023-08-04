@@ -2879,7 +2879,7 @@ namespace s3d
 			return indexSize;
 		}
 
-		Vertex2D::IndexType BuildRectShadow(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float blur, const Float4& color)
+		Vertex2D::IndexType BuildRectShadow(const BufferCreatorFunc& bufferCreator, const FloatRect& rect, float blur, const Float4& color, const bool fill)
 		{
 			constexpr Vertex2D::IndexType vertexCount = 16, indexCount = 54;
 			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexCount, indexCount);
@@ -2920,6 +2920,8 @@ namespace s3d
 
 			// インデックス情報の書き込み
 			{
+				Vertex2D::IndexType* pBase = pIndex;
+
 				for (Vertex2D::IndexType ty = 0; ty < 3; ++ty)
 				{
 					for (Vertex2D::IndexType tx = 0; tx < 3; ++tx)
@@ -2934,6 +2936,12 @@ namespace s3d
 						*pIndex++ = (base + 1);
 						*pIndex++ = (base + 5);
 					}
+				}
+
+				if (not fill)
+				{
+					// 縮退三角形
+					pBase[29] = pBase[28] = pBase[27] = pBase[26] = pBase[25] = pBase[24];
 				}
 			}
 
@@ -3045,7 +3053,7 @@ namespace s3d
 			return indexCount;
 		}
 
-		Vertex2D::IndexType BuildRoundRectShadow(const BufferCreatorFunc& bufferCreator, const RoundRect& roundRect, const float blur, const Float4& color, const float scale)
+		Vertex2D::IndexType BuildRoundRectShadow(const BufferCreatorFunc& bufferCreator, const RoundRect& roundRect, const float blur, const Float4& color, const float scale, const bool fill)
 		{
 			const float baseRadius = static_cast<float>(roundRect.r);
 			const float nearRadius = (baseRadius - (blur * 0.5f));
@@ -3418,6 +3426,7 @@ namespace s3d
 				}
 
 				// 中心
+				if (fill)
 				{
 					const Vertex2D::IndexType t0 = (indexOffset + roundVertexCount - 1);
 					const Vertex2D::IndexType t1 = (t0 + roundVertexCount);
@@ -3431,6 +3440,20 @@ namespace s3d
 					*pIndex++ = t3;
 					*pIndex++ = t1;
 					*pIndex++ = t2;
+				}
+				else
+				{
+					const Vertex2D::IndexType t0 = (indexOffset + roundVertexCount - 1);
+
+					// 縮退三角形
+					*pIndex++ = t0;
+					*pIndex++ = t0;
+					*pIndex++ = t0;
+
+					// 縮退三角形
+					*pIndex++ = t0;
+					*pIndex++ = t0;
+					*pIndex++ = t0;
 				}
 			}
 

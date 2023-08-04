@@ -617,9 +617,9 @@ namespace s3d
 		return *this;
 	}
 
-	const Rect& Rect::drawShadow(const Vec2& offset, const double blurRadius, const double spread, const ColorF& color) const
+	const Rect& Rect::drawShadow(const Vec2& offset, const double blurRadius, const double spread, const ColorF& color, const bool fill) const
 	{
-		RectF{ *this }.drawShadow(offset, blurRadius, spread, color);
+		RectF{ *this }.drawShadow(offset, blurRadius, spread, color, fill);
 
 		return *this;
 	}

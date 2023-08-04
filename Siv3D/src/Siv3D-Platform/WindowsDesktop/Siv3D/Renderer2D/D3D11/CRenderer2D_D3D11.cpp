@@ -744,9 +744,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_D3D11::addRectShadow(const FloatRect& rect, const float blur, const Float4& color)
+	void CRenderer2D_D3D11::addRectShadow(const FloatRect& rect, const float blur, const Float4& color, const bool fill)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildRectShadow(m_bufferCreator, rect, blur, color))
+		if (const auto indexCount = Vertex2DBuilder::BuildRectShadow(m_bufferCreator, rect, blur, color, fill))
 		{
 			if (not m_currentCustomVS)
 			{
@@ -782,9 +782,9 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_D3D11::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color)
+	void CRenderer2D_D3D11::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color, const bool fill)
 	{
-		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectShadow(m_bufferCreator, roundRect, blur, color, getMaxScaling()))
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectShadow(m_bufferCreator, roundRect, blur, color, getMaxScaling(), fill))
 		{
 			if (not m_currentCustomVS)
 			{

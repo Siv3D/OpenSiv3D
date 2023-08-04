@@ -876,8 +876,9 @@ namespace s3d
 		/// @param blur ぼかしの大きさ（ピクセル）
 		/// @param spread 影の膨張（ピクセル）
 		/// @param color 影の色
+		/// @param fill 影の内部を塗りつぶすか
 		/// @return *this
-		const RectF& drawShadow(const Vec2& offset, double blur, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
+		const RectF& drawShadow(const Vec2& offset, double blur, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }, bool fill = true) const;
 
 		[[nodiscard]]
 		TexturedQuad operator ()(const Texture& texture) const;

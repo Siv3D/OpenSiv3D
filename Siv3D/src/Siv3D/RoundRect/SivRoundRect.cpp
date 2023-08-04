@@ -304,7 +304,7 @@ namespace s3d
 		return *this;
 	}
 
-	const RoundRect& RoundRect::drawShadow(const Vec2& offset, double blur, const double spread, const ColorF& color) const
+	const RoundRect& RoundRect::drawShadow(const Vec2& offset, double blur, const double spread, const ColorF& color, const bool fill) const
 	{
 		// ブラー半径が 0 未満なら描画しない
 		if (blur < 0.0)
@@ -322,7 +322,7 @@ namespace s3d
 		const RoundRect baseRoundRect = movedBy(offset).stretched(spread);
 		const double blurClamped = Min({ baseRoundRect.w, baseRoundRect.h, blur });
 
-		SIV3D_ENGINE(Renderer2D)->addRoundRectShadow(baseRoundRect, static_cast<float>(blurClamped), color.toFloat4());
+		SIV3D_ENGINE(Renderer2D)->addRoundRectShadow(baseRoundRect, static_cast<float>(blurClamped), color.toFloat4(), fill);
 
 		return *this;
 	}

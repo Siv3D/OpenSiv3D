@@ -666,7 +666,7 @@ namespace s3d
 
 	}
 
-	void CRenderer2D_Metal::addRectShadow(const FloatRect& rect, const float blur, const Float4& color)
+	void CRenderer2D_Metal::addRectShadow(const FloatRect& rect, const float blur, const Float4& color, const bool fill)
 	{
 
 	}
@@ -676,7 +676,7 @@ namespace s3d
 	
 	}
 
-	void CRenderer2D_Metal::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color)
+	void CRenderer2D_Metal::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color, const bool fill)
 	{
 
 	}

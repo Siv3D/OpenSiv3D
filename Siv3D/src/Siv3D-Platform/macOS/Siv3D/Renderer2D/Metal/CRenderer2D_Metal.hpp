@@ -144,11 +144,11 @@ namespace s3d
 
 		void addTexturedVertices(const Texture& texture, const Vertex2D* vertices, size_t vertexCount, const TriangleIndex* indices, size_t num_triangles) override;
 
-		void addRectShadow(const FloatRect& rect, float blur, const Float4& color) override;
+		void addRectShadow(const FloatRect& rect, float blur, const Float4& color, bool fill) override;
 
 		void addCircleShadow(const Circle& circle, float blur, const Float4& color) override;
 
-		void addRoundRectShadow(const RoundRect& roundRect, float blur, const Float4& color) override;
+		void addRoundRectShadow(const RoundRect& roundRect, float blur, const Float4& color, bool fill) override;
 
 		void addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
 			ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
