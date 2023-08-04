@@ -349,6 +349,7 @@ namespace s3d
 				}
 				else if (ch == U'\n')
 				{
+					xAdvances << 0.0;
 					penPosX = basePosX;
 				}
 				else
