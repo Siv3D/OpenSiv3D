@@ -319,7 +319,8 @@ namespace s3d
 			return *this;
 		}
 
-		const RoundRect baseRoundRect = movedBy(offset).stretched(spread);
+		RoundRect baseRoundRect = movedBy(offset).stretched(spread);
+		baseRoundRect.r += spread;
 		const double blurClamped = Min({ baseRoundRect.w, baseRoundRect.h, blur });
 
 		SIV3D_ENGINE(Renderer2D)->addRoundRectShadow(baseRoundRect, static_cast<float>(blurClamped), color.toFloat4(), fill);
