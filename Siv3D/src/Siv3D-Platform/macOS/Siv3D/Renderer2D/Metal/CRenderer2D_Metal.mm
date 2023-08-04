@@ -666,6 +666,21 @@ namespace s3d
 
 	}
 
+	void CRenderer2D_Metal::addRectShadow(const FloatRect& rect, const float blur, const Float4& color)
+	{
+
+	}
+
+	void CRenderer2D_Metal::addCircleShadow(const Circle& circle, const float blur, const Float4& color)
+	{
+	
+	}
+
+	void CRenderer2D_Metal::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color)
+	{
+
+	}
+
 	void CRenderer2D_Metal::addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
 		ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
 		ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc)

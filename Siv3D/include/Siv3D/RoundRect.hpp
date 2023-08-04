@@ -305,7 +305,13 @@ namespace s3d
 
 		const RoundRect& drawFrame(double innerThickness, double outerThickness, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const;
 
-		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
+		/// @brief 角丸長方形の影を描画します。
+		/// @param offset 影の位置のオフセット（ピクセル）
+		/// @param blur ぼかしの大きさ（ピクセル）
+		/// @param spread 影の膨張（ピクセル）
+		/// @param color 影の色
+		/// @return *this
+		const RoundRect& drawShadow(const Vec2& offset, double blur, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]
 		TexturedRoundRect operator ()(const Texture& texture) const;

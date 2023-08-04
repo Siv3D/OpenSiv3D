@@ -541,11 +541,11 @@ namespace s3d
 
 		/// @brief 円の影を描きます。
 		/// @param offset 影の位置のオフセット
-		/// @param blurRadius ぼかし距離
-		/// @param spread 元の円からのサイズのオフセット
+		/// @param blur ぼかしの大きさ（ピクセル）
+		/// @param spread 影の膨張（ピクセル）
 		/// @param color 影の色
 		/// @return *this
-		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
+		const Circle& drawShadow(const Vec2& offset, double blur, double spread = 0.0, const ColorF& color = ColorF{ 0.0, 0.5 }) const;
 
 		[[nodiscard]]
 		TexturedCircle operator ()(const Texture& texture) const;

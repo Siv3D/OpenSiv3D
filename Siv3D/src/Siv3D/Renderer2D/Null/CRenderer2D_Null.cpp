@@ -207,6 +207,21 @@ namespace s3d
 		// do nothing
 	}
 
+	void CRenderer2D_Null::addRectShadow(const FloatRect&, const float, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addCircleShadow(const Circle&, const float, const Float4&)
+	{
+		// do nothing
+	}
+
+	void CRenderer2D_Null::addRoundRectShadow(const RoundRect&, const float, const Float4&)
+	{
+		// do nothing
+	}
+
 	void CRenderer2D_Null::addTexturedParticles(const Texture&, const Array<Particle2D>&,
 		ParticleSystem2DParameters::SizeOverLifeTimeFunc,
 		ParticleSystem2DParameters::ColorOverLifeTimeFunc)

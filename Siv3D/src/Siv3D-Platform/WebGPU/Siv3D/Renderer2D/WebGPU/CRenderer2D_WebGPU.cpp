@@ -740,6 +740,63 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_WebGPU::addRectShadow(const FloatRect& rect, const float blur, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRectShadow(m_bufferCreator, rect, blur, color))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, getBoxShadowTexture());
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_WebGPU::addCircleShadow(const Circle& circle, const float blur, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildCircleShadow(m_bufferCreator, circle, blur, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, getBoxShadowTexture());
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
+	void CRenderer2D_WebGPU::addRoundRectShadow(const RoundRect& roundRect, const float blur, const Float4& color)
+	{
+		if (const auto indexCount = Vertex2DBuilder::BuildRoundRectShadow(m_bufferCreator, roundRect, blur, color, getMaxScaling()))
+		{
+			if (not m_currentCustomVS)
+			{
+				m_commandManager.pushStandardVS(m_standardVS->spriteID);
+			}
+
+			if (not m_currentCustomPS)
+			{
+				m_commandManager.pushStandardPS(m_standardPS->textureID);
+			}
+
+			m_commandManager.pushPSTexture(0, getBoxShadowTexture());
+			m_commandManager.pushDraw(indexCount);
+		}
+	}
+
 	void CRenderer2D_WebGPU::addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
 		ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
 		ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc)
