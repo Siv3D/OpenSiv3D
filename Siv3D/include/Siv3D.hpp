@@ -1709,6 +1709,12 @@
 // エフェクト | Effect
 # include <Siv3D/Effect.hpp>
 
+// 軌跡 | Trail
+# include <Siv3D/Trail.hpp>
+
+// 軌跡のモーション | Trail motion
+# include <Siv3D/TrailMotion.hpp>
+
 //////////////////////////////////////////////////
 //
 //	スクリーンキャプチャ | Screen Capture

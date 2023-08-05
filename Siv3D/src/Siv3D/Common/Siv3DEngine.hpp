@@ -60,6 +60,7 @@ namespace s3d
 	class ISiv3DPrimitiveMesh;
 	class ISiv3DAsset;
 	class ISiv3DEffect;
+	class ISiv3DTrailRenderer;
 	class ISiv3DScript;
 	class ISiv3DAddon;
 
@@ -115,6 +116,7 @@ namespace s3d
 			Siv3DComponent<ISiv3DPrimitiveMesh>,
 			Siv3DComponent<ISiv3DAsset>,
 			Siv3DComponent<ISiv3DEffect>,
+			Siv3DComponent<ISiv3DTrailRenderer>,
 			Siv3DComponent<ISiv3DScript>,
 			Siv3DComponent<ISiv3DAddon>> m_components;
 
