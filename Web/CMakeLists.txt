@@ -1539,6 +1539,8 @@ add_executable(Siv3DUnitTest
   ../Test/Siv3DTest.cpp
   ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Gamepad/CGamepad.cpp
   ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Gamepad/MockGLFWGamepad.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Keyboard/CKeyboard.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Keyboard/MockGLFWKeyboard.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/SivDialog_Web.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/MockSiv3DDialog.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/CWindow.cpp
