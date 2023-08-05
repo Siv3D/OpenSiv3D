@@ -132,6 +132,12 @@
 		2C13C9D725BD29FC0054B968 /* ldo.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C13C99A25BD29FC0054B968 /* ldo.c */; };
 		2C13C9D825BD29FC0054B968 /* lundump.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C13C99B25BD29FC0054B968 /* lundump.h */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
+		2C27113E2A7EA6CF00BD4014 /* SivTrail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2711362A7EA6CE00BD4014 /* SivTrail.cpp */; };
+		2C27113F2A7EA6CF00BD4014 /* SivTrailMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2711382A7EA6CF00BD4014 /* SivTrailMotion.cpp */; };
+		2C2711402A7EA6CF00BD4014 /* ITrailRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27113A2A7EA6CF00BD4014 /* ITrailRenderer.hpp */; };
+		2C2711412A7EA6CF00BD4014 /* TrailRendererFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27113B2A7EA6CF00BD4014 /* TrailRendererFactory.cpp */; };
+		2C2711422A7EA6CF00BD4014 /* CTrailRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27113C2A7EA6CF00BD4014 /* CTrailRenderer.hpp */; };
+		2C2711432A7EA6CF00BD4014 /* CTrailRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27113D2A7EA6CF00BD4014 /* CTrailRenderer.cpp */; };
 		2C27A9DF256A446E00756617 /* MetalRenderPipeline2DManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */; };
 		2C27A9E1256A59FC00756617 /* MetalRenderPipeline2DManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */; };
 		2C27A9EB256E359400756617 /* GL4BlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C27A9E3256E359400756617 /* GL4BlendState.cpp */; };
@@ -2187,6 +2193,14 @@
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
+		2C2711332A7EA69900BD4014 /* Trail.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trail.hpp; sourceTree = "<group>"; };
+		2C2711342A7EA69900BD4014 /* TrailMotion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TrailMotion.hpp; sourceTree = "<group>"; };
+		2C2711362A7EA6CE00BD4014 /* SivTrail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTrail.cpp; sourceTree = "<group>"; };
+		2C2711382A7EA6CF00BD4014 /* SivTrailMotion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTrailMotion.cpp; sourceTree = "<group>"; };
+		2C27113A2A7EA6CF00BD4014 /* ITrailRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITrailRenderer.hpp; sourceTree = "<group>"; };
+		2C27113B2A7EA6CF00BD4014 /* TrailRendererFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrailRendererFactory.cpp; sourceTree = "<group>"; };
+		2C27113C2A7EA6CF00BD4014 /* CTrailRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTrailRenderer.hpp; sourceTree = "<group>"; };
+		2C27113D2A7EA6CF00BD4014 /* CTrailRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTrailRenderer.cpp; sourceTree = "<group>"; };
 		2C27A9DE256A446E00756617 /* MetalRenderPipeline2DManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MetalRenderPipeline2DManager.hpp; sourceTree = "<group>"; };
 		2C27A9E0256A59FC00756617 /* MetalRenderPipeline2DManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderPipeline2DManager.mm; sourceTree = "<group>"; };
 		2C27A9E3256E359400756617 /* GL4BlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4BlendState.cpp; sourceTree = "<group>"; };
@@ -5334,6 +5348,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2C2711352A7EA6CE00BD4014 /* Trail */ = {
+			isa = PBXGroup;
+			children = (
+				2C2711362A7EA6CE00BD4014 /* SivTrail.cpp */,
+			);
+			path = Trail;
+			sourceTree = "<group>";
+		};
+		2C2711372A7EA6CF00BD4014 /* TrailMotion */ = {
+			isa = PBXGroup;
+			children = (
+				2C2711382A7EA6CF00BD4014 /* SivTrailMotion.cpp */,
+			);
+			path = TrailMotion;
+			sourceTree = "<group>";
+		};
+		2C2711392A7EA6CF00BD4014 /* TrailRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				2C27113A2A7EA6CF00BD4014 /* ITrailRenderer.hpp */,
+				2C27113B2A7EA6CF00BD4014 /* TrailRendererFactory.cpp */,
+				2C27113C2A7EA6CF00BD4014 /* CTrailRenderer.hpp */,
+				2C27113D2A7EA6CF00BD4014 /* CTrailRenderer.cpp */,
+			);
+			path = TrailRenderer;
+			sourceTree = "<group>";
+		};
 		2C27A9E2256E359400756617 /* BlendState */ = {
 			isa = PBXGroup;
 			children = (
@@ -8210,6 +8251,8 @@
 				2CC8B65A28C752EE008C770A /* ToastNotificationItem.hpp */,
 				2CC8B66D28C752EE008C770A /* ToastNotificationState.hpp */,
 				2CC8B4F728C752ED008C770A /* TOMLReader.hpp */,
+				2C2711332A7EA69900BD4014 /* Trail.hpp */,
+				2C2711342A7EA69900BD4014 /* TrailMotion.hpp */,
 				2CC8B70128C752EE008C770A /* Transformer2D.hpp */,
 				2CC8B6C028C752EE008C770A /* Transformer3D.hpp */,
 				2CC8B6E228C752EE008C770A /* Transition.hpp */,
@@ -8856,6 +8899,9 @@
 				2CC8B84628C7532D008C770A /* Timer */,
 				2CC8BAE528C7532E008C770A /* ToastNotification */,
 				2CC8B76628C7532D008C770A /* TOMLReader */,
+				2C2711352A7EA6CE00BD4014 /* Trail */,
+				2C2711372A7EA6CF00BD4014 /* TrailMotion */,
+				2C2711392A7EA6CF00BD4014 /* TrailRenderer */,
 				2CC8B77028C7532D008C770A /* Transformer2D */,
 				2CC8BB1328C7532E008C770A /* Transformer3D */,
 				2CC8B86F28C7532D008C770A /* Triangle */,
@@ -12376,6 +12422,7 @@
 				2CC8BB9728C7532F008C770A /* ILogger.hpp in Headers */,
 				2C48BF0125CFB8C500A93CE3 /* Bitmap.h in Headers */,
 				2C636E562657F7D300AF029F /* soloud_c.h in Headers */,
+				2C2711402A7EA6CF00BD4014 /* ITrailRenderer.hpp in Headers */,
 				2CC8BC2528C7532F008C770A /* CAssetMonitor.hpp in Headers */,
 				2C28E94B2796816C0004E07D /* zstd_opt.h in Headers */,
 				2CC8BCE328C75330008C770A /* CScript.hpp in Headers */,
@@ -12837,6 +12884,7 @@
 				2C636EAF2657F7D300AF029F /* darray.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C636E7A2657F7D300AF029F /* miniaudio.h in Headers */,
+				2C2711422A7EA6CF00BD4014 /* CTrailRenderer.hpp in Headers */,
 				2C28E9812796816D0004E07D /* zstd_internal.h in Headers */,
 				2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
@@ -13387,10 +13435,12 @@
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
 				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
 				2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */,
+				2C27113E2A7EA6CF00BD4014 /* SivTrail.cpp in Sources */,
 				2C636E772657F7D300AF029F /* soloud_core_3d.cpp in Sources */,
 				2CC8BBF128C7532F008C770A /* SivFormatUtility.cpp in Sources */,
 				2CC8BBA628C7532F008C770A /* EmptyFactory.cpp in Sources */,
 				2C13C8BF25B8FA9D0054B968 /* RecastRegion.cpp in Sources */,
+				2C2711412A7EA6CF00BD4014 /* TrailRendererFactory.cpp in Sources */,
 				2CE762D129327C5700E410FF /* SivOSCMessage.cpp in Sources */,
 				2C2AA38F26009C74003F3EBC /* b2_block_allocator.cpp in Sources */,
 				2CF21D1B249FAA8F00C864C9 /* SivTime.cpp in Sources */,
@@ -13410,6 +13460,7 @@
 				2CF21D24249FAA8F00C864C9 /* CWindow_macOS.mm in Sources */,
 				2C13C8C225B8FA9D0054B968 /* RecastMesh.cpp in Sources */,
 				2CC8BB8828C7532F008C770A /* SivVideoWriter.cpp in Sources */,
+				2C2711432A7EA6CF00BD4014 /* CTrailRenderer.cpp in Sources */,
 				2CC8BC7428C75330008C770A /* ScriptOffsetCircular.cpp in Sources */,
 				2CC8BC9328C75330008C770A /* ScriptCameraControl.cpp in Sources */,
 				2C28E9642796816C0004E07D /* zstd_ddict.c in Sources */,
@@ -13447,6 +13498,7 @@
 				2C13C9AC25BD29FC0054B968 /* lfunc.c in Sources */,
 				2C60AE7B248158A500277281 /* quantities_cache_windows.cpp in Sources */,
 				2CC8BE3328C75333008C770A /* SivKeyboard.cpp in Sources */,
+				2C27113F2A7EA6CF00BD4014 /* SivTrailMotion.cpp in Sources */,
 				2CC8BCD128C75330008C770A /* ScriptMouse.cpp in Sources */,
 				2CE762AE29326ECF00E410FF /* UdpSocket.cpp in Sources */,
 				2C42324F242B155E00A16BCA /* cocoa_monitor.m in Sources */,
