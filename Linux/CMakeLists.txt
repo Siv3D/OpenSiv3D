@@ -720,6 +720,10 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/ToastNotification/ToastNotificationFactory.cpp
   ../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp
   ../Siv3D/src/Siv3D/Triangle/SivTriangle.cpp
+  ../Siv3D/src/Siv3D/TrailMotion/SivTrailMotion.cpp
+  ../Siv3D/src/Siv3D/TrailRenderer/CTrailRenderer.cpp
+  ../Siv3D/src/Siv3D/TrailRenderer/TrailRendererFactory.cpp
+  ../Siv3D/src/Siv3D/Trail/SivTrail.cpp
   ../Siv3D/src/Siv3D/Transformer2D/SivTransformer2D.cpp
   ../Siv3D/src/Siv3D/Transformer3D/SivTransformer3D.cpp
   ../Siv3D/src/Siv3D/Triangle3D/SivTriangle3D.cpp
