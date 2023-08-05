@@ -11,20 +11,20 @@ mergeInto(LibraryManager.library, {
     siv3dSetClipboardText__deps: [ "$siv3dRegisterUserAction" ],
 
     $siv3dGetClipboardTextImpl: function(wakeUp) {
-        siv3dRegisterUserAction(function () {
-            if (!navigator.clipboard.readText) {
-                err("Reading clipboard is not allowed in this browser.");
-                resolve(0);
-                return;
-            }
+        if (!navigator.clipboard.readText) {
+            err("Reading clipboard is not allowed in this browser.");
+            wakeUp(0);
+            return;
+        }
 
+        siv3dRegisterUserAction(function () {
             navigator.clipboard.readText()
                 .then(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);       
-                    resolve(strPtr);
+                    wakeUp(strPtr);
                 })
                 .catch(function(_) {
-                    resolve(0);
+                    wakeUp(0);
                 });
         });
     },
