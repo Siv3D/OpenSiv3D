@@ -130,16 +130,15 @@ namespace s3d
 		{
 			// 周
 			{
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(static_cast<float>(startAngle) + angle) + Math::HalfPiF;
-				const float angleScale = (angle / Math::TwoPiF);
+				const float start = (static_cast<float>(startAngle) + ((angle < 0.0f) ? angle : 0.0f));
+				const float radDelta = (Abs(angle) / (quality - 1));
 				Vec2* pDst = &vertices[1];
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{
-					const float rad = (start + (radDelta * i) * angleScale);
+					const float rad = (start + (radDelta * i));
 					const auto [s, c] = FastMath::SinCos(rad);
-					(pDst++)->moveBy(r * c, -r * s);
+					(pDst++)->moveBy(r * s, -r * c);
 				}
 			}
 		}
@@ -147,14 +146,16 @@ namespace s3d
 		const RectF boundingRect = Geometry2D::BoundingRect(vertices);
 
 		Array<TriangleIndex> indices(vertexSize - 2);
-		TriangleIndex* pIndex = indices.data();
-
-		for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
 		{
-			pIndex->i0 = 0;
-			pIndex->i1 = (i + 1);
-			pIndex->i2 = (i + 2);
-			++pIndex;
+			TriangleIndex* pIndex = indices.data();
+
+			for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
+			{
+				pIndex->i0 = 0;
+				pIndex->i1 = (i + 1);
+				pIndex->i2 = (i + 2);
+				++pIndex;
+			}
 		}
 
 		return Polygon{ vertices, indices, boundingRect, SkipValidation::Yes };
@@ -179,19 +180,18 @@ namespace s3d
 
 		Array<Vec2> vertices(vertexSize, center);
 		{
-			const float radDelta = Math::TwoPiF / (quality - 1);
-			const float start = -(static_cast<float>(startAngle) + angle) + Math::HalfPiF;
-			const float angleScale = (angle / Math::TwoPiF);
+			const float start = (static_cast<float>(startAngle) + ((angle < 0.0f) ? angle : 0.0f));
+			const float radDelta = (Abs(angle) / (quality - 1));
 
 			Vec2* pHead = vertices.data();
 			Vec2* pTail = &vertices.back();
 
 			for (uint32 i = 0; i < quality; ++i)
 			{
-				const float rad = (start + (radDelta * i) * angleScale);
+				const float rad = (start + (radDelta * i));
 				const auto [s, c] = FastMath::SinCos(rad);
-				pHead->moveBy(rOuter * c, -rOuter * s);
-				pTail->moveBy(rInner * c, -rInner * s);
+				pHead->moveBy(rOuter * s, -rOuter * c);
+				pTail->moveBy(rInner * s, -rInner * c);
 				++pHead;
 				--pTail;
 			}
