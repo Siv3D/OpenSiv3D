@@ -32,13 +32,7 @@ TEST_CASE("VideoReader")
 		Image frame;
 		Image referenceFrame { U"test/video/river_frame1.png" };
 
-		for (uint32 i = 0; i < 120; i++)
-		{
-			System::Update();
-
-			if (videoReader.readFrame(frame)) break;
-		}
-
+		REQUIRE(videoReader.readFrame(frame) == true);
 		REQUIRE(videoReader.getCurrentFrameIndex() == 1);
 		REQUIRE_NOTHROW(AssertImagesAreEqual(referenceFrame, frame));
 	}
