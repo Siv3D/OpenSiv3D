@@ -12,7 +12,7 @@
 # include <Siv3D.hpp>
 # include <Siv3D/Window/CWindow.hpp>
 
-# include "../../../../../Siv3DTest.hpp"
+# include <Siv3DTest.hpp>
 # include "MockGLFW.hpp"
 
 TEST_CASE("Platform::Web::CWindow::init")

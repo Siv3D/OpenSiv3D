@@ -12,7 +12,7 @@
 # include <Siv3D.hpp>
 # include <Siv3D/TextToSpeech/CTextToSpeech.hpp>
 
-# include "../../../../../Siv3DTest.hpp"
+# include <Siv3DTest.hpp>
 # include <emscripten.h>
 
 TEST_CASE("Platform::Web::CTextToSpeech")

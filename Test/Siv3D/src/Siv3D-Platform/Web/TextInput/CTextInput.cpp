@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../../../Siv3DTest.hpp"
+# include <Siv3DTest.hpp>
 # include <Siv3D/TextInput/CTextInput.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <emscripten.h>
@@ -45,11 +45,11 @@ EM_JS(void, dispatchCompositionInput, (const char *text), {
 })
 
 EM_JS(void, dispatchCompositionBeforeInput, (const char *text, const char *before, int startOffset, int endOffset), {
-    const ranges = [];
+    const targetRanges = [];
     
     if (before !== 0) {
         const text = document.createTextNode(UTF8ToString(before));
-        ranges.push(new StaticRange({
+        targetRanges.push(new StaticRange({
             startContainer: text,
             startOffset,
             endContainer: text,
@@ -60,7 +60,7 @@ EM_JS(void, dispatchCompositionBeforeInput, (const char *text, const char *befor
     const e = new InputEvent('beforeinput', {
         inputType: 'insertCompositionText',
         data: UTF8ToString(text),
-        ranges
+        targetRanges
     });
     siv3dTextInputElement.dispatchEvent(e);
 })
@@ -229,6 +229,31 @@ TEST_CASE("TextInput::getEditingText")
 
             cTextInput->update();
             REQUIRE(cTextInput->getChars() == U"渋");
+            REQUIRE(cTextInput->getEditingText() == U"");
+        }   
+    }
+
+    SECTION("FireFox on Android in English")
+    {
+        // 入力1: すでに Siv と入力があるところにカーソルを合わせる
+        {
+            dispatchCompositionStart("");
+            dispatchCompositionUpdate("Siv");
+            
+            cTextInput->update();
+            REQUIRE(cTextInput->getChars() == U"");
+            REQUIRE(cTextInput->getEditingText() == U"Siv");
+        }
+        
+        // 入力2: Siv3D を入力候補から選択
+        {
+            dispatchCompositionBeforeInput("Siv3D", "Siv ", 0, 3);
+            dispatchCompositionUpdate("Siv3D");
+            dispatchCompositionInput("Siv3D");
+            dispatchCompositionEnd("Siv3D");
+
+            cTextInput->update();
+            REQUIRE(cTextInput->getChars() == U"\x08\x08\x08Siv3D");
             REQUIRE(cTextInput->getEditingText() == U"");
         }   
     }

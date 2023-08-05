@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../../../Siv3DTest.hpp"
+# include <Siv3DTest.hpp>
 # include "MockSiv3DDialog.hpp"
 
 TEST_CASE("Dialog")
