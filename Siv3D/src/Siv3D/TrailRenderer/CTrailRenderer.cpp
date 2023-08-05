@@ -134,7 +134,6 @@ namespace s3d
 
 		// 終点
 		{
-			pPrev = pCurrent;
 			pCurrent = pNext;
 
 			const float t = (pCurrent->lifeTime * lifeTimeInv);
