@@ -192,6 +192,11 @@ namespace s3d
 		return DirectX::XMQuaternionRotationRollPitchYaw(static_cast<float>(pitch), static_cast<float>(yaw), static_cast<float>(roll));
 	}
 
+	inline Quaternion SIV3D_VECTOR_CALL RollPitchYaw(const Float3 pitchYawRoll) noexcept
+	{
+		return DirectX::XMQuaternionRotationRollPitchYaw(static_cast<float>(pitchYawRoll.x), static_cast<float>(pitchYawRoll.y), static_cast<float>(pitchYawRoll.z));
+	}
+
 	SIV3D_CONCEPT_ARITHMETIC_
 	inline Quaternion Quaternion::RotationNormal(const Float3 normalAxis, const Arithmetic angle) noexcept
 	{

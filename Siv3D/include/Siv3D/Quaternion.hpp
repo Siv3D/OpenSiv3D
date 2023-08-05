@@ -148,6 +148,9 @@ namespace s3d
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL RollPitchYaw(X pitch, Y yaw, Z roll) noexcept;
 
+		[[nodiscard]]
+		static Quaternion SIV3D_VECTOR_CALL RollPitchYaw(Float3 pitchYawRoll) noexcept;
+
 		SIV3D_CONCEPT_ARITHMETIC
 		[[nodiscard]]
 		static Quaternion SIV3D_VECTOR_CALL RotationNormal(Float3 normalAxis, Arithmetic angle) noexcept;
