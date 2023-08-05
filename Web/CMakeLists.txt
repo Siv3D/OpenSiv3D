@@ -1517,10 +1517,14 @@ add_executable(Siv3DTest
   ../Test/Siv3DTest_Window.cpp
 )
 
-target_link_libraries(Siv3DTest PUBLIC Siv3D Siv3DPrivateInterface)
+target_include_directories(Siv3DTest PRIVATE
+  ${PROJECT_SOURCE_DIR}/../Test
+)
+target_link_libraries(Siv3DTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DTest PRIVATE cxx_std_20)
 target_link_options(Siv3DTest PRIVATE
   --emrun
+  -g2
   -fexceptions
   -sASYNCIFY=1
   --preload-file=${PROJECT_SOURCE_DIR}/../Test/test@/test
@@ -1533,6 +1537,8 @@ set_target_properties(Siv3DTest PROPERTIES
 
 add_executable(Siv3DUnitTest
   ../Test/Siv3DTest.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Gamepad/CGamepad.cpp
+  ../Test/Siv3D/src/Siv3D-Platform/macOS_Linux/Gamepad/MockGLFWGamepad.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/SivDialog_Web.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Dialog/MockSiv3DDialog.cpp
   ../Test/Siv3D/src/Siv3D-Platform/Web/Window/CWindow.cpp
@@ -1541,6 +1547,9 @@ add_executable(Siv3DUnitTest
   ../Test/Siv3D/src/Siv3D-Platform/Web/TextToSpeech/CTextToSpeech.cpp
 )
 
+target_include_directories(Siv3DUnitTest PRIVATE
+  ${PROJECT_SOURCE_DIR}/../Test
+)
 target_link_libraries(Siv3DUnitTest PRIVATE Siv3D Siv3DPrivateInterface)
 target_compile_features(Siv3DUnitTest PRIVATE cxx_std_20)
 target_link_options(Siv3DUnitTest PRIVATE

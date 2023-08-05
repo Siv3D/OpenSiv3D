@@ -9,11 +9,5 @@
 //
 //-----------------------------------------------
 
-# pragma once
-
-# include <Siv3DTest.hpp>
-# include <Siv3DMock.hpp>
-# include <ThirdParty/GLFW/glfw3.h>
-
-SIV3D_MOCK_RETURN_VALUE(glfwInit, int);
-SIV3D_MOCK_RETURN_VALUE(glfwCreateWindow, GLFWwindow*, int, int, const char*, GLFWmonitor*, GLFWwindow*);
+# define SIV3D_MOCK_INPLEMENTATION
+# include "MockGLFWGamepad.hpp"

@@ -11,6 +11,6 @@
 
 # pragma once
 
-# include "../../../../../Siv3DTest.hpp"
+# include <Siv3DTest.hpp>
 
 void SetReturnValue_siv3dOpenDialogAsync(const String& mockReturnValue);
