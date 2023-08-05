@@ -55,6 +55,7 @@
 # include <Siv3D/PrimitiveMesh/IPrimitiveMesh.hpp>
 # include <Siv3D/Asset/IAsset.hpp>
 # include <Siv3D/Effect/IEffect.hpp>
+# include <Siv3D/TrailRenderer/ITrailRenderer.hpp>
 # include <Siv3D/Script/IScript.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
 
