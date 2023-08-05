@@ -639,16 +639,15 @@ namespace s3d
 
 			// 周
 			{
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = (angle / Math::TwoPiF);
+				const float start = (startAngle + ((angle < 0.0f) ? angle : 0.0f));
+				const float radDelta = (Abs(angle) / (quality - 1));
 				Vertex2D* pDst = &pVertex[1];
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{
-					const float rad = start + (radDelta * i) * angleScale;
+					const float rad = (start + (radDelta * i));
 					const auto [s, c] = FastMath::SinCos(rad);
-					(pDst++)->pos.set(centerX + r * c, centerY - r * s);
+					(pDst++)->pos.set(centerX + r * s, centerY - r * c);
 				}
 			}
 
@@ -663,8 +662,8 @@ namespace s3d
 
 			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
 			{
-				*pIndex++ = (indexOffset + i + 1);
 				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 1);
 				*pIndex++ = (indexOffset + i + 2);
 			}
 
@@ -713,17 +712,16 @@ namespace s3d
 			{
 				const float centerX = center.x;
 				const float centerY = center.y;
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = (angle / Math::TwoPiF);
+				const float start = (startAngle + ((angle < 0.0f) ? angle : 0.0f));
+				const float radDelta = (Abs(angle) / (quality - 1));
 				Vertex2D* pDst = pVertex;
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{
-					const float rad = start + (radDelta * i) * angleScale;
+					const float rad = (start + (radDelta * i));
 					const auto [s, c] = FastMath::SinCos(rad);
-					(pDst++)->pos.set(centerX + rOuter * c, centerY - rOuter * s);
-					(pDst++)->pos.set(centerX + rInner * c, centerY - rInner * s);
+					(pDst++)->pos.set(centerX + rInner * s, centerY - rInner * c);
+					(pDst++)->pos.set(centerX + rOuter * s, centerY - rOuter * c);
 				}
 			}
 
@@ -779,23 +777,20 @@ namespace s3d
 
 			// 周
 			{
-				const float radDelta = Math::TwoPiF / (quality - 1);
-				const float start = -(startAngle + angle) + Math::HalfPiF;
-				const float angleScale = (angle / Math::TwoPiF);
+				const float start = (startAngle + ((angle < 0.0f) ? angle : 0.0f));
+				const float radDelta = (Abs(angle) / (quality - 1));
 				Vertex2D* pDst = &pVertex[1];
 
 				for (Vertex2D::IndexType i = 0; i < quality; ++i)
 				{
-					const float rad = start + (radDelta * i) * angleScale;
+					const float rad = (start + (radDelta * i));
 					const auto [s, c] = FastMath::SinCos(rad);
-					(pDst++)->pos.set(centerX + r * c, centerY - r * s);
+					(pDst++)->pos.set(centerX + r * s, centerY - r * c);
 				}
 			}
 
 			{
-				(pVertex++)->color = color;
-
-				for (size_t i = 1; i < vertexSize; ++i)
+				for (size_t i = 0; i < vertexSize; ++i)
 				{
 					(pVertex++)->color = color;
 				}
@@ -803,8 +798,8 @@ namespace s3d
 
 			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
 			{
-				*pIndex++ = (indexOffset + i + 1);
 				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 1);
 				*pIndex++ = (indexOffset + i + 2);
 			}
 

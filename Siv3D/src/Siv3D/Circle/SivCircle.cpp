@@ -442,11 +442,13 @@ namespace s3d
 
 	const Circle& Circle::drawSegmentFromAngles(const double startAngle, const double angle, const ColorF& color) const
 	{
-		if (angle <= 0.0)
+		// 面積が 0 の場合は描画しない
+		if (angle == 0.0)
 		{
 			return *this;
 		}
 
+		// angle が 2π 以上の場合は円全体を描画する
 		if (Math::TwoPi <= angle)
 		{
 			return draw(color);
