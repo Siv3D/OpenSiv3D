@@ -92,7 +92,7 @@ namespace s3d
 		inline Type HorizontalAspectRatio() noexcept;
 
 		/// @brief ウィンドウのサイズを変更したときに、シーンをどのようにリサイズするかを設定します。
-		/// @reamrk デフォルトは `Scene::DefaultResizeMode` です。	
+		/// @remark デフォルトは `Scene::DefaultResizeMode` です。	
 		/// @param resizeMode シーンのリサイズモード
 		void SetResizeMode(ResizeMode resizeMode);
 
@@ -102,7 +102,7 @@ namespace s3d
 		ResizeMode GetResizeMode() noexcept;
 
 		/// @brief ウィンドウのクライアント領域がシーンのサイズと異なる場合にシーンを拡大縮小描画するために使うテクスチャフィルタを設定します。
-		/// @reamrk デフォルトは `Scene::DefaultTextureFilter` です。	
+		/// @remark デフォルトは `Scene::DefaultTextureFilter` です。	
 		/// @param textureFilter シーンを拡大縮小描画する際に使うテクスチャフィルタ
 		void SetTextureFilter(TextureFilter textureFilter);
 
@@ -112,7 +112,7 @@ namespace s3d
 		TextureFilter GetTextureFilter() noexcept;
 
 		/// @brief シーンの背景色を設定します。色のアルファ成分は無視されます。
-		/// @reamrk デフォルトは `Scene::DefaultBackgroundColor` です。
+		/// @remark デフォルトは `Scene::DefaultBackgroundColor` です。
 		/// @param color 色
 		void SetBackground(const ColorF& color);
 
@@ -122,7 +122,7 @@ namespace s3d
 		const ColorF& GetBackground() noexcept;
 
 		/// @brief シーンとウィンドウのアスペクト比が異なる際に、余白となるスペース「レターボックス」の色を設定します。
-		/// @reamrk デフォルトは `Scene::DefaultLetterBoxColor` です。
+		/// @remark デフォルトは `Scene::DefaultLetterBoxColor` です。
 		/// @param color レターボックスの色
 		void SetLetterbox(const ColorF& color);
 
@@ -148,7 +148,7 @@ namespace s3d
 		double DeltaTime() noexcept;
 
 		/// @brief アプリケーションが起動してからのシーンの経過時間（秒）を返します。
-		/// @remark `System::Update()` を呼ぶことで値が更新されます。
+		/// @ `System::Update()` を呼ぶことで値が更新されます。
 		/// @return アプリケーションが起動してからのシーンの経過時間（秒）
 		/// @remark `GetMaxDeltaTime()` の設定によっては、実際のアプリケーション起動時間よりも小さくなることがあります。
 		[[nodiscard]]

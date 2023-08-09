@@ -45,7 +45,7 @@ namespace s3d
 	{
 		leftPressStopwatch.reset();
 		rightPressStopwatch.reset();
-		cursorStopwatch.reset();
+		cursorStopwatch.restart();
 		upPressStopwatch.reset();
 		downPressStopwatch.reset();
 	}
