@@ -49,6 +49,8 @@ namespace s3d
 		explicit TextEditState(String&& defaultText) noexcept;
 		
 		void clear() noexcept;
+
+		void resetStopwatches() noexcept;
 	};
 }
 

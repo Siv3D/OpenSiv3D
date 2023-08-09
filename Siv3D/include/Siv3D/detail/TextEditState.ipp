@@ -29,4 +29,11 @@ namespace s3d
 		rightPressStopwatch.reset();
 		cursorStopwatch.reset();
 	}
+
+	inline void TextEditState::resetStopwatches() noexcept
+	{
+		leftPressStopwatch.reset();
+		rightPressStopwatch.reset();
+		cursorStopwatch.restart();
+	}
 }

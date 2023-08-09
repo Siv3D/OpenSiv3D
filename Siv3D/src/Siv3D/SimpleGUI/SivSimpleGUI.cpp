@@ -755,220 +755,45 @@ namespace s3d
 
 		bool TextBoxAt(TextEditState& text, const Vec2& center, const double _width, const Optional<size_t>& maxChars, const bool enabled)
 		{
-			const Font& font = GetFont();
-			const double width = Max(_width, MinTextBoxWidth);
-			const RectF region{ Arg::center = center, width, TextBoxHeight };
-			const Vec2 textPos{ (region.x + 8), (center.y - font.height() / 2 + FontYOffset - 0.5) };
-			const ColorF textColor = GetTextColor(enabled);
-			const String previousText = text.text;
-			const String editingText = ((text.active && enabled) ? TextInput::GetEditingText() : U"");
-
 			text.cursorPos = Min(text.cursorPos, text.text.size());
 			text.tabKey = false;
 			text.enterKey = false;
 
-			if (enabled)
+			const Font& font = SimpleGUI::GetFont();
+			const int32 fontHeight = font.height();
+
+			const String previousText = text.text;
+			const String editingText = ((text.active && enabled) ? TextInput::GetEditingText() : U"");
+
+			// テキストを更新する
 			{
-				if (text.active)
+				if (text.active && enabled)
 				{
-					region
-						.draw()
-						.drawFrame(0.0, 1.5, ColorF(0.35, 0.7, 1.0, 0.75))
-						.drawFrame(2.5, 0.0, ColorF(0.35, 0.7, 1.0));
-				}
-				else
-				{
-					region
-						.draw()
-						.drawFrame(2.0, 0.0, ColorF(0.5));
-				}
+					// text.text を更新する
+					text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
 
-				if (text.active)
-				{
-					const String textHeader = text.text.substr(0, text.cursorPos);
-					const String textTail = text.text.substr(text.cursorPos, String::npos);
+				# if not SIV3D_PLATFORM(WEB)
 
-				# if SIV3D_PLATFORM(WINDOWS)
-
-					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
-					const bool hasEditingTarget = (editingTargetlength > 0);
-
-				# elif SIV3D_PLATFORM(WEB) 
-
-					const auto[editingCursorIndex, editingTargetlength] = Platform::Web::TextInput::GetCandicateCursorIndex();
-					const bool hasEditingTarget = (editingTargetlength > 0);
-
-				# else
-
-					const int32 editingCursorIndex = -1, editingTargetlength = 0;
-					const bool hasEditingTarget = false;
+					// ショートカットキーによるペースト
+					if ((not editingText) &&
+					# if SIV3D_PLATFORM(MACOS)
+						((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
+					# else
+						(KeyControl + KeyV).down()
+					# endif
+						)
+					{
+						if (String paste; Clipboard::GetText(paste))
+						{
+							paste.remove_if([](char32 ch) { return (ch < 0x20) || (ch == U'\x7F'); });
+							text.text.insert(text.cursorPos, paste);
+							text.cursorPos += paste.size();
+						}
+					}
 
 				# endif
-
-					const double fontHeight = font.height();
-					Vec2 pos = textPos;
-					double cursorPosX = 0.0;
-
-					{
-						double begX = 0.0, begY = 0.0, endX = 0.0;
-						{
-							ScopedCustomShader2D shader{ Font::GetPixelShader(font.method()) };
-
-							for (const auto& glyph : font.getGlyphs(textHeader))
-							{
-								glyph.texture.draw(pos + glyph.getOffset(), textColor);
-								pos.x += glyph.xAdvance;
-							}
-
-							begX = pos.x;
-							begY = 0;
-							endX = pos.x;
-
-							for (auto&& [i, glyph] : Indexed(font.getGlyphs(editingText)))
-							{
-								const int32 currentCharIndex = static_cast<int32>(i);
-
-								if (currentCharIndex == editingCursorIndex)
-								{
-									begX = pos.x;
-									begY = pos.y + fontHeight;
-								}
-								else if (hasEditingTarget && (currentCharIndex == (editingCursorIndex + editingTargetlength - 1)))
-								{
-									endX = pos.x + glyph.xAdvance;
-								}
-
-								glyph.texture.draw(pos + glyph.getOffset(), textColor);
-								pos.x += glyph.xAdvance;
-							}
-
-							cursorPosX = pos.x;
-
-							for (const auto& glyph : font.getGlyphs(textTail))
-							{
-								glyph.texture.draw(pos + glyph.getOffset(), textColor);
-								pos.x += glyph.xAdvance;
-							}
-						}
-
-						if (hasEditingTarget)
-						{
-							Line(begX, begY, endX, begY).movedBy(0, -2).draw(2, textColor);
-						}
-					}
-
-					const bool showCursor = (text.cursorStopwatch.ms() % 1200 < 600)
-						|| (text.leftPressStopwatch.isRunning() && text.leftPressStopwatch < SecondsF(0.5))
-						|| (text.rightPressStopwatch.isRunning() && text.rightPressStopwatch < SecondsF(0.5));
-
-					if (showCursor)
-					{
-						const RectF cursor(Arg::leftCenter(Vec2(cursorPosX, center.y).asPoint()), 1, 26);
-						cursor.draw(textColor);
-					}
-				}
-				else
-				{
-					font(text.text).draw(textPos, textColor);
-				}
-			}
-			else
-			{
-				region
-					.draw(ColorF(0.9))
-					.drawFrame(2.0, 0.0, ColorF(0.67));
-
-				font(text.text).draw(textPos, textColor);
-			}
-
-			if (enabled && Cursor::OnClientRect() && region.mouseOver())
-			{
-				Cursor::RequestStyle(CursorStyle::IBeam);
-			}
-
-			if (MouseL.down())
-			{
-				if (enabled && Cursor::OnClientRect() && region.mouseOver())
-				{
-					text.active = true;
-					const double posX = Cursor::PosF().x - (region.x + 8);
-
-					size_t index = 0;
-					double pos = 0.0;
-
-					for (const auto& advance : font(text.text).getXAdvances())
-					{
-						if (posX <= (pos + (advance / 2)))
-						{
-							break;
-						}
-
-						pos += advance;
-						++index;
-					}
-
-					text.cursorPos = index;
-					text.cursorStopwatch.restart();
-					text.leftPressStopwatch.reset();
-					text.rightPressStopwatch.reset();
-				}
-				else
-				{
-					text.active = false;
-				}
-			}
-
-			if (text.active)
-			{
-				text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
-
-			# if not SIV3D_PLATFORM(WEB)
-
-				// ショートカットキーによるペースト
-				if ((not editingText) &&
-				# if SIV3D_PLATFORM(MACOS)
-					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
-				# else
-					(KeyControl + KeyV).down()
-				# endif
-					)
-				{
-					if (String paste; Clipboard::GetText(paste))
-					{
-						text.text.insert(text.cursorPos, paste);
-						text.cursorPos += paste.size();
-					}
-				}
-			# endif
-			}
-
-		# if not SIV3D_PLATFORM(WEB)
-
-			// [←][→] キーでテキストカーソルを移動
-			// 一定時間押下すると、テキストカーソルが高速に移動
-			if (text.active && enabled && (not editingText))
-			{
-				// [←] キー
-				if ((0 < text.cursorPos)
-					&& (KeyLeft.down() || ((SecondsF{ 0.33 } < KeyLeft.pressedDuration()) && (SecondsF{ 0.06 } < text.leftPressStopwatch))))
-				{
-					--text.cursorPos;
-					text.leftPressStopwatch.restart();
 				}
 
-				// [→] キー
-				if ((text.cursorPos < text.text.size())
-					&& (KeyRight.down() || ((SecondsF{ 0.33 } < KeyRight.pressedDuration()) && (SecondsF{ 0.06 } < text.rightPressStopwatch))))
-				{
-					++text.cursorPos;
-					text.rightPressStopwatch.restart();
-				}
-			}
-
-		# endif
-
-			if (text.active)
-			{
 				// 最大字数を超えていたら削る
 				if (maxChars && (*maxChars < text.text.size()))
 				{
@@ -976,13 +801,126 @@ namespace s3d
 					text.cursorPos = Min(text.cursorPos, *maxChars);
 				}
 
-				// 文字列に変更があればカーソル点滅をリセット
-				if (text.text != previousText)
+				// 文字列に変更があったかを調べる
+				text.textChanged = (text.text != previousText);
+
+				// 文字列に変更があれば
+				if (text.textChanged)
 				{
+					// カーソル点滅をリセットする
 					text.cursorStopwatch.restart();
 				}
+			}
 
-				// [tab] キーで入力カーソルを非アクティブに
+			// テキストボックス
+			const double width = Max(_width, MinTextBoxWidth);
+			const RectF region{ Arg::center = center, Max(width, MinTextBoxWidth), TextBoxHeight };
+
+			// マウスカーソルを IBeam にする
+			if (enabled && Cursor::OnClientRect() && region.mouseOver())
+			{
+				Cursor::RequestStyle(CursorStyle::IBeam);
+			}
+
+			// 入力カーソルのアクティブ / 非アクティブを切り替える
+			if (MouseL.down() && (TextInput::GetEditingText().isEmpty()))
+			{
+				if (enabled && Cursor::OnClientRect() && region.mouseOver())
+				{
+					text.active = true;
+					text.resetStopwatches();
+
+					// カーソルの位置を計算する
+					{
+						const double posX = (Cursor::PosF().x - (region.x + 8));
+						size_t index = 0;
+						double pos = 0.0;
+
+						for (const auto& advance : font(text.text).getXAdvances())
+						{
+							if (posX <= (pos + (advance / 2)))
+							{
+								break;
+							}
+
+							pos += advance;
+							++index;
+						}
+
+						text.cursorPos = index;
+					}
+				}
+				else
+				{
+					text.active = false;
+				}
+			}
+
+			// テキストカーソルを更新する
+			if (text.text)
+			{
+				if (text.active && enabled && (not editingText))
+				{
+					// キーでテキストカーソルを移動させる
+					// 一定時間押下すると、テキストカーソルが高速に移動
+
+					// テキストカーソルを先頭へ移動させる
+					if ((KeyControl + KeyHome).down()) // [ctrl] + [home]: 全体の先頭へ
+					{
+						text.cursorPos = 0;
+						text.cursorStopwatch.restart();
+					}
+					else if (
+					# if SIV3D_PLATFORM(MACOS)
+						((KeyControl + KeyA).down() || KeyHome.down())
+					# else
+						KeyHome.down()
+					# endif
+						) // [home]: 行頭へ
+					{
+						text.cursorPos = 0;
+						text.cursorStopwatch.restart();
+					}
+
+					// テキストカーソルを末尾へ移動させる
+					if ((KeyControl + KeyEnd).down()) // [ctrl] + [end]: 全体の末尾へ
+					{
+						text.cursorPos = text.text.size();
+						text.cursorStopwatch.restart();
+					}
+					else if (
+					# if SIV3D_PLATFORM(MACOS)
+						((KeyControl + KeyE).down() || KeyEnd.down())
+					# else
+						KeyEnd.down()
+					# endif
+						) // [end]: 行末へ
+					{
+						text.cursorPos = text.text.size();
+						text.cursorStopwatch.restart();
+					}
+
+					// [←] キー
+					if ((0 < text.cursorPos)
+						&& (KeyLeft.down() || ((SecondsF{ 0.33 } < KeyLeft.pressedDuration()) && (SecondsF{ 0.06 } < text.leftPressStopwatch))))
+					{
+						--text.cursorPos;
+						text.leftPressStopwatch.restart();
+					}
+
+					// [→] キー
+					if ((text.cursorPos < text.text.size())
+						&& (KeyRight.down() || ((SecondsF{ 0.33 } < KeyRight.pressedDuration()) && (SecondsF{ 0.06 } < text.rightPressStopwatch))))
+					{
+						++text.cursorPos;
+						text.rightPressStopwatch.restart();
+					}
+				}
+			}
+
+			if (text.active && enabled && (not editingText))
+			{
+				// [tab][enter] キーで入力カーソルを非アクティブに
 				{
 					const String raw = TextInput::GetRawInput();
 					text.tabKey = raw.contains(U'\t');
@@ -995,26 +933,147 @@ namespace s3d
 				}
 			}
 
-			if (text.active && enabled && (not editingText))
+			// 描画
 			{
-				// [home] キーでテキストカーソルを先頭へ移動
-				if (KeyHome.down())
+				const Vec2 textPos{ (region.x + 8), (center.y - font.height() / 2 + FontYOffset - 0.5) };
+
+				if (enabled)
 				{
-					text.cursorPos = 0;
-					text.cursorStopwatch.restart();
+					if (text.active)
+					{
+						region
+							.draw()
+							.drawFrame(0.0, 1.5, ColorF{ 0.35, 0.7, 1.0, 0.75 })
+							.drawFrame(2.5, 0.0, ColorF{ 0.35, 0.7, 1.0 });
+					}
+					else
+					{
+						region
+							.draw()
+							.drawFrame(2.0, 0.0, ColorF{ 0.5 });
+					}
+				}
+				else
+				{
+					region
+						.draw(ColorF{ 0.9 })
+						.drawFrame(2.0, 0.0, ColorF{ 0.67 });
 				}
 
-				// [end] キーでテキストカーソルを末尾へ移動
-				if (KeyEnd.down())
 				{
-					text.cursorPos = text.text.length();
-					text.cursorStopwatch.restart();
+					const ColorF textColor = GetTextColor(enabled);
+					const auto& pixelShader = Font::GetPixelShader(font.method());
+					
+					double cursorPosX = textPos.x;
+					Vec2 editingTextPos = textPos;
+
+					// テキストの描画
+					{
+						const ScopedCustomShader2D shader{ pixelShader };
+						Vec2 penPos = textPos;
+						const Array<Glyph> glyphs = font.getGlyphs(text.text);
+
+						for (auto&& [index, glyph] : Indexed(glyphs))
+						{
+							const double xAdvance = glyph.xAdvance;
+							const Vec2 glyphPos = (penPos + glyph.getOffset());
+
+							glyph.texture.draw(glyphPos, textColor);		
+							penPos.x += xAdvance;
+
+							// テキストカーソルの位置の計算を計算する
+							if (text.active && (text.cursorPos == (index + 1)))
+							{
+								cursorPosX = penPos.x;
+								editingTextPos = penPos;
+							}
+						}
+					}
+
+					if (editingText)
+					{
+						// 変換テキストとその領域の取得
+						const Array<Glyph> editingGlyphs = font.getGlyphs(editingText);
+						Array<Vec2> editingGlyphPositions(editingGlyphs.size());
+						{
+							Vec2 penPos = editingTextPos;
+
+							for (size_t i = 0; i < editingGlyphs.size(); ++i)
+							{
+								const auto& glyph = editingGlyphs[i];
+								editingGlyphPositions[i] = (penPos + glyph.getOffset());
+								penPos.x += glyph.xAdvance;
+							}
+						}
+
+						// 変換テキスト背景の描画
+						if (editingGlyphs)
+						{
+							const auto& firstGlyph = editingGlyphs.front();
+							const auto& lastGlyph = editingGlyphs.back();
+							const Vec2 pos = (editingGlyphPositions.front() - firstGlyph.getOffset());
+							const double w = ((editingGlyphPositions.back().x - lastGlyph.getOffset().x + lastGlyph.xAdvance) - pos.x);
+							RectF{ pos, w, fontHeight }.draw(TextAreaEditingTextBackgroundColor);
+
+							// 変換テキストの選択範囲の描画
+							{
+							# if SIV3D_PLATFORM(WINDOWS)
+
+								const std::pair<int32, int32> editingTarget = Platform::Windows::TextInput::GetCursorIndex();
+
+							# elif SIV3D_PLATFORM(WEB)
+
+								const std::pair<int32, int32> editingTarget = Platform::Web::TextInput::GetCandicateCursorIndex();
+
+							# else
+
+								const std::pair<int32, int32> editingTarget{ -1, 0 };
+
+							# endif
+
+								if (editingTarget.second && ((editingTarget.first + editingTarget.second) <= editingGlyphPositions.size()))
+								{
+									const int32 firstIndex = editingTarget.first;
+									const int32 lastIndex = (editingTarget.first + editingTarget.second - 1);
+									const double x0 = editingGlyphPositions[firstIndex].x;
+									const double x1 = editingGlyphPositions[lastIndex].x + editingGlyphs[lastIndex].xAdvance;
+									RectF{ x0, (pos.y + fontHeight - 2), (x1 - x0), 2 }.draw(ActiveTextColor);
+								}
+							}
+						}
+
+						// 変換テキストの描画
+						{
+							const ScopedCustomShader2D shader{ pixelShader };
+
+							for (size_t i = 0; i < editingGlyphs.size(); ++i)
+							{
+								const auto& glyph = editingGlyphs[i];
+								glyph.texture.draw(editingGlyphPositions[i], textColor);
+							}
+						}
+					}
+
+					// テキスト入力カーソルの描画
+					if (text.active && enabled)
+					{
+						const bool showCursor = (text.cursorStopwatch.ms() % 1200 < 600)
+							|| (text.leftPressStopwatch.isRunning() && (text.leftPressStopwatch < SecondsF{ 0.5 }))
+							|| (text.rightPressStopwatch.isRunning() && (text.rightPressStopwatch < SecondsF{ 0.5 }));
+
+						if (showCursor)
+						{
+							const RectF cursor(Arg::leftCenter(Vec2{ cursorPosX, region.center().y }.asPoint()), 1, 26);
+							cursor.draw(Palette::Black);
+						}
+					}
 				}
 			}
 
 		# if SIV3D_PLATFORM(WEB)
+
 			Platform::Web::TextInput::SetFocusToTextInput(text.active);		
-					
+				
 			if (text.active && not editingText)
 			{
 				if (text.lastCursorPos != text.cursorPos)
@@ -1030,9 +1089,8 @@ namespace s3d
 
 				text.lastCursorPos = text.cursorPos;
 			}
-		# endif
 
-			text.textChanged = (text.text != previousText);
+		# endif
 
 			return text.textChanged;
 		}
@@ -1071,6 +1129,8 @@ namespace s3d
 					// text.text を更新する
 					text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowEnterTabBackSpaceDelete);
 
+				# if not SIV3D_PLATFORM(WEB)
+
 					// ショートカットキーによるペースト
 					if ((not editingText) &&
 					# if SIV3D_PLATFORM(MACOS)
@@ -1086,6 +1146,8 @@ namespace s3d
 							text.cursorPos += paste.size();
 						}
 					}
+
+				# endif
 				}
 
 				// 最大字数を超えていたら削る
@@ -2077,11 +2139,21 @@ namespace s3d
 							const double w = ((editingGlyphPositions.back().x - lastGlyph.getOffset().x + lastGlyph.xAdvance) - pos.x);
 							RectF{ pos, w, fontHeight }.draw(TextAreaEditingTextBackgroundColor);
 
-						# if SIV3D_PLATFORM(WINDOWS)
-
 							// 変換テキストの選択範囲の描画
 							{
+							# if SIV3D_PLATFORM(WINDOWS)
+
 								const std::pair<int32, int32> editingTarget = Platform::Windows::TextInput::GetCursorIndex();
+
+							# elif SIV3D_PLATFORM(WEB)
+
+								const std::pair<int32, int32> editingTarget = Platform::Web::TextInput::GetCandicateCursorIndex();
+
+							# else
+
+								const std::pair<int32, int32> editingTarget{ -1, 0 };
+
+							# endif
 
 								if (editingTarget.second && ((editingTarget.first + editingTarget.second) <= editingGlyphPositions.size()))
 								{
@@ -2092,8 +2164,6 @@ namespace s3d
 									RectF{ x0, (pos.y + fontHeight - 2), (x1 - x0), 2 }.draw(ActiveTextColor);
 								}
 							}
-
-						# endif
 						}
 
 						// 変換テキストの描画
