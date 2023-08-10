@@ -19,14 +19,22 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static void CheckEngine(const StringView type = U"Mesh")
+		{
+			if (not Siv3DEngine::isActive())
+			{
+				Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, type);
+				std::exit(EXIT_FAILURE);
+			}
+		}
+	}
+
 	template <>
 	AssetIDWrapper<AssetHandle<Mesh>>::AssetIDWrapper()
 	{
-		if (not Siv3DEngine::isActive())
-		{
-			Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, U"Mesh");
-			std::exit(EXIT_FAILURE);
-		}
+		detail::CheckEngine();
 	}
 
 	template <>
@@ -46,19 +54,19 @@ namespace s3d
 	Mesh::Mesh() {}
 
 	Mesh::Mesh(const MeshData& meshData)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(meshData)) }
+		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->create(meshData))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Mesh::Mesh(Dynamic, const size_t vertexCount, const size_t triangleCount)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(vertexCount, triangleCount)) }
+		: AssetHandle{ (detail::CheckEngine(U"DynamicMesh"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(vertexCount, triangleCount)))}
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Mesh::Mesh(Dynamic, const MeshData& meshData)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(meshData)) }
+		: AssetHandle{ (detail::CheckEngine(U"DynamicMesh"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Mesh)->createDynamic(meshData))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}

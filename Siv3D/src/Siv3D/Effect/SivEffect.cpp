@@ -17,14 +17,22 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static void CheckEngine()
+		{
+			if (not Siv3DEngine::isActive())
+			{
+				Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, U"Effect");
+				std::exit(EXIT_FAILURE);
+			}
+		}
+	}
+
 	template <>
 	AssetIDWrapper<AssetHandle<Effect>>::AssetIDWrapper()
 	{
-		if (not Siv3DEngine::isActive())
-		{
-			Troubleshooting::Show(Troubleshooting::Error::AssetInitializationBeforeEngineStartup, U"Effect");
-			std::exit(EXIT_FAILURE);
-		}
+		detail::CheckEngine();
 	}
 
 	template <>
@@ -42,7 +50,7 @@ namespace s3d
 	}
 
 	Effect::Effect(const double maxLifeTimeSec)
-		: AssetHandle{ std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Effect)->create(maxLifeTimeSec)) }
+		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Effect)->create(maxLifeTimeSec))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
