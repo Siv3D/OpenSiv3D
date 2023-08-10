@@ -1532,6 +1532,8 @@
 
 # include <Siv3D/DebugCamera3D.hpp>
 
+# include <Siv3D/SimpleFollowCamera3D.hpp>
+
 //////////////////////////////////////////////////
 //
 //	シェーダー | Shader

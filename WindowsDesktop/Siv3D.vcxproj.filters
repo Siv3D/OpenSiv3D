@@ -1675,6 +1675,9 @@
     <Filter Include="src\Siv3D\TrailMotion">
       <UniqueIdentifier>{6981b834-84e1-480e-bd1b-f9d9863a5070}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SimpleFollowCamera3D">
+      <UniqueIdentifier>{0b0d71c1-50bc-4f3a-b3ba-1f6fdf02c33c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7053,6 +7056,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TrailMotion.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SimpleFollowCamera3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10255,6 +10261,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TrailMotion\SivTrailMotion.cpp">
       <Filter>src\Siv3D\TrailMotion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SimpleFollowCamera3D\SivSimpleFollowCamera3D.cpp">
+      <Filter>src\Siv3D\SimpleFollowCamera3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
