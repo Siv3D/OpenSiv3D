@@ -64,7 +64,12 @@ namespace s3d
 			/// @see https://platform.openai.com/docs/models/gpt-3-5
 			/// @remark Chat API 用のモデルです。 | This is a model for the Chat API.
 			inline constexpr StringView GPT3_5_Turbo{ U"gpt-3.5-turbo" };
-			
+
+			/// @brief GPT-3.5 モデル（16k トークン） | GPT-3.5 model (16k tokens)
+			/// @see https://platform.openai.com/docs/models/gpt-3-5
+			/// @remark Chat API 用のモデルです。 | This is a model for the Chat API.
+			inline constexpr StringView GPT3_5_Turbo_16K{ U"gpt-3.5-turbo-16k" };
+
 			/// @brief GPT-4 モデル | GPT-4 model
 			/// @see https://platform.openai.com/docs/models/gpt-4
 			/// @remark Chat API 用のモデルです。 | This is a model for the Chat API.
