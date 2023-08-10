@@ -895,6 +895,7 @@
 		2C8E717D24C7458800CECCAE /* SivEnvironmentVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E717C24C7458800CECCAE /* SivEnvironmentVariable.cpp */; };
 		2C8E718B24C749C500CECCAE /* CResource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E718924C749C500CECCAE /* CResource.hpp */; };
 		2C8E718C24C749C500CECCAE /* CResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E718A24C749C500CECCAE /* CResource.cpp */; };
+		2C94E2262A85369B00AD6935 /* SivSimpleFollowCamera3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E2252A85369B00AD6935 /* SivSimpleFollowCamera3D.cpp */; };
 		2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C956629264501B900539B85 /* gaussian_distribution.cc */; };
 		2C9566BF2645626000539B85 /* mz_strm_os_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9566872645625F00539B85 /* mz_strm_os_posix.c */; };
 		2C9566C12645626000539B85 /* mz_strm_pkcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9566892645625F00539B85 /* mz_strm_pkcrypt.c */; };
@@ -3050,6 +3051,8 @@
 		2C8E718924C749C500CECCAE /* CResource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CResource.hpp; sourceTree = "<group>"; };
 		2C8E718A24C749C500CECCAE /* CResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CResource.cpp; sourceTree = "<group>"; };
 		2C903A912922863D008A61F4 /* btree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = btree.h; sourceTree = "<group>"; };
+		2C94E2232A85367B00AD6935 /* SimpleFollowCamera3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleFollowCamera3D.hpp; sourceTree = "<group>"; };
+		2C94E2252A85369B00AD6935 /* SivSimpleFollowCamera3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleFollowCamera3D.cpp; sourceTree = "<group>"; };
 		2C956629264501B900539B85 /* gaussian_distribution.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaussian_distribution.cc; sourceTree = "<group>"; };
 		2C9566872645625F00539B85 /* mz_strm_os_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_os_posix.c; sourceTree = "<group>"; };
 		2C9566892645625F00539B85 /* mz_strm_pkcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mz_strm_pkcrypt.c; sourceTree = "<group>"; };
@@ -7498,6 +7501,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		2C94E2242A85369B00AD6935 /* SimpleFollowCamera3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C94E2252A85369B00AD6935 /* SivSimpleFollowCamera3D.cpp */,
+			);
+			path = SimpleFollowCamera3D;
+			sourceTree = "<group>";
+		};
 		2C9566852645625F00539B85 /* minizip */ = {
 			isa = PBXGroup;
 			children = (
@@ -8200,6 +8211,7 @@
 				2CC8B64D28C752EE008C770A /* SIMDCollision.hpp */,
 				2CC8B68D28C752EE008C770A /* SIMDMath.hpp */,
 				2CC8B52928C752ED008C770A /* SimpleAnimation.hpp */,
+				2C94E2232A85367B00AD6935 /* SimpleFollowCamera3D.hpp */,
 				2CC8B54C28C752ED008C770A /* SimpleGUI.hpp */,
 				2CC8B4E328C752ED008C770A /* SimpleHTTP.hpp */,
 				2C398E3F28F2CEF6006A24E3 /* SimpleMenuBar.hpp */,
@@ -8865,6 +8877,7 @@
 				2CC8B9E028C7532D008C770A /* Shape2D */,
 				2CC8BA6628C7532E008C770A /* SIMDMath */,
 				2CC8B9DE28C7532D008C770A /* SimpleAnimation */,
+				2C94E2242A85369B00AD6935 /* SimpleFollowCamera3D */,
 				2CC8B77428C7532D008C770A /* SimpleGUI */,
 				2CC8B87B28C7532D008C770A /* SimpleHTTP */,
 				2C398E4028F2CF16006A24E3 /* SimpleMenuBar */,
@@ -13405,6 +13418,7 @@
 				2C636E6D2657F7D300AF029F /* soloud_audiosource.cpp in Sources */,
 				2C636EB62657F7D300AF029F /* soloud_speech.cpp in Sources */,
 				2C53373E264E0EE600CE0F1B /* AACDecoder.cpp in Sources */,
+				2C94E2262A85369B00AD6935 /* SivSimpleFollowCamera3D.cpp in Sources */,
 				2CC8BBC128C7532F008C770A /* P2Triangle.cpp in Sources */,
 				2CC8BB6228C7532F008C770A /* OggVorbisEncoder.cpp in Sources */,
 				2CC8BC0328C7532F008C770A /* SivTextInput.cpp in Sources */,
