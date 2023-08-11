@@ -109,7 +109,7 @@
 - **(English) Getting Started with Siv3D:** https://siv3d.github.io/en-us/
 - **(日本語) Siv3D をはじめよう:** https://siv3d.github.io/ja-jp/
 
-**v0.6.10** | *released 17 May 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
+**v0.6.11** | *released 11 August 2023* | [Release Notes](https://siv3d.github.io/ja-jp/releases/)
 
 | Platform           | SDK  | Requirements                  |
 |:------------------:|:----------:|:------------------------------|

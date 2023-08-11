@@ -76,7 +76,6 @@ namespace s3d
 		const float lifeTimeInv = (1.0f / trail.getLifeTime());
 		const auto& scaleFunction = trail.getScaleFunction();
 		const auto& alphaFunction = trail.getAlphaFunction();
-		const Trail::Point* pPrev = nullptr;
 		const Trail::Point* pCurrent = nullptr;
 		const Trail::Point* pNext = nullptr;
 		Float2 n0, n1;
@@ -108,7 +107,6 @@ namespace s3d
 		// 間の点
 		for (size_t i = 1; i < (num_points - 1); ++i)
 		{
-			pPrev = pCurrent;
 			pCurrent = pNext;
 			pNext = &trail.point(i + 1);
 			n0 = n1;
