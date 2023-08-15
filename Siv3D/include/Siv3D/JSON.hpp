@@ -370,8 +370,8 @@ namespace s3d
 		[[nodiscard]]
 		bool isEmpty() const;
 
-		/// @brief 無効な状態であるかどうかを返します。
-		/// @remark Load や Parse に失敗したときのみ true になります。 
+		/// @brief 有効な状態であるかどうかを返します。
+		/// @remark Load や Parse に失敗したときのみ false になります。 
 		[[nodiscard]]
 		explicit operator bool() const;
 
