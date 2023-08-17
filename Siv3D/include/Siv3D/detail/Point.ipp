@@ -1,4 +1,5 @@
-﻿//-----------------------------------------------
+﻿#include "Point.hpp"
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -184,6 +185,16 @@ namespace s3d
 		return{ x / v.x, y / v.y };
 	}
 
+	inline constexpr Point Point::operator %(int32 s) const noexcept
+	{
+		return{ x % s, y % s };
+	}
+
+	inline constexpr Point s3d::Point::operator %(Point p) const noexcept
+	{
+		return{ x % p.x, y % p.y };
+	}
+
 	inline constexpr Point& Point::operator +=(const Point p) noexcept
 	{
 		x += p.x; y += p.y;
@@ -206,6 +217,13 @@ namespace s3d
 	{
 		assert(s != 0);
 		x /= s; y /= s;
+		return *this;
+	}
+
+	inline constexpr Point& s3d::Point::operator %=(int32 s) noexcept
+	{
+		assert(s != 0);
+		x %= s; y %= s;
 		return *this;
 	}
 

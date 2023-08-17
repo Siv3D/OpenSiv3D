@@ -143,6 +143,12 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector2D<Type> operator /(Vector2D<Type> v) const noexcept;
 
+		[[nodiscard]]
+		constexpr Point operator %(int32 s) const noexcept;
+
+		[[nodiscard]]
+		constexpr Point operator %(Point p) const noexcept;
+
 		constexpr Point& operator +=(Point p) noexcept;
 
 		constexpr Point& operator -=(Point p) noexcept;
@@ -150,6 +156,8 @@ namespace s3d
 		constexpr Point& operator *=(int32 s) noexcept;
 
 		constexpr Point& operator /=(int32 s) noexcept;
+
+		constexpr Point& operator %=(int32 s) noexcept;
 
 		[[nodiscard]]
 		friend constexpr bool operator ==(Point lhs, Point rhs) noexcept
