@@ -178,6 +178,16 @@ namespace s3d
 		return{ x / p.x, y / p.y };
 	}
 
+	inline constexpr Point Point::operator %(const int32 s) const noexcept
+	{
+		return{ x % s, y % s };
+	}
+
+	inline constexpr Point Point::operator %(const Point p) const noexcept
+	{
+		return{ x % p.x, y % p.y };
+	}
+
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::operator /(const Vector2D<Type> v) const noexcept
 	{
@@ -206,6 +216,13 @@ namespace s3d
 	{
 		assert(s != 0);
 		x /= s; y /= s;
+		return *this;
+	}
+
+	inline constexpr Point& Point::operator %=(const int32 s) noexcept
+	{
+		assert(s != 0);
+		x %= s; y %= s;
 		return *this;
 	}
 
