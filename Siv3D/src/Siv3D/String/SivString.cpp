@@ -242,7 +242,9 @@ namespace s3d
 
 	String String::capitalized() const&
 	{
-		return std::move(String(*this).capitalize());
+		String result{ *this };
+		result.capitalize();
+		return result;
 	}
 
 	String String::capitalized()&&
@@ -362,7 +364,9 @@ namespace s3d
 
 	String String::lowercased() const&
 	{
-		return std::move(String(*this).lowercase());
+		String result{ *this };
+		result.lowercase();
+		return result;
 	}
 
 	String String::lowercased()&&
@@ -571,7 +575,9 @@ namespace s3d
 
 	String String::replaced(const value_type oldChar, const value_type newChar) const&
 	{
-		return std::move(String(*this).replace(oldChar, newChar));
+		String result{ *this };
+		result.replace(oldChar, newChar);
+		return result;
 	}
 
 	String String::replaced(const value_type oldChar, const value_type newChar)&&
@@ -658,7 +664,9 @@ namespace s3d
 
 	String String::rotated(const std::ptrdiff_t count) const&
 	{
-		return std::move(String(*this).rotate(count));
+		String result{ *this };
+		result.rotate(count);
+		return result;
 	}
 
 	String String::rotated(const std::ptrdiff_t count)&&
@@ -836,7 +844,9 @@ namespace s3d
 
 	String String::swapcased() const&
 	{
-		return std::move(String(*this).swapcase());
+		String result{ *this };
+		result.swapcase();
+		return result;
 	}
 
 	String String::swapcased()&&
@@ -882,7 +892,9 @@ namespace s3d
 
 	String String::uppercased() const&
 	{
-		return std::move(String(*this).uppercase());
+		String result{ *this };
+		result.uppercase();
+		return result;
 	}
 
 	String String::uppercased()&&
@@ -901,7 +913,9 @@ namespace s3d
 
 	String String::rsorted() const&
 	{
-		return std::move(String(*this).rsort());
+		String result{ *this };
+		result.rsort();
+		return result;
 	}
 
 	String String::rsorted()&&
@@ -920,7 +934,9 @@ namespace s3d
 
 	String String::sorted() const&
 	{
-		return std::move(String(*this).sort());
+		String result{ *this };
+		result.sort();
+		return result;
 	}
 
 	String String::sorted()&&
@@ -952,7 +968,9 @@ namespace s3d
 
 	String String::sorted_and_uniqued() const&
 	{
-		return std::move(String(*this).sort_and_unique());
+		String result{ *this };
+		result.sort_and_unique();
+		return result;
 	}
 
 	String String::sorted_and_uniqued()&&

@@ -1181,7 +1181,9 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::rotated(const std::ptrdiff_t count) const&
 	{
-		return std::move(Grid(*this).rotate(count));
+		Grid result{ *this };
+		result.rotate(count);
+		return result;
 	}
 
 	template <class Type, class Allocator>
@@ -1241,7 +1243,9 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::shuffled(URBG&& rbg) const&
 	{
-		return std::move(Grid(*this).shuffle(std::forward<URBG>(rbg)));
+		Grid result{ *this };
+		result.shuffle(std::forward<URBG>(rbg));
+		return result;
 	}
 
 	template <class Type, class Allocator>
@@ -1329,14 +1333,18 @@ namespace s3d
 	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted() const&
 	{
-		return std::move(Grid(*this).sort());
+		Grid result{ *this };
+		result.sort();
+		return result;
 	}
 
 	template <class Type, class Allocator>
 	template <class T, std::enable_if_t<Meta::HasLessThan_v<T>>*>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted() const&
 	{
-		return std::move(Grid(*this).stable_sorted());
+		Grid result{ *this };
+		result.stable_sort();
+		return result;
 	}
 
 	template <class Type, class Allocator>
@@ -1361,14 +1369,18 @@ namespace s3d
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::sorted_by(Fty f) const&
 	{
-		return std::move(Grid(*this).sort_by(f));
+		Grid result{ *this };
+		result.sort_by(f);
+		return result;
 	}
 
 	template <class Type, class Allocator>
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>*>
 	inline Grid<Type, Allocator> Grid<Type, Allocator>::stable_sorted_by(Fty f) const&
 	{
-		return std::move(Grid(*this).stable_sort_by(f));
+		Grid result{ *this };
+		result.stable_sort_by(f);
+		return result;
 	}
 
 	template <class Type, class Allocator>
