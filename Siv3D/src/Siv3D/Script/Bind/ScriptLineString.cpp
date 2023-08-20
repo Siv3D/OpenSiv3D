@@ -165,21 +165,21 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtPoint(size_t index, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, normalAtPoint, (size_t, CloseRing) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 normalAtLine(size_t index, bool closeRing = CloseRing::No) const", asMETHODPR(LineString, normalAtLine, (size_t, CloseRing) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(double, double) const", asMETHODPR(LineString, movedBy, (double, double) const, LineString), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(Vec2) const", asMETHODPR(LineString, movedBy, (Vec2) const, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(double, double) const", asMETHODPR(LineString, movedBy, (double, double) const&, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString movedBy(Vec2) const", asMETHODPR(LineString, movedBy, (Vec2) const&, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& moveBy(double, double)", asMETHODPR(LineString, moveBy, (double, double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& moveBy(Vec2)", asMETHODPR(LineString, moveBy, (Vec2), LineString&), asCALL_THISCALL); assert(r >= 0);
 		
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(double) const", asMETHODPR(LineString, scaled, (double) const, LineString), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(double, double) const", asMETHODPR(LineString, scaled, (double, double) const, LineString), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(Vec2) const", asMETHODPR(LineString, scaled, (Vec2) const, LineString), asCALL_THISCALL); assert(r >= 0);		
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(double) const", asMETHODPR(LineString, scaled, (double) const&, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(double, double) const", asMETHODPR(LineString, scaled, (double, double) const&, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaled(Vec2) const", asMETHODPR(LineString, scaled, (Vec2) const&, LineString), asCALL_THISCALL); assert(r >= 0);		
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scale(double)", asMETHODPR(LineString, scale, (double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scale(double, double)", asMETHODPR(LineString, scale, (double, double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scale(Vec2)", asMETHODPR(LineString, scale, (Vec2), LineString&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, double) const", asMETHODPR(LineString, scaledAt, (Vec2, double) const, LineString), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, double, double) const", asMETHODPR(LineString, scaledAt, (Vec2, double, double) const, LineString), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, Vec2) const", asMETHODPR(LineString, scaledAt, (Vec2, Vec2) const, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, double) const", asMETHODPR(LineString, scaledAt, (Vec2, double) const&, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, double, double) const", asMETHODPR(LineString, scaledAt, (Vec2, double, double) const&, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString scaledAt(Vec2, Vec2) const", asMETHODPR(LineString, scaledAt, (Vec2, Vec2) const&, LineString), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scaleAt(Vec2, double)", asMETHODPR(LineString, scaleAt, (Vec2, double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scaleAt(Vec2, double, double)", asMETHODPR(LineString, scaleAt, (Vec2, double, double), LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "LineString& scaleAt(Vec2, Vec2)", asMETHODPR(LineString, scaleAt, (Vec2, Vec2), LineString&), asCALL_THISCALL); assert(r >= 0);

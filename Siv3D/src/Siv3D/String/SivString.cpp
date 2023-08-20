@@ -466,7 +466,7 @@ namespace s3d
 		return std::move(*this);
 	}
 
-	String String::removed(const StringView s) const
+	String String::removed(const StringView s) const&
 	{
 		if (s.isEmpty())
 		{
@@ -488,6 +488,11 @@ namespace s3d
 		}
 
 		return result;
+	}
+
+	String String::removed(const StringView s) &&
+	{
+		return std::move(remove(s));
 	}
 
 	String& String::remove_at(const size_t index)
@@ -814,7 +819,7 @@ namespace s3d
 		return result;
 	}
 
-	String String::stable_uniqued() const
+	String String::stable_uniqued() const&
 	{
 		String result;
 
@@ -823,6 +828,13 @@ namespace s3d
 		std::copy_if(m_string.begin(), m_string.end(), std::back_inserter(result), std::ref(pred));
 
 		return result;
+	}
+
+	String String::stable_uniqued() &&
+	{
+		// stable_unique() が最適化されたら次の実装に変更する
+		// return std::move(stable_unique());
+		return stable_uniqued();
 	}
 
 	String& String::swapcase() noexcept

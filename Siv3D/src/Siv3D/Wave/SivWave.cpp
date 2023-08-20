@@ -258,9 +258,14 @@ namespace s3d
 		return *this;
 	}
 
-	Wave Wave::reversed() const
+	Wave Wave::reversed() const&
 	{
 		return Wave(rbegin(), rend());
+	}
+
+	Wave Wave::reversed() &&
+	{
+		return std::move(reverse());
 	}
 
 	Wave Wave::slice(const size_t index) const

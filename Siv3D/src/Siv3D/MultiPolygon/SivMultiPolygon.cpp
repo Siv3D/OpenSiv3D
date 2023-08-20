@@ -60,9 +60,14 @@ namespace s3d
 		return *this;
 	}
 
-	MultiPolygon MultiPolygon::reversed() const
+	MultiPolygon MultiPolygon::reversed() const&
 	{
 		return MultiPolygon(rbegin(), rend());
+	}
+
+	MultiPolygon MultiPolygon::reversed() &&
+	{
+		return std::move(reverse());
 	}
 
 	MultiPolygon& MultiPolygon::shuffle()
@@ -92,7 +97,7 @@ namespace s3d
 		return MultiPolygon(begin() + index, begin() + Min(index + length, size()));
 	}
 
-	MultiPolygon MultiPolygon::movedBy(const double x, const double y) const
+	MultiPolygon MultiPolygon::movedBy(const double x, const double y) const&
 	{
 		MultiPolygon polygons{ *this };
 
@@ -101,9 +106,19 @@ namespace s3d
 		return polygons;
 	}
 
-	MultiPolygon MultiPolygon::movedBy(const Vec2 v) const
+	MultiPolygon MultiPolygon::movedBy(const double x, const double y) && noexcept
+	{
+		return std::move(moveBy(x, y));
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const Vec2 v) const&
 	{
 		return movedBy(v.x, v.y);
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const Vec2 v) && noexcept
+	{
+		return std::move(moveBy(v));
 	}
 
 	MultiPolygon& MultiPolygon::moveBy(const double x, const double y) noexcept
@@ -121,14 +136,24 @@ namespace s3d
 		return moveBy(v.x, v.y);
 	}
 
-	MultiPolygon MultiPolygon::rotated(const double angle) const
+	MultiPolygon MultiPolygon::rotated(const double angle) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotated(angle); }) };
 	}
 
-	MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) const
+	MultiPolygon MultiPolygon::rotated(const double angle) &&
+	{
+		return std::move(rotate(angle));
+	}
+
+	MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.rotatedAt(pos, angle); }) };
+	}
+
+	MultiPolygon MultiPolygon::rotatedAt(const Vec2& pos, const double angle) &&
+	{
+		return std::move(rotateAt(pos, angle));
 	}
 
 	MultiPolygon& MultiPolygon::rotate(const double angle)
@@ -151,9 +176,14 @@ namespace s3d
 		return *this;
 	}
 
-	MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const
+	MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.transformed(s, c, pos); }) };
+	}
+
+	MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) &&
+	{
+		return std::move(transform(s, c, pos));
 	}
 
 	MultiPolygon& MultiPolygon::transform(const double s, const double c, const Vec2& pos)
@@ -166,19 +196,34 @@ namespace s3d
 		return *this;
 	}
 
-	MultiPolygon MultiPolygon::scaled(const double s) const
+	MultiPolygon MultiPolygon::scaled(const double s) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
 	}
 
-	MultiPolygon MultiPolygon::scaled(const double sx, const double sy) const
+	MultiPolygon MultiPolygon::scaled(const double s) &&
+	{
+		return std::move(scale(s));
+	}
+
+	MultiPolygon MultiPolygon::scaled(const double sx, const double sy) const&
 	{
 		return scaled(Vec2{ sx, sy });
 	}
 
-	MultiPolygon MultiPolygon::scaled(const Vec2 s) const
+	MultiPolygon MultiPolygon::scaled(const double sx, const double sy) &&
+	{
+		return std::move(scale(sx, sy));
+	}
+
+	MultiPolygon MultiPolygon::scaled(const Vec2 s) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaled(s); }) };
+	}
+
+	MultiPolygon MultiPolygon::scaled(const Vec2 s) &&
+	{
+		return std::move(scale(s));
 	}
 
 	MultiPolygon& MultiPolygon::scale(const double s)
@@ -206,9 +251,14 @@ namespace s3d
 		return *this;
 	}
 
-	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double s) const
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double s) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double s) &&
+	{
+		return std::move(scaleAt(pos, s));
 	}
 
 	MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double s)
@@ -221,14 +271,24 @@ namespace s3d
 		return *this;
 	}
 
-	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) const&
 	{
 		return scaledAt(pos, Vec2{ sx, sy });
 	}
 
-	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) const
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const double sx, const double sy) &&
+	{
+		return std::move(scaleAt(pos, sx, sy));
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) const&
 	{
 		return MultiPolygon{ m_data.map([=](const Polygon& p) { return p.scaledAt(pos, s); }) };
+	}
+
+	MultiPolygon MultiPolygon::scaledAt(const Vec2 pos, const Vec2 s) &&
+	{
+		return std::move(scaleAt(pos, s));
 	}
 
 	MultiPolygon& MultiPolygon::scaleAt(const Vec2 pos, const double sx, const double sy)

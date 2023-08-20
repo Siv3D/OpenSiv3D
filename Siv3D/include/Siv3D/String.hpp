@@ -809,7 +809,13 @@ namespace s3d
 		/// @param s 除去対象の文字列
 		/// @return 新しい文字列
 		[[nodiscard]]
-		String removed(StringView s) const;
+		String removed(StringView s) const&;
+
+		/// @brief 指定した文字列を除去した新しい文字列を返します。
+		/// @param s 除去対象の文字列
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String removed(StringView s) &&;
 
 		/// @brief 指定したインデックスにある要素を文字列から削除します。
 		/// @param index インデックス
@@ -1163,7 +1169,12 @@ namespace s3d
 		/// @brief 文字列をソートせずに、重複する文字を削除した新しい文字列を返します。
 		/// @return 新しい文字列
 		[[nodiscard]]
-		String stable_uniqued() const;
+		String stable_uniqued() const&;
+
+		/// @brief 文字列をソートせずに、重複する文字を削除した新しい文字列を返します。
+		/// @return 新しい文字列
+		[[nodiscard]]
+		String stable_uniqued() &&;
 
 		/// @brief 文字列をソートし、重複する文字を削除します。
 		/// @return *this

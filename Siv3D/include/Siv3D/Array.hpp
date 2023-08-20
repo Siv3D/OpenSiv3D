@@ -733,7 +733,13 @@ namespace s3d
 		/// @param index 
 		/// @return 
 		[[nodiscard]]
-		Array removed_at(size_t index) const;
+		Array removed_at(size_t index) const&;
+
+		/// @brief 
+		/// @param index 
+		/// @return 
+		[[nodiscard]]
+		Array removed_at(size_t index) &&;
 
 		/// @brief 条件を満たす要素を配列から削除します。
 		/// @tparam Fty 条件を記述した関数の型
@@ -1049,7 +1055,12 @@ namespace s3d
 		/// @brief 
 		/// @return 
 		[[nodiscard]]
-		Array stable_uniqued() const;
+		Array stable_uniqued() const&;
+
+		/// @brief 
+		/// @return 
+		[[nodiscard]]
+		Array stable_uniqued() &&;
 
 		/// @brief 
 		/// @return 
