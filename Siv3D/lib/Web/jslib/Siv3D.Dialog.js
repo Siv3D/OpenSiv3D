@@ -17,8 +17,22 @@ mergeInto(LibraryManager.library, {
         siv3dInputElement.accept = UTF8ToString(filterStr);
         siv3dInputElement.multiple = !!acceptMuilitple;
 
+        function cancelHandler(e) {
+            {{{ makeDynCall('viii', 'callback') }}}(0, 0, futurePtr);
+            _siv3dMaybeAwake();
+        }
+
+        // Using addEventListener works in Firefox
+        // Set 'once' to automatically delete the handler when the event fires
+        siv3dInputElement.addEventListener('cancel', cancelHandler, { once: true });
+
         siv3dInputElement.oninput = async function(e) {
-            const files = e.target.files;
+            // Delete event handler if cancel event is not fired
+            siv3dInputElement.removeEventListener('cancel', cancelHandler);
+
+            // Workaround for event firing
+            const files = [...e.target.files];
+            e.target.value = '';
 
             if (files.length < 1) {
                 {{{ makeDynCall('viii', 'callback') }}}(0, 0, futurePtr);
