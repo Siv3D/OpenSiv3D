@@ -627,7 +627,7 @@ namespace s3d
 		[[nodiscard]]
 		Array removed_at(const size_t index) &&
 		{
-			return std::move(remove_at(index));;
+			return std::move(remove_at(index));
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
