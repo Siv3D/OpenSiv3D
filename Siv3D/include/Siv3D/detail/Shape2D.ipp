@@ -18,7 +18,7 @@ namespace s3d
 		return m_vertices;
 	}
 
-	inline const Array<TriangleIndex> Shape2D::indices() const noexcept
+	inline const Array<TriangleIndex>& Shape2D::indices() const noexcept
 	{
 		return m_indices;
 	}
