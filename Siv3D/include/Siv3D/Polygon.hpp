@@ -173,23 +173,38 @@ namespace s3d
 		bool addHoles(Array<Array<Vec2>> holes);
 
 		[[nodiscard]]
-		Polygon movedBy(double x, double y) const;
+		Polygon movedBy(double x, double y) const&;
 
 		[[nodiscard]]
-		Polygon movedBy(Vec2 v) const;
+		Polygon movedBy(double x, double y) && noexcept;
+
+		[[nodiscard]]
+		Polygon movedBy(Vec2 v) const&;
+
+		[[nodiscard]]
+		Polygon movedBy(Vec2 v) && noexcept;
 
 		Polygon& moveBy(double x, double y) noexcept;
 
 		Polygon& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
-		Polygon rotated(double angle) const;
+		Polygon rotated(double angle) const&;
 
 		[[nodiscard]]
-		Polygon rotatedAt(double x, double y, double angle) const;
+		Polygon rotated(double angle) &&;
 
 		[[nodiscard]]
-		Polygon rotatedAt(Vec2 pos, double angle) const;
+		Polygon rotatedAt(double x, double y, double angle) const&;
+
+		[[nodiscard]]
+		Polygon rotatedAt(double x, double y, double angle) &&;
+
+		[[nodiscard]]
+		Polygon rotatedAt(Vec2 pos, double angle) const&;
+
+		[[nodiscard]]
+		Polygon rotatedAt(Vec2 pos, double angle) &&;
 
 		Polygon& rotate(double angle);
 
@@ -198,18 +213,30 @@ namespace s3d
 		Polygon& rotateAt(Vec2 pos, double angle);
 
 		[[nodiscard]]
-		Polygon transformed(double s, double c, const Vec2& pos) const;
+		Polygon transformed(double s, double c, const Vec2& pos) const&;
+
+		[[nodiscard]]
+		Polygon transformed(double s, double c, const Vec2& pos) &&;
 
 		Polygon& transform(double s, double c, const Vec2& pos);
 
 		[[nodiscard]]
-		Polygon scaled(double s) const;
+		Polygon scaled(double s) const&;
 		
 		[[nodiscard]]
-		Polygon scaled(double sx, double sy) const;
+		Polygon scaled(double s) &&;
+		
+		[[nodiscard]]
+		Polygon scaled(double sx, double sy) const&;
 
 		[[nodiscard]]
-		Polygon scaled(Vec2 s) const;
+		Polygon scaled(double sx, double sy) &&;
+
+		[[nodiscard]]
+		Polygon scaled(Vec2 s) const&;
+
+		[[nodiscard]]
+		Polygon scaled(Vec2 s) &&;
 
 		Polygon& scale(double s);
 
@@ -218,13 +245,22 @@ namespace s3d
 		Polygon& scale(Vec2 s);
 
 		[[nodiscard]]
-		Polygon scaledAt(Vec2 pos, double s) const;
+		Polygon scaledAt(Vec2 pos, double s) const&;
 
 		[[nodiscard]]
-		Polygon scaledAt(Vec2 pos, double sx, double sy) const;
+		Polygon scaledAt(Vec2 pos, double s) &&;
 
 		[[nodiscard]]
-		Polygon scaledAt(Vec2 pos, Vec2 s) const;
+		Polygon scaledAt(Vec2 pos, double sx, double sy) const&;
+
+		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, double sx, double sy) &&;
+
+		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, Vec2 s) const&;
+
+		[[nodiscard]]
+		Polygon scaledAt(Vec2 pos, Vec2 s) &&;
 
 		Polygon& scaleAt(Vec2 pos, double s);
 

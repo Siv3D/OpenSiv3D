@@ -608,7 +608,7 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		Array removed_at(const size_t index) const
+		Array removed_at(const size_t index) const&
 		{
 			if (index >= size())
 			{
@@ -622,6 +622,12 @@ namespace s3d
 			new_array.insert(new_array.end(), begin() + index + 1, end());
 
 			return new_array;
+		}
+
+		[[nodiscard]]
+		Array removed_at(const size_t index) &&
+		{
+			return std::move(remove_at(index));
 		}
 
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, bool>>* = nullptr>
@@ -1045,7 +1051,7 @@ namespace s3d
 		}
 
 		[[nodiscard]]
-		Array stable_uniqued() const
+		Array stable_uniqued() const&
 		{
 			Array result;
 
@@ -1068,6 +1074,14 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		[[nodiscard]]
+		Array stable_uniqued() &&
+		{
+			// stable_unique() が最適化されたら次の実装に変更する
+			// return std::move(stable_unique());
+			return stable_uniqued();
 		}
 
 		Array& sort_and_unique()

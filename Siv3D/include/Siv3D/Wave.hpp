@@ -357,7 +357,10 @@ namespace s3d
 		Wave& reverse();
 
 		[[nodiscard]]
-		Wave reversed() const;
+		Wave reversed() const&;
+
+		[[nodiscard]]
+		Wave reversed() &&;
 
 		[[nodiscard]]
 		Wave slice(size_t index) const;

@@ -480,18 +480,28 @@ namespace s3d
 		return true;
 	}
 
-	Polygon Polygon::movedBy(const double x, const double y) const
+	Polygon Polygon::movedBy(const double x, const double y) const&
 	{
 		return movedBy(Vec2{ x, y });
 	}
 
-	Polygon Polygon::movedBy(const Vec2 v) const
+	Polygon Polygon::movedBy(const double x, const double y) && noexcept
+	{
+		return std::move(moveBy(x, y));
+	}
+
+	Polygon Polygon::movedBy(const Vec2 v) const&
 	{
 		Polygon result{ *this };
 
 		result.moveBy(v);
 
 		return result;
+	}
+
+	Polygon Polygon::movedBy(const Vec2 v) && noexcept
+	{
+		return std::move(moveBy(v));
 	}
 
 	Polygon& Polygon::moveBy(const double x, const double y) noexcept
@@ -506,23 +516,38 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::rotated(const double angle) const
+	Polygon Polygon::rotated(const double angle) const&
 	{
 		return rotatedAt(Vec2{ 0, 0 }, angle);
 	}
 
-	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const
+	Polygon Polygon::rotated(const double angle) &&
+	{
+		return std::move(rotate(angle));
+	}
+
+	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) const&
 	{
 		return rotatedAt(Vec2{ x, y }, angle);
 	}
 
-	Polygon Polygon::rotatedAt(const Vec2 pos, const double angle) const
+	Polygon Polygon::rotatedAt(const double x, const double y, const double angle) &&
+	{
+		return std::move(rotateAt(x, y, angle));
+	}
+
+	Polygon Polygon::rotatedAt(const Vec2 pos, const double angle) const&
 	{
 		Polygon result{ *this };
 
 		result.rotateAt(pos, angle);
 
 		return result;
+	}
+
+	Polygon Polygon::rotatedAt(const Vec2 v, const double angle) &&
+	{
+		return std::move(rotateAt(v, angle));
 	}
 
 	Polygon& Polygon::rotate(const double angle)
@@ -542,13 +567,18 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::transformed(const double s, const double c, const Vec2& pos) const
+	Polygon Polygon::transformed(const double s, const double c, const Vec2& pos) const&
 	{
 		Polygon result{ *this };
 
 		result.transform(s, c, pos);
 
 		return result;
+	}
+
+	Polygon Polygon::transformed(const double s, const double c, const Vec2& pos) &&
+	{
+		return std::move(transform(s, c, pos));
 	}
 
 	Polygon& Polygon::transform(const double s, const double c, const Vec2& pos)
@@ -558,7 +588,7 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::scaled(const double s) const
+	Polygon Polygon::scaled(const double s) const&
 	{
 		Polygon result{ *this };
 
@@ -567,18 +597,33 @@ namespace s3d
 		return result;
 	}
 
-	Polygon Polygon::scaled(const double sx, double sy) const
+	Polygon Polygon::scaled(const double s) &&
+	{
+		return std::move(scale(s));
+	}
+
+	Polygon Polygon::scaled(const double sx, double sy) const&
 	{
 		return scaled(Vec2{ sx, sy });
 	}
 
-	Polygon Polygon::scaled(const Vec2 s) const
+	Polygon Polygon::scaled(const double sx, double sy) &&
+	{
+		return std::move(scale(sx, sy));
+	}
+
+	Polygon Polygon::scaled(const Vec2 s) const&
 	{
 		Polygon result{ *this };
 
 		result.scale(s);
 
 		return result;
+	}
+
+	Polygon Polygon::scaled(const Vec2 s) &&
+	{
+		return std::move(scale(s));
 	}
 
 	Polygon& Polygon::scale(const double s)
@@ -600,13 +645,18 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::scaledAt(const Vec2 pos, const double s) const
+	Polygon Polygon::scaledAt(const Vec2 pos, const double s) const&
 	{
 		Polygon result{ *this };
 
 		result.scaleAt(pos, s);
 
 		return result;
+	}
+
+	Polygon Polygon::scaledAt(const Vec2 pos, const double s) &&
+	{
+		return std::move(scaleAt(pos, s));
 	}
 
 	Polygon& Polygon::scaleAt(const Vec2 pos, const double s)
@@ -616,18 +666,28 @@ namespace s3d
 		return *this;
 	}
 
-	Polygon Polygon::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	Polygon Polygon::scaledAt(const Vec2 pos, const double sx, const double sy) const&
 	{
 		return scaledAt(pos, Vec2{ sx, sy });
 	}
 
-	Polygon Polygon::scaledAt(const Vec2 pos, const Vec2 s) const
+	Polygon Polygon::scaledAt(const Vec2 pos, const double sx, const double sy) &&
+	{
+		return std::move(scaleAt(pos, sx, sy));
+	}
+
+	Polygon Polygon::scaledAt(const Vec2 pos, const Vec2 s) const&
 	{
 		Polygon result{ *this };
 
 		result.scaleAt(pos, s);
 
 		return result;
+	}
+
+	Polygon Polygon::scaledAt(const Vec2 pos, const Vec2 s) &&
+	{
+		return std::move(scaleAt(pos, s));
 	}
 
 	Polygon& Polygon::scaleAt(const Vec2 pos, const double sx, const double sy)

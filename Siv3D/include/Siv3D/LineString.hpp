@@ -321,7 +321,12 @@ namespace s3d
 		/// @brief 連続する線分の向きを反転した新しい LineString を返します。
 		/// @return 連続する線分の向きを反転した新しい LineString
 		[[nodiscard]]
-		LineString reversed() const;
+		LineString reversed() const&;
+
+		/// @brief 連続する線分の向きを反転した新しい LineString を返します。
+		/// @return 連続する線分の向きを反転した新しい LineString
+		[[nodiscard]]
+		LineString reversed() &&;
 
 		LineString& shuffle();
 
@@ -376,23 +381,38 @@ namespace s3d
 		Vec2 normalAtLine(size_t index, CloseRing closeRing = CloseRing::No) const;
 
 		[[nodiscard]]
-		LineString movedBy(double x, double y) const;
+		LineString movedBy(double x, double y) const&;
 
 		[[nodiscard]]
-		LineString movedBy(Vec2 v) const;
+		LineString movedBy(double x, double y) && noexcept;
+
+		[[nodiscard]]
+		LineString movedBy(Vec2 v) const&;
+
+		[[nodiscard]]
+		LineString movedBy(Vec2 v) && noexcept;
 
 		LineString& moveBy(double x, double y) noexcept;
 
 		LineString& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
-		LineString scaled(double s) const;
+		LineString scaled(double s) const&;
 
 		[[nodiscard]]
-		LineString scaled(double sx, double sy) const;
+		LineString scaled(double s) &&;
 
 		[[nodiscard]]
-		LineString scaled(Vec2 s) const;
+		LineString scaled(double sx, double sy) const&;
+
+		[[nodiscard]]
+		LineString scaled(double sx, double sy) &&;
+
+		[[nodiscard]]
+		LineString scaled(Vec2 s) const&;
+
+		[[nodiscard]]
+		LineString scaled(Vec2 s) &&;
 
 		LineString& scale(double s);
 
@@ -401,13 +421,22 @@ namespace s3d
 		LineString& scale(Vec2 s);
 
 		[[nodiscard]]
-		LineString scaledAt(Vec2 pos, double s) const;
+		LineString scaledAt(Vec2 pos, double s) const&;
 
 		[[nodiscard]]
-		LineString scaledAt(Vec2 pos, double sx, double sy) const;
+		LineString scaledAt(Vec2 pos, double s) &&;
 
 		[[nodiscard]]
-		LineString scaledAt(Vec2 pos, Vec2 s) const;
+		LineString scaledAt(Vec2 pos, double sx, double sy) const&;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, double sx, double sy) &&;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, Vec2 s) const&;
+
+		[[nodiscard]]
+		LineString scaledAt(Vec2 pos, Vec2 s) &&;
 
 		LineString& scaleAt(Vec2 pos, double s);
 
