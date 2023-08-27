@@ -279,7 +279,7 @@ namespace s3d
 	}
 
 	template <class State, class Data>
-	inline const std::shared_ptr<const Data> SceneManager<State, Data>::get() const noexcept
+	inline std::shared_ptr<const Data> SceneManager<State, Data>::get() const noexcept
 	{
 		return m_data;
 	}

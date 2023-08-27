@@ -184,7 +184,7 @@ namespace s3d
 		/// @brief 頂点インデックスの配列を返します。
 		/// @return 頂点インデックスの配列
 		[[nodiscard]]
-		const Array<TriangleIndex> indices() const noexcept;
+		const Array<TriangleIndex>& indices() const noexcept;
 
 		/// @brief 図形を描画します。
 		/// @param color 色

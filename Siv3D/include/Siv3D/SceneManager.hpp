@@ -187,7 +187,7 @@ namespace s3d
 		/// @brief 共有データを取得します。
 		/// @return 共有データへのポインタ
 		[[nodiscard]]
-		const std::shared_ptr<const Data> get() const noexcept;
+		std::shared_ptr<const Data> get() const noexcept;
 
 		/// @brief シーンを変更します。
 		/// @param state 次のシーンのキー
