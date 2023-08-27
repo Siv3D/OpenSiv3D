@@ -147,9 +147,14 @@ namespace s3d
 		return *this;
 	}
 
-	LineString LineString::reversed() const
+	LineString LineString::reversed() const&
 	{
 		return LineString(rbegin(), rend());
+	}
+
+	LineString LineString::reversed() &&
+	{
+		return std::move(reverse());
 	}
 
 	LineString& LineString::shuffle()
@@ -298,7 +303,7 @@ namespace s3d
 		return{ v.y, -v.x };
 	}
 
-	LineString LineString::movedBy(const double x, const double y) const
+	LineString LineString::movedBy(const double x, const double y) const&
 	{
 		LineString lines{ *this };
 
@@ -307,9 +312,19 @@ namespace s3d
 		return lines;
 	}
 
-	LineString LineString::movedBy(const Vec2 v) const
+	LineString LineString::movedBy(const double x, const double y) && noexcept
+	{
+		return std::move(moveBy(x, y));
+	}
+
+	LineString LineString::movedBy(const Vec2 v) const&
 	{
 		return movedBy(v.x, v.y);
+	}
+
+	LineString LineString::movedBy(const Vec2 v) && noexcept
+	{
+		return std::move(moveBy(v));
 	}
 
 	LineString& LineString::moveBy(const double x, const double y) noexcept
@@ -327,7 +342,7 @@ namespace s3d
 		return moveBy(v.x, v.y);
 	}
 
-	LineString LineString::scaled(const double s) const
+	LineString LineString::scaled(const double s) const&
 	{
 		LineString result{ *this };
 
@@ -339,12 +354,22 @@ namespace s3d
 		return result;
 	}
 
-	LineString LineString::scaled(const double sx, const double sy) const
+	LineString LineString::scaled(const double s) &&
+	{
+		return std::move(scale(s));
+	}
+
+	LineString LineString::scaled(const double sx, const double sy) const&
 	{
 		return scaled(Vec2{ sx, sy });
 	}
 
-	LineString LineString::scaled(const Vec2 s) const
+	LineString LineString::scaled(const double sx, const double sy) &&
+	{
+		return std::move(scale(sx, sy));
+	}
+
+	LineString LineString::scaled(const Vec2 s) const&
 	{
 		LineString result{ *this };
 
@@ -354,6 +379,11 @@ namespace s3d
 		}
 
 		return result;
+	}
+
+	LineString LineString::scaled(const Vec2 s) &&
+	{
+		return std::move(scale(s));
 	}
 
 	LineString& LineString::scale(const double s)
@@ -381,7 +411,7 @@ namespace s3d
 		return *this;
 	}
 
-	LineString LineString::scaledAt(const Vec2 pos, const double s) const
+	LineString LineString::scaledAt(const Vec2 pos, const double s) const&
 	{
 		LineString result{ *this };
 
@@ -393,12 +423,22 @@ namespace s3d
 		return result;
 	}
 
-	LineString LineString::scaledAt(const Vec2 pos, const double sx, const double sy) const
+	LineString LineString::scaledAt(const Vec2 pos, const double s) &&
+	{
+		return std::move(scaleAt(pos, s));
+	}
+
+	LineString LineString::scaledAt(const Vec2 pos, const double sx, const double sy) const&
 	{
 		return scaledAt(pos, Vec2{ sx, sy });
 	}
 
-	LineString LineString::scaledAt(const Vec2 pos, const Vec2 s) const
+	LineString LineString::scaledAt(const Vec2 pos, const double sx, const double sy) &&
+	{
+		return std::move(scaleAt(pos, sx, sy));
+	}
+
+	LineString LineString::scaledAt(const Vec2 pos, const Vec2 s) const&
 	{
 		LineString result{ *this };
 
@@ -408,6 +448,11 @@ namespace s3d
 		}
 
 		return result;
+	}
+
+	LineString LineString::scaledAt(const Vec2 pos, const Vec2 s) &&
+	{
+		return std::move(scaleAt(pos, s));
 	}
 
 	LineString& LineString::scaleAt(const Vec2 pos, const double s)

@@ -733,7 +733,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::negated() const
+	Image Image::negated() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -754,6 +754,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::negated() &&
+	{
+		return std::move(negate());
 	}
 
 	Image& Image::grayscale()
@@ -780,7 +785,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::grayscaled() const
+	Image Image::grayscaled() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -806,6 +811,11 @@ namespace s3d
 		}
 	}
 
+	Image Image::grayscaled() &&
+	{
+		return std::move(grayscale());
+	}
+
 	Image& Image::sepia()
 	{
 		// 1. パラメータチェック
@@ -827,7 +837,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::sepiaed() const
+	Image Image::sepiaed() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -848,6 +858,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::sepiaed() &&
+	{
+		return std::move(sepia());
 	}
 
 	Image& Image::posterize(const int32 level)
@@ -876,7 +891,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::posterized(const int32 level) const
+	Image Image::posterized(const int32 level) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -902,6 +917,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::posterized(const int32 level) &&
+	{
+		return std::move(posterize(level));
 	}
 
 	Image& Image::brighten(const int32 level)
@@ -939,7 +959,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::brightened(const int32 level) const
+	Image Image::brightened(const int32 level) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -976,6 +996,11 @@ namespace s3d
 		}
 	}
 
+	Image Image::brightened(const int32 level) &&
+	{
+		return std::move(brighten(level));
+	}
+
 	Image& Image::mirror()
 	{
 		// 1. パラメータチェック
@@ -1001,7 +1026,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::mirrored() const
+	Image Image::mirrored() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1034,6 +1059,11 @@ namespace s3d
 		}
 	}
 
+	Image Image::mirrored() &&
+	{
+		return std::move(mirror());
+	}
+
 	Image& Image::flip()
 	{
 		// 1. パラメータチェック
@@ -1061,7 +1091,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::flipped() const
+	Image Image::flipped() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1088,6 +1118,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::flipped() &&
+	{
+		return std::move(flip());
 	}
 
 	Image& Image::rotate90()
@@ -1122,7 +1157,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::rotated90() const
+	Image Image::rotated90() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1152,6 +1187,13 @@ namespace s3d
 		}
 	}
 
+	Image Image::rotated90() &&
+	{
+		// rotate90() が最適化されたら次の実装に変更する
+		// return std::move(rotate90());
+		return rotated90();
+	}
+
 	Image& Image::rotate180()
 	{
 		std::reverse(begin(), end());
@@ -1159,7 +1201,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::rotated180() const
+	Image Image::rotated180() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1184,6 +1226,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::rotated180() &&
+	{
+		return std::move(rotate180());
 	}
 
 	Image& Image::rotate270()
@@ -1217,7 +1264,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::rotated270() const
+	Image Image::rotated270() const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1243,6 +1290,13 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::rotated270() &&
+	{
+		// rotate270() が最適化されたら次の実装に変更する
+		// return std::move(rotate270());
+		return rotated270();
 	}
 
 	Image& Image::gammaCorrect(const double gamma)
@@ -1271,7 +1325,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::gammaCorrected(const double gamma) const
+	Image Image::gammaCorrected(const double gamma) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1297,6 +1351,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::gammaCorrected(const double gamma) &&
+	{
+		return std::move(gammaCorrect(gamma));
 	}
 
 	Image& Image::threshold(const uint8 threshold, const InvertColor invertColor)
@@ -1352,7 +1411,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::thresholded(const uint8 threshold, const InvertColor invertColor) const
+	Image Image::thresholded(const uint8 threshold, const InvertColor invertColor) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1407,6 +1466,11 @@ namespace s3d
 		}
 	}
 
+	Image Image::thresholded(const uint8 threshold, const InvertColor invertColor) &&
+	{
+		return std::move(this->threshold(threshold, invertColor));
+	}
+
 	Image& Image::threshold_Otsu(const InvertColor invertColor)
 	{
 		// 1. パラメータチェック
@@ -1432,7 +1496,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::thresholded_Otsu(const InvertColor invertColor) const
+	Image Image::thresholded_Otsu(const InvertColor invertColor) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1457,6 +1521,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::thresholded_Otsu(const InvertColor invertColor) &&
+	{
+		return std::move(threshold_Otsu(invertColor));
 	}
 
 	Image& Image::adaptiveThreshold(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor)
@@ -1488,7 +1557,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::adaptiveThresholded(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor) const
+	Image Image::adaptiveThresholded(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1517,6 +1586,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::adaptiveThresholded(const AdaptiveThresholdMethod method, int32 blockSize, const double c, const InvertColor invertColor) &&
+	{
+		return std::move(adaptiveThreshold(method, blockSize, c, invertColor));
 	}
 
 	Image& Image::mosaic(const int32 size)
@@ -1575,12 +1649,17 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::mosaiced(const int32 size) const
+	Image Image::mosaiced(const int32 size) const&
 	{
 		return mosaiced(size, size);
 	}
 
-	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const
+	Image Image::mosaiced(const int32 size) &&
+	{
+		return std::move(mosaic(size));
+	}
+
+	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1631,6 +1710,11 @@ namespace s3d
 
 			return image;
 		}
+	}
+
+	Image Image::mosaiced(const int32 horizontal, const int32 vertical) &&
+	{
+		return std::move(mosaic(horizontal, vertical));
 	}
 
 	Image& Image::spread(const int32 size)
@@ -1752,12 +1836,17 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::blurred(const int32 size, const BorderType borderType) const
+	Image Image::blurred(const int32 size, const BorderType borderType) const&
 	{
 		return blurred(size, size, borderType);
 	}
 
-	Image Image::blurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	Image Image::blurred(const int32 size, const BorderType borderType) &&
+	{
+		return std::move(blur(size, size, borderType));
+	}
+
+	Image Image::blurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1781,6 +1870,11 @@ namespace s3d
 			cv::blur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), cv::Point(-1, -1), OpenCV_Bridge::ConvertBorderType(borderType));
 			return image;
 		}
+	}
+
+	Image Image::blurred(const int32 horizontal, const int32 vertical, const BorderType borderType) &&
+	{
+		return std::move(blur(horizontal, vertical, borderType));
 	}
 
 	Image& Image::medianBlur(int32 apertureSize)
@@ -1812,7 +1906,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::medianBlurred(int32 apertureSize) const
+	Image Image::medianBlurred(int32 apertureSize) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1841,6 +1935,11 @@ namespace s3d
 			cv::medianBlur(matSrc, matDst, apertureSize);
 			return image;
 		}
+	}
+
+	Image Image::medianBlurred(int32 apertureSize) &&
+	{
+		return std::move(medianBlur(apertureSize));
 	}
 
 	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
@@ -1872,12 +1971,17 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const&
 	{
 		return gaussianBlurred(size, size, borderType);
 	}
 
-	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) &&
+	{
+		return std::move(gaussianBlur(size, size, borderType));
+	}
+
+	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1903,6 +2007,11 @@ namespace s3d
 		}
 	}
 
+	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) &&
+	{
+		return std::move(gaussianBlur(horizontal, vertical, borderType));
+	}
+
 	Image& Image::bilateralFilter(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType)
 	{
 		// 1. パラメータチェック
@@ -1924,7 +2033,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::bilateralFiltered(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType) const
+	Image Image::bilateralFiltered(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1944,6 +2053,11 @@ namespace s3d
 			OpenCV_Bridge::FromMatVec3b(matDst, image, OverwriteAlpha::No);
 			return image;
 		}
+	}
+
+	Image Image::bilateralFiltered(const int32 d, const double sigmaColor, const double sigmaSpace, const BorderType borderType) &&
+	{
+		return std::move(bilateralFilter(d, sigmaColor, sigmaSpace, borderType));
 	}
 
 	Image& Image::dilate(const int32 iterations)
@@ -1970,7 +2084,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::dilated(const int32 iterations) const
+	Image Image::dilated(const int32 iterations) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -1994,6 +2108,11 @@ namespace s3d
 			cv::dilate(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
 			return image;
 		}
+	}
+
+	Image Image::dilated(const int32 iterations) &&
+	{
+		return std::move(dilate(iterations));
 	}
 
 	Image& Image::erode(const int32 iterations)
@@ -2020,7 +2139,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::eroded(const int32 iterations) const
+	Image Image::eroded(const int32 iterations) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -2044,6 +2163,11 @@ namespace s3d
 			cv::erode(matSrc, matDst, cv::Mat(), cv::Point(-1, -1), iterations);
 			return image;
 		}
+	}
+
+	Image Image::eroded(const int32 iterations) &&
+	{
+		return std::move(erode(iterations));
 	}
 
 	Image& Image::floodFill(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
@@ -2082,7 +2206,7 @@ namespace s3d
 		return *this;
 	}
 
-	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
+	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const&
 	{
 		// 1. パラメータチェック
 		{
@@ -2116,6 +2240,11 @@ namespace s3d
 			OpenCV_Bridge::FromMatVec3b(mat, image, OverwriteAlpha::No);
 			return image;
 		}
+	}
+
+	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) &&
+	{
+		return std::move(floodFill(pos, color, connectivity, lowerDifference, upperDifference));
 	}
 
 	Image& Image::scale(int32 width, int32 height, InterpolationAlgorithm interpolation)

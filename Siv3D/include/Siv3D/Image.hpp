@@ -407,96 +407,144 @@ namespace s3d
 		Image& negate();
 
 		[[nodiscard]]
-		Image negated() const;
+		Image negated() const&;
+
+		[[nodiscard]]
+		Image negated() &&;
 
 		/// @brief 画像をグレイスケール画像に変換します。
 		/// @return *this
 		Image& grayscale();
 
 		[[nodiscard]]
-		Image grayscaled() const;
+		Image grayscaled() const&;
+
+		[[nodiscard]]
+		Image grayscaled() &&;
 
 		/// @brief 画像をセピア画像に変換します。
 		/// @return *this
 		Image& sepia();
 
 		[[nodiscard]]
-		Image sepiaed() const;
+		Image sepiaed() const&;
+
+		[[nodiscard]]
+		Image sepiaed() &&;
 
 		Image& posterize(int32 level);
 
 		[[nodiscard]]
-		Image posterized(int32 level) const;
+		Image posterized(int32 level) const&;
+
+		[[nodiscard]]
+		Image posterized(int32 level) &&;
 
 		Image& brighten(int32 level);
 
 		[[nodiscard]]
-		Image brightened(int32 level) const;
+		Image brightened(int32 level) const&;
+
+		[[nodiscard]]
+		Image brightened(int32 level) &&;
 
 		/// @brief 画像を左右反転します。
 		/// @return *this
 		Image& mirror();
 
 		[[nodiscard]]
-		Image mirrored() const;
+		Image mirrored() const&;
+
+		[[nodiscard]]
+		Image mirrored() &&;
 
 		/// @brief 画像を上下反転します。
 		/// @return *this
 		Image& flip();
 
 		[[nodiscard]]
-		Image flipped() const;
+		Image flipped() const&;
+
+		[[nodiscard]]
+		Image flipped() &&;
 
 		/// @brief 画像を時計回りに 90° 回転します。
 		/// @return *this
 		Image& rotate90();
 
 		[[nodiscard]]
-		Image rotated90() const;
+		Image rotated90() const&;
+
+		[[nodiscard]]
+		Image rotated90() &&;
 
 		/// @brief 画像を時計回りに 180° 回転します。
 		/// @return *this
 		Image& rotate180();
 
 		[[nodiscard]]
-		Image rotated180() const;
+		Image rotated180() const&;
+
+		[[nodiscard]]
+		Image rotated180() &&;
 
 		/// @brief 画像を時計回りに 270° 回転します。
 		/// @return *this
 		Image& rotate270();
 
 		[[nodiscard]]
-		Image rotated270() const;
+		Image rotated270() const&;
+
+		[[nodiscard]]
+		Image rotated270() &&;
 
 		Image& gammaCorrect(double gamma);
 
 		[[nodiscard]]
-		Image gammaCorrected(double gamma) const;
+		Image gammaCorrected(double gamma) const&;
+
+		[[nodiscard]]
+		Image gammaCorrected(double gamma) &&;
 
 		Image& threshold(uint8 threshold, InvertColor invertColor = InvertColor::No);
 
 		[[nodiscard]]
-		Image thresholded(uint8 threshold, InvertColor invertColor = InvertColor::No) const;
+		Image thresholded(uint8 threshold, InvertColor invertColor = InvertColor::No) const&;
+
+		[[nodiscard]]
+		Image thresholded(uint8 threshold, InvertColor invertColor = InvertColor::No) &&;
 
 		Image& threshold_Otsu(InvertColor invertColor = InvertColor::No);
 
 		[[nodiscard]]
-		Image thresholded_Otsu(InvertColor invertColor = InvertColor::No) const;
+		Image thresholded_Otsu(InvertColor invertColor = InvertColor::No) const&;
+
+		[[nodiscard]]
+		Image thresholded_Otsu(InvertColor invertColor = InvertColor::No) &&;
 
 		Image& adaptiveThreshold(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No);
 
 		[[nodiscard]]
-		Image adaptiveThresholded(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No) const;
+		Image adaptiveThresholded(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No) const&;
+
+		[[nodiscard]]
+		Image adaptiveThresholded(AdaptiveThresholdMethod method, int32 blockSize, double c, InvertColor invertColor = InvertColor::No) &&;
 
 		Image& mosaic(int32 size);
 
 		Image& mosaic(int32 horizontal, int32 vertical);
 
 		[[nodiscard]]
-		Image mosaiced(int32 size) const;
+		Image mosaiced(int32 size) const&;
 
 		[[nodiscard]]
-		Image mosaiced(int32 horizontal, int32 vertical) const;
+		Image mosaiced(int32 size) &&;
+
+		[[nodiscard]]
+		Image mosaiced(int32 horizontal, int32 vertical) const&;
+
+		[[nodiscard]]
+		Image mosaiced(int32 horizontal, int32 vertical) &&;
 
 		Image& spread(int32 size);
 
@@ -513,45 +561,72 @@ namespace s3d
 		Image& blur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 
 		[[nodiscard]]
-		Image blurred(int32 size, BorderType borderType = BorderType::Reflect_101) const;
+		Image blurred(int32 size, BorderType borderType = BorderType::Reflect_101) const&;
 
 		[[nodiscard]]
-		Image blurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const;
+		Image blurred(int32 size, BorderType borderType = BorderType::Reflect_101) &&;
+
+		[[nodiscard]]
+		Image blurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const&;
+
+		[[nodiscard]]
+		Image blurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) &&;
 
 		Image& medianBlur(int32 apertureSize);
 
 		[[nodiscard]]
-		Image medianBlurred(int32 apertureSize) const;
+		Image medianBlurred(int32 apertureSize) const&;
+
+		[[nodiscard]]
+		Image medianBlurred(int32 apertureSize) &&;
 
 		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Reflect_101);
 
 		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101);
 
 		[[nodiscard]]
-		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Reflect_101) const;
+		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Reflect_101) const&;
 
 		[[nodiscard]]
-		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const;
+		Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Reflect_101) &&;
+
+		[[nodiscard]]
+		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) const&;
+
+		[[nodiscard]]
+		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Reflect_101) &&;
 
 		Image& bilateralFilter(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101);
 
 		[[nodiscard]]
-		Image bilateralFiltered(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101) const;
+		Image bilateralFiltered(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101) const&;
+
+		[[nodiscard]]
+		Image bilateralFiltered(int32 d, double sigmaColor, double sigmaSpace, BorderType borderType = BorderType::Reflect_101) &&;
 
 		Image& dilate(int32 iterations = 1);
 
 		[[nodiscard]]
-		Image dilated(int32 iterations = 1) const;
+		Image dilated(int32 iterations = 1) const&;
+
+		[[nodiscard]]
+		Image dilated(int32 iterations = 1) &&;
 
 		Image& erode(int32 iterations = 1);
 
 		[[nodiscard]]
-		Image eroded(int32 iterations = 1) const;
+		Image eroded(int32 iterations = 1) const&;
+
+		[[nodiscard]]
+		Image eroded(int32 iterations = 1) &&;
 
 		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
 
 		[[nodiscard]]
-		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
+		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const&;
+
+		[[nodiscard]]
+		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) &&;
 
 		Image& scale(int32 width, int32 height, InterpolationAlgorithm interpolation = InterpolationAlgorithm::Auto);
 
