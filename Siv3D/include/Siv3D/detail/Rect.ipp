@@ -828,12 +828,12 @@ namespace s3d
 
 	inline Quad Rect::skewedX(const double angle) const noexcept
 	{
-		return shearedX(tan(angle) * h / 2);
+		return shearedX(std::tan(angle) * h / 2);
 	}
 
 	inline Quad Rect::skewedY(const double angle) const noexcept
 	{
-		return shearedY(tan(angle) * w / 2);
+		return shearedY(std::tan(angle) * w / 2);
 	}
 
 	inline constexpr RoundRect Rect::rounded(const double r) const noexcept
