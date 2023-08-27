@@ -2946,6 +2946,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\Siv3D\include;..\Siv3D\include\ThirdParty;..\Siv3D\src;..\Siv3D\src\Siv3D-Platform\WindowsDesktop;..\Siv3D\src\Siv3D-Platform\OpenGL4;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\src\ThirdParty\soloud/include;..\Siv3D\src\ThirdParty-prebuilt;..\Dependencies\boost_1_74_0;$(IncludePath)</IncludePath>
