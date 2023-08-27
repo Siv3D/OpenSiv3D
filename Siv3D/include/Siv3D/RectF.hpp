@@ -689,6 +689,12 @@ namespace s3d
 		constexpr Quad shearedY(double vy) const noexcept;
 
 		[[nodiscard]]
+		Quad skewedX(double angle) const noexcept;
+
+		[[nodiscard]]
+		Quad skewedY(double angle) const noexcept;
+
+		[[nodiscard]]
 		constexpr RoundRect rounded(double r) const noexcept;
 
 		[[nodiscard]]

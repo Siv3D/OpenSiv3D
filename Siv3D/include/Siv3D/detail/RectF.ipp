@@ -836,6 +836,16 @@ namespace s3d
 		return{ {pos.x, (pos.y - vy)}, {(pos.x + size.x), (pos.y + vy)}, {(pos.x + size.x), (pos.y + size.y + vy)}, {pos.x, (pos.y + size.y - vy)} };
 	}
 
+	inline Quad RectF::skewedX(const double angle) const noexcept
+	{
+		return shearedX(tan(angle) * h / 2);
+	}
+
+	inline Quad RectF::skewedY(const double angle) const noexcept
+	{
+		return shearedY(tan(angle) * w / 2);
+	}
+
 	inline constexpr RoundRect RectF::rounded(const double r) const noexcept
 	{
 		return{ *this, r };
