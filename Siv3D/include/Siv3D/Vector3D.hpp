@@ -51,6 +51,9 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		constexpr Vector3D(X _x, Y _y, Z _z) noexcept;
 
+		SIV3D_NODISCARD_CXX20
+		constexpr Vector3D(Point3D p) noexcept;
+
 		template <class U>
 		SIV3D_NODISCARD_CXX20
 		constexpr Vector3D(const Vector3D<U>& v) noexcept;
@@ -309,6 +312,11 @@ namespace s3d
 
 		[[nodiscard]]
 		constexpr Vector3D lerp(Vector3D other, value_type f) const noexcept;
+
+		/// @brief Vec3 を Point3D 型に変換します。小数点数以下は切り捨てられます。
+		/// @return Point3D
+		[[nodiscard]]
+		constexpr Point3D asPoint3D() const noexcept;
 
 		[[nodiscard]]
 		size_t hash() const noexcept;

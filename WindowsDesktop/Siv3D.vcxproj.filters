@@ -1684,6 +1684,9 @@
     <Filter Include="src\Siv3D\Morton">
       <UniqueIdentifier>{da208457-7a1b-42d4-a0d7-0ffba342ae75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Point3D">
+      <UniqueIdentifier>{7475d1f5-470c-48e0-97be-fc0ba50bf46b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7092,6 +7095,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Morton.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Point3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\detail\Point3D.ipp">
+      <Filter>include\Siv3D\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10300,6 +10309,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Morton\SivMorton.cpp">
       <Filter>src\Siv3D\Morton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Point3D\SivPoint3D.cpp">
+      <Filter>src\Siv3D\Point3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

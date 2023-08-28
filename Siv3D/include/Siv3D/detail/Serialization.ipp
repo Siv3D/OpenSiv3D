@@ -463,6 +463,16 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Point3D
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Point3D& value)
+	{
+		archive(value.x, value.y, value.z);
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Float3
 	//
 	template <class Archive>
