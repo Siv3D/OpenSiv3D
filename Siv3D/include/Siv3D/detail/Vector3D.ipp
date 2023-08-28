@@ -454,7 +454,7 @@ namespace s3d
 	template <class Type>
 	inline constexpr Point3D Vector3D<Type>::asPoint3D() const noexcept
 	{
-		return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y), static_cast<Point::value_type>(z) };
+		return{ static_cast<Point3D::value_type>(x), static_cast<Point3D::value_type>(y), static_cast<Point3D::value_type>(z) };
 	}
 
 	template <class Type>

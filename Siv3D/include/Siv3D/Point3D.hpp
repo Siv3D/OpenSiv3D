@@ -46,7 +46,7 @@ namespace s3d
 	# if __cpp_lib_concepts
 		template <Concept::Integral IntegerX, Concept::Integral IntegerY, Concept::Integral IntegerZ>
 	# else
-		template <class IntegerX, class IntegerY, std::enable_if_t<std::conjunction_v<std::is_integral<IntegerX>, std::is_integral<IntegerY>, std::is_integral<IntegerZ>>>* = nullptr>
+		template <class IntegerX, class IntegerY, class IntegerZ, std::enable_if_t<std::conjunction_v<std::is_integral<IntegerX>, std::is_integral<IntegerY>, std::is_integral<IntegerZ>>>* = nullptr>
 	# endif
 		SIV3D_NODISCARD_CXX20
 		constexpr Point3D(IntegerX _x, IntegerY _y, IntegerZ _z) noexcept;
