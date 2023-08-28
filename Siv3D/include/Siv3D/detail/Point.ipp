@@ -112,86 +112,86 @@ namespace s3d
 
 	inline constexpr Point Point::operator +(const Point p) const noexcept
 	{
-		return{ x + p.x, y + p.y };
+		return{ (x + p.x), (y + p.y) };
 	}
 
 	inline constexpr Point Point::operator -(const Point p) const noexcept
 	{
-		return{ x - p.x, y - p.y };
+		return{ (x - p.x), (y - p.y) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::operator +(const Vector2D<Type> v) const noexcept
 	{
-		return{ x + v.x, y + v.y };
+		return{ (x + v.x), (y + v.y) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::operator -(const Vector2D<Type> v) const noexcept
 	{
-		return{ x - v.x, y - v.y };
+		return{ (x - v.x), (y - v.y) };
 	}
 
 	inline constexpr Point Point::operator *(const int32 s) const noexcept
 	{
-		return{ x * s, y * s };
+		return{ (x * s), (y * s) };
 	}
 
 	inline constexpr Float2 Point::operator * (const float s) const noexcept
 	{
-		return{ x * s, y * s };
+		return{ (x * s), (y * s) };
 	}
 
 	inline constexpr Vec2 Point::operator * (const double s) const noexcept
 	{
-		return{ x * s, y * s };
+		return{ (x * s), (y * s) };
 	}
 
 	inline constexpr Point Point::operator *(const Point p) const noexcept
 	{
-		return{ x * p.x, y * p.y };
+		return{ (x * p.x), (y * p.y) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::operator *(const Vector2D<Type> v) const noexcept
 	{
-		return{ x * v.x, y * v.y };
+		return{ (x * v.x), (y * v.y) };
 	}
 
 	inline constexpr Point Point::operator /(const int32 s) const noexcept
 	{
-		return{ x / s, y / s };
+		return{ (x / s), (y / s) };
 	}
 
 	inline constexpr Float2 Point::operator /(const float s) const noexcept
 	{
-		return{ x / s, y / s };
+		return{ (x / s), (y / s) };
 	}
 
 	inline constexpr Vec2 Point::operator /(const double s) const noexcept
 	{
-		return{ x / s, y / s };
+		return{ (x / s), (y / s) };
 	}
 
 	inline constexpr Point Point::operator /(const Point p) const noexcept
 	{
-		return{ x / p.x, y / p.y };
+		return{ (x / p.x), (y / p.y) };
 	}
 
 	inline constexpr Point Point::operator %(const int32 s) const noexcept
 	{
-		return{ x % s, y % s };
+		return{ (x % s), (y % s) };
 	}
 
 	inline constexpr Point Point::operator %(const Point p) const noexcept
 	{
-		return{ x % p.x, y % p.y };
+		return{ (x % p.x), (y % p.y) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::operator /(const Vector2D<Type> v) const noexcept
 	{
-		return{ x / v.x, y / v.y };
+		return{ (x / v.x), (y / v.y) };
 	}
 
 	inline constexpr Point& Point::operator +=(const Point p) noexcept
@@ -231,12 +231,12 @@ namespace s3d
 		return ((x == 0) && (y == 0));
 	}
 
-	constexpr Point::value_type Point::minComponent() const noexcept
+	inline constexpr Point::value_type Point::minComponent() const noexcept
 	{
 		return Min(x, y);
 	}
 
-	constexpr Point::value_type Point::maxComponent() const noexcept
+	inline constexpr Point::value_type Point::maxComponent() const noexcept
 	{
 		return Max(x, y);
 	}
@@ -254,23 +254,23 @@ namespace s3d
 
 	inline constexpr Point& Point::set(const Point p) noexcept
 	{
-		return *this = p;
+		return (*this = p);
 	}
 
 	inline constexpr Point Point::movedBy(const int32 _x, const int32 _y) const noexcept
 	{
-		return{ x + _x, y + _y };
+		return{ (x + _x), (y + _y) };
 	}
 
 	inline constexpr Point Point::movedBy(const Point p) const noexcept
 	{
-		return{ x + p.x, y + p.y };
+		return{ (x + p.x), (y + p.y) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::movedBy(const Vector2D<Type> v) const noexcept
 	{
-		return{ x + v.x, y + v.y };
+		return{ (x + v.x), (y + v.y) };
 	}
 
 	inline constexpr Point& Point::moveBy(const int32 _x, const int32 _y) noexcept
@@ -310,14 +310,14 @@ namespace s3d
 
 	inline constexpr int32 Point::manhattanLength() const noexcept
 	{
-		return Abs(x) + Abs(y);
+		return (Abs(x) + Abs(y));
 	}
 
 	inline constexpr int32 Point::manhattanDistanceFrom(const int32 _x, const int32 _y) const noexcept
 	{
 		const auto xMinMax = std::minmax(x, _x);
 		const auto yMinMax = std::minmax(y, _y);
-		return (xMinMax.second - xMinMax.first) + (yMinMax.second - yMinMax.first);
+		return ((xMinMax.second - xMinMax.first) + (yMinMax.second - yMinMax.first));
 	}
 
 	inline constexpr int32 Point::manhattanDistanceFrom(const Point p) const noexcept
@@ -343,8 +343,8 @@ namespace s3d
 
 	inline constexpr double Point::distanceFromSq(const double _x, const double _y) const noexcept
 	{
-		const double xx = (x - _x) * (x - _x);
-		const double yy = (y - _y) * (y - _y);
+		const double xx = ((x - _x) * (x - _x));
+		const double yy = ((y - _y) * (y - _y));
 		return (xx + yy);
 	}
 
@@ -399,13 +399,13 @@ namespace s3d
 	template <class Type>
 	constexpr Vector2D<Type> Point::getMidpoint(const Point other) const noexcept
 	{
-		return{ x + (other.x - x) * 0.5, y + (other.y - y) * 0.5 };
+		return{ (x + (other.x - x) * 0.5), (y + (other.y - y) * 0.5) };
 	}
 
 	template <class Type>
 	constexpr Vector2D<Type> Point::getMidpoint(const Vector2D<Type> other) const noexcept
 	{
-		return{ x * 0.5 + other.x * 0.5, y * 0.5 + other.y * 0.5 };
+		return{ (x * 0.5 + other.x * 0.5), (y * 0.5 + other.y * 0.5) };
 	}
 
 	template <class T, class U>
@@ -422,13 +422,13 @@ namespace s3d
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::lerp(const Point other, const double f) const noexcept
 	{
-		return{ x + (other.x - x) * f, y + (other.y - y) * f };
+		return{ (x + (other.x - x) * f), (y + (other.y - y) * f) };
 	}
 
 	template <class Type>
 	inline constexpr Vector2D<Type> Point::lerp(const Vector2D<Type> other, const double f) const noexcept
 	{
-		return { x + (other.x - x) * f, y + (other.y - y) * f };
+		return { (x + (other.x - x) * f), (y + (other.y - y) * f) };
 	}
 
 	template <class Shape2DType>

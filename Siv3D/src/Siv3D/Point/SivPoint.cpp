@@ -91,7 +91,7 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Point& value)
 	{
-		const size_t bufferSize = (detail::Int32Width * 2) + 4 + 1;
+		const size_t bufferSize = ((detail::Int32Width * 2) + 4 + 1);
 		char32 buf[bufferSize];
 		char32* p = buf;
 

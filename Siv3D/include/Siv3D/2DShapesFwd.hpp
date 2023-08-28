@@ -15,6 +15,7 @@ namespace s3d
 {
 	struct Point;
 	using Size		= Point;
+	struct Point3D;
 	template <class Type> struct Vector2D;
 	template <class Type> struct Vector3D;
 	template <class Type> struct Vector4D;

@@ -479,6 +479,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/PixelShaderAssetData/SivPixelShaderAssetData.cpp
   ../Siv3D/src/Siv3D/Plane/SivPlane.cpp
   ../Siv3D/src/Siv3D/PlayingCard/SivPlayingCard.cpp
+  ../Siv3D/src/Siv3D/Point3D/SivPoint3D.cpp
   ../Siv3D/src/Siv3D/Point/SivPoint.cpp
   ../Siv3D/src/Siv3D/Polygon/PolygonDetail.cpp
   ../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp
