@@ -604,6 +604,15 @@
 		2C4CBE592437100100F8B7A6 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CBE582437100100F8B7A6 /* glew.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C5043C626512B3C00E36D08 /* CToastNotification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5043C426512B3C00E36D08 /* CToastNotification.hpp */; };
 		2C5043C726512B3C00E36D08 /* CToastNotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5043C526512B3C00E36D08 /* CToastNotification.cpp */; };
+		2C51D4CA2A9C6FD800808628 /* SivMorton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51D4C92A9C6FD800808628 /* SivMorton.cpp */; };
+		2C51D4D42A9C700500808628 /* morton.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4CC2A9C700500808628 /* morton.h */; };
+		2C51D4D52A9C700500808628 /* morton3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4CD2A9C700500808628 /* morton3D.h */; };
+		2C51D4D62A9C700500808628 /* morton2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4CE2A9C700500808628 /* morton2D.h */; };
+		2C51D4D72A9C700500808628 /* morton_AVX512BITALG.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4CF2A9C700500808628 /* morton_AVX512BITALG.h */; };
+		2C51D4D82A9C700500808628 /* morton2D_LUTs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D02A9C700500808628 /* morton2D_LUTs.h */; };
+		2C51D4D92A9C700500808628 /* morton3D_LUTs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D12A9C700500808628 /* morton3D_LUTs.h */; };
+		2C51D4DA2A9C700500808628 /* morton_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D22A9C700500808628 /* morton_common.h */; };
+		2C51D4DB2A9C700500808628 /* morton_BMI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D32A9C700500808628 /* morton_BMI.h */; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
 		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
 		2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */; };
@@ -2724,6 +2733,16 @@
 		2C5043FC2651335E00E36D08 /* binary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = binary.hpp; sourceTree = "<group>"; };
 		2C5043FD2651335E00E36D08 /* version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
 		2C5043FE2651335E00E36D08 /* specialize.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = specialize.hpp; sourceTree = "<group>"; };
+		2C51D4C72A9C6FAF00808628 /* Morton.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Morton.hpp; sourceTree = "<group>"; };
+		2C51D4C92A9C6FD800808628 /* SivMorton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMorton.cpp; sourceTree = "<group>"; };
+		2C51D4CC2A9C700500808628 /* morton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton.h; sourceTree = "<group>"; };
+		2C51D4CD2A9C700500808628 /* morton3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton3D.h; sourceTree = "<group>"; };
+		2C51D4CE2A9C700500808628 /* morton2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton2D.h; sourceTree = "<group>"; };
+		2C51D4CF2A9C700500808628 /* morton_AVX512BITALG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton_AVX512BITALG.h; sourceTree = "<group>"; };
+		2C51D4D02A9C700500808628 /* morton2D_LUTs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton2D_LUTs.h; sourceTree = "<group>"; };
+		2C51D4D12A9C700500808628 /* morton3D_LUTs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton3D_LUTs.h; sourceTree = "<group>"; };
+		2C51D4D22A9C700500808628 /* morton_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton_common.h; sourceTree = "<group>"; };
+		2C51D4D32A9C700500808628 /* morton_BMI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton_BMI.h; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -5793,6 +5812,7 @@
 				2C62196626750F550088B175 /* gsl */,
 				2C60AE22248158A400277281 /* infoware */,
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
+				2C51D4CB2A9C700500808628 /* libmorton */,
 				2C13C95E25BD29FC0054B968 /* lua */,
 				2CFABADA272E3ACB00939278 /* lunasvg */,
 				2C44429F2427AA7C00557D51 /* miniutf */,
@@ -6484,6 +6504,29 @@
 				2C5043FC2651335E00E36D08 /* binary.hpp */,
 			);
 			path = archives;
+			sourceTree = "<group>";
+		};
+		2C51D4C82A9C6FD800808628 /* Morton */ = {
+			isa = PBXGroup;
+			children = (
+				2C51D4C92A9C6FD800808628 /* SivMorton.cpp */,
+			);
+			path = Morton;
+			sourceTree = "<group>";
+		};
+		2C51D4CB2A9C700500808628 /* libmorton */ = {
+			isa = PBXGroup;
+			children = (
+				2C51D4CC2A9C700500808628 /* morton.h */,
+				2C51D4CD2A9C700500808628 /* morton3D.h */,
+				2C51D4CE2A9C700500808628 /* morton2D.h */,
+				2C51D4CF2A9C700500808628 /* morton_AVX512BITALG.h */,
+				2C51D4D02A9C700500808628 /* morton2D_LUTs.h */,
+				2C51D4D12A9C700500808628 /* morton3D_LUTs.h */,
+				2C51D4D22A9C700500808628 /* morton_common.h */,
+				2C51D4D32A9C700500808628 /* morton_BMI.h */,
+			);
+			path = libmorton;
 			sourceTree = "<group>";
 		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
@@ -8080,6 +8123,7 @@
 				2CC8B51328C752ED008C770A /* ModelObject.hpp */,
 				2CC8B63D28C752EE008C770A /* Monitor.hpp */,
 				2CC8B4B028C752ED008C770A /* MonitorInfo.hpp */,
+				2C51D4C72A9C6FAF00808628 /* Morton.hpp */,
 				2CC8B55528C752ED008C770A /* Mouse.hpp */,
 				2CC8B6C328C752EE008C770A /* MSDFGlyph.hpp */,
 				2CC8B64128C752EE008C770A /* MSRenderTexture.hpp */,
@@ -8798,6 +8842,7 @@
 				2CC8B9F128C7532E008C770A /* Model */,
 				2CC8BAB128C7532E008C770A /* ModelObject */,
 				2CC8B77C28C7532D008C770A /* Monitor */,
+				2C51D4C82A9C6FD800808628 /* Morton */,
 				2CC8B95C28C7532D008C770A /* Mouse */,
 				2CC8B85228C7532D008C770A /* MSRenderTexture */,
 				2CC8BA1F28C7532E008C770A /* MultiPolygon */,
@@ -12408,6 +12453,7 @@
 				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
 				2C47B49924DD97F2008D83BE /* muParserDef.h in Headers */,
 				2CC8BBFB28C7532F008C770A /* AnimatedGIFWriterDetail.hpp in Headers */,
+				2C51D4D62A9C700500808628 /* morton2D.h in Headers */,
 				2C28E96C2796816C0004E07D /* zstd_trace.h in Headers */,
 				2CC8BE0F28C75332008C770A /* SoundFontDetail.hpp in Headers */,
 				2CC8BC0028C7532F008C770A /* IGamepad.hpp in Headers */,
@@ -12418,6 +12464,7 @@
 				2CB18ED826B5A68700862C28 /* as_array.h in Headers */,
 				2CC8BC3C28C75330008C770A /* Renderer3DCommon.hpp in Headers */,
 				2C43C8B125C837F100D6D613 /* ftincrem.h in Headers */,
+				2C51D4D92A9C700500808628 /* morton3D_LUTs.h in Headers */,
 				2CC8BB6B28C7532F008C770A /* TCPServerDetail.hpp in Headers */,
 				2C13C9A025BD29FC0054B968 /* lzio.h in Headers */,
 				2C43C8B825C837F100D6D613 /* tttags.h in Headers */,
@@ -12593,6 +12640,7 @@
 				2CC8BD2228C75331008C770A /* AudioBus.hpp in Headers */,
 				2CC584A42648FE2A00C33E9F /* opus_defines.h in Headers */,
 				2CB18EB326B5A68700862C28 /* as_scriptfunction.h in Headers */,
+				2C51D4DA2A9C700500808628 /* morton_common.h in Headers */,
 				2CC8BE4228C75333008C770A /* QRScannerDetail.hpp in Headers */,
 				2CBEBCB82629D15F0077DDBF /* quirc_internal.h in Headers */,
 				2C2AA2C725FF894D003F3EBC /* v8stdint.h in Headers */,
@@ -12607,6 +12655,7 @@
 				2C28E94E2796816C0004E07D /* clevels.h in Headers */,
 				2CC8BBB928C7532F008C770A /* P2MouseJointDetail.hpp in Headers */,
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
+				2C51D4D52A9C700500808628 /* morton3D.h in Headers */,
 				2CB18EDF26B5A68700862C28 /* as_datatype.h in Headers */,
 				2CFB7DA8262A66BA00169B97 /* CTextInput.hpp in Headers */,
 				2C2AA37B26009C74003F3EBC /* b2_fixture.h in Headers */,
@@ -12726,6 +12775,7 @@
 				2CC8BBF528C7532F008C770A /* MeshUtility.hpp in Headers */,
 				2C4A48612636544C00BDCBA2 /* cpptoml.h in Headers */,
 				2CC584A32648FE2A00C33E9F /* opusfile.h in Headers */,
+				2C51D4D72A9C700500808628 /* morton_AVX512BITALG.h in Headers */,
 				2C794ABA25C3DEFC00034D81 /* RFC1321.hpp in Headers */,
 				2CC8BB5A28C7532F008C770A /* LicenseList.hpp in Headers */,
 				2CC8BB8B28C7532F008C770A /* BigIntDetail.hpp in Headers */,
@@ -12770,6 +12820,7 @@
 				2C43C8A225C837F100D6D613 /* svtteng.h in Headers */,
 				2C2AA35926009C74003F3EBC /* b2_circle_contact.h in Headers */,
 				2CB18EE726B5A68700862C28 /* as_scriptobject.h in Headers */,
+				2C51D4D42A9C700500808628 /* morton.h in Headers */,
 				2CC8BDC728C75332008C770A /* IFont.hpp in Headers */,
 				2C43C88025C837F000D6D613 /* wofftypes.h in Headers */,
 				2C481E1324460B5700A5D88D /* cpuinfo_x86.h in Headers */,
@@ -12794,6 +12845,7 @@
 				2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */,
 				2CC8BC0E28C7532F008C770A /* INetwork.hpp in Headers */,
 				2CC8BE4328C75333008C770A /* IClipboard.hpp in Headers */,
+				2C51D4D82A9C700500808628 /* morton2D_LUTs.h in Headers */,
 				2C28E9792796816D0004E07D /* cpu.h in Headers */,
 				2C636E552657F7D300AF029F /* soloud_misc.h in Headers */,
 				2C636E9C2657F7D300AF029F /* dr_mp3.h in Headers */,
@@ -12978,6 +13030,7 @@
 				2C43C89625C837F100D6D613 /* svttcmap.h in Headers */,
 				2C43C8B525C837F100D6D613 /* ftpfr.h in Headers */,
 				2CFABB05272E3ACB00939278 /* symbolelement.h in Headers */,
+				2C51D4DB2A9C700500808628 /* morton_BMI.h in Headers */,
 				2C43C8B425C837F100D6D613 /* ttnameid.h in Headers */,
 				2CE762AF29326ECF00E410FF /* UdpSocket.h in Headers */,
 				2C2AA39E26009C74003F3EBC /* b2_gear_joint.h in Headers */,
@@ -14245,6 +14298,7 @@
 				2CC8BE2128C75332008C770A /* SivLine3D.cpp in Sources */,
 				2CC8BD5E28C75331008C770A /* ModelData.cpp in Sources */,
 				2CC8BB6E28C7532F008C770A /* MathParserDetail.cpp in Sources */,
+				2C51D4CA2A9C6FD800808628 /* SivMorton.cpp in Sources */,
 				2C636D8C2657A0BF00AF029F /* pffft.c in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2CC8BDD928C75332008C770A /* ImageEncoderFactory.cpp in Sources */,
