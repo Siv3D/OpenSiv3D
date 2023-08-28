@@ -400,6 +400,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/Model/SivModel.cpp
   ../Siv3D/src/Siv3D/ModelObject/SivModelObject.cpp
   ../Siv3D/src/Siv3D/Monitor/SivMonitor.cpp
+  ../Siv3D/src/Siv3D/Morton/SivMorton.cpp
   ../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp
   ../Siv3D/src/Siv3D/Mouse/SivMouse.cpp
   ../Siv3D/src/Siv3D/MSRenderTexture/SivMSRenderTexture.cpp

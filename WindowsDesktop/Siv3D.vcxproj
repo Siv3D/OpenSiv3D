@@ -472,6 +472,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ModelObject.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MonitorInfo.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Morton.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MSDFGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MSRenderTexture.hpp" />
@@ -1543,6 +1544,14 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\system.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\infoware\version.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\levenshtein-sse\levenshtein-sse.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton2D.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton2D_LUTs.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton3D.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton3D_LUTs.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_AVX512BITALG.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_BMI.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_common.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lapi.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lauxlib.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\lua\lcode.h" />
@@ -2151,6 +2160,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\ModelFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Model\SivModel.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Morton\SivMorton.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MSRenderTexture\SivMSRenderTexture.cpp" />

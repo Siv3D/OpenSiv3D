@@ -40,6 +40,7 @@ Name | Version
 [levenshtein-sse](https://github.com/addaleax/levenshtein-sse) | 
 [libcurl](https://github.com/curl/curl) | 7.77.0
 [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo) | 2.1.0
+[libmorton](https://github.com/Forceflow/libmorton) | v0.2.12
 [libogg](https://xiph.org/downloads/) | 1.3.4
 [libpng](http://www.libpng.org/pub/png/libpng.html) | 1.6.37
 [libtiff](http://www.simplesystems.org/libtiff/) | v4.3.0

@@ -1678,6 +1678,12 @@
     <Filter Include="src\Siv3D\SimpleFollowCamera3D">
       <UniqueIdentifier>{0b0d71c1-50bc-4f3a-b3ba-1f6fdf02c33c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\libmorton">
+      <UniqueIdentifier>{b16d1b76-e99e-4234-b83c-3b64adcc2de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Morton">
+      <UniqueIdentifier>{da208457-7a1b-42d4-a0d7-0ffba342ae75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7059,6 +7065,33 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleFollowCamera3D.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_AVX512BITALG.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_BMI.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton_common.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton2D.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton2D_LUTs.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton3D.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton3D_LUTs.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libmorton\morton.h">
+      <Filter>src\ThirdParty\libmorton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Morton.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10264,6 +10297,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleFollowCamera3D\SivSimpleFollowCamera3D.cpp">
       <Filter>src\Siv3D\SimpleFollowCamera3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Morton\SivMorton.cpp">
+      <Filter>src\Siv3D\Morton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
