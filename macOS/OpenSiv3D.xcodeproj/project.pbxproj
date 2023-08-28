@@ -613,6 +613,7 @@
 		2C51D4D92A9C700500808628 /* morton3D_LUTs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D12A9C700500808628 /* morton3D_LUTs.h */; };
 		2C51D4DA2A9C700500808628 /* morton_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D22A9C700500808628 /* morton_common.h */; };
 		2C51D4DB2A9C700500808628 /* morton_BMI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C51D4D32A9C700500808628 /* morton_BMI.h */; };
+		2C51D4E02A9CA91600808628 /* SivPoint3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C51D4DF2A9CA91600808628 /* SivPoint3D.cpp */; };
 		2C531EA524BA0CA000378977 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C531EA424BA0CA000378977 /* libpng16.a */; };
 		2C533727264D64DF00CE0F1B /* CAudioCodec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533724264D64DF00CE0F1B /* CAudioCodec.cpp */; };
 		2C533728264D64DF00CE0F1B /* AudioCodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C533725264D64DF00CE0F1B /* AudioCodecFactory.cpp */; };
@@ -2743,6 +2744,9 @@
 		2C51D4D12A9C700500808628 /* morton3D_LUTs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton3D_LUTs.h; sourceTree = "<group>"; };
 		2C51D4D22A9C700500808628 /* morton_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton_common.h; sourceTree = "<group>"; };
 		2C51D4D32A9C700500808628 /* morton_BMI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = morton_BMI.h; sourceTree = "<group>"; };
+		2C51D4DC2A9CA8DF00808628 /* Point3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point3D.hpp; sourceTree = "<group>"; };
+		2C51D4DD2A9CA8F700808628 /* Point3D.ipp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point3D.ipp; sourceTree = "<group>"; };
+		2C51D4DF2A9CA91600808628 /* SivPoint3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPoint3D.cpp; sourceTree = "<group>"; };
 		2C531EA224BA00EB00378977 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		2C531EA324BA00EB00378977 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
 		2C531EA424BA0CA000378977 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../Siv3D/lib/macOS/libpng/libpng16.a; sourceTree = "<group>"; };
@@ -6529,6 +6533,14 @@
 			path = libmorton;
 			sourceTree = "<group>";
 		};
+		2C51D4DE2A9CA91600808628 /* Point3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C51D4DF2A9CA91600808628 /* SivPoint3D.cpp */,
+			);
+			path = Point3D;
+			sourceTree = "<group>";
+		};
 		2C531EA124BA00EB00378977 /* zlib */ = {
 			isa = PBXGroup;
 			children = (
@@ -8174,6 +8186,7 @@
 				2CC8B45628C752EC008C770A /* PlayingCard.hpp */,
 				2CC8B71828C752EE008C770A /* PNGFilter.hpp */,
 				2CC8B4F528C752ED008C770A /* Point.hpp */,
+				2C51D4DC2A9CA8DF00808628 /* Point3D.hpp */,
 				2CC8B4E628C752ED008C770A /* PointVector.hpp */,
 				2CC8B4C028C752ED008C770A /* PoissonDisk2D.hpp */,
 				2CC8B51A28C752ED008C770A /* Polygon.hpp */,
@@ -8595,6 +8608,7 @@
 				2CC8B62428C752ED008C770A /* Plane.ipp */,
 				2CC8B61928C752ED008C770A /* PlayingCard.ipp */,
 				2CC8B5E328C752ED008C770A /* Point.ipp */,
+				2C51D4DD2A9CA8F700808628 /* Point3D.ipp */,
 				2CC8B5C428C752ED008C770A /* PoissonDisk2D.ipp */,
 				2CC8B5FB28C752ED008C770A /* Polygon.ipp */,
 				2CC8B61328C752ED008C770A /* QRContent.ipp */,
@@ -8871,6 +8885,7 @@
 				2CC8BA4128C7532E008C770A /* Plane */,
 				2CC8B85428C7532D008C770A /* PlayingCard */,
 				2CC8B82E28C7532D008C770A /* Point */,
+				2C51D4DE2A9CA91600808628 /* Point3D */,
 				2CC8B86728C7532D008C770A /* Polygon */,
 				2CC8BB2328C7532E008C770A /* PolygonEmitter2D */,
 				2CC8B9BB28C7532D008C770A /* PrimeNumber */,
@@ -14406,6 +14421,7 @@
 				2C834DC2248805D4006208B8 /* utf16_be.c in Sources */,
 				2CC8BBE828C7532F008C770A /* SivInput.cpp in Sources */,
 				2CE762B329326ECF00E410FF /* IpEndpointName.cpp in Sources */,
+				2C51D4E02A9CA91600808628 /* SivPoint3D.cpp in Sources */,
 				2CC8BC2928C7532F008C770A /* Triangulation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
