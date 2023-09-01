@@ -199,7 +199,7 @@ namespace s3d
 		/// @brief シーンを変更します。
 		/// @param state 次のシーンのキー
 		/// @param transitionTime フェードイン・アウトの時間
-		/// @param crossFade ロスフェードを有効にするか
+		/// @param crossFade クロスフェードを有効にするか
 		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
 		bool changeScene(const State& state, const Duration& transitionTime = Duration{ 2.0 }, CrossFade crossFade = CrossFade::No);
 
