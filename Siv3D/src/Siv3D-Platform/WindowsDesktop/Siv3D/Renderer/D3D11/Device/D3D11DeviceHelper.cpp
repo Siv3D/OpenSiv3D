@@ -239,7 +239,7 @@ namespace s3d::detail
 			}
 
 			// Direct3D 11.1 ランタイムを使用可能かチェック
-			bool d3d11_1_runtimeSupprot = false;
+			bool d3d11_1_runtimeSupport = false;
 			ComPtr<IDXGIAdapter2> pAdapter2;
 			if (hr = pAdapter->QueryInterface(__uuidof(IDXGIAdapter2), &pAdapter2);
 				SUCCEEDED(hr))
@@ -253,7 +253,7 @@ namespace s3d::detail
 					continue;
 				}
 
-				d3d11_1_runtimeSupprot = true;
+				d3d11_1_runtimeSupport = true;
 			}
 
 			DXGI_ADAPTER_DESC adapterDesc;
@@ -266,13 +266,13 @@ namespace s3d::detail
 				.name						= Unicode::FromWstring(adapterDesc.Description),
 				.adapterDesc				= adapterDesc,
 				.vendor						= ToAdapterVendor(adapter.adapterDesc.VendorId),
-				.d3d11_1_runtimeSupprot		= d3d11_1_runtimeSupprot,
+				.d3d11_1_runtimeSupport		= d3d11_1_runtimeSupport,
 			};
 
 			LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
 				adapterIndex,
 				detail::ToString(adapter.adapterDesc),
-				(d3d11_1_runtimeSupprot ? 1 : 0)
+				(d3d11_1_runtimeSupport ? 1 : 0)
 			));
 
 			if (!CheckHardwareDevice(adapter, pD3D11CreateDevice, D3D_FEATURE_LEVEL_10_0, unspecified))
@@ -325,14 +325,14 @@ namespace s3d::detail
 					.vendor			= ToAdapterVendor(adapter.adapterDesc.VendorId),
 					.maxLevel		= cache.maxLevel,
 					.selectedLevel	= cache.selectedLevel,
-					.d3d11_1_runtimeSupprot = cache.d3d11_1_runtimeSupprot,
+					.d3d11_1_runtimeSupport = cache.d3d11_1_runtimeSupport,
 					.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = cache.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x
 				};
 
 				LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
 					adapterIndex,
 					detail::ToString(adapter.adapterDesc),
-					(adapter.d3d11_1_runtimeSupprot ? 1 : 0)
+					(adapter.d3d11_1_runtimeSupport ? 1 : 0)
 				));
 
 				adapters.push_back(adapter);
@@ -340,7 +340,7 @@ namespace s3d::detail
 			}
 
 			// Direct3D 11.1 ランタイムを使用可能かチェック
-			bool d3d11_1_runtimeSupprot = false;
+			bool d3d11_1_runtimeSupport = false;
 			ComPtr<IDXGIAdapter2> pAdapter2;
 			if (hr = pAdapter->QueryInterface(__uuidof(IDXGIAdapter2), &pAdapter2);
 				SUCCEEDED(hr))
@@ -354,7 +354,7 @@ namespace s3d::detail
 					continue;
 				}
 
-				d3d11_1_runtimeSupprot = true;
+				d3d11_1_runtimeSupport = true;
 			}
 
 			D3D11Adapter adapter =
@@ -364,13 +364,13 @@ namespace s3d::detail
 				.name = Unicode::FromWstring(adapterDesc.Description),
 				.adapterDesc = adapterDesc,
 				.vendor = ToAdapterVendor(adapter.adapterDesc.VendorId),
-				.d3d11_1_runtimeSupprot = d3d11_1_runtimeSupprot,
+				.d3d11_1_runtimeSupport = d3d11_1_runtimeSupport,
 			};
 
 			LOG_INFO(U"ℹ️ IDXGIAdapter [{}]: {} (supports Direct3D 11.{} runtime)"_fmt(
 				adapterIndex,
 				detail::ToString(adapter.adapterDesc),
-				(d3d11_1_runtimeSupprot ? 1 : 0)
+				(d3d11_1_runtimeSupport ? 1 : 0)
 			));
 
 			if (!CheckHardwareDevice(adapter, pD3D11CreateDevice, D3D_FEATURE_LEVEL_10_0, unspecified))
@@ -541,7 +541,7 @@ namespace s3d::detail
 				.adapterIndex			= adapterIndex,
 				.deviceType				= D3D_DRIVER_TYPE_HARDWARE,
 				.featureLevel			= featureLevel,
-				.d3d11_1_runtimeSupprot	= adapter.d3d11_1_runtimeSupprot,
+				.d3d11_1_runtimeSupport	= adapter.d3d11_1_runtimeSupport,
 				.device					= device,
 				.context				= context,
 			};
@@ -565,7 +565,7 @@ namespace s3d::detail
 					.adapterIndex			= adapterIndex,
 					.deviceType				= D3D_DRIVER_TYPE_HARDWARE,
 					.featureLevel			= featureLevel,
-					.d3d11_1_runtimeSupprot	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
+					.d3d11_1_runtimeSupport	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
 					.device					= device,
 					.context				= context,
 				};
@@ -601,7 +601,7 @@ namespace s3d::detail
 				.adapterIndex			= none,
 				.deviceType				= D3D_DRIVER_TYPE_WARP,
 				.featureLevel			= featureLevel,
-				.d3d11_1_runtimeSupprot	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
+				.d3d11_1_runtimeSupport	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
 				.device					= device,
 				.context				= context,
 			};
@@ -636,7 +636,7 @@ namespace s3d::detail
 				.adapterIndex			= none,
 				.deviceType				= D3D_DRIVER_TYPE_REFERENCE,
 				.featureLevel			= featureLevel,
-				.d3d11_1_runtimeSupprot	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
+				.d3d11_1_runtimeSupport	= (featureLevel >= D3D_FEATURE_LEVEL_11_1),
 				.device					= device,
 				.context				= context,
 			};
@@ -704,7 +704,7 @@ namespace s3d::detail
 						.revision = adapter.adapterDesc.Revision,
 						.maxLevel = adapter.maxLevel,
 						.selectedLevel = adapter.selectedLevel,
-						.d3d11_1_runtimeSupprot = adapter.d3d11_1_runtimeSupprot,
+						.d3d11_1_runtimeSupport = adapter.d3d11_1_runtimeSupport,
 						.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = adapter.computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x,
 					};
 

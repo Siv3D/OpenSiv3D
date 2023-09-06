@@ -95,7 +95,7 @@ namespace s3d
 			LOG_TRACE(U"IDXGIDevice2::SetMaximumFrameLatency()");
 
 			if (ComPtr<IDXGIDevice2> pDXGIDevice;
-				SUCCEEDED(device.getDeiviceComPtr().As(&pDXGIDevice)))
+				SUCCEEDED(device.getDeviceComPtr().As(&pDXGIDevice)))
 			{
 				pDXGIDevice->SetMaximumFrameLatency(2);
 			}

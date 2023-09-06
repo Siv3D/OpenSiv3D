@@ -53,7 +53,7 @@ namespace s3d
 		ID3D11Device* getDevice() const noexcept;
 
 		[[nodiscard]]
-		ComPtr<ID3D11Device> getDeiviceComPtr() const noexcept;
+		ComPtr<ID3D11Device> getDeviceComPtr() const noexcept;
 
 		[[nodiscard]]
 		ID3D11DeviceContext* getContext() const noexcept;

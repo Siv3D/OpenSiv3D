@@ -122,7 +122,7 @@ namespace s3d
 		return m_deviceInfo.device.Get();
 	}
 
-	ComPtr<ID3D11Device> D3D11Device::getDeiviceComPtr() const noexcept
+	ComPtr<ID3D11Device> D3D11Device::getDeviceComPtr() const noexcept
 	{
 		return m_deviceInfo.device;
 	}

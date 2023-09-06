@@ -35,7 +35,7 @@ namespace s3d::detail
 
 		D3D_FEATURE_LEVEL selectedLevel = D3D_FEATURE_LEVEL_9_1;
 
-		bool d3d11_1_runtimeSupprot = false;
+		bool d3d11_1_runtimeSupport = false;
 
 		bool computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = false;
 
