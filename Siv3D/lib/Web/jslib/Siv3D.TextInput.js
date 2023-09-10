@@ -4,8 +4,10 @@ mergeInto(LibraryManager.library, {
 
     siv3dInitTextInput: function() {
         const textInput = document.createElement("div");
+        textInput.id = "textinput";
         textInput.contentEditable = true;
         textInput.style.position = "absolute";
+        textInput.style.width = "100px";
         textInput.style.zIndex = -2;
         textInput.style.whiteSpace = "pre-wrap";
         textInput.autocomplete = false;
@@ -31,7 +33,7 @@ mergeInto(LibraryManager.library, {
     siv3dInitTextInput__proxy: "sync",
     siv3dInitTextInput__deps: [ "$siv3dTextInputElement" ],
 
-    siv3dRegisterTextInputCallback: function(callback) {
+    $siv3dRegisterTextInputCallback: function(callbackFn) {
         let composing = false;
         let insertCompositionTextInvoked = false;
 
@@ -44,29 +46,29 @@ mergeInto(LibraryManager.library, {
                 if (e.data) {
                     for (var i = 0; i < e.data.length; i++) {
                         const codePoint = e.data.charCodeAt(i);
-                        {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                        callbackFn(codePoint);
                     }
                 }
             } else if (e.inputType == "insertFromPaste") {
                 if (e.data) {
                     for (var i = 0; i < e.data.length; i++) {
                         const codePoint = e.data.charCodeAt(i);
-                        {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                        callbackFn(codePoint);
                     }
                 } else {
                     navigator.clipboard.readText().then(
                         data => {
                             for (var i = 0; i < data.length; i++) {
                                 const codePoint = data.charCodeAt(i);
-                                {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                                callbackFn(codePoint);
                             }
                         }
                     );
                 }
             } else if (e.inputType == "deleteContentBackward") {
-                {{{ makeDynCall('vi', 'callback') }}}(8);
+                callbackFn(8);
             } else if (e.inputType == "deleteContentForward") {
-                {{{ makeDynCall('vi', 'callback') }}}(0x7F);
+                callbackFn(0x7F);
             }
         });
         siv3dTextInputElement.addEventListener('beforeinput', function (e) {
@@ -76,7 +78,7 @@ mergeInto(LibraryManager.library, {
                 if (!insertCompositionTextInvoked && !!siv3dTextInputCompositionRange) {
                     const length = siv3dTextInputCompositionRange.endOffset - siv3dTextInputCompositionRange.startOffset;
                     for (var i = 0; i < length; i++) {
-                        {{{ makeDynCall('vi', 'callback') }}}(8);
+                        callbackFn(8);
                     }
                 }
                 insertCompositionTextInvoked = true;
@@ -91,13 +93,17 @@ mergeInto(LibraryManager.library, {
             siv3dTextInputCompositionRange = null;
             for (var i = 0; i < e.data.length; i++) {
                 const codePoint = e.data.charCodeAt(i);
-                {{{ makeDynCall('vi', 'callback') }}}(codePoint);
+                callbackFn(codePoint);
             }
         });
     },
+
+    siv3dRegisterTextInputCallback: function(callback) {
+        siv3dRegisterTextInputCallback({{{ makeDynCall("vi", "callback") }}});
+    },
     siv3dRegisterTextInputCallback__sig: "vi",
     siv3dRegisterTextInputCallback__proxy: "sync",
-    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement", "$siv3dTextInputCompositionRange" ],
+    siv3dRegisterTextInputCallback__deps: [ "$siv3dTextInputElement", "$siv3dRegisterTextInputCallback", "$siv3dTextInputCompositionRange" ],
 
     siv3dGetTextInputCompositionRange: function(start, end) {
         if (siv3dTextInputCompositionRange) {
@@ -144,7 +150,7 @@ mergeInto(LibraryManager.library, {
         }
     },
     siv3dRequestTextInputFocus__sig: "vi",
-    siv3dRequestTextInputFocus__sync: "sync",
+    siv3dRequestTextInputFocus__proxy: "sync",
     siv3dRequestTextInputFocus__deps: [ "$siv3dRegisterUserAction", "$siv3dTextInputElement" ],
 
     siv3dSetTextInputText: function(ptr) {

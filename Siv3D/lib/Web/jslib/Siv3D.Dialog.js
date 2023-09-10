@@ -13,15 +13,15 @@ mergeInto(LibraryManager.library, {
     siv3dInitDialog__sig: "v",
     siv3dInitDialog__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dDownloadLink" ],
 
-    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr, acceptMuilitple) {
-        siv3dInputElement.accept = UTF8ToString(filterStr);
-        siv3dInputElement.multiple = !!acceptMuilitple;
+    $siv3dOpenDialogAsync: function(filter, callback, futurePtr, acceptMuilitple) {
+        siv3dInputElement.accept = filter;
+        siv3dInputElement.multiple = acceptMuilitple;
 
         siv3dInputElement.oninput = async function(e) {
             const files = e.target.files;
 
             if (files.length < 1) {
-                {{{ makeDynCall('viii', 'callback') }}}(0, 0, futurePtr);
+                callback(0, 0, futurePtr);
                 _siv3dMaybeAwake();
                 return;
             }
@@ -53,7 +53,7 @@ mergeInto(LibraryManager.library, {
                 setValue(filePathesPtr + i * {{{ POINTER_SIZE }}}, filePathes[i], "i32");
             }
 
-            {{{ makeDynCall('viii', 'callback') }}}(filePathesPtr, filePathes.length, futurePtr);
+            callback(filePathesPtr, filePathes.length, futurePtr);
             
             stackRestore(sp);
             _siv3dMaybeAwake();
@@ -63,8 +63,14 @@ mergeInto(LibraryManager.library, {
             siv3dInputElement.click();
         });
     },
+    $siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "siv3dMaybeAwake" ],
+    siv3dOpenDialogAsync: function(filterStr, callback, futurePtr, acceptMuilitple) {
+        const filter = UTF8ToString(filterStr);
+        const callbackFn = {{{ makeDynCall('viii', 'callback') }}};
+        siv3dOpenDialogAsync(filter, callbackFn, futurePtr, !!acceptMuilitple);
+    },
     siv3dOpenDialogAsync__sig: "vii",
-    siv3dOpenDialogAsync__deps: [ "$siv3dInputElement", "$siv3dDialogFileReader", "$siv3dRegisterUserAction", "$FS", "siv3dMaybeAwake" ],
+    siv3dOpenDialogAsync__deps: [ "$siv3dOpenDialogAsync" ],
 
     $siv3dSaveFileBuffer: null, 
     $siv3dSaveFileBufferWritePos: 0,

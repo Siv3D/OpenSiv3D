@@ -1,5 +1,5 @@
 mergeInto(LibraryManager.library, {
-    siv3dRegisterDragEnter: function(ptr) {
+    $siv3dRegisterDragEnter: function(callback) {
         Module["canvas"]["ondragenter"] = function (e) {
             e.preventDefault();
 
@@ -7,32 +7,43 @@ mergeInto(LibraryManager.library, {
 
             if (types.length > 0) {
                 const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
-                {{{ makeDynCall('vi', 'ptr') }}}(types[0] === 'Files' ? 1 : 0, adusted.x, adusted.y);
+                callback(types[0] === 'Files' ? 1 : 0, adusted.x, adusted.y);
             }        
         };
     },
+    siv3dRegisterDragEnter: function(ptr) {
+        siv3dRegisterDragEnter({{{ makeDynCall('viii', 'ptr') }}});
+    },
+    siv3dRegisterDragEnter__deps: [ "$siv3dRegisterDragEnter" ],
     siv3dRegisterDragEnter__sig: "vi",
 
-    siv3dRegisterDragUpdate: function(ptr) {
+    $siv3dRegisterDragUpdate: function(callback) {
         Module["canvas"]["ondragover"] = function (e) {
             e.preventDefault();
             const adusted = siv3dAdjustPoint(e.pageX, e.pageY);
-            {{{ makeDynCall('vii', 'ptr') }}}(adusted.x, adusted.y);
+            callback(adusted.x, adusted.y);
         };
+    },
+    siv3dRegisterDragUpdate: function(ptr) {
+        siv3dRegisterDragUpdate({{{ makeDynCall('vii', 'ptr') }}});
     },
     siv3dRegisterDragUpdate__sig: "vi",
-    siv3dRegisterDragUpdate__deps: [ "$siv3dAdjustPoint" ],
+    siv3dRegisterDragUpdate__deps: [ "$siv3dRegisterDragUpdate", "$siv3dAdjustPoint" ],
 
-    siv3dRegisterDragExit: function(ptr) {
+    $siv3dRegisterDragExit: function(callback) {
         Module["canvas"]["ondragexit"] = function (e) {
             e.preventDefault();
-            {{{ makeDynCall('v', 'ptr') }}}();
+            callback();
         };
     },
+    siv3dRegisterDragExit: function(ptr) {
+        siv3dRegisterDragExit({{{ makeDynCall('v', 'ptr') }}});
+    },
+    siv3dRegisterDragExit__deps: [ "$siv3dRegisterDragExit" ],
     siv3dRegisterDragExit__sig: "vi",
 
     $siv3dDragDropFileReader: null,
-    siv3dRegisterDragDrop: function(ptr) {
+    $siv3dRegisterDragDrop: function(callback) {
         Module["canvas"]["ondrop"] = function (e) {
             e.preventDefault();
 
@@ -46,7 +57,7 @@ mergeInto(LibraryManager.library, {
             if (items[0].kind === 'string') {
                 items[0].getAsString(function(str) {
                     const strPtr = allocate(intArrayFromString(str), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(strPtr, adusted.x, adusted.y);
+                    callback(strPtr, adusted.x, adusted.y);
                     Module["_free"](strPtr);
                 })            
             } else if (items[0].kind === 'file') {
@@ -62,7 +73,7 @@ mergeInto(LibraryManager.library, {
                     FS.writeFile(filePath, new Uint8Array(siv3dDragDropFileReader.result));
 
                     const namePtr = allocate(intArrayFromString(filePath), ALLOC_NORMAL);
-                    {{{ makeDynCall('vi', 'ptr') }}}(namePtr, adusted.x, adusted.y);
+                    callback(namePtr, adusted.x, adusted.y);
 
                     siv3dDragDropFileReader.removeEventListener("load", onLoaded);
                 });
@@ -71,6 +82,9 @@ mergeInto(LibraryManager.library, {
             }
         };
     },
+    siv3dRegisterDragDrop: function(ptr) {
+        siv3dRegisterDragDrop({{{ makeDynCall('viii', 'ptr') }}});
+    },
     siv3dRegisterDragDrop__sig: "vi",
-    siv3dRegisterDragDrop__deps: [ "$siv3dDragDropFileReader", "$FS" ],
+    siv3dRegisterDragDrop__deps: [ "$siv3dRegisterDragDrop", "$siv3dDragDropFileReader", "$FS" ],
 });
