@@ -91,7 +91,7 @@ namespace s3d
 		const std::pair<double, double>& sMinMax,
 		const std::pair<double, double>& vMinMax)
 	{
-		return RandomColorF(hMinMax, sMinMax, vMinMax, GetDefaultRNG());
+		return RandomHSV(hMinMax, sMinMax, vMinMax, GetDefaultRNG());
 	}
 
 	SIV3D_CONCEPT_URBG_
