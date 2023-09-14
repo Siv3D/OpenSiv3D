@@ -23,7 +23,7 @@ namespace s3d
 
 		D3D_FEATURE_LEVEL featureLevel	= D3D_FEATURE_LEVEL_9_1;
 
-		bool d3d11_1_runtimeSupprot		= false;
+		bool d3d11_1_runtimeSupport		= false;
 
 		ComPtr<ID3D11Device> device;
 
