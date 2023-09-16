@@ -1159,18 +1159,19 @@ namespace s3d
 
 	Image& Image::rotate90(int32 n)
 	{
-		switch (n < 0 ? n % 4 + 4 : n % 4)
+		switch (n % 4) // 時計回りに何回 90° 回転するか
 		{
-		case 0:
-			return *this;
 		case 1:
-			return rotate90();
+		case -3:
+			return rotate90(); // 1 回または -3 回
 		case 2:
-			return rotate180();
+		case -2:
+			return rotate180(); // 2 回または -2 回
 		case 3:
-			return rotate270();
+		case -1:
+			return rotate270(); // 3 回または -1 回
 		default:
-			return *this;//予期していない分岐
+			return *this; // 0 回
 		}
 	}
 
@@ -1213,18 +1214,19 @@ namespace s3d
 
 	Image Image::rotated90(int32 n) const&
 	{
-		switch (n < 0 ? n % 4 + 4 : n % 4)
+		switch (n % 4) // 時計回りに何回 90° 回転するか
 		{
-		case 0:
-			return *this;
 		case 1:
-			return rotated90();
+		case -3:
+			return rotated90(); // 1 回または -3 回
 		case 2:
-			return rotated180();
+		case -2:
+			return rotated180(); // 2 回または -2 回
 		case 3:
-			return rotated270();
+		case -1:
+			return rotated270(); // 3 回または -1 回
 		default:
-			return *this;//予期していない分岐
+			return *this; // 0 回
 		}
 	}
 
