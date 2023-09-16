@@ -1170,7 +1170,7 @@ namespace s3d
 		case 3:
 			return rotate270();
 		default:
-			return *this;//予期してない分岐
+			return *this;//予期していない分岐
 		}
 	}
 
@@ -1224,7 +1224,7 @@ namespace s3d
 		case 3:
 			return rotated270();
 		default:
-			return *this;//予期してない分岐
+			return *this;//予期していない分岐
 		}
 	}
 
