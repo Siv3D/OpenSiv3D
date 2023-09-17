@@ -472,11 +472,22 @@ namespace s3d
 		/// @return *this
 		Image& rotate90();
 
+		/// @brief 画像を時計回りに 90°* n 回転します。
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return *this
+		Image& rotate90(int32 n);
+
 		[[nodiscard]]
 		Image rotated90() const&;
 
 		[[nodiscard]]
 		Image rotated90() &&;
+
+		[[nodiscard]]
+		Image rotated90(int32 n) const&;
+
+		[[nodiscard]]
+		Image rotated90(int32 n) &&;
 
 		/// @brief 画像を時計回りに 180° 回転します。
 		/// @return *this
