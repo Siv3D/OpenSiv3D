@@ -1157,7 +1157,7 @@ SOFTWARE.)-"
 {
 UR"-(msdfgen)-",
 
-UR"-(Copyright (c) 2016 Viktor Chlumsky)-",
+UR"-(Copyright (c) 2016 - 2023 Viktor Chlumsky)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

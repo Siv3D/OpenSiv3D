@@ -53,7 +53,7 @@ Name | Version
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [Modern C++ JSON schema validator](https://github.com/pboettch/json-schema-validator) | v2.2.0
-[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
+[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.10
 [muparser](https://github.com/beltoforion/muparser) | 2.3.3
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.4.2
 [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 

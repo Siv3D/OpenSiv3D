@@ -100,8 +100,6 @@ namespace s3d
 				return false;
 			}
 
-			//shape.orientContours();
-
 			resolveShapeGeometry(shape);
 
 			shape.normalize();
@@ -155,7 +153,7 @@ namespace s3d
 			return{};
 		}
 
-		const GlyphBBox bbox	= detail::GetBound(shape);
+		const GlyphBBox bbox = detail::GetBound(shape);
 
 		if (std::isinf(bbox.xMin) || std::isinf(bbox.xMax) || std::isinf(bbox.yMin) || std::isinf(bbox.yMax))
 		{
