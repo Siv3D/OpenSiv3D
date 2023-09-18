@@ -814,6 +814,7 @@ set(SIV3D_THIRDPARTY_SOURCES
   ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/ext/resolve-shape-geometry.cpp
 
   ../Siv3D/src/ThirdParty/muparser/muParser.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBase.cpp
