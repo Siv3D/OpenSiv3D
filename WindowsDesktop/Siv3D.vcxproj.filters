@@ -1711,6 +1711,27 @@
     <Filter Include="src\ThirdParty\skia\src\ports">
       <UniqueIdentifier>{f12465df-1721-44b1-acc6-b2cdb37b90d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\skia\include\config">
+      <UniqueIdentifier>{d783668a-a3f4-4887-87d0-e504aee71d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\core">
+      <UniqueIdentifier>{d157eefa-2d51-47ce-bd94-876ef5e7c567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\pathops">
+      <UniqueIdentifier>{253b24dd-b32b-4da0-b161-8672c7bf4b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\private">
+      <UniqueIdentifier>{7db68d80-67f6-41e6-a338-2603ee50bb92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\utils">
+      <UniqueIdentifier>{0a7a83f8-4bca-4198-b86b-29154a848dba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\utils\mac">
+      <UniqueIdentifier>{3748974a-969b-4947-b05d-2641a5153d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\skia\include\private\base">
+      <UniqueIdentifier>{13c0dace-b441-4dab-9536-978f581759af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7304,6 +7325,492 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\skia\src\pathops\SkPathOpsPoint.h">
       <Filter>src\ThirdParty\skia\src\pathops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkAnimCodecPlayer.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkBase64.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkCamera.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkCanvasStateUtils.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkCustomTypeface.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkEventTracer.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkNoDrawCanvas.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkNullCanvas.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkNWayCanvas.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkOrderedFontMgr.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkPaintFilterCanvas.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkParse.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkParsePath.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkShadowUtils.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkTextUtils.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\SkTraceEventPhase.h">
+      <Filter>src\ThirdParty\skia\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\utils\mac\SkCGUtils.h">
+      <Filter>src\ThirdParty\skia\include\utils\mac</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkBitmaskEnum.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkColorData.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkEncodedInfo.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkGainmapInfo.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkGainmapShader.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkIDChangeListener.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkJpegGainmapEncoder.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkJpegMetadataDecoder.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkPathRef.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkShadowFlags.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkSLDefines.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkSLSampleUsage.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\SkWeakRefCnt.h">
+      <Filter>src\ThirdParty\skia\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkMath.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkMutex.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkNoncopyable.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkOnce.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkPathEnums.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkSafe32.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkSemaphore.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkSpan_impl.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTArray.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTDArray.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTemplates.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTFitsIn.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkThreadAnnotations.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkThreadID.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTLogic.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTo.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTPin.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkTypeTraits.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SingleOwner.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkAlign.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkAlignedStorage.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkAPI.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkAssert.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkAttributes.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkContainers.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkCPUTypes.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkDebug.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkDeque.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkFeatures.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkFixed.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkFloatBits.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkFloatingPoint.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkLoadUserConfig.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkMacros.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\private\base\SkMalloc.h">
+      <Filter>src\ThirdParty\skia\include\private\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\pathops\SkPathOps.h">
+      <Filter>src\ThirdParty\skia\include\pathops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSpan.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkStream.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkString.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkStrokeRec.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSurface.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSurfaceCharacterization.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSurfaceProps.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSwizzle.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTextBlob.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTextureCompressionType.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTileMode.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTime.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTraceMemoryDump.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTypeface.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkTypes.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkUnPreMultiply.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkVertices.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkYUVAInfo.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkYUVAPixmaps.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkAlphaType.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkAnnotation.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkBBHFactory.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkBitmap.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkBlender.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkBlendMode.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkBlurTypes.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkCanvas.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkCanvasVirtualEnforcer.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkCapabilities.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkClipOp.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColor.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColorFilter.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColorPriv.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColorSpace.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColorTable.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkColorType.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkContourMeasure.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkCoverageMode.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkCubicMap.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkData.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDataTable.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDeferredDisplayList.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDeferredDisplayListRecorder.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDocument.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDrawable.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkDrawLooper.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkEncodedImageFormat.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkExecutor.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFlattenable.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFont.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontArguments.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontMetrics.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontMgr.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontParameters.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontStyle.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkFontTypes.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkGraphics.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkICC.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkImage.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkImageFilter.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkImageGenerator.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkImageInfo.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkM44.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkMallocPixelRef.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkMaskFilter.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkMatrix.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkMesh.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkMilestone.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkOpenTypeSVGDecoder.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkOverdrawCanvas.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPaint.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPath.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPathBuilder.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPathEffect.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPathMeasure.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPathTypes.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPathUtils.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPicture.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPictureRecorder.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPixelRef.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPixmap.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPoint.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPoint3.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkPromiseImageTexture.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRasterHandleAllocator.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRect.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRefCnt.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRegion.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRRect.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkRSXform.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSamplingOptions.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkScalar.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSerialProcs.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkShader.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\core\SkSize.h">
+      <Filter>src\ThirdParty\skia\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\skia\include\config\SkUserConfig.h">
+      <Filter>src\ThirdParty\skia\include\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
