@@ -3900,9 +3900,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\equation-solver.h">
       <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-edge-artifact-patcher.h">
-      <Filter>src\ThirdParty\msdfgen\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-error-correction.h">
       <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClInclude>
@@ -7101,6 +7098,15 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\detail\Point3D.ipp">
       <Filter>include\Siv3D\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\generator-config.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\MSDFErrorCorrection.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\msdfgen\core\Projection.h">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -8163,9 +8169,6 @@
       <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\equation-solver.cpp">
-      <Filter>src\ThirdParty\msdfgen\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-edge-artifact-patcher.cpp">
       <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\msdf-error-correction.cpp">
@@ -10312,6 +10315,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Point3D\SivPoint3D.cpp">
       <Filter>src\Siv3D\Point3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\MSDFErrorCorrection.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\msdfgen\core\Projection.cpp">
+      <Filter>src\ThirdParty\msdfgen\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

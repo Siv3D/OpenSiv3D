@@ -99,10 +99,12 @@ namespace s3d
 				return false;
 			}
 
+			//shape.orientContours();
+
+			resolveShapeGeometry(shape);
+
 			shape.normalize();
 
-			shape.orientContours();
-		
 			edgeColoringSimple(shape, 3.0);
 
 			return true;
@@ -153,25 +155,45 @@ namespace s3d
 		}
 
 		const GlyphBBox bbox	= detail::GetBound(shape);
-		const int32 width		= static_cast<int32>(bbox.xMax - bbox.xMin);
-		const int32 height		= static_cast<int32>(bbox.yMax - bbox.yMin);
-		const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
 
-		msdfgen::Bitmap<float, 1> bitmap{ (width + (2 * buffer)), (height + (2 * buffer)) };
-		msdfgen::generateSDF(bitmap, shape, 8.0, 1.0, msdfgen::Vector2(offset.x, offset.y));
+		if (std::isinf(bbox.xMin) || std::isinf(bbox.xMax) || std::isinf(bbox.yMin) || std::isinf(bbox.yMax))
+		{
+			SDFGlyph result;
+			result.glyphIndex	= glyphIndex;
+			result.buffer		= buffer;
+			result.left			= 0;
+			result.top			= 0;
+			result.width		= 0;
+			result.height		= 0;
+			result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
+			result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+			result.ascender		= prop.ascender;
+			result.descender	= prop.descender;
+			result.image		= {};
+			return result;
+		}
+		else
+		{
+			const int32 width		= static_cast<int32>(bbox.xMax - bbox.xMin);
+			const int32 height		= static_cast<int32>(bbox.yMax - bbox.yMin);
+			const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
 
-		SDFGlyph result;
-		result.glyphIndex	= glyphIndex;
-		result.buffer		= buffer;
-		result.left			= static_cast<int16>(bbox.xMin);
-		result.top			= static_cast<int16>(bbox.yMax);
-		result.width		= static_cast<int16>(width);
-		result.height		= static_cast<int16>(height);
-		result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
-		result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
-		result.ascender		= prop.ascender;
-		result.descender	= prop.descender;
-		result.image		= detail::RenderMSDF(bitmap);
-		return result;
+			msdfgen::Bitmap<float, 1> bitmap{ (width + (2 * buffer)), (height + (2 * buffer)) };
+			msdfgen::generateSDF(bitmap, shape, 8.0, 1.0, msdfgen::Vector2(offset.x, offset.y));
+
+			SDFGlyph result;
+			result.glyphIndex	= glyphIndex;
+			result.buffer		= buffer;
+			result.left			= static_cast<int16>(bbox.xMin);
+			result.top			= static_cast<int16>(bbox.yMax);
+			result.width		= static_cast<int16>(width);
+			result.height		= static_cast<int16>(height);
+			result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
+			result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+			result.ascender		= prop.ascender;
+			result.descender	= prop.descender;
+			result.image		= detail::RenderMSDF(bitmap);
+			return result;
+		}
 	}
 }
