@@ -13,6 +13,7 @@
 # include "SDFGlyphRenderer.hpp"
 # include "../FreeType.hpp"
 # include <ThirdParty/msdfgen/msdfgen.h>
+# include <ThirdParty/msdfgen/ext/resolve-shape-geometry.h>
 
 namespace s3d
 {
@@ -177,9 +178,12 @@ namespace s3d
 			const int32 width		= static_cast<int32>(bbox.xMax - bbox.xMin);
 			const int32 height		= static_cast<int32>(bbox.yMax - bbox.yMin);
 			const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
+			const msdfgen::Projection projection{ 1.0, msdfgen::Vector2{ offset.x, offset.y } };
+			msdfgen::GeneratorConfig generatorConfig;
+			generatorConfig.overlapSupport = false;
 
 			msdfgen::Bitmap<float, 1> bitmap{ (width + (2 * buffer)), (height + (2 * buffer)) };
-			msdfgen::generateSDF(bitmap, shape, 8.0, 1.0, msdfgen::Vector2(offset.x, offset.y));
+			msdfgen::generateSDF(bitmap, shape, projection, 8.0, generatorConfig);
 
 			SDFGlyph result;
 			result.glyphIndex	= glyphIndex;

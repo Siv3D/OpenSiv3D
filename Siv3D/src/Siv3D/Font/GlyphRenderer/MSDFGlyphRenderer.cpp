@@ -13,6 +13,7 @@
 # include "MSDFGlyphRenderer.hpp"
 # include "../FreeType.hpp"
 # include <ThirdParty/msdfgen/msdfgen.h>
+# include <ThirdParty/msdfgen/ext/resolve-shape-geometry.h>
 
 namespace s3d
 {
@@ -99,10 +100,12 @@ namespace s3d
 				return false;
 			}
 
+			//shape.orientContours();
+
+			resolveShapeGeometry(shape);
+
 			shape.normalize();
 
-			shape.orientContours();
-		
 			edgeColoringSimple(shape, 3.0);
 
 			return true;
@@ -179,7 +182,7 @@ namespace s3d
 			const Vec2 offset{ (-bbox.xMin+ buffer), (-bbox.yMin + buffer) };
 			const msdfgen::Projection projection{ 1.0, msdfgen::Vector2{ offset.x, offset.y } };
 			msdfgen::MSDFGeneratorConfig generatorConfig;
-			generatorConfig.overlapSupport = true;
+			generatorConfig.overlapSupport = false;
 			generatorConfig.errorCorrection.mode = msdfgen::ErrorCorrectionConfig::EDGE_PRIORITY;
 			generatorConfig.errorCorrection.distanceCheckMode = msdfgen::ErrorCorrectionConfig::CHECK_DISTANCE_AT_EDGE;
 
