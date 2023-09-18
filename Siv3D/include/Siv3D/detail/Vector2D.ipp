@@ -491,8 +491,7 @@ namespace s3d
 	template<class Type>
 	inline constexpr Vector2D<Type> Vector2D<Type>::rotated90At(Vector2D center, int32 n) const noexcept
 	{
-		const Vector2D b = (*this - center);
-		return (b.rotated90(n) + center);
+		return ((*this - center).rotated90(n) + center);
 	}
 
 	template<class Type>

@@ -389,8 +389,7 @@ namespace s3d
 
 	constexpr Point Point::rotated90At(Point center, int32 n) const noexcept
 	{
-		const Point b = (*this - center);
-		return (b.rotated90(n) + center);
+		return ((*this - center).rotated90(n) + center);
 	}
 
 	constexpr Point& Point::rotate90At(Point center, int32 n) noexcept
