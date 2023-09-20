@@ -24,19 +24,19 @@ namespace s3d
 			return SIV3D_ENGINE(ScreenCapture)->getScreenshotDirectory();
 		}
 
-		void SetScreenshotDirectory(FilePath&& path)
+		void SetScreenshotDirectory(const FilePathView path)
 		{
-			SIV3D_ENGINE(ScreenCapture)->setScreenshotDirectory(std::move(path));
+			SIV3D_ENGINE(ScreenCapture)->setScreenshotDirectory(path);
 		}
 
-		void SaveCurrentFrame(FilePath&& path)
+		void SaveCurrentFrame(const FilePathView path)
 		{
-			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(std::move(path));
+			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(path);
 		}
 
 		void RequestCurrentFrame()
 		{
-			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture(FilePath());
+			SIV3D_ENGINE(ScreenCapture)->requestScreenCapture({});
 		}
 
 		bool HasNewFrame()

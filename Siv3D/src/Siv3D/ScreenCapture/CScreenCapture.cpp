@@ -100,14 +100,14 @@ namespace s3d
 		return m_screenshotDirectory;
 	}
 
-	void CScreenCapture::setScreenshotDirectory(FilePath&& path)
+	void CScreenCapture::setScreenshotDirectory(const FilePathView path)
 	{
-		m_screenshotDirectory = std::move(path);
+		m_screenshotDirectory = path;
 	}
 
-	void CScreenCapture::requestScreenCapture(FilePath&& path)
+	void CScreenCapture::requestScreenCapture(const FilePathView path)
 	{
-		m_requestedPaths.push_back(std::move(path));
+		m_requestedPaths.emplace_back(path);
 	}
 
 	bool CScreenCapture::hasNewFrame() const

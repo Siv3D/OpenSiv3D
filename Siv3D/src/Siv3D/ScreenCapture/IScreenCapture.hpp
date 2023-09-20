@@ -30,9 +30,9 @@ namespace s3d
 
 		virtual const FilePath& getScreenshotDirectory() const = 0;
 
-		virtual void setScreenshotDirectory(FilePath&& path) = 0;
+		virtual void setScreenshotDirectory(FilePathView path) = 0;
 
-		virtual void requestScreenCapture(FilePath&& path) = 0;
+		virtual void requestScreenCapture(FilePathView path) = 0;
 
 		virtual bool hasNewFrame() const = 0;
 

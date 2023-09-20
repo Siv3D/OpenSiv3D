@@ -32,11 +32,11 @@ namespace s3d
 
 		/// @brief スクリーンショットの保存先のディレクトリを変更します。
 		/// @param path 新しい保存先のディレクトリ
-		void SetScreenshotDirectory(FilePath&& path);
+		void SetScreenshotDirectory(FilePathView path);
 
 		/// @brief 現在のフレームを次の `System::Update()` でスクリーンショットとして保存します。
 		/// @param path 保存するスクリーンショットのファイル名
-		void SaveCurrentFrame(FilePath&& path = (DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png"));
+		void SaveCurrentFrame(FilePathView path = (DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png"));
 
 		/// @brief 現在のフレームのスクリーンショットを、次の `System::Update()` でメモリ上に保存します。
 		/// @remark 保存されたスクリーンショットは、`ScreenCapture::GetFrame()` を通して取得できます。

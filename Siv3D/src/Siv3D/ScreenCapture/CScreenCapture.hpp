@@ -32,9 +32,9 @@ namespace s3d
 
 		const FilePath& getScreenshotDirectory() const override;
 
-		void setScreenshotDirectory(FilePath&& path) override;
+		void setScreenshotDirectory(FilePathView path) override;
 
-		void requestScreenCapture(FilePath&& path) override;
+		void requestScreenCapture(FilePathView path) override;
 
 		bool hasNewFrame() const override;
 
