@@ -1,0 +1,109 @@
+/*
+ * Copyright 2021 Google LLC
+ *
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
+#include "src/core/SkBlendModeBlender.h"
+
+#include "include/core/SkBlendMode.h"
+#include "include/core/SkBlender.h"
+#include "include/core/SkRefCnt.h"
+#include "include/private/base/SkAssert.h"
+#include "src/base/SkNoDestructor.h"
+#include "src/core/SkBlendModePriv.h"
+#include "src/core/SkEffectPriv.h"
+#include "src/core/SkReadBuffer.h"
+#include "src/core/SkWriteBuffer.h"
+
+#if defined(SK_GRAPHITE)
+#include "src/gpu/graphite/KeyHelpers.h"
+#include "src/gpu/graphite/PaintParamsKey.h"
+#endif
+
+sk_sp<SkBlender> SkBlender::Mode(SkBlendMode mode) {
+#define RETURN_SINGLETON_BLENDER(m)                            \
+    case m: {                                                  \
+        static SkNoDestructor<SkBlendModeBlender> sBlender(m); \
+        return sk_ref_sp(sBlender.get());                      \
+    }
+
+    switch (mode) {
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kClear)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSrc)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDst)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSrcOver)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDstOver)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSrcIn)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDstIn)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSrcOut)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDstOut)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSrcATop)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDstATop)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kXor)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kPlus)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kModulate)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kScreen)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kOverlay)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDarken)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kLighten)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kColorDodge)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kColorBurn)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kHardLight)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSoftLight)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kDifference)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kExclusion)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kMultiply)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kHue)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kSaturation)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kColor)
+        RETURN_SINGLETON_BLENDER(SkBlendMode::kLuminosity)
+    }
+
+    SkDEBUGFAILF("invalid blend mode %d", (int)mode);
+    return nullptr;
+
+#undef RETURN_SINGLETON_BLENDER
+}
+
+#if defined(SK_GRAPHITE)
+#include "src/gpu/Blend.h"
+
+void SkBlendModeBlender::addToKey(const skgpu::graphite::KeyContext& keyContext,
+                                  skgpu::graphite::PaintParamsKeyBuilder* builder,
+                                  skgpu::graphite::PipelineDataGatherer* gatherer) const {
+    using namespace skgpu::graphite;
+
+    SkSpan<const float> coeffs = skgpu::GetPorterDuffBlendConstants(fMode);
+    if (!coeffs.empty()) {
+        CoeffBlenderBlock::BeginBlock(keyContext, builder, gatherer, coeffs);
+        builder->endBlock();
+    } else {
+        BlendModeBlenderBlock::BeginBlock(keyContext, builder, gatherer, fMode);
+        builder->endBlock();
+    }
+}
+#endif
+
+sk_sp<SkFlattenable> SkBlendModeBlender::CreateProc(SkReadBuffer& buffer) {
+    SkBlendMode mode = buffer.read32LE(SkBlendMode::kLastMode);
+    return SkBlender::Mode(mode);
+}
+
+void SkBlendModeBlender::flatten(SkWriteBuffer& buffer) const {
+    buffer.writeInt((int)fMode);
+}
+
+bool SkBlendModeBlender::onAppendStages(const SkStageRec& rec) const {
+    SkBlendMode_AppendStages(fMode, rec.fPipeline);
+    return true;
+}
+
+#if defined(SK_ENABLE_SKVM)
+skvm::Color SkBlendModeBlender::onProgram(skvm::Builder* p, skvm::Color src, skvm::Color dst,
+                                          const SkColorInfo& colorInfo, skvm::Uniforms* uniforms,
+                                          SkArenaAlloc* alloc) const {
+    return p->blend(fMode, src, dst);
+}
+#endif

@@ -1009,9 +1009,10 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/ThirdParty/msdfgen/core/edge-selectors.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/EdgeHolder.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/equation-solver.cpp
-  ../Siv3D/src/ThirdParty/msdfgen/core/msdf-edge-artifact-patcher.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/msdf-error-correction.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/MSDFErrorCorrection.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/msdfgen.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/core/Projection.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/rasterization.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/render-sdf.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/save-bmp.cpp
@@ -1022,6 +1023,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/ThirdParty/msdfgen/core/Shape.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/SignedDistance.cpp
   ../Siv3D/src/ThirdParty/msdfgen/core/Vector2.cpp
+  ../Siv3D/src/ThirdParty/msdfgen/ext/resolve-shape-geometry.cpp
 
   ../Siv3D/src/ThirdParty/muparser/muParser.cpp
   ../Siv3D/src/ThirdParty/muparser/muParserBase.cpp
@@ -1141,6 +1143,79 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/ThirdParty/serial/impl/unix.cc
   ../Siv3D/src/ThirdParty/serial/serial.cc
 
+  ../Siv3D/src/ThirdParty/skia/src/base/SkArenaAlloc.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkBezierCurves.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkBlockAllocator.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkBuffer.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkContainers.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkCubics.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkDeque.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkFloatingPoint.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkHalf.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkMalloc.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkMathPriv.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkQuads.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkSafeMath.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkSemaphore.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkSharedMutex.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkSpinlock.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkTDArray.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkThreadID.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkTSearch.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkUTF.cpp
+  ../Siv3D/src/ThirdParty/skia/src/base/SkUtils.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkCubicClipper.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkEdgeClipper.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkGeometry.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkIDChangeListener.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkLineClipper.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkM44.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkMatrix.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkMatrixInvert.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkPath.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkPathBuilder.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkPathRef.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkPoint.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkRect.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkRRect.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkString.cpp
+  ../Siv3D/src/ThirdParty/skia/src/core/SkStringUtils.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkAddIntersections.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkDConicLineIntersection.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkDCubicLineIntersection.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkDCubicToQuads.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkDLineIntersection.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkDQuadLineIntersection.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkIntersections.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpAngle.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpBuilder.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpCoincidence.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpContour.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpCubicHull.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpEdgeBuilder.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpSegment.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkOpSpan.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsAsWinding.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsCommon.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsConic.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsCubic.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsCurve.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsDebug.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsLine.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsOp.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsQuad.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsRect.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsSimplify.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsTightBounds.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsTSect.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsTypes.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathOpsWinding.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkPathWriter.cpp
+  ../Siv3D/src/ThirdParty/skia/src/pathops/SkReduceOrder.cpp
+  ../Siv3D/src/ThirdParty/skia/src/ports/SkDebug_stdio.cpp
+  ../Siv3D/src/ThirdParty/skia/src/ports/SkDebug_win.cpp
+  ../Siv3D/src/ThirdParty/skia/src/ports/SkMemory_malloc.cpp
+
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/monotone/soloud_monotone.cpp
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/noise/soloud_noise.cpp
   ../Siv3D/src/ThirdParty/soloud/src/audiosource/sfxr/soloud_sfxr.cpp
@@ -1238,6 +1313,7 @@ set(SIV3D_INTERNAL_INCLUDE_DIRS
   ../Siv3D/src/ThirdParty
   ../Siv3D/src/ThirdParty/asio
   ../Siv3D/src/ThirdParty/freetype
+  ../Siv3D/src/ThirdParty/skia
   ../Siv3D/src/ThirdParty/soloud/include
   ${SIV3D_THIRD_PARTY_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}

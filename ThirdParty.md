@@ -53,7 +53,7 @@ Name | Version
 [miniutf](https://github.com/dropbox/miniutf) | 
 [minizip](https://github.com/zlib-ng/minizip-ng) | 2.9.2
 [Modern C++ JSON schema validator](https://github.com/pboettch/json-schema-validator) | v2.2.0
-[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.8
+[msdfgen](https://github.com/Chlumsky/msdfgen) | v1.10
 [muparser](https://github.com/beltoforion/muparser) | 2.3.3
 [nanoflann](https://github.com/jlblancoc/nanoflann) | v1.4.2
 [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended) | 
@@ -80,6 +80,7 @@ Name | Version
 [Serial Communication Library](https://github.com/wjwwood/serial) | 
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | 0.7.2
+[skia](https://github.com/google/skia) | 0.38.2
 [Sol2](https://github.com/ThePhD/sol2) | v3.2.2
 [SoLoud](https://github.com/jarikomppa/soloud) | 
 [SoundTouch](https://gitlab.com/soundtouch/soundtouch) | 2.1.2
