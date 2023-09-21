@@ -163,8 +163,15 @@ namespace s3d
 
 		/// @brief 最初のシーンを初期化します。
 		/// @param state 最初のシーン
+		/// @param transitionTime フェードイン・アウトの時間
 		/// @return 初期化に成功した場合 true, それ以外の場合は false
-		bool init(const State& state);
+		bool init(const State& state, const Duration& transitionTime = Duration{ 2.0 });
+
+		/// @brief 最初のシーンを初期化します。
+		/// @param state 最初のシーン
+		/// @param transitionTimeMillisec フェードイン・アウトの時間（ミリ秒）
+		/// @return 初期化に成功した場合 true, それ以外の場合は false
+		bool init(const State& state, int32 transitionTimeMillisec);
 
 		/// @brief 現在のシーンの更新処理のみを行います。
 		/// @remark 通常はこの関数は使用しません。
@@ -192,7 +199,7 @@ namespace s3d
 		/// @brief シーンを変更します。
 		/// @param state 次のシーンのキー
 		/// @param transitionTime フェードイン・アウトの時間
-		/// @param crossFade ロスフェードを有効にするか
+		/// @param crossFade クロスフェードを有効にするか
 		/// @return シーンの変更が開始される場合 true, それ以外の場合は false
 		bool changeScene(const State& state, const Duration& transitionTime = Duration{ 2.0 }, CrossFade crossFade = CrossFade::No);
 
