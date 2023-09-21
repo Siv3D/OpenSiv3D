@@ -154,8 +154,8 @@
 
 // ABSL_LOCKS_EXCLUDED()
 //
-// Documents the locks acquired in the body of the function. These locks
-// cannot be held when calling this function (as Abseil's `Mutex` locks are
+// Documents the locks that cannot be held by callers of this function, as they
+// might be acquired by this function (Abseil's `Mutex` locks are
 // non-reentrant).
 #if ABSL_HAVE_ATTRIBUTE(locks_excluded)
 #define ABSL_LOCKS_EXCLUDED(...) __attribute__((locks_excluded(__VA_ARGS__)))
@@ -317,7 +317,7 @@ namespace base_internal {
 
 // Takes a reference to a guarded data member, and returns an unguarded
 // reference.
-// Do not used this function directly, use ABSL_TS_UNCHECKED_READ instead.
+// Do not use this function directly, use ABSL_TS_UNCHECKED_READ instead.
 template <typename T>
 inline const T& ts_unchecked_read(const T& v) ABSL_NO_THREAD_SAFETY_ANALYSIS {
   return v;

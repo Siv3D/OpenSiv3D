@@ -103,17 +103,11 @@ ABSL_NAMESPACE_END
 // aborts the program in release mode (when NDEBUG is defined). The
 // implementation should abort the program as quickly as possible and ideally it
 // should not be possible to ignore the abort request.
-#if (ABSL_HAVE_BUILTIN(__builtin_trap) &&         \
-     ABSL_HAVE_BUILTIN(__builtin_unreachable)) || \
-    (defined(__GNUC__) && !defined(__clang__))
-#define ABSL_INTERNAL_HARDENING_ABORT() \
-  do {                                  \
-    __builtin_trap();                   \
-    __builtin_unreachable();            \
+#define ABSL_INTERNAL_HARDENING_ABORT()   \
+  do {                                    \
+    ABSL_INTERNAL_IMMEDIATE_ABORT_IMPL(); \
+    ABSL_INTERNAL_UNREACHABLE_IMPL();     \
   } while (false)
-#else
-#define ABSL_INTERNAL_HARDENING_ABORT() abort()
-#endif
 
 // ABSL_HARDENING_ASSERT()
 //

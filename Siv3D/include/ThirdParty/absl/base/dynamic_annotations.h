@@ -46,11 +46,16 @@
 #define ABSL_BASE_DYNAMIC_ANNOTATIONS_H_
 
 #include <stddef.h>
+#include <stdint.h>
 
 #include "absl/base/attributes.h"
 #include "absl/base/config.h"
 #ifdef __cplusplus
 #include "absl/base/macros.h"
+#endif
+
+#ifdef ABSL_HAVE_HWADDRESS_SANITIZER
+#include <sanitizer/hwasan_interface.h>
 #endif
 
 // TODO(rogeeff): Remove after the backward compatibility period.
@@ -110,6 +115,9 @@
 // Define race annotations.
 
 #if ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED == 1
+// Some of the symbols used in this section (e.g. AnnotateBenignRaceSized) are
+// defined by the compiler-based sanitizer implementation, not by the Abseil
+// library. Therefore they do not use ABSL_INTERNAL_C_SYMBOL.
 
 // -------------------------------------------------------------
 // Annotations that suppress errors. It is usually better to express the
@@ -286,17 +294,22 @@ ABSL_INTERNAL_END_EXTERN_C
 // Define IGNORE_READS_BEGIN/_END annotations.
 
 #if ABSL_INTERNAL_READS_ANNOTATIONS_ENABLED == 1
+// Some of the symbols used in this section (e.g. AnnotateIgnoreReadsBegin) are
+// defined by the compiler-based implementation, not by the Abseil
+// library. Therefore they do not use ABSL_INTERNAL_C_SYMBOL.
 
 // Request the analysis tool to ignore all reads in the current thread until
 // ABSL_ANNOTATE_IGNORE_READS_END is called. Useful to ignore intentional racey
 // reads, while still checking other reads and all writes.
 // See also ABSL_ANNOTATE_UNPROTECTED_READ.
-#define ABSL_ANNOTATE_IGNORE_READS_BEGIN() \
-  ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsBegin)(__FILE__, __LINE__)
+#define ABSL_ANNOTATE_IGNORE_READS_BEGIN()              \
+  ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsBegin) \
+  (__FILE__, __LINE__)
 
 // Stop ignoring reads.
-#define ABSL_ANNOTATE_IGNORE_READS_END() \
-  ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsEnd)(__FILE__, __LINE__)
+#define ABSL_ANNOTATE_IGNORE_READS_END()              \
+  ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsEnd) \
+  (__FILE__, __LINE__)
 
 // Function prototypes of annotations provided by the compiler-based sanitizer
 // implementation.
@@ -316,16 +329,22 @@ ABSL_INTERNAL_END_EXTERN_C
 // TODO(delesley) -- The exclusive lock here ignores writes as well, but
 // allows IGNORE_READS_AND_WRITES to work properly.
 
-#define ABSL_ANNOTATE_IGNORE_READS_BEGIN() \
-  ABSL_INTERNAL_GLOBAL_SCOPED(AbslInternalAnnotateIgnoreReadsBegin)()
+#define ABSL_ANNOTATE_IGNORE_READS_BEGIN()                          \
+  ABSL_INTERNAL_GLOBAL_SCOPED(                                      \
+      ABSL_INTERNAL_C_SYMBOL(AbslInternalAnnotateIgnoreReadsBegin)) \
+  ()
 
-#define ABSL_ANNOTATE_IGNORE_READS_END() \
-  ABSL_INTERNAL_GLOBAL_SCOPED(AbslInternalAnnotateIgnoreReadsEnd)()
+#define ABSL_ANNOTATE_IGNORE_READS_END()                          \
+  ABSL_INTERNAL_GLOBAL_SCOPED(                                    \
+      ABSL_INTERNAL_C_SYMBOL(AbslInternalAnnotateIgnoreReadsEnd)) \
+  ()
 
-ABSL_INTERNAL_STATIC_INLINE void AbslInternalAnnotateIgnoreReadsBegin()
+ABSL_INTERNAL_STATIC_INLINE void ABSL_INTERNAL_C_SYMBOL(
+    AbslInternalAnnotateIgnoreReadsBegin)()
     ABSL_INTERNAL_IGNORE_READS_BEGIN_ATTRIBUTE {}
 
-ABSL_INTERNAL_STATIC_INLINE void AbslInternalAnnotateIgnoreReadsEnd()
+ABSL_INTERNAL_STATIC_INLINE void ABSL_INTERNAL_C_SYMBOL(
+    AbslInternalAnnotateIgnoreReadsEnd)()
     ABSL_INTERNAL_IGNORE_READS_END_ATTRIBUTE {}
 
 #else
@@ -419,31 +438,6 @@ ABSL_NAMESPACE_END
 
 #endif
 
-#ifdef __cplusplus
-#ifdef ABSL_HAVE_THREAD_SANITIZER
-ABSL_INTERNAL_BEGIN_EXTERN_C
-int RunningOnValgrind();
-double ValgrindSlowdown();
-ABSL_INTERNAL_END_EXTERN_C
-#else
-namespace absl {
-ABSL_NAMESPACE_BEGIN
-namespace base_internal {
-ABSL_DEPRECATED(
-    "Don't use this interface. It is misleading and is being deleted.")
-ABSL_ATTRIBUTE_ALWAYS_INLINE inline int RunningOnValgrind() { return 0; }
-ABSL_DEPRECATED(
-    "Don't use this interface. It is misleading and is being deleted.")
-ABSL_ATTRIBUTE_ALWAYS_INLINE inline double ValgrindSlowdown() { return 1.0; }
-}  // namespace base_internal
-ABSL_NAMESPACE_END
-}  // namespace absl
-
-using absl::base_internal::RunningOnValgrind;
-using absl::base_internal::ValgrindSlowdown;
-#endif
-#endif
-
 // -------------------------------------------------------------------------
 // Address sanitizer annotations
 
@@ -457,7 +451,7 @@ using absl::base_internal::ValgrindSlowdown;
   __sanitizer_annotate_contiguous_container(beg, end, old_mid, new_mid)
 #define ABSL_ADDRESS_SANITIZER_REDZONE(name) \
   struct {                                   \
-    char x[8] __attribute__((aligned(8)));   \
+    alignas(8) char x[8];                    \
   } name
 
 #else
@@ -466,6 +460,26 @@ using absl::base_internal::ValgrindSlowdown;
 #define ABSL_ADDRESS_SANITIZER_REDZONE(name) static_assert(true, "")
 
 #endif  // ABSL_HAVE_ADDRESS_SANITIZER
+
+// -------------------------------------------------------------------------
+// HWAddress sanitizer annotations
+
+#ifdef __cplusplus
+namespace absl {
+#ifdef ABSL_HAVE_HWADDRESS_SANITIZER
+// Under HWASAN changes the tag of the pointer.
+template <typename T>
+T* HwasanTagPointer(T* ptr, uintptr_t tag) {
+  return reinterpret_cast<T*>(__hwasan_tag_pointer(ptr, tag));
+}
+#else
+template <typename T>
+T* HwasanTagPointer(T* ptr, uintptr_t) {
+  return ptr;
+}
+#endif
+}  // namespace absl
+#endif
 
 // -------------------------------------------------------------------------
 // Undefine the macros intended only for this file.
