@@ -64,8 +64,13 @@ namespace s3d
 
 	Polygon P2Polygon::getPolygon() const
 	{
+		if (m_fixtures.isEmpty())
+		{
+			return m_basePolygon;
+		}
+
 		const b2Transform& transform = m_fixtures.front()->GetBody()->GetTransform();
 
-		return m_basePolygon.transformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y));
+		return m_basePolygon.transformed(transform.q.s, transform.q.c, Vec2{ transform.p.x, transform.p.y });
 	}
 }
