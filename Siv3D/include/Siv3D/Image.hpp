@@ -69,9 +69,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Image(Image&& image) noexcept;
 
+		/// @brief 画像データを作成します。
+		/// @param size 画像の幅と高さ（ピクセル）
 		SIV3D_NODISCARD_CXX20
 		explicit Image(size_t size);
 
+		/// @brief 画像データを作成します。
+		/// @param size 画像の幅と高さ（ピクセル）
+		/// @param color 塗りつぶしの色
 		SIV3D_NODISCARD_CXX20
 		explicit Image(size_t size, Color color);
 
@@ -104,9 +109,14 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Image(size_t width, size_t height, Arg::generator0_1_<Fty> generator);
 
+		/// @brief 画像データを作成します。
+		/// @param size 画像の幅と高さ（ピクセル）
 		SIV3D_NODISCARD_CXX20
 		explicit Image(Size size);
 
+		/// @brief 画像データを作成します。
+		/// @param size 画像の幅と高さ（ピクセル）
+		/// @param color 塗りつぶしの色
 		SIV3D_NODISCARD_CXX20
 		Image(Size size, Color color);
 
@@ -118,9 +128,15 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		Image(Size size, Arg::generator0_1_<Fty> generator);
 
+		/// @brief 画像ファイルの内容から画像データを作成します。
+		/// @param path 画像ファイルのパス
+		/// @param format 画像ファイルのフォーマット。`ImageFormat::Unspecified` の場合は自動で判断
 		SIV3D_NODISCARD_CXX20
 		explicit Image(FilePathView path, ImageFormat format = ImageFormat::Unspecified);
 
+		/// @brief IReader から画像データを作成します。
+		/// @param reader IReader オブジェクト
+		/// @param format 画像ファイルのフォーマット。`ImageFormat::Unspecified` の場合は自動で判断
 		SIV3D_NODISCARD_CXX20
 		explicit Image(IReader&& reader, ImageFormat format = ImageFormat::Unspecified);
 
@@ -136,9 +152,13 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		explicit Image(const Icon& icon, int32 size);
 
+		/// @brief 二次元配列から画像データを作成します。
+		/// @param grid 二次元配列
 		SIV3D_NODISCARD_CXX20
 		explicit Image(const Grid<Color>& grid);
 
+		/// @brief 二次元配列から画像データを作成します。
+		/// @param grid 二次元配列
 		SIV3D_NODISCARD_CXX20
 		explicit Image(const Grid<ColorF>& grid);
 
@@ -148,7 +168,19 @@ namespace s3d
 
 		Image& operator =(const Image&) = default;
 
-		Image& operator =(Image && image) noexcept;
+		Image& operator =(Image&& image) noexcept;
+
+		/// @brief 2 つの画像データが等しいかを返します。
+		/// @param lhs 一方の画像データ
+		/// @param rhs もう一方の画像データ
+		/// @return 2 つの画像データが等しい場合 true, それ以外の場合は false
+		friend bool operator ==(const Image& lhs, const Image& rhs) noexcept;
+
+		/// @brief 2 つの画像データが異なるかを返します。
+		/// @param lhs 一方の画像データ
+		/// @param rhs もう一方の画像データ
+		/// @return 2 つの画像データが異なる場合 true, それ以外の場合は false
+		friend bool operator !=(const Image& lhs, const Image& rhs) noexcept;
 
 		/// @brief 画像の幅（ピクセル）を返します。
 		/// @return 画像の幅（ピクセル）

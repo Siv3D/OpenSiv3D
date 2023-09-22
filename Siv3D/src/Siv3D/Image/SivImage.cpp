@@ -393,6 +393,17 @@ namespace s3d
 		}
 	}
 
+	bool operator ==(const Image& lhs, const Image& rhs) noexcept
+	{
+		return ((lhs.size() == rhs.size())
+			&& (std::memcmp(lhs.data(), rhs.data(), lhs.size_bytes()) == 0));
+	}
+
+	bool operator !=(const Image& lhs, const Image& rhs) noexcept
+	{
+		return (not (lhs == rhs));
+	}
+
 	void Image::fill(const Color color) noexcept
 	{
 		std::fill(m_data.begin(), m_data.end(), color);
