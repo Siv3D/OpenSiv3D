@@ -289,6 +289,30 @@ namespace s3d
 		[[nodiscard]]
 		constexpr int32 area() const noexcept;
 
+		/// @brief 時計回りに 90°* n 回転した座標を返します。
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return 時計回りに 90°* n 回転した座標
+		[[nodiscard]]
+		constexpr Point rotated90(int32 n = 1) const noexcept;
+
+		/// @brief 自身を時計回りに 90°* n 回転します。
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return *this
+		constexpr Point& rotate90(int32 n = 1) noexcept;
+
+		/// @brief centerを中心とし、時計回りに 90°* n 回転した座標を返します。
+		/// @param center 回転の中心座標
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return centerを中心とし、時計回りに 90°* n 回転した座標
+		[[nodiscard]]
+		constexpr Point rotated90At(Point center, int32 n = 1) const noexcept;
+
+		/// @brief centerを中心とし、自身を時計回りに 90°* n 回転します。
+		/// @param center 回転の中心座標
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return *this
+		constexpr Point& rotate90At(Point center, int32 n = 1) noexcept;
+
 		template <class Type = double>
 		[[nodiscard]]
 		Type getAngle() const noexcept;
