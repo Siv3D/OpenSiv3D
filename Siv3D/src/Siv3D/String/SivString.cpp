@@ -879,7 +879,20 @@ namespace s3d
 
 	String String::trimmed() const&
 	{
-		return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
+		const char32* start = m_string.data();
+		const char32* end = (start + m_string.size());
+
+		while ((start < end) && detail::IsTrimmable(*start))
+		{
+			++start;
+		}
+
+		while ((start < end) && detail::IsTrimmable(*(end - 1)))
+		{
+			--end;
+		}
+
+		return String(start, end);
 	}
 
 	String String::trimmed()&&
