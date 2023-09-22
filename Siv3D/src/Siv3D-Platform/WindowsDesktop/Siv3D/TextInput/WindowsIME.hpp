@@ -10,14 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
-# include <array>
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <msctf.h>
 
 /*
 	Simple DirectMedia Layer
-	Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
+	Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
 
 	This software is provided 'as-is', without any express or implied
 	warranty.  In no event will the authors be held liable for any damages
@@ -36,16 +35,10 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-#define SDL_TEXTEDITINGEVENT_TEXT_SIZE (512)
-#define MAX_CANDLIST    9
-#define MAX_CANDLENGTH  512
-
-typedef struct
-{
-	void** lpVtbl;
-	int refcount;
-	void* data;
-} TSFSink;
+#define SDL_TEXTEDITINGEVENT_TEXT_SIZE (32)
+#define MAX_CANDLIST   10
+#define MAX_CANDLENGTH 256
+#define MAX_CANDSIZE   (sizeof(WCHAR) * MAX_CANDLIST * MAX_CANDLENGTH)
 
 namespace s3d
 {
@@ -56,61 +49,49 @@ typedef struct SDL_VideoData
 {
 	s3d::CTextInput* pTextInput = nullptr;
 
-	DWORD clipboard_count;
-
-	BOOL ime_com_initialized;
 	struct ITfThreadMgr* ime_threadmgr;
-	BOOL ime_initialized;
-	BOOL ime_enabled;
-	BOOL ime_available;
+	bool ime_initialized;
+	bool ime_enabled;
+	bool ime_available;
 	HWND ime_hwnd_main;
 	HWND ime_hwnd_current;
+	bool ime_suppress_endcomposition_event;
 	HIMC ime_himc;
 
-	WCHAR ime_composition[SDL_TEXTEDITINGEVENT_TEXT_SIZE];
-	std::array<s3d::uint8, SDL_TEXTEDITINGEVENT_TEXT_SIZE> ime_composition_attributes;
+	WCHAR* ime_composition;
+	int ime_composition_length;
 	WCHAR ime_readingstring[16];
 	int ime_cursor;
+	std::array<unsigned char, 256> ime_attributes3;
 
-	BOOL ime_candlist;
-	WCHAR ime_candidates[MAX_CANDLIST][MAX_CANDLENGTH];
+	bool ime_candlist;
+	s3d::Array<s3d::String> ime_candidates2;
 	DWORD ime_candcount;
 	DWORD ime_candref;
 	DWORD ime_candsel;
 	UINT ime_candpgsize;
 	int ime_candlistindexbase;
-	BOOL ime_candvertical;
+	bool ime_candvertical;
 
-	BOOL ime_dirty;
-	int ime_winwidth;
-	int ime_winheight;
+	bool ime_dirty;
 
 	HKL ime_hkl;
 	HMODULE ime_himm32;
 	UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen);
 	BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow);
-	//LPINPUTCONTEXT2(WINAPI *ImmLockIMC)(HIMC himc);
-	BOOL(WINAPI* ImmUnlockIMC)(HIMC himc);
-	LPVOID(WINAPI* ImmLockIMCC)(HIMCC himcc);
-	BOOL(WINAPI* ImmUnlockIMCC)(HIMCC himcc);
 
-	BOOL ime_uiless;
-	struct ITfThreadMgrEx* ime_threadmgrex;
-	DWORD ime_uielemsinkcookie;
-	DWORD ime_alpnsinkcookie;
-	DWORD ime_openmodesinkcookie;
-	DWORD ime_convmodesinkcookie;
-	TSFSink* ime_uielemsink;
-	TSFSink* ime_ippasink;
+	LONG ime_uicontext;
+
 } SDL_VideoData;
 
 void WIN_InitKeyboard(SDL_VideoData* data);
-BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_VideoData* videodata);
 
 void WIN_StartTextInput(SDL_VideoData* videodata, HWND hwnd);
 void WIN_StopTextInput(SDL_VideoData* videodata, HWND hwnd);
 
-void IME_Init(SDL_VideoData* videodata, HWND hwnd);
+int IME_Init(SDL_VideoData* videodata, HWND hwnd);
 void IME_Enable(SDL_VideoData* videodata, HWND hwnd);
 void IME_Disable(SDL_VideoData* videodata, HWND hwnd);
 void IME_Quit(SDL_VideoData* videodata);
+
+BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_VideoData* videodata);

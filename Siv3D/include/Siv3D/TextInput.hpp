@@ -75,10 +75,26 @@ namespace s3d
 		/// @param textColor テキストの色
 		void DrawCandidateWindow(const Font& font,
 			const Vec2& basePos,
-			const ColorF& boxColor = ColorF{ 1.0 },
+			const ColorF& boxColor = ColorF{ 0.96 },
 			const ColorF& selectedBackgroundColor = ColorF{ 0.55, 0.85, 1.0 },
 			const ColorF& frameColor = ColorF{ 0.75 },
-			const ColorF& textColor = ColorF{ 0.0 });
+			const ColorF& textColor = ColorF{ 0.11 });
+
+		/// @brief テキストの変換候補を描画します。
+		/// @param font フォント
+		/// @param fontSize フォントサイズ
+		/// @param basePos 基準座標
+		/// @param boxColor 背景色
+		/// @param selectedBackgroundColor 選択されているアイテムの背景色
+		/// @param frameColor 枠の色
+		/// @param textColor テキストの色
+		void DrawCandidateWindow(const Font& font,
+			double fontSize,
+			const Vec2& basePos,
+			const ColorF& boxColor = ColorF{ 0.96 },
+			const ColorF& selectedBackgroundColor = ColorF{ 0.55, 0.85, 1.0 },
+			const ColorF& frameColor = ColorF{ 0.75 },
+			const ColorF& textColor = ColorF{ 0.11 });
 	}
 
 # elif SIV3D_PLATFORM(LINUX)

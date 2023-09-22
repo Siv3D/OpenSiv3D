@@ -34,23 +34,18 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::init()");
 
-		//::CoInitialize(nullptr);
-
 		m_hWnd = static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle());
 
-		LOG_VERBOSE(U":ImmGetContext()");
+		LOG_VERBOSE(U"ImmGetContext()");
 		m_hImc = ::ImmGetContext(m_hWnd);
 
 		m_pVideo->pTextInput = this;
 
-		LOG_VERBOSE(U":WIN_InitKeyboard()");
+		LOG_VERBOSE(U"WIN_InitKeyboard()");
 		WIN_InitKeyboard(m_pVideo.get());
 
-		LOG_VERBOSE(U":IME_Init()");
-		IME_Init(m_pVideo.get(), m_hWnd);
-
-		LOG_VERBOSE(U":IME_Enable()");
-		IME_Enable(m_pVideo.get(), m_hWnd);
+		LOG_VERBOSE(U"WIN_StartTextInput()");
+		WIN_StartTextInput(m_pVideo.get(), m_hWnd);
 	}
 
 	void CTextInput::update()
