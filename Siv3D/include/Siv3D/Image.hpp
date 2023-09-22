@@ -414,11 +414,19 @@ namespace s3d
 
 		bool saveWithDialog() const;
 
+		/// @brief 画像を PNG ファイルとして保存します。
+		/// @param path 保存するファイルパス
+		/// @param filter PNG のフィルタ
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool savePNG(FilePathView path, PNGFilter filter = PNGEncoder::DefaultFilter) const;
 
 		[[nodiscard]]
 		Blob encodePNG(PNGFilter filter = PNGEncoder::DefaultFilter) const;
 
+		/// @brief 画像を JPEG ファイルとして保存します。
+		/// @param path 保存するファイルパス
+		/// @param quality JPEG の品質 [0, 100]
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool saveJPEG(FilePathView path, int32 quality = JPEGEncoder::DefaultQuality) const;
 
 		[[nodiscard]]

@@ -382,6 +382,7 @@ namespace s3d
 		/// @remark この関数の呼び出しの後で capacity() == size() になるとは限りません。
 		void shrink_to_fit();
 
+		/// @brief 配列の要素を削除し、空の配列にします。
 		void clear() noexcept;
 
 		iterator insert(const_iterator pos, const value_type& value);
@@ -398,6 +399,9 @@ namespace s3d
 		template <class... Args>
 		iterator emplace(const_iterator pos, Args&&... args);
 
+		/// @brief 指定した位置の要素を削除します。
+		/// @param pos 削除する要素の位置
+		/// @return 削除した要素の次の要素を指すイテレータ
 		iterator erase(const_iterator pos);
 
 		iterator erase(const_iterator first, const_iterator last);
@@ -417,8 +421,13 @@ namespace s3d
 		/// @remark 配列が空の時に呼んではいけません。
 		void pop_back();
 
+		/// @brief 配列の要素数を変更します。
+		/// @param count 新しい要素数
 		void resize(size_type count);
 
+		/// @brief 配列の要素数を変更します。
+		/// @param count 新しい要素数
+		/// @param value 新しく増える要素の初期値
 		void resize(size_type count, const value_type& value);
 
 		/// @brief 他の配列と要素を入れ替えます。
@@ -724,20 +733,20 @@ namespace s3d
 		[[nodiscard]]
 		Array removed(const value_type& value)&&;
 
-		/// @brief 
-		/// @param index 
-		/// @return 
+		/// @brief 指定したインデックスにある要素を削除します。
+		/// @param index インデックス
+		/// @return *this
 		Array& remove_at(size_t index);
 
-		/// @brief 
-		/// @param index 
-		/// @return 
+		/// @brief 指定したインデックスにある要素を削除した新しい配列を返します。
+		/// @param index インデックス
+		/// @return 新しい配列
 		[[nodiscard]]
 		Array removed_at(size_t index) const&;
 
-		/// @brief 
-		/// @param index 
-		/// @return 
+		/// @brief 指定したインデックスにある要素を削除した新しい配列を返します。
+		/// @param index インデックス
+		/// @return 新しい配列
 		[[nodiscard]]
 		Array removed_at(size_t index) &&;
 
@@ -764,48 +773,48 @@ namespace s3d
 		[[nodiscard]]
 		Array removed_if(Fty f)&&;
 
-		/// @brief 
-		/// @param oldValue 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した値と等しい全ての要素を別の値に置き換えます。
+		/// @param oldValue 置き換えられる値
+		/// @param newValue 新しい値
+		/// @return *this
 		Array& replace(const value_type& oldValue, const value_type& newValue);
 
-		/// @brief 
-		/// @param oldValue 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した値と等しい全ての要素を別の値に置き換えた新しい配列を返します。
+		/// @param oldValue 置き換えられる値
+		/// @param newValue 新しい値
+		/// @return 新しい配列
 		[[nodiscard]]
 		Array replaced(const value_type& oldValue, const value_type& newValue) const&;
 
-		/// @brief 
-		/// @param oldValue 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した値と等しい全ての要素を別の値に置き換えた新しい配列を返します。
+		/// @param oldValue 置き換えられる値
+		/// @param newValue 新しい値
+		/// @return 新しい配列
 		[[nodiscard]]
 		Array replaced(const value_type& oldValue, const value_type& newValue)&&;
 
-		/// @brief 
-		/// @tparam Fty 
-		/// @param f 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した条件を満たす全ての要素を別の値に置き換えます。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件
+		/// @param newValue 新しい値
+		/// @return *this
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		Array& replace_if(Fty f, const value_type& newValue);
 
-		/// @brief 
-		/// @tparam Fty 
-		/// @param f 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した条件を満たす全ての要素を別の値に置き換えた新しい配列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件
+		/// @param newValue 新しい値
+		/// @return 新しい配列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		Array replaced_if(Fty f, const value_type& newValue) const&;
 
-		/// @brief 
-		/// @tparam Fty 
-		/// @param f 
-		/// @param newValue 
-		/// @return 
+		/// @brief 指定した条件を満たす全ての要素を別の値に置き換えた新しい配列を返します。
+		/// @tparam Fty 条件を記述した関数の型
+		/// @param f 条件
+		/// @param newValue 新しい値
+		/// @return 新しい配列
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]]
 		Array replaced_if(Fty f, const value_type& newValue)&&;
@@ -855,19 +864,19 @@ namespace s3d
 		[[nodiscard]]
 		Array rotated(std::ptrdiff_t count = 1)&&;
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を降順に並び替えます。
+		/// @return *this
 		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>>* = nullptr>
 		Array& rsort();
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を降順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array rsorted() const&;
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を降順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasGreaterThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array rsorted()&&;
@@ -921,13 +930,13 @@ namespace s3d
 		[[nodiscard]]
 		Array slice(size_t index, size_t length) const;
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を昇順に並び替えます。
+		/// @return *this
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		Array& sort();
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を相対順序を保ちながら昇順に並び替えます。
+		/// @return *this
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		Array& stable_sort();
 
@@ -945,8 +954,8 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		Array& stable_sort_by(Fty f);
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を昇順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array sorted() const&;
@@ -958,20 +967,20 @@ namespace s3d
 		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		auto stable_partition(Fty f);
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を相対順序を保ちながら昇順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array stable_sorted() const&;
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を昇順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array sorted()&&;
 
-		/// @brief 
-		/// @return 
+		/// @brief 要素を相対順序を保ちながら昇順に並び替えた新しい配列を返します。
+		/// @return 新しい配列
 		template <class T = Type, std::enable_if_t<Meta::HasLessThan_v<T>>* = nullptr>
 		[[nodiscard]]
 		Array stable_sorted()&&;
@@ -1008,28 +1017,22 @@ namespace s3d
 		[[nodiscard]]
 		Array stable_sorted_by(Fty f)&&;
 
-		/// @brief 
-		/// @tparam T 
-		/// @return 
+		/// @brief 要素を `+` 演算子を用いて合計します。
+		/// @return 合計値
 		template <class T = Type, std::enable_if_t<Meta::HasPlus_v<T>>* = nullptr>
 		[[nodiscard]]
 		auto sum() const;
 
-		/// @brief 
-		/// @tparam T 
 		template <class T = Type, std::enable_if_t<not Meta::HasPlus_v<T>>* = nullptr>
 		void sum() const = delete;
 
-		/// @brief 
-		/// @tparam T 
-		/// @return 
+		/// @brief 浮動小数点数型の要素を、誤差が小さくなるように合計します。
+		/// @remark `sum()` よりも浮動小数点数誤差が小さくなります。
+		/// @return 合計値
 		template <class T = Type, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
 		[[nodiscard]]
 		auto sumF() const;
 
-		/// @brief 
-		/// @tparam T 
-		/// @return 
 		template <class T = Type, std::enable_if_t<not std::is_floating_point_v<T>>* = nullptr>
 		[[nodiscard]]
 		auto sumF() const = delete;
