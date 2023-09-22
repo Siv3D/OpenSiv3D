@@ -110,6 +110,8 @@ namespace s3d
 			}
 		}
 
+		const bool windowFocused = SIV3D_ENGINE(Window)->getState().focused;
+
 		{
 			m_allInputs.clear();
 
@@ -120,7 +122,7 @@ namespace s3d
 
 				for (size_t i = 0; i < _countof(buf); ++i)
 				{
-					const bool pressed = ((buf[i] >> 7) & 0x1);
+					const bool pressed = (windowFocused && ((buf[i] >> 7) & 0x1));
 
 					auto& state = m_states[i];
 					state.update(pressed);
@@ -134,7 +136,7 @@ namespace s3d
 			}
 		}
 
-		if (SIV3D_ENGINE(Window)->getState().focused)
+		if (windowFocused)
 		{
 			if (m_states[VK_ESCAPE].down())
 			{
