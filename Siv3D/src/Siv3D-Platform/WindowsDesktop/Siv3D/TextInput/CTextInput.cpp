@@ -61,7 +61,7 @@ namespace s3d
 
 			m_targetLength = m_internalTargetLength;
 
-			m_candidates = m_internalCandidates;
+			m_candidateState = m_internalCandidateState;
 
 			m_chars = m_internalChars;
 
@@ -129,7 +129,12 @@ namespace s3d
 
 	const Array<String>& CTextInput::getCandidates() const
 	{
-		return m_candidates;
+		return m_candidateState.candidates;
+	}
+
+	const TextInput::CandidateState& CTextInput::getCandidateState() const
+	{
+		return m_candidateState;
 	}
 
 	bool CTextInput::process(UINT msg, WPARAM wParam, LPARAM* lParam)
@@ -148,11 +153,11 @@ namespace s3d
 		m_internalTargetLength = targetLength;
 	}
 
-	void CTextInput::sendCandidates(const Array<String>& candidates)
+	void CTextInput::sendCandidateState(const TextInput::CandidateState& state)
 	{
 		std::lock_guard lock{ m_mutex };
 
-		m_internalCandidates = candidates;
+		m_internalCandidateState = state;
 	}
 
 	void CTextInput::sendInputText(const String& text)

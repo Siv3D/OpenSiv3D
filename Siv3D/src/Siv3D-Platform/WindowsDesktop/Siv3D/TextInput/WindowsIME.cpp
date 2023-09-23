@@ -30,9 +30,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-# include <Siv3D/Console.hpp>
+//# include <Siv3D/Print.hpp>
 # include <Siv3D/Unicode.hpp>
-# include <Siv3D/Array.hpp>
 # include "WindowsIME.hpp"
 # include "CTextInput.hpp"
 
@@ -398,7 +397,7 @@ namespace s3d
 		::ImmReleaseContext(videodata->hwnd, himc);
 
 		videodata->pTextInput->sendEditingText(String{}, 0, 0);
-		videodata->pTextInput->sendCandidates({});
+		videodata->pTextInput->sendCandidateState({});
 	}
 
 	static bool IME_IsTextInputShown(TextInputData* videodata)
@@ -413,11 +412,11 @@ namespace s3d
 		return (videodata->ime_uicontext != 0);
 	}
 
-	static void IME_GetCompositionString(TextInputData* videodata, HIMC himc, DWORD string)
+	static void IME_GetCompositionString(TextInputData* videodata, HIMC himc, const DWORD string)
 	{
 		videodata->attributes.fill(0);
 
-		DWORD dwLang = ((DWORD_PTR)videodata->ime_hkl & 0xffff);
+		const DWORD dwLang = ((DWORD_PTR)videodata->ime_hkl & 0xffff);
 
 		LONG length = ::ImmGetCompositionStringW(himc, string, NULL, 0);
 
@@ -460,7 +459,7 @@ namespace s3d
 	{
 		videodata->pTextInput->sendInputText(Unicode::FromWstring(videodata->composition));
 		videodata->pTextInput->sendEditingText(String{}, 0, 0);
-		videodata->pTextInput->sendCandidates({});
+		videodata->pTextInput->sendCandidateState({});
 
 		videodata->composition.clear();
 		videodata->ime_cursor = 0;
@@ -491,34 +490,35 @@ namespace s3d
 		else
 		{
 			videodata->pTextInput->sendEditingText({}, 0, 0);
-			videodata->pTextInput->sendCandidates({});
+			videodata->pTextInput->sendCandidateState({});
 		}
 	}
 
 	static void IME_GetCandidateList(HWND hwnd, TextInputData* videodata)
 	{
-		//Console << U"IME_GetCandidateList";
-
-		videodata->candidates.clear();
-
-		//if (IME_ShowCandidateList(videodata) < 0) {
-		//	return;
-		//}
-	
 		HIMC himc = ::ImmGetContext(hwnd);
 	
 		if (not himc)
 		{
+			videodata->candidateState.reset();
 			return;
 		}
 	
 		DWORD size = ::ImmGetCandidateListW(himc, 0, 0, 0);
 	
-		if (size != 0)
+		if (size == 0)
+		{
+			videodata->candidateState.reset();
+		}
+		else
 		{
 			const LPCANDIDATELIST cand_list = (LPCANDIDATELIST)std::malloc(size);
-		
-			if (cand_list != NULL)
+
+			if (cand_list == nullptr)
+			{
+				videodata->candidateState.reset();
+			}
+			else
 			{
 				size = ::ImmGetCandidateListW(himc, 0, cand_list, size);
 
@@ -526,15 +526,27 @@ namespace s3d
 				{
 					UINT i, j;
 					UINT page_start = 0;
-					videodata->ime_candsel = cand_list->dwSelection;
-					videodata->ime_candcount = cand_list->dwCount;
+
+					{
+						videodata->candidateState.candidates.clear();
+
+						// 候補リストで最初からトップの要素が選択状態と表示される問題のワークアラウンド
+						if (videodata->candidateState.selectedIndex || (cand_list->dwSelection != 0))
+						{
+							videodata->candidateState.selectedIndex = cand_list->dwSelection;
+						}
+
+						videodata->candidateState.count = cand_list->dwCount;
+						videodata->candidateState.pageStartIndex = cand_list->dwPageStart;
+						videodata->candidateState.pageSize = cand_list->dwPageSize;
+					}
 
 					if ((LANG() == LANG_CHS) && IME_GetId(videodata, 0))
 					{
 						const UINT maxcandchar = 18;
 						size_t cchars = 0;
 
-						for (i = 0; i < videodata->ime_candcount; ++i)
+						for (i = 0; i < (UINT)videodata->candidateState.count; ++i)
 						{
 							size_t len = std::wcslen((LPWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i])) + 1;
 						
@@ -566,7 +578,7 @@ namespace s3d
 					{
 						const LPCWSTR candidate = (LPCWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i]);
 
-						videodata->candidates.push_back(Unicode::FromWstring(candidate));
+						videodata->candidateState.candidates.push_back(Unicode::FromWstring(candidate));
 					}
 				}
 
@@ -592,20 +604,24 @@ namespace s3d
 		{
 			return false;
 		}
-
+	
 		bool trapped = false;
 
 		switch (msg)
 		{
 		case WM_KEYDOWN:
 			{
+				//Print << U"WM_KEYDOWN";
+
 				if (wParam == VK_PROCESSKEY)
 				{
+					//Print << U"+ VK_PROCESSKEY";
 					videodata->ime_uicontext = 1;
 					trapped = true;
 				}
 				else
 				{
+					//Print << U"+ ";
 					videodata->ime_uicontext = 0;
 				}
 			
@@ -613,22 +629,26 @@ namespace s3d
 			}
 		case WM_INPUTLANGCHANGE:
 			{
+				//Print << U"WM_INPUTLANGCHANGE";
 				IME_InputLangChanged(videodata);
 				break;
 			}
 		case WM_IME_SETCONTEXT:
 			{
+				//Print << U"WM_IME_SETCONTEXT";
 				*lParam = 0;
 				break;
 			}
 		case WM_IME_STARTCOMPOSITION:
 			{
+				//Print << U"WM_IME_STARTCOMPOSITION";
 				videodata->ime_suppress_endcomposition_event = false;
 				trapped = true;
 				break;
 			}
 		case WM_IME_COMPOSITION:
 			{
+				//Print << U"WM_IME_COMPOSITION";
 				trapped = true;
 
 				if (const HIMC himc = ::ImmGetContext(hwnd))
@@ -654,6 +674,7 @@ namespace s3d
 			}
 		case WM_IME_ENDCOMPOSITION:
 			{
+				//Print << U"WM_IME_ENDCOMPOSITION";
 				videodata->ime_uicontext = 0;
 				videodata->composition.clear();
 				videodata->ime_cursor = 0;
@@ -674,27 +695,36 @@ namespace s3d
 				case IMN_SETCONVERSIONMODE:
 				case IMN_SETOPENSTATUS:
 					{
-						//Console << U"IMN_SETCONVERSIONMODE/IMN_SETOPENSTATUS";
+						//Print << U"WM_IME_NOTIFY + IMN_SETCONVERSIONMODE/IMN_SETOPENSTATUS";
 						IME_UpdateInputLocale(videodata);
 						break;
 					}
 				case IMN_OPENCANDIDATE:
+					{
+						//Print << U"WM_IME_NOTIFY + IMN_OPENCANDIDATE";
+						trapped = false;
+						videodata->ime_uicontext = 1;
+
+						IME_GetCandidateList(hwnd, videodata);
+						videodata->pTextInput->sendCandidateState(videodata->candidateState);
+
+						break;
+					}
 				case IMN_CHANGECANDIDATE:
 					{
-						//Console << U"IMN_OPENCANDIDATE/IMN_CHANGECANDIDATE";
-
-						trapped = true;
+						//Print << U"WM_IME_NOTIFY + IMN_CHANGECANDIDATE";
+						trapped = false;
 						videodata->ime_uicontext = 1;
 				
 						IME_GetCandidateList(hwnd, videodata);
-						videodata->pTextInput->sendCandidates(videodata->candidates);
+						videodata->pTextInput->sendCandidateState(videodata->candidateState);
 
 						break;
 					}
 				case IMN_CLOSESTATUSWINDOW:
 				case IMN_CLOSECANDIDATE:
 					{
-						//Console << U"Close";
+						//Print << U"WM_IME_NOTIFY + IMN_CLOSESTATUSWINDOW/IMN_CLOSECANDIDATE";
 						trapped = true;
 						videodata->ime_uicontext = 0;
 						IME_HideCandidateList(videodata);
@@ -702,6 +732,7 @@ namespace s3d
 					}
 				case IMN_PRIVATE:
 					{
+						//Print << U"WM_IME_NOTIFY + IMN_PRIVATE";
 						const DWORD dwId = IME_GetId(videodata, 0);
 				
 						switch (dwId)
@@ -738,6 +769,7 @@ namespace s3d
 					}
 				default:
 					{
+						//Print << U"WM_IME_NOTIFY + default";
 						trapped = true;
 						break;
 					}

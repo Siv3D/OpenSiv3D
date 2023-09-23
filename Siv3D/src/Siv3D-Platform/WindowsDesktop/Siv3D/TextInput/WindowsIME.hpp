@@ -13,6 +13,7 @@
 # include <Siv3D/Common.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/TextInput.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <msctf.h>
 
@@ -61,9 +62,9 @@ namespace s3d
 		int ime_cursor = 0;
 
 		bool ime_candlist = 0;
-		Array<String> candidates;
-		DWORD ime_candcount = 0;
-		DWORD ime_candsel = 0;
+
+		TextInput::CandidateState candidateState;
+
 		UINT ime_candpgsize = 0;
 		int ime_candlistindexbase = 0;
 		bool ime_candvertical = true;
