@@ -305,11 +305,11 @@ namespace s3d
 		/// @return 候補ウィンドウの領域
 		/// @remark この関数は Windows 版でのみ動作します。それ以外のプラットフォームでは常に `RectF{ pos, 0, 0 }` を返します。
 		[[nodiscard]]
-		RectF CandidateWindowRegion(const Vec2& pos);
+		RectF IMECandidateWindowRegion(const Vec2& pos);
 
 		/// @brief IME の候補ウィンドウを表示します。
 		/// @param pos 候補ウィンドウの左上の座標
 		/// @remark この関数は Windows 版でのみ動作します。それ以外のプラットフォームでは何もしません。
-		void CandidateWindow([[maybe_unused]] const Vec2& pos);
+		void IMECandidateWindow([[maybe_unused]] const Vec2& pos);
 	}
 }
