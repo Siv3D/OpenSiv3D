@@ -524,8 +524,11 @@ namespace s3d
 
 				if (size != 0)
 				{
-					UINT i, j;
-					UINT page_start = 0;
+					//ClearPrint();
+					//Print << U"dwSelection: " << cand_list->dwSelection;
+					//Print << U"dwCount: " << cand_list->dwCount;
+					//Print << U"dwPageStart: " << cand_list->dwPageStart;
+					//Print << U"dwPageSize: " << cand_list->dwPageSize;
 
 					{
 						videodata->candidateState.candidates.clear();
@@ -541,40 +544,37 @@ namespace s3d
 						videodata->candidateState.pageSize = cand_list->dwPageSize;
 					}
 
-					if ((LANG() == LANG_CHS) && IME_GetId(videodata, 0))
-					{
-						const UINT maxcandchar = 18;
-						size_t cchars = 0;
+					//if ((LANG() == LANG_CHS) && IME_GetId(videodata, 0))
+					//{
+					//	const UINT maxcandchar = 18;
+					//	size_t cchars = 0;
 
-						for (i = 0; i < (UINT)videodata->candidateState.count; ++i)
-						{
-							size_t len = std::wcslen((LPWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i])) + 1;
-						
-							if (maxcandchar < (len + cchars))
-							{
-								if (cand_list->dwSelection < i)
-								{
-									break;
-								}
+					//	for (i = 0; i < (UINT)videodata->candidateState.count; ++i)
+					//	{
+					//		size_t len = std::wcslen((LPWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i])) + 1;
+					//	
+					//		if (maxcandchar < (len + cchars))
+					//		{
+					//			if (cand_list->dwSelection < i)
+					//			{
+					//				break;
+					//			}
 
-								page_start = i;
-								cchars = len;
-							}
-							else
-							{
-								cchars += len;
-							}
-						}
+					//			page_start = i;
+					//			cchars = len;
+					//		}
+					//		else
+					//		{
+					//			cchars += len;
+					//		}
+					//	}
 
-						videodata->ime_candpgsize = (i - page_start);
-					}
-					else
-					{
-						videodata->ime_candpgsize = std::min(cand_list->dwPageSize == 0 ? MaxCandidatesCount : cand_list->dwPageSize, MaxCandidatesCount);
-						page_start = (cand_list->dwSelection / videodata->ime_candpgsize) * videodata->ime_candpgsize;
-					}
+					//	videodata->ime_candpgsize = (i - page_start);
+					//}
+
+					UINT k = 0;
 				
-					for (i = page_start, j = 0; ((DWORD)i < cand_list->dwCount) && (j < videodata->ime_candpgsize); ++i, ++j)
+					for (UINT i = cand_list->dwPageStart; ((DWORD)i < cand_list->dwCount) && (k < cand_list->dwPageSize); ++i, ++k)
 					{
 						const LPCWSTR candidate = (LPCWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i]);
 

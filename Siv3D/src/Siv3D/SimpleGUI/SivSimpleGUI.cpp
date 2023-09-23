@@ -83,8 +83,10 @@ namespace s3d
 		constexpr ColorF CandidateWindowFrameColor{ 0.75 };
 		constexpr ColorF CandidateSelectedBackgroundColor{ 0.55, 0.85, 1.0 };
 		constexpr ColorF CandidateTextColor{ 0.11 };
+		constexpr ColorF CandidateMinimapColor{ 0.67 };
 		constexpr double CandidateMargin = 4.0;
-		constexpr double CandidatePadding = 10.0;
+		constexpr double CandidatePadding = 12.0;
+		constexpr double CandidateMinimapWidth = 20.0;
 
 		[[nodiscard]]
 		inline constexpr ColorF GetTextColor(bool enabled) noexcept
@@ -2071,7 +2073,7 @@ namespace s3d
 					}
 
 					return boxWidth;
-				}() + (CandidatePadding * 2);
+				}() + (CandidatePadding * 2 + CandidateMinimapWidth);
 
 				const double candidateItemHeight = (font.height() + CandidateMargin);
 
@@ -2107,7 +2109,7 @@ namespace s3d
 					}
 
 					return boxWidth;
-				}() + (CandidatePadding * 2);
+				}() + (CandidatePadding * 2 + CandidateMinimapWidth);
 
 			const double candidateItemHeight = (font.height() + CandidateMargin);
 
@@ -2127,17 +2129,36 @@ namespace s3d
 
 					if (selected)
 					{
-						RectF{ itemPos, boxWidth, candidateItemHeight }
+						RectF{ itemPos, (boxWidth - CandidateMinimapWidth), candidateItemHeight }
 							.stretched(-1, 0)
 							.draw(CandidateSelectedBackgroundColor);
 					}
 
 					if (candidate)
 					{
-						font(candidate).draw(itemPos.movedBy(CandidatePadding, (CandidateMargin * 0.5)), CandidateTextColor);
+						font(candidate).draw(itemPos.movedBy(CandidatePadding, (CandidateMargin * 0.5 - 1.0)), CandidateTextColor);
 					}
 
 					++currentIndex;
+				}
+			}
+
+			// minimap
+			{
+				if (cadidateState.pageStartIndex != 0)
+				{
+					const Vec2 scrollPos{ (pos.x + boxWidth - CandidateMinimapWidth * 0.5 - 1), (pos.y + 0 * candidateItemHeight + 11) };
+					scrollPos.asCircle(3.5).draw(CandidateMinimapColor);
+					scrollPos.movedBy(0, 8).asCircle(2.8).draw(CandidateMinimapColor);
+					scrollPos.movedBy(0, 15).asCircle(2.25).draw(CandidateMinimapColor);
+				}
+
+				if ((cadidateState.pageStartIndex + cadidateState.pageSize) != cadidateState.count)
+				{
+					const Vec2 scrollPos{ (pos.x + boxWidth - CandidateMinimapWidth * 0.5 - 1), (pos.y + cadidateState.pageSize * candidateItemHeight - 9) };
+					scrollPos.asCircle(3.5).draw(CandidateMinimapColor);
+					scrollPos.movedBy(0, -8).asCircle(2.8).draw(CandidateMinimapColor);
+					scrollPos.movedBy(0, -15).asCircle(2.25).draw(CandidateMinimapColor);
 				}
 			}
 
