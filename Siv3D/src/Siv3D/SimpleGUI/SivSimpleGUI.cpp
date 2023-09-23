@@ -79,6 +79,12 @@ namespace s3d
 		constexpr double TextAreaScrollBarMinHeight = 16.0;
 		constexpr ColorF TextAreaEditingTextBackgroundColor{ 0.8 };
 		constexpr ColorF TextAreaScrollBarColor{ 0.67 };
+		constexpr ColorF CandidateWindowColor{ 0.98 };
+		constexpr ColorF CandidateWindowFrameColor{ 0.75 };
+		constexpr ColorF CandidateSelectedBackgroundColor{ 0.55, 0.85, 1.0 };
+		constexpr ColorF CandidateTextColor{ 0.11 };
+		constexpr double CandidateMargin = 4.0;
+		constexpr double CandidatePadding = 10.0;
 
 		[[nodiscard]]
 		inline constexpr ColorF GetTextColor(bool enabled) noexcept
@@ -2040,6 +2046,102 @@ namespace s3d
 			}
 
 			return (oldState != state.selectedItemIndex);
+		}
+
+		RectF IMECandidateWindowRegion(const Vec2& pos)
+		{
+		# if SIV3D_PLATFORM(WINDOWS)
+
+			const auto& cadidateState = Platform::Windows::TextInput::GetCandidateState();
+
+			if (not cadidateState.candidates)
+			{
+				return{ pos, 0 };
+			}
+
+			const Font& font = GetFont();
+
+			const double boxWidth = [&font, &cadidateState]()
+				{
+					double boxWidth = 0.0;
+
+					for (const auto& canditate : cadidateState.candidates)
+					{
+						boxWidth = Max<double>(boxWidth, font(canditate).region().w);
+					}
+
+					return boxWidth;
+				}() + (CandidatePadding * 2);
+
+				const double candidateItemHeight = (font.height() + CandidateMargin);
+
+				return{ pos, boxWidth, (candidateItemHeight * cadidateState.candidates.size()) };
+
+		# else
+
+			return{ pos, 0 };
+
+		# endif
+		}
+
+		void IMECandidateWindow([[maybe_unused]] const Vec2& pos)
+		{
+		# if SIV3D_PLATFORM(WINDOWS)
+
+			const auto& cadidateState = Platform::Windows::TextInput::GetCandidateState();
+
+			if (not cadidateState.candidates)
+			{
+				return;
+			}
+
+			const Font& font = GetFont();
+
+			const double boxWidth = [&font, &cadidateState]()
+				{
+					double boxWidth = 0.0;
+
+					for (const auto& canditate : cadidateState.candidates)
+					{
+						boxWidth = Max<double>(boxWidth, font(canditate).region().w);
+					}
+
+					return boxWidth;
+				}() + (CandidatePadding * 2);
+
+			const double candidateItemHeight = (font.height() + CandidateMargin);
+
+			RectF{ pos, boxWidth, (candidateItemHeight * cadidateState.candidates.size()) }
+				.drawShadow(Vec2{ 0, 2 }, 8)
+				.draw(CandidateWindowColor)
+				.drawFrame(1, 0, CandidateWindowFrameColor);
+
+			{
+				int32 currentIndex = cadidateState.pageStartIndex;
+
+				for (const auto& candidate : cadidateState.candidates)
+				{
+					const bool selected = (currentIndex == cadidateState.selectedIndex);
+
+					const Vec2 itemPos{ pos.x, (pos.y + (currentIndex - cadidateState.pageStartIndex) * candidateItemHeight) };
+
+					if (selected)
+					{
+						RectF{ itemPos, boxWidth, candidateItemHeight }
+							.stretched(-1, 0)
+							.draw(CandidateSelectedBackgroundColor);
+					}
+
+					if (candidate)
+					{
+						font(candidate).draw(itemPos.movedBy(CandidatePadding, (CandidateMargin * 0.5)), CandidateTextColor);
+					}
+
+					++currentIndex;
+				}
+			}
+
+		# endif
 		}
 
 		namespace detail
