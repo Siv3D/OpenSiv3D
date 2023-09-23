@@ -19,7 +19,7 @@
 //
 struct PSPerFrameStruct
 {
-	gloablAmbientColor: vec3<f32>,
+	globalAmbientColor: vec3<f32>,
 	sunColor: vec3<f32>,
 	sunDirection: vec3<f32>,
 };
@@ -108,7 +108,7 @@ fn main(
 	var n: vec3<f32> = FetchNormal(UV);
 	var l: vec3<f32> = lightDirection;
 	var diffuseColor: vec4<f32> = TerrainTriplanar(WorldPosition, n, 0.5);
-	var ambientColor: vec3<f32> = (PSPerMaterial.ambientColor * PSPerFrame.gloablAmbientColor);
+	var ambientColor: vec3<f32> = (PSPerMaterial.ambientColor * PSPerFrame.globalAmbientColor);
 
 	// Diffuse
 	var diffuseReflection: vec3<f32> = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);

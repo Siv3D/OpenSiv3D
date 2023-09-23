@@ -54,7 +54,7 @@ namespace s3d
 //
 cbuffer PSPerFrame : register(b0)
 {
-	float3 g_gloablAmbientColor;
+	float3 g_globalAmbientColor;
 	float3 g_sunColor;
 	float3 g_sunDirection;
 }

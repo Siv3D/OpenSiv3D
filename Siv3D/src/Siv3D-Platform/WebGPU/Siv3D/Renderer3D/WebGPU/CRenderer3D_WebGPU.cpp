@@ -869,7 +869,7 @@ namespace s3d
 			case WebGPURenderer3DCommandType::SetGlobalAmbientColor:
 				{
 					const Float3& globalAmbient = m_commandManager.getGlobalAmbientColor(command.index);
-					m_psPerFrameConstants->gloablAmbientColor = Float4{ globalAmbient, 0.0f };
+					m_psPerFrameConstants->globalAmbientColor = Float4{ globalAmbient, 0.0f };
 
 					LOG_COMMAND(U"SetGlobalAmbientColor[{}] {}"_fmt(command.index, globalAmbient));
 					break;

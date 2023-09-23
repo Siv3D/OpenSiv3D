@@ -62,7 +62,7 @@ cbuffer VSPerMaterial : register(b3)
 
 cbuffer PSPerFrame : register(b0)
 {
-	float3 g_gloablAmbientColor;
+	float3 g_globalAmbientColor;
 	float3 g_sunColor;
 	float3 g_sunDirection;
 }
@@ -148,7 +148,7 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 n = FetchNormal(input.uv);
 	const float3 l = lightDirection;
 	const float4 diffuseColor = TerrainTriplanar(input.worldPosition, n, 0.5f);
-	const float3 ambientColor = (g_ambientColor * g_gloablAmbientColor);
+	const float3 ambientColor = (g_ambientColor * g_globalAmbientColor);
 
 	// Diffuse
 	const float3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
