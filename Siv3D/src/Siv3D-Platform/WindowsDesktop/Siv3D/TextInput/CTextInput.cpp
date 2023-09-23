@@ -19,13 +19,13 @@
 namespace s3d
 {
 	CTextInput::CTextInput()
-		: m_pVideo{ std::make_unique<SDL_VideoData>() } {}
+		: m_pTextInputData{ std::make_unique<TextInputData>() } {}
 
 	CTextInput::~CTextInput()
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::~CTextInput()");
 
-		IME_Quit(m_pVideo.get());
+		IME_Quit(m_pTextInputData.get());
 
 		::ImmReleaseContext(m_hWnd, m_hImc);
 	}
@@ -34,23 +34,18 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::init()");
 
-		//::CoInitialize(nullptr);
-
 		m_hWnd = static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle());
 
-		LOG_VERBOSE(U":ImmGetContext()");
+		LOG_VERBOSE(U"ImmGetContext()");
 		m_hImc = ::ImmGetContext(m_hWnd);
 
-		m_pVideo->pTextInput = this;
+		m_pTextInputData->pTextInput = this;
 
-		LOG_VERBOSE(U":WIN_InitKeyboard()");
-		WIN_InitKeyboard(m_pVideo.get());
+		LOG_VERBOSE(U"WIN_InitKeyboard()");
+		WIN_InitKeyboard(m_pTextInputData.get());
 
-		LOG_VERBOSE(U":IME_Init()");
-		IME_Init(m_pVideo.get(), m_hWnd);
-
-		LOG_VERBOSE(U":IME_Enable()");
-		IME_Enable(m_pVideo.get(), m_hWnd);
+		LOG_VERBOSE(U"WIN_StartTextInput()");
+		WIN_StartTextInput(m_pTextInputData.get(), m_hWnd);
 	}
 
 	void CTextInput::update()
@@ -66,7 +61,7 @@ namespace s3d
 
 			m_targetLength = m_internalTargetLength;
 
-			m_candidates = m_internalCandidates;
+			m_candidateState = m_internalCandidateState;
 
 			m_chars = m_internalChars;
 
@@ -116,12 +111,12 @@ namespace s3d
 
 		if (not enabled)
 		{
-			WIN_StopTextInput(m_pVideo.get(), m_hWnd);
+			WIN_StopTextInput(m_pTextInputData.get(), m_hWnd);
 		}
 		else
 		{
 			// [Siv3D ToDo] does not work
-			WIN_StartTextInput(m_pVideo.get(), m_hWnd);
+			WIN_StartTextInput(m_pTextInputData.get(), m_hWnd);
 		}
 
 		m_enabled = enabled;
@@ -134,12 +129,17 @@ namespace s3d
 
 	const Array<String>& CTextInput::getCandidates() const
 	{
-		return m_candidates;
+		return m_candidateState.candidates;
+	}
+
+	const TextInput::CandidateState& CTextInput::getCandidateState() const
+	{
+		return m_candidateState;
 	}
 
 	bool CTextInput::process(UINT msg, WPARAM wParam, LPARAM* lParam)
 	{
-		return IME_HandleMessage(m_hWnd, msg, wParam, lParam, m_pVideo.get());
+		return IME_HandleMessage(m_hWnd, msg, wParam, lParam, m_pTextInputData.get());
 	}
 
 	void CTextInput::sendEditingText(const String& text, const int32 cursorPos, const int32 targetLength)
@@ -153,11 +153,11 @@ namespace s3d
 		m_internalTargetLength = targetLength;
 	}
 
-	void CTextInput::sendCandidates(const Array<String>& candidates)
+	void CTextInput::sendCandidateState(const TextInput::CandidateState& state)
 	{
 		std::lock_guard lock{ m_mutex };
 
-		m_internalCandidates = candidates;
+		m_internalCandidateState = state;
 	}
 
 	void CTextInput::sendInputText(const String& text)

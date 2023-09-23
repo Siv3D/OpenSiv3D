@@ -299,5 +299,17 @@ namespace s3d
 		/// @param enabled リストボックスの操作を有効にするか
 		/// @return リストボックスが操作された場合 true, それ以外の場合は false
 		bool ListBoxAt(ListBoxState& state, const Vec2& center, double width = 160.0, double height = 156.0, bool enabled = true);
+
+		/// @brief IME の候補ウィンドウの領域を返します。
+		/// @param pos 候補ウィンドウの左上の座標
+		/// @return 候補ウィンドウの領域
+		/// @remark この関数は Windows 版でのみ動作します。それ以外のプラットフォームでは常に `RectF{ pos, 0, 0 }` を返します。
+		[[nodiscard]]
+		RectF IMECandidateWindowRegion(const Vec2& pos);
+
+		/// @brief IME の候補ウィンドウを表示します。
+		/// @param pos 候補ウィンドウの左上の座標
+		/// @remark この関数は Windows 版でのみ動作します。それ以外のプラットフォームでは何もしません。
+		void IMECandidateWindow([[maybe_unused]] const Vec2& pos);
 	}
 }

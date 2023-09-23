@@ -114,6 +114,11 @@ namespace s3d
 			return SIV3D_ENGINE(TextInput)->getCandidates();
 		}
 
+		const s3d::TextInput::CandidateState& GetCandidateState()
+		{
+			return SIV3D_ENGINE(TextInput)->getCandidateState();
+		}
+
 		std::pair<int32, int32> GetCursorIndex()
 		{
 			return SIV3D_ENGINE(TextInput)->getCursorIndex();
@@ -131,7 +136,7 @@ namespace s3d
 			const auto[editingCursorIndex, editingTargetlength] = GetCursorIndex();
 			const bool hasEditingTarget = (editingTargetlength > 0);
 			const String editingTargetText = editingText.substr(editingCursorIndex, editingTargetlength);
-			const auto cadidates = GetCandidates();
+			const auto& cadidates = GetCandidates();
 			const double candidateItemHeight = font.height() + candidatesMargin;
 
 			double boxWidth = 0.0;

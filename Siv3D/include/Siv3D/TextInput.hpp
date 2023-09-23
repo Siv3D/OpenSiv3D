@@ -13,6 +13,7 @@
 # include "Common.hpp"
 # include "String.hpp"
 # include "Array.hpp"
+# include "Optional.hpp"
 # include "PointVector.hpp"
 # include "ColorHSV.hpp"
 # include "UnderlineStyle.hpp"
@@ -22,6 +23,28 @@ namespace s3d
 {
 	namespace TextInput
 	{
+		struct CandidateState
+		{
+			Array<String> candidates;
+
+			Optional<int32> selectedIndex;
+
+			int32 count = 0;
+
+			int32 pageStartIndex = 0;
+
+			int32 pageSize = 0;
+
+			void reset() noexcept
+			{
+				candidates.clear();
+				selectedIndex.reset();
+				count = 0;
+				pageStartIndex = 0;
+				pageSize = 0;
+			}
+		};
+
 		/// @brief キーボードからのテキスト入力を生の状態で返します。
 		/// @return キーボードからのテキスト入力
 		[[nodiscard]]
@@ -56,10 +79,13 @@ namespace s3d
 		/// @brief IME を無効化します。
 		void DisableIME();
 
-		[[nodiscard]]
 		/// @brief 入力中のテキストの変換候補一覧を取得します。
 		/// @return 入力中のテキストの変換候補一覧
+		[[nodiscard]]
 		const Array<String>& GetCandidates();
+		
+		[[nodiscard]]
+		const s3d::TextInput::CandidateState& GetCandidateState();
 
 		/// @brief 変換待ちのテキストの範囲を返します。
 		/// @return 変換待ちのテキストの範囲
@@ -75,10 +101,10 @@ namespace s3d
 		/// @param textColor テキストの色
 		void DrawCandidateWindow(const Font& font,
 			const Vec2& basePos,
-			const ColorF& boxColor = ColorF{ 1.0 },
+			const ColorF& boxColor = ColorF{ 0.96 },
 			const ColorF& selectedBackgroundColor = ColorF{ 0.55, 0.85, 1.0 },
 			const ColorF& frameColor = ColorF{ 0.75 },
-			const ColorF& textColor = ColorF{ 0.0 });
+			const ColorF& textColor = ColorF{ 0.11 });
 	}
 
 # elif SIV3D_PLATFORM(LINUX)
