@@ -45,18 +45,17 @@ namespace s3d
 	class CTextInput;
 }
 
-typedef struct SDL_VideoData
+struct SDL_VideoData
 {
 	s3d::CTextInput* pTextInput = nullptr;
 
-	struct ITfThreadMgr* ime_threadmgr;
-	bool ime_initialized;
-	bool ime_enabled;
-	bool ime_available;
-	HWND ime_hwnd_main;
-	HWND ime_hwnd_current;
+	ITfThreadMgr* ime_threadmgr = nullptr;
+	bool ime_initialized = false;
+	bool ime_enabled = false;
+	bool ime_available = false;
+	HWND hwnd = nullptr;
 	bool ime_suppress_endcomposition_event;
-	HIMC ime_himc;
+	HIMC ime_himc = nullptr;
 
 	WCHAR* ime_composition;
 	int ime_composition_length;
@@ -64,7 +63,7 @@ typedef struct SDL_VideoData
 	int ime_cursor;
 	std::array<unsigned char, 256> ime_attributes3;
 
-	bool ime_candlist;
+	bool ime_candlist = 0;
 	s3d::Array<s3d::String> ime_candidates2;
 	DWORD ime_candcount;
 	DWORD ime_candref;
@@ -73,16 +72,15 @@ typedef struct SDL_VideoData
 	int ime_candlistindexbase;
 	bool ime_candvertical;
 
-	bool ime_dirty;
+	bool ime_dirty = false;
 
-	HKL ime_hkl;
-	HMODULE ime_himm32;
-	UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen);
-	BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow);
+	HKL ime_hkl = nullptr;
+	HMODULE ime_himm32 = nullptr;
+	UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen) = nullptr;
+	BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow) = nullptr;
 
 	LONG ime_uicontext;
-
-} SDL_VideoData;
+};
 
 void WIN_InitKeyboard(SDL_VideoData* data);
 
@@ -90,8 +88,8 @@ void WIN_StartTextInput(SDL_VideoData* videodata, HWND hwnd);
 void WIN_StopTextInput(SDL_VideoData* videodata, HWND hwnd);
 
 int IME_Init(SDL_VideoData* videodata, HWND hwnd);
-void IME_Enable(SDL_VideoData* videodata, HWND hwnd);
-void IME_Disable(SDL_VideoData* videodata, HWND hwnd);
+void IME_Enable(SDL_VideoData* videodata);
+void IME_Disable(SDL_VideoData* videodata);
 void IME_Quit(SDL_VideoData* videodata);
 
 BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_VideoData* videodata);
