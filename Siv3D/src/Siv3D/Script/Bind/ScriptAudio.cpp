@@ -63,14 +63,14 @@ namespace s3d
 		new(self) BindType(Audio::Stream, path, Loop{ loop });
 	}
 
-	static void ConstructUUDDS(int32 instrumrnt, int32 key, const Duration& duration, double velocity, uint32 sampleRate, BindType* self)
+	static void ConstructUUDDS(int32 instrument, int32 key, const Duration& duration, double velocity, uint32 sampleRate, BindType* self)
 	{
-		new(self) BindType(static_cast<GMInstrument>(instrumrnt), static_cast<uint8>(key), duration, velocity, Arg::sampleRate = sampleRate);
+		new(self) BindType(static_cast<GMInstrument>(instrument), static_cast<uint8>(key), duration, velocity, Arg::sampleRate = sampleRate);
 	}
 
-	static void ConstructUUDDDS(int32 instrumrnt, int32 key, const Duration& noteOn, const Duration& noteOff, double velocity, uint32 sampleRate, BindType* self)
+	static void ConstructUUDDDS(int32 instrument, int32 key, const Duration& noteOn, const Duration& noteOff, double velocity, uint32 sampleRate, BindType* self)
 	{
-		new(self) BindType(static_cast<GMInstrument>(instrumrnt), static_cast<uint8>(key), noteOn, noteOff, velocity, Arg::sampleRate = sampleRate);
+		new(self) BindType(static_cast<GMInstrument>(instrument), static_cast<uint8>(key), noteOn, noteOff, velocity, Arg::sampleRate = sampleRate);
 	}
 
 	static void Destruct(BindType* self)
@@ -120,8 +120,8 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, bool loop)", asFUNCTION(ConstructSL), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(AudioFileStreaming, const String& in) explicit", asFUNCTION(ConstructAS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(AudioFileStreaming, const String& in, bool loop)", asFUNCTION(ConstructASL), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(GMInstrument instrumrnt, int32 key, const Duration& in, double velocity = 1.0, Arg::sampleRate_uint32 = (Arg::sampleRate = Wave::DefaultSampleRate))", asFUNCTION(ConstructUUDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(GMInstrument instrumrnt, int32 key, const Duration& in, const Duration& in, double velocity = 1.0, Arg::sampleRate_uint32 = (Arg::sampleRate = Wave::DefaultSampleRate))", asFUNCTION(ConstructUUDDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(GMInstrument instrument, int32 key, const Duration& in, double velocity = 1.0, Arg::sampleRate_uint32 = (Arg::sampleRate = Wave::DefaultSampleRate))", asFUNCTION(ConstructUUDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(GMInstrument instrument, int32 key, const Duration& in, const Duration& in, double velocity = 1.0, Arg::sampleRate_uint32 = (Arg::sampleRate = Wave::DefaultSampleRate))", asFUNCTION(ConstructUUDDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Audio& opAssign(const Audio& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);

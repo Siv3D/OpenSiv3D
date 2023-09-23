@@ -93,15 +93,15 @@ namespace s3d
 		/// @brief アイテムの有効無効を切り替えます。
 		/// @param menuIndex メニューインデックス
 		/// @param itemIndex アイテムインデックス
-		/// @param enbaled 有効にする場合 true, 無効にする場合 false
+		/// @param enabled 有効にする場合 true, 無効にする場合 false
 		/// @return *this
-		SimpleMenuBar& setItemEnabled(size_t menuIndex, size_t itemIndex, bool enbaled);
+		SimpleMenuBar& setItemEnabled(size_t menuIndex, size_t itemIndex, bool enabled);
 
 		/// @brief アイテムの有効無効を切り替えます。
 		/// @param itemIndex アイテムのインデックス
-		/// @param enbaled 有効にする場合 true, 無効にする場合 false
+		/// @param enabled 有効にする場合 true, 無効にする場合 false
 		/// @return *this
-		SimpleMenuBar& setItemEnabled(const MenuBarItemIndex& itemIndex, bool enbaled);
+		SimpleMenuBar& setItemEnabled(const MenuBarItemIndex& itemIndex, bool enabled);
 
 		/// @brief アイテムの有効無効を取得します。
 		/// @param menuIndex メニューインデックス
