@@ -78,7 +78,6 @@ struct SDL_VideoData
 };
 
 void WIN_InitKeyboard(SDL_VideoData* data);
-
 void WIN_StartTextInput(SDL_VideoData* videodata, HWND hwnd);
 void WIN_StopTextInput(SDL_VideoData* videodata, HWND hwnd);
 
@@ -86,5 +85,4 @@ int IME_Init(SDL_VideoData* videodata, HWND hwnd);
 void IME_Enable(SDL_VideoData* videodata);
 void IME_Disable(SDL_VideoData* videodata);
 void IME_Quit(SDL_VideoData* videodata);
-
 BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_VideoData* videodata);

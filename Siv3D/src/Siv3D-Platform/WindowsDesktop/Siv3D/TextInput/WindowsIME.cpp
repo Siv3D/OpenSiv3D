@@ -47,7 +47,7 @@ void WIN_InitKeyboard(SDL_VideoData* data)
 	data->ime_attributes3.fill(0);
 }
 
-void WIN_QuitKeyboard(SDL_VideoData* videodata)
+static void WIN_QuitKeyboard(SDL_VideoData* videodata)
 {
 	IME_Quit(videodata);
 
@@ -58,7 +58,7 @@ void WIN_QuitKeyboard(SDL_VideoData* videodata)
 	}
 }
 
-void WIN_ResetDeadKeys()
+static void WIN_ResetDeadKeys()
 {
 	// if a deadkey has been typed, but not the next character (which the deadkey might modify),
 	// this tries to undo the effect pressing the deadkey.
@@ -140,8 +140,6 @@ void WIN_StopTextInput(SDL_VideoData* videodata, HWND hwnd)
 static void IME_UpdateInputLocale(SDL_VideoData* videodata);
 static void IME_ClearComposition(SDL_VideoData* videodata);
 static void IME_SetWindow(SDL_VideoData* videodata, HWND hwnd);
-static DWORD IME_GetId(SDL_VideoData* videodata, UINT uIndex);
-static void IME_SendEditingEvent(SDL_VideoData* videodata, HIMC himc);
 
 int IME_Init(SDL_VideoData* videodata, HWND hwnd)
 {
@@ -387,7 +385,7 @@ static void IME_ClearComposition(SDL_VideoData* videodata)
 		return;
 	}
 
-	HIMC himc = ::ImmGetContext(videodata->hwnd);
+	const HIMC himc = ::ImmGetContext(videodata->hwnd);
 
 	if (not himc)
 	{
