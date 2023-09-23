@@ -39,7 +39,7 @@ layout(std140) uniform PSPerView // slot 1
 
 layout(std140) uniform PSPerMaterial // slot 3
 {
-	vec3  g_amibientColor;
+	vec3  g_ambientColor;
 	uint  g_hasTexture;
 	vec4  g_diffuseColor;
 	vec3  g_specularColor;
@@ -98,7 +98,7 @@ void main()
 	vec3 n = FetchNormal(UV);
 	vec3 l = lightDirection;
 	vec4 diffuseColor = TerrainTriplanar(WorldPosition, n, 0.5f);
-	vec3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
+	vec3 ambientColor = (g_ambientColor * g_gloablAmbientColor);
 
 	// Diffuse
 	vec3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);
