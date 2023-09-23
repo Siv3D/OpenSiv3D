@@ -36,21 +36,15 @@
 # include "WindowsIME.hpp"
 # include "CTextInput.hpp"
 
+# define MAX_CANDLIST   10
+
 void WIN_InitKeyboard(SDL_VideoData* data)
 {
 	data->ime_composition_length = 32 * sizeof(WCHAR);
 	data->ime_composition = (WCHAR*)std::malloc(data->ime_composition_length + sizeof(WCHAR));
 	data->ime_composition[0] = 0;
 	data->ime_readingstring[0] = 0;
-	data->ime_cursor = 0;
 	data->ime_attributes3.fill(0);
-
-	data->ime_candcount = 0;
-	data->ime_candref = 0;
-	data->ime_candsel = 0;
-	data->ime_candpgsize = 0;
-	data->ime_candlistindexbase = 0;
-	data->ime_candvertical = true;
 }
 
 void WIN_QuitKeyboard(SDL_VideoData* videodata)
@@ -541,7 +535,7 @@ static void IME_GetCandidateList(HWND hwnd, SDL_VideoData* videodata)
 	
 	if (size != 0)
 	{
-		LPCANDIDATELIST cand_list = (LPCANDIDATELIST)std::malloc(size);
+		const LPCANDIDATELIST cand_list = (LPCANDIDATELIST)std::malloc(size);
 		
 		if (cand_list != NULL)
 		{
@@ -554,38 +548,46 @@ static void IME_GetCandidateList(HWND hwnd, SDL_VideoData* videodata)
 				videodata->ime_candsel = cand_list->dwSelection;
 				videodata->ime_candcount = cand_list->dwCount;
 
-				if (LANG() == LANG_CHS && IME_GetId(videodata, 0)) {
+				if (LANG() == LANG_CHS && IME_GetId(videodata, 0))
+				{
 					const UINT maxcandchar = 18;
 					size_t cchars = 0;
 
-					for (i = 0; i < videodata->ime_candcount; ++i) {
+					for (i = 0; i < videodata->ime_candcount; ++i)
+					{
 						size_t len = std::wcslen((LPWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i])) + 1;
-						if (len + cchars > maxcandchar) {
-							if (i > cand_list->dwSelection) {
+						
+						if (len + cchars > maxcandchar)
+						{
+							if (cand_list->dwSelection < i)
+							{
 								break;
 							}
 
 							page_start = i;
 							cchars = len;
 						}
-						else {
+						else
+						{
 							cchars += len;
 						}
 					}
+
 					videodata->ime_candpgsize = i - page_start;
 				}
-				else {
+				else
+				{
 					videodata->ime_candpgsize = std::min<DWORD>(cand_list->dwPageSize == 0 ? MAX_CANDLIST : cand_list->dwPageSize, MAX_CANDLIST);
 					page_start = (cand_list->dwSelection / videodata->ime_candpgsize) * videodata->ime_candpgsize;
 				}
-				for (i = page_start, j = 0; (DWORD)i < cand_list->dwCount && j < videodata->ime_candpgsize; i++, j++) {
-					LPCWSTR candidate = (LPCWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i]);
+				
+				for (i = page_start, j = 0; (DWORD)i < cand_list->dwCount && j < videodata->ime_candpgsize; i++, j++)
+				{
+					const LPCWSTR candidate = (LPCWSTR)((DWORD_PTR)cand_list + cand_list->dwOffset[i]);
 					IME_AddCandidate(videodata, j, candidate);
 				}
-				// TODO: why was this necessary? check ime_candvertical instead? PRIMLANG() never equals LANG_CHT !
-				// if (PRIMLANG() == LANG_KOREAN || (PRIMLANG() == LANG_CHT && !IME_GetId(videodata, 0)))
-				//    videodata->ime_candsel = -1;
 			}
+
 			std::free(cand_list);
 		}
 	}

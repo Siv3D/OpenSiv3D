@@ -35,11 +35,6 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-#define SDL_TEXTEDITINGEVENT_TEXT_SIZE (32)
-#define MAX_CANDLIST   10
-#define MAX_CANDLENGTH 256
-#define MAX_CANDSIZE   (sizeof(WCHAR) * MAX_CANDLIST * MAX_CANDLENGTH)
-
 namespace s3d
 {
 	class CTextInput;
@@ -54,23 +49,23 @@ struct SDL_VideoData
 	bool ime_enabled = false;
 	bool ime_available = false;
 	HWND hwnd = nullptr;
-	bool ime_suppress_endcomposition_event;
+	bool ime_suppress_endcomposition_event = false;
 	HIMC ime_himc = nullptr;
 
-	WCHAR* ime_composition;
-	int ime_composition_length;
-	WCHAR ime_readingstring[16];
-	int ime_cursor;
+	WCHAR* ime_composition = nullptr;
+	int ime_composition_length = 0;
+	WCHAR ime_readingstring[16]{};
+	int ime_cursor = 0;
 	std::array<unsigned char, 256> ime_attributes3;
 
 	bool ime_candlist = 0;
 	s3d::Array<s3d::String> ime_candidates2;
-	DWORD ime_candcount;
-	DWORD ime_candref;
-	DWORD ime_candsel;
-	UINT ime_candpgsize;
-	int ime_candlistindexbase;
-	bool ime_candvertical;
+	DWORD ime_candcount = 0;
+	DWORD ime_candref = 0;
+	DWORD ime_candsel = 0;
+	UINT ime_candpgsize = 0;
+	int ime_candlistindexbase = 0;
+	bool ime_candvertical = true;
 
 	bool ime_dirty = false;
 
@@ -79,7 +74,7 @@ struct SDL_VideoData
 	UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen) = nullptr;
 	BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow) = nullptr;
 
-	LONG ime_uicontext;
+	LONG ime_uicontext = 0;
 };
 
 void WIN_InitKeyboard(SDL_VideoData* data);
