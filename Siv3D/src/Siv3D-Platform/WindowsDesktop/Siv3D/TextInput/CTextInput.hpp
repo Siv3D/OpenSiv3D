@@ -91,6 +91,6 @@ namespace s3d
 
 		mutable bool m_editingTextHandled = true;
 
-		std::unique_ptr<SDL_VideoData> m_pVideo;
+		std::unique_ptr<TextInputData> m_pTextInputData;
 	};
 }

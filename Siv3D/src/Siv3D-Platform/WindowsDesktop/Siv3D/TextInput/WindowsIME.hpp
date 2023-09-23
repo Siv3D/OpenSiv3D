@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/Common.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/String.hpp>
 # include <Siv3D/Windows/Windows.hpp>
 # include <msctf.h>
 
@@ -38,51 +40,51 @@
 namespace s3d
 {
 	class CTextInput;
+
+	struct TextInputData
+	{
+		CTextInput* pTextInput = nullptr;
+
+		ITfThreadMgr* ime_threadmgr = nullptr;
+
+		bool ime_initialized = false;
+		bool ime_enabled = false;
+		bool ime_available = false;
+
+		HWND hwnd = nullptr;
+		HIMC himc = nullptr;
+
+		bool ime_suppress_endcomposition_event = false;
+
+		std::wstring composition;
+		std::array<unsigned char, 256> attributes;
+		int ime_cursor = 0;
+
+		bool ime_candlist = 0;
+		Array<String> candidates;
+		DWORD ime_candcount = 0;
+		DWORD ime_candsel = 0;
+		UINT ime_candpgsize = 0;
+		int ime_candlistindexbase = 0;
+		bool ime_candvertical = true;
+
+		bool ime_dirty = false;
+
+		HKL ime_hkl = nullptr;
+		HMODULE ime_himm32 = nullptr;
+		UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen) = nullptr;
+		BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow) = nullptr;
+
+		LONG ime_uicontext = 0;
+	};
+
+	void WIN_InitKeyboard(TextInputData* data);
+	void WIN_StartTextInput(TextInputData* videodata, HWND hwnd);
+	void WIN_StopTextInput(TextInputData* videodata, HWND hwnd);
+
+	int IME_Init(TextInputData* videodata, HWND hwnd);
+	void IME_Enable(TextInputData* videodata);
+	void IME_Disable(TextInputData* videodata);
+	void IME_Quit(TextInputData* videodata);
+	BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, TextInputData* videodata);
 }
-
-struct SDL_VideoData
-{
-	s3d::CTextInput* pTextInput = nullptr;
-
-	ITfThreadMgr* ime_threadmgr = nullptr;
-	
-	bool ime_initialized = false;
-	bool ime_enabled = false;
-	bool ime_available = false;
-	
-	HWND hwnd = nullptr;
-	HIMC himc = nullptr;
-
-	bool ime_suppress_endcomposition_event = false;
-
-	std::wstring composition;
-	std::array<unsigned char, 256> attributes;
-	int ime_cursor = 0;
-
-	bool ime_candlist = 0;
-	s3d::Array<s3d::String> candidates;
-	DWORD ime_candcount = 0;
-	DWORD ime_candsel = 0;
-	UINT ime_candpgsize = 0;
-	int ime_candlistindexbase = 0;
-	bool ime_candvertical = true;
-
-	bool ime_dirty = false;
-
-	HKL ime_hkl = nullptr;
-	HMODULE ime_himm32 = nullptr;
-	UINT(WINAPI* GetReadingString)(HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex, BOOL* pfIsVertical, PUINT puMaxReadingLen) = nullptr;
-	BOOL(WINAPI* ShowReadingWindow)(HIMC himc, BOOL bShow) = nullptr;
-
-	LONG ime_uicontext = 0;
-};
-
-void WIN_InitKeyboard(SDL_VideoData* data);
-void WIN_StartTextInput(SDL_VideoData* videodata, HWND hwnd);
-void WIN_StopTextInput(SDL_VideoData* videodata, HWND hwnd);
-
-int IME_Init(SDL_VideoData* videodata, HWND hwnd);
-void IME_Enable(SDL_VideoData* videodata);
-void IME_Disable(SDL_VideoData* videodata);
-void IME_Quit(SDL_VideoData* videodata);
-BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_VideoData* videodata);

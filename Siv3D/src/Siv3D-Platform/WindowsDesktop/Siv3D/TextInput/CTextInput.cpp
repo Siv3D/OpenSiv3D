@@ -19,13 +19,13 @@
 namespace s3d
 {
 	CTextInput::CTextInput()
-		: m_pVideo{ std::make_unique<SDL_VideoData>() } {}
+		: m_pTextInputData{ std::make_unique<TextInputData>() } {}
 
 	CTextInput::~CTextInput()
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::~CTextInput()");
 
-		IME_Quit(m_pVideo.get());
+		IME_Quit(m_pTextInputData.get());
 
 		::ImmReleaseContext(m_hWnd, m_hImc);
 	}
@@ -39,13 +39,13 @@ namespace s3d
 		LOG_VERBOSE(U"ImmGetContext()");
 		m_hImc = ::ImmGetContext(m_hWnd);
 
-		m_pVideo->pTextInput = this;
+		m_pTextInputData->pTextInput = this;
 
 		LOG_VERBOSE(U"WIN_InitKeyboard()");
-		WIN_InitKeyboard(m_pVideo.get());
+		WIN_InitKeyboard(m_pTextInputData.get());
 
 		LOG_VERBOSE(U"WIN_StartTextInput()");
-		WIN_StartTextInput(m_pVideo.get(), m_hWnd);
+		WIN_StartTextInput(m_pTextInputData.get(), m_hWnd);
 	}
 
 	void CTextInput::update()
@@ -111,12 +111,12 @@ namespace s3d
 
 		if (not enabled)
 		{
-			WIN_StopTextInput(m_pVideo.get(), m_hWnd);
+			WIN_StopTextInput(m_pTextInputData.get(), m_hWnd);
 		}
 		else
 		{
 			// [Siv3D ToDo] does not work
-			WIN_StartTextInput(m_pVideo.get(), m_hWnd);
+			WIN_StartTextInput(m_pTextInputData.get(), m_hWnd);
 		}
 
 		m_enabled = enabled;
@@ -134,7 +134,7 @@ namespace s3d
 
 	bool CTextInput::process(UINT msg, WPARAM wParam, LPARAM* lParam)
 	{
-		return IME_HandleMessage(m_hWnd, msg, wParam, lParam, m_pVideo.get());
+		return IME_HandleMessage(m_hWnd, msg, wParam, lParam, m_pTextInputData.get());
 	}
 
 	void CTextInput::sendEditingText(const String& text, const int32 cursorPos, const int32 targetLength)
