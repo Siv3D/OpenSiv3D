@@ -45,23 +45,23 @@ struct SDL_VideoData
 	s3d::CTextInput* pTextInput = nullptr;
 
 	ITfThreadMgr* ime_threadmgr = nullptr;
+	
 	bool ime_initialized = false;
 	bool ime_enabled = false;
 	bool ime_available = false;
+	
 	HWND hwnd = nullptr;
-	bool ime_suppress_endcomposition_event = false;
-	HIMC ime_himc = nullptr;
+	HIMC himc = nullptr;
 
-	WCHAR* ime_composition = nullptr;
-	int ime_composition_length = 0;
-	WCHAR ime_readingstring[16]{};
+	bool ime_suppress_endcomposition_event = false;
+
+	std::wstring composition;
+	std::array<unsigned char, 256> attributes;
 	int ime_cursor = 0;
-	std::array<unsigned char, 256> ime_attributes3;
 
 	bool ime_candlist = 0;
-	s3d::Array<s3d::String> ime_candidates2;
+	s3d::Array<s3d::String> candidates;
 	DWORD ime_candcount = 0;
-	DWORD ime_candref = 0;
 	DWORD ime_candsel = 0;
 	UINT ime_candpgsize = 0;
 	int ime_candlistindexbase = 0;

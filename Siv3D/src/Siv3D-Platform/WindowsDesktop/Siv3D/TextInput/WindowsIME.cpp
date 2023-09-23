@@ -40,22 +40,12 @@
 
 void WIN_InitKeyboard(SDL_VideoData* data)
 {
-	data->ime_composition_length = 32 * sizeof(WCHAR);
-	data->ime_composition = (WCHAR*)std::malloc(data->ime_composition_length + sizeof(WCHAR));
-	data->ime_composition[0] = 0;
-	data->ime_readingstring[0] = 0;
-	data->ime_attributes3.fill(0);
+	data->attributes.fill(0);
 }
 
 static void WIN_QuitKeyboard(SDL_VideoData* videodata)
 {
 	IME_Quit(videodata);
-
-	if (videodata->ime_composition)
-	{
-		std::free(videodata->ime_composition);
-		videodata->ime_composition = nullptr;
-	}
 }
 
 static void WIN_ResetDeadKeys()
@@ -173,11 +163,11 @@ int IME_Init(SDL_VideoData* videodata, HWND hwnd)
 
 	IME_SetWindow(videodata, hwnd);
 
-	videodata->ime_himc = ::ImmGetContext(hwnd);
+	videodata->himc = ::ImmGetContext(hwnd);
 	
-	::ImmReleaseContext(hwnd, videodata->ime_himc);
+	::ImmReleaseContext(hwnd, videodata->himc);
 	
-	if (not videodata->ime_himc)
+	if (not videodata->himc)
 	{
 		videodata->ime_available = false;
 		
@@ -208,7 +198,7 @@ void IME_Enable(SDL_VideoData* videodata)
 		return;
 	}
 	
-	::ImmAssociateContext(videodata->hwnd, videodata->ime_himc);
+	::ImmAssociateContext(videodata->hwnd, videodata->himc);
 
 	videodata->ime_enabled = true;
 
@@ -238,11 +228,11 @@ void IME_Quit(SDL_VideoData* videodata)
 
 	if (videodata->hwnd)
 	{
-		::ImmAssociateContext(videodata->hwnd, videodata->ime_himc);
+		::ImmAssociateContext(videodata->hwnd, videodata->himc);
 	}
 
 	videodata->hwnd = nullptr;
-	videodata->ime_himc = nullptr;
+	videodata->himc = nullptr;
 
 	if (videodata->ime_himm32)
 	{
@@ -420,24 +410,18 @@ static bool IME_IsTextInputShown(SDL_VideoData* videodata)
 
 static void IME_GetCompositionString(SDL_VideoData* videodata, HIMC himc, DWORD string)
 {
-	videodata->ime_attributes3.fill(0);
+	videodata->attributes.fill(0);
 
 	DWORD dwLang = ((DWORD_PTR)videodata->ime_hkl & 0xffff);
 
 	LONG length = ::ImmGetCompositionStringW(himc, string, NULL, 0);
 
-	if ((0 < length) && (videodata->ime_composition_length < length))
+	if ((0 < length) && (videodata->composition.size() < (length / sizeof(WCHAR))))
 	{
-		if (videodata->ime_composition)
-		{
-			std::free(videodata->ime_composition);
-		}
-
-		videodata->ime_composition = (WCHAR*)std::malloc(length + sizeof(WCHAR));
-		videodata->ime_composition_length = length;
+		videodata->composition.resize(length / sizeof(WCHAR));
 	}
 
-	length = ::ImmGetCompositionStringW(himc, string, videodata->ime_composition, videodata->ime_composition_length);
+	length = ::ImmGetCompositionStringW(himc, string, videodata->composition.data(), static_cast<DWORD>(videodata->composition.size() * sizeof(WCHAR)));
 
 	if (length < 0)
 	{
@@ -449,32 +433,31 @@ static void IME_GetCompositionString(SDL_VideoData* videodata, HIMC himc, DWORD 
 	
 	if (((dwLang == LANG_CHT) || (dwLang == LANG_CHS)) &&
 		(0 < videodata->ime_cursor) &&
-		videodata->ime_cursor < (int)(videodata->ime_composition_length / sizeof(WCHAR)) &&
-		(videodata->ime_composition[0] == 0x3000 || videodata->ime_composition[0] == 0x0020)) {
+		videodata->ime_cursor < (int)(videodata->composition.size()) &&
+		((videodata->composition[0] == 0x3000) || (videodata->composition[0] == 0x0020))) {
 		// Traditional Chinese IMEs add a placeholder U+3000
 		// Simplified Chinese IMEs seem to add a placeholder U+0020 sometimes
 
 		for (int i = videodata->ime_cursor + 1; i < length; ++i)
 		{
-			videodata->ime_composition[i - 1] = videodata->ime_composition[i];
+			videodata->composition[i - 1] = videodata->composition[i];
 		}
 
 		--length;
 	}
 
-	videodata->ime_composition[length] = 0;
-	
-	::ImmGetCompositionStringW(himc, GCS_COMPATTR, videodata->ime_attributes3.data(), static_cast<DWORD>(videodata->ime_attributes3.size()));
+	videodata->composition.resize(length);
+
+	::ImmGetCompositionStringW(himc, GCS_COMPATTR, videodata->attributes.data(), static_cast<DWORD>(videodata->attributes.size()));
 }
 
 static void IME_SendInputEvent(SDL_VideoData* videodata)
 {
-	videodata->pTextInput->sendInputText(s3d::Unicode::FromWstring(videodata->ime_composition));
+	videodata->pTextInput->sendInputText(s3d::Unicode::FromWstring(videodata->composition));
 	videodata->pTextInput->sendEditingText(s3d::String{}, 0, 0);
 	videodata->pTextInput->sendCandidates({});
 
-	videodata->ime_composition[0] = 0;
-	videodata->ime_readingstring[0] = 0;
+	videodata->composition.clear();
 	videodata->ime_cursor = 0;
 }
 
@@ -486,7 +469,7 @@ static void IME_SendEditingEvent(SDL_VideoData* videodata, HIMC himc)
 	
 		int targetLength = 0;
 
-		for (const auto& attribute : videodata->ime_attributes3)
+		for (const auto& attribute : videodata->attributes)
 		{
 			if (attribute == ATTR_TARGET_CONVERTED)
 			{
@@ -498,7 +481,7 @@ static void IME_SendEditingEvent(SDL_VideoData* videodata, HIMC himc)
 			}
 		}
 
-		videodata->pTextInput->sendEditingText(s3d::Unicode::FromWstring(videodata->ime_composition), cursorPos, targetLength);
+		videodata->pTextInput->sendEditingText(s3d::Unicode::FromWstring(videodata->composition), cursorPos, targetLength);
 	}
 	else
 	{
@@ -509,14 +492,14 @@ static void IME_SendEditingEvent(SDL_VideoData* videodata, HIMC himc)
 
 static void IME_AddCandidate(SDL_VideoData* videodata, UINT i, LPCWSTR candidate)
 {
-	videodata->ime_candidates2.push_back(s3d::Unicode::FromWstring(candidate));
+	videodata->candidates.push_back(s3d::Unicode::FromWstring(candidate));
 }
 
 static void IME_GetCandidateList(HWND hwnd, SDL_VideoData* videodata)
 {
 	//s3d::Console << U"IME_GetCandidateList";
 
-	videodata->ime_candidates2.clear();
+	videodata->candidates.clear();
 
 	//if (IME_ShowCandidateList(videodata) < 0) {
 	//	return;
@@ -671,8 +654,7 @@ BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_V
 	case WM_IME_ENDCOMPOSITION:
 		{
 			videodata->ime_uicontext = 0;
-			videodata->ime_composition[0] = 0;
-			videodata->ime_readingstring[0] = 0;
+			videodata->composition.clear();
 			videodata->ime_cursor = 0;
 			
 			if (videodata->ime_suppress_endcomposition_event == false)
@@ -704,7 +686,7 @@ BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, SDL_V
 					videodata->ime_uicontext = 1;
 				
 					IME_GetCandidateList(hwnd, videodata);
-					videodata->pTextInput->sendCandidates(videodata->ime_candidates2);
+					videodata->pTextInput->sendCandidates(videodata->candidates);
 
 					break;
 				}
