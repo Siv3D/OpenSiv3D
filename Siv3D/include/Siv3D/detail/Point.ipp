@@ -364,6 +364,39 @@ namespace s3d
 		return (x * y);
 	}
 
+	constexpr Point Point::rotated90(int32 n) const noexcept
+	{
+		switch (n % 4) // 時計回りに何回 90° 回転するか
+		{
+		case 1:
+		case -3:
+			return { -y,x }; // 1 回または -3 回
+		case 2:
+		case -2:
+			return { -x,-y }; // 2 回または -2 回
+		case 3:
+		case -1:
+			return { y,-x }; // 3 回または -1 回
+		default:
+			return *this; // 0 回
+		}
+	}
+
+	constexpr Point& Point::rotate90(int32 n) noexcept
+	{
+		return (*this = rotated90(n));
+	}
+
+	constexpr Point Point::rotated90At(Point center, int32 n) const noexcept
+	{
+		return ((*this - center).rotated90(n) + center);
+	}
+
+	constexpr Point& Point::rotate90At(Point center, int32 n) noexcept
+	{
+		return (*this = rotated90At(center, n));
+	}
+
 	template <class Type>
 	inline Type Point::getAngle() const noexcept
 	{
