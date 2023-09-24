@@ -75,7 +75,7 @@ namespace s3d
 			.cloudColor				= cloudColor.rgb(),
 			.skyExposure			= static_cast<float>(exposure),
 
-			.starsRoation = {
+			.starsRotation = {
 				SIMD_Float4{ smat.value.r[0] }.toFloat4(),
 				SIMD_Float4{ smat.value.r[1] }.toFloat4(),
 				SIMD_Float4{ smat.value.r[2] }.toFloat4() },

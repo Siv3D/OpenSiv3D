@@ -18,7 +18,7 @@ namespace s3d
 {
 	struct PhongMaterial
 	{
-		ColorF amibientColor = ColorF{ 1.0 };
+		ColorF ambientColor = ColorF{ 1.0 };
 
 		ColorF diffuseColor = ColorF{ 1.0 };
 
@@ -42,7 +42,7 @@ namespace s3d
 
 	struct PhongMaterialInternal
 	{
-		Float3 amibientColor = Float3{ 1.0f, 1.0f, 1.0f };
+		Float3 ambientColor = Float3{ 1.0f, 1.0f, 1.0f };
 		
 		uint32 hasDiffuseTexture = false;
 		

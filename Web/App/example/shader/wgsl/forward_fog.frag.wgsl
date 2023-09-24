@@ -13,7 +13,7 @@
 //
 struct PSPerFrameStruct
 {
-	gloablAmbientColor: vec3<f32>,
+	globalAmbientColor: vec3<f32>,
 	sunColor: vec3<f32>,
 	sunDirection: vec3<f32>,
 };
@@ -31,7 +31,7 @@ var<uniform> PSPerView: PSPerViewStruct;
 
 struct PSPerMaterialStruct
 {
-	amibientColor: vec3<f32>,
+	ambientColor: vec3<f32>,
 	hasTexture: u32,
 	diffuseColor: vec4<f32>,
 	specularColor: vec3<f32>,
@@ -102,7 +102,7 @@ fn main(
 	var n: vec3<f32> = normalize(Normal);
 	var l: vec3<f32> = lightDirection;
 	var diffuseColor: vec4<f32> = GetDiffuseColor(UV);
-	var ambientColor: vec3<f32> = (PSPerMaterial.amibientColor * PSPerFrame.gloablAmbientColor);
+	var ambientColor: vec3<f32> = (PSPerMaterial.ambientColor * PSPerFrame.globalAmbientColor);
 
 	// Diffuse
 	var diffuseReflection: vec3<f32> = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);

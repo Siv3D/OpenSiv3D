@@ -34,7 +34,7 @@ namespace s3d
 //
 cbuffer PSPerFrame : register(b0)
 {
-	float3 g_gloablAmbientColor;
+	float3 g_globalAmbientColor;
 	float3 g_sunColor;
 	float3 g_sunDirection;
 }
@@ -46,7 +46,7 @@ cbuffer PSPerView : register(b1)
 
 cbuffer PSPerMaterial : register(b3)
 {
-	float3 g_amibientColor;
+	float3 g_ambientColor;
 	uint   g_hasTexture;
 	float4 g_diffuseColor;
 	float3 g_specularColor;
@@ -97,7 +97,7 @@ float4 PS(s3d::PSInput input) : SV_TARGET
 	const float3 n = normalize(input.normal);
 	const float3 l = lightDirection;
 	const float4 diffuseColor = Triplanar(input.worldPosition, n, 0.125f);
-	const float3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
+	const float3 ambientColor = (g_ambientColor * g_globalAmbientColor);
 
 	// Diffuse
 	const float3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);

@@ -107,7 +107,7 @@ namespace s3d
 			Float3 cloudColor;
 			float skyExposure;
 
-			Float4 starsRoation[3];
+			Float4 starsRotation[3];
 
 			Float3 starOffset;
 			float starSaturation;

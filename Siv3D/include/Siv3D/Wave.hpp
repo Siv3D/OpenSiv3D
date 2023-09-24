@@ -46,7 +46,7 @@ namespace s3d
 
 		static constexpr uint32 DefaultSampleRate	= 44'100;
 
-		static constexpr uint32 MaxSamlpeRate		= 192'000;
+		static constexpr uint32 MaxSampleRate		= 192'000;
 
 		SIV3D_NODISCARD_CXX20
 		Wave() = default;

@@ -23,9 +23,9 @@ namespace s3d
 			return SIV3D_ENGINE(Profiler)->getFPS();
 		}
 
-		void EnableAssetCreationWarning(const bool enbaled)
+		void EnableAssetCreationWarning(const bool enabled)
 		{
-			SIV3D_ENGINE(AssetMonitor)->setWarningEnabled(enbaled);
+			SIV3D_ENGINE(AssetMonitor)->setWarningEnabled(enabled);
 		}
 
 		const ProfilerStat& GetStat()

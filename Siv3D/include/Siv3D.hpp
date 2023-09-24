@@ -1035,10 +1035,10 @@
 // 文章読み上げオブジェクト | Text to speech object
 # include <Siv3D/Say.hpp>
 
-// KlatTTS のパラメータ | Paramters for KlatTTS
+// KlattTTS のパラメータ | Parameters for KlattTTS
 # include <Siv3D/KlattTTSParameters.hpp>
 
-// Klat 方式による音声読み上げ | Text-to-speech using Klatt's method
+// Klatt 方式による音声読み上げ | Text-to-speech using Klatt's method
 # include <Siv3D/KlattTTS.hpp>
 
 //////////////////////////////////////////////////
@@ -1828,7 +1828,7 @@
 
 //////////////////////////////////////////////////
 //
-//	拡張レンダリングエンジン | Rndering Engine Extension
+//	拡張レンダリングエンジン | Rendering Engine Extension
 //
 //////////////////////////////////////////////////
 
@@ -1837,7 +1837,7 @@
 
 //////////////////////////////////////////////////
 //
-//	トランプカード描画 | Palying Card
+//	トランプカード描画 | Playing Card
 //
 //////////////////////////////////////////////////
 
@@ -1876,7 +1876,7 @@
 
 //////////////////////////////////////////////////
 //
-//	実験的なライブラリ | Exmperimental Libraries
+//	実験的なライブラリ | Experimental Libraries
 //
 //////////////////////////////////////////////////
 

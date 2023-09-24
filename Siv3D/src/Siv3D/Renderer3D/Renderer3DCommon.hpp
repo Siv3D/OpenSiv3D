@@ -35,7 +35,7 @@ namespace s3d
 
 	struct PSPerFrameConstants3D // (PS slot-0)
 	{
-		Float4 gloablAmbientColor = Float4{ Graphics3D::DefaultGlobalAmbientColor.rgb(), 0.0f };
+		Float4 globalAmbientColor = Float4{ Graphics3D::DefaultGlobalAmbientColor.rgb(), 0.0f };
 		Float4 sunColor = Float4{ Graphics3D::DefaultSunColor.rgb(), 0.0f };
 		Float4 sunDirection = Float4{ Graphics3D::DefaultSunDirection, 0.0f };
 	};

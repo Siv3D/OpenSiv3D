@@ -33,7 +33,7 @@
 //
 struct PSPerFrameStruct
 {
-	gloablAmbientColor: vec3<f32>,
+	globalAmbientColor: vec3<f32>,
 	sunColor: vec3<f32>,
 	sunDirection: vec3<f32>,
 };

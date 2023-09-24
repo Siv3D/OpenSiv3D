@@ -227,16 +227,16 @@ namespace s3d
 		}
 	}
 
-	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const size_t menuIndex, const size_t itemIndex, const bool enbaled)
+	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const size_t menuIndex, const size_t itemIndex, const bool enabled)
 	{
-		return setItemEnabled(MenuBarItemIndex{ menuIndex, itemIndex }, enbaled);
+		return setItemEnabled(MenuBarItemIndex{ menuIndex, itemIndex }, enabled);
 	}
 
-	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const MenuBarItemIndex& itemIndex, const bool enbaled)
+	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const MenuBarItemIndex& itemIndex, const bool enabled)
 	{
 		assert(itemIndex.menuIndex < m_menus.size());
 		assert(itemIndex.itemIndex < m_menus[itemIndex.menuIndex].items.size());
-		m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].enabled = enbaled;
+		m_menus[itemIndex.menuIndex].items[itemIndex.itemIndex].enabled = enabled;
 		return *this;
 	}
 

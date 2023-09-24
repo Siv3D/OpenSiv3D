@@ -28,7 +28,7 @@ layout(location = 0) out vec4 FragColor;
 //
 layout(std140) uniform PSPerFrame
 {
-	vec3 g_gloablAmbientColor;
+	vec3 g_globalAmbientColor;
 	vec3 g_sunColor;
 	vec3 g_sunDirection;
 };
@@ -40,7 +40,7 @@ layout(std140) uniform PSPerView
 
 layout(std140) uniform PSPerMaterial
 {
-	vec3  g_amibientColor;
+	vec3  g_ambientColor;
 	uint  g_hasTexture;
 	vec4  g_diffuseColor;
 	vec3  g_specularColor;
@@ -83,7 +83,7 @@ void main()
 	vec3 n = normalize(Normal);
 	vec3 l = lightDirection;
 	vec4 diffuseColor = GetDiffuseColor(UV);
-	vec3 ambientColor = (g_amibientColor * g_gloablAmbientColor);
+	vec3 ambientColor = (g_ambientColor * g_globalAmbientColor);
 
 	// Diffuse
 	vec3 diffuseReflection = CalculateDiffuseReflection(n, l, lightColor, diffuseColor.rgb, ambientColor);

@@ -24,8 +24,8 @@ namespace s3d
 		int32 FPS() noexcept;
 
 		/// @brief アセットを毎フレーム連続して作成した場合の警告の ON / OFF を設定します。
-		/// @param enbaled 警告を有効にするか
-		void EnableAssetCreationWarning(bool enbaled);
+		/// @param enabled 警告を有効にするか
+		void EnableAssetCreationWarning(bool enabled);
 
 		[[nodiscard]]
 		const ProfilerStat& GetStat();
