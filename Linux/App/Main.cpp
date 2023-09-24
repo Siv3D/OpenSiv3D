@@ -3,7 +3,7 @@
 //
 //	Example non-graphical program
 //
-# include <Siv3D.hpp> // OpenSiv3D v0.6.11
+# include <Siv3D.hpp> // Siv3D v0.6.12
 SIV3D_SET(EngineOption::Renderer::Headless) // Force non-graphical mode
 void Main()
 {
@@ -22,7 +22,7 @@ void Main()
 //
 //	Example graphical program
 //
-# include <Siv3D.hpp> // OpenSiv3D v0.6.11
+# include <Siv3D.hpp> // Siv3D v0.6.12
 
 void Main()
 {
