@@ -538,65 +538,276 @@ namespace s3d
 		return{ (r / 255.0), (g / 255.0), (b / 255.0), (a / 255.0) };
 	}
 
-	Image Image::clipped(const Rect& rect) const
+	Image Image::clipped(const Rect& rect) const&
 	{
 		if (not detail::IsValidImageSize(rect.size))
 		{
 			return{};
 		}
 
-		Image tmp(rect.size, Color{ 0, 0 });
+		const int32 srcTop = Clamp(rect.topY(), 0, height());
+		const int32 srcBottom = Clamp(rect.bottomY(), 0, height());
+		const int32 srcLeft = Clamp(rect.leftX(), 0, width());
+		const int32 srcRight = Clamp(rect.rightX(), 0, width());
 
-		const int32 h = static_cast<int32>(m_height);
-		const int32 w = static_cast<int32>(m_width);
+		const int32 srcAdvance = width();
+		const int32 srcStart = (srcTop * srcAdvance + srcLeft);
 
-		// [Siv3D ToDo] 最適化
-		for (int32 y = 0; y < rect.h; ++y)
+		const int32 clipHeight = (srcBottom - srcTop);
+		const int32 clipWidth = (srcRight - srcLeft);
+		const size_t clipWidthBytes = (clipWidth * sizeof(Color));
+
+		const int32 dstTop = Clamp(-rect.topY(), 0, rect.h);
+		const int32 dstLeft = Clamp(-rect.leftX(), 0, rect.w);
+
+		const int32 dstAdvance = rect.w;
+		const int32 dstStart = (dstTop * dstAdvance + dstLeft);
+
+		Image image(rect.size, Color{ 0, 0 });
+
+		if ((clipHeight == 0) || (clipWidth == 0))
 		{
-			const int32 sy = y + rect.y;
+			return image;
+		}
 
-			if (0 <= sy && sy < h)
+		const Color* pSrc = (data() + srcStart);
+		Color* pDst = (image.data() + dstStart);
+
+		for (int32 y = 0; y < clipHeight; ++y)
+		{
+			std::memcpy(pDst, pSrc, clipWidthBytes);
+
+			pSrc += srcAdvance;
+			pDst += dstAdvance;
+		}
+
+		return image;
+	}
+
+	Image Image::clipped(const Rect& rect) &&
+	{
+		if (not detail::IsValidImageSize(rect.size))
+		{
+			return{};
+		}
+
+		if (rect == Rect{ 0, 0, size() })
+		{
+			return std::move(*this);
+		}
+
+		const int32 srcNumPixels = num_pixels();
+		const int32 dstNumPixels = (rect.w * rect.h);
+
+		if (m_data.capacity() < dstNumPixels)
+		{
+			return clipped(rect);
+		}
+
+		const int32 srcTop = Clamp(rect.topY(), 0, height());
+		const int32 srcBottom = Clamp(rect.bottomY(), 0, height());
+		const int32 srcLeft = Clamp(rect.leftX(), 0, width());
+		const int32 srcRight = Clamp(rect.rightX(), 0, width());
+
+		const int32 srcAdvance = width();
+		const int32 srcStart = (srcTop * srcAdvance + srcLeft);
+
+		const int32 clipHeight = (srcBottom - srcTop);
+		const int32 clipWidth = (srcRight - srcLeft);
+		const size_t clipWidthBytes = (clipWidth * sizeof(Color));
+
+		const int32 dstTop = Clamp(-rect.topY(), 0, rect.h);
+		const int32 dstLeft = Clamp(-rect.leftX(), 0, rect.w);
+
+		const int32 dstAdvance = rect.w;
+		const int32 dstStart = (dstTop * dstAdvance + dstLeft);
+		const int32 dstEnd = (dstStart + (clipHeight - 1) * dstAdvance + clipWidth);
+
+		if ((clipHeight == 0) || (clipWidth == 0))
+		{
+			resize(rect.size, Color{ 0, 0 });
+
+			return std::move(*this);
+		}
+
+		const int32 paddingWidth = (dstAdvance - clipWidth);
+		const size_t paddingWidthBytes = (paddingWidth * sizeof(Color));
+
+		if (srcNumPixels < dstNumPixels)
+		{
+			resize(rect.size);
+		}
+
+		if (srcAdvance < dstAdvance)
+		{
+			// 次式を満たす最小のインデックス yMid
+			//     (srcStart + yMid * srcAdvance) < (dstStart + yMid * dstAdvance)
+
+			const int32 yMid = Clamp(((srcStart - dstStart) / (dstAdvance - srcAdvance) + 1), 0, clipHeight);
+
+			if (0 < yMid)
 			{
-				for (int32 x = 0; x < rect.w; ++x)
-				{
-					const int32 sx = x + rect.x;
+				const Color* pSrc = (data() + srcStart);
+				Color* pDst = (data() + dstStart);
 
-					if (0 <= sx && sx < w)
-					{
-						tmp[y][x] = operator[](sy)[sx];
-					}
+				std::memmove(pDst, pSrc, clipWidthBytes);
+
+				for (int32 y = 1; y < yMid; ++y)
+				{
+					pSrc += srcAdvance;
+					pDst += dstAdvance;
+
+					std::memset((pDst - paddingWidth), 0, paddingWidthBytes);
+
+					std::memmove(pDst, pSrc, clipWidthBytes);
+				}
+			}
+
+			if (yMid < clipHeight)
+			{
+				const Color* pSrc = (data() + srcStart + (clipHeight - 1) * srcAdvance);
+				Color* pDst = (data() + dstStart + (clipHeight - 1) * dstAdvance);
+
+				std::memmove(pDst, pSrc, clipWidthBytes);
+
+				for (int32 y = (clipHeight - 2); y >= yMid; --y)
+				{
+					pSrc -= srcAdvance;
+					pDst -= dstAdvance;
+
+					std::memset((pDst + clipWidth), 0, paddingWidthBytes);
+
+					std::memmove(pDst, pSrc, clipWidthBytes);
+				}
+
+				if (0 < yMid)
+				{
+					std::memset((pDst - paddingWidth), 0, paddingWidthBytes);
+				}
+			}
+		}
+		else
+		{
+			// 1. srcAdvance == dstAdvance のとき
+			//     srcStart < dstStart ならば yMid = clipHeight
+			//     srcStart > dstStart ならば yMid = 0
+			// 2. srcAdvance > dstAdvance のとき
+			//     次式を満たす最小のインデックス yMid
+			//	       (srcStart + yMid * srcAdvance) > (dstStart + yMid * dstAdvance)
+
+			const int32 yMid =
+				(srcAdvance == dstAdvance)
+					? (srcStart < dstStart)
+						? clipHeight
+						: 0
+					: Clamp(((dstStart - srcStart) / (srcAdvance - dstAdvance) + 1), 0, clipHeight);
+
+			if (0 < yMid)
+			{
+				const Color* pSrc = (data() + srcStart + (yMid - 1) * srcAdvance);
+				Color* pDst = (data() + dstStart + (yMid - 1) * dstAdvance);
+
+				std::memmove(pDst, pSrc, clipWidthBytes);
+
+				for (int32 y = (yMid - 2); y >= 0; --y)
+				{
+					pSrc -= srcAdvance;
+					pDst -= dstAdvance;
+
+					std::memset((pDst + clipWidth), 0, paddingWidthBytes);
+
+					std::memmove(pDst, pSrc, clipWidthBytes);
+				}
+			}
+
+			if (yMid < clipHeight)
+			{
+				const Color* pSrc = (data() + srcStart + yMid * srcAdvance);
+				Color* pDst = (data() + dstStart + yMid * dstAdvance);
+
+				if (0 < yMid)
+				{
+					std::memset((pDst - paddingWidth), 0, paddingWidthBytes);
+				}
+
+				std::memmove(pDst, pSrc, clipWidthBytes);
+
+				for (int32 y = (yMid + 1); y < clipHeight; ++y)
+				{
+					pSrc += srcAdvance;
+					pDst += dstAdvance;
+
+					std::memset((pDst - paddingWidth), 0, paddingWidthBytes);
+
+					std::memmove(pDst, pSrc, clipWidthBytes);
 				}
 			}
 		}
 
-		return tmp;
+		std::memset(data(), 0, (Min(srcNumPixels, dstStart) * sizeof(Color)));
+
+		std::memset((data() + dstEnd), 0, (Min(Max(0, (srcNumPixels - dstEnd)), (dstNumPixels - dstEnd)) * sizeof(Color)));
+
+		if (dstNumPixels < srcNumPixels)
+		{
+			resize(rect.size);
+		}
+
+		return std::move(*this);
 	}
 
-	Image Image::clipped(const int32 x, const int32 y, const int32 w, const int32 h) const
+	Image Image::clipped(const int32 x, const int32 y, const int32 w, const int32 h) const&
 	{
 		return clipped(Rect{ x, y, w, h });
 	}
 
-	Image Image::clipped(const Point& pos, const int32 w, const int32 h) const
+	Image Image::clipped(const int32 x, const int32 y, const int32 w, const int32 h) &&
+	{
+		return std::move(*this).clipped(Rect{ x, y, w, h });
+	}
+
+	Image Image::clipped(const Point& pos, const int32 w, const int32 h) const&
 	{
 		return clipped(Rect{ pos, w, h });
 	}
 
-	Image Image::clipped(const int32 x, const int32 y, const Size& size) const
+	Image Image::clipped(const Point& pos, const int32 w, const int32 h) &&
+	{
+		return std::move(*this).clipped(Rect{ pos, w, h });
+	}
+
+	Image Image::clipped(const int32 x, const int32 y, const Size& size) const&
 	{
 		return clipped(Rect{ x, y, size });
 	}
 
-	Image Image::clipped(const Point& pos, const Size& size) const
+	Image Image::clipped(const int32 x, const int32 y, const Size& size) &&
+	{
+		return std::move(*this).clipped(Rect{ x, y, size });
+	}
+
+	Image Image::clipped(const Point& pos, const Size& size) const&
 	{
 		return clipped(Rect{ pos, size });
 	}
 
-	Image Image::squareClipped() const
+	Image Image::clipped(const Point& pos, const Size& size) &&
+	{
+		return std::move(*this).clipped(Rect{ pos, size });
+	}
+
+	Image Image::squareClipped() const&
 	{
 		const int32 size = Min(m_width, m_height);
 
 		return clipped(((m_width - size) / 2), ((m_height - size) / 2), size, size);
+	}
+
+	Image Image::squareClipped() &&
+	{
+		const int32 size = Min(m_width, m_height);
+
+		return std::move(*this).clipped(((m_width - size) / 2), ((m_height - size) / 2), size, size);
 	}
 
 	Image& Image::RGBAtoBGRA()

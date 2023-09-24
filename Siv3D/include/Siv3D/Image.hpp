@@ -374,22 +374,43 @@ namespace s3d
 		/// @param rect 領域
 		/// @return 新しい画像データ
 		[[nodiscard]]
-		Image clipped(const Rect& rect) const;
+		Image clipped(const Rect& rect) const&;
+
+		/// @brief 画像の一部領域をコピーした新しい画像データを返します。
+		/// @param rect 領域
+		/// @return 新しい画像データ
+		[[nodiscard]]
+		Image clipped(const Rect& rect) &&;
 
 		[[nodiscard]]
-		Image clipped(int32 x, int32 y, int32 w, int32 h) const;
+		Image clipped(int32 x, int32 y, int32 w, int32 h) const&;
 
 		[[nodiscard]]
-		Image clipped(const Point& pos, int32 w, int32 h) const;
+		Image clipped(int32 x, int32 y, int32 w, int32 h) &&;
 
 		[[nodiscard]]
-		Image clipped(int32 x, int32 y, const Size& size) const;
+		Image clipped(const Point& pos, int32 w, int32 h) const&;
 
 		[[nodiscard]]
-		Image clipped(const Point& pos, const Size& size) const;
+		Image clipped(const Point& pos, int32 w, int32 h) &&;
 
 		[[nodiscard]]
-		Image squareClipped() const;
+		Image clipped(int32 x, int32 y, const Size& size) const&;
+
+		[[nodiscard]]
+		Image clipped(int32 x, int32 y, const Size& size) &&;
+
+		[[nodiscard]]
+		Image clipped(const Point& pos, const Size& size) const&;
+
+		[[nodiscard]]
+		Image clipped(const Point& pos, const Size& size) &&;
+
+		[[nodiscard]]
+		Image squareClipped() const&;
+
+		[[nodiscard]]
+		Image squareClipped() &&;
 
 		template <class Fty>
 		Image& forEach(Fty f);
