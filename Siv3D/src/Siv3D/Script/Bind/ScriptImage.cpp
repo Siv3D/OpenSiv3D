@@ -219,12 +219,12 @@ namespace s3d
 		//getPixel()
 		//samplePixel()
 
-		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Rect& in) const", asMETHODPR(BindType, clipped, (const Rect&) const, Image), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image clipped(int32 x, int32 y, int32 w, int32 h) const", asMETHODPR(BindType, clipped, (int32, int32, int32, int32) const, Image), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Point& in pos, int32 w, int32 h) const", asMETHODPR(BindType, clipped, (const Point&, int32, int32) const, Image), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image clipped(int32 x, int32 y, const Point& in size) const", asMETHODPR(BindType, clipped, (int32, int32, const Point&) const, Image), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Point& in pos, const Point& in size) const", asMETHODPR(BindType, clipped, (const Point&, const Size&) const, Image), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Image squareClipped() const", asMETHODPR(BindType, squareClipped, () const, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Rect& in) const", asMETHODPR(BindType, clipped, (const Rect&) const&, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image clipped(int32 x, int32 y, int32 w, int32 h) const", asMETHODPR(BindType, clipped, (int32, int32, int32, int32) const&, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Point& in pos, int32 w, int32 h) const", asMETHODPR(BindType, clipped, (const Point&, int32, int32) const&, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image clipped(int32 x, int32 y, const Point& in size) const", asMETHODPR(BindType, clipped, (int32, int32, const Point&) const&, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image clipped(const Point& in pos, const Point& in size) const", asMETHODPR(BindType, clipped, (const Point&, const Size&) const&, Image), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Image squareClipped() const", asMETHODPR(BindType, squareClipped, () const&, Image), asCALL_THISCALL); assert(r >= 0);
 
 		//forEach()
 
