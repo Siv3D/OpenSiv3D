@@ -661,11 +661,6 @@ namespace s3d
 
 					std::memmove(pDst, pSrc, clipWidthBytes);
 				}
-
-				if (yMid < clipHeight)
-				{
-					std::memset((pDst + clipWidth), 0, paddingWidthBytes);
-				}
 			}
 
 			if (yMid < clipHeight)
@@ -683,6 +678,11 @@ namespace s3d
 					std::memset((pDst + clipWidth), 0, paddingWidthBytes);
 
 					std::memmove(pDst, pSrc, clipWidthBytes);
+				}
+
+				if (0 < yMid)
+				{
+					std::memset((pDst - paddingWidth), 0, paddingWidthBytes);
 				}
 			}
 		}
