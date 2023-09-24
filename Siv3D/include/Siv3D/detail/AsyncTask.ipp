@@ -78,7 +78,7 @@ namespace s3d
 	template <class Clock, class Duration>
 	inline std::future_status AsyncTask<Type>::wait_until(const std::chrono::time_point<Clock, Duration>& absTime) const
 	{
-		return m_data.wait_for(absTime);
+		return m_data.wait_until(absTime);
 	}
 
 	template <class Type>
