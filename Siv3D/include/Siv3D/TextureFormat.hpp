@@ -126,6 +126,8 @@ namespace s3d
 
 		static constexpr TexturePixelFormat R8G8B8A8_Unorm_SRGB = TexturePixelFormat::R8G8B8A8_Unorm_SRGB;
 
+		static constexpr TexturePixelFormat R16G16_Unorm = TexturePixelFormat::R16G16_Unorm;
+
 		static constexpr TexturePixelFormat R16G16_Float = TexturePixelFormat::R16G16_Float;
 
 		static constexpr TexturePixelFormat R32_Float = TexturePixelFormat::R32_Float;

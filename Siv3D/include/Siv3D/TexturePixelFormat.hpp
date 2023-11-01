@@ -25,6 +25,9 @@ namespace s3d
 		R8G8B8A8_Unorm_SRGB,
 
 		// 32-bit
+		R16G16_Unorm,
+
+		// 32-bit
 		R16G16_Float,
 
 		// 32-bit

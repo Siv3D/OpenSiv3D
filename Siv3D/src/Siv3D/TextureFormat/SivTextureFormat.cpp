@@ -144,6 +144,7 @@ enum GL_CONSTANTS
 {
 	GL_RGBA = 0x1908,
 	GL_UNSIGNED_BYTE = 0x1401,
+	GL_UNSIGNED_SHORT = 0x1403,
 	GL_SRGB8_ALPHA8 = 0x8C43,
 	GL_RG16F = 0x822F,
 	GL_RG = 0x8227,
@@ -159,11 +160,13 @@ enum GL_CONSTANTS
 	GL_RGBA16F = 0x881A,
 	GL_RG32F = 0x8230,
 	GL_RGBA32F = 0x8814,
+	GL_RG16UI = 0x823A,
 };
 
 enum WGPU_CONSTANTS
 {
 	TextureFormat_R32Float = 0x0C,
+	TextureFormat_RG16Uint = 0x0F,
 	TextureFormat_RG16Float = 0x11,
 	TextureFormat_RGBA8Unorm = 0x12,
 	TextureFormat_RGBA8UnormSrgb = 0x13,
@@ -201,11 +204,12 @@ namespace s3d
 			bool isSRGB;
 		};
 
-		static constexpr std::array<TextureFormatData, 10> TextureFormatPropertytable =
+		static constexpr std::array<TextureFormatData, 11> TextureFormatPropertytable =
 		{ {
 			{ U"Unknown", DXGI_FORMAT_UNKNOWN, 0, 0, 0, 0, 0, 0, false },
 			{ U"R8G8B8A8_Unorm", DXGI_FORMAT_R8G8B8A8_UNORM, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, TextureFormat_RGBA8Unorm, 4, 4, false },
 			{ U"R8G8B8A8_Unorm_SRGB", DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, GL_SRGB8_ALPHA8, GL_RGBA, GL_UNSIGNED_BYTE, TextureFormat_RGBA8UnormSrgb, 4, 4, true },
+			{ U"R16G16_Unorm", DXGI_FORMAT_R16G16_UNORM, GL_RG16UI, GL_RG, GL_UNSIGNED_SHORT, TextureFormat_RG16Uint, 4, 2, false  },
 			{ U"R16G16_Float", DXGI_FORMAT_R16G16_FLOAT, GL_RG16F, GL_RG, GL_HALF_FLOAT, TextureFormat_RG16Float, 4, 2, false },
 			{ U"R32_Float", DXGI_FORMAT_R32_FLOAT, GL_R32F, GL_RED, GL_FLOAT, TextureFormat_R32Float, 4, 1, false },
 			{ U"R10G10B10A2_Unorm", DXGI_FORMAT_R10G10B10A2_UNORM, GL_RGB10_A2, GL_RGBA, GL_UNSIGNED_INT_10_10_10_2, TextureFormat_RGB10A2Unorm, 4, 4, false },
