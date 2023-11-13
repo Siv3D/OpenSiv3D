@@ -31,9 +31,6 @@
 		2C0FBD7226297CBA0050E354 /* WebcamInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD7126297CB90050E354 /* WebcamInfo.mm */; };
 		2C0FF4E224C2E1900014C96E /* BinaryWriterDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */; };
 		2C0FF4E324C2E1900014C96E /* BinaryWriterDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */; };
-		2C0FF4E624C429B50014C96E /* Siv3DTest_BinaryReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */; };
-		2C0FF4E824C437020014C96E /* Siv3DTest_BinaryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4E724C437020014C96E /* Siv3DTest_BinaryWriter.cpp */; };
-		2C0FF4F424C486ED0014C96E /* Siv3DTest_TextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */; };
 		2C12089D24A30260008CAD99 /* CRenderer_Metal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */; };
 		2C1208A024A304E7008CAD99 /* CRenderer_Metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */; };
 		2C13C6F625B458520054B968 /* concaveman.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C13C6F525B458520054B968 /* concaveman.h */; };
@@ -351,8 +348,6 @@
 		2C423258242B19ED00A16BCA /* posix_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C423256242B19ED00A16BCA /* posix_thread.c */; };
 		2C427FD62628436F00106F19 /* CGamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C427FD42628436F00106F19 /* CGamepad.cpp */; };
 		2C427FD72628436F00106F19 /* CGamepad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C427FD52628436F00106F19 /* CGamepad.hpp */; };
-		2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */; };
-		2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */; };
 		2C435A0824C9C7EC007FBAA6 /* SivResource_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */; };
 		2C4396502535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43964F2535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp */; };
 		2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C43978A2536163000F6AECD /* GL4PixelShader.cpp */; };
@@ -531,11 +526,6 @@
 		2C481E1524460B5700A5D88D /* cpuinfo_x86.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C481E0F24460B5700A5D88D /* cpuinfo_x86.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2C481E1624460B5700A5D88D /* cpuid_x86.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C481E1024460B5700A5D88D /* cpuid_x86.h */; };
 		2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C481E1124460B5700A5D88D /* cpu_features_macros.h */; };
-		2C48584F24C1FBAE0034F68D /* Siv3DTest_Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584A24C1FBAE0034F68D /* Siv3DTest_Image.cpp */; };
-		2C48585024C1FBAE0034F68D /* Siv3DTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584B24C1FBAE0034F68D /* Siv3DTest.cpp */; };
-		2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584C24C1FBAE0034F68D /* Siv3DTest_TextReader.cpp */; };
-		2C48585224C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584D24C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp */; };
-		2C48585324C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C48584E24C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp */; };
 		2C4A289025F4F7D600FEACE4 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A288F25F4F7D600FEACE4 /* libzlib.a */; };
 		2C4A289525F4F87100FEACE4 /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289125F4F87100FEACE4 /* libopencv_imgproc.a */; };
 		2C4A289625F4F87100FEACE4 /* libopencv_objdetect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4A289225F4F87100FEACE4 /* libopencv_objdetect.a */; };
@@ -2292,9 +2282,6 @@
 		2C0FBD7126297CB90050E354 /* WebcamInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebcamInfo.mm; sourceTree = "<group>"; };
 		2C0FF4E024C2E1900014C96E /* BinaryWriterDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriterDetail.hpp; sourceTree = "<group>"; };
 		2C0FF4E124C2E1900014C96E /* BinaryWriterDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryWriterDetail.cpp; sourceTree = "<group>"; };
-		2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_BinaryReader.cpp; sourceTree = "<group>"; };
-		2C0FF4E724C437020014C96E /* Siv3DTest_BinaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_BinaryWriter.cpp; sourceTree = "<group>"; };
-		2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextWriter.cpp; sourceTree = "<group>"; };
 		2C12089B24A30260008CAD99 /* CRenderer_Metal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer_Metal.hpp; sourceTree = "<group>"; };
 		2C12089F24A304E7008CAD99 /* CRenderer_Metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CRenderer_Metal.mm; sourceTree = "<group>"; };
 		2C13C6F525B458520054B968 /* concaveman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = concaveman.h; sourceTree = "<group>"; };
@@ -2722,8 +2709,6 @@
 		2C423256242B19ED00A16BCA /* posix_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_thread.c; sourceTree = "<group>"; };
 		2C427FD42628436F00106F19 /* CGamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad.cpp; sourceTree = "<group>"; };
 		2C427FD52628436F00106F19 /* CGamepad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad.hpp; sourceTree = "<group>"; };
-		2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Array.cpp; sourceTree = "<group>"; };
-		2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Resource.cpp; sourceTree = "<group>"; };
 		2C435A0724C9C7EC007FBAA6 /* SivResource_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource_macOS.cpp; sourceTree = "<group>"; };
 		2C43964F2535DCEA00F6AECD /* FreestandingMessageBox_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreestandingMessageBox_macOS.cpp; sourceTree = "<group>"; };
 		2C4397862535DDF300F6AECD /* stb_truetype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
@@ -2896,7 +2881,6 @@
 		2C47B48524DD97F1008D83BE /* muParserBytecode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserBytecode.cpp; sourceTree = "<group>"; };
 		2C47B48724DD97F1008D83BE /* muParserError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserError.cpp; sourceTree = "<group>"; };
 		2C47B48824DD97F1008D83BE /* muParserInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = muParserInt.cpp; sourceTree = "<group>"; };
-		2C47B4A624E16BB9008D83BE /* Siv3DTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Siv3DTest.hpp; sourceTree = "<group>"; };
 		2C47B5B624E76A20008D83BE /* TextureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFactory.cpp; sourceTree = "<group>"; };
 		2C47B6E724EAC8D9008D83BE /* GL4BackBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4BackBuffer.hpp; sourceTree = "<group>"; };
 		2C47B6E824EAC8D9008D83BE /* GL4InternalTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4InternalTexture2D.cpp; sourceTree = "<group>"; };
@@ -2914,11 +2898,6 @@
 		2C481E0F24460B5700A5D88D /* cpuinfo_x86.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuinfo_x86.c; sourceTree = "<group>"; };
 		2C481E1024460B5700A5D88D /* cpuid_x86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpuid_x86.h; sourceTree = "<group>"; };
 		2C481E1124460B5700A5D88D /* cpu_features_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu_features_macros.h; sourceTree = "<group>"; };
-		2C48584A24C1FBAE0034F68D /* Siv3DTest_Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_Image.cpp; sourceTree = "<group>"; };
-		2C48584B24C1FBAE0034F68D /* Siv3DTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest.cpp; sourceTree = "<group>"; };
-		2C48584C24C1FBAE0034F68D /* Siv3DTest_TextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextReader.cpp; sourceTree = "<group>"; };
-		2C48584D24C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_TextEncoding.cpp; sourceTree = "<group>"; };
-		2C48584E24C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DTest_FileSystem.cpp; sourceTree = "<group>"; };
 		2C4A288F25F4F7D600FEACE4 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = ../Siv3D/lib/macOS/zlib/libzlib.a; sourceTree = "<group>"; };
 		2C4A289125F4F87100FEACE4 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/libopencv_imgproc.a; sourceTree = "<group>"; };
 		2C4A289225F4F87100FEACE4 /* libopencv_objdetect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_objdetect.a; path = ../Siv3D/lib/macOS/opencv/libopencv_objdetect.a; sourceTree = "<group>"; };
@@ -6876,25 +6855,6 @@
 			path = cpu_features;
 			sourceTree = "<group>";
 		};
-		2C48584924C1FBAE0034F68D /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				2C47B4A624E16BB9008D83BE /* Siv3DTest.hpp */,
-				2C435A0324C9A6BB007FBAA6 /* Siv3DTest_Array.cpp */,
-				2C0FF4E524C429B40014C96E /* Siv3DTest_BinaryReader.cpp */,
-				2C0FF4E724C437020014C96E /* Siv3DTest_BinaryWriter.cpp */,
-				2C48584E24C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp */,
-				2C48584A24C1FBAE0034F68D /* Siv3DTest_Image.cpp */,
-				2C435A0524C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp */,
-				2C48584D24C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp */,
-				2C48584C24C1FBAE0034F68D /* Siv3DTest_TextReader.cpp */,
-				2C0FF4F324C486ED0014C96E /* Siv3DTest_TextWriter.cpp */,
-				2C48584B24C1FBAE0034F68D /* Siv3DTest.cpp */,
-			);
-			name = Test;
-			path = ../Test;
-			sourceTree = "<group>";
-		};
 		2C4A485F2636544C00BDCBA2 /* cpptoml */ = {
 			isa = PBXGroup;
 			children = (
@@ -8169,7 +8129,6 @@
 				2C0A4D85256A1C6C002A4B5E /* example */,
 				2CA7F74E1CA7F43D00495647 /* Main.cpp */,
 				2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */,
-				2C48584924C1FBAE0034F68D /* Test */,
 			);
 			name = macOS;
 			sourceTree = "<group>";
@@ -14520,17 +14479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */,
-				2C435A0424C9A6BB007FBAA6 /* Siv3DTest_Array.cpp in Sources */,
 				2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */,
-				2C435A0624C9C7CB007FBAA6 /* Siv3DTest_Resource.cpp in Sources */,
-				2C48584F24C1FBAE0034F68D /* Siv3DTest_Image.cpp in Sources */,
-				2C0FF4E624C429B50014C96E /* Siv3DTest_BinaryReader.cpp in Sources */,
-				2C48585024C1FBAE0034F68D /* Siv3DTest.cpp in Sources */,
-				2C48585124C1FBAE0034F68D /* Siv3DTest_TextReader.cpp in Sources */,
-				2C0FF4E824C437020014C96E /* Siv3DTest_BinaryWriter.cpp in Sources */,
-				2C48585324C1FBAE0034F68D /* Siv3DTest_FileSystem.cpp in Sources */,
-				2C48585224C1FBAE0034F68D /* Siv3DTest_TextEncoding.cpp in Sources */,
-				2C0FF4F424C486ED0014C96E /* Siv3DTest_TextWriter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
