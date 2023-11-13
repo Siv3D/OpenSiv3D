@@ -277,6 +277,11 @@ namespace s3d
 		if (loc != Subdivision2DPointLocation::OnEdge
 			&& loc != Subdivision2DPointLocation::Inside)
 		{
+			if (nearestPt && (loc == Subdivision2DPointLocation::Vertex))
+			{
+				*nearestPt = m_internal.vertices[vertex].pt;
+			}
+
 			return vertex;
 		}
 
