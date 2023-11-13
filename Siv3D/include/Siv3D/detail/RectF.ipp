@@ -644,32 +644,32 @@ namespace s3d
 
 	inline constexpr RectF::value_type RectF::leftX() const noexcept
 	{
-		return x;
+		return pos.x;
 	}
 
 	inline constexpr RectF::value_type RectF::rightX() const noexcept
 	{
-		return (x + w);
+		return (pos.x + size.x);
 	}
 
 	inline constexpr RectF::value_type RectF::topY() const noexcept
 	{
-		return y;
+		return pos.y;
 	}
 
 	inline constexpr RectF::value_type RectF::bottomY() const noexcept
 	{
-		return (y + h);
+		return (pos.y + size.y);
 	}
 
 	inline constexpr RectF::value_type RectF::centerX() const noexcept
 	{
-		return (x + w * 0.5);
+		return (pos.x + size.x * 0.5);
 	}
 
 	inline constexpr RectF::value_type RectF::centerY() const noexcept
 	{
-		return (y + h * 0.5);
+		return (pos.y + size.y * 0.5);
 	}
 
 	inline constexpr RectF::size_type RectF::tl() const noexcept
@@ -719,7 +719,7 @@ namespace s3d
 
 	inline constexpr RectF::position_type RectF::getRelativePoint(const double relativeX, const double relativeY) const noexcept
 	{
-		return{ (x + w * relativeX), (y + h * relativeY) };
+		return{ (pos.x + size.x * relativeX), (pos.y + size.y * relativeY) };
 	}
 
 	inline constexpr Line RectF::top() const noexcept

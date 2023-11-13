@@ -633,32 +633,32 @@ namespace s3d
 
 	inline constexpr Rect::value_type Rect::leftX() const noexcept
 	{
-		return x;
+		return pos.x;
 	}
 
 	inline constexpr Rect::value_type Rect::rightX() const noexcept
 	{
-		return (x + w);
+		return (pos.x + size.x);
 	}
 
 	inline constexpr Rect::value_type Rect::topY() const noexcept
 	{
-		return y;
+		return pos.y;
 	}
 
 	inline constexpr Rect::value_type Rect::bottomY() const noexcept
 	{
-		return (y + h);
+		return (pos.y + size.y);
 	}
 
 	inline constexpr double Rect::centerX() const noexcept
 	{
-		return (x + w * 0.5);
+		return (pos.x + size.x * 0.5);
 	}
 
 	inline constexpr double Rect::centerY() const noexcept
 	{
-		return (y + h * 0.5);
+		return (pos.y + size.y * 0.5);
 	}
 
 	inline constexpr Rect::size_type Rect::tl() const noexcept
@@ -708,7 +708,7 @@ namespace s3d
 
 	inline constexpr Vec2 Rect::getRelativePoint(const double relativeX, const double relativeY) const noexcept
 	{
-		return{ (x + w * relativeX), (y + h * relativeY) };
+		return{ (pos.x + size.x * relativeX), (pos.y + size.y * relativeY) };
 	}
 
 	inline constexpr Line Rect::top() const noexcept
