@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/EngineLog.hpp>
 # include "GLES3RasterizerState.hpp"
 
 namespace s3d
@@ -32,10 +33,11 @@ namespace s3d
 			return;
 		}
 
-		// if (state.fillMode != m_currentState.fillMode)
-		// {
-		// 	::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
-		// }
+		if (state.fillMode != m_currentState.fillMode)
+		{
+			LOG_ERROR(U"WireFrame rendendering is not supported because WebGL2 is lacking of glPolygonMode.");
+			// ::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
+		}
 
 		if (state.cullMode != m_currentState.cullMode)
 		{

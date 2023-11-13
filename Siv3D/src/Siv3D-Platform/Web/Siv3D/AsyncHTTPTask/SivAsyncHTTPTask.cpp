@@ -74,8 +74,8 @@ namespace s3d
 		return pImpl->getResponse();
 	}
 
-	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const FilePathView path)
-		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, path) } 
+	AsyncHTTPTask::AsyncHTTPTask(const URLView url, const HashTable<String, String>& headers, const FilePathView path)
+		: pImpl{ std::make_shared<AsyncHTTPTaskDetail>(url, headers, path) } 
 	{
 		pImpl->send(none);
 	}

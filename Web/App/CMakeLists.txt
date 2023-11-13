@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 project(OpenSiv3D_Web_App CXX C)
 
-#
-# General Options
-#
-option(CMAKE_PREFIX_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
-option(CMAKE_FIND_ROOT_PATH "Custom Siv3D installation path" ${EMSCRIPTEN_SYSROOT})
-
 if (NOT CMAKE_CONFIGURATION_TYPES AND 
     NOT CMAKE_NO_BUILD_TYPE AND
     NOT CMAKE_BUILD_TYPE AND
@@ -26,15 +20,7 @@ add_executable(Siv3DApp
 # Pre-bundled Files
 #
 set(SIV3D_BUNDLED_FILES
-    /resources/engine/font/min/siv3d-min.woff
-    /resources/engine/font/noto-emoji/LICENSE
-    /resources/engine/font/noto-emoji/NotoEmoji-Regular.ttf.zstdcmp
-    /resources/engine/shader/essl
-    /resources/engine/shader/wgsl
-    /resources/engine/texture/box-shadow
-    /resources/engine/font/noto-cjk/NotoSansCJK-Regular.ttc.zstdcmp
-    /resources/engine/font/noto-emoji/NotoColorEmoji.ttf.zstdcmp
-    /resources/engine/font/mplus/mplus-1p-regular.ttf.zstdcmp
+    /resources/engine
 )
 
 #
@@ -102,17 +88,8 @@ find_package(Siv3D REQUIRED)
 set(SIV3D_CXX_DEFINITIONS)
 set(SIV3D_EXE_LINKER_FLAGS
   --no-export-dynamic
-  -sERROR_ON_UNDEFINED_SYMBOLS=0
-  -sALLOW_MEMORY_GROWTH=1
-  -sUSE_GLFW=3
-  -sUSE_OGG=1
-  -sUSE_VORBIS=1
   -sASYNCIFY=1
-  -sASYNCIFY_IGNORE_INDIRECT=1
   -sUSE_WEBGPU=1
-  -sFULL_ES3
-  -sMIN_WEBGL_VERSION=2
-  -sMAX_WEBGL_VERSION=2
   --emrun
   -sMODULARIZE=1
   -sEXPORT_NAME=Runtime

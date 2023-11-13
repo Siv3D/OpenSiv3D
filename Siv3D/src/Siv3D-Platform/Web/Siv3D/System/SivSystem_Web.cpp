@@ -11,6 +11,8 @@
 
 # include <Siv3D/System.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Error.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <emscripten.h>
 
 namespace s3d
@@ -82,4 +84,10 @@ namespace s3d
 			::emscripten_set_main_loop_arg(&detail::RunMainLoop, &g_mainLoop, 0, 1);
 		}
 	}
+}
+
+EMSCRIPTEN_KEEPALIVE
+extern "C" void siv3dThrowException(const char* text)
+{
+	throw s3d::EngineError(s3d::Unicode::FromUTF8(text));
 }
