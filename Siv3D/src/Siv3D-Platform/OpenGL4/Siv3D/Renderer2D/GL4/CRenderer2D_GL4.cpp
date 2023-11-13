@@ -44,12 +44,6 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		if (m_sampler)
-		{
-			::glDeleteSamplers(1, &m_sampler);
-			m_sampler = 0;
-		}
-
 		if (m_vertexArray)
 		{
 			::glDeleteVertexArrays(1, &m_vertexArray);
@@ -133,11 +127,6 @@ namespace s3d
 		{
 			::glGenVertexArrays(1, &m_vertexArray);
 			::glBindVertexArray(m_vertexArray);
-
-			::glGenSamplers(1, &m_sampler);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		}
 
 		CheckOpenGLError();
@@ -1451,10 +1440,10 @@ namespace s3d
 		// render states
 		{
 			const bool linearFilter = (textureFilter == TextureFilter::Linear);
-			::glBindSampler(0, m_sampler);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
-			::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, linearFilter ? GL_LINEAR : GL_NEAREST);
-		
+			SamplerState samplerState = linearFilter ? SamplerState::ClampLinear : SamplerState::ClampNearest;
+			//samplerState.mip = TextureFilter::Nearest;
+
+			pRenderer->getSamplerState().setPS(0, samplerState);
 			pRenderer->getBlendState().set(BlendState::Opaque);
 			pRenderer->getRasterizerState().set(RasterizerState::Default2D);
 			pShader->setVS(m_standardVS->fullscreen_triangle.id());
