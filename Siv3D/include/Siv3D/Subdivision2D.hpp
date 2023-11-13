@@ -169,23 +169,32 @@ namespace s3d
 			constexpr bool isfree() const noexcept;
 		};
 
-		Array<Vertex> m_vertices;
+		struct Internal
+		{
+			Array<Vertex> vertices;
 
-		size_t m_addedPoints = 0;
+			Array<QuadEdge> qEdges;
 
-		Array<QuadEdge> m_qEdges;
+			size_t addedPoints = 0;
 
-		int32 m_freeQEdge = 0;
+			int32 freeQEdge = 0;
 
-		int32 m_freePoint = 0;
+			int32 freePoint = 0;
 
-		bool m_validGeometry = false;
+			bool validGeometry = false;
 
-		int32 m_recentEdge = 0;
+			int32 recentEdge = 0;
 
-		RectF m_rect = RectF{ 0, 0 };
+			RectF rect = RectF::Empty();
 
-		Vec2 m_bottomRight = Vec2{ 0, 0 };
+			Vec2 bottomRight = Vec2::Zero();
+
+			[[nodiscard]]
+			constexpr bool isEmpty() const noexcept;
+
+			void clear() noexcept;
+
+		} m_internal;
 
 		Subdivision2DPointLocation locate(const Vec2& pt, int32& _edge, int32& _vertex);
 

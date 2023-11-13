@@ -15,12 +15,12 @@ namespace s3d
 {
 	inline bool Subdivision2D::isEmpty() const noexcept
 	{
-		return (m_addedPoints == 0);
+		return m_internal.isEmpty();
 	}
 
 	inline Subdivision2D::operator bool() const noexcept
 	{
-		return (m_addedPoints != 0);
+		return (not m_internal.isEmpty());
 	}
 
 	inline constexpr Subdivision2D::Vertex::Vertex(const Vec2& _pt, const bool _isvirtual, const int32 _firstEdge)
@@ -50,5 +50,10 @@ namespace s3d
 	inline constexpr bool Subdivision2D::QuadEdge::isfree() const noexcept
 	{
 		return (next[0] <= 0);
+	}
+
+	inline constexpr bool Subdivision2D::Internal::isEmpty() const noexcept
+	{
+		return (addedPoints == 0);
 	}
 }

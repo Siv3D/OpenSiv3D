@@ -122,28 +122,21 @@ namespace s3d
 
 	void Subdivision2D::initDelaunay(const RectF& rect)
 	{
+		m_internal.clear();
+
 		const double big_coord = 3.0 * Max(rect.w, rect.h);
 		const double rx = rect.x;
 		const double ry = rect.y;
 
-		m_vertices.clear();
-		m_qEdges.clear();
-
-		m_recentEdge = 0;
-		m_validGeometry = false;
-
-		m_rect = rect;
-		m_bottomRight = Vec2(rx + rect.w, ry + rect.h);
+		m_internal.rect = rect;
+		m_internal.bottomRight = Vec2(rx + rect.w, ry + rect.h);
 
 		Vec2 ppA(rx + big_coord, ry);
 		Vec2 ppB(rx, ry + big_coord);
 		Vec2 ppC(rx - big_coord, ry - big_coord);
 
-		m_vertices.push_back(Vertex());
-		m_qEdges.push_back(QuadEdge());
-
-		m_freeQEdge = 0;
-		m_freePoint = 0;
+		m_internal.vertices.emplace_back();
+		m_internal.qEdges.emplace_back();
 
 		int32 pA = newPoint(ppA, false);
 		int32 pB = newPoint(ppB, false);
@@ -161,7 +154,7 @@ namespace s3d
 		splice(edge_BC, symEdge(edge_AB));
 		splice(edge_CA, symEdge(edge_BC));
 
-		m_recentEdge = edge_AB;
+		m_internal.recentEdge = edge_AB;
 	}
 
 	int32 Subdivision2D::addPoint(const Vec2& point)
@@ -187,7 +180,7 @@ namespace s3d
 		else if (location == Subdivision2DPointLocation::OnEdge)
 		{
 			deleted_edge = curr_edge;
-			m_recentEdge = curr_edge = getEdge(curr_edge, Subdivision2DEdgeType::PreviousAroundOrigin);
+			m_internal.recentEdge = curr_edge = getEdge(curr_edge, Subdivision2DEdgeType::PreviousAroundOrigin);
 			deleteEdge(deleted_edge);
 		}
 		else if (location == Subdivision2DPointLocation::Inside)
@@ -200,7 +193,7 @@ namespace s3d
 		}
 
 		assert(curr_edge != 0);
-		m_validGeometry = false;
+		m_internal.validGeometry = false;
 
 		curr_point = newPoint(point, false);
 		int32 base_edge = newEdge();
@@ -216,7 +209,7 @@ namespace s3d
 
 		curr_edge = getEdge(base_edge, Subdivision2DEdgeType::PreviousAroundOrigin);
 
-		const int32 max_edges = static_cast<int32>(m_qEdges.size() * 4);
+		const int32 max_edges = static_cast<int32>(m_internal.qEdges.size() * 4);
 
 		for (int32 i = 0; i < max_edges; i++)
 		{
@@ -227,9 +220,9 @@ namespace s3d
 			curr_org = edgeBegin(curr_edge);
 			curr_dst = edgeEnd(curr_edge);
 
-			if (isRightOf(m_vertices[temp_dst].pt, curr_edge) > 0 &&
-				detail::IsPtInCircle3(m_vertices[curr_org].pt, m_vertices[temp_dst].pt,
-					m_vertices[curr_dst].pt, m_vertices[curr_point].pt) < 0)
+			if (isRightOf(m_internal.vertices[temp_dst].pt, curr_edge) > 0 &&
+				detail::IsPtInCircle3(m_internal.vertices[curr_org].pt, m_internal.vertices[temp_dst].pt,
+					m_internal.vertices[curr_dst].pt, m_internal.vertices[curr_point].pt) < 0)
 			{
 				swapEdges(curr_edge);
 				curr_edge = getEdge(curr_edge, Subdivision2DEdgeType::PreviousAroundOrigin);
@@ -244,7 +237,7 @@ namespace s3d
 			}
 		}
 
-		++m_addedPoints;
+		++m_internal.addedPoints;
 
 		return curr_point;
 	}
@@ -268,12 +261,12 @@ namespace s3d
 	 */
 	Optional<Subdivision2D::VertexID> Subdivision2D::findNearest(const Vec2& point, Vec2* nearestPt)
 	{
-		if (isEmpty() || !m_rect.contains(point))
+		if (isEmpty() || !m_internal.rect.contains(point))
 		{
 			return none;
 		}
 
-		if (not m_validGeometry)
+		if (not m_internal.validGeometry)
 		{
 			calcVoronoi();
 		}
@@ -295,7 +288,7 @@ namespace s3d
 
 		edge = rotateEdge(edge, 1);
 
-		int32 total = static_cast<int32>(m_vertices.size());
+		int32 total = static_cast<int32>(m_internal.vertices.size());
 
 		for (int32 i = 0; i < total; i++)
 		{
@@ -343,7 +336,7 @@ namespace s3d
 
 		if (nearestPt && vertex > 0)
 		{
-			*nearestPt = m_vertices[vertex].pt;
+			*nearestPt = m_internal.vertices[vertex].pt;
 		}
 
 		return vertex;
@@ -362,17 +355,17 @@ namespace s3d
 	{
 		edgeList.clear();
 
-		for (size_t i = 4; i < m_qEdges.size(); ++i)
+		for (size_t i = 4; i < m_internal.qEdges.size(); ++i)
 		{
-			if (m_qEdges[i].isfree())
+			if (m_internal.qEdges[i].isfree())
 			{
 				continue;
 			}
 
-			if (m_qEdges[i].pt[0] > 0 && m_qEdges[i].pt[2] > 0)
+			if (m_internal.qEdges[i].pt[0] > 0 && m_internal.qEdges[i].pt[2] > 0)
 			{
-				const Vec2& org = m_vertices[m_qEdges[i].pt[0]].pt;
-				const Vec2& dst = m_vertices[m_qEdges[i].pt[2]].pt;
+				const Vec2& org = m_internal.vertices[m_internal.qEdges[i].pt[0]].pt;
+				const Vec2& dst = m_internal.vertices[m_internal.qEdges[i].pt[2]].pt;
 				edgeList.emplace_back(org.x, org.y, dst.x, dst.y);
 			}
 		}
@@ -390,7 +383,7 @@ namespace s3d
 	void Subdivision2D::calculateLeadingEdges(Array<Subdivision2D::EdgeID>& leadingEdgeList) const
 	{
 		leadingEdgeList.clear();
-		int32 total = static_cast<int32>(m_qEdges.size() * 4);
+		int32 total = static_cast<int32>(m_internal.qEdges.size() * 4);
 		std::vector<bool> edgemask(total, false);
 
 		for (int32 i = 4; i < total; i += 2)
@@ -422,7 +415,7 @@ namespace s3d
 	void Subdivision2D::calculateTriangles(Array<Triangle>& triangleList) const
 	{
 		triangleList.clear();
-		int32 total = static_cast<int32>(m_qEdges.size() * 4);
+		int32 total = static_cast<int32>(m_internal.qEdges.size() * 4);
 		std::vector<bool> edgemask(total, false);
 
 		for (int32 i = 4; i < total; i += 2)
@@ -435,19 +428,19 @@ namespace s3d
 			Vec2 a, b, c;
 			int32 edge_a = i;
 			edgeBegin(edge_a, &a);
-			if (not m_rect.contains(a))
+			if (not m_internal.rect.contains(a))
 			{
 				continue;
 			}
 			int32 edge_b = getEdge(edge_a, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_b, &b);
-			if (not m_rect.contains(b))
+			if (not m_internal.rect.contains(b))
 			{
 				continue;
 			}
 			int32 edge_c = getEdge(edge_b, Subdivision2DEdgeType::NextAroundLeft);
 			edgeBegin(edge_c, &c);
-			if (not m_rect.contains(c))
+			if (not m_internal.rect.contains(c))
 			{
 				continue;
 			}
@@ -481,7 +474,7 @@ namespace s3d
 		if (indices.isEmpty())
 		{
 			i = 4;
-			total = m_vertices.size();
+			total = m_internal.vertices.size();
 		}
 		else
 		{
@@ -495,22 +488,22 @@ namespace s3d
 		{
 			int32 k = indices.empty() ? static_cast<int32>(i) : indices[i];
 
-			if (m_vertices[k].isfree() || m_vertices[k].isvirtual())
+			if (m_internal.vertices[k].isfree() || m_internal.vertices[k].isvirtual())
 			{
 				continue;
 			}
 
-			int32 edge = rotateEdge(m_vertices[k].firstEdge, 1), t = edge;
+			int32 edge = rotateEdge(m_internal.vertices[k].firstEdge, 1), t = edge;
 
 			// gather points
 			buf.clear();
 			do
 			{
-				buf.push_back(m_vertices[edgeBegin(t)].pt);
+				buf.push_back(m_internal.vertices[edgeBegin(t)].pt);
 				t = getEdge(t, Subdivision2DEdgeType::NextAroundLeft);
 			} while (t != edge);
 
-			facets << VoronoiFacet{ buf, m_vertices[k].pt };
+			facets << VoronoiFacet{ buf, m_internal.vertices[k].pt };
 		}
 	}
 
@@ -521,14 +514,14 @@ namespace s3d
 	 */
 	Vec2 Subdivision2D::getVertex(VertexID vertex, EdgeID* firstEdge) const
 	{
-		assert((size_t)vertex < m_vertices.size());
+		assert((size_t)vertex < m_internal.vertices.size());
 
 		if (firstEdge)
 		{
-			*firstEdge = m_vertices[vertex].firstEdge;
+			*firstEdge = m_internal.vertices[vertex].firstEdge;
 		}
 
-		return m_vertices[vertex].pt;
+		return m_internal.vertices[vertex].pt;
 	}
 
 	/** @brief Returns one of the edges related to the given edge.
@@ -548,9 +541,9 @@ namespace s3d
 	 */
 	Subdivision2D::EdgeID Subdivision2D::getEdge(EdgeID edge, Subdivision2DEdgeType nextEdgeType) const
 	{
-		assert((size_t)(edge >> 2) < m_qEdges.size());
+		assert((size_t)(edge >> 2) < m_internal.qEdges.size());
 
-		edge = m_qEdges[edge >> 2].next[(edge + FromEnum(nextEdgeType)) & 3];
+		edge = m_internal.qEdges[edge >> 2].next[(edge + FromEnum(nextEdgeType)) & 3];
 
 		return (edge & ~3) + ((edge + (FromEnum(nextEdgeType) >> 4)) & 3);
 	}
@@ -562,9 +555,9 @@ namespace s3d
 	 */
 	Subdivision2D::EdgeID Subdivision2D::nextEdge(EdgeID edge) const
 	{
-		assert((size_t)(edge >> 2) < m_qEdges.size());
+		assert((size_t)(edge >> 2) < m_internal.qEdges.size());
 
-		return m_qEdges[edge >> 2].next[edge & 3];
+		return m_internal.qEdges[edge >> 2].next[edge & 3];
 	}
 
 	/** @brief Returns another edge of the same quad-edge.
@@ -594,15 +587,15 @@ namespace s3d
 	 */
 	Subdivision2D::VertexID Subdivision2D::edgeBegin(EdgeID edge, Vec2* beginPos) const
 	{
-		assert((size_t)(edge >> 2) < m_qEdges.size());
+		assert((size_t)(edge >> 2) < m_internal.qEdges.size());
 
-		int32 vidx = m_qEdges[edge >> 2].pt[edge & 3];
+		int32 vidx = m_internal.qEdges[edge >> 2].pt[edge & 3];
 
 		if (beginPos)
 		{
-			assert((size_t)vidx < m_vertices.size());
+			assert((size_t)vidx < m_internal.vertices.size());
 
-			*beginPos = m_vertices[vidx].pt;
+			*beginPos = m_internal.vertices[vidx].pt;
 		}
 
 		return vidx;
@@ -615,15 +608,15 @@ namespace s3d
 	 */
 	Subdivision2D::VertexID Subdivision2D::edgeEnd(EdgeID edge, Vec2* endPos) const
 	{
-		assert((size_t)(edge >> 2) < m_qEdges.size());
+		assert((size_t)(edge >> 2) < m_internal.qEdges.size());
 
-		int32 vidx = m_qEdges[edge >> 2].pt[(edge + 2) & 3];
+		int32 vidx = m_internal.qEdges[edge >> 2].pt[(edge + 2) & 3];
 
 		if (endPos)
 		{
-			assert((size_t)vidx < m_vertices.size());
+			assert((size_t)vidx < m_internal.vertices.size());
 
-			*endPos = m_vertices[vidx].pt;
+			*endPos = m_internal.vertices[vidx].pt;
 		}
 
 		return vidx;
@@ -644,19 +637,19 @@ namespace s3d
 
 		int32 vertex = 0;
 
-		int32 maxEdges = static_cast<int32>(m_qEdges.size() * 4);
+		int32 maxEdges = static_cast<int32>(m_internal.qEdges.size() * 4);
 
-		if (m_qEdges.size() < 4)
+		if (m_internal.qEdges.size() < 4)
 		{
 			throw Error(U"Subdivision is empty");
 		}
 
-		if (pt.x < m_rect.x || pt.y < m_rect.y || pt.x >= m_bottomRight.x || pt.y >= m_bottomRight.y)
+		if (pt.x < m_internal.rect.x || pt.y < m_internal.rect.y || pt.x >= m_internal.bottomRight.x || pt.y >= m_internal.bottomRight.y)
 		{
 			throw Error(U"Subdivision: point is out of bounds");
 		}
 
-		int32 edge = m_recentEdge;
+		int32 edge = m_internal.recentEdge;
 		assert(edge > 0);
 
 		Subdivision2DPointLocation location = Subdivision2DPointLocation::Error;
@@ -705,7 +698,7 @@ namespace s3d
 					}
 				}
 				else if (right_of_curr == 0 &&
-					isRightOf(m_vertices[edgeEnd(onext_edge)].pt, edge) >= 0)
+					isRightOf(m_internal.vertices[edgeEnd(onext_edge)].pt, edge) >= 0)
 				{
 					edge = symEdge(edge);
 				}
@@ -717,7 +710,7 @@ namespace s3d
 			}
 		}
 
-		m_recentEdge = edge;
+		m_internal.recentEdge = edge;
 
 		if (location == Subdivision2DPointLocation::Inside)
 		{
@@ -766,68 +759,68 @@ namespace s3d
 
 	int32 Subdivision2D::newEdge()
 	{
-		if (m_freeQEdge <= 0)
+		if (m_internal.freeQEdge <= 0)
 		{
-			m_qEdges.push_back(QuadEdge());
-			m_freeQEdge = (int32)(m_qEdges.size() - 1);
+			m_internal.qEdges.push_back(QuadEdge());
+			m_internal.freeQEdge = (int32)(m_internal.qEdges.size() - 1);
 		}
-		int32 edge = m_freeQEdge * 4;
-		m_freeQEdge = m_qEdges[edge >> 2].next[1];
-		m_qEdges[edge >> 2] = QuadEdge(edge);
+		int32 edge = m_internal.freeQEdge * 4;
+		m_internal.freeQEdge = m_internal.qEdges[edge >> 2].next[1];
+		m_internal.qEdges[edge >> 2] = QuadEdge(edge);
 		return edge;
 	}
 
 	void Subdivision2D::deleteEdge(int32 edge)
 	{
-		assert((size_t)(edge >> 2) < (size_t)m_qEdges.size());
+		assert((size_t)(edge >> 2) < (size_t)m_internal.qEdges.size());
 		splice(edge, getEdge(edge, Subdivision2DEdgeType::PreviousAroundOrigin));
 		int32 sedge = symEdge(edge);
 		splice(sedge, getEdge(sedge, Subdivision2DEdgeType::PreviousAroundOrigin));
 
 		edge >>= 2;
-		m_qEdges[edge].next[0] = 0;
-		m_qEdges[edge].next[1] = m_freeQEdge;
-		m_freeQEdge = edge;
+		m_internal.qEdges[edge].next[0] = 0;
+		m_internal.qEdges[edge].next[1] = m_internal.freeQEdge;
+		m_internal.freeQEdge = edge;
 	}
 
 	int32 Subdivision2D::newPoint(const Vec2& pt, bool isvirtual, int32 firstEdge)
 	{
-		if (m_freePoint == 0)
+		if (m_internal.freePoint == 0)
 		{
-			m_vertices.push_back(Vertex());
-			m_freePoint = (int32)(m_vertices.size() - 1);
+			m_internal.vertices.push_back(Vertex());
+			m_internal.freePoint = (int32)(m_internal.vertices.size() - 1);
 		}
-		int32 vidx = m_freePoint;
-		m_freePoint = m_vertices[vidx].firstEdge;
-		m_vertices[vidx] = Vertex(pt, isvirtual, firstEdge);
+		int32 vidx = m_internal.freePoint;
+		m_internal.freePoint = m_internal.vertices[vidx].firstEdge;
+		m_internal.vertices[vidx] = Vertex(pt, isvirtual, firstEdge);
 
 		return vidx;
 	}
 
 	void Subdivision2D::deletePoint(int32 vidx)
 	{
-		assert((size_t)vidx < m_vertices.size());
-		m_vertices[vidx].firstEdge = m_freePoint;
-		m_vertices[vidx].type = -1;
-		m_freePoint = vidx;
+		assert((size_t)vidx < m_internal.vertices.size());
+		m_internal.vertices[vidx].firstEdge = m_internal.freePoint;
+		m_internal.vertices[vidx].type = -1;
+		m_internal.freePoint = vidx;
 	}
 
 	void Subdivision2D::setEdgePoints(int32 edge, int32 orgPt, int32 dstPt)
 	{
-		m_qEdges[edge >> 2].pt[edge & 3] = orgPt;
-		m_qEdges[edge >> 2].pt[(edge + 2) & 3] = dstPt;
-		m_vertices[orgPt].firstEdge = edge;
-		m_vertices[dstPt].firstEdge = edge ^ 2;
+		m_internal.qEdges[edge >> 2].pt[edge & 3] = orgPt;
+		m_internal.qEdges[edge >> 2].pt[(edge + 2) & 3] = dstPt;
+		m_internal.vertices[orgPt].firstEdge = edge;
+		m_internal.vertices[dstPt].firstEdge = edge ^ 2;
 	}
 
 	void Subdivision2D::splice(int32 edgeA, int32 edgeB)
 	{
-		int32& a_next = m_qEdges[edgeA >> 2].next[edgeA & 3];
-		int32& b_next = m_qEdges[edgeB >> 2].next[edgeB & 3];
+		int32& a_next = m_internal.qEdges[edgeA >> 2].next[edgeA & 3];
+		int32& b_next = m_internal.qEdges[edgeB >> 2].next[edgeB & 3];
 		int32 a_rot = rotateEdge(a_next, 1);
 		int32 b_rot = rotateEdge(b_next, 1);
-		int32& a_rot_next = m_qEdges[a_rot >> 2].next[a_rot & 3];
-		int32& b_rot_next = m_qEdges[b_rot >> 2].next[b_rot & 3];
+		int32& a_rot_next = m_internal.qEdges[a_rot >> 2].next[a_rot & 3];
+		int32& b_rot_next = m_internal.qEdges[b_rot >> 2].next[b_rot & 3];
 		std::swap(a_next, b_next);
 		std::swap(a_rot_next, b_rot_next);
 	}
@@ -870,18 +863,18 @@ namespace s3d
 
 	void Subdivision2D::calcVoronoi()
 	{
-		if (m_validGeometry)
+		if (m_internal.validGeometry)
 		{
 			return;
 		}
 
 		clearVoronoi();
-		int32 total = static_cast<int32>(m_qEdges.size());
+		int32 total = static_cast<int32>(m_internal.qEdges.size());
 
 		// loop through all quad-edges, except for the first 3 (#1, #2, #3 - 0 is reserved for "NULL" pointer)
 		for (int32 i = 4; i < total; i++)
 		{
-			QuadEdge& quadedge = m_qEdges[i];
+			QuadEdge& quadedge = m_internal.qEdges[i];
 
 			if (quadedge.isfree())
 			{
@@ -906,8 +899,8 @@ namespace s3d
 				if (std::abs(virt_point.x) < FLT_MAX * 0.5 &&
 					std::abs(virt_point.y) < FLT_MAX * 0.5)
 				{
-					quadedge.pt[3] = m_qEdges[edge1 >> 2].pt[3 - (edge1 & 2)] =
-						m_qEdges[edge2 >> 2].pt[3 - (edge2 & 2)] = newPoint(virt_point, true);
+					quadedge.pt[3] = m_internal.qEdges[edge1 >> 2].pt[3 - (edge1 & 2)] =
+						m_internal.qEdges[edge2 >> 2].pt[3 - (edge2 & 2)] = newPoint(virt_point, true);
 				}
 			}
 
@@ -926,37 +919,50 @@ namespace s3d
 				if (std::abs(virt_point.x) < FLT_MAX * 0.5 &&
 					std::abs(virt_point.y) < FLT_MAX * 0.5)
 				{
-					quadedge.pt[1] = m_qEdges[edge1 >> 2].pt[1 + (edge1 & 2)] =
-						m_qEdges[edge2 >> 2].pt[1 + (edge2 & 2)] = newPoint(virt_point, true);
+					quadedge.pt[1] = m_internal.qEdges[edge1 >> 2].pt[1 + (edge1 & 2)] =
+						m_internal.qEdges[edge2 >> 2].pt[1 + (edge2 & 2)] = newPoint(virt_point, true);
 				}
 			}
 		}
 
-		m_validGeometry = true;
+		m_internal.validGeometry = true;
 	}
 
 	void Subdivision2D::clearVoronoi()
 	{
-		size_t total = m_qEdges.size();
+		size_t total = m_internal.qEdges.size();
 
 		for (size_t i = 0; i < total; i++)
 		{
-			m_qEdges[i].pt[1] = m_qEdges[i].pt[3] = 0;
+			m_internal.qEdges[i].pt[1] = m_internal.qEdges[i].pt[3] = 0;
 		}
 
-		total = m_vertices.size();
+		total = m_internal.vertices.size();
 		for (size_t i = 0; i < total; i++)
 		{
-			if (m_vertices[i].isvirtual())
+			if (m_internal.vertices[i].isvirtual())
 			{
 				deletePoint((int32)i);
 			}
 		}
 
-		m_validGeometry = false;
+		m_internal.validGeometry = false;
 	}
 
 	//
 	//
 	///////////////////////////////////////////////////////////////
+
+	void Subdivision2D::Internal::clear() noexcept
+	{
+		vertices.clear();
+		qEdges.clear();
+		addedPoints = 0;
+		freeQEdge = 0;
+		freePoint = 0;
+		validGeometry = false;
+		recentEdge = 0;
+		rect = RectF::Empty();
+		bottomRight = Vec2::Zero();
+	}
 }
