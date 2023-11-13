@@ -15,6 +15,7 @@
 
 # if SIV3D_PLATFORM(WINDOWS)
 
+# define NOGDI
 # include <Siv3D/Windows/Windows.hpp>
 
 namespace s3d

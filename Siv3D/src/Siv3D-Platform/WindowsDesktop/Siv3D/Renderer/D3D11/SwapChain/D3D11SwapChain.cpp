@@ -9,11 +9,11 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/DLL.hpp>
 # include <Siv3D/Window.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "D3D11SwapChain.hpp"
+# include <Siv3D/DLL.hpp>
 # include <dwmapi.h>
 # include <VersionHelpers.h>
 

@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include <Siv3D/Error.hpp>
-# include <Siv3D/DLL.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CAudioCodec.hpp"
 # include "MFRenderStream.hpp"
