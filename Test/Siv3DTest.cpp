@@ -52,13 +52,8 @@ std::tuple<std::string, std::string> CaptureStandardOutput(const std::function<v
 
 void AssertImagesAreEqual(const Image& target, const Image& checked)
 {
-	Image clonedTarget = target;
-	Image clonedChecked = checked;
-
-	auto targetMat = OpenCV_Bridge::GetMatView(clonedTarget);
-	auto targetChecked = OpenCV_Bridge::GetMatView(clonedChecked);
-	cv::Mat diff { cv::Size{ clonedTarget.width(), clonedTarget.height() }, CV_8UC4 };
-
-	cv::absdiff(targetMat, targetChecked, diff);
-	cv::checkRange(diff, false, nullptr, -1.0, 1.0);
+	if (target != checked)
+	{
+		throw std::runtime_error{ "AssertImagesAreEqual: target != checked" };
+	}
 }
