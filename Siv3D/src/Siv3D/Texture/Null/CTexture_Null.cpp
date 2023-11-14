@@ -135,6 +135,11 @@ namespace s3d
 
 	}
 
+	void CTexture_Null::generateMips(const Texture::IDType)
+	{
+
+	}
+
 	void CTexture_Null::readRT(Texture::IDType, Image&)
 	{
 

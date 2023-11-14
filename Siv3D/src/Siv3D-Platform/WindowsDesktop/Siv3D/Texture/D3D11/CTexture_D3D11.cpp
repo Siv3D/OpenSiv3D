@@ -210,6 +210,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
+		if (hasMipMap)
+		{
+			texture->generateMips(m_context);
+		}
+
 		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
@@ -347,6 +352,11 @@ namespace s3d
 	void CTexture_D3D11::clearRT(const Texture::IDType handleID, const ColorF& color)
 	{
 		m_textures[handleID]->clearRT(m_context, color);
+	}
+
+	void CTexture_D3D11::generateMips(const Texture::IDType handleID)
+	{
+		m_textures[handleID]->generateMips(m_context);
 	}
 
 	void CTexture_D3D11::readRT(const Texture::IDType handleID, Image& image)

@@ -143,6 +143,11 @@ namespace s3d
 
 	}
 
+	void CTexture_Metal::generateMips(const Texture::IDType handleID)
+	{
+
+	}
+
 	void CTexture_Metal::readRT(Texture::IDType handleID, Image& image)
 	{
 

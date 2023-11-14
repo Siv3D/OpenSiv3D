@@ -100,8 +100,8 @@ namespace s3d
 		[[nodiscard]]
 		TextureFormat getFormat() const;
 
-		/// @brief ミップマッピングが有効化されているかを返します。
-		/// @return ミップマッピングが有効化されている場合 true, それ以外の場合は false
+		/// @brief ミップマップを持つかを返します。
+		/// @return ミップマップを持つ場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasMipMap() const;
 

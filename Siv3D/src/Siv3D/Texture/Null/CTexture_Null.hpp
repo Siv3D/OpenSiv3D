@@ -70,6 +70,8 @@ namespace s3d
 
 		void clearRT(Texture::IDType handleID, const ColorF& color) override;
 
+		void generateMips(Texture::IDType handleID) override;
+
 		void readRT(Texture::IDType handleID, Image& image) override;
 
 		void readRT(Texture::IDType handleID, Grid<float>& image) override;

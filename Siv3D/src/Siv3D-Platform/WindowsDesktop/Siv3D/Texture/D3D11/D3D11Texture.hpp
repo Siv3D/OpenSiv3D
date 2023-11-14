@@ -83,6 +83,9 @@ namespace s3d
 
 		// レンダーテクスチャを指定した色でクリアする
 		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
+		
+		// ミップマップを生成する
+		void generateMips(ID3D11DeviceContext* context);
 
 		// レンダーテクスチャの内容を Image にコピーする
 		void readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image);
@@ -145,6 +148,8 @@ namespace s3d
 		TextureType m_type = TextureType::Default;
 
 		bool m_hasDepth = false;
+
+		bool m_hasMipMap = false;
 
 		bool m_initialized = false;
 

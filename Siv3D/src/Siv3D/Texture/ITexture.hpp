@@ -68,6 +68,8 @@ namespace s3d
 
 		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
 
+		virtual void generateMips(Texture::IDType handleID) = 0;
+
 		virtual void readRT(Texture::IDType handleID, Image& image) = 0;
 
 		virtual void readRT(Texture::IDType handleID, Grid<float>& image) = 0;

@@ -351,6 +351,11 @@ namespace s3d
 		m_textures[handleID]->clearRT(m_device, color);
 	}
 
+	void CTexture_WebGPU::generateMips(const Texture::IDType handleID)
+	{
+
+	}
+
 	void CTexture_WebGPU::readRT(const Texture::IDType handleID, Image& image)
 	{
 		m_textures[handleID]->readRT(image);

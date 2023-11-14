@@ -78,7 +78,7 @@ namespace s3d
 
 	void RenderTexture::generateMips() const
 	{
-
+		SIV3D_ENGINE(Texture)->generateMips(m_handle->id());
 	}
 
 	void RenderTexture::readAsImage(Image& image) const

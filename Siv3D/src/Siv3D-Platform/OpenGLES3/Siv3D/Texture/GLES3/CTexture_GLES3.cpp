@@ -348,6 +348,11 @@ namespace s3d
 		m_textures[handleID]->clearRT(color);
 	}
 
+	void CTexture_GLES3::generateMips(const Texture::IDType handleID)
+	{
+
+	}
+
 	void CTexture_GLES3::readRT(const Texture::IDType handleID, Image& image)
 	{
 		m_textures[handleID]->readRT(image);
