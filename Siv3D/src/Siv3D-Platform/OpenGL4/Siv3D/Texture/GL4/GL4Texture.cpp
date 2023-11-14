@@ -75,7 +75,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Dynamic }
-		, m_hasMipMap{ false }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -83,7 +83,17 @@ namespace s3d
 			::glBindTexture(GL_TEXTURE_2D, m_texture);
 			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), size.x, size.y, 0,
 				format.GLFormat(), format.GLType(), pData);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+
+			if (m_hasMipMap)
+			{
+				const size_t mipmapCount = ImageProcessing::CalculateMipCount(size.x, size.y);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(mipmapCount - 1));
+				::glGenerateMipmap(GL_TEXTURE_2D);
+			}
+			else
+			{
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
 		}
 
 		m_initialized = true;
@@ -671,7 +681,8 @@ namespace s3d
 	void GL4Texture::generateMips()
 	{
 		if ((m_type != TextureType::Render)
-			&& (m_type != TextureType::MSRender))
+			&& (m_type != TextureType::MSRender)
+			&& (m_type != TextureType::Dynamic))
 		{
 			return;
 		}
