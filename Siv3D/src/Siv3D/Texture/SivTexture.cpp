@@ -648,37 +648,37 @@ namespace s3d
 	}
 
 	Texture::Texture(Render, const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(size, format, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(size, format, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(Render, const Image& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(Render, const Grid<float>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(Render, const Grid<Float2>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(Render, const Grid<Float4>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"RenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createRT(image, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(MSRender, const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: AssetHandle{ (detail::CheckEngine(U"MSRenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createMSRT(size, format, hasDepth))) }
+		: AssetHandle{ (detail::CheckEngine(U"MSRenderTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createMSRT(size, format, hasDepth, hasMipMap))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}

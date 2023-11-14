@@ -37,17 +37,17 @@ namespace s3d
 
 		Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) override;
 
-		Texture::IDType createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) override;
+		Texture::IDType createRT(const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
-		Texture::IDType createRT(const Image& image, const HasDepth hasDepth) override;
+		Texture::IDType createRT(const Image& image, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
-		Texture::IDType createRT(const Grid<float>& image, const HasDepth hasDepth) override;
+		Texture::IDType createRT(const Grid<float>& image, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
-		Texture::IDType createRT(const Grid<Float2>& image, const HasDepth hasDepth) override;
+		Texture::IDType createRT(const Grid<Float2>& image, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
-		Texture::IDType createRT(const Grid<Float4>& image, const HasDepth hasDepth) override;
+		Texture::IDType createRT(const Grid<Float4>& image, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
-		Texture::IDType createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) override;
+		Texture::IDType createMSRT(const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap) override;
 
 		void release(Texture::IDType handleID) override;
 
