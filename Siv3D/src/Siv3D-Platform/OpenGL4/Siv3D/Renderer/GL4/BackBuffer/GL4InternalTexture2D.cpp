@@ -121,10 +121,18 @@ namespace s3d
 
 		// ミップマップ無し
 		{
-			::glBindTexture(GL_TEXTURE_2D, texture);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			if (sampleCount == 1)
+			{
+				::glBindTexture(GL_TEXTURE_2D, texture);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
+			else
+			{
+				::glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
+				::glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAX_LEVEL, 0);
+			}
 		}
 
 		p->m_frameBuffer	= frameBuffer;
