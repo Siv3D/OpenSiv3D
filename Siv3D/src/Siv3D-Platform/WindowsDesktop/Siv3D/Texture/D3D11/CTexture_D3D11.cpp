@@ -12,6 +12,7 @@
 # include "CTexture_D3D11.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/HalfFloat.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -109,8 +110,14 @@ namespace s3d
 		return m_textures.size();
 	}
 
-	Texture::IDType CTexture_D3D11::createUnmipped(const Image& image, const TextureDesc desc)
+	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
 	{
+		// [Siv3D ToDo] GPU でミップマップを生成する
+		if (detail::HasMipMap(desc))
+		{
+			return create(image, ImageProcessing::GenerateMips(image), desc);
+		}
+
 		if (not image)
 		{
 			return Texture::IDType::NullAsset();
@@ -127,7 +134,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createMipped(const Image& image, const Array<Image>& mips, const TextureDesc desc)
+	Texture::IDType CTexture_D3D11::create(const Image& image, const Array<Image>& mips, const TextureDesc desc)
 	{
 		if (not image)
 		{

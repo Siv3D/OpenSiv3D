@@ -31,9 +31,9 @@ namespace s3d
 
 		size_t getTextureCount() const override;
 
-		Texture::IDType createUnmipped(const Image& image, TextureDesc desc) override;
+		Texture::IDType create(const Image& image, TextureDesc desc) override;
 
-		Texture::IDType createMipped(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
+		Texture::IDType create(const Image& image, const Array<Image>& mips, TextureDesc desc) override;
 
 		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, const TextureFormat& format, TextureDesc desc) override;
 

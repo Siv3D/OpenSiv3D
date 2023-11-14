@@ -20,7 +20,6 @@
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/Troubleshooting/Troubleshooting.hpp>
 # include <Siv3D/Texture/ITexture.hpp>
-# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -62,16 +61,13 @@ namespace s3d
 	Texture::Texture() {}
 
 	Texture::Texture(const Image& image, const TextureDesc desc)
-		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(
-			detail::HasMipMap(desc) ?
-				SIV3D_ENGINE(Texture)->createMipped(image, ImageProcessing::GenerateMips(image), desc) :
-				SIV3D_ENGINE(Texture)->createUnmipped(image, desc))) }
+		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->create(image, desc))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
 
 	Texture::Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
-		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createMipped(image, mipmaps, desc))) }
+		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->create(image, mipmaps, desc))) }
 	{
 		SIV3D_ENGINE(AssetMonitor)->created();
 	}
