@@ -18,44 +18,46 @@ namespace s3d
 	RenderTexture::RenderTexture()
 		: Texture{} {}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
-		: RenderTexture{ Size{ width, height }, format, hasDepth }
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: RenderTexture{ Size{ width, height }, color, format, hasDepth, hasMipMap } {}
+
+	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: RenderTexture{ size, format, hasDepth, hasMipMap }
 	{
 		clear(color);
+
+		if (hasMipMap)
+		{
+			generateMips();
+		}
 	}
 
-	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth)
-		: RenderTexture{ size, format, hasDepth }
-	{
-		clear(color);
-	}
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: RenderTexture{ Size{ width, height }, format, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const TextureFormat& format, const HasDepth hasDepth)
-		: RenderTexture{ Size{ width, height }, format, hasDepth } {}
+	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: RenderTexture{ Size{ width, height }, TextureFormat::R8G8B8A8_Unorm, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const HasDepth hasDepth)
-		: RenderTexture{ Size{ width, height }, TextureFormat::R8G8B8A8_Unorm, hasDepth } {}
+	RenderTexture::RenderTexture(const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::Render{}, size, format, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
-		: Texture{ Texture::Render{}, size, format, hasDepth } {}
+	RenderTexture::RenderTexture(const Size& size, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: RenderTexture{ size, TextureFormat::R8G8B8A8_Unorm, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Size& size, const HasDepth hasDepth)
-		: RenderTexture{ size, TextureFormat::R8G8B8A8_Unorm, hasDepth } {}
+	RenderTexture::RenderTexture(const Image& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::Render{}, image, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Image& image, const HasDepth hasDepth)
-		: Texture{ Texture::Render{}, image, hasDepth } {}
+	RenderTexture::RenderTexture(const Grid<float>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::Render{}, image, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Grid<float>& image, const HasDepth hasDepth)
-		: Texture{ Texture::Render{}, image, hasDepth } {}
+	RenderTexture::RenderTexture(const Grid<Float2>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::Render{}, image, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Grid<Float2>& image, const HasDepth hasDepth)
-		: Texture{ Texture::Render{}, image, hasDepth } {}
+	RenderTexture::RenderTexture(const Grid<Float4>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::Render{}, image, hasDepth, hasMipMap } {}
 
-	RenderTexture::RenderTexture(const Grid<Float4>& image, const HasDepth hasDepth)
-		: Texture{ Texture::Render{}, image, hasDepth } {}
-
-	RenderTexture::RenderTexture(MSRender, const Size& size, const TextureFormat& format, const HasDepth hasDepth)
-		: Texture{ Texture::MSRender{}, size, format, hasDepth } {}
+	RenderTexture::RenderTexture(MSRender, const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
+		: Texture{ Texture::MSRender{}, size, format, hasDepth, hasMipMap } {}
 
 	RenderTexture::~RenderTexture() {}
 
@@ -64,6 +66,11 @@ namespace s3d
 		SIV3D_ENGINE(Texture)->clearRT(m_handle->id(), color);
 
 		return *this;
+	}
+
+	void RenderTexture::generateMips() const
+	{
+		SIV3D_ENGINE(Texture)->generateMips(m_handle->id());
 	}
 
 	void RenderTexture::readAsImage(Image& image) const

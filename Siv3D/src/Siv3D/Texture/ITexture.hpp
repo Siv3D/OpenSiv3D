@@ -35,17 +35,17 @@ namespace s3d
 
 		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc) = 0;
 
-		virtual Texture::IDType createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createRT(const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
-		virtual Texture::IDType createRT(const Image& image, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createRT(const Image& image, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
-		virtual Texture::IDType createRT(const Grid<float>& image, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createRT(const Grid<float>& image, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
-		virtual Texture::IDType createRT(const Grid<Float2>& image, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createRT(const Grid<Float2>& image, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
-		virtual Texture::IDType createRT(const Grid<Float4>& image, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createRT(const Grid<Float4>& image, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
-		virtual Texture::IDType createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth) = 0;
+		virtual Texture::IDType createMSRT(const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap) = 0;
 
 		virtual void release(Texture::IDType handleID) = 0;
 
@@ -67,6 +67,8 @@ namespace s3d
 	
 
 		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
+
+		virtual void generateMips(Texture::IDType handleID) = 0;
 
 		virtual void readRT(Texture::IDType handleID, Image& image) = 0;
 

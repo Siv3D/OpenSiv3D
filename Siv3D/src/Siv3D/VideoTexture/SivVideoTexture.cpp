@@ -108,9 +108,9 @@ namespace s3d
 		return getTexture().getFormat();
 	}
 
-	bool VideoTexture::isMipped() const
+	bool VideoTexture::hasMipMap() const
 	{
-		return getTexture().isMipped();
+		return getTexture().hasMipMap();
 	}
 
 	bool VideoTexture::isSDF() const

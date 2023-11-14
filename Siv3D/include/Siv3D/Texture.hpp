@@ -100,10 +100,10 @@ namespace s3d
 		[[nodiscard]]
 		TextureFormat getFormat() const;
 
-		/// @brief ミップマッピングが有効化されているかを返します。
-		/// @return ミップマッピングが有効化されている場合 true, それ以外の場合は false
+		/// @brief ミップマップを持つかを返します。
+		/// @return ミップマップを持つ場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isMipped() const;
+		bool hasMipMap() const;
 
 		[[nodiscard]]
 		bool srgbSampling() const;
@@ -304,22 +304,22 @@ namespace s3d
 		Texture(Dynamic, const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc);
 	
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Size& size, const TextureFormat& format, HasDepth hasDepth);
+		Texture(Render, const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Image& image, HasDepth hasDepth);
+		Texture(Render, const Image& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<float>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<float>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<Float2>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<Float2>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<Float4>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<Float4>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth);
+		Texture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap);
 	};
 }
 

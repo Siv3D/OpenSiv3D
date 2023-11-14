@@ -11,12 +11,32 @@
 
 # include "D3D11Texture.hpp"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/2DShapes.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		[[nodiscard]]
+		Array<D3D11_SUBRESOURCE_DATA> MakeSubresourceData(const void* imageData, size_t width, const size_t pixelSize, const uint32 mipLevel)
+		{
+			Array<D3D11_SUBRESOURCE_DATA> subresourceData(mipLevel);
+
+			for (uint32 i = 0; i < mipLevel; ++i)
+			{
+				// ミップマップにおける imageData は仮のデータ。あとで generateMips() で上書きされる
+				subresourceData[i] = { imageData, static_cast<uint32>(width * pixelSize), 0 };
+
+				width = Max<size_t>((width / 2), 1);
+			}
+
+			return subresourceData;
+		}
+	}
+
 	D3D11Texture::D3D11Texture(ID3D11Device* device, const Image& image, const TextureDesc desc)
 		: m_desc{ image.size(),
 			(detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm),
@@ -27,6 +47,7 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
 		, m_type{ TextureType::Default }
+		, m_hasMipMap{ false }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
@@ -35,7 +56,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -46,7 +67,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -64,6 +85,7 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
 		, m_type{ TextureType::Default }
+		, m_hasMipMap{ true }
 	{
 		Array<D3D11_SUBRESOURCE_DATA> initData(m_desc.mipLevels);
 		{
@@ -80,7 +102,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -91,7 +113,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -109,6 +131,7 @@ namespace s3d
 			D3D11_BIND_SHADER_RESOURCE,
 			0, 0 }
 		, m_type{ TextureType::Dynamic }
+		, m_hasMipMap{ false }
 	{
 		// [メインテクスチャ] を作成
 		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
@@ -117,7 +140,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 
@@ -130,7 +153,7 @@ namespace s3d
 				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_stagingTexture);
 					FAILED(hr))
 				{
-					LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(hr));
+					LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 					return;
 				}
 			}
@@ -142,7 +165,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -154,12 +177,13 @@ namespace s3d
 		: m_desc{ size,
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(size.x, size.y)) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -167,7 +191,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -178,7 +202,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -189,7 +213,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -209,21 +233,22 @@ namespace s3d
 		: m_desc{ image.size(),
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(image.width(), image.height())) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
 		{
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(image.data(), image.width(), sizeof(Color), m_desc.mipLevels);
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -234,7 +259,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -245,7 +270,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -265,21 +290,22 @@ namespace s3d
 		: m_desc{ image.size(),
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(image.width(), image.height())) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(float)), 0 };
 		{
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(image.data(), image.width(), sizeof(float), m_desc.mipLevels);
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -290,7 +316,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -301,7 +327,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -321,21 +347,22 @@ namespace s3d
 		: m_desc{ image.size(),
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(image.width(), image.height())) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(Float2)), 0 };
 		{
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(image.data(), image.width(), sizeof(Float2), m_desc.mipLevels);
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -346,7 +373,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -357,7 +384,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -377,21 +404,22 @@ namespace s3d
 		: m_desc{ image.size(),
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(image.width(), image.height())) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), static_cast<UINT>(image.width() * sizeof(Float4)), 0 };
 		{
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(image.data(), image.width(), sizeof(Float4), m_desc.mipLevels);
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -402,7 +430,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_texture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -413,7 +441,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -439,6 +467,7 @@ namespace s3d
 			D3D11_BIND_RENDER_TARGET,
 			0, 0 }
 		, m_type{ TextureType::MSRender }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [マルチ・サンプルテクスチャ] を作成
 		{
@@ -446,7 +475,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, nullptr, &m_multiSampledTexture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -457,7 +486,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateRenderTargetView(m_multiSampledTexture.Get(), &rtDesc, &m_renderTargetView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create RenderTargetView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -465,11 +494,11 @@ namespace s3d
 		const D3D11Texture2DDesc resolvedDesc{ size,
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(size.x, size.y)) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE,
-			0, 0 };
+			(D3D11_BIND_SHADER_RESOURCE | (detail::HasMipMap(desc) ? D3D11_BIND_RENDER_TARGET : 0u)),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) };
 
 		// [メイン・テクスチャ] を作成
 		{
@@ -477,7 +506,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, nullptr, &m_texture);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -488,7 +517,7 @@ namespace s3d
 			if (HRESULT hr = device->CreateShaderResourceView(m_texture.Get(), &srvDesc, &m_shaderResourceView);
 				FAILED(hr))
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(hr));
+				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create ShaderResourceView. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
 				return;
 			}
 		}
@@ -692,6 +721,22 @@ namespace s3d
 		{
 			context->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 0.0f, 0);
 		}
+	}
+
+	void D3D11Texture::generateMips(ID3D11DeviceContext* context)
+	{
+		if ((m_type != TextureType::Render)
+			&& (m_type != TextureType::MSRender))
+		{
+			return;
+		}
+
+		if (not m_hasMipMap)
+		{
+			return;
+		}
+		
+		context->GenerateMips(m_shaderResourceView.Get());
 	}
 
 	void D3D11Texture::readRT(ID3D11Device* device, ID3D11DeviceContext* context, Image& image)

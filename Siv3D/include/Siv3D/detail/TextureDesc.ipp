@@ -16,7 +16,7 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		inline constexpr bool IsMipped(const TextureDesc desc) noexcept
+		inline constexpr bool HasMipMap(const TextureDesc desc) noexcept
 		{
 			return (desc == TextureDesc::Mipped)
 				|| (desc == TextureDesc::MippedSRGB);
@@ -33,6 +33,19 @@ namespace s3d
 		inline constexpr bool IsSDF(const TextureDesc desc) noexcept
 		{
 			return (desc == TextureDesc::SDF);
+		}
+
+		[[nodiscard]]
+		inline constexpr TextureDesc MakeTextureDesc(const bool hasMipMap, const bool isSRGB)
+		{
+			if (hasMipMap)
+			{
+				return (isSRGB ? TextureDesc::MippedSRGB : TextureDesc::Mipped);
+			}
+			else
+			{
+				return (isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+			}
 		}
 	}
 }

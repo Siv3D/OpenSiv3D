@@ -183,7 +183,7 @@ namespace s3d
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -202,7 +202,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Image& image, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createRT(const Image& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if (not image)
 		{
@@ -222,7 +222,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<float>& image, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<float>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if (not image)
 		{
@@ -242,7 +242,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float2>& image, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float2>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if (not image)
 		{
@@ -262,7 +262,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float4>& image, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createRT(const Grid<Float4>& image, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if (not image)
 		{
@@ -282,7 +282,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_WebGPU::createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth)
+	Texture::IDType CTexture_WebGPU::createMSRT(const Size& size, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
 	{
 		if ((size.x <= 0) || (size.y <= 0))
 		{
@@ -349,6 +349,11 @@ namespace s3d
 	void CTexture_WebGPU::clearRT(const Texture::IDType handleID, const ColorF& color)
 	{
 		m_textures[handleID]->clearRT(m_device, color);
+	}
+
+	void CTexture_WebGPU::generateMips(const Texture::IDType handleID)
+	{
+
 	}
 
 	void CTexture_WebGPU::readRT(const Texture::IDType handleID, Image& image)

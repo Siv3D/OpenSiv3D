@@ -55,32 +55,32 @@ namespace s3d
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Size&, const TextureFormat&, const HasDepth)
+	Texture::IDType CTexture_Null::createRT(const Size&, const TextureFormat&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Image&, const HasDepth)
+	Texture::IDType CTexture_Null::createRT(const Image&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<float>&, const HasDepth)
+	Texture::IDType CTexture_Null::createRT(const Grid<float>&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<Float2>&, const HasDepth)
+	Texture::IDType CTexture_Null::createRT(const Grid<Float2>&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createRT(const Grid<Float4>&, const HasDepth)
+	Texture::IDType CTexture_Null::createRT(const Grid<Float4>&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createMSRT(const Size&, const TextureFormat&, const HasDepth)
+	Texture::IDType CTexture_Null::createMSRT(const Size&, const TextureFormat&, const HasDepth, const HasMipMap)
 	{
 		return Texture::IDType::NullAsset();
 	}
@@ -131,6 +131,11 @@ namespace s3d
 	}
 
 	void CTexture_Null::clearRT(Texture::IDType, const ColorF&)
+	{
+
+	}
+
+	void CTexture_Null::generateMips(const Texture::IDType)
 	{
 
 	}
