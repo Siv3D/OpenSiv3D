@@ -41,19 +41,19 @@ namespace s3d
 		: m_desc{ image.size(),
 			(detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm),
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(image.width(), image.height())) : 1u),
 			1, 0,
-			D3D11_USAGE_IMMUTABLE,
-			D3D11_BIND_SHADER_RESOURCE,
-			0, 0 }
+			(detail::HasMipMap(desc) ? D3D11_USAGE_DEFAULT : D3D11_USAGE_IMMUTABLE),
+			(D3D11_BIND_SHADER_RESOURCE | (detail::HasMipMap(desc) ? D3D11_BIND_RENDER_TARGET : 0u)),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Default }
-		, m_hasMipMap{ false }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
 		{
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(image.data(), image.width(), sizeof(Color), m_desc.mipLevels);
 			const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, &initData, &m_texture);
+			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, initData.data(), &m_texture);
 				FAILED(hr))
 			{
 				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D. Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
@@ -756,13 +756,6 @@ namespace s3d
 
 	void D3D11Texture::generateMips(ID3D11DeviceContext* context)
 	{
-		if ((m_type != TextureType::Render)
-			&& (m_type != TextureType::MSRender)
-			&& (m_type != TextureType::Dynamic))
-		{
-			return;
-		}
-
 		if (not m_hasMipMap)
 		{
 			return;

@@ -112,12 +112,6 @@ namespace s3d
 
 	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
 	{
-		// [Siv3D ToDo] GPU でミップマップを生成する
-		if (detail::HasMipMap(desc))
-		{
-			return create(image, ImageProcessing::GenerateMips(image), desc);
-		}
-
 		if (not image)
 		{
 			return Texture::IDType::NullAsset();
@@ -128,6 +122,11 @@ namespace s3d
 		if (not texture->isInitialized())
 		{
 			return Texture::IDType::NullAsset();
+		}
+
+		if (detail::HasMipMap(desc))
+		{
+			texture->generateMips(m_context);
 		}
 
 		const String info = U"(type: Default, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
