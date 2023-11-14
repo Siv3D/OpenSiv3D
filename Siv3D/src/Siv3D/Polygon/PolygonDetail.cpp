@@ -455,8 +455,7 @@ namespace s3d
 			point *= sf;
 		}
 
-		// [Siv3D ToDo] 不要に
-		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+		m_boundingRect = m_boundingRect.scaledAt(Vec2{ 0, 0 }, s);
 	}
 
 	void Polygon::PolygonDetail::scale(const Vec2 s)
@@ -494,8 +493,7 @@ namespace s3d
 			point *= sf;
 		}
 
-		// [Siv3D ToDo] 不要に
-		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+		m_boundingRect = m_boundingRect.scaledAt(Vec2{ 0, 0 }, s);
 	}
 
 	void Polygon::PolygonDetail::scaleAt(const Vec2 pos, const double s)
@@ -534,8 +532,7 @@ namespace s3d
 			point = (posF + (point - posF) * sf);
 		}
 
-		// [Siv3D ToDo] 不要に
-		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+		m_boundingRect = m_boundingRect.scaledAt(pos, s);
 	}
 
 	void Polygon::PolygonDetail::scaleAt(const Vec2 pos, const Vec2 s)
@@ -574,8 +571,7 @@ namespace s3d
 			point = (posF + (point - posF) * sf);
 		}
 
-		// [Siv3D ToDo] 不要に
-		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+		m_boundingRect = m_boundingRect.scaledAt(pos, s);
 	}
 
 	double Polygon::PolygonDetail::area() const noexcept
