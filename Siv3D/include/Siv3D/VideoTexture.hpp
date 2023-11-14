@@ -99,7 +99,7 @@ namespace s3d
 		TextureFormat getFormat() const;
 
 		[[nodiscard]]
-		bool isMipped() const;
+		bool hasMipMap() const;
 
 		[[nodiscard]]
 		bool isSDF() const;

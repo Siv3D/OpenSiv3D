@@ -16,7 +16,7 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
-		inline constexpr bool IsMipped(const TextureDesc desc) noexcept
+		inline constexpr bool HasMipMap(const TextureDesc desc) noexcept
 		{
 			return (desc == TextureDesc::Mipped)
 				|| (desc == TextureDesc::MippedSRGB);

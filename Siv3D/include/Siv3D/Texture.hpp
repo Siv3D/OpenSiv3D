@@ -103,7 +103,7 @@ namespace s3d
 		/// @brief ミップマッピングが有効化されているかを返します。
 		/// @return ミップマッピングが有効化されている場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool isMipped() const;
+		bool hasMipMap() const;
 
 		[[nodiscard]]
 		bool srgbSampling() const;

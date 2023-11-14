@@ -63,7 +63,7 @@ namespace s3d
 
 	Texture::Texture(const Image& image, const TextureDesc desc)
 		: AssetHandle{ (detail::CheckEngine(), std::make_shared<AssetIDWrapperType>(
-			detail::IsMipped(desc) ?
+			detail::HasMipMap(desc) ?
 				SIV3D_ENGINE(Texture)->createMipped(image, ImageProcessing::GenerateMips(image), desc) :
 				SIV3D_ENGINE(Texture)->createUnmipped(image, desc))) }
 	{
@@ -121,9 +121,9 @@ namespace s3d
 		return SIV3D_ENGINE(Texture)->getFormat(m_handle->id());
 	}
 
-	bool Texture::isMipped() const
+	bool Texture::hasMipMap() const
 	{
-		return detail::IsMipped(SIV3D_ENGINE(Texture)->getDesc(m_handle->id()));
+		return detail::HasMipMap(SIV3D_ENGINE(Texture)->getDesc(m_handle->id()));
 	}
 
 	bool Texture::srgbSampling() const
