@@ -24,7 +24,7 @@ namespace s3d
 		/// @param height 元の画像の高さ（ピクセル）
 		/// @return 作成されるミップマップ画像の枚数
 		[[nodiscard]]
-		inline constexpr size_t CalculateMipCount(uint32 width, uint32 height) noexcept;
+		inline constexpr size_t CalculateMipCount(size_t width, size_t height) noexcept;
 
 		/// @brief 画像からミップマップ画像を作成します。
 		/// @param src 画像

@@ -19,15 +19,7 @@ namespace s3d
 		: Texture{} {}
 
 	RenderTexture::RenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: RenderTexture{ Size{ width, height }, format, hasDepth, hasMipMap }
-	{
-		clear(color);
-
-		if (hasMipMap)
-		{
-			generateMips();
-		}
-	}
+		: RenderTexture{ Size{ width, height }, color, format, hasDepth, hasMipMap } {}
 
 	RenderTexture::RenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
 		: RenderTexture{ size, format, hasDepth, hasMipMap }

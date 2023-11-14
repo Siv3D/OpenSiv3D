@@ -15,14 +15,14 @@ namespace s3d
 {
 	namespace ImageProcessing
 	{
-		inline constexpr size_t CalculateMipCount(uint32 width, uint32 height) noexcept
+		inline constexpr size_t CalculateMipCount(size_t width, size_t height) noexcept
 		{
 			size_t numLevels = 1;
 
-			while ((1u < width) && (1u < height))
+			while ((1 < width) && (1 < height))
 			{
-				width	= Max(width / 2, 1u);
-				height	= Max(height / 2, 1u);
+				width	= Max<size_t>((width / 2), 1);
+				height	= Max<size_t>((height / 2), 1);
 				++numLevels;
 			}
 

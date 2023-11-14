@@ -31,16 +31,7 @@ namespace s3d
 		: MSRenderTexture{ size, TextureFormat::R8G8B8A8_Unorm, hasDepth, hasMipMap } {}
 
 	MSRenderTexture::MSRenderTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
-		: MSRenderTexture{ Size{ width, height }, format, hasDepth, hasMipMap }
-	{
-		clear(color);
-		resolve();
-
-		if (hasMipMap)
-		{
-			generateMips();
-		}
-	}
+		: MSRenderTexture{ Size{ width, height }, color, format, hasDepth, hasMipMap } {}
 
 	MSRenderTexture::MSRenderTexture(const Size& size, const ColorF& color, const TextureFormat& format, const HasDepth hasDepth, const HasMipMap hasMipMap)
 		: MSRenderTexture{ size, format, hasDepth, hasMipMap }

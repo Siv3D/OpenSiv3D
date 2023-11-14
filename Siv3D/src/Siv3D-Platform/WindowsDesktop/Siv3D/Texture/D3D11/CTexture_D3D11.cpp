@@ -235,6 +235,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
+		if (hasMipMap)
+		{
+			texture->generateMips(m_context);
+		}
+
 		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
@@ -255,6 +260,11 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
+		if (hasMipMap)
+		{
+			texture->generateMips(m_context);
+		}
+
 		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
@@ -273,6 +283,11 @@ namespace s3d
 		if (not texture->isInitialized())
 		{
 			return Texture::IDType::NullAsset();
+		}
+
+		if (hasMipMap)
+		{
+			texture->generateMips(m_context);
 		}
 
 		const String info = U"(type: Render, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
