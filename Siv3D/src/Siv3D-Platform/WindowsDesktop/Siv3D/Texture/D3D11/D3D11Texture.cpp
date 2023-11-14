@@ -125,32 +125,42 @@ namespace s3d
 		: m_desc{ size,
 			format,
 			desc,
-			1,
+			(detail::HasMipMap(desc) ? static_cast<uint32>(ImageProcessing::CalculateMipCount(size.x, size.y)) : 1u),
 			1, 0,
 			D3D11_USAGE_DEFAULT,
-			D3D11_BIND_SHADER_RESOURCE,
-			0, 0 }
+			(D3D11_BIND_SHADER_RESOURCE | (detail::HasMipMap(desc) ? D3D11_BIND_RENDER_TARGET : 0u)),
+			0, (detail::HasMipMap(desc) ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0u) }
 		, m_type{ TextureType::Dynamic }
-		, m_hasMipMap{ false }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
-		// [メインテクスチャ] を作成
-		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
 		{
-			D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
-			if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_texture);
-				FAILED(hr))
+			const Array<D3D11_SUBRESOURCE_DATA> initData = detail::MakeSubresourceData(pData, size.x, (stride / size.x), m_desc.mipLevels);
+
+			// [メインテクスチャ] を作成	
 			{
-				LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
-				return;
+				const D3D11_TEXTURE2D_DESC d3d11Desc = m_desc.makeTEXTURE2D_DESC();
+				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? initData.data() : nullptr), &m_texture);
+					FAILED(hr))
+				{
+					LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
+					return;
+				}
 			}
 
 			// [ステージング・テクスチャ] を作成
 			{
-				d3d11Desc.Usage				= D3D11_USAGE_STAGING;
-				d3d11Desc.BindFlags			= 0;
-				d3d11Desc.CPUAccessFlags	= D3D11_CPU_ACCESS_WRITE;
+				const D3D11Texture2DDesc stagingDesc{ size,
+					format,
+					desc,
+					1u,
+					1, 0,
+					D3D11_USAGE_STAGING,
+					0,
+					D3D11_CPU_ACCESS_WRITE, 0u };
 
-				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? &initData : nullptr), &m_stagingTexture);
+				const D3D11_TEXTURE2D_DESC d3d11Desc = stagingDesc.makeTEXTURE2D_DESC();
+
+				if (HRESULT hr = device->CreateTexture2D(&d3d11Desc, (pData ? initData.data() : nullptr), &m_stagingTexture);
 					FAILED(hr))
 				{
 					LOG_FAIL(U"❌ D3D11Texture::D3D11Texture() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {:#X}"_fmt(static_cast<uint32>(hr)));
@@ -592,7 +602,14 @@ namespace s3d
 			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		if (m_hasMipMap)
+		{
+			context->CopySubresourceRegion(m_texture.Get(), 0, 0, 0, 0, m_stagingTexture.Get(), 0, nullptr);
+		}
+		else
+		{
+			context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		}
 
 		return true;
 	}
@@ -623,7 +640,14 @@ namespace s3d
 			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		if (m_hasMipMap)
+		{
+			context->CopySubresourceRegion(m_texture.Get(), 0, 0, 0, 0, m_stagingTexture.Get(), 0, nullptr);
+		}
+		else
+		{
+			context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		}
 
 		return true;
 	}
@@ -656,7 +680,14 @@ namespace s3d
 			context->Unmap(m_stagingTexture.Get(), 0);
 		}
 
-		context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		if (m_hasMipMap)
+		{
+			context->CopySubresourceRegion(m_texture.Get(), 0, 0, 0, 0, m_stagingTexture.Get(), 0, nullptr);
+		}
+		else
+		{
+			context->CopyResource(m_texture.Get(), m_stagingTexture.Get());
+		}
 
 		return true;
 	}
@@ -699,7 +730,7 @@ namespace s3d
 			return true;
 		}
 
-		D3D11_BOX box = CD3D11_BOX(leftX, topY, 0, rightX, bottomY, 1);
+		const D3D11_BOX box = CD3D11_BOX(leftX, topY, 0, rightX, bottomY, 1);
 		context->CopySubresourceRegion(m_texture.Get(), 0, leftX, topY, 0, m_stagingTexture.Get(), 0, &box);
 
 		return true;
@@ -726,7 +757,8 @@ namespace s3d
 	void D3D11Texture::generateMips(ID3D11DeviceContext* context)
 	{
 		if ((m_type != TextureType::Render)
-			&& (m_type != TextureType::MSRender))
+			&& (m_type != TextureType::MSRender)
+			&& (m_type != TextureType::Dynamic))
 		{
 			return;
 		}

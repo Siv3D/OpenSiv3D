@@ -58,6 +58,10 @@ namespace s3d
 
 		bool fillRegionIfNotBusy(const Image& image, const Rect& rect);
 
+		/// @brief ミップマップを生成します。
+		/// @remark この関数は、テクスチャの作成時に MipMap を有効にした場合にのみ効果があります。
+		void generateMips();
+
 		void swap(DynamicTexture& other) noexcept;
 	};
 }
