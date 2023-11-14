@@ -187,7 +187,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), format.isSRGB());
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::Render{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
@@ -206,7 +206,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::Render{}, image, format, desc, hasDepth);
 
@@ -226,7 +226,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32_Float;
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::Render{}, image, format, desc, hasDepth);
 
@@ -246,7 +246,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32G32_Float;
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::Render{}, image, format, desc, hasDepth);
 
@@ -266,7 +266,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::Render{}, image, format, desc, hasDepth);
 
@@ -286,7 +286,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), format.isSRGB());
 		auto texture = std::make_unique<GL4Texture>(GL4Texture::MSRender{}, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
@@ -350,7 +350,7 @@ namespace s3d
 
 	void CTexture_GL4::generateMips(const Texture::IDType handleID)
 	{
-
+		m_textures[handleID]->generateMips();
 	}
 
 	void CTexture_GL4::readRT(const Texture::IDType handleID, Image& image)

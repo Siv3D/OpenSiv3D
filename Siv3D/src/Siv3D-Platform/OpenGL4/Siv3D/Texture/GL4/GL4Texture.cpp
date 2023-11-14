@@ -18,6 +18,7 @@
 namespace s3d
 {
 	GL4Texture::GL4Texture(const Image& image, const TextureDesc desc)
+		: m_hasMipMap{ false }
 	{
 		const TextureFormat format = 
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
@@ -39,6 +40,7 @@ namespace s3d
 	}
 	
 	GL4Texture::GL4Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+		: m_hasMipMap{ true }
 	{
 		const TextureFormat format =
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
@@ -72,6 +74,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Dynamic }
+		, m_hasMipMap{ false }
 	{
 		// [メインテクスチャ] を作成
 		{
@@ -90,6 +93,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if (format == TextureFormat::Unknown)
 		{
@@ -134,6 +138,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if ((format != TextureFormat::R8G8B8A8_Unorm)
 			&& (format != TextureFormat::R8G8B8A8_Unorm_SRGB))
@@ -179,6 +184,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if (format != TextureFormat::R32_Float)
 		{
@@ -224,6 +230,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if (format != TextureFormat::R32G32_Float)
 		{
@@ -269,6 +276,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::Render }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if (format != TextureFormat::R32G32B32A32_Float)
 		{
@@ -314,6 +322,7 @@ namespace s3d
 		, m_format{ format }
 		, m_textureDesc{ desc }
 		, m_type{ TextureType::MSRender }
+		, m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		if (format == TextureFormat::Unknown)
 		{
@@ -596,6 +605,11 @@ namespace s3d
 		}
 
 		//::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void GL4Texture::generateMips()
+	{
+
 	}
 
 	void GL4Texture::readRT(Image& image)
