@@ -24,34 +24,34 @@ namespace s3d
 		RenderTexture();
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(uint32 width, uint32 height, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No);
+		explicit RenderTexture(const Size& size, const ColorF& color = ColorF{ 0.0, 1.0 }, const TextureFormat& format = TextureFormat::R8G8B8A8_Unorm, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, const TextureFormat& format, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(uint32 width, uint32 height, const TextureFormat& format, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(uint32 width, uint32 height, HasDepth hasDepth);
+		RenderTexture(uint32 width, uint32 height, HasDepth hasDepth, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Size& size, const TextureFormat& format, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(const Size& size, const TextureFormat& format, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Size& size, HasDepth hasDepth);
+		RenderTexture(const Size& size, HasDepth hasDepth, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Image& image, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(const Image& image, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<float>& image, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(const Grid<float>& image, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float2>& image, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(const Grid<Float2>& image, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(const Grid<Float4>& image, HasDepth hasDepth = HasDepth::No);
+		RenderTexture(const Grid<Float4>& image, HasDepth hasDepth = HasDepth::No, HasMipMap hasMipMap = HasMipMap::No);
 
 		virtual ~RenderTexture();
 
@@ -59,6 +59,10 @@ namespace s3d
 		/// @param color 塗りつぶしの色
 		/// @return *this
 		const RenderTexture& clear(const ColorF& color) const;
+
+		/// @brief ミップマップを生成します。
+		/// @remark この関数は、テクスチャの作成時に `HasMipMap::Yes` を指定した場合にのみ効果があります。
+		void generateMips() const;
 
 		// TextureFormat::R8G8B8A8_Unorm のみサポート
 		void readAsImage(Image& image) const;
@@ -79,7 +83,7 @@ namespace s3d
 		struct MSRender {};
 
 		SIV3D_NODISCARD_CXX20
-		RenderTexture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth);
+		RenderTexture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap);
 	};
 }
 

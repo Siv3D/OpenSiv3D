@@ -304,22 +304,22 @@ namespace s3d
 		Texture(Dynamic, const Size& size, const ColorF& color, const TextureFormat& format, TextureDesc desc);
 	
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Size& size, const TextureFormat& format, HasDepth hasDepth);
+		Texture(Render, const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Image& image, HasDepth hasDepth);
+		Texture(Render, const Image& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<float>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<float>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<Float2>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<Float2>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(Render, const Grid<Float4>& image, HasDepth hasDepth);
+		Texture(Render, const Grid<Float4>& image, HasDepth hasDepth, HasMipMap hasMipMap);
 
 		SIV3D_NODISCARD_CXX20
-		Texture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth);
+		Texture(MSRender, const Size& size, const TextureFormat& format, HasDepth hasDepth, HasMipMap hasMipMap);
 	};
 }
 
