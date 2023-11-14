@@ -34,5 +34,18 @@ namespace s3d
 		{
 			return (desc == TextureDesc::SDF);
 		}
+
+		[[nodiscard]]
+		inline constexpr TextureDesc MakeTextureDesc(const bool hasMipMap, const bool isSRGB)
+		{
+			if (hasMipMap)
+			{
+				return (isSRGB ? TextureDesc::MippedSRGB : TextureDesc::Mipped);
+			}
+			else
+			{
+				return (isSRGB ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+			}
+		}
 	}
 }

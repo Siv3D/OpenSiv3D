@@ -182,7 +182,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), format.isSRGB());
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
@@ -201,7 +201,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R8G8B8A8_Unorm;
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
@@ -221,7 +221,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32_Float;
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
@@ -241,7 +241,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32G32_Float;
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
@@ -261,7 +261,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = TextureDesc::Unmipped;
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), false);
 		const TextureFormat format = TextureFormat::R32G32B32A32_Float;
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::Render{}, m_device, image, format, desc, hasDepth);
 
@@ -287,7 +287,7 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
-		const TextureDesc desc = (format.isSRGB() ? TextureDesc::UnmippedSRGB : TextureDesc::Unmipped);
+		const TextureDesc desc = detail::MakeTextureDesc(hasMipMap.getBool(), format.isSRGB());
 		auto texture = std::make_unique<D3D11Texture>(D3D11Texture::MSRender{}, m_device, size, format, desc, hasDepth);
 
 		if (not texture->isInitialized())
