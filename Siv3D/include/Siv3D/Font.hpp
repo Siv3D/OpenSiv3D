@@ -61,7 +61,7 @@ namespace s3d
 		/// @param typeface フォントの種類
 		/// @param style フォントのスタイル
 		SIV3D_NODISCARD_CXX20
-		Font(int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
+		explicit Font(int32 fontSize, Typeface typeface = Typeface::Regular, FontStyle style = FontStyle::Default);
 
 		/// @brief フォントを作成します。
 		/// @param fontMethod フォントのレンダリング方式
