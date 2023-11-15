@@ -12,6 +12,7 @@
 # include "CTexture_D3D11.hpp"
 # include <Siv3D/Error.hpp>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/HalfFloat.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
@@ -109,7 +110,7 @@ namespace s3d
 		return m_textures.size();
 	}
 
-	Texture::IDType CTexture_D3D11::createUnmipped(const Image& image, const TextureDesc desc)
+	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
 	{
 		if (not image)
 		{
@@ -123,11 +124,16 @@ namespace s3d
 			return Texture::IDType::NullAsset();
 		}
 
+		if (detail::HasMipMap(desc))
+		{
+			texture->generateMips(m_context);
+		}
+
 		const String info = U"(type: Default, size:{0}x{1}, format: {2})"_fmt(image.width(), image.height(), texture->getDesc().format.name());
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_D3D11::createMipped(const Image& image, const Array<Image>& mips, const TextureDesc desc)
+	Texture::IDType CTexture_D3D11::create(const Image& image, const Array<Image>& mips, const TextureDesc desc)
 	{
 		if (not image)
 		{

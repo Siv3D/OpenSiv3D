@@ -11,6 +11,7 @@
 
 # include "CTexture_GL4.hpp"
 # include <Siv3D/Error.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/Texture/TextureCommon.hpp>
@@ -84,11 +85,11 @@ namespace s3d
 
 			if (*request.pMipmaps)
 			{
-				request.idResult.get() = createMipped(*request.pImage, *request.pMipmaps, *request.pDesc);
+				request.idResult.get() = create(*request.pImage, *request.pMipmaps, *request.pDesc);
 			}
 			else
 			{
-				request.idResult.get() = createUnmipped(*request.pImage, *request.pDesc);
+				request.idResult.get() = create(*request.pImage, *request.pDesc);
 			}
 
 			request.waiting.get() = false;
@@ -102,7 +103,7 @@ namespace s3d
 		return m_textures.size();
 	}
 
-	Texture::IDType CTexture_GL4::createUnmipped(const Image& image, const TextureDesc desc)
+	Texture::IDType CTexture_GL4::create(const Image& image, const TextureDesc desc)
 	{
 		if (not image)
 		{
@@ -126,7 +127,7 @@ namespace s3d
 		return m_textures.add(std::move(texture), info);
 	}
 
-	Texture::IDType CTexture_GL4::createMipped(const Image& image, const Array<Image>& mips, const TextureDesc desc)
+	Texture::IDType CTexture_GL4::create(const Image& image, const Array<Image>& mips, const TextureDesc desc)
 	{
 		if (not image)
 		{

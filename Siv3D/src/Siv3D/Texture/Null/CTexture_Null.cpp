@@ -35,12 +35,12 @@ namespace s3d
 		return 0;
 	}
 
-	Texture::IDType CTexture_Null::createUnmipped(const Image&, TextureDesc)
+	Texture::IDType CTexture_Null::create(const Image&, TextureDesc)
 	{
 		return Texture::IDType::NullAsset();
 	}
 
-	Texture::IDType CTexture_Null::createMipped(const Image&, const Array<Image>&, TextureDesc)
+	Texture::IDType CTexture_Null::create(const Image&, const Array<Image>&, TextureDesc)
 	{
 		return Texture::IDType::NullAsset();
 	}
