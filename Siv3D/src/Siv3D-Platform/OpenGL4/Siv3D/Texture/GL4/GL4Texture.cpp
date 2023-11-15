@@ -19,7 +19,7 @@
 namespace s3d
 {
 	GL4Texture::GL4Texture(const Image& image, const TextureDesc desc)
-		: m_hasMipMap{ false }
+		: m_hasMipMap{ detail::HasMipMap(desc) }
 	{
 		const TextureFormat format = 
 			detail::IsSRGB(desc) ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm;
@@ -30,7 +30,17 @@ namespace s3d
 			::glBindTexture(GL_TEXTURE_2D, m_texture);
 			::glTexImage2D(GL_TEXTURE_2D, 0, format.GLInternalFormat(), image.width(), image.height(), 0,
 						   format.GLFormat(), format.GLType(), image.data());
-			::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+
+			if (m_hasMipMap)
+			{
+				const size_t mipmapCount = ImageProcessing::CalculateMipCount(image.width(), image.height());
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(mipmapCount - 1));
+				::glGenerateMipmap(GL_TEXTURE_2D);
+			}
+			else
+			{
+				::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			}
 		}
 		
 		m_size			= image.size();

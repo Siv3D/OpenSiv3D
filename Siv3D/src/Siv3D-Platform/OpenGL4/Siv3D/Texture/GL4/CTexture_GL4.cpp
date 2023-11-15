@@ -105,12 +105,6 @@ namespace s3d
 
 	Texture::IDType CTexture_GL4::create(const Image& image, const TextureDesc desc)
 	{
-		// [Siv3D ToDo] GPU でミップマップを生成する
-		if (detail::HasMipMap(desc))
-		{
-			return create(image, ImageProcessing::GenerateMips(image), desc);
-		}
-
 		if (not image)
 		{
 			return Texture::IDType::NullAsset();
