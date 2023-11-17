@@ -105,8 +105,8 @@ namespace s3d
 		, size{ _size } {}
 
 	inline constexpr RectF::RectF(const Rect& r) noexcept
-		: pos{ static_cast<value_type>(r.x), static_cast<value_type>(r.y) }
-		, size{ static_cast<value_type>(r.w), static_cast<value_type>(r.h) } {}
+		: pos{ static_cast<value_type>(r.pos.x), static_cast<value_type>(r.pos.y) }
+		, size{ static_cast<value_type>(r.size.x), static_cast<value_type>(r.size.y) } {}
 
 	inline constexpr RectF::RectF(const Arg::center_<position_type> _center, const value_type _size) noexcept
 		: pos{ (_center->x - _size / 2), (_center->y - _size / 2) }
@@ -240,55 +240,55 @@ namespace s3d
 
 	inline constexpr RectF& RectF::setPos(const Arg::topCenter_<position_type> topCenter) noexcept
 	{
-		pos.set((topCenter->x - w / 2), topCenter->y);
+		pos.set((topCenter->x - size.x / 2), topCenter->y);
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::topRight_<position_type> topRight) noexcept
 	{
-		pos.set(topRight->x - w, topRight->y);
+		pos.set(topRight->x - size.x, topRight->y);
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::rightCenter_<position_type> rightCenter) noexcept
 	{
-		pos.set((rightCenter->x - w), (rightCenter->y - h / 2));
+		pos.set((rightCenter->x - size.x), (rightCenter->y - size.y / 2));
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::bottomRight_<position_type> bottomRight) noexcept
 	{
-		pos.set((bottomRight->x - w), (bottomRight->y - h));
+		pos.set((bottomRight->x - size.x), (bottomRight->y - size.y));
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::bottomCenter_<position_type> bottomCenter) noexcept
 	{
-		pos.set((bottomCenter->x - w / 2), (bottomCenter->y - h));
+		pos.set((bottomCenter->x - size.x / 2), (bottomCenter->y - size.y));
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::bottomLeft_<position_type> bottomLeft) noexcept
 	{
-		pos.set(bottomLeft->x, bottomLeft->y - h);
+		pos.set(bottomLeft->x, bottomLeft->y - size.y);
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setPos(const Arg::leftCenter_<position_type> leftCenter) noexcept
 	{
-		pos.set(leftCenter->x, (leftCenter->y - h / 2));
+		pos.set(leftCenter->x, (leftCenter->y - size.y / 2));
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setCenter(const value_type _x, const value_type _y) noexcept
 	{
-		pos.set((_x - w / 2), (_y - h / 2));
+		pos.set((_x - size.x / 2), (_y - size.y / 2));
 		return *this;
 	}
 
 	inline constexpr RectF& RectF::setCenter(const position_type _pos) noexcept
 	{
-		pos.set((_pos.x - w / 2), (_pos.y - h / 2));
+		pos.set((_pos.x - size.x / 2), (_pos.y - size.y / 2));
 		return *this;
 	}
 
@@ -354,8 +354,8 @@ namespace s3d
 
 	inline constexpr RectF& RectF::set(const Rect& r) noexcept
 	{
-		pos.set(static_cast<value_type>(r.x), static_cast<value_type>(r.y));
-		size.set(static_cast<value_type>(r.w), static_cast<value_type>(r.h));
+		pos.set(static_cast<value_type>(r.pos.x), static_cast<value_type>(r.pos.y));
+		size.set(static_cast<value_type>(r.size.x), static_cast<value_type>(r.size.y));
 		return *this;
 	}
 
@@ -870,11 +870,11 @@ namespace s3d
 	{
 		const auto ox = std::max(pos.x, other.pos.x);
 		const auto oy = std::max(pos.y, other.pos.y);
-		const auto ow = (std::min((pos.x + w), (other.pos.x + other.w)) - ox);
+		const auto ow = (std::min((pos.x + size.x), (other.pos.x + other.size.x)) - ox);
 
 		if (0 <= ow)
 		{
-			const auto oh = (std::min((pos.y + h), (other.pos.y + other.h)) - oy);
+			const auto oh = (std::min((pos.y + size.y), (other.pos.y + other.size.y)) - oy);
 
 			if (0 <= oh)
 			{

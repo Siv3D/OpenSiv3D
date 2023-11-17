@@ -134,16 +134,14 @@ namespace s3d
 		friend constexpr bool operator ==(const Ellipse& lhs, const Ellipse& rhs) noexcept
 		{
 			return (lhs.center == rhs.center)
-				&& (lhs.a == rhs.a)
-				&& (lhs.b == rhs.b);
+				&& (lhs.axes == rhs.axes);
 		}
 
 		[[nodiscard]]
 		friend constexpr bool operator !=(const Ellipse& lhs, const Ellipse& rhs) noexcept
 		{
 			return (lhs.center != rhs.center)
-				|| (lhs.a != rhs.a)
-				|| (lhs.b != rhs.b);
+				|| (lhs.axes != rhs.axes);
 		}
 
 		constexpr Ellipse& set(value_type _x, value_type _y, size_type _a, size_type _b) noexcept;

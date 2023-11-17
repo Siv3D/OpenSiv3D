@@ -23,13 +23,13 @@ namespace s3d
 		[[nodiscard]]
 		inline constexpr std::tuple<double, double, double, double> GetLRTB(const Rect& rect) noexcept
 		{
-			return{ rect.x, (rect.x + rect.w), rect.y, (rect.y + rect.h) };
+			return{ rect.pos.x, (rect.pos.x + rect.size.x), rect.pos.y, (rect.pos.y + rect.size.y) };
 		}
 
 		[[nodiscard]]
 		inline constexpr std::tuple<double, double, double, double> GetLRTB(const RectF& rect) noexcept
 		{
-			return{ rect.x, (rect.x + rect.w), rect.y, (rect.y + rect.h) };
+			return{ rect.pos.x, (rect.pos.x + rect.size.x), rect.pos.y, (rect.pos.y + rect.size.y) };
 		}
 
 		[[nodiscard]]
@@ -118,18 +118,18 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Point& a, const Rect& b) noexcept
 		{
-			return (b.x <= a.x)
-				&& (a.x < (b.x + b.w))
-				&& (b.y <= a.y)
-				&& (a.y < (b.y + b.h));
+			return (b.pos.x <= a.x)
+				&& (a.x < (b.pos.x + b.size.x))
+				&& (b.pos.y <= a.y)
+				&& (a.y < (b.pos.y + b.size.y));
 		}
 
 		inline constexpr bool Intersect(const Point& a, const RectF& b) noexcept
 		{
-			return (b.x <= a.x)
-				&& (a.x < (b.x + b.w))
-				&& (b.y <= a.y)
-				&& (a.y < (b.y + b.h));
+			return (b.pos.x <= a.x)
+				&& (a.x < (b.pos.x + b.size.x))
+				&& (b.pos.y <= a.y)
+				&& (a.y < (b.pos.y + b.size.y));
 		}
 
 		inline constexpr bool Intersect(const Point& a, const Circle& b) noexcept
@@ -139,16 +139,16 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Point& a, const Ellipse& b) noexcept
 		{
-			if ((b.a == 0.0)
-				|| (b.b == 0.0))
+			if ((b.axes.x == 0.0)
+				|| (b.axes.y == 0.0))
 			{
 				return false;
 			}
 
-			const double xh = (b.x - a.x);
-			const double yk = (b.y - a.y);
+			const double xh = (b.center.x - a.x);
+			const double yk = (b.center.y - a.y);
 
-			return (((xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b)) <= 1.0);
+			return (((xh * xh) / (b.axes.x * b.axes.x) + (yk * yk) / (b.axes.y * b.axes.y)) <= 1.0);
 		}
 
 		inline constexpr bool Intersect(const Point& a, const Triangle& b) noexcept
@@ -203,14 +203,14 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Vec2& a, const Rect& b) noexcept
 		{
-			return (b.x <= a.x) && (a.x < (b.x + b.w))
-				&& (b.y <= a.y) && (a.y < (b.y + b.h));
+			return (b.pos.x <= a.x) && (a.x < (b.pos.x + b.size.x))
+				&& (b.pos.y <= a.y) && (a.y < (b.pos.y + b.size.y));
 		}
 
 		inline constexpr bool Intersect(const Vec2& a, const RectF& b) noexcept
 		{
-			return (b.x <= a.x) && (a.x < (b.x + b.w))
-				&& (b.y <= a.y) && (a.y < (b.y + b.h));
+			return (b.pos.x <= a.x) && (a.x < (b.pos.x + b.size.x))
+				&& (b.pos.y <= a.y) && (a.y < (b.pos.y + b.size.y));
 		}
 
 		inline constexpr bool Intersect(const Vec2& a, const Circle& b) noexcept
@@ -220,14 +220,14 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Vec2& a, const Ellipse& b) noexcept
 		{
-			if ((b.a == 0.0) || (b.b == 0.0))
+			if ((b.axes.x == 0.0) || (b.axes.y == 0.0))
 			{
 				return false;
 			}
 
-			const double xh = (b.x - a.x);
-			const double yk = (b.y - a.y);
-			return (((xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b)) <= 1.0);
+			const double xh = (b.center.x - a.x);
+			const double yk = (b.center.y - a.y);
+			return (((xh * xh) / (b.axes.x * b.axes.x) + (yk * yk) / (b.axes.y * b.axes.y)) <= 1.0);
 		}
 
 		inline constexpr bool Intersect(const Vec2& a, const Triangle& b) noexcept
@@ -296,18 +296,18 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Rect& a, const Rect& b) noexcept
 		{
-			return (a.x < (b.x + b.w))
-				&& (b.x < (a.x + a.w))
-				&& (a.y < (b.y + b.h))
-				&& (b.y < (a.y + a.h));
+			return (a.pos.x < (b.pos.x + b.size.x))
+				&& (b.pos.x < (a.pos.x + a.size.x))
+				&& (a.pos.y < (b.pos.y + b.size.y))
+				&& (b.pos.y < (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Intersect(const Rect& a, const RectF& b) noexcept
 		{
-			return (a.x < (b.x + b.w))
-				&& (b.x < (a.x + a.w))
-				&& (a.y < (b.y + b.h))
-				&& (b.y < (a.y + a.h));
+			return (a.pos.x < (b.pos.x + b.size.x))
+				&& (b.pos.x < (a.pos.x + a.size.x))
+				&& (a.pos.y < (b.pos.y + b.size.y))
+				&& (b.pos.y < (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Intersect(const RectF& a, const Point& b) noexcept
@@ -337,10 +337,10 @@ namespace s3d
 
 		inline constexpr bool Intersect(const RectF& a, const RectF& b) noexcept
 		{
-			return (a.x < (b.x + b.w))
-				&& (b.x < (a.x + a.w))
-				&& (a.y < (b.y + b.h))
-				&& (b.y < (a.y + a.h));
+			return (a.pos.x < (b.pos.x + b.size.x))
+				&& (b.pos.x < (a.pos.x + a.size.x))
+				&& (a.pos.y < (b.pos.y + b.size.y))
+				&& (b.pos.y < (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Intersect(const Rect& a, const Circle& b) noexcept
@@ -355,10 +355,10 @@ namespace s3d
 
 		inline constexpr bool Intersect(const RectF& a, const Circle& b) noexcept
 		{
-			const double aw = (a.w * 0.5);
-			const double ah = (a.h * 0.5);
-			const double cX = Abs(b.x - a.x - aw);
-			const double cY = Abs(b.y - a.y - ah);
+			const double aw = (a.size.x * 0.5);
+			const double ah = (a.size.y * 0.5);
+			const double cX = Abs(b.center.x - a.pos.x - aw);
+			const double cY = Abs(b.center.y - a.pos.y - ah);
 
 			if ((cX > (aw + b.r))
 				|| (cY > (ah + b.r)))
@@ -412,7 +412,7 @@ namespace s3d
 
 		inline constexpr bool Intersect(const Circle& a, const Circle& b) noexcept
 		{
-			return (((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) <= ((a.r + b.r) * (a.r + b.r)));
+			return (((a.center.x - b.center.x) * (a.center.x - b.center.x) + (a.center.y - b.center.y) * (a.center.y - b.center.y)) <= ((a.r + b.r) * (a.r + b.r)));
 		}
 
 		inline constexpr bool Intersect(const Ellipse& a, const Point& b) noexcept
@@ -1080,18 +1080,18 @@ namespace s3d
 
 		inline constexpr bool Contains(const Rect& a, const Rect& b) noexcept
 		{
-			return (a.x <= b.x)
-				&& (a.y <= b.y)
-				&& ((b.x + b.w) <= (a.x + a.w))
-				&& ((b.y + b.h) <= (a.y + a.h));
+			return (a.pos.x <= b.pos.x)
+				&& (a.pos.y <= b.pos.y)
+				&& ((b.pos.x + b.size.x) <= (a.pos.x + a.size.x))
+				&& ((b.pos.y + b.size.y) <= (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Contains(const Rect& a, const RectF& b) noexcept
 		{
-			return (a.x <= b.x)
-				&& (a.y <= b.y)
-				&& ((b.x + b.w) <= (a.x + a.w))
-				&& ((b.y + b.h) <= (a.y + a.h));
+			return (a.pos.x <= b.pos.x)
+				&& (a.pos.y <= b.pos.y)
+				&& ((b.pos.x + b.size.x) <= (a.pos.x + a.size.x))
+				&& ((b.pos.y + b.size.y) <= (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Contains(const Rect& a, const Circle& b) noexcept
@@ -1144,18 +1144,18 @@ namespace s3d
 
 		inline constexpr bool Contains(const RectF& a, const Rect& b) noexcept
 		{
-			return (a.x <= b.x)
-				&& (a.y <= b.y)
-				&& ((b.x + b.w) <= (a.x + a.w))
-				&& ((b.y + b.h) <= (a.y + a.h));
+			return (a.pos.x <= b.pos.x)
+				&& (a.pos.y <= b.pos.y)
+				&& ((b.pos.x + b.size.x) <= (a.pos.x + a.size.x))
+				&& ((b.pos.y + b.size.y) <= (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Contains(const RectF& a, const RectF& b) noexcept
 		{
-			return (a.x <= b.x)
-				&& (a.y <= b.y)
-				&& ((b.x + b.w) <= (a.x + a.w))
-				&& ((b.y + b.h) <= (a.y + a.h));
+			return (a.pos.x <= b.pos.x)
+				&& (a.pos.y <= b.pos.y)
+				&& ((b.pos.x + b.size.x) <= (a.pos.x + a.size.x))
+				&& ((b.pos.y + b.size.y) <= (a.pos.y + a.size.y));
 		}
 
 		inline constexpr bool Contains(const RectF& a, const Circle& b) noexcept

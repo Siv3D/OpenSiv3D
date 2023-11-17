@@ -55,7 +55,7 @@ namespace s3d
 
 	inline constexpr Ellipse::Ellipse(const RectF& rect) noexcept
 		: center{ rect.center() }
-		, axes{ (rect.w * 0.5), (rect.h * 0.5) } {}
+		, axes{ (rect.size.x * 0.5), (rect.size.y * 0.5) } {}
 
 	inline constexpr Ellipse& Ellipse::set(const value_type _x, const value_type _y, const size_type _a, const size_type _b) noexcept
 	{
@@ -96,7 +96,7 @@ namespace s3d
 
 	inline constexpr Ellipse& Ellipse::set(const RectF& rect) noexcept
 	{
-		return set(rect.center(), (rect.w * 0.5), (rect.h * 0.5));
+		return set(rect.center(), (rect.size.x * 0.5), (rect.size.y * 0.5));
 	}
 
 	inline constexpr Ellipse& Ellipse::set(const Ellipse& ellipse) noexcept
@@ -164,42 +164,42 @@ namespace s3d
 
 	inline constexpr Ellipse Ellipse::stretched(const value_type size) const noexcept
 	{
-		return{ center, (a + size), (b + size) };
+		return{ center, (axes.x + size), (axes.y + size) };
 	}
 
 	inline constexpr Ellipse Ellipse::stretched(const double _x, const double _y) const noexcept
 	{
-		return{ center, (a + _x), (b + _y) };
+		return{ center, (axes.x + _x), (axes.y + _y) };
 	}
 
 	inline constexpr Ellipse Ellipse::scaled(const double s) const noexcept
 	{
-		return{ center, (a * s), (b * s) };
+		return{ center, (axes.x * s), (axes.y * s) };
 	}
 
 	inline constexpr Ellipse Ellipse::scaled(const double sx, const double sy) const noexcept
 	{
-		return{ center, (a * sx), (b * sy) };
+		return{ center, (axes.x * sx), (axes.y * sy) };
 	}
 
 	inline constexpr Ellipse::position_type Ellipse::top() const noexcept
 	{
-		return{ x, (y - b) };
+		return{ center.x, (center.y - axes.y) };
 	}
 
 	inline constexpr Ellipse::position_type Ellipse::right() const noexcept
 	{
-		return{ (x + a), y };
+		return{ (center.x + axes.x), center.y };
 	}
 
 	inline constexpr Ellipse::position_type Ellipse::bottom() const noexcept
 	{
-		return{ x, (y + b) };
+		return{ center.x, (center.y + axes.y) };
 	}
 
 	inline constexpr Ellipse::position_type Ellipse::left() const noexcept
 	{
-		return{ (x - a), y };
+		return{ (center.x - axes.x), center.y };
 	}
 
 	inline constexpr Line Ellipse::horizontalDiameter() const noexcept
@@ -214,17 +214,17 @@ namespace s3d
 
 	inline constexpr Ellipse::value_type Ellipse::area() const noexcept
 	{
-		return (a * b * Math::Pi);
+		return (axes.x * axes.y * Math::Pi);
 	}
 
 	inline constexpr Circle Ellipse::boundingCircle() const noexcept
 	{
-		return{ center, Max(a, b) };
+		return{ center, Max(axes.x, axes.y) };
 	}
 
 	inline constexpr RectF Ellipse::boundingRect() const noexcept
 	{
-		return{ Arg::center = center, (a * 2), (b * 2) };
+		return{ Arg::center = center, (axes.x * 2), (axes.y * 2) };
 	}
 
 	inline constexpr Ellipse Ellipse::lerp(const Ellipse& other, const double f) const noexcept
