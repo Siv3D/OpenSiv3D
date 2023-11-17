@@ -965,6 +965,7 @@
 		2CB749ED261F52C200D31274 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB749EC261F52C200D31274 /* XInputFactory.cpp */; };
 		2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7D4EC2556E247007EB42E /* CMouse.cpp */; };
 		2CB7D4EF2556E247007EB42E /* CMouse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB7D4ED2556E247007EB42E /* CMouse.hpp */; };
+		2CBC98F72B07B42E007023EC /* soloud_coreaudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC98F62B07B42D007023EC /* soloud_coreaudio.cpp */; };
 		2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCAE2629D15F0077DDBF /* version_db.c */; };
 		2CBEBCB52629D15F0077DDBF /* identify.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCAF2629D15F0077DDBF /* identify.c */; };
 		2CBEBCB62629D15F0077DDBF /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBCB02629D15F0077DDBF /* decode.c */; };
@@ -3426,6 +3427,7 @@
 		2CB749EC261F52C200D31274 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
 		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
+		2CBC98F62B07B42D007023EC /* soloud_coreaudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_coreaudio.cpp; sourceTree = "<group>"; };
 		2CBEBCAE2629D15F0077DDBF /* version_db.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version_db.c; sourceTree = "<group>"; };
 		2CBEBCAF2629D15F0077DDBF /* identify.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = identify.c; sourceTree = "<group>"; };
 		2CBEBCB02629D15F0077DDBF /* decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
@@ -7481,6 +7483,7 @@
 		2C636DD62657F7D300AF029F /* backend */ = {
 			isa = PBXGroup;
 			children = (
+				2CBC98F52B07B42D007023EC /* coreaudio */,
 				2C636DD92657F7D300AF029F /* miniaudio */,
 				2C636DF22657F7D300AF029F /* nosound */,
 			);
@@ -8281,6 +8284,14 @@
 				2CB7D4ED2556E247007EB42E /* CMouse.hpp */,
 			);
 			path = Mouse;
+			sourceTree = "<group>";
+		};
+		2CBC98F52B07B42D007023EC /* coreaudio */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC98F62B07B42D007023EC /* soloud_coreaudio.cpp */,
+			);
+			path = coreaudio;
 			sourceTree = "<group>";
 		};
 		2CBEBCAD2629D15F0077DDBF /* quirc */ = {
@@ -14944,6 +14955,7 @@
 				2C2AA39126009C74003F3EBC /* b2_settings.cpp in Sources */,
 				2CB18ED226B5A68700862C28 /* as_callfunc_x64_mingw.cpp in Sources */,
 				2C9566CE2645626000539B85 /* mz_zip_rw.c in Sources */,
+				2CBC98F72B07B42E007023EC /* soloud_coreaudio.cpp in Sources */,
 				2CC8BCA728C75330008C770A /* ScriptDynamicTexture.cpp in Sources */,
 				2CC8BC1628C7532F008C770A /* SivVertexShaderAssetData.cpp in Sources */,
 				2CC8BC1F28C7532F008C770A /* EffectFactory.cpp in Sources */,
@@ -15946,6 +15958,7 @@
 					_UNICODE,
 					MSDFGEN_USE_CPP11,
 					WITH_MINIAUDIO,
+					WITH_COREAUDIO,
 					WITH_NOSOUND,
 					AS_DEBUG,
 					AS_USE_NAMESPACE,
@@ -16023,6 +16036,7 @@
 					_UNICODE,
 					MSDFGEN_USE_CPP11,
 					WITH_MINIAUDIO,
+					WITH_COREAUDIO,
 					WITH_NOSOUND,
 					AS_USE_NAMESPACE,
 				);
