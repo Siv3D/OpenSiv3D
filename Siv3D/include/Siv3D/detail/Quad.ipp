@@ -26,16 +26,16 @@ namespace s3d
 		, p3{ _p3 } {}
 
 	inline constexpr Quad::Quad(const Rect& rect) noexcept
-		: p0{ rect.x, rect.y }
-		, p1{ (rect.x + rect.w), rect.y }
-		, p2{ (rect.x + rect.w), (rect.y + rect.h) }
-		, p3{ rect.x, (rect.y + rect.h) } {}
+		: p0{ rect.pos.x, rect.pos.y }
+		, p1{ (rect.pos.x + rect.size.x), rect.pos.y }
+		, p2{ (rect.pos.x + rect.size.x), (rect.pos.y + rect.size.y) }
+		, p3{ rect.pos.x, (rect.pos.y + rect.size.y) } {}
 
 	inline constexpr Quad::Quad(const RectF& rect) noexcept
-		: p0{ rect.x, rect.y }
-		, p1{ (rect.x + rect.w), rect.y }
-		, p2{ (rect.x + rect.w), (rect.y + rect.h) }
-		, p3{ rect.x, (rect.y + rect.h) } {}
+		: p0{ rect.pos.x, rect.pos.y }
+		, p1{ (rect.pos.x + rect.size.x), rect.pos.y }
+		, p2{ (rect.pos.x + rect.size.x), (rect.pos.y + rect.size.y) }
+		, p3{ rect.pos.x, (rect.pos.y + rect.size.y) } {}
 
 	inline constexpr Quad& Quad::set(const value_type x0, const value_type y0, const value_type x1, const value_type y1, const value_type x2, const value_type y2, const value_type x3, const value_type y3) noexcept
 	{
