@@ -89,6 +89,26 @@ namespace s3d
 		return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
 	}
 
+	inline constexpr HSV HSV::withH(const double _h) const noexcept
+	{
+		return{ _h, s, v, a };
+	}
+
+	inline constexpr HSV HSV::withS(const double _s) const noexcept
+	{
+		return{ h, _s, v, a };
+	}
+
+	inline constexpr HSV HSV::withV(const double _v) const noexcept
+	{
+		return{ h, s, _v, a };
+	}
+
+	inline constexpr HSV HSV::withA(const double _a) const noexcept
+	{
+		return{ h, s, v, _a };
+	}
+
 	inline constexpr HSV& HSV::setH(const double _h) noexcept
 	{
 		h = _h;

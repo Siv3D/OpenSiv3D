@@ -248,6 +248,18 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr Vector2D<Type> Vector2D<Type>::withX(const value_type _x) const noexcept
+	{
+		return{ _x, y };
+	}
+
+	template <class Type>
+	inline constexpr Vector2D<Type> Vector2D<Type>::withY(const value_type _y) const noexcept
+	{
+		return{ x, _y };
+	}
+
+	template <class Type>
 	inline constexpr Vector2D<Type>& Vector2D<Type>::set(const value_type _x, const value_type _y) noexcept
 	{
 		x = _x; y = _y;

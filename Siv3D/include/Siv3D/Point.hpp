@@ -184,12 +184,24 @@ namespace s3d
 
 		constexpr void clear() noexcept;
 
-		constexpr Point& set(int32 _x, int32 _y) noexcept;
+		/// @brief x 成分のみを変更した自身のコピーを返します。
+		/// @param _x x 成分
+		/// @return x 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Point withX(value_type _x) const noexcept;
+
+		/// @brief y 成分のみを変更した自身のコピーを返します。
+		/// @param _y y 成分
+		/// @return y 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Point withY(value_type _y) const noexcept;
+
+		constexpr Point& set(value_type _x, value_type _y) noexcept;
 
 		constexpr Point& set(Point p) noexcept;
 
 		[[nodiscard]]
-		constexpr Point movedBy(int32 _x, int32 _y) const noexcept;
+		constexpr Point movedBy(value_type _x, value_type _y) const noexcept;
 
 		[[nodiscard]]
 		constexpr Point movedBy(Point p) const noexcept;
@@ -198,7 +210,7 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector2D<Type> movedBy(Vector2D<Type> v) const noexcept;
 
-		constexpr Point& moveBy(int32 _x, int32 _y) noexcept;
+		constexpr Point& moveBy(value_type _x, value_type _y) noexcept;
 
 		constexpr Point& moveBy(Point p) noexcept;
 

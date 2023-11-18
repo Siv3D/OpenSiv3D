@@ -117,6 +117,12 @@ namespace s3d
 			r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(Vec2, clear, () noexcept, void), asCALL_THISCALL); assert(r >= 0);
 
 			//
+			//	with
+			//
+			r = engine->RegisterObjectMethod(TypeName, "Vec2 withX(double) const", asMETHODPR(Vec2, withX, (double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "Vec2 withY(double) const", asMETHODPR(Vec2, withY, (double) const noexcept, Vec2), asCALL_THISCALL); assert(r >= 0);
+
+			//
 			//	set
 			//
 			r = engine->RegisterObjectMethod(TypeName, "Vec2& set(double, double)", asMETHODPR(Vec2, set, (double, double), Vec2&), asCALL_THISCALL); assert(r >= 0);

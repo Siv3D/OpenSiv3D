@@ -114,6 +114,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Color& in) const", asFUNCTION(EqualsColor), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "Color withR(uint32 r)", asMETHODPR(Color, withR, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color withG(uint32 g)", asMETHODPR(Color, withG, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color withB(uint32 b)", asMETHODPR(Color, withB, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color withA(uint32 a)", asMETHODPR(Color, withA, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
+
+		//
 		//	set
 		//
 		r = engine->RegisterObjectMethod(TypeName, "Color& setR(uint32 r)", asMETHODPR(Color, setR, (uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
@@ -125,7 +133,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 rgb, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32, uint32, uint32) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& set(Color)", asMETHODPR(Color, set, (Color) noexcept, Color&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Color withAlpha(uint32 a)", asMETHODPR(Color, withAlpha, (uint32) const noexcept, Color), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "uint8 grayscale0_255() const", asMETHODPR(Color, grayscale0_255, () const noexcept, uint8), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double grayscale() const", asMETHODPR(Color, grayscale, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);

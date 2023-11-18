@@ -163,6 +163,30 @@ namespace s3d
 
 		constexpr void clear() noexcept;
 
+		/// @brief x 成分のみを変更した自身のコピーを返します。
+		/// @param _x x 成分
+		/// @return x 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector4D withX(value_type _x) const noexcept;
+
+		/// @brief y 成分のみを変更した自身のコピーを返します。
+		/// @param _y y 成分
+		/// @return y 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector4D withY(value_type _y) const noexcept;
+
+		/// @brief z 成分のみを変更した自身のコピーを返します。
+		/// @param _z z 成分
+		/// @return z 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector4D withZ(value_type _z) const noexcept;
+
+		/// @brief w 成分のみを変更した自身のコピーを返します。
+		/// @param _w w 成分
+		/// @return w 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector4D withW(value_type _w) const noexcept;
+
 		constexpr Vector4D& set(const Vector2D<value_type>& xy, const Vector2D<value_type>& zw) noexcept;
 
 		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept;

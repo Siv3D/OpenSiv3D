@@ -116,6 +116,13 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(Float3, clear, () noexcept, void), asCALL_THISCALL); assert(r >= 0);
 
 		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "Float3 withX(float) const", asMETHODPR(Float3, withX, (float) const noexcept, Float3), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float3 withY(float) const", asMETHODPR(Float3, withY, (float) const noexcept, Float3), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float3 withZ(float) const", asMETHODPR(Float3, withZ, (float) const noexcept, Float3), asCALL_THISCALL); assert(r >= 0);
+
+		//
 		//	set
 		//
 		r = engine->RegisterObjectMethod(TypeName, "Float3& set(float, float, float)", asMETHODPR(Float3, set, (float, float, float), Float3&), asCALL_THISCALL); assert(r >= 0);

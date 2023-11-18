@@ -127,6 +127,30 @@ namespace s3d
 				|| (lhs.a != rhs.a);
 		}
 
+		/// @brief r 成分のみを変更した自身のコピーを返します。
+		/// @param _r r 成分
+		/// @return r 成分を変更したコピー
+		[[nodiscard]]
+		constexpr ColorF withR(double _r) const noexcept;
+
+		/// @brief g 成分のみを変更した自身のコピーを返します。
+		/// @param _g g 成分
+		/// @return g 成分を変更したコピー
+		[[nodiscard]]
+		constexpr ColorF withG(double _g) const noexcept;
+
+		/// @brief b 成分のみを変更した自身のコピーを返します。
+		/// @param _b b 成分
+		/// @return b 成分を変更したコピー
+		[[nodiscard]]
+		constexpr ColorF withB(double _b) const noexcept;
+
+		/// @brief a 成分のみを変更した自身のコピーを返します。
+		/// @param _a a 成分
+		/// @return a 成分を変更したコピー
+		[[nodiscard]]
+		constexpr ColorF withA(double _a) const noexcept;
+
 		constexpr ColorF& setR(double _r) noexcept;
 
 		constexpr ColorF& setG(double _g) noexcept;
@@ -145,6 +169,7 @@ namespace s3d
 
 		constexpr ColorF& set(const ColorF& ColorF) noexcept;
 
+		[[deprecated("use withA()")]]
 		constexpr ColorF withAlpha(double _a) const noexcept;
 
 		[[nodiscard]]

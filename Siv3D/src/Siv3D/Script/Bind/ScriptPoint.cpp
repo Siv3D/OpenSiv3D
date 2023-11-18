@@ -138,6 +138,12 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHODPR(Point, clear, () noexcept, void), asCALL_THISCALL); assert(r >= 0);
 
 		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "Point withX(int32) const", asMETHODPR(Point, withX, (int32) const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Point withY(int32) const", asMETHODPR(Point, withY, (int32) const noexcept, Point), asCALL_THISCALL); assert(r >= 0);
+
+		//
 		//	set
 		//
 		r = engine->RegisterObjectMethod(TypeName, "Point& set(int32, int32)", asMETHODPR(Point, set, (int32, int32) noexcept, Point&), asCALL_THISCALL); assert(r >= 0);

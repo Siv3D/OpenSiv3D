@@ -106,6 +106,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const ColorF& in) const", asFUNCTION(EqualsHSV), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "HSV withH(double h) const", asMETHODPR(HSV, withH, (double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "HSV withS(double s) const", asMETHODPR(HSV, withS, (double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "HSV withV(double v) const", asMETHODPR(HSV, withV, (double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "HSV withA(double a) const", asMETHODPR(HSV, withA, (double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
+
+		//
 		//	set
 		//
 		r = engine->RegisterObjectMethod(TypeName, "HSV& setH(double h)", asMETHODPR(HSV, setH, (double) noexcept, HSV&), asCALL_THISCALL); assert(r >= 0);
@@ -115,7 +123,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "HSV& setHSV(double h, double s, double v)", asMETHODPR(HSV, setHSV, (double, double, double) noexcept, HSV&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "HSV& set(double h, double s, double v, double a = 1.0)", asMETHODPR(HSV, set, (double, double, double, double), HSV&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "HSV& set(const HSV& in)", asMETHODPR(HSV, set, (const HSV&), HSV&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "HSV withAlpha(double a) const", asMETHODPR(HSV, withAlpha, (double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "HSV lerp(const HSV& in, double) const", asMETHODPR(HSV, lerp, (const HSV&, double) const noexcept, HSV), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "size_t hash() const", asMETHODPR(HSV, hash, () const noexcept, size_t), asCALL_THISCALL); assert(r >= 0);

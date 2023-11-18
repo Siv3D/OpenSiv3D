@@ -51,6 +51,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular& opAddAssign(Vec2)", asMETHODPR(ShapeType, operator+=, (Vec2) noexcept, OffsetCircular&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular& opSubAssign(Vec2)", asMETHODPR(ShapeType, operator-=, (Vec2) noexcept, OffsetCircular&), asCALL_THISCALL); assert(r >= 0);
 
+		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular withCenter(double, double) const", asMETHODPR(ShapeType, withCenter, (double, double) const noexcept, OffsetCircular), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular withCenter(Vec2) const", asMETHODPR(ShapeType, withCenter, (Vec2) const noexcept, OffsetCircular), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular withR(double) const", asMETHODPR(ShapeType, withR, (double) const noexcept, OffsetCircular), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular withTheta(double) const", asMETHODPR(ShapeType, withTheta, (double) const noexcept, OffsetCircular), asCALL_THISCALL); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular movedBy(double, double) const", asMETHODPR(ShapeType, movedBy, (double, double) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular movedBy(Vec2) const", asMETHODPR(ShapeType, movedBy, (Vec2) const, ShapeType), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular& moveBy(double, double)", asMETHODPR(ShapeType, moveBy, (double, double), ShapeType&), asCALL_THISCALL); assert(r >= 0);

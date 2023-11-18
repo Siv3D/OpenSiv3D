@@ -58,6 +58,18 @@ namespace s3d
 		[[nodiscard]]
 		position_type operator -(position_type v) const noexcept;
 
+		/// @brief r 成分のみを変更した自身のコピーを返します。
+		/// @param _r r 成分
+		/// @return r 成分を変更したコピー
+		[[nodiscard]]
+		constexpr CircularBase withR(value_type _r) const noexcept;
+
+		/// @brief theta 成分のみを変更した自身のコピーを返します。
+		/// @param _theta theta 成分
+		/// @return theta 成分を変更したコピー
+		[[nodiscard]]
+		constexpr CircularBase withTheta(value_type _theta) const noexcept;
+
 		[[nodiscard]]
 		constexpr CircularBase rotated(value_type angle) const noexcept;
 

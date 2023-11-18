@@ -168,6 +168,24 @@ namespace s3d
 		/// @brief 各成分を 0 にセットします。
 		constexpr void clear() noexcept;
 
+		/// @brief x 成分のみを変更した自身のコピーを返します。
+		/// @param _x x 成分
+		/// @return x 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector3D withX(value_type _x) const noexcept;
+
+		/// @brief y 成分のみを変更した自身のコピーを返します。
+		/// @param _y y 成分
+		/// @return y 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector3D withY(value_type _y) const noexcept;
+
+		/// @brief z 成分のみを変更した自身のコピーを返します。
+		/// @param _z z 成分
+		/// @return z 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Vector3D withZ(value_type _z) const noexcept;
+
 		/// @brief 各成分を変更します。
 		/// @param _x 新しい X 成分
 		/// @param _y 新しい Y 成分

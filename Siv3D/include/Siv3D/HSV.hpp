@@ -105,6 +105,30 @@ namespace s3d
 				|| (lhs.a != rhs.a);
 		}
 
+		/// @brief h 成分のみを変更した自身のコピーを返します。
+		/// @param _h h 成分
+		/// @return h 成分を変更したコピー
+		[[nodiscard]]
+		constexpr HSV withH(double _h) const noexcept;
+
+		/// @brief s 成分のみを変更した自身のコピーを返します。
+		/// @param _s s 成分
+		/// @return s 成分を変更したコピー
+		[[nodiscard]]
+		constexpr HSV withS(double _s) const noexcept;
+
+		/// @brief v 成分のみを変更した自身のコピーを返します。
+		/// @param _v v 成分
+		/// @return v 成分を変更したコピー
+		[[nodiscard]]
+		constexpr HSV withV(double _v) const noexcept;
+
+		/// @brief a 成分のみを変更した自身のコピーを返します。
+		/// @param _a a 成分
+		/// @return a 成分を変更したコピー
+		[[nodiscard]]
+		constexpr HSV withA(double _a) const noexcept;
+
 		constexpr HSV& setH(double _h) noexcept;
 
 		constexpr HSV& setS(double _s) noexcept;
@@ -119,6 +143,7 @@ namespace s3d
 
 		constexpr HSV& set(const HSV& hsva) noexcept;
 
+		[[deprecated("use withA()")]]
 		constexpr HSV withAlpha(double _a) const noexcept;
 
 		[[nodiscard]]

@@ -109,6 +109,30 @@ namespace s3d
 		# endif
 		}
 
+		/// @brief r 成分のみを変更した自身のコピーを返します。
+		/// @param _r r 成分
+		/// @return r 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Color withR(uint32 _r) const noexcept;
+
+		/// @brief g 成分のみを変更した自身のコピーを返します。
+		/// @param _g g 成分
+		/// @return g 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Color withG(uint32 _g) const noexcept;
+
+		/// @brief b 成分のみを変更した自身のコピーを返します。
+		/// @param _b b 成分
+		/// @return b 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Color withB(uint32 _b) const noexcept;
+
+		/// @brief a 成分のみを変更した自身のコピーを返します。
+		/// @param _a a 成分
+		/// @return a 成分を変更したコピー
+		[[nodiscard]]
+		constexpr Color withA(uint32 _a) const noexcept;
+
 		constexpr Color& setR(uint32 _r) noexcept;
 
 		constexpr Color& setG(uint32 _g) noexcept;
@@ -127,6 +151,7 @@ namespace s3d
 
 		constexpr Color& set(Color color) noexcept;
 
+		[[deprecated("use withA()")]]
 		constexpr Color withAlpha(uint32 _a) const noexcept;
 
 		[[nodiscard]]

@@ -169,6 +169,26 @@ namespace s3d
 		return *this;
 	}
 
+	inline constexpr ColorF ColorF::withR(const double _r) const noexcept
+	{
+		return{ _r, g, b, a };
+	}
+
+	inline constexpr ColorF ColorF::withG(const double _g) const noexcept
+	{
+		return{ r, _g, b, a };
+	}
+
+	inline constexpr ColorF ColorF::withB(const double _b) const noexcept
+	{
+		return{ r, g, _b, a };
+	}
+
+	inline constexpr ColorF ColorF::withA(const double _a) const noexcept
+	{
+		return{ r, g, b, _a };
+	}
+
 	inline constexpr ColorF& ColorF::setR(const double _r) noexcept
 	{
 		r = _r;

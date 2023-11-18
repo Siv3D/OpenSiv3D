@@ -57,6 +57,31 @@ namespace s3d
 
 		constexpr OffsetCircularBase& operator -=(position_type v) noexcept;
 
+		/// @brief 中心座標のみを変更した自身のコピーを返します。
+		/// @param x 中心の X 座標
+		/// @param y 中心の Y 座標
+		/// @return 中心座標を変更したコピー
+		[[nodiscard]]
+		constexpr OffsetCircularBase withCenter(value_type x, value_type y) const noexcept;
+
+		/// @brief 中心座標のみを変更した自身のコピーを返します。
+		/// @param _center 中心座標
+		/// @return 中心座標を変更したコピー
+		[[nodiscard]]
+		constexpr OffsetCircularBase withCenter(position_type _center) const noexcept;
+
+		/// @brief r 成分のみを変更した自身のコピーを返します。
+		/// @param _r r 成分
+		/// @return r 成分を変更したコピー
+		[[nodiscard]]
+		constexpr OffsetCircularBase withR(value_type _r) const noexcept;
+
+		/// @brief theta 成分のみを変更した自身のコピーを返します。
+		/// @param _theta theta 成分
+		/// @return theta 成分を変更したコピー
+		[[nodiscard]]
+		constexpr OffsetCircularBase withTheta(value_type _theta) const noexcept;
+
 		[[nodiscard]]
 		constexpr OffsetCircularBase movedBy(value_type x, value_type y) const noexcept;
 

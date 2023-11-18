@@ -143,6 +143,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const ColorF& in) const", asFUNCTION(EqualsColorF), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		//
+		//	with
+		//
+		r = engine->RegisterObjectMethod(TypeName, "ColorF withR(double) const", asMETHODPR(ColorF, withR, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF withG(double) const", asMETHODPR(ColorF, withG, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF withB(double) const", asMETHODPR(ColorF, withB, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF withA(double) const", asMETHODPR(ColorF, withA, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
+
+		//
 		//	set
 		//
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& setR(double r)", asMETHODPR(ColorF, setR, (double) noexcept, ColorF&), asCALL_THISCALL); assert(r >= 0);
@@ -154,7 +162,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double rgb, double a = 1.0)", asMETHODPR(ColorF, set, (double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double r, double g, double b, double a = 1.0)", asMETHODPR(ColorF, set, (double, double, double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(const ColorF& in)", asMETHODPR(ColorF, set, (const ColorF&), ColorF&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "ColorF withAlpha(double a)", asMETHODPR(ColorF, withAlpha, (double) const noexcept, ColorF), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "double grayscale() const", asMETHODPR(ColorF, grayscale, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double minRGBComponent() const", asMETHODPR(ColorF, minRGBComponent, () const noexcept, double), asCALL_THISCALL); assert(r >= 0);

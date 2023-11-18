@@ -63,6 +63,30 @@ namespace s3d
 	}
 
 	template <class Float, int32 Oclock>
+	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::withCenter(const value_type x, const value_type y) const noexcept
+	{
+		return{ Vec2{ x, y }, r, theta };
+	}
+
+	template <class Float, int32 Oclock>
+	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::withCenter(const position_type _center) const noexcept
+	{
+		return{ _center, r, theta };
+	}
+
+	template <class Float, int32 Oclock>
+	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::withR(const value_type _r) const noexcept
+	{
+		return{ center, _r, theta };
+	}
+
+	template <class Float, int32 Oclock>
+	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::withTheta(const value_type _theta) const noexcept
+	{
+		return{ center, r, _theta };
+	}
+
+	template <class Float, int32 Oclock>
 	inline constexpr OffsetCircularBase<Float, Oclock> OffsetCircularBase<Float, Oclock>::movedBy(const value_type x, const value_type y) const noexcept
 	{
 		return movedBy(Vec2{ x, y });
