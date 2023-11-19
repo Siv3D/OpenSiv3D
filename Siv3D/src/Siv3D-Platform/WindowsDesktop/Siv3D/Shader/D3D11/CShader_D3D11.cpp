@@ -150,8 +150,14 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/copy.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/copy.ps");
 
-			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur_9.hlsl", ShaderStage::Pixel, U"PS")
+			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur.hlsl", ShaderStage::Pixel, U"Blur5_PS")
+			//	.save(U"engine/shader/d3d11/gaussian_blur_5.ps");
+
+			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur.hlsl", ShaderStage::Pixel, U"Blur9_PS")
 			//	.save(U"engine/shader/d3d11/gaussian_blur_9.ps");
+
+			//compileHLSLFromFile(U"engine/shader/d3d11/gaussian_blur.hlsl", ShaderStage::Pixel, U"Blur13_PS")
+			//	.save(U"engine/shader/d3d11/gaussian_blur_13.ps");
 
 			//compileHLSLFromFile(U"engine/shader/d3d11/apply_srgb_curve.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/apply_srgb_curve.ps");
@@ -195,7 +201,9 @@ namespace s3d
 		// エンジン PS をロード
 		{
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/copy.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_5.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_9.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_13.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/apply_srgb_curve.ps") };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば

@@ -74,7 +74,9 @@ namespace s3d
 		// エンジン PS をロード
 		{
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/copy.frag"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_5.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
+			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_13.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/apply_srgb_curve.frag"), {} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
