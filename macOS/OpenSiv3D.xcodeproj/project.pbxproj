@@ -3428,6 +3428,7 @@
 		2CB7D4EC2556E247007EB42E /* CMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMouse.cpp; sourceTree = "<group>"; };
 		2CB7D4ED2556E247007EB42E /* CMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMouse.hpp; sourceTree = "<group>"; };
 		2CBC98F62B07B42D007023EC /* soloud_coreaudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = soloud_coreaudio.cpp; sourceTree = "<group>"; };
+		2CBC98F82B09F7F3007023EC /* BoxFilterSize.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BoxFilterSize.hpp; sourceTree = "<group>"; };
 		2CBEBCAE2629D15F0077DDBF /* version_db.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version_db.c; sourceTree = "<group>"; };
 		2CBEBCAF2629D15F0077DDBF /* identify.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = identify.c; sourceTree = "<group>"; };
 		2CBEBCB02629D15F0077DDBF /* decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
@@ -8411,6 +8412,7 @@
 				2CC8B54828C752ED008C770A /* Blob.hpp */,
 				2CC8B6DB28C752EE008C770A /* BorderType.hpp */,
 				2CC8B70628C752EE008C770A /* Box.hpp */,
+				2CBC98F82B09F7F3007023EC /* BoxFilterSize.hpp */,
 				2CC8B6FE28C752EE008C770A /* Buffer2D.hpp */,
 				2CC8B63A28C752ED008C770A /* Byte.hpp */,
 				2CC8B4AE28C752ED008C770A /* Camera2D.hpp */,

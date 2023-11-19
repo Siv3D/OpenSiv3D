@@ -1125,6 +1125,9 @@
 // エッジ保持フィルタ | Edge preserving filter
 # include <Siv3D/EdgePreservingFilterType.hpp>
 
+// ボックスフィルタ | Box filter
+# include <Siv3D/BoxFilterSize.hpp>
+
 // 画像 | Image
 # include <Siv3D/Image.hpp>
 

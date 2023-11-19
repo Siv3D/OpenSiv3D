@@ -34,14 +34,11 @@ fn main(
 	@location(1) UV: vec2<f32>
 ) -> @location(0) vec4<f32> 
 {
-	var offset1: vec2<f32> = (1.38461538461538 * PSConstants2D.direction);
-	var offset2: vec2<f32> = (3.23076923076923 * PSConstants2D.direction);
+	var offset1: vec2<f32> = (1.33333333333333 * PSConstants2D.direction);
 
-	var color: vec4<f32> = (textureSample(Texture0, Sampler0, UV) * 0.227027027027027);
-	color = (color + textureSample(Texture0, Sampler0, UV + (offset1 * PSConstants2D.pixelSize)) * 0.316216216216216);
-	color = (color + textureSample(Texture0, Sampler0, UV - (offset1 * PSConstants2D.pixelSize)) * 0.316216216216216);
-	color = (color + textureSample(Texture0, Sampler0, UV + (offset2 * PSConstants2D.pixelSize)) * 0.070270270270270);
-	color = (color + textureSample(Texture0, Sampler0, UV - (offset2 * PSConstants2D.pixelSize)) * 0.070270270270270);
+	var color: vec4<f32> = (textureSample(Texture0, Sampler0, UV) * 0.294117647058824);
+	color = (color + textureSample(Texture0, Sampler0, UV + (offset1 * PSConstants2D.pixelSize)) * 0.352941176470588);
+	color = (color + textureSample(Texture0, Sampler0, UV - (offset1 * PSConstants2D.pixelSize)) * 0.352941176470588);
 
 	return color;
 }

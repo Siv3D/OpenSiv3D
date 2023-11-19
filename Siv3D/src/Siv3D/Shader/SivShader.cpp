@@ -72,17 +72,17 @@ namespace s3d
 			from.resized(to.size()).draw();
 		}
 
-		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to)
+		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to, const BoxFilterSize boxFilterSize)
 		{
-			GaussianBlur(from, to, Vec2{ 1, 0 });
+			GaussianBlur(from, to, Vec2{ 1, 0 }, boxFilterSize);
 		}
 
-		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to)
+		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to, const BoxFilterSize boxFilterSize)
 		{
-			GaussianBlur(from, to, Vec2{ 0, 1 });
+			GaussianBlur(from, to, Vec2{ 0, 1 }, boxFilterSize);
 		}
 
-		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction)
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction, const BoxFilterSize boxFilterSize)
 		{
 			if (not from.texture)
 			{
@@ -106,15 +106,19 @@ namespace s3d
 
 			const ScopedRenderTarget2D target{ to };
 			const ScopedRenderStates2D states{ BlendState::Opaque, SamplerState::ClampLinear, RasterizerState::Default2D };
-			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::GaussianBlur_9) };
+			const EnginePS ps =
+				(boxFilterSize == BoxFilterSize::BoxFilter5x5) ? EnginePS::GaussianBlur_5
+				: (boxFilterSize == BoxFilterSize::BoxFilter9x9) ? EnginePS::GaussianBlur_9
+				: EnginePS::GaussianBlur_13;
+			const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEnginePS(ps) };
 			Graphics2D::Internal::SetInternalPSConstants(Float4{ Float2{ 1, 1 } / from.size * Float2{ from.uvRect.right - from.uvRect.left, from.uvRect.bottom - from.uvRect.top }, direction });
 			from.draw();
 		}
 
-		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to)
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to, const BoxFilterSize boxFilterSize)
 		{
-			Shader::GaussianBlurH(from, internalBuffer);
-			Shader::GaussianBlurV(internalBuffer, to);
+			Shader::GaussianBlurH(from, internalBuffer, boxFilterSize);
+			Shader::GaussianBlurV(internalBuffer, to, boxFilterSize);
 		}
 
 		void LinearToScreen(const TextureRegion& src, const TextureFilter textureFilter, const RectF& dst)

@@ -18,6 +18,7 @@
 # include "Graphics2D.hpp"
 # include "2DShapes.hpp"
 # include "TextureFilter.hpp"
+# include "BoxFilterSize.hpp"
 
 namespace s3d
 {
@@ -35,18 +36,19 @@ namespace s3d
 		/// @remark from と to は異なるテクスチャである必要があります。
 		void Downsample(const TextureRegion& from, const RenderTexture& to);
 
-		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to);
+		void GaussianBlurH(const TextureRegion& from, const RenderTexture& to, BoxFilterSize boxFilterSize = BoxFilterSize::BoxFilter9x9);
 
-		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to);
+		void GaussianBlurV(const TextureRegion& from, const RenderTexture& to, BoxFilterSize boxFilterSize = BoxFilterSize::BoxFilter9x9);
 
-		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction);
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& to, const Vec2& direction, BoxFilterSize boxFilterSize = BoxFilterSize::BoxFilter9x9);
 
 		/// @brief テクスチャの内容をガウスぼかしして別のレンダーテクスチャに描画します。
 		/// @param from 元のテクスチャ
 		/// @param internalBuffer 中間状態を格納するレンダーテクスチャ
 		/// @param to 描画先のレンダーテクスチャ
+		/// @param boxFilterSize ボックスフィルタのサイズ
 		/// @remark internalBuffer は from や　to と同サイズで異なるテクスチャである必要があります。
-		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to);
+		void GaussianBlur(const TextureRegion& from, const RenderTexture& internalBuffer, const RenderTexture& to, BoxFilterSize boxFilterSize = BoxFilterSize::BoxFilter9x9);
 
 		/// @brief 3D シーンを描画したリニア色空間のレンダーテクスチャを、メインのシーンに転送します。
 		/// @param src 転送するテクスチャ

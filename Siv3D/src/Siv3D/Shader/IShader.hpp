@@ -21,8 +21,12 @@ namespace s3d
 	enum class EnginePS
 	{
 		Copy,
-		
+
+		GaussianBlur_5,
+
 		GaussianBlur_9,
+
+		GaussianBlur_13,
 
 		ApplySrgbCurve,
 	};
