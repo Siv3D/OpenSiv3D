@@ -94,6 +94,10 @@ namespace s3d
 
 		INI();
 
+		/// @brief INI 形式のデータをファイルからロードして作成します。
+		/// @param path ファイルパス
+		/// @param encoding テキストエンコーディング
+		/// @remark ファイルのすべての内容を読み取り、以降はファイルには一切アクセスしません。
 		explicit INI(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
@@ -101,6 +105,11 @@ namespace s3d
 
 		explicit INI(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding = unspecified);
 
+		/// @brief INI 形式のデータをファイルからロードします。
+		/// @param path ファイルパス
+		/// @param encoding テキストエンコーディング
+		/// @remark ファイルのすべての内容を読み取り、以降はファイルには一切アクセスしません。
+		/// @return ロードに成功した場合 true, それ以外の場合は false
 		bool load(FilePathView path, const Optional<TextEncoding>& encoding = unspecified);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
@@ -108,32 +117,59 @@ namespace s3d
 
 		bool load(std::unique_ptr<IReader>&& reader, const Optional<TextEncoding>& encoding = unspecified);
 
+		/// @brief 保持しているデータを消去します。
 		void clear();
 
+		/// @brief データが空であるかを返します。
+		/// @return データが空である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool isEmpty() const noexcept;
 
+		/// @brief データが空でないかを返します。
+		/// @return データが空でない場合 true, それ以外の場合は false
 		[[nodiscard]]
 		explicit operator bool() const noexcept;
 
+		/// @brief セクションの一覧を返します。
+		/// @return セクションの一覧
 		[[nodiscard]]
 		const Array<INISection>& sections() const noexcept;
 
+		/// @brief 指定したセクションが存在するかを返します。
+		/// @param section セクション名
+		/// @return 指定したセクションが存在する場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasSection(SectionView section) const;
 
+		/// @brief 指定したセクションを返します。
+		/// @param section セクション名
+		/// @return セクション
 		[[nodiscard]]
 		const INISection& getSection(SectionView section) const;
 
+		/// @brief プロパティが存在するかを返します。
+		/// @param section セクション名
+		/// @param name プロパティ名
+		/// @return プロパティが存在する場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasValue(SectionView section, NameView name) const;
 
+		/// @brief プロパティの値を返します。
+		/// @param section セクション名
+		/// @param name プロパティ名
+		/// @return プロパティの値
 		[[nodiscard]]
 		const String& getValue(SectionView section, NameView name) const;
 
+		/// @brief セクションに属さないグローバルプロパティが存在するかを返します。
+		/// @param name プロパティ名
+		/// @return グローバルプロパティが存在する場合 true, それ以外の場合は false
 		[[nodiscard]]
 		bool hasGlobalValue(NameView name) const;
 
+		/// @brief セクションに属さないグローバルプロパティの値を返します。
+		/// @param name プロパティ名
+		/// @return グローバルプロパティの値
 		[[nodiscard]]
 		const String& getGlobalValue(NameView name) const;
 
@@ -181,6 +217,9 @@ namespace s3d
 		template <class Type>
 		void writeGlobal(NameView name, const Type& value);
 
+		/// @brief INI 形式のデータをファイルに保存します。
+		/// @param path ファイルパス
+		/// @return 保存に成功した場合 true, それ以外の場合は false
 		bool save(FilePathView path) const;
 
 	private:

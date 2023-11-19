@@ -65,9 +65,15 @@ namespace s3d
 		[[nodiscard]]
 		constexpr value_type elem(size_t index) const noexcept;
 
+		/// @brief x 成分へのポインタを返します。
+		/// @rematk 戻り値に対して [0] で x 成分、[1] で y 成分にアクセスできます。
+		/// @return x 成分へのポインタ
 		[[nodiscard]]
 		value_type* getPointer() noexcept;
 
+		/// @brief x 成分へのポインタを返します。
+		/// @rematk 戻り値に対して [0] で x 成分、[1] で y 成分にアクセスできます。
+		/// @return x 成分へのポインタ
 		[[nodiscard]]
 		const value_type* getPointer() const noexcept;
 
@@ -173,15 +179,24 @@ namespace s3d
 				|| (lhs.y != rhs.y);
 		}
 
+		/// @brief すべての成分が 0 であるかを返します。
+		/// @return　すべての成分が 0 である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool isZero() const noexcept;
 
+		/// @brief 最大の成分を返します。
+		/// @remark Point{ 3, 2 } の場合、3 を返します。
+		/// @return 最大の成分
 		[[nodiscard]]
 		constexpr value_type minComponent() const noexcept;
 
+		/// @brief 最小の成分を返します。
+		/// @remark Point{ 3, 2 } の場合、2 を返します。
+		/// @return 最小の成分
 		[[nodiscard]]
 		constexpr value_type maxComponent() const noexcept;
 
+		/// @brief すべての成分を 0 にします。
 		constexpr void clear() noexcept;
 
 		/// @brief x 成分のみを変更した自身のコピーを返します。
@@ -200,12 +215,23 @@ namespace s3d
 
 		constexpr Point& set(Point p) noexcept;
 
+		/// @brief 現在の座標から移動した座標を返します。
+		/// @param _x X 方向の移動量
+		/// @param _y Y 方向の移動量
+		/// @return 現在の座標から移動した座標
 		[[nodiscard]]
 		constexpr Point movedBy(value_type _x, value_type _y) const noexcept;
 
+		/// @brief 現在の座標から移動した座標を返します。
+		/// @param p 移動量
+		/// @return 現在の座標から移動した座標
 		[[nodiscard]]
 		constexpr Point movedBy(Point p) const noexcept;
 
+		/// @brief 現在の座標から移動した座標を返します。
+		/// @tparam Type 移動量を表す二次元ベクトルの要素の型
+		/// @param v 移動量
+		/// @return 現在の座標から移動した座標
 		template <class Type>
 		[[nodiscard]]
 		constexpr Vector2D<Type> movedBy(Vector2D<Type> v) const noexcept;
@@ -214,6 +240,10 @@ namespace s3d
 
 		constexpr Point& moveBy(Point p) noexcept;
 
+		/// @brief 水平方向のアスペクト比を返します。
+		/// @tparam Type 戻り値の型
+		/// @remark Point{ 3, 2 } の場合、1.5 を返します。
+		/// @return 水平方向のアスペクト比
 		template <class Type = double>
 		[[nodiscard]]
 		constexpr Type horizontalAspectRatio() const noexcept;
@@ -339,10 +369,18 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Point getPerpendicularCCW() const noexcept;
 
+		/// @brief 別の座標との中間にある座標を返します。
+		/// @tparam Type 戻り値の二次元座標の要素の型
+		/// @param other 別の座標
+		/// @return 別の座標との中間にある座標
 		template <class Type = double>
 		[[nodiscard]]
 		constexpr Vector2D<Type> getMidpoint(Point other) const noexcept;
 
+		/// @brief 別の座標との中間にある座標を返します。
+		/// @tparam Type 戻り値の二次元座標の要素の型
+		/// @param other 別の座標
+		/// @return 別の座標との中間にある座標
 		template <class Type>
 		[[nodiscard]]
 		constexpr Vector2D<Type> getMidpoint(Vector2D<Type> other) const noexcept;
@@ -359,6 +397,9 @@ namespace s3d
 		[[nodiscard]]
 		constexpr Vector2D<Type> lerp(Vector2D<Type> other, double f) const noexcept;
 
+		/// @brief この座標を中心とした円を作成して返します。
+		/// @param r 円の半径
+		/// @return この座標を中心とした円
 		[[nodiscard]]
 		Circle asCircle(double r) const noexcept;
 

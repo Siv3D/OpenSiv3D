@@ -217,7 +217,7 @@ namespace s3d
 		// do nothing
 	}
 
-	void CRenderer2D_Null::addRoundRectShadow(const RoundRect&, const float, const Float4&, const bool fill)
+	void CRenderer2D_Null::addRoundRectShadow(const RoundRect&, const float, const Float4&, const bool)
 	{
 		// do nothing
 	}

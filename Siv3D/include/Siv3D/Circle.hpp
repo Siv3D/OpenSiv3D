@@ -323,9 +323,13 @@ namespace s3d
 		[[nodiscard]]
 		constexpr position_type left() const noexcept;
 
+		/// @brief X 軸に平行な直径（線分）を返します。
+		/// @return X 軸に平行な直径（線分）
 		[[nodiscard]]
 		constexpr Line horizontalDiameter() const noexcept;
 
+		/// @brief Y 軸に平行な直径（線分）を返します。
+		/// @return Y 軸に平行な直径（線分）
 		[[nodiscard]]
 		constexpr Line verticalDiameter() const noexcept;
 

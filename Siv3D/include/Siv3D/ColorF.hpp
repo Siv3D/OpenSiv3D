@@ -17,7 +17,8 @@
 
 namespace s3d
 {
-	/// @brief RGBA カラーを、それぞれの要素について 0.0～1.0 の範囲で表現するクラスです。
+	/// @brief 色を RGBA 各要素について浮動小数点数で表現するクラスです。
+	/// @remark 各要素は通常 0.0 以上 1.0 以下の値を持ちます。
 	struct ColorF
 	{
 		/// @brief 赤 | Red
@@ -38,6 +39,11 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		ColorF(const ColorF&) = default;
 
+		/// @brief 色を作成します。
+		/// @param _r 赤成分
+		/// @param _g 緑成分
+		/// @param _b 青成分
+		/// @param _a アルファ成分
 		SIV3D_NODISCARD_CXX20
 		constexpr ColorF(double _r, double _g, double _b, double _a = 1.0) noexcept;
 
@@ -172,18 +178,29 @@ namespace s3d
 		[[deprecated("use withA()")]]
 		constexpr ColorF withAlpha(double _a) const noexcept;
 
+		/// @brief グレースケール値を返します。
+		/// @remark グレースケール値は、`(0.299 * r) + (0.587 * g) + (0.114 * b)` で計算されます。
+		/// @return グレースケール値
 		[[nodiscard]]
 		constexpr double grayscale() const noexcept;
 
+		/// @brief RGB 各成分の最小値を返します。
+		/// @return RGB 各成分の最小値
 		[[nodiscard]]
 		constexpr double minRGBComponent() const noexcept;
 
+		/// @brief RGB 各成分の最大値を返します。
+		/// @return RGB 各成分の最大値
 		[[nodiscard]]
 		constexpr double maxRGBComponent() const noexcept;
 
+		/// @brief RGBA 各成分の最小値を返します。
+		/// @return RGBA 各成分の最小値
 		[[nodiscard]]
 		constexpr double minComponent() const noexcept;
 
+		/// @brief RGBA 各成分の最大値を返します。
+		/// @return RGBA 各成分の最大値
 		[[nodiscard]]
 		constexpr double maxComponent() const noexcept;
 
@@ -202,45 +219,75 @@ namespace s3d
 		[[nodiscard]]
 		size_t hash() const noexcept;
 
+		/// @brief 色を Color で返します。
+		/// @remark 各成分は 0.0～1.0 の範囲にクランプされます。
+		/// @return 変換された Color
 		[[nodiscard]]
 		constexpr Color toColor() const noexcept;
 
+		/// @brief Float4{ r, g, b, a } を返します。
+		/// @return Float4{ r, g, b, a }
 		[[nodiscard]]
 		constexpr Float4 toFloat4() const noexcept;
 
+		/// @brief Vec4{ r, g, b, a } を返します。
+		/// @return Vec4{ r, g, b, a }
 		[[nodiscard]]
 		constexpr Vec4 toVec4() const noexcept;
 
+		/// @brief Vec2{ r, g } を返します。
+		/// @return Vec2{ r, g }
 		[[nodiscard]]
 		constexpr Vec2 rg() const noexcept;
 
+		/// @brief Vec2{ g, b } を返します。
+		/// @return Vec2{ g, b }
 		[[nodiscard]]
 		constexpr Vec2 gb() const noexcept;
 
+		/// @brief Vec2{ b, a } を返します。
+		/// @return Vec2{ b, a }
 		[[nodiscard]]
 		constexpr Vec2 ba() const noexcept;
 
+		/// @brief Vec3{ r, g, b } を返します。
+		/// @return Vec3{ r, g, b }
 		[[nodiscard]]
 		constexpr Vec3 rgb() const noexcept;
 
+		/// @brief Vec3{ g, b, a } を返します。
+		/// @return Vec3{ g, b, a }
 		[[nodiscard]]
 		constexpr Vec3 gba() const noexcept;
 
+		/// @brief Vec3{ b, g, r } を返します。
+		/// @return Vec3{ b, g, r }
 		[[nodiscard]]
 		constexpr Vec3 bgr() const noexcept;
 
+		/// @brief Vec4{ r, g, b, a } を返します。
+		/// @remark `toVec4()` と同じです。
+		/// @return Vec4{ r, g, b, a }
 		[[nodiscard]]
 		constexpr Vec4 rgba() const noexcept;
 
+		/// @brief Vec4{ r, g, b, 0 } を返します。
+		/// @return Vec4{ r, g, b, 0 }
 		[[nodiscard]]
 		constexpr Vec4 rgb0() const noexcept;
 
+		/// @brief Vec4{ r, g, b, 1 } を返します。
+		/// @return Vec4{ r, g, b, 1 }
 		[[nodiscard]]
 		constexpr Vec4 rgb1() const noexcept;
 
+		/// @brief Vec4{ a, r, g, b } を返します。
+		/// @return Vec4{ a, r, g, b }
 		[[nodiscard]]
 		constexpr Vec4 argb() const noexcept;
 
+		/// @brief Vec4{ a, b, g, r } を返します。
+		/// @return Vec4{ a, b, g, r }
 		[[nodiscard]]
 		constexpr Vec4 abgr() const noexcept;
 

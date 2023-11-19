@@ -38,12 +38,13 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		AsyncTask(AsyncTask&& other) noexcept;
 
-		/// @brief 非同期処理のタスクを作成します
+		/// @brief 非同期処理のタスクを作成します。
 		/// @tparam Fty 非同期処理のタスクで実行する関数の型
 		/// @tparam ...Args 非同期処理のタスクで実行する関数の引数の型
 		/// @param f 非同期処理のタスクで実行する関数
 		/// @param ...args 非同期処理のタスクで実行する関数の引数
-		/// @remark 作成と同時にタスクが非同期で実行されます
+		/// @remark 作成と同時にタスクが非同期で実行されます。
+		/// @remark 参照を渡す場合は `std::ref()` を使ってください。
 		template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
 		SIV3D_NODISCARD_CXX20
 		explicit AsyncTask(Fty&& f, Args&&... args);
@@ -99,12 +100,13 @@ namespace s3d
 	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
 	AsyncTask(Fty, Args...)->AsyncTask<std::invoke_result_t<std::decay_t<Fty>, std::decay_t<Args>...>>;
 
-	/// @brief 非同期処理のタスクを作成します
+	/// @brief 非同期処理のタスクを作成します。
 	/// @tparam Fty 非同期処理のタスクで実行する関数の型
 	/// @tparam ...Args 非同期処理のタスクで実行する関数の引数の型
 	/// @param f 非同期処理のタスクで実行する関数
 	/// @param ...args 非同期処理のタスクで実行する関数の引数
-	/// @remark 作成と同時にタスクが非同期で実行されます
+	/// @remark 作成と同時にタスクが非同期で実行されます。
+	/// @remark 参照を渡す場合は `std::ref()` を使ってください。
 	/// @return 作成された非同期処理のタスク
 	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>* = nullptr>
 	[[nodiscard]]
