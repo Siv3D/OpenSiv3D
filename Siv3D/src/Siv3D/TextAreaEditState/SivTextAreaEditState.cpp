@@ -38,6 +38,7 @@ namespace s3d
 		cursorPos = 0;
 		scrollY = 0.0;
 		glyphs.clear();
+		charIndices.assign({ 0 });
 		resetStopwatches();
 	}
 
@@ -56,6 +57,9 @@ namespace s3d
 		const double spaceWidth = font.spaceWidth();
 
 		glyphs = font.getGlyphs(text);
+
+		charIndices = font.getGlyphClusters(text, UseFallback::No, Ligature::No).map([](const auto& cluster) { return cluster.pos; });
+		charIndices.push_back(text.size());
 
 		for (auto& glyph : glyphs)
 		{

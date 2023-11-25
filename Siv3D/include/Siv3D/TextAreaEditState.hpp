@@ -41,6 +41,8 @@ namespace s3d
 
 		Array<Glyph> glyphs;
 
+		Array<size_t> charIndices;
+
 		Array<std::pair<uint16, uint16>> glyphPositions;
 
 		struct ClipInfo
