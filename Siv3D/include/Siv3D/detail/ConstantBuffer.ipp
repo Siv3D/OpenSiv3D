@@ -25,12 +25,6 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline ConstantBuffer<Type>::~ConstantBuffer()
-	{
-		AlignedDelete(m_wrapper);
-	}
-
-	template <class Type>
 	inline ConstantBuffer<Type>& ConstantBuffer<Type>::operator =(const Type& data)
 	{
 		m_hasDirty = true;
