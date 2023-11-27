@@ -29,7 +29,7 @@ namespace s3d
 	inline ConstantBuffer<Type>::ConstantBuffer(Args&&... args)
 		: ConstantBuffer{}
 	{
-		m_wrapper->data = Type{ std::forward<Args>(args)... };
+		m_wrapper->data = Type(std::forward<Args>(args)...);
 	}
 
 	template <class Type>
