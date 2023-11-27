@@ -25,6 +25,14 @@ namespace s3d
 	}
 
 	template <class Type>
+	template <class ...Args, std::enable_if_t<std::is_constructible_v<Type, Args...>>*>
+	inline ConstantBuffer<Type>::ConstantBuffer(Args&&... args)
+		: ConstantBuffer{}
+	{
+		m_wrapper->data = Type{ std::forward<Args>(args)... };
+	}
+
+	template <class Type>
 	inline ConstantBuffer<Type>& ConstantBuffer<Type>::operator =(const Type& data)
 	{
 		m_hasDirty = true;
