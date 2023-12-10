@@ -316,6 +316,8 @@
 		2C36F835267F937400691B1C /* Renderer3DFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F834267F937400691B1C /* Renderer3DFactory.mm */; };
 		2C36F83A267F939200691B1C /* CRenderer3D_GL4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */; };
 		2C36F83B267F939200691B1C /* CRenderer3D_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */; };
+		2C3796E62B25DCC9003B1640 /* allocations.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3796E42B25DCC9003B1640 /* allocations.h */; };
+		2C3796E72B25DCC9003B1640 /* bits.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3796E52B25DCC9003B1640 /* bits.h */; };
 		2C398E4228F2CF16006A24E3 /* SivSimpleMenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C398E4128F2CF16006A24E3 /* SivSimpleMenuBar.cpp */; };
 		2C39ECA92564030E0021DF34 /* GL4Renderer2DCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C39ECA72564030E0021DF34 /* GL4Renderer2DCommand.cpp */; };
 		2C39ECAA2564030E0021DF34 /* GL4Renderer2DCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C39ECA82564030E0021DF34 /* GL4Renderer2DCommand.hpp */; };
@@ -2677,6 +2679,8 @@
 		2C36F834267F937400691B1C /* Renderer3DFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer3DFactory.mm; sourceTree = "<group>"; };
 		2C36F838267F939200691B1C /* CRenderer3D_GL4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer3D_GL4.hpp; sourceTree = "<group>"; };
 		2C36F839267F939200691B1C /* CRenderer3D_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer3D_GL4.cpp; sourceTree = "<group>"; };
+		2C3796E42B25DCC9003B1640 /* allocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocations.h; sourceTree = "<group>"; };
+		2C3796E52B25DCC9003B1640 /* bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bits.h; sourceTree = "<group>"; };
 		2C398E3F28F2CEF6006A24E3 /* SimpleMenuBar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleMenuBar.hpp; sourceTree = "<group>"; };
 		2C398E4128F2CF16006A24E3 /* SivSimpleMenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleMenuBar.cpp; sourceTree = "<group>"; };
 		2C39ECA72564030E0021DF34 /* GL4Renderer2DCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Renderer2DCommand.cpp; sourceTree = "<group>"; };
@@ -6013,13 +6017,13 @@
 		2C28E8FA2796816C0004E07D /* zstd */ = {
 			isa = PBXGroup;
 			children = (
-				2C28E8FB2796816C0004E07D /* compress */,
 				2C28E9172796816C0004E07D /* zdict.h */,
-				2C28E9182796816C0004E07D /* dictBuilder */,
-				2C28E91F2796816C0004E07D /* decompress */,
-				2C28E9282796816C0004E07D /* common */,
 				2C28E9402796816C0004E07D /* zstd_errors.h */,
 				2C28E9412796816C0004E07D /* zstd.h */,
+				2C28E9282796816C0004E07D /* common */,
+				2C28E8FB2796816C0004E07D /* compress */,
+				2C28E91F2796816C0004E07D /* decompress */,
+				2C28E9182796816C0004E07D /* dictBuilder */,
 			);
 			path = zstd;
 			sourceTree = "<group>";
@@ -6089,29 +6093,31 @@
 		2C28E9282796816C0004E07D /* common */ = {
 			isa = PBXGroup;
 			children = (
-				2C28E9292796816C0004E07D /* zstd_trace.h */,
-				2C28E92A2796816C0004E07D /* xxhash.h */,
-				2C28E92B2796816C0004E07D /* debug.h */,
-				2C28E92C2796816C0004E07D /* pool.h */,
-				2C28E92D2796816C0004E07D /* compiler.h */,
-				2C28E92E2796816C0004E07D /* portability_macros.h */,
-				2C28E92F2796816C0004E07D /* entropy_common.c */,
-				2C28E9302796816C0004E07D /* threading.h */,
-				2C28E9312796816C0004E07D /* error_private.h */,
-				2C28E9322796816C0004E07D /* fse_decompress.c */,
 				2C28E9332796816C0004E07D /* debug.c */,
-				2C28E9342796816C0004E07D /* xxhash.c */,
-				2C28E9352796816C0004E07D /* bitstream.h */,
-				2C28E9362796816C0004E07D /* cpu.h */,
-				2C28E9372796816C0004E07D /* pool.c */,
-				2C28E9382796816C0004E07D /* huf.h */,
-				2C28E9392796816C0004E07D /* zstd_deps.h */,
-				2C28E93A2796816C0004E07D /* mem.h */,
-				2C28E93B2796816C0004E07D /* threading.c */,
-				2C28E93C2796816C0004E07D /* zstd_common.c */,
-				2C28E93D2796816C0004E07D /* fse.h */,
-				2C28E93E2796816C0004E07D /* zstd_internal.h */,
+				2C28E92F2796816C0004E07D /* entropy_common.c */,
 				2C28E93F2796816C0004E07D /* error_private.c */,
+				2C28E9322796816C0004E07D /* fse_decompress.c */,
+				2C28E9372796816C0004E07D /* pool.c */,
+				2C28E93B2796816C0004E07D /* threading.c */,
+				2C28E9342796816C0004E07D /* xxhash.c */,
+				2C28E93C2796816C0004E07D /* zstd_common.c */,
+				2C3796E42B25DCC9003B1640 /* allocations.h */,
+				2C3796E52B25DCC9003B1640 /* bits.h */,
+				2C28E9352796816C0004E07D /* bitstream.h */,
+				2C28E92D2796816C0004E07D /* compiler.h */,
+				2C28E9362796816C0004E07D /* cpu.h */,
+				2C28E92B2796816C0004E07D /* debug.h */,
+				2C28E9312796816C0004E07D /* error_private.h */,
+				2C28E93D2796816C0004E07D /* fse.h */,
+				2C28E9382796816C0004E07D /* huf.h */,
+				2C28E93A2796816C0004E07D /* mem.h */,
+				2C28E92C2796816C0004E07D /* pool.h */,
+				2C28E92E2796816C0004E07D /* portability_macros.h */,
+				2C28E9302796816C0004E07D /* threading.h */,
+				2C28E92A2796816C0004E07D /* xxhash.h */,
+				2C28E9392796816C0004E07D /* zstd_deps.h */,
+				2C28E93E2796816C0004E07D /* zstd_internal.h */,
+				2C28E9292796816C0004E07D /* zstd_trace.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -13467,6 +13473,7 @@
 				2C6C658329C16F1A009298ED /* smtp-address-validator.hpp in Headers */,
 				2CC8BD4328C75331008C770A /* ManagedScriptDetail.hpp in Headers */,
 				2C28E97C2796816D0004E07D /* zstd_deps.h in Headers */,
+				2C3796E62B25DCC9003B1640 /* allocations.h in Headers */,
 				2CC584872648246900C33E9F /* vorbisenc.h in Headers */,
 				2CEFB48D2AB858DB005EBD5F /* SkFontStyle.h in Headers */,
 				2CEFB4E02AB858DB005EBD5F /* SkTraceEventPhase.h in Headers */,
@@ -14098,6 +14105,7 @@
 				2C2711422A7EA6CF00BD4014 /* CTrailRenderer.hpp in Headers */,
 				2C28E9812796816D0004E07D /* zstd_internal.h in Headers */,
 				2C695D52268EDDB400970FB3 /* par_shapes.h in Headers */,
+				2C3796E72B25DCC9003B1640 /* bits.h in Headers */,
 				2C47B49524DD97F2008D83BE /* muParserBytecode.h in Headers */,
 				2CF21D17249FAA8F00C864C9 /* CCursor.hpp in Headers */,
 				2C9566D22645626000539B85 /* mz_strm_buf.h in Headers */,
