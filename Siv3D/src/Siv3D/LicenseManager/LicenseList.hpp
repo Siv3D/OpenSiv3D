@@ -2146,7 +2146,7 @@ misrepresented as being the original software.
 {
 UR"-(Zstandard)-",
 
-UR"-(Copyright (c) 2016-present, Facebook, Inc. All rights reserved.)-",
+UR"-(Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.)-",
 
 UR"-(Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:

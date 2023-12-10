@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Yann Collet, Facebook, Inc.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under both the BSD-style license (found in the
@@ -20,6 +20,7 @@
 
 
 /* ======   Dependencies   ====== */
+#include "../common/allocations.h"  /* ZSTD_customMalloc, ZSTD_customCalloc, ZSTD_customFree */
 #include "../common/zstd_deps.h"   /* ZSTD_memcpy, ZSTD_memset, INT_MAX, UINT_MAX */
 #include "../common/mem.h"         /* MEM_STATIC */
 #include "../common/pool.h"        /* threadpool */
@@ -102,9 +103,8 @@ typedef struct ZSTDMT_bufferPool_s {
     buffer_t bTable[1];   /* variable size */
 } ZSTDMT_bufferPool;
 
-static ZSTDMT_bufferPool* ZSTDMT_createBufferPool(unsigned nbWorkers, ZSTD_customMem cMem)
+static ZSTDMT_bufferPool* ZSTDMT_createBufferPool(unsigned maxNbBuffers, ZSTD_customMem cMem)
 {
-    unsigned const maxNbBuffers = 2*nbWorkers + 3;
     ZSTDMT_bufferPool* const bufPool = (ZSTDMT_bufferPool*)ZSTD_customCalloc(
         sizeof(ZSTDMT_bufferPool) + (maxNbBuffers-1) * sizeof(buffer_t), cMem);
     if (bufPool==NULL) return NULL;
@@ -160,9 +160,8 @@ static void ZSTDMT_setBufferSize(ZSTDMT_bufferPool* const bufPool, size_t const 
 }
 
 
-static ZSTDMT_bufferPool* ZSTDMT_expandBufferPool(ZSTDMT_bufferPool* srcBufPool, U32 nbWorkers)
+static ZSTDMT_bufferPool* ZSTDMT_expandBufferPool(ZSTDMT_bufferPool* srcBufPool, unsigned maxNbBuffers)
 {
-    unsigned const maxNbBuffers = 2*nbWorkers + 3;
     if (srcBufPool==NULL) return NULL;
     if (srcBufPool->totalBuffers >= maxNbBuffers) /* good enough */
         return srcBufPool;
@@ -171,7 +170,7 @@ static ZSTDMT_bufferPool* ZSTDMT_expandBufferPool(ZSTDMT_bufferPool* srcBufPool,
         size_t const bSize = srcBufPool->bufferSize;   /* forward parameters */
         ZSTDMT_bufferPool* newBufPool;
         ZSTDMT_freeBufferPool(srcBufPool);
-        newBufPool = ZSTDMT_createBufferPool(nbWorkers, cMem);
+        newBufPool = ZSTDMT_createBufferPool(maxNbBuffers, cMem);
         if (newBufPool==NULL) return newBufPool;
         ZSTDMT_setBufferSize(newBufPool, bSize);
         return newBufPool;
@@ -263,6 +262,16 @@ static void ZSTDMT_releaseBuffer(ZSTDMT_bufferPool* bufPool, buffer_t buf)
     ZSTD_customFree(buf.start, bufPool->cMem);
 }
 
+/* We need 2 output buffers per worker since each dstBuff must be flushed after it is released.
+ * The 3 additional buffers are as follows:
+ *   1 buffer for input loading
+ *   1 buffer for "next input" when submitting current one
+ *   1 buffer stuck in queue */
+#define BUF_POOL_MAX_NB_BUFFERS(nbWorkers) (2*(nbWorkers) + 3)
+
+/* After a worker releases its rawSeqStore, it is immediately ready for reuse.
+ * So we only need one seq buffer per worker. */
+#define SEQ_POOL_MAX_NB_BUFFERS(nbWorkers) (nbWorkers)
 
 /* =====   Seq Pool Wrapper   ====== */
 
@@ -316,7 +325,7 @@ static void ZSTDMT_setNbSeq(ZSTDMT_seqPool* const seqPool, size_t const nbSeq)
 
 static ZSTDMT_seqPool* ZSTDMT_createSeqPool(unsigned nbWorkers, ZSTD_customMem cMem)
 {
-    ZSTDMT_seqPool* const seqPool = ZSTDMT_createBufferPool(nbWorkers, cMem);
+    ZSTDMT_seqPool* const seqPool = ZSTDMT_createBufferPool(SEQ_POOL_MAX_NB_BUFFERS(nbWorkers), cMem);
     if (seqPool == NULL) return NULL;
     ZSTDMT_setNbSeq(seqPool, 0);
     return seqPool;
@@ -329,7 +338,7 @@ static void ZSTDMT_freeSeqPool(ZSTDMT_seqPool* seqPool)
 
 static ZSTDMT_seqPool* ZSTDMT_expandSeqPool(ZSTDMT_seqPool* pool, U32 nbWorkers)
 {
-    return ZSTDMT_expandBufferPool(pool, nbWorkers);
+    return ZSTDMT_expandBufferPool(pool, SEQ_POOL_MAX_NB_BUFFERS(nbWorkers));
 }
 
 
@@ -711,7 +720,7 @@ static void ZSTDMT_compressionJob(void* jobDescription)
     ZSTDMT_serialState_update(job->serial, cctx, rawSeqStore, job->src, job->jobID);
 
     if (!job->firstJob) {  /* flush and overwrite frame header when it's not first job */
-        size_t const hSize = ZSTD_compressContinue(cctx, dstBuff.start, dstBuff.capacity, job->src.start, 0);
+        size_t const hSize = ZSTD_compressContinue_public(cctx, dstBuff.start, dstBuff.capacity, job->src.start, 0);
         if (ZSTD_isError(hSize)) JOB_ERROR(hSize);
         DEBUGLOG(5, "ZSTDMT_compressionJob: flush and overwrite %u bytes of frame header (not first job)", (U32)hSize);
         ZSTD_invalidateRepCodes(cctx);
@@ -729,7 +738,7 @@ static void ZSTDMT_compressionJob(void* jobDescription)
         DEBUGLOG(5, "ZSTDMT_compressionJob: compress %u bytes in %i blocks", (U32)job->src.size, nbChunks);
         assert(job->cSize == 0);
         for (chunkNb = 1; chunkNb < nbChunks; chunkNb++) {
-            size_t const cSize = ZSTD_compressContinue(cctx, op, oend-op, ip, chunkSize);
+            size_t const cSize = ZSTD_compressContinue_public(cctx, op, oend-op, ip, chunkSize);
             if (ZSTD_isError(cSize)) JOB_ERROR(cSize);
             ip += chunkSize;
             op += cSize; assert(op < oend);
@@ -749,8 +758,8 @@ static void ZSTDMT_compressionJob(void* jobDescription)
             size_t const lastBlockSize1 = job->src.size & (chunkSize-1);
             size_t const lastBlockSize = ((lastBlockSize1==0) & (job->src.size>=chunkSize)) ? chunkSize : lastBlockSize1;
             size_t const cSize = (job->lastJob) ?
-                 ZSTD_compressEnd     (cctx, op, oend-op, ip, lastBlockSize) :
-                 ZSTD_compressContinue(cctx, op, oend-op, ip, lastBlockSize);
+                 ZSTD_compressEnd_public(cctx, op, oend-op, ip, lastBlockSize) :
+                 ZSTD_compressContinue_public(cctx, op, oend-op, ip, lastBlockSize);
             if (ZSTD_isError(cSize)) JOB_ERROR(cSize);
             lastCBlockSize = cSize;
     }   }
@@ -936,7 +945,7 @@ MEM_STATIC ZSTDMT_CCtx* ZSTDMT_createCCtx_advanced_internal(unsigned nbWorkers, 
     mtctx->jobs = ZSTDMT_createJobsTable(&nbJobs, cMem);
     assert(nbJobs > 0); assert((nbJobs & (nbJobs - 1)) == 0);  /* ensure nbJobs is a power of 2 */
     mtctx->jobIDMask = nbJobs - 1;
-    mtctx->bufPool = ZSTDMT_createBufferPool(nbWorkers, cMem);
+    mtctx->bufPool = ZSTDMT_createBufferPool(BUF_POOL_MAX_NB_BUFFERS(nbWorkers), cMem);
     mtctx->cctxPool = ZSTDMT_createCCtxPool(nbWorkers, cMem);
     mtctx->seqPool = ZSTDMT_createSeqPool(nbWorkers, cMem);
     initError = ZSTDMT_serialState_init(&mtctx->serial);
@@ -1039,7 +1048,7 @@ static size_t ZSTDMT_resize(ZSTDMT_CCtx* mtctx, unsigned nbWorkers)
 {
     if (POOL_resize(mtctx->factory, nbWorkers)) return ERROR(memory_allocation);
     FORWARD_IF_ERROR( ZSTDMT_expandJobsTable(mtctx, nbWorkers) , "");
-    mtctx->bufPool = ZSTDMT_expandBufferPool(mtctx->bufPool, nbWorkers);
+    mtctx->bufPool = ZSTDMT_expandBufferPool(mtctx->bufPool, BUF_POOL_MAX_NB_BUFFERS(nbWorkers));
     if (mtctx->bufPool == NULL) return ERROR(memory_allocation);
     mtctx->cctxPool = ZSTDMT_expandCCtxPool(mtctx->cctxPool, nbWorkers);
     if (mtctx->cctxPool == NULL) return ERROR(memory_allocation);
@@ -1726,7 +1735,7 @@ findSynchronizationPoint(ZSTDMT_CCtx const* mtctx, ZSTD_inBuffer const input)
         }
     } else {
         /* We have enough bytes buffered to initialize the hash,
-         * and are have processed enough bytes to find a sync point.
+         * and have processed enough bytes to find a sync point.
          * Start scanning at the beginning of the input.
          */
         assert(mtctx->inBuff.filled >= RSYNC_MIN_BLOCK_SIZE);
@@ -1753,17 +1762,24 @@ findSynchronizationPoint(ZSTDMT_CCtx const* mtctx, ZSTD_inBuffer const input)
      * then a block will be emitted anyways, but this is okay, since if we
      * are already synchronized we will remain synchronized.
      */
+    assert(pos < RSYNC_LENGTH || ZSTD_rollingHash_compute(istart + pos - RSYNC_LENGTH, RSYNC_LENGTH) == hash);
     for (; pos < syncPoint.toLoad; ++pos) {
         BYTE const toRemove = pos < RSYNC_LENGTH ? prev[pos] : istart[pos - RSYNC_LENGTH];
-        assert(pos < RSYNC_LENGTH || ZSTD_rollingHash_compute(istart + pos - RSYNC_LENGTH, RSYNC_LENGTH) == hash);
+        /* This assert is very expensive, and Debian compiles with asserts enabled.
+         * So disable it for now. We can get similar coverage by checking it at the
+         * beginning & end of the loop.
+         * assert(pos < RSYNC_LENGTH || ZSTD_rollingHash_compute(istart + pos - RSYNC_LENGTH, RSYNC_LENGTH) == hash);
+         */
         hash = ZSTD_rollingHash_rotate(hash, toRemove, istart[pos], primePower);
         assert(mtctx->inBuff.filled + pos >= RSYNC_MIN_BLOCK_SIZE);
         if ((hash & hitMask) == hitMask) {
             syncPoint.toLoad = pos + 1;
             syncPoint.flush = 1;
+            ++pos; /* for assert */
             break;
         }
     }
+    assert(pos < RSYNC_LENGTH || ZSTD_rollingHash_compute(istart + pos - RSYNC_LENGTH, RSYNC_LENGTH) == hash);
     return syncPoint;
 }
 

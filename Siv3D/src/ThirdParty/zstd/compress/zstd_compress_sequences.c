@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Yann Collet, Facebook, Inc.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under both the BSD-style license (found in the
@@ -58,7 +58,7 @@ static unsigned ZSTD_useLowProbCount(size_t const nbSeq)
 {
     /* Heuristic: This should cover most blocks <= 16K and
      * start to fade out after 16K to about 32K depending on
-     * comprssibility.
+     * compressibility.
      */
     return nbSeq >= 2048;
 }
@@ -166,7 +166,7 @@ ZSTD_selectEncodingType(
     if (mostFrequent == nbSeq) {
         *repeatMode = FSE_repeat_none;
         if (isDefaultAllowed && nbSeq <= 2) {
-            /* Prefer set_basic over set_rle when there are 2 or less symbols,
+            /* Prefer set_basic over set_rle when there are 2 or fewer symbols,
              * since RLE uses 1 byte, but set_basic uses 5-6 bits per symbol.
              * If basic encoding isn't possible, always choose RLE.
              */
@@ -313,19 +313,19 @@ ZSTD_encodeSequences_body(
     FSE_initCState2(&stateLitLength,   CTable_LitLength,   llCodeTable[nbSeq-1]);
     BIT_addBits(&blockStream, sequences[nbSeq-1].litLength, LL_bits[llCodeTable[nbSeq-1]]);
     if (MEM_32bits()) BIT_flushBits(&blockStream);
-    BIT_addBits(&blockStream, sequences[nbSeq-1].matchLength, ML_bits[mlCodeTable[nbSeq-1]]);
+    BIT_addBits(&blockStream, sequences[nbSeq-1].mlBase, ML_bits[mlCodeTable[nbSeq-1]]);
     if (MEM_32bits()) BIT_flushBits(&blockStream);
     if (longOffsets) {
         U32 const ofBits = ofCodeTable[nbSeq-1];
         unsigned const extraBits = ofBits - MIN(ofBits, STREAM_ACCUMULATOR_MIN-1);
         if (extraBits) {
-            BIT_addBits(&blockStream, sequences[nbSeq-1].offset, extraBits);
+            BIT_addBits(&blockStream, sequences[nbSeq-1].offBase, extraBits);
             BIT_flushBits(&blockStream);
         }
-        BIT_addBits(&blockStream, sequences[nbSeq-1].offset >> extraBits,
+        BIT_addBits(&blockStream, sequences[nbSeq-1].offBase >> extraBits,
                     ofBits - extraBits);
     } else {
-        BIT_addBits(&blockStream, sequences[nbSeq-1].offset, ofCodeTable[nbSeq-1]);
+        BIT_addBits(&blockStream, sequences[nbSeq-1].offBase, ofCodeTable[nbSeq-1]);
     }
     BIT_flushBits(&blockStream);
 
@@ -339,8 +339,8 @@ ZSTD_encodeSequences_body(
             U32  const mlBits = ML_bits[mlCode];
             DEBUGLOG(6, "encoding: litlen:%2u - matchlen:%2u - offCode:%7u",
                         (unsigned)sequences[n].litLength,
-                        (unsigned)sequences[n].matchLength + MINMATCH,
-                        (unsigned)sequences[n].offset);
+                        (unsigned)sequences[n].mlBase + MINMATCH,
+                        (unsigned)sequences[n].offBase);
                                                                             /* 32b*/  /* 64b*/
                                                                             /* (7)*/  /* (7)*/
             FSE_encodeSymbol(&blockStream, &stateOffsetBits, ofCode);       /* 15 */  /* 15 */
@@ -351,18 +351,18 @@ ZSTD_encodeSequences_body(
                 BIT_flushBits(&blockStream);                                /* (7)*/
             BIT_addBits(&blockStream, sequences[n].litLength, llBits);
             if (MEM_32bits() && ((llBits+mlBits)>24)) BIT_flushBits(&blockStream);
-            BIT_addBits(&blockStream, sequences[n].matchLength, mlBits);
+            BIT_addBits(&blockStream, sequences[n].mlBase, mlBits);
             if (MEM_32bits() || (ofBits+mlBits+llBits > 56)) BIT_flushBits(&blockStream);
             if (longOffsets) {
                 unsigned const extraBits = ofBits - MIN(ofBits, STREAM_ACCUMULATOR_MIN-1);
                 if (extraBits) {
-                    BIT_addBits(&blockStream, sequences[n].offset, extraBits);
+                    BIT_addBits(&blockStream, sequences[n].offBase, extraBits);
                     BIT_flushBits(&blockStream);                            /* (7)*/
                 }
-                BIT_addBits(&blockStream, sequences[n].offset >> extraBits,
+                BIT_addBits(&blockStream, sequences[n].offBase >> extraBits,
                             ofBits - extraBits);                            /* 31 */
             } else {
-                BIT_addBits(&blockStream, sequences[n].offset, ofBits);     /* 31 */
+                BIT_addBits(&blockStream, sequences[n].offBase, ofBits);     /* 31 */
             }
             BIT_flushBits(&blockStream);                                    /* (7)*/
             DEBUGLOG(7, "remaining space : %i", (int)(blockStream.endPtr - blockStream.ptr));
