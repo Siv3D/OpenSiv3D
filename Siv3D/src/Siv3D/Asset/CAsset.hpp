@@ -32,9 +32,9 @@ namespace s3d
 
 		bool isRegistered(AssetType assetType, AssetNameView name) const override;
 
-		bool load(AssetType assetType, AssetNameView name, const String& hint) override;
+		bool load(AssetType assetType, AssetNameView name, StringView hint) override;
 
-		void loadAsync(AssetType assetType, AssetNameView name, const String& hint) override;
+		void loadAsync(AssetType assetType, AssetNameView name, StringView hint) override;
 
 		void wait(AssetType assetType, AssetNameView name) override;
 

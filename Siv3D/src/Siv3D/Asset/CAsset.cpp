@@ -113,7 +113,7 @@ namespace s3d
 		return m_assetLists[FromEnum(assetType)].contains(name);
 	}
 
-	bool CAsset::load(const AssetType assetType, const AssetNameView name, const String& hint)
+	bool CAsset::load(const AssetType assetType, const AssetNameView name, const StringView hint)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
@@ -124,10 +124,10 @@ namespace s3d
 			return false;
 		}
 
-		return it->second->load(hint);
+		return it->second->load(String{ hint });
 	}
 
-	void CAsset::loadAsync(const AssetType assetType, const AssetNameView name, const String& hint)
+	void CAsset::loadAsync(const AssetType assetType, const AssetNameView name, const StringView hint)
 	{
 		auto& assetList = m_assetLists[FromEnum(assetType)];
 		const auto it = assetList.find(name);
@@ -138,7 +138,7 @@ namespace s3d
 			return;
 		}
 
-		it->second->loadAsync(hint);
+		it->second->loadAsync(String{ hint });
 	}
 
 	void CAsset::wait(const AssetType assetType, const AssetNameView name)

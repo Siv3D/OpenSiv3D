@@ -134,12 +134,12 @@ namespace s3d
 		return SIV3D_ENGINE(Asset)->isRegistered(AssetType::Font, name);
 	}
 
-	bool FontAsset::Load(const AssetNameView name, const String& preloadText)
+	bool FontAsset::Load(const AssetNameView name, const StringView preloadText)
 	{
 		return SIV3D_ENGINE(Asset)->load(AssetType::Font, name, preloadText);
 	}
 
-	void FontAsset::LoadAsync(const AssetNameView name, const String& preloadText)
+	void FontAsset::LoadAsync(const AssetNameView name, const StringView preloadText)
 	{
 		SIV3D_ENGINE(Asset)->loadAsync(AssetType::Font, name, preloadText);
 	}
