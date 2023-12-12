@@ -44,6 +44,21 @@ namespace s3d
 		return{ m11, m12, m13, m21, m22, m23, m31, m32, 1.0f };
 	}
 
+	Mat3x3 Mat3x3::Homography(const RectF& from, const RectF& to)
+	{
+		return Homography(from.asQuad(), to.asQuad());
+	}
+
+	Mat3x3 Mat3x3::Homography(const RectF& from, const Quad& to)
+	{
+		return Homography(from.asQuad(), to);
+	}
+
+	Mat3x3 Mat3x3::Homography(const Quad& from, const RectF& to)
+	{
+		return Homography(from, to.asQuad());
+	}
+
 	Mat3x3 Mat3x3::Homography(const Quad& from, const Quad& to)
 	{
 		const std::array<cv::Point2f, 4> fromQ = {
