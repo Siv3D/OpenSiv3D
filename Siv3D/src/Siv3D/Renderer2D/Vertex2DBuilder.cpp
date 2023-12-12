@@ -3051,7 +3051,7 @@ namespace s3d
 		Vertex2D::IndexType BuildRoundRectShadow(const BufferCreatorFunc& bufferCreator, const RoundRect& roundRect, const float blur, const Float4& color, const float scale, const bool fill)
 		{
 			const float baseRadius = static_cast<float>(roundRect.r);
-			const float nearRadius = (baseRadius - (blur * 0.5f));
+			const float nearRadius = Max(baseRadius - (blur * 0.5f), 0.0f);
 			const float farRadius = (baseRadius + (blur * 0.5f));
 			const FloatRect innerRect{ (roundRect.x + baseRadius), (roundRect.y + baseRadius), (roundRect.x + roundRect.w - baseRadius), (roundRect.y + roundRect.h - baseRadius) };
 			const Vertex2D::IndexType quality = static_cast<uint16>(detail::CaluculateFanQuality(farRadius * scale));
