@@ -22,6 +22,9 @@
 # include <Siv3D/SimpleGUI.hpp>
 # include <Siv3D/Transformer2D.hpp>
 # include <Siv3D/ScopedRenderStates2D.hpp>
+# include <Siv3D/ScopedRenderTarget2D.hpp>
+# include <Siv3D/ScopedColorAdd2D.hpp>
+# include <Siv3D/ScopedColorMul2D.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/WindowState.hpp>
 # include <Siv3D/Windows/Windows.hpp>
@@ -86,7 +89,7 @@ namespace s3d
 
 			SceneMessageBoxImpl()
 			{
-				System::SetTerminationTriggers(UserAction::NoAction);
+				System::SetTerminationTriggers(UserAction::CloseButtonClicked);
 				Scene::SetBackground(ColorF{ 0.11 });
 			}
 
@@ -177,6 +180,12 @@ namespace s3d
 			Transformer2D m_tr{ Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetLocal };
 
 			ScopedRenderStates2D m_rs{ BlendState::Default2D, SamplerState::Default2D, RasterizerState::Default2D };
+
+			ScopedRenderTarget2D m_rt{ none };
+
+			ScopedColorAdd2D m_add{ 0.0 };
+
+			ScopedColorMul2D m_mul{ 1.0 };
 
 			uint32 m_triggers = System::GetTerminationTriggers();
 
