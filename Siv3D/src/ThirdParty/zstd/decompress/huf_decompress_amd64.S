@@ -1,13 +1,23 @@
-#include "../common/portability_macros.h"
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * This source code is licensed under both the BSD-style license (found in the
+ * LICENSE file in the root directory of this source tree) and the GPLv2 (found
+ * in the COPYING file in the root directory of this source tree).
+ * You may select, at your option, one of the above-listed licenses.
+ */
 
-#if ZSTD_ENABLE_ASM_X86_64_BMI2
+#include "../common/portability_macros.h"
 
 /* Stack marking
  * ref: https://wiki.gentoo.org/wiki/Hardened/GNU_stack_quickstart
  */
-#if defined(__linux__) && defined(__ELF__)
+#if defined(__ELF__) && defined(__GNUC__)
 .section .note.GNU-stack,"",%progbits
 #endif
+
+#if ZSTD_ENABLE_ASM_X86_64_BMI2
 
 /* Calling convention:
  *
@@ -20,10 +30,14 @@
  * TODO: Support Windows calling convention.
  */
 
-.global HUF_decompress4X1_usingDTable_internal_bmi2_asm_loop
-.global HUF_decompress4X2_usingDTable_internal_bmi2_asm_loop
-.global _HUF_decompress4X1_usingDTable_internal_bmi2_asm_loop
-.global _HUF_decompress4X2_usingDTable_internal_bmi2_asm_loop
+ZSTD_HIDE_ASM_FUNCTION(HUF_decompress4X1_usingDTable_internal_fast_asm_loop)
+ZSTD_HIDE_ASM_FUNCTION(HUF_decompress4X2_usingDTable_internal_fast_asm_loop)
+ZSTD_HIDE_ASM_FUNCTION(_HUF_decompress4X2_usingDTable_internal_fast_asm_loop)
+ZSTD_HIDE_ASM_FUNCTION(_HUF_decompress4X1_usingDTable_internal_fast_asm_loop)
+.global HUF_decompress4X1_usingDTable_internal_fast_asm_loop
+.global HUF_decompress4X2_usingDTable_internal_fast_asm_loop
+.global _HUF_decompress4X1_usingDTable_internal_fast_asm_loop
+.global _HUF_decompress4X2_usingDTable_internal_fast_asm_loop
 .text
 
 /* Sets up register mappings for clarity.
@@ -81,8 +95,9 @@
 /* Define both _HUF_* & HUF_* symbols because MacOS
  * C symbols are prefixed with '_' & Linux symbols aren't.
  */
-_HUF_decompress4X1_usingDTable_internal_bmi2_asm_loop:
-HUF_decompress4X1_usingDTable_internal_bmi2_asm_loop:
+_HUF_decompress4X1_usingDTable_internal_fast_asm_loop:
+HUF_decompress4X1_usingDTable_internal_fast_asm_loop:
+    ZSTD_CET_ENDBRANCH
     /* Save all registers - even if they are callee saved for simplicity. */
     push %rax
     push %rbx
@@ -336,8 +351,9 @@ HUF_decompress4X1_usingDTable_internal_bmi2_asm_loop:
     pop %rax
     ret
 
-_HUF_decompress4X2_usingDTable_internal_bmi2_asm_loop:
-HUF_decompress4X2_usingDTable_internal_bmi2_asm_loop:
+_HUF_decompress4X2_usingDTable_internal_fast_asm_loop:
+HUF_decompress4X2_usingDTable_internal_fast_asm_loop:
+    ZSTD_CET_ENDBRANCH
     /* Save all registers - even if they are callee saved for simplicity. */
     push %rax
     push %rbx
@@ -413,41 +429,30 @@ HUF_decompress4X2_usingDTable_internal_bmi2_asm_loop:
     /* r15 = (ip0 - ilimit) / 7 */
     movq %rdx, %r15
 
-    movabsq $-3689348814741910323, %rdx
-    movq 8(%rsp), %rax /* rax = oend0 */
-    subq %op0,    %rax /* rax = oend0 - op0 */
-    mulq %rdx
-    shrq $3,      %rdx /* rdx = rax / 10 */
+    /* r15 = min(r15, min(oend0 - op0, oend1 - op1, oend2 - op2, oend3 - op3) / 10) */
+    movq 8(%rsp),  %rax /* rax = oend0 */
+    subq %op0,     %rax /* rax = oend0 - op0 */
+    movq 16(%rsp), %rdx /* rdx = oend1 */
+    subq %op1,     %rdx /* rdx = oend1 - op1 */
 
-    /* r15 = min(%rdx, %r15) */
-    cmpq  %rdx, %r15
-    cmova %rdx, %r15
+    cmpq  %rax,    %rdx
+    cmova %rax,    %rdx /* rdx = min(%rdx, %rax) */
 
-    movabsq $-3689348814741910323, %rdx
-    movq 16(%rsp), %rax /* rax = oend1 */
-    subq %op1,     %rax /* rax = oend1 - op1 */
-    mulq %rdx
-    shrq $3,       %rdx /* rdx = rax / 10 */
-
-    /* r15 = min(%rdx, %r15) */
-    cmpq  %rdx, %r15
-    cmova %rdx, %r15
-
-    movabsq $-3689348814741910323, %rdx
     movq 24(%rsp), %rax /* rax = oend2 */
     subq %op2,     %rax /* rax = oend2 - op2 */
-    mulq %rdx
-    shrq $3,       %rdx /* rdx = rax / 10 */
 
-    /* r15 = min(%rdx, %r15) */
-    cmpq  %rdx, %r15
-    cmova %rdx, %r15
+    cmpq  %rax,    %rdx
+    cmova %rax,    %rdx /* rdx = min(%rdx, %rax) */
 
-    movabsq $-3689348814741910323, %rdx
     movq 32(%rsp), %rax /* rax = oend3 */
     subq %op3,     %rax /* rax = oend3 - op3 */
+
+    cmpq  %rax,    %rdx
+    cmova %rax,    %rdx /* rdx = min(%rdx, %rax) */
+
+    movabsq $-3689348814741910323, %rax
     mulq %rdx
-    shrq $3,       %rdx /* rdx = rax / 10 */
+    shrq $3,       %rdx /* rdx = rdx / 10 */
 
     /* r15 = min(%rdx, %r15) */
     cmpq  %rdx, %r15
