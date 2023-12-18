@@ -198,8 +198,14 @@ namespace s3d
 
 	void CCursor::setPos(const Point pos)
 	{
+		const SizeF sceneSize = SIV3D_ENGINE(Renderer)->getSceneBufferSize();
+		const SizeF windowSize = SIV3D_ENGINE(Window)->getState().virtualSize;
+		const double sceneScale = (windowSize / sceneSize).minComponent();
+		const Vec2 sceneOffset = (windowSize - sceneSize * sceneScale) / 2;
 		const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
-		POINT point{ static_cast<int32>(pos.x * scaling), static_cast<int32>(pos.y * scaling) };
+		const Vec2 actualPos = (pos * sceneScale + sceneOffset) * scaling;
+
+		POINT point{ static_cast<int32>(actualPos.x), static_cast<int32>(actualPos.y) };
 		::ClientToScreen(m_hWnd, &point);
 		::SetCursorPos(point.x, point.y);
 
