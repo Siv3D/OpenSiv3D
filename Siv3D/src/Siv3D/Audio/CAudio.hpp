@@ -182,6 +182,8 @@ namespace s3d
 
 	private:
 
+		static constexpr uint32 MaxActiveVoiceCount = 72; // hard limit: 1024
+
 		std::unique_ptr<SoLoud::Soloud> m_soloud;
 		
 		std::array<std::unique_ptr<AudioBus>, Audio::MaxBusCount> m_buses;

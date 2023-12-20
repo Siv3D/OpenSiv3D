@@ -98,6 +98,7 @@ namespace s3d
 				m_soloud->getBackendBufferSize()));
 
 			m_soloud->setVisualizationEnable(true);
+			m_soloud->setMaxActiveVoiceCount(MaxActiveVoiceCount);
 		}
 
 		// null Audio を管理に登録
