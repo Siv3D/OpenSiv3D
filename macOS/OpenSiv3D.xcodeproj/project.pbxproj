@@ -360,19 +360,14 @@
 		2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4397902536163000F6AECD /* CShader_GL4.cpp */; };
 		2C439F472419D686001154C2 /* format-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F452419D686001154C2 /* format-inl.h */; };
 		2C439F482419D686001154C2 /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F462419D686001154C2 /* format.cc */; };
-		2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F63241DCEA9001154C2 /* string-to-double.h */; };
 		2C439F78241DCEA9001154C2 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F64241DCEA9001154C2 /* utils.h */; };
 		2C439F79241DCEA9001154C2 /* bignum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F65241DCEA9001154C2 /* bignum.cc */; };
 		2C439F7A241DCEA9001154C2 /* fixed-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F66241DCEA9001154C2 /* fixed-dtoa.h */; };
-		2C439F7B241DCEA9001154C2 /* string-to-double.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F67241DCEA9001154C2 /* string-to-double.cc */; };
 		2C439F7C241DCEA9001154C2 /* bignum-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F68241DCEA9001154C2 /* bignum-dtoa.h */; };
 		2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F69241DCEA9001154C2 /* fixed-dtoa.cc */; };
 		2C439F7E241DCEA9001154C2 /* double-to-string.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F6A241DCEA9001154C2 /* double-to-string.h */; };
-		2C439F7F241DCEA9001154C2 /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F6B241DCEA9001154C2 /* strtod.h */; };
 		2C439F80241DCEA9001154C2 /* diy-fp.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F6C241DCEA9001154C2 /* diy-fp.h */; };
-		2C439F81241DCEA9001154C2 /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F6D241DCEA9001154C2 /* strtod.cc */; };
 		2C439F82241DCEA9001154C2 /* cached-powers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F6E241DCEA9001154C2 /* cached-powers.h */; };
-		2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C439F6F241DCEA9001154C2 /* double-conversion.h */; };
 		2C439F84241DCEA9001154C2 /* fast-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F70241DCEA9001154C2 /* fast-dtoa.cc */; };
 		2C439F85241DCEA9001154C2 /* double-to-string.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F71241DCEA9001154C2 /* double-to-string.cc */; };
 		2C439F86241DCEA9001154C2 /* cached-powers.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C439F72241DCEA9001154C2 /* cached-powers.cc */; };
@@ -778,6 +773,7 @@
 		2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6225C4241800034D81 /* GL4Texture.hpp */; };
 		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
+		2C7A77932B3BF56400E40A53 /* fast_float.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7A77922B3BF56400E40A53 /* fast_float.h */; };
 		2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */; };
 		2C7CA7F229E43A0A00FEC104 /* SivTextAreaEditState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
@@ -2725,19 +2721,14 @@
 		2C4397902536163000F6AECD /* CShader_GL4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CShader_GL4.cpp; sourceTree = "<group>"; };
 		2C439F452419D686001154C2 /* format-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "format-inl.h"; sourceTree = "<group>"; };
 		2C439F462419D686001154C2 /* format.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
-		2C439F63241DCEA9001154C2 /* string-to-double.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "string-to-double.h"; sourceTree = "<group>"; };
 		2C439F64241DCEA9001154C2 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		2C439F65241DCEA9001154C2 /* bignum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bignum.cc; sourceTree = "<group>"; };
 		2C439F66241DCEA9001154C2 /* fixed-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fixed-dtoa.h"; sourceTree = "<group>"; };
-		2C439F67241DCEA9001154C2 /* string-to-double.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "string-to-double.cc"; sourceTree = "<group>"; };
 		2C439F68241DCEA9001154C2 /* bignum-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bignum-dtoa.h"; sourceTree = "<group>"; };
 		2C439F69241DCEA9001154C2 /* fixed-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fixed-dtoa.cc"; sourceTree = "<group>"; };
 		2C439F6A241DCEA9001154C2 /* double-to-string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "double-to-string.h"; sourceTree = "<group>"; };
-		2C439F6B241DCEA9001154C2 /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
 		2C439F6C241DCEA9001154C2 /* diy-fp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "diy-fp.h"; sourceTree = "<group>"; };
-		2C439F6D241DCEA9001154C2 /* strtod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strtod.cc; sourceTree = "<group>"; };
 		2C439F6E241DCEA9001154C2 /* cached-powers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cached-powers.h"; sourceTree = "<group>"; };
-		2C439F6F241DCEA9001154C2 /* double-conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "double-conversion.h"; sourceTree = "<group>"; };
 		2C439F70241DCEA9001154C2 /* fast-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fast-dtoa.cc"; sourceTree = "<group>"; };
 		2C439F71241DCEA9001154C2 /* double-to-string.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "double-to-string.cc"; sourceTree = "<group>"; };
 		2C439F72241DCEA9001154C2 /* cached-powers.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cached-powers.cc"; sourceTree = "<group>"; };
@@ -3233,6 +3224,7 @@
 		2C794B6225C4241800034D81 /* GL4Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Texture.hpp; sourceTree = "<group>"; };
 		2C794B6525C4FD0400034D81 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
+		2C7A77922B3BF56400E40A53 /* fast_float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fast_float.h; sourceTree = "<group>"; };
 		2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleTable.hpp; sourceTree = "<group>"; };
 		2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleTable.cpp; sourceTree = "<group>"; };
 		2C7CA7EF29E439E300FEC104 /* TextAreaEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextAreaEditState.hpp; sourceTree = "<group>"; };
@@ -6387,6 +6379,7 @@
 				2C439F62241DCEA9001154C2 /* double-conversion */,
 				2C53C34A25613BCC0072831A /* Earcut */,
 				2CEC7DC225FA4DD900704B99 /* easyexif */,
+				2C7A77912B3BF56400E40A53 /* fast_float */,
 				2C439F442419D686001154C2 /* fmt */,
 				2C43C80325C837F000D6D613 /* freetype */,
 				2CC5842426461D7900C33E9F /* gif_load */,
@@ -6507,19 +6500,14 @@
 		2C439F62241DCEA9001154C2 /* double-conversion */ = {
 			isa = PBXGroup;
 			children = (
-				2C439F63241DCEA9001154C2 /* string-to-double.h */,
 				2C439F64241DCEA9001154C2 /* utils.h */,
 				2C439F65241DCEA9001154C2 /* bignum.cc */,
 				2C439F66241DCEA9001154C2 /* fixed-dtoa.h */,
-				2C439F67241DCEA9001154C2 /* string-to-double.cc */,
 				2C439F68241DCEA9001154C2 /* bignum-dtoa.h */,
 				2C439F69241DCEA9001154C2 /* fixed-dtoa.cc */,
 				2C439F6A241DCEA9001154C2 /* double-to-string.h */,
-				2C439F6B241DCEA9001154C2 /* strtod.h */,
 				2C439F6C241DCEA9001154C2 /* diy-fp.h */,
-				2C439F6D241DCEA9001154C2 /* strtod.cc */,
 				2C439F6E241DCEA9001154C2 /* cached-powers.h */,
-				2C439F6F241DCEA9001154C2 /* double-conversion.h */,
 				2C439F70241DCEA9001154C2 /* fast-dtoa.cc */,
 				2C439F71241DCEA9001154C2 /* double-to-string.cc */,
 				2C439F72241DCEA9001154C2 /* cached-powers.cc */,
@@ -7931,6 +7919,14 @@
 				2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */,
 			);
 			path = Metal;
+			sourceTree = "<group>";
+		};
+		2C7A77912B3BF56400E40A53 /* fast_float */ = {
+			isa = PBXGroup;
+			children = (
+				2C7A77922B3BF56400E40A53 /* fast_float.h */,
+			);
+			path = fast_float;
 			sourceTree = "<group>";
 		};
 		2C7CA7EC29DF0D3B00FEC104 /* SimpleTable */ = {
@@ -13895,7 +13891,6 @@
 				2C423254242B19D100A16BCA /* egl_context.h in Headers */,
 				2C4AEF882635CACB00D36CFC /* tinyxml2.h in Headers */,
 				2C636E512657F7D300AF029F /* soloud_fader.h in Headers */,
-				2C439F83241DCEA9001154C2 /* double-conversion.h in Headers */,
 				2CEFB4DB2AB858DB005EBD5F /* SkEventTracer.h in Headers */,
 				2C43C89425C837F100D6D613 /* svcfftl.h in Headers */,
 				2C6390FC2539ABAB0030F18E /* MetalVertexShader.hpp in Headers */,
@@ -14066,7 +14061,6 @@
 				2CEFB6882AB858DD005EBD5F /* SkOpCoincidence.h in Headers */,
 				2CEFB4762AB858DB005EBD5F /* SkFontMgr.h in Headers */,
 				2CFC212B25F7324F00C51D0D /* turbojpeg.h in Headers */,
-				2C439F77241DCEA9001154C2 /* string-to-double.h in Headers */,
 				2CFC214C25F739B400C51D0D /* hb-draw.h in Headers */,
 				2CC584832648246900C33E9F /* ogg.h in Headers */,
 				2CEFB50D2AB858DC005EBD5F /* SkFixed.h in Headers */,
@@ -14096,6 +14090,7 @@
 				2CB18EA126B5A68700862C28 /* as_restore.h in Headers */,
 				2C43C86925C837F000D6D613 /* ftwinfnt.h in Headers */,
 				2CC8BBA328C7532F008C770A /* CEmpty.hpp in Headers */,
+				2C7A77932B3BF56400E40A53 /* fast_float.h in Headers */,
 				2C636EAF2657F7D300AF029F /* darray.h in Headers */,
 				2C43C87025C837F000D6D613 /* ftheader.h in Headers */,
 				2C636E7A2657F7D300AF029F /* miniaudio.h in Headers */,
@@ -14219,7 +14214,6 @@
 				2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */,
 				2CEFB47C2AB858DB005EBD5F /* SkUnPreMultiply.h in Headers */,
 				2CEFB4D02AB858DB005EBD5F /* SkPathOps.h in Headers */,
-				2C439F7F241DCEA9001154C2 /* strtod.h in Headers */,
 				2C13C8EC25B95ABA0054B968 /* DirectoryWatcherDetail.hpp in Headers */,
 				2C43C8C525C837F100D6D613 /* ftbdf.h in Headers */,
 				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
@@ -14731,7 +14725,6 @@
 				2CC8BD8228C75331008C770A /* SivChildProcess.cpp in Sources */,
 				2C2AA37226009C74003F3EBC /* b2_mouse_joint.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
-				2C439F81241DCEA9001154C2 /* strtod.cc in Sources */,
 				2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */,
 				2C27113E2A7EA6CF00BD4014 /* SivTrail.cpp in Sources */,
 				2C636E772657F7D300AF029F /* soloud_core_3d.cpp in Sources */,
@@ -14927,7 +14920,6 @@
 				2CC8BDEE28C75332008C770A /* SivResource.cpp in Sources */,
 				2C533742264E0EE600CE0F1B /* MP3Decoder.cpp in Sources */,
 				2CC8BC8C28C75330008C770A /* ScriptBezier2.cpp in Sources */,
-				2C439F7B241DCEA9001154C2 /* string-to-double.cc in Sources */,
 				2C60AE7A248158A500277281 /* architecture_non_windows.cpp in Sources */,
 				2CC8BD8D28C75332008C770A /* SivPlane.cpp in Sources */,
 				2C794B5825C4080A00034D81 /* CTexture_GL4.cpp in Sources */,
