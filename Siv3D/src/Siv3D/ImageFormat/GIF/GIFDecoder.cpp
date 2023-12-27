@@ -63,7 +63,7 @@ namespace s3d
 
 	Optional<ImageInfo> GIFDecoder::getImageInfo(IReader& reader, const FilePathView) const
 	{
-		uint8 buf[4];
+		uint8 buf[10];
 
 		if (not reader.lookahead(buf))
 		{
@@ -71,8 +71,8 @@ namespace s3d
 			return{};
 		}
 
-		const int32 width = ((buf[1] << 8) + (buf[0] << 0));
-		const int32 height = ((buf[3] << 8) + (buf[2] << 0));
+		const int32 width = ((buf[7] << 8) + (buf[6] << 0));
+		const int32 height = ((buf[9] << 8) + (buf[8] << 0));
 		const Size size{ width, height };
 		
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8A8;
