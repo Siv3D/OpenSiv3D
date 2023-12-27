@@ -198,8 +198,9 @@ namespace s3d
 
 	void CCursor::setPos(const Point pos)
 	{
-		const double scaling = SIV3D_ENGINE(Window)->getState().scaling;
-		POINT point{ static_cast<int32>(pos.x * scaling), static_cast<int32>(pos.y * scaling) };
+		const Vec2 rawPos = m_transformAll.transformPoint(pos);
+
+		POINT point{ static_cast<int32>(rawPos.x), static_cast<int32>(rawPos.y) };
 		::ClientToScreen(m_hWnd, &point);
 		::SetCursorPos(point.x, point.y);
 
