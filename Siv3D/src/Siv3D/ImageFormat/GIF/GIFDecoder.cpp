@@ -159,10 +159,19 @@ namespace s3d
 
 		if ((width == 0) || (height == 0))
 		{
+			DGifCloseFile(gif, &error);
+
 			return{};
 		}
 
 		Image image{ width, height };
+		if (!image)
+		{
+			DGifCloseFile(gif, &error);
+
+			return{};
+		}
+
 		Color* pDst = image.data();
 
 		for (size_t y = 0; y < height; ++y)
