@@ -84,8 +84,6 @@ target_sources(double_conversion
         ../Siv3D/src/ThirdParty/double-conversion/double-to-string.cc
         ../Siv3D/src/ThirdParty/double-conversion/fast-dtoa.cc
         ../Siv3D/src/ThirdParty/double-conversion/fixed-dtoa.cc
-        ../Siv3D/src/ThirdParty/double-conversion/string-to-double.cc
-        ../Siv3D/src/ThirdParty/double-conversion/strtod.cc
 )
 
 

@@ -9,55 +9,52 @@
 //
 //-----------------------------------------------
 
+# include <ThirdParty/fast_float/fast_float.h>
 # include <Siv3D/ParseFloat.hpp>
 # include <Siv3D/Error.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/FormatLiteral.hpp>
-# include <ThirdParty/double-conversion/double-conversion.h>
 
 namespace s3d
 {
 	namespace detail
 	{
-		inline static constexpr double sNaN = std::numeric_limits<double>::signaling_NaN();
-
-		static double ParseDouble(const StringView s)
+		[[noreturn]]
+		static void ThrowParseError(const StringView s)
 		{
-			using namespace double_conversion;
+			throw ParseError{ U"ParseFloat(\"{}\") failed"_fmt(s) };
+		}
 
-			const int flags =
-				StringToDoubleConverter::ALLOW_LEADING_SPACES
-				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
-				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
-				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
-
-			int unused;
-			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), true, &unused);
-
-			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
+		static double ParseDouble(StringView s)
+		{
+			while (IsSpace(s.front()))
 			{
-				throw ParseError(U"ParseFloat(\"{}\") failed"_fmt(s));
+				s.remove_prefix(1);
+			}
+
+			double result;
+			auto [p, ec] = fast_float::from_chars(s.data(), (s.data() + s.size()), result);
+
+			if (ec != std::errc{})
+			{
+				ThrowParseError(s);
 			}
 
 			return result;
 		}
 
 		template <class FloatType>
-		static Optional<FloatType> ParseFloatingPointOpt(const StringView s) noexcept
+		static Optional<FloatType> ParseFloatingPointOpt(StringView s) noexcept
 		{
-			using namespace double_conversion;
+			while (IsSpace(s.front()))
+			{
+				s.remove_prefix(1);
+			}
 
-			const int flags =
-				StringToDoubleConverter::ALLOW_LEADING_SPACES
-				| StringToDoubleConverter::ALLOW_TRAILING_SPACES
-				| StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN
-				| StringToDoubleConverter::ALLOW_CASE_INSENSIBILITY;
-			StringToDoubleConverter conv(flags, 0.0, sNaN, "inf", "nan");
+			double result;
+			auto [p, ec] = fast_float::from_chars(s.data(), (s.data() + s.size()), result);
 
-			int unused;
-			const double result = conv.Siv3D_StringToIeee(s.data(), static_cast<int>(s.length()), true, &unused);
-
-			if (std::memcmp(&result, &sNaN, sizeof(double)) == 0)
+			if (ec != std::errc{})
 			{
 				return none;
 			}
