@@ -1424,16 +1424,14 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\cached-powers.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\diy-fp.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\double-conversion.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\double-to-string.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\fast-dtoa.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\ieee.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\string-to-double.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Earcut\earcut.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\fast_float\fast_float.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\fmt\format-inl.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftconfig.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftheader.h" />
@@ -2849,11 +2847,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\double-to-string.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fast-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\string-to-double.cc">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\infoware\src\cpu\architecture\architecture_non_windows.cpp" />
