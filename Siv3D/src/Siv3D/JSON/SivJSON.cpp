@@ -546,7 +546,7 @@ namespace s3d
 
 	JSON& JSON::operator =(JSON&& other) noexcept
 	{
-		m_detail = std::exchange(other.m_detail, std::make_shared<detail::JSONDetail>());
+		*m_detail = std::exchange(*other.m_detail, detail::JSONDetail{});
 		m_isValid = std::exchange(other.m_isValid, false);
 		return *this;
 	}
