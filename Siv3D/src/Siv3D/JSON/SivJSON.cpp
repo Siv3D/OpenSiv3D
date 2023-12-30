@@ -496,7 +496,7 @@ namespace s3d
 		: m_detail{ std::make_shared<detail::JSONDetail>(*other.m_detail) }
 		, m_isValid{ other.m_isValid } {}
 
-	JSON::JSON(JSON&& other) noexcept
+	JSON::JSON(JSON&& other)
 		: m_detail{ std::exchange(other.m_detail, std::make_shared<detail::JSONDetail>()) }
 		, m_isValid{ std::exchange(other.m_isValid, false) } {}
 

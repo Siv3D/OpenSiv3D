@@ -251,7 +251,7 @@ namespace s3d
 		JSON(const JSON& other);
 
 		SIV3D_NODISCARD_CXX20
-		JSON(JSON&& other) noexcept;
+		JSON(JSON&& other);
 
 		SIV3D_NODISCARD_CXX20
 		JSON(const std::initializer_list<std::pair<String, JSON>>& list);
