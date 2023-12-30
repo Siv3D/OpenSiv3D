@@ -498,7 +498,7 @@ namespace s3d
 
 	JSON::JSON(JSON&& other)
 		: m_detail{ std::exchange(other.m_detail, std::make_shared<detail::JSONDetail>()) }
-		, m_isValid{ std::exchange(other.m_isValid, false) } {}
+		, m_isValid{ std::exchange(other.m_isValid, true) } {}
 
 	JSON::JSON(std::shared_ptr<detail::JSONDetail>&& detail)
 		: m_detail{ std::move(detail) } {}
@@ -547,7 +547,7 @@ namespace s3d
 	JSON& JSON::operator =(JSON&& other) noexcept
 	{
 		*m_detail = std::exchange(*other.m_detail, detail::JSONDetail{});
-		m_isValid = std::exchange(other.m_isValid, false);
+		m_isValid = std::exchange(other.m_isValid, true);
 		return *this;
 	}
 
