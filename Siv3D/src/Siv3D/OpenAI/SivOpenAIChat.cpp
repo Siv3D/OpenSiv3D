@@ -26,7 +26,7 @@ namespace s3d
 		/// @brief メッセージのロールの名前 | Message role names
 		constexpr std::array<StringView, 3> RoleNames{ U"system", U"user", U"assistant" };
 
-		/// @brief チャット API に送信するリクエストを作成します。
+		/// @brief チャット API に送信するリクエスト JSON を作成します。
 		/// @param request リクエスト
 		/// @return リクエストの JSON 文字列
 		[[nodiscard]]
@@ -74,8 +74,8 @@ namespace s3d
 					return{};
 				}
 
-				const std::string json = detail::MakeChatRequest(request);
 				const auto headers = detail::MakeHeaders(apiKey);
+				const std::string json = detail::MakeChatRequest(request);
 				MemoryWriter memoryWriter;
 
 				if (const auto response = SimpleHTTP::Post(detail::ChatCompletionsEndpoint, headers, json.data(), json.size(), memoryWriter))

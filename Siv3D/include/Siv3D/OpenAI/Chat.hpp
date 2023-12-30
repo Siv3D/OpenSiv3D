@@ -74,6 +74,15 @@ namespace s3d
 			/// @brief チャット API に送信するリクエスト | Request to send to the Chat API
 			struct Request
 			{
+				/// @brief ランダム・創造性の度合いの最小値 | Minimum value of randomness and creativity
+				static constexpr double MinTemperature = 0.0;
+
+				/// @brief ランダム・創造性の度合いの最大値 | Maximum value of randomness and creativity
+				static constexpr double MaxTemperature = 2.0;
+
+				/// @brief ランダム・創造性の度合いのデフォルト値 | Default value of randomness and creativity
+				static constexpr double DefaultTemperature = 1.0;
+
 				/// @brief メッセージ（ロールとメッセージのペアの配列） | Array of message pairs (role and message)
 				Array<std::pair<Role, String>> messages;
 
@@ -83,15 +92,6 @@ namespace s3d
 				/// @brief レスポンスのフォーマット | Response format
 				/// @remark `ResponseFormat::JSON` を指定した場合、メッセージには "JSON" という言葉を含める必要があります。 | If `ResponseFormat::JSON` is specified, the message must contain the word "JSON".
 				ResponseFormat responseFormat = ResponseFormat::Text;
-
-				/// @brief ランダム・創造性の度合いの最小値 | Minimum value of randomness and creativity
-				static constexpr double MinTemperature = 0.0;
-
-				/// @brief ランダム・創造性の度合いの最大値 | Maximum value of randomness and creativity
-				static constexpr double MaxTemperature = 2.0;
-
-				/// @brief ランダム・創造性の度合いのデフォルト値 | Default value of randomness and creativity
-				static constexpr double DefaultTemperature = 1.0;
 
 				/// @brief ランダム・創造性の度合い | Degree of randomness and creativity
 				/// @remark `MinTemperature` 以上 `MaxTemperature` 以下の値 | A value between `MinTemperature` and `MaxTemperature`
