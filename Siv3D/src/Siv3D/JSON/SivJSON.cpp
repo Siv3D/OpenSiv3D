@@ -929,7 +929,7 @@ namespace s3d
 		m_detail->get().push_back(value.m_detail->get());
 	}
 
-	void JSON::clear() const
+	void JSON::clear()
 	{
 		if (not m_isValid)
 		{

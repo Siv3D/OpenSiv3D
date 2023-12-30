@@ -529,7 +529,7 @@ namespace s3d
 		void push_back(const JSON& value);
 
 		/// @brief 所有しているデータを消去して空にします。
-		void clear() const;
+		void clear();
 
 		/// @brief 渡されたキーが指す要素を削除します。
 		/// @param [in] name キー
