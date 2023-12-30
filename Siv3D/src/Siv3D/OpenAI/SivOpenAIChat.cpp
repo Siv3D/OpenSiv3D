@@ -20,9 +20,10 @@ namespace s3d
 {
 	namespace detail
 	{
-		// OpenAI のチャット API の URL
+		/// @brief チャット API のエンドポイント | Chat API endpoint
 		constexpr URLView ChatCompletionsEndpoint{ U"https://api.openai.com/v1/chat/completions" };
 
+		/// @brief メッセージのロールの名前 | Message role names
 		constexpr std::array<StringView, 3> RoleNames{ U"system", U"user", U"assistant" };
 
 		/// @brief チャット API に送信するリクエストを作成します。

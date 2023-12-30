@@ -84,9 +84,18 @@ namespace s3d
 				/// @remark `ResponseFormat::JSON` を指定した場合、メッセージには "JSON" という言葉を含める必要があります。 | If `ResponseFormat::JSON` is specified, the message must contain the word "JSON".
 				ResponseFormat responseFormat = ResponseFormat::Text;
 
+				/// @brief ランダム・創造性の度合いの最小値 | Minimum value of randomness and creativity
+				static constexpr double MinTemperature = 0.0;
+
+				/// @brief ランダム・創造性の度合いの最大値 | Maximum value of randomness and creativity
+				static constexpr double MaxTemperature = 2.0;
+
+				/// @brief ランダム・創造性の度合いのデフォルト値 | Default value of randomness and creativity
+				static constexpr double DefaultTemperature = 1.0;
+
 				/// @brief ランダム・創造性の度合い | Degree of randomness and creativity
-				/// @remark 0.0 から 2.0 の範囲 | Range from 0.0 to 2.0
-				double temperature = 1.0;
+				/// @remark `MinTemperature` 以上 `MaxTemperature` 以下の値 | A value between `MinTemperature` and `MaxTemperature`
+				double temperature = DefaultTemperature;
 			};
 
 			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends a message to ChatGPT and retrieves the response message.
