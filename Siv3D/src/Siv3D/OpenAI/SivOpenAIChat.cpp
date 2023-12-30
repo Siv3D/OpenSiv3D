@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/OpenAI.hpp>
+# include <Siv3D/OpenAI/Chat.hpp>
 # include <Siv3D/JSON.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/MemoryViewReader.hpp>
@@ -21,21 +21,27 @@ namespace s3d
 	namespace detail
 	{
 		// OpenAI のチャット API の URL
-		constexpr URLView ChatCompletionsEndpoint = U"https://api.openai.com/v1/chat/completions";
+		constexpr URLView ChatCompletionsEndpoint{ U"https://api.openai.com/v1/chat/completions" };
 
-		// チャット API に送信するリクエストを作成する
+		constexpr std::array<StringView, 3> RoleNames{ U"system", U"user", U"assistant" };
+
+		/// @brief チャット API に送信するリクエストを作成します。
+		/// @param request リクエスト
+		/// @return リクエストの JSON 文字列
 		[[nodiscard]]
-		static std::string MakeChatRequest(const Array<std::pair<String, String>>& messages, const StringView model)
+		static std::string MakeChatRequest(const OpenAI::Chat::Request& request)
 		{
-			JSON request;
-			request[U"model"] = model;
+			JSON json;
+			json[U"model"] = request.model;
+			json[U"temperature"] = request.temperature;
+			json[U"response_format"][U"type"] = ((request.responseFormat == OpenAI::Chat::ResponseFormat::JSON) ? U"json_object" : U"text");
 
-			for (auto&& [role, content] : messages)
+			for (auto&& [role, content] : request.messages)
 			{
-				request[U"messages"].push_back({ { U"role", role }, { U"content", content } });
+				json[U"messages"].push_back({ { U"role", detail::RoleNames[FromEnum(role)]}, { U"content", content }});
 			}
 
-			return request.formatUTF8();
+			return json.formatUTF8Minimum();
 		}
 	}
 
@@ -45,45 +51,38 @@ namespace s3d
 		{
 			String Complete(const StringView apiKey, const StringView message, const StringView model)
 			{
-				String unused;
-				return Complete(apiKey, { { U"user", String{ message } } }, unused, model);
+				return Complete(apiKey,
+					Request{ .messages = {{ Role::User, String{ message } }}, .model = String{ model } });
 			}
 
-			String Complete(const StringView apiKey, const StringView message, String& error, const StringView model)
-			{
-				return Complete(apiKey, { { U"user", String{ message } } }, error, model);
-			}
-
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, const StringView model)
+			String Complete(const StringView apiKey, const Request& request)
 			{
 				String unused;
-				return Complete(apiKey, messages, unused, model);
+				return Complete(apiKey, request, unused);
 			}
 
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, String& error, const StringView model)
+			String Complete(const StringView apiKey, const Request& request, String& error)
 			{
+				// エラーをクリアする
 				error.clear();
 
 				// API キーが空の文字列である場合は失敗
-				if (apiKey.isEmpty())
+				if (not apiKey)
 				{
 					error = U"API key is empty.";
 					return{};
 				}
 
-				const std::string data = detail::MakeChatRequest(messages, model);
-
+				const std::string json = detail::MakeChatRequest(request);
 				const auto headers = detail::MakeHeaders(apiKey);
-
 				MemoryWriter memoryWriter;
 
-				if (const auto response = SimpleHTTP::Post(detail::ChatCompletionsEndpoint, headers, data.data(), data.size(), memoryWriter))
+				if (const auto response = SimpleHTTP::Post(detail::ChatCompletionsEndpoint, headers, json.data(), json.size(), memoryWriter))
 				{
 					if (const HTTPStatusCode statusCode = response.getStatusCode();
 						statusCode == HTTPStatusCode::OK)
 					{
 						const Blob blob = memoryWriter.retrieve();
-
 						return GetContent(JSON::Load(MemoryViewReader{ blob.data(), blob.size_bytes() }));
 					}
 					else if (statusCode == HTTPStatusCode::Unauthorized) // 401 は無効な API キーが原因
@@ -105,22 +104,21 @@ namespace s3d
 
 			AsyncHTTPTask CompleteAsync(const StringView apiKey, const StringView message, const StringView model)
 			{
-				return CompleteAsync(apiKey, { { U"user", String{ message } } }, model);
+				return CompleteAsync(apiKey,
+					Request{ .messages = {{ Role::User, String{ message } }}, .model = String{ model } });
 			}
 
-			AsyncHTTPTask CompleteAsync(const StringView apiKey, const Array<std::pair<String, String>>& messages, const StringView model)
+			AsyncHTTPTask CompleteAsync(const StringView apiKey, const Request& request)
 			{
 				// API キーが空の文字列である場合は失敗
-				if (apiKey.isEmpty())
+				if (not apiKey)
 				{
 					return{};
 				}
 
-				const std::string data = detail::MakeChatRequest(messages, model);
-
+				const std::string json = detail::MakeChatRequest(request);
 				const auto headers = detail::MakeHeaders(apiKey);
-
-				return SimpleHTTP::PostAsync(detail::ChatCompletionsEndpoint, headers, data.data(), data.size());
+				return SimpleHTTP::PostAsync(detail::ChatCompletionsEndpoint, headers, json.data(), json.size());
 			}
 
 			String GetContent(const JSON& response)

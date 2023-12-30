@@ -25,27 +25,27 @@ namespace s3d
 			{
 				/// @brief GPT-3.5 4K
 				/// @see https://platform.openai.com/docs/models/gpt-3-5
-				inline constexpr StringView GPT3_5_Turbo{ U"gpt-3.5-turbo" };
+				inline constexpr char32 GPT3_5_Turbo[] = U"gpt-3.5-turbo";
 
 				/// @brief GPT-3.5 16K
 				/// @see https://platform.openai.com/docs/models/gpt-3-5
-				inline constexpr StringView GPT3_5_Turbo_16K{ U"gpt-3.5-turbo-16k" };
+				inline constexpr char32 GPT3_5_Turbo_16K[] = U"gpt-3.5-turbo-16k";
 
 				/// @brief GPT-3.5 16K (1106)
 				/// @see https://platform.openai.com/docs/models/gpt-3-5
-				inline constexpr StringView GPT3_5_Turbo_16K_1106{ U"gpt-3.5-turbo-1106" };
+				inline constexpr char32 GPT3_5_Turbo_16K_1106[] = U"gpt-3.5-turbo-1106";
 
 				/// @brief GPT-4 8K
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
-				inline constexpr StringView GPT4{ U"gpt-4" };
+				inline constexpr char32 GPT4[] = U"gpt-4";
 
 				/// @brief GPT-4 32K
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
-				inline constexpr StringView GPT4_32K{ U"gpt-4-32k" };
+				inline constexpr char32 GPT4_32K[] = U"gpt-4-32k";
 
 				/// @brief GPT-4 Turbo 128K (1106 Preview)
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
-				inline constexpr StringView GPT4_Turbo_128K_1106_Preview{ U"gpt-4-1106-preview" };
+				inline constexpr char32 GPT4_Turbo_128K_1106_Preview[] =  U"gpt-4-1106-preview";
 			}
 
 			/// @brief メッセージのロール | Message role
@@ -61,6 +61,16 @@ namespace s3d
 				Assistant,
 			};
 
+			/// @brief レスポンスのフォーマット | Response format
+			enum class ResponseFormat
+			{
+				/// @brief テキスト | Text
+				Text,
+
+				/// @brief JSON | JSON
+				JSON,
+			};
+
 			/// @brief チャット API に送信するリクエスト | Request to send to the Chat API
 			struct Request
 			{
@@ -68,22 +78,16 @@ namespace s3d
 				Array<std::pair<Role, String>> messages;
 
 				/// @brief モデル | Model
-				String model{ Model::GPT3_5_Turbo_16K_1106 };
+				String model = Model::GPT3_5_Turbo_16K_1106;
+
+				/// @brief レスポンスのフォーマット | Response format
+				/// @remark `ResponseFormat::JSON` を指定した場合、メッセージには "JSON" という言葉を含める必要があります。 | If `ResponseFormat::JSON` is specified, the message must contain the word "JSON".
+				ResponseFormat responseFormat = ResponseFormat::Text;
 
 				/// @brief ランダム・創造性の度合い | Degree of randomness and creativity
 				/// @remark 0.0 から 2.0 の範囲 | Range from 0.0 to 2.0
 				double temperature = 1.0;
 			};
-
-			[[nodiscard]]
-			String Complete(StringView apiKey, const Request& request);
-
-			[[nodiscard]]
-			String Complete(StringView apiKey, const Request& request, String& error);
-			
-			[[nodiscard]]
-			AsyncHTTPTask CompleteAsync(StringView apiKey, const Request& request);
-
 
 			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends a message to ChatGPT and retrieves the response message.
 			/// @param apiKey OpenAI API キー | OpenAI API key
@@ -94,36 +98,22 @@ namespace s3d
 			[[nodiscard]]
 			String Complete(StringView apiKey, StringView message, StringView model = Model::GPT3_5_Turbo_16K_1106);
 
-			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends a message to ChatGPT and retrieves the response message.
+			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends messages to ChatGPT and retrieves the response message.
 			/// @param apiKey OpenAI API キー | OpenAI API key
-			/// @param message メッセージ | Message
-			/// @param error エラーメッセージの格納先。エラーが無い場合は空の文字列になる | Destination for the error message. Will be an empty string if no error occurs.
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
+			/// @param request リクエスト | Request
 			/// @return 返答メッセージ。取得に失敗した場合は空の文字列 | Response message. An empty string if the retrieval fails.
 			/// @remark インターネットアクセスが必要です。 | Internet access is required.
 			[[nodiscard]]
-			String Complete(StringView apiKey, StringView message, String& error, StringView model = Model::GPT3_5_Turbo_16K_1106);
+			String Complete(StringView apiKey, const Request& request);
 
 			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends messages to ChatGPT and retrieves the response message.
 			/// @param apiKey OpenAI API キー | OpenAI API key
-			/// @param messages メッセージ（ロールとメッセージのペアの配列） | Array of message pairs (role and message)
-			/// @return 返答メッセージ。取得に失敗した場合は空の文字列 | Response message. An empty string if the retrieval fails.
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
-			/// @remark ロールは U"system", U"user", U"assistant" の 3 種類です。 | Roles are U"system", U"user", and U"assistant".
-			/// @remark インターネットアクセスが必要です。 | Internet access is required.
-			[[nodiscard]]
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, StringView model = Model::GPT3_5_Turbo_16K_1106);
-
-			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends messages to ChatGPT and retrieves the response message.
-			/// @param apiKey OpenAI API キー | OpenAI API key
-			/// @param messages メッセージ（ロールとメッセージのペアの配列） | Array of message pairs (role and message)
+			/// @param request リクエスト | Request
 			/// @param error エラーメッセージの格納先。エラーが無い場合は空の文字列になる | Destination for the error message. Will be an empty string if no error occurs.
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
 			/// @return 返答メッセージ。取得に失敗した場合は空の文字列 | Response message. An empty string if the retrieval fails.
-			/// @remark ロールは U"system", U"user", U"assistant" の 3 種類です。 | Roles are U"system", U"user", and U"assistant".
 			/// @remark インターネットアクセスが必要です。 | Internet access is required.
 			[[nodiscard]]
-			String Complete(StringView apiKey, const Array<std::pair<String, String>>& messages, String& error, StringView model = Model::GPT3_5_Turbo_16K_1106);
+			String Complete(StringView apiKey, const Request& request, String& error);
 
 			/// @brief ChatGPT にメッセージを送り、レスポンス（JSON）を取得する非同期タスクを返します。 | Returns an asynchronous task for sending a message to ChatGPT and retrieving the response (JSON).
 			/// @param apiKey OpenAI API キー | OpenAI API key
@@ -137,14 +127,12 @@ namespace s3d
 
 			/// @brief ChatGPT にメッセージを送り、レスポンス（JSON）を取得する非同期タスクを返します。 | Returns an asynchronous task for sending messages to ChatGPT and retrieving the response (JSON).
 			/// @param apiKey OpenAI API キー | OpenAI API key
-			/// @param messages メッセージ（ロールとメッセージのペアの配列） | Array of message pairs (role and message)
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
+			/// @param request リクエスト | Request
 			/// @return 非同期タスク | Asynchronous task
-			/// @remark ロールは U"system", U"user", U"assistant" の 3 種類です。 | Roles are U"system", U"user", and U"assistant".
 			/// @remark 戻り値の task が `(task.isReady() == true) && (task.getResponse().isOK() == true)` になれば結果を取得できます。 | The result can be retrieved if `(task.isReady() == true) && (task.getResponse().isOK() == true)`.
 			/// @remark インターネットアクセスが必要です。 | Internet access is required.
 			[[nodiscard]]
-			AsyncHTTPTask CompleteAsync(StringView apiKey, const Array<std::pair<String, String>>& messages, StringView model = Model::GPT3_5_Turbo_16K_1106);
+			AsyncHTTPTask CompleteAsync(StringView apiKey, const Request& request);
 
 			/// @brief ChatGPT のレスポンス（JSON）から、返答メッセージを抽出して返します。 | Extracts and returns the response message from the ChatGPT response (JSON).
 			/// @param response JSON レスポンス | JSON response
