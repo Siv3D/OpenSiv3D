@@ -357,6 +357,8 @@ namespace s3d
 			class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 		JSON& operator =(const Type& value);
 
+		JSON& assignUTF8String(std::string_view value);
+
 		/// @brief 他の JSON オブジェクトと値が等しいかを調べます。
 		/// @param [in] other 等しいか調べたい他の JSON オブジェクト
 		[[nodiscard]]
@@ -431,6 +433,11 @@ namespace s3d
 		/// @return 取得した値
 		[[nodiscard]]
 		String getString() const;
+
+		/// @brief 所有している値が文字列の場合に、その値を UTF-8 文字列 (std::string) として取得します。
+		/// @return 取得した値
+		[[nodiscard]]
+		std::string getUTF8String() const;
 
 		/// @brief 所有している値がバイナリである場合に、その値を配列として取得します。
 		/// @return 取得した値

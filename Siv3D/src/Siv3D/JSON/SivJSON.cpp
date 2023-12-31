@@ -622,6 +622,13 @@ namespace s3d
 		return (m_detail->get() == other.m_detail->get());
 	}
 
+	JSON& JSON::assignUTF8String(const std::string_view value)
+	{
+		m_detail->get() = value;
+		m_isValid = true;
+		return *this;
+	}
+
 	bool JSON::operator !=(const JSON& other) const
 	{
 		return !(*this == other);
@@ -796,6 +803,16 @@ namespace s3d
 		}
 
 		return Unicode::FromUTF8(m_detail->get().get<std::string>());
+	}
+
+	std::string JSON::getUTF8String() const
+	{
+		if (not isString())
+		{
+			throw Error{ U"JSON::getUTF8String(): Value is not a String type" };
+		}
+
+		return m_detail->get().get<std::string>();
 	}
 
 	Array<uint8> JSON::getBinary() const
