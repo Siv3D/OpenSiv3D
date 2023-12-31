@@ -70,7 +70,7 @@ namespace s3d
 				// API キーが空の文字列である場合は失敗
 				if (not apiKey)
 				{
-					error = U"API key is empty.";
+					error = detail::Error_APIKeyIsEmpty;
 					return{};
 				}
 
@@ -88,7 +88,7 @@ namespace s3d
 					}
 					else if (statusCode == HTTPStatusCode::Unauthorized) // 401 は無効な API キーが原因
 					{
-						error = U"Invalid API key. [Status code: 401]";
+						error = detail::Error_InvalidAPIKey;
 					}
 					else
 					{
@@ -97,7 +97,7 @@ namespace s3d
 				}
 				else
 				{
-					error = U"Failed to retrieve HTTP response.";
+					error = detail::Error_FailedToRetrieveHTTPResponse;
 				}
 
 				return{};

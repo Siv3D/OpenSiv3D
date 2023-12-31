@@ -37,7 +37,7 @@ namespace s3d
 		static bool CreateSpeechImpl(const String apiKey, const OpenAI::Speech::Request request, const FilePath path)
 		{
 			// API キーが空の文字列である場合は失敗
-			if (apiKey.isEmpty())
+			if (not apiKey)
 			{
 				return false;
 			}

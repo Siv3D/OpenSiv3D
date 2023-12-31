@@ -18,11 +18,22 @@ namespace s3d
 {
 	namespace detail
 	{
-		// HTTP ヘッダーを作成する
+		/// @brief HTTP ヘッダーを作成します。
+		/// @param apiKey API キー
+		/// @return HTTP ヘッダー
 		[[nodiscard]]
 		HashTable<String, String> MakeHeaders(StringView apiKey);
 
-		// 非同期タスクのポーリング間隔
+		/// @brief 非同期タスクのポーリング間隔
 		constexpr Milliseconds TaskPollingInterval{ 5 };
+
+		/// @brief API キーが空の文字列である場合のエラーメッセージ
+		inline constexpr StringView Error_APIKeyIsEmpty = U"API key is empty.";
+
+		/// @brief API キーが不正である場合のエラーメッセージ
+		inline constexpr StringView Error_InvalidAPIKey = U"Invalid API key. [Status code: 401]";
+
+		/// @brief HTTP レスポンスの取得に失敗した場合のエラーメッセージ
+		inline constexpr StringView Error_FailedToRetrieveHTTPResponse = U"Failed to retrieve HTTP response.";
 	}
 }

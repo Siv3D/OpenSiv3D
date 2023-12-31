@@ -28,7 +28,7 @@ namespace s3d
 				/// @brief 埋め込みモデル text-embedding-ada-002 | Embedding Model text-embedding-ada-002
 				/// @see https://platform.openai.com/docs/models/embeddings
 				/// @remark Embeddings API 用のモデルです。 | This is a model for the Embeddings API.
-				inline constexpr StringView EmbeddingAda002{ U"text-embedding-ada-002" };
+				inline constexpr char32 EmbeddingAda002[] = U"text-embedding-ada-002";
 			}
 
 			/// @brief 文章の埋め込みベクトルを返します。 | Returns the embedding vector of the text.

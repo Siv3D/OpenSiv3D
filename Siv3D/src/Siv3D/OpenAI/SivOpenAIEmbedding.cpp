@@ -21,19 +21,27 @@ namespace s3d
 {
 	namespace detail
 	{
-		// OpenAI の Embeddings API の URL
+		/// @brief Embeddings API のエンドポイント | Embeddings API endpoint
 		constexpr URLView EmbeddingsEndpoint = U"https://api.openai.com/v1/embeddings";
 
-		// Embeddings API に送信するリクエストを作成する
+		/// @brief Embeddings API に送信するリクエスト JSON を作成します。
+		/// @param input 入力文字列
+		/// @param model 使用するモデル
+		/// @return リクエストの JSON 文字列
 		[[nodiscard]]
 		static std::string MakeEmbeddingRequest(const StringView input, const StringView model)
 		{
 			JSON request;
 			request[U"input"] = input;
 			request[U"model"] = model;
-			return request.formatUTF8();
+			return request.formatUTF8Minimum();
 		}
 
+		/// @brief 2 つのベクトルの内積を計算します。
+		/// @param a ベクトル
+		/// @param b もう一方のベクトル
+		/// @param size ベクトルの要素数
+		/// @return 内積
 		[[nodiscard]]
 		static float DotProduct_SSE3(const float* a, const float* b, const size_t size) noexcept
 		{
@@ -61,6 +69,11 @@ namespace s3d
 			return result;
 		}
 
+		/// @brief 2 つのベクトルの内積を計算します。
+		/// @param a ベクトル
+		/// @param b もう一方のベクトル
+		/// @param size ベクトルの要素数
+		/// @return 内積
 		[[nodiscard]]
 		static float DotProduct(const float* a, const float* b, const size_t size) noexcept
 		{
@@ -98,33 +111,31 @@ namespace s3d
 
 			Array<float> Create(const StringView apiKey, const StringView text, String& error, const StringView model)
 			{
+				// エラーをクリアする
 				error.clear();
 
 				// API キーが空の文字列である場合は失敗
-				if (apiKey.isEmpty())
+				if (not apiKey)
 				{
-					error = U"API key is empty.";
+					error = detail::Error_APIKeyIsEmpty;
 					return{};
 				}
 
-				const std::string data = detail::MakeEmbeddingRequest(text, model);
-
 				const auto headers = detail::MakeHeaders(apiKey);
-
+				const std::string json = detail::MakeEmbeddingRequest(text, model);
 				MemoryWriter memoryWriter;
 
-				if (const auto response = SimpleHTTP::Post(detail::EmbeddingsEndpoint, headers, data.data(), data.size(), memoryWriter))
+				if (const auto response = SimpleHTTP::Post(detail::EmbeddingsEndpoint, headers, json.data(), json.size(), memoryWriter))
 				{
 					if (const HTTPStatusCode statusCode = response.getStatusCode();
 						statusCode == HTTPStatusCode::OK)
 					{
 						const Blob blob = memoryWriter.retrieve();
-
 						return GetVector(JSON::Load(MemoryViewReader{ blob.data(), blob.size_bytes() }));
 					}
 					else if (statusCode == HTTPStatusCode::Unauthorized) // 401 は無効な API キーが原因
 					{
-						error = U"Invalid API key. [Status code: 401]";
+						error = detail::Error_InvalidAPIKey;
 					}
 					else
 					{
@@ -133,7 +144,7 @@ namespace s3d
 				}
 				else
 				{
-					error = U"Failed to retrieve HTTP response.";
+					error = detail::Error_FailedToRetrieveHTTPResponse;
 				}
 
 				return{};
@@ -142,16 +153,15 @@ namespace s3d
 			AsyncHTTPTask CreateAsync(const StringView apiKey, const StringView text, const StringView model)
 			{
 				// API キーが空の文字列である場合は失敗
-				if (apiKey.isEmpty())
+				if (not apiKey)
 				{
 					return{};
 				}
 
-				const std::string data = detail::MakeEmbeddingRequest(text, model);
-
 				const auto headers = detail::MakeHeaders(apiKey);
+				const std::string json = detail::MakeEmbeddingRequest(text, model);
 
-				return SimpleHTTP::PostAsync(detail::EmbeddingsEndpoint, headers, data.data(), data.size());
+				return SimpleHTTP::PostAsync(detail::EmbeddingsEndpoint, headers, json.data(), json.size());
 			}
 
 			Array<float> GetVector(const JSON& response)
