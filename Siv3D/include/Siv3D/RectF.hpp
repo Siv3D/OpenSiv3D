@@ -698,6 +698,30 @@ namespace s3d
 		[[nodiscard]]
 		Quad rotatedAt(Vec2 _pos, double angle) const noexcept;
 
+		/// @brief 時計回りに 90°* n 回転した長方形を返します。
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return 時計回りに 90°* n 回転した長方形
+		[[nodiscard]]
+		constexpr RectF rotated90(int32 n = 1) const noexcept;
+
+		/// @brief 自身を時計回りに 90°* n 回転します。
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return *this
+		constexpr RectF& rotate90(int32 n = 1) noexcept;
+
+		/// @brief _posを中心とし、時計回りに 90°* n 回転した長方形を返します。
+		/// @param _pos 回転の中心座標
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return _posを中心とし、時計回りに 90°* n 回転した長方形
+		[[nodiscard]]
+		constexpr RectF rotated90At(const Vec2& _pos, int32 n = 1) const noexcept;
+
+		/// @brief _posを中心とし、自身を時計回りに 90°* n 回転します。
+		/// @param _pos 回転の中心座標
+		/// @param n 時計回りに 90° 回転させる回数（負の場合は反時計回り）
+		/// @return *this
+		constexpr RectF& rotate90At(const Vec2& _pos, int32 n = 1) noexcept;
+
 		[[nodiscard]]
 		constexpr Quad shearedX(double vx) const noexcept;
 

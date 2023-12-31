@@ -826,6 +826,46 @@ namespace s3d
 		return (size.x / size.y);
 	}
 
+	inline constexpr RectF RectF::rotated90(const int32 n) const noexcept
+	{
+		switch (n % 2) // 90°* (奇数) 回転か
+		{
+		case 1:
+		case -1:
+			return { bl().rotate90At(center(),1),size.yx() }; // 奇数
+		default:
+			return *this; // 偶数
+		}
+	}
+
+	inline constexpr RectF& RectF::rotate90(const int32 n) noexcept
+	{
+		return (*this = rotated90(n));
+	}
+
+	inline constexpr RectF RectF::rotated90At(const Vec2& _pos, const int32 n) const noexcept
+	{
+		switch (n % 4) // 時計回りに何回 90° 回転するか
+		{
+		case 1:
+		case -3:
+			return { bl().rotate90At(_pos,1),size.yx() }; // 1 回または -3 回
+		case 2:
+		case -2:
+			return { br().rotate90At(_pos,2),size }; // 2 回または -2 回
+		case 3:
+		case -1:
+			return { tr().rotate90At(_pos,3),size.yx() }; // 3 回または -1 回
+		default:
+			return *this; // 0 回
+		}
+	}
+
+	inline constexpr RectF& RectF::rotate90At(const Vec2& _pos, const int32 n) noexcept
+	{
+		return (*this = rotated90At(_pos, n));
+	}
+
 	inline constexpr Quad RectF::shearedX(const double vx) const noexcept
 	{
 		return{ {(pos.x + vx), pos.y}, {(pos.x + size.x + vx), pos.y}, {(pos.x + size.x - vx), (pos.y + size.y)}, {(pos.x - vx), (pos.y + size.y)} };
