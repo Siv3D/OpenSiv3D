@@ -774,6 +774,12 @@
 		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
 		2C7A77932B3BF56400E40A53 /* fast_float.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7A77922B3BF56400E40A53 /* fast_float.h */; };
+		2C7A779B2B41095C00E40A53 /* SivOpenAIEmbedding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77952B41095C00E40A53 /* SivOpenAIEmbedding.cpp */; };
+		2C7A779C2B41095C00E40A53 /* OpenAICommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77962B41095C00E40A53 /* OpenAICommon.cpp */; };
+		2C7A779D2B41095C00E40A53 /* OpenAICommon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C7A77972B41095C00E40A53 /* OpenAICommon.hpp */; };
+		2C7A779E2B41095C00E40A53 /* SivOpenAIImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77982B41095C00E40A53 /* SivOpenAIImage.cpp */; };
+		2C7A779F2B41095C00E40A53 /* SivOpenAISpeech.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77992B41095C00E40A53 /* SivOpenAISpeech.cpp */; };
+		2C7A77A02B41095C00E40A53 /* SivOpenAIChat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A779A2B41095C00E40A53 /* SivOpenAIChat.cpp */; };
 		2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */; };
 		2C7CA7F229E43A0A00FEC104 /* SivTextAreaEditState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
@@ -956,7 +962,6 @@
 		2CB18EE726B5A68700862C28 /* as_scriptobject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E9426B5A68700862C28 /* as_scriptobject.h */; };
 		2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB18E9526B5A68700862C28 /* as_callfunc_sh4.cpp */; };
 		2CB18EE926B5A68700862C28 /* as_texts.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB18E9626B5A68700862C28 /* as_texts.h */; };
-		2CB4C6ED29C44DBC00ADFD8C /* SivOpenAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */; };
 		2CB4C6F029CF1CB500ADFD8C /* SivNetwork_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */; };
 		2CB4C6F229CF1E9200ADFD8C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */; };
 		2CB4C6F729D030A100ADFD8C /* SivDriveInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4C6F629D030A000ADFD8C /* SivDriveInfo.cpp */; };
@@ -3225,6 +3230,16 @@
 		2C794B6525C4FD0400034D81 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C7A77922B3BF56400E40A53 /* fast_float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fast_float.h; sourceTree = "<group>"; };
+		2C7A77952B41095C00E40A53 /* SivOpenAIEmbedding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAIEmbedding.cpp; sourceTree = "<group>"; };
+		2C7A77962B41095C00E40A53 /* OpenAICommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenAICommon.cpp; sourceTree = "<group>"; };
+		2C7A77972B41095C00E40A53 /* OpenAICommon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpenAICommon.hpp; sourceTree = "<group>"; };
+		2C7A77982B41095C00E40A53 /* SivOpenAIImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAIImage.cpp; sourceTree = "<group>"; };
+		2C7A77992B41095C00E40A53 /* SivOpenAISpeech.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAISpeech.cpp; sourceTree = "<group>"; };
+		2C7A779A2B41095C00E40A53 /* SivOpenAIChat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAIChat.cpp; sourceTree = "<group>"; };
+		2C7A77A22B41098A00E40A53 /* Embedding.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Embedding.hpp; sourceTree = "<group>"; };
+		2C7A77A32B41098A00E40A53 /* Image.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
+		2C7A77A42B41098A00E40A53 /* Speech.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Speech.hpp; sourceTree = "<group>"; };
+		2C7A77A52B41098A00E40A53 /* Chat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chat.hpp; sourceTree = "<group>"; };
 		2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleTable.hpp; sourceTree = "<group>"; };
 		2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleTable.cpp; sourceTree = "<group>"; };
 		2C7CA7EF29E439E300FEC104 /* TextAreaEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextAreaEditState.hpp; sourceTree = "<group>"; };
@@ -3414,7 +3429,6 @@
 		2CB18E9526B5A68700862C28 /* as_callfunc_sh4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = as_callfunc_sh4.cpp; sourceTree = "<group>"; };
 		2CB18E9626B5A68700862C28 /* as_texts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = as_texts.h; sourceTree = "<group>"; };
 		2CB4C6EA29C44D9300ADFD8C /* OpenAI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenAI.hpp; sourceTree = "<group>"; };
-		2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAI.cpp; sourceTree = "<group>"; };
 		2CB4C6EF29CF1CB500ADFD8C /* SivNetwork_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivNetwork_macOS.cpp; sourceTree = "<group>"; };
 		2CB4C6F129CF1E9200ADFD8C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2CB4C6F329D0307E00ADFD8C /* DriveInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DriveInfo.hpp; sourceTree = "<group>"; };
@@ -7929,6 +7943,30 @@
 			path = fast_float;
 			sourceTree = "<group>";
 		};
+		2C7A77942B41095C00E40A53 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				2C7A77952B41095C00E40A53 /* SivOpenAIEmbedding.cpp */,
+				2C7A77962B41095C00E40A53 /* OpenAICommon.cpp */,
+				2C7A77972B41095C00E40A53 /* OpenAICommon.hpp */,
+				2C7A77982B41095C00E40A53 /* SivOpenAIImage.cpp */,
+				2C7A77992B41095C00E40A53 /* SivOpenAISpeech.cpp */,
+				2C7A779A2B41095C00E40A53 /* SivOpenAIChat.cpp */,
+			);
+			path = OpenAI;
+			sourceTree = "<group>";
+		};
+		2C7A77A12B41098A00E40A53 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				2C7A77A22B41098A00E40A53 /* Embedding.hpp */,
+				2C7A77A32B41098A00E40A53 /* Image.hpp */,
+				2C7A77A42B41098A00E40A53 /* Speech.hpp */,
+				2C7A77A52B41098A00E40A53 /* Chat.hpp */,
+			);
+			path = OpenAI;
+			sourceTree = "<group>";
+		};
 		2C7CA7EC29DF0D3B00FEC104 /* SimpleTable */ = {
 			isa = PBXGroup;
 			children = (
@@ -8246,14 +8284,6 @@
 				2CB18E8D26B5A68700862C28 /* as_variablescope.h */,
 			);
 			path = angelscript;
-			sourceTree = "<group>";
-		};
-		2CB4C6EB29C44DBB00ADFD8C /* OpenAI */ = {
-			isa = PBXGroup;
-			children = (
-				2CB4C6EC29C44DBB00ADFD8C /* SivOpenAI.cpp */,
-			);
-			path = OpenAI;
 			sourceTree = "<group>";
 		};
 		2CB4C6EE29CF1CB500ADFD8C /* Network */ = {
@@ -8879,6 +8909,7 @@
 				2CC8B55C28C752ED008C770A /* detail */,
 				2CC8B44428C752EC008C770A /* Experimental */,
 				2CC8B66F28C752EE008C770A /* ImageFormat */,
+				2C7A77A12B41098A00E40A53 /* OpenAI */,
 				2CC8B48B28C752EC008C770A /* Physics2D */,
 			);
 			path = Siv3D;
@@ -9367,7 +9398,7 @@
 				2CC8B83E28C7532D008C770A /* Network */,
 				2C0A98CD2A7BB93800402926 /* NinePatch */,
 				2CC8BADF28C7532E008C770A /* None */,
-				2CB4C6EB29C44DBB00ADFD8C /* OpenAI */,
+				2C7A77942B41095C00E40A53 /* OpenAI */,
 				2CC8BB0128C7532E008C770A /* OpenCV_Bridge */,
 				2CC8BB0D28C7532E008C770A /* OrientedBox */,
 				2CE762C629327C5600E410FF /* OSCMessage */,
@@ -13876,6 +13907,7 @@
 				2CEFB4B12AB858DB005EBD5F /* SkDeferredDisplayListRecorder.h in Headers */,
 				2CEFB6DF2AB858DE005EBD5F /* SkMathPriv.h in Headers */,
 				2CEFB47B2AB858DB005EBD5F /* SkContourMeasure.h in Headers */,
+				2C7A779D2B41095C00E40A53 /* OpenAICommon.hpp in Headers */,
 				2CEFB4922AB858DB005EBD5F /* SkCapabilities.h in Headers */,
 				2CC8BB5A28C7532F008C770A /* LicenseList.hpp in Headers */,
 				2CEFB49E2AB858DB005EBD5F /* SkRect.h in Headers */,
@@ -14528,6 +14560,7 @@
 				2C6C658929C16F1A009298ED /* json-schema-draft7.json.cpp in Sources */,
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
 				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
+				2C7A779E2B41095C00E40A53 /* SivOpenAIImage.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2CC8BCD028C75330008C770A /* ScriptPeriodic.cpp in Sources */,
 				2CC8BB7228C7532F008C770A /* SivBigFloat.cpp in Sources */,
@@ -14541,6 +14574,7 @@
 				2CEFB6D32AB858DE005EBD5F /* SkFloatingPoint.cpp in Sources */,
 				2CEFB6DE2AB858DE005EBD5F /* SkCubics.cpp in Sources */,
 				2CC8BB9228C7532F008C770A /* SivMicrophone.cpp in Sources */,
+				2C7A77A02B41095C00E40A53 /* SivOpenAIChat.cpp in Sources */,
 				2CEFB67F2AB858DD005EBD5F /* SkPathOpsWinding.cpp in Sources */,
 				2CC8BC4128C75330008C770A /* SivFormatData.cpp in Sources */,
 				2CE762A129326ECF00E410FF /* OscOutboundPacketStream.cpp in Sources */,
@@ -15348,6 +15382,7 @@
 				2CC8BB7E28C7532F008C770A /* SivSimpleGUI.cpp in Sources */,
 				2CC8BC2F28C7532F008C770A /* SivScopedViewport3D.cpp in Sources */,
 				2C2AA35A26009C74003F3EBC /* b2_weld_joint.cpp in Sources */,
+				2C7A779F2B41095C00E40A53 /* SivOpenAISpeech.cpp in Sources */,
 				2C42321B242B155E00A16BCA /* monitor.c in Sources */,
 				2C28E94A2796816C0004E07D /* zstd_fast.c in Sources */,
 				2C834DAE248805D4006208B8 /* euc_kr.c in Sources */,
@@ -15367,7 +15402,6 @@
 				2CC8BBB328C7532F008C770A /* SivAsset.cpp in Sources */,
 				2C439F79241DCEA9001154C2 /* bignum.cc in Sources */,
 				2CC8BDD528C75332008C770A /* SivMat4x4.cpp in Sources */,
-				2CB4C6ED29C44DBC00ADFD8C /* SivOpenAI.cpp in Sources */,
 				2CC8BE1B28C75332008C770A /* SivImageDecoder.cpp in Sources */,
 				2C28E9482796816C0004E07D /* zstdmt_compress.c in Sources */,
 				2C834DBE248805D4006208B8 /* unicode_unfold_key.c in Sources */,
@@ -15388,6 +15422,7 @@
 				2C1208A024A304E7008CAD99 /* CRenderer_Metal.mm in Sources */,
 				2C834DB7248805D4006208B8 /* euc_tw.c in Sources */,
 				2CC8BCD528C75330008C770A /* ScriptTextInputMode.cpp in Sources */,
+				2C7A779C2B41095C00E40A53 /* OpenAICommon.cpp in Sources */,
 				2CC8BB7828C7532F008C770A /* SivParseBool.cpp in Sources */,
 				2CFABB22272E3ACB00939278 /* element.cpp in Sources */,
 				2CC8BCD628C75330008C770A /* ScriptFloat4.cpp in Sources */,
@@ -15519,6 +15554,7 @@
 				2CC8BC5228C75330008C770A /* SivParseFloat.cpp in Sources */,
 				2CC8BD6128C75331008C770A /* PPMDecoder.cpp in Sources */,
 				2CC8BCB928C75330008C770A /* ScriptTextEncoding.cpp in Sources */,
+				2C7A779B2B41095C00E40A53 /* SivOpenAIEmbedding.cpp in Sources */,
 				2C6390E525367EE40030F18E /* ConstantBufferDetail_GL4.cpp in Sources */,
 				2C636E722657F7D300AF029F /* soloud_queue.cpp in Sources */,
 				2CB18EC626B5A68700862C28 /* as_memory.cpp in Sources */,
