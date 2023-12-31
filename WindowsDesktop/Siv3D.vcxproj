@@ -486,6 +486,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NormalComputation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Chat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Embedding.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Image.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Speech.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OrientedBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
@@ -1173,6 +1177,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\NinePatch\NinePatchDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\OpenAI\OpenAICommon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCPacketListener.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\OSCReceiver\OSCReceiverDetail.hpp" />
@@ -2398,7 +2403,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\NinePatch\NinePatchDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NinePatch\SivNinePatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\None\SivNone.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAI.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\OpenAICommon.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIChat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIEmbedding.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIImage.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAISpeech.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OrientedBox\SivOrientedBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.cpp" />

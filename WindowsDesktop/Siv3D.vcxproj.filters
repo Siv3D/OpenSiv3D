@@ -1735,6 +1735,9 @@
     <Filter Include="src\ThirdParty\double-conversion">
       <UniqueIdentifier>{dffabc2c-5a6d-4f2a-b4f9-d21859d0842a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Siv3D\OpenAI">
+      <UniqueIdentifier>{37ac6af4-6c9f-4772-9dee-c6f5ebe74b61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7818,6 +7821,21 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\ieee.h">
       <Filter>src\ThirdParty\double-conversion</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\OpenAI\OpenAICommon.hpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Embedding.hpp">
+      <Filter>include\Siv3D\OpenAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Image.hpp">
+      <Filter>include\Siv3D\OpenAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Speech.hpp">
+      <Filter>include\Siv3D\OpenAI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Chat.hpp">
+      <Filter>include\Siv3D\OpenAI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -10958,9 +10976,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\nlohmann\json-patch.cpp">
       <Filter>src\ThirdParty\nlohmann</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAI.cpp">
-      <Filter>src\Siv3D\OpenAI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D-Platform\WindowsDesktop\Siv3D\Network\SivNetwork_Windows.cpp">
       <Filter>src\Siv3D-Platform\WindowsDesktop\Siv3D\Network</Filter>
     </ClCompile>
@@ -11245,6 +11260,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc">
       <Filter>src\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\OpenAICommon.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIChat.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIEmbedding.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIImage.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAISpeech.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

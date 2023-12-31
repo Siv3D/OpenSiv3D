@@ -1856,6 +1856,14 @@
 // OpenAI API | OpenAI API
 # include <Siv3D/OpenAI.hpp>
 
+# include <Siv3D/OpenAI/Chat.hpp>
+
+# include <Siv3D/OpenAI/Image.hpp>
+
+# include <Siv3D/OpenAI/Embedding.hpp>
+
+# include <Siv3D/OpenAI/Speech.hpp>
+
 //////////////////////////////////////////////////
 //
 //	アドオン | Add-on
