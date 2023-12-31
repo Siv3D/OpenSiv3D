@@ -20,8 +20,12 @@ namespace s3d
 {
 	namespace detail
 	{
+		/// @brief 音声合成 API のエンドポイント | Text-to-speech API endpoint
 		constexpr URLView TextToSpeechEndpoint = U"https://api.openai.com/v1/audio/speech";
 
+		/// @brief 音声合成 API に送信するリクエスト JSON を作成します。
+		/// @param request リクエスト
+		/// @return リクエストの JSON 文字列
 		[[nodiscard]]
 		static std::string MakeSpeechRequest(const OpenAI::Speech::Request& request)
 		{
@@ -34,6 +38,12 @@ namespace s3d
 			return json.formatUTF8();
 		}
 
+		/// @brief 音声合成 API による音声合成を行います。
+		/// @param apiKey API キー
+		/// @param request リクエスト
+		/// @param path 結果の音声ファイルを保存先するパス
+		/// @return 成功した場合 true, それ以外の場合は false
+		[[nodiscard]]
 		static bool CreateSpeechImpl(const String apiKey, const OpenAI::Speech::Request request, const FilePath path)
 		{
 			// API キーが空の文字列である場合は失敗
@@ -43,10 +53,9 @@ namespace s3d
 			}
 
 			const auto headers = MakeHeaders(apiKey);
+			const std::string json = MakeSpeechRequest(request);
 
-			const std::string data = MakeSpeechRequest(request);
-
-			AsyncHTTPTask task = SimpleHTTP::PostAsync(TextToSpeechEndpoint, headers, data.data(), data.size(), path);
+			AsyncHTTPTask task = SimpleHTTP::PostAsync(TextToSpeechEndpoint, headers, json.data(), json.size(), path);
 
 			// タスクが完了するまでポーリングする
 			while (not task.isReady())

@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/OpenAI.hpp>
+# include <Siv3D/OpenAI/Embedding.hpp>
 # include <Siv3D/JSON.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/MemoryViewReader.hpp>
