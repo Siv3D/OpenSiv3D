@@ -143,7 +143,7 @@ namespace s3d
 			[[nodiscard]]
 			AsyncHTTPTask CompleteAsync(StringView apiKey, const Request& request);
 
-			/// @brief ChatGPT のレスポンス（JSON）から、返答メッセージを抽出して返します。 | Extracts and returns the response message from the ChatGPT response (JSON).
+			/// @brief ChatGPT のレスポンス（JSON）から、返答メッセージを抽出して返します。 | Extracts the response message from the response (JSON) of ChatGPT and returns it.
 			/// @param response JSON レスポンス | JSON response
 			/// @return 返答メッセージ。抽出に失敗した場合は空の文字列 | Response message. An empty string if extraction fails.
 			/// @remark 通常は `AsyncHTTPTask::getAsJSON()` の戻り値を渡します。 | Typically, pass the return value of `AsyncHTTPTask::getAsJSON()`.

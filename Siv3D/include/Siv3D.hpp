@@ -1858,6 +1858,8 @@
 
 # include <Siv3D/OpenAI/Chat.hpp>
 
+# include <Siv3D/OpenAI/Vision.hpp>
+
 # include <Siv3D/OpenAI/Image.hpp>
 
 # include <Siv3D/OpenAI/Embedding.hpp>

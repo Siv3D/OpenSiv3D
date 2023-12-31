@@ -7836,6 +7836,9 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Chat.hpp">
       <Filter>include\Siv3D\OpenAI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Vision.hpp">
+      <Filter>include\Siv3D\OpenAI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -11274,6 +11277,9 @@
       <Filter>src\Siv3D\OpenAI</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAISpeech.cpp">
+      <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIVision.cpp">
       <Filter>src\Siv3D\OpenAI</Filter>
     </ClCompile>
   </ItemGroup>
