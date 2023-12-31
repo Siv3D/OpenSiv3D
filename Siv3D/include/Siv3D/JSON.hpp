@@ -248,10 +248,10 @@ namespace s3d
 		JSON(std::nullptr_t);
 
 		SIV3D_NODISCARD_CXX20
-		JSON(const JSON&) = default;
+		JSON(const JSON& other);
 
 		SIV3D_NODISCARD_CXX20
-		JSON(JSON&&) = default;
+		JSON(JSON&& other);
 
 		SIV3D_NODISCARD_CXX20
 		JSON(const std::initializer_list<std::pair<String, JSON>>& list);
@@ -307,6 +307,8 @@ namespace s3d
 
 		// JSONValueType::Object
 		JSON& operator =(const JSON& value);
+
+		JSON& operator =(JSON&& value) noexcept;
 
 		// JSONValueType::Object
 		JSON& operator =(const std::initializer_list<std::pair<String, JSON>>& list);
@@ -527,7 +529,7 @@ namespace s3d
 		void push_back(const JSON& value);
 
 		/// @brief 所有しているデータを消去して空にします。
-		void clear() const;
+		void clear();
 
 		/// @brief 渡されたキーが指す要素を削除します。
 		/// @param [in] name キー
@@ -636,6 +638,19 @@ namespace s3d
 		/// @return MessagePack データ
 		[[nodiscard]]
 		Blob toMessagePack() const;
+
+		/// @brief JSON オブジェクトを交換します。
+		/// @param other 交換する JSON オブジェクト
+		void swap(JSON& other) noexcept;
+
+		/// @brief 2 つの JSON オブジェクトを交換します。
+		/// @param lhs JSON オブジェクト
+		/// @param rhs JSON オブジェクト
+		friend void swap(JSON& lhs, JSON& rhs) noexcept
+		{
+			lhs.m_detail.swap(rhs.m_detail);
+			std::swap(lhs.m_isValid, rhs.m_isValid);
+		}
 
 		// @brief 無効な JSON オブジェクトを返します。
 		// @return 無効な JSON オブジェクト

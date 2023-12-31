@@ -492,6 +492,14 @@ namespace s3d
 	JSON::JSON(std::nullptr_t)
 		: m_detail{ std::make_shared<detail::JSONDetail>() } {}
 
+	JSON::JSON(const JSON& other)
+		: m_detail{ std::make_shared<detail::JSONDetail>(*other.m_detail) }
+		, m_isValid{ other.m_isValid } {}
+
+	JSON::JSON(JSON&& other)
+		: m_detail{ std::exchange(other.m_detail, std::make_shared<detail::JSONDetail>()) }
+		, m_isValid{ std::exchange(other.m_isValid, true) } {}
+
 	JSON::JSON(std::shared_ptr<detail::JSONDetail>&& detail)
 		: m_detail{ std::move(detail) } {}
 
@@ -524,122 +532,83 @@ namespace s3d
 
 	JSON& JSON::operator =(std::nullptr_t)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = nullptr;
-
+		m_isValid = true;
 		return *this;
 	}
 
-	JSON& JSON::operator =(const JSON& value)
+	JSON& JSON::operator =(const JSON& other)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
+		m_detail = std::make_shared<detail::JSONDetail>(*other.m_detail);
+		m_isValid = other.m_isValid;
+		return *this;
+	}
 
-		m_detail->get() = value.m_detail->get();
-
+	JSON& JSON::operator =(JSON&& other) noexcept
+	{
+		*m_detail = std::exchange(*other.m_detail, detail::JSONDetail{});
+		m_isValid = std::exchange(other.m_isValid, true);
 		return *this;
 	}
 
 	JSON& JSON::operator =(const std::initializer_list<std::pair<String, JSON>>& list)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
+		m_detail->get().clear();
 
 		for (const auto& element : list)
 		{
 			m_detail->get()[Unicode::ToUTF8(element.first)] = element.second.m_detail->get();
 		}
 
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const Array<JSON>& array)
 	{
-		if (not m_isValid)
+		m_detail->get() = nlohmann::json::array();
+
+		for (const auto& element : array)
 		{
-			return *this;
+			m_detail->get().push_back(element.m_detail->get());
 		}
 
-		if (array)
-		{
-			for (const auto& element : array)
-			{
-				m_detail->get().push_back(element.m_detail->get());
-			}
-		}
-		else
-		{
-			m_detail->get() = nlohmann::json::array();
-		}
-
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const StringView value)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = Unicode::ToUTF8(value);
-
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const int64 value)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = value;
-
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const uint64 value)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = value;
-
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const double value)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = value;
-
+		m_isValid = true;
 		return *this;
 	}
 
 	JSON& JSON::operator =(const bool value)
 	{
-		if (not m_isValid)
-		{
-			return *this;
-		}
-
 		m_detail->get() = value;
-
+		m_isValid = true;
 		return *this;
 	}
 
@@ -960,7 +929,7 @@ namespace s3d
 		m_detail->get().push_back(value.m_detail->get());
 	}
 
-	void JSON::clear() const
+	void JSON::clear()
 	{
 		if (not m_isValid)
 		{
@@ -1154,6 +1123,12 @@ namespace s3d
 		std::vector<uint8> result;
 		nlohmann::json::to_msgpack(m_detail->get(), result);
 		return Blob{ result.data(), result.size() };
+	}
+
+	void JSON::swap(JSON& other) noexcept
+	{
+		m_detail.swap(other.m_detail);
+		std::swap(m_isValid, other.m_isValid);
 	}
 
 	JSON JSON::Invalid()
