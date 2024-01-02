@@ -27,6 +27,8 @@ namespace s3d
 		
 		ID3D11DeviceContext* m_context	= nullptr;
 
+		bool m_tearingSupport;
+
 		DXGI_SWAP_CHAIN_DESC1 m_desc	= {};
 
 		ComPtr<IDXGISwapChain1> m_swapChain1;
