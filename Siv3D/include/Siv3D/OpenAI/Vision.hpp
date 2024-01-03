@@ -31,6 +31,34 @@ namespace s3d
 				inline constexpr char32 GPT4V_Turbo_128K_Preview[] = U"gpt-4-vision-preview";
 			}
 
+			/// @brief 画像データ | Image data
+			struct ImageData
+			{
+				/// @brief 画像ファイルの URL | URL of the image file
+				URL url;
+
+				/// @brief 画像のデータ URI | Data URI of the image
+				/// @remark `url` が空の場合は `base64` が有効になります。 | `base64` is enabled if `url` is empty.
+				/// @remark データ URI は `data:image/???;base64,` から始まります。 | The data URI starts with `data:image/???;base64,`.
+				std::string base64;
+
+				/// @brief URL から画像データを作成します。 | Creates image data from URL.
+				/// @param url 画像ファイルの URL | URL of the image file
+				/// @return 画像の URL | URL of the image
+				static ImageData FromURL(URLView url);
+
+				/// @brief 画像ファイルから画像のデータ URI を作成します。 | Creates a data URI of the image from the image file.
+				/// @param path 画像ファイルのパス | Path of the image file
+				/// @return 画像のデータ URI | Data URI of the image
+				static ImageData Base64FromFile(FilePathView path);
+
+				/// @brief 画像から画像のデータ URI を作成します。 | Creates a data URI of the image from the image.
+				/// @param image 画像 | Image
+				/// @param imageFormat 圧縮形式 | Compression format
+				/// @return 画像のデータ URI | Data URI of the image
+				static ImageData Base64FromImage(const s3d::Image& image, ImageFormat imageFormat = ImageFormat::JPEG);
+			};
+
 			/// @brief チャット API に送信するリクエスト | Request to send to the Chat API
 			struct Request
 			{
@@ -47,7 +75,7 @@ namespace s3d
 				String questions;
 
 				/// @brief 画像 | Images
-				Array<std::variant<s3d::Image, URL>> images;
+				Array<ImageData> images;
 
 				/// @brief モデル | Model
 				String model = Model::GPT4V_Turbo_128K_Preview;

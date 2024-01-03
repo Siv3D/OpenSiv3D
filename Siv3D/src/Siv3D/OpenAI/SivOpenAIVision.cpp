@@ -12,8 +12,10 @@
 # include <Siv3D/OpenAI/Vision.hpp>
 # include <Siv3D/JSON.hpp>
 # include <Siv3D/Base64.hpp>
+# include <Siv3D/ImageDecoder.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/MemoryViewReader.hpp>
+# include <Siv3D/MemoryMappedFileView.hpp>
 # include <Siv3D/SimpleHTTP.hpp>
 # include "OpenAICommon.hpp"
 
@@ -41,22 +43,16 @@ namespace s3d
 
 			for (const auto& image : request.images)
 			{
-				if (std::holds_alternative<URL>(image))
+				if (image.url)
 				{
 					json[U"messages"][0][U"content"].push_back({ { U"type", U"image_url" } });
-					json[U"messages"][0][U"content"][contentIndex][U"image_url"] = { { U"url", std::get<URL>(image) } };
+					json[U"messages"][0][U"content"][contentIndex][U"image_url"] = { { U"url", image.url } };
 				}
 				else
 				{
-					const Blob encoded = std::get<Image>(image).encodeJPEG();
-
-					std::string base64;
-					Base64::Encode(encoded.data(), encoded.size(), base64);
-					base64.insert(0, "data:image/jpeg;base64,");
-
 					json[U"messages"][0][U"content"].push_back({ { U"type", U"image_url" } });
 					json[U"messages"][0][U"content"][contentIndex][U"image_url"] = { { U"url", U"" } };
-					json[U"messages"][0][U"content"][contentIndex][U"image_url"][U"url"].assignUTF8String(base64);
+					json[U"messages"][0][U"content"][contentIndex][U"image_url"][U"url"].assignUTF8String(image.base64);
 				}
 
 				++contentIndex;
@@ -64,12 +60,98 @@ namespace s3d
 
 			return json.formatUTF8();
 		}
+
+		[[nodiscard]]
+		static std::string FileToBase64(const FilePathView path, const std::string_view scheme)
+		{
+			MemoryMappedFileView file{ path };
+
+			if (not file)
+			{
+				return{};
+			}
+
+			std::string base64;
+			Base64::Encode(file.data(), file.mappedSize(), base64);
+			base64.insert(0, scheme);
+			return base64;
+		}
 	}
 
 	namespace OpenAI
 	{
 		namespace Vision
 		{
+			ImageData ImageData::FromURL(const URLView url)
+			{
+				return ImageData{ URL{ url } };
+			}
+
+			ImageData ImageData::Base64FromFile(const FilePathView path)
+			{
+				if (const auto info = ImageDecoder::GetImageInfo(path))
+				{
+					std::string base64;
+
+					if (info->imageFormat == ImageFormat::PNG)
+					{
+						base64 = detail::FileToBase64(path, "data:image/png;base64,");
+					}
+					else if (info->imageFormat == ImageFormat::WebP)
+					{
+						base64 = detail::FileToBase64(path, "data:image/webp;base64,");
+					}
+					else if (info->imageFormat == ImageFormat::JPEG)
+					{
+						base64 = detail::FileToBase64(path, "data:image/jpeg;base64,");
+					}
+					else if (info->imageFormat == ImageFormat::GIF)
+					{
+						base64 = detail::FileToBase64(path, "data:image/gif;base64,");
+					}
+					else
+					{
+						return Base64FromImage(Image{ path });
+					}
+
+					return ImageData{ URL{}, std::move(base64) };
+				}
+
+				return{};
+			}
+
+			ImageData ImageData::Base64FromImage(const s3d::Image& image, const ImageFormat imageFormat)
+			{
+				Blob blob;
+				std::string scheme;
+
+				if (imageFormat == ImageFormat::PNG)
+				{
+					blob = image.encodePNG();
+					scheme = "data:image/png;base64,";
+				}
+				else if (imageFormat == ImageFormat::WebP)
+				{
+					blob = image.encodeWebP();
+					scheme = "data:image/webp;base64,";
+				}
+				else if (imageFormat == ImageFormat::JPEG)
+				{
+					blob = image.encodeJPEG();
+					scheme = "data:image/jpeg;base64,";
+				}
+				else
+				{
+					return{};
+				}
+
+				ImageData result;
+				Base64::Encode(blob.data(), blob.size(), result.base64);
+				result.base64.insert(0, scheme);
+
+				return result;
+			}
+
 			String Complete(const StringView apiKey, const Request& request)
 			{
 				String unused;
