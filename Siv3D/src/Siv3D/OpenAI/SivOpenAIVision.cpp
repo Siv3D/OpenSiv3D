@@ -51,7 +51,6 @@ namespace s3d
 				else
 				{
 					json[U"messages"][0][U"content"].push_back({ { U"type", U"image_url" } });
-					json[U"messages"][0][U"content"][contentIndex][U"image_url"] = { { U"url", U"" } };
 					json[U"messages"][0][U"content"][contentIndex][U"image_url"][U"url"].assignUTF8String(image.base64);
 				}
 
