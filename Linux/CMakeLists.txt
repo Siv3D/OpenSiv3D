@@ -418,6 +418,7 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/OpenAI/SivOpenAIEmbedding.cpp
   ../Siv3D/src/Siv3D/OpenAI/SivOpenAIImage.cpp
   ../Siv3D/src/Siv3D/OpenAI/SivOpenAISpeech.cpp
+  ../Siv3D/src/Siv3D/OpenAI/SivOpenAIVision.cpp
   ../Siv3D/src/Siv3D/OpenCV_Bridge/SivOpenCV_Bridge.cpp
   ../Siv3D/src/Siv3D/OrientedBox/SivOrientedBox.cpp
   ../Siv3D/src/Siv3D/OSCMessage/OSCMessageDetail.cpp

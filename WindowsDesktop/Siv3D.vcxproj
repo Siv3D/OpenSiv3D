@@ -490,6 +490,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Embedding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Image.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Speech.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenAI\Vision.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OrientedBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Obfuscation.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
@@ -2408,6 +2409,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIEmbedding.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAISpeech.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIVision.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OrientedBox\SivOrientedBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OSCMessage\OSCMessageDetail.cpp" />
