@@ -155,4 +155,9 @@ namespace s3d
 	{
 		m_trail.draw(texture);
 	}
+
+	void TrailMotion::clear() noexcept
+	{
+		m_trail.clear();
+	}
 }

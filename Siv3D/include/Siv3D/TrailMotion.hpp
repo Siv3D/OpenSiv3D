@@ -152,6 +152,9 @@ namespace s3d
 		/// @param texture 軌跡のテクスチャ
 		void draw(const Texture& texture) const;
 
+		/// @brief 軌跡を消去します。
+		void clear() noexcept;
+
 	private:
 
 		Trail m_trail;

@@ -98,6 +98,10 @@ namespace s3d
 		/// @remark 各点の残り寿命を更新し、寿命が尽きた点を削除します。
 		void update(double deltaTime = Scene::DeltaTime()) noexcept;
 
+		/// @brief 軌跡を消去します。
+		/// @remark 軌跡に含まれるアクティブな点をすべて削除します。
+		void clear() noexcept;
+
 		/// @brief アクティブな先頭の点（最も古い点）を返します。
 		/// @return アクティブな先頭の点
 		/// @remark アクティブな点がない場合に呼び出してはいけません。
@@ -144,6 +148,8 @@ namespace s3d
 			void push(const Point& point) noexcept;
 
 			void update(float deltaTime) noexcept;
+
+			void clear() noexcept;
 
 			[[nodiscard]]
 			const Point& front() const noexcept;

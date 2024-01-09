@@ -82,6 +82,11 @@ namespace s3d
 		m_ringBuffer.update(static_cast<float>(deltaTime));
 	}
 
+	void Trail::clear() noexcept
+	{
+		m_ringBuffer.clear();
+	}
+
 	const Trail::Point& Trail::front() const noexcept
 	{
 		return m_ringBuffer.front();
@@ -150,6 +155,12 @@ namespace s3d
 			m_startIndex = ((m_startIndex + 1) & PointMask);
 			--m_size;
 		}
+	}
+
+	void Trail::RingBuffer::clear() noexcept
+	{
+		m_startIndex = 0;
+		m_size = 0;
 	}
 
 	const Trail::Point& Trail::RingBuffer::front() const noexcept
