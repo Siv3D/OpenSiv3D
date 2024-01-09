@@ -1,6 +1,6 @@
 root = true
 
-[*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
+[*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli,hlsl}]
 charset = utf-8-bom
 insert_final_newline = true
 indent_size = 4

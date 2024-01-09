@@ -11,11 +11,14 @@
 
 # include <Siv3D/Shader.hpp>
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Shader/IShader.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/ScopedCustomShader2D.hpp>
 # include <Siv3D/ScopedRenderTarget2D.hpp>
 # include <Siv3D/ScopedRenderStates2D.hpp>
+# include <Siv3D/Mat3x3.hpp>
+# include "EngineShader.hpp"
 
 namespace s3d
 {
@@ -152,6 +155,30 @@ namespace s3d
 			}
 			
 			Graphics2D::Flush();
+		}
+
+		void QuadWarp(const Quad& quad, const TextureRegion& texture)
+		{
+			// ConstantBuffer の設定
+			{
+				const Mat3x3 mat = Mat3x3::Homography(quad);
+				const Mat3x3 matInv = mat.inverse();
+
+				VS2DQuadWarp vsCB;
+				vsCB.homography = { Float4{ mat._11_12_13, 0 }, Float4{ mat._21_22_23, 0 }, Float4{ mat._31_32_33, 0 } };
+
+				PS2DQuadWarp psCB;
+				psCB.invHomography = { Float4{ matInv._11_12_13, 0 }, Float4{ matInv._21_22_23, 0 }, Float4{ matInv._31_32_33, 0 } };
+				psCB.uvTransform = Float4{ (texture.uvRect.right - texture.uvRect.left), (texture.uvRect.bottom - texture.uvRect.top), texture.uvRect.left, texture.uvRect.top };
+
+				SIV3D_ENGINE(Shader)->setQuadWarpCB(vsCB, psCB);
+			}
+
+			// シェーダを使用して描画
+			{
+				const ScopedCustomShader2D shader{ SIV3D_ENGINE(Shader)->getEngineVS(EngineVS::QuadWarp), SIV3D_ENGINE(Shader)->getEnginePS(EnginePS::QuadWarp) };
+				Rect{ 1 }(texture.texture).draw();
+			}
 		}
 	}
 }

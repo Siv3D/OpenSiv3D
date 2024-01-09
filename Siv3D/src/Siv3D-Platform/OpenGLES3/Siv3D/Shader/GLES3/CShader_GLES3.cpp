@@ -32,6 +32,9 @@ namespace s3d
 		// エンジン PS を破棄
 		m_enginePSs.clear();
 
+		// エンジン VS を破棄
+		m_engineVSs.clear();
+
 		// PS の管理を破棄
 		m_pixelShaders.destroy();
 
@@ -71,6 +74,16 @@ namespace s3d
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
+		// エンジン VS をロード
+		{
+			m_engineVSs << ESSL{ Resource(U"engine/shader/essl/quad_warp.vert"), {{ U"VSConstants2D", 0 }, { U"VSQuadWarp", 1 }} };
+
+			if (not m_engineVSs.all([](const auto& vs) { return !!vs; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_GLES3::m_engineVSs initialization failed" };
+			}
+		}
+
 		// エンジン PS をロード
 		{
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/copy.frag"), {{ U"PSConstants2D", 0 }} };
@@ -78,6 +91,7 @@ namespace s3d
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_13.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/apply_srgb_curve.frag"), {} };
+			m_enginePSs << ESSL{ Resource(U"engine/shader/glsl/quad_warp.frag"), {{ U"PSConstants2D", 0 }, { U"PSQuadWarp", 1 }} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{
@@ -182,9 +196,23 @@ namespace s3d
 		::glBindBufferBase(GL_UNIFORM_BUFFER, psUniformBlockBinding, static_cast<const ConstantBufferDetail_GLES3*>(cb._detail())->getHandle());
 	}
 
+	const VertexShader& CShader_GLES3::getEngineVS(const EngineVS vs) const
+	{
+		return m_engineVSs[FromEnum(vs)];
+	}
+
 	const PixelShader& CShader_GLES3::getEnginePS(const EnginePS ps) const
 	{
 		return m_enginePSs[FromEnum(ps)];
+	}
+
+	void CShader_GLES3::setQuadWarpCB(const VS2DQuadWarp& vsCB, const PS2DQuadWarp& psCB)
+	{
+		m_engineShaderCBs.vs2DQuadWarp = vsCB;
+		m_engineShaderCBs.ps2DQuadWarp = psCB;
+
+		Graphics2D::SetVSConstantBuffer(1, m_engineShaderCBs.vs2DQuadWarp);
+		Graphics2D::SetPSConstantBuffer(1, m_engineShaderCBs.ps2DQuadWarp);
 	}
 
 	void CShader_GLES3::usePipeline()

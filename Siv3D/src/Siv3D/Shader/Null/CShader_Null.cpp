@@ -25,10 +25,12 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CShader_Null::~CShader_Null()");
 
 		m_emptyPS.reset();
+		m_emptyVS.reset();
 	}
 
 	void CShader_Null::init()
 	{
+		m_emptyVS = std::make_unique<VertexShader>();
 		m_emptyPS = std::make_unique<PixelShader>();
 	}
 
@@ -92,8 +94,18 @@ namespace s3d
 		// do nothing
 	}
 
+	const VertexShader& CShader_Null::getEngineVS(const EngineVS) const
+	{
+		return *m_emptyVS;
+	}
+
 	const PixelShader& CShader_Null::getEnginePS(const EnginePS) const
 	{
 		return *m_emptyPS;
+	}
+
+	void CShader_Null::setQuadWarpCB(const VS2DQuadWarp&, const PS2DQuadWarp&)
+	{
+		// do nothing
 	}
 }

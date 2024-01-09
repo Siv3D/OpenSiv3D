@@ -67,6 +67,13 @@ namespace s3d
 		/// @param dst メインのシーンの転送先領域
 		/// @param textureFilter リサイズする場合のテクスチャフィルタ
 		void LinearToScreen(const TextureRegion& src, const RectF& dst = RectF{ Graphics2D::GetRenderTargetSize() }, TextureFilter textureFilter = TextureFilter::Linear);
+	
+		/// @brief 指定した四角形に射影変換を用いてテクスチャを描画します。
+		/// @param quad 四角形
+		/// @param texture テクスチャ
+		/// @remark 内部で専用の頂点シェーダおよびピクセルシェーダ、頂点シェーダ定数バッファ slot 1, ピクセルシェーダ定数バッファ slot 1 を使用します。
+		/// @remark ミップマップを持つテクスチャを使用する場合は、テクスチャのサンプラーステートを Aniso に設定すると、高品質な描画が可能です。
+		void QuadWarp(const Quad& quad, const TextureRegion& texture);
 	}
 
 # if SIV3D_PLATFORM(WINDOWS)

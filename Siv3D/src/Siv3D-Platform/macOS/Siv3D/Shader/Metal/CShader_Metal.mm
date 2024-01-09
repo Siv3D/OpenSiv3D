@@ -27,6 +27,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"CShader_Metal::~CShader_Metal()");
 
 		m_emptyPS.reset();
+		m_emptyVS.reset();
 
 		m_pixelShaders.destroy();
 		m_vertexShaders.destroy();
@@ -69,6 +70,7 @@ namespace s3d
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
+		m_emptyVS = std::make_unique<VertexShader>();
 		m_emptyPS = std::make_unique<PixelShader>();
 	}
 
@@ -154,10 +156,19 @@ namespace s3d
 		return m_pixelShaders[handleID]->getBinary();
 	}
 
+	const VertexShader& CShader_Metal::getEngineVS(const EngineVS) const
+	{
+		return *m_emptyVS;
+	}
+
 	const PixelShader& CShader_Metal::getEnginePS(const EnginePS) const
 	{
-		// [Siv3D ToDo]
 		return *m_emptyPS;
+	}
+
+	void CShader_Metal::setQuadWarpCB(const VS2DQuadWarp&, const PS2DQuadWarp&)
+	{
+		// do nothing
 	}
 
 	id<MTLFunction> CShader_Metal::getFunctionVS(const VertexShader::IDType handleID)
