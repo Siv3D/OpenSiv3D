@@ -64,7 +64,11 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override {}
 
+		const VertexShader& getEngineVS(EngineVS vs) const override;
+
 		const PixelShader& getEnginePS(EnginePS ps) const override;
+
+		void setQuadWarpCB(const VS2DQuadWarp& vsCB, const PS2DQuadWarp& psCB) override;
 		
 		
 		id<MTLFunction> getFunctionVS(VertexShader::IDType handleID);
@@ -83,6 +87,8 @@ namespace s3d
 
 		// PS の管理
 		AssetHandleManager<PixelShader::IDType, MetalPixelShader> m_pixelShaders{ U"PixelShader" };
+
+		std::unique_ptr<VertexShader> m_emptyVS;
 
 		std::unique_ptr<PixelShader> m_emptyPS;
 	};
