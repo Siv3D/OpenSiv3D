@@ -50,11 +50,17 @@ namespace s3d
 
 		void setConstantBufferPS(uint32 slot, const ConstantBufferBase& cb) override;
 
+		const VertexShader& getEngineVS(EngineVS vs) const override;
+
 		const PixelShader& getEnginePS(EnginePS ps) const override;
+
+		void setQuadWarpCB(const VS2DQuadWarp& vsCB, const PS2DQuadWarp& psCB) override;
 
 	private:
 
 		Blob m_emptyBinary;
+
+		std::unique_ptr<VertexShader> m_emptyVS;
 
 		std::unique_ptr<PixelShader> m_emptyPS;
 	};

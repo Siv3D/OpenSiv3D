@@ -1235,6 +1235,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Serial\SerialDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\EngineShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\Null\CShader_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />

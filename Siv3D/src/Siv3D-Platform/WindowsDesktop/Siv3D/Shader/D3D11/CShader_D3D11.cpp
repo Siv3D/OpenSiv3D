@@ -65,6 +65,9 @@ namespace s3d
 		// エンジン PS を破棄
 		m_enginePSs.clear();
 
+		// エンジン VS を破棄
+		m_engineVSs.clear();
+
 		// PS の管理を破棄
 		m_pixelShaders.destroy();
 
@@ -162,6 +165,12 @@ namespace s3d
 			//compileHLSLFromFile(U"engine/shader/d3d11/apply_srgb_curve.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/apply_srgb_curve.ps");
 
+			//compileHLSLFromFile(U"engine/shader/d3d11/quad_warp.hlsl", ShaderStage::Vertex, U"VS")
+			//	.save(U"engine/shader/d3d11/quad_warp.vs");
+
+			//compileHLSLFromFile(U"engine/shader/d3d11/quad_warp.hlsl", ShaderStage::Pixel, U"PS")
+			//	.save(U"engine/shader/d3d11/quad_warp.ps");
+
 			//compileHLSLFromFile(U"engine/shader/d3d11/sky.hlsl", ShaderStage::Pixel, U"PS")
 			//	.save(U"engine/shader/d3d11/sky.ps");
 
@@ -198,6 +207,16 @@ namespace s3d
 			m_pixelShaders.setNullData(std::move(nullPixelShader));
 		}
 
+		// エンジン VS をロード
+		{
+			m_engineVSs << HLSL{ Resource(U"engine/shader/d3d11/quad_warp.vs") };
+
+			if (not m_engineVSs.all([](const auto& vs) { return !!vs; })) // もしロードに失敗したシェーダがあれば
+			{
+				throw EngineError{ U"CShader_D3D11::m_engineVSs initialization failed" };
+			}
+		}
+
 		// エンジン PS をロード
 		{
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/copy.ps") };
@@ -205,6 +224,7 @@ namespace s3d
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_9.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/gaussian_blur_13.ps") };
 			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/apply_srgb_curve.ps") };
+			m_enginePSs << HLSL{ Resource(U"engine/shader/d3d11/quad_warp.ps") };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{
@@ -376,9 +396,23 @@ namespace s3d
 		m_context->PSSetConstantBuffers(slot, 1, pCB->getBufferPtr());
 	}
 
+	const VertexShader& CShader_D3D11::getEngineVS(const EngineVS vs) const
+	{
+		return m_engineVSs[FromEnum(vs)];
+	}
+
 	const PixelShader& CShader_D3D11::getEnginePS(const EnginePS ps) const
 	{
 		return m_enginePSs[FromEnum(ps)];
+	}
+
+	void CShader_D3D11::setQuadWarpCB(const VS2DQuadWarp& vsCB, const PS2DQuadWarp& psCB)
+	{
+		m_engineShaderCBs.vs2DQuadWarp = vsCB;
+		m_engineShaderCBs.ps2DQuadWarp = psCB;
+
+		Graphics2D::SetVSConstantBuffer(1, m_engineShaderCBs.vs2DQuadWarp);
+		Graphics2D::SetPSConstantBuffer(1, m_engineShaderCBs.ps2DQuadWarp);
 	}
 
 
