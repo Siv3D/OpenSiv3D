@@ -781,6 +781,7 @@
 		2C7A779F2B41095C00E40A53 /* SivOpenAISpeech.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77992B41095C00E40A53 /* SivOpenAISpeech.cpp */; };
 		2C7A77A02B41095C00E40A53 /* SivOpenAIChat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A779A2B41095C00E40A53 /* SivOpenAIChat.cpp */; };
 		2C7A77A82B459B6900E40A53 /* SivOpenAIVision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77A72B459B6900E40A53 /* SivOpenAIVision.cpp */; };
+		2C7A77AA2B4CE32800E40A53 /* EngineShader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C7A77A92B4CE32000E40A53 /* EngineShader.hpp */; };
 		2C7CA7EE29DF0D3B00FEC104 /* SivSimpleTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */; };
 		2C7CA7F229E43A0A00FEC104 /* SivTextAreaEditState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CA7F129E43A0A00FEC104 /* SivTextAreaEditState.cpp */; };
 		2C7DE5DA261379FD00D7F031 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DE5D9261379FD00D7F031 /* gif_lib.h */; };
@@ -3243,6 +3244,7 @@
 		2C7A77A52B41098A00E40A53 /* Chat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chat.hpp; sourceTree = "<group>"; };
 		2C7A77A62B459B3A00E40A53 /* Vision.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vision.hpp; sourceTree = "<group>"; };
 		2C7A77A72B459B6900E40A53 /* SivOpenAIVision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAIVision.cpp; sourceTree = "<group>"; };
+		2C7A77A92B4CE32000E40A53 /* EngineShader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineShader.hpp; sourceTree = "<group>"; };
 		2C7CA7EB29DF0D0800FEC104 /* SimpleTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimpleTable.hpp; sourceTree = "<group>"; };
 		2C7CA7ED29DF0D3B00FEC104 /* SivSimpleTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSimpleTable.cpp; sourceTree = "<group>"; };
 		2C7CA7EF29E439E300FEC104 /* TextAreaEditState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextAreaEditState.hpp; sourceTree = "<group>"; };
@@ -11754,6 +11756,7 @@
 		2CC8BA4D28C7532E008C770A /* Shader */ = {
 			isa = PBXGroup;
 			children = (
+				2C7A77A92B4CE32000E40A53 /* EngineShader.hpp */,
 				2CC8BA4E28C7532E008C770A /* SivShader.cpp */,
 				2CC8BA4F28C7532E008C770A /* Null */,
 				2CC8BA5228C7532E008C770A /* IShader.hpp */,
@@ -13898,6 +13901,7 @@
 				2CC8BC3928C75330008C770A /* VertexLine3D.hpp in Headers */,
 				2C2AA38526009C74003F3EBC /* b2_body.h in Headers */,
 				2C6C658829C16F1A009298ED /* json-schema.hpp in Headers */,
+				2C7A77AA2B4CE32800E40A53 /* EngineShader.hpp in Headers */,
 				2CC584462646319400C33E9F /* MemoryMappedFileDetail.hpp in Headers */,
 				2C44C06F264960D400A5E72A /* uvcode.h in Headers */,
 				2CC8BE4828C75697008C770A /* IAudioEncoder.hpp in Headers */,
