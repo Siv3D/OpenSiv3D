@@ -828,13 +828,12 @@ namespace s3d
 
 	inline constexpr RectF RectF::rotated90(const int32 n) const noexcept
 	{
-		switch (n % 2) // 90°* (奇数) 回転か
+		if (n % 2 == 0) // 90°* (偶数) 回転か
 		{
-		case 1:
-		case -1:
-			return { bl().rotate90At(center(),1),size.yx() }; // 奇数
-		default:
 			return *this; // 偶数
+		}
+		else {
+			return { bl().rotate90At(center(),1),size.yx() }; // 奇数
 		}
 	}
 
