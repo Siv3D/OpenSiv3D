@@ -822,13 +822,13 @@ namespace s3d
 		{
 		case 1:
 		case -3:
-			return { bl().rotate90At(_pos,1),size.yx() }; // 1 回または -3 回
+			return { bl().rotate90At(_pos, 1),size.yx() }; // 1 回または -3 回
 		case 2:
 		case -2:
-			return { br().rotate90At(_pos,2),size }; // 2 回または -2 回
+			return { br().rotate90At(_pos, 2),size }; // 2 回または -2 回
 		case 3:
 		case -1:
-			return { tr().rotate90At(_pos,3),size.yx() }; // 3 回または -1 回
+			return { tr().rotate90At(_pos, 3),size.yx() }; // 3 回または -1 回
 		default:
 			return *this; // 0 回
 		}
