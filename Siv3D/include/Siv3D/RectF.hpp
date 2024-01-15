@@ -201,8 +201,13 @@ namespace s3d
 		/// @param _center 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::center_<position_type> _center, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param _center 
@@ -220,8 +225,13 @@ namespace s3d
 		/// @param topLeft 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::topLeft_<position_type> topLeft, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param topLeft 
@@ -239,8 +249,13 @@ namespace s3d
 		/// @param topCenter 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::topCenter_<position_type> topCenter, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param topCenter 
@@ -258,8 +273,13 @@ namespace s3d
 		/// @param topRight 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::topRight_<position_type> topRight, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param topRight 
@@ -277,8 +297,13 @@ namespace s3d
 		/// @param rightCenter 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::rightCenter_<position_type> rightCenter, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::rightCenter_<position_type> rightCenter, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param rightCenter 
@@ -296,8 +321,13 @@ namespace s3d
 		/// @param bottomRight 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::bottomRight_<position_type> bottomRight, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param bottomRight 
@@ -315,8 +345,13 @@ namespace s3d
 		/// @param bottomCenter 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::bottomCenter_<position_type> bottomCenter, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param bottomCenter 
@@ -334,8 +369,13 @@ namespace s3d
 		/// @param bottomLeft 長方形の左下の座標
 		/// @param _w 長方形の幅
 		/// @param _h 長方形の高さ
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::bottomLeft_<position_type> bottomLeft, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param bottomLeft 
@@ -353,8 +393,13 @@ namespace s3d
 		/// @param leftCenter 
 		/// @param _w 
 		/// @param _h 
+	# if __cpp_lib_concepts
+		template <Concept::Arithmetic W, Concept::Arithmetic H>
+	# else
+		template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>* = nullptr>
+	# endif
 		SIV3D_NODISCARD_CXX20
-		constexpr RectF(Arg::leftCenter_<position_type> leftCenter, value_type _w, value_type _h) noexcept;
+		constexpr RectF(Arg::leftCenter_<position_type> leftCenter, W _w, H _h) noexcept;
 
 		/// @brief 
 		/// @param leftCenter 

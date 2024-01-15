@@ -112,8 +112,13 @@ namespace s3d
 		: pos{ (_center->x - _size / 2), (_center->y - _size / 2) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::center_<position_type> _center, const value_type _w, const value_type _h) noexcept
-		: pos{ (_center->x - _w / 2), (_center->y - _h / 2) }
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif
+	inline constexpr RectF::RectF(const Arg::center_<position_type> _center, const W _w, const H _h) noexcept
+		: pos{ (_center->x - _w / 2.0), (_center->y - _h / 2.0) }
 		, size{ _w, _h } {}
 
 	inline constexpr RectF::RectF(const Arg::center_<position_type> _center, const size_type _size) noexcept
@@ -123,8 +128,13 @@ namespace s3d
 	inline constexpr RectF::RectF(const Arg::topLeft_<position_type> topLeft, const value_type _size) noexcept
 		: pos{ topLeft->x, topLeft->y }
 		, size{ _size, _size } {}
-	
-	inline constexpr RectF::RectF(const Arg::topLeft_<position_type> topLeft, const value_type _w, const value_type _h) noexcept
+
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::topLeft_<position_type> topLeft, const W _w, const H _h) noexcept
 		: pos{ topLeft->x, topLeft->y }
 		, size{ _w, _h } {}
 
@@ -136,8 +146,13 @@ namespace s3d
 		: pos{ (topCenter->x - _size / 2), topCenter->y }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::topCenter_<position_type> topCenter, const value_type _w, const value_type _h) noexcept
-		: pos{ (topCenter->x - _w / 2), topCenter->y }
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::topCenter_<position_type> topCenter, const W _w, const H _h) noexcept
+		: pos{ (topCenter->x - _w / 2.0), topCenter->y }
 		, size{ _w, _h } {}
 
 	inline constexpr RectF::RectF(const Arg::topCenter_<position_type> topCenter, const size_type _size) noexcept
@@ -148,7 +163,12 @@ namespace s3d
 		: pos{ (topRight->x - _size), topRight->y }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::topRight_<position_type> topRight, const value_type _w, const value_type _h) noexcept
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::topRight_<position_type> topRight, const W _w, const H _h) noexcept
 		: pos{ (topRight->x - _w), topRight->y }
 		, size{ _w, _h } {}
 
@@ -160,8 +180,13 @@ namespace s3d
 		: pos{ (rightCenter->x - _size), (rightCenter->y - _size / 2) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::rightCenter_<position_type> rightCenter, const value_type _w, const value_type _h) noexcept
-		: pos{ (rightCenter->x - _w), (rightCenter->y - _h / 2) }
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::rightCenter_<position_type> rightCenter, const W _w, const H _h) noexcept
+		: pos{ (rightCenter->x - _w), (rightCenter->y - _h / 2.0) }
 		, size{ _w, _h } {}
 
 	inline constexpr RectF::RectF(const Arg::rightCenter_<position_type> rightCenter, const size_type _size) noexcept
@@ -172,7 +197,12 @@ namespace s3d
 		: pos{ (bottomRight->x - _size), (bottomRight->y - _size) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::bottomRight_<position_type> bottomRight, const value_type _w, const value_type _h) noexcept
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::bottomRight_<position_type> bottomRight, const W _w, const H _h) noexcept
 		: pos{ (bottomRight->x - _w), (bottomRight->y - _h) }
 		, size{ _w, _h } {}
 
@@ -184,8 +214,13 @@ namespace s3d
 		: pos{ (bottomCenter->x - _size / 2), (bottomCenter->y - _size) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::bottomCenter_<position_type> bottomCenter, const value_type _w, const value_type _h) noexcept
-		: pos{ (bottomCenter->x - _w / 2), (bottomCenter->y - _h) }
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::bottomCenter_<position_type> bottomCenter, const W _w, const H _h) noexcept
+		: pos{ (bottomCenter->x - _w / 2.0), (bottomCenter->y - _h) }
 		, size{ _w, _h } {}
 
 	inline constexpr RectF::RectF(const Arg::bottomCenter_<position_type> bottomCenter, const size_type _size) noexcept
@@ -196,7 +231,12 @@ namespace s3d
 		: pos{ bottomLeft->x, (bottomLeft->y - _size) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::bottomLeft_<position_type> bottomLeft, const value_type _w, const value_type _h) noexcept
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::bottomLeft_<position_type> bottomLeft, const W _w, const H _h) noexcept
 		: pos{ bottomLeft->x, (bottomLeft->y - _h) }
 		, size{ _w, _h } {}
 
@@ -208,8 +248,13 @@ namespace s3d
 		: pos{ leftCenter->x, (leftCenter->y - _size / 2) }
 		, size{ _size, _size } {}
 
-	inline constexpr RectF::RectF(const Arg::leftCenter_<position_type> leftCenter, const value_type _w, const value_type _h) noexcept
-		: pos{ leftCenter->x, (leftCenter->y - _h / 2) }
+# if __cpp_lib_concepts
+	template <Concept::Arithmetic W, Concept::Arithmetic H>
+# else
+	template <class W, class H, std::enable_if_t<std::conjunction_v<std::is_arithmetic<W>, std::is_arithmetic<H>>>*>
+# endif	
+	inline constexpr RectF::RectF(const Arg::leftCenter_<position_type> leftCenter, const W _w, const H _h) noexcept
+		: pos{ leftCenter->x, (leftCenter->y - _h / 2.0) }
 		, size{ _w, _h } {}
 
 	inline constexpr RectF::RectF(const Arg::leftCenter_<position_type> leftCenter, const size_type _size) noexcept
