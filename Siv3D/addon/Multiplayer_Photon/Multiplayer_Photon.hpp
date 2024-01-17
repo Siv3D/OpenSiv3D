@@ -160,193 +160,231 @@ namespace s3d
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, bool value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, bool value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, uint8 value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, uint8 value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, int16 value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, int16 value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, int32 value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, int32 value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, int64 value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, int64 value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, float value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, float value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, double value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, double value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const char32* value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const char32* value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, StringView value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, StringView value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const String& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const String& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<bool>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<bool>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<uint8>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<uint8>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<int16>&value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<int16>&value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<int32>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<int32>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<int64>&value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<int64>&value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<float>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<float>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<double>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<double>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Array<String>& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Array<String>& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Color& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Color& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const ColorF& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const ColorF& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const HSV& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const HSV& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Point& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Point& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Vec2& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Vec2& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Vec3& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Vec3& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Vec4& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Vec4& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Float2& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Float2& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Float3& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Float3& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Float4& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Float4& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Mat3x2& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Mat3x2& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Rect& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Rect& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Circle& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Circle& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Line& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Line& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Triangle& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Triangle& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const RectF& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const RectF& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Quad& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Quad& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const Ellipse& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const Ellipse& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
-		void sendEvent(uint8 eventCode, const RoundRect& value);
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
+		void sendEvent(uint8 eventCode, const RoundRect& value, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief ルームにイベントを送信します。
 		/// @param eventCode イベントコード
 		/// @param value 送信するデータ
+		/// @param targets 送信先のプレイヤーのローカル ID, unspecified の場合は自分以外の全員
 		/// @remark ユーザ定義型を送信する際に利用します。
-		void sendEvent(uint8 eventCode, const Serializer<MemoryWriter>& writer);
+		void sendEvent(uint8 eventCode, const Serializer<MemoryWriter>& writer, const Optional<Array<LocalPlayerID>>& targets = unspecified);
 
 		/// @brief 自身のユーザ名を返します。
 		/// @return 自身のユーザ名

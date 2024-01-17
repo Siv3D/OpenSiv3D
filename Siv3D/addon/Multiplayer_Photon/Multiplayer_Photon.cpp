@@ -436,7 +436,7 @@ namespace s3d
 		{
 			m_context.leaveRoomReturn(errorCode, detail::ToString(errorString));
 		}
-		
+
 		void joinRoomReturn(const int playerID, [[maybe_unused]] const ExitGames::Common::Hashtable& roomProperties, [[maybe_unused]] const ExitGames::Common::Hashtable& playerProperties, const int errorCode, const ExitGames::Common::JString& errorString) override
 		{
 			m_context.joinRoomReturn(playerID, errorCode, detail::ToString(errorString));
@@ -695,125 +695,112 @@ namespace s3d
 			Print << U"- [Multiplayer_Photon] eventCode: " << eventCode;
 			Print << U"- [Multiplayer_Photon] data: " << data;
 		}
+
+		[[nodiscard]]
+		static ExitGames::LoadBalancing::RaiseEventOptions MakeRaiseEventOptions(const Optional<Array<LocalPlayerID>>& targets)
+		{
+			ExitGames::LoadBalancing::RaiseEventOptions options{};
+
+			if (targets)
+			{
+				options.setTargetPlayers(targets->data(), static_cast<short>(targets->size()));
+			}
+
+			return options;
+		}
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const bool value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const bool value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const uint8 value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const uint8 value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int16 value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int16 value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int32 value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int32 value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int64 value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const int64 value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const float value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const float value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const double value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const double value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, value, eventCode);
+		m_client->opRaiseEvent(Reliable, value, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const char32* value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const char32* value, const Optional<Array<LocalPlayerID>>& targets)
 	{
-		sendEvent(eventCode, StringView{ value });
+		sendEvent(eventCode, StringView{ value }, targets);
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const StringView value)
-	{
-		if (not m_client)
-		{
-			return;
-		}
-
-		m_client->opRaiseEvent(Reliable, detail::ToJString(value), eventCode);
-	}
-
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const String& value)
-	{
-		sendEvent(eventCode, StringView{ value });
-	}
-
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<bool>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const StringView value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		ExitGames::Common::Hashtable ev;
-		ev.put(L"Type", L"Array");
-		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, detail::ToJString(value), eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<uint8>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const String& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
-		if (not m_client)
-		{
-			return;
-		}
-
-		ExitGames::Common::Hashtable ev;
-		ev.put(L"Type", L"Array");
-		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		sendEvent(eventCode, StringView{ value }, targets);
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int16>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<bool>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -823,10 +810,10 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int32>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<uint8>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -836,10 +823,10 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int64>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int16>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -849,10 +836,10 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<float>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int32>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -862,10 +849,10 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<double>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<int64>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -875,10 +862,36 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<String>& values)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<float>& values, const Optional<Array<LocalPlayerID>>& targets)
+	{
+		if (not m_client)
+		{
+			return;
+		}
+
+		ExitGames::Common::Hashtable ev;
+		ev.put(L"Type", L"Array");
+		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
+	}
+
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<double>& values, const Optional<Array<LocalPlayerID>>& targets)
+	{
+		if (not m_client)
+		{
+			return;
+		}
+
+		ExitGames::Common::Hashtable ev;
+		ev.put(L"Type", L"Array");
+		ev.put(L"values", values.data(), static_cast<int16>(values.size()));
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
+	}
+
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Array<String>& values, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -894,200 +907,200 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Array");
 		ev.put(L"values", data.data(), static_cast<int16>(data.size()));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Color& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Color& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonColor{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonColor{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const ColorF& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const ColorF& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonColorF{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonColorF{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const HSV& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const HSV& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonHSV{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonHSV{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Point& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Point& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonPoint{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonPoint{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec2& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec2& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonVec2{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonVec2{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec3& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec3& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonVec3{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonVec3{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec4& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Vec4& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonVec4{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonVec4{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float2& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float2& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonFloat2{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonFloat2{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float3& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float3& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonFloat3{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonFloat3{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float4& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Float4& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonFloat4{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonFloat4{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Mat3x2& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Mat3x2& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonMat3x2{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonMat3x2{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Rect& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Rect& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonRect{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonRect{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Circle& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Circle& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonCircle{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonCircle{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Line& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Line& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonLine{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonLine{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Triangle& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Triangle& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonTriangle{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonTriangle{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const RectF& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const RectF& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonRectF{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonRectF{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Quad& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Quad& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonQuad{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonQuad{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Ellipse& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Ellipse& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonEllipse{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonEllipse{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const RoundRect& value)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const RoundRect& value, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
 			return;
 		}
 
-		m_client->opRaiseEvent(Reliable, PhotonRoundRect{ value }, eventCode);
+		m_client->opRaiseEvent(Reliable, PhotonRoundRect{ value }, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
-	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Serializer<MemoryWriter>& writer)
+	void Multiplayer_Photon::sendEvent(const uint8 eventCode, const Serializer<MemoryWriter>& writer, const Optional<Array<LocalPlayerID>>& targets)
 	{
 		if (not m_client)
 		{
@@ -1101,7 +1114,7 @@ namespace s3d
 		ExitGames::Common::Hashtable ev;
 		ev.put(L"Type", L"Blob");
 		ev.put(L"values", src, static_cast<int16>(size));
-		m_client->opRaiseEvent(Reliable, ev, eventCode);
+		m_client->opRaiseEvent(Reliable, ev, eventCode, detail::MakeRaiseEventOptions(targets));
 	}
 
 	String Multiplayer_Photon::getUserName() const
