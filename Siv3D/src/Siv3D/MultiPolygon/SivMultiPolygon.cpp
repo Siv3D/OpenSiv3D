@@ -306,6 +306,26 @@ namespace s3d
 		return *this;
 	}
 
+	double MultiPolygon::area() const noexcept
+	{
+		double total = 0;
+		for (const auto& polygon : *this)
+		{
+			total += polygon.area();
+		}
+		return total;
+	}
+
+	double MultiPolygon::perimeter() const noexcept
+	{
+		double total = 0;
+		for (const auto& polygon : *this)
+		{
+			total += polygon.perimeter();
+		}
+		return total;
+	}
+
 	RectF MultiPolygon::computeBoundingRect() const noexcept
 	{
 		if (isEmpty())

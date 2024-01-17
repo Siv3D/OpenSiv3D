@@ -412,6 +412,12 @@ namespace s3d
 		MultiPolygon& scaleAt(Vec2 pos, Vec2 s);
 
 		[[nodiscard]]
+		double area() const noexcept;
+
+		[[nodiscard]]
+		double perimeter() const noexcept;
+
+		[[nodiscard]]
 		RectF computeBoundingRect() const noexcept;
 
 		[[nodiscard]]
