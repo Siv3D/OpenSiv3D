@@ -436,6 +436,11 @@ namespace s3d
 		{
 			m_context.leaveRoomReturn(errorCode, detail::ToString(errorString));
 		}
+		
+		void joinRoomReturn(const int playerID, [[maybe_unused]] const ExitGames::Common::Hashtable& roomProperties, [[maybe_unused]] const ExitGames::Common::Hashtable& playerProperties, const int errorCode, const ExitGames::Common::JString& errorString) override
+		{
+			m_context.joinRoomReturn(playerID, errorCode, detail::ToString(errorString));
+		}
 
 		void joinRandomRoomReturn(const int playerID, [[maybe_unused]] const ExitGames::Common::Hashtable& roomProperties, [[maybe_unused]] const ExitGames::Common::Hashtable& playerProperties, const int errorCode, const ExitGames::Common::JString& errorString) override
 		{
