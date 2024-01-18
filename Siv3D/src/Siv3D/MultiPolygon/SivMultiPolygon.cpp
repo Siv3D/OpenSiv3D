@@ -330,6 +330,19 @@ namespace s3d
 		return total;
 	}
 
+	Vec2 MultiPolygon::centroid() const
+	{
+		Vec2 weightedCoordsTotal{ 0, 0 };
+		double areaTotal = 0;
+		for (const auto& polygon : m_data)
+		{
+			double polygonArea = polygon.area();
+			weightedCoordsTotal += polygonArea * polygon.centroid();
+			areaTotal += polygonArea;
+		}
+		return weightedCoordsTotal / areaTotal;
+	}
+
 	RectF MultiPolygon::computeBoundingRect() const noexcept
 	{
 		if (isEmpty())
