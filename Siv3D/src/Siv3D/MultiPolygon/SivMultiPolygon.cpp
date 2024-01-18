@@ -308,21 +308,25 @@ namespace s3d
 
 	double MultiPolygon::area() const noexcept
 	{
-		double total = 0;
+		double total = 0.0;
+		
 		for (const auto& polygon : m_data)
 		{
 			total += polygon.area();
 		}
+		
 		return total;
 	}
 
 	double MultiPolygon::perimeter() const noexcept
 	{
-		double total = 0;
+		double total = 0.0;
+		
 		for (const auto& polygon : m_data)
 		{
 			total += polygon.perimeter();
 		}
+		
 		return total;
 	}
 
