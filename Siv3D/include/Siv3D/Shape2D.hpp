@@ -16,6 +16,7 @@
 # include "TriangleIndex.hpp"
 # include "2DShapes.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "Graphics2D.hpp"
 
 namespace s3d
 {
@@ -175,6 +176,16 @@ namespace s3d
 		/// @return 作成した形状
 		[[nodiscard]]
 		static Shape2D Squircle(double r, const Vec2& center, uint32 quality);
+
+		/// @brief 星芒形（アステロイド）を作成します。
+		/// @param center 中心座標
+		/// @param a 外接する楕円の X 軸半径
+		/// @param b 外接する楕円の Y 軸半径
+		/// @param angle 時計回りの回転角度
+		/// @param qualityScale 品質の調整パラメータ。通常は 1.0
+		/// @return 作成した形状
+		[[nodiscard]]
+		static Shape2D Astroid(const Vec2& center, double a, double b, double angle = 0.0, double qualityScale = Graphics2D::GetMaxScaling());
 
 		/// @brief 頂点座標の配列を返します。
 		/// @return 頂点座標の配列

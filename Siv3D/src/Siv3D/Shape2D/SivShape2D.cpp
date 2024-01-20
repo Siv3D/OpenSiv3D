@@ -14,6 +14,7 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/Buffer2D.hpp>
 # include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
@@ -392,7 +393,7 @@ namespace s3d
 		}
 
 		const float rf = static_cast<float>(r);
-		const float innerR = static_cast<float>(1.121320307254791259765625 * rf);
+		const float innerR = (1.121320307254791259765625f * rf);
 
 		const int32 quality = (8 + Min(static_cast<int32>(r / 14) * 2, 100));
 		const size_t vsize = (12 + quality);
@@ -538,6 +539,127 @@ namespace s3d
 			pIndex->i1 = (i + 1);
 			pIndex->i2 = (i + 2);
 			++pIndex;
+		}
+
+		return{ std::move(vertices), std::move(indices) };
+	}
+
+	Shape2D Shape2D::Astroid(const Vec2& center, const double a, const double b, const double angle, const double qualityScale)
+	{
+		const double majorAxis = Max(Math::Abs(a), Math::Abs(b));
+		const Vertex2D::IndexType quality = (static_cast<Vertex2D::IndexType>(Clamp((majorAxis * qualityScale * 0.044 + 2.5), 2.0, 127.0)) * 2);
+		assert(IsEven(quality));
+
+		Array<Float2> vertices(quality * 4);
+		{
+			const float step = (90_degF / quality);
+			float rad = 0.0_degF;
+
+			Float2* pDst0 = vertices.data();
+			Float2* pDst1 = (pDst0 + quality);
+			Float2* pDst2 = (pDst0 + quality * 2);
+			Float2* pDst3 = (pDst0 + quality * 3);
+
+			for (Vertex2D::IndexType i = 0; i < quality; ++i)
+			{
+				const auto [s, c] = FastMath::SinCos(rad);
+				const float s3 = (s * s * s);
+				const float c3 = (c * c * c);
+
+				pDst0->set(c3, s3);
+				pDst1->set(-s3, c3);
+				pDst2->set(-c3, -s3);
+				pDst3->set(s3, -c3);
+
+				++pDst0;
+				++pDst1;
+				++pDst2;
+				++pDst3;
+
+				rad += step;
+			}
+		}
+
+		{
+			const auto [s, c] = FastMath::SinCos(static_cast<float>(angle));
+			const float af = static_cast<float>(a);
+			const float bf = static_cast<float>(b);
+			const float cx = static_cast<float>(center.x);
+			const float cy = static_cast<float>(center.y);
+
+			Float2* pDst = vertices.data();
+			const Float2* pDstEnd = (pDst + vertices.size());
+
+			while (pDst != pDstEnd)
+			{
+				pDst->x *= af;
+				pDst->y *= bf;
+
+				const float x = pDst->x;
+				const float y = pDst->y;
+
+				pDst->x = (x * c - y * s + cx);
+				pDst->y = (x * s + y * c + cy);
+
+				++pDst;
+			}
+		}
+
+		const size_t num_triangles = (4 * ((quality / 2) * 2 - 1) + 2);
+
+		Array<TriangleIndex> indices(num_triangles);
+		{
+			const Vertex2D::IndexType midIndex = (quality / 2);
+			const Vertex2D::IndexType fullIndex = (quality * 4);
+
+			TriangleIndex* pDst = indices.data();
+
+			for (Vertex2D::IndexType k = 0; k < 4; ++k)
+			{
+				const Vertex2D::IndexType baseIndex = (quality * k);
+
+				for (Vertex2D::IndexType i = 0; i < midIndex; ++i)
+				{
+					if (i == 0)
+					{
+						pDst->i0 = (baseIndex + i);
+						pDst->i1 = (baseIndex + i + 1);
+						pDst->i2 = ((fullIndex + baseIndex - 1) % fullIndex);
+						++pDst;
+					}
+					else
+					{
+						const Vertex2D::IndexType t0 = (baseIndex + i);
+						const Vertex2D::IndexType t1 = (baseIndex + i + 1);
+						const Vertex2D::IndexType t2 = ((fullIndex + baseIndex - i) % fullIndex);
+						const Vertex2D::IndexType t3 = (t2 - 1);
+
+						pDst->i0 = t0;
+						pDst->i1 = t1;
+						pDst->i2 = t2;
+						++pDst;
+
+						pDst->i0 = t2;
+						pDst->i1 = t1;
+						pDst->i2 = t3;
+						++pDst;
+					}
+				}
+			}
+
+			const Vertex2D::IndexType t0 = (midIndex);
+			const Vertex2D::IndexType t1 = (midIndex + quality);
+			const Vertex2D::IndexType t2 = (midIndex + quality * 3);
+			const Vertex2D::IndexType t3 = (midIndex + quality * 2);
+
+			pDst->i0 = t0;
+			pDst->i1 = t1;
+			pDst->i2 = t2;
+			++pDst;
+
+			pDst->i0 = t2;
+			pDst->i1 = t1;
+			pDst->i2 = t3;
 		}
 
 		return{ std::move(vertices), std::move(indices) };
