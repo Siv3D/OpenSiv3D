@@ -205,7 +205,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline int8 RandomInt8(URBG&& urbg)
 	{
-		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int8>, Largest<int8>);
+		return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), Smallest<int8>, Largest<int8>);
 	}
 
 	inline int16 RandomInt16()
@@ -216,7 +216,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline int16 RandomInt16(URBG&& urbg)
 	{
-		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int16>, Largest<int16>);
+		return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), Smallest<int16>, Largest<int16>);
 	}
 
 	inline int32 RandomInt32()
@@ -227,7 +227,7 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline int32 RandomInt32(URBG&& urbg)
 	{
-		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int32>, Largest<int32>);
+		return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), Smallest<int32>, Largest<int32>);
 	}
 
 	inline int64 RandomInt64()
@@ -238,6 +238,6 @@ namespace s3d
 	SIV3D_CONCEPT_URBG_
 	inline int64 RandomInt64(URBG&& urbg)
 	{
-		return absl::Uniform(absl::IntervalOpenClosed, std::forward<URBG>(urbg), Smallest<int64>, Largest<int64>);
+		return absl::Uniform(absl::IntervalClosed, std::forward<URBG>(urbg), Smallest<int64>, Largest<int64>);
 	}
 }
