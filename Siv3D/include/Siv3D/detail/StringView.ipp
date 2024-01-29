@@ -220,7 +220,7 @@ namespace s3d
 			&& (std::char_traits<value_type>::compare(m_view.data(), s.data(), s.size()) == 0);
 	}
 
-	inline bool StringView::ends_with(const value_type ch) const noexcept
+	inline constexpr bool StringView::ends_with(const value_type ch) const noexcept
 	{
 		return (not empty()) && (back() == ch);
 	}

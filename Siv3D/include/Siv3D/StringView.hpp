@@ -200,7 +200,7 @@ namespace s3d
 		/// @param ch 検索する文字
 		/// @return 指定した文字で終わる場合 true, それ以外の場合は false
 		[[nodiscard]]
-		bool ends_with(value_type ch) const noexcept;
+		constexpr bool ends_with(value_type ch) const noexcept;
 
 		/// @brief 文字列が指定した文字列で終わるかを返します。
 		/// @param s 検索する文字列
