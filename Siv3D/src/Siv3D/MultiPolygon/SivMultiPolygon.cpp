@@ -332,17 +332,21 @@ namespace s3d
 
 	Vec2 MultiPolygon::centroid() const
 	{
-		if (m_data.empty()) {
+		if (m_data.empty())
+		{
 			return Vec2{ 0, 0 };
 		}
+		
 		Vec2 weightedCoordsTotal{ 0, 0 };
-		double areaTotal = 0;
+		double areaTotal = 0.0;
+		
 		for (const auto& polygon : m_data)
 		{
 			const double polygonArea = polygon.area();
 			weightedCoordsTotal += polygonArea * polygon.centroid();
 			areaTotal += polygonArea;
 		}
+		
 		return weightedCoordsTotal / areaTotal;
 	}
 
