@@ -418,6 +418,9 @@ namespace s3d
 		double perimeter() const noexcept;
 
 		[[nodiscard]]
+		Vec2 centroid() const;
+
+		[[nodiscard]]
 		RectF computeBoundingRect() const noexcept;
 
 		[[nodiscard]]
