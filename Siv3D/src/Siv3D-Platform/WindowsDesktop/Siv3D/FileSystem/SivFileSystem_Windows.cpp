@@ -419,7 +419,7 @@ namespace s3d
 		{
 			if (not path) [[unlikely]]
 			{
-				return 0;
+				return{};
 			}
 
 			if (IsResourcePath(path))

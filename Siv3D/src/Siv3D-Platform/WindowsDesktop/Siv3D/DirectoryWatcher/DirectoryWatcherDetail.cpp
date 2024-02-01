@@ -39,7 +39,7 @@ namespace s3d
 		}
 	}
 
-	DirectoryWatcher::DirectoryWatcherDetail::DirectoryWatcherDetail(const FilePath& directory)
+	DirectoryWatcher::DirectoryWatcherDetail::DirectoryWatcherDetail(const FilePathView directory)
 	{
 		if (directory.isEmpty()
 			|| (not FileSystem::IsDirectory(directory)))

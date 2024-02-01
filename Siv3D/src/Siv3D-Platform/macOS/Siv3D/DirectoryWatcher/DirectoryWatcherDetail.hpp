@@ -19,7 +19,7 @@ namespace s3d
 	{
 	public:
 
-		explicit DirectoryWatcherDetail(const FilePath& directory);
+		explicit DirectoryWatcherDetail(FilePathView directory);
 
 		~DirectoryWatcherDetail();
 

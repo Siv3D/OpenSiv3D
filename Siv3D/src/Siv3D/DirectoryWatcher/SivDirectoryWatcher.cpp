@@ -19,7 +19,7 @@ namespace s3d
 		// do nothing
 	}
 
-	DirectoryWatcher::DirectoryWatcher(const FilePath& directory)
+	DirectoryWatcher::DirectoryWatcher(const FilePathView directory)
 		: pImpl{ std::make_shared<DirectoryWatcherDetail>(directory) }
 	{
 		// do nothing

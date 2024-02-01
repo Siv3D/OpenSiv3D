@@ -36,7 +36,7 @@ namespace s3d
 		DirectoryWatcher();
 
 		SIV3D_NODISCARD_CXX20
-		explicit DirectoryWatcher(const FilePath& directory);
+		explicit DirectoryWatcher(FilePathView directory);
 
 		~DirectoryWatcher();
 
