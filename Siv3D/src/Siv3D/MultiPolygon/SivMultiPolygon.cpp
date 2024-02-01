@@ -350,6 +350,18 @@ namespace s3d
 		return weightedCoordsTotal / areaTotal;
 	}
 
+	Polygon MultiPolygon::computeConvexHull() const
+	{
+		Array<Vec2> points;
+
+		for (const auto& polygon : m_data)
+		{
+			points.append(polygon.outer());
+		}
+
+		return Geometry2D::ConvexHull(points);
+	}
+
 	RectF MultiPolygon::computeBoundingRect() const noexcept
 	{
 		if (isEmpty())
