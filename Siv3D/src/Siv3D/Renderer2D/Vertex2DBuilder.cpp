@@ -698,7 +698,7 @@ namespace s3d
 			}
 
 			{
-				const auto midIndex = (vertexSize >> 1);
+				const size_t midIndex = (vertexSize >> 1);
 
 				pVertex[0].color = startColor;
 				pVertex[vertexSize - 1].color = endColor;
