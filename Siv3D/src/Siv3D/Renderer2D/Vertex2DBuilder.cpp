@@ -727,8 +727,8 @@ namespace s3d
 
 			for (size_t i = 0; i < vertexSize / 2; ++i)
 			{
-				(pVertex++)->color = outerColor;
 				(pVertex++)->color = innerColor;
+				(pVertex++)->color = outerColor;
 			}
 
 			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
