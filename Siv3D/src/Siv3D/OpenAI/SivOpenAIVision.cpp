@@ -83,7 +83,7 @@ namespace s3d
 		{
 			ImageData ImageData::FromURL(const URLView url)
 			{
-				return ImageData{ URL{ url } };
+				return ImageData{ URL{ url }, std::string{} };
 			}
 
 			ImageData ImageData::Base64FromFile(const FilePathView path)
