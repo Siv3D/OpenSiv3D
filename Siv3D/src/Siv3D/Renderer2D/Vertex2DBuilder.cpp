@@ -670,6 +670,63 @@ namespace s3d
 			return indexSize;
 		}
 
+		Vertex2D::IndexType BuildCircleArcRoundCap(const BufferCreatorFunc& bufferCreator, const Float2& center, float r, float startAngle, const Float4& startColor, const Float4& endColor, float scale)
+		{
+			const Vertex2D::IndexType quality = detail::CalculateCirclePieQuality(r * scale, Math::PiF);
+			const Vertex2D::IndexType vertexSize = quality, indexSize = ((quality - 2) * 3);
+			auto [pVertex, pIndex, indexOffset] = bufferCreator(vertexSize, indexSize);
+
+			if (not pVertex)
+			{
+				return 0;
+			}
+
+			const float centerX = center.x;
+			const float centerY = center.y;
+			const float radDelta = (Math::PiF / (quality - 1));
+
+			// 周
+			{
+				Vertex2D* pDst = pVertex;
+
+				for (Vertex2D::IndexType i = 0; i < quality; ++i)
+				{
+					const float rad = (startAngle + (radDelta * i));
+					const auto [s, c] = FastMath::SinCos(rad);
+					(pDst++)->pos.set(centerX + r * s, centerY - r * c);
+				}
+			}
+
+			{
+				const size_t midIndex = (vertexSize >> 1);
+
+				pVertex[0].color = startColor;
+				pVertex[vertexSize - 1].color = endColor;
+
+				for (size_t i = 1; i < midIndex; ++i)
+				{
+					const float rad = (radDelta * i);
+					const auto f = (std::cos(rad) * 0.5f + 0.5f);
+					pVertex[i].color = endColor.lerp(startColor, f);
+					pVertex[vertexSize - i - 1].color = startColor.lerp(endColor, f);
+				}
+
+				if (vertexSize & 1)
+				{
+					pVertex[midIndex].color = endColor.lerp(startColor, 0.5f);
+				}
+			}
+
+			for (Vertex2D::IndexType i = 0; i < (quality - 2); ++i)
+			{
+				*pIndex++ = indexOffset;
+				*pIndex++ = (indexOffset + i + 1);
+				*pIndex++ = (indexOffset + i + 2);
+			}
+
+			return indexSize;
+		}
+
 		Vertex2D::IndexType BuildCircleArc(const BufferCreatorFunc& bufferCreator, const LineStyle& style, const Float2& center, const float rInner, const float startAngle, const float _angle, const float thickness, const Float4& innerColor, const Float4& outerColor, const float scale)
 		{
 			if (style.hasRoundCap())
@@ -680,8 +737,8 @@ namespace s3d
 				const Float2 startPos	= OffsetCircularF(center, (rInner + halfThickness), startAngle).fastToFloat2();
 				const Float2 endPos		= OffsetCircularF(center, (rInner + halfThickness), startAngle + _angle).fastToFloat2();
 
-				indexCount += BuildCirclePie(bufferCreator, startPos, halfThickness, (startAngle + Math::PiF), Math::PiF, outerColor, outerColor, scale);
-				indexCount += BuildCirclePie(bufferCreator, endPos, halfThickness, (startAngle + _angle), Math::PiF, outerColor, outerColor, scale);
+				indexCount += BuildCircleArcRoundCap(bufferCreator, startPos, halfThickness, (startAngle + Math::PiF), innerColor, outerColor, scale);
+				indexCount += BuildCircleArcRoundCap(bufferCreator, endPos, halfThickness, (startAngle + _angle), outerColor, innerColor, scale);
 
 				return indexCount;
 			}
@@ -727,8 +784,8 @@ namespace s3d
 
 			for (size_t i = 0; i < vertexSize / 2; ++i)
 			{
-				(pVertex++)->color = outerColor;
 				(pVertex++)->color = innerColor;
+				(pVertex++)->color = outerColor;
 			}
 
 			for (Vertex2D::IndexType i = 0; i < (quality - 1); ++i)
