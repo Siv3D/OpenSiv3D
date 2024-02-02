@@ -287,4 +287,14 @@ namespace s3d
 			m_requestedCursor = it->second.get();
 		}
 	}
+
+	void CCursor::setCapture(const bool captured) noexcept
+	{
+		m_captured = captured;
+	}
+
+	bool CCursor::isCaptured() const noexcept
+	{
+		return m_captured;
+	}
 }

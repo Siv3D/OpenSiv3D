@@ -22,31 +22,6 @@ namespace s3d
 {
 	class CCursor final : public ISiv3DCursor
 	{
-	private:
-		
-		GLFWwindow* m_window = nullptr;
-		
-		CursorState m_state;
-
-		Mat3x2 m_transformLocal		= Mat3x2::Identity();
-		Mat3x2 m_transformCamera	= Mat3x2::Identity();
-		Mat3x2 m_transformScreen	= Mat3x2::Identity();
-		Mat3x2 m_transformAll		= Mat3x2::Identity();
-		Mat3x2 m_transformAllInv	= Mat3x2::Identity();		
-
-		bool m_clipToWindow = false;
-
-		static void CursorDeleter(GLFWcursor* h)
-		{
-			::glfwDestroyCursor(h);
-		}
-		
-		std::array<GLFWcursor*, 11> m_systemCursors;
-		GLFWcursor* m_currentCursor;
-		GLFWcursor* m_defaultCursor;
-		GLFWcursor* m_requestedCursor;
-		HashTable<String, unique_resource<GLFWcursor*, decltype(&CursorDeleter)>> m_customCursors;
-		
 	public:
 		
 		void* m_event = nullptr;
@@ -86,5 +61,36 @@ namespace s3d
 		bool registerCursor(StringView name, const Image& image, Point hotSpot) override;
 
 		void requestStyle(StringView name) override;
+
+		void setCapture(bool captured) noexcept override;
+
+		bool isCaptured() const noexcept override;
+
+	private:
+		
+		GLFWwindow* m_window = nullptr;
+		
+		CursorState m_state;
+
+		Mat3x2 m_transformLocal		= Mat3x2::Identity();
+		Mat3x2 m_transformCamera	= Mat3x2::Identity();
+		Mat3x2 m_transformScreen	= Mat3x2::Identity();
+		Mat3x2 m_transformAll		= Mat3x2::Identity();
+		Mat3x2 m_transformAllInv	= Mat3x2::Identity();		
+
+		bool m_clipToWindow = false;
+
+		static void CursorDeleter(GLFWcursor* h)
+		{
+			::glfwDestroyCursor(h);
+		}
+		
+		std::array<GLFWcursor*, 11> m_systemCursors;
+		GLFWcursor* m_currentCursor;
+		GLFWcursor* m_defaultCursor;
+		GLFWcursor* m_requestedCursor;
+		HashTable<String, unique_resource<GLFWcursor*, decltype(&CursorDeleter)>> m_customCursors;
+
+		bool m_captured = false;
 	};
 }

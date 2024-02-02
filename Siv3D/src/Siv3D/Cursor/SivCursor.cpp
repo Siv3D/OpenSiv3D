@@ -135,6 +135,16 @@ namespace s3d
 			return SIV3D_ENGINE(Cursor)->getCameraTransform();
 		}
 
+		void SetCapture(const bool captured) noexcept
+		{
+			SIV3D_ENGINE(Cursor)->setCapture(captured);
+		}
+
+		bool IsCaptured() noexcept
+		{
+			return SIV3D_ENGINE(Cursor)->isCaptured();
+		}
+
 		namespace Internal
 		{
 			void SetLocalTransform(const Mat3x2& matrix)

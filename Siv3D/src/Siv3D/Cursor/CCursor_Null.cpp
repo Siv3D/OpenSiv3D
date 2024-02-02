@@ -104,4 +104,14 @@ namespace s3d
 	{
 
 	}
+
+	void CCursor_Null::setCapture(const bool) noexcept
+	{
+
+	}
+
+	bool CCursor_Null::isCaptured() const noexcept
+	{
+		return false;
+	}
 }

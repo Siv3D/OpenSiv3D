@@ -402,6 +402,16 @@ namespace s3d
 		}
 	}
 
+	void CCursor::setCapture(const bool captured) noexcept
+	{
+		m_captured = captured;
+	}
+
+	bool CCursor::isCaptured() const noexcept
+	{
+		return m_captured;
+	}
+
 	void CCursor::handleMessage(const UINT message, const WPARAM, const LPARAM lParam)
 	{
 		Point newPosRaw;

@@ -63,5 +63,9 @@ namespace s3d
 		bool registerCursor(StringView name, const Image& image, Point hotSpot) override;
 
 		void requestStyle(StringView name) override;
+
+		void setCapture(bool captured) noexcept override;
+
+		bool isCaptured() const noexcept override;
 	};
 }
