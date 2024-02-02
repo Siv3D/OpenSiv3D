@@ -23,17 +23,14 @@ namespace s3d
 		{
 			namespace Model
 			{
-				/// @brief GPT-3.5 4K
+				/// @brief GPT-3.5
 				/// @see https://platform.openai.com/docs/models/gpt-3-5
+				/// @remark alias: `GPT3_5_Turbo_16K_1106` from February 2024 16th
 				inline constexpr char32 GPT3_5_Turbo[] = U"gpt-3.5-turbo";
 
-				/// @brief GPT-3.5 16K
+				/// @brief GPT-3.5 16K (0125)
 				/// @see https://platform.openai.com/docs/models/gpt-3-5
-				inline constexpr char32 GPT3_5_Turbo_16K[] = U"gpt-3.5-turbo-16k";
-
-				/// @brief GPT-3.5 16K (1106)
-				/// @see https://platform.openai.com/docs/models/gpt-3-5
-				inline constexpr char32 GPT3_5_Turbo_16K_1106[] = U"gpt-3.5-turbo-1106";
+				inline constexpr char32 GPT3_5_Turbo_16K_0125[] = U"gpt-3.5-turbo-0125";
 
 				/// @brief GPT-4 8K
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
@@ -43,9 +40,9 @@ namespace s3d
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
 				inline constexpr char32 GPT4_32K[] = U"gpt-4-32k";
 
-				/// @brief GPT-4 Turbo 128K (1106 Preview)
+				/// @brief latest GPT-4 Turbo preview
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
-				inline constexpr char32 GPT4_Turbo_128K_1106_Preview[] =  U"gpt-4-1106-preview";
+				inline constexpr char32 GPT4_Turbo_Preview[] =  U"gpt-4-turbo-preview";
 			}
 
 			/// @brief メッセージのロール | Message role
@@ -87,7 +84,7 @@ namespace s3d
 				Array<std::pair<Role, String>> messages;
 
 				/// @brief モデル | Model
-				String model = Model::GPT3_5_Turbo_16K_1106;
+				String model = Model::GPT3_5_Turbo;
 
 				/// @brief レスポンスのフォーマット | Response format
 				/// @remark `ResponseFormat::JSON` を指定した場合、メッセージには "JSON" という言葉を含める必要があります。 | If `ResponseFormat::JSON` is specified, the message must contain the word "JSON".
@@ -101,11 +98,11 @@ namespace s3d
 			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends a message to ChatGPT and retrieves the response message.
 			/// @param apiKey OpenAI API キー | OpenAI API key
 			/// @param message メッセージ | Message
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
+			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo)
 			/// @return 返答メッセージ。取得に失敗した場合は空の文字列 | Response message. An empty string if the retrieval fails.
 			/// @remark インターネットアクセスが必要です。 | Internet access is required.
 			[[nodiscard]]
-			String Complete(StringView apiKey, StringView message, StringView model = Model::GPT3_5_Turbo_16K_1106);
+			String Complete(StringView apiKey, StringView message, StringView model = Model::GPT3_5_Turbo);
 
 			/// @brief ChatGPT にメッセージを送り、その返答メッセージを取得します。 | Sends messages to ChatGPT and retrieves the response message.
 			/// @param apiKey OpenAI API キー | OpenAI API key
@@ -127,12 +124,12 @@ namespace s3d
 			/// @brief ChatGPT にメッセージを送り、レスポンス（JSON）を取得する非同期タスクを返します。 | Returns an asynchronous task for sending a message to ChatGPT and retrieving the response (JSON).
 			/// @param apiKey OpenAI API キー | OpenAI API key
 			/// @param message メッセージ | Message
-			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo_16K_1106)
+			/// @param model 使用するモデル | The model to be used (default: Model::GPT3_5_Turbo)
 			/// @return 非同期タスク | Asynchronous task
 			/// @remark 戻り値の task が `(task.isReady() == true) && (task.getResponse().isOK() == true)` になれば結果を取得できます。 | The result can be retrieved if `(task.isReady() == true) && (task.getResponse().isOK() == true)`.
 			/// @remark インターネットアクセスが必要です。 | Internet access is required.
 			[[nodiscard]]
-			AsyncHTTPTask CompleteAsync(StringView apiKey, StringView message, StringView model = Model::GPT3_5_Turbo_16K_1106);
+			AsyncHTTPTask CompleteAsync(StringView apiKey, StringView message, StringView model = Model::GPT3_5_Turbo);
 
 			/// @brief ChatGPT にメッセージを送り、レスポンス（JSON）を取得する非同期タスクを返します。 | Returns an asynchronous task for sending messages to ChatGPT and retrieving the response (JSON).
 			/// @param apiKey OpenAI API キー | OpenAI API key
