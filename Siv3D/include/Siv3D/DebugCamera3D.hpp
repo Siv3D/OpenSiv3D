@@ -26,7 +26,7 @@ namespace s3d
 
 		void updateTouchUI(const Vec2& pos, double scale = 1.0, double speed = 1.0);
 
-		void drawTouchUI(const Vec2& pos, double scale = 1.0);
+		void drawTouchUI(const Vec2& pos, double scale = 1.0) const;
 
 		void setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection = Vec3{ 0, 1, 0 }) noexcept;
 

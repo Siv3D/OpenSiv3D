@@ -263,7 +263,7 @@ namespace s3d
 		BasicCamera3D::setView(m_eyePosition, (m_eyePosition + focusVector), m_upDirection);
 	}
 
-	void DebugCamera3D::drawTouchUI(const Vec2& pos, const double scale)
+	void DebugCamera3D::drawTouchUI(const Vec2& pos, const double scale) const
 	{
 		const Transformer2D transformer{ Mat3x2::Scale(scale).translated(pos) };
 		constexpr Circle WButton{ 80, 32, 32 };
