@@ -44,6 +44,9 @@ namespace s3d
 		) noexcept;
 
 		SIV3D_NODISCARD_CXX20
+		explicit Mat4x4(const float* p) noexcept;
+
+		SIV3D_NODISCARD_CXX20
 		explicit Mat4x4(Quaternion q) noexcept;
 
 		[[nodiscard]]
