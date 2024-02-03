@@ -101,7 +101,7 @@ float CalculateShadow(vec3 worldPosition)
 {
 	vec4 projectedPosition = (vec4(worldPosition, 1.0) * g_worldToProjectedShadow);
 
-	if (any(greaterThan(abs(projectedPosition.xyz - clamp(projectedPosition.xyz, 0.0, 1.0)), vec3(0.0))))
+	if (any(notEqual(clamp(projectedPosition.xyz, 0.0, 1.0), projectedPosition.xyz)))
 	{
 		return 1.0;
 	}
