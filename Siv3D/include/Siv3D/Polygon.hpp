@@ -172,20 +172,41 @@ namespace s3d
 		/// @return 穴の追加に成功したら true, それ以外の場合は false
 		bool addHoles(Array<Array<Vec2>> holes);
 
+		/// @brief 平行移動した多角形を返します。
+		/// @param x X 方向の移動量
+		/// @param y Y 方向の移動量
+		/// @return 平行移動した多角形
 		[[nodiscard]]
 		Polygon movedBy(double x, double y) const&;
 
+		/// @brief 平行移動した多角形を返します。
+		/// @param x X 方向の移動量
+		/// @param y Y 方向の移動量
+		/// @return 平行移動した多角形
 		[[nodiscard]]
 		Polygon movedBy(double x, double y) && noexcept;
 
+		/// @brief 平行移動した多角形を返します。
+		/// @param v 移動量
+		/// @return 平行移動した多角形
 		[[nodiscard]]
 		Polygon movedBy(Vec2 v) const&;
 
+		/// @brief 平行移動した多角形を返します。
+		/// @param v 移動量
+		/// @return 平行移動した多角形
 		[[nodiscard]]
 		Polygon movedBy(Vec2 v) && noexcept;
 
+		/// @brief 多角形を平行移動します。
+		/// @param x X 方向の移動量
+		/// @param y Y 方向の移動量
+		/// @return *this
 		Polygon& moveBy(double x, double y) noexcept;
 
+		/// @brief 多角形を平行移動します。
+		/// @param v 移動量
+		/// @return *this
 		Polygon& moveBy(Vec2 v) noexcept;
 
 		[[nodiscard]]
@@ -220,52 +241,121 @@ namespace s3d
 
 		Polygon& transform(double s, double c, const Vec2& pos);
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaled(double s) const&;
-		
+
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形	
 		[[nodiscard]]
 		Polygon scaled(double s) &&;
 		
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaled(double sx, double sy) const&;
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaled(double sx, double sy) &&;
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaled(Vec2 s) const&;
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小した多角形を返します。
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaled(Vec2 s) &&;
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小します。
+		/// @param s 拡大率
+		/// @return *this
 		Polygon& scale(double s);
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小します。
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return *this
 		Polygon& scale(double sx, double sy);
 
+		/// @brief 原点 (0, 0) を中心に拡大・縮小します。
+		/// @param s 拡大率
+		/// @return *this
 		Polygon& scale(Vec2 s);
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, double s) const&;
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, double s) &&;
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, double sx, double sy) const&;
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, double sx, double sy) &&;
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, Vec2 s) const&;
 
+		/// @brief 指定した位置を中心に拡大・縮小した多角形を返します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return 拡大・縮小した多角形
 		[[nodiscard]]
 		Polygon scaledAt(Vec2 pos, Vec2 s) &&;
 
+		/// @brief 指定した位置を中心に拡大・縮小します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return *this
 		Polygon& scaleAt(Vec2 pos, double s);
 
+		/// @brief 指定した位置を中心に拡大・縮小します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param sx X 方向の拡大率
+		/// @param sy Y 方向の拡大率
+		/// @return *this
 		Polygon& scaleAt(Vec2 pos, double sx, double sy);
 
+		/// @brief 指定した位置を中心に拡大・縮小します。
+		/// @param pos 拡大・縮小の中心位置
+		/// @param s 拡大率
+		/// @return *this
 		Polygon& scaleAt(Vec2 pos, Vec2 s);
 
 		/// @brief 多角形の面積を返します。

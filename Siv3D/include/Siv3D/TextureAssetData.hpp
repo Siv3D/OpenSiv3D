@@ -35,10 +35,13 @@ namespace s3d
 
 		int32 iconSize = 0;
 
+		/// @brief テクスチャ
 		Texture texture;
 
+		/// @brief テクスチャのロード時に呼び出される関数
 		std::function<bool(TextureAssetData&, const String&)> onLoad = DefaultLoad;
 
+		/// @brief テクスチャのリリース時に呼び出される関数
 		std::function<void(TextureAssetData&)> onRelease = DefaultRelease;
 
 		SIV3D_NODISCARD_CXX20
