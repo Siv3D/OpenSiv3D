@@ -143,7 +143,6 @@ namespace s3d
 
 		constexpr HSV& set(const HSV& hsva) noexcept;
 
-		[[deprecated("use withA()")]]
 		constexpr HSV withAlpha(double _a) const noexcept;
 
 		[[nodiscard]]

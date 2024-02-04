@@ -151,7 +151,6 @@ namespace s3d
 
 		constexpr Color& set(Color color) noexcept;
 
-		[[deprecated("use withA()")]]
 		constexpr Color withAlpha(uint32 _a) const noexcept;
 
 		[[nodiscard]]

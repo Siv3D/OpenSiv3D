@@ -175,7 +175,6 @@ namespace s3d
 
 		constexpr ColorF& set(const ColorF& ColorF) noexcept;
 
-		[[deprecated("use withA()")]]
 		constexpr ColorF withAlpha(double _a) const noexcept;
 
 		/// @brief グレースケール値を返します。
