@@ -79,7 +79,7 @@
   - CSV / INI / JSON writer classes
   - JSON Validation
 - **Misc**
-  - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box, menu bar)
+  - Basic GUI (button, slider, radio buttons, checkbox, text box, color picker, list box, menu bar, table)
   - Integrated 2D physics engine (Box2D)
   - Advanced array / 2D array classes (`Array`, `Grid`)
   - Kd-tree
@@ -100,7 +100,7 @@
   - Clipboard
   - Power status
   - Scripting (AngelScript)
-  - OpenAI API (Chat, Vision, Image, Embedding)
+  - OpenAI API (Chat, Vision, Image, Speech, Embedding)
 
 <small>* Some features are limited to specific platforms</small>
 
