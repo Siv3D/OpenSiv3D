@@ -58,6 +58,7 @@
 # include <Siv3D/TrailRenderer/ITrailRenderer.hpp>
 # include <Siv3D/Script/IScript.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
+# include <Siv3D/FrameRateLimit/IFrameRateLimit.hpp>
 
 namespace s3d
 {

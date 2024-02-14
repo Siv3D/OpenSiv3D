@@ -1141,6 +1141,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\GlyphRenderer\SDFGlyphRenderer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IconData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\FrameRateLimit\CFrameRateLimit.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\FrameRateLimit\IFrameRateLimit.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\FreestandingMessageBox\FreestandingMessageBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\GamepadState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\IGamepad.hpp" />
@@ -2292,6 +2294,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Formatter\SivFormatter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FrameRateLimit\FrameRateLimitFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FrameRateLimit\SivFrameRateLimit.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\GamepadInfo\SivGamepadInfo.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp" />

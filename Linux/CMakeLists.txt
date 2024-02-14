@@ -300,6 +300,8 @@ set(SIV3D_INTERNAL_SOURCES
   ../Siv3D/src/Siv3D/FormatInt/SivFormatInt.cpp
   ../Siv3D/src/Siv3D/Formatter/SivFormatter.cpp
   ../Siv3D/src/Siv3D/FormatUtility/SivFormatUtility.cpp
+  ../Siv3D/src/Siv3D/FrameRateLimit/SivFrameRateLimit.cpp
+  ../Siv3D/src/Siv3D/FrameRateLimit/FrameRateLimitFactory.cpp
   ../Siv3D/src/Siv3D/Gamepad/GamepadFactory.cpp
   ../Siv3D/src/Siv3D/Gamepad/SivGamepad.cpp
   ../Siv3D/src/Siv3D/GamepadInfo/SivGamepadInfo.cpp

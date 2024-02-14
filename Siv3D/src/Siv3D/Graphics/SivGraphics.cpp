@@ -11,6 +11,7 @@
 
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/FrameRateLimit/IFrameRateLimit.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
 namespace s3d
@@ -25,6 +26,16 @@ namespace s3d
 		bool IsVSyncEnabled()
 		{
 			return SIV3D_ENGINE(Renderer)->isVSyncEnabled();
+		}
+
+		void SetTargetFrameRate(const Optional<double>& fps)
+		{
+			SIV3D_ENGINE(FrameRateLimit)->setTargetFrameRate(fps);
+		}
+
+		Optional<double> GetTargetFrameRate()
+		{
+			return SIV3D_ENGINE(FrameRateLimit)->getTargetFrameRate();
 		}
 	}
 }

@@ -63,6 +63,7 @@ namespace s3d
 	class ISiv3DTrailRenderer;
 	class ISiv3DScript;
 	class ISiv3DAddon;
+	class ISiv3DFrameRateLimit;
 
 	class Siv3DEngine
 	{
@@ -118,7 +119,8 @@ namespace s3d
 			Siv3DComponent<ISiv3DEffect>,
 			Siv3DComponent<ISiv3DTrailRenderer>,
 			Siv3DComponent<ISiv3DScript>,
-			Siv3DComponent<ISiv3DAddon>> m_components;
+			Siv3DComponent<ISiv3DAddon>,
+			Siv3DComponent<ISiv3DFrameRateLimit>> m_components;
 
 	public:
 
