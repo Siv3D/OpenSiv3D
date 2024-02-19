@@ -1,4 +1,5 @@
-﻿//-----------------------------------------------
+﻿#include "Circular.hpp"
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -81,6 +82,13 @@ namespace s3d
 		theta += angle;
 
 		return *this;
+	}
+
+	template<class Float, int32 Oclock>
+	inline constexpr CircularBase<Float, Oclock> CircularBase<Float, Oclock>::lerp(const CircularBase& other, double f) const noexcept
+	{
+		const auto diff = std::fmod(other.theta - theta, Math::TwoPi_v<CommonFloat_t<int32, int32>>);
+		return CircularBase{ r + (other.r - r)*f,(theta + (std::fmod(2 * diff, Math::TwoPi_v<CommonFloat_t<int32, int32>>) - diff) * f) };
 	}
 
 	template <class Float, int32 Oclock>
