@@ -59,11 +59,6 @@ namespace s3d
 		[[nodiscard]]
 		double getDisplayFrequency() const noexcept;
 
-		//void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
-
-		//[[nodiscard]]
-		//const Optional<double>& getTargetFrameRateHz() const noexcept;
-
 		[[nodiscard]]
 		IDXGISwapChain1* getSwapChain1() const noexcept;
 
