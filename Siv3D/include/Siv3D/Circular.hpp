@@ -14,6 +14,7 @@
 # include "PointVector.hpp"
 # include "FastMath.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "Interpolation.hpp"
 
 namespace s3d
 {

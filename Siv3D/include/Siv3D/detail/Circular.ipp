@@ -87,8 +87,7 @@ namespace s3d
 	template<class Float, int32 Oclock>
 	inline constexpr CircularBase<Float, Oclock> CircularBase<Float, Oclock>::lerp(const CircularBase& other, double f) const noexcept
 	{
-		const auto diff = std::fmod(other.theta - theta, Math::TwoPi_v<CommonFloat_t<int32, int32>>);
-		return CircularBase{ r + (other.r - r)*f,(theta + (std::fmod(2 * diff, Math::TwoPi_v<CommonFloat_t<int32, int32>>) - diff) * f) };
+		return CircularBase{ Math::Lerp(r,other.r,f),Math::LerpAngle(theta,other.theta,f)};
 	}
 
 	template <class Float, int32 Oclock>
