@@ -108,6 +108,15 @@ namespace s3d
 			return{};
 		}
 
+		const uint32 paletteSize = ((header.biBitCount > 8) ? 0 : (header.biClrUsed == 0) ? (1 << header.biBitCount) : header.biClrUsed);
+		Array<uint8> paletteOwner(paletteSize * 4);
+		const auto palette = paletteOwner.data();
+
+		if (paletteSize)
+		{
+			reader.read(palette, paletteOwner.size());
+		}
+
 		Image image(width, height);
 
 		LOG_VERBOSE(U"BMPHeader::biBitCount: {}"_fmt(header.biBitCount));
@@ -116,9 +125,6 @@ namespace s3d
 		{
 		case 8:
 			{
-				uint8 palette[1024];			
-				reader.read(palette);
-
 				const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
