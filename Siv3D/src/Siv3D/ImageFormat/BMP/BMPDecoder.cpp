@@ -56,7 +56,7 @@ namespace s3d
 		}
 
 		const Size size(header.biWidth, std::abs(header.biHeight));
-		
+
 		ImagePixelFormat pixelFormat = ImagePixelFormat::R8G8B8;
 
 		if (header.biBitCount == 32)
@@ -77,7 +77,7 @@ namespace s3d
 		LOG_SCOPED_TRACE(U"BMPDecoder::decode()");
 
 		BMPHeader header;
-			
+
 		if (not reader.read(header))
 		{
 			LOG_FAIL(U"❌ BMPDecoder::decode(): Failed to read header");
@@ -299,7 +299,7 @@ namespace s3d
 		case 24:
 		case 32:
 			{
-				const size_t rowSize = depth == 24 ? width * 3 + width % 4 : width * 4;			
+				const size_t rowSize = depth == 24 ? width * 3 + width % 4 : width * 4;
 				const int32 depthBytes = depth / 8;
 				const int32 lineStep = reverse ? -width : width;
 				Color* pDstLine = image[reverse ? height - 1 : 0];
