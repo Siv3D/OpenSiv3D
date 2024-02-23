@@ -128,6 +128,99 @@ namespace s3d
 
 		switch (const int32 depth = header.biBitCount)
 		{
+		case 1:
+			{
+				const uint32 rowSize = ((width + 31) / 32 * 4);
+				const int32 lineStep = reverse ? -width : width;
+				Color* pDstLine = image[reverse ? height - 1 : 0];
+
+				Array<uint8> bufferOwner(rowSize * 4);
+				const auto buffer = bufferOwner.data();
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					if (height - y < 4)
+					{
+						reader.read(buffer, rowSize * (height - y));
+					}
+					else if (y % 4 == 0)
+					{
+						reader.read(buffer, rowSize * 4);
+					}
+
+					uint8* tmp = &buffer[rowSize * (y % 4)];
+					Color* pDst = pDstLine;
+
+					for (int32 x = 0; x < width; x += 8)
+					{
+						const int32 n = Min(8, (width - x));
+
+						for (int32 i = 0; i < n; ++i)
+						{
+							const size_t index = ((*tmp >> (7 - i)) & 1);
+							const uint8* src = (palette + (index << 2));
+
+							pDst++->set(src[2], src[1], src[0]);
+						}
+
+						++tmp;
+					}
+
+					pDstLine += lineStep;
+				}
+
+				break;
+			}
+		case 4:
+			{
+				const uint32 rowSize = ((width + 7) / 8 * 4);
+				const int32 lineStep = reverse ? -width : width;
+				Color* pDstLine = image[reverse ? height - 1 : 0];
+
+				Array<uint8> bufferOwner(rowSize * 4);
+				const auto buffer = bufferOwner.data();
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					if (height - y < 4)
+					{
+						reader.read(buffer, rowSize * (height - y));
+					}
+					else if (y % 4 == 0)
+					{
+						reader.read(buffer, rowSize * 4);
+					}
+
+					uint8* tmp = &buffer[rowSize * (y % 4)];
+					Color* pDst = pDstLine;
+					const int32 w = (width - 1);
+
+					for (int32 x = 0; x < w; x += 2)
+					{
+						const size_t index1 = ((*tmp >> 4) & 0x0f);
+						const size_t index2 = (*tmp & 0x0f);
+						const uint8* src1 = (palette + (index1 << 2));
+						const uint8* src2 = (palette + (index2 << 2));
+
+						pDst++->set(src1[2], src1[1], src1[0]);
+						pDst++->set(src2[2], src2[1], src2[0]);
+
+						++tmp;
+					}
+
+					if (width & 1)
+					{
+						const size_t index = ((*tmp >> 4) & 0x0f);
+						const uint8* src = (palette + (index << 2));
+
+						pDst++->set(src[2], src[1], src[0]);
+					}
+
+					pDstLine += lineStep;
+				}
+
+				break;
+			}
 		case 8:
 			{
 				const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
