@@ -256,6 +256,46 @@ namespace s3d
 
 				break;
 			}
+		case 16:
+			{
+				const size_t rowSize16 = ((width + 1) / 2 * 2);
+				const size_t rowSize = (rowSize16 * 2);
+				const int32 lineStep = reverse ? -width : width;
+				Color* pDstLine = image[reverse ? height - 1 : 0];
+
+				Array<uint16> bufferOwner(rowSize16 * 4);
+				const auto buffer = bufferOwner.data();
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					if (height - y < 4)
+					{
+						reader.read(buffer, rowSize * (height - y));
+					}
+					else if (y % 4 == 0)
+					{
+						reader.read(buffer, rowSize * 4);
+					}
+
+					const Color* const pDstEnd = pDstLine + width;
+					uint16* pSrc = &buffer[rowSize16 * (y % 4)];
+
+					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+					{
+						uint32 b = ((*pSrc & 0x001f) << 3);
+						uint32 g = ((*pSrc & 0x07e0) >> 2);
+						uint32 r = ((*pSrc & 0xf800) >> 7);
+
+						pDst->set(r, g, b);
+
+						++pSrc;
+					}
+
+					pDstLine += lineStep;
+				}
+
+				break;
+			}
 		case 24:
 		case 32:
 			{
