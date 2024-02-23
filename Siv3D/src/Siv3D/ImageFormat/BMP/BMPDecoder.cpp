@@ -117,6 +117,11 @@ namespace s3d
 			reader.read(palette, paletteOwner.size());
 		}
 
+		if (header.bfOffBits > (sizeof(header) + paletteOwner.size()))
+		{
+			reader.setPos(header.bfOffBits);
+		}
+
 		Image image(width, height);
 
 		LOG_VERBOSE(U"BMPHeader::biBitCount: {}"_fmt(header.biBitCount));
