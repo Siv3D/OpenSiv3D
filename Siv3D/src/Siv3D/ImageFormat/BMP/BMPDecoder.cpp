@@ -333,6 +333,11 @@ namespace s3d
 
 				break;
 			}
+		default:
+			{
+				LOG_FAIL(U"❌ BMPDecoder::decode(): BMPHeader::biBitCount is invalid");
+				return{};
+			}
 		}
 
 		LOG_VERBOSE(U"Image ({}x{}) decoded"_fmt(
