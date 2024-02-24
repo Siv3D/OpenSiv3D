@@ -77,7 +77,7 @@ namespace s3d
 		constexpr CircularBase& rotate(value_type angle) noexcept;
 
 		[[nodiscard]]
-		constexpr CircularBase lerp(const CircularBase& other, double f) const noexcept;
+		CircularBase lerp(const CircularBase& other, double f) const noexcept;
 
 		[[nodiscard]]
 		Float2 toFloat2() const noexcept;
