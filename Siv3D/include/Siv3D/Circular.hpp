@@ -14,6 +14,7 @@
 # include "PointVector.hpp"
 # include "FastMath.hpp"
 # include "PredefinedNamedParameter.hpp"
+# include "Interpolation.hpp"
 
 namespace s3d
 {
@@ -74,6 +75,9 @@ namespace s3d
 		constexpr CircularBase rotated(value_type angle) const noexcept;
 
 		constexpr CircularBase& rotate(value_type angle) noexcept;
+
+		[[nodiscard]]
+		CircularBase lerp(const CircularBase& other, double f) const noexcept;
 
 		[[nodiscard]]
 		Float2 toFloat2() const noexcept;
