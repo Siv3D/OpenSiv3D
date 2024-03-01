@@ -1210,7 +1210,7 @@ namespace s3d
 	{
 		Polygon CalculateBuffer(const LineString& points, const double distance, CloseRing closeRing, int32 bufferQuality)
 		{
-			if (points.size() < 2)
+			if (points.isEmpty())
 			{
 				return{};
 			}
@@ -1290,7 +1290,7 @@ namespace s3d
 
 		Polygon CalculateRoundBuffer(const LineString& points, const double distance, CloseRing closeRing, int32 bufferQuality)
 		{
-			if (points.size() < 2)
+			if (points.isEmpty())
 			{
 				return{};
 			}
