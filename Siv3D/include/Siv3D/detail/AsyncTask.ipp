@@ -22,7 +22,7 @@ namespace s3d
 		: m_data{ std::move(other.m_data) } {}
 
 	template <class Type>
-	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>*>
+	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<std::decay_t<Fty>, std::decay_t<Args>...>>*>
 	inline AsyncTask<Type>::AsyncTask(Fty&& f, Args&&... args)
 	# if !SIV3D_PLATFORM(WEB) || defined(__EMSCRIPTEN_PTHREADS__)
 		: m_data{ std::async(std::launch::async, std::forward<Fty>(f), std::forward<Args>(args)...) } {}
@@ -91,7 +91,7 @@ namespace s3d
 		return m_data.share();
 	}
 
-	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<Fty, Args...>>*>
+	template <class Fty, class... Args, std::enable_if_t<std::is_invocable_v<std::decay_t<Fty>, std::decay_t<Args>...>>*>
 	inline auto Async(Fty&& f, Args&&... args)
 	{
 		return AsyncTask<std::invoke_result_t<std::decay_t<Fty>, std::decay_t<Args>...>>{ std::forward<Fty>(f), std::forward<Args>(args)... };
