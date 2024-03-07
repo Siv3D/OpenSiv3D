@@ -22,7 +22,7 @@ namespace s3d
 	template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>*>
 	inline bool CSV::load(Reader&& reader, const StringView separators, const StringView quotes, const StringView escapes)
 	{
-		return load(std::make_unique<Reader>(std::move(reader), separators, quotes, escapes));
+		return load(std::make_unique<Reader>(std::move(reader)), separators, quotes, escapes);
 	}
 
 	inline CSV::operator bool() const noexcept
