@@ -202,7 +202,7 @@ namespace s3d
 				if (auto it = ht.find(*first);
 					it != ht.end())
 				{
-					const size_t keyCount = ++(it.value());
+					const size_t keyCount = ++(it->second);
 
 					if (keyCount > maxCount)
 					{
@@ -257,7 +257,7 @@ namespace s3d
 				if (auto it = ht.find(*first);
 					it != ht.end())
 				{
-					const Count keyCount = ++(it.value().first);
+					const Count keyCount = ++(it->second.first);
 					maxCount = s3d::Max(maxCount, keyCount);
 				}
 				else
