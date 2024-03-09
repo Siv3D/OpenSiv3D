@@ -91,7 +91,7 @@ namespace s3d
 		/// @brief デストラクタ
 		virtual ~Font();
 
-		/// @brief フォールバッグフォントを追加します。
+		/// @brief フォールバックフォントを追加します。
 		/// @param font フォールバックとして追加するフォント
 		/// @return 追加に成功した場合 true, それ以外の場合は false
 		bool addFallback(const Font& font) const;
