@@ -70,9 +70,9 @@ namespace s3d
 	{
 	public:
 
-		/// @brief データを追加します。
-		/// @param code 変換用の UTF-32 データ
-		/// @return 作成された UTF-8 データのサイズ
+		/// @brief コードポイントを設定します。
+		/// @param code 変換する UTF-32 コードポイント
+		/// @return 作成された UTF-8 データのサイズ（1 以上 4 以下）
 		[[nodiscard]]
 		size_t put(char32 code) noexcept;
 
@@ -96,9 +96,9 @@ namespace s3d
 	{
 	public:
 
-		/// @brief データを追加します。
-		/// @param code 変換用の UTF-32 データ
-		/// @return `get()` で文字を取得可能になった場合 true, それ以外の場合は false
+		/// @brief コードポイントを設定します。
+		/// @param code 変換する UTF-32 コードポイント
+		/// @return 作成された UTF-16 文字のサイズ（1 または 2）
 		[[nodiscard]]
 		size_t put(char32 code) noexcept;
 

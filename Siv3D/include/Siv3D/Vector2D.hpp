@@ -132,15 +132,15 @@ namespace s3d
 		[[nodiscard]]
 		constexpr bool epsilonEquals(Vector2D other, value_type epsilon) const noexcept;
 
-		/// @brief 指定した別のベクトルとのなす角が 180 ° 未満であるかを返します。
+		/// @brief 指定した別のベクトルとのなす角が 90° 未満であるかを返します。
 		/// @param other 別のベクトル
-		/// @return 別のベクトルとのなす角が 180 ° 未満である場合 true, それ以外の場合は false
+		/// @return 別のベクトルとのなす角が 90° 未満である場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool hasSameDirection(Vector2D other) const noexcept;
 
-		/// @brief 指定した別のベクトルとのなす角が 180 ° より大きいかを返します。
+		/// @brief 指定した別のベクトルとのなす角が 90° より大きいかを返します。
 		/// @param other 別のベクトル
-		/// @return 別のベクトルとのなす角が 180 ° より大きい場合 true, それ以外の場合は false
+		/// @return 別のベクトルとのなす角が 90° より大きい場合 true, それ以外の場合は false
 		[[nodiscard]]
 		constexpr bool hasOppositeDirection(Vector2D other) const noexcept;
 
