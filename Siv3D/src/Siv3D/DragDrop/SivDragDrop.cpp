@@ -64,7 +64,14 @@ namespace s3d
 	{
 		void MakeDragDrop(const FilePathView path)
 		{
-			SIV3D_ENGINE(DragDrop)->makeDragDrop(path);
+			const Array<FilePath> paths = { FilePath{ path } };
+
+			SIV3D_ENGINE(DragDrop)->makeDragDrop(paths);
+		}
+
+		void MakeDragDrop(const Array<FilePath>& paths)
+		{
+			SIV3D_ENGINE(DragDrop)->makeDragDrop(paths);
 		}
 	}
 

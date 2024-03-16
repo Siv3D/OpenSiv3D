@@ -70,6 +70,10 @@ namespace s3d
 		/// @brief 指定したファイルのドラッグを開始します。
 		/// @param path ファイルパス
 		void MakeDragDrop(FilePathView path);
+
+		/// @brief 指定したファイルのドラッグを開始します。
+		/// @param paths ファイルパスの配列
+		void MakeDragDrop(const Array<FilePath>& paths);
 	}
 
 # endif

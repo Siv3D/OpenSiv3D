@@ -165,7 +165,7 @@ namespace s3d
 		return dropped;
 	}
 
-	void CDragDrop::makeDragDrop(const FilePathView path)
+	void CDragDrop::makeDragDrop(const Array<FilePath>&)
 	{
 		// [Siv3D ToDo]
 	}
