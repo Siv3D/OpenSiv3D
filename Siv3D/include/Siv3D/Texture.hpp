@@ -19,6 +19,12 @@
 # include "PredefinedNamedParameter.hpp"
 # include "PredefinedYesNo.hpp"
 
+# if SIV3D_PLATFORM(WINDOWS)
+
+	struct ID3D11Texture2D;
+
+# endif
+
 namespace s3d
 {
 	struct TextureRegion;
@@ -288,6 +294,13 @@ namespace s3d
 		TexturedRoundRect rounded(double x, double y, double w, double h, double r) const;
 
 		void swap(Texture& other) noexcept;
+
+	# if SIV3D_PLATFORM(WINDOWS)
+
+		[[nodiscard]]
+		ID3D11Texture2D* getD3D11Texture2D();
+
+	# endif
 
 	protected:
 

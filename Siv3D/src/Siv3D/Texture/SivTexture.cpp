@@ -24,6 +24,10 @@
 # include <Siv3D/AssetMonitor/IAssetMonitor.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 
+# if SIV3D_PLATFORM(WINDOWS)
+#	include <Siv3D/Texture/D3D11/CTexture_D3D11.hpp>
+# endif
+
 namespace s3d
 {
 	namespace detail
@@ -630,6 +634,22 @@ namespace s3d
 	{
 		m_handle.swap(other.m_handle);
 	}
+
+# if SIV3D_PLATFORM(WINDOWS)
+
+	ID3D11Texture2D* Texture::getD3D11Texture2D()
+	{
+		if (auto p = dynamic_cast<CTexture_D3D11*>(SIV3D_ENGINE(Texture)))
+		{
+			return p->getTexture(m_handle->id());
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+
+# endif
 
 	Texture::Texture(Dynamic, const Size& size, const void* pData, const uint32 stride, const TextureFormat& format, const TextureDesc desc)
 		: AssetHandle{ (detail::CheckEngine(U"DynamicTexture"), std::make_shared<AssetIDWrapperType>(SIV3D_ENGINE(Texture)->createDynamic(size, pData, stride, format, desc)))}

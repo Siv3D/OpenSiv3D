@@ -559,6 +559,11 @@ namespace s3d
 		return m_hasDepth;
 	}
 
+	ID3D11Texture2D* D3D11Texture::getTexture()
+	{
+		return m_texture.Get();
+	}
+
 	ID3D11ShaderResourceView** D3D11Texture::getSRVPtr()
 	{
 		return m_shaderResourceView.GetAddressOf();

@@ -405,6 +405,11 @@ namespace s3d
 		m_textures[handleID]->resolveMSRT(m_context);
 	}
 
+	ID3D11Texture2D* CTexture_D3D11::getTexture(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getTexture();
+	}
+
 	ID3D11ShaderResourceView** CTexture_D3D11::getSRVPtr(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getSRVPtr();

@@ -104,6 +104,7 @@ namespace s3d
 		//
 		// D3D11
 		//
+		ID3D11Texture2D* getTexture(Texture::IDType handleID);
 
 		ID3D11ShaderResourceView** getSRVPtr(Texture::IDType handleID);
 
