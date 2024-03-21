@@ -51,6 +51,7 @@
 # include <Siv3D/Effect/IEffect.hpp>
 # include <Siv3D/Script/IScript.hpp>
 # include <Siv3D/Addon/IAddon.hpp>
+# include <Siv3D/FrameRateLimit/IFrameRateLimit.hpp>
 # include <Siv3D/System/SystemLog.hpp>
 # include <Siv3D/System/SystemMisc.hpp>
 # include "CSystem.hpp"
@@ -131,6 +132,7 @@ namespace s3d
 		SIV3D_ENGINE(Renderer)->present();
 		SIV3D_ENGINE(ScreenCapture)->update();
 		SIV3D_ENGINE(Addon)->postPresent();
+		SIV3D_ENGINE(FrameRateLimit)->update();
 		
 		//
 		// previous frame

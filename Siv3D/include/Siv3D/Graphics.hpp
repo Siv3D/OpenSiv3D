@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Common.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -27,5 +28,15 @@ namespace s3d
 		/// @return VSync が有効である場合 true, 無効である場合 false
 		[[nodiscard]]
 		bool IsVSyncEnabled();
+
+		/// @brief VSync 無効時の目標フレームレートを設定します。
+		/// @param fps 目標フレームレート（FPS）。フレームレート制限を無効にする場合は none
+		/// @remark デフォルトでは none です。
+		void SetTargetFrameRate(const Optional<double>& fps);
+
+		/// @brief VSync 無効時の目標フレームレートを取得します。
+		/// @return 目標フレームレート（FPS）。フレームレート制限が無効の場合は none
+		[[nodiscard]]
+		Optional<double> GetTargetFrameRate();
 	}
 }
