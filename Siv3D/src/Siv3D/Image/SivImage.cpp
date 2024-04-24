@@ -1359,21 +1359,73 @@ namespace s3d
 
 		// 2. 処理
 		{
-			// [Siv3D ToDo] 最適化
-			Image tmp{ m_height, m_width };
+			constexpr size_t BlockSize = 8;
 
-			for (size_t y = 0; y < m_height; ++y)
+			if (m_width == m_height)
 			{
-				const Color* pSrc = data() + y * m_width;
-				const size_t dstX = m_height - y - 1;
+				Color* const pData = data();
+				const size_t halfHeight = (m_height / 2);
+				const size_t halfWidth = (halfHeight + m_height % 2);
 
-				for (size_t x = 0; x < m_width; ++x)
+				// 以下のように画像を4つの領域 A, B, C, D に分け、各画素を A←B, B←C, C←D, D←A とそれぞれコピーする
+				//     AADD    AAADD
+				//     AADD    AAADD
+				//     BBCC    BB.DD
+				//     BBCC    BBCCC
+				//             BBCCC
+				for (size_t b = 0; b < halfWidth; b += BlockSize)
 				{
-					tmp[x][dstX] = pSrc[x];
+					for (size_t y = 0; y < halfHeight; ++y)
+					{
+						Color* p1 = (pData + y * m_width + b);
+						Color* p2 = (pData + (m_height - b - 1) * m_width + y);
+						Color* p3 = (pData + (m_height - y) * m_width - b - 1);
+						Color* p4 = (pData + (b + 1) * m_width - y - 1);
+						const size_t w = Min((halfWidth - b), BlockSize);
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							const Color tmp = *p1;
+							*p1 = *p2;
+							*p2 = *p3;
+							*p3 = *p4;
+							*p4 = tmp;
+							++p1;
+							p2 -= m_width;
+							--p3;
+							p4 += m_width;
+						}
+					}
 				}
 			}
+			else
+			{
+				Image tmp{ m_height, m_width };
 
-			swap(tmp);
+				const Color* const pData = data();
+				Color* const pDstBase = tmp.data();
+
+				for (size_t b = 0; b < m_width; b += BlockSize)
+				{
+					Color* const pDstLine = (pDstBase + b * m_height);
+					const size_t w = Min((m_width - b), BlockSize);
+
+					for (size_t y = 0; y < m_height; ++y)
+					{
+						const Color* pSrc = (pData + y * m_width + b);
+						Color* pDst = (pDstLine + (m_height - y - 1));
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							*pDst = *pSrc;
+							++pSrc;
+							pDst += m_height;
+						}
+					}
+				}
+
+				swap(tmp);
+			}
 		}
 
 		return *this;
@@ -1409,29 +1461,83 @@ namespace s3d
 
 		// 2. 処理
 		{
-			Image image{ m_height, m_width };
+			constexpr size_t BlockSize = 8;
 
-			// [Siv3D ToDo] 最適化
-			for (size_t y = 0; y < m_height; ++y)
+			if (m_width == m_height)
 			{
-				const Color* pSrc = data() + y * m_width;
-				const size_t dstX = m_height - y - 1;
+				Image image = *this;
 
-				for (size_t x = 0; x < m_width; ++x)
+				Color* const pData = image.data();
+				const size_t halfHeight = (m_height / 2);
+				const size_t halfWidth = (halfHeight + m_height % 2);
+
+				// 以下のように画像を4つの領域 A, B, C, D に分け、各画素を A←B, B←C, C←D, D←A とそれぞれコピーする
+				//     AADD    AAADD
+				//     AADD    AAADD
+				//     BBCC    BB.DD
+				//     BBCC    BBCCC
+				//             BBCCC
+				for (size_t b = 0; b < halfWidth; b += BlockSize)
 				{
-					image[x][dstX] = pSrc[x];
-				}
-			}
+					for (size_t y = 0; y < halfHeight; ++y)
+					{
+						Color* p1 = (pData + y * m_width + b);
+						Color* p2 = (pData + (m_height - b - 1) * m_width + y);
+						Color* p3 = (pData + (m_height - y) * m_width - b - 1);
+						Color* p4 = (pData + (b + 1) * m_width - y - 1);
+						const size_t w = Min((halfWidth - b), BlockSize);
 
-			return image;
+						for (size_t x = 0; x < w; ++x)
+						{
+							const Color tmp = *p1;
+							*p1 = *p2;
+							*p2 = *p3;
+							*p3 = *p4;
+							*p4 = tmp;
+							++p1;
+							p2 -= m_width;
+							--p3;
+							p4 += m_width;
+						}
+					}
+				}
+
+				return image;
+			}
+			else
+			{
+				Image image{ m_height, m_width };
+
+				const Color* const pData = data();
+				Color* const pDstBase = image.data();
+
+				for (size_t b = 0; b < m_width; b += BlockSize)
+				{
+					Color* const pDstLine = (pDstBase + b * m_height);
+					const size_t w = Min((m_width - b), BlockSize);
+
+					for (size_t y = 0; y < m_height; ++y)
+					{
+						const Color* pSrc = (pData + y * m_width + b);
+						Color* pDst = (pDstLine + (m_height - y - 1));
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							*pDst = *pSrc;
+							++pSrc;
+							pDst += m_height;
+						}
+					}
+				}
+
+				return image;
+			}
 		}
 	}
 
 	Image Image::rotated90() &&
 	{
-		// rotate90() が最適化されたら次の実装に変更する
-		// return std::move(rotate90());
-		return rotated90();
+		return std::move(rotate90());
 	}
 
 	Image Image::rotated90(int32 n) const&
@@ -1521,20 +1627,73 @@ namespace s3d
 
 		// 2. 処理
 		{
-			// [Siv3D ToDo] 最適化
-			Image tmp{ m_height, m_width };
+			constexpr size_t BlockSize = 8;
 
-			for (size_t y = 0; y < m_height; ++y)
+			if (m_width == m_height)
 			{
-				const Color* pSrc = (data() + y * m_width);
+				Color* const pData = data();
+				const size_t halfHeight = (m_height / 2);
+				const size_t halfWidth = (halfHeight + m_height % 2);
 
-				for (size_t x = 0; x < m_width; ++x)
+				// 以下のように画像を4つの領域 A, B, C, D に分け、各画素を A←D, D←C, C←B, B←A とそれぞれコピーする
+				//     AADD    AAADD
+				//     AADD    AAADD
+				//     BBCC    BB.DD
+				//     BBCC    BBCCC
+				//             BBCCC
+				for (size_t b = 0; b < halfWidth; b += BlockSize)
 				{
-					tmp[m_width - x - 1][y] = pSrc[x];
+					for (size_t y = 0; y < halfHeight; ++y)
+					{
+						Color* p1 = (pData + y * m_width + b);
+						Color* p2 = (pData + (m_height - b - 1) * m_width + y);
+						Color* p3 = (pData + (m_height - y) * m_width - b - 1);
+						Color* p4 = (pData + (b + 1) * m_width - y - 1);
+						const size_t w = Min((halfWidth - b), BlockSize);
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							const Color tmp = *p1;
+							*p1 = *p4;
+							*p4 = *p3;
+							*p3 = *p2;
+							*p2 = tmp;
+							++p1;
+							p2 -= m_width;
+							--p3;
+							p4 += m_width;
+						}
+					}
 				}
 			}
+			else
+			{
+				Image tmp{ m_height, m_width };
 
-			swap(tmp);
+				const Color* const pData = data();
+				Color* const pDstBase = tmp.data();
+
+				for (size_t b = 0; b < m_width; b += BlockSize)
+				{
+					Color* const pDstLine = (pDstBase + (m_width - b - 1) * m_height);
+					const size_t w = Min((m_width - b), BlockSize);
+
+					for (size_t y = 0; y < m_height; ++y)
+					{
+						const Color* pSrc = (pData + y * m_width + b);
+						Color* pDst = (pDstLine + y);
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							*pDst = *pSrc;
+							++pSrc;
+							pDst -= m_height;
+						}
+					}
+				}
+
+				swap(tmp);
+			}
 		}
 
 		return *this;
@@ -1552,27 +1711,83 @@ namespace s3d
 
 		// 2. 処理
 		{
-			Image image{ m_height, m_width };
+			constexpr size_t BlockSize = 8;
 
-			for (size_t y = 0; y < m_height; ++y)
+			if (m_width == m_height)
 			{
-				const Color* pSrc = (data() + y * m_width);
+				Image image = *this;
 
-				for (size_t x = 0; x < m_width; ++x)
+				Color* const pData = image.data();
+				const size_t halfHeight = (m_height / 2);
+				const size_t halfWidth = (halfHeight + m_height % 2);
+
+				// 以下のように画像を4つの領域 A, B, C, D に分け、各画素を A←D, D←C, C←B, B←A とそれぞれコピーする
+				//     AADD    AAADD
+				//     AADD    AAADD
+				//     BBCC    BB.DD
+				//     BBCC    BBCCC
+				//             BBCCC
+				for (size_t b = 0; b < halfWidth; b += BlockSize)
 				{
-					image[m_width - x - 1][y] = pSrc[x];
-				}
-			}
+					for (size_t y = 0; y < halfHeight; ++y)
+					{
+						Color* p1 = (pData + y * m_width + b);
+						Color* p2 = (pData + (m_height - b - 1) * m_width + y);
+						Color* p3 = (pData + (m_height - y) * m_width - b - 1);
+						Color* p4 = (pData + (b + 1) * m_width - y - 1);
+						const size_t w = Min((halfWidth - b), BlockSize);
 
-			return image;
+						for (size_t x = 0; x < w; ++x)
+						{
+							const Color tmp = *p1;
+							*p1 = *p4;
+							*p4 = *p3;
+							*p3 = *p2;
+							*p2 = tmp;
+							++p1;
+							p2 -= m_width;
+							--p3;
+							p4 += m_width;
+						}
+					}
+				}
+
+				return image;
+			}
+			else
+			{
+				Image image{ m_height, m_width };
+
+				const Color* const pData = data();
+				Color* const pDstBase = image.data();
+
+				for (size_t b = 0; b < m_width; b += BlockSize)
+				{
+					Color* const pDstLine = (pDstBase + (m_width - b - 1) * m_height);
+					const size_t w = Min((m_width - b), BlockSize);
+
+					for (size_t y = 0; y < m_height; ++y)
+					{
+						const Color* pSrc = (pData + y * m_width + b);
+						Color* pDst = (pDstLine + y);
+
+						for (size_t x = 0; x < w; ++x)
+						{
+							*pDst = *pSrc;
+							++pSrc;
+							pDst -= m_height;
+						}
+					}
+				}
+
+				return image;
+			}
 		}
 	}
 
 	Image Image::rotated270() &&
 	{
-		// rotate270() が最適化されたら次の実装に変更する
-		// return std::move(rotate270());
-		return rotated270();
+		return std::move(rotate270());
 	}
 
 	Image& Image::gammaCorrect(const double gamma)
