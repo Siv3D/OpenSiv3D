@@ -214,6 +214,8 @@ namespace s3d
 
 	Array<KeyEvent> CKeyboard::getEvents() const noexcept
 	{
+		std::lock_guard lock{ m_eventMutex };
+
 		return m_events;
 	}
 

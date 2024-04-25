@@ -62,7 +62,7 @@ namespace s3d
 
 		//////
 		//
-		std::mutex m_eventMutex;
+		mutable std::mutex m_eventMutex;
 
 		uint32 m_eventIndex = 0;
 
