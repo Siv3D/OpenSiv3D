@@ -52,7 +52,7 @@ namespace s3d
 		}
 	}
 
-	bool MathParser::MathParserDetail::setVaribale(const StringView name, double* value)
+	bool MathParser::MathParserDetail::setVariable(const StringView name, double* value)
 	{
 		m_errorMessage.clear();
 

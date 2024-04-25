@@ -38,7 +38,7 @@ namespace s3d
 		bool setConstant(StringView name, double value);
 
 		[[nodiscard]]
-		bool setVaribale(StringView name, double* value);
+		bool setVariable(StringView name, double* value);
 
 		template <class Fty>
 		[[nodiscard]]

@@ -46,9 +46,9 @@ namespace s3d
 		return pImpl->setConstant(name, value);
 	}
 
-	bool MathParser::setVaribale(const StringView name, double* value)
+	bool MathParser::setVariable(const StringView name, double* value)
 	{
-		return pImpl->setVaribale(name, value);
+		return pImpl->setVariable(name, value);
 	}
 
 	bool MathParser::setFunction(const StringView name, Fty0 f)

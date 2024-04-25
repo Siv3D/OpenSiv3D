@@ -65,7 +65,7 @@ namespace s3d
 		/// @param name 変数名
 		/// @param value 変数へのポインタ
 		/// @return 変数の登録に成功した場合 true, それ以外の場合は false
-		bool setVaribale(StringView name, double* value);
+		bool setVariable(StringView name, double* value);
 
 		/// @brief 関数を登録します。
 		/// @param name 関数名

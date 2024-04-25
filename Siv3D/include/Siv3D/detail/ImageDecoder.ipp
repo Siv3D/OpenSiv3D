@@ -13,12 +13,12 @@
 
 namespace s3d
 {
-	namespace ImageEncoder
+	namespace ImageDecoder
 	{
-		template <class ImageEncoder>
+		template <class ImageDecoder>
 		bool Add()
 		{
-			return Add(std::make_unique<ImageEncoder>());
+			return Add(std::make_unique<ImageDecoder>());
 		}
 	}
 }

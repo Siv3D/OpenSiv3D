@@ -307,14 +307,14 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		inline float Modf(float x, float& i) noexcept
+		inline float Modf(float x, float& ip) noexcept
 		{
-			return std::modf(x, &i);
+			return std::modf(x, &ip);
 		}
 
-		inline double Modf(double x, double& i) noexcept
+		inline double Modf(double x, double& ip) noexcept
 		{
-			return std::modf(x, &i);
+			return std::modf(x, &ip);
 		}
 
 		SIV3D_MATH_FUNCTION_XYREF(Modf)

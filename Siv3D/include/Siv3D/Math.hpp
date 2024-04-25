@@ -244,21 +244,21 @@ namespace s3d
 		//
 		//////////////////////////////////////////////////
 
-		inline float Modf(float x, float& exp) noexcept;
+		inline float Modf(float x, float& ip) noexcept;
 
-		inline double Modf(double x, double& exp) noexcept;
+		inline double Modf(double x, double& ip) noexcept;
 
-		inline Float2 Modf(Float2 x, Float2& exp) noexcept;
+		inline Float2 Modf(Float2 x, Float2& ip) noexcept;
 
-		inline Float3 Modf(Float3 x, Float3& exp) noexcept;
+		inline Float3 Modf(Float3 x, Float3& ip) noexcept;
 
-		inline Float4 Modf(Float4 x, Float4& exp) noexcept;
+		inline Float4 Modf(Float4 x, Float4& ip) noexcept;
 
-		inline Vec2 Modf(Vec2 x, Vec2& exp) noexcept;
+		inline Vec2 Modf(Vec2 x, Vec2& ip) noexcept;
 
-		inline Vec3 Modf(Vec3 x, Vec3& exp) noexcept;
+		inline Vec3 Modf(Vec3 x, Vec3& ip) noexcept;
 
-		inline Vec4 Modf(Vec4 x, Vec4& exp) noexcept;
+		inline Vec4 Modf(Vec4 x, Vec4& ip) noexcept;
 
 		//////////////////////////////////////////////////
 		//
