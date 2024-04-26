@@ -27,7 +27,7 @@ namespace s3d
 
 		static double ParseDouble(StringView s)
 		{
-			while (IsSpace(s.front()))
+			while ((not s.isEmpty()) && IsSpace(s.front()))
 			{
 				s.remove_prefix(1);
 			}
@@ -46,7 +46,7 @@ namespace s3d
 		template <class FloatType>
 		static Optional<FloatType> ParseFloatingPointOpt(StringView s) noexcept
 		{
-			while (IsSpace(s.front()))
+			while ((not s.isEmpty()) && IsSpace(s.front()))
 			{
 				s.remove_prefix(1);
 			}
