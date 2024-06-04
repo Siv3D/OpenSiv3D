@@ -14,6 +14,8 @@
 # include <Siv3D/Error.hpp>
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/Format.hpp>
+# include <Siv3D/System.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include <Siv3D/FreestandingMessageBox/FreestandingMessageBox.hpp>
 # include <Siv3D/EngineOptions.hpp>
@@ -259,6 +261,19 @@ namespace s3d
 		MainSEH();
 	}
 
+	static void SetWorkingDirectory()
+	{
+		if (System::IsRunningInVisualStudio())
+		{
+			return;
+		}
+
+		if (const FilePath workingDirectory = FileSystem::ParentPath(FileSystem::ModulePath()))
+		{
+			FileSystem::ChangeCurrentDirectory(workingDirectory);
+		}
+	}
+
 	namespace detail::init
 	{
 		void InitCommandLines(int argc, char** argv);
@@ -285,6 +300,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 		::CoUninitialize();
 		::CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	}
+
+	SetWorkingDirectory();
 
 	std::unique_lock ul(g_mutex); // (0)--
 
