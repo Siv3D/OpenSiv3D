@@ -173,11 +173,11 @@ namespace s3d
 		static const Predefined AntialiasedLine3DScissor = Predefined::AntialiasedLine3DScissor;
 
 		/// @brief 2D 描画時のデフォルト
-		/// @remark RasterizerState::SolidNone
+		/// @remark RasterizerState::SolidCullNone
 		static const Predefined Default2D = Predefined::Default2D;
 
 		/// @brief 3D 描画時のデフォルト
-		/// @remark RasterizerState::SolidBack
+		/// @remark RasterizerState::SolidCullBack
 		static const Predefined Default3D = Predefined::Default3D;
 	};
 	static_assert(sizeof(RasterizerState) == sizeof(RasterizerState::storage_type));
