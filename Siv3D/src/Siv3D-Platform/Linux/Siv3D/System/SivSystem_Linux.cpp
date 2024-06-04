@@ -231,5 +231,15 @@ namespace s3d
 
 			return (std::system(command.c_str()) == 0);
 		}
+
+		bool IsRunningInVisualStudio()
+		{
+			return false;
+		}
+
+		bool IsRunningInXcode()
+		{
+			return false;
+		}
 	}
 }

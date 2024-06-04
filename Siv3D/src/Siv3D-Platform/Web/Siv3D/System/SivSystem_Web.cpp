@@ -52,6 +52,16 @@ namespace s3d
 		{
 			return false;
 		}
+
+		bool IsRunningInVisualStudio()
+		{
+			return false;
+		}
+
+		bool IsRunningInXcode()
+		{
+			return false;
+		}
 	}
 
 	namespace Platform::Web::System

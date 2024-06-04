@@ -19,6 +19,26 @@
 
 namespace s3d
 {
+	namespace
+	{
+		[[nodiscard]]
+		static bool IsRunningInVisualStudio_impl()
+		{
+			wchar_t* pValue;
+			size_t len;
+			errno_t err = ::_wdupenv_s(&pValue, &len, L"VisualStudioVersion");
+
+			if (err || (not pValue))
+			{
+				return false;
+			}
+
+			std::free(pValue);
+
+			return true;
+		}
+	}
+
 	namespace System
 	{
 		void Sleep(const int32 milliseconds)
@@ -176,6 +196,18 @@ namespace s3d
 			sei.nShow = SW_SHOW;
 
 			return (::ShellExecuteExW(&sei) != 0);
+		}
+
+		bool IsRunningInVisualStudio()
+		{
+			static const bool result = IsRunningInVisualStudio_impl();
+
+			return result;
+		}
+
+		bool IsRunningInXcode()
+		{
+			return false;
 		}
 	}
 }

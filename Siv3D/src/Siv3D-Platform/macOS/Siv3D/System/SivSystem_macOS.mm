@@ -47,6 +47,12 @@ namespace s3d
 			}
 			
 		}
+		
+		[[nodiscard]]
+		static bool IsRunningInXcode_impl()
+		{
+			return (std::getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS") != nullptr);
+		}
 	}
 
 	namespace System
@@ -189,6 +195,18 @@ namespace s3d
 			const std::string command = ("open -t '" + FileSystem::NativePath(fileName) + "'");
 
 			return (std::system(command.c_str()) == 0);
+		}
+
+		bool IsRunningInVisualStudio()
+		{
+			return false;
+		}
+
+		bool IsRunningInXcode()
+		{
+			static const bool result = detail::IsRunningInXcode_impl();
+
+			return result;
 		}
 	}
 }

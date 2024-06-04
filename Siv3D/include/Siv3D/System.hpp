@@ -104,6 +104,16 @@ namespace s3d
 		/// @param fileName ファイル名 | File name
 		/// @return テキストエディタの起動に成功した場合 true, それ以外の場合は false | Returns true if the text editor was launched successfully, otherwise false.
 		bool LaunchFileWithTextEditor(FilePathView fileName);
+
+		/// @brief プログラムが Visual Studio で実行されているかを返します。 | Returns whether the program is running in Visual Studio.
+		/// @return プログラムが Visual Studio で実行されている場合 true, それ以外の場合は false | Returns true if the program is running in Visual Studio, false otherwise
+		[[nodiscard]]
+		bool IsRunningInVisualStudio();
+
+		/// @brief プログラムが Xcode で実行されているかを返します。 | Returns whether the program is running in Xcode.
+		/// @return プログラムが Xcode で実行されている場合 true, それ以外の場合は false | Returns true if the program is running in Xcode, false otherwise
+		[[nodiscard]]
+		bool IsRunningInXcode();
 	}
 
 # if SIV3D_PLATFORM(WEB)
