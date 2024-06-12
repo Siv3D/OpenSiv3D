@@ -28,7 +28,7 @@ namespace s3d
 			{
 				/// @brief GPT-4 Turbo with vision 128K
 				/// @see https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
-				inline constexpr char32 GPT4V_Turbo_128K_Preview[] = U"gpt-4-vision-preview";
+				inline constexpr char32 GPT4o[] = U"gpt-4o";
 			}
 
 			/// @brief 画像データ | Image data
@@ -78,7 +78,7 @@ namespace s3d
 				Array<ImageData> images;
 
 				/// @brief モデル | Model
-				String model = Model::GPT4V_Turbo_128K_Preview;
+				String model = Model::GPT4o;
 
 				/// @brief 最大トークン数 | Maximum number of tokens
 				int32 maxTokens = 600;
