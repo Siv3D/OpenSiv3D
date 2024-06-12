@@ -168,6 +168,18 @@ namespace s3d
 		[[nodiscard]]
 		double usF() const;
 
+		/// @brief 残り時間を [秒] で返します。小数点以下は切り上げられます。
+		/// @remark 例えば、残り 2.1 秒の場合は 3 を返します
+		/// @return 残り時間 [秒]
+		[[nodiscard]]
+		int32 s_ceil() const;
+
+		/// @brief 残り時間を [秒] で返します。小数点以下は切り上げられます。
+		/// @remark 例えば、残り 2.1 秒の場合は 3 を返します
+		/// @return 残り時間 [秒]
+		[[nodiscard]]
+		int64 s64_ceil() const;
+
 		/// @brief 設定されているカウントダウン時間を返します。
 		/// @return 設定されているカウントダウン時間
 		[[nodiscard]]

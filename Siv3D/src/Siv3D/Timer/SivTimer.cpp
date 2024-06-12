@@ -220,6 +220,16 @@ namespace s3d
 		return static_cast<double>(us());
 	}
 
+	int32 Timer::s_ceil() const
+	{
+		return static_cast<int32>(s64_ceil());
+	}
+
+	int64 Timer::s64_ceil() const
+	{
+		return static_cast<int64>(std::ceil(usF() / (1000LL * 1000LL)));
+	}
+
 	Duration Timer::duration() const
 	{
 		return SecondsF{ m_durationMicrosec / static_cast<double>(1000LL * 1000LL) };
