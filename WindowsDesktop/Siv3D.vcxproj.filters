@@ -1738,6 +1738,9 @@
     <Filter Include="include\Siv3D\OpenAI">
       <UniqueIdentifier>{37ac6af4-6c9f-4772-9dee-c6f5ebe74b61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\FrameRateLimit">
+      <UniqueIdentifier>{4c2ac354-f8e6-466f-a4b0-8c3a7d382331}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -7842,6 +7845,12 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\EngineShader.hpp">
       <Filter>src\Siv3D\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\FrameRateLimit\CFrameRateLimit.hpp">
+      <Filter>src\Siv3D\FrameRateLimit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\FrameRateLimit\IFrameRateLimit.hpp">
+      <Filter>src\Siv3D\FrameRateLimit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Common\Siv3DEngine.cpp">
@@ -11284,6 +11293,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenAI\SivOpenAIVision.cpp">
       <Filter>src\Siv3D\OpenAI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FrameRateLimit\FrameRateLimitFactory.cpp">
+      <Filter>src\Siv3D\FrameRateLimit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FrameRateLimit\SivFrameRateLimit.cpp">
+      <Filter>src\Siv3D\FrameRateLimit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -138,9 +138,6 @@ namespace s3d
 			m_previousWindowBounds = windowBounds;
 		}
 
-		//const bool vSync = (not m_targetFrameRateHz.has_value())
-		//	|| ((30.0 <= m_targetFrameRateHz) && (AbsDiff(m_targetFrameRateHz.value(), m_displayFrequency) <= 3.0));
-
 		return vSync ? presentVSync() : presentNonVSync();
 	}
 
@@ -148,16 +145,6 @@ namespace s3d
 	{
 		return m_displayFrequency;
 	}
-
-	//void D3D11SwapChain::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
-	//{
-	//	m_targetFrameRateHz = targetFrameRateHz;
-	//}
-
-	//const Optional<double>& D3D11SwapChain::getTargetFrameRateHz() const noexcept
-	//{
-	//	return m_targetFrameRateHz;
-	//}
 
 	IDXGISwapChain1* D3D11SwapChain::getSwapChain1() const noexcept
 	{
@@ -245,37 +232,6 @@ namespace s3d
 
 	bool D3D11SwapChain::presentNonVSync()
 	{
-		/*
-		const double targetRefreshRateHz = m_targetFrameRateHz.value();
-		const double targetRefreshPeriodMillisec = (1000.0 / targetRefreshRateHz);
-		const double displayRefreshPeriodMillisec = detail::GetDisplayRefreshPeriodMillisec();
-
-		LARGE_INTEGER counter;
-		::QueryPerformanceCounter(&counter);
-
-		{
-			m_context->Flush();
-
-			double timeToSleepMillisec = 0.0;
-			::timeBeginPeriod(1);
-
-			do
-			{
-				::QueryPerformanceCounter(&counter);
-				const double timeSinceFlipMillisec = detail::ToMillisec(counter.QuadPart - m_lastPresentTime);
-
-				timeToSleepMillisec = (targetRefreshPeriodMillisec - timeSinceFlipMillisec);
-
-				if (timeToSleepMillisec > 0.0)
-				{
-					::Sleep(static_cast<int32>(timeToSleepMillisec));
-				}
-			} while (timeToSleepMillisec > 0.5);
-
-			::timeEndPeriod(1);
-		}
-		*/
-
 		const UINT presentFlags = m_tearingSupport ? DXGI_PRESENT_ALLOW_TEARING : 0;
 		const HRESULT hr = m_swapChain1->Present(0, presentFlags);
 
@@ -293,8 +249,6 @@ namespace s3d
 			LOG_FAIL(U"❌ IDXGISwapChain::Present() failed (DXGI_ERROR_DEVICE_REMOVED)");
 			return false;
 		}
-
-		//m_lastPresentTime = counter.QuadPart;
 
 		return true;
 	}
