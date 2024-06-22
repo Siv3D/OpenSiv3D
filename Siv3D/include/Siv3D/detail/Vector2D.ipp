@@ -435,13 +435,48 @@ namespace s3d
 	template <class Type>
 	inline Vector2D<Type> Vector2D<Type>::normalized() const noexcept
 	{
-		return (*this * invLength());
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			return *this;
+		}
+
+		const value_type invLen = (static_cast<value_type>(1.0) / std::sqrt(lenSq));
+	
+		return{ (x * invLen), (y * invLen) };
 	}
 
 	template <class Type>
 	inline Vector2D<Type>& Vector2D<Type>::normalize() noexcept
 	{
-		return (*this *= invLength());
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			x = y = 0;
+		}
+		else
+		{
+			const value_type invLen = (static_cast<value_type>(1.0) / std::sqrt(lenSq));
+			x *= invLen;
+			y *= invLen;
+		}
+
+		return *this;
+	}
+
+	template <class Type>
+	inline Vector2D<Type> Vector2D<Type>::normalized_or(const Vector2D<Type> valueIfZero) const noexcept
+	{
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			return valueIfZero;
+		}
+
+		return (*this * (static_cast<value_type>(1.0) / std::sqrt(lenSq)));
 	}
 
 	template <class Type>

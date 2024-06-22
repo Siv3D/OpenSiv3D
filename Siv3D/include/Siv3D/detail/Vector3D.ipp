@@ -447,13 +447,49 @@ namespace s3d
 	template <class Type>
 	inline Vector3D<Type> Vector3D<Type>::normalized() const noexcept
 	{
-		return (*this * invLength());
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			return *this;
+		}
+
+		const value_type invLen = (static_cast<value_type>(1.0) / std::sqrt(lenSq));
+
+		return{ (x * invLen), (y * invLen), (z * invLen) };
 	}
 
 	template <class Type>
 	inline Vector3D<Type>& Vector3D<Type>::normalize() noexcept
 	{
-		return (*this *= invLength());
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			x = y = z = 0;
+		}
+		else
+		{
+			const value_type invLen = (static_cast<value_type>(1.0) / std::sqrt(lenSq));
+			x *= invLen;
+			y *= invLen;
+			z *= invLen;
+		}
+
+		return *this;
+	}
+
+	template <class Type>
+	inline Vector3D<Type> Vector3D<Type>::normalized_or(const Vector3D<Type> valueIfZero) const noexcept
+	{
+		const value_type lenSq = lengthSq();
+
+		if (lenSq == 0)
+		{
+			return valueIfZero;
+		}
+
+		return (*this * (static_cast<value_type>(1.0) / std::sqrt(lenSq)));
 	}
 
 	template <class Type>

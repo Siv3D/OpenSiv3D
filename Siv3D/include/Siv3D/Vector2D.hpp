@@ -322,6 +322,12 @@ namespace s3d
 		/// @return *this
 		Vector2D& normalize() noexcept;
 
+		/// @brief 正規化した（大きさを 1 にした）ベクトルを返します。ゼロベクトルの場合は valueIfZero を返します。
+		/// @param valueIfZero ゼロベクトルの場合に返すベクトル
+		/// @return 正規化した（大きさを 1 にした）ベクトル、または valueIfZero
+		[[nodiscard]]
+		Vector2D normalized_or(Vector2D valueIfZero) const noexcept;
+
 		[[nodiscard]]
 		Vector2D rotated(value_type angle) const noexcept;
 

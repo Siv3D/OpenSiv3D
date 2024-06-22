@@ -325,6 +325,12 @@ namespace s3d
 		/// @return *this
 		Vector3D& normalize() noexcept;
 
+		/// @brief 正規化した（大きさを 1 にした）ベクトルを返します。ゼロベクトルの場合は valueIfZero を返します。
+		/// @param valueIfZero ゼロベクトルの場合に返すベクトル
+		/// @return 正規化した（大きさを 1 にした）ベクトル、または valueIfZero
+		[[nodiscard]]
+		Vector3D normalized_or(Vector3D valueIfZero) const noexcept;
+
 		[[nodiscard]]
 		constexpr Vector3D getMidpoint(Vector3D other) const noexcept;
 
