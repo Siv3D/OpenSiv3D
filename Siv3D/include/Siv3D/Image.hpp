@@ -275,6 +275,12 @@ namespace s3d
 		[[nodiscard]]
 		const Color& operator [](Point pos) const;
 
+		[[nodiscard]]
+		bool inBounds(int64 y, int64 x) const noexcept;
+
+		[[nodiscard]]
+		bool inBounds(Point pos) const noexcept;
+
 		/// @brief 画像データの先頭のポインタを返します。
 		/// @return 画像データの先頭のポインタ
 		[[nodiscard]]

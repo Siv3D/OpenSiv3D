@@ -211,6 +211,18 @@ namespace s3d
 		return *(m_data.data() + (static_cast<size_t>(m_width) * pos.y + pos.x));
 	}
 
+	inline bool Image::inBounds(const int64 y, const int64 x) const noexcept
+	{
+		return (0 <= y) && (y < static_cast<int64>(m_height))
+			&& (0 <= x) && (x < static_cast<int64>(m_width));
+	}
+
+	inline bool Image::inBounds(const Point pos) const noexcept
+	{
+		return (0 <= pos.y) && (pos.y < static_cast<int64>(m_height))
+			&& (0 <= pos.x) && (pos.x < static_cast<int64>(m_width));
+	}
+
 	inline Color* Image::data()
 	{
 		return m_data.data();
