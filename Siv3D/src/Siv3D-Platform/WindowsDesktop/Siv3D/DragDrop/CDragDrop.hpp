@@ -57,6 +57,8 @@ namespace s3d
 
 		HWND m_hWnd = nullptr;
 
+		bool m_initialized = false;
+
 		detail::DropTarget* m_pDropTarget = nullptr;
 
 		Array<DroppedFilePath> m_droppedFilePaths;

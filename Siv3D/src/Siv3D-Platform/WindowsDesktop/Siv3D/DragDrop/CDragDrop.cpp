@@ -741,7 +741,11 @@ namespace s3d
 
 		if (FAILED(::RegisterDragDrop(m_hWnd, m_pDropTarget)))
 		{
-			throw EngineError{ U"RegisterDragDrop() failed" };
+			LOG_WARNING(U"RegisterDragDrop() failed");
+		}
+		else
+		{
+			m_initialized = true;
 		}
 
 		m_pDropTarget->Release();
@@ -749,6 +753,11 @@ namespace s3d
 
 	void CDragDrop::update()
 	{
+		if (not m_initialized)
+		{
+			return;
+		}
+
 		const auto status = m_pDropTarget->getStatus();
 
 		const Array<DroppedFilePath>& filePaths = std::get<Array<DroppedFilePath>>(status);
@@ -768,11 +777,21 @@ namespace s3d
 
 	void CDragDrop::acceptFilePaths(const bool accept)
 	{
+		if (not m_initialized)
+		{
+			return;
+		}
+
 		m_pDropTarget->acceptFilePaths(accept);
 	}
 
 	void CDragDrop::acceptText(const bool accept)
 	{
+		if (not m_initialized)
+		{
+			return;
+		}
+
 		m_pDropTarget->acceptText(accept);
 	}
 
@@ -829,6 +848,11 @@ namespace s3d
 
 	void CDragDrop::makeDragDrop(const Array<FilePath>& paths)
 	{
+		if (not m_initialized)
+		{
+			return;
+		}
+
 		std::lock_guard lock{ m_mutex };
 
 		m_newDragPaths = paths;
@@ -836,6 +860,11 @@ namespace s3d
 
 	void CDragDrop::process()
 	{
+		if (not m_initialized)
+		{
+			return;
+		}
+
 		Array<FilePath> paths;
 
 		{
