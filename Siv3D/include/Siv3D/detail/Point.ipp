@@ -309,13 +309,17 @@ namespace s3d
 	template <class Type>
 	inline Type Point::length() const noexcept
 	{
-		return static_cast<Type>(std::sqrt((x * x) + (y * y)));
+		const Type x_ = static_cast<Type>(x);
+		const Type y_ = static_cast<Type>(y);
+		return static_cast<Type>(std::sqrt((x_ * x_) + (y_ * y_)));
 	}
 
 	template <class Type>
 	inline constexpr Type Point::lengthSq() const noexcept
 	{
-		return static_cast<Type>((x * x) + (y * y));
+		const Type x_ = static_cast<Type>(x);
+		const Type y_ = static_cast<Type>(y);
+		return ((x_ * x_) + (y_ * y_));
 	}
 
 	inline constexpr int32 Point::manhattanLength() const noexcept
