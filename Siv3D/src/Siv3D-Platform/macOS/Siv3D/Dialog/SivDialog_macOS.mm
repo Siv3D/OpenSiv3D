@@ -53,6 +53,24 @@ namespace s3d
 			
 			return true;
 		}
+	
+		static bool SetDefaultPath(NSSavePanel* dialog, const FilePathView defaultPath, const StringView defaultFileName)
+		{
+			if (defaultPath)
+			{
+				NSString* defaultPathStr = [NSString stringWithUTF8String: defaultPath.toUTF8().c_str()];
+				NSURL* url = [NSURL fileURLWithPath:defaultPathStr isDirectory:YES];
+				[dialog setDirectoryURL:url];
+			}
+			
+			if (defaultFileName)
+			{
+				NSString* defaultFileNameStr = [NSString stringWithUTF8String: defaultFileName.toUTF8().c_str()];
+				[dialog setNameFieldStringValue:defaultFileNameStr];
+			}
+			
+			return true;
+		}
 	}
 	
 	namespace Dialog
@@ -155,7 +173,7 @@ namespace s3d
 			}
 		}
 		
-		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView, const StringView)
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView, const StringView defaultFileName)
 		{
 			@autoreleasepool
 			{
@@ -177,7 +195,7 @@ namespace s3d
 					[dialog setAllowedFileTypes:result];
 				}
 				
-				if (!detail::SetDefaultPath(dialog, defaultPath))
+				if (!detail::SetDefaultPath(dialog, defaultPath, defaultFileName))
 				{
 					return none;
 				}
