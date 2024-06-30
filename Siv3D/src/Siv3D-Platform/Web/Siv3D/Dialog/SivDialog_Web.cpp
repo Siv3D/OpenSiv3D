@@ -71,7 +71,7 @@ namespace s3d
 			}
 		}
 
-		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title, const StringView defaultFileName)
 		{
 			// [Siv3D Web NoSupport]
 			return (none);

@@ -96,7 +96,7 @@ namespace s3d
 			}
 		}
 
-		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView)
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView, const StringView)
 		{
 			if (not g_dialogInitialized)
 			{

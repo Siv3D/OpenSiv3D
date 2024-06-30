@@ -251,7 +251,7 @@ namespace s3d
 			}
 		}
 
-		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title)
+		Optional<FilePath> SaveFile(const Array<FileFilter>& filters, const FilePathView defaultPath, const StringView title, const StringView defaultFileName)
 		{
 			ComPtr<IFileSaveDialog> fileSaveDialog;
 
@@ -278,6 +278,11 @@ namespace s3d
 
 			// Append file extension
 			fileSaveDialog->SetDefaultExtension(L"");
+
+			if (defaultFileName)
+			{
+				fileSaveDialog->SetFileName(defaultFileName.toWstr().c_str());
+			}
 
 			if (HRESULT result = fileSaveDialog->Show(static_cast<HWND>(SIV3D_ENGINE(Window)->getHandle()));
 				SUCCEEDED(result))
