@@ -72,8 +72,11 @@ namespace s3d
 				return true;
 			}
 
+			const FilePath fullPath = FileSystem::FullPath(defaultPath);
+			const std::wstring nativePath = FileSystem::NativePath(fullPath);
+
 			ComPtr<IShellItem> folder;
-			HRESULT result = ::SHCreateItemFromParsingName(String{ defaultPath }.replaced(U'/', U'\\').toWstr().c_str(), nullptr, IID_PPV_ARGS(folder.GetAddressOf()));
+			HRESULT result = ::SHCreateItemFromParsingName(nativePath.c_str(), nullptr, IID_PPV_ARGS(folder.GetAddressOf()));
 
 			if (result == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)
 				|| result == HRESULT_FROM_WIN32(ERROR_INVALID_DRIVE))
