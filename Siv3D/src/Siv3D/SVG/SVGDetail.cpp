@@ -96,7 +96,8 @@ namespace s3d
 		const int32 imageHeight	= maxHeight.value_or_eval([&] { return static_cast<int32>(std::ceil(m_document->height())); });
 		const uint32 color = Color{ background.a, background.b, background.g, background.r }.asUint32();
 
-		const lunasvg::Bitmap bitmap = m_document->renderToBitmap(imageWidth, imageHeight, color);
+		lunasvg::Bitmap bitmap = m_document->renderToBitmap(imageWidth, imageHeight, color);
+		bitmap.convert(0, 1, 2, 3, true);
 
 		Image image{ bitmap.width(), bitmap.height() };
 		assert(image.size_bytes() == (bitmap.stride() * bitmap.height()));

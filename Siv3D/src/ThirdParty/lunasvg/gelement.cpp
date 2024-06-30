@@ -4,7 +4,7 @@
 namespace lunasvg {
 
 GElement::GElement()
-    : GraphicsElement(ElementId::G)
+    : GraphicsElement(ElementID::G)
 {
 }
 
@@ -13,7 +13,7 @@ void GElement::layout(LayoutContext* context, LayoutContainer* current) const
     if(isDisplayNone())
         return;
 
-    auto group = std::make_unique<LayoutGroup>();
+    auto group = makeUnique<LayoutGroup>();
     group->transform = transform();
     group->opacity = opacity();
     group->masker = context->getMasker(mask());

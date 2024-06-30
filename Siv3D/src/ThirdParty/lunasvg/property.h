@@ -4,91 +4,91 @@
 #include <vector>
 #include <string>
 #include <array>
+#include <cstdint>
 
 namespace lunasvg {
 
-enum class Display
-{
+enum class Display {
     Inline,
     None
 };
 
-enum class Visibility
-{
+enum class Visibility {
     Visible,
     Hidden
 };
 
-enum class Overflow
-{
+enum class Overflow {
     Visible,
     Hidden
 };
 
-enum class LineCap
-{
+enum class LineCap {
     Butt,
     Round,
     Square
 };
 
-enum class LineJoin
-{
+enum class LineJoin {
     Miter,
     Round,
     Bevel
 };
 
-enum class WindRule
-{
+enum class WindRule {
     NonZero,
     EvenOdd
 };
 
-enum class Units
-{
+enum class Units {
     UserSpaceOnUse,
     ObjectBoundingBox
 };
 
-enum class SpreadMethod
-{
+enum class SpreadMethod {
     Pad,
     Reflect,
     Repeat
 };
 
-enum class MarkerUnits
-{
+enum class MarkerUnits {
     StrokeWidth,
     UserSpaceOnUse
 };
 
-class Color
+template<typename T>
+constexpr const T& clamp(const T& val, const T& lo, const T& hi)
 {
+    return (val < lo) ? lo : (hi < val) ? hi : val;
+}
+
+class Color {
 public:
     Color() = default;
-    Color(double r, double g, double b, double a = 1);
+    explicit Color(uint32_t value) : m_value(value) {}
+    Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : m_value(a << 24 | r << 16 | g << 8 | b) {}
 
-    bool isNone() const { return  a == 0.0; }
+    uint8_t alpha() const { return (m_value >> 24) & 0xff; }
+    uint8_t red() const { return (m_value >> 16) & 0xff; }
+    uint8_t green() const { return (m_value >> 8) & 0xff; }
+    uint8_t blue() const { return (m_value >> 0) & 0xff; }
+
+    uint32_t value() const { return m_value; }
+
+    Color& combine(double opacity);
+    Color combined(double opacity) const;
+
+    bool isNone() const { return  m_value == 0; }
 
     static const Color Black;
     static const Color White;
-    static const Color Red;
-    static const Color Green;
-    static const Color Blue;
-    static const Color Yellow;
     static const Color Transparent;
 
-public:
-    double r{0};
-    double g{0};
-    double b{0};
-    double a{1};
+private:
+    uint32_t m_value{0};
 };
 
-class Paint
-{
+class Paint {
 public:
     Paint() = default;
     Paint(const Color& color);
@@ -103,8 +103,7 @@ public:
     Color m_color{Color::Transparent};
 };
 
-class Point
-{
+class Point {
 public:
     Point() = default;
     Point(double x, double y);
@@ -116,11 +115,13 @@ public:
 
 using PointList = std::vector<Point>;
 
-class Rect
-{
+class Box;
+
+class Rect {
 public:
     Rect() = default;
     Rect(double x, double y, double w, double h);
+    Rect(const Box& box);
 
     Rect operator&(const Rect& rect) const;
     Rect operator|(const Rect& rect) const;
@@ -141,11 +142,13 @@ public:
     double h{0};
 };
 
-class Transform
-{
+class Matrix;
+
+class Transform {
 public:
     Transform() = default;
     Transform(double m00, double m10, double m01, double m11, double m02, double m12);
+    Transform(const Matrix& matrix);
 
     Transform inverted() const;
     Transform operator*(const Transform& transform) const;
@@ -182,16 +185,14 @@ public:
     double m12{0};
 };
 
-enum class PathCommand
-{
+enum class PathCommand {
     MoveTo,
     LineTo,
     CubicTo,
     Close
 };
 
-class Path
-{
+class Path {
 public:
     Path() = default;
 
@@ -218,8 +219,7 @@ private:
     std::vector<Point> m_points;
 };
 
-class PathIterator
-{
+class PathIterator {
 public:
    PathIterator(const Path& path);
 
@@ -234,8 +234,7 @@ private:
    unsigned int m_index{0};
 };
 
-enum class LengthUnits
-{
+enum class LengthUnits {
     Unknown,
     Number,
     Px,
@@ -249,8 +248,7 @@ enum class LengthUnits
     Percent
 };
 
-enum LengthMode
-{
+enum LengthMode {
     Width,
     Height,
     Both
@@ -258,8 +256,7 @@ enum LengthMode
 
 class Element;
 
-class Length
-{
+class Length {
 public:
     Length() = default;
     Length(double value);
@@ -275,7 +272,7 @@ public:
     static const Length Unknown;
     static const Length Zero;
     static const Length One;
-    static const Length ThreePercent;
+    static const Length Three;
     static const Length HundredPercent;
     static const Length FiftyPercent;
     static const Length OneTwentyPercent;
@@ -288,8 +285,7 @@ private:
 
 using LengthList = std::vector<Length>;
 
-class LengthContext
-{
+class LengthContext {
 public:
     LengthContext(const Element* element);
     LengthContext(const Element* element, Units units);
@@ -301,8 +297,7 @@ private:
     Units m_units{Units::UserSpaceOnUse};
 };
 
-enum class Align
-{
+enum class Align {
     None,
     xMinYMin,
     xMidYMin,
@@ -315,14 +310,12 @@ enum class Align
     xMaxYMax
 };
 
-enum class MeetOrSlice
-{
+enum class MeetOrSlice {
     Meet,
     Slice
 };
 
-class PreserveAspectRatio
-{
+class PreserveAspectRatio {
 public:
     PreserveAspectRatio() = default;
     PreserveAspectRatio(Align align, MeetOrSlice scale);
@@ -338,14 +331,12 @@ private:
     MeetOrSlice m_scale{MeetOrSlice::Meet};
 };
 
-enum class MarkerOrient
-{
+enum class MarkerOrient {
     Auto,
     Angle
 };
 
-class Angle
-{
+class Angle {
 public:
     Angle() = default;
     Angle(MarkerOrient type);

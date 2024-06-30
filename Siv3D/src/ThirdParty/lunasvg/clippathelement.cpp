@@ -5,13 +5,13 @@
 namespace lunasvg {
 
 ClipPathElement::ClipPathElement()
-    : GraphicsElement(ElementId::ClipPath)
+    : GraphicsElement(ElementID::ClipPath)
 {
 }
 
 Units ClipPathElement::clipPathUnits() const
 {
-    auto& value = get(PropertyId::ClipPathUnits);
+    auto& value = get(PropertyID::ClipPathUnits);
     return Parser::parseUnits(value, Units::UserSpaceOnUse);
 }
 
@@ -21,7 +21,7 @@ std::unique_ptr<LayoutClipPath> ClipPathElement::getClipper(LayoutContext* conte
         return nullptr;
 
     LayoutBreaker layoutBreaker(context, this);
-    auto clipper = std::make_unique<LayoutClipPath>();
+    auto clipper = makeUnique<LayoutClipPath>();
     clipper->units = clipPathUnits();
     clipper->transform = transform();
     clipper->clipper = context->getClipper(clip_path());

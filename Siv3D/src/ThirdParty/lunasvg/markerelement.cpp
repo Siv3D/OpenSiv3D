@@ -5,55 +5,55 @@
 namespace lunasvg {
 
 MarkerElement::MarkerElement()
-    : StyledElement(ElementId::Marker)
+    : StyledElement(ElementID::Marker)
 {
 }
 
 Length MarkerElement::refX() const
 {
-    auto& value = get(PropertyId::RefX);
+    auto& value = get(PropertyID::RefX);
     return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length MarkerElement::refY() const
 {
-    auto& value = get(PropertyId::RefY);
+    auto& value = get(PropertyID::RefY);
     return Parser::parseLength(value, AllowNegativeLengths, Length::Zero);
 }
 
 Length MarkerElement::markerWidth() const
 {
-    auto& value = get(PropertyId::MarkerWidth);
-    return Parser::parseLength(value, ForbidNegativeLengths, Length::ThreePercent);
+    auto& value = get(PropertyID::MarkerWidth);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Three);
 }
 
 Length MarkerElement::markerHeight() const
 {
-    auto& value = get(PropertyId::MarkerHeight);
-    return Parser::parseLength(value, ForbidNegativeLengths, Length::ThreePercent);
+    auto& value = get(PropertyID::MarkerHeight);
+    return Parser::parseLength(value, ForbidNegativeLengths, Length::Three);
 }
 
 Angle MarkerElement::orient() const
 {
-    auto& value = get(PropertyId::Orient);
+    auto& value = get(PropertyID::Orient);
     return Parser::parseAngle(value);
 }
 
 MarkerUnits MarkerElement::markerUnits() const
 {
-    auto& value = get(PropertyId::MarkerUnits);
+    auto& value = get(PropertyID::MarkerUnits);
     return Parser::parseMarkerUnits(value);
 }
 
 Rect MarkerElement::viewBox() const
 {
-    auto& value = get(PropertyId::ViewBox);
+    auto& value = get(PropertyID::ViewBox);
     return Parser::parseViewBox(value);
 }
 
 PreserveAspectRatio MarkerElement::preserveAspectRatio() const
 {
-    auto& value = get(PropertyId::PreserveAspectRatio);
+    auto& value = get(PropertyID::PreserveAspectRatio);
     return Parser::parsePreserveAspectRatio(value);
 }
 
@@ -76,7 +76,7 @@ std::unique_ptr<LayoutMarker> MarkerElement::getMarker(LayoutContext* context) c
     viewTransform.map(_refX, _refY, &_refX, &_refY);
 
     LayoutBreaker layoutBreaker(context, this);
-    auto marker = std::make_unique<LayoutMarker>();
+    auto marker = makeUnique<LayoutMarker>();
     marker->refX = _refX;
     marker->refY = _refY;
     marker->transform = viewTransform;

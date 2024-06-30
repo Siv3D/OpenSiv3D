@@ -8,8 +8,7 @@
 
 namespace lunasvg {
 
-enum class ElementId
-{
+enum class ElementID {
     Unknown = 0,
     Star,
     Circle,
@@ -35,8 +34,7 @@ enum class ElementId
     Use
 };
 
-enum class PropertyId
-{
+enum class PropertyID {
     Unknown = 0,
     Class,
     Clip_Path,
@@ -106,33 +104,25 @@ enum class PropertyId
     Y2
 };
 
-struct Property
-{
-    PropertyId id;
-    std::string value;
+struct Property {
     int specificity;
+    PropertyID id;
+    std::string value;
 };
 
-class PropertyList
+using PropertyList = std::vector<Property>;
+
+template<typename T, typename... Args>
+inline std::unique_ptr<T> makeUnique(Args&&... args)
 {
-public:
-    PropertyList() = default;
-
-    void set(PropertyId id, const std::string& value, int specificity);
-    Property* get(PropertyId id) const;
-    void add(const Property& property);
-    void add(const PropertyList& properties);
-
-private:
-    std::vector<Property> m_properties;
-};
+    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
 
 class LayoutContext;
 class LayoutContainer;
 class Element;
 
-class Node
-{
+class Node {
 public:
     Node() = default;
     virtual ~Node() = default;
@@ -147,8 +137,7 @@ public:
     Element* parent = nullptr;
 };
 
-class TextNode : public Node
-{
+class TextNode : public Node {
 public:
     TextNode() = default;
 
@@ -161,33 +150,29 @@ public:
 
 using NodeList = std::list<std::unique_ptr<Node>>;
 
-class Element : public Node
-{
+class Element : public Node {
 public:
-    Element(ElementId id);
+    Element(ElementID id);
 
-    void set(PropertyId id, const std::string& value, int specificity);
-    const std::string& get(PropertyId id) const;
-    const std::string& find(PropertyId id) const;
-    bool has(PropertyId id) const;
+    void set(PropertyID id, const std::string& value, int specificity);
+    const std::string& get(PropertyID id) const;
+    const std::string& find(PropertyID id) const;
+    bool has(PropertyID id) const;
 
-    Element* previousSibling() const;
-    Element* nextSibling() const;
+    Element* previousElement() const;
+    Element* nextElement() const;
     Node* addChild(std::unique_ptr<Node> child);
     void layoutChildren(LayoutContext* context, LayoutContainer* current) const;
     Rect currentViewport() const;
 
     template<typename T>
-    void transverse(T callback)
-    {
-        if(callback(this))
+    void transverse(T callback) {
+        if(!callback(this))
             return;
 
-        for(auto& child : children)
-        {
-            if(child->isText())
-            {
-                if(callback(child.get()))
+        for(auto& child : children) {
+            if(child->isText()) {
+                if(!callback(child.get()))
                     return;
                 continue;
             }
@@ -198,9 +183,8 @@ public:
     }
 
     template<typename T>
-    std::unique_ptr<T> cloneElement() const
-    {
-        auto element = std::make_unique<T>();
+    std::unique_ptr<T> cloneElement() const {
+        auto element = makeUnique<T>();
         element->properties = properties;
         for(auto& child : children)
             element->addChild(child->clone());
@@ -208,7 +192,7 @@ public:
     }
 
 public:
-    ElementId id;
+    ElementID id;
     NodeList children;
     PropertyList properties;
 };
