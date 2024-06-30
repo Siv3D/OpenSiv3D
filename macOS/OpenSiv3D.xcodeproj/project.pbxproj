@@ -8,20 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2C0475DC266CDF4100936095 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0475DB266CDF4100936095 /* libcurl.tbd */; };
-		2C0A4D622566A855002A4B5E /* plutovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D532566A855002A4B5E /* plutovg.h */; };
-		2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */; };
-		2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D552566A855002A4B5E /* sw_ft_math.h */; };
-		2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D562566A855002A4B5E /* plutovg-paint.c */; };
-		2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D572566A855002A4B5E /* sw_ft_types.h */; };
-		2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D582566A855002A4B5E /* sw_ft_raster.c */; };
-		2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */; };
-		2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */; };
-		2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */; };
-		2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5D2566A855002A4B5E /* plutovg.c */; };
-		2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D5E2566A855002A4B5E /* plutovg-private.h */; };
-		2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */; };
-		2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0A4D602566A855002A4B5E /* sw_ft_raster.h */; };
-		2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D612566A855002A4B5E /* sw_ft_math.c */; };
 		2C0A4D86256A1C6C002A4B5E /* example in Resources */ = {isa = PBXBuildFile; fileRef = 2C0A4D85256A1C6C002A4B5E /* example */; };
 		2C0A4DA1256A21E6002A4B5E /* sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A4D9C256A21E6002A4B5E /* sprite.metal */; };
 		2C0A98D12A7BB93800402926 /* SivNinePatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A98CE2A7BB93800402926 /* SivNinePatch.cpp */; };
@@ -129,6 +115,62 @@
 		2C13C9D725BD29FC0054B968 /* ldo.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C13C99A25BD29FC0054B968 /* ldo.c */; };
 		2C13C9D825BD29FC0054B968 /* lundump.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C13C99B25BD29FC0054B968 /* lundump.h */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
+		2C18242C2C3117350029D770 /* plutovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18241C2C3117340029D770 /* plutovg.h */; };
+		2C18242D2C3117350029D770 /* plutovg-ft-raster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C18241D2C3117340029D770 /* plutovg-ft-raster.c */; };
+		2C18242E2C3117350029D770 /* plutovg-ft-math.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18241E2C3117340029D770 /* plutovg-ft-math.h */; };
+		2C18242F2C3117350029D770 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C18241F2C3117340029D770 /* plutovg-dash.c */; };
+		2C1824302C3117350029D770 /* plutovg-paint.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824202C3117340029D770 /* plutovg-paint.c */; };
+		2C1824312C3117350029D770 /* plutovg-ft-types.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824222C3117340029D770 /* plutovg-ft-types.h */; };
+		2C1824322C3117350029D770 /* plutovg-ft-stroker.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824232C3117340029D770 /* plutovg-ft-stroker.c */; };
+		2C1824332C3117350029D770 /* plutovg-geometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824242C3117340029D770 /* plutovg-geometry.c */; };
+		2C1824342C3117350029D770 /* plutovg-blend.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824252C3117340029D770 /* plutovg-blend.c */; };
+		2C1824352C3117350029D770 /* plutovg-ft-raster.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824262C3117340029D770 /* plutovg-ft-raster.h */; };
+		2C1824362C3117350029D770 /* plutovg-ft-math.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824272C3117340029D770 /* plutovg-ft-math.c */; };
+		2C1824372C3117350029D770 /* plutovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824282C3117340029D770 /* plutovg.c */; };
+		2C1824382C3117350029D770 /* plutovg-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824292C3117340029D770 /* plutovg-private.h */; };
+		2C1824392C3117350029D770 /* plutovg-rle.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C18242A2C3117340029D770 /* plutovg-rle.c */; };
+		2C18243A2C3117350029D770 /* plutovg-ft-stroker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18242B2C3117340029D770 /* plutovg-ft-stroker.h */; };
+		2C1824652C3117410029D770 /* paintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18243C2C3117410029D770 /* paintelement.h */; };
+		2C1824662C3117410029D770 /* symbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18243D2C3117410029D770 /* symbolelement.h */; };
+		2C1824672C3117410029D770 /* svgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18243E2C3117410029D770 /* svgelement.cpp */; };
+		2C1824682C3117410029D770 /* symbolelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18243F2C3117410029D770 /* symbolelement.cpp */; };
+		2C1824692C3117410029D770 /* defselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824402C3117410029D770 /* defselement.cpp */; };
+		2C18246A2C3117410029D770 /* geometryelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824412C3117410029D770 /* geometryelement.h */; };
+		2C18246B2C3117410029D770 /* styleelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824422C3117410029D770 /* styleelement.h */; };
+		2C18246C2C3117410029D770 /* maskelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824432C3117410029D770 /* maskelement.cpp */; };
+		2C18246D2C3117410029D770 /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824442C3117410029D770 /* canvas.cpp */; };
+		2C18246E2C3117410029D770 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824452C3117410029D770 /* parser.h */; };
+		2C18246F2C3117410029D770 /* property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824462C3117410029D770 /* property.cpp */; };
+		2C1824702C3117410029D770 /* defselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824472C3117410029D770 /* defselement.h */; };
+		2C1824712C3117410029D770 /* markerelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824482C3117410029D770 /* markerelement.h */; };
+		2C1824722C3117410029D770 /* useelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824492C3117410029D770 /* useelement.cpp */; };
+		2C1824732C3117410029D770 /* useelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18244A2C3117410029D770 /* useelement.h */; };
+		2C1824742C3117410029D770 /* lunasvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18244B2C3117410029D770 /* lunasvg.h */; };
+		2C1824752C3117410029D770 /* styledelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18244C2C3117410029D770 /* styledelement.cpp */; };
+		2C1824762C3117410029D770 /* gelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18244D2C3117410029D770 /* gelement.cpp */; };
+		2C1824772C3117410029D770 /* gelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18244E2C3117410029D770 /* gelement.h */; };
+		2C1824782C3117410029D770 /* stopelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18244F2C3117410029D770 /* stopelement.cpp */; };
+		2C1824792C3117410029D770 /* styledelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824502C3117410029D770 /* styledelement.h */; };
+		2C18247A2C3117410029D770 /* markerelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824512C3117410029D770 /* markerelement.cpp */; };
+		2C18247B2C3117410029D770 /* paintelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824522C3117410029D770 /* paintelement.cpp */; };
+		2C18247C2C3117410029D770 /* element.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824532C3117410029D770 /* element.h */; };
+		2C18247D2C3117410029D770 /* maskelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824542C3117410029D770 /* maskelement.h */; };
+		2C18247E2C3117410029D770 /* geometryelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824552C3117410029D770 /* geometryelement.cpp */; };
+		2C18247F2C3117410029D770 /* layoutcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824562C3117410029D770 /* layoutcontext.h */; };
+		2C1824802C3117410029D770 /* stopelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824572C3117410029D770 /* stopelement.h */; };
+		2C1824812C3117410029D770 /* layoutcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824582C3117410029D770 /* layoutcontext.cpp */; };
+		2C1824822C3117410029D770 /* styleelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824592C3117410029D770 /* styleelement.cpp */; };
+		2C1824832C3117410029D770 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C18245A2C3117410029D770 /* element.cpp */; };
+		2C1824842C3117410029D770 /* property.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18245B2C3117410029D770 /* property.h */; };
+		2C1824852C3117410029D770 /* clippathelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18245C2C3117410029D770 /* clippathelement.h */; };
+		2C1824862C3117410029D770 /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18245D2C3117410029D770 /* canvas.h */; };
+		2C1824872C3117410029D770 /* svgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18245E2C3117410029D770 /* svgelement.h */; };
+		2C1824882C3117410029D770 /* graphicselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C18245F2C3117410029D770 /* graphicselement.h */; };
+		2C1824892C3117410029D770 /* clippathelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824602C3117410029D770 /* clippathelement.cpp */; };
+		2C18248A2C3117410029D770 /* lunasvg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824612C3117410029D770 /* lunasvg.cpp */; };
+		2C18248B2C3117410029D770 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824622C3117410029D770 /* parser.cpp */; };
+		2C18248C2C3117410029D770 /* graphicselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1824632C3117410029D770 /* graphicselement.cpp */; };
+		2C18248D2C3117410029D770 /* parserutils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1824642C3117410029D770 /* parserutils.h */; };
 		2C27113E2A7EA6CF00BD4014 /* SivTrail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2711362A7EA6CE00BD4014 /* SivTrail.cpp */; };
 		2C27113F2A7EA6CF00BD4014 /* SivTrailMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2711382A7EA6CF00BD4014 /* SivTrailMotion.cpp */; };
 		2C2711402A7EA6CF00BD4014 /* ITrailRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C27113A2A7EA6CF00BD4014 /* ITrailRenderer.hpp */; };
@@ -771,7 +813,6 @@
 		2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */; };
 		2C794B6325C4241800034D81 /* GL4Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6125C4241800034D81 /* GL4Texture.cpp */; };
 		2C794B6425C4241800034D81 /* GL4Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C794B6225C4241800034D81 /* GL4Texture.hpp */; };
-		2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C794B6525C4FD0400034D81 /* plutovg-dash.c */; };
 		2C796EB125CA42130003B7EC /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C796EB025CA41DA0003B7EC /* libharfbuzz.a */; };
 		2C7A77932B3BF56400E40A53 /* fast_float.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7A77922B3BF56400E40A53 /* fast_float.h */; };
 		2C7A779B2B41095C00E40A53 /* SivOpenAIEmbedding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A77952B41095C00E40A53 /* SivOpenAIEmbedding.cpp */; };
@@ -2167,47 +2208,6 @@
 		2CF962FA25A7F9AB006F55C9 /* Splines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF962F825A7F9AB006F55C9 /* Splines.cpp */; };
 		2CF962FB25A7F9AB006F55C9 /* Splines.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF962F925A7F9AB006F55C9 /* Splines.h */; };
 		2CF9FD142490F3AE00EC8308 /* levenshtein-sse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */; };
-		2CFABB04272E3ACB00939278 /* paintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABADB272E3ACB00939278 /* paintelement.h */; };
-		2CFABB05272E3ACB00939278 /* symbolelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABADC272E3ACB00939278 /* symbolelement.h */; };
-		2CFABB06272E3ACB00939278 /* svgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABADD272E3ACB00939278 /* svgelement.cpp */; };
-		2CFABB07272E3ACB00939278 /* symbolelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABADE272E3ACB00939278 /* symbolelement.cpp */; };
-		2CFABB08272E3ACB00939278 /* defselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABADF272E3ACB00939278 /* defselement.cpp */; };
-		2CFABB09272E3ACB00939278 /* geometryelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE0272E3ACB00939278 /* geometryelement.h */; };
-		2CFABB0A272E3ACB00939278 /* styleelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE1272E3ACB00939278 /* styleelement.h */; };
-		2CFABB0B272E3ACB00939278 /* maskelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAE2272E3ACB00939278 /* maskelement.cpp */; };
-		2CFABB0C272E3ACB00939278 /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAE3272E3ACB00939278 /* canvas.cpp */; };
-		2CFABB0D272E3ACB00939278 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE4272E3ACB00939278 /* parser.h */; };
-		2CFABB0E272E3ACB00939278 /* property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAE5272E3ACB00939278 /* property.cpp */; };
-		2CFABB0F272E3ACB00939278 /* defselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE6272E3ACB00939278 /* defselement.h */; };
-		2CFABB10272E3ACB00939278 /* markerelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE7272E3ACB00939278 /* markerelement.h */; };
-		2CFABB11272E3ACB00939278 /* useelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAE8272E3ACB00939278 /* useelement.cpp */; };
-		2CFABB12272E3ACB00939278 /* useelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAE9272E3ACB00939278 /* useelement.h */; };
-		2CFABB13272E3ACB00939278 /* lunasvg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAEA272E3ACB00939278 /* lunasvg.h */; };
-		2CFABB14272E3ACB00939278 /* styledelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAEB272E3ACB00939278 /* styledelement.cpp */; };
-		2CFABB15272E3ACB00939278 /* gelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAEC272E3ACB00939278 /* gelement.cpp */; };
-		2CFABB16272E3ACB00939278 /* gelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAED272E3ACB00939278 /* gelement.h */; };
-		2CFABB17272E3ACB00939278 /* stopelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAEE272E3ACB00939278 /* stopelement.cpp */; };
-		2CFABB18272E3ACB00939278 /* styledelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAEF272E3ACB00939278 /* styledelement.h */; };
-		2CFABB19272E3ACB00939278 /* markerelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF0272E3ACB00939278 /* markerelement.cpp */; };
-		2CFABB1A272E3ACB00939278 /* paintelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF1272E3ACB00939278 /* paintelement.cpp */; };
-		2CFABB1B272E3ACB00939278 /* element.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAF2272E3ACB00939278 /* element.h */; };
-		2CFABB1C272E3ACB00939278 /* maskelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAF3272E3ACB00939278 /* maskelement.h */; };
-		2CFABB1D272E3ACB00939278 /* geometryelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF4272E3ACB00939278 /* geometryelement.cpp */; };
-		2CFABB1E272E3ACB00939278 /* layoutcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAF5272E3ACB00939278 /* layoutcontext.h */; };
-		2CFABB1F272E3ACB00939278 /* stopelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAF6272E3ACB00939278 /* stopelement.h */; };
-		2CFABB20272E3ACB00939278 /* layoutcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF7272E3ACB00939278 /* layoutcontext.cpp */; };
-		2CFABB21272E3ACB00939278 /* styleelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF8272E3ACB00939278 /* styleelement.cpp */; };
-		2CFABB22272E3ACB00939278 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAF9272E3ACB00939278 /* element.cpp */; };
-		2CFABB23272E3ACB00939278 /* property.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAFA272E3ACB00939278 /* property.h */; };
-		2CFABB24272E3ACB00939278 /* clippathelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAFB272E3ACB00939278 /* clippathelement.h */; };
-		2CFABB25272E3ACB00939278 /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAFC272E3ACB00939278 /* canvas.h */; };
-		2CFABB26272E3ACB00939278 /* svgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAFD272E3ACB00939278 /* svgelement.h */; };
-		2CFABB27272E3ACB00939278 /* graphicselement.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABAFE272E3ACB00939278 /* graphicselement.h */; };
-		2CFABB28272E3ACB00939278 /* clippathelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABAFF272E3ACB00939278 /* clippathelement.cpp */; };
-		2CFABB29272E3ACB00939278 /* lunasvg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABB00272E3ACB00939278 /* lunasvg.cpp */; };
-		2CFABB2A272E3ACB00939278 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABB01272E3ACB00939278 /* parser.cpp */; };
-		2CFABB2B272E3ACB00939278 /* graphicselement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFABB02272E3ACB00939278 /* graphicselement.cpp */; };
-		2CFABB2C272E3ACB00939278 /* parserutils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFABB03272E3ACB00939278 /* parserutils.h */; };
 		2CFB7DA8262A66BA00169B97 /* CTextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DA6262A66B900169B97 /* CTextInput.hpp */; };
 		2CFB7DA9262A66BA00169B97 /* CTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB7DA7262A66B900169B97 /* CTextInput.cpp */; };
 		2CFB7DBC262AB4D800169B97 /* CClipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */; };
@@ -2261,20 +2261,6 @@
 		2C063D3A26612A4F00368BEE /* DirectXMathVector.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathVector.inl; sourceTree = "<group>"; };
 		2C063D3B26612A4F00368BEE /* DirectXPackedVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXPackedVector.h; sourceTree = "<group>"; };
 		2C063D3C26612A4F00368BEE /* DirectXMathMatrix.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirectXMathMatrix.inl; sourceTree = "<group>"; };
-		2C0A4D532566A855002A4B5E /* plutovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plutovg.h; sourceTree = "<group>"; };
-		2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_stroker.c; sourceTree = "<group>"; };
-		2C0A4D552566A855002A4B5E /* sw_ft_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_math.h; sourceTree = "<group>"; };
-		2C0A4D562566A855002A4B5E /* plutovg-paint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-paint.c"; sourceTree = "<group>"; };
-		2C0A4D572566A855002A4B5E /* sw_ft_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_types.h; sourceTree = "<group>"; };
-		2C0A4D582566A855002A4B5E /* sw_ft_raster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_raster.c; sourceTree = "<group>"; };
-		2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-geometry.c"; sourceTree = "<group>"; };
-		2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_stroker.h; sourceTree = "<group>"; };
-		2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-blend.c"; sourceTree = "<group>"; };
-		2C0A4D5D2566A855002A4B5E /* plutovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = plutovg.c; sourceTree = "<group>"; };
-		2C0A4D5E2566A855002A4B5E /* plutovg-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-private.h"; sourceTree = "<group>"; };
-		2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-rle.c"; sourceTree = "<group>"; };
-		2C0A4D602566A855002A4B5E /* sw_ft_raster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sw_ft_raster.h; sourceTree = "<group>"; };
-		2C0A4D612566A855002A4B5E /* sw_ft_math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sw_ft_math.c; sourceTree = "<group>"; };
 		2C0A4D7C256A1807002A4B5E /* nanoflann.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nanoflann.hpp; sourceTree = "<group>"; };
 		2C0A4D85256A1C6C002A4B5E /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = App/example; sourceTree = "<group>"; };
 		2C0A4D9C256A21E6002A4B5E /* sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = sprite.metal; sourceTree = "<group>"; };
@@ -2492,6 +2478,63 @@
 		2C13C99B25BD29FC0054B968 /* lundump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lundump.h; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C18241C2C3117340029D770 /* plutovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plutovg.h; sourceTree = "<group>"; };
+		2C18241D2C3117340029D770 /* plutovg-ft-raster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-ft-raster.c"; sourceTree = "<group>"; };
+		2C18241E2C3117340029D770 /* plutovg-ft-math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-ft-math.h"; sourceTree = "<group>"; };
+		2C18241F2C3117340029D770 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
+		2C1824202C3117340029D770 /* plutovg-paint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-paint.c"; sourceTree = "<group>"; };
+		2C1824212C3117340029D770 /* FTL.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FTL.TXT; sourceTree = "<group>"; };
+		2C1824222C3117340029D770 /* plutovg-ft-types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-ft-types.h"; sourceTree = "<group>"; };
+		2C1824232C3117340029D770 /* plutovg-ft-stroker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-ft-stroker.c"; sourceTree = "<group>"; };
+		2C1824242C3117340029D770 /* plutovg-geometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-geometry.c"; sourceTree = "<group>"; };
+		2C1824252C3117340029D770 /* plutovg-blend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-blend.c"; sourceTree = "<group>"; };
+		2C1824262C3117340029D770 /* plutovg-ft-raster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-ft-raster.h"; sourceTree = "<group>"; };
+		2C1824272C3117340029D770 /* plutovg-ft-math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-ft-math.c"; sourceTree = "<group>"; };
+		2C1824282C3117340029D770 /* plutovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = plutovg.c; sourceTree = "<group>"; };
+		2C1824292C3117340029D770 /* plutovg-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-private.h"; sourceTree = "<group>"; };
+		2C18242A2C3117340029D770 /* plutovg-rle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-rle.c"; sourceTree = "<group>"; };
+		2C18242B2C3117340029D770 /* plutovg-ft-stroker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "plutovg-ft-stroker.h"; sourceTree = "<group>"; };
+		2C18243C2C3117410029D770 /* paintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paintelement.h; sourceTree = "<group>"; };
+		2C18243D2C3117410029D770 /* symbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbolelement.h; sourceTree = "<group>"; };
+		2C18243E2C3117410029D770 /* svgelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelement.cpp; sourceTree = "<group>"; };
+		2C18243F2C3117410029D770 /* symbolelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = symbolelement.cpp; sourceTree = "<group>"; };
+		2C1824402C3117410029D770 /* defselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = defselement.cpp; sourceTree = "<group>"; };
+		2C1824412C3117410029D770 /* geometryelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometryelement.h; sourceTree = "<group>"; };
+		2C1824422C3117410029D770 /* styleelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = styleelement.h; sourceTree = "<group>"; };
+		2C1824432C3117410029D770 /* maskelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maskelement.cpp; sourceTree = "<group>"; };
+		2C1824442C3117410029D770 /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
+		2C1824452C3117410029D770 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		2C1824462C3117410029D770 /* property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = property.cpp; sourceTree = "<group>"; };
+		2C1824472C3117410029D770 /* defselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defselement.h; sourceTree = "<group>"; };
+		2C1824482C3117410029D770 /* markerelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = markerelement.h; sourceTree = "<group>"; };
+		2C1824492C3117410029D770 /* useelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = useelement.cpp; sourceTree = "<group>"; };
+		2C18244A2C3117410029D770 /* useelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = useelement.h; sourceTree = "<group>"; };
+		2C18244B2C3117410029D770 /* lunasvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lunasvg.h; sourceTree = "<group>"; };
+		2C18244C2C3117410029D770 /* styledelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styledelement.cpp; sourceTree = "<group>"; };
+		2C18244D2C3117410029D770 /* gelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gelement.cpp; sourceTree = "<group>"; };
+		2C18244E2C3117410029D770 /* gelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gelement.h; sourceTree = "<group>"; };
+		2C18244F2C3117410029D770 /* stopelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stopelement.cpp; sourceTree = "<group>"; };
+		2C1824502C3117410029D770 /* styledelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = styledelement.h; sourceTree = "<group>"; };
+		2C1824512C3117410029D770 /* markerelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = markerelement.cpp; sourceTree = "<group>"; };
+		2C1824522C3117410029D770 /* paintelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paintelement.cpp; sourceTree = "<group>"; };
+		2C1824532C3117410029D770 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
+		2C1824542C3117410029D770 /* maskelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maskelement.h; sourceTree = "<group>"; };
+		2C1824552C3117410029D770 /* geometryelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometryelement.cpp; sourceTree = "<group>"; };
+		2C1824562C3117410029D770 /* layoutcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layoutcontext.h; sourceTree = "<group>"; };
+		2C1824572C3117410029D770 /* stopelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stopelement.h; sourceTree = "<group>"; };
+		2C1824582C3117410029D770 /* layoutcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layoutcontext.cpp; sourceTree = "<group>"; };
+		2C1824592C3117410029D770 /* styleelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styleelement.cpp; sourceTree = "<group>"; };
+		2C18245A2C3117410029D770 /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = element.cpp; sourceTree = "<group>"; };
+		2C18245B2C3117410029D770 /* property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = property.h; sourceTree = "<group>"; };
+		2C18245C2C3117410029D770 /* clippathelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clippathelement.h; sourceTree = "<group>"; };
+		2C18245D2C3117410029D770 /* canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = canvas.h; sourceTree = "<group>"; };
+		2C18245E2C3117410029D770 /* svgelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelement.h; sourceTree = "<group>"; };
+		2C18245F2C3117410029D770 /* graphicselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphicselement.h; sourceTree = "<group>"; };
+		2C1824602C3117410029D770 /* clippathelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clippathelement.cpp; sourceTree = "<group>"; };
+		2C1824612C3117410029D770 /* lunasvg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lunasvg.cpp; sourceTree = "<group>"; };
+		2C1824622C3117410029D770 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		2C1824632C3117410029D770 /* graphicselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphicselement.cpp; sourceTree = "<group>"; };
+		2C1824642C3117410029D770 /* parserutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parserutils.h; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
 		2C2711332A7EA69900BD4014 /* Trail.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trail.hpp; sourceTree = "<group>"; };
 		2C2711342A7EA69900BD4014 /* TrailMotion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TrailMotion.hpp; sourceTree = "<group>"; };
@@ -3229,7 +3272,6 @@
 		2C794B5C25C4083400034D81 /* CTexture_Metal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTexture_Metal.cpp; sourceTree = "<group>"; };
 		2C794B6125C4241800034D81 /* GL4Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL4Texture.cpp; sourceTree = "<group>"; };
 		2C794B6225C4241800034D81 /* GL4Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL4Texture.hpp; sourceTree = "<group>"; };
-		2C794B6525C4FD0400034D81 /* plutovg-dash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "plutovg-dash.c"; sourceTree = "<group>"; };
 		2C796EB025CA41DA0003B7EC /* libharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/libharfbuzz.a; sourceTree = "<group>"; };
 		2C7A77922B3BF56400E40A53 /* fast_float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fast_float.h; sourceTree = "<group>"; };
 		2C7A77952B41095C00E40A53 /* SivOpenAIEmbedding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivOpenAIEmbedding.cpp; sourceTree = "<group>"; };
@@ -5416,47 +5458,6 @@
 		2CF962F825A7F9AB006F55C9 /* Splines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Splines.cpp; sourceTree = "<group>"; };
 		2CF962F925A7F9AB006F55C9 /* Splines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splines.h; sourceTree = "<group>"; };
 		2CF9FD132490F3AE00EC8308 /* levenshtein-sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "levenshtein-sse.hpp"; sourceTree = "<group>"; };
-		2CFABADB272E3ACB00939278 /* paintelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paintelement.h; sourceTree = "<group>"; };
-		2CFABADC272E3ACB00939278 /* symbolelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbolelement.h; sourceTree = "<group>"; };
-		2CFABADD272E3ACB00939278 /* svgelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgelement.cpp; sourceTree = "<group>"; };
-		2CFABADE272E3ACB00939278 /* symbolelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = symbolelement.cpp; sourceTree = "<group>"; };
-		2CFABADF272E3ACB00939278 /* defselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = defselement.cpp; sourceTree = "<group>"; };
-		2CFABAE0272E3ACB00939278 /* geometryelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometryelement.h; sourceTree = "<group>"; };
-		2CFABAE1272E3ACB00939278 /* styleelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = styleelement.h; sourceTree = "<group>"; };
-		2CFABAE2272E3ACB00939278 /* maskelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maskelement.cpp; sourceTree = "<group>"; };
-		2CFABAE3272E3ACB00939278 /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
-		2CFABAE4272E3ACB00939278 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
-		2CFABAE5272E3ACB00939278 /* property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = property.cpp; sourceTree = "<group>"; };
-		2CFABAE6272E3ACB00939278 /* defselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defselement.h; sourceTree = "<group>"; };
-		2CFABAE7272E3ACB00939278 /* markerelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = markerelement.h; sourceTree = "<group>"; };
-		2CFABAE8272E3ACB00939278 /* useelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = useelement.cpp; sourceTree = "<group>"; };
-		2CFABAE9272E3ACB00939278 /* useelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = useelement.h; sourceTree = "<group>"; };
-		2CFABAEA272E3ACB00939278 /* lunasvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lunasvg.h; sourceTree = "<group>"; };
-		2CFABAEB272E3ACB00939278 /* styledelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styledelement.cpp; sourceTree = "<group>"; };
-		2CFABAEC272E3ACB00939278 /* gelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gelement.cpp; sourceTree = "<group>"; };
-		2CFABAED272E3ACB00939278 /* gelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gelement.h; sourceTree = "<group>"; };
-		2CFABAEE272E3ACB00939278 /* stopelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stopelement.cpp; sourceTree = "<group>"; };
-		2CFABAEF272E3ACB00939278 /* styledelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = styledelement.h; sourceTree = "<group>"; };
-		2CFABAF0272E3ACB00939278 /* markerelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = markerelement.cpp; sourceTree = "<group>"; };
-		2CFABAF1272E3ACB00939278 /* paintelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paintelement.cpp; sourceTree = "<group>"; };
-		2CFABAF2272E3ACB00939278 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = element.h; sourceTree = "<group>"; };
-		2CFABAF3272E3ACB00939278 /* maskelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maskelement.h; sourceTree = "<group>"; };
-		2CFABAF4272E3ACB00939278 /* geometryelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometryelement.cpp; sourceTree = "<group>"; };
-		2CFABAF5272E3ACB00939278 /* layoutcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layoutcontext.h; sourceTree = "<group>"; };
-		2CFABAF6272E3ACB00939278 /* stopelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stopelement.h; sourceTree = "<group>"; };
-		2CFABAF7272E3ACB00939278 /* layoutcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layoutcontext.cpp; sourceTree = "<group>"; };
-		2CFABAF8272E3ACB00939278 /* styleelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = styleelement.cpp; sourceTree = "<group>"; };
-		2CFABAF9272E3ACB00939278 /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = element.cpp; sourceTree = "<group>"; };
-		2CFABAFA272E3ACB00939278 /* property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = property.h; sourceTree = "<group>"; };
-		2CFABAFB272E3ACB00939278 /* clippathelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clippathelement.h; sourceTree = "<group>"; };
-		2CFABAFC272E3ACB00939278 /* canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = canvas.h; sourceTree = "<group>"; };
-		2CFABAFD272E3ACB00939278 /* svgelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgelement.h; sourceTree = "<group>"; };
-		2CFABAFE272E3ACB00939278 /* graphicselement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphicselement.h; sourceTree = "<group>"; };
-		2CFABAFF272E3ACB00939278 /* clippathelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clippathelement.cpp; sourceTree = "<group>"; };
-		2CFABB00272E3ACB00939278 /* lunasvg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lunasvg.cpp; sourceTree = "<group>"; };
-		2CFABB01272E3ACB00939278 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
-		2CFABB02272E3ACB00939278 /* graphicselement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphicselement.cpp; sourceTree = "<group>"; };
-		2CFABB03272E3ACB00939278 /* parserutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parserutils.h; sourceTree = "<group>"; };
 		2CFB7DA6262A66B900169B97 /* CTextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextInput.hpp; sourceTree = "<group>"; };
 		2CFB7DA7262A66B900169B97 /* CTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextInput.cpp; sourceTree = "<group>"; };
 		2CFB7DBA262AB4D800169B97 /* CClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard.hpp; sourceTree = "<group>"; };
@@ -5559,28 +5560,6 @@
 				2C063D3C26612A4F00368BEE /* DirectXMathMatrix.inl */,
 			);
 			path = DirectXMath;
-			sourceTree = "<group>";
-		};
-		2C0A4D522566A855002A4B5E /* plutovg */ = {
-			isa = PBXGroup;
-			children = (
-				2C0A4D5C2566A855002A4B5E /* plutovg-blend.c */,
-				2C794B6525C4FD0400034D81 /* plutovg-dash.c */,
-				2C0A4D5A2566A855002A4B5E /* plutovg-geometry.c */,
-				2C0A4D562566A855002A4B5E /* plutovg-paint.c */,
-				2C0A4D5F2566A855002A4B5E /* plutovg-rle.c */,
-				2C0A4D5D2566A855002A4B5E /* plutovg.c */,
-				2C0A4D612566A855002A4B5E /* sw_ft_math.c */,
-				2C0A4D582566A855002A4B5E /* sw_ft_raster.c */,
-				2C0A4D542566A855002A4B5E /* sw_ft_stroker.c */,
-				2C0A4D5E2566A855002A4B5E /* plutovg-private.h */,
-				2C0A4D532566A855002A4B5E /* plutovg.h */,
-				2C0A4D552566A855002A4B5E /* sw_ft_math.h */,
-				2C0A4D602566A855002A4B5E /* sw_ft_raster.h */,
-				2C0A4D5B2566A855002A4B5E /* sw_ft_stroker.h */,
-				2C0A4D572566A855002A4B5E /* sw_ft_types.h */,
-			);
-			path = plutovg;
 			sourceTree = "<group>";
 		};
 		2C0A4D7A256A1807002A4B5E /* nanoflann */ = {
@@ -5961,6 +5940,77 @@
 				2C47E59824AF3C7B0060E8A7 /* libboost_filesystem.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C18241B2C3117340029D770 /* plutovg */ = {
+			isa = PBXGroup;
+			children = (
+				2C18241C2C3117340029D770 /* plutovg.h */,
+				2C18241D2C3117340029D770 /* plutovg-ft-raster.c */,
+				2C18241E2C3117340029D770 /* plutovg-ft-math.h */,
+				2C18241F2C3117340029D770 /* plutovg-dash.c */,
+				2C1824202C3117340029D770 /* plutovg-paint.c */,
+				2C1824212C3117340029D770 /* FTL.TXT */,
+				2C1824222C3117340029D770 /* plutovg-ft-types.h */,
+				2C1824232C3117340029D770 /* plutovg-ft-stroker.c */,
+				2C1824242C3117340029D770 /* plutovg-geometry.c */,
+				2C1824252C3117340029D770 /* plutovg-blend.c */,
+				2C1824262C3117340029D770 /* plutovg-ft-raster.h */,
+				2C1824272C3117340029D770 /* plutovg-ft-math.c */,
+				2C1824282C3117340029D770 /* plutovg.c */,
+				2C1824292C3117340029D770 /* plutovg-private.h */,
+				2C18242A2C3117340029D770 /* plutovg-rle.c */,
+				2C18242B2C3117340029D770 /* plutovg-ft-stroker.h */,
+			);
+			path = plutovg;
+			sourceTree = "<group>";
+		};
+		2C18243B2C3117410029D770 /* lunasvg */ = {
+			isa = PBXGroup;
+			children = (
+				2C18243C2C3117410029D770 /* paintelement.h */,
+				2C18243D2C3117410029D770 /* symbolelement.h */,
+				2C18243E2C3117410029D770 /* svgelement.cpp */,
+				2C18243F2C3117410029D770 /* symbolelement.cpp */,
+				2C1824402C3117410029D770 /* defselement.cpp */,
+				2C1824412C3117410029D770 /* geometryelement.h */,
+				2C1824422C3117410029D770 /* styleelement.h */,
+				2C1824432C3117410029D770 /* maskelement.cpp */,
+				2C1824442C3117410029D770 /* canvas.cpp */,
+				2C1824452C3117410029D770 /* parser.h */,
+				2C1824462C3117410029D770 /* property.cpp */,
+				2C1824472C3117410029D770 /* defselement.h */,
+				2C1824482C3117410029D770 /* markerelement.h */,
+				2C1824492C3117410029D770 /* useelement.cpp */,
+				2C18244A2C3117410029D770 /* useelement.h */,
+				2C18244B2C3117410029D770 /* lunasvg.h */,
+				2C18244C2C3117410029D770 /* styledelement.cpp */,
+				2C18244D2C3117410029D770 /* gelement.cpp */,
+				2C18244E2C3117410029D770 /* gelement.h */,
+				2C18244F2C3117410029D770 /* stopelement.cpp */,
+				2C1824502C3117410029D770 /* styledelement.h */,
+				2C1824512C3117410029D770 /* markerelement.cpp */,
+				2C1824522C3117410029D770 /* paintelement.cpp */,
+				2C1824532C3117410029D770 /* element.h */,
+				2C1824542C3117410029D770 /* maskelement.h */,
+				2C1824552C3117410029D770 /* geometryelement.cpp */,
+				2C1824562C3117410029D770 /* layoutcontext.h */,
+				2C1824572C3117410029D770 /* stopelement.h */,
+				2C1824582C3117410029D770 /* layoutcontext.cpp */,
+				2C1824592C3117410029D770 /* styleelement.cpp */,
+				2C18245A2C3117410029D770 /* element.cpp */,
+				2C18245B2C3117410029D770 /* property.h */,
+				2C18245C2C3117410029D770 /* clippathelement.h */,
+				2C18245D2C3117410029D770 /* canvas.h */,
+				2C18245E2C3117410029D770 /* svgelement.h */,
+				2C18245F2C3117410029D770 /* graphicselement.h */,
+				2C1824602C3117410029D770 /* clippathelement.cpp */,
+				2C1824612C3117410029D770 /* lunasvg.cpp */,
+				2C1824622C3117410029D770 /* parser.cpp */,
+				2C1824632C3117410029D770 /* graphicselement.cpp */,
+				2C1824642C3117410029D770 /* parserutils.h */,
+			);
+			path = lunasvg;
 			sourceTree = "<group>";
 		};
 		2C2711352A7EA6CE00BD4014 /* Trail */ = {
@@ -6410,7 +6460,7 @@
 				2CF9FD122490F3AE00EC8308 /* levenshtein-sse */,
 				2C51D4CB2A9C700500808628 /* libmorton */,
 				2C13C95E25BD29FC0054B968 /* lua */,
-				2CFABADA272E3ACB00939278 /* lunasvg */,
+				2C18243B2C3117410029D770 /* lunasvg */,
 				2C44429F2427AA7C00557D51 /* miniutf */,
 				2C9566852645625F00539B85 /* minizip */,
 				2CEFB1752AB8588B005EBD5F /* msdfgen */,
@@ -6421,7 +6471,7 @@
 				2CB03B212807034B00398535 /* par_octasphere */,
 				2C695D50268EDDB400970FB3 /* par_shapes */,
 				2C636D892657A0BF00AF029F /* pffft */,
-				2C0A4D522566A855002A4B5E /* plutovg */,
+				2C18241B2C3117340029D770 /* plutovg */,
 				2C47B46D24DD97E3008D83BE /* qr-code-generator-library */,
 				2CBEBCAD2629D15F0077DDBF /* quirc */,
 				2C13C89525B8FA9D0054B968 /* RecastDetour */,
@@ -13256,54 +13306,6 @@
 			path = "levenshtein-sse";
 			sourceTree = "<group>";
 		};
-		2CFABADA272E3ACB00939278 /* lunasvg */ = {
-			isa = PBXGroup;
-			children = (
-				2CFABADB272E3ACB00939278 /* paintelement.h */,
-				2CFABADC272E3ACB00939278 /* symbolelement.h */,
-				2CFABADD272E3ACB00939278 /* svgelement.cpp */,
-				2CFABADE272E3ACB00939278 /* symbolelement.cpp */,
-				2CFABADF272E3ACB00939278 /* defselement.cpp */,
-				2CFABAE0272E3ACB00939278 /* geometryelement.h */,
-				2CFABAE1272E3ACB00939278 /* styleelement.h */,
-				2CFABAE2272E3ACB00939278 /* maskelement.cpp */,
-				2CFABAE3272E3ACB00939278 /* canvas.cpp */,
-				2CFABAE4272E3ACB00939278 /* parser.h */,
-				2CFABAE5272E3ACB00939278 /* property.cpp */,
-				2CFABAE6272E3ACB00939278 /* defselement.h */,
-				2CFABAE7272E3ACB00939278 /* markerelement.h */,
-				2CFABAE8272E3ACB00939278 /* useelement.cpp */,
-				2CFABAE9272E3ACB00939278 /* useelement.h */,
-				2CFABAEA272E3ACB00939278 /* lunasvg.h */,
-				2CFABAEB272E3ACB00939278 /* styledelement.cpp */,
-				2CFABAEC272E3ACB00939278 /* gelement.cpp */,
-				2CFABAED272E3ACB00939278 /* gelement.h */,
-				2CFABAEE272E3ACB00939278 /* stopelement.cpp */,
-				2CFABAEF272E3ACB00939278 /* styledelement.h */,
-				2CFABAF0272E3ACB00939278 /* markerelement.cpp */,
-				2CFABAF1272E3ACB00939278 /* paintelement.cpp */,
-				2CFABAF2272E3ACB00939278 /* element.h */,
-				2CFABAF3272E3ACB00939278 /* maskelement.h */,
-				2CFABAF4272E3ACB00939278 /* geometryelement.cpp */,
-				2CFABAF5272E3ACB00939278 /* layoutcontext.h */,
-				2CFABAF6272E3ACB00939278 /* stopelement.h */,
-				2CFABAF7272E3ACB00939278 /* layoutcontext.cpp */,
-				2CFABAF8272E3ACB00939278 /* styleelement.cpp */,
-				2CFABAF9272E3ACB00939278 /* element.cpp */,
-				2CFABAFA272E3ACB00939278 /* property.h */,
-				2CFABAFB272E3ACB00939278 /* clippathelement.h */,
-				2CFABAFC272E3ACB00939278 /* canvas.h */,
-				2CFABAFD272E3ACB00939278 /* svgelement.h */,
-				2CFABAFE272E3ACB00939278 /* graphicselement.h */,
-				2CFABAFF272E3ACB00939278 /* clippathelement.cpp */,
-				2CFABB00272E3ACB00939278 /* lunasvg.cpp */,
-				2CFABB01272E3ACB00939278 /* parser.cpp */,
-				2CFABB02272E3ACB00939278 /* graphicselement.cpp */,
-				2CFABB03272E3ACB00939278 /* parserutils.h */,
-			);
-			path = lunasvg;
-			sourceTree = "<group>";
-		};
 		2CFB7DA5262A66B900169B97 /* TextInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -13422,7 +13424,6 @@
 			files = (
 				2C2AA2CE25FF894D003F3EBC /* unix.h in Headers */,
 				2C43C89125C837F100D6D613 /* ftserv.h in Headers */,
-				2C0A4D662566A855002A4B5E /* sw_ft_types.h in Headers */,
 				2CC8BDB828C75332008C770A /* GlyphCacheCommon.hpp in Headers */,
 				2CE762A629326ECF00E410FF /* OscHostEndianness.h in Headers */,
 				2C13C8CB25B8FA9D0054B968 /* DetourNavMesh.h in Headers */,
@@ -13446,6 +13447,7 @@
 				2C5337DC2650BB5500CE0F1B /* tml.h in Headers */,
 				2C13C8BC25B8FA9D0054B968 /* DetourAssert.h in Headers */,
 				2CC8BDC228C75332008C770A /* FontData.hpp in Headers */,
+				2C18243A2C3117350029D770 /* plutovg-ft-stroker.h in Headers */,
 				2C43C8A025C837F100D6D613 /* svbdf.h in Headers */,
 				2CEFB4C52AB858DB005EBD5F /* SkFontMetrics.h in Headers */,
 				2CC8BD4C28C75331008C770A /* ZIPReaderDetail.hpp in Headers */,
@@ -13458,6 +13460,7 @@
 				2CEFB1C92AB8588C005EBD5F /* render-sdf.h in Headers */,
 				2CC8BBE728C7532F008C770A /* InputState.hpp in Headers */,
 				2CEFB4B72AB858DB005EBD5F /* SkVertices.h in Headers */,
+				2C18248D2C3117410029D770 /* parserutils.h in Headers */,
 				2CEFB4802AB858DB005EBD5F /* SkEncodedImageFormat.h in Headers */,
 				2CEFB4E82AB858DB005EBD5F /* SkShadowFlags.h in Headers */,
 				2CC8BCEA28C75331008C770A /* Renderer2DCommon.hpp in Headers */,
@@ -13470,7 +13473,6 @@
 				2CC8BD2328C75331008C770A /* IAudio.hpp in Headers */,
 				2CEFB1D42AB8588C005EBD5F /* Contour.h in Headers */,
 				2C6390FA2539ABAB0030F18E /* CShader_Metal.hpp in Headers */,
-				2CFABB1B272E3ACB00939278 /* element.h in Headers */,
 				2C13C9A125BD29FC0054B968 /* lgc.h in Headers */,
 				2C13C9B925BD29FC0054B968 /* ltm.h in Headers */,
 				2CC8BB4A28C7532E008C770A /* SVGDetail.hpp in Headers */,
@@ -13536,7 +13538,9 @@
 				2C439F89241DCEA9001154C2 /* fast-dtoa.h in Headers */,
 				2CB18EC226B5A68700862C28 /* as_tokenizer.h in Headers */,
 				2C43C87625C837F000D6D613 /* ftcolor.h in Headers */,
+				2C18242E2C3117350029D770 /* plutovg-ft-math.h in Headers */,
 				2C28E94F2796816C0004E07D /* zstd_compress_literals.h in Headers */,
+				2C18246E2C3117410029D770 /* parser.h in Headers */,
 				2CFC214D25F739B400C51D0D /* hb-common.h in Headers */,
 				2C9566C22645626000539B85 /* mz_strm_wzaes.h in Headers */,
 				2C636EBA2657F7D300AF029F /* ted.h in Headers */,
@@ -13552,7 +13556,6 @@
 				2CC8BC2528C7532F008C770A /* CAssetMonitor.hpp in Headers */,
 				2C28E94B2796816C0004E07D /* zstd_opt.h in Headers */,
 				2CC8BCE328C75330008C770A /* CScript.hpp in Headers */,
-				2CFABB26272E3ACB00939278 /* svgelement.h in Headers */,
 				2C63A9C926A02BD000D13501 /* GL4Line3DBatch.hpp in Headers */,
 				2C636E622657F7D300AF029F /* soloud_wavstream.h in Headers */,
 				2CEFB4EA2AB858DB005EBD5F /* SkGainmapInfo.h in Headers */,
@@ -13576,10 +13579,10 @@
 				2CEFB6BE2AB858DE005EBD5F /* SkCubics.h in Headers */,
 				2CEFB1BF2AB8588C005EBD5F /* shape-description.h in Headers */,
 				2CEFB1B32AB8588C005EBD5F /* pixel-conversion.hpp in Headers */,
+				2C1824852C3117410029D770 /* clippathelement.h in Headers */,
 				2CC8BDD228C75332008C770A /* FontFace.hpp in Headers */,
 				2C28E95C2796816C0004E07D /* zstd_fast.h in Headers */,
 				2C44C070264960D400A5E72A /* tiffconf.h in Headers */,
-				2CFABB09272E3ACB00939278 /* geometryelement.h in Headers */,
 				2CC8BD3028C75331008C770A /* TCPClientDetail.hpp in Headers */,
 				2CEFB4FE2AB858DB005EBD5F /* SingleOwner.h in Headers */,
 				2C636E5D2657F7D300AF029F /* soloud_freeverbfilter.h in Headers */,
@@ -13595,12 +13598,14 @@
 				2C43C8AC25C837F100D6D613 /* ftgasp.h in Headers */,
 				2CC8BE4728C75694008C770A /* IAudioDecoder.hpp in Headers */,
 				2CEFB4E12AB858DB005EBD5F /* SkShadowUtils.h in Headers */,
+				2C18247F2C3117410029D770 /* layoutcontext.h in Headers */,
 				2C9566F22645626000539B85 /* zconf.h in Headers */,
 				2C28E9532796816C0004E07D /* zstd_double_fast.h in Headers */,
 				2CC8BD9E28C75332008C770A /* IProfiler.hpp in Headers */,
 				2C2AA38A26009C74003F3EBC /* b2_math.h in Headers */,
 				2C43C87D25C837F000D6D613 /* sfnt.h in Headers */,
 				2C2AA35526009C74003F3EBC /* b2_chain_polygon_contact.h in Headers */,
+				2C1824872C3117410029D770 /* svgelement.h in Headers */,
 				2C423226242B155E00A16BCA /* xkb_unicode.h in Headers */,
 				2CE762AB29326ECF00E410FF /* OscReceivedElements.h in Headers */,
 				2CEFB4DD2AB858DB005EBD5F /* SkOrderedFontMgr.h in Headers */,
@@ -13625,6 +13630,7 @@
 				2C43C86A25C837F000D6D613 /* ftsizes.h in Headers */,
 				2C2AA35126009C74003F3EBC /* b2_joint.h in Headers */,
 				2CC8BCEF28C75331008C770A /* Vertex2DBufferPointer.hpp in Headers */,
+				2C1824712C3117410029D770 /* markerelement.h in Headers */,
 				2C42323B242B155E00A16BCA /* mappings.h in Headers */,
 				2CC8BD3E28C75331008C770A /* CXInput_Null.hpp in Headers */,
 				2C43C89C25C837F100D6D613 /* svpsinfo.h in Headers */,
@@ -13653,8 +13659,8 @@
 				2C9566EB2645626000539B85 /* mz.h in Headers */,
 				2CC8BC0228C7532F008C770A /* ITextInput.hpp in Headers */,
 				2CC8BB7028C7532F008C770A /* MathParserDetail.hpp in Headers */,
+				2C1824772C3117410029D770 /* gelement.h in Headers */,
 				2C636E5C2657F7D300AF029F /* soloud_robotizefilter.h in Headers */,
-				2CFABB27272E3ACB00939278 /* graphicselement.h in Headers */,
 				2C636E5E2657F7D300AF029F /* soloud_dcremovalfilter.h in Headers */,
 				2CEFB68F2AB858DD005EBD5F /* SkReduceOrder.h in Headers */,
 				2CEFB4892AB858DB005EBD5F /* SkPoint3.h in Headers */,
@@ -13666,6 +13672,7 @@
 				2CEFB4A82AB858DB005EBD5F /* SkColor.h in Headers */,
 				2C2AA38326009C74003F3EBC /* b2_rope.h in Headers */,
 				2C28E9692796816C0004E07D /* zstd_ddict.h in Headers */,
+				2C1824742C3117410029D770 /* lunasvg.h in Headers */,
 				2CDE6E8B24A35C7B0048594F /* CRenderer2D_Metal.hpp in Headers */,
 				2CF21D26249FAA8F00C864C9 /* CWindow.hpp in Headers */,
 				2C2AA35726009C74003F3EBC /* b2_chain_circle_contact.h in Headers */,
@@ -13680,7 +13687,6 @@
 				2C6C781C2688959700B3C44A /* GL4Renderer3DCommand.hpp in Headers */,
 				2CEFB4A62AB858DB005EBD5F /* SkGraphics.h in Headers */,
 				2CEFB6D72AB858DE005EBD5F /* SkNoDestructor.h in Headers */,
-				2CFABB13272E3ACB00939278 /* lunasvg.h in Headers */,
 				2C28E96E2796816C0004E07D /* debug.h in Headers */,
 				2CEFB6AD2AB858DE005EBD5F /* SkOpEdgeBuilder.h in Headers */,
 				2C13C8C125B8FA9D0054B968 /* RecastAssert.h in Headers */,
@@ -13700,6 +13706,7 @@
 				2CFF9F6D24A47730000B5A17 /* MetalVertex2DBatch.hpp in Headers */,
 				2C481E1724460B5700A5D88D /* cpu_features_macros.h in Headers */,
 				2CC8BD7E28C75331008C770A /* CAddon.hpp in Headers */,
+				2C1824862C3117410029D770 /* canvas.h in Headers */,
 				2CB18EB226B5A68700862C28 /* as_gc.h in Headers */,
 				2C13C9D625BD29FC0054B968 /* lctype.h in Headers */,
 				2C27A9EE256E359400756617 /* GL4RasterizerState.hpp in Headers */,
@@ -13721,7 +13728,6 @@
 				2C2AA3A026009C74003F3EBC /* b2_world_callbacks.h in Headers */,
 				2CEFB4AA2AB858DB005EBD5F /* SkColorTable.h in Headers */,
 				2C6390F82539ABAB0030F18E /* MetalPixelShader.hpp in Headers */,
-				2CFABB12272E3ACB00939278 /* useelement.h in Headers */,
 				2C9566E52645626000539B85 /* mz_zip.h in Headers */,
 				2C44C065264960D400A5E72A /* tif_dir.h in Headers */,
 				2CEFB6A02AB858DE005EBD5F /* SkPathOpsTypes.h in Headers */,
@@ -13749,14 +13755,17 @@
 				2C44C06A264960D400A5E72A /* tiff.h in Headers */,
 				2C43C88A25C837F000D6D613 /* ftvalid.h in Headers */,
 				2CEFB4BA2AB858DB005EBD5F /* SkFontArguments.h in Headers */,
+				2C1824802C3117410029D770 /* stopelement.h in Headers */,
 				2C43C86E25C837F000D6D613 /* integer-types.h in Headers */,
 				2C43C8AF25C837F100D6D613 /* ftotval.h in Headers */,
 				2CC8BBF028C7532F008C770A /* CPrimitiveMesh.hpp in Headers */,
 				2C636E4B2657F7D300AF029F /* soloud_audiosource.h in Headers */,
 				2C28E94E2796816C0004E07D /* clevels.h in Headers */,
+				2C18247C2C3117410029D770 /* element.h in Headers */,
 				2CC8BBB928C7532F008C770A /* P2MouseJointDetail.hpp in Headers */,
 				2C13C9AF25BD29FC0054B968 /* ldebug.h in Headers */,
 				2CEFB4A02AB858DB005EBD5F /* SkDrawable.h in Headers */,
+				2C1824352C3117350029D770 /* plutovg-ft-raster.h in Headers */,
 				2CEFB4B02AB858DB005EBD5F /* SkRegion.h in Headers */,
 				2CEFB6C92AB858DE005EBD5F /* SkArenaAlloc.h in Headers */,
 				2C51D4D52A9C700500808628 /* morton3D.h in Headers */,
@@ -13785,7 +13794,6 @@
 				2C47B6F324EAC8D9008D83BE /* GL4InternalTexture2D.hpp in Headers */,
 				2C28E9432796816C0004E07D /* hist.h in Headers */,
 				2CEFB6BC2AB858DE005EBD5F /* SkTSearch.h in Headers */,
-				2CFABB24272E3ACB00939278 /* clippathelement.h in Headers */,
 				2CC8BDEC28C75332008C770A /* IResource.hpp in Headers */,
 				2C8CA3AF261594A000BABD2D /* encode.h in Headers */,
 				2CEFB5042AB858DB005EBD5F /* SkTLogic.h in Headers */,
@@ -13796,6 +13804,7 @@
 				2CEFB1B02AB8588C005EBD5F /* MSDFErrorCorrection.h in Headers */,
 				2C6106E424DB04E300BDEF72 /* xxhash.h in Headers */,
 				2CC584A22648FE2A00C33E9F /* opus_types.h in Headers */,
+				2C1824312C3117350029D770 /* plutovg-ft-types.h in Headers */,
 				2C2AA37926009C74003F3EBC /* b2_weld_joint.h in Headers */,
 				2CEFB1C82AB8588C005EBD5F /* SignedDistance.h in Headers */,
 				2CEFB6E52AB858DE005EBD5F /* SkUTF.h in Headers */,
@@ -13838,7 +13847,6 @@
 				2C43C8BC25C837F100D6D613 /* ftimage.h in Headers */,
 				2CC8BC5128C75330008C770A /* IPrint.hpp in Headers */,
 				2CF21D1C249FAA8F00C864C9 /* CSystem.hpp in Headers */,
-				2CFABB0A272E3ACB00939278 /* styleelement.h in Headers */,
 				2CC8BDD628C75332008C770A /* CImageEncoder.hpp in Headers */,
 				2C62197226750F6A0088B175 /* uuid.h in Headers */,
 				2CC8BDB028C75332008C770A /* MSDFGlyphRenderer.hpp in Headers */,
@@ -13850,6 +13858,7 @@
 				2CEFB4882AB858DB005EBD5F /* SkPixelRef.h in Headers */,
 				2C43C8C325C837F100D6D613 /* ftmac.h in Headers */,
 				2CC8BBDF28C7532F008C770A /* ICursor.hpp in Headers */,
+				2C18247D2C3117410029D770 /* maskelement.h in Headers */,
 				2C439F7E241DCEA9001154C2 /* double-to-string.h in Headers */,
 				2CC8BDFF28C75332008C770A /* AnimatedGIFReaderDetail.hpp in Headers */,
 				2CC8BCF028C75331008C770A /* CurrentBatchStateChanges.hpp in Headers */,
@@ -13861,7 +13870,6 @@
 				2C2AA36E26009C74003F3EBC /* b2_polygon_contact.h in Headers */,
 				2C13C8BB25B8FA9D0054B968 /* Recast.h in Headers */,
 				2CFC215525F739B400C51D0D /* hb-blob.h in Headers */,
-				2CFABB1F272E3ACB00939278 /* stopelement.h in Headers */,
 				2C9566D52645626000539B85 /* mz_strm.h in Headers */,
 				2CEFB6EB2AB858DE005EBD5F /* SkBuffer.h in Headers */,
 				2CC8BB8F28C7532F008C770A /* RegExpDetail.hpp in Headers */,
@@ -13873,11 +13881,11 @@
 				2C68508E24B768A800B98A7F /* BinaryReaderDetail.hpp in Headers */,
 				2C47B49324DD97F2008D83BE /* muParserBase.h in Headers */,
 				2CC8BBFA28C7532F008C770A /* GIFWriter.hpp in Headers */,
+				2C1824662C3117410029D770 /* symbolelement.h in Headers */,
 				2C4397952536163000F6AECD /* CShader_GL4.hpp in Headers */,
 				2CEFB4BD2AB858DB005EBD5F /* SkRefCnt.h in Headers */,
 				2CB18E9E26B5A68700862C28 /* as_parser.h in Headers */,
 				2CEFB4932AB858DB005EBD5F /* SkClipOp.h in Headers */,
-				2CFABB16272E3ACB00939278 /* gelement.h in Headers */,
 				2CEFB4CD2AB858DB005EBD5F /* SkFlattenable.h in Headers */,
 				2C47B6F524EAC8D9008D83BE /* CRenderer2D_GL4.hpp in Headers */,
 				2CB18EC426B5A68700862C28 /* as_module.h in Headers */,
@@ -13925,7 +13933,6 @@
 				2CC8BC5028C75330008C770A /* CPrint.hpp in Headers */,
 				2C636E432657F7D300AF029F /* soloud.h in Headers */,
 				2C2AA39B26009C74003F3EBC /* b2_collision.h in Headers */,
-				2CFABB2C272E3ACB00939278 /* parserutils.h in Headers */,
 				2CEFB4972AB858DB005EBD5F /* SkSamplingOptions.h in Headers */,
 				2C44C068264960D400A5E72A /* tif_fax3.h in Headers */,
 				2C13C99E25BD29FC0054B968 /* llimits.h in Headers */,
@@ -13958,6 +13965,8 @@
 				2CC8BB6528C7532F008C770A /* WAVEHeader.hpp in Headers */,
 				2C834D91248805D4006208B8 /* regparse.h in Headers */,
 				2CEFB4C82AB858DB005EBD5F /* SkBlurTypes.h in Headers */,
+				2C1824882C3117410029D770 /* graphicselement.h in Headers */,
+				2C18246B2C3117410029D770 /* styleelement.h in Headers */,
 				2CC8BE3D28C75333008C770A /* IConsole.hpp in Headers */,
 				2C2AA37A26009C74003F3EBC /* b2_dynamic_tree.h in Headers */,
 				2CEFB69F2AB858DE005EBD5F /* SkAddIntersections.h in Headers */,
@@ -13966,6 +13975,7 @@
 				2CC8BC2028C7532F008C770A /* EffectData.hpp in Headers */,
 				2CEFB6D12AB858DE005EBD5F /* SkMSAN.h in Headers */,
 				2CE762A429326ECF00E410FF /* OscPrintReceivedElements.h in Headers */,
+				2C1824702C3117410029D770 /* defselement.h in Headers */,
 				2C43C8C425C837F100D6D613 /* ftlcdfil.h in Headers */,
 				2C28E96F2796816C0004E07D /* pool.h in Headers */,
 				2CEFB4842AB858DB005EBD5F /* SkSwizzle.h in Headers */,
@@ -13982,6 +13992,7 @@
 				2CC8BE1A28C75332008C770A /* CImageDecoder.hpp in Headers */,
 				2CB18EB126B5A68700862C28 /* as_context.h in Headers */,
 				2CEFB1E32AB8588C005EBD5F /* msdfgen.h in Headers */,
+				2C1824792C3117410029D770 /* styledelement.h in Headers */,
 				2C2AA39426009C74003F3EBC /* b2_contact.h in Headers */,
 				2CEFB4A22AB858DB005EBD5F /* SkAlphaType.h in Headers */,
 				2C636E452657F7D300AF029F /* soloud_lofifilter.h in Headers */,
@@ -14074,13 +14085,10 @@
 				2C834D8C248805D4006208B8 /* st.h in Headers */,
 				2CC8BD1328C75331008C770A /* IUserAction.hpp in Headers */,
 				2CC8BDC128C75332008C770A /* CFont.hpp in Headers */,
-				2C0A4D6E2566A855002A4B5E /* sw_ft_raster.h in Headers */,
 				2C47B49824DD97F2008D83BE /* muParserError.h in Headers */,
 				2CEFB4B92AB858DB005EBD5F /* SkSurfaceCharacterization.h in Headers */,
-				2CFABB0D272E3ACB00939278 /* parser.h in Headers */,
 				2CEFB4862AB858DB005EBD5F /* SkImageFilter.h in Headers */,
 				2CEFB4F52AB858DB005EBD5F /* SkDeque.h in Headers */,
-				2CFABB10272E3ACB00939278 /* markerelement.h in Headers */,
 				2C13C8B825B8FA9D0054B968 /* DetourNode.h in Headers */,
 				2C636E652657F7D300AF029F /* soloud_fftfilter.h in Headers */,
 				2CC8BD2728C75331008C770A /* DynamicAudioSource.hpp in Headers */,
@@ -14106,6 +14114,7 @@
 				2CC584832648246900C33E9F /* ogg.h in Headers */,
 				2CEFB50D2AB858DC005EBD5F /* SkFixed.h in Headers */,
 				2C28E9672796816C0004E07D /* zstd_decompress_internal.h in Headers */,
+				2C1824382C3117350029D770 /* plutovg-private.h in Headers */,
 				2CEFB50E2AB858DC005EBD5F /* SkAttributes.h in Headers */,
 				2CEFB50A2AB858DC005EBD5F /* SkMacros.h in Headers */,
 				2CC8BD5528C75331008C770A /* IGUI.hpp in Headers */,
@@ -14157,7 +14166,6 @@
 				2CC8BDC828C75332008C770A /* FontResourceHolder.hpp in Headers */,
 				2CC8BD7928C75331008C770A /* VideoReaderDetail.hpp in Headers */,
 				2CEFB6DA2AB858DE005EBD5F /* SkAutoMalloc.h in Headers */,
-				2C0A4D692566A855002A4B5E /* sw_ft_stroker.h in Headers */,
 				2CEFB5002AB858DB005EBD5F /* SkTDArray.h in Headers */,
 				2CC8BDE828C75332008C770A /* IScene.hpp in Headers */,
 				2CC8BCF828C75331008C770A /* IMouse.hpp in Headers */,
@@ -14224,6 +14232,7 @@
 				2CC8BD2028C75331008C770A /* SoundTouchFunctions.hpp in Headers */,
 				2C2AA37826009C74003F3EBC /* b2_common.h in Headers */,
 				2CEFB4EB2AB858DB005EBD5F /* SkBitmaskEnum.h in Headers */,
+				2C1824842C3117410029D770 /* property.h in Headers */,
 				2CEFB47D2AB858DB005EBD5F /* SkPictureRecorder.h in Headers */,
 				2CEFB4D52AB858DB005EBD5F /* SkCamera.h in Headers */,
 				2CC8BDD328C75332008C770A /* CFont_Headless.hpp in Headers */,
@@ -14240,7 +14249,6 @@
 				2C43C88725C837F000D6D613 /* ftstream.h in Headers */,
 				2C43C89625C837F100D6D613 /* svttcmap.h in Headers */,
 				2C43C8B525C837F100D6D613 /* ftpfr.h in Headers */,
-				2CFABB05272E3ACB00939278 /* symbolelement.h in Headers */,
 				2C51D4DB2A9C700500808628 /* morton_BMI.h in Headers */,
 				2CEFB4B32AB858DB005EBD5F /* SkCanvas.h in Headers */,
 				2CEFB4A32AB858DB005EBD5F /* SkTypeface.h in Headers */,
@@ -14252,12 +14260,12 @@
 				2CEFB4912AB858DB005EBD5F /* SkRSXform.h in Headers */,
 				2CEFB50B2AB858DC005EBD5F /* SkTPin.h in Headers */,
 				2C28E9832796816D0004E07D /* zstd_errors.h in Headers */,
+				2C1824732C3117410029D770 /* useelement.h in Headers */,
 				2C27A9EF256E359400756617 /* GL4SamplerState.hpp in Headers */,
 				2CEFB47C2AB858DB005EBD5F /* SkUnPreMultiply.h in Headers */,
 				2CEFB4D02AB858DB005EBD5F /* SkPathOps.h in Headers */,
 				2C13C8EC25B95ABA0054B968 /* DirectoryWatcherDetail.hpp in Headers */,
 				2C43C8C525C837F100D6D613 /* ftbdf.h in Headers */,
-				2C0A4D6C2566A855002A4B5E /* plutovg-private.h in Headers */,
 				2CC8BD5328C75331008C770A /* CGUI.hpp in Headers */,
 				2C2AA39926009C74003F3EBC /* b2_growable_stack.h in Headers */,
 				2CC8BCF528C75331008C770A /* HTMLWriterDetail.hpp in Headers */,
@@ -14274,9 +14282,7 @@
 				2C28E96D2796816C0004E07D /* xxhash.h in Headers */,
 				2CC8BDB228C75332008C770A /* OutlineGlyphRenderer.hpp in Headers */,
 				2C28E9422796816C0004E07D /* zstd_compress_internal.h in Headers */,
-				2CFABB04272E3ACB00939278 /* paintelement.h in Headers */,
 				2C42322C242B155E00A16BCA /* nsgl_context.h in Headers */,
-				2C0A4D642566A855002A4B5E /* sw_ft_math.h in Headers */,
 				2CEFB4C42AB858DB005EBD5F /* SkPathEffect.h in Headers */,
 				2C636E492657F7D300AF029F /* soloud_flangerfilter.h in Headers */,
 				2CC8BBB128C7532F008C770A /* IAsset.hpp in Headers */,
@@ -14322,7 +14328,6 @@
 				2CEFB4E62AB858DB005EBD5F /* SkWeakRefCnt.h in Headers */,
 				2CC8BC4A28C75330008C770A /* NavMeshDetail.hpp in Headers */,
 				2CC8BBB028C7532F008C770A /* IAssetDetail.hpp in Headers */,
-				2CFABB1E272E3ACB00939278 /* layoutcontext.h in Headers */,
 				2CEFB4A52AB858DB005EBD5F /* SkRasterHandleAllocator.h in Headers */,
 				2CEFB1DA2AB8588C005EBD5F /* arithmetics.hpp in Headers */,
 				2C43C88C25C837F000D6D613 /* fttrace.h in Headers */,
@@ -14344,9 +14349,7 @@
 				2CC8BDB628C75332008C770A /* SDFGlyphRenderer.hpp in Headers */,
 				2CB18EE926B5A68700862C28 /* as_texts.h in Headers */,
 				2C28E9622796816C0004E07D /* cover.h in Headers */,
-				2C0A4D622566A855002A4B5E /* plutovg.h in Headers */,
 				2CEFB6DC2AB858DE005EBD5F /* SkRandom.h in Headers */,
-				2CFABB0F272E3ACB00939278 /* defselement.h in Headers */,
 				2C43C89925C837F100D6D613 /* svpscmap.h in Headers */,
 				2CEFB4FD2AB858DB005EBD5F /* SkFeatures.h in Headers */,
 				2CC8BC4628C75330008C770A /* AudioGroupDetail.hpp in Headers */,
@@ -14381,7 +14384,7 @@
 				2C28E9452796816C0004E07D /* zstd_ldm_geartab.h in Headers */,
 				2CEFB4FA2AB858DB005EBD5F /* SkAlignedStorage.h in Headers */,
 				2C636E5A2657F7D300AF029F /* soloud_echofilter.h in Headers */,
-				2CFABB1C272E3ACB00939278 /* maskelement.h in Headers */,
+				2C1824652C3117410029D770 /* paintelement.h in Headers */,
 				2CEFB4F42AB858DB005EBD5F /* SkTemplates.h in Headers */,
 				2CC8BD5928C75331008C770A /* CModel.hpp in Headers */,
 				2CFC215825F739B400C51D0D /* hb-ft.h in Headers */,
@@ -14394,11 +14397,9 @@
 				2CC8BDBE28C75332008C770A /* BitmapGlyphCache.hpp in Headers */,
 				2C636E502657F7D300AF029F /* soloud_speech.h in Headers */,
 				2CFC214A25F739B400C51D0D /* hb-set.h in Headers */,
-				2CFABB23272E3ACB00939278 /* property.h in Headers */,
 				2CC8BBE328C7532F008C770A /* CCursor_Null.hpp in Headers */,
 				2CC8BD9B28C75332008C770A /* AssetHandleManager.hpp in Headers */,
 				2C43C8B625C837F100D6D613 /* ftgxval.h in Headers */,
-				2CFABB25272E3ACB00939278 /* canvas.h in Headers */,
 				2C9566F52645626000539B85 /* mz_strm_os.h in Headers */,
 				2C6C658529C16F1A009298ED /* json-patch.hpp in Headers */,
 				2C68509124B768A800B98A7F /* CConsole.hpp in Headers */,
@@ -14418,12 +14419,13 @@
 				2CE762B229326ECF00E410FF /* IpEndpointName.h in Headers */,
 				2CEFB6A42AB858DE005EBD5F /* SkOpSegment.h in Headers */,
 				2CEFB4D92AB858DB005EBD5F /* SkParsePath.h in Headers */,
+				2C18246A2C3117410029D770 /* geometryelement.h in Headers */,
 				2CEFB4A12AB858DB005EBD5F /* SkTileMode.h in Headers */,
 				2CEFB6CF2AB858DE005EBD5F /* SkASAN.h in Headers */,
 				2CC8BD0728C75331008C770A /* SystemLog.hpp in Headers */,
 				2CEFB5062AB858DB005EBD5F /* SkSpan_impl.h in Headers */,
 				2C636E572657F7D300AF029F /* soloud_file.h in Headers */,
-				2CFABB18272E3ACB00939278 /* styledelement.h in Headers */,
+				2C18242C2C3117350029D770 /* plutovg.h in Headers */,
 				2CC8BCEB28C75331008C770A /* Vertex2DBuilder.hpp in Headers */,
 				2CEFB6862AB858DD005EBD5F /* SkPathOpsCurve.h in Headers */,
 				2CEFB4EF2AB858DB005EBD5F /* SkSafe32.h in Headers */,
@@ -14543,7 +14545,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CFABB14272E3ACB00939278 /* styledelement.cpp in Sources */,
 				2CEFB6982AB858DE005EBD5F /* SkPathOpsCurve.cpp in Sources */,
 				2C2AA38026009C74003F3EBC /* b2_rope.cpp in Sources */,
 				2CEFB1B72AB8588C005EBD5F /* equation-solver.cpp in Sources */,
@@ -14554,9 +14555,10 @@
 				2C9566DD2645626000539B85 /* mz_compat.c in Sources */,
 				2CC8BE2328C75332008C770A /* SivTransformer3D.cpp in Sources */,
 				2CC8BCCF28C75330008C770A /* ScriptPutText.cpp in Sources */,
+				2C18246C2C3117410029D770 /* maskelement.cpp in Sources */,
 				2CC8BDA028C75332008C770A /* CProfiler.cpp in Sources */,
+				2C18247B2C3117410029D770 /* paintelement.cpp in Sources */,
 				2CC8BCDC28C75330008C770A /* ScriptColor.cpp in Sources */,
-				2CFABB0C272E3ACB00939278 /* canvas.cpp in Sources */,
 				2CC8BCBD28C75330008C770A /* ScriptFloat2.cpp in Sources */,
 				2CC8BD7028C75331008C770A /* GIFDecoder.cpp in Sources */,
 				2C13C9BC25BD29FC0054B968 /* ldump.c in Sources */,
@@ -14567,11 +14569,15 @@
 				2CC8BB6828C7532F008C770A /* CacheDirectory.cpp in Sources */,
 				2CC8BCC528C75330008C770A /* ScriptOpenMode.cpp in Sources */,
 				2C6C658929C16F1A009298ED /* json-schema-draft7.json.cpp in Sources */,
+				2C1824752C3117410029D770 /* styledelement.cpp in Sources */,
+				2C1824302C3117350029D770 /* plutovg-paint.c in Sources */,
 				2C9566D72645626000539B85 /* mz_strm_mem.c in Sources */,
 				2CC584472646319400C33E9F /* MemoryMappedFileViewDetail.cpp in Sources */,
 				2C7A779E2B41095C00E40A53 /* SivOpenAIImage.cpp in Sources */,
 				2C60AE80248158A500277281 /* vendor_model_name_windows.cpp in Sources */,
 				2CC8BCD028C75330008C770A /* ScriptPeriodic.cpp in Sources */,
+				2C1824692C3117410029D770 /* defselement.cpp in Sources */,
+				2C18248B2C3117410029D770 /* parser.cpp in Sources */,
 				2CC8BB7228C7532F008C770A /* SivBigFloat.cpp in Sources */,
 				2CC8BB7D28C7532F008C770A /* SivTextureRegion.cpp in Sources */,
 				2CE8D1452616107200C75FBB /* ChildProcessDetail.mm in Sources */,
@@ -14606,6 +14612,7 @@
 				2CC8BB8E28C7532F008C770A /* SivParseInt.cpp in Sources */,
 				2C13C9B325BD29FC0054B968 /* lstring.c in Sources */,
 				2CB18EA726B5A68700862C28 /* as_string_util.cpp in Sources */,
+				2C18247E2C3117410029D770 /* geometryelement.cpp in Sources */,
 				2CFF9F6424A46481000B5A17 /* osmesa_context.c in Sources */,
 				2CC8BBEB28C7532F008C770A /* SivDateTime.cpp in Sources */,
 				2C834D93248805D4006208B8 /* euc_jp.c in Sources */,
@@ -14632,7 +14639,6 @@
 				2C4397912536163000F6AECD /* GL4PixelShader.cpp in Sources */,
 				2C60AE82248158A500277281 /* memory_windows.cpp in Sources */,
 				2CC8BC1528C7532F008C770A /* SivPixelShaderAssetData.cpp in Sources */,
-				2CFABB20272E3ACB00939278 /* layoutcontext.cpp in Sources */,
 				2CC8BDD728C75332008C770A /* CImageEncoder.cpp in Sources */,
 				2C636E6A2657F7D300AF029F /* soloud_fader.cpp in Sources */,
 				2C68508C24B768A800B98A7F /* SivDate_macOS_Linux.cpp in Sources */,
@@ -14659,7 +14665,6 @@
 				2CC8BCC028C75330008C770A /* ScriptImageFormat.cpp in Sources */,
 				2CF21D14249FAA8F00C864C9 /* RendererFactory.mm in Sources */,
 				2CB18EB426B5A68700862C28 /* as_context.cpp in Sources */,
-				2CFABB28272E3ACB00939278 /* clippathelement.cpp in Sources */,
 				2CC8BBC428C7532F008C770A /* P2World.cpp in Sources */,
 				2CC8BCE928C75331008C770A /* SivArcEmitter2D.cpp in Sources */,
 				2CC8BDC328C75332008C770A /* CFont_Headless.cpp in Sources */,
@@ -14711,7 +14716,6 @@
 				2CC8BDF528C75332008C770A /* SivColormap.cpp in Sources */,
 				2CC8BD4E28C75331008C770A /* SivShape2D.cpp in Sources */,
 				2CC8BC1228C7532F008C770A /* SivTimer.cpp in Sources */,
-				2C0A4D6D2566A855002A4B5E /* plutovg-rle.c in Sources */,
 				2CC8BD5F28C75331008C770A /* SivScopedColorMul2D.cpp in Sources */,
 				2CC8BC6528C75330008C770A /* ScriptTextStyle.cpp in Sources */,
 				2CEFB1BA2AB8588C005EBD5F /* Vector2.cpp in Sources */,
@@ -14743,7 +14747,6 @@
 				2CB18EDB26B5A68700862C28 /* as_module.cpp in Sources */,
 				2CFE19A12555B221005826A1 /* CKeyboard.cpp in Sources */,
 				2CC8BDF328C75332008C770A /* CAudioDecoder.cpp in Sources */,
-				2CFABB17272E3ACB00939278 /* stopelement.cpp in Sources */,
 				2CC8BC4C28C75330008C770A /* SivScopedColorAdd2D.cpp in Sources */,
 				2CEFB6C82AB858DE005EBD5F /* SkBuffer.cpp in Sources */,
 				2CEFB7072AB859DB005EBD5F /* SkRect.cpp in Sources */,
@@ -14757,7 +14760,6 @@
 				2CF21D16249FAA8F00C864C9 /* CRenderer_GL4.cpp in Sources */,
 				2CC8BDD128C75332008C770A /* FontData.cpp in Sources */,
 				2CC8BC8728C75330008C770A /* ScriptFontMethod.cpp in Sources */,
-				2CFABB07272E3ACB00939278 /* symbolelement.cpp in Sources */,
 				2C63910C2539D0BE0030F18E /* MetalSamplerState.mm in Sources */,
 				2CC8BD5C28C75331008C770A /* SivModel.cpp in Sources */,
 				2C13C9D525BD29FC0054B968 /* ltm.c in Sources */,
@@ -14768,7 +14770,6 @@
 				2CC8BD8228C75331008C770A /* SivChildProcess.cpp in Sources */,
 				2C2AA37226009C74003F3EBC /* b2_mouse_joint.cpp in Sources */,
 				2C47B49024DD97F2008D83BE /* muParserBase.cpp in Sources */,
-				2C0A4D672566A855002A4B5E /* sw_ft_raster.c in Sources */,
 				2C27113E2A7EA6CF00BD4014 /* SivTrail.cpp in Sources */,
 				2C636E772657F7D300AF029F /* soloud_core_3d.cpp in Sources */,
 				2CC8BBF128C7532F008C770A /* SivFormatUtility.cpp in Sources */,
@@ -14802,10 +14803,10 @@
 				2CC8BDEA28C75332008C770A /* SivScene.cpp in Sources */,
 				2C2AA36726009C74003F3EBC /* b2_contact_manager.cpp in Sources */,
 				2CEFB1D12AB8588C005EBD5F /* Shape.cpp in Sources */,
-				2C0A4D6B2566A855002A4B5E /* plutovg.c in Sources */,
 				2C57E9B22923A58700FB32FC /* ScriptCamera2DParameters.cpp in Sources */,
 				2CC8BC7728C75330008C770A /* ScriptNone_t.cpp in Sources */,
 				2C834D8D248805D4006208B8 /* ascii.c in Sources */,
+				2C1824782C3117410029D770 /* stopelement.cpp in Sources */,
 				2C834D8B248805D4006208B8 /* big5.c in Sources */,
 				2C42321C242B155E00A16BCA /* cocoa_init.m in Sources */,
 				2CC8BD3A28C75331008C770A /* SivMemoryMappedFileView.cpp in Sources */,
@@ -14813,6 +14814,7 @@
 				2CC8BBC528C7532F008C770A /* P2LineString.cpp in Sources */,
 				2C47B49D24DD97F2008D83BE /* muParserError.cpp in Sources */,
 				2C834DBB248805D4006208B8 /* sjis_prop.c in Sources */,
+				2C18242F2C3117350029D770 /* plutovg-dash.c in Sources */,
 				2CC8BCB528C75330008C770A /* ScriptTextToSpeech.cpp in Sources */,
 				2CC8BD3628C75331008C770A /* SivMicrophoneInfo.cpp in Sources */,
 				2CC8BD3428C75331008C770A /* SivBezier3.cpp in Sources */,
@@ -14923,8 +14925,10 @@
 				2CBEBCB42629D15F0077DDBF /* version_db.c in Sources */,
 				2CC8BE1628C75332008C770A /* SivError.cpp in Sources */,
 				2CC8BD8628C75331008C770A /* TextureCommon.cpp in Sources */,
+				2C18248A2C3117410029D770 /* lunasvg.cpp in Sources */,
 				2C28E9512796816C0004E07D /* hist.c in Sources */,
 				2CC8BCFF28C75331008C770A /* SivDirectoryWatcher.cpp in Sources */,
+				2C18246D2C3117410029D770 /* canvas.cpp in Sources */,
 				2CC8BBA128C7532F008C770A /* SivFileFilter.cpp in Sources */,
 				2CFB7DBD262AB4D800169B97 /* CClipboard.mm in Sources */,
 				2CC8BCA628C75330008C770A /* ScriptGraphics2D.cpp in Sources */,
@@ -14952,12 +14956,12 @@
 				2C2AA36926009C74003F3EBC /* b2_edge_polygon_contact.cpp in Sources */,
 				2C636E672657F7D300AF029F /* soloud_fft_lut.cpp in Sources */,
 				2CC8BC0528C7532F008C770A /* SivColor.cpp in Sources */,
+				2C18248C2C3117410029D770 /* graphicselement.cpp in Sources */,
 				2CE8D1422616107200C75FBB /* NSTaskWrapper.mm in Sources */,
 				2CB18EB726B5A68700862C28 /* as_parser.cpp in Sources */,
 				2CC8BCDE28C75330008C770A /* ScriptTexturedCircle.cpp in Sources */,
 				2CEFB6B22AB858DE005EBD5F /* SkOpSpan.cpp in Sources */,
 				2CC8BDFA28C75332008C770A /* SivKlattTTS.cpp in Sources */,
-				2C0A4D682566A855002A4B5E /* plutovg-geometry.c in Sources */,
 				2CEFB68C2AB858DD005EBD5F /* SkPathOpsSimplify.cpp in Sources */,
 				2CE762CF29327C5700E410FF /* SivOSCSender.cpp in Sources */,
 				2CC8BDEE28C75332008C770A /* SivResource.cpp in Sources */,
@@ -14971,7 +14975,6 @@
 				2CC8BCE728C75330008C770A /* SivImage.cpp in Sources */,
 				2CC8BCC128C75330008C770A /* ScriptAudioFormat.cpp in Sources */,
 				2CC8BD0A28C75331008C770A /* SystemLog.cpp in Sources */,
-				2CFABB29272E3ACB00939278 /* lunasvg.cpp in Sources */,
 				2C2AA2C925FF894D003F3EBC /* list_ports_osx.cc in Sources */,
 				2C834DA8248805D4006208B8 /* regversion.c in Sources */,
 				2CC8BD2128C75331008C770A /* DynamicAudioSource.cpp in Sources */,
@@ -14990,7 +14993,6 @@
 				2CEFB1D72AB8588C005EBD5F /* shape-description.cpp in Sources */,
 				2CC8BB6D28C7532F008C770A /* SivMD5.cpp in Sources */,
 				2CC8BD3F28C75331008C770A /* CXInput_Null.cpp in Sources */,
-				2C0A4D6F2566A855002A4B5E /* sw_ft_math.c in Sources */,
 				2CC8BD7B28C75331008C770A /* SivByte.cpp in Sources */,
 				2C636EA02657F7D300AF029F /* soloud_wavstream.cpp in Sources */,
 				2CC8BC7D28C75330008C770A /* ScriptInterpolation.cpp in Sources */,
@@ -15022,9 +15024,11 @@
 				2C2AA2CD25FF894D003F3EBC /* unix.cc in Sources */,
 				2C834D9E248805D4006208B8 /* utf8.c in Sources */,
 				2CC8BE4128C75333008C770A /* SivQRScanner.cpp in Sources */,
+				2C1824332C3117350029D770 /* plutovg-geometry.c in Sources */,
 				2CC8BDE328C75332008C770A /* SceneFactory.cpp in Sources */,
 				2C9566EE2645626000539B85 /* mz_strm_split.c in Sources */,
 				2CB4C6F729D030A100ADFD8C /* SivDriveInfo.cpp in Sources */,
+				2C1824342C3117350029D770 /* plutovg-blend.c in Sources */,
 				2C60AE93248158A500277281 /* winstring_non_windows.cpp in Sources */,
 				2C423246242B155E00A16BCA /* nsgl_context.m in Sources */,
 				2C60AE87248158A500277281 /* displays_x11.cpp in Sources */,
@@ -15033,12 +15037,10 @@
 				2C95662A264501B900539B85 /* gaussian_distribution.cc in Sources */,
 				2C13C9CC25BD29FC0054B968 /* lapi.c in Sources */,
 				2CC8BE3A28C75333008C770A /* SivInputGroup.cpp in Sources */,
-				2CFABB0E272E3ACB00939278 /* property.cpp in Sources */,
 				2C834DC0248805D4006208B8 /* reggnu.c in Sources */,
 				2C60AE89248158A500277281 /* displays_default_blank.cpp in Sources */,
 				2C2AA36426009C74003F3EBC /* b2_polygon_circle_contact.cpp in Sources */,
 				2CEFB6F62AB859A4005EBD5F /* SkGeometry.cpp in Sources */,
-				2CFABB0B272E3ACB00939278 /* maskelement.cpp in Sources */,
 				2CC8BB8628C7532F008C770A /* SivBox.cpp in Sources */,
 				2CC8BCAA28C75330008C770A /* ScriptTextureDesc.cpp in Sources */,
 				2CC8BC9C28C75330008C770A /* ScriptPrimeNumber.cpp in Sources */,
@@ -15061,7 +15063,6 @@
 				2CEFB1CD2AB8588C005EBD5F /* edge-segments.cpp in Sources */,
 				2CC8BE1428C75332008C770A /* CSoundFont.cpp in Sources */,
 				2CB18EB826B5A68700862C28 /* as_typeinfo.cpp in Sources */,
-				2CFABB06272E3ACB00939278 /* svgelement.cpp in Sources */,
 				2CB18EE826B5A68700862C28 /* as_callfunc_sh4.cpp in Sources */,
 				2CC8BE3128C75333008C770A /* SivParticleSystem2D.cpp in Sources */,
 				2CC8BD3928C75331008C770A /* SivFontAssetData.cpp in Sources */,
@@ -15193,17 +15194,21 @@
 				2C2AA39226009C74003F3EBC /* b2_math.cpp in Sources */,
 				2C794B5E25C4083400034D81 /* CTexture_Metal.cpp in Sources */,
 				2C13C8B425B8FA9D0054B968 /* RecastMeshDetail.cpp in Sources */,
+				2C1824722C3117410029D770 /* useelement.cpp in Sources */,
 				2CC8BC7328C75330008C770A /* ScriptCircle.cpp in Sources */,
 				2C834D9D248805D4006208B8 /* iso8859_2.c in Sources */,
 				2CB18ECA26B5A68700862C28 /* as_thread.cpp in Sources */,
 				2CC8BB9C28C7532F008C770A /* AsyncHTTPTaskDetail.cpp in Sources */,
+				2C1824892C3117410029D770 /* clippathelement.cpp in Sources */,
 				2CC8BC2C28C7532F008C770A /* SivUnicodeConverter.cpp in Sources */,
 				2C2AA36226009C74003F3EBC /* b2_world_callbacks.cpp in Sources */,
 				2CC8BC9E28C75330008C770A /* ScriptCopyOption.cpp in Sources */,
 				2C834DAF248805D4006208B8 /* utf16_le.c in Sources */,
 				2CEFB1C02AB8588C005EBD5F /* edge-coloring.cpp in Sources */,
+				2C18247A2C3117410029D770 /* markerelement.cpp in Sources */,
 				2C9566C82645626000539B85 /* mz_strm_zlib.c in Sources */,
 				2CEFB6E02AB858DE005EBD5F /* SkSpinlock.cpp in Sources */,
+				2C18242D2C3117350029D770 /* plutovg-ft-raster.c in Sources */,
 				2CB18EC726B5A68700862C28 /* as_compiler.cpp in Sources */,
 				2C39ECA92564030E0021DF34 /* GL4Renderer2DCommand.cpp in Sources */,
 				2CC8BE0128C75332008C770A /* SivNone.cpp in Sources */,
@@ -15236,7 +15241,6 @@
 				2CC8BB5E28C7532F008C770A /* SivPeriodic.cpp in Sources */,
 				2CEFB6B72AB858DE005EBD5F /* SkMemory_malloc.cpp in Sources */,
 				2CC8BE0628C75332008C770A /* SivToastNotification.cpp in Sources */,
-				2CFABB2A272E3ACB00939278 /* parser.cpp in Sources */,
 				2CC8BDFC28C75332008C770A /* SivGeometry3D.cpp in Sources */,
 				2C636EB92657F7D300AF029F /* sid.cpp in Sources */,
 				2CC8BB4C28C7532E008C770A /* SVGDetail.cpp in Sources */,
@@ -15260,7 +15264,6 @@
 				2CC8BCE228C75330008C770A /* ScriptLine.cpp in Sources */,
 				2CC8BE2528C75332008C770A /* SivRay.cpp in Sources */,
 				2C636E762657F7D300AF029F /* soloud_core_getters.cpp in Sources */,
-				2CFABB08272E3ACB00939278 /* defselement.cpp in Sources */,
 				2CC8BE1728C75332008C770A /* SivMemoryReader.cpp in Sources */,
 				2C636EA22657F7D300AF029F /* soloud_wav.cpp in Sources */,
 				2CC8BCA328C75330008C770A /* ScriptInput.cpp in Sources */,
@@ -15282,7 +15285,6 @@
 				2CFF9F6C24A47730000B5A17 /* MetalVertex2DBatch.mm in Sources */,
 				2CC8BC1428C7532F008C770A /* SivBase64.cpp in Sources */,
 				2C4397962536163000F6AECD /* CShader_GL4.cpp in Sources */,
-				2C0A4D632566A855002A4B5E /* sw_ft_stroker.c in Sources */,
 				2C6C658129C16F1A009298ED /* smtp-address-validator.cpp in Sources */,
 				2CC8BB6028C7532F008C770A /* OpusEncoder.cpp in Sources */,
 				2CC8BD1E28C75331008C770A /* CAudio.cpp in Sources */,
@@ -15294,14 +15296,12 @@
 				2C439F7D241DCEA9001154C2 /* fixed-dtoa.cc in Sources */,
 				2C4AEF872635CACB00D36CFC /* tinyxml2.cpp in Sources */,
 				2CC8BCCB28C75330008C770A /* ScriptDialog.cpp in Sources */,
-				2CFABB1D272E3ACB00939278 /* geometryelement.cpp in Sources */,
 				2CB18ECE26B5A68700862C28 /* as_scriptfunction.cpp in Sources */,
 				2CC8BCBE28C75330008C770A /* ScriptFloatRect.cpp in Sources */,
 				2CB7D4EE2556E247007EB42E /* CMouse.cpp in Sources */,
 				2CC8BBF828C7532F008C770A /* AnimatedGIFWriterDetail.cpp in Sources */,
 				2C28E97F2796816D0004E07D /* zstd_common.c in Sources */,
 				2C834DB5248805D4006208B8 /* regparse.c in Sources */,
-				2CFABB11272E3ACB00939278 /* useelement.cpp in Sources */,
 				2CC8BB9528C7532F008C770A /* SivRect.cpp in Sources */,
 				2CC8BB9028C7532F008C770A /* RegExpDetail.cpp in Sources */,
 				2C2AA2CF25FF894D003F3EBC /* serial.cc in Sources */,
@@ -15323,6 +15323,7 @@
 				2CC8BE2228C75332008C770A /* SivTriangle3D.cpp in Sources */,
 				2C60AE91248158A500277281 /* scope.cpp in Sources */,
 				2CC8BDF728C75332008C770A /* SivVideoTexture.cpp in Sources */,
+				2C1824812C3117410029D770 /* layoutcontext.cpp in Sources */,
 				2CC8BD5D28C75331008C770A /* CModel.cpp in Sources */,
 				2C47B48B24DD97F2008D83BE /* muParserTokenReader.cpp in Sources */,
 				2CC8BC3328C7532F008C770A /* SivSimpleHTTP.cpp in Sources */,
@@ -15345,13 +15346,14 @@
 				2CC8BE3E28C75333008C770A /* SivConsole.cpp in Sources */,
 				2CC8BCE628C75330008C770A /* ImagePainting.cpp in Sources */,
 				2C834D90248805D4006208B8 /* iso8859_1.c in Sources */,
+				2C1824372C3117350029D770 /* plutovg.c in Sources */,
 				2CF21D1A249FAA8F00C864C9 /* Renderer2DFactory.mm in Sources */,
 				2C834D8F248805D4006208B8 /* utf32_le.c in Sources */,
 				2CC8BCA828C75330008C770A /* ScriptImage.cpp in Sources */,
 				2CC8BB8C28C7532F008C770A /* SivBigInt.cpp in Sources */,
 				2CC8BCF328C75331008C770A /* HTMLWriterDetail.cpp in Sources */,
+				2C1824672C3117410029D770 /* svgelement.cpp in Sources */,
 				2CB18EBC26B5A68700862C28 /* as_globalproperty.cpp in Sources */,
-				2CFABB1A272E3ACB00939278 /* paintelement.cpp in Sources */,
 				2C39ECB5256406FA0021DF34 /* MetalRenderer2DCommand.cpp in Sources */,
 				2C28E9612796816C0004E07D /* zdict.c in Sources */,
 				2CB18EBD26B5A68700862C28 /* as_callfunc_xenon.cpp in Sources */,
@@ -15404,12 +15406,14 @@
 				2CEFB6B82AB858DE005EBD5F /* SkDebug_stdio.cpp in Sources */,
 				2CC8BCEE28C75331008C770A /* Vertex2DBuilder.cpp in Sources */,
 				2CC8BE3228C75333008C770A /* KeyboardFactory.cpp in Sources */,
+				2C1824762C3117410029D770 /* gelement.cpp in Sources */,
 				2CC8BC7028C75330008C770A /* ScriptVideoTexture.cpp in Sources */,
 				2C834D97248805D4006208B8 /* unicode_fold3_key.c in Sources */,
 				2CC8BD6028C75331008C770A /* SVGDecoder.cpp in Sources */,
 				2CC8BBB528C7532F008C770A /* SivRoundRect.cpp in Sources */,
 				2CC8BBB328C7532F008C770A /* SivAsset.cpp in Sources */,
 				2C439F79241DCEA9001154C2 /* bignum.cc in Sources */,
+				2C1824362C3117350029D770 /* plutovg-ft-math.c in Sources */,
 				2CC8BDD528C75332008C770A /* SivMat4x4.cpp in Sources */,
 				2CC8BE1B28C75332008C770A /* SivImageDecoder.cpp in Sources */,
 				2C28E9482796816C0004E07D /* zstdmt_compress.c in Sources */,
@@ -15433,10 +15437,10 @@
 				2CC8BCD528C75330008C770A /* ScriptTextInputMode.cpp in Sources */,
 				2C7A779C2B41095C00E40A53 /* OpenAICommon.cpp in Sources */,
 				2CC8BB7828C7532F008C770A /* SivParseBool.cpp in Sources */,
-				2CFABB22272E3ACB00939278 /* element.cpp in Sources */,
 				2CC8BCD628C75330008C770A /* ScriptFloat4.cpp in Sources */,
 				2CEFB7042AB859DB005EBD5F /* SkMatrix.cpp in Sources */,
 				2CC8BC8D28C75330008C770A /* ScriptTriangle.cpp in Sources */,
+				2C1824682C3117410029D770 /* symbolelement.cpp in Sources */,
 				2CC8BD3328C75331008C770A /* SivMat3x3.cpp in Sources */,
 				2CEFB68D2AB858DD005EBD5F /* SkDCubicLineIntersection.cpp in Sources */,
 				2CC8BE1528C75332008C770A /* SivSoundFont.cpp in Sources */,
@@ -15466,12 +15470,10 @@
 				2CEFB6B32AB858DE005EBD5F /* SkOpBuilder.cpp in Sources */,
 				2C9566D32645626000539B85 /* mz_crypt_apple.c in Sources */,
 				2C834DC1248805D4006208B8 /* iso8859_14.c in Sources */,
-				2CFABB15272E3ACB00939278 /* gelement.cpp in Sources */,
 				2C834D9F248805D4006208B8 /* iso8859_8.c in Sources */,
 				2CC8BB7728C7532F008C770A /* SivTOMLReader.cpp in Sources */,
 				2C65277D26561B7D003427EB /* RtAudio.cpp in Sources */,
 				2CC8BB5528C7532F008C770A /* SivAudioAsset.cpp in Sources */,
-				2C794B6625C4FD0400034D81 /* plutovg-dash.c in Sources */,
 				2CC8BD6A28C75331008C770A /* JPEGEncoder.cpp in Sources */,
 				2CC8BC6F28C75330008C770A /* ScriptVec2.cpp in Sources */,
 				2CE762A929326ECF00E410FF /* OscReceivedElements.cpp in Sources */,
@@ -15479,7 +15481,7 @@
 				2CC8BD1128C75331008C770A /* CUserAction.cpp in Sources */,
 				2C13C9A625BD29FC0054B968 /* lobject.c in Sources */,
 				2CC8BCFB28C75331008C770A /* SivImageROI.cpp in Sources */,
-				2CFABB21272E3ACB00939278 /* styleelement.cpp in Sources */,
+				2C1824822C3117410029D770 /* styleelement.cpp in Sources */,
 				2CC8BCA928C75330008C770A /* ScriptFont.cpp in Sources */,
 				2CC8BD4A28C75331008C770A /* ZIPReaderDetail.cpp in Sources */,
 				2CC8BC3A28C75330008C770A /* CRenderer3D_Null.cpp in Sources */,
@@ -15513,6 +15515,7 @@
 				2CC8BC7928C75330008C770A /* ScriptPoint.cpp in Sources */,
 				2CC8BBF928C7532F008C770A /* SivAnimatedGIFWriter.cpp in Sources */,
 				2CC8BC5728C75330008C770A /* scriptgrid.cpp in Sources */,
+				2C1824322C3117350029D770 /* plutovg-ft-stroker.c in Sources */,
 				2CC8BC3828C75330008C770A /* SivFileSystem.cpp in Sources */,
 				2C13C9B025BD29FC0054B968 /* linit.c in Sources */,
 				2CB18EC526B5A68700862C28 /* as_bytecode.cpp in Sources */,
@@ -15524,7 +15527,6 @@
 				2CC8BE2728C75332008C770A /* SivPutText.cpp in Sources */,
 				2CC8BBF228C7532F008C770A /* SivBinaryWriter.cpp in Sources */,
 				2CC8BD8128C75331008C770A /* SivHTTPResponse.cpp in Sources */,
-				2C0A4D652566A855002A4B5E /* plutovg-paint.c in Sources */,
 				2CC8BC2B28C7532F008C770A /* PolygonDetail.cpp in Sources */,
 				2C636E682657F7D300AF029F /* soloud_core_voicegroup.cpp in Sources */,
 				2C13C6FC25B458920054B968 /* discrete_distribution.cc in Sources */,
@@ -15595,7 +15597,6 @@
 				2CB18E9B26B5A68700862C28 /* as_objecttype.cpp in Sources */,
 				2C60AE8D248158A500277281 /* os_info_darwin.cpp in Sources */,
 				2CC8BD7428C75331008C770A /* SivRectEmitter2D.cpp in Sources */,
-				2C0A4D6A2566A855002A4B5E /* plutovg-blend.c in Sources */,
 				2C834DC3248805D4006208B8 /* iso8859_4.c in Sources */,
 				2CC8BC4D28C75330008C770A /* PrintFactory.cpp in Sources */,
 				2C834DB4248805D4006208B8 /* iso8859_7.c in Sources */,
@@ -15609,7 +15610,6 @@
 				2CC8BD9228C75332008C770A /* CFFT.cpp in Sources */,
 				2CC8BD0628C75331008C770A /* SystemMisc.cpp in Sources */,
 				2CC8BC1728C7532F008C770A /* SivStringView.cpp in Sources */,
-				2CFABB2B272E3ACB00939278 /* graphicselement.cpp in Sources */,
 				2C60AE81248158A500277281 /* vendor_id.cpp in Sources */,
 				2CC8BD1A28C75331008C770A /* SivVector4D.cpp in Sources */,
 				2CC8BE1328C75332008C770A /* SoundFontDetail.cpp in Sources */,
@@ -15620,7 +15620,6 @@
 				2C636D8C2657A0BF00AF029F /* pffft.c in Sources */,
 				2C68509024B768A800B98A7F /* CConsole.cpp in Sources */,
 				2CC8BDD928C75332008C770A /* ImageEncoderFactory.cpp in Sources */,
-				2CFABB19272E3ACB00939278 /* markerelement.cpp in Sources */,
 				2CC8BC3728C75330008C770A /* SivDemangle.cpp in Sources */,
 				2CC8BCFA28C75331008C770A /* SivDialog.cpp in Sources */,
 				2CC8BCD828C75330008C770A /* ScriptSpline2D.cpp in Sources */,
@@ -15700,7 +15699,9 @@
 				2CC8BC3428C7532F008C770A /* SivRDTSCClock.cpp in Sources */,
 				2CC8BB9E28C7532F008C770A /* SivMicrosecClock.cpp in Sources */,
 				2CC8BBC728C7532F008C770A /* P2Quad.cpp in Sources */,
+				2C1824832C3117410029D770 /* element.cpp in Sources */,
 				2C636E782657F7D300AF029F /* soloud_misc.cpp in Sources */,
+				2C1824392C3117350029D770 /* plutovg-rle.c in Sources */,
 				2C13C9AE25BD29FC0054B968 /* lua.c in Sources */,
 				2C3464092A7B81EB0083F8B7 /* Troubleshooting.cpp in Sources */,
 				2C60AE83248158A500277281 /* memory_non_windows_non_darwin.cpp in Sources */,
@@ -15722,6 +15723,7 @@
 				2C636EB72657F7D300AF029F /* ted.cpp in Sources */,
 				2CC8BC6228C75330008C770A /* ScriptTime.cpp in Sources */,
 				2CC8BC7628C75330008C770A /* ScriptDateTime.cpp in Sources */,
+				2C18246F2C3117410029D770 /* property.cpp in Sources */,
 				2C13C9CF25BD29FC0054B968 /* ldebug.c in Sources */,
 				2C834DA3248805D4006208B8 /* regtrav.c in Sources */,
 				2CEFB1C22AB8588C005EBD5F /* SignedDistance.cpp in Sources */,
