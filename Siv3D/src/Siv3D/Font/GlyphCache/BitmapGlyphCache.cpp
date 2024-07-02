@@ -102,7 +102,7 @@ namespace s3d
 		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false, Ligature::Yes);
 		if (not prerender(font, dotGlyphCluster, true))
 		{
-			// do tnohing
+			// do nothing
 		}
 		updateTexture();
 
@@ -216,7 +216,7 @@ namespace s3d
 		const Array<GlyphCluster> dotGlyphCluster = font.getGlyphClusters(U".", false, Ligature::Yes);
 		if (not prerender(font, dotGlyphCluster, true))
 		{
-			// do tnohing
+			// do nothing
 		}
 		updateTexture();
 
