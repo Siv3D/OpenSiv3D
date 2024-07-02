@@ -245,10 +245,10 @@ namespace s3d
 		constexpr size_t indexOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
 
 		[[nodiscard]]
-		constexpr size_t lastIndexOfAny(StringView anyof, size_t pos = 0) const noexcept;
+		constexpr size_t lastIndexOfAny(StringView anyof, size_t pos = npos) const noexcept;
 
 		[[nodiscard]]
-		constexpr size_t lastIndexOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+		constexpr size_t lastIndexOfAny(const value_type* anyof, size_t pos = npos) const noexcept;
 
 		[[nodiscard]]
 		constexpr size_t indexNotOfAny(StringView anyof, size_t pos = 0) const noexcept;
@@ -257,10 +257,10 @@ namespace s3d
 		constexpr size_t indexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
 
 		[[nodiscard]]
-		constexpr size_t lastIndexNotOfAny(StringView anyof, size_t pos = 0) const noexcept;
+		constexpr size_t lastIndexNotOfAny(StringView anyof, size_t pos = npos) const noexcept;
 
 		[[nodiscard]]
-		constexpr size_t lastIndexNotOfAny(const value_type* anyof, size_t pos = 0) const noexcept;
+		constexpr size_t lastIndexNotOfAny(const value_type* anyof, size_t pos = npos) const noexcept;
 
 		/// @brief 文字列が指定した文字を含むかを返します。
 		/// @param ch 検索する文字
