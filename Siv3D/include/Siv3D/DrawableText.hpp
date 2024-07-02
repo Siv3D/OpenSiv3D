@@ -168,6 +168,10 @@ namespace s3d
 		[[nodiscard]]
 		RectF regionBaseAt(double size, Vec2 pos = Vec2{ 0, 0 }) const;
 
+		bool fits(const RectF& area) const;
+
+		bool fits(double size, const RectF& area) const;
+
 		RectF draw(double x, double y, const ColorF& color = Palette::White) const;
 
 		RectF draw(const Vec2& pos = Vec2{ 0, 0 }, const ColorF& color = Palette::White) const;

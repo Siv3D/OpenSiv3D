@@ -334,6 +334,12 @@ namespace s3d
 		}
 	}
 
+	bool CFont_Headless::fits(const Font::IDType, const StringView, const Array<GlyphCluster>&, const RectF&, const double, const double)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
 	bool CFont_Headless::draw(const Font::IDType, const StringView, const Array<GlyphCluster>&, const RectF&, const double, const TextStyle&, const ColorF&, const double)
 	{
 		// [Siv3D ToDo]

@@ -441,6 +441,13 @@ namespace s3d
 		}
 	}
 
+	bool CFont::fits(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const double lineHeightScale)
+	{
+		const auto& font = m_fonts[handleID];
+
+		return m_fonts[handleID]->getGlyphCache().fits(*font, s, clusters, area, fontSize, lineHeightScale);
+	}
+
 	bool CFont::draw(const Font::IDType handleID, const StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, const double lineHeightScale)
 	{
 		const auto& font = m_fonts[handleID];

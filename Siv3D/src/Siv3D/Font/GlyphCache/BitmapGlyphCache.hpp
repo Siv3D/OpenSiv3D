@@ -26,6 +26,8 @@ namespace s3d
 
 		RectF draw(const FontData & font, StringView s, const Array<GlyphCluster>&clusters, bool usebasePos, const Vec2 & pos, double size, const TextStyle & textStyle, const ColorF & color, double lineHeightScale) override;
 
+		bool fits(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double size, double lineHeightScale);
+
 		bool draw(const FontData & font, StringView s, const Array<GlyphCluster>&clusters, const RectF & area, double size, const TextStyle & textStyle, const ColorF & color, double lineHeightScale) override;
 
 		[[nodiscard]]

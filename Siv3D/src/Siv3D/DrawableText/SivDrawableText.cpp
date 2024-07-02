@@ -330,6 +330,16 @@ namespace s3d
 		return rect.movedBy(pos.x - (rect.w * 0.5), pos.y);
 	}
 
+	bool DrawableText::fits(const RectF& area) const
+	{
+		return fits(font.fontSize(), area);
+	}
+
+	bool DrawableText::fits(const double size, const RectF& area) const
+	{
+		return SIV3D_ENGINE(Font)->fits(font.id(), text, clusters, area, size, 1.0);
+	}
+
 	RectF DrawableText::draw(const double x, const double y, const ColorF& color) const
 	{
 		return draw(TextStyle::Default(), font.fontSize(), Vec2{x, y}, color);

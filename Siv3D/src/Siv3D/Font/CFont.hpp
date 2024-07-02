@@ -121,6 +121,8 @@ namespace s3d
 
 		RectF draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
 
+		bool fits(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, double lineHeightScale);
+
 		bool draw(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;
 
 		RectF drawBase(Font::IDType handleID, StringView s, const Array<GlyphCluster>& clusters, const Vec2& pos, double fontSize, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) override;

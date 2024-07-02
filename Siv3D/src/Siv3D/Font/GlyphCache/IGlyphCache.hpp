@@ -26,6 +26,8 @@ namespace s3d
 
 		virtual RectF draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, bool useBasePos, const Vec2& pos, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
+		virtual bool fits(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double size, double lineHeightScale) = 0;
+
 		virtual bool draw(const FontData& font, StringView s, const Array<GlyphCluster>& clusters, const RectF& area, double size, const TextStyle& textStyle, const ColorF& color, double lineHeightScale) = 0;
 
 		virtual RectF drawFallback(const FontData& font, const GlyphCluster& cluster, bool useBasePos, const Vec2& pos, const double size, const ColorF& color, double lineHeightScale) = 0;
