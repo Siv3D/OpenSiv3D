@@ -51,7 +51,7 @@ namespace s3d
 
 	void Camera2D::draw(const ColorF& color) const
 	{
-		if ((not m_grabPos)
+		if ((not m_grabbedPos)
 			|| m_pointedScale)
 		{
 			return;
@@ -60,11 +60,12 @@ namespace s3d
 		const auto t1 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetLocal };
 		const auto t2 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetCamera };
 
+		const Vec2 grabbedPos = *m_grabbedPos;
 		const double radius = 12.0;
-		const Point delta = (Cursor::Pos() - m_grabPos.value());
+		const Vec2 delta = (Cursor::PosF() - grabbedPos);
 		const double length = delta.length();
 
-		Circle{ m_grabPos.value(), radius }.drawFrame(4.0, 2.0, color);
+		Circle{ grabbedPos, radius }.drawFrame(4.0, 2.0, color);
 
 		if ((radius * 2) <= length)
 		{
@@ -77,7 +78,7 @@ namespace s3d
 			const Vec2 p2 = direction.withLength(radius * 1.8);
 			const Vec2 p3 = direction.withLength(radius * 1.2) + leftOffset;
 
-			Quad{ p1, p2, p3, p0 }.moveBy(m_grabPos.value()).draw(color);
+			Quad{ p1, p2, p3, p0 }.moveBy(grabbedPos).draw(color);
 		}
 	}
 
@@ -106,7 +107,7 @@ namespace s3d
 		const auto t1 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetLocal };
 		const auto t2 = Transformer2D{ Mat3x2::Identity(), TransformCursor::Yes, Transformer2D::Target::SetCamera };
 
-		const Point cursorPos = Cursor::Pos();
+		const Vec2 cursorPos = Cursor::PosF();
 		const Vec2 point = (m_center + (cursorPos - (sceneSize * 0.5)) / m_scale);
 		m_pointedScale.emplace(cursorPos, point);
 	}
@@ -172,17 +173,17 @@ namespace s3d
 
 		if (MouseR.down())
 		{
-			m_grabPos = Cursor::Pos();
+			m_grabbedPos = Cursor::PosF();
 			m_pointedScale.reset();
 		}
-		else if (m_grabPos)
+		else if (m_grabbedPos)
 		{
-			const Point delta = (Cursor::Pos() - m_grabPos.value());
+			const Vec2 delta = (Cursor::PosF() - *m_grabbedPos);
 			m_targetCenter += m_parameters.grabSpeedFactor * (deltaTime / 1.0) * (delta / m_targetScale);
 
 			if (MouseR.up())
 			{
-				m_grabPos = none;
+				m_grabbedPos = none;
 			}
 		}
 	}

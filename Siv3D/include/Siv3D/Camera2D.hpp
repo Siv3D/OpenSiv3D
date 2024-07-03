@@ -82,6 +82,11 @@ namespace s3d
 		/// @param color UI の色
 		void draw(const ColorF& color = Palette::White) const;
 
+		/// @brief 右クリックによる移動の開始座標を返します。
+		/// @return 右クリックによる移動の開始座標。右クリックによる移動が開始されていない場合は none
+		[[nodiscard]]
+		const Optional<Vec2>& getGrabbedPos() const noexcept;
+
 	protected:
 
 		double m_targetScale = BasicCamera2D::m_scale;
@@ -92,9 +97,9 @@ namespace s3d
 
 		Vec2 m_positionChangeVelocity = Vec2::Zero();
 
-		Optional<Point> m_grabPos;
+		Optional<Vec2> m_grabbedPos;
 
-		Optional<std::pair<Point, Vec2>> m_pointedScale;
+		Optional<std::pair<Vec2, Vec2>> m_pointedScale;
 
 		Camera2DParameters m_parameters;
 
