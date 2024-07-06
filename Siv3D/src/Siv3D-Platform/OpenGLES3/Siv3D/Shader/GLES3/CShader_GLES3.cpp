@@ -91,7 +91,7 @@ namespace s3d
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_9.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/gaussian_blur_13.frag"), {{ U"PSConstants2D", 0 }} };
 			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/apply_srgb_curve.frag"), {} };
-			m_enginePSs << ESSL{ Resource(U"engine/shader/glsl/quad_warp.frag"), {{ U"PSConstants2D", 0 }, { U"PSQuadWarp", 1 }} };
+			m_enginePSs << ESSL{ Resource(U"engine/shader/essl/quad_warp.frag"), {{ U"PSConstants2D", 0 }, { U"PSQuadWarp", 1 }} };
 
 			if (not m_enginePSs.all([](const auto& ps) { return !!ps; })) // もしロードに失敗したシェーダがあれば
 			{
