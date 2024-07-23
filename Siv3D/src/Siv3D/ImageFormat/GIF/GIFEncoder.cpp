@@ -23,7 +23,7 @@
 extern "C"
 {
 	// libgif/libutil
-# if (GIFLIB_MAJOR == 5 && GIFLIB_MINOR >= 2) || (GIFLIB_MAJOR > 5)
+# if (GIFLIB_MAJOR == 5 && GIFLIB_MINOR == 2 && GIFLIB_RELEASE >= 2) || (GIFLIB_MAJOR == 5 && GIFLIB_MINOR > 2) || (GIFLIB_MAJOR > 5)
 	int
 		GifQuantizeBuffer(unsigned int Width,
 			unsigned int Height,
