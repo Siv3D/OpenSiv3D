@@ -31,7 +31,11 @@ namespace s3d
 
 		void addLine(const Line& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
 
+		void addLineSensor(const Line& localPos, const P2Filter& filter);
+
 		void addLineString(const LineString& localPos, CloseRing closeRing, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		void addLineStringSensor(const LineString& localPos, CloseRing closeRing, const P2Filter& filter);
 
 		void addCircle(const Circle& localPos, const P2Material& material, const P2Filter& filter);
 
@@ -39,11 +43,19 @@ namespace s3d
 
 		void addRect(const RectF& localPos, const P2Material& material, const P2Filter& filter);
 
+		void addRectSensor(const RectF& localPos, const P2Filter& filter);
+
 		void addTriangle(const Triangle& localPos, const P2Material& material, const P2Filter& filter);
+
+		void addTriangleSensor(const Triangle& localPos, const P2Filter& filter);
 
 		void addQuad(const Quad& localPos, const P2Material& material, const P2Filter& filter);
 
+		void addQuadSensor(const Quad& localPos, const P2Filter& filter);
+
 		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
+
+		void addPolygonSensor(const Polygon& polygon, const P2Filter& filter);
 
 		[[nodiscard]]
 		b2Body& getBody() noexcept;

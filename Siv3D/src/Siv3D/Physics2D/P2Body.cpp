@@ -61,6 +61,18 @@ namespace s3d
 		return *this;
 	}
 
+	P2Body& P2Body::addLineSensor(const Line& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addLineSensor(localPos, filter);
+
+		return *this;
+	}
+
 	P2Body& P2Body::addLineString(const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		if (isEmpty())
@@ -78,6 +90,23 @@ namespace s3d
 		return *this;
 	}
 
+	P2Body& P2Body::addLineStringSensor(const LineString& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		if (localPos.size() < 2)
+		{
+			return *this;
+		}
+
+		pImpl->addLineStringSensor(localPos, CloseRing::No, filter);
+
+		return *this;
+	}
+
 	P2Body& P2Body::addClosedLineString(const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		if (isEmpty())
@@ -91,6 +120,23 @@ namespace s3d
 		}
 
 		pImpl->addLineString(localPos, CloseRing::Yes, oneSided, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addClosedLineStringSensor(const LineString& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		if (localPos.size() < 2)
+		{
+			return *this;
+		}
+
+		pImpl->addLineStringSensor(localPos, CloseRing::Yes, filter);
 
 		return *this;
 	}
@@ -131,6 +177,18 @@ namespace s3d
 		return *this;
 	}
 
+	P2Body& P2Body::addRectSensor(const RectF& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addRectSensor(localPos, filter);
+
+		return *this;
+	}
+
 	P2Body& P2Body::addTriangle(const Triangle& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		if (isEmpty())
@@ -139,6 +197,18 @@ namespace s3d
 		}
 
 		pImpl->addTriangle(localPos, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addTriangleSensor(const Triangle& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addTriangleSensor(localPos, filter);
 
 		return *this;
 	}
@@ -155,6 +225,18 @@ namespace s3d
 		return *this;
 	}
 
+	P2Body& P2Body::addQuadSensor(const Quad& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addQuadSensor(localPos, filter);
+
+		return *this;
+	}
+
 	P2Body& P2Body::addPolygon(const Polygon& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		if (isEmpty())
@@ -163,6 +245,18 @@ namespace s3d
 		}
 
 		pImpl->addPolygon(localPos, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addPolygonSensor(const Polygon& localPos, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addPolygonSensor(localPos, filter);
 
 		return *this;
 	}
