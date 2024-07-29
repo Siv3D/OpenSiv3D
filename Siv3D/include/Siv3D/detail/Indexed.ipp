@@ -20,7 +20,6 @@ namespace s3d
 
 		struct Iterator
 		{
-			using value_type = std::tuple<size_t, typename std::iterator_traits<It>::value_type>;
 			using reference = std::tuple<size_t, decltype(*std::declval<It&>())>;
 			size_t index;
 			It it;
@@ -50,7 +49,6 @@ namespace s3d
 	{
 		struct Iterator
 		{
-			using value_type = std::tuple<size_t, typename std::iterator_traits<It>::value_type>;
 			using reference = std::tuple<size_t, decltype(*std::declval<It&>())>;
 			size_t index;
 			It it;
