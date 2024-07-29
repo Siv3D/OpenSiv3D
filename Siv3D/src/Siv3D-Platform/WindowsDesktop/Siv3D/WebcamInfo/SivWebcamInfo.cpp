@@ -46,6 +46,11 @@ namespace s3d
 				return results;
 			}
 
+			if (not enumMoniker)
+			{
+				return results;
+			}
+
 			ComPtr<IMoniker> moniker;
 
 			for (uint32 index = 0; enumMoniker->Next(1, &moniker, nullptr) == S_OK; ++index)
