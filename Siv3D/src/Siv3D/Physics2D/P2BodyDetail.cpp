@@ -58,14 +58,28 @@ namespace s3d
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Line>(*m_body, localPos, oneSided, material, filter));
+		m_shapes.push_back(std::make_shared<P2Line>(*m_body, localPos, oneSided, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addLineSensor(const Line& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Line>(*m_body, localPos, OneSided::No, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addLineString(const LineString& localPos, const CloseRing closeRing, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2LineString>(*m_body, localPos, closeRing, oneSided, material, filter));
+		m_shapes.push_back(std::make_shared<P2LineString>(*m_body, localPos, closeRing, oneSided, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addLineStringSensor(const LineString& localPos, const CloseRing closeRing, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2LineString>(*m_body, localPos, closeRing, OneSided::No, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addCircle(const Circle& localPos, const P2Material& material, const P2Filter& filter)
@@ -86,28 +100,56 @@ namespace s3d
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Rect>(*m_body, localPos, material, filter));
+		m_shapes.push_back(std::make_shared<P2Rect>(*m_body, localPos, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addRectSensor(const RectF& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Rect>(*m_body, localPos, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addTriangle(const Triangle& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Triangle>(*m_body, localPos, material, filter));
+		m_shapes.push_back(std::make_shared<P2Triangle>(*m_body, localPos, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addTriangleSensor(const Triangle& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Triangle>(*m_body, localPos, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addQuad(const Quad& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Quad>(*m_body, localPos, material, filter));
+		m_shapes.push_back(std::make_shared<P2Quad>(*m_body, localPos, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addQuadSensor(const Quad& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Quad>(*m_body, localPos, P2Material{}, filter, true));
 	}
 
 	void P2Body::P2BodyDetail::addPolygon(const Polygon& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		assert(m_body);
 
-		m_shapes.push_back(std::make_shared<P2Polygon>(*m_body, localPos, material, filter));
+		m_shapes.push_back(std::make_shared<P2Polygon>(*m_body, localPos, material, filter, false));
+	}
+
+	void P2Body::P2BodyDetail::addPolygonSensor(const Polygon& localPos, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Polygon>(*m_body, localPos, P2Material{}, filter, true));
 	}
 
 	b2Body& P2Body::P2BodyDetail::getBody() noexcept

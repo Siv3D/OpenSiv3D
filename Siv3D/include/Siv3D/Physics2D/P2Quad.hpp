@@ -22,7 +22,7 @@ namespace s3d
 	public:
 
 		SIV3D_NODISCARD_CXX20
-		P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter);
+		P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter, bool isSensor);
 
 		[[nodiscard]]
 		P2ShapeType getShapeType() const noexcept override;

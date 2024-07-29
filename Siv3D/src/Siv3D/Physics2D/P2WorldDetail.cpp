@@ -42,6 +42,15 @@ namespace s3d
 		return body;
 	}
 
+	P2Body detail::P2WorldDetail::createLineSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addLineSensor(localPos, filter);
+
+		return body;
+	}
+
 	P2Body detail::P2WorldDetail::createLineString(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		P2Body body{ world, generateNextID(), worldPos, bodyType };
@@ -51,11 +60,29 @@ namespace s3d
 		return body;
 	}
 
+	P2Body detail::P2WorldDetail::createLineStringSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addLineStringSensor(localPos, filter);
+
+		return body;
+	}
+
 	P2Body detail::P2WorldDetail::createClosedLineString(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
 		body.addClosedLineString(localPos, oneSided, material, filter);
+
+		return body;
+	}
+
+	P2Body detail::P2WorldDetail::createClosedLineStringSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addClosedLineStringSensor(localPos, filter);
 
 		return body;
 	}
@@ -87,11 +114,29 @@ namespace s3d
 		return body;
 	}
 
+	P2Body detail::P2WorldDetail::createRectSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addRectSensor(localPos, filter);
+
+		return body;
+	}
+
 	P2Body detail::P2WorldDetail::createTriangle(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
 		body.addTriangle(localPos, material, filter);
+
+		return body;
+	}
+
+	P2Body detail::P2WorldDetail::createTriangleSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addTriangleSensor(localPos, filter);
 
 		return body;
 	}
@@ -105,11 +150,29 @@ namespace s3d
 		return body;
 	}
 
+	P2Body detail::P2WorldDetail::createQuadSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addQuadSensor(localPos, filter);
+
+		return body;
+	}
+
 	P2Body detail::P2WorldDetail::createPolygon(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		P2Body body{ world, generateNextID(), worldPos, bodyType };
 
 		body.addPolygon(localPos, material, filter);
+
+		return body;
+	}
+
+	P2Body detail::P2WorldDetail::createPolygonSensor(const std::shared_ptr<P2WorldDetail>& world, const P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Filter& filter)
+	{
+		P2Body body{ world, generateNextID(), worldPos, bodyType };
+
+		body.addPolygonSensor(localPos, filter);
 
 		return body;
 	}

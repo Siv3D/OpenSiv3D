@@ -14,12 +14,12 @@
 
 namespace s3d
 {
-	P2Rect::P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter)
+	P2Rect::P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter, const bool isSensor)
 		: m_pShape{ std::make_unique<b2PolygonShape>() }
 	{
 		m_pShape->SetAsBox(static_cast<float>(rect.w * 0.5), static_cast<float>(rect.h * 0.5), detail::ToB2Vec2(rect.center()), 0.0f);
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter, isSensor);
 
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}

@@ -59,6 +59,13 @@ namespace s3d
 		/// @return *this
 		P2Body& addLine(const Line& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 線分のセンサー部品を物体に追加します。
+		/// @remark `P2Line` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addLineSensor(const Line& localPos, const P2Filter& filter = {});
+
 		/// @brief 連続する複数の線分の部品を物体に追加します。
 		/// @remark `P2LineString` の部品を物体に追加します。
 		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
@@ -68,6 +75,13 @@ namespace s3d
 		/// @return *this
 		P2Body& addLineString(const LineString& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 連続する複数の線分のセンサー部品を物体に追加します。
+		/// @remark `P2LineString` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addLineStringSensor(const LineString& localPos, const P2Filter& filter = {});
+
 		/// @brief 連続する複数の線分（終点と始点を結ぶ）の部品を物体に追加します。
 		/// @remark `P2LineString` の部品を物体に追加します。
 		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
@@ -76,6 +90,13 @@ namespace s3d
 		/// @param filter 部品の干渉フィルタ
 		/// @return *this
 		P2Body& addClosedLineString(const LineString& localPos, OneSided oneSided, const P2Material& material = {}, const P2Filter& filter = {});
+
+		/// @brief 連続する複数の線分（終点と始点を結ぶ）のセンサー部品を物体に追加します。
+		/// @remark `P2LineString` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addClosedLineStringSensor(const LineString& localPos, const P2Filter& filter = {});
 
 		/// @brief 円の部品を物体に追加します。
 		/// @remark `P2Circle` の部品を物体に追加します。
@@ -100,6 +121,13 @@ namespace s3d
 		/// @return *this
 		P2Body& addRect(const RectF& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 長方形のセンサー部品を物体に追加します。
+		/// @remark `P2Rect` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addRectSensor(const RectF& localPos, const P2Filter& filter = {});
+
 		/// @brief 三角形の部品を物体に追加します。
 		/// @remark `P2Triangle` の部品を物体に追加します。
 		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
@@ -107,6 +135,13 @@ namespace s3d
 		/// @param filter 部品の干渉フィルタ
 		/// @return *this
 		P2Body& addTriangle(const Triangle& localPos, const P2Material& material = {}, const P2Filter& filter = {});
+
+		/// @brief 三角形のセンサー部品を物体に追加します。
+		/// @remark `P2Triangle` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addTriangleSensor(const Triangle& localPos, const P2Filter& filter = {});
 
 		/// @brief 凸な四角形の部品を物体に追加します。
 		/// @remark `P2Quad` の部品を物体に追加します。
@@ -116,6 +151,13 @@ namespace s3d
 		/// @return *this
 		P2Body& addQuad(const Quad& localPos, const P2Material& material = {}, const P2Filter& filter = {});
 
+		/// @brief 凸な四角形のセンサー部品を物体に追加します。
+		/// @remark `P2Quad` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addQuadSensor(const Quad& localPos, const P2Filter& filter = {});
+
 		/// @brief 多角形の部品を物体に追加します。
 		/// @remark `P2Polygon` の部品を物体に追加します。
 		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
@@ -123,6 +165,13 @@ namespace s3d
 		/// @param filter 部品の干渉フィルタ
 		/// @return *this
 		P2Body& addPolygon(const Polygon& localPos, const P2Material& material = {}, const P2Filter& filter = {});
+
+		/// @brief 多角形のセンサー部品を物体に追加します。
+		/// @remark `P2Polygon` の部品を物体に追加します。
+		/// @param localPos 物体のワールド座標から見たローカルでの形状の座標 (cm) 
+		/// @param filter センサーの干渉フィルタ
+		/// @return *this
+		P2Body& addPolygonSensor(const Polygon& localPos, const P2Filter& filter = {});
 
 		/// @brief 複数の多角形の部品を物体に追加します。
 		/// @remark 複数の `P2Polygon` の部品を物体に追加します。

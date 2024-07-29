@@ -14,14 +14,14 @@
 
 namespace s3d
 {
-	P2Quad::P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter)
+	P2Quad::P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter, bool const isSensor)
 		: m_pShape{ std::make_unique<b2PolygonShape>() }
 	{
 		const b2Vec2 points[4] = { detail::ToB2Vec2(quad.p0), detail::ToB2Vec2(quad.p1), detail::ToB2Vec2(quad.p2), detail::ToB2Vec2(quad.p3) };
 
 		m_pShape->Set(points, 4);
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter, isSensor);
 
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}

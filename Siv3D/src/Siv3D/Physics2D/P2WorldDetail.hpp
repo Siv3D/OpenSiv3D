@@ -31,10 +31,19 @@ namespace s3d
 		P2Body createLine(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]
+		P2Body createLineSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
 		P2Body createLineString(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]
+		P2Body createLineStringSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
 		P2Body createClosedLineString(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, OneSided oneSided, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createClosedLineStringSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter);
 
 		[[nodiscard]]
 		P2Body createCircle(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Material& material, const P2Filter& filter);
@@ -46,13 +55,25 @@ namespace s3d
 		P2Body createRect(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]
+		P2Body createRectSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
 		P2Body createTriangle(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createTriangleSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Filter& filter);
 
 		[[nodiscard]]
 		P2Body createQuad(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material, const P2Filter& filter);
 
 		[[nodiscard]]
+		P2Body createQuadSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Filter& filter);
+
+		[[nodiscard]]
 		P2Body createPolygon(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material, const P2Filter& filter);
+
+		[[nodiscard]]
+		P2Body createPolygonSensor(const std::shared_ptr<P2WorldDetail>& world, P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Filter& filter);
 
 		[[nodiscard]]
 		P2PivotJoint createPivotJoint(const std::shared_ptr<P2WorldDetail>& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& worldAnchorPos, EnableCollision enableCollision);
