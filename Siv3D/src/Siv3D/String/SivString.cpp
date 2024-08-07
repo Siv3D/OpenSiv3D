@@ -254,6 +254,16 @@ namespace s3d
 		return std::move(*this);
 	}
 
+	String::value_type& String::choice()
+	{
+		return choice(GetDefaultRNG());
+	}
+
+	const String::value_type& String::choice() const
+	{
+		return choice(GetDefaultRNG());
+	}
+
 	size_t String::count(const value_type ch) const noexcept
 	{
 		return std::count(m_string.begin(), m_string.end(), ch);

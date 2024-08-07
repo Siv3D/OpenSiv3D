@@ -642,6 +642,32 @@ namespace s3d
 		return std::any_of(m_string.begin(), m_string.end(), f);
 	}
 
+	SIV3D_CONCEPT_URBG_
+	inline String::value_type& String::choice(URBG&& rbg)
+	{
+		const size_t size = m_string.size();
+
+		if (size == 0)
+		{
+			throw std::out_of_range{ "String::choice(): String is empty" };
+		}
+
+		return m_string[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
+	}
+
+	SIV3D_CONCEPT_URBG_
+	inline const String::value_type& String::choice(URBG&& rbg) const
+	{
+		const size_t size = m_string.size();
+
+		if (size == 0)
+		{
+			throw std::out_of_range{ "String::choice(): String is empty" };
+		}
+
+		return m_string[RandomClosedOpen<size_t>(0, size, std::forward<URBG>(rbg))];
+	}
+
 	template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, char32>>*>
 	inline size_t String::count_if(Fty f) const
 	{
