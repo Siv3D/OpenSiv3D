@@ -71,6 +71,16 @@ namespace s3d
 		return pImpl->createLine(pImpl, bodyType, worldPos, localPos, oneSided, material, filter);
 	}
 
+	P2Body P2World::createLineSensor(const P2BodyType bodyType, const Vec2& worldPos, const Line& localPos, const P2Filter& filter)
+	{
+		if (bodyType == P2BodyType::Dynamic)
+		{
+			throw Error{ U"P2World::createLineSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+		}
+
+		return pImpl->createLineSensor(pImpl, bodyType, worldPos, localPos, filter);
+	}
+
 	P2Body P2World::createLineString(const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		if (bodyType == P2BodyType::Dynamic)
@@ -81,6 +91,16 @@ namespace s3d
 		return pImpl->createLineString(pImpl, bodyType, worldPos, localPos, oneSided, material, filter);
 	}
 
+	P2Body P2World::createLineStringSensor(const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter)
+	{
+		if (bodyType == P2BodyType::Dynamic)
+		{
+			throw Error{ U"P2World::createLineStringSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+		}
+
+		return pImpl->createLineStringSensor(pImpl, bodyType, worldPos, localPos, filter);
+	}
+
 	P2Body P2World::createClosedLineString(const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const OneSided oneSided, const P2Material& material, const P2Filter& filter)
 	{
 		if (bodyType == P2BodyType::Dynamic)
@@ -89,6 +109,16 @@ namespace s3d
 		}
 
 		return pImpl->createClosedLineString(pImpl, bodyType, worldPos, localPos, oneSided, material, filter);
+	}
+
+	P2Body P2World::createClosedLineStringSensor(const P2BodyType bodyType, const Vec2& worldPos, const LineString& localPos, const P2Filter& filter)
+	{
+		if (bodyType == P2BodyType::Dynamic)
+		{
+			throw Error{ U"P2World::createClosedLineStringSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+		}
+
+		return pImpl->createClosedLineStringSensor(pImpl, bodyType, worldPos, localPos, filter);
 	}
 
 	P2Body P2World::createCircle(const P2BodyType bodyType, const Vec2& worldPos, const double r, const P2Material& material, const P2Filter& filter)
@@ -106,6 +136,11 @@ namespace s3d
 		return pImpl->createCircleSensor(pImpl, bodyType, worldPos, Circle{ 0, 0, r }, filter);
 	}
 
+	P2Body P2World::createCircleSensor(const P2BodyType bodyType, const Vec2& worldPos, const Circle& localPos, const P2Filter& filter)
+	{
+		return pImpl->createCircleSensor(pImpl, bodyType, worldPos, localPos, filter);
+	}
+
 	P2Body P2World::createRect(const P2BodyType bodyType, const Vec2& worldPos, const double size, const P2Material& material, const P2Filter& filter)
 	{
 		return createRect(bodyType, worldPos, RectF{ Arg::center(0, 0), size }, material, filter);
@@ -121,9 +156,29 @@ namespace s3d
 		return pImpl->createRect(pImpl, bodyType, worldPos, localPos, material, filter);
 	}
 
+	P2Body P2World::createRectSensor(const P2BodyType bodyType, const Vec2& worldPos, const double size, const P2Filter& filter)
+	{
+		return createRectSensor(bodyType, worldPos, RectF{ Arg::center(0, 0), size }, filter);
+	}
+
+	P2Body P2World::createRectSensor(const P2BodyType bodyType, const Vec2& worldPos, const SizeF& size, const P2Filter& filter)
+	{
+		return createRectSensor(bodyType, worldPos, RectF{ Arg::center(0, 0), size }, filter);
+	}
+
+	P2Body P2World::createRectSensor(const P2BodyType bodyType, const Vec2& worldPos, const RectF& localPos, const P2Filter& filter)
+	{
+		return pImpl->createRectSensor(pImpl, bodyType, worldPos, localPos, filter);
+	}
+
 	P2Body P2World::createTriangle(const P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		return pImpl->createTriangle(pImpl, bodyType, worldPos, localPos, material, filter);
+	}
+
+	P2Body P2World::createTriangleSensor(const P2BodyType bodyType, const Vec2& worldPos, const Triangle& localPos, const P2Filter& filter)
+	{
+		return pImpl->createTriangleSensor(pImpl, bodyType, worldPos, localPos, filter);
 	}
 
 	P2Body P2World::createQuad(const P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Material& material, const P2Filter& filter)
@@ -131,9 +186,19 @@ namespace s3d
 		return pImpl->createQuad(pImpl, bodyType, worldPos, localPos, material, filter);
 	}
 
+	P2Body P2World::createQuadSensor(const P2BodyType bodyType, const Vec2& worldPos, const Quad& localPos, const P2Filter& filter)
+	{
+		return pImpl->createQuadSensor(pImpl, bodyType, worldPos, localPos, filter);
+	}
+
 	P2Body P2World::createPolygon(const P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Material& material, const P2Filter& filter)
 	{
 		return pImpl->createPolygon(pImpl, bodyType, worldPos, localPos, material, filter);
+	}
+
+	P2Body P2World::createPolygonSensor(const P2BodyType bodyType, const Vec2& worldPos, const Polygon& localPos, const P2Filter& filter)
+	{
+		return pImpl->createPolygonSensor(pImpl, bodyType, worldPos, localPos, filter);
 	}
 
 	P2Body P2World::createPolygons(const P2BodyType bodyType, const Vec2& worldPos, const MultiPolygon& localPos, const P2Material& material, const P2Filter& filter)
