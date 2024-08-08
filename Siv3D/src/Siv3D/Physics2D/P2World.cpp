@@ -75,7 +75,7 @@ namespace s3d
 	{
 		if (bodyType == P2BodyType::Dynamic)
 		{
-			throw Error{ U"P2World::createLine(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+			throw Error{ U"P2World::createLineSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
 		}
 
 		return pImpl->createLineSensor(pImpl, bodyType, worldPos, localPos, filter);
@@ -95,7 +95,7 @@ namespace s3d
 	{
 		if (bodyType == P2BodyType::Dynamic)
 		{
-			throw Error{ U"P2World::createLineString(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+			throw Error{ U"P2World::createLineStringSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
 		}
 
 		return pImpl->createLineStringSensor(pImpl, bodyType, worldPos, localPos, filter);
@@ -115,7 +115,7 @@ namespace s3d
 	{
 		if (bodyType == P2BodyType::Dynamic)
 		{
-			throw Error{ U"P2World::createClosedLineString(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
+			throw Error{ U"P2World::createClosedLineStringSensor(): bodyType must be either P2BodyType::Static or P2BodyType::Kinematic" };
 		}
 
 		return pImpl->createClosedLineStringSensor(pImpl, bodyType, worldPos, localPos, filter);
