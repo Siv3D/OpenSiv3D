@@ -161,14 +161,15 @@ namespace s3d
 		{
 			if (not m_file.file.read(static_cast<char*>(dst.pointer), readBytes))
 			{
-				m_file.pos = m_file.file.tellg();
-
 				if (m_file.file.eof())
 				{
+					setPos(previousPos);
 					return readBytes;
 				}
 
 				LOG_FAIL(U"❌ BinaryReader `{0}`: ReadFile() failed"_fmt(m_info.fullPath));
+				
+				setPos(previousPos);
 				return 0;
 			}
 		}
@@ -192,14 +193,15 @@ namespace s3d
 		{
 			if (not m_file.file.read(static_cast<char*>(dst.pointer), readBytes))
 			{
-				m_file.pos = m_file.file.tellg();
-
 				if (m_file.file.eof())
 				{
+					setPos(previousPos);
 					return readBytes;
 				}
 
 				LOG_FAIL(U"❌ BinaryReader `{0}`: ReadFile() failed"_fmt(m_info.fullPath));
+				
+				setPos(previousPos);
 				return 0;
 			}
 		}
