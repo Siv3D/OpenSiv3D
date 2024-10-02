@@ -89,7 +89,7 @@ namespace s3d
 		return quad;
 	}
 
-	Polygon RectF::rounded(double tl, double tr, double br, double bl) const noexcept
+	Polygon RectF::rounded(double tl, double tr, double br, double bl) const
 	{
 		constexpr double epsilon = 0.001;
 
@@ -222,6 +222,194 @@ namespace s3d
 		}
 
 		return Polygon{ vertices };
+	}
+
+	Polygon RectF::chamfered(double s) const
+	{
+		if (s <= 0.0)
+		{
+			return asPolygon();
+		}
+
+		s = Min(s, (Min(w, h) * 0.5));
+
+		Array<Vec2> points;
+
+		// 上辺
+		if ((s * 2.0) < w)
+		{
+			points.emplace_back((x + s), y);
+			points.emplace_back((x + w - s), y);
+		}
+		else
+		{
+			points.emplace_back((x + w * 0.5), y);
+		}
+
+		// 右辺
+		if ((s * 2.0) < h)
+		{
+			points.emplace_back((x + w), (y + s));
+			points.emplace_back((x + w), (y + h - s));
+		}
+		else
+		{
+			points.emplace_back((x + w), (y + h * 0.5));
+		}
+
+		// 下辺
+		if ((s * 2.0) < w)
+		{
+			points.emplace_back((x + w - s), (y + h));
+			points.emplace_back((x + s), (y + h));
+		}
+		else
+		{
+			points.emplace_back((x + w * 0.5), (y + h));
+		}
+
+		// 左辺
+		if ((s * 2.0) < h)
+		{
+			points.emplace_back(x, (y + h - s));
+			points.emplace_back(x, (y + s));
+		}
+		else
+		{
+			points.emplace_back(x, (y + h * 0.5));
+		}
+
+		Array<TriangleIndex> indices(points.size() - 2);
+
+		for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
+		{
+			indices[i] = { 0, static_cast<Vertex2D::IndexType>(i + 1), static_cast<Vertex2D::IndexType>(i + 2) };
+		}
+
+		return Polygon{ points, indices, *this };
+	}
+
+	Polygon RectF::chamfered(double tl, double tr, double br, double bl) const
+	{
+		tl = Max(tl, 0.0);
+		tr = Max(tr, 0.0);
+		br = Max(br, 0.0);
+		bl = Max(bl, 0.0);
+
+		if (double top = (tl + tr);
+			w < top)
+		{
+			tl *= (w / top);
+			tr *= (w / top);
+		}
+
+		if (double right = (tr + br);
+			h < right)
+		{
+			tr *= (h / right);
+			br *= (h / right);
+		}
+
+		if (double bottom = (br + bl);
+			w < bottom)
+		{
+			br *= (w / bottom);
+			bl *= (w / bottom);
+		}
+
+		if (double left = (bl + tl);
+			h < left)
+		{
+			bl *= (h / left);
+			tl *= (h / left);
+		}
+
+		Array<Vec2> points;
+
+		// 左上
+		if (tl)
+		{
+			const Vec2 p0{ x, (y + tl) };
+			const Vec2 p1{ (x + tl), y };
+			points << p0;
+			points << p1;
+		}
+		else
+		{
+			points << this->tl();
+		}
+
+		// 右上
+		if (tr)
+		{
+			const Vec2 p0{ (x + w - tr), y };
+			const Vec2 p1{ (x + w), (y + tr) };
+
+			if (points.back() != p0)
+			{
+				points << p0;
+			}
+
+			points << p1;
+		}
+		else
+		{
+			points << this->tr();
+		}
+
+		// 右下
+		if (br)
+		{
+			const Vec2 p0{ (x + w), (y + h - br) };
+			const Vec2 p1{ (x + w - br), (y + h) };
+
+			if (points.back() != p0)
+			{
+				points << p0;
+			}
+
+			points << p1;
+		}
+		else
+		{
+			points << this->br();
+		}
+
+		// 左下
+		if (bl)
+		{
+			const Vec2 p0{ (x + bl), (y + h) };
+			const Vec2 p1{ x, (y + h - bl) };
+
+			if (points.back() != p0)
+			{
+				points << p0;
+			}
+			
+			if (points.front() != p1)
+			{
+				points << p1;
+			}
+		}
+		else
+		{
+			const Vec2 p0 = this->bl();
+
+			if ((points.back() != p0)
+				&& (points.front() != p0))
+			{
+				points << p0;
+			}
+		}
+
+		Array<TriangleIndex> indices(points.size() - 2);
+
+		for (Vertex2D::IndexType i = 0; i < indices.size(); ++i)
+		{
+			indices[i] = { 0, static_cast<Vertex2D::IndexType>(i + 1), static_cast<Vertex2D::IndexType>(i + 2) };
+		}
+
+		return Polygon{ points, indices, *this };
 	}
 
 	LineString RectF::outline(const CloseRing closeRing) const

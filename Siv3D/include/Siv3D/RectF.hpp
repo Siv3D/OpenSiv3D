@@ -783,8 +783,23 @@ namespace s3d
 		constexpr RoundRect rounded(double r) const noexcept;
 
 		[[nodiscard]]
-		Polygon rounded(double tl, double tr, double br, double bl) const noexcept;
-		
+		Polygon rounded(double tl, double tr, double br, double bl) const;
+
+		/// @brief 長方形を面取りした Polygon を返します。
+		/// @param size 面取りの大きさ
+		/// @return 面取りした Polygon
+		[[nodiscard]]
+		Polygon chamfered(double size) const;
+
+		/// @brief 長方形を面取りした Polygon を返します。
+		/// @param tl 左上の面取りの大きさ
+		/// @param tr 右上の面取りの大きさ
+		/// @param br 右下の面取りの大きさ
+		/// @param bl 左下の面取りの大きさ
+		/// @return 面取りした Polygon
+		[[nodiscard]]
+		Polygon chamfered(double tl, double tr, double br, double bl) const;
+
 		/// @brief 長方形を Rect として返します。
 		/// @return 長方形の Rect
 		[[nodiscard]]
