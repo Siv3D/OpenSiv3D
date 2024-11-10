@@ -1356,6 +1356,34 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	ClampAngle
+		//
+		//////////////////////////////////////////////////
+
+		inline float ClampAngle(const float angle, const float min, float max) noexcept
+		{
+			const auto start = (min + max) * 0.5f - TwoPiF;
+			const auto floor = Floor((angle - start) / TwoPiF) * TwoPiF;
+			return Clamp(angle, min + floor, max + floor);
+		}
+
+		inline double ClampAngle(const double angle, const double min, double max) noexcept
+		{
+			const auto start = (min + max) * 0.5 - TwoPi;
+			const auto floor = Floor((angle - start) / TwoPi) * TwoPi;
+			return Clamp(angle, min + floor, max + floor);
+		}
+
+		SIV3D_CONCEPT_ARITHMETIC_
+		inline double ClampAngle(Arithmetic angle, Arithmetic min, Arithmetic max) noexcept
+		{
+			const auto start = (min + max) * 0.5 - TwoPi;
+			const auto floor = Floor((angle - start) / TwoPi) * TwoPi;
+			return Clamp(angle, min + floor, max + floor);
+		}
+
+		//////////////////////////////////////////////////
+		//
 		//	NormalizeAngle
 		//
 		//////////////////////////////////////////////////

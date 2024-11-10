@@ -1323,6 +1323,28 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	ClampAngle
+		//
+		//////////////////////////////////////////////////
+
+		/// @brief 最小値と最大値の範囲にクランプした角度を返します。
+		/// @param angle クランプする角度
+		/// @param min 範囲の最小値
+		/// @param max 範囲の最大値
+		/// @return クランプした角度
+		/// @remark angle が範囲外である場合、角度を円環的に解釈して min または max のうちより近い方の値に調整します。
+		[[nodiscard]]
+		inline float ClampAngle(float angle, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline double ClampAngle(double angle, double min, double max) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double ClampAngle(Arithmetic angle, Arithmetic min, Arithmetic max) noexcept;
+
+		//////////////////////////////////////////////////
+		//
 		//	NormalizeAngle
 		//
 		//////////////////////////////////////////////////
