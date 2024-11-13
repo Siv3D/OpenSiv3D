@@ -2784,7 +2784,7 @@ namespace s3d
 		/// @param tolerance 点が円に含まれているか判定する時に用いる許容誤差。相対誤差か絶対誤差がこの値以下であれば円に点が含まれているものとみなす。
 		/// @returns 点`p0`, `p1`, `p2`, `p3`の最小包含円
 		[[nodiscard]]
-		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const double tolerance = 1e-8);
+		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, double tolerance = 1e-8);
 
 		/// @brief 平面上の点群`points`をすべて含む半径最小の円`C`を返す。
 		/// @note 時間計算量は点群の数`points.size()`に対して期待線形時間である。
@@ -2794,7 +2794,7 @@ namespace s3d
 		/// @return 点群`points`の最小包含円
 		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
-		Circle SmallestEnclosingCircle(Array<Vec2> points, const double tolerance, URBG&& urbg);
+		Circle SmallestEnclosingCircle(Array<Vec2> points, double tolerance, URBG&& urbg);
 
 		/// @brief 平面上の点群`points`をすべて含む半径最小の円`C`を返す。
 		/// @note 時間計算量は点群の数`points.size()`に対して期待線形時間である。
@@ -2804,7 +2804,7 @@ namespace s3d
 		/// @return 点群`points`の最小包含円
 		SIV3D_CONCEPT_URBG
 		[[nodiscard]]
-		Circle SmallestEnclosingCircle(const Array<Vec2>& points, URBG&& urbg, const double tolerance = 1e-8);
+		Circle SmallestEnclosingCircle(const Array<Vec2>& points, URBG&& urbg, double tolerance = 1e-8);
 
 		/// @brief 平面上の点群`points`をすべて含む半径最小の円`C`を返す。
 		/// @note 時間計算量は点群の数`points.size()`に対して期待線形時間である。
@@ -2812,7 +2812,7 @@ namespace s3d
 		/// @param tolerance 点が円に含まれているか判定する時に用いる許容誤差。相対誤差か絶対誤差がこの値以下であれば円に点が含まれているものとみなす。
 		/// @return 点群`points`の最小包含円
 		[[nodiscard]]
-		Circle SmallestEnclosingCircle(const Array<Vec2>& points, const double tolerance = 1e-8);
+		Circle SmallestEnclosingCircle(const Array<Vec2>& points, double tolerance = 1e-8);
 		
 		//////////////////////////////////////////////////
 		//

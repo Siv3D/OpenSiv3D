@@ -45,7 +45,7 @@ namespace s3d
 		/// @brief 円`c`内に点`p`が含まれているかを判定する。
 		/// @note `p`が`c`外にあっても、`c`の半径に対する 点`p`と`c.r`の間の距離 の **相対誤差または絶対誤差** が`error`以下であれば含まれていると判定する。
 		[[nodiscard]]
-		inline bool Contains(const Circle& c, const Vec2& p, const double tolerance = 1e-8) {
+		inline bool Contains(const Circle& c, const Vec2& p, double tolerance = 1e-8) {
 			const double dSquared = (c.center - p).lengthSq();
 			const double rSquared = Math::Square(c.r);
 			// d_sq < r_sqならば、点`p`は円の内側にあるので一旦絶対誤差を0とおいて下の条件式が通るようにしておく。
@@ -1774,7 +1774,7 @@ namespace s3d
 		//////////////////////////////////////////////////
 
 		SIV3D_CONCEPT_URBG_
-		Circle SmallestEnclosingCircle(Array<Vec2> points, const double tolerance, URBG&& urbg)
+		Circle SmallestEnclosingCircle(Array<Vec2> points, double tolerance, URBG&& urbg)
 		{
 			if (points.size() == 0) { return Circle{}; }
 			if (points.size() == 1) { return Circle{points[0], 0.0}; }
@@ -1823,7 +1823,7 @@ namespace s3d
 		}
 
 		SIV3D_CONCEPT_URBG_
-		Circle SmallestEnclosingCircle(const Array<Vec2>& points, URBG&& urbg, const double tolerance)
+		Circle SmallestEnclosingCircle(const Array<Vec2>& points, URBG&& urbg, double tolerance)
 		{
 			return SmallestEnclosingCircle(points, tolerance, urbg);
 		}

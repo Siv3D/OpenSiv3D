@@ -5295,7 +5295,7 @@ namespace s3d
 			return Triangle{p0, p1, p2}.getCircumscribedCircle();
 		}
 
-		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const double tolerance)
+		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, double tolerance)
 		{
 			Circle circle = SmallestEnclosingCircle(p0, p1, p2);
 			if (not detail::Contains(circle, p3, tolerance))
@@ -5313,7 +5313,7 @@ namespace s3d
 			return circle;
 		}
 
-		Circle SmallestEnclosingCircle(const Array<Vec2>& points, const double tolerance) {
+		Circle SmallestEnclosingCircle(const Array<Vec2>& points, double tolerance) {
 			return SmallestEnclosingCircle(points, tolerance, GetDefaultRNG());
 		}
 
