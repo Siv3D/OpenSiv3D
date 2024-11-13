@@ -1747,7 +1747,7 @@ namespace s3d
         Circle SmallestEnclosingCircle(Array<Vec2> points, const double tolerance, URBG&& urbg)
         {
             if (points.size() == 0) { return Circle{}; }
-            if (points.size() == 1) { return Circle{points[0], 0}; }
+            if (points.size() == 1) { return Circle{points[0], 0.0}; }
             if (points.size() == 2) { return Circle{points[0], points[1]}; }
             if (points.size() == 3) { return SmallestEnclosingCircle(points[0], points[1], points[2]); }
             if (points.size() == 4) { return SmallestEnclosingCircle(points[0], points[1], points[2], points[3], tolerance); }
@@ -1758,32 +1758,32 @@ namespace s3d
 
             // 適当な 1 点を含む最小包含円Cから始めて、少しずつ広げていく戦略を取る。
             // Cに含まれない点があったら、それが境界上になるように新たに取り直す。
-            Circle C = Circle{ points[0], 0.0 };
+            Circle circle = Circle{ points[0], 0.0 };
 
-            for (size_t i = 1; i < points.size(); i++)
+            for (size_t i = 1; i < points.size(); ++i)
             {
                 const Vec2& p0 = points[i];
 
-                if (not detail::Contains(C, p0, tolerance))
+                if (not detail::Contains(circle, p0, tolerance))
                 {
                     // i番目の点を最小内包円の境界上の点の一つとして固定して、残りの2点を探る。
-                    C = Circle{ p0, 0.0 };
+                    circle = Circle{ p0, 0.0 };
 
-                    for (size_t j = 0; j < i; j++)
+                    for (size_t j = 0; j < i; ++j)
                     {
                         const Vec2& p1 = points[j];
-                        if (not detail::Contains(C, p1, tolerance))
+                        if (not detail::Contains(circle, p1, tolerance))
                         {
                             // j番目の点を最小内包円の境界上の点の一つとして固定して、残りの1点を探る。
-                            C = Circle{ p0, p1 };
+                            circle = Circle{ p0, p1 };
 
-                            for (size_t k = 0; k < j; k++)
+                            for (size_t k = 0; k < j; ++k)
                             {
                                 const Vec2& p2 = points[k];
-                                if (not detail::Contains(C, p2, tolerance))
+                                if (not detail::Contains(circle, p2, tolerance))
                                 {
                                     // fixed by Nachia
-                                    C = Triangle(p0, p1, p2).getCircumscribedCircle();
+                                    circle = Triangle(p0, p1, p2).getCircumscribedCircle();
                                 }
                             }
                         }
@@ -1791,7 +1791,7 @@ namespace s3d
                 }
             }
 
-            return C;
+            return circle;
         }
 
         SIV3D_CONCEPT_URBG_
