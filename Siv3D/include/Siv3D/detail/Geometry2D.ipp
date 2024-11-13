@@ -1782,8 +1782,7 @@ namespace s3d
             if (points.size() == 3) { return SmallestEnclosingCircle(points[0], points[1], points[2]); }
             if (points.size() == 4) { return SmallestEnclosingCircle(points[0], points[1], points[2], points[3], tolerance); }
             
-            // pointsの順序をランダムに並び替える。
-            // ラクラムシさんによって実験的にインデックスをシャッフルするのではなく、配列をコピーして直接シャッフルした方が高速なことがわかった。キャッシュの恩恵によるものか。
+            // 実験的にインデックスをシャッフルするのではなく、配列をコピーして直接シャッフルした方が高速なことがわかった。キャッシュの恩恵によるものと考えられる。
             points.shuffle(std::forward<URBG>(urbg));
 
             // 適当な 1 点を含む最小包含円Cから始めて、少しずつ広げていく戦略を取る。
@@ -1812,7 +1811,6 @@ namespace s3d
                                 const Vec2& p2 = points[k];
                                 if (not detail::Contains(circle, p2, tolerance))
                                 {
-                                    // fixed by Nachia
                                     circle = Triangle(p0, p1, p2).getCircumscribedCircle();
                                 }
                             }
