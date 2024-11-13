@@ -49,7 +49,7 @@ namespace s3d
             const double dSquared = (c.center - p).lengthSq();
             const double rSquared = Math::Square(c.r);
             // d_sq < r_sqならば、点`p`は円の内側にあるので一旦絶対誤差を0とおいて下の条件式が通るようにしておく。
-            const double absErr = Max(0., dSquared - rSquared);
+            const double absErr = Max(0.0, dSquared - rSquared);
             // 相対誤差もしくは絶対誤差のいずれかが許容誤差内ならば許容
             if (rSquared == 0) { return absErr < tolerance; }
             return absErr/rSquared < tolerance or absErr < tolerance;
