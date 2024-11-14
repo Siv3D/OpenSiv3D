@@ -2782,7 +2782,7 @@ namespace s3d
 		/// @param p2 点 2
 		/// @param p3 点 3
 		/// @param tolerance 点が円に含まれているかの判定時の許容誤差。相対誤差または絶対誤差がこの値以下であれば、点が円に含まれているとみなします。
-		/// @return 
+		/// @return 点 p0, p1, p2, p3 の最小包含円
 		[[nodiscard]]
 		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, double tolerance = 1e-8);
 
