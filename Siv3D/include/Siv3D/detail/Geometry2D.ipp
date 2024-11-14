@@ -1849,7 +1849,7 @@ namespace s3d
 		SIV3D_CONCEPT_URBG_
 		Circle SmallestEnclosingCircle(Array<Vec2> points, URBG&& urbg, double tolerance)
 		{
-			return SmallestEnclosingCircle(std::move(points), tolerance, urbg);
+			return SmallestEnclosingCircle(std::move(points), tolerance, std::forward<URBG>(urbg));
 		}
 	}
 }
