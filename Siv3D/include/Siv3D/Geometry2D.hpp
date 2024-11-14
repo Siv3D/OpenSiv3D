@@ -2772,7 +2772,7 @@ namespace s3d
 		/// @param p0 点 0
 		/// @param p1 点 1
 		/// @param p2 点 2
-		/// @returns 点 p0, p1, p2 の最小包含円
+		/// @return 点 p0, p1, p2 の最小包含円
 		[[nodiscard]]
 		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2);
 
