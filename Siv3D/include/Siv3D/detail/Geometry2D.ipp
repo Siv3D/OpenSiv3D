@@ -44,7 +44,7 @@ namespace s3d
 		/// @brief 点 p が円 c に含まれているかを判定します。
 		/// @param c 円
 		/// @param p 点
-		/// @param tolerance 許容誤差（相対誤差または絶対誤差のいずれかが許容誤差内であれば許容）
+		/// @param tolerance 許容誤差（相対誤差または絶対誤差のいずれかが許容誤差以下であれば許容）
 		/// @return 点 p が円 c に含まれている場合 true, それ以外の場合は false
 		[[nodiscard]]
 		inline bool Contains(const Circle& c, const Vec2& p, const double tolerance = 1e-8)
@@ -55,10 +55,10 @@ namespace s3d
 
 			if (rSquared == 0)
 			{
-				return (err < tolerance);
+				return (err <= tolerance);
 			}
 			
-			return (((err / rSquared) < tolerance) || (err < tolerance));
+			return (((err / rSquared) <= tolerance) || (err <= tolerance));
 		}
 
 		//
