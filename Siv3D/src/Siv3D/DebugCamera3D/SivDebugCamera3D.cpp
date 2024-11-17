@@ -294,9 +294,9 @@ namespace s3d
 
 	void DebugCamera3D::setView(const Vec3& eyePosition, const Vec3& focusPosition, const Vec3& upDirection) noexcept
 	{
-		m_focusY = (focusPosition - eyePosition).normalized().y;
-		m_phi = std::atan2((focusPosition.z - eyePosition.z),
-			(focusPosition.x - eyePosition.x));
+		const auto focusVector = (focusPosition - eyePosition);
+		m_focusY = (focusVector.y / std::hypot(focusVector.x, focusVector.z));
+		m_phi = std::atan2(focusVector.z, focusVector.x);
 
 		BasicCamera3D::setView(eyePosition, focusPosition, upDirection);
 	}
