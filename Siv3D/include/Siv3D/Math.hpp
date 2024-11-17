@@ -1323,6 +1323,28 @@ namespace s3d
 
 		//////////////////////////////////////////////////
 		//
+		//	ClampAngle
+		//
+		//////////////////////////////////////////////////
+
+		/// @brief 最小角と最大角の範囲にクランプした角度を返します。
+		/// @param angle クランプする角度（ラジアン）
+		/// @param min 範囲の最小角（ラジアン）
+		/// @param max 範囲の最大角（ラジアン）
+		/// @return クランプした角度（ラジアン）
+		/// @remark angle が min の方向と max の方向の間を指さない場合、より近いほうの角度を返します。
+		[[nodiscard]]
+		inline float ClampAngle(float angle, float min, float max) noexcept;
+
+		[[nodiscard]]
+		inline double ClampAngle(double angle, double min, double max) noexcept;
+
+		SIV3D_CONCEPT_ARITHMETIC
+		[[nodiscard]]
+		inline double ClampAngle(Arithmetic angle, Arithmetic min, Arithmetic max) noexcept;
+
+		//////////////////////////////////////////////////
+		//
 		//	NormalizeAngle
 		//
 		//////////////////////////////////////////////////
