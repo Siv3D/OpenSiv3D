@@ -106,12 +106,12 @@ namespace s3d
 		}
 		updateTexture();
 
-		const double dotXAdvance = m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance;
 		const Vec2 areaBottomRight = area.br();
 
 		const auto& prop = font.getProperty();
 		const double scale = (size / prop.fontPixelSize);
 		const double lineHeight = (prop.height() * scale * lineHeightScale);
+		const double dotXAdvance = (m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance * scale);
 
 		if ((area.w < (dotXAdvance * 3)) || (area.h < lineHeight))
 		{
@@ -220,12 +220,12 @@ namespace s3d
 		}
 		updateTexture();
 
-		const double dotXAdvance = m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance;
 		const Vec2 areaBottomRight = area.br();
 
 		const auto& prop = font.getProperty();
 		const double scale = (size / prop.fontPixelSize);
 		const double lineHeight = (prop.height() * scale * lineHeightScale);
+		const double dotXAdvance = (m_glyphTable.find(dotGlyphCluster[0].glyphIndex)->second.info.xAdvance * scale);
 
 		if ((area.w < (dotXAdvance * 3)) || (area.h < lineHeight))
 		{
