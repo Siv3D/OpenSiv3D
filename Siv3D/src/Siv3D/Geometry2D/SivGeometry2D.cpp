@@ -5283,6 +5283,15 @@ namespace s3d
 		//	SmallestEnclosingCircle
 		//
 		//////////////////////////////////////////////////
+	        //-----------------------------------------------
+	        //    Authors (OpenSiv3D challenge #19)
+	        //    - あぷりばーど
+	        //    - Nachia
+	        //    - Luke256
+	        //    - ラクラムシ
+	        //    - polyester
+	        //    - sasa
+	        //-----------------------------------------------
 
 		Circle SmallestEnclosingCircle(const Vec2& p0, const Vec2& p1, const Vec2& p2)
 		{
