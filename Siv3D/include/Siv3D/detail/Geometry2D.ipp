@@ -1778,6 +1778,15 @@ namespace s3d
 		//	SmallestEnclosingCircle
 		//
 		//////////////////////////////////////////////////
+	        //-----------------------------------------------
+	        //    Authors (OpenSiv3D challenge #19)
+	        //    - あぷりばーど
+	        //    - Nachia
+	        //    - Luke256
+	        //    - ラクラムシ
+	        //    - polyester
+	        //    - sasa
+	        //-----------------------------------------------
 
 		SIV3D_CONCEPT_URBG_
 		Circle SmallestEnclosingCircle(Array<Vec2> points, const double tolerance, URBG&& urbg)
