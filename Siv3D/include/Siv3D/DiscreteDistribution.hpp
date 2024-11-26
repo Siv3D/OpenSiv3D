@@ -76,27 +76,27 @@ namespace s3d
 
 	template <class Iterator, class URBG>
 	[[nodiscard]]
-	inline auto DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight, URBG&& urbg);
+	inline decltype(auto) DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight, URBG&& urbg);
 
 	template <class Iterator>
 	[[nodiscard]]
-	inline auto DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight);
+	inline decltype(auto) DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight);
 
 	template <class Container, class URBG>
 	[[nodiscard]]
-	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight, URBG&& urbg);
+	inline decltype(auto) DiscreteSample(const Container& c, DiscreteDistribution& weight, URBG&& urbg);
 
 	template <class Container>
 	[[nodiscard]]
-	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight);
+	inline decltype(auto) DiscreteSample(const Container& c, DiscreteDistribution& weight);
 
 	template <class Type, class URBG>
 	[[nodiscard]]
-	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg);
+	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg);
 	
 	template <class Type>
 	[[nodiscard]]
-	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight);
+	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight);
 }
 
 # include "detail/DiscreteDistribution.ipp"
