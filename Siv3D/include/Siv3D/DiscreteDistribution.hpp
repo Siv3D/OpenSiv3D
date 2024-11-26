@@ -92,11 +92,11 @@ namespace s3d
 
 	template <class Type, class URBG>
 	[[nodiscard]]
-	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg);
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg);
 	
 	template <class Type>
 	[[nodiscard]]
-	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight);
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight);
 }
 
 # include "detail/DiscreteDistribution.ipp"

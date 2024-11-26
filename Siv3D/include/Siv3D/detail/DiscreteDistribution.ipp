@@ -106,14 +106,14 @@ namespace s3d
 	}
 
 	template <class Type, class URBG>
-	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg)
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight, URBG&& urbg)
 	{
 		assert(ilist.size() != 0);
 		return *(ilist.begin() + weight(std::forward<URBG>(urbg)));
 	}
 
 	template <class Type>
-	inline decltype(auto) DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight)
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight)
 	{
 		return DiscreteSample(ilist, weight, GetDefaultRNG());
 	}
