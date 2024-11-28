@@ -73,7 +73,7 @@ namespace s3d
 	}
 
 	template <class Iterator, class URBG>
-	inline auto DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, DiscreteDistribution& weight, URBG&& urbg)
+	inline decltype(auto) DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, DiscreteDistribution& weight, URBG&& urbg)
 	{
 		assert(begin != end);
 		assert(std::distance(begin, end) == static_cast<int64>(weight.size()));
@@ -83,13 +83,13 @@ namespace s3d
 	}
 
 	template <class Iterator>
-	inline auto DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight)
+	inline decltype(auto) DiscreteSample(Iterator begin, Iterator end, DiscreteDistribution& weight)
 	{
 		return DiscreteSample(begin, end, weight, GetDefaultRNG());
 	}
 
 	template <class Container, class URBG>
-	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight, URBG&& urbg)
+	inline decltype(auto) DiscreteSample(const Container& c, DiscreteDistribution& weight, URBG&& urbg)
 	{
 		assert(std::size(c) != 0);
 		assert(std::size(c) == weight.size());
@@ -100,7 +100,7 @@ namespace s3d
 	}
 
 	template <class Container>
-	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight)
+	inline decltype(auto) DiscreteSample(const Container& c, DiscreteDistribution& weight)
 	{
 		return DiscreteSample(c, weight, GetDefaultRNG());
 	}
