@@ -586,6 +586,26 @@ namespace s3d
 		return{ (pos.x - left), (pos.y - top), (size.x + left + right), (size.y + top + bottom) };
 	}
 
+	inline constexpr Rect Rect::stretched(Arg::top_<value_type> top) const noexcept
+	{
+		return stretched(top.value(), 0, 0, 0);
+	}
+
+	inline constexpr Rect Rect::stretched(Arg::right_<value_type> right) const noexcept
+	{
+		return stretched(0, right.value(), 0, 0);
+	}
+
+	inline constexpr Rect Rect::stretched(Arg::bottom_<value_type> bottom) const noexcept
+	{
+		return stretched(0, 0, bottom.value(), 0);
+	}
+
+	inline constexpr Rect Rect::stretched(Arg::left_<value_type> left) const noexcept
+	{
+		return stretched(0, 0, 0, left.value());
+	}
+
 	inline constexpr RectF Rect::scaled(const double s) const noexcept
 	{
 		return{ Arg::center((pos.x + size.x * 0.5), (pos.y + size.y * 0.5)), (size.x * s), (size.y * s) };
