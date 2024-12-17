@@ -245,6 +245,7 @@ namespace s3d
 			|| (m_transitionTimeMillisec <= 0))
 		{
 			m_current->draw();
+			return;
 		}
 
 		const double elapsed = m_stopwatch.msF();
