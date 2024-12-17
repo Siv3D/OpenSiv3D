@@ -20,11 +20,12 @@ namespace s3d
 
 		struct Iterator
 		{
+			using reference = std::tuple<size_t, decltype(*std::declval<It&>())>;
 			size_t index;
 			It it;
 			constexpr bool operator != (const Iterator& other) const { return it != other.it; }
 			constexpr void operator ++() { ++index; ++it; }
-			constexpr auto operator *() const { return std::tie(index, *it); }
+			constexpr auto operator *() const { return reference{ index, *it }; }
 		};
 
 		struct IterableWrapper
@@ -48,11 +49,12 @@ namespace s3d
 	{
 		struct Iterator
 		{
+			using reference = std::tuple<size_t, decltype(*std::declval<It&>())>;
 			size_t index;
 			It it;
 			constexpr bool operator != (const Iterator& other) const { return it != other.it; }
 			constexpr void operator ++() { --index; ++it; }
-			constexpr auto operator *() const { return std::tie(index, *it); }
+			constexpr auto operator *() const { return reference{ index, *it }; }
 		};
 
 		struct IterableWrapper
