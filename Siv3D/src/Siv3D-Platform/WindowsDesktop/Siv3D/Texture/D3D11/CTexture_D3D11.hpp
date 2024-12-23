@@ -35,7 +35,7 @@ namespace s3d
 		AssetHandleManager<Texture::IDType, D3D11Texture> m_textures{ U"Texture" };
 
 		// マルチサンプルの対応
-		std::array<bool, 10> m_multiSampleAvailable = {};
+		std::array<bool, 11> m_multiSampleAvailable = {};
 
 	public:
 
