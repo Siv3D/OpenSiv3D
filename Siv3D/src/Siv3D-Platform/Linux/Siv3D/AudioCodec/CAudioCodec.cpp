@@ -186,11 +186,16 @@ namespace s3d
 				}
 
 				// initialize swr context
+#if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(61, 3, 100)
 				AVChannelLayout out_channel_layout;
 				av_channel_layout_subset(&out_channel_layout, AV_CH_LAYOUT_STEREO);
+#else
+				int64_t out_channel_layout = AV_CH_LAYOUT_STEREO;
+#endif
 				int out_nb_samples = m_codec_context->frame_size;
 				AVSampleFormat out_sample_fmt = AV_SAMPLE_FMT_FLT;
 				m_out_sample_rate = m_codec_context->sample_rate;
+#if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(61, 3, 100)
 				AVChannelLayout default_channel_layout;
 				av_channel_layout_default(&default_channel_layout, m_codec_context->ch_layout.nb_channels);
 				int allocation_result = swr_alloc_set_opts2(&m_swr_context,
@@ -202,6 +207,17 @@ namespace s3d
 					LOG_TRACE(U"AACDecoder: swr_alloc() failed ({})"_fmt(m_path));
 					return false;
 				}
+#else
+				m_swr_context = swr_alloc_set_opts(m_swr_context,
+						out_channel_layout, out_sample_fmt, m_out_sample_rate,
+						av_get_default_channel_layout(m_codec_context->channels),
+						m_codec_context->sample_fmt, m_codec_context->sample_rate, 0, nullptr);
+				if (m_swr_context == nullptr)
+				{
+					LOG_TRACE(U"AACDecoder: swr_alloc() failed ({})"_fmt(m_path));
+					return false;
+				}
+#endif
 				[[maybe_unused]] int averr = swr_init(m_swr_context);
 				if (swr_is_initialized(m_swr_context) == 0)
 				{
@@ -210,7 +226,11 @@ namespace s3d
 				}
 
 				// allocate output buffer
+#if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(61, 3, 100)
 				int out_nb_channels = out_channel_layout.nb_channels;
+#else
+				int out_nb_channels = av_get_channel_layout_nb_channels(out_channel_layout);
+#endif
 				int buf_size = av_samples_get_buffer_size(nullptr,
 						out_nb_channels, out_nb_samples, out_sample_fmt, 0);
 				m_out_buf = (uint8_t*)av_malloc(buf_size);
