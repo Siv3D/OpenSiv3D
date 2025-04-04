@@ -315,7 +315,7 @@ namespace s3d
 		// 角丸でなければ長方形へ
 		if (r == 0.0)
 		{
-			rect.drawShadow(offset, blur, spread, color);
+			rect.drawShadow(offset, blur, spread, color, fill);
 			return *this;
 		}
 
