@@ -191,6 +191,12 @@ namespace s3d
 		[[nodiscard]]
 		RectF boundingRect() const noexcept;
 
+		/// @brief 線分に太さを与えて作成した、新しい四角形を返します。
+		/// @param thickness 太さ
+		/// @return 新しい四角形
+		[[nodiscard]]
+		Quad withThickness(double thickness) const;
+
 		[[nodiscard]]
 		Line extractLine(double distanceFromOrigin, double length) const noexcept;
 

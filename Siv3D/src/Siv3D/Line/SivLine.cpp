@@ -61,6 +61,19 @@ namespace s3d
 		return{ x1, y1, (x2 - x1), (y2 - y1) };
 	}
 
+	Quad Line::withThickness(const double thickness) const
+	{
+		if (thickness <= 0.0)
+		{
+			return{ begin, end, end, begin };
+		}
+
+		const Vec2 perpendicularUnitVector = Vec2{ (end.y - begin.y), (begin.x - end.x) }.normalized();
+		const Vec2 nv = ((thickness * 0.5) * perpendicularUnitVector);
+
+		return{ (begin + nv), (end + nv), (end - nv), (begin - nv) };
+	}
+
 	Line Line::extractLine(double distanceFromOrigin, double length) const noexcept
 	{
 		if (length <= 0.0)
