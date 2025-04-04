@@ -114,3 +114,12 @@ CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::MemoryViewReader>)
 
 CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::BinaryReader>, s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::MemoryReader>, s3d::Serializer<s3d::MemoryWriter>)
+
+namespace cereal::traits::detail
+{
+	template <>
+	struct get_output_from_input<s3d::Deserializer<s3d::MemoryViewReader>>
+	{
+		using type = s3d::Serializer<s3d::MemoryWriter>;
+	};
+}
