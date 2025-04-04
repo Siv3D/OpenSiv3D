@@ -153,6 +153,52 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	int128
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const int128& value)
+	{
+		const uint64 low = absl::Int128Low64(value);
+		const int64 high = absl::Int128High64(value);
+		archive(low);
+		archive(high);
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, int128& value)
+	{
+		uint64 low = 0;
+		int64 high = 0;
+		archive(low);
+		archive(high);
+		value = absl::MakeInt128(high, low);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	uint128
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const uint128& value)
+	{
+		const uint64 low = absl::Uint128Low64(value);
+		const uint64 high = absl::Uint128High64(value);
+		archive(low);
+		archive(high);
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, uint128& value)
+	{
+		uint64 low = 0;
+		uint64 high = 0;
+		archive(low);
+		archive(high);
+		value = absl::MakeUint128(high, low);
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Array
 	//
 	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
