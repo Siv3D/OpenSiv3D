@@ -26,6 +26,8 @@ namespace s3d
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
+	P2Quad::~P2Quad() = default;
+
 	P2ShapeType P2Quad::getShapeType() const noexcept
 	{
 		return P2ShapeType::Quad;

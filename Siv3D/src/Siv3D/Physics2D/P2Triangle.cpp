@@ -26,6 +26,8 @@ namespace s3d
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
+	P2Triangle::~P2Triangle() = default;
+
 	P2ShapeType P2Triangle::getShapeType() const noexcept
 	{
 		return P2ShapeType::Triangle;

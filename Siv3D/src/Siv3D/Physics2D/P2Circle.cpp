@@ -26,6 +26,8 @@ namespace s3d
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
+	P2Circle::~P2Circle() = default;
+
 	P2ShapeType P2Circle::getShapeType() const noexcept
 	{
 		return P2ShapeType::Circle;

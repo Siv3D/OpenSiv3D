@@ -24,6 +24,8 @@ namespace s3d
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
+	P2Rect::~P2Rect() = default;
+
 	P2ShapeType P2Rect::getShapeType() const noexcept
 	{
 		return P2ShapeType::Rect;

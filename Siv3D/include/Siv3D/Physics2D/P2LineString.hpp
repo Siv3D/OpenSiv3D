@@ -24,6 +24,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		P2LineString(b2Body& body, const LineString& lines, CloseRing closeRing, OneSided oneSided, const P2Material& material, const P2Filter& filter, bool isSensor);
 
+		~P2LineString();
+
 		[[nodiscard]]
 		P2ShapeType getShapeType() const noexcept override;
 

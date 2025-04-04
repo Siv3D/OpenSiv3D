@@ -31,6 +31,8 @@ namespace s3d
 		SIV3D_NODISCARD_CXX20
 		P2Circle(b2Body& body, const Circle& circle, const P2Material& material, const P2Filter& filter, bool isSensor);
 
+		~P2Circle();
+
 		/// @brief `P2ShapeType::Circle` を返します。
 		/// @return `P2ShapeType::Circle`
 		[[nodiscard]]

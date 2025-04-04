@@ -83,6 +83,8 @@ namespace s3d
 		m_fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
 
+	P2LineString::~P2LineString() = default;
+
 	P2ShapeType P2LineString::getShapeType() const noexcept
 	{
 		return P2ShapeType::LineString;
