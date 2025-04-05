@@ -65,7 +65,7 @@ namespace s3d
 			return 0;
 		}
 
-		const int64 readSize = Clamp<int64>(size, 0, m_size - m_pos);
+		const int64 readSize = Clamp<int64>(size, 0, (m_size - m_pos));
 
 		std::memcpy(dst, (m_ptr + m_pos), static_cast<size_t>(readSize));
 
@@ -81,7 +81,12 @@ namespace s3d
 			return 0;
 		}
 
-		const int64 readSize = Clamp<int64>(size, 0, m_size - pos);
+		if (pos < 0)
+		{
+			return 0;
+		}
+
+		const int64 readSize = Clamp<int64>(size, 0, (m_size - pos));
 
 		std::memcpy(dst, (m_ptr + pos), static_cast<size_t>(readSize));
 
@@ -97,7 +102,7 @@ namespace s3d
 			return 0;
 		}
 
-		const int64 readSize = Clamp<int64>(size, 0, m_size - m_pos);
+		const int64 readSize = Clamp<int64>(size, 0, (m_size - m_pos));
 
 		std::memcpy(dst, (m_ptr + m_pos), static_cast<size_t>(readSize));
 
@@ -111,9 +116,14 @@ namespace s3d
 			return 0;
 		}
 
-		const int64 readSize = Clamp<int64>(size, 0, m_size - pos);
+		if (pos < 0)
+		{
+			return 0;
+		}
 
-		std::memcpy(dst, (m_ptr + m_pos), static_cast<size_t>(readSize));
+		const int64 readSize = Clamp<int64>(size, 0, (m_size - pos));
+
+		std::memcpy(dst, (m_ptr + pos), static_cast<size_t>(readSize));
 
 		return readSize;
 	}
