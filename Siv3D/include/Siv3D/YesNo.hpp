@@ -45,6 +45,18 @@ namespace s3d
 		}
 
 		[[nodiscard]]
+		constexpr bool operator ==(const YesNo<Tag>& other) const noexcept
+		{
+			return m_yesNo == other.m_yesNo;
+		}
+
+		[[nodiscard]]
+		constexpr bool operator ==(const Helper& other) const noexcept
+		{
+			return m_yesNo == other.yesNo;
+		}
+
+		[[nodiscard]]
 		constexpr bool getBool() const noexcept
 		{
 			return m_yesNo;
