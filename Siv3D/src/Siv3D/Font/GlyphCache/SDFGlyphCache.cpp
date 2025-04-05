@@ -625,7 +625,7 @@ namespace s3d
 			return it->second.info.buffer;
 		}
 
-		return 0;
+		return m_buffer.bufferWidth;
 	}
 
 	bool SDFGlyphCache::prerender(const FontData& font, const Array<GlyphCluster>& clusters, const bool isMainFont)

@@ -197,7 +197,7 @@ namespace s3d
 		};
 	}
 
-	GlyphInfo GetGlyphInfo(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop, const FontMethod method)
+	GlyphInfo GetGlyphInfo(FT_Face face, const GlyphIndex glyphIndex, const FontFaceProperty& prop, const FontMethod method, const int32 bufferThickness)
 	{
 		const bool hasColor = prop.hasColor;
 
@@ -215,6 +215,7 @@ namespace s3d
 				result.descender	= prop.descender;
 				result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
 				result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+				result.buffer		= bufferThickness;
 
 				if (result.yAdvance == 0)
 				{
@@ -259,6 +260,7 @@ namespace s3d
 			result.descender	= prop.descender;
 			result.xAdvance		= (face->glyph->metrics.horiAdvance / 64.0);
 			result.yAdvance		= (face->glyph->metrics.vertAdvance / 64.0);
+			result.buffer		= bufferThickness;
 
 			return result;
 		}
@@ -272,7 +274,7 @@ namespace s3d
 
 		return GlyphInfo{
 			.glyphIndex	= glyphIndex,
-			.buffer		= 0,
+			.buffer		= bufferThickness,
 			.left		= static_cast<int16>(bbox.xMin),
 			.top		= static_cast<int16>(bbox.yMax),
 			.width		= static_cast<int16>(bbox.xMax - bbox.xMin),

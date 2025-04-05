@@ -231,7 +231,7 @@ namespace s3d
 					method = FontMethod::Bitmap;
 				}
 
-				m_property.spaceWidth = GetGlyphInfo(m_face, spaceGlyphIndex, m_property, method).xAdvance;
+				m_property.spaceWidth = GetGlyphInfo(m_face, spaceGlyphIndex, m_property, method, 0).xAdvance;
 			}
 		}
 

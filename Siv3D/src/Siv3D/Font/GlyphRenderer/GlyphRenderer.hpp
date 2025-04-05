@@ -37,5 +37,5 @@ namespace s3d
 	GlyphBBox GetOutlineGlyphBound(FT_Face face);
 
 	[[nodiscard]]
-	GlyphInfo GetGlyphInfo(FT_Face face, GlyphIndex glyphIndex, const FontFaceProperty& prop, FontMethod method);
+	GlyphInfo GetGlyphInfo(FT_Face face, GlyphIndex glyphIndex, const FontFaceProperty& prop, FontMethod method, int32 bufferThickness);
 }

@@ -368,6 +368,7 @@ namespace s3d
 		Glyph glyph{ font->getGlyphInfoByGlyphIndex(font->getGlyphIndex(ch)) };
 		glyph.codePoint = ch.front();
 		glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+		glyph.buffer = font->getGlyphCache().getBufferThickness(glyph.glyphIndex);
 		return glyph;
 	}
 

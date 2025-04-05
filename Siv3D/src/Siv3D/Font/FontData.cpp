@@ -234,7 +234,9 @@ namespace s3d
 
 	GlyphInfo FontData::getGlyphInfoByGlyphIndex(const GlyphIndex glyphIndex) const
 	{
-		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty(), m_method);
+		const int32 bufferThickness = getGlyphCache().getBufferThickness(glyphIndex);
+
+		return GetGlyphInfo(m_fontFace.getFT_Face(), glyphIndex, m_fontFace.getProperty(), m_method, bufferThickness);
 	}
 
 	OutlineGlyph FontData::renderOutlineByGlyphIndex(const GlyphIndex glyphIndex, const CloseRing closeRing) const
