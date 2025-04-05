@@ -20,6 +20,7 @@
 # include <Siv3D/Indexed.hpp>
 # include <Siv3D/Profiler/IProfiler.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
+# include <Siv3D/Console/IConsole.hpp>
 # include <Siv3D/XInput/IXInput.hpp>
 # include <Siv3D/TextInput/ITextInput.hpp>
 # include <Siv3D/UserAction/IUSerAction.hpp>
@@ -628,6 +629,11 @@ namespace s3d
 		if (!focused)
 		{
 			SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::WindowDeactivated);
+		}
+
+		if (focused)
+		{
+			SIV3D_ENGINE(Console)->clearSelection();
 		}
 
 		m_state.focused = focused;

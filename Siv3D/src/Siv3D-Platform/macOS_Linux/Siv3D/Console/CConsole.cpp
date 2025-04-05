@@ -34,6 +34,11 @@ namespace s3d
 		// do nothing
 	}
 
+	void CConsole::clearSelection()
+	{
+		// do nothing
+	}
+
 	void CConsole::setSystemDefaultCodePage()
 	{
 		// do nothing

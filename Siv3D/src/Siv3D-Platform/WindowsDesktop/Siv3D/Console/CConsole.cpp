@@ -76,6 +76,21 @@ namespace s3d
 
 		::FreeConsole();
 	}
+	
+	void CConsole::clearSelection()
+	{
+		if (not m_isOpen)
+		{
+			return;
+		}
+
+		if (HWND hConsoleWindow = ::GetConsoleWindow())
+		{
+			// ESC キーを送信
+			::SendMessage(hConsoleWindow, WM_KEYDOWN, VK_ESCAPE, 0);
+			::SendMessage(hConsoleWindow, WM_KEYUP, VK_ESCAPE, 0);
+		}
+	}
 
 	void CConsole::setSystemDefaultCodePage()
 	{

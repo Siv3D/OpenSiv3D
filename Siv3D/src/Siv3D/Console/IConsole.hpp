@@ -26,6 +26,8 @@ namespace s3d
 
 		virtual void close() = 0;
 
+		virtual void clearSelection() = 0;
+
 		virtual void setSystemDefaultCodePage() = 0;
 
 		virtual void setUTF8CodePage() = 0;
