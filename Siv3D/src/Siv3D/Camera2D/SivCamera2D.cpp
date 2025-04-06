@@ -84,6 +84,11 @@ namespace s3d
 
 	void Camera2D::updateWheel(const SizeF& sceneSize)
 	{
+		if (m_parameters.wheelScaleFactor == 1.0)
+		{
+			return;
+		}
+
 		const double wheel = Mouse::Wheel();
 
 		if (wheel == 0.0)
