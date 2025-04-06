@@ -90,6 +90,11 @@ namespace s3d
 		/// @brief メニューバーを描画します。
 		void draw() const;
 
+		/// @brief メニューバー上にマウスオーバーしているかを返します。
+		/// @return メニューバー上にマウスオーバーしている場合 true, それ以外の場合は false
+		[[nodiscard]]
+		bool mouseOver() const noexcept;
+	
 		/// @brief アイテムの有効無効を切り替えます。
 		/// @param menuIndex メニューインデックス
 		/// @param itemIndex アイテムインデックス

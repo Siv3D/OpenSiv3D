@@ -227,6 +227,21 @@ namespace s3d
 		}
 	}
 
+	bool SimpleMenuBar::mouseOver() const noexcept
+	{
+		if (m_rect.mouseOver())
+		{
+			return true;
+		}
+
+		if (m_openMenu)
+		{
+			return m_menus[*m_openMenu].itemBoxRect.mouseOver();
+		}
+
+		return false;
+	}
+
 	SimpleMenuBar& SimpleMenuBar::setItemEnabled(const size_t menuIndex, const size_t itemIndex, const bool enabled)
 	{
 		return setItemEnabled(MenuBarItemIndex{ menuIndex, itemIndex }, enabled);
