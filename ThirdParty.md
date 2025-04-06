@@ -47,7 +47,6 @@ Name | Version
 [libtiff](http://www.simplesystems.org/libtiff/) | v4.3.0
 [libvorbis](https://xiph.org/downloads/) | 1.3.7
 [libwebp](https://developers.google.com/speed/webp) | 1.2.0
-[Lua](https://www.lua.org/) | 5.4.2
 [lunasvg](https://github.com/sammycage/lunasvg) | v2.3.9
 [M+ Fonts](https://mplus-fonts.osdn.jp/) | 063a
 [Material Design Icons](https://github.com/Templarian/MaterialDesign) | v7.2.96
@@ -82,7 +81,6 @@ Name | Version
 [SFMT](https://github.com/MersenneTwister-Lab/SFMT) | 1.5.2
 [simde](https://github.com/nemequ/simde) | 0.7.2
 [skia](https://github.com/google/skia) | 0.38.2
-[Sol2](https://github.com/ThePhD/sol2) | v3.2.2
 [SoLoud](https://github.com/jarikomppa/soloud) | 
 [SoundTouch](https://gitlab.com/soundtouch/soundtouch) | 2.1.2
 [SplineLib](https://github.com/andrewwillmott/splines-lib) | 

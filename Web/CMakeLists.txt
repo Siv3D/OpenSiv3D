@@ -734,40 +734,6 @@ set(SIV3D_THIRDPARTY_SOURCES
   ../Siv3D/src/ThirdParty/easyexif/exif.cpp
 
   ../Siv3D/src/ThirdParty/fmt/format.cc
-  
-  ../Siv3D/src/ThirdParty/lua/lapi.c
-  ../Siv3D/src/ThirdParty/lua/lauxlib.c
-  ../Siv3D/src/ThirdParty/lua/lbaselib.c
-  ../Siv3D/src/ThirdParty/lua/lcode.c
-  ../Siv3D/src/ThirdParty/lua/lcorolib.c
-  ../Siv3D/src/ThirdParty/lua/lctype.c
-  ../Siv3D/src/ThirdParty/lua/ldblib.c
-  ../Siv3D/src/ThirdParty/lua/ldebug.c
-  ../Siv3D/src/ThirdParty/lua/ldo.c
-  ../Siv3D/src/ThirdParty/lua/ldump.c
-  ../Siv3D/src/ThirdParty/lua/lfunc.c
-  ../Siv3D/src/ThirdParty/lua/lgc.c
-  ../Siv3D/src/ThirdParty/lua/linit.c
-  ../Siv3D/src/ThirdParty/lua/liolib.c
-  ../Siv3D/src/ThirdParty/lua/llex.c
-  ../Siv3D/src/ThirdParty/lua/lmathlib.c
-  ../Siv3D/src/ThirdParty/lua/lmem.c
-  ../Siv3D/src/ThirdParty/lua/loadlib.c
-  ../Siv3D/src/ThirdParty/lua/lobject.c
-  ../Siv3D/src/ThirdParty/lua/lopcodes.c
-  ../Siv3D/src/ThirdParty/lua/loslib.c
-  ../Siv3D/src/ThirdParty/lua/lparser.c
-  ../Siv3D/src/ThirdParty/lua/lstate.c
-  ../Siv3D/src/ThirdParty/lua/lstring.c
-  ../Siv3D/src/ThirdParty/lua/lstrlib.c
-  ../Siv3D/src/ThirdParty/lua/ltable.c
-  ../Siv3D/src/ThirdParty/lua/ltablib.c
-  ../Siv3D/src/ThirdParty/lua/ltm.c
-  # ../Siv3D/src/ThirdParty/lua/lua.c
-  ../Siv3D/src/ThirdParty/lua/lundump.c
-  ../Siv3D/src/ThirdParty/lua/lutf8lib.c
-  ../Siv3D/src/ThirdParty/lua/lvm.c
-  ../Siv3D/src/ThirdParty/lua/lzio.c
 
   ../Siv3D/src/ThirdParty/lunasvg/canvas.cpp
   ../Siv3D/src/ThirdParty/lunasvg/clippathelement.cpp
