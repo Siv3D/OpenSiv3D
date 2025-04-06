@@ -399,6 +399,7 @@ gmon.out
 ## Ignore dependencies folder
 /Dependencies/boost_1_73_0/*
 /Dependencies/boost_1_74_0/*
+/Dependencies/boost_1_83_0/*
 
 ## Third party libraries
 !**/simde/*
