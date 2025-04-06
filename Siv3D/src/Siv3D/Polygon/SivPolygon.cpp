@@ -22,12 +22,16 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Unicode.hpp>
 # include "PolygonDetail.hpp"
-SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
-# include <ThirdParty/boost/geometry/extensions/algorithms/dissolve.hpp>
-# include <ThirdParty/boost/geometry/extensions/multi/algorithms/dissolve.hpp>
-SIV3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/Renderer2D/IRenderer2D.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
+
+# include <boost/version.hpp>
+# if BOOST_VERSION <= 107400
+#	include <ThirdParty/boost/geometry/extensions/algorithms/dissolve.hpp>
+#	include <ThirdParty/boost/geometry/extensions/multi/algorithms/dissolve.hpp>
+# else
+#	include <ThirdParty/boost/geometry/extensions2/algorithms/dissolve.hpp>
+# endif
 
 namespace s3d
 {

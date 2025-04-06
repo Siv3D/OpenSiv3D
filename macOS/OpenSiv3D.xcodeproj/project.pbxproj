@@ -16031,7 +16031,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../Siv3D/src/ThirdParty/skia,
 					"../Siv3D/src/ThirdParty-prebuilt",
-					../Dependencies/boost_1_74_0,
+					../Dependencies/boost_1_83_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -16108,7 +16108,7 @@
 					../Siv3D/src/ThirdParty/freetype,
 					../Siv3D/src/ThirdParty/skia,
 					"../Siv3D/src/ThirdParty-prebuilt",
-					../Dependencies/boost_1_74_0,
+					../Dependencies/boost_1_83_0,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
