@@ -286,6 +286,14 @@ namespace s3d
 		return glyph;
 	}
 
+	Glyph CFont_Headless::getGlyphByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		const auto& font = m_fonts[handleID];
+		Glyph glyph{ font->getGlyphInfoByGlyphIndex(glyphIndex) };
+		glyph.codePoint = 0; // 逆引きは不可能（1 つのグリフが複数のコードポイントを持つ場合があるため）
+		return glyph;
+	}
+
 	Array<Glyph> CFont_Headless::getGlyphs(const Font::IDType handleID, const StringView s, const Ligature ligature)
 	{
 		const auto& font = m_fonts[handleID];

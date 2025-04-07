@@ -423,6 +423,12 @@ namespace s3d
 		[[nodiscard]]
 		Glyph getGlyph(StringView ch) const;
 
+		/// @brief 指定した文字の描画用のグリフを返します。
+		/// @param glyphIndex 文字のグリフインデックス
+		/// @return 描画用グリフ
+		[[nodiscard]]
+		Glyph getGlyphByGlyphIndex(GlyphIndex glyphIndex) const;
+
 		/// @brief 指定した文字列の描画用のグリフ配列を返します。
 		/// @param s 文字列
 		/// @param ligature リガチャ（合字）を有効にするか

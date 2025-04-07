@@ -87,6 +87,8 @@ namespace s3d
 		virtual const Texture& getTexture(Font::IDType handleID) = 0;
 
 		virtual Glyph getGlyph(Font::IDType handleID, StringView ch) = 0;
+		
+		virtual Glyph getGlyphByGlyphIndex(Font::IDType handleID, GlyphIndex glyphIndex) = 0;
 
 		virtual Array<Glyph> getGlyphs(Font::IDType handleID, StringView s, Ligature ligature) = 0;
 

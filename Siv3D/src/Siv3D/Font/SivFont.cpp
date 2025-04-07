@@ -413,6 +413,11 @@ namespace s3d
 		return SIV3D_ENGINE(Font)->getGlyph(m_handle->id(), ch);
 	}
 
+	Glyph Font::getGlyphByGlyphIndex(GlyphIndex glyphIndex) const
+	{
+		return SIV3D_ENGINE(Font)->getGlyphByGlyphIndex(m_handle->id(), glyphIndex);
+	}
+
 	Array<Glyph> Font::getGlyphs(const StringView s, const Ligature ligature) const
 	{
 		return SIV3D_ENGINE(Font)->getGlyphs(m_handle->id(), s, ligature);

@@ -372,6 +372,16 @@ namespace s3d
 		return glyph;
 	}
 
+	Glyph CFont::getGlyphByGlyphIndex(const Font::IDType handleID, const GlyphIndex glyphIndex)
+	{
+		const auto& font = m_fonts[handleID];
+		Glyph glyph{ font->getGlyphInfoByGlyphIndex(glyphIndex) };
+		glyph.codePoint = 0; // 逆引きは不可能（1 つのグリフが複数のコードポイントを持つ場合があるため）
+		glyph.texture = font->getGlyphCache().getTextureRegion(*font, glyph.glyphIndex);
+		glyph.buffer = font->getGlyphCache().getBufferThickness(glyph.glyphIndex);
+		return glyph;
+	}
+
 	Array<Glyph> CFont::getGlyphs(const Font::IDType handleID, const StringView s, const Ligature ligature)
 	{
 		const auto& font = m_fonts[handleID];
