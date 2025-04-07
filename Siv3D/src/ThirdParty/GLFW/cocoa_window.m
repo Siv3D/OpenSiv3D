@@ -30,8 +30,8 @@
 //
 //	[Siv3D]
 //
-//	Copyright (c) 2008-2023 Ryo Suzuki
-//	Copyright (c) 2016-2023 OpenSiv3D Project
+//	Copyright (c) 2008-2025 Ryo Suzuki
+//	Copyright (c) 2016-2025 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //

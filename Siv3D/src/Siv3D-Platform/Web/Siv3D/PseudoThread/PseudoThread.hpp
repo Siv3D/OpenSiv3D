@@ -3,7 +3,7 @@
 //	This file is part of the Siv3D Engine.
 //
 //	Copyright (c) 2020-2021 Kamenoko-Nyokonyoko
-//	Copyright (c) 2016-2023 OpenSiv3D Project
+//	Copyright (c) 2016-2025 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
