@@ -23,6 +23,28 @@ namespace s3d
 	namespace detail
 	{
 		[[nodiscard]]
+		static std::string Escape(const std::string& s)
+		{
+			std::string result;
+			result.push_back('\'');
+			
+			for (char ch : s)
+			{
+				if (ch == '\'')
+				{
+					result.append("'\\''");
+				}
+				else
+				{
+					result.push_back(ch);
+				}
+			}
+			
+			result.push_back('\'');
+			return result;
+		}
+
+		[[nodiscard]]
 		static bool Run(const char* program, char* argv[])
 		{
 			sigset_t set, oldset;
@@ -200,7 +222,7 @@ namespace s3d
 
 		bool LaunchFile(const FilePathView fileName)
 		{
-			const std::string command = ("xdg-open '" + fileName.narrow() + "'");
+			const std::string command = ("xdg-open " + detail::Escape(fileName.narrow()));
 
 			return (std::system(command.c_str()) == 0);
 		}
@@ -227,7 +249,7 @@ namespace s3d
 				}
 			}
 
-			const std::string command = (std::string(editor) + " '" + fileName.narrow() + "'");
+			const std::string command = (std::string(editor) + " " + detail::Escape(fileName.narrow()));
 
 			return (std::system(command.c_str()) == 0);
 		}
