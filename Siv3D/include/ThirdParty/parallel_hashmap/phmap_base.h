@@ -96,19 +96,6 @@ struct VoidTImpl {
   using type = void;
 };
 
-// This trick to retrieve a default alignment is necessary for our
-// implementation of aligned_storage_t to be consistent with any implementation
-// of std::aligned_storage.
-// ---------------------------------------------------------------------------
-template <size_t Len, typename T = std::aligned_storage<Len>>
-struct default_alignment_of_aligned_storage;
-
-template <size_t Len, size_t Align>
-struct default_alignment_of_aligned_storage<Len,
-                                            std::aligned_storage<Len, Align>> {
-  static constexpr size_t value = Align;
-};
-
 // NOTE: The `is_detected` family of templates here differ from the library
 // fundamentals specification in that for library fundamentals, `Op<Args...>` is
 // evaluated as soon as the type `is_detected<Op, Args...>` undergoes
@@ -236,28 +223,35 @@ struct disjunction<> : std::false_type {};
 template <typename T>
 struct negation : std::integral_constant<bool, !T::value> {};
 
-template <typename T>
-struct is_trivially_destructible
-    : std::integral_constant<bool, __has_trivial_destructor(T) &&
-      std::is_destructible<T>::value> {};
+#if defined(__GNUC__) && __GNUC__ < 5 && !defined(__clang__) && !defined(_MSC_VER) && !defined(__INTEL_COMPILER)
+    #define PHMAP_OLD_GCC 1
+#else
+    #define PHMAP_OLD_GCC 0
+#endif
 
-template <typename T>
-struct is_trivially_default_constructible
-    : std::integral_constant<bool, __has_trivial_constructor(T) &&
-                                   std::is_default_constructible<T>::value &&
-      is_trivially_destructible<T>::value> {};
+#if PHMAP_OLD_GCC
+  template <typename T>
+  struct is_trivially_copy_constructible
+     : std::integral_constant<bool,
+                              __has_trivial_copy(typename std::remove_reference<T>::type) &&
+                              std::is_copy_constructible<T>::value &&
+                              std::is_trivially_destructible<T>::value> {};
+ 
+  template <typename T>
+  struct is_trivially_copy_assignable :
+     std::integral_constant<bool,
+                            __has_trivial_assign(typename std::remove_reference<T>::type) &&
+                            phmap::is_copy_assignable<T>::value> {};
 
-template <typename T>
-struct is_trivially_copy_constructible
-    : std::integral_constant<bool, __has_trivial_copy(T) &&
-                                   std::is_copy_constructible<T>::value &&
-      is_trivially_destructible<T>::value> {};
+  template <typename T>
+  struct is_trivially_copyable :
+     std::integral_constant<bool, __has_trivial_copy(typename std::remove_reference<T>::type)> {};
 
-template <typename T>
-struct is_trivially_copy_assignable
-    : std::integral_constant<
-          bool, __has_trivial_assign(typename std::remove_reference<T>::type) &&
-      phmap::is_copy_assignable<T>::value> {};
+#else
+  template <typename T> using is_trivially_copy_constructible = std::is_trivially_copy_constructible<T>;
+  template <typename T> using is_trivially_copy_assignable = std::is_trivially_copy_assignable<T>;
+  template <typename T> using is_trivially_copyable = std::is_trivially_copyable<T>;
+#endif
 
 // -----------------------------------------------------------------------------
 // C++14 "_t" trait aliases
@@ -308,9 +302,15 @@ using remove_extent_t = typename std::remove_extent<T>::type;
 template <typename T>
 using remove_all_extents_t = typename std::remove_all_extents<T>::type;
 
-template <size_t Len, size_t Align = type_traits_internal::
-                          default_alignment_of_aligned_storage<Len>::value>
-using aligned_storage_t = typename std::aligned_storage<Len, Align>::type;
+template<std::size_t Len, std::size_t Align>
+struct aligned_storage {
+    struct type {
+        alignas(Align) unsigned char data[Len];
+    };
+};
+
+template< std::size_t Len, std::size_t Align>
+using aligned_storage_t = typename aligned_storage<Len, Align>::type;
 
 template <typename T>
 using decay_t = typename std::decay<T>::type;
@@ -652,83 +652,87 @@ namespace phmap {
 namespace base_internal {
 
 namespace {
-template <typename T>
+
 #ifdef PHMAP_HAVE_EXCEPTIONS
-[[noreturn]] void Throw(const T& error) {
-    throw error;
-}
+  #define PHMAP_THROW_IMPL_MSG(e, message) throw e(message)
+  #define PHMAP_THROW_IMPL(e) throw e()
 #else
-[[noreturn]] void Throw(const T&) {
-    std::abort();
-}
+  #define PHMAP_THROW_IMPL_MSG(e, message) do { (void)(message); std::abort(); } while(0)
+  #define PHMAP_THROW_IMPL(e) std::abort()
 #endif
 }  // namespace
 
 static inline void ThrowStdLogicError(const std::string& what_arg) {
-  Throw(std::logic_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::logic_error, what_arg);
 }
 static inline void ThrowStdLogicError(const char* what_arg) {
-  Throw(std::logic_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::logic_error, what_arg);
 }
 static inline void ThrowStdInvalidArgument(const std::string& what_arg) {
-  Throw(std::invalid_argument(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::invalid_argument, what_arg);
 }
 static inline void ThrowStdInvalidArgument(const char* what_arg) {
-  Throw(std::invalid_argument(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::invalid_argument, what_arg);
 }
 
 static inline void ThrowStdDomainError(const std::string& what_arg) {
-  Throw(std::domain_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::domain_error, what_arg);
 }
 static inline void ThrowStdDomainError(const char* what_arg) {
-  Throw(std::domain_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::domain_error, what_arg);
 }
 
 static inline void ThrowStdLengthError(const std::string& what_arg) {
-  Throw(std::length_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::length_error, what_arg);
 }
 static inline void ThrowStdLengthError(const char* what_arg) {
-  Throw(std::length_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::length_error, what_arg);
 }
 
 static inline void ThrowStdOutOfRange(const std::string& what_arg) {
-  Throw(std::out_of_range(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::out_of_range, what_arg);
 }
 static inline void ThrowStdOutOfRange(const char* what_arg) {
-  Throw(std::out_of_range(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::out_of_range, what_arg);
 }
 
 static inline void ThrowStdRuntimeError(const std::string& what_arg) {
-  Throw(std::runtime_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::runtime_error, what_arg);
 }
 static inline void ThrowStdRuntimeError(const char* what_arg) {
-  Throw(std::runtime_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::runtime_error, what_arg);
 }
 
 static inline void ThrowStdRangeError(const std::string& what_arg) {
-  Throw(std::range_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::range_error, what_arg);
 }
 static inline void ThrowStdRangeError(const char* what_arg) {
-  Throw(std::range_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::range_error, what_arg);
 }
 
 static inline void ThrowStdOverflowError(const std::string& what_arg) {
-  Throw(std::overflow_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::overflow_error, what_arg);
 }
+    
 static inline void ThrowStdOverflowError(const char* what_arg) {
-  Throw(std::overflow_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::overflow_error, what_arg);
 }
 
 static inline void ThrowStdUnderflowError(const std::string& what_arg) {
-  Throw(std::underflow_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::underflow_error, what_arg);
 }
+    
 static inline void ThrowStdUnderflowError(const char* what_arg) {
-  Throw(std::underflow_error(what_arg));
+  PHMAP_THROW_IMPL_MSG(std::underflow_error, what_arg);
 }
-
-static inline void ThrowStdBadFunctionCall() { Throw(std::bad_function_call()); }
-
-static inline void ThrowStdBadAlloc() { Throw(std::bad_alloc()); }
+    
+static inline void ThrowStdBadFunctionCall() {
+  PHMAP_THROW_IMPL(std::bad_function_call);
+}
+    
+static inline void ThrowStdBadAlloc() {
+  PHMAP_THROW_IMPL(std::bad_alloc);
+}
 
 }  // namespace base_internal
 }  // namespace phmap
@@ -1815,9 +1819,10 @@ protected:
 // Also, we should be checking is_trivially_copyable here, which is not
 // supported now, so we use is_trivially_* traits instead.
 template <typename T,
-          bool unused = phmap::is_trivially_copy_constructible<T>::value&&
-              phmap::is_trivially_copy_assignable<typename std::remove_cv<
-                  T>::type>::value&& std::is_trivially_destructible<T>::value>
+          bool unused =
+          phmap::is_trivially_copy_constructible<T>::value &&
+          phmap::is_trivially_copy_assignable<typename std::remove_cv<T>::type>::value &&
+          std::is_trivially_destructible<T>::value>
 class optional_data;
 
 // Trivially copyable types
@@ -2048,6 +2053,11 @@ struct optional_hash_base<T, decltype(std::hash<phmap::remove_const_t<T> >()(
 // -----------------------------------------------------------------------------
 // phmap::optional class definition
 // -----------------------------------------------------------------------------
+#if PHMAP_OLD_GCC
+    #define PHMAP_OPTIONAL_NOEXCEPT
+#else
+    #define PHMAP_OPTIONAL_NOEXCEPT noexcept
+#endif
 
 template <typename T>
 class optional : private optional_internal::optional_data<T>,
@@ -2074,7 +2084,7 @@ public:
     optional(const optional& src) = default;
 
     // Move constructor, standard semantics
-    optional(optional&& src) = default;
+    optional(optional&& src) PHMAP_OPTIONAL_NOEXCEPT = default;
 
     // Constructs a non-empty `optional` direct-initialized value of type `T` from
     // the arguments `std::forward<Args>(args)...`  within the `optional`.
@@ -2214,7 +2224,7 @@ public:
     optional& operator=(const optional& src) = default;
 
     // Move assignment operator, standard semantics
-    optional& operator=(optional&& src) = default;
+    optional& operator=(optional&& src) PHMAP_OPTIONAL_NOEXCEPT = default;
 
     // Value assignment operators
     template <
@@ -2764,7 +2774,9 @@ public:
     node_handle_base& operator=(node_handle_base&& other) noexcept {
         destroy();
         if (!other.empty()) {
-            alloc_ = other.alloc_;
+            if (other.alloc_) {
+               alloc_.emplace(other.alloc_.value());
+            }
             PolicyTraits::transfer(alloc(), slot(), other.slot());
             other.reset();
         }
@@ -4154,180 +4166,6 @@ public:
         : internal_layout::LayoutType<sizeof...(Ts), Ts...>(sizes...) {}
 };
 
-}  // namespace priv
-}  // namespace phmap
-
-// ---------------------------------------------------------------------------
-//  compressed_tuple.h
-// ---------------------------------------------------------------------------
-
-#ifdef _MSC_VER
-    // We need to mark these classes with this declspec to ensure that
-    // CompressedTuple happens.
-    #define PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC __declspec(empty_bases)
-#else  // _MSC_VER
-    #define PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC
-#endif  // _MSC_VER
-
-namespace phmap {
-namespace priv {
-
-template <typename... Ts>
-class CompressedTuple;
-
-namespace internal_compressed_tuple {
-
-template <typename D, size_t I>
-struct Elem;
-template <typename... B, size_t I>
-struct Elem<CompressedTuple<B...>, I>
-    : std::tuple_element<I, std::tuple<B...>> {};
-template <typename D, size_t I>
-using ElemT = typename Elem<D, I>::type;
-
-// ---------------------------------------------------------------------------
-// Use the __is_final intrinsic if available. Where it's not available, classes
-// declared with the 'final' specifier cannot be used as CompressedTuple
-// elements.
-// TODO(sbenza): Replace this with std::is_final in C++14.
-// ---------------------------------------------------------------------------
-template <typename T>
-constexpr bool IsFinal() {
-#if defined(__clang__) || defined(__GNUC__)
-    return __is_final(T);
-#else
-    return false;
-#endif
-}
-
-template <typename T>
-constexpr bool ShouldUseBase() {
-#ifdef __INTEL_COMPILER
-    // avoid crash in Intel compiler
-    // assertion failed at: "shared/cfe/edgcpfe/lower_init.c", line 7013
-    return false; 
-#else
-    return std::is_class<T>::value && std::is_empty<T>::value && !IsFinal<T>();
-#endif
-}
-
-// The storage class provides two specializations:
-//  - For empty classes, it stores T as a base class.
-//  - For everything else, it stores T as a member.
-// ------------------------------------------------
-template <typename D, size_t I, bool = ShouldUseBase<ElemT<D, I>>()>
-struct Storage 
-{
-    using T = ElemT<D, I>;
-    T value;
-    constexpr Storage() = default;
-    explicit constexpr Storage(T&& v) : value(phmap::forward<T>(v)) {}
-    constexpr const T& get() const& { return value; }
-    T& get() & { return value; }
-    constexpr const T&& get() const&& { return phmap::move(*this).value; }
-    T&& get() && { return std::move(*this).value; }
-};
-
-template <typename D, size_t I>
-struct PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC Storage<D, I, true>
-    : ElemT<D, I> 
-{
-    using T = internal_compressed_tuple::ElemT<D, I>;
-    constexpr Storage() = default;
-    explicit constexpr Storage(T&& v) : T(phmap::forward<T>(v)) {}
-    constexpr const T& get() const& { return *this; }
-    T& get() & { return *this; }
-    constexpr const T&& get() const&& { return phmap::move(*this); }
-    T&& get() && { return std::move(*this); }
-};
-
-template <typename D, typename I>
-struct PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC CompressedTupleImpl;
-
-template <typename... Ts, size_t... I>
-struct PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC
-    CompressedTupleImpl<CompressedTuple<Ts...>, phmap::index_sequence<I...>>
-    // We use the dummy identity function through std::integral_constant to
-    // convince MSVC of accepting and expanding I in that context. Without it
-    // you would get:
-    //   error C3548: 'I': parameter pack cannot be used in this context
-    : Storage<CompressedTuple<Ts...>,
-              std::integral_constant<size_t, I>::value>... 
-{
-    constexpr CompressedTupleImpl() = default;
-    explicit constexpr CompressedTupleImpl(Ts&&... args)
-        : Storage<CompressedTuple<Ts...>, I>(phmap::forward<Ts>(args))... {}
-};
-
-}  // namespace internal_compressed_tuple
-
-// ---------------------------------------------------------------------------
-// Helper class to perform the Empty Base Class Optimization.
-// Ts can contain classes and non-classes, empty or not. For the ones that
-// are empty classes, we perform the CompressedTuple. If all types in Ts are
-// empty classes, then CompressedTuple<Ts...> is itself an empty class.
-//
-// To access the members, use member .get<N>() function.
-//
-// Eg:
-//   phmap::priv::CompressedTuple<int, T1, T2, T3> value(7, t1, t2,
-//                                                                    t3);
-//   assert(value.get<0>() == 7);
-//   T1& t1 = value.get<1>();
-//   const T2& t2 = value.get<2>();
-//   ...
-//
-// https://en.cppreference.com/w/cpp/language/ebo
-// ---------------------------------------------------------------------------
-template <typename... Ts>
-class PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC CompressedTuple
-    : private internal_compressed_tuple::CompressedTupleImpl<
-          CompressedTuple<Ts...>, phmap::index_sequence_for<Ts...>> 
-{
-private:
-    template <int I>
-        using ElemT = internal_compressed_tuple::ElemT<CompressedTuple, I>;
-
-public:
-    constexpr CompressedTuple() = default;
-    explicit constexpr CompressedTuple(Ts... base)
-        : CompressedTuple::CompressedTupleImpl(phmap::forward<Ts>(base)...) {}
-
-    template <int I>
-        ElemT<I>& get() & {
-        return internal_compressed_tuple::Storage<CompressedTuple, I>::get();
-    }
-
-    template <int I>
-        constexpr const ElemT<I>& get() const& {
-        return internal_compressed_tuple::Storage<CompressedTuple, I>::get();
-    }
-
-    template <int I>
-        ElemT<I>&& get() && {
-        return std::move(*this)
-            .internal_compressed_tuple::template Storage<CompressedTuple, I>::get();
-    }
-
-    template <int I>
-        constexpr const ElemT<I>&& get() const&& {
-        return phmap::move(*this)
-            .internal_compressed_tuple::template Storage<CompressedTuple, I>::get();
-    }
-};
-
-// Explicit specialization for a zero-element tuple
-// (needed to avoid ambiguous overloads for the default constructor).
-// ---------------------------------------------------------------------------
-template <>
-class PHMAP_INTERNAL_COMPRESSED_TUPLE_DECLSPEC CompressedTuple<> {};
-
-}  // namespace priv
-}  // namespace phmap
-
-
-namespace phmap {
-namespace priv {
 
 #ifdef _MSC_VER
     #pragma warning(push)  
@@ -4353,7 +4191,7 @@ void* Allocate(Alloc* alloc, size_t n) {
   using A = typename phmap::allocator_traits<Alloc>::template rebind_alloc<M>;
   using AT = typename phmap::allocator_traits<Alloc>::template rebind_traits<M>;
   A mem_alloc(*alloc);
-  void* p = AT::allocate(mem_alloc, (n + sizeof(M) - 1) / sizeof(M));
+  void* p = &*AT::allocate(mem_alloc, (n + sizeof(M) - 1) / sizeof(M)); // `&*` to support custom pointers such as boost offset_ptr.
   assert(reinterpret_cast<uintptr_t>(p) % Alignment == 0 &&
          "allocator does not respect alignment");
   return p;
@@ -4541,14 +4379,14 @@ namespace memory_internal {
 // ----------------------------------------------------------------------------
 template <class Pair, class = std::true_type>
 struct OffsetOf {
-    static constexpr size_t kFirst = (size_t)-1;
-  static constexpr size_t kSecond = (size_t)-1;
+   static constexpr size_t kFirst  = static_cast<size_t>(-1);
+   static constexpr size_t kSecond = static_cast<size_t>(-1);
 };
 
 template <class Pair>
 struct OffsetOf<Pair, typename std::is_standard_layout<Pair>::type> 
 {
-    static constexpr size_t kFirst = offsetof(Pair, first);
+    static constexpr size_t kFirst  = offsetof(Pair, first);
     static constexpr size_t kSecond = offsetof(Pair, second);
 };
 
@@ -4792,9 +4630,14 @@ public:
         DoNothing(mutex_type&, phmap::try_to_lock_t) {}
         template<class T> explicit DoNothing(T&&) {}
         DoNothing& operator=(const DoNothing&) { return *this; }
-        DoNothing& operator=(DoNothing&&) { return *this; }
-        void swap(DoNothing &) {}
+        DoNothing& operator=(DoNothing&&) noexcept { return *this; }
+        void swap(DoNothing &)  noexcept {}
         bool owns_lock() const noexcept { return true; }
+        void lock() {}
+        void unlock() {}
+        void lock_shared() {}
+        void unlock_shared() {}
+        bool switch_to_unique() { return false; }
     };
 
     // ----------------------------------------------------
@@ -4823,13 +4666,13 @@ public:
             m_->try_lock(); 
         }
 
-        WriteLock(WriteLock &&o) :
+        WriteLock(WriteLock &&o) noexcept :
             m_(std::move(o.m_)), locked_(std::move(o.locked_)) {
             o.locked_ = false;
             o.m_      = nullptr;
         }
 
-        WriteLock& operator=(WriteLock&& other) {
+        WriteLock& operator=(WriteLock&& other) noexcept {
             WriteLock temp(std::move(other));
             swap(temp);
             return *this;
@@ -4869,6 +4712,8 @@ public:
         }
 
         mutex_type *mutex() const noexcept { return m_; }
+        
+        bool switch_to_unique() { return false; }
 
     private:
         mutex_type *m_;
@@ -4901,13 +4746,13 @@ public:
             m_->try_lock_shared(); 
         }
 
-        ReadLock(ReadLock &&o) :
+        ReadLock(ReadLock &&o) noexcept :
             m_(std::move(o.m_)), locked_(std::move(o.locked_)) {
             o.locked_ = false;
             o.m_      = nullptr;
         }
 
-        ReadLock& operator=(ReadLock&& other) {
+        ReadLock& operator=(ReadLock&& other) noexcept {
             ReadLock temp(std::move(other));
             swap(temp);
             return *this;
@@ -4948,9 +4793,101 @@ public:
 
         mutex_type *mutex() const noexcept { return m_; }
 
+        bool switch_to_unique() { return false; }
+
     private:
         mutex_type *m_;
         bool        locked_;
+    };
+
+    // ----------------------------------------------------
+    class ReadWriteLock
+    {
+    public:
+        using mutex_type = MutexType;
+
+        ReadWriteLock() :  m_(nullptr), locked_(false), locked_shared_(false)  {}
+
+        explicit ReadWriteLock(mutex_type &m) : m_(&m), locked_(false), locked_shared_(true)  {
+            m_->lock_shared(); 
+        }
+
+        ReadWriteLock(mutex_type& m, defer_lock_t) noexcept :
+            m_(&m), locked_(false), locked_shared_(false)
+        {}
+
+        ReadWriteLock(ReadWriteLock &&o) noexcept :
+            m_(std::move(o.m_)), locked_(o.locked_), locked_shared_(o.locked_shared_) {
+            o.locked_        = false;
+            o.locked_shared_ = false;
+            o.m_             = nullptr;
+        }
+
+        ReadWriteLock& operator=(ReadWriteLock&& other) noexcept {
+            ReadWriteLock temp(std::move(other));
+            swap(temp);
+            return *this;
+        }
+
+        ~ReadWriteLock() {
+            if (locked_shared_) 
+                m_->unlock_shared();
+            else if (locked_) 
+                m_->unlock();
+        }
+
+        void lock_shared() {
+            assert(!locked_);
+            if (!locked_shared_) { 
+                m_->lock_shared(); 
+                locked_shared_ = true; 
+            }
+        }
+
+        void unlock_shared() { 
+            if (locked_shared_) {
+                m_->unlock_shared(); 
+                locked_shared_ = false;
+            }
+        } 
+
+        void lock() {
+            assert(!locked_shared_);
+            if (!locked_) { 
+                m_->lock(); 
+                locked_ = true; 
+            }
+        }
+
+        void unlock() { 
+            if (locked_) {
+                m_->unlock(); 
+                locked_ = false;
+            }
+        } 
+
+        bool owns_lock() const noexcept { return locked_; }
+        bool owns_shared_lock() const noexcept { return locked_shared_; }
+
+        void swap(ReadWriteLock &o) noexcept { 
+            std::swap(m_, o.m_);
+            std::swap(locked_, o.locked_);
+            std::swap(locked_shared_, o.locked_shared_);
+        }
+
+        mutex_type *mutex() const noexcept { return m_; }
+
+        bool switch_to_unique() {
+            assert(locked_shared_);
+            unlock_shared();
+            lock();
+            return true;
+        }
+
+    private:
+        mutex_type *m_;
+        bool        locked_;
+        bool        locked_shared_;
     };
 
     // ----------------------------------------------------
@@ -5022,12 +4959,11 @@ public:
 //    using Lockable = phmap::LockableImpl<mutex_type>;
 //    Lockable m;
 //  
-//    Lockable::UpgradeLock read_lock(m); // take a upgradable lock
-//
-//    {
-//        Lockable::UpgradeToUnique unique_lock(read_lock);
-//        // now locked for write
-//    }
+//    Lockable::ReadWriteLock read_lock(m); // take a lock (read if supported, otherwise write)
+//    ... do something
+// 
+//    m.switch_to_unique(); // returns true if we had a read lock and switched to write
+//    // now locked for write
 //
 // ---------------------------------------------------------------------------
 //         Generic mutex support (always write locks)
@@ -5039,11 +4975,10 @@ public:
     using mutex_type      = Mtx_;
     using Base            = LockableBaseImpl<Mtx_>;
     using SharedLock      = typename Base::WriteLock;
-    using UpgradeLock     = typename Base::WriteLock;
     using UniqueLock      = typename Base::WriteLock;
+    using ReadWriteLock   = typename Base::WriteLock;
     using SharedLocks     = typename Base::WriteLocks;
     using UniqueLocks     = typename Base::WriteLocks;
-    using UpgradeToUnique = typename Base::DoNothing;        // we already have unique ownership
 };
 
 // ---------------------------------------------------------------------------
@@ -5056,26 +4991,26 @@ public:
     using mutex_type      = phmap::NullMutex;
     using Base            = LockableBaseImpl<phmap::NullMutex>;
     using SharedLock      = typename Base::DoNothing; 
-    using UpgradeLock     = typename Base::DoNothing; 
+    using ReadWriteLock   = typename Base::DoNothing;
     using UniqueLock      = typename Base::DoNothing; 
-    using UpgradeToUnique = typename Base::DoNothing; 
     using SharedLocks     = typename Base::DoNothing;
     using UniqueLocks     = typename Base::DoNothing;
 };
 
 // --------------------------------------------------------------------------
 //         Abseil Mutex support (read and write lock support)
+//         use: `phmap::AbslMutex` instead of `std::mutex`
 // --------------------------------------------------------------------------
 #ifdef ABSL_SYNCHRONIZATION_MUTEX_H_
     
     struct AbslMutex : protected absl::Mutex
     {
-        void lock()            { this->Lock(); }
-        void unlock()          { this->Unlock(); }
-        void try_lock()        { this->TryLock(); }
-        void lock_shared()     { this->ReaderLock(); }
-        void unlock_shared()   { this->ReaderUnlock(); }
-        void try_lock_shared() { this->ReaderTryLock(); }
+        void lock()            ABSL_EXCLUSIVE_LOCK_FUNCTION()        { this->Lock(); }
+        void unlock()          ABSL_UNLOCK_FUNCTION()                { this->Unlock(); }
+        void try_lock()        ABSL_EXCLUSIVE_TRYLOCK_FUNCTION(true) { this->TryLock(); }
+        void lock_shared()     ABSL_SHARED_LOCK_FUNCTION()           { this->ReaderLock(); }
+        void unlock_shared()   ABSL_UNLOCK_FUNCTION()                { this->ReaderUnlock(); }
+        void try_lock_shared() ABSL_SHARED_TRYLOCK_FUNCTION(true)    { this->ReaderTryLock(); }
     };
     
     template <>
@@ -5085,11 +5020,44 @@ public:
         using mutex_type      = phmap::AbslMutex;
         using Base            = LockableBaseImpl<phmap::AbslMutex>;
         using SharedLock      = typename Base::ReadLock;
-        using UpgradeLock     = typename Base::WriteLock;
+        using ReadWriteLock   = typename Base::ReadWriteLock;
         using UniqueLock      = typename Base::WriteLock;
         using SharedLocks     = typename Base::ReadLocks;
         using UniqueLocks     = typename Base::WriteLocks;
-        using UpgradeToUnique = typename Base::DoNothing; // we already have unique ownership
+    };
+
+#endif
+
+// --------------------------------------------------------------------------
+//         Microsoft SRWLOCK support (read and write lock support)
+//         use: `phmap::srwlock` instead of `std::mutex`
+// --------------------------------------------------------------------------
+#if defined(_MSC_VER) && defined(SRWLOCK_INIT)
+
+    class srwlock {
+        SRWLOCK _lock;
+    public:
+        srwlock()              { InitializeSRWLock(&_lock); }
+        void lock()            { AcquireSRWLockExclusive(&_lock); }
+        void unlock()          { ReleaseSRWLockExclusive(&_lock); }
+        bool try_lock()        { return !!TryAcquireSRWLockExclusive(&_lock); }
+        void lock_shared()     { AcquireSRWLockShared(&_lock); }
+        void unlock_shared()   { ReleaseSRWLockShared(&_lock); }
+        bool try_lock_shared() { return !!TryAcquireSRWLockShared(&_lock); }
+    };
+
+
+    template<>
+    class LockableImpl<srwlock> : public srwlock
+    {
+    public:
+        using mutex_type    = srwlock;
+        using Base          = LockableBaseImpl<srwlock>;
+        using SharedLock    = typename Base::ReadLock;
+        using ReadWriteLock = typename Base::ReadWriteLock;
+        using UniqueLock    = typename Base::WriteLock;
+        using SharedLocks   = typename Base::ReadLocks;
+        using UniqueLocks   = typename Base::WriteLocks;
     };
 
 #endif
@@ -5099,7 +5067,6 @@ public:
 // --------------------------------------------------------------------------
 #ifdef BOOST_THREAD_SHARED_MUTEX_HPP
 
-#if 1
     // ---------------------------------------------------------------------------
     template <>
     class  LockableImpl<boost::shared_mutex> : public boost::shared_mutex
@@ -5108,27 +5075,11 @@ public:
         using mutex_type      = boost::shared_mutex;
         using Base            = LockableBaseImpl<boost::shared_mutex>;
         using SharedLock      = boost::shared_lock<mutex_type>;
-        using UpgradeLock     = boost::unique_lock<mutex_type>; // assume can't upgrade
+        using ReadWriteLock   = typename Base::ReadWriteLock;
         using UniqueLock      = boost::unique_lock<mutex_type>;
         using SharedLocks     = typename Base::ReadLocks;
         using UniqueLocks     = typename Base::WriteLocks;
-        using UpgradeToUnique = typename Base::DoNothing;  // we already have unique ownership
     };
-#else
-    // ---------------------------------------------------------------------------
-    template <>
-    class  LockableImpl<boost::upgrade_mutex> : public boost::upgrade_mutex
-    {
-    public:
-        using mutex_type      = boost::upgrade_mutex;
-        using SharedLock      = boost::shared_lock<mutex_type>;
-        using UpgradeLock     = boost::upgrade_lock<mutex_type>;
-        using UniqueLock      = boost::unique_lock<mutex_type>;
-        using SharedLocks     = typename Base::ReadLocks;
-        using UniqueLocks     = typename Base::WriteLocks;
-        using UpgradeToUnique = boost::upgrade_to_unique_lock<mutex_type>;
-    };
-#endif
 
 #endif // BOOST_THREAD_SHARED_MUTEX_HPP
 
@@ -5145,11 +5096,10 @@ public:
         using mutex_type      = std::shared_mutex;
         using Base            = LockableBaseImpl<std::shared_mutex>;
         using SharedLock      = std::shared_lock<mutex_type>;
-        using UpgradeLock     = std::unique_lock<mutex_type>; // assume can't upgrade
+        using ReadWriteLock   = typename Base::ReadWriteLock;
         using UniqueLock      = std::unique_lock<mutex_type>;
         using SharedLocks     = typename Base::ReadLocks;
         using UniqueLocks     = typename Base::WriteLocks;
-        using UpgradeToUnique = typename Base::DoNothing;  // we already have unique ownership
     };
 #endif // PHMAP_HAVE_SHARED_MUTEX
 

@@ -57,7 +57,6 @@ struct phmap_mix<4>
     inline size_t operator()(size_t a) const
     {
         static constexpr uint64_t kmul = 0xcc9e2d51UL;
-        // static constexpr uint64_t kmul = 0x3B9ACB93UL; // [greg] my own random prime
         uint64_t l = a * kmul;
         return static_cast<size_t>(l ^ (l >> 32));
     }
@@ -71,7 +70,6 @@ struct phmap_mix<4>
         inline size_t operator()(size_t a) const
         {
             static constexpr uint64_t k = 0xde5fb9d2630458e9ULL;
-            // static constexpr uint64_t k = 0x7C9D0BF0567102A5ULL; // [greg] my own random prime
             uint64_t h;
             uint64_t l = umul128(a, k, &h);
             return static_cast<size_t>(h + l);
@@ -293,7 +291,6 @@ template <class H> struct Combiner<H, 4>
 {
     H operator()(H h1, size_t k1)
     {
-#if 1
         // Copyright 2005-2014 Daniel James.
         // Distributed under the Boost Software License, Version 1.0. (See accompanying
         // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -310,9 +307,6 @@ template <class H> struct Combiner<H, 4>
         h1 = h1*5+0xe6546b64;
 
         return h1;
-#else
-        return h1 ^ (k1 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
-#endif
     }
 };
 
@@ -320,7 +314,6 @@ template <class H> struct Combiner<H, 8>
 {
     H operator()(H h, size_t k)
     {
-#if 1
         // Copyright 2005-2014 Daniel James.
         // Distributed under the Boost Software License, Version 1.0. (See accompanying
         // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -339,9 +332,6 @@ template <class H> struct Combiner<H, 8>
         h += 0xe6546b64;
 
         return h;
-#else
-        return h ^ (k + size_t(0xc6a4a7935bd1e995) + (h << 6) + (h >> 2));
-#endif
     }
 };
 

@@ -270,31 +270,31 @@ inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
 namespace phmap {
 namespace base_internal {
 
-PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64Slow(uint64_t n) {
+PHMAP_BASE_INTERNAL_FORCEINLINE uint32_t CountLeadingZeros64Slow(uint64_t n) {
     int zeroes = 60;
-	if (n >> 32) static_cast<void>(zeroes -= 32), n >>= 32;
-	if (n >> 16) static_cast<void>(zeroes -= 16), n >>= 16;
-	if (n >> 8) static_cast<void>(zeroes -= 8), n >>= 8;
-	if (n >> 4) static_cast<void>(zeroes -= 4), n >>= 4;
-    return "\4\3\2\2\1\1\1\1\0\0\0\0\0\0\0"[n] + zeroes;
+    if (n >> 32) { zeroes -= 32; n >>= 32; }
+    if (n >> 16) { zeroes -= 16; n >>= 16; }
+    if (n >> 8) { zeroes -= 8; n >>= 8; }
+    if (n >> 4) { zeroes -= 4; n >>= 4; }
+    return (uint32_t)("\4\3\2\2\1\1\1\1\0\0\0\0\0\0\0"[n] + zeroes);
 }
 
-PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64(uint64_t n) {
+PHMAP_BASE_INTERNAL_FORCEINLINE uint32_t CountLeadingZeros64(uint64_t n) {
 #if defined(_MSC_VER) && defined(_M_X64)
     // MSVC does not have __buitin_clzll. Use _BitScanReverse64.
     unsigned long result = 0;  // NOLINT(runtime/int)
     if (_BitScanReverse64(&result, n)) {
-        return (int)(63 - result);
+        return (uint32_t)(63 - result);
     }
     return 64;
 #elif defined(_MSC_VER) && !defined(__clang__)
     // MSVC does not have __buitin_clzll. Compose two calls to _BitScanReverse
     unsigned long result = 0;  // NOLINT(runtime/int)
     if ((n >> 32) && _BitScanReverse(&result, (unsigned long)(n >> 32))) {
-        return 31 - result;
+        return  (uint32_t)(31 - result);
     }
     if (_BitScanReverse(&result, (unsigned long)n)) {
-        return 63 - result;
+        return (uint32_t)(63 - result);
     }
     return 64;
 #elif defined(__GNUC__) || defined(__clang__)
@@ -309,7 +309,7 @@ PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64(uint64_t n) {
     if (n == 0) {
         return 64;
     }
-    return __builtin_clzll(n);
+    return  (uint32_t)__builtin_clzll(n);
 #else
     return CountLeadingZeros64Slow(n);
 #endif
@@ -317,9 +317,9 @@ PHMAP_BASE_INTERNAL_FORCEINLINE int CountLeadingZeros64(uint64_t n) {
 
 PHMAP_BASE_INTERNAL_FORCEINLINE uint32_t CountLeadingZeros32Slow(uint64_t n) {
     uint32_t zeroes = 28;
-	if (n >> 16) static_cast<void>(zeroes -= 16), n >>= 16;
-	if (n >> 8) static_cast<void>(zeroes -= 8), n >>= 8;
-	if (n >> 4) static_cast<void>(zeroes -= 4), n >>= 4;
+    if (n >> 16) { zeroes -= 16; n >>= 16; }
+    if (n >> 8) { zeroes -= 8; n >>= 8; }
+    if (n >> 4) { zeroes -= 4; n >>= 4; }
     return "\4\3\2\2\1\1\1\1\0\0\0\0\0\0\0"[n] + zeroes;
 }
 
