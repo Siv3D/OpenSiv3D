@@ -824,6 +824,13 @@ namespace s3d
 			const double width = Max(_width, MinTextBoxWidth);
 			const RectF region{ Arg::center = center, Max(width, MinTextBoxWidth), TextBoxHeight };
 
+			// グリフ
+			const auto glyphs = font.getGlyphs(text.text);
+
+			// グリフに対応する文字のインデックス
+			auto charIndices = font.getGlyphClusters(text.text, UseFallback::No, Ligature::No).map([](const auto& cluster) { return cluster.pos; });
+			charIndices.push_back(text.text.size());
+
 			// マウスカーソルを IBeam にする
 			if (enabled && Cursor::OnClientRect() && region.mouseOver())
 			{
@@ -841,18 +848,20 @@ namespace s3d
 					// カーソルの位置を計算する
 					{
 						const double posX = (Cursor::PosF().x - (region.x + 8));
-						size_t index = 0;
+						size_t index = text.text.size();
 						double pos = 0.0;
 
-						for (const auto& advance : font(text.text).getXAdvances())
+						for (size_t i = 0; i < glyphs.size(); ++i)
 						{
+							const double advance = glyphs[i].xAdvance;
+
 							if (posX <= (pos + (advance / 2)))
 							{
+								index = charIndices[i];
 								break;
 							}
 
 							pos += advance;
-							++index;
 						}
 
 						text.cursorPos = index;
@@ -912,7 +921,7 @@ namespace s3d
 					if ((0 < text.cursorPos)
 						&& (KeyLeft.down() || ((SecondsF{ 0.33 } < KeyLeft.pressedDuration()) && (SecondsF{ 0.06 } < text.leftPressStopwatch))))
 					{
-						--text.cursorPos;
+						text.cursorPos = *std::lower_bound(charIndices.rbegin(), charIndices.rend(), text.cursorPos - 1, std::greater{});
 						text.leftPressStopwatch.restart();
 					}
 
@@ -920,7 +929,7 @@ namespace s3d
 					if ((text.cursorPos < text.text.size())
 						&& (KeyRight.down() || ((SecondsF{ 0.33 } < KeyRight.pressedDuration()) && (SecondsF{ 0.06 } < text.rightPressStopwatch))))
 					{
-						++text.cursorPos;
+						text.cursorPos = *std::lower_bound(charIndices.begin(), charIndices.end(), text.cursorPos + 1);
 						text.rightPressStopwatch.restart();
 					}
 				}
@@ -979,22 +988,27 @@ namespace s3d
 					{
 						const ScopedCustomShader2D shader{ pixelShader };
 						Vec2 penPos = textPos;
-						const Array<Glyph> glyphs = font.getGlyphs(text.text);
 
 						for (auto&& [index, glyph] : Indexed(glyphs))
 						{
 							const double xAdvance = glyph.xAdvance;
 							const Vec2 glyphPos = (penPos + glyph.getOffset());
 
-							glyph.texture.draw(glyphPos, textColor);		
-							penPos.x += xAdvance;
-
 							// テキストカーソルの位置の計算を計算する
-							if (text.active && (text.cursorPos == (index + 1)))
+							if (text.active && (text.cursorPos == charIndices[index]))
 							{
 								cursorPosX = penPos.x;
 								editingTextPos = penPos;
 							}
+
+							glyph.texture.draw(glyphPos, textColor);		
+							penPos.x += xAdvance;
+						}
+
+						if (text.active && (text.cursorPos == text.text.size()))
+						{
+							cursorPosX = penPos.x;
+							editingTextPos = penPos;
 						}
 					}
 
@@ -1254,7 +1268,7 @@ namespace s3d
 						}
 
 						// テキストの描画位置のオフセットを決定する
-						if ((index + 1) == text.cursorPos)
+						if (text.charIndices[index + 1] == text.cursorPos)
 						{
 							const double d1 = ((penPos.y + fontHeight + newScrollY) - textRenderRegionBottomY);
 							const double d2 = (textRenderRegion.y - (penPos.y + newScrollY));
@@ -1342,7 +1356,7 @@ namespace s3d
 					}
 
 					// テキストカーソルの位置の計算を計算する
-					if (text.active && (text.cursorPos == (index + 1)))
+					if (text.active && (text.cursorPos == text.charIndices[index + 1]))
 					{
 						double yBegin = 0.0, yEnd = 0.0;
 
@@ -1456,11 +1470,11 @@ namespace s3d
 					# endif
 						) // [home]: 行頭へ
 					{
-						for (int32 i = (static_cast<int32>(text.cursorPos) - 1); 0 <= i; --i)
+						for (int32 i = (static_cast<int32>(std::lower_bound(text.charIndices.begin(), text.charIndices.end(), text.cursorPos) - text.charIndices.begin()) - 1); 0 <= i; --i)
 						{
 							if (text.glyphs[i].codePoint == '\n')
 							{
-								text.cursorPos = (i + 1);
+								text.cursorPos = text.charIndices[i + 1];
 								text.cursorStopwatch.restart();
 								text.refreshScroll = true;
 								break;
@@ -1490,7 +1504,7 @@ namespace s3d
 					# endif
 						) // [end]: 行末へ
 					{
-						for (size_t i = text.cursorPos; i <= text.text.size(); ++i)
+						for (size_t i = (std::lower_bound(text.charIndices.begin(), text.charIndices.end(), text.cursorPos) - text.charIndices.begin()); i <= text.glyphs.size(); ++i)
 						{
 							if (i == text.text.size())
 							{
@@ -1501,7 +1515,7 @@ namespace s3d
 							}
 							else if (text.glyphs[i].codePoint == '\n')
 							{
-								text.cursorPos = i;
+								text.cursorPos = text.charIndices[i];
 								text.cursorStopwatch.restart();
 								text.refreshScroll = true;
 								break;
@@ -1513,7 +1527,7 @@ namespace s3d
 					if ((0 < text.cursorPos)
 						&& (KeyLeft.down() || ((SecondsF{ 0.33 } < KeyLeft.pressedDuration()) && (SecondsF{ 0.06 } < text.leftPressStopwatch))))
 					{
-						--text.cursorPos;
+						text.cursorPos = *std::lower_bound(text.charIndices.rbegin(), text.charIndices.rend(), text.cursorPos - 1, std::greater{});
 						text.leftPressStopwatch.restart();
 						text.refreshScroll = true;
 					}
@@ -1522,7 +1536,7 @@ namespace s3d
 					if ((text.cursorPos < text.text.size())
 						&& (KeyRight.down() || ((SecondsF{ 0.33 } < KeyRight.pressedDuration()) && (SecondsF{ 0.06 } < text.rightPressStopwatch))))
 					{
-						++text.cursorPos;
+						text.cursorPos = *std::lower_bound(text.charIndices.begin(), text.charIndices.end(), text.cursorPos + 1);
 						text.rightPressStopwatch.restart();
 						text.refreshScroll = true;
 					}
@@ -1530,12 +1544,13 @@ namespace s3d
 					// [↑] キーでテキストカーソルを上に移動させる
 					if (KeyUp.down() || ((SecondsF{ 0.33 } < KeyUp.pressedDuration()) && (SecondsF{ 0.06 } < text.upPressStopwatch)))
 					{
-						const int32 currentRow = (text.cursorPos ? text.glyphPositions[text.cursorPos - 1].first : 0);
-						const int32 currentColumn = (text.cursorPos ? text.glyphPositions[text.cursorPos - 1].second : 0);
+						const size_t index = (std::lower_bound(text.charIndices.begin(), text.charIndices.end(), text.cursorPos) - text.charIndices.begin());
+						const int32 currentRow = (index ? text.glyphPositions[index - 1].first : 0);
+						const int32 currentColumn = (index ? text.glyphPositions[index - 1].second : 0);
 
 						if (0 < currentRow)
 						{
-							for (int32 i = (static_cast<int32>(text.cursorPos) - 1); 0 <= i; --i)
+							for (int32 i = (static_cast<int32>(index) - 1); 0 <= i; --i)
 							{
 								if (i == 0)
 								{
@@ -1551,13 +1566,13 @@ namespace s3d
 								{
 									if ((row + 1) < currentRow)
 									{
-										text.cursorPos = (i + 1);
+										text.cursorPos = text.charIndices[i + 1];
 										break;
 									}
 
 									if (column <= currentColumn)
 									{
-										text.cursorPos = i;
+										text.cursorPos = text.charIndices[i];
 										break;
 									}
 								}
@@ -1571,13 +1586,14 @@ namespace s3d
 					// [↓] キーでテキストカーソルを下に移動させる
 					if (KeyDown.down() || ((SecondsF{ 0.33 } < KeyDown.pressedDuration()) && (SecondsF{ 0.06 } < text.downPressStopwatch)))
 					{
+						const size_t index = (std::lower_bound(text.charIndices.begin(), text.charIndices.end(), text.cursorPos) - text.charIndices.begin());
 						const int32 maxCursorIndex = static_cast<int32>(text.glyphPositions.size());
-						const int32 currentRow = (text.cursorPos ? text.glyphPositions[text.cursorPos - 1].first : 0);
-						const int32 currentColumn = (text.cursorPos ? text.glyphPositions[text.cursorPos - 1].second : 0);
+						const int32 currentRow = (index ? text.glyphPositions[index - 1].first : 0);
+						const int32 currentColumn = (index ? text.glyphPositions[index - 1].second : 0);
 
 						if (currentRow < (text.glyphPositions.back().first))
 						{
-							for (int32 i = (static_cast<int32>(text.cursorPos) + 1); i <= maxCursorIndex; ++i)
+							for (int32 i = (static_cast<int32>(index) + 1); i <= maxCursorIndex; ++i)
 							{
 								const auto& glyphPosition = text.glyphPositions[i - 1];
 								const int32 row = glyphPosition.first;
@@ -1587,20 +1603,20 @@ namespace s3d
 								{
 									if ((currentRow + 1) < row)
 									{
-										text.cursorPos = (i - 1);
+										text.cursorPos = text.charIndices[i - 1];
 										break;
 									}
 
 									if (currentColumn <= column)
 									{
-										text.cursorPos = i;
+										text.cursorPos = text.charIndices[i];
 										break;
 									}
 								}
 
 								if (i == maxCursorIndex)
 								{
-									text.cursorPos = maxCursorIndex;
+									text.cursorPos = text.text.size();
 									break;
 								}
 							}
@@ -1618,7 +1634,7 @@ namespace s3d
 			{
 				if (text.clipInfos)
 				{
-					text.cursorPos = text.clipInfos.front().index;
+					text.cursorPos = text.charIndices[text.clipInfos.front().index];
 				}
 			
 				// 最後の行の文字をマーク
@@ -1663,7 +1679,7 @@ namespace s3d
 
 					if (rect.intersects(cursorPos))
 					{
-						text.cursorPos = (clipInfo.index + ((glyph.xAdvance / 2) <= (cursorPos.x - penPos.x)));
+						text.cursorPos = text.charIndices[clipInfo.index + ((glyph.xAdvance / 2) <= (cursorPos.x - penPos.x))];
 						text.cursorStopwatch.restart();
 						break;
 					}
