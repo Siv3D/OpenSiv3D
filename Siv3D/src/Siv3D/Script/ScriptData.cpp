@@ -87,7 +87,7 @@ namespace s3d
 		m_module->context = m_engine->CreateContext();
 		m_module->withLineCues = withLineCues;
 
-		m_complieSucceeded = true;
+		m_compileSucceeded = true;
 	}
 
 	ScriptData::ScriptData(File, const FilePathView path, AngelScript::asIScriptEngine* const engine, const ScriptCompileOption compileOption)
@@ -141,7 +141,7 @@ namespace s3d
 		m_module->context = m_engine->CreateContext();
 		m_module->withLineCues = withLineCues;
 
-		m_complieSucceeded = true;
+		m_compileSucceeded = true;
 	}
 
 	bool ScriptData::isInitialized() const noexcept
@@ -156,7 +156,7 @@ namespace s3d
 
 	bool ScriptData::compileSucceeded() const noexcept
 	{
-		return m_complieSucceeded;
+		return m_compileSucceeded;
 	}
 
 	bool ScriptData::reload(const ScriptCompileOption compileOption, const uint64 scriptID)
@@ -170,7 +170,7 @@ namespace s3d
 		m_functions.clear();
 		m_moduleName.clear();
 		m_messages.clear();
-		m_complieSucceeded = false;
+		m_compileSucceeded = false;
 		m_compileOption = compileOption;
 
 		const bool withLineCues = static_cast<bool>(m_compileOption & ScriptCompileOption::BuildWithLineCues);
@@ -210,7 +210,7 @@ namespace s3d
 		m_module->withLineCues = withLineCues;
 		m_module->scriptID = scriptID;
 
-		m_complieSucceeded = true;
+		m_compileSucceeded = true;
 
 		return true;
 	}
@@ -222,7 +222,7 @@ namespace s3d
 	
 	AngelScript::asIScriptFunction* ScriptData::getFunction(const StringView decl)
 	{
-		if (not m_complieSucceeded)
+		if (not m_compileSucceeded)
 		{
 			return nullptr;
 		}
@@ -275,7 +275,7 @@ namespace s3d
 
 	Array<String> ScriptData::getFunctionDeclarations(const IncludeParamNames includeParamNames) const
 	{
-		if (not m_complieSucceeded)
+		if (not m_compileSucceeded)
 		{
 			return{};
 		}
