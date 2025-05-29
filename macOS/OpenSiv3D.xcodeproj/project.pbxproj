@@ -3860,7 +3860,6 @@
 		2CC8B65C28C752EE008C770A /* MeshGlyph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshGlyph.hpp; sourceTree = "<group>"; };
 		2CC8B65D28C752EE008C770A /* ImageProcessing.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CC8B65E28C752EE008C770A /* WindowStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowStyle.hpp; sourceTree = "<group>"; };
-		2CC8B65F28C752EE008C770A /* LuaScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LuaScript.hpp; sourceTree = "<group>"; };
 		2CC8B66028C752EE008C770A /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CursorStyle.hpp; sourceTree = "<group>"; };
 		2CC8B66128C752EE008C770A /* AssetInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetInfo.hpp; sourceTree = "<group>"; };
 		2CC8B66228C752EE008C770A /* PhongMaterial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PhongMaterial.hpp; sourceTree = "<group>"; };
@@ -8272,7 +8271,6 @@
 				2CC8B42E28C752EC008C770A /* Logger.hpp */,
 				2CC8B4B328C752ED008C770A /* LogLevel.hpp */,
 				2CC8B6DD28C752EE008C770A /* LogType.hpp */,
-				2CC8B65F28C752EE008C770A /* LuaScript.hpp */,
 				2CC8B69A28C752EE008C770A /* ManagedScript.hpp */,
 				2CC8B4C828C752ED008C770A /* Mat3x2.hpp */,
 				2CC8B4BD28C752ED008C770A /* Mat3x3.hpp */,

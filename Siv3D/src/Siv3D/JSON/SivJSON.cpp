@@ -18,6 +18,81 @@
 # include <ThirdParty/nlohmann/json.hpp>
 # include <ThirdParty/nlohmann/json-schema.hpp>
 
+namespace std
+{
+	template<>
+	struct char_traits<s3d::Byte>
+	{
+		using char_type   = s3d::Byte;
+		using int_type    = int;
+		using off_type    = std::streamoff;
+		using pos_type    = std::streampos;
+		using state_type  = std::mbstate_t;
+		using comparison_category = std::strong_ordering;
+
+		static constexpr void assign(char_type& r, const char_type& v) noexcept { r = v; }
+		
+		static constexpr bool eq(char_type a, char_type b) noexcept { return a == b; }
+		
+		static constexpr bool lt(char_type a, char_type b) noexcept
+		{
+			return static_cast<unsigned char>(a) < static_cast<unsigned char>(b);
+		}
+
+		static constexpr int compare(const char_type* s1, const char_type* s2, std::size_t n) noexcept
+		{
+			if (n == 0) return 0;
+			return std::memcmp(s1, s2, n);
+		}
+
+		static constexpr std::size_t length(const char_type* s) noexcept
+		{
+			std::size_t i = 0;
+			for (; !eq(s[i], char_type{}); ++i) {}
+			return i;
+		}
+
+		static constexpr const char_type* find(const char_type* s, std::size_t n, const char_type& a) noexcept
+		{
+			return static_cast<const char_type*>(std::memchr(s, static_cast<unsigned char>(a), n));
+		}
+
+		static char_type* move(char_type* dest, const char_type* src, std::size_t n) noexcept
+		{
+			return static_cast<char_type*>(std::memmove(dest, src, n));
+		}
+
+		static char_type* copy(char_type* dest, const char_type* src, std::size_t n) noexcept
+		{
+			return static_cast<char_type*>(std::memcpy(dest, src, n));
+		}
+
+		static constexpr char_type* assign(char_type* dest, std::size_t n, char_type a) noexcept
+		{
+			return static_cast<char_type*>(std::memset(dest, static_cast<int>(a), n));
+		}
+
+		static constexpr int_type to_int_type(char_type c) noexcept
+		{
+			return static_cast<unsigned char>(c);
+		}
+		
+		static constexpr char_type to_char_type(int_type c) noexcept
+		{
+			return static_cast<char_type>(static_cast<unsigned char>(c));
+		}
+		
+		static constexpr bool eq_int_type(int_type a, int_type b) noexcept { return a == b; }
+
+		static constexpr int_type eof() noexcept { return static_cast<int_type>(-1); }
+		
+		static constexpr int_type not_eof(int_type c) noexcept
+		{
+			return eq_int_type(c, eof()) ? 0 : c;
+		}
+	};
+}
+
 namespace s3d
 {
 	namespace detail
