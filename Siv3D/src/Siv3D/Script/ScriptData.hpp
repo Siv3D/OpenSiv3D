@@ -86,7 +86,7 @@ namespace s3d
 
 		Array<FilePath> m_includedFiles;
 
-		bool m_complieSucceeded = false;
+		bool m_compileSucceeded = false;
 
 		bool m_initialized = false;
 	};
