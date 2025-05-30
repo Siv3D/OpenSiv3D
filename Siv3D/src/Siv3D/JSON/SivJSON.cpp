@@ -39,7 +39,7 @@ namespace std
 			return static_cast<unsigned char>(a) < static_cast<unsigned char>(b);
 		}
 
-		static constexpr int compare(const char_type* s1, const char_type* s2, std::size_t n) noexcept
+		static int compare(const char_type* s1, const char_type* s2, std::size_t n) noexcept
 		{
 			if (n == 0) return 0;
 			return std::memcmp(s1, s2, n);
@@ -52,7 +52,7 @@ namespace std
 			return i;
 		}
 
-		static constexpr const char_type* find(const char_type* s, std::size_t n, const char_type& a) noexcept
+		static const char_type* find(const char_type* s, std::size_t n, const char_type& a) noexcept
 		{
 			return static_cast<const char_type*>(std::memchr(s, static_cast<unsigned char>(a), n));
 		}
@@ -67,12 +67,12 @@ namespace std
 			return static_cast<char_type*>(std::memcpy(dest, src, n));
 		}
 
-		static constexpr char_type* assign(char_type* dest, std::size_t n, char_type a) noexcept
+		static char_type* assign(char_type* dest, std::size_t n, char_type a) noexcept
 		{
 			return static_cast<char_type*>(std::memset(dest, static_cast<int>(a), n));
 		}
 
-		static constexpr int_type to_int_type(char_type c) noexcept
+		static int_type to_int_type(char_type c) noexcept
 		{
 			return static_cast<unsigned char>(c);
 		}
