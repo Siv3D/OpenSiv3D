@@ -102,16 +102,22 @@ namespace s3d
 		constexpr value_type value_or_eval(Fty&& f)&&;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, value_type&>>* = nullptr>
-		constexpr void then(Fty&& f);
+		constexpr void then(Fty&& f)&;
 
 		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, value_type>>* = nullptr>
-		constexpr void then(Fty&& f) const;
+		constexpr void then(Fty&& f) const&;
+
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, value_type>>* = nullptr>
+		constexpr void then(Fty&& f)&&;
 
 		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, value_type&>>>
-		Optional<R> map(Fty f);
+		Optional<R> map(Fty f)&;
 
 		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, value_type>>>
-		Optional<R> map(Fty f) const;
+		Optional<R> map(Fty f) const&;
+
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, value_type>>>
+		Optional<R> map(Fty f)&&;
 
 		template <class CharType>
 		friend std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Optional<Type>& value)

@@ -127,7 +127,14 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_construct(Args&&... args) const&
 	{
-		return static_cast<bool>(*this) ? **this : Type(std::forward<Args>(args)...);
+		if (*this)
+		{
+			return **this;
+		}
+		else
+		{
+			return Type(std::forward<Args>(args)...);
+		}
 	}
 
 	template <class Type>
@@ -135,26 +142,47 @@ namespace s3d
 	[[nodiscard]]
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_construct(Args&&... args)&&
 	{
-		return static_cast<bool>(*this) ? std::move(**this) : Type(std::forward<Args>(args)...);
+		if (*this)
+		{
+			return std::move(**this);
+		}
+		else
+		{
+			return Type(std::forward<Args>(args)...);
+		}
 	}
 
 	template <class Type>
 	template <class Fty, std::enable_if_t<std::conjunction_v<std::is_copy_constructible<Type>, std::is_convertible<std::invoke_result_t<Fty>, Type>>>*>
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_eval(Fty&& f) const&
 	{
-		return static_cast<bool>(*this) ? **this : std::forward<Fty>(f)();
+		if (*this)
+		{
+			return **this;
+		}
+		else
+		{
+			return std::forward<Fty>(f)();
+		}
 	}
 
 	template <class Type>
 	template <class Fty, std::enable_if_t<std::conjunction_v<std::is_move_constructible<Type>, std::is_convertible<std::invoke_result_t<Fty>, Type>>>*>
 	inline constexpr typename Optional<Type>::value_type Optional<Type>::value_or_eval(Fty&& f)&&
 	{
-		return static_cast<bool>(*this) ? std::move(**this) : std::forward<Fty>(f)();
+		if (*this)
+		{
+			return std::move(**this);
+		}
+		else
+		{
+			return std::forward<Fty>(f)();
+		}
 	}
 
 	template <class Type>
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>*>
-	inline constexpr void Optional<Type>::then(Fty&& f)
+	inline constexpr void Optional<Type>::then(Fty&& f)&
 	{
 		if (has_value())
 		{
@@ -164,7 +192,7 @@ namespace s3d
 
 	template <class Type>
 	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
-	inline constexpr void Optional<Type>::then(Fty&& f) const
+	inline constexpr void Optional<Type>::then(Fty&& f) const&
 	{
 		if (has_value())
 		{
@@ -173,8 +201,18 @@ namespace s3d
 	}
 
 	template <class Type>
+	template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>*>
+	inline constexpr void Optional<Type>::then(Fty&& f)&&
+	{
+		if (has_value())
+		{
+			std::forward<Fty>(f)(std::move(*this).value());
+		}
+	}
+
+	template <class Type>
 	template <class Fty, class R>
-	inline Optional<R> Optional<Type>::map(Fty f)
+	inline Optional<R> Optional<Type>::map(Fty f)&
 	{
 		if (has_value())
 		{
@@ -188,11 +226,25 @@ namespace s3d
 
 	template <class Type>
 	template <class Fty, class R>
-	inline Optional<R> Optional<Type>::map(Fty f) const
+	inline Optional<R> Optional<Type>::map(Fty f) const&
 	{
 		if (has_value())
 		{
 			return f(value());
+		}
+		else
+		{
+			return none;
+		}
+	}
+
+	template <class Type>
+	template <class Fty, class R>
+	inline Optional<R> Optional<Type>::map(Fty f)&&
+	{
+		if (has_value())
+		{
+			return f(std::move(*this).value());
 		}
 		else
 		{
