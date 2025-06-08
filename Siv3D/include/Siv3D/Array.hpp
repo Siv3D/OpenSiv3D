@@ -1248,7 +1248,7 @@ namespace s3d
 	Array(Iterator, Iterator, const Allocator& = Allocator{}) -> Array<typename std::iterator_traits<Iterator>::value_type, Allocator>;
 
 	template <class Type, class Allocator = std::allocator<Type>, std::enable_if_t<std::is_same_v<typename Allocator::value_type, Type> && (not detail::IsNamedParameter_v<Type>)>* = nullptr>
-	Array(typename Array<Type, Allocator>::size_type count, const Type& value, const Allocator& alloc = Allocator{}) -> Array<Type, Allocator>;
+	Array(typename Array<Type, Allocator>::size_type, const Type&, const Allocator& = Allocator{}) -> Array<Type, Allocator>;
 
 	template <class Fty>
 	Array(typename Array<std::decay_t<std::invoke_result_t<Fty>>>::size_type, Arg::generator_<Fty>) -> Array<std::decay_t<std::invoke_result_t<Fty>>>;
