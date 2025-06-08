@@ -638,6 +638,24 @@ namespace s3d
 	template <class Type>
 	Grid(Size, Array<Type>&&) -> Grid<Type>;
 
+	template <class Type, std::enable_if_t<not detail::IsNamedParameter_v<Type>>* = nullptr>
+	Grid(typename Grid<Type>::size_type, typename Grid<Type>::size_type, const Type&) -> Grid<Type>;
+
+	template <class Type, std::enable_if_t<not detail::IsNamedParameter_v<Type>>* = nullptr>
+	Grid(Size, const Type&) -> Grid<Type>;
+
+	template <class Fty>
+	Grid(typename Grid<std::decay_t<std::invoke_result_t<Fty>>>::size_type, typename Grid<std::decay_t<std::invoke_result_t<Fty>>>::size_type, Arg::generator_<Fty>) -> Grid<std::decay_t<std::invoke_result_t<Fty>>>;
+
+	template <class Fty>
+	Grid(Size, Arg::generator_<Fty>) -> Grid<std::decay_t<std::invoke_result_t<Fty>>>;
+
+	template <class Fty>
+	Grid(typename Grid<std::decay_t<std::invoke_result_t<Fty, Point>>>::size_type, typename Grid<std::decay_t<std::invoke_result_t<Fty, Point>>>::size_type, Arg::indexedGenerator_<Fty>) -> Grid<std::decay_t<std::invoke_result_t<Fty, Point>>>;
+
+	template <class Fty>
+	Grid(Size, Arg::indexedGenerator_<Fty>) -> Grid<std::decay_t<std::invoke_result_t<Fty, Point>>>;
+
 	template <class Type, class Allocator>
 	inline void swap(Grid<Type, Allocator>& a, Grid<Type, Allocator>& b) noexcept;
 }
