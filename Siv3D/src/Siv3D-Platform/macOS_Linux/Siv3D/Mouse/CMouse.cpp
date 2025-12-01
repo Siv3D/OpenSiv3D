@@ -11,7 +11,9 @@
 
 # include <Siv3D/Common.hpp>
 # include <Siv3D/EngineLog.hpp>
+# include <Siv3D/UserAction.hpp>
 # include <Siv3D/Window/IWindow.hpp>
+# include <Siv3D/UserAction/IUserAction.hpp>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include "CMouse.hpp"
 
@@ -80,6 +82,11 @@ namespace s3d
 				{
 					m_allInputs.emplace_back(InputDeviceType::Mouse, static_cast<uint8>(i));
 				}
+			}
+
+			if (m_allInputs.any([](const Input& input) { return input.down(); }))
+			{
+				SIV3D_ENGINE(UserAction)->reportUserActions(UserAction::MouseButtonDown);
 			}
 		}
 	}
