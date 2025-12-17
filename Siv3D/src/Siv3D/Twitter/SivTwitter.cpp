@@ -47,7 +47,7 @@ namespace s3d
 	{
 		bool OpenTweetWindow(const StringView text)
 		{
-			return System::LaunchBrowser(U"https://x.com/intent/post?text=" + detail::PercentEncode(text));
+			return System::LaunchBrowser(U"https://x.com/intent/tweet?text=" + detail::PercentEncode(text));
 		}
 
 		bool OpenLikeWindow(const uint64 tweetID)
