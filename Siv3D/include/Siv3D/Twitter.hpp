@@ -15,10 +15,10 @@
 
 namespace s3d
 {
-	/// @brief Twitter に関する機能
+	/// @brief X (旧 Twitter) に関する機能
 	namespace Twitter
 	{
-		/// @brief Twitter への投稿ページをユーザの既定のブラウザで開きます。
+		/// @brief X (旧 Twitter) への投稿ページをユーザの既定のブラウザで開きます。
 		/// @param text 投稿するテキスト
 		/// @return ブラウザを起動できたら true, それ以外の場合は false
 		bool OpenTweetWindow(StringView text);

@@ -47,37 +47,37 @@ namespace s3d
 	{
 		bool OpenTweetWindow(const StringView text)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/tweet?text=" + detail::PercentEncode(text));
+			return System::LaunchBrowser(U"https://x.com/intent/tweet?text=" + detail::PercentEncode(text));
 		}
 
 		bool OpenLikeWindow(const uint64 tweetID)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/like?tweet_id=" + ToString(tweetID));
+			return System::LaunchBrowser(U"https://x.com/intent/like?tweet_id=" + ToString(tweetID));
 		}
 
 		bool OpenRetweetWindow(const uint64 tweetID)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/retweet?tweet_id=" + ToString(tweetID));
+			return System::LaunchBrowser(U"https://x.com/intent/retweet?tweet_id=" + ToString(tweetID));
 		}
 
 		bool OpenMiniProfileWindow(const StringView screen_name)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/user?screen_name=" + screen_name);
+			return System::LaunchBrowser(U"https://x.com/intent/user?screen_name=" + screen_name);
 		}
 
 		bool OpenMiniProfileWindow(const uint64 user_id)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/user?user_id=" + ToString(user_id));
+			return System::LaunchBrowser(U"https://x.com/intent/user?user_id=" + ToString(user_id));
 		}
 
 		bool OpenFollowWindow(const StringView screen_name)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/follow?screen_name=" + screen_name);
+			return System::LaunchBrowser(U"https://x.com/intent/follow?screen_name=" + screen_name);
 		}
 
 		bool OpenFollowWindow(const uint64 user_id)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/follow?user_id=" + ToString(user_id));
+			return System::LaunchBrowser(U"https://x.com/intent/follow?user_id=" + ToString(user_id));
 		}
 	}
 }
