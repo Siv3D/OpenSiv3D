@@ -46,9 +46,10 @@ namespace s3d
 	{
 		LOG_SCOPED_TRACE(U"CTextInput::init()");
 
-		GLFWwindow* glfwWindow = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle());
-		
-		::glfwSetCharCallback(glfwWindow, OnCharacterInput);
+        if (GLFWwindow* glfwWindow = static_cast<GLFWwindow*>(SIV3D_ENGINE(Window)->getHandle()))
+        {
+            ::glfwSetCharCallback(glfwWindow, OnCharacterInput);
+        }
 	}
 	
 	void CTextInput::update()
