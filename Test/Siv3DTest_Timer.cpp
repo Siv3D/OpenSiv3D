@@ -64,7 +64,7 @@ TEST_CASE("Timer 1")
 
 		REQUIRE(t.isStarted() == true);
 		REQUIRE(t.isPaused() == false);
-		REQUIRE(t.isRunning() == true);
+		REQUIRE(t.isRunning() == false);
 		REQUIRE(t.reachedZero() == true);
 		REQUIRE(t.progress1_0() == 0.0);
 		REQUIRE(t.progress0_1() == 1.0);
@@ -194,7 +194,7 @@ TEST_CASE("Timer 1")
 
 		REQUIRE(t.isStarted() == true);
 		REQUIRE(t.isPaused() == false);
-		REQUIRE(t.isRunning() == true);
+		REQUIRE(t.isRunning() == false);
 		REQUIRE(t.reachedZero() == true);
 		REQUIRE(t.progress1_0() == 0.0);
 		REQUIRE(t.progress0_1() == 1.0);
@@ -302,7 +302,7 @@ TEST_CASE("Timer 2")
 
 		REQUIRE(t.isStarted() == true);
 		REQUIRE(t.isPaused() == false);
-		REQUIRE(t.isRunning() == true);
+		REQUIRE(t.isRunning() == false);
 		REQUIRE(t.reachedZero() == true);
 		REQUIRE(t.progress1_0() == 0.0);
 		REQUIRE(t.progress0_1() == 1.0);
@@ -319,7 +319,7 @@ TEST_CASE("Timer 2")
 
 		REQUIRE(t.isStarted() == true);
 		REQUIRE(t.isPaused() == false);
-		REQUIRE(t.isRunning() == true);
+		REQUIRE(t.isRunning() == false);
 		REQUIRE(t.reachedZero() == true);
 		REQUIRE(t.progress1_0() == 0.0);
 		REQUIRE(t.progress0_1() == 1.0);
