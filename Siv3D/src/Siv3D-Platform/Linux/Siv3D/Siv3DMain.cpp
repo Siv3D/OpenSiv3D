@@ -10,8 +10,8 @@
 //-----------------------------------------------
 
 # include <iostream>
-#include <unistd.h>
-#include <limits.h>
+# include <unistd.h>
+# include <limits.h>
 # include <Siv3D/Common/Siv3DEngine.hpp>
 # include <Siv3D/System/ISystem.hpp>
 # include <Siv3D/Error.hpp>
