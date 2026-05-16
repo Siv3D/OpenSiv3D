@@ -112,14 +112,14 @@ namespace s3d
 		if (not enabled)
 		{
 			WIN_StopTextInput(m_pTextInputData.get(), m_hWnd);
+			m_enabled = false;
 		}
 		else
 		{
-			// [Siv3D ToDo] does not work
 			WIN_StartTextInput(m_pTextInputData.get(), m_hWnd);
-		}
 
-		m_enabled = enabled;
+			m_enabled = m_pTextInputData->ime_enabled;
+		}
 	}
 
 	std::pair<int32, int32> CTextInput::getCursorIndex() const

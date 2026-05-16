@@ -202,7 +202,16 @@ namespace s3d
 			return;
 		}
 
-		::ImmAssociateContext(videodata->hwnd, videodata->himc);
+		if (not ::ImmAssociateContextEx(videodata->hwnd, nullptr, IACE_DEFAULT))
+		{
+			return;
+		}
+
+		if (const HIMC himc = ::ImmGetContext(videodata->hwnd))
+		{
+			videodata->himc = himc;
+			::ImmReleaseContext(videodata->hwnd, himc);
+		}
 
 		videodata->ime_enabled = true;
 
@@ -218,7 +227,13 @@ namespace s3d
 
 		IME_ClearComposition(videodata);
 
-		::ImmAssociateContext(videodata->hwnd, (HIMC)0);
+		if (const HIMC himc = ::ImmGetContext(videodata->hwnd))
+		{
+			videodata->himc = himc;
+			::ImmReleaseContext(videodata->hwnd, himc);
+		}
+
+		::ImmAssociateContext(videodata->hwnd, nullptr);
 
 		videodata->ime_enabled = false;
 	}

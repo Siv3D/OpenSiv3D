@@ -104,6 +104,11 @@ namespace s3d
 
 	namespace Platform::Windows::TextInput
 	{
+		void EnableIME()
+		{
+			SIV3D_ENGINE(TextInput)->enableIME(true);
+		}
+
 		void DisableIME()
 		{
 			SIV3D_ENGINE(TextInput)->enableIME(false);

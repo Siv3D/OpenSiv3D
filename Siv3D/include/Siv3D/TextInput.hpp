@@ -76,6 +76,9 @@ namespace s3d
 
 	namespace Platform::Windows::TextInput
 	{
+		/// @brief IME を有効化します。
+		void EnableIME();
+
 		/// @brief IME を無効化します。
 		void DisableIME();
 
