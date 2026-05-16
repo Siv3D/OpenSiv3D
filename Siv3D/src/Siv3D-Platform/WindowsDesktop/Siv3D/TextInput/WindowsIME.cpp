@@ -236,6 +236,14 @@ namespace s3d
 		::ImmAssociateContext(videodata->hwnd, nullptr);
 
 		videodata->ime_enabled = false;
+		videodata->ime_uicontext = 0;
+		videodata->ime_suppress_endcomposition_event = false;
+		videodata->composition.clear();
+		videodata->ime_cursor = 0;
+		videodata->candidateState.reset();
+
+		videodata->pTextInput->sendEditingText(String{}, 0, 0);
+		videodata->pTextInput->sendCandidateState({});
 	}
 
 	void IME_Quit(TextInputData* videodata)
@@ -611,13 +619,89 @@ namespace s3d
 		IME_SendEditingEvent(videodata, nullptr);
 	}
 
+	static bool IME_IsControlKey(const WPARAM wParam)
+	{
+		switch (wParam)
+		{
+		case VK_KANA:
+		case VK_IME_ON:
+		case VK_IME_OFF:
+		case VK_KANJI:
+		case VK_CONVERT:
+		case VK_NONCONVERT:
+		case VK_ACCEPT:
+		case VK_MODECHANGE:
+		case VK_PROCESSKEY:
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	static BOOL IME_HandleDisabledMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, TextInputData* videodata)
+	{
+		switch (msg)
+		{
+		case WM_KEYDOWN:
+		case WM_SYSKEYDOWN:
+		{
+			if (IME_IsControlKey(wParam))
+			{
+				videodata->ime_uicontext = 0;
+				videodata->composition.clear();
+				videodata->ime_cursor = 0;
+				videodata->pTextInput->sendEditingText(String{}, 0, 0);
+				videodata->pTextInput->sendCandidateState({});
+				return true;
+			}
+
+			break;
+		}
+
+		case WM_IME_SETCONTEXT:
+		{
+			// IME の既定 UI を表示させない
+			*lParam = 0;
+			return true;
+		}
+
+		case WM_IME_STARTCOMPOSITION:
+		case WM_IME_COMPOSITION:
+		case WM_IME_ENDCOMPOSITION:
+		case WM_IME_NOTIFY:
+		case WM_IME_REQUEST:
+		case WM_IME_CHAR:
+		case WM_IME_COMPOSITIONFULL:
+		case WM_IME_SELECT:
+		case WM_IME_CONTROL:
+		{
+			videodata->ime_uicontext = 0;
+			videodata->ime_suppress_endcomposition_event = false;
+			videodata->composition.clear();
+			videodata->ime_cursor = 0;
+			videodata->candidateState.reset();
+
+			videodata->pTextInput->sendEditingText(String{}, 0, 0);
+			videodata->pTextInput->sendCandidateState({});
+
+			return true;
+		}
+		}
+
+		return false;
+	}
+
 	BOOL IME_HandleMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM* lParam, TextInputData* videodata)
 	{
 		if ((not videodata->ime_initialized)
-			|| (not videodata->ime_available)
-			|| (not videodata->ime_enabled))
+			|| (not videodata->ime_available))
 		{
 			return false;
+		}
+
+		if (not videodata->ime_enabled)
+		{
+			return IME_HandleDisabledMessage(hwnd, msg, wParam, lParam, videodata);
 		}
 	
 		bool trapped = false;
