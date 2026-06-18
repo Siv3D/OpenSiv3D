@@ -22,7 +22,7 @@ find_package(GIF REQUIRED)
 include(GNUInstallDirs)
 
 # C flags
-set(SIV3D_C_FLAGS -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.1)
+set(SIV3D_C_FLAGS -Wall -Wextra -Wno-missing-field-initializers -fPIC -msse4.2)
 set(SIV3D_C_FLAGS_DEBUG -g3 -O0 -pg -DDEBUG)
 set(SIV3D_C_FLAGS_RELEASE -O2 -DNDEBUG -march=x86-64 -mtune=generic)
 set(SIV3D_C_FLAGS_RELWITHDEBINFO -g3 -Og -pg)
@@ -34,7 +34,7 @@ set(SIV3D_C_DEFINITION
 )
 
 # C++ flags
-set(SIV3D_CXX_FLAGS -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1)
+set(SIV3D_CXX_FLAGS -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.2)
 set(SIV3D_CXX_FLAGS_DEBUG -g3 -O0 -pg -DDEBUG)
 set(SIV3D_CXX_FLAGS_RELEASE -O2 -DNDEBUG -march=x86-64 -mtune=generic)
 set(SIV3D_CXX_FLAGS_RELWITHDEBINFO -g3 -Og -pg)
