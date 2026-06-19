@@ -21,12 +21,6 @@ namespace s3d
 {
 	namespace ImagePainting
 	{
-		[[nodiscard]]
-		inline uint32* AsUintPtr(Color* p)
-		{
-			return static_cast<uint32*>(static_cast<void*>(p));
-		}
-
 	# if SIV3D_INTRINSIC(SSE)
 
 		namespace simd
@@ -42,6 +36,20 @@ namespace s3d
 			static const __m128 inv255pow3 = ::_mm_set_ps1(1.0f / (255.0f * 255.0f * 255.0f));
 
 			static const __m128i toColorShuffleMask = ::_mm_setr_epi8(0, 4, 8, 12, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+
+			[[nodiscard]]
+			inline __m128i LoadColor(const Color& color)
+			{
+				uint32 value = 0;
+				std::memcpy(&value, &color, sizeof(value));
+				return ::_mm_cvtepu8_epi32(::_mm_cvtsi32_si128(value));
+			}
+
+			inline void StoreColor(Color& color, const __m128i value)
+			{
+				const uint32 packed = static_cast<uint32>(::_mm_cvtsi128_si32(::_mm_shuffle_epi8(value, toColorShuffleMask)));
+				std::memcpy(&color, &packed, sizeof(packed));
+			}
 		}
 
 		void Paint_SSE4_1(const Color* pSrc, Color* pDst,
@@ -64,8 +72,8 @@ namespace s3d
 						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
 						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
 
-						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
-						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128i dsti = simd::LoadColor(*pDst); //SSE4.1
+						const __m128i srci = simd::LoadColor(*pSrc); //SSE4.1
 
 						const __m128i left = ::_mm_mullo_epi32(dsti, dstA); //SSE4.1
 						const __m128i right = ::_mm_mullo_epi32(srci, srcA); //SSE4.1
@@ -75,7 +83,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -99,8 +107,8 @@ namespace s3d
 						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
 						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
 
-						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
-						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128i dsti = simd::LoadColor(*pDst); //SSE4.1
+						const __m128i srci = simd::LoadColor(*pSrc); //SSE4.1
 
 						const __m128i left = ::_mm_mullo_epi32(dsti, dstA); //SSE4.1
 						const __m128i right = ::_mm_mullo_epi32(srci, srcA); //SSE4.1
@@ -110,7 +118,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -123,7 +131,7 @@ namespace s3d
 			}
 			else if (color.a == 255)
 			{
-				const __m128i gi = ::_mm_cvtepu8_epi32((__m128i&)color); //SSE4.1
+				const __m128i gi = simd::LoadColor(color); //SSE4.1
 
 				for (int32 y = 0; y < height; ++y)
 				{
@@ -136,8 +144,8 @@ namespace s3d
 						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
 						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
 
-						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
-						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128i dsti = simd::LoadColor(*pDst); //SSE4.1
+						const __m128i srci = simd::LoadColor(*pSrc); //SSE4.1
 
 						const __m128i left = ::_mm_mullo_epi32(::_mm_mullo_epi32(simd::c255i, dsti), dstA); //SSE4.1
 						const __m128i right = ::_mm_mullo_epi32(::_mm_mullo_epi32(gi, srci), srcA); //SSE4.1
@@ -147,7 +155,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -160,7 +168,7 @@ namespace s3d
 			}
 			else
 			{
-				const __m128i gi = ::_mm_cvtepu8_epi32((__m128i&)color); //SSE4.1
+				const __m128i gi = simd::LoadColor(color); //SSE4.1
 				const __m128 g = ::_mm_cvtepi32_ps(gi);
 
 				for (int32 y = 0; y < height; ++y)
@@ -173,10 +181,10 @@ namespace s3d
 						const __m128 dstA = ::_mm_set_ps1(float(dstAlpha));
 						const __m128 srcA = ::_mm_set_ps1(float(srcAlpha));
 
-						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
+						const __m128i dsti = simd::LoadColor(*pDst); //SSE4.1
 						const __m128 dst = ::_mm_cvtepi32_ps(dsti);
 
-						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128i srci = simd::LoadColor(*pSrc); //SSE4.1
 						const __m128 src = ::_mm_cvtepi32_ps(srci);
 
 						const __m128 left = ::_mm_mul_ps(::_mm_mul_ps(simd::c255, dst), dstA);
@@ -186,7 +194,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow3);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -266,7 +274,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -305,7 +313,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
@@ -344,7 +352,7 @@ namespace s3d
 						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow3);
 						const __m128i r = _mm_cvtps_epi32(result);
 
-						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						simd::StoreColor(*pDst, r);
 						pDst->a = t;
 
 						++pSrc;
