@@ -149,6 +149,12 @@ static void matchCallback(void* context,
         if (_glfw.joysticks[jid].ns.device == device)
             return;
     }
+	
+	CFArrayRef elements =
+		IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone);
+	
+	if (!elements)
+		return;
 
     axes    = CFArrayCreateMutable(NULL, 0, NULL);
     buttons = CFArrayCreateMutable(NULL, 0, NULL);
@@ -192,9 +198,6 @@ static void matchCallback(void* context,
                 name[4], name[5], name[6], name[7],
                 name[8], name[9], name[10]);
     }
-
-    CFArrayRef elements =
-        IOHIDDeviceCopyMatchingElements(device, NULL, kIOHIDOptionsTypeNone);
 
     for (i = 0;  i < CFArrayGetCount(elements);  i++)
     {
