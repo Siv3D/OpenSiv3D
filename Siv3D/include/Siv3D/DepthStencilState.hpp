@@ -92,7 +92,7 @@ namespace s3d
 
 		/// @brief 2D 描画時のデフォルト
 		/// @remark DepthStencilState::SolidNone
-		static const Predefined Default2D = Predefined::Disbaled;
+		static const Predefined Default2D = Predefined::Disabled;
 
 		/// @brief 3D 描画時のデフォルト
 		/// @remark DepthStencilState::SolidBack
