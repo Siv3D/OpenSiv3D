@@ -43,7 +43,7 @@ namespace s3d
 
 		enum class Predefined
 		{
-			Disbaled,
+			Disabled,
 
 			DepthTest,
 
@@ -82,7 +82,7 @@ namespace s3d
 		bool operator !=(const DepthStencilState& other) const noexcept;
 
 		/// @remark DepthStencilState{ false, false, DepthFunc::Always }
-		static const Predefined Disbaled = Predefined::Disbaled;
+		static const Predefined Disabled = Predefined::Disabled;
 
 		/// @remark DepthStencilState{ true, false, DepthFunc::GreaterEqual }
 		static const Predefined DepthTest = Predefined::DepthTest;
