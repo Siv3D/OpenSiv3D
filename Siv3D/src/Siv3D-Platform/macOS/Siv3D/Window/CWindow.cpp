@@ -323,7 +323,7 @@ namespace s3d
 		m_state.bounds.size = Size(windowSizeX, (windowSizeY + m_state.titleBarHeight));
 				
 		// minimized
-		m_state.maximized = (::glfwGetWindowAttrib(m_window, GLFW_ICONIFIED) == GLFW_TRUE);
+		m_state.minimized = (::glfwGetWindowAttrib(m_window, GLFW_ICONIFIED) == GLFW_TRUE);
 		
 		// maximized
 		m_state.maximized = (::glfwGetWindowAttrib(m_window, GLFW_MAXIMIZED) == GLFW_TRUE)
