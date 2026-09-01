@@ -268,7 +268,16 @@ namespace s3d
 			return;
 		}
 
-		if (const FilePath workingDirectory = FileSystem::ParentPath(FileSystem::ModulePath()))
+		const FilePath workingDirectory = FileSystem::ParentPath(FileSystem::ModulePath());
+		const FilePath pdbFileName = FileSystem::BaseName(FileSystem::ModulePath()) + U".pdb";
+		const FilePath pdbFilePath = FileSystem::PathAppend(workingDirectory, pdbFileName);
+
+		if(FileSystem::IsFile(pdbFilePath))
+		{
+			return;
+		}
+		
+		if (workingDirectory)
 		{
 			FileSystem::ChangeCurrentDirectory(workingDirectory);
 		}
