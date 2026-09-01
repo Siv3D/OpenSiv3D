@@ -1225,6 +1225,18 @@ namespace s3d
 	template <class Type, class Allocator>
 	inline void swap(Array<Type, Allocator>& a, Array<Type, Allocator>& b) noexcept;
 
+	namespace detail
+	{
+		template <class>
+		struct IsNamedParameter : std::false_type {};
+
+		template <class Tag, class Type>
+		struct IsNamedParameter<NamedParameter<Tag, Type>> : std::true_type {};
+
+		template <class Type>
+		constexpr bool IsNamedParameter_v = IsNamedParameter<Type>::value;
+	}
+
 	// deduction guide
 	template <class Type, class Allocator = std::allocator<Type>>
 	Array(std::initializer_list<Type>, const Allocator& = Allocator{}) -> Array<Type, Allocator>;
@@ -1234,6 +1246,15 @@ namespace s3d
 
 	template <class Iterator, class Allocator = std::allocator<typename std::iterator_traits<Iterator>::value_type>>
 	Array(Iterator, Iterator, const Allocator& = Allocator{}) -> Array<typename std::iterator_traits<Iterator>::value_type, Allocator>;
+
+	template <class Type, class Allocator = std::allocator<Type>, std::enable_if_t<std::is_same_v<typename Allocator::value_type, Type> && (not detail::IsNamedParameter_v<Type>)>* = nullptr>
+	Array(typename Array<Type, Allocator>::size_type, const Type&, const Allocator& = Allocator{}) -> Array<Type, Allocator>;
+
+	template <class Fty>
+	Array(typename Array<std::decay_t<std::invoke_result_t<Fty>>>::size_type, Arg::generator_<Fty>) -> Array<std::decay_t<std::invoke_result_t<Fty>>>;
+
+	template <class Fty>
+	Array(typename Array<std::decay_t<std::invoke_result_t<Fty, size_t>>>::size_type, Arg::indexedGenerator_<Fty>) -> Array<std::decay_t<std::invoke_result_t<Fty, size_t>>>;
 
 	/// @brief 
 	/// @tparam T0 
