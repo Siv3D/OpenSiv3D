@@ -106,7 +106,7 @@ namespace s3d
 
 		if (m_sampleCount == 1)
 		{
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getTexture());
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.scene->getFrameBuffer());
 			{
 				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
 			}
@@ -114,7 +114,7 @@ namespace s3d
 		}
 		else
 		{
-			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.resolved->getTexture());
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_sceneBuffers.resolved->getFrameBuffer());
 			{
 				::glReadPixels(0, 0, m_sceneSize.x, m_sceneSize.y, GL_RGBA, GL_UNSIGNED_BYTE, m_screenCaptureImage.data());
 			}
