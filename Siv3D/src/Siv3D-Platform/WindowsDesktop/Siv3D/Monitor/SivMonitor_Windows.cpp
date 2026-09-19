@@ -248,7 +248,6 @@ namespace s3d
 					if (displayDevice.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
 					{
 						monitors.push_back(detail::MakeMonitorInfo(displayDevice, nullptr));
-						break;
 					}
 				}
 			}
