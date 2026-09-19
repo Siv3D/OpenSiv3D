@@ -197,12 +197,9 @@ namespace s3d
 		}
 
 		// ウィンドウを作成
-		for (const auto& monitor : monitors)
 		{
-			if (not monitor.isPrimary)
-			{
-				continue;
-			}
+			const auto targetMonitorIdx = std::ranges::find_if(monitors, [](const auto& m) { return m.isPrimary; });
+			const auto& monitor = (targetMonitorIdx != monitors.end()) ? *targetMonitorIdx : monitors.front();
 
 			const double scale = monitor.scaling.value_or(1.0);
 			m_dpi = static_cast<uint32>(std::round(USER_DEFAULT_SCREEN_DPI * scale));
@@ -239,8 +236,6 @@ namespace s3d
 
 				::RegisterTouchWindow(m_hWnd, TWF_WANTPALM);
 			}
-
-			break;
 		}
 
 		// Disable touch feedback visualization that causes frame rate drops
