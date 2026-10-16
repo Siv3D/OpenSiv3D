@@ -57,7 +57,10 @@ namespace s3d
 
 		if (!::glfwInit())
 		{
-			throw EngineError(U"glfwInit() failed");
+			const char* description;
+			::glfwGetError(&description);
+			throw EngineError(U"glfwInit() failed: "
+							  + Unicode::FromUTF8(description ? description : "unknown error"));
 		}
 		
 		const bool useWebGPU =  (g_engineOptions.renderer == EngineOption::Renderer::WebGPU);

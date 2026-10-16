@@ -15,6 +15,7 @@
 # include <Siv3D/Utility.hpp>
 # include <Siv3D/UserAction.hpp>
 # include <Siv3D/Scene.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Monitor.hpp>
 # include <Siv3D/MonitorInfo.hpp>
 # include <Siv3D/Renderer/IRenderer.hpp>
@@ -53,9 +54,11 @@ namespace s3d
 
 		if (!::glfwInit())
 		{
-			throw EngineError(U"glfwInit() failed");
+			const char* description;
+			::glfwGetError(&description);
+			throw EngineError(U"glfwInit() failed: "
+							  + Unicode::FromUTF8(description ? description : "unknown error"));
 		}
-
 		const bool useGLES = (g_engineOptions.renderer == EngineOption::Renderer::WebGL2);
 		
 		if (useGLES)
@@ -88,7 +91,10 @@ namespace s3d
 			
 			if (!m_window)
 			{
-				throw EngineError(U"glfwCreateWindow() failed");
+				const char* description;
+				::glfwGetError(&description);
+				throw EngineError(U"glfwCreateWindow() failed: "
+								  + Unicode::FromUTF8(description ? description : "unknown error"));
 			}
 		}
 		
